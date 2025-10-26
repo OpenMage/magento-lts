@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Attribute add/edit form options tab
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
@@ -91,6 +83,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 
@@ -109,17 +102,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $defaultValues = [];
         }
 
-        switch ($attributeType) {
-            case 'select':
-                $inputType = 'radio';
-                break;
-            case 'multiselect':
-                $inputType = 'checkbox';
-                break;
-            default:
-                $inputType = '';
-                break;
-        }
+        $inputType = match ($attributeType) {
+            'select' => 'radio',
+            'multiselect' => 'checkbox',
+            default => '',
+        };
 
         $values = $this->getData('option_values');
         if (is_null($values)) {
@@ -147,13 +134,17 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+
                 if ($this->isConfigurableSwatchesEnabled()) {
                     $value['swatch'] = $option->getSwatchValue();
                 }
+
                 $values[] = new Varien_Object($value);
             }
+
             $this->setData('option_values', $values);
         }
+
         return $values;
     }
 
@@ -169,6 +160,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         if (is_array($frontendLabel)) {
             return $frontendLabel;
         }
+
         $values[0] = $frontendLabel;
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
@@ -176,6 +168,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
+
         return $values;
     }
 
@@ -198,8 +191,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
+
             $this->setData('store_option_values_' . $storeId, $values);
         }
+
         return $values;
     }
 

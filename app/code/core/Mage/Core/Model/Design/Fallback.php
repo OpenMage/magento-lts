@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration for Design model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Design_Fallback
@@ -70,6 +62,7 @@ class Mage_Core_Model_Design_Fallback
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
         $this->_cachedSchemes = [];
         return $this;
@@ -134,7 +127,8 @@ class Mage_Core_Model_Design_Fallback
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
-            list($package, $theme) = $parts;
+
+            [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
 
@@ -157,6 +151,7 @@ class Mage_Core_Model_Design_Fallback
                 'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
+
         $this->_visited[] = $path;
     }
 

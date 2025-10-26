@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog category
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
@@ -84,12 +76,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Can be used as part of method name for entity processing
      */
     public const ENTITY                = 'catalog_category';
+
     /**
      * Category display modes
      */
     public const DM_PRODUCT            = 'PRODUCTS';
+
     public const DM_PAGE               = 'PAGE';
+
     public const DM_MIXED              = 'PRODUCTS_AND_PAGE';
+
     public const TREE_ROOT_ID          = 1;
 
     public const CACHE_TAG             = 'catalog_category';
@@ -194,6 +190,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!self::$_url) {
             self::$_url = Mage::getModel('core/url');
         }
+
         return self::$_url;
     }
 
@@ -207,6 +204,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!self::$_urlRewrite) {
             self::$_urlRewrite = Mage::getSingleton('core/factory')->getUrlRewriteInstance();
         }
+
         return self::$_urlRewrite;
     }
 
@@ -228,6 +226,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (is_null($this->_treeModel)) {
             $this->_treeModel = Mage::getResourceSingleton('catalog/category_tree');
         }
+
         return $this->_treeModel;
     }
 
@@ -302,6 +301,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $this->_getResource()->rollBack();
             throw $e;
         }
+
         if ($moveComplete) {
             Mage::dispatchEvent('category_move', $eventParams);
             Mage::getSingleton('index/indexer')->processEntityAction(
@@ -341,7 +341,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve all customer attributes
      *
      * @param bool $noDesignAttributes
-     * @return array
+     * @return Mage_Eav_Model_Entity_Attribute[]
+     * @throws Mage_Core_Exception
      * @todo Use with Flat Resource
      */
     public function getAttributes($noDesignAttributes = false)
@@ -379,6 +380,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $array = $this->getResource()->getProductsPosition($this);
             $this->setData('products_position', $array);
         }
+
         return $array;
     }
 
@@ -418,6 +420,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!in_array($entityStoreId, $storeIds)) {
             array_unshift($storeIds, $entityStoreId);
         }
+
         if (!in_array(0, $storeIds)) {
             array_unshift($storeIds, 0);
         }
@@ -439,6 +442,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         } else {
             $layout .= 'default';
         }
+
         return $layout;
     }
 
@@ -454,6 +458,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if ($this->hasData('store_id')) {
             return (int) $this->_getData('store_id');
         }
+
         return Mage::app()->getStore()->getId();
     }
 
@@ -468,6 +473,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!is_numeric($storeId)) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
+
         $this->setData('store_id', $storeId);
         $this->getResource()->setStoreId($storeId);
         return $this;
@@ -493,6 +499,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if ($this->_urlModel === null) {
             $this->_urlModel = Mage::getSingleton('catalog/factory')->getCategoryUrlInstance();
         }
+
         return $this->_urlModel;
     }
 
@@ -547,6 +554,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if ($image = $this->getImage()) {
             $url = Mage::getBaseUrl('media') . 'catalog/category/' . $image;
         }
+
         return $url;
     }
 
@@ -584,6 +592,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!$this->hasData('parent_category')) {
             $this->setData('parent_category', Mage::getModel('catalog/category')->load($this->getParentId()));
         }
+
         return $this->_getData('parent_category');
     }
 
@@ -615,11 +624,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getCustomDesignDate()
     {
-        $result = [];
-        $result['from'] = $this->getData('custom_design_from');
-        $result['to'] = $this->getData('custom_design_to');
-
-        return $result;
+        return [
+            'from' => $this->getData('custom_design_from'),
+            'to' => $this->getData('custom_design_to'),
+        ];
     }
 
     /**
@@ -633,6 +641,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         foreach ($this->_designAttributes as $attrName) {
             $result[] = $this->_getAttribute($attrName);
         }
+
         return $result;
     }
 
@@ -651,6 +660,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $attribute = Mage::getSingleton('catalog/config')
                 ->getAttribute(self::ENTITY, $attributeCode);
         }
+
         return $attribute;
     }
 
@@ -695,8 +705,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             if ($itemId == Mage::app()->getStore()->getRootCategoryId()) {
                 break;
             }
+
             $result[] = $itemId;
         }
+
         return implode(',', $result);
     }
 
@@ -724,6 +736,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $ids = explode('/', (string) $this->getPath());
             $this->setData('path_ids', $ids);
         }
+
         return $ids;
     }
 
@@ -737,6 +750,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!$this->hasLevel()) {
             return count(explode('/', (string) $this->getPath())) - 1;
         }
+
         return $this->getData('level');
     }
 
@@ -770,6 +784,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (!$this->_getData('request_path')) {
             $this->getUrl();
         }
+
         return $this->_getData('request_path');
     }
 
@@ -794,6 +809,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if ($this->getResource()->isForbiddenToDelete($this->getId())) {
             Mage::throwException("Can't delete root category.");
         }
+
         return parent::_beforeDelete();
     }
 
@@ -823,6 +839,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
                 $anchors = $this->getResource()->findWhereAttributeIs($path, $isAnchorAttribute, 1);
             }
         }
+
         return $anchors;
     }
 
@@ -837,6 +854,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $count = $this->_getResource()->getProductCount($this); // load product count
             $this->setData('product_count', $count);
         }
+
         return $this->getData('product_count');
     }
 
@@ -917,9 +935,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if (empty($available)) {
             return [];
         }
+
         if ($available && !is_array($available)) {
             $available = explode(',', $available);
         }
+
         return $available;
     }
 

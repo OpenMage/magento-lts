@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  *
  * Application should have: areas, store, locale, translator, design package
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_App
@@ -197,7 +189,7 @@ class Mage_Core_Model_App
     /**
      * Response object
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Core_Controller_Response_Http
      */
     protected $_response;
 
@@ -277,6 +269,7 @@ class Mage_Core_Model_App
             $this->_initCurrentStore($code, $type);
             $this->_initRequest();
         }
+
         return $this;
     }
 
@@ -318,6 +311,7 @@ class Mage_Core_Model_App
         if (!empty($modules)) {
             $this->_config->addAllowedModules($modules);
         }
+
         $this->_initModules();
         $this->_initCurrentStore($scopeCode, $scopeType);
 
@@ -358,11 +352,12 @@ class Mage_Core_Model_App
         }
 
         // Finish the request explicitly, no output allowed beyond this point
-        if (php_sapi_name() == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+        if (PHP_SAPI == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         } else {
             flush();
         }
+
         if (session_status() === PHP_SESSION_ACTIVE) {
             session_write_close();
         }
@@ -416,6 +411,7 @@ class Mage_Core_Model_App
         } else {
             $options = [];
         }
+
         $options = array_merge($options, $cacheInitOptions);
         $this->_cache = Mage::getModel('core/cache', $options);
         $this->_isCacheLocked = false;
@@ -439,6 +435,7 @@ class Mage_Core_Model_App
                         Mage_Core_Model_Resource_Setup::applyAllUpdates();
                         Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
                     }
+
                     $this->_config->loadDb();
                     $this->_config->loadEnv();
                     $this->_config->saveCache();
@@ -447,6 +444,7 @@ class Mage_Core_Model_App
                 $this->_config->releaseCacheSaveLock();
             }
         }
+
         return $this;
     }
 
@@ -497,6 +495,7 @@ class Mage_Core_Model_App
             $scopeCode = $this->_website->getCode();
             $scopeType = 'website';
         }
+
         switch ($scopeType) {
             case 'store':
                 $this->_currentStore = $scopeCode;
@@ -515,7 +514,8 @@ class Mage_Core_Model_App
             $this->_checkCookieStore($scopeType);
             $this->_checkGetStore($scopeType);
         }
-        $this->_useSessionInUrl = $this->getStore()->getConfig(
+
+        $this->_useSessionInUrl = (bool) $this->getStore()->getConfig(
             Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID,
         );
         return $this;
@@ -582,6 +582,7 @@ class Mage_Core_Model_App
                 $this->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $this->_currentStore, true);
             }
         }
+
         return $this;
     }
 
@@ -607,15 +608,18 @@ class Mage_Core_Model_App
             ) {
                 $this->_currentStore = $store;
             }
+
             if ($type == 'group'
                 && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
             ) {
                 $this->_currentStore = $store;
             }
+
             if ($type == 'store') {
                 $this->_currentStore = $store;
             }
         }
+
         return $this;
     }
 
@@ -682,6 +686,7 @@ class Mage_Core_Model_App
             if (!isset($groupStores[$group->getId()])) {
                 $groupStores[$group->getId()] = [];
             }
+
             $group->setStores($groupStores[$group->getId()]);
             $group->setWebsite($websiteCollection->getItemById($group->getWebsiteId()));
 
@@ -695,12 +700,15 @@ class Mage_Core_Model_App
             if (!isset($websiteGroups[$website->getId()])) {
                 $websiteGroups[$website->getId()] = [];
             }
+
             if (!isset($websiteStores[$website->getId()])) {
                 $websiteStores[$website->getId()] = [];
             }
+
             if ($website->getIsDefault()) {
                 $this->_website = $website;
             }
+
             $website->setGroups($websiteGroups[$website->getId()]);
             $website->setStores($websiteStores[$website->getId()]);
 
@@ -723,6 +731,7 @@ class Mage_Core_Model_App
         if (!$this->_isInstalled) {
             return false;
         }
+
         return $this->_isSingleStore;
     }
 
@@ -737,9 +746,11 @@ class Mage_Core_Model_App
         if (!isset($this->_groups[$group])) {
             return null;
         }
+
         if (!$this->_groups[$group]->getDefaultStoreId()) {
             return null;
         }
+
         return $this->_stores[$this->_groups[$group]->getDefaultStoreId()]->getCode();
     }
 
@@ -754,9 +765,11 @@ class Mage_Core_Model_App
         if (!isset($this->_websites[$website])) {
             return null;
         }
+
         if (!$this->_websites[$website]->getDefaultGroupId()) {
             return null;
         }
+
         return $this->_getStoreByGroup($this->_websites[$website]->getDefaultGroupId());
     }
 
@@ -790,7 +803,7 @@ class Mage_Core_Model_App
     /**
      * Redeclare custom error handler
      *
-     * @param   string $handler
+     * @param   callable|null $handler
      * @return  $this
      */
     public function setErrorHandler($handler)
@@ -835,6 +848,7 @@ class Mage_Core_Model_App
         if (!isset($this->_areas[$code])) {
             $this->_areas[$code] = new Mage_Core_Model_App_Area($code, $this);
         }
+
         return $this->_areas[$code];
     }
 
@@ -862,9 +876,11 @@ class Mage_Core_Model_App
         if (!isset($id) || $id === '' || $id === true) {
             $id = $this->_currentStore;
         }
+
         if ($id instanceof Mage_Core_Model_Store) {
             return $id;
         }
+
         if (!isset($id)) {
             $this->throwStoreException('Invalid store id requested.');
         }
@@ -881,9 +897,11 @@ class Mage_Core_Model_App
             if (!$store->getCode()) {
                 $this->throwStoreException('Invalid store code requested.');
             }
+
             $this->_stores[$store->getStoreId()] = $store;
             $this->_stores[$store->getCode()] = $store;
         }
+
         return $this->_stores[$id];
     }
 
@@ -897,7 +915,7 @@ class Mage_Core_Model_App
     {
         try {
             return $this->getStore($id);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($this->_currentStore) {
                 $this->getRequest()->setActionName('noRoute');
                 return new Varien_Object();
@@ -921,6 +939,7 @@ class Mage_Core_Model_App
             if (!$withDefault && $store->getId() == 0) {
                 continue;
             }
+
             if ($codeKey) {
                 $stores[$store->getCode()] = $store;
             } else {
@@ -941,6 +960,7 @@ class Mage_Core_Model_App
                 ->setId(self::DISTRO_STORE_ID)
                 ->setCode(self::DISTRO_STORE_CODE);
         }
+
         return $this->_store;
     }
 
@@ -959,6 +979,7 @@ class Mage_Core_Model_App
                 }
             }
         }
+
         return null;
     }
 
@@ -998,11 +1019,14 @@ class Mage_Core_Model_App
                 if (!$websiteConfig) {
                     throw Mage::exception('Mage_Core', 'Invalid website code requested: ' . $id);
                 }
+
                 $website->loadConfig($id);
             }
+
             $this->_websites[$website->getWebsiteId()] = $website;
             $this->_websites[$website->getCode()] = $website;
         }
+
         return $this->_websites[$id];
     }
 
@@ -1020,6 +1044,7 @@ class Mage_Core_Model_App
                 if (!$withDefault && $id == 0) {
                     continue;
                 }
+
                 if ($codeKey) {
                     $websites[$website->getCode()] = $website;
                 } else {
@@ -1044,6 +1069,7 @@ class Mage_Core_Model_App
         } elseif ($id instanceof Mage_Core_Model_Store_Group) {
             return $id;
         }
+
         if (empty($this->_groups[$id])) {
             $group = Mage::getModel('core/store_group');
             if (is_numeric($id)) {
@@ -1052,8 +1078,10 @@ class Mage_Core_Model_App
                     throw Mage::exception('Mage_Core', 'Invalid store group id requested.');
                 }
             }
+
             $this->_groups[$group->getGroupId()] = $group;
         }
+
         return $this->_groups[$id];
     }
 
@@ -1067,6 +1095,7 @@ class Mage_Core_Model_App
         if (!$this->_locale) {
             $this->_locale = Mage::getSingleton('core/locale');
         }
+
         return $this->_locale;
     }
 
@@ -1084,6 +1113,7 @@ class Mage_Core_Model_App
                 $this->_layout = Mage::getSingleton('core/layout');
             }
         }
+
         return $this->_layout;
     }
 
@@ -1097,6 +1127,7 @@ class Mage_Core_Model_App
         if (!$this->_translator) {
             $this->_translator = Mage::getSingleton('core/translate');
         }
+
         return $this->_translator;
     }
 
@@ -1157,6 +1188,7 @@ class Mage_Core_Model_App
         if (!$this->_cache) {
             $this->_initCache();
         }
+
         return $this->_cache;
     }
 
@@ -1170,6 +1202,7 @@ class Mage_Core_Model_App
         if (!$this->_cache) {
             $this->_initCache();
         }
+
         return $this->_cache->getFrontend();
     }
 
@@ -1268,6 +1301,7 @@ class Mage_Core_Model_App
             $dir = session_save_path();
             mageDelTree($dir);
         }
+
         return $this;
     }
 
@@ -1281,6 +1315,7 @@ class Mage_Core_Model_App
         if (empty($this->_request)) {
             $this->_request = new Mage_Core_Controller_Request_Http();
         }
+
         return $this->_request;
     }
 
@@ -1339,6 +1374,7 @@ class Mage_Core_Model_App
             $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader('Content-Type', 'text/html; charset=UTF-8');
         }
+
         return $this->_response;
     }
 
@@ -1362,6 +1398,7 @@ class Mage_Core_Model_App
         if (!isset($this->_events[$area])) {
             $this->_events[$area] = [];
         }
+
         return $this;
     }
 
@@ -1381,6 +1418,7 @@ class Mage_Core_Model_App
                     $this->_events[$area][$eventName] = false;
                     continue;
                 }
+
                 $observers = [];
                 /**
                  * @var string $obsName
@@ -1394,9 +1432,11 @@ class Mage_Core_Model_App
                         'args'  => (array) $obsConfig->args,
                     ];
                 }
+
                 $events[$eventName]['observers'] = $observers;
                 $this->_events[$area][$eventName]['observers'] = $observers;
             }
+
             if ($events[$eventName] === false) {
                 continue;
             } else {
@@ -1425,9 +1465,11 @@ class Mage_Core_Model_App
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
+
                 Varien_Profiler::stop('OBSERVER: ' . $obsName);
             }
         }
+
         return $this;
     }
 
@@ -1447,13 +1489,14 @@ class Mage_Core_Model_App
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
             if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+                $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
             } else {
                 $message = 'Class from observer "' . $observerName . '" is not initialized';
             }
 
             Mage::throwException($message);
         }
+
         return $this;
     }
 
@@ -1516,6 +1559,7 @@ class Mage_Core_Model_App
         if ($store) {
             return $store;
         }
+
         foreach ($this->getStores() as $store) {
             return $store;
         }
@@ -1572,6 +1616,7 @@ class Mage_Core_Model_App
                 if (!$withDefault && $group->getId() == 0) {
                     continue;
                 }
+
                 if ($codeKey) {
                     $groups[$group->getCode()] = $group;
                 } else {
@@ -1606,6 +1651,7 @@ class Mage_Core_Model_App
         foreach ($tags as $index => $value) {
             $tags[$index] = $this->_getCacheId($value);
         }
+
         return $tags;
     }
 
@@ -1632,6 +1678,7 @@ class Mage_Core_Model_App
         if ($id) {
             $id = $this->prepareCacheId($id);
         }
+
         return $id;
     }
 

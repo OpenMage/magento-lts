@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option file type
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method array getCustomOptionUrlParams()
@@ -52,9 +44,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } elseif (isset($optionInfo['value'])) {
                 return $optionInfo['value'];
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $optionInfo['value'];
         }
+
         return '';
     }
 
@@ -74,6 +67,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if ($params instanceof Varien_Object) {
             return $params;
         }
+
         return new Varien_Object();
     }
 
@@ -99,8 +93,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             if ($currentConfig) {
                 $fileInfo = $currentConfig->getData('options/' . $optionId);
             }
+
             return $fileInfo;
         }
+
         return null;
     }
 
@@ -131,6 +127,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } else {
                 $value = null;
             }
+
             $this->setUserValue($value);
             return $this;
         }
@@ -146,6 +143,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 Mage::throwException($e->getMessage());
             }
         }
+
         return $this;
     }
 
@@ -176,7 +174,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $fileInfo = $upload->getFileInfo($file);
             $fileInfo = $fileInfo[$file];
             $fileInfo['title'] = $fileInfo['name'];
-        } catch (Exception $e) {
+        } catch (Exception) {
             // when file exceeds the upload_max_filesize, $_FILES is empty
             if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > $this->_getUploadMaxFilesize()) {
                 $this->setIsValid(false);
@@ -194,6 +192,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                         $this->setUserValue(null);
                         break;
                 }
+
                 return $this;
             }
         }
@@ -207,10 +206,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if ($option->getImageSizeX() > 0) {
             $_dimentions['maxwidth'] = $option->getImageSizeX();
         }
+
         if ($option->getImageSizeY() > 0) {
             $_dimentions['maxheight'] = $option->getImageSizeY();
         }
-        if (count($_dimentions) > 0) {
+
+        if ($_dimentions !== []) {
             $upload->addValidator('ImageSize', false, $_dimentions);
         }
 
@@ -290,6 +291,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
+
         return $this;
     }
 
@@ -314,6 +316,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if (isset($optionValue['quote_path'])) {
             $checkPaths[] = Mage::getBaseDir() . $optionValue['quote_path'];
         }
+
         if (isset($optionValue['order_path']) && !$this->getUseQuotePath()) {
             $checkPaths[] = Mage::getBaseDir() . $optionValue['order_path'];
         }
@@ -325,6 +328,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     continue;
                 }
             }
+
             $fileFullPath = $path;
             break;
         }
@@ -340,13 +344,16 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if ($option->getImageSizeX() > 0) {
             $_dimentions['maxwidth'] = $option->getImageSizeX();
         }
+
         if ($option->getImageSizeY() > 0) {
             $_dimentions['maxheight'] = $option->getImageSizeY();
         }
-        if (count($_dimentions) > 0 && !$this->_isImage($fileFullPath)) {
+
+        if ($_dimentions !== [] && !$this->_isImage($fileFullPath)) {
             return false;
         }
-        if (count($_dimentions) > 0) {
+
+        if ($_dimentions !== []) {
             $validatorChain->addValidator(
                 new Zend_Validate_File_ImageSize($_dimentions),
             );
@@ -383,6 +390,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s)'));
         }
+
         return false;
     }
 
@@ -410,6 +418,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server", $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
             }
         }
+
         return $result;
     }
 
@@ -435,7 +444,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $result = serialize($value);
             try {
                 Mage::helper('core/unserializeArray')->unserialize($result);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
             }
         } else {
@@ -447,8 +456,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             if (is_array($requestOptions)) {
                 unset($requestOptions[$this->getOption()->getId()]);
             }
+
             $result = null;
         }
+
         $buyRequest->setOptions($requestOptions);
 
         // Clear action key from buy request - we won't need it anymore
@@ -480,10 +491,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->_formattedOptionValue = $this->_getOptionHtml($value);
                 $this->getConfigurationItemOption()->setValue(serialize($value));
                 return $this->_formattedOptionValue;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return $optionValue;
             }
         }
+
         return $this->_formattedOptionValue;
     }
 
@@ -516,7 +528,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 Mage::helper('core')->escapeHtml($title),
                 $sizes,
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
         }
     }
@@ -566,7 +578,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 Mage::helper('core')->escapeHtml($value['title']),
                 $this->getConfigurationItemOption()->getId(),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $optionValue;
         }
     }
@@ -581,12 +593,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         // search quote item option Id in option value
-        if (preg_match('/\[([0-9]+)\]/', $optionValue, $matches)) {
+        if (preg_match('/\[(\d+)\]/', $optionValue, $matches)) {
             $confItemOptionId = $matches[1];
             $option = Mage::getModel('sales/quote_item_option')->load($confItemOptionId);
             try {
                 return $option->getValue();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return null;
             }
         } else {
@@ -604,7 +616,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         try {
             return Mage::helper('core/unserializeArray')->unserialize($optionValue);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -624,18 +636,21 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             if (!isset($value['quote_path'])) {
                 throw new Exception();
             }
+
             $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
             if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
                 throw new Exception();
             }
+
             $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
             $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);
             $this->_createWriteableDir($dir);
             Mage::helper('core/file_storage_database')->copyFile($quoteFileFullPath, $orderFileFullPath);
             @copy($quoteFileFullPath, $orderFileFullPath);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $this;
         }
+
         return $this;
     }
 
@@ -739,6 +754,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $params['_store'] = Mage::app()->getDefaultStoreView()->getCode();
             }
         }
+
         return Mage::getUrl($route, $params);
     }
 
@@ -751,9 +767,10 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _parseExtensionsString($extensions)
     {
         preg_match_all('/[a-z0-9]+/si', strtolower($extensions), $matches);
-        if (count($matches[0]) > 0) {
+        if ($matches[0] !== []) {
             return $matches[0];
         }
+
         return null;
     }
 
@@ -774,10 +791,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if (!is_readable($fileInfo)) {
             return false;
         }
+
         $imageInfo = getimagesize($fileInfo);
         if (!$imageInfo) {
             return false;
         }
+
         return true;
     }
 

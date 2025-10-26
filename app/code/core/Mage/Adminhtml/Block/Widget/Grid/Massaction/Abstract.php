@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
@@ -19,7 +12,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 /**
  * Grid widget massaction block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method $this setFormFieldName(string $value)
@@ -33,29 +25,53 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * @var string
      */
     public const ASSIGN_GROUP              = 'assign_group';
+
     public const ATTRIBUTES                = 'attributes';
+
     public const CANCEL_ORDER              = 'cancel_order';
+
     public const CHANGE_MODE               = 'change_mode';
+
     public const ENABLE                    = 'enable';
+
     public const DELETE                    = 'delete';
+
     public const DISABLE                   = 'disable';
+
     public const HOLD_ORDER                = 'hold_order';
+
     public const MARK_AS_READ              = 'mark_as_read';
+
     public const NEWSLETTER_SUBSCRIBE      = 'newsletter_subscribe';
+
     public const NEWSLETTER_UNSUBSCRIBE    = 'newsletter_unsubscribe';
+
     public const PDF_CREDITMEMOS_ORDER     = 'pdfcreditmemos_order';
+
     public const PDF_DOCS_ORDER            = 'pdfdocs_order';
+
     public const PDF_INVOICE_ORDER         = 'pdfinvoices_order';
+
     public const PDF_SHIPMENTS_ORDER       = 'pdfshipments_order';
+
     public const PRINT_SHIPMENT_LABEL      = 'print_shipping_label';
+
     public const REFRESH                   = 'refresh';
+
     public const REFRESH_LIFETIME          = 'refresh_lifetime';
+
     public const REFRESH_RECENT            = 'refresh_recent';
+
     public const REINDEX                   = 'reindex';
+
     public const REMOVE                    = 'remove';
+
     public const STATUS                    = 'status';
+
     public const UNHOLD_ORDER              = 'unhold_order';
+
     public const UNSUBSCRIBE               = 'unsubscribe';
+
     public const UPDATE_STATUS             = 'update_status';
 
     /**
@@ -283,6 +299,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         if (!empty($gridIds)) {
             return implode(',', $gridIds);
         }
+
         return '';
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog advanced search model
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  *
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
@@ -92,6 +84,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         if ($resourceName) {
             $this->_resourceName = $resourceName;
         }
+
         return parent::_getResource();
     }
 
@@ -115,8 +108,10 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());
             }
+
             $this->setData('attributes', $attributes);
         }
+
         return $attributes;
     }
 
@@ -151,6 +146,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!isset($values[$attribute->getAttributeCode()])) {
                 continue;
             }
+
             $value = $values[$attribute->getAttributeCode()];
             if (!is_array($value)) {
                 $value = trim($value);
@@ -165,6 +161,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
+
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
                             $this->getProductCollection(),
@@ -204,9 +201,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 } else {
                     $attributeId = $attribute->getId();
                 }
+
                 $allConditions[$table][$attributeId] = $condition;
             }
         }
+
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } elseif (!$hasConditions) {
@@ -238,16 +237,16 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $currencyModel = null;
                     }
 
-                    if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
+                    if ((string) $value['from'] !== '' && (string) $value['to'] !== '') {
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
                             ($currencyModel ? $to : $value['to']),
                         );
-                    } elseif (strlen($value['from']) > 0) {
+                    } elseif ((string) $value['from'] !== '') {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
-                    } elseif (strlen($value['to']) > 0) {
+                    } elseif ((string) $value['to'] !== '') {
                         // to
                         $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
                     }
@@ -267,6 +266,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     $value[$key] = $value[$key]['label'];
                 }
             }
+
             $value = implode(', ', $value);
         } elseif ($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect') {
             $value = $attribute->getSource()->getOptionText($value);
@@ -306,6 +306,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!$collection) {
                 return $collection;
             }
+
             $this->_productCollection = $collection;
         }
 

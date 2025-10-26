@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wysiwyg Images Helper
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
@@ -75,8 +67,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             if (!$this->_storageRoot) {
                 $this->_storageRoot = $path;
             }
+
             $this->_storageRoot .= DS;
         }
+
         return $this->_storageRoot;
     }
 
@@ -123,9 +117,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         $path = $this->idDecode($id);
         $storageRoot = realpath($this->getStorageRoot());
-        if (!strstr($path, $storageRoot)) {
+        if (!strstr($path, (string) $storageRoot)) {
             $path = $storageRoot . DS . $path;
         }
+
         return $path;
     }
 
@@ -142,6 +137,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if ($trim) {
             $path = trim($path, DS);
         }
+
         return $path;
     }
 
@@ -186,14 +182,14 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $directive = sprintf('{{media url="%s"}}', $mediaPath);
         if ($renderAsTag) {
             $html = sprintf('<img src="%s" alt="" />', $this->isUsingStaticUrlsAllowed() ? $fileurl : $directive);
+        } elseif ($this->isUsingStaticUrlsAllowed()) {
+            $html = $fileurl;
+            // $mediaPath;
         } else {
-            if ($this->isUsingStaticUrlsAllowed()) {
-                $html = $fileurl; // $mediaPath;
-            } else {
-                $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
-            }
+            $directive = Mage::helper('core')->urlEncode($directive);
+            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
         }
+
         return $html;
     }
 
@@ -215,6 +211,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                     $currentPath = $path;
                 }
             }
+
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
                 $message = Mage::helper('cms')->__(
@@ -223,8 +220,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                 );
                 Mage::throwException($message);
             }
+
             $this->_currentPath = $currentPath;
         }
+
         return $this->_currentPath;
     }
 
@@ -242,6 +241,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
                                  $this->convertPathToUrl($path) . '/';
         }
+
         return $this->_currentUrl;
     }
 
@@ -290,6 +290,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (strlen($filename) <= $maxLength) {
             return $filename;
         }
+
         return substr($filename, 0, $maxLength) . '...';
     }
 }

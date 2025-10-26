@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form element collection
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
@@ -130,8 +122,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                     $this->_elements = array_merge($newOrderElements, array_slice($this->_elements, $index + 1));
                     return $element;
                 }
+
                 $newOrderElements[] = $currElement;
             }
+
             $this->_elements[] = $element;
         }
 
@@ -163,6 +157,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 unset($this->_elements[$index]);
             }
         }
+
         // Renumber elements for further correct adding and removing other elements
         $this->_elements = array_merge($this->_elements, []);
         return $this;
@@ -189,6 +184,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 return $element;
             }
         }
+
         return null;
     }
 }

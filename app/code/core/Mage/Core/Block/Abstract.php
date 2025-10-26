@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,7 +13,6 @@
  * For block generation you must define Data source class, data source class method,
  * parameters array and block template
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setAdditionalHtml(string $value)
@@ -38,6 +30,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Prefix for cache key
      */
     public const CACHE_KEY_PREFIX = 'BLOCK_';
+
     /**
      * Cache group Tag
      */
@@ -193,9 +186,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!empty($args['core_factory']) && ($args['core_factory'] instanceof Mage_Core_Model_Factory)) {
             $this->_factory = $args['core_factory'];
         }
+
         if (!empty($args['app']) && ($args['app'] instanceof Mage_Core_Model_App)) {
             $this->_app = $args['app'];
         }
+
         parent::__construct($args);
     }
 
@@ -246,6 +241,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } else {
             throw new Exception(Mage::helper('core')->__("Can't retrieve request object"));
         }
+
         return $this->_request;
     }
 
@@ -393,6 +389,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $this->getLayout()->unsetBlock($this->_nameInLayout)
                 ->setBlock($name, $this);
         }
+
         $this->_nameInLayout = $name;
         return $this;
     }
@@ -434,6 +431,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_string($block)) {
             $block = $this->getLayout()->getBlock($block);
         }
+
         if (!$block) {
             return $this;
         }
@@ -443,6 +441,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             if (empty($suffix)) {
                 $suffix = 'child' . count($this->_children);
             }
+
             $blockName = $this->getNameInLayout() . '.' . $suffix;
 
             if ($this->getLayout()) {
@@ -521,6 +520,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $this->unsetChild($alias);
             }
         }
+
         return $this;
     }
 
@@ -549,6 +549,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } elseif (isset($this->_children[$name])) {
             return $this->_children[$name];
         }
+
         return false;
     }
 
@@ -571,10 +572,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             } else {
                 $children = $this->getChild();
             }
+
             $out = '';
             foreach ($children as $child) {
                 $out .= $this->_getChildHtml($child->getBlockAlias(), $useCache);
             }
+
             return $out;
         } else {
             return $this->_getChildHtml($name, $useCache);
@@ -593,10 +596,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (empty($name)) {
             return '';
         }
+
         $child = $this->getChild($name);
         if (!$child) {
             return '';
         }
+
         return $child->getChildHtml($childName, $useCache, $sorted);
     }
 
@@ -611,6 +616,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         foreach ($this->getSortedChildren() as $childName) {
             $children[$childName] = $this->getLayout()->getBlock($childName);
         }
+
         return $children;
     }
 
@@ -659,9 +665,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!($layout = $this->getLayout()) && !($layout = $this->getAction()->getLayout())) {
             return '';
         }
+
         if (!($block = $layout->getBlock($name))) {
             return '';
         }
+
         return $block->toHtml();
     }
 
@@ -679,6 +687,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_string($block)) {
             $block = $this->getLayout()->getBlock($block);
         }
+
         if (!$block) {
             /*
              * if we don't have block - don't throw exception because
@@ -688,6 +697,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             // ->__('Invalid block name to set child %s: %s', $alias, $block));
             return $this;
         }
+
         if ($block->getIsAnonymous()) {
             $this->setChild('', $block);
             $name = $block->getNameInLayout();
@@ -716,13 +726,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 if ($after) {
                     $key++;
                 }
+
                 array_splice($this->_sortedChildren, $key, 0, $name);
+            } elseif ($after) {
+                $this->_sortedChildren[] = $name;
             } else {
-                if ($after) {
-                    $this->_sortedChildren[] = $name;
-                } else {
-                    array_unshift($this->_sortedChildren, $name);
-                }
+                array_unshift($this->_sortedChildren, $name);
             }
 
             $this->_sortInstructions[$name] = [$siblingName, (bool) $after, $key !== false];
@@ -740,10 +749,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function sortChildren($force = false)
     {
         foreach ($this->_sortInstructions as $name => $list) {
-            list($siblingName, $after, $exists) = $list;
+            [$siblingName, $after, $exists] = $list;
             if ($exists && !$force) {
                 continue;
             }
+
             $this->_sortInstructions[$name][2] = true;
 
             $index = array_search($name, $this->_sortedChildren);
@@ -758,6 +768,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 if ($index == $siblingKey + 1) {
                     continue;
                 }
+
                 // remove sibling from array
                 array_splice($this->_sortedChildren, $index, 1, []);
                 // insert sibling after
@@ -767,6 +778,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 if ($index == $siblingKey - 1) {
                     continue;
                 }
+
                 // remove sibling from array
                 array_splice($this->_sortedChildren, $index, 1, []);
                 // insert sibling after
@@ -800,6 +812,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!isset($this->_childGroups[$groupName])) {
             $this->_childGroups[$groupName] = [];
         }
+
         if (!in_array($child->getBlockAlias(), $this->_childGroups[$groupName])) {
             $this->_childGroups[$groupName][] = $child->getBlockAlias();
         }
@@ -835,6 +848,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!isset($this->_childGroups[$groupName])) {
             return $result;
         }
+
         foreach ($this->getSortedChildBlocks() as $block) {
             $alias = $block->getBlockAlias();
             if (in_array($alias, $this->_childGroups[$groupName])) {
@@ -849,6 +863,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 }
             }
         }
+
         return $result;
     }
 
@@ -892,6 +907,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } else {
             $this->_frameCloseTag = '/' . $openTag;
         }
+
         return $this;
     }
 
@@ -908,6 +924,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (Mage::getStoreConfig('advanced/modules_disable_output/' . $this->getModuleName())) {
             return '';
         }
+
         $html = $this->_loadCache();
         if ($html === false) {
             $translate = Mage::getSingleton('core/translate');
@@ -924,6 +941,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $translate->setTranslateInline(true);
             }
         }
+
         $html = $this->_afterToHtml($html);
 
         /**
@@ -939,6 +957,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object();
         }
+
         self::$_transportObject->setHtml($html);
         Mage::dispatchEvent(
             'core_block_abstract_to_html_after',
@@ -1016,6 +1035,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->getFormKey();
         }
+
         return $this->getUrl($route, $params);
     }
 
@@ -1064,6 +1084,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_null($this->_messagesBlock)) {
             return $this->getLayout()->getMessagesBlock();
         }
+
         return $this->_messagesBlock;
     }
 
@@ -1100,6 +1121,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($this->getLayout()) {
             return $this->getLayout()->helper($name);
         }
+
         return Mage::helper($name);
     }
 
@@ -1158,10 +1180,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $module = $this->getData('module_name');
         if (is_null($module)) {
-            $class = get_class($this);
+            $class = static::class;
             $module = substr($class, 0, strpos($class, '_Block'));
             $this->setData('module_name', $module);
         }
+
         return $module;
     }
 
@@ -1325,6 +1348,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
             $this->_getApp()->setUseSessionVar(true);
         }
+
         return $this;
     }
 
@@ -1344,6 +1368,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $html = $model->sessionUrlVar($html);
             Varien_Profiler::stop('CACHE_URL');
         }
+
         return $html;
     }
 
@@ -1369,13 +1394,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         if ($this->hasData('cache_key')) {
             $cacheKey = $this->getData('cache_key');
-            if (strpos($cacheKey, self::CACHE_KEY_PREFIX) !== 0) {
+            if (!str_starts_with($cacheKey, self::CACHE_KEY_PREFIX)) {
                 $cacheKey = self::CACHE_KEY_PREFIX . $cacheKey;
                 $this->setData('cache_key', $cacheKey);
             }
 
             return $cacheKey;
         }
+
         /**
          * don't prevent recalculation by saving generated cache key
          * because of ability to render single block instance with different data
@@ -1406,12 +1432,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($tagsCache) {
             $tags = json_decode($tagsCache);
         }
+
         if (!isset($tags) || !is_array($tags) || empty($tags)) {
             $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY) ? [] : $this->getData(self::CACHE_TAGS_DATA_KEY);
             if (!in_array(self::CACHE_GROUP, $tags)) {
                 $tags[] = self::CACHE_GROUP;
             }
         }
+
         return array_unique($tags);
     }
 
@@ -1449,6 +1477,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($cacheTags !== false) {
             $this->addCacheTag($cacheTags);
         }
+
         return $this;
     }
 
@@ -1462,6 +1491,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (!$this->hasData('cache_lifetime')) {
             return null;
         }
+
         return $this->getData('cache_lifetime');
     }
 
@@ -1493,6 +1523,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_null($this->getCacheLifetime()) || !$this->_getApp()->useCache(self::CACHE_GROUP)) {
             return false;
         }
+
         $cacheKey = $this->getCacheKey();
         /** @var Mage_Core_Model_Session $session */
         $session = Mage::getSingleton('core/session');
@@ -1504,6 +1535,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $cacheData,
             );
         }
+
         return $cacheData;
     }
 
@@ -1518,6 +1550,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (is_null($this->getCacheLifetime()) || !$this->_getApp()->useCache(self::CACHE_GROUP)) {
             return false;
         }
+
         $cacheKey = $this->getCacheKey();
         /** @var Mage_Core_Model_Session $session */
         $session = Mage::getSingleton('core/session');
@@ -1582,8 +1615,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             if ($itemTags === false) {
                 continue;
             }
+
             $tags = array_merge($tags, $itemTags);
         }
+
         return $tags;
     }
 

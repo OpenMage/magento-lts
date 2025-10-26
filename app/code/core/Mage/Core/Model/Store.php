@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Store model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Store _getResource()
@@ -51,29 +43,48 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @var string
      */
     public const XML_PATH_STORE_STORE_NAME          = 'general/store_information/name';
+
     public const XML_PATH_STORE_STORE_PHONE         = 'general/store_information/phone';
+
     public const XML_PATH_STORE_STORE_HOURS         = 'general/store_information/hours';
+
     public const XML_PATH_STORE_IN_URL              = 'web/url/use_store';
+
     public const XML_PATH_USE_REWRITES              = 'web/seo/use_rewrites';
+
     public const XML_PATH_UNSECURE_BASE_URL         = 'web/unsecure/base_url';
+
     public const XML_PATH_UNSECURE_BASE_JS_URL      = 'web/unsecure/base_js_url';
+
     public const XML_PATH_UNSECURE_BASE_LINK_URL    = 'web/unsecure/base_link_url';
+
     public const XML_PATH_UNSECURE_BASE_MEDIA_URL   = 'web/unsecure/base_media_url';
+
     public const XML_PATH_UNSECURE_BASE_SKIN_URL    = 'web/unsecure/base_skin_url';
+
     public const XML_PATH_SECURE_BASE_URL           = 'web/secure/base_url';
+
     public const XML_PATH_SECURE_BASE_JS_URL        = 'web/secure/base_js_url';
+
     public const XML_PATH_SECURE_BASE_LINK_URL      = 'web/secure/base_link_url';
+
     public const XML_PATH_SECURE_BASE_MEDIA_URL     = 'web/secure/base_media_url';
+
     public const XML_PATH_SECURE_BASE_SKIN_URL      = 'web/secure/base_skin_url';
+
     public const XML_PATH_SECURE_IN_FRONTEND        = 'web/secure/use_in_frontend';
+
     public const XML_PATH_SECURE_IN_ADMINHTML       = 'web/secure/use_in_adminhtml';
+
     public const XML_PATH_OFFLOADER_HEADER          = 'web/secure/offloader_header';
+
     public const XML_PATH_PRICE_SCOPE               = 'catalog/price/scope';
 
     /**
      * Price scope constants
      */
     public const PRICE_SCOPE_GLOBAL              = 0;
+
     /**
      *
      */
@@ -83,22 +94,27 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Possible URL types
      */
     public const URL_TYPE_LINK                   = 'link';
+
     /**
      *
      */
     public const URL_TYPE_DIRECT_LINK            = 'direct_link';
+
     /**
      *
      */
     public const URL_TYPE_WEB                    = 'web';
+
     /**
      *
      */
     public const URL_TYPE_SKIN                   = 'skin';
+
     /**
      *
      */
     public const URL_TYPE_JS                     = 'js';
+
     /**
      *
      */
@@ -108,6 +124,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Code constants
      */
     public const DEFAULT_CODE                    = 'default';
+
     /**
      *
      */
@@ -155,7 +172,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Price filter
      *
-     * @var Mage_Directory_Model_Currency_Filter
+     * @var Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
      */
     protected $_priceFilter;
 
@@ -275,6 +292,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $this->_session = Mage::getModel('core/session')
                 ->init('store_' . $this->getCode());
         }
+
         return $this->_session;
     }
 
@@ -287,6 +305,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $this->_getResource()->load($this, $id, 'code');
             return $this;
         }
+
         return parent::load($id, $field);
     }
 
@@ -308,12 +327,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         } else {
             $store = Mage::getConfig()->getNode()->stores->{$code};
         }
+
         if (!empty($store)) {
             $this->setCode($code);
             $id = (int) $store->system->store->id;
             $this->setId($id)->setStoreId($id);
             $this->setWebsiteId((int) $store->system->website->id);
         }
+
         return $this;
     }
 
@@ -346,9 +367,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!$data && !Mage::isInstalled()) {
             $data = $config->getNode('default/' . $path);
         }
+
         if (!$data) {
             return null;
         }
+
         return $this->_processConfigValue($fullPath, $path, $data);
     }
 
@@ -377,15 +400,18 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                         foreach ($this->_configCacheBaseNodes as $node) {
                             $data[$node] = $this->getConfig($node);
                         }
+
                         Mage::app()->saveCache(serialize($data), $cacheId, [
                             self::CACHE_TAG,
                             Mage_Core_Model_Config::CACHE_TAG,
                         ]);
                     }
+
                     $this->_configCache = $data;
                 }
             }
         }
+
         return $this;
     }
 
@@ -429,6 +455,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (isset($this->_configCache[$path])) {
             $this->_configCache[$path] = $value;
         }
+
         $fullPath = 'stores/' . $this->getCode() . '/' . $path;
         Mage::getConfig()->setNode($fullPath, $value);
 
@@ -453,9 +480,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (is_null($this->getWebsiteId())) {
             return false;
         }
+
         if (is_null($this->_website)) {
             $this->_website = Mage::app()->getWebsite($this->getWebsiteId());
         }
+
         return $this->_website;
     }
 
@@ -478,6 +507,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             foreach ($node->children() as $k => $v) {
                 $aValue[$k] = $this->_processConfigValue($fullPath . '/' . $k, $path . '/' . $k, $v);
             }
+
             $this->_configCache[$path] = $aValue;
             return $aValue;
         }
@@ -489,14 +519,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $sValue = $backend->getValue();
         }
 
-        if (is_string($sValue) && strpos($sValue, '{{') !== false) {
-            if (strpos($sValue, '{{unsecure_base_url}}') !== false) {
+        if (is_string($sValue) && str_contains($sValue, '{{')) {
+            if (str_contains($sValue, '{{unsecure_base_url}}')) {
                 $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
                 $sValue = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{secure_base_url}}') !== false) {
+            } elseif (str_contains($sValue, '{{secure_base_url}}')) {
                 $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
                 $sValue = str_replace('{{secure_base_url}}', $secureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{base_url}}') !== false) {
+            } elseif (str_contains($sValue, '{{base_url}}')) {
                 $sValue = Mage::getConfig()->substDistroServerVars($sValue);
             }
         }
@@ -519,15 +549,16 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return $value;
         }
 
-        if (strpos($value, '{{unsecure_base_url}}') !== false) {
+        if (str_contains($value, '{{unsecure_base_url}}')) {
             $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
             $value = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $value);
-        } elseif (strpos($value, '{{secure_base_url}}') !== false) {
+        } elseif (str_contains($value, '{{secure_base_url}}')) {
             $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
             $value = str_replace('{{secure_base_url}}', $secureBaseUrl, $value);
-        } elseif (strpos($value, '{{') !== false && strpos($value, '{{base_url}}') === false) {
+        } elseif (str_contains($value, '{{') && !str_contains($value, '{{base_url}}')) {
             $value = Mage::getConfig()->substDistroServerVars($value);
         }
+
         return $value;
     }
 
@@ -543,6 +574,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!isset($_SERVER['SCRIPT_NAME'])) {
             return '/';
         }
+
         return rtrim(Mage::app()->getRequest()->getBasePath() . '/') . '/';
     }
 
@@ -609,7 +641,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
 
-            if (strpos($url, '{{base_url}}') !== false) {
+            if (str_contains($url, '{{base_url}}')) {
                 $baseUrl = Mage::getConfig()->substDistroServerVars('{{base_url}}');
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }
@@ -634,6 +666,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
             $url .= $indexFileName . '/';
         }
+
         return $url;
     }
 
@@ -668,6 +701,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $urlStart = $this->getConfig('web/' . $secureStringFlag . '/base_url');
             $url = str_replace($urlStart, $urlStart . self::MEDIA_REWRITE_SCRIPT, $url);
         }
+
         return $url;
     }
 
@@ -682,6 +716,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if ($this->getStoreInUrl()) {
             $url .= $this->getCode() . '/';
         }
+
         return $url;
     }
 
@@ -727,6 +762,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $this->_isAdminSecure = (bool) (int) (string) Mage::getConfig()
                 ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
         }
+
         return $this->_isAdminSecure;
     }
 
@@ -743,6 +779,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 $this->getId(),
             );
         }
+
         return $this->_isFrontSecure;
     }
 
@@ -788,6 +825,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
         }
+
         return $currency;
     }
 
@@ -813,6 +851,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $currency = Mage::getModel('directory/currency')->load($this->getDefaultCurrencyCode());
             $this->setData('default_currency', $currency);
         }
+
         return $currency;
     }
 
@@ -833,6 +872,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 Mage::app()->getCookie()->set(self::COOKIE_CURRENCY, $code);
             }
         }
+
         return $this;
     }
 
@@ -848,6 +888,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (empty($code)) {
             $code = $this->getDefaultCurrencyCode();
         }
+
         if (in_array($code, $this->getAvailableCurrencyCodes(true))) {
             return $code;
         }
@@ -858,6 +899,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             // return default code, if no codes specified at all
             return $this->getDefaultCurrencyCode();
         }
+
         return array_shift($codes);
     }
 
@@ -885,6 +927,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 $disallowedBaseCodeIndex = array_pop($disallowedBaseCodeIndex);
                 $this->setData('disallowed_base_currency_code_index', $disallowedBaseCodeIndex);
             }
+
             $this->setData('available_currency_codes', $codes);
         }
 
@@ -895,6 +938,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 unset($codes[$disallowedBaseCodeIndex]);
             }
         }
+
         return $codes;
     }
 
@@ -951,6 +995,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if ($this->getCurrentCurrency() && $format) {
             $value = $this->formatPrice($value, $includeContainer);
         }
+
         return $value;
     }
 
@@ -962,7 +1007,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function roundPrice($price)
     {
-        return round((float) $price, 2);
+        /** @var Mage_Catalog_Helper_Price $helper */
+        $helper = Mage::helper('catalog/price');
+
+        return round((float) $price, $helper->getRoundingPrecision());
     }
 
     /**
@@ -977,13 +1025,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if ($this->getCurrentCurrency()) {
             return $this->getCurrentCurrency()->format($price, [], $includeContainer);
         }
+
         return $price;
     }
 
     /**
      * Get store price filter
      *
-     * @return Varien_Filter_Sprintf
+     * @return Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
      */
     public function getPriceFilter()
     {
@@ -997,6 +1046,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         } else {
             $this->_priceFilter = new Varien_Filter_Sprintf('%s', 2);
         }
+
         return $this->_priceFilter;
     }
 
@@ -1010,6 +1060,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!$this->getGroup()) {
             return 0;
         }
+
         return $this->getGroup()->getRootCategoryId();
     }
 
@@ -1033,9 +1084,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (is_null($this->getGroupId())) {
             return false;
         }
+
         if (is_null($this->_group)) {
             $this->_group = Mage::getModel('core/store_group')->load($this->getGroupId());
         }
+
         return $this->_group;
     }
 
@@ -1122,6 +1175,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!Mage::getStoreConfigFlag(self::XML_PATH_STORE_IN_URL, $this->getCode())) {
             $storeParsedQuery['___store'] = $this->getCode();
         }
+
         if ($fromStore !== false) {
             $storeParsedQuery['___from_store'] = $fromStore === true ? Mage::app()->getStore()->getCode() : $fromStore;
         }
@@ -1217,6 +1271,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
+
         return $this->_isReadOnly;
     }
 
@@ -1231,6 +1286,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $storeGroupName = (string) Mage::getStoreConfig(self::XML_PATH_STORE_STORE_NAME, $this);
             $this->_frontendName = (!empty($storeGroupName)) ? $storeGroupName : $this->getGroup()->getName();
         }
+
         return $this->_frontendName;
     }
 

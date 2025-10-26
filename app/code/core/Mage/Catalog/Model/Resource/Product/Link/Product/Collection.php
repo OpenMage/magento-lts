@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product linked products collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -68,6 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($linkModel->getLinkTypeId()) {
             $this->_linkTypeId = $linkModel->getLinkTypeId();
         }
+
         return $this;
     }
 
@@ -104,6 +97,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $this->_hasLinkFilter = true;
             $this->setStore($product->getStore());
         }
+
         return $this;
     }
 
@@ -129,9 +123,11 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
         }
+
         return $this;
     }
 
@@ -147,6 +143,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->getSelect()->where('links.product_id IN (?)', $products);
             $this->_hasLinkFilter = true;
         }
@@ -193,6 +190,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->getLinkModel()) {
             $this->_joinLinks();
         }
+
         return parent::_beforeLoad();
     }
 
@@ -219,10 +217,12 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
+
             $this->addFieldToFilter('entity_id', ['neq' => $productId]);
         } elseif ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', ['eq' => -1]);
         }
+
         if ($this->_hasLinkFilter) {
             $select->$joinType(
                 ['links' => $this->getTable('catalog/product_link')],
@@ -231,6 +231,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             );
             $this->joinAttributes();
         }
+
         return $this;
     }
 
@@ -245,6 +246,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->_hasLinkFilter) {
             $this->getSelect()->order('position ' . $dir);
         }
+
         return $this;
     }
 
@@ -289,6 +291,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if (!$this->getLinkModel()) {
             return $this;
         }
+
         $attributes = $this->getLinkModel()->getAttributes();
 
         foreach ($attributes as $attribute) {
@@ -323,6 +326,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         } elseif ($attribute == 'attribute_set_id') {
             return $this->setAttributeSetIdOrder($dir);
         }
+
         return parent::setOrder($attribute, $dir);
     }
 

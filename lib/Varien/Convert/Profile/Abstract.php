@@ -1,33 +1,29 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Convert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile
  *
- * @category   Varien
  * @package    Varien_Convert
  */
 abstract class Varien_Convert_Profile_Abstract
 {
     protected $_actions;
+
     protected $_containers;
+
     protected $_exceptions = [];
+
     protected $_dryRun;
 
     protected $_actionDefaultClass = 'Varien_Convert_Action';
+
     protected $_containerCollectionDefaultClass = 'Varien_Convert_Container_Collection';
 
     public function addAction(?Varien_Convert_Action_Interface $action = null)
@@ -35,6 +31,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
         }
+
         $this->_actions[] = $action;
         $action->setProfile($this);
         return $action;
@@ -51,6 +48,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (!$this->_containers) {
             $this->_containers = new $this->_containerCollectionDefaultClass();
         }
+
         return $this->_containers;
     }
 
@@ -59,6 +57,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (is_null($name)) {
             $name = '_default';
         }
+
         return $this->getContainers()->getItem($name);
     }
 
@@ -103,6 +102,7 @@ abstract class Varien_Convert_Profile_Abstract
         foreach ($this->_actions as $action) {
             $action->run();
         }
+
         return $this;
     }
 }

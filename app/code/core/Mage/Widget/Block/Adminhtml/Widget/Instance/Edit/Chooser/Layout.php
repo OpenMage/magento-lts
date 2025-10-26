@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance layouts chooser
  *
- * @category   Mage
  * @package    Mage_Widget
  *
  * @method $this setArea(string $value)
@@ -74,6 +66,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -87,6 +80,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('package')) {
             return Mage_Core_Model_Design_Package::DEFAULT_PACKAGE;
         }
+
         return $this->_getData('package');
     }
 
@@ -100,6 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('theme')) {
             return Mage_Core_Model_Design_Package::DEFAULT_THEME;
         }
+
         return $this->_getData('theme');
     }
 
@@ -140,17 +135,19 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));
         }
+
         return $this->_layoutHandles;
     }
 
     /**
      * Filter and collect layout handles into array
      *
-     * @param Mage_Core_Model_Layout_Element $layoutHandles
+     * @param SimpleXMLElement $layoutHandles
      */
     protected function _collectLayoutHandles($layoutHandles)
     {
         if ($layoutHandlesArr = $layoutHandles->xpath('/*/*/label/..')) {
+            /** @var Varien_Simplexml_Element $node */
             foreach ($layoutHandlesArr as $node) {
                 if ($this->_filterLayoutHandle($node->getName())) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($node));
@@ -159,6 +156,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                     );
                 }
             }
+
             asort($this->_layoutHandles, SORT_STRING);
         }
     }
@@ -175,6 +173,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (preg_match($wildCard, $layoutHandle)) {
             return false;
         }
+
         return true;
     }
 }

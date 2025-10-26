@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Search collection
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -64,6 +56,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                 $attribute->setEntity($this->getEntity());
             }
         }
+
         return $this->_attributesCollection;
     }
 
@@ -82,6 +75,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -160,6 +154,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         if ($sql) {
             $selects[] = "SELECT * FROM ({$sql}) AS inoptionsql"; // inheritant unions may be inside
         }
+
         return $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 
@@ -184,6 +179,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                 $attributeIds[] = $attribute->getId();
             }
         }
+
         if (empty($attributeIds)) {
             return false;
         }
@@ -240,6 +236,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                         $where[] = sprintf($whereCond, $option['attribute_id'], $option['store_id']);
                     }
                 }
+
                 if ($where) {
                     $selects[$frontendInput] = (string) $this->getConnection()->select()
                         ->from($attributeTables[$frontendInput], 'entity_id')
@@ -253,12 +250,14 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         foreach ($options as $option) {
             $where[] = sprintf('(attribute_id=%d AND value=%d)', $option['attribute_id'], $option['option_id']);
         }
+
         if ($where) {
             $selects[] = (string) $this->getConnection()->select()
                 ->from($resource->getTableName('catalogindex/eav'), 'entity_id')
                 ->where(implode(' OR ', $where))
                 ->where("store_id={$storeId}");
         }
+
         return $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 }

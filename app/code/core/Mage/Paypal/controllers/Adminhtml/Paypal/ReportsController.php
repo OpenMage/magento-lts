@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Settlement Reports Controller
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Controller_Action
@@ -54,6 +46,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
             return;
         }
+
         Mage::register('current_transaction', $row);
         $this->_initAction()
             ->_title($this->__('View Transaction'))
@@ -73,6 +66,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             if (empty($credentials)) {
                 Mage::throwException(Mage::helper('paypal')->__('Nothing to fetch because of an empty configuration.'));
             }
+
             foreach ($credentials as $config) {
                 try {
                     $fetched = $reports->fetchAndSave($config);
@@ -91,6 +85,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -115,14 +110,12 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'index':
-            case 'details':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/view');
-            case 'fetch':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/fetch');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports');
-        }
+        $aclPath = match ($action) {
+            'index', 'details' => 'report/salesroot/paypal_settlement_reports/view',
+            'fetch' => 'report/salesroot/paypal_settlement_reports/fetch',
+            default => 'report/salesroot/paypal_settlement_reports',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

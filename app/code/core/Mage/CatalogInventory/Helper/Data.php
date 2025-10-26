@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
+
     public const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+
     /**
      * Path to configuration option 'Display product stock status'
      */
@@ -31,6 +25,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      * Error codes, that Catalog Inventory module can set to quote or quote items
      */
     public const ERROR_QTY =               1;
+
     public const ERROR_QTY_INCREMENTS =    2;
 
     protected $_moduleName = 'Mage_CatalogInventory';
@@ -69,15 +64,18 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
                 self::$_isQtyTypeIds[$typeId] = (bool) $configXml->is_qty;
             }
         }
+
         if ($filter === null) {
             return self::$_isQtyTypeIds;
         }
+
         $result = self::$_isQtyTypeIds;
         foreach ($result as $key => $value) {
             if ($value !== $filter) {
                 unset($result[$key]);
             }
         }
+
         return $result;
     }
 

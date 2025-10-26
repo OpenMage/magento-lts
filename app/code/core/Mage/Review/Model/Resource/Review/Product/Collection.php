@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review Product Collection
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -238,6 +230,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $model->getReviewSummary($item->getReviewId());
             $item->addData($model->getData());
         }
+
         return $this;
     }
 
@@ -256,6 +249,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 ->load();
             $item->setRatingVotes($votesCollection);
         }
+
         return $this;
     }
 
@@ -344,6 +338,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             default:
                 parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -386,6 +381,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                     ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 }
+
                 $this->getSelect()->where($conditionSql);
                 break;
 
@@ -393,6 +389,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 parent::addAttributeToFilter($attribute, $condition, $joinType);
                 break;
         }
+
         return $this;
     }
 
@@ -408,6 +405,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         foreach ($this->getItems() as $item) {
             $col[] = $item->getData($colName);
         }
+
         return $col;
     }
 
@@ -422,6 +420,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         if ($this->_addStoreDataFlag) {
             $this->_addStoreData();
         }
+
         return $this;
     }
 
@@ -447,6 +446,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 if (!isset($storesToReviews[$row['review_id']])) {
                     $storesToReviews[$row['review_id']] = [];
                 }
+
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }
         }

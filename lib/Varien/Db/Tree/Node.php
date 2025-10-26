@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'Varien/Db/Tree/Node/Exception.php';
@@ -19,13 +12,19 @@ require_once 'Varien/Db/Tree/Node/Exception.php';
 class Varien_Db_Tree_Node
 {
     private $left;
+
     private $right;
+
     private $id;
+
     private $pid;
+
     private $level;
+
     private $data;
 
     public $hasChild = false;
+
     public $numChild = 0;
 
     /**
@@ -39,6 +38,7 @@ class Varien_Db_Tree_Node
         if (empty($nodeData)) {
             throw new Varien_Db_Tree_Node_Exception('Empty array of node information');
         }
+
         if (empty($keys)) {
             throw new Varien_Db_Tree_Node_Exception('Empty keys array');
         }
@@ -94,7 +94,7 @@ class Varien_Db_Tree_Node
     /**
      * Return true if node have chield
      *
-     * @return boolean
+     * @return bool
      */
     public function isParent()
     {

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Helper for coupon codes creating and managing
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
@@ -26,7 +18,9 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      * Constants which defines all possible coupon codes formats
      */
     public const COUPON_FORMAT_ALPHANUMERIC    = 'alphanum';
+
     public const COUPON_FORMAT_ALPHABETICAL    = 'alpha';
+
     public const COUPON_FORMAT_NUMERIC         = 'num';
 
     /**
@@ -38,15 +32,20 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      * XML paths to coupon codes generation options
      */
     public const XML_PATH_SALES_RULE_COUPON_LENGTH        = 'promo/auto_generated_coupon_codes/length';
+
     public const XML_PATH_SALES_RULE_COUPON_FORMAT        = 'promo/auto_generated_coupon_codes/format';
+
     public const XML_PATH_SALES_RULE_COUPON_PREFIX        = 'promo/auto_generated_coupon_codes/prefix';
+
     public const XML_PATH_SALES_RULE_COUPON_SUFFIX        = 'promo/auto_generated_coupon_codes/suffix';
+
     public const XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL = 'promo/auto_generated_coupon_codes/dash';
 
     /**
      * Config path for character set and separator
      */
     public const XML_CHARSET_NODE      = 'global/salesrule/coupon/charset/%s';
+
     public const XML_CHARSET_SEPARATOR = 'global/salesrule/coupon/separator';
 
     protected $_moduleName = 'Mage_SalesRule';

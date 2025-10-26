@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Eav Indexer Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
@@ -108,10 +100,8 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
                     break;
             }
         } elseif ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
-            switch ($event->getType()) {
-                case Mage_Index_Model_Event::TYPE_SAVE:
-                    $this->_registerCatalogAttributeSaveEvent($event);
-                    break;
+            if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+                $this->_registerCatalogAttributeSaveEvent($event);
             }
         } elseif ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {
             $event->addNewData('catalog_product_eav_reindex_all', true);
@@ -278,6 +268,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         if (!empty($data['catalog_product_eav_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_product_eav_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

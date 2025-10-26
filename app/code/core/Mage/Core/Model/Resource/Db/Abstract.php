@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
@@ -153,7 +145,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param string|array $connections
      * @param string|array|null $tables
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     protected function _setResource($connections, $tables = null)
     {
@@ -176,6 +168,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         } elseif (is_string($tables)) {
             $this->_resourceModel = $tables;
         }
+
         return $this;
     }
 
@@ -195,12 +188,14 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             if (empty($this->_resourceModel)) {
                 $this->_setResource($mainTableArr[0]);
             }
+
             $this->_setMainTable($mainTableArr[1], $idFieldName);
         } else {
             $this->_mainTable = $mainTable;
             if (is_null($idFieldName)) {
                 $idFieldName = $mainTable . '_id';
             }
+
             $this->_idFieldName = $idFieldName;
         }
 
@@ -217,6 +212,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (empty($this->_idFieldName)) {
             Mage::throwException(Mage::helper('core')->__('Empty identifier field name'));
         }
+
         return $this->_idFieldName;
     }
 
@@ -231,6 +227,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (empty($this->_mainTable)) {
             Mage::throwException(Mage::helper('core')->__('Empty main table name'));
         }
+
         return $this->getTable($this->_mainTable);
     }
 
@@ -244,7 +241,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     {
         if (is_array($entityName)) {
             $cacheName = implode('@', $entityName);
-            list($entityName, $entitySuffix) = $entityName;
+            [$entityName, $entitySuffix] = $entityName;
         } else {
             $cacheName    = $entityName;
             $entitySuffix = null;
@@ -260,6 +257,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $modelEntity = $entityName;
             }
+
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
@@ -268,13 +266,16 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $modelEntity = $entityName;
             }
+
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
             if (!is_null($entitySuffix)) {
                 $entityName .= '_' . $entitySuffix;
             }
+
             $this->_tables[$cacheName] = $entityName;
         }
+
         return $this->_tables[$cacheName];
     }
 
@@ -294,13 +295,14 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Get connection by name or type
      *
      * @param string $connectionName
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getConnection($connectionName)
     {
         if (isset($this->_connections[$connectionName])) {
             return $this->_connections[$connectionName];
         }
+
         if (!empty($this->_resourcePrefix)) {
             $this->_connections[$connectionName] = $this->_resources->getConnection(
                 $this->_resourcePrefix . '_' . $connectionName,
@@ -454,6 +456,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             if ($this->_isPkAutoIncrement) {
                 unset($bind[$this->getIdFieldName()]);
             }
+
             $this->_getWriteAdapter()->insert($this->getMainTable(), $bind);
 
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
@@ -524,9 +527,11 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
+
         if (is_array($this->_uniqueFields)) {
             $this->_uniqueFields[] = $field;
         }
+
         return $this;
     }
 
@@ -547,7 +552,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function unserializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            list($serializeDefault, $unserializeDefault) = $parameters;
+            [$serializeDefault, $unserializeDefault] = $parameters;
             $this->_unserializeField($object, $field, $unserializeDefault);
         }
     }
@@ -573,6 +578,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
+
         return $this->_uniqueFields;
     }
 
@@ -673,8 +679,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
             }
+
             Mage::throwException($error);
         }
+
         return $this;
     }
 
@@ -742,7 +750,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected function _serializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            list($serializeDefault, $unserializeDefault) = $parameters;
+            [$serializeDefault, $unserializeDefault] = $parameters;
             $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
         }
     }
@@ -758,10 +766,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (!$this->_getReadAdapter()) {
             return false;
         }
+
         $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
         if (count($checksum) == 1) {
             return $checksum[$table];
         }
+
         return $checksum;
     }
 }

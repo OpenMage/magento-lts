@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales transaction resource model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Model_Resource_Order_Abstract
@@ -59,6 +51,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+
             $object->setData($field, $unserializedValue);
         }
     }
@@ -83,7 +76,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             if (!$verificationRow) {
                 return;
             }
-            list($paymentId, $orderId) = array_values($verificationRow);
+
+            [$paymentId, $orderId] = array_values($verificationRow);
 
             // inject
             $where = [
@@ -159,6 +153,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
                     Mage::helper('sales')->__('Not enough valid data to save the parent transaction ID.'),
                 );
             }
+
             $parentId = (int) $this->_lookupByTxnId($orderId, $paymentId, $parentTxnId, $idFieldName);
             if ($parentId) {
                 $transaction->setData('parent_id', $parentId);
@@ -193,9 +188,11 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
         if ($txnType) {
             $select->where('txn_type = ?', $txnType);
         }
+
         if ($isRow) {
             return $this->_getWriteAdapter()->fetchRow($select);
         }
+
         return $this->_getWriteAdapter()->fetchOne($select);
     }
 

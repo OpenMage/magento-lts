@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Grouped product type implementation
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product_Type_Abstract
@@ -161,6 +153,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
 
             $this->getProduct($product)->setData($this->_keyAssociatedProducts, $associatedProducts);
         }
+
         return $this->getProduct($product)->getData($this->_keyAssociatedProducts);
     }
 
@@ -213,6 +206,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 Mage_Catalog_Model_Product_Status::STATUS_DISABLED,
             ];
         }
+
         return $this->getProduct($product)->getData($this->_keyStatusFilters);
     }
 
@@ -229,8 +223,10 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
             foreach ($this->getAssociatedProducts($product) as $item) {
                 $associatedProductIds[] = $item->getId();
             }
+
             $this->getProduct($product)->setData($this->_keyAssociatedProductIds, $associatedProductIds);
         }
+
         return $this->getProduct($product)->getData($this->_keyAssociatedProductIds);
     }
 
@@ -268,6 +264,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         foreach ($this->getAssociatedProducts($product) as $associatedProduct) {
             $salable = $salable || $associatedProduct->isSalable();
         }
+
         return $salable;
     }
 
@@ -347,7 +344,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 $products[] = $product;
             }
 
-            if (count($products)) {
+            if ($products !== []) {
                 return $products;
             }
         }

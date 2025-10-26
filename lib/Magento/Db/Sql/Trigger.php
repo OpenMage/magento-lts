@@ -1,42 +1,44 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Magento
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Magento_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Magento_Db_Sql_Trigger
  *
- * @category   Magento
  * @package    Magento_Db
  */
 class Magento_Db_Sql_Trigger
 {
     public const NAME      = 'name';
+
     public const TARGET    = 'target';
+
     public const TIME      = 'time';
+
     public const EVENT     = 'event';
+
     public const SCOPE     = 'scope';
+
     public const BODY      = 'body';
 
     /**
      * SQL constants
      */
     public const SQL_TIME_BEFORE   = 'BEFORE';
+
     public const SQL_TIME_AFTER    = 'AFTER';
+
     public const SQL_EVENT_INSERT  = 'INSERT';
+
     public const SQL_EVENT_UPDATE  = 'UPDATE';
+
     public const SQL_EVENT_DELETE  = 'DELETE';
+
     public const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
 
     /**
@@ -102,6 +104,7 @@ class Magento_Db_Sql_Trigger
                 throw new Exception('Part [' . $part . '] should be set');
             }
         }
+
         return $this;
     }
 
@@ -120,6 +123,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
         }
+
         return $this;
     }
 
@@ -154,6 +158,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
         }
+
         return $this;
     }
 
@@ -198,6 +203,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Unsupported time type!');
         }
+
         return $this;
     }
 
@@ -215,6 +221,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Unsupported event type!');
         }
+
         return $this;
     }
 
@@ -253,6 +260,7 @@ class Magento_Db_Sql_Trigger
         if (empty($this->_parts[self::NAME])) {
             $this->_parts[self::NAME] = $this->_generateTriggerName();
         }
+
         return $this->_parts[self::NAME];
     }
 
@@ -267,6 +275,7 @@ class Magento_Db_Sql_Trigger
         if (!is_array($body)) {
             $body = [$body];
         }
+
         $this->_setPart(self::BODY, $body);
         return $this;
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Observer
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Observer
@@ -38,8 +30,10 @@ class Mage_Catalog_Model_Observer
             if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
                 Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
             }
+
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
+
         return $this;
     }
 
@@ -59,6 +53,7 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
         }
+
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
@@ -82,6 +77,7 @@ class Mage_Catalog_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -98,6 +94,7 @@ class Mage_Catalog_Model_Observer
             $store = $observer->getEvent()->getStore();
             Mage::getResourceModel('catalog/category_flat')->deleteStores($store->getId());
         }
+
         return $this;
     }
 
@@ -116,6 +113,7 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->move($categoryId, $prevParentId, $parentId);
         }
+
         return $this;
     }
 
@@ -155,6 +153,7 @@ class Mage_Catalog_Model_Observer
             $category = $observer->getEvent()->getCategory();
             Mage::getResourceModel('catalog/category_flat')->synchronize($category);
         }
+
         return $this;
     }
 
@@ -271,6 +270,7 @@ class Mage_Catalog_Model_Observer
         if (!is_object($attribute)) {
             return;
         }
+
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {

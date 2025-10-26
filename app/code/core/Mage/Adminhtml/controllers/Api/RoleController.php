@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml roles controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
@@ -88,6 +80,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             $breadCrumbTitle = $this->__('Add New Role');
             $this->_title($this->__('New Role'));
         }
+
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
@@ -121,6 +114,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -128,7 +122,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         try {
             Mage::getModel('api/roles')->load($rid)->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
@@ -154,6 +148,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -194,7 +189,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
             $rid = $role->getId();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been saved.'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
@@ -216,6 +211,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         } catch (Exception $e) {
             throw $e;
         }
+
         return true;
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle products Price indexer resource model
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
@@ -66,6 +58,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/price_indexer_idx');
         }
+
         return $this->getTable('bundle/price_indexer_tmp');
     }
 
@@ -79,6 +72,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/selection_indexer_idx');
         }
+
         return $this->getTable('bundle/selection_indexer_tmp');
     }
 
@@ -92,6 +86,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/option_indexer_idx');
         }
+
         return $this->getTable('bundle/option_indexer_tmp');
     }
 

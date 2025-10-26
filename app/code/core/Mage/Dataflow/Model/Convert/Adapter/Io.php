@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert IO adapter
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert_Adapter_Abstract
@@ -78,6 +70,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                             $ioConfig['path'] = rtrim($realPath, DS);
                         }
                     }
+
                     break;
                 default:
                     $ioConfig['path'] = rtrim($this->getVar('path'), '/');
@@ -87,6 +80,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($isError) {
                 return false;
             }
+
             try {
                 $this->_resource->open($ioConfig);
             } catch (Exception $e) {
@@ -94,6 +88,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                 Mage::throwException($message);
             }
         }
+
         return $this->_resource;
     }
 
@@ -152,8 +147,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($this->getVar('link')) {
                 $message .= Mage::helper('dataflow')->__('<a href="%s" target="_blank">Link</a>', $this->getVar('link'));
             }
+
             $this->addException($message);
         }
+
         return $this;
     }
 }

@@ -1,40 +1,37 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
-use Generator;
 use Mage;
 use Mage_Core_Model_Config;
-use Mage_Uploader_Helper_File;
-use PHPUnit\Framework\TestCase;
+use Mage_Uploader_Helper_File as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
 
-class FileTest extends TestCase
+final class FileTest extends OpenMageTest
 {
-    public Mage_Uploader_Helper_File $subject;
+    use UploaderTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
 
         /** @var Mage_Core_Model_Config $config */
         $config = Mage::getConfig();
         $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
-        $this->subject = Mage::helper('uploader/file');
+
+        self::$subject = Mage::helper('uploader/file');
     }
 
     /**
@@ -42,107 +39,50 @@ class FileTest extends TestCase
      * @param array<int, string> $expectedResult
      * @param string|array<int, string> $extensionsList
      *
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
-    }
-
-    public function provideGetMimeTypeFromExtensionListData(): Generator
-    {
-        yield 'string exists' => [
-            [
-                0 => 'application/vnd.lotus-1-2-3',
-            ],
-            '123',
-        ];
-        yield 'string not exists' => [
-            [
-                0 => 'application/octet-stream',
-            ],
-            'not-exists',
-        ];
-        yield 'array' => [
-            [
-                0 => 'application/vnd.lotus-1-2-3',
-                1 => 'application/octet-stream',
-                2 => 'application/octet-stream',
-            ],
-            [
-                '123',
-                'not-exists',
-                'test-new-node',
-            ],
-        ];
+        self::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetPostMaxSize(): void
     {
-        $this->assertIsString($this->subject->getPostMaxSize());
+        self::assertIsString(self::$subject->getPostMaxSize());
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetUploadMaxSize(): void
     {
-        $this->assertIsString($this->subject->getUploadMaxSize());
+        self::assertIsString(self::$subject->getUploadMaxSize());
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @dataProvider provideGetDataMaxSizeData
+     * @group Helper
      */
-    public function testGetDataMaxSize(): void
+    public function testGetDataMaxSize(string $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Uploader_Helper_File::class)
-            ->setMethods(['getPostMaxSize', 'getUploadMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
-        $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        $this->assertSame('1M', $mock->getDataMaxSize());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
     /**
      * @dataProvider provideGetDataMaxSizeInBytesData
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
-    public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
+    public function testGetDataMaxSizeInBytes(int $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Uploader_Helper_File::class)
-            ->setMethods(['getDataMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
-    }
-
-    public function provideGetDataMaxSizeInBytesData(): Generator
-    {
-        yield 'no unit' => [
-            1024,
-            '1024',
-        ];
-        yield 'kilobyte' => [
-            1024,
-            '1K',
-        ];
-        yield 'megabyte' => [
-            1048576,
-            '1M',
-        ];
-        yield 'gigabyte' => [
-            1073741824,
-            '1G',
-        ];
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Model_Carrier_Abstract
  *
- * @category   Mage
  * @package    Mage_Shipping
  *
  * @method $this setActiveFlag(bool $value)
@@ -72,13 +64,17 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected $_customizableContainerTypes = [];
 
     public const USA_COUNTRY_ID = 'US';
+
     public const CANADA_COUNTRY_ID = 'CA';
+
     public const MEXICO_COUNTRY_ID = 'MX';
 
     public const HANDLING_TYPE_PERCENT = 'P';
+
     public const HANDLING_TYPE_FIXED = 'F';
 
     public const HANDLING_ACTION_PERPACKAGE = 'P';
+
     public const HANDLING_ACTION_PERORDER = 'O';
 
     /**
@@ -113,6 +109,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($this->_code)) {
             return false;
         }
+
         $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfig($path, $this->getStore());
     }
@@ -128,6 +125,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($this->_code)) {
             return false;
         }
+
         $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfigFlag($path, $this->getStore());
     }
@@ -184,9 +182,11 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($containersAll)) {
             return [];
         }
-        if (empty($params)) {
+
+        if (!$params instanceof Varien_Object) {
             return $containersAll;
         }
+
         $containersFilter   = $this->getContainerTypesFilter();
         $containersFiltered = [];
         $method             = $params->getMethod();
@@ -196,6 +196,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($containersFilter)) {
             return $containersAll;
         }
+
         if (!$params || !$method || !$countryShipper || !$countryRecipient) {
             return $containersAll;
         }
@@ -260,6 +261,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             if ($this->getConfigData('specificcountry')) {
                 $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             }
+
             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
                 return $this;
             } elseif ($showMethod && (!$availableCountries || ($availableCountries
@@ -278,6 +280,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                 return false;
             }
         }
+
         return $this;
     }
 
@@ -355,6 +358,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (!$freeMethod) {
             return;
         }
+
         $freeRateId = false;
 
         if (is_object($this->_result)) {
@@ -369,6 +373,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if ($freeRateId === false) {
             return;
         }
+
         $price = null;
         if ($request->getFreeMethodWeight() > 0) {
             $this->_setFreeMethodRequest($freeMethod);
@@ -378,6 +383,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                 if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
                     $price = $rates[0]->getPrice();
                 }
+
                 if (count($rates) > 1) {
                     foreach ($rates as $rate) {
                         if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method
@@ -433,6 +439,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
         }
+
         $handlingAction = $this->getConfigData('handling_action');
         if (!$handlingAction) {
             $handlingAction = self::HANDLING_ACTION_PERORDER;
@@ -480,7 +487,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Return weight in pounds
      *
-     *  @param integer $weight Weight in someone measure
+     *  @param int $weight Weight in someone measure
      *  @return float Weight in pounds
      */
     public function convertWeightToLbs($weight)
@@ -504,8 +511,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight / $maxPackageWeight);
-            $weight = $weight / $this->_numBoxes;
+            $weight /= $this->_numBoxes;
         }
+
         return $weight;
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Flat resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_Db_Abstract
@@ -69,6 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         } else {
             $this->_storeId = (int) Mage::app()->getStore($store)->getId();
         }
+
         return $this;
     }
 
@@ -83,6 +76,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if ($store === null) {
             $store = $this->getStoreId();
         }
+
         return $this->getTable(['catalog/product_flat', $store]);
     }
 
@@ -110,6 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $columns = [$attributeCode => $attributeCode];
 
         $attributeIndex = sprintf('%s_value', $attributeCode);
@@ -132,10 +127,12 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $attributeIndex = sprintf('%s_value', $attributeCode);
         if (isset($describe[$attributeIndex])) {
             return $attributeIndex;
         }
+
         return $attributeCode;
     }
 
@@ -235,10 +232,11 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }
+
         return $this->_isBuilt[$storeId];
     }
 }

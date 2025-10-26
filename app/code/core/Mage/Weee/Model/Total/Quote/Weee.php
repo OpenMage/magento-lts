@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Weee calculation model
  *
- * @category   Mage
  * @package    Mage_Weee
  */
 class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_Tax
@@ -84,12 +76,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             if ($item->getParentItemId()) {
                 continue;
             }
+
             $this->_resetItemData($item);
             if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                 foreach ($item->getChildren() as $child) {
                     $this->_resetItemData($child);
                     $this->_process($address, $child);
                 }
+
                 $this->_recalculateParent($item);
             } else {
                 $this->_process($address, $item);
@@ -274,6 +268,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         if ($this->_helper->isDiscounted($this->_store)) {
             Mage::helper('salesrule')->addItemDiscountPrices($item, $baseValue, $value);
         }
+
         return $this;
     }
 
@@ -296,6 +291,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 ->unsPriceInclTax()
                 ->unsBasePriceInclTax();
         }
+
         if ($this->_helper->isTaxable($this->_store)
             && !$this->_helper->isTaxIncluded($this->_store) && $rowValue
         ) {
@@ -306,6 +302,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     ->setBaseExtraRowTaxableAmount($baseRowValue);
             }
         }
+
         return $this;
     }
 
@@ -327,6 +324,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $address->setExtraTaxAmount($address->getExtraTaxAmount() + $rowValue);
             $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() + $baseRowValue);
         }
+
         return $this;
     }
 
@@ -399,6 +397,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         if (!$this->_helper->isEnabled($store)) {
             return $this;
         }
+
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');

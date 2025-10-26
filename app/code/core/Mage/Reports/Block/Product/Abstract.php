@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports Recently Products Abstract Block
  *
- * @category   Mage
  * @package    Mage_Reports
  *
  * @method int getCustomerId()
@@ -70,6 +62,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if ($this->hasData('page_size')) {
             return $this->getData('page_size');
         }
+
         return 5;
     }
 
@@ -143,6 +136,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             } else {
                 $this->_collection->addFilterByIds($ids);
             }
+
             $this->_collection->setAddedAtOrder();
             if ($this-> _useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
@@ -177,6 +171,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if (!$this->_getModel()->getCount()) {
             return 0;
         }
+
         return $this->getItemsCollection()->count();
     }
 

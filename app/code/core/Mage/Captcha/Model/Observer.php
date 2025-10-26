@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Captcha Observer
  *
- * @category   Mage
  * @package    Mage_Captcha
  */
 class Mage_Captcha_Model_Observer
@@ -40,6 +32,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
             }
         }
+
         return $this;
     }
 
@@ -67,6 +60,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect($url);
             }
         }
+
         $captchaModel->logAttempt($login);
         return $this;
     }
@@ -89,6 +83,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/create'));
             }
         }
+
         return $this;
     }
 
@@ -112,6 +107,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -136,6 +132,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -157,6 +154,7 @@ class Mage_Captcha_Model_Observer
                 Mage::throwException(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
             }
         }
+
         $captchaModel->logAttempt($login);
         return $this;
     }
@@ -195,6 +193,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -249,6 +248,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -299,6 +299,7 @@ class Mage_Captcha_Model_Observer
                     ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
             }
         }
+
         return $this;
     }
 
@@ -324,9 +325,11 @@ class Mage_Captcha_Model_Observer
                 if ($catId !== null) {
                     $id .= '/cat_id/' . (int) $catId;
                 }
+
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
             }
         }
+
         return $this;
     }
 }

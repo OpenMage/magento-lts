@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice default handler
  *
- * @category   Mage
  * @package    Mage_Api
  */
 abstract class Mage_Api_Model_Server_Handler_Abstract
@@ -42,6 +34,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }
+
         return true;
     }
 
@@ -101,6 +94,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $this->_getSession()->setIsInstaLogin();
             $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
         }
+
         return $this;
     }
 
@@ -134,6 +128,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $this->_fault('unknown');
             return;
         }
+
         $this->_getServer()->getAdapter()->fault(
             $faults[$faultName]['code'],
             (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
@@ -197,6 +192,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if ($this->_resourceSuffix !== null) {
             return $resource . $this->_resourceSuffix;
         }
+
         return $resource;
     }
 
@@ -204,7 +200,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Login user and Retrieve session id
      *
      * @param string $username
-     * @param string|null $apiKey
+     * @param string $apiKey
      * @return stdClass|string|void
      */
     public function login($username, $apiKey = null)
@@ -220,10 +216,11 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         try {
             $this->_startSession();
             $this->_getSession()->login($username, $apiKey);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('access_denied');
             return;
         }
+
         return $this->_getSession()->getSessionId();
     }
 
@@ -245,7 +242,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return;
         }
 
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');
@@ -295,7 +292,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
                     $model->setResourceConfig($resources->$resourceName);
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
 
@@ -307,6 +304,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     $result = call_user_func_array([&$model, $method], $args);
                 }
+
                 return $this->processingMethodResult($result);
             } else {
                 throw new Mage_Api_Exception('resource_path_not_callable');
@@ -356,7 +354,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $apiPath = $call[0];
             $args    = $call[1] ?? [];
 
-            list($resourceName, $methodName) = explode('.', $apiPath);
+            [$resourceName, $methodName] = explode('.', $apiPath);
 
             if (empty($resourceName) || empty($methodName)) {
                 $result[] = $this->_faultAsArray('resource_path_invalid');
@@ -418,7 +416,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
                 try {
                     $model = Mage::getModel($modelName);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     throw new Mage_Api_Exception('resource_path_not_callable');
                 }
 
@@ -430,6 +428,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                     } else {
                         $callResult = call_user_func_array([&$model, $method], $args);
                     }
+
                     $result[] = $this->processingMethodResult($callResult);
                 } else {
                     throw new Mage_Api_Exception('resource_path_not_callable');
@@ -488,6 +487,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 if (isset($method->acl) && !$this->_isAllowed((string) $method->acl)) {
                     continue;
                 }
+
                 $methodAliases = [];
                 if (isset($resourcesAlias[$resourceName])) {
                     foreach ($resourcesAlias[$resourceName] as $alias) {

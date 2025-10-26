@@ -1,29 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Model_Authorizenet_Cards
 {
     public const CARDS_NAMESPACE = 'authorize_cards';
+
     public const CARD_ID_KEY = 'id';
+
     public const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
+
     public const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
+
     public const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
 
     /**
@@ -85,6 +81,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             $this->_cards[$cardId] = $card->getData();
             $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, $this->_cards);
         }
+
         return $this;
     }
 
@@ -99,6 +96,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
         if (isset($this->_cards[$cardId])) {
             return new Varien_Object($this->_cards[$cardId]);
         }
+
         return false;
     }
 
@@ -114,6 +112,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
         foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
+
         return $_cards;
     }
 
@@ -181,6 +180,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             throw new Exception('Payment instance is not set');
         }
     }
+
     /**
      * Return total for cards data fields
      *
@@ -195,6 +195,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
                 $amount += $card[$key];
             }
         }
+
         return $amount;
     }
 }

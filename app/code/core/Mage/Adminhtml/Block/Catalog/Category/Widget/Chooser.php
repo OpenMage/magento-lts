@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category chooser for Wysiwyg CMS widget
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtml_Block_Catalog_Category_Tree
@@ -85,6 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             if (isset($value[0]) && isset($value[1]) && $value[0] == 'category') {
                 $categoryId = $value[1];
             }
+
             if ($categoryId) {
                 $label = $this->_getModelAttributeByEntityId('catalog/category', 'name', $categoryId);
                 $chooser->setLabel($label);
@@ -114,8 +107,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if ($model) {
             $result = $model->getData($attributeName);
         }
+
         return $result;
     }
+
     /**
      * Category Tree node onClick listener js function
      *
@@ -126,6 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if ($this->getData('node_click_listener')) {
             return $this->getData('node_click_listener');
         }
+
         if ($this->getUseMassaction()) {
             $js = '
                 function (node, e) {
@@ -144,6 +140,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
                 }
             ';
         }
+
         return $js;
     }
 
@@ -160,6 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if (in_array($node->getId(), $this->getSelectedCategories())) {
             $item['checked'] = true;
         }
+
         $item['is_anchor'] = (int) $node->getIsAnchor();
         $item['url_key'] = $node->getData('url_key');
         return $item;

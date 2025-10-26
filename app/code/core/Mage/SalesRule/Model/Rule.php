@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping Cart Rule data model
  *
- * @category   Mage
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
@@ -87,17 +79,24 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Coupon types
      */
     public const COUPON_TYPE_NO_COUPON = 1;
+
     public const COUPON_TYPE_SPECIFIC  = 2;
+
     public const COUPON_TYPE_AUTO      = 3;
 
     /**
      * Rule type actions
      */
     public const TO_PERCENT_ACTION = 'to_percent';
+
     public const BY_PERCENT_ACTION = 'by_percent';
+
     public const TO_FIXED_ACTION   = 'to_fixed';
+
     public const BY_FIXED_ACTION   = 'by_fixed';
+
     public const CART_FIXED_ACTION = 'cart_fixed';
+
     public const BUY_X_GET_Y_ACTION = 'buy_x_get_y';
 
     /**
@@ -191,6 +190,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($this->getUsesPerCoupon() !== null && !$this->getUseAutoGeneration()) {
             $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
         }
+
         return parent::_afterLoad();
     }
 
@@ -268,6 +268,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if (!self::$_couponCodeGenerator) {
             return Mage::getSingleton('salesrule/coupon_codegenerator', ['length' => 16]);
         }
+
         return self::$_couponCodeGenerator;
     }
 
@@ -291,6 +292,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             $this->_primaryCoupon->loadPrimaryByRule($this->getId());
             $this->_primaryCoupon->setRule($this)->setIsPrimary(true);
         }
+
         return $this->_primaryCoupon;
     }
 
@@ -305,6 +307,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             $customerGroupIds = $this->_getResource()->getCustomerGroupIds($this->getId());
             $this->setData('customer_group_ids', (array) $customerGroupIds);
         }
+
         return $this->_getData('customer_group_ids');
     }
 
@@ -356,6 +359,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             $collection->addRuleToFilter($this);
             $this->_coupons = $collection->getItems();
         }
+
         return $this->_coupons;
     }
 
@@ -381,6 +385,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                 $this->_couponTypes[self::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
             }
         }
+
         return $this->_couponTypes;
     }
 
@@ -397,9 +402,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($this->getCouponType() == self::COUPON_TYPE_NO_COUPON) {
             return null;
         }
+
         if ($this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
             return $this->getPrimaryCoupon();
         }
+
         $coupon = Mage::getModel('salesrule/coupon');
         $coupon->setRule($this)
             ->setIsPrimary(false)
@@ -421,17 +428,20 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     if ($e instanceof Mage_Core_Exception || $coupon->getId()) {
                         throw $e;
                     }
+
                     $coupon->setCode(
                         $couponCode .
                         self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', rand(0, 9999)),
+                        sprintf('%04u', random_int(0, 9999)),
                     );
                     continue;
                 }
+
                 $ok = true;
                 break;
             }
         }
+
         if (!$ok) {
             Mage::throwException(Mage::helper('salesrule')->__('Can\'t acquire coupon.'));
         }
@@ -488,6 +498,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($address instanceof Mage_Sales_Model_Quote_Address) {
             return $address->getId();
         }
+
         return $address;
     }
 

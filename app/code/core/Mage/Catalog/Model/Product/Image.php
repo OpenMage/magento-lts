@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product link model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method $this setImageOpacity(int $value)
@@ -42,6 +34,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var bool
      */
     protected $_keepAspectRatio  = true;
+
     protected $_keepFrame        = true;
 
     /**
@@ -64,6 +57,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_backgroundColor  = [255, 255, 255];
+
     protected $_backgroundColorStr = 'ffffff';
 
     /**
@@ -71,6 +65,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var string
      */
     protected $_baseFile;
+
     protected $_isBaseFilePlaceholder;
 
     /**
@@ -87,12 +82,17 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var string e.g. "small_image"
      */
     protected $_destinationSubdir;
+
     protected $_angle;
 
     protected $_watermarkFile;
+
     protected $_watermarkPosition;
+
     protected $_watermarkWidth;
+
     protected $_watermarkHeigth;
+
     protected $_watermarkImageOpacity = 70;
 
     /**
@@ -215,11 +215,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function setSize($size)
     {
         // determine width and height from string
-        list($width, $height) = explode('x', strtolower($size), 2);
+        [$width, $height] = explode('x', strtolower($size), 2);
         foreach (['width', 'height'] as $wh) {
-            $$wh  = (int) $$wh;
-            if (empty($$wh)) {
-                $$wh = null;
+            ${$wh}  = (int) ${$wh};
+            if (empty(${$wh})) {
+                ${$wh} = null;
             }
         }
 
@@ -263,6 +263,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if (function_exists('memory_get_usage')) {
             return memory_get_usage();
         }
+
         return 0;
     }
 
@@ -287,15 +288,18 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if ($imageInfo === false) {
             return 0;
         }
+
         if (!isset($imageInfo['channels'])) {
             // if there is no info about this parameter lets set it for maximum
             $imageInfo['channels'] = 4;
         }
+
         if (!isset($imageInfo['bits'])) {
             // if there is no info about this parameter lets set it for maximum
             $imageInfo['bits'] = 8;
         }
-        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + pow(2, 16)) * 1.65);
+
+        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + 2 ** 16) * 1.65);
     }
 
     /**
@@ -314,7 +318,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 $result[] = sprintf('%02s', dechex($value));
             }
         }
-        return implode($result);
+
+        return implode('', $result);
     }
 
     /**
@@ -327,23 +332,26 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (strpos($file, '/', 0) !== 0)) {
+        if (($file) && (!str_starts_with($file, '/'))) {
             $file = '/' . $file;
         }
 
         if (empty(self::$_baseMediaPath)) {
             self::$_baseMediaPath = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
         }
+
         $baseDir = self::$_baseMediaPath;
 
         if ($file == '/no_selection') {
             $file = null;
         }
+
         if ($file) {
             if ((!$this->_fileExists($baseDir . $file))) {
                 $file = null;
             }
         }
+
         if (!$file) {
             // check if placeholder defined in config
             $isConfigPlaceholder = Mage::getStoreConfig("catalog/placeholder/{$this->getDestinationSubdir()}_placeholder");
@@ -364,12 +372,13 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                     }
                 }
             }
+
             $this->_isBaseFilePlaceholder = true;
         }
 
         $baseFile = $baseDir . $file;
 
-        if ((!$file) || (!file_exists($baseFile))) {
+        if (!file_exists($baseFile)) {
             throw new Exception(Mage::helper('catalog')->__('Image file was not found.'));
         }
 
@@ -448,6 +457,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if (!$this->_processor) {
             $this->_processor = Mage::getModel('varien/image', $this->getBaseFile());
         }
+
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
         $this->_processor->keepFrame($this->_keepFrame);
         $this->_processor->keepTransparency($this->_keepTransparency);
@@ -466,6 +476,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if (is_null($this->getWidth()) && is_null($this->getHeight())) {
             return $this;
         }
+
         $this->getImageProcessor()->resize($this->_width, $this->_height);
         return $this;
     }
@@ -522,15 +533,19 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if ($position) {
             $this->setWatermarkPosition($position);
         }
+
         if ($size) {
             $this->setWatermarkSize($size);
         }
+
         if ($width) {
             $this->setWatermarkWidth($width);
         }
+
         if ($heigth) {
             $this->setWatermarkHeigth($heigth);
         }
+
         if ($imageOpacity) {
             $this->setImageOpacity($imageOpacity);
         }
@@ -713,6 +728,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $this->setWatermarkWidth($size['width'])
                 ->setWatermarkHeigth($size['heigth']);
         }
+
         return $this;
     }
 

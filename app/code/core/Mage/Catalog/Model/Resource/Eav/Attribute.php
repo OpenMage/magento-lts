@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog attribute model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
@@ -65,16 +57,20 @@
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
     public const SCOPE_STORE                           = 0;
+
     public const SCOPE_GLOBAL                          = 1;
+
     public const SCOPE_WEBSITE                         = 2;
 
     public const MODULE_NAME                           = 'Mage_Catalog';
+
     public const ENTITY                                = 'catalog_eav_attribute';
 
     /**
      * @var string
      */
     protected $_eventPrefix                     = 'catalog_entity_attribute';
+
     /**
      * @var string
      */
@@ -105,22 +101,26 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (!isset($this->_data['is_global'])) {
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
+
             if (($this->_data['is_global'] != $this->_origData['is_global'])
                 && $this->_getResource()->isUsedBySuperProducts($this)
             ) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
+
         if ($this->getFrontendInput() == 'price') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('catalog/product_attribute_backend_price');
             }
         }
+
         if ($this->getFrontendInput() == 'textarea') {
             if ($this->getIsWysiwygEnabled()) {
                 $this->setIsHtmlAllowedOnFront(1);
             }
         }
+
         return parent::_beforeSave();
     }
 
@@ -149,6 +149,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         if ($this->_getResource()->isUsedBySuperProducts($this)) {
             Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
         }
+
         Mage::getSingleton('index/indexer')->logEvent(
             $this,
             self::ENTITY,
@@ -240,6 +241,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (is_array($this->getData('apply_to'))) {
                 return $this->getData('apply_to');
             }
+
             return explode(',', $this->getData('apply_to'));
         } else {
             return [];
@@ -259,6 +261,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 return $this->_getDefaultSourceModel();
             }
         }
+
         return $model;
     }
 
@@ -315,10 +318,11 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (is_null($storeId)) {
                 $storeId = Mage::app()->getStore()->getId();
             }
+
             $attributeLabels = [];
             $attributes = Mage::getResourceSingleton('catalog/product')->getAttributesByCode();
             foreach ($attributes as $attribute) {
-                if (strlen($attribute->getData('frontend_label')) > 0) {
+                if ((string) $attribute->getData('frontend_label') !== '') {
                     $attributeLabels[] = $attribute->getData('frontend_label');
                 }
             }
@@ -378,6 +382,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         if (!$this->isIndexable()) {
             return false;
         }
+
         if ($this->getBackendType() == 'decimal') {
             return 'decimal';
         }

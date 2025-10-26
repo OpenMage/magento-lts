@@ -1,24 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Widget
@@ -74,6 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
                         'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                        'class'     => 'reset',
                     ]),
             );
 
@@ -96,10 +88,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
                             'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-                            'class'     => 'save',
+                            'class'     => 'save continue',
                         ]),
                 );
             }
+
             if ($this->getProduct()->isDeleteable()) {
                 $this->setChild(
                     'delete_button',
@@ -116,11 +109,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->setChild(
                     'duplicate_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
-                        'class'     => 'add',
-                    ]),
+                        ->setData([
+                            'label'     => Mage::helper('catalog')->__('Duplicate'),
+                            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
+                            'class'     => 'add duplicate',
+                        ]),
                 );
             }
         }
@@ -216,6 +209,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
             $setId = $this->getRequest()->getParam('set', null);
         }
+
         return $setId;
     }
 
@@ -251,9 +245,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         } else {
             $header = Mage::helper('catalog')->__('New Product');
         }
+
         if ($setName = $this->getAttributeSetName()) {
             $header .= ' (' . $setName . ')';
         }
+
         return $header;
     }
 
@@ -267,6 +263,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 ->load($setId);
             return $set->getAttributeSetName();
         }
+
         return '';
     }
 

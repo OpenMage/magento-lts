@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget model for different purposes
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Model_Widget extends Varien_Object
@@ -45,6 +37,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 );
             }
         }
+
         return $xmlConfig;
     }
 
@@ -60,6 +53,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         if (is_array($elements) && isset($elements[0]) && $elements[0] instanceof Varien_Simplexml_Element) {
             return $elements[0];
         }
+
         return null;
     }
 
@@ -118,6 +112,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             }
                         }
                     }
+
                     $data['values'] = $values;
 
                     // prepare helper block object
@@ -126,9 +121,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
                         if (isset($data['helper_block']['data']) && is_array($data['helper_block']['data'])) {
                             $helper->addData($data['helper_block']['data']);
                         }
+
                         if (isset($data['helper_block']['type'])) {
                             $helper->setType($data['helper_block']['type']);
                         }
+
                         $data['helper_block'] = $helper;
                     }
 
@@ -137,6 +134,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
+
         uasort($newParams, [$this, '_sortParameters']);
         $object->setData('parameters', $newParams);
 
@@ -155,7 +153,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = clone $widgets;
 
         // filter widgets by params
-        if (is_array($filters) && count($filters) > 0) {
+        if (is_array($filters) && $filters !== []) {
             foreach ($widgets as $code => $widget) {
                 try {
                     $reflection = new ReflectionObject($widget);
@@ -164,7 +162,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             throw new Exception();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     unset($result->{$code});
                     continue;
                 }
@@ -196,9 +194,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     'description'   => $helper->__((string) $widget->description),
                 ];
             }
+
             usort($result, [$this, '_sortWidgets']);
             $this->setData('widgets_array', $result);
         }
+
         return $this->_getData('widgets_array');
     }
 
@@ -225,10 +225,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $value = $parameters[$name]->getValue();
                 }
             }
+
             if ($value) {
                 $directive .= sprintf(' %s="%s"', $name, $value);
             }
         }
+
         $directive .= '}}';
 
         if ($asIs) {
@@ -242,6 +244,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
+
         return sprintf(
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
@@ -265,6 +268,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
+
         return $result;
     }
 
@@ -300,8 +304,6 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortParameters($a, $b)
     {
-        $aOrder = (int) $a->getData('sort_order');
-        $bOrder = (int) $b->getData('sort_order');
-        return $aOrder < $bOrder ? -1 : ($aOrder > $bOrder ? 1 : 0);
+        return (int) $a->getData('sort_order') <=> (int) $b->getData('sort_order');
     }
 }

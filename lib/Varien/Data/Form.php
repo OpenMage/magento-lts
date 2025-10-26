@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Data form
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method string getHtmlIdPrefix()
@@ -44,7 +36,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     protected $_elementsIndex;
 
     protected static $_defaultElementRenderer;
+
     protected static $_defaultFieldsetRenderer;
+
     protected static $_defaultFieldsetElementRenderer;
 
     /**
@@ -151,6 +145,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($this->_elementIdExists($elementId)) {
             throw new Exception('Element with id "' . $elementId . '" already exists');
         }
+
         return true;
     }
 
@@ -171,6 +166,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($this->_elementIdExists($elementId)) {
             return $this->_elementsIndex[$elementId];
         }
+
         return null;
     }
 
@@ -187,6 +183,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
                 $element->setValue(null);
             }
         }
+
         return $this;
     }
 
@@ -199,11 +196,13 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if (!is_array($values)) {
             return $this;
         }
+
         foreach ($values as $elementId => $value) {
             if ($element = $this->getElement($elementId)) {
                 $element->setValue($value);
             }
         }
+
         return $this;
     }
 
@@ -221,6 +220,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
                 $element->setName($this->addSuffixToName($name, $suffix));
             }
         }
+
         return $this;
     }
 
@@ -234,6 +234,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if (!$name) {
             return $suffix;
         }
+
         $vars = explode('[', $name);
         $newName = $suffix;
         foreach ($vars as $index => $value) {
@@ -242,6 +243,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
                 $newName .= ']';
             }
         }
+
         return $newName;
     }
 
@@ -254,6 +256,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($this->_elementIdExists($elementId)) {
             unset($this->_elementsIndex[$elementId]);
         }
+
         return $this;
     }
 
@@ -288,6 +291,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
             if (strtolower((string) $this->getData('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
+
             $html .= '</div>';
         }
 
@@ -298,6 +302,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer) {
             $html .= '</form>';
         }
+
         Varien_Profiler::stop('form/toHtml');
         return $html;
     }

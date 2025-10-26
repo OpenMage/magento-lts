@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales observer
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Observer
@@ -32,11 +24,10 @@ class Mage_Sales_Model_Observer
     /**
      * Clean expired quotes (cron process)
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function cleanExpiredQuotes($schedule)
+    public function cleanExpiredQuotes()
     {
         Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
@@ -111,6 +102,7 @@ class Mage_Sales_Model_Observer
         if (is_numeric($product)) {
             $product = Mage::getModel('catalog/product')->load($product);
         }
+
         if ($product instanceof Mage_Catalog_Model_Product) {
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
                 ->getChildrenIds($product->getId(), false);
@@ -156,6 +148,7 @@ class Mage_Sales_Model_Observer
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             return $this;
         }
+
         $productId  = $observer->getEvent()->getProductId();
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($productId);
 
@@ -165,10 +158,9 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales order report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
-    public function aggregateSalesReportOrderData($schedule)
+    public function aggregateSalesReportOrderData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -181,11 +173,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales shipment report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportShipmentData($schedule)
+    public function aggregateSalesReportShipmentData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -198,11 +189,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales invoiced report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportInvoicedData($schedule)
+    public function aggregateSalesReportInvoicedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -215,11 +205,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales refunded report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportRefundedData($schedule)
+    public function aggregateSalesReportRefundedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -232,11 +221,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh bestsellers report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportBestsellersData($schedule)
+    public function aggregateSalesReportBestsellersData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -286,6 +274,7 @@ class Mage_Sales_Model_Observer
         if (!($methodInstance instanceof Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract)) {
             return;
         }
+
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/use')) {
             $observer->getEvent()->getResult()->isAvailable = false;
         }
@@ -384,15 +373,10 @@ class Mage_Sales_Model_Observer
     protected function _getVatRequiredSalesAddress($salesModel, $store = null)
     {
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($store);
-        $requiredAddress = null;
-        switch ($configAddressType) {
-            case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                $requiredAddress = $salesModel->getShippingAddress();
-                break;
-            default:
-                $requiredAddress = $salesModel->getBillingAddress();
-        }
-        return $requiredAddress;
+        return match ($configAddressType) {
+            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $salesModel->getShippingAddress(),
+            default => $salesModel->getBillingAddress(),
+        };
     }
 
     /**
@@ -404,15 +388,10 @@ class Mage_Sales_Model_Observer
     protected function _getVatRequiredCustomerAddress(Mage_Customer_Model_Customer $customer, $store = null)
     {
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($store);
-        $requiredAddress = null;
-        switch ($configAddressType) {
-            case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                $requiredAddress = $customer->getDefaultShipping();
-                break;
-            default:
-                $requiredAddress = $customer->getDefaultBilling();
-        }
-        return $requiredAddress;
+        return match ($configAddressType) {
+            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $customer->getDefaultShipping(),
+            default => $customer->getDefaultBilling(),
+        };
     }
 
     /**

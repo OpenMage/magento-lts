@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Fields Validator
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource_Validator
@@ -63,6 +55,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!isset($options['resource']) || !$options['resource'] instanceof Mage_Api2_Model_Resource) {
             throw new Exception("Passed parameter 'resource' is wrong.");
         }
+
         $this->_resource = $options['resource'];
 
         $validationConfig = $this->_resource->getConfig()->getValidationConfig(
@@ -72,6 +65,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!is_array($validationConfig)) {
             $validationConfig = [];
         }
+
         $this->_buildValidatorsChain($validationConfig);
     }
 
@@ -92,10 +86,12 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                         $this->_requiredFields[] = $field;
                         continue;
                     }
+
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
                         throw new Exception("Validator type is not set for {$validatorName}");
                     }
+
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
                         !empty($validatorConfig['options']) ? $validatorConfig['options'] : [],
@@ -104,9 +100,11 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     if (isset($validatorConfig['message'])) {
                         $validator->setMessage($validatorConfig['message']);
                     }
+
                     // add to list of validators
                     $chainForOneField->addValidator($validator);
                 }
+
                 $this->_validators[$field] = $chainForOneField;
             }
         }
@@ -127,6 +125,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!class_exists($validatorClass)) {
             throw new Exception("Validator {$type} is not exist");
         }
+
         return new $validatorClass($options);
     }
 

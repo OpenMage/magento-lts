@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Products Observer
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Observer
@@ -56,18 +48,22 @@ class Mage_Downloadable_Model_Observer
             //order not saved in the database
             return $this;
         }
+
         $product = $orderItem->getProduct();
         if ($product && $product->getTypeId() != Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
             return $this;
         }
+
         if (Mage::getModel('downloadable/link_purchased')->load($orderItem->getId(), 'order_item_id')->getId()) {
             return $this;
         }
+
         if (!$product) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($orderItem->getOrder()->getStoreId())
                 ->load($orderItem->getProductId());
         }
+
         if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
             /** @var Mage_Downloadable_Model_Product_Type $productType */
             $productType = $product->getTypeInstance(true);
@@ -144,6 +140,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -223,6 +220,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         if (!$downloadableItemsStatuses && $status) {
             foreach ($order->getAllItems() as $item) {
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
@@ -246,6 +244,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 

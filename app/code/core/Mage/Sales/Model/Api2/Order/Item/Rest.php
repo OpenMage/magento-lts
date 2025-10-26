@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract API2 class for order items rest
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Api2_Order_Item
@@ -41,8 +33,10 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
             $itemData['status'] = $item->getStatus();
             $data[] = $itemData;
         }
+
         return $data;
     }
+
     /**
      * Retrieve order items collection
      *
@@ -75,6 +69,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
         if (!$order->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $order;
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Express Checkout Controller
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
@@ -194,6 +186,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_forward('placeOrder');
             return;
         }
+
         try {
             $this->_getCheckoutSession()->unsPaypalTransactionData();
             $this->_checkout = $this->_initCheckout();
@@ -212,6 +205,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
             Mage::logException($e);
         }
+
         $this->_redirect('checkout/cart');
     }
 
@@ -231,6 +225,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             if ($reviewBlock->getChild('shipping_method')) {
                 $reviewBlock->getChild('shipping_method')->setQuote($this->_getQuote());
             }
+
             $this->renderLayout();
             return;
         } catch (Mage_Core_Exception $e) {
@@ -241,6 +236,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             );
             Mage::logException($e);
         }
+
         $this->_redirect('checkout/cart');
     }
 
@@ -279,7 +275,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
-        if ($isAjax) {
+
+        if (isset($isAjax) && $isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
                 . Mage::getUrl('*/*/review') . ';</script>');
         } else {
@@ -307,6 +304,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
+
         $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
             . Mage::getUrl('*/*/review') . ';</script>');
     }
@@ -355,6 +353,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 foreach ($profiles as $profile) {
                     $ids[] = $profile->getId();
                 }
+
                 $session->setLastRecurringProfileIds($ids);
             }
 
@@ -364,6 +363,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->getResponse()->setRedirect($url);
                 return;
             }
+
             $this->_initToken(false); // no need in token anymore
             $this->_redirect('checkout/onepage/success');
             return;
@@ -410,6 +410,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 } else {
                     $this->_redirectSameToken();
                 }
+
                 break;
             default:
                 $this->_redirectToCartAndShowError($exception->getUserMessage());
@@ -478,12 +479,15 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));
                 }
+
                 $this->_getSession()->unsExpressCheckoutToken();
             } else {
                 $this->_getSession()->setExpressCheckoutToken($setToken);
             }
+
             return $this;
         }
+
         if ($setToken = $this->getRequest()->getParam('token')) {
             if ($setToken !== $this->_getSession()->getExpressCheckoutToken()) {
                 Mage::throwException($this->__('Wrong PayPal Express Checkout Token specified.'));
@@ -491,6 +495,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         } else {
             $setToken = $this->_getSession()->getExpressCheckoutToken();
         }
+
         return $setToken;
     }
 
@@ -524,6 +529,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         if (!$this->_quote) {
             $this->_quote = $this->_getCheckoutSession()->getQuote();
         }
+
         return $this->_quote;
     }
 

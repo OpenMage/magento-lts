@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Shared Wishlist Rss Block
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
@@ -52,12 +44,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($this->_wishlist->getCustomerId() != $this->_getCustomer()->getId()) {
                     $this->_wishlist->unsetData();
                 }
-            } else {
-                if ($this->_getCustomer()->getId()) {
-                    $this->_wishlist->loadByCustomer($this->_getCustomer());
-                }
+            } elseif ($this->_getCustomer()->getId()) {
+                $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -152,6 +143,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($product->getAllowedPriceInRss()) {
                     $description .= $this->getPriceHtml($product, true);
                 }
+
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')

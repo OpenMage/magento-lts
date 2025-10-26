@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product link model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
@@ -32,8 +24,11 @@
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
     public const LINK_TYPE_RELATED     = 1;
+
     public const LINK_TYPE_GROUPED     = 3;
+
     public const LINK_TYPE_UPSELL      = 4;
+
     public const LINK_TYPE_CROSSSELL   = 5;
 
     protected $_attributeCollection = null;
@@ -122,6 +117,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (is_null($type)) {
             $type = $this->getLinkTypeId();
         }
+
         return $this->_getResource()->getAttributesByType($type);
     }
 
@@ -137,14 +133,17 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_RELATED);
         }
+
         $data = $product->getUpSellLinkData();
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_UPSELL);
         }
+
         $data = $product->getCrossSellLinkData();
         if (!is_null($data)) {
             $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_CROSSSELL);
         }
+
         return $this;
     }
 
@@ -160,6 +159,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         if (!is_null($data)) {
             $this->_getResource()->saveGroupedLinks($product, $data, self::LINK_TYPE_GROUPED);
         }
+
         return $this;
     }
 }

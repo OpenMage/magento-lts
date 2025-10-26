@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product attribute controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_Controller_Action
@@ -71,6 +63,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 )
             ;
         }
+
         return $this;
     }
 
@@ -187,6 +180,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 }
             }
         }
+
         return $data;
     }
 
@@ -225,6 +219,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                     foreach ($validatorInputType->getMessages() as $message) {
                         $session->addError($message);
                     }
+
                     $this->_redirect('*/*/edit', ['attribute_id' => $id, '_current' => true]);
                     return;
                 }
@@ -266,9 +261,11 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             if (!isset($data['is_configurable'])) {
                 $data['is_configurable'] = 0;
             }
+
             if (!isset($data['is_filterable'])) {
                 $data['is_filterable'] = 0;
             }
+
             if (!isset($data['is_filterable_in_search'])) {
                 $data['is_filterable_in_search'] = 0;
             }
@@ -328,6 +325,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 } else {
                     $this->_redirect('*/*/', []);
                 }
+
                 return;
             } catch (Exception $e) {
                 $session->addError($e->getMessage());
@@ -336,6 +334,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -367,6 +366,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('catalog')->__('Unable to find an attribute to delete.'),
         );

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * File Object
  * *
- * @category   Varien
  * @package    Varien_File
  */
 
@@ -27,9 +19,14 @@ require_once('Varien/Directory/IFactory.php');
 class Varien_File_Object extends SplFileObject implements IFactory
 {
     protected $_filename;
+
     protected $_path;
+
     protected $_filter;
-    protected $_isCorrect = true; # - pass or not filter checking
+
+    protected $_isCorrect = true;
+
+    # - pass or not filter checking
     protected $filtered;
 
     /**
@@ -44,6 +41,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
         $this->_path = $path;
         $this->_filename = basename($path);
     }
+
     /**
      * add file name to array
      *
@@ -54,6 +52,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         $this->getFileName($files);
     }
+
     /**
      * add file name to array
      *
@@ -66,9 +65,11 @@ class Varien_File_Object extends SplFileObject implements IFactory
             if ($files === null) {
                 return $this->_filename;
             }
+
             $files[] = $this->_filename;
         }
     }
+
     /**
      * add file path to array
      *
@@ -81,6 +82,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             $paths[] = (string) $this->_path;
         }
     }
+
     /**
      * add file path to array
      *
@@ -93,9 +95,11 @@ class Varien_File_Object extends SplFileObject implements IFactory
             if ($path === null) {
                 return $this->_path;
             }
+
             $paths[] = $this->_path;
         }
     }
+
     /**
      * use filter
      *
@@ -111,6 +115,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             $this->filtered = false;
         }
     }
+
     /**
      * add file object to array
      *
@@ -123,6 +128,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             $objs[] = $this;
         }
     }
+
     /**
      * nothing
      *
@@ -133,6 +139,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         return Varien_Directory_Collection::getLastDir($this->_path);
     }
+
     /**
      * nothing
      *
@@ -143,6 +150,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         return Varien_Directory_Collection::lastDir($this->_path);
     }
+
     /**
      * set file filter
      *
@@ -153,6 +161,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         $this->addFilter($filter);
     }
+
     /**
      * set file filter
      *
@@ -163,6 +172,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         $this->_filter = $filter;
     }
+
     /**
      * get extension of file
      *
@@ -172,6 +182,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         return self::getExt($this->_filename);
     }
+
     /**
      * get extension of file
      *
@@ -187,6 +198,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             return '';
         }
     }
+
     /**
      * get name of file
      *
@@ -196,6 +208,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     {
         return basename($this->_filename, '.' . $this->getExtension());
     }
+
     /**
      * render filters
      *
@@ -212,13 +225,12 @@ class Varien_File_Object extends SplFileObject implements IFactory
                         if (!in_array($this->getExtension(), $filter)) {
                             $this->_isCorrect = false;
                         }
-                    } else {
-                        if ($this->getExtension() != $filter) {
-                            $this->_isCorrect = false;
-                        }
+                    } elseif ($this->getExtension() != $filter) {
+                        $this->_isCorrect = false;
                     }
                 }
             }
+
             if (isset($this->_filter['name'])) {
                 $filter = $this->_filter['name'];
                 if ($filter != null) {
@@ -226,10 +238,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
                         if (!in_array($this->getName(), $filter)) {
                             $this->_isCorrect = false;
                         }
-                    } else {
-                        if ($this->getName() != $filter) {
-                            $this->_isCorrect = false;
-                        }
+                    } elseif ($this->getName() != $filter) {
+                        $this->_isCorrect = false;
                     }
                 }
             }
@@ -247,6 +257,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             }
         }
     }
+
     /**
      * add to array file name
      *
@@ -259,6 +270,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
             $arr['files_in_dirs'][] = $this->_filename;
         }
     }
+
     /**
      * add to xml file name
      *

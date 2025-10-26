@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date conversion model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Date
@@ -30,20 +22,12 @@ class Mage_Core_Model_Date
     private $_offset = 0;
 
     /**
-     * Current system offset in seconds
-     *
-     * @var int
-     */
-    private $_systemOffset = 0;
-
-    /**
      * Init offset
      *
      */
     public function __construct()
     {
         $this->_offset = $this->calculateOffset($this->_getConfigTimezone());
-        $this->_systemOffset = $this->calculateOffset();
     }
 
     /**
@@ -191,13 +175,14 @@ class Mage_Core_Model_Date
                 break;
 
             case 'minutes':
-                $result = $result / 60;
+                $result /= 60;
                 break;
 
             case 'hours':
                 $result = $result / 60 / 60;
                 break;
         }
+
         return $result;
     }
 
@@ -216,12 +201,14 @@ class Mage_Core_Model_Date
         if (!checkdate($month, $day, $year)) {
             return false;
         }
+
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
-            $value = (int) $$var;
+            $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -240,23 +227,24 @@ class Mage_Core_Model_Date
         $formats = [
             // priority is important!
             '%m/%d/%y %I:%M' => [
-                '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
+                '/^(\d{1,2})\/(\d{1,2})\/(\d{1,2}) (\d{1,2}):(\d{1,2})/',
                 ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5],
             ],
             'm/d/y h:i' => [
-                '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
+                '/^(\d{1,2})\/(\d{1,2})\/(\d{1,2}) (\d{1,2}):(\d{1,2})/',
                 ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5],
             ],
-            '%m/%d/%y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
-            'm/d/y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
+            '%m/%d/%y' => ['/^(\d{1,2})\/(\d{1,2})\/(\d{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
+            'm/d/y' => ['/^(\d{1,2})\/(\d{1,2})\/(\d{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
         ];
 
         foreach ($formats as $supportedFormat => $regRule) {
-            if (strpos($dateTimeFormat, $supportedFormat, 0) !== false) {
+            if (str_contains($dateTimeFormat, $supportedFormat)) {
                 $isSupportedFormatFound = true;
                 break;
             }
         }
+
         if (!$isSupportedFormatFound) {
             Mage::throwException(Mage::helper('core')->__('Date/time format "%s" is not supported.', $dateTimeFormat));
         }
@@ -275,6 +263,7 @@ class Mage_Core_Model_Date
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
                 $value = (int) $matches[$mask[$key]];
             }
+
             $result[] = $value;
         }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract import adapter
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements SeekableIterator
@@ -70,9 +62,11 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
         }
+
         if (!is_readable($source)) {
             Mage::throwException(Mage::helper('importexport')->__('%s file does not exists or is not readable', $source));
         }
+
         $this->_source = $source;
 
         $this->_init();

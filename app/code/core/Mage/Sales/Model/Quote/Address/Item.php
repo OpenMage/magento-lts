@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Address_Item _getResource()
@@ -24,7 +16,7 @@
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method float getBaseCost()
@@ -116,6 +108,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
      * @var Mage_Sales_Model_Quote_Address
      */
     protected $_address;
+
     protected $_quote;
 
     protected function _construct()
@@ -132,6 +125,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if ($this->getAddress()) {
             $this->setQuoteAddressId($this->getAddress()->getId());
         }
+
         return $this;
     }
 
@@ -190,6 +184,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if (!$this->hasQty()) {
             $this->setQty($quoteItem->getQty());
         }
+
         $this->setQuoteItemImported(true);
         return $this;
     }
@@ -203,6 +198,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if ($this->getQuoteItem()) {
             return $this->getQuoteItem()->getOptionBycode($code);
         }
+
         return null;
     }
 }

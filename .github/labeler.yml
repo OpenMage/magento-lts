@@ -935,3 +935,10 @@
         .rector.php,
         .github/workflows/rector.yml
       ]
+
+'cypress':
+  - changed-files:
+      - any-glob-to-any-file: [
+        cypress/*,
+        cypress/**/*
+      ]

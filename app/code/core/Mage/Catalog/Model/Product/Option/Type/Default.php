@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option default type
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method $this setConfigurationItemOption(Varien_Object $value)
@@ -79,6 +71,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_option instanceof Mage_Catalog_Model_Product_Option) {
             return $this->_option;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong option instance type in options group.'));
     }
 
@@ -105,6 +98,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_product instanceof Mage_Catalog_Model_Product) {
             return $this->_product;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong product instance type in options group.'));
     }
 
@@ -180,6 +174,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_getData('request') instanceof Varien_Object) {
             return $this->_getData('request');
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong BuyRequest instance in options group.'));
     }
 
@@ -214,6 +209,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
             $this->setUserValue($values[$option->getId()]);
             $this->setIsValid(true);
         }
+
         return $this;
     }
 
@@ -239,6 +235,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->getIsValid()) {
             return $this->getUserValue();
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Option validation failed to add product to cart.'));
     }
 
@@ -365,12 +362,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                     foreach ($option->getValues() as $value) {
                         $optionValues[$value->getTitle()] = $value->getId();
                     }
+
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = [];
                 }
             }
         }
+
         return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 

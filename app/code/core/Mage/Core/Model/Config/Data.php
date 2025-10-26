@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Config data model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
@@ -50,6 +42,7 @@
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
     public const ENTITY = 'core_config_data';
+
     /**
      * Prefix of model events names
      *
@@ -108,9 +101,11 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         if ($storeCode) {
             return Mage::app()->getStore($storeCode)->getConfig($path);
         }
+
         if ($websiteCode) {
             return Mage::app()->getWebsite($websiteCode)->getConfig($path);
         }
+
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
 

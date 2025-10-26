@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,14 +13,16 @@
  * Data model:
  * id  |  path  |  order
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 {
     public const ID_FIELD      = 'id';
+
     public const PATH_FIELD    = 'path';
+
     public const ORDER_FIELD   = 'order';
+
     public const LEVEL_FIELD   = 'level';
 
     /**
@@ -59,8 +54,11 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @var string
      */
     protected $_idField;
+
     protected $_pathField;
+
     protected $_orderField;
+
     protected $_levelField;
 
     /**
@@ -165,6 +163,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $pathField = $this->_conn->quoteIdentifier([$this->_table, $this->_pathField]);
                 $select->where("{$pathField} LIKE ?", "{$parentPath}/%");
             }
+
             if ($recursionLevel != 0) {
                 $levelField = $this->_conn->quoteIdentifier([$this->_table, $this->_levelField]);
                 $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
@@ -216,6 +215,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 } else {
                     $childrenPath = [];
                 }
+
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 
@@ -255,6 +255,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         if (is_numeric($node)) {
             $node = $this->getNodeById($node);
         }
+
         if (!$node) {
             return $result;
         }
@@ -265,8 +266,10 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                     $result = $this->getChildren($child, $recursive, $result);
                 }
             }
+
             $result[] = $child->getId();
         }
+
         return $result;
     }
 
@@ -286,6 +289,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $newPath = $newParent->getData($this->_pathField);
 
         $newPath = $newPath . '/' . $node->getId();
+
         $oldPathLength = strlen($oldPath);
 
         $newLevel = $newParent->getLevel() + 1;
@@ -312,6 +316,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
                 $position = (int) $this->_conn->fetchOne($select);
             }
+
             $this->_conn->update($this->_table, $reorderData, $reorderCondition);
             $this->_conn->update($this->_table, $data, $condition);
             $this->_conn->update(
@@ -323,7 +328,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $e) {
             $this->_conn->rollBack();
-            throw new Exception("Can't move tree node due to error: " . $e->getMessage());
+            throw new Exception("Can't move tree node due to error: " . $e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -376,7 +381,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
+                $nodeId = $child[$this->_idField] ?? false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {
@@ -397,6 +402,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 } else {
                     $childrenPath = [];
                 }
+
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 

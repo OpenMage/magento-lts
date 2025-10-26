@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base front controller
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
@@ -70,6 +62,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
+
         return $this;
     }
 
@@ -117,6 +110,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
@@ -142,11 +136,13 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 if (!$ioAdapter->fileExists($file)) {
                     Mage::throwException(Mage::helper('core')->__('File not found'));
                 }
+
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
@@ -157,6 +153,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 $this->getResponse()->setBody($content);
             }
         }
+
         return $this;
     }
 
@@ -171,6 +168,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         if ($this->_isFormKeyEnabled()) {
             $validated = parent::_validateFormKey();
         }
+
         return $validated;
     }
 

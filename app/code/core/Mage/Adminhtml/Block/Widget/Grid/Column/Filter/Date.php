@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date grid column filter
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  * @todo       date format
  */
@@ -33,6 +25,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->setCanLoadCalendarJs(true);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -116,6 +109,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
         if ($value instanceof Zend_Date) {
             return $value->toString($this->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         }
+
         return $value;
     }
 
@@ -125,12 +119,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
             if ($data = $this->getData('value', 'orig_' . $index)) {
                 return $data;//date('Y-m-d', strtotime($data));
             }
+
             return null;
         }
+
         $value = $this->getData('value');
         if (is_array($value)) {
             $value['date'] = true;
         }
+
         return $value;
     }
 
@@ -146,14 +143,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
                 $value['orig_from'] = $value['from'];
                 $value['from'] = $this->_convertDate($this->stripTags($value['from']), $value['locale']);
             }
+
             if (!empty($value['to'])) {
                 $value['orig_to'] = $value['to'];
                 $value['to'] = $this->_convertDate($this->stripTags($value['to']), $value['locale']);
             }
         }
+
         if (empty($value['from']) && empty($value['to'])) {
             $value = null;
         }
+
         $this->setData('value', $value);
         return $this;
     }
@@ -168,6 +168,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
         if (!$this->_locale) {
             $this->_locale = Mage::app()->getLocale();
         }
+
         return $this->_locale;
     }
 
@@ -200,7 +201,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
             $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
             return $dateObj;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

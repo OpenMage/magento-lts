@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Observer
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Model_Observer
@@ -42,6 +34,7 @@ class Mage_Persistent_Model_Observer
         ) {
             return $this;
         }
+
         Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(Mage::helper('persistent')->getPersistentConfigFilePath())
             ->fire();
@@ -67,7 +60,7 @@ class Mage_Persistent_Model_Observer
             return $this;
         }
 
-        $xPath = '//instances/blocks/*[block_type="' . get_class($block) . '"]';
+        $xPath = '//instances/blocks/*[block_type="' . $block::class . '"]';
         $configFilePath = $observer->getEvent()->getConfigFilePath();
 
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
@@ -83,6 +76,7 @@ class Mage_Persistent_Model_Observer
 
         return $this;
     }
+
     /**
      * Emulate welcome message with persistent data
      *
@@ -96,6 +90,7 @@ class Mage_Persistent_Model_Observer
         );
         return $this;
     }
+
     /**
      * Emulate 'welcome' block with persistent data
      *
@@ -487,6 +482,7 @@ class Mage_Persistent_Model_Observer
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
     }
+
     /**
      * Active Persistent Sessions
      */
@@ -583,6 +579,7 @@ class Mage_Persistent_Model_Observer
                 ->setCustomerId($customer->getId())
                 ->setCustomerGroupId($customer->getGroupId());
         }
+
         return $this;
     }
 }

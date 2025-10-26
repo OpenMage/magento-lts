@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute Date Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_Abstract
@@ -46,13 +38,13 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
+        if ($attribute->getIsRequired() && empty($value)) {
+            $errors[] = Mage::helper('eav')->__('"%s" is a required value.', $label);
+        }
+
         if ($value === false) {
             // try to load original value and validate it
             $value = $this->getEntity()->getDataUsingMethod($attribute->getAttributeCode());
-        }
-
-        if ($attribute->getIsRequired() && empty($value)) {
-            $errors[] = Mage::helper('eav')->__('"%s" is a required value.', $label);
         }
 
         if (!$errors && !$attribute->getIsRequired() && empty($value)) {
@@ -93,12 +85,12 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      */
     public function compactValue($value)
     {
-        if ($value !== false) {
-            if (empty($value)) {
-                $value = null;
-            }
-            $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
+        if ($value !== false && empty($value)) {
+            $value = null;
         }
+
+        $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
+
         return $this;
     }
 
@@ -130,6 +122,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
                     $this->_dateFilterFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                     break;
             }
+
             $value = $this->_applyOutputFilter($value);
         }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Catalog_Model_Convert_Parser_Product
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
@@ -52,7 +44,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     protected $_imageFields = [];
 
     protected $_systemFields = [];
+
     protected $_internalFields = [];
+
     protected $_externalFields = [];
 
     protected $_inventoryItems = [];
@@ -62,7 +56,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     protected $_setInstances = [];
 
     protected $_store;
+
     protected $_storeId;
+
     protected $_attributes = [];
 
     public function __construct()
@@ -74,15 +70,19 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
+
             if ($node->is('internal')) {
                 $this->_internalFields[] = $code;
             }
+
             if ($node->is('system')) {
                 $this->_systemFields[] = $code;
             }
+
             if ($node->is('external')) {
                 $this->_externalFields[$code] = $code;
             }
+
             if ($node->is('img')) {
                 $this->_imageFields[] = $code;
             }
@@ -101,6 +101,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             #->loadAttributeSets()
             #->loadAttributeOptions();
         }
+
         return $this->_resource;
     }
 
@@ -114,6 +115,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->_collections[$storeId] = Mage::getResourceModel('catalog/product_collection');
             $this->_collections[$storeId]->getEntity()->setStore($storeId);
         }
+
         return $this->_collections[$storeId];
     }
 
@@ -128,6 +130,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->_productTypes = Mage::getSingleton('catalog/product_type')
                 ->getOptionArray();
         }
+
         return $this->_productTypes;
     }
 
@@ -155,6 +158,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if ($code = array_search($name, $productTypes)) {
             return $code;
         }
+
         return false;
     }
 
@@ -169,6 +173,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $productModel = Mage::getModel('catalog/product');
             $this->_productModel = Mage::objects()->save($productModel);
         }
+
         return Mage::objects()->load($this->_productModel);
     }
 
@@ -189,8 +194,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 );
                 throw $e;
             }
+
             $this->_store = $store;
         }
+
         return $this->_store;
     }
 
@@ -204,6 +211,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (is_null($this->_storeId)) {
             $this->_storeId = $this->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
@@ -219,6 +227,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
                 ->factory($product, true);
         }
+
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
         return $this;
     }
@@ -250,6 +259,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (!isset($this->_attributes[$code])) {
             $this->_attributes[$code] = $this->getProductModel()->getResource()->getAttribute($code);
         }
+
         return $this->_attributes[$code];
     }
 
@@ -273,6 +283,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     );
                     continue;
                 }
+
                 $this->setPosition('Line: ' . ($i + 1) . ', SKU: ' . $row['sku']);
 
                 // try to get entity_id by sku if not set
@@ -284,6 +295,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (empty($row['attribute_set'])) {
                     $row['attribute_set'] = 'Default';
                 }
+
                 // get attribute_set_id, if not throw error
                 $row['attribute_set_id'] = $this->getAttributeSetId($entityTypeId, $row['attribute_set']);
                 if (!$row['attribute_set_id']) {
@@ -297,6 +309,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (empty($row['type'])) {
                     $row['type'] = 'Simple';
                 }
+
                 // get product type_id, if not throw error
                 $row['type_id'] = $this->getProductTypeId($row['type']);
                 if (!$row['type_id']) {
@@ -328,6 +341,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     if (!empty($row['entity_id'])) {
                         $model->load($row['entity_id']);
                     }
+
                     foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
 
@@ -337,8 +351,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                             if (in_array($field, $this->_inventoryFields)) {
                                 $inventoryFields[$row['sku']][$field] = $value;
                             }
+
                             continue;
                         }
+
                         if ($attribute->usesSource()) {
                             $source = $attribute->getSource();
                             $optionId = $this->getSourceOptionId($source, $value);
@@ -350,14 +366,17 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                                 );
                                 continue;
                             }
+
                             $value = $optionId;
                         }
+
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
                     if (!$rowError) {
                         $collection->addItem($model);
                     }
+
                     unset($model);
                 } //foreach ($storeIds as $storeId)
             } catch (Exception $e) {
@@ -371,7 +390,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         }
 
         // set importinted to adaptor
-        if (count($inventoryFields)) {
+        if ($inventoryFields !== []) {
             Mage::register('current_imported_inventory', $inventoryFields);
             //$this->setInventoryItems($inventoryFields);
         } // end setting imported to adaptor
@@ -432,6 +451,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     $websiteCode = Mage::app()->getWebsite($websiteId)->getCode();
                     $websiteCodes[$websiteCode] = $websiteCode;
                 }
+
                 $row['websites'] = implode(',', $websiteCodes);
             } else {
                 $row['websites'] = $this->getStore()->getWebsite()->getCode();
@@ -459,11 +479,13 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         );
                         continue;
                     }
+
                     if (is_array($option)) {
                         $value = implode(self::MULTI_DELIMITER, $option);
                     } else {
                         $value = $option;
                     }
+
                     unset($option);
                 } elseif (is_array($value)) {
                     continue;
@@ -477,6 +499,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     if (in_array($field, $this->_systemFields) || is_object($value)) {
                         continue;
                     }
+
                     $row[$field] = $value;
                 }
             }
@@ -494,6 +517,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     }
                 }
             }
+
             $processedImageList = array_unique($processedImageList);
 
             $batchModelId = $this->getBatchModel()->getId();
@@ -551,6 +575,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             if (in_array($code, $this->_internalFields) || $attr->getFrontendInput() == 'hidden') {
                 continue;
             }
+
             $attributes[$code] = $code;
         }
 

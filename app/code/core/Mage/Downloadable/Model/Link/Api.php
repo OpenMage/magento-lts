@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links API model
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
@@ -105,6 +97,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if (isset($resource['file'])) {
                 $resource['file'] = $this->_uploadFile($resource['file'], $resourceType);
             }
+
             unset($resource[$resourceType . '_url']);
         } elseif ($resource['type'] == 'url') {
             unset($resource['file']);
@@ -114,6 +107,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if (isset($resource['sample']['file'])) {
                 $resource['sample']['file'] = $this->_uploadFile($resource['sample']['file'], 'link_samples');
             }
+
             unset($resource['sample']['url']);
         } elseif ($resourceType == 'link' && $resource['sample']['type'] == 'url') {
             $resource['sample']['file'] = null;
@@ -181,6 +175,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'status' => 'old',
                     ]];
             }
+
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBaseSamplePath(),
                 $item->getSampleFile(),
@@ -194,17 +189,22 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'status' => 'old',
                     ]];
             }
+
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = 1;
             }
+
             if ($product->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
+
             if ($product->getStoreId() && $downloadHelper->getIsPriceWebsiteScope()) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
+
             $linkArr[] = $tmpLinkItem;
         }
+
         unset($item);
         unset($tmpLinkItem);
         unset($links);
@@ -234,6 +234,10 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             case 'sample':
                 $downloadableModel = Mage::getSingleton('downloadable/sample');
                 break;
+        }
+
+        if (!isset($downloadableModel)) {
+            $this->_fault('invalid_resource_type');
         }
 
         $downloadableModel->load($linkId);

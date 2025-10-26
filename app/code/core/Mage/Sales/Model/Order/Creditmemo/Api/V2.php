@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Credit memo API
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Creditmemo_Api
@@ -37,13 +29,16 @@ class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Cr
             $helper->associativeArrayUnpack($filters->filter);
             $preparedFilters += $filters->filter;
         }
+
         if (isset($filters->complex_filter)) {
             $helper->associativeArrayUnpack($filters->complex_filter);
             foreach ($filters->complex_filter as &$filter) {
                 $helper->associativeArrayUnpack($filter);
             }
+
             $preparedFilters += $filters->complex_filter;
         }
+
         foreach ($preparedFilters as $field => $value) {
             if (isset($this->_attributesMap['creditmemo'][$field])) {
                 $preparedFilters[$this->_attributesMap['creditmemo'][$field]] = $value;
@@ -72,8 +67,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Cr
                     $qtysArray[$item->order_item_id] = $item->qty;
                 }
             }
+
             $data['qtys'] = $qtysArray;
         }
+
         return $data;
     }
 }

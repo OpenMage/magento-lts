@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer addresses forms
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
@@ -129,12 +121,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
+
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->setNote(Mage::helper('customer')->__($attribute->getNote()));
             $attribute->unsIsVisible();
         }
+
         $this->_setFieldset($attributes, $fieldset);
 
         $regionElement = $form->getElement('region');
@@ -279,6 +273,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('prefix')) {
             $this->getForm()->getElement('prefix')->addElementValues($values);
         }
+
         return $this;
     }
 
@@ -293,6 +288,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('suffix')) {
             $this->getForm()->getElement('suffix')->addElementValues($values);
         }
+
         return $this;
     }
 

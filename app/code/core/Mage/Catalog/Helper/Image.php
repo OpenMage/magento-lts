@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog image helper
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
     public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
+
     public const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
+
     public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
 
     protected $_moduleName = 'Mage_Catalog';
@@ -158,6 +152,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             // add for work original size
             $this->_getModel()->setBaseFile($this->getProduct()->getData($this->_getModel()->getDestinationSubdir()));
         }
+
         return $this;
     }
 
@@ -271,6 +266,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         if (!is_array($colorRGB)) {
             $colorRGB = $args;
         }
+
         $this->_getModel()->setBackgroundColor($colorRGB);
         return $this;
     }
@@ -329,6 +325,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             $attr = $this->_getModel()->getDestinationSubdir();
             $this->_placeholder = 'images/catalog/product/placeholder/' . $attr . '.jpg';
         }
+
         return $this->_placeholder;
     }
 
@@ -369,6 +366,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             Mage::logException($e);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
+
         return $url;
     }
 

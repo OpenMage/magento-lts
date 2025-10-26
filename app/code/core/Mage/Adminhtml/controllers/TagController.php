@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product tags admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
@@ -284,6 +276,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag = Mage::getModel('tag/tag')->load($tagId);
                     $tag->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
@@ -314,6 +307,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                         ->setStatus($this->getRequest()->getParam('status'));
                     $tag->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
@@ -321,6 +315,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
         $this->_redirect('*/*/' . $ret);
     }
@@ -331,13 +326,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'pending':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-            case 'all':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-        }
+        $aclPath = match ($action) {
+            'pending' => 'catalog/tag/pending',
+            'all' => 'catalog/tag/all',
+            default => 'catalog/tag',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

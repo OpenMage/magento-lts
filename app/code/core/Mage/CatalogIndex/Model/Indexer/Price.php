@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog indexer price processor
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
@@ -43,6 +35,7 @@
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
     protected $_customerGroups = [];
+
     protected $_processChildrenForConfigurable = false;
 
     protected function _construct()
@@ -73,6 +66,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
                 $row['value'] = $finalPrice;
                 $result[] = $row;
             }
+
             return $result;
         }
 
@@ -87,9 +81,11 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         if ($attribute->getFrontendInput() != 'price') {
             return false;
         }
+
         if ($attribute->getAttributeCode() == 'tier_price') {
             return false;
         }
+
         if ($attribute->getAttributeCode() == 'minimal_price') {
             return false;
         }

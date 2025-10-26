@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Prepare Log Online Visitors Model
  *
- * @category   Mage
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
@@ -39,6 +31,7 @@
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_ONLINE_INTERVAL      = 'customer/online_customers/online_minutes_interval';
+
     public const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
 
     protected function _construct()
@@ -78,6 +71,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
         if (is_null($time)) {
             $time = time();
         }
+
         Mage::app()->saveCache($time, 'log_visitor_online_prepare_at');
         return $this;
     }
@@ -103,6 +97,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
         if (!$value) {
             $value = Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
         }
+
         return $value;
     }
 }

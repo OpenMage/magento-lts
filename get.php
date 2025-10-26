@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $start = microtime(true);
@@ -50,6 +43,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
+
 require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
@@ -121,6 +115,7 @@ if (!$mediaDirectory) {
         ftruncate($fp, 0);
         fwrite($fp, json_encode($config));
     }
+
     flock($fp, LOCK_UN);
     fclose($fp);
 
@@ -130,6 +125,7 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+
 if (substr_count($relativeFilename, '/') > 10) {
     sendNotFoundPage();
 }
@@ -148,12 +144,14 @@ try {
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);
         } else {
             $localStorage->removeLockedFile($relativeFilename);
         }
     }
+
     sendFile($filePath);
 } catch (Exception $e) {
     Mage::logException($e);
@@ -179,7 +177,7 @@ function checkResource($resource, array $allowedResources)
 {
     $isResourceAllowed = false;
     foreach ($allowedResources as $allowedResource) {
-        if (0 === stripos($resource, $allowedResource)) {
+        if (0 === stripos($resource, (string) $allowedResource)) {
             $isResourceAllowed = true;
         }
     }

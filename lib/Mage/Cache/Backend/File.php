@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,7 +38,6 @@
 /**
  * Optimized file cache backend
  *
- * @category  Mage
  * @package   Mage_Cache
  */
 class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
@@ -70,7 +62,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Prevents unnecessary checks
      *
-     *  @var boolean
+     * @var bool
      */
     protected $_isTagDirChecked;
 
@@ -80,6 +72,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (isset($options['hashed_directory_umask'])) {
             $options['directory_mode'] = $options['hashed_directory_umask'];
         }
+
         if (isset($options['cache_file_umask'])) {
             $options['file_mode'] = $options['cache_file_umask'];
         }
@@ -112,9 +105,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (is_string($this->_options['directory_mode'])) {
             $this->_options['directory_mode'] = octdec($this->_options['directory_mode']);
         }
+
         if (is_string($this->_options['file_mode'])) {
             $this->_options['file_mode'] = octdec($this->_options['file_mode']);
         }
+
         $this->_options['hashed_directory_umask'] = $this->_options['directory_mode'];
         $this->_options['cache_file_umask']       = $this->_options['file_mode'];
     }
@@ -134,11 +129,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+
+        [$metadatas, $data] = $cache;
         if (!$doNotTestCacheValidity && time() > $metadatas['expire']) {
             // ?? $this->remove($id);
             return false;
         }
+
         if ($this->_options['read_control']) {
             $hashData    = $this->_hash($data, $this->_options['read_control_type']);
             $hashControl = $metadatas['hash'];
@@ -167,7 +164,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  bool|int $specificLifetime If != false, set a specific lifetime for this cache record
      *                                    (null => infinite lifetime)
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function save($data, $id, $tags = [], $specificLifetime = false)
     {
@@ -182,11 +179,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
             }
         }
+
         if ($this->_options['read_control']) {
             $hash = $this->_hash($data, $this->_options['read_control_type']);
         } else {
             $hash = '';
         }
+
         $metadatas = [
             'hash'   => $hash,
             'mtime'  => time(),
@@ -203,7 +202,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string $id Cache id
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function remove($id)
     {
@@ -235,19 +234,16 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $mode
      * @param  array $tags
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         // We use this protected method to hide the recursive stuff
         clearstatcache();
-        switch ($mode) {
-            case Zend_Cache::CLEANING_MODE_ALL:
-            case Zend_Cache::CLEANING_MODE_OLD:
-                return $this->_clean($this->_options['cache_dir'], $mode);
-            default:
-                return $this->_cleanNew($mode, $tags);
-        }
+        return match ($mode) {
+            Zend_Cache::CLEANING_MODE_ALL, Zend_Cache::CLEANING_MODE_OLD => $this->_clean($this->_options['cache_dir'], $mode),
+            default => $this->_cleanNew($mode, $tags),
+        };
     }
 
     /**
@@ -339,7 +335,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $id Cache id
      * @param  int $extraLifetime
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function touch($id, $extraLifetime)
     {
@@ -348,10 +344,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+
+        [$metadatas, $data] = $cache;
         if (time() > $metadatas['expire']) {
             return false;
         }
+
         $newMetadatas = [
             'hash'   => $metadatas['hash'],
             'mtime'  => time(),
@@ -376,24 +374,30 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!is_file($file) || !($fd = @fopen($file, 'rb'))) {
             return false;
         }
+
         if ($this->_options['file_locking']) {
             flock($fd, LOCK_SH);
         }
+
         $metadata = fgets($fd);
         if (!$metadata) {
             if ($this->_options['file_locking']) {
                 flock($fd, LOCK_UN);
             }
+
             fclose($fd);
 
             return false;
         }
+
         if ($withData) {
             $data = stream_get_contents($fd);
         }
+
         if ($this->_options['file_locking']) {
             flock($fd, LOCK_UN);
         }
+
         fclose($fd);
         $metadata = @unserialize(rtrim($metadata, "\n"), ['allowed_classes' => false]);
         if ($withData) {
@@ -422,7 +426,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  array   $metadatas Associative array of metadatas
      * @param  boolean $save      Optional pass false to disable saving to file
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     protected function _setMetadatas($id, $metadatas, $save = true)
     {
@@ -449,9 +453,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             $root .= $prefix . '--' . substr(md5($id), -$this->_options['hashed_directory_level']) . DIRECTORY_SEPARATOR;
             $partsArray[] = $root;
         }
+
         if ($parts) {
             return $partsArray;
         }
+
         return $root;
     }
 
@@ -473,7 +479,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param array  $tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -482,11 +488,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!is_dir($dir)) {
             return false;
         }
+
         $result = true;
         $glob   = @glob($dir . $this->_options['file_name_prefix'] . '--*');
         if ($glob === false) {
             return true;
         }
+
         foreach ($glob as $file) {
             if (is_file($file)) {
                 if ($mode == Zend_Cache::CLEANING_MODE_ALL) {
@@ -500,21 +508,25 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     @unlink($file);
                     continue;
                 }
+
                 $metadatas = $this->_getCache($file, false);
                 if (!$metadatas) {
                     @unlink($file);
                     continue;
                 }
+
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
                     if (time() > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
                         $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
                     }
+
                     continue;
                 } else {
                     Zend_Cache::throwException('Invalid mode for clean() method.');
                 }
             }
+
             if (is_dir($file) && $this->_options['hashed_directory_level'] > 0) {
                 // Recursive call
                 $result = $this->_clean($file . DIRECTORY_SEPARATOR, $mode) && $result;
@@ -524,6 +536,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
             }
         }
+
         if ($mode == 'all') {
             foreach (glob($this->_tagFile('*')) as $tagFile) {
                 @unlink($tagFile);
@@ -550,7 +563,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  array  $tags Array of tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -562,6 +575,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 $result = $this->_remove($idFile) && $result;
             }
         }
+
         switch ($mode) {
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 foreach ($tags as $tag) {
@@ -570,6 +584,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                         $result = $this->_remove($tagFile) && $result;
                     }
                 }
+
                 break;
             case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
             case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
@@ -599,9 +614,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                         if (!$ids) {
                             break; // early termination optimization
                         }
+
                         $ids = array_diff($ids, $this->_getTagIds($tag));
                     }
                 }
+
                 break;
             case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
                 if ($tags) {
@@ -611,15 +628,19 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                         if (!$ids) {
                             break; // early termination optimization
                         }
+
                         $ids = array_intersect($ids, $this->_getTagIds($tag));
                     }
+
                     $ids = array_unique($ids);
                 }
+
                 break;
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 foreach ($tags as $tag) {
                     $ids = array_merge($ids, $this->_getTagIds($tag));
                 }
+
                 $ids = array_unique($ids);
                 break;
         }
@@ -656,6 +677,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     @chmod($path, $this->_options['directory_mode']); // see #ZF-320 (this line is required in some configurations)
                 }
             }
+
             $this->_isTagDirChecked = true;
         }
 
@@ -680,9 +702,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         } else {
             $ids = false;
         }
+
         if (! $ids) {
             return [];
         }
+
         $ids = trim(substr($ids, 0, strrpos($ids, "\n")));
         return $ids ? explode("\n", $ids) : [];
     }
@@ -694,7 +718,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param array  $tags
      * @param string $mode
      *
-     * @return boolean
+     * @return bool
      */
     protected function _updateIdsTags($ids, $tags, $mode)
     {
@@ -702,29 +726,34 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (empty($ids)) {
             return $result;
         }
+
         foreach ($tags as $tag) {
             $file = $this->_tagFile($tag);
             if (file_exists($file)) {
-                if ($mode == 'diff' || (rand(1, 100) == 1 && filesize($file) > 4096)) {
+                if ($mode == 'diff' || (random_int(1, 100) == 1 && filesize($file) > 4096)) {
                     $file = $this->_tagFile($tag);
                     if (! ($fd = fopen($file, 'rb+'))) {
                         $result = false;
                         continue;
                     }
+
                     if ($this->_options['file_locking']) {
                         flock($fd, LOCK_EX);
                     }
+
                     if ($mode == 'diff') {
                         $_ids = array_diff($this->_getTagIds($fd), $ids);
                     } else {
                         $_ids = array_merge($this->_getTagIds($fd), $ids);
                     }
+
                     fseek($fd, 0);
                     ftruncate($fd, 0);
                     $result = fwrite($fd, implode("\n", array_unique($_ids)) . "\n") && $result;
                     if ($this->_options['file_locking']) {
                         flock($fd, LOCK_UN);
                     }
+
                     fclose($fd);
                 } else {
                     $result = file_put_contents($file, implode("\n", $ids) . "\n", FILE_APPEND | ($this->_options['file_locking'] ? LOCK_EX : 0)) && $result;
@@ -733,6 +762,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 $result = $this->_filePutContents($file, implode("\n", $ids) . "\n") && $result;
             }
         }
+
         return $result;
     }
 
@@ -742,7 +772,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $file   File complete path
      * @param  string $string String to put in file
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -760,7 +790,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Make the directory structure for the given id
      *
      * @param string $id cache id
-     * @return boolean true
+     * @return bool true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -769,6 +799,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if ($this->_options['hashed_directory_level'] <= 0) {
             return true;
         }
+
         $partsArray = $this->_path($id, true);
         foreach ($partsArray as $part) {
             if (!is_dir($part)) {
@@ -778,6 +809,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
             }
         }
+
         return true;
     }
 

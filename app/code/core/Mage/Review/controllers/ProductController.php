@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review controller
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
@@ -54,6 +46,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         return $this;
     }
+
     /**
      * Initialize and check product
      *
@@ -189,7 +182,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation.'));
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post the review.'));
                 }
@@ -209,6 +202,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_redirectUrl($redirectUrl);
             return;
         }
+
         $this->_redirectReferer();
     }
 
@@ -226,6 +220,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             if ($settings->getCustomDesign()) {
                 $design->applyCustomDesign($settings->getCustomDesign());
             }
+
             $this->_initProductLayout($product);
 
             // update breadcrumbs
@@ -293,16 +288,18 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->getLayout()->helper('page/layout')
                 ->applyTemplate($product->getPageLayout());
         }
+
         $customLayout = $product->getCustomLayoutUpdate();
         if ($customLayout) {
             try {
                 if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
                     $customLayout = '';
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $customLayout = '';
             }
         }
+
         $update->addUpdate($customLayout);
         $this->generateLayoutXml()->generateLayoutBlocks();
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * WYSIWYG widget plugin form
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -57,9 +49,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _getWidgetSelectOptions()
     {
+        $options = [];
         foreach ($this->_getAvailableWidgets(true) as $data) {
             $options[$data['type']] = $data['name'];
         }
+
         return $options;
     }
 
@@ -76,6 +70,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             $html .= sprintf('<div id="widget-description-%s" class="no-display">%s</div>', $i, $data['description']);
             $i++;
         }
+
         return $html;
     }
 
@@ -95,8 +90,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                 if (is_array($skipped) && in_array($widget['type'], $skipped)) {
                     continue;
                 }
+
                 $result[] = $widget;
             }
+
             if ($withEmptyElement) {
                 array_unshift($result, [
                     'type'        => '',
@@ -104,6 +101,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                     'description' => '',
                 ]);
             }
+
             $this->setData('available_widgets', $result);
         }
 

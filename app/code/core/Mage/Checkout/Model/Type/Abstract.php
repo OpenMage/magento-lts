@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cehckout type abstract class
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
@@ -34,6 +26,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $checkout = Mage::getSingleton('checkout/session');
             $this->setData('checkout_session', $checkout);
         }
+
         return $checkout;
     }
 
@@ -69,6 +62,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $customer = Mage::getSingleton('customer/session');
             $this->setData('customer_session', $customer);
         }
+
         return $customer;
     }
 
@@ -99,8 +93,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_shipping_address', $address);
         }
+
         return $address;
     }
 
@@ -121,8 +117,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_billing_address', $address);
         }
+
         return $address;
     }
 

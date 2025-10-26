@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model for synchronization from DB to filesystem
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_File_Storage_File
@@ -95,6 +87,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                         $files[] = $relativePath;
                     }
                 }
+
                 closedir($dh);
             }
         }
@@ -130,6 +123,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                         @unlink($fullPath);
                     }
                 }
+
                 closedir($dh);
                 @rmdir($currentDir);
             }
@@ -149,6 +143,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
             $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
         }
+
         return $this->_ignoredFiles;
     }
 
@@ -217,6 +212,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                 if (!($fp = @fopen($fullPath, 'x'))) {
                     return false;
                 }
+
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
                     return true;
                 }
@@ -252,9 +248,11 @@ class Mage_Core_Model_Resource_File_Storage_File
                 $created[] = $parent;
                 $parent = dirname($parent);
             }
+
             if ($created) {
                 $this->_createdDirectories = $created;
             }
+
             @mkdir($path, 0777, true);
         }
 
@@ -295,6 +293,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             @flock($fp, LOCK_UN);
             @fclose($fp);
         }
+
         @unlink($fullPath);
 
         // Clean up empty directories created by this process when the file was locked
@@ -302,11 +301,12 @@ class Mage_Core_Model_Resource_File_Storage_File
             foreach ($this->_createdDirectories as $directory) {
                 @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
             }
+
             $this->_createdDirectories = null;
         }
 
         // Clean up all empty directories
-        if (rand() % 1000 === 0) {
+        if (random_int(0, mt_getrandmax()) % 1000 === 0) {
             @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
         }
     }

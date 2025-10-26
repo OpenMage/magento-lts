@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog EAV collection resource abstract model
  * Implement using different stores for retrieve attribute values
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Entity_Collection_Abstract
@@ -53,6 +45,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if ($storeId instanceof Mage_Core_Model_Store) {
             $storeId = $storeId->getId();
         }
+
         $this->_storeId = (int) $storeId;
         return $this;
     }
@@ -67,6 +60,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if (is_null($this->_storeId)) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
+
         return $this->_storeId;
     }
 
@@ -93,6 +87,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if (empty($attributeIds)) {
             $attributeIds = $this->_selectAttributes;
         }
+
         $storeId = $this->getStoreId();
 
         if ($storeId) {
@@ -149,6 +144,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         } else {
             $select = parent::_addLoadAttributesSelectValues($select, $table, $type);
         }
+
         return $select;
     }
 
@@ -203,6 +199,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         } else {
             $storeId = $this->getDefaultStoreId();
         }
+
         $condition[] = $adapter->quoteInto(
             $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?',
             $storeId,

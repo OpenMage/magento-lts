@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -18,62 +12,56 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
 use Mage;
-use Mage_Page_Block_Html_Head;
-use PHPUnit\Framework\TestCase;
+use Mage_Page_Block_Html_Head as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeadTest extends TestCase
+final class HeadTest extends OpenMageTest
 {
-    public Mage_Page_Block_Html_Head $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Html_Head();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCss(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCss('test'));
+        self::assertInstanceOf(Subject::class, self::$subject->addCss('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJs(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJs('test'));
+        self::assertInstanceOf(Subject::class, self::$subject->addJs('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCssIe(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCssIe('test'));
+        self::assertInstanceOf(Subject::class, self::$subject->addCssIe('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJsIe(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJsIe('test'));
+        self::assertInstanceOf(Subject::class, self::$subject->addJsIe('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddLinkRel(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addLinkRel('test', 'ref'));
+        self::assertInstanceOf(Subject::class, self::$subject->addLinkRel('test', 'ref'));
     }
 }

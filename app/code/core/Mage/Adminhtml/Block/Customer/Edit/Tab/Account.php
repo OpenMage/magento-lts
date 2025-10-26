@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer account form block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
@@ -73,6 +65,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             foreach (Mage::app()->getWebsites(true) as $website) {
                 $websites[$website->getId()] = !is_null($website->getDefaultStore());
             }
+
             $prefix = $form->getHtmlIdPrefix();
 
             // @codingStandardsIgnoreStart
@@ -97,6 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             // @codingStandardsIgnoreEnd
         }
+
         $renderer = $this->getStoreSwitcherRenderer();
         $form->getElement('website_id')->setRenderer($renderer);
 
@@ -168,7 +162,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
                 $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
                 if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                    $fieldset->setRenderer($renderer);
+                    $field->setRenderer($renderer);
                 }
 
                 // Prepare customer confirmation control (only for existing customers)
@@ -178,6 +172,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     if (!$confirmationKey) {
                         $confirmationKey = $customer->getRandomConfirmationKey();
                     }
+
                     $element = $fieldset->addField('confirmation', 'select', [
                         'name'  => 'confirmation',
                         'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
@@ -209,7 +204,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
                     $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass');
                     if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                        $fieldset->setRenderer($renderer);
+                        $field->setRenderer($renderer);
                     }
                 }
             }
@@ -233,7 +228,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
             $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
             if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                $fieldset->setRenderer($renderer);
+                $field->setRenderer($renderer);
             }
 
             // Prepare send welcome email checkbox
@@ -263,6 +258,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             if (!$isSingleMode) {
                 $disableStoreField = "$('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
             }
+
             $sendEmail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "

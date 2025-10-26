@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Validator for check is uploaded file is image
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_File_Validator_Image
@@ -78,11 +70,12 @@ class Mage_Core_Model_File_Validator_Image
      */
     public function validate($filePath)
     {
-        list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
+        [$imageWidth, $imageHeight, $fileType] = getimagesize($filePath);
         if ($fileType) {
             if ($fileType === IMAGETYPE_ICO) {
                 return null;
             }
+
             if ($this->isImageType($fileType)) {
                 // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
                 $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
@@ -94,9 +87,11 @@ class Mage_Core_Model_File_Validator_Image
                         ? 85
                         : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
                 }
+
                 if ($imageQuality === 0) {
                     return null;
                 }
+
                 //replace tmp image with re-sampled copy to exclude images with malicious data
                 $image = imagecreatefromstring(file_get_contents($filePath));
                 if ($image !== false) {
@@ -118,9 +113,11 @@ class Mage_Core_Model_File_Validator_Image
                                     }
                                 }
                             }
+
                             if (!imageistruecolor($image)) {
                                 imagetruecolortopalette($img, false, imagecolorstotal($image));
                             }
+
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
@@ -144,6 +141,7 @@ class Mage_Core_Model_File_Validator_Image
                 }
             }
         }
+
         throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid MIME type.'));
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Address format renderer default
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstract implements Mage_Customer_Block_Address_Renderer_Interface
@@ -65,6 +57,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
             $format = count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
         }
+
         return $format;
     }
 
@@ -77,20 +70,12 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
      */
     public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {
-        switch ($this->getType()->getCode()) {
-            case 'html':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML;
-                break;
-            case 'pdf':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_PDF;
-                break;
-            case 'oneline':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE;
-                break;
-            default:
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_TEXT;
-                break;
-        }
+        $dataFormat = match ($this->getType()->getCode()) {
+            'html' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML,
+            'pdf' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_PDF,
+            'oneline' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE,
+            default => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_TEXT,
+        };
 
         $formater   = new Varien_Filter_Template();
         $attributes = Mage::helper('customer/address')->getAttributes();
@@ -101,6 +86,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             if (!$attribute->getIsVisible()) {
                 continue;
             }
+
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
             } elseif ($attribute->getAttributeCode() == 'region') {
@@ -116,6 +102,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
                         $data[$key] = $v;
                     }
                 }
+
                 $data[$attribute->getAttributeCode()] = $value;
             }
         }
@@ -146,6 +133,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             $maliciousCodeFilter = Mage::getSingleton('core/input_filter_maliciousCode');
             $result = preg_replace($urlRegExp, ' ', $maliciousCodeFilter->filter($data));
         }
+
         return $result;
     }
 }

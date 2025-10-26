@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model for report rows
  *
- * @category   Mage
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
@@ -95,6 +87,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             asort($types);
             return $types;
         }
+
         return $types[$code] ?? $code;
     }
 
@@ -137,6 +130,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
         if ($code === null) {
             return $options;
         }
+
         return $options[$code] ?? $code;
     }
 
@@ -168,13 +162,16 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
         if (isset($this->_castedAmounts[$key]) || !isset($this->_data[$key]) || !isset($this->_data[$creditKey])) {
             return;
         }
+
         if (empty($this->_data[$key])) {
             return;
         }
+
         $amount = $this->_data[$key] / 100;
         if ($this->_data[$creditKey] === 'CR') {
             $amount = -1 * $amount;
         }
+
         $this->_data[$key] = $amount;
         $this->_castedAmounts[$key] = true;
     }

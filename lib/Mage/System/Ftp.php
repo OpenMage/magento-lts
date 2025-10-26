@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_System
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with remote FTP server
  *
- * @category   Mage
  * @package    Mage_System
  */
 class Mage_System_Ftp
@@ -25,7 +17,7 @@ class Mage_System_Ftp
     /**
      * Connection object
      *
-     * @var resource|false
+     * @var FTP\Connection|false
      */
     protected $_conn = false;
 
@@ -38,7 +30,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__ . ' - no connection established with server');
+            throw new Exception(self::class . ' - no connection established with server');
         }
     }
 
@@ -71,7 +63,8 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        for ($i = 0; $i < count($dir); $i++) {
+        $counter = count($dir);
+        for ($i = 0; $i < $counter; $i++) {
             $path .= '/' . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {
                 @ftp_chdir($this->_conn, '/');
@@ -83,6 +76,7 @@ class Mage_System_Ftp
                 }
             }
         }
+
         return $ret;
     }
 
@@ -106,6 +100,7 @@ class Mage_System_Ftp
         if (!$res) {
             throw new Exception('Invalid login credentials');
         }
+
         return $res;
     }
 
@@ -124,9 +119,11 @@ class Mage_System_Ftp
         if (false === $data) {
             throw new Exception("Connection string invalid: '{$string}'");
         }
+
         if ($data['scheme'] != 'ftp') {
             throw new Exception("Support for scheme unsupported: '{$data['scheme']}'");
         }
+
         return $data;
     }
 
@@ -148,11 +145,13 @@ class Mage_System_Ftp
         if (!$this->_conn) {
             throw new Exception("Cannot connect to host: {$params['host']}");
         }
+
         if (isset($params['user']) && isset($params['pass'])) {
             $this->login($params['user'], $params['pass']);
         } else {
             $this->login();
         }
+
         if (isset($params['path'])) {
             if (!$this->chdir($params['path'])) {
                 throw new Exception("Cannot chdir after login to: {$params['path']}");
@@ -204,13 +203,16 @@ class Mage_System_Ftp
         if (empty($data[1])) {
             return false;
         }
+
         if ((int) $data[0] != 257) {
             return false;
         }
+
         $out = trim($data[1], '"');
         if ($out !== '/') {
             $out = rtrim($out, '/');
         }
+
         return $out;
     }
 
@@ -247,14 +249,16 @@ class Mage_System_Ftp
         if (!file_exists($local)) {
             throw new Exception("Local file doesn't exist: {$local}");
         }
+
         if (!is_readable($local)) {
             throw new Exception("Local file is not readable: {$local}");
         }
+
         if (is_dir($local)) {
             throw new Exception("Directory given instead of file: {$local}");
         }
 
-        $globalPathMode = substr($remote, 0, 1) == '/';
+        $globalPathMode = str_starts_with($remote, '/');
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
@@ -265,12 +269,14 @@ class Mage_System_Ftp
             $dirname = $cwd . '/' . $dirname;
             $remote = $cwd . '/' . $remote;
         }
+
         $res = $this->mkdirRecursive($dirname, $dirMode);
         $this->chdir($cwd);
 
         if (!$res) {
             return false;
         }
+
         return $this->put($remote, $local, $ftpMode);
     }
 
@@ -417,7 +423,7 @@ class Mage_System_Ftp
     {
         $symbol = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $exp = floor(log($bytes) / log(1024));
-        return sprintf('%.2f ' . $symbol[ $exp ], ($bytes / pow(1024, floor($exp))));
+        return sprintf('%.2f ' . $symbol[(string) $exp], ($bytes / 1024 ** floor($exp)));
     }
 
     /**
@@ -444,7 +450,7 @@ class Mage_System_Ftp
     public function fileExists($path, $excludeIfIsDir = true)
     {
         $path = $this->correctFilePath($path);
-        $globalPathMode = substr($path, 0, 1) == '/';
+        $globalPathMode = str_starts_with($path, '/');
 
         $file = basename($path);
         $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;
@@ -454,9 +460,11 @@ class Mage_System_Ftp
                 if ($excludeIfIsDir && $row['dir']) {
                     continue;
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -497,6 +505,7 @@ class Mage_System_Ftp
                 ];
             }
         }
+
         return $structure;
     }
 

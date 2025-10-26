@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base html block
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setContentHeading(string $value)
@@ -30,9 +22,13 @@
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
+
     public const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
 
     /**
@@ -54,8 +50,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected $_jsUrl;
 
     protected static $_showTemplateHintsAdmin;
+
     protected static $_showTemplateHintsBlocksAdmin;
+
     protected static $_showTemplateHints;
+
     protected static $_showTemplateHintsBlocks;
 
     /**
@@ -119,6 +118,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($area) {
             $params['_area'] = $area;
         }
+
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
@@ -147,6 +147,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         } else {
             $this->_viewVars[$key] = $value;
         }
+
         return $this;
     }
 
@@ -163,6 +164,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
         }
+
         return $this;
     }
 
@@ -176,6 +178,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($this->getLayout()) {
             return $this->getLayout()->getDirectOutput();
         }
+
         return false;
     }
 
@@ -190,6 +193,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             self::$_showTemplateHintsBlocksAdmin = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN)
                 && Mage::helper('core')->isDevAllowed();
         }
+
         return self::$_showTemplateHintsAdmin;
     }
 
@@ -204,6 +208,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             self::$_showTemplateHintsBlocks = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS)
                 && Mage::helper('core')->isDevAllowed();
         }
+
         return self::$_showTemplateHints;
     }
 
@@ -221,9 +226,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
                 if (!is_null($currentParentBlock->getCacheLifetime())) {
                     return 'orange'; // not cached, but within cached
                 }
+
                 $currentParentBlock = $currentParentBlock->getParentBlock();
             }
         }
+
         return 'red';
     }
 
@@ -247,6 +254,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if (!$do) {
             ob_start();
         }
+
         if ($hints) {
             $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
@@ -256,7 +264,7 @@ text-align:left !important; z-index:998;text-transform: none;" onmouseover="this
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
-                $thisClass = get_class($this);
+                $thisClass = static::class;
                 echo <<<HTML
 <div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
@@ -266,13 +274,13 @@ HTML;
         }
 
         try {
-            if (strpos($this->_viewDir . DS . $fileName, '..') === false
+            if (!str_contains($this->_viewDir . DS . $fileName, '..')
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
-                $thisClass = get_class($this);
+                $thisClass = static::class;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
         } catch (Throwable $e) {
@@ -280,9 +288,11 @@ HTML;
                 ob_get_clean();
                 $do = true;
             }
+
             if (Mage::getIsDeveloperMode()) {
                 throw $e;
             }
+
             Mage::logException($e);
         }
 
@@ -295,6 +305,7 @@ HTML;
         } else {
             $html = '';
         }
+
         Varien_Profiler::stop($fileName);
         return $html;
     }
@@ -320,6 +331,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
+
         return $this->renderView();
     }
 
@@ -333,6 +345,7 @@ HTML;
         if (!$this->_baseUrl) {
             $this->_baseUrl = Mage::getBaseUrl();
         }
+
         return $this->_baseUrl;
     }
 
@@ -349,6 +362,7 @@ HTML;
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
+
         return $this->_jsUrl . $fileName;
     }
 

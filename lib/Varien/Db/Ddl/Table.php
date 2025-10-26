@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Data Definition for table
  *
- * @category   Varien
  * @package    Varien_Db
  */
 class Varien_Db_Ddl_Table
@@ -26,52 +18,93 @@ class Varien_Db_Ddl_Table
      * Types of columns
      */
     public const TYPE_BOOLEAN          = 'boolean';
+
     public const TYPE_SMALLINT         = 'smallint';
+
     public const TYPE_INTEGER          = 'integer';
+
     public const TYPE_BIGINT           = 'bigint';
+
     public const TYPE_FLOAT            = 'float';
+
     public const TYPE_NUMERIC          = 'numeric';
+
     public const TYPE_DECIMAL          = 'decimal';
+
     public const TYPE_DATE             = 'date';
-    public const TYPE_TIMESTAMP        = 'timestamp'; // Capable to support date-time from 1970 + auto-triggers in some RDBMS
-    public const TYPE_DATETIME         = 'datetime'; // Capable to support long date-time before 1970
+
+    public const TYPE_TIMESTAMP        = 'timestamp';
+
+    // Capable to support date-time from 1970 + auto-triggers in some RDBMS
+    public const TYPE_DATETIME         = 'datetime';
+
+    // Capable to support long date-time before 1970
     public const TYPE_TEXT             = 'text';
-    public const TYPE_BLOB             = 'blob'; // Used for back compatibility, when query param can't use statement options
+
+    public const TYPE_BLOB             = 'blob';
+
+    // Used for back compatibility, when query param can't use statement options
     public const TYPE_VARBINARY        = 'varbinary'; // A real blob, stored as binary inside DB
 
     // Deprecated column types, support is left only in MySQL adapter.
-    public const TYPE_TINYINT          = 'tinyint';        // Internally converted to TYPE_SMALLINT
-    public const TYPE_CHAR             = 'char';           // Internally converted to TYPE_TEXT
-    public const TYPE_VARCHAR          = 'varchar';        // Internally converted to TYPE_TEXT
-    public const TYPE_LONGVARCHAR      = 'longvarchar';    // Internally converted to TYPE_TEXT
-    public const TYPE_CLOB             = 'cblob';          // Internally converted to TYPE_TEXT
-    public const TYPE_DOUBLE           = 'double';         // Internally converted to TYPE_FLOAT
-    public const TYPE_REAL             = 'real';           // Internally converted to TYPE_FLOAT
-    public const TYPE_TIME             = 'time';           // Internally converted to TYPE_TIMESTAMP
-    public const TYPE_BINARY           = 'binary';         // Internally converted to TYPE_BLOB
+    public const TYPE_TINYINT          = 'tinyint';
+
+    // Internally converted to TYPE_SMALLINT
+    public const TYPE_CHAR             = 'char';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_VARCHAR          = 'varchar';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_LONGVARCHAR      = 'longvarchar';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_CLOB             = 'cblob';
+
+    // Internally converted to TYPE_TEXT
+    public const TYPE_DOUBLE           = 'double';
+
+    // Internally converted to TYPE_FLOAT
+    public const TYPE_REAL             = 'real';
+
+    // Internally converted to TYPE_FLOAT
+    public const TYPE_TIME             = 'time';
+
+    // Internally converted to TYPE_TIMESTAMP
+    public const TYPE_BINARY           = 'binary';
+
+    // Internally converted to TYPE_BLOB
     public const TYPE_LONGVARBINARY    = 'longvarbinary';  // Internally converted to TYPE_BLOB
 
     /**
      * Default and maximal TEXT and BLOB columns sizes we can support for different DB systems.
      */
     public const DEFAULT_TEXT_SIZE     = 1024;
+
     public const MAX_TEXT_SIZE         = 2147483648;
+
     public const MAX_VARBINARY_SIZE    = 2147483648;
 
     /**
      * Default values for timestampses - fill with current timestamp on inserting record, on changing and both cases
      */
     public const TIMESTAMP_INIT_UPDATE = 'TIMESTAMP_INIT_UPDATE';
+
     public const TIMESTAMP_INIT        = 'TIMESTAMP_INIT';
+
     public const TIMESTAMP_UPDATE      = 'TIMESTAMP_UPDATE';
 
     /**
      * Actions used for foreign keys
      */
     public const ACTION_CASCADE        = 'CASCADE';
+
     public const ACTION_SET_NULL       = 'SET NULL';
+
     public const ACTION_NO_ACTION      = 'NO ACTION';
+
     public const ACTION_RESTRICT       = 'RESTRICT';
+
     public const ACTION_SET_DEFAULT    = 'SET DEFAULT';
 
     /**
@@ -188,6 +221,7 @@ class Varien_Db_Ddl_Table
         if ($this->_tableComment === null) {
             $this->_tableComment = $name;
         }
+
         return $this;
     }
 
@@ -226,6 +260,7 @@ class Varien_Db_Ddl_Table
         if (is_null($this->_tableName)) {
             throw new Zend_Db_Exception('Table name is not defined');
         }
+
         return $this->_tableName;
     }
 
@@ -325,6 +360,7 @@ class Varien_Db_Ddl_Table
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
                 }
+
                 break;
 
             case self::TYPE_DECIMAL:
@@ -344,6 +380,7 @@ class Varien_Db_Ddl_Table
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
+
                 // check options
                 if (isset($options['precision'])) {
                     $precision = $options['precision'];
@@ -356,6 +393,7 @@ class Varien_Db_Ddl_Table
                 if (!empty($options['unsigned'])) {
                     $unsigned = true;
                 }
+
                 break;
             case self::TYPE_DATE:
             case self::TYPE_DATETIME:
@@ -373,9 +411,11 @@ class Varien_Db_Ddl_Table
         if (array_key_exists('default', $options)) {
             $default = $options['default'];
         }
+
         if (array_key_exists('nullable', $options)) {
             $nullable = (bool) $options['nullable'];
         }
+
         if (!empty($options['primary'])) {
             $primary = true;
             if (isset($options['primary_position'])) {
@@ -389,6 +429,7 @@ class Varien_Db_Ddl_Table
                 }
             }
         }
+
         if (!empty($options['identity']) || !empty($options['auto_increment'])) {
             $identity = true;
         }
@@ -502,6 +543,7 @@ class Varien_Db_Ddl_Table
                 if (!empty($columnData['size'])) {
                     $columnSize = (int) $columnData['size'];
                 }
+
                 if (!empty($columnData['position'])) {
                     $columnPos = (int) $columnData['position'];
                 }
@@ -546,6 +588,7 @@ class Varien_Db_Ddl_Table
         if ($normalized) {
             return $this->_normalizeColumnPosition($this->_columns);
         }
+
         return $this->_columns;
     }
 
@@ -607,6 +650,7 @@ class Varien_Db_Ddl_Table
         if (!isset($this->_options[$key])) {
             return null;
         }
+
         return $this->_options[$key];
     }
 
@@ -658,6 +702,7 @@ class Varien_Db_Ddl_Table
             $columns[$columnId]['POSITION'] = $position;
             $position++;
         }
+
         return $columns;
     }
 
@@ -675,6 +720,7 @@ class Varien_Db_Ddl_Table
             $columns[$columnId]['COLUMN_POSITION'] = $position;
             $position++;
         }
+
         return $columns;
     }
 }

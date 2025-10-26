@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales implementation of recurring payment profiles
  * Implements saving and manageing profiles
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
@@ -98,10 +90,15 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @var string
      */
     public const STATE_UNKNOWN   = 'unknown';
+
     public const STATE_PENDING   = 'pending';
+
     public const STATE_ACTIVE    = 'active';
+
     public const STATE_SUSPENDED = 'suspended';
+
     public const STATE_CANCELED  = 'canceled';
+
     public const STATE_EXPIRED   = 'expired';
 
     /**
@@ -110,7 +107,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @var string
      */
     public const PAYMENT_TYPE_REGULAR   = 'regular';
+
     public const PAYMENT_TYPE_TRIAL     = 'trial';
+
     public const PAYMENT_TYPE_INITIAL   = 'initial';
 
     /**
@@ -269,8 +268,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             if (!$item->getIsVirtual()) {
                 $isVirtual = 0;
             }
+
             $items[] = $item;
         }
+
         $grandTotal = $billingAmount + $shippingAmount + $taxAmount;
 
         $order = Mage::getModel('sales/order');
@@ -423,18 +424,13 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     public function getFieldLabel($field)
     {
-        switch ($field) {
-            case 'order_item_id':
-                return Mage::helper('sales')->__('Purchased Item');
-            case 'state':
-                return Mage::helper('sales')->__('Profile State');
-            case 'created_at':
-                return Mage::helper('adminhtml')->__('Created At');
-            case 'updated_at':
-                return Mage::helper('adminhtml')->__('Updated At');
-            default:
-                return parent::getFieldLabel($field);
-        }
+        return match ($field) {
+            'order_item_id' => Mage::helper('sales')->__('Purchased Item'),
+            'state' => Mage::helper('sales')->__('Profile State'),
+            'created_at' => Mage::helper('adminhtml')->__('Created At'),
+            'updated_at' => Mage::helper('adminhtml')->__('Updated At'),
+            default => parent::getFieldLabel($field),
+        };
     }
 
     /**
@@ -445,12 +441,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     public function getFieldComment($field)
     {
-        switch ($field) {
-            case 'order_item_id':
-                return Mage::helper('sales')->__('Original order item that recurring payment profile correspondss to.');
-            default:
-                return parent::getFieldComment($field);
-        }
+        return match ($field) {
+            'order_item_id' => Mage::helper('sales')->__('Original order item that recurring payment profile correspondss to.'),
+            default => parent::getFieldComment($field),
+        };
     }
 
     /**
@@ -469,8 +463,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             foreach ($states as $state) {
                 $result[$state] = $this->getStateLabel($state);
             }
+
             return $result;
         }
+
         return $states;
     }
 
@@ -482,22 +478,15 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     public function getStateLabel($state)
     {
-        switch ($state) {
-            case self::STATE_UNKNOWN:
-                return Mage::helper('sales')->__('Not Initialized');
-            case self::STATE_PENDING:
-                return Mage::helper('sales')->__('Pending');
-            case self::STATE_ACTIVE:
-                return Mage::helper('sales')->__('Active');
-            case self::STATE_SUSPENDED:
-                return Mage::helper('sales')->__('Suspended');
-            case self::STATE_CANCELED:
-                return Mage::helper('sales')->__('Canceled');
-            case self::STATE_EXPIRED:
-                return Mage::helper('sales')->__('Expired');
-            default:
-                return $state;
-        }
+        return match ($state) {
+            self::STATE_UNKNOWN => Mage::helper('sales')->__('Not Initialized'),
+            self::STATE_PENDING => Mage::helper('sales')->__('Pending'),
+            self::STATE_ACTIVE => Mage::helper('sales')->__('Active'),
+            self::STATE_SUSPENDED => Mage::helper('sales')->__('Suspended'),
+            self::STATE_CANCELED => Mage::helper('sales')->__('Canceled'),
+            self::STATE_EXPIRED => Mage::helper('sales')->__('Expired'),
+            default => $state,
+        };
     }
 
     /**
@@ -509,10 +498,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function renderData($key)
     {
         $value = $this->_getData($key);
-        switch ($key) {
-            case 'state':
-                return $this->getStateLabel($value);
+        if ($key === 'state') {
+            return $this->getStateLabel($value);
         }
+
         return parent::renderData($key);
     }
 
@@ -530,16 +519,15 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (!$info) {
             return;
         }
+
         if (!is_object($info)) {
             if (is_array($info) && isset($info[$infoValueKey])) {
                 return $info[$infoValueKey];
             }
-        } else {
-            if ($info instanceof Varien_Object) {
-                return $info->getDataUsingMethod($infoValueKey);
-            } elseif (isset($info->$infoValueKey)) {
-                return $info->$infoValueKey;
-            }
+        } elseif ($info instanceof Varien_Object) {
+            return $info->getDataUsingMethod($infoValueKey);
+        } elseif (isset($info->$infoValueKey)) {
+            return $info->$infoValueKey;
         }
     }
 
@@ -599,6 +587,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
                 Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState),
             );
         }
+
         return $result;
     }
 
@@ -613,6 +602,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (empty($ids)) {
             $ids[] = '-1';
         }
+
         return $ids;
     }
 
@@ -758,6 +748,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         } else {
             $additionalOptions = [$option];
         }
+
         $options['additional_options'] = $additionalOptions;
         $item->setProductOptions($options);
     }
@@ -772,6 +763,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (!$array) {
             return;
         }
+
         foreach ($array as $key => $value) {
             if (is_object($value)) {
                 unset($array[$key]);

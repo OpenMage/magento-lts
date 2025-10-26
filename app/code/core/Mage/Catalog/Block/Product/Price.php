@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product price block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method $this setPriceElementIdPrefix(string $value)
@@ -52,6 +44,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$product) {
             $product = Mage::registry('product');
         }
+
         return $product;
     }
 
@@ -99,6 +92,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (is_null($product)) {
             $product = $this->getProduct();
         }
+
         $prices = $product->getFormatedTierPrice();
 
         // if our parent is a bundle, then we need to further adjust our tier prices
@@ -110,7 +104,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $productPrice = $product->getPrice();
                 if ($product->getPrice() != $product->getFinalPrice()) {
@@ -186,6 +180,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
@@ -240,6 +235,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

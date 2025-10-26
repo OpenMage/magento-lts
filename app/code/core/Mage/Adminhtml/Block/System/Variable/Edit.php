@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Custom Variable Edit Container
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -44,12 +36,13 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     {
         $this->_addButton('save_and_edit', [
             'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'class'     => 'save',
+            'class'     => 'save continue',
             'onclick'   => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');',
         ], 100);
         if (!$this->getVariable()->getId()) {
             $this->removeButton('delete');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -66,6 +59,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
                 ->createBlock('adminhtml/store_switcher')->toHtml();
             $formHtml = $storeSwitcher . $formHtml;
         }
+
         return $formHtml;
     }
 
@@ -79,6 +73,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         if ($this->getVariable()->getId()) {
             return Mage::helper('adminhtml')->__('Custom Variable "%s"', $this->escapeHtml($this->getVariable()->getName()));
         }
+
         return Mage::helper('adminhtml')->__('New Custom Variable');
     }
 

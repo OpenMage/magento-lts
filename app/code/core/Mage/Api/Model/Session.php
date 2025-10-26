@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice api session
  *
- * @category   Mage
  * @package    Mage_Api
  *
  * @method Mage_Api_Model_User getUser()
@@ -28,6 +20,7 @@
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     public $sessionIds = [];
+
     protected $_currentSessId = null;
 
     /**
@@ -51,6 +44,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_currentSessId)) {
             $this->start();
         }
+
         return $this;
     }
 
@@ -71,6 +65,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!is_null($sessId)) {
             $this->_currentSessId = $sessId;
         }
+
         return $this;
     }
 
@@ -90,10 +85,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($sessId = $this->getSessionId()) {
             try {
                 Mage::getModel('api/user')->logoutBySessId($sessId);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -142,13 +138,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             Mage::throwException(Mage::helper('api')->__('Your account has been deactivated.'));
         } elseif (!Mage::getModel('api/user')->hasAssigned2Role($user->getId())) {
             Mage::throwException(Mage::helper('api')->__('Access denied.'));
+        } elseif ($user->getId()) {
+            $this->setUser($user);
+            $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
         } else {
-            if ($user->getId()) {
-                $this->setUser($user);
-                $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
-            } else {
-                Mage::throwException(Mage::helper('api')->__('Unable to login.'));
-            }
+            Mage::throwException(Mage::helper('api')->__('Unable to login.'));
         }
 
         return $user;
@@ -163,16 +157,20 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->unsetData('api_key');
             $user->setReloadAclFlag('0')->save();
         }
+
         return $this;
     }
 
@@ -200,10 +198,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return false;
     }
 
@@ -218,6 +217,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$user->getId()) {
             return true;
         }
+
         $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
@@ -238,6 +238,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($userExists) {
             Mage::register('isSecureArea', true, true);
         }
+
         return $userExists;
     }
 
@@ -263,6 +264,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             return true;
         }
+
         return false;
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule entity data model
  *
- * @category   Mage
  * @package    Mage_Rule
  *
  * @method $this unsActions()
@@ -188,6 +180,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $this->_conditions->loadArray($conditions);
                 }
             }
+
             $this->unsConditionsSerialized();
         }
 
@@ -227,6 +220,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $this->_actions->loadArray($actions);
                 }
             }
+
             $this->unsActionsSerialized();
         }
 
@@ -245,6 +239,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (is_null($conditions)) {
             $conditions = $this->getConditionsInstance();
         }
+
         $conditions->setRule($this)->setId('1')->setPrefix('conditions');
         $this->setConditions($conditions);
 
@@ -263,6 +258,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (is_null($actions)) {
             $actions = $this->getActionsInstance();
         }
+
         $actions->setRule($this)->setId('1')->setPrefix('actions');
         $this->setActions($actions);
 
@@ -279,6 +275,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (!$this->_form) {
             $this->_form = new Varien_Data_Form();
         }
+
         return $this->_form;
     }
 
@@ -294,6 +291,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (isset($arr['conditions'])) {
             $this->getConditions()->setConditions([])->loadArray($arr['conditions'][1]);
         }
+
         if (isset($arr['actions'])) {
             $this->getActions()->setActions([])->loadArray($arr['actions'][1], 'actions');
         }
@@ -320,6 +318,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
                         $node = & $node[$key][$path[$i]] ?? [];
                     }
+
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
                     }
@@ -336,6 +335,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                         false,
                     );
                 }
+
                 $this->setData($key, $value);
             }
         }
@@ -385,6 +385,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 $result[] = Mage::helper('rule')->__('Websites must be specified.');
             }
         }
+
         if ($object->hasCustomerGroupIds()) {
             $customerGroupIds = $object->getCustomerGroupIds();
             if (empty($customerGroupIds)) {
@@ -452,6 +453,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $websiteIds = $this->_getResource()->getWebsiteIds($this->getId());
             $this->setData('website_ids', (array) $websiteIds);
         }
+
         return $this->_getData('website_ids');
     }
 

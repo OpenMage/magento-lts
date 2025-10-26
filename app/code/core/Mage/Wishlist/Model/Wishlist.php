@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist model
  *
- * @category   Mage
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
@@ -40,6 +32,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @var string
      */
     protected $_eventPrefix = 'wishlist';
+
     /**
      * Wishlist item collection
      *
@@ -112,6 +105,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if (!strlen($name)) {
             return Mage::helper('wishlist')->getDefaultWishlistName();
         }
+
         return $name;
     }
 
@@ -176,6 +170,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if ($this->_itemCollection !== null) {
             $this->getItemCollection()->save();
         }
+
         return $this;
     }
 
@@ -260,6 +255,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if (!$itemId) {
             return false;
         }
+
         return $this->getItemCollection()->getItemById($itemId);
     }
 
@@ -278,6 +274,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $collection = Mage::getResourceModel('wishlist/product_collection');
             $this->setData('product_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -293,6 +290,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $this->getItemCollection()->addItem($item);
             Mage::dispatchEvent('wishlist_add_item', ['item' => $item]);
         }
+
         return $this;
     }
 
@@ -359,11 +357,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
         $errors = [];
         $items = [];
+        $item = null;
 
         foreach ($cartCandidates as $candidate) {
             if ($candidate->getParentProductId()) {
                 continue;
             }
+
             $candidate->setWishlistStoreId($storeId);
 
             $qty = $candidate->getQty() ? $candidate->getQty() : 1; // No null values as qty. Convert zero to 1.
@@ -409,11 +409,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
-        $data['shared']      = (int) $this->getShared();
-        $data['sharing_code'] = $this->getSharingCode();
-        return $data;
+        return [
+            $this->_getResource()->getCustomerIdFieldName() => $this->getCustomerId(),
+            'shared' => (int) $this->getShared(),
+            'sharing_code' => $this->getSharingCode(),
+        ];
     }
 
     /**
@@ -433,9 +433,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 foreach ($stores as $store) {
                     $storeIds[] = $store->getId();
                 }
+
                 $this->_storeIds = $storeIds;
             }
         }
+
         return $this->_storeIds;
     }
 
@@ -461,6 +463,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if (is_null($this->_store)) {
             $this->setStore(Mage::app()->getStore());
         }
+
         return $this->_store;
     }
 
@@ -498,6 +501,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -541,6 +545,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         } else {
             $item = $this->getItem((int) $itemId);
         }
+
         if (!$item) {
             Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist item.'));
         }
@@ -553,6 +558,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             } elseif (is_array($params)) {
                 $params = new Varien_Object($params);
             }
+
             $params->setCurrentConfig($item->getBuyRequest());
             $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
@@ -569,6 +575,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                     $isForceSetQuantity = false;
                 }
             }
+
             $resultItem = $this->addNewItem($product, $buyRequest, $isForceSetQuantity);
             /**
              * Error message
@@ -581,6 +588,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 if ($resultItem->getDescription() != $item->getDescription()) {
                     $resultItem->setDescription($item->getDescription())->save();
                 }
+
                 $item->isDeleted(true);
                 $this->setDataChanges(true);
             } else {
@@ -590,6 +598,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         } else {
             Mage::throwException(Mage::helper('checkout')->__('The product does not exist.'));
         }
+
         return $this;
     }
 

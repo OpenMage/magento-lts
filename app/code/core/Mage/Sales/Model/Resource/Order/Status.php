@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status resource model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db_Abstract
@@ -71,6 +63,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         } else {
             $select = parent::_getLoadSelect($field, $value, $object);
         }
+
         return $select;
     }
 
@@ -106,16 +99,19 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 if (empty($label)) {
                     continue;
                 }
+
                 $data[] = [
                     'status'    => $object->getStatus(),
                     'store_id'  => $storeId,
                     'label'     => $label,
                 ];
             }
+
             if (!empty($data)) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
             }
         }
+
         return parent::_afterSave($object);
     }
 
@@ -136,6 +132,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ['state = ?' => $state],
             );
         }
+
         $this->_getWriteAdapter()->insertOnDuplicate(
             $this->_stateTable,
             [
@@ -165,6 +162,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 Mage::helper('sales')->__('Last status can\'t be unassigned from state.'),
             );
         }
+
         $select = $this->_getWriteAdapter()->select()
             ->from($this->_stateTable, 'is_default')
             ->where('state = ?', $state)
@@ -196,6 +194,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 );
             }
         }
+
         return $this;
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form editor element
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method string getTitle()
@@ -128,6 +120,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 return $this->_wrapIntoContainer($html);
             }
+
             return parent::getElementHtml();
         }
     }
@@ -222,8 +215,10 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                     if (isset($buttonOptions['style'])) {
                         $configStyle = $buttonOptions['style'];
                     }
+
                     $buttonOptions = array_merge($buttonOptions, ['style' => 'display:none;' . $configStyle]);
                 }
+
                 $buttonsHtml .= $this->_getButtonHtml($buttonOptions);
             }
         }
@@ -244,6 +239,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         foreach ($options as $name => $value) {
             $buttonOptions[$name] = $value;
         }
+
         return $this->_prepareOptions($buttonOptions);
     }
 
@@ -251,13 +247,14 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Check if plugin button options have required values
      *
      * @param array $pluginOptions
-     * @return boolean
+     * @return bool
      */
     protected function _checkPluginButtonOptions($pluginOptions)
     {
         if (!isset($pluginOptions['title'])) {
             return false;
         }
+
         return true;
     }
 
@@ -277,11 +274,13 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 foreach ($value['search'] as $part) {
                     $subject = str_replace('{{' . $part . '}}', $this->getDataUsingMethod($part), $subject);
                 }
+
                 $preparedOptions[$name] = $subject;
             } else {
                 $preparedOptions[$name] = $value;
             }
         }
+
         return $preparedOptions;
     }
 
@@ -294,7 +293,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     protected function _getButtonHtml($data)
     {
         $html = '<button type="button"';
-        $html .= ' class="scalable ' . (isset($data['class']) ? $data['class'] : '') . '"';
+        $html .= ' class="scalable ' . ($data['class'] ?? '') . '"';
         $html .= isset($data['onclick']) ? ' onclick="' . $data['onclick'] . '"' : '';
         $html .= isset($data['style']) ? ' style="' . $data['style'] . '"' : '';
         $html .= isset($data['id']) ? ' id="' . $data['id'] . '"' : '';
@@ -337,9 +336,11 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $config = new Varien_Object();
             $this->setConfig($config);
         }
+
         if ($key !== null) {
             return $this->_getData('config')->getData($key);
         }
+
         return $this->_getData('config');
     }
 
@@ -372,6 +373,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if ($this->hasData('wysiwyg')) {
             return $this->getWysiwyg();
         }
+
         return $this->getConfig('enabled');
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin user model
  *
- * @category   Mage
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_User _getResource()
@@ -75,11 +67,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Configuration paths for email templates and identities
      */
     public const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
+
     public const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
+
     public const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
 
     /** Configuration paths for notifications */
     public const XML_PATH_ADDITIONAL_EMAILS             = 'general/additional_notification_emails/admin_user_create';
+
     public const XML_PATH_NOTIFICATION_EMAILS_TEMPLATE  = 'admin/emails/admin_notification_email_template';
 
     /**
@@ -200,6 +195,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (is_array($data)) {
             $data = serialize($data);
         }
+
         $this->_getResource()->saveExtra($this, $data);
         return $this;
     }
@@ -240,6 +236,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $this->_role->load($roles[0]);
             }
         }
+
         return $this->_role;
     }
 
@@ -262,7 +259,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
-        return is_array($result) && count($result) > 0;
+        return is_array($result) && $result !== [];
     }
 
     /**
@@ -284,7 +281,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
-        return is_array($result) && count($result) > 0;
+        return is_array($result) && $result !== [];
     }
 
     /**
@@ -319,6 +316,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getEmail(), $this->getName());
+
         $mailer->addEmailInfo($emailInfo);
 
         // Set all required params and send emails
@@ -392,9 +390,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 if ($this->getIsActive() != '1') {
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }
+
                 if (!$this->hasAssigned2Role($this->getId())) {
                     Mage::throwException(Mage::helper('adminhtml')->__('Access denied.'));
                 }
+
                 $result = true;
             }
 
@@ -412,6 +412,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (!$result) {
             $this->unsetData();
         }
+
         return $result;
     }
 
@@ -437,6 +438,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $this->getResource()->recordLogin($this);
             Mage::getSingleton('core/session')->renewFormKey();
         }
+
         return $this;
     }
 
@@ -457,6 +459,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         } elseif ($isUserPasswordChanged) {
             $this->getSession()->setUserPasswordChanged(false);
         }
+
         return $this;
     }
 
@@ -518,6 +521,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if ($parent == null) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
+
         foreach ($parent->children() as $childName => $child) {
             $aclResource = 'admin/' . $path . $childName;
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
@@ -529,6 +533,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $this->_hasAvailableResources = false;
         return '*/*/denied';
     }
@@ -571,6 +576,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 return $url;
             }
         }
+
         return $this->findFirstAvailableMenu();
     }
 
@@ -606,6 +612,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         } elseif ($this->hasPassword()) {
             $password = $this->getPassword();
         }
+
         if (isset($password)) {
             $minAdminPasswordLength = $this->getMinAdminPasswordLength();
             if (Mage::helper('core/string')->strlen($password) < $minAdminPasswordLength) {
@@ -660,6 +667,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (empty($result)) {
             $result = true;
         }
+
         return $result;
     }
 
@@ -677,6 +685,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
+
         $this->setRpToken($newResetPasswordLinkToken);
         $currentDate = Varien_Date::now();
         $this->setRpTokenCreatedAt($currentDate);
@@ -761,6 +770,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer    = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo(array_filter($emails), $generalContactName);
+
         $mailer->addEmailInfo($emailInfo);
 
         // Set all required params and send emails
@@ -798,6 +808,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_ADMIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
-        return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
+        return max($absoluteMinLength, $minLength);
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice api2 config model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Config extends Varien_Simplexml_Config
@@ -114,6 +106,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 $routes[] = Mage::getModel('api2/route_' . $apiType, $arguments);
             }
         }
+
         return $routes;
     }
 
@@ -139,6 +132,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         foreach ($this->getResources() as $resourceType => $resourceCfg) {
             $list[] = (string) $resourceType;
         }
+
         return $list;
     }
 
@@ -164,6 +158,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 if (!$result) {
                     continue;
                 }
+
                 $groupName = (string) $result[0];
                 if ($groupName) {
                     $result = $groups->xpath('.//' . $groupName);
@@ -181,6 +176,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $groups;
     }
 
@@ -188,7 +184,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource group from config files api2.xml
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return Mage_Core_Model_Config_Element|bool
      */
     public function getResourceGroup($name)
     {
@@ -196,6 +192,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         if (!$group) {
             return false;
         }
+
         return $group[0];
     }
 
@@ -203,7 +200,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource by type (node)
      *
      * @param string $node
-     * @return Varien_Simplexml_Element|boolean
+     * @return Varien_Simplexml_Element|bool
      */
     public function getResource($node)
     {
@@ -242,6 +239,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $exclAttributes;
     }
 
@@ -264,6 +262,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $forcedAttributes;
     }
 
@@ -272,7 +271,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      *
      * @param string $resource API resource ID
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceIncludedAttributes($resource, $userType, $operationType)
@@ -287,6 +286,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $inclAttributes;
     }
 
@@ -295,7 +295,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      *
      * @param string $resource API resource ID
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceEntityOnlyAttributes($resource, $userType, $operationType)
@@ -311,6 +311,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $entityOnlyAttributes;
     }
 
@@ -420,6 +421,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return (int) $useVersion;
     }
 

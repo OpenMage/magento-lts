@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Rule
  *
  * @method $this setActions(array $value)
@@ -52,6 +44,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (empty($wheres)) {
             return '';
         }
+
         $delimiter = $this->getAggregator() == 'all' ? ' AND ' : ' OR ';
         return ' (' . implode($delimiter, $wheres) . ') ';
     }
@@ -102,6 +95,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
     }
+
     /* start aggregator methods */
     /**
      * @return $this
@@ -124,6 +118,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getAggregatorOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -147,18 +142,21 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
 
-        $renderer = Mage::getBlockSingleton('rule/editable');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__aggregator', 'select', [
+        $element = $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__aggregator', 'select', [
             'name' => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][aggregator]',
             'values' => $this->getAggregatorSelectOptions(),
             'value' => $this->getAggregator(),
             'value_name' => $this->getAggregatorName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
+
     /* end aggregator methods */
 
     /**
@@ -244,6 +242,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
         }
+
         return $xml . "</$containerKey>";
     }
 
@@ -270,6 +269,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                 }
             }
         }
+
         return $this;
     }
 
@@ -282,10 +282,12 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (is_string($xml)) {
             $xml = simplexml_load_string($xml);
         }
+
         $arr = parent::loadXml($xml);
         foreach ($xml->conditions->children() as $condition) {
             $arr['conditions'] = parent::loadXml($condition);
         }
+
         $this->loadArray($arr);
         return $this;
     }
@@ -300,6 +302,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
@@ -308,16 +311,18 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function getNewChildElement()
     {
-        $renderer = Mage::getBlockSingleton('rule/newchild');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__new_child', 'select', [
+        $element = $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__new_child', 'select', [
             'name' => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][new_child]',
             'values' => $this->getNewChildSelectOptions(),
             'value_name' => $this->getNewChildName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/newchild');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -329,6 +334,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
+
         return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
@@ -351,6 +357,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $str .= "\n" . $cond->asStringRecursive($level + 1);
         }
+
         return $str;
     }
 
@@ -375,6 +382,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                 return true;
             }
         }
+
         return $all ? true : false;
     }
 
@@ -388,6 +396,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $condition->setJsFormObject($form);
         }
+
         return $this;
     }
 

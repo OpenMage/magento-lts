@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method string getInlineCssFile()
@@ -29,9 +21,13 @@
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
     public const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
+
     public const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
     protected $_cssFileCache = [];
@@ -116,6 +112,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return Mage::getBaseUrl('media') . $uploadDir . '/' . $fileName;
             }
         }
+
         return Mage::getDesign()->getSkinUrl('images/logo_email.gif');
     }
 
@@ -132,6 +129,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         if ($alt) {
             return $alt;
         }
+
         return $store->getFrontendName();
     }
 
@@ -147,9 +145,11 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         if (!isset($variables['store'])) {
             $variables['store'] = Mage::app()->getStore($storeId);
         }
+
         if (!isset($variables['logo_url'])) {
             $variables['logo_url'] = $this->_getLogoUrl($storeId);
         }
+
         if (!isset($variables['logo_alt'])) {
             $variables['logo_alt'] = $this->_getLogoAlt($storeId);
         }
@@ -168,10 +168,12 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 $variables[$variableName] = Mage::getStoreConfig($configValue, $storeId);
             }
         }
+
         // If template is text mode, don't include styles
         if (!$this->isPlain()) {
             $variables['non_inline_styles'] = $this->_getNonInlineCssTag();
         }
+
         return $variables;
     }
 
@@ -200,6 +202,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         } catch (Exception $e) {
             $processedHtml = '{CSS inlining error: ' . $e->getMessage() . '}' . PHP_EOL . $html;
         }
+
         return $processedHtml;
     }
 
@@ -252,12 +255,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             if (!$filesToLoad) {
                 return '';
             }
+
             $files = array_map('trim', explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {
                 $css .= $this->_getCssFileContent($fileName) . "\n";
             }
+
             $this->_cssFileCache[$configPath] = $css;
         }
 

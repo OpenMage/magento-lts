@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogIndex Data Retriever Abstract Model
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
@@ -53,6 +45,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     protected $_haveParents = true;
 
     public const LINK_GET_CHILDREN = 1;
+
     public const LINK_GET_PARENTS = 1;
 
     /**
@@ -214,6 +207,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         } else {
             $taxClassId = 0;
         }
+
         return $taxClassId;
     }
 
@@ -273,6 +267,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         if (!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]) {
             return false;
         }
+
         return true;
     }
 
@@ -289,6 +284,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             $this->_typeInstance = Mage::getSingleton('catalog/product_type')
                 ->factory($product, true);
         }
+
         return $this->_typeInstance;
     }
 }

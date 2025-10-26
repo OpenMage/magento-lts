@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category controller
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
@@ -43,6 +35,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
         }
+
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
@@ -105,6 +98,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $this->getLayout()->helper('page/layout')
                     ->applyHandle($category->getPageLayout());
             }
+
             $update->addUpdate($category->getCustomLayoutUpdate());
         }
 

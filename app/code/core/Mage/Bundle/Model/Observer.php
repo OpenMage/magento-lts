@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Products Observer
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Observer
@@ -49,6 +41,7 @@ class Mage_Bundle_Model_Observer
                 foreach (array_keys($customOptions) as $key) {
                     $customOptions[$key]['is_delete'] = 1;
                 }
+
                 $product->setProductOptions($customOptions);
             }
         }
@@ -114,6 +107,7 @@ class Mage_Bundle_Model_Observer
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
+
         $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
@@ -126,6 +120,7 @@ class Mage_Bundle_Model_Observer
             foreach ($bundleCollection as $item) {
                 $items[$item->getEntityId()] = $item;
             }
+
             $collection->setItems($items);
         }
 
@@ -193,6 +188,7 @@ class Mage_Bundle_Model_Observer
         $productType = $product->getTypeInstance(true);
 
         $productType->setStoreFilter($product->getStoreId(), $product);
+
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
@@ -224,6 +220,7 @@ class Mage_Bundle_Model_Observer
                     'delete' => '',
                 ];
             }
+
             $i++;
         }
 
@@ -246,6 +243,7 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+
         return $this;
     }
 

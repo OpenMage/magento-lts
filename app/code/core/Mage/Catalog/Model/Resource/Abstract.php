@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog entity abstract model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method int getStoreId()
@@ -121,6 +113,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if (count($storeIds) > 1) {
             $select->order('attr_table.store_id ASC');
         }
+
         if ($setId) {
             $select->join(
                 ['set_table' => $this->getTable('eav/entity_attribute')],
@@ -129,6 +122,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 [],
             );
         }
+
         return $select;
     }
 
@@ -195,6 +189,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             if (!$isDefaultStore) {
                 $object->setExistsStoreValueFlag($attributeCode);
             }
+
             $attribute->getBackend()->setEntityValueId($object, $valueId);
         }
 
@@ -449,7 +444,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      */
     protected function _getOrigObject($object)
     {
-        $className  = get_class($object);
+        $className  = $object::class;
         $origObject = new $className();
         $origObject->setData([]);
         $origObject->setStoreId($object->getStoreId());
@@ -490,9 +485,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                     $globalAttributeIds[] = $attr->getId();
                 }
             }
+
             if (!empty($globalAttributeIds)) {
                 $where .= ' or ' . $this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
             }
+
             $select->where($where);
 
             $values = $this->_getReadAdapter()->fetchAll($select);
@@ -505,6 +502,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 $data[$this->getAttribute($row['attribute_id'])->getName()][$row['store_id']] = $row;
             }
         }
+
         return $data;
     }
 
@@ -554,7 +552,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         $type = $attribute->getBackendType();
-        if (($type === 'int' || $type === 'decimal' || $type === 'datetime') && $value === '') {
+        if ((in_array($type, ['int', 'decimal', 'datetime'], true)) && $value === '') {
             $value = null;
         }
 
@@ -590,12 +588,13 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $adapter            = $this->_getReadAdapter();
         $getPerStore        = false;
 
+        /** @var Mage_Catalog_Model_Entity_Attribute $_attribute */
         foreach ($attribute as $_attribute) {
-            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
             $_attribute = $this->getAttribute($_attribute);
             if (!$_attribute) {
                 continue;
             }
+
             $attributeCode = $_attribute->getAttributeCode();
             $attrTable     = $_attribute->getBackend()->getTable();
             $isStatic      = $_attribute->getBackend()->isStatic();

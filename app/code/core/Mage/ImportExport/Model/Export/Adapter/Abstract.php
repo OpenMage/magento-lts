@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract adapter model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  *
  * @property resource $_fileHandler
@@ -61,17 +53,21 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
         if (!$destination) {
             $destination = tempnam(sys_get_temp_dir(), 'importexport_');
         }
+
         if (!is_string($destination)) {
             Mage::throwException(Mage::helper('importexport')->__('Destination file path must be a string'));
         }
+
         $pathinfo = pathinfo($destination);
 
         if (empty($pathinfo['dirname']) || !is_writable($pathinfo['dirname'])) {
             Mage::throwException(Mage::helper('importexport')->__('Destination directory is not writable'));
         }
+
         if (is_file($destination) && !is_writable($destination)) {
             Mage::throwException(Mage::helper('importexport')->__('Destination file is not writable'));
         }
+
         $this->_destination = $destination;
 
         $this->_init();
@@ -143,12 +139,15 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
         if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
+
         if ($headerCols) {
             foreach ($headerCols as $colName) {
                 $this->_headerCols[$colName] = false;
             }
+
             fputcsv($this->_fileHandler, array_keys($this->_headerCols), $this->_delimiter, $this->_enclosure, $this->_escape);
         }
+
         return $this;
     }
 

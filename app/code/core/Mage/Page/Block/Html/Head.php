@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Html page block
  *
- * @category   Mage
  * @package    Mage_Page
  *
  * @method $this setCanLoadCalendarJs(bool $value)
@@ -134,9 +126,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if ($params === '') {
             $params = null;
         }
+
         if ($if === '') {
             $if = null;
         }
+
         if ($cond === '') {
             $cond = null;
         }
@@ -144,6 +138,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
+
         $this->_data['items'][$type . '/' . $name] = [
             'type' => $type,
             'name' => $name,
@@ -189,6 +184,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
                 continue;
             }
+
             $if     = !empty($item['if']) ? $item['if'] : '';
             $params = !empty($item['params']) ? $item['params'] : '';
             switch ($item['type']) {
@@ -212,6 +208,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             if (empty($items)) {
                 continue;
             }
+
             if (!empty($if)) {
                 // @deprecated
                 continue;
@@ -238,6 +235,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . PHP_EOL;
             }
         }
+
         return $html;
     }
 
@@ -285,6 +283,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             if ($mergeCallback) {
                 $mergedUrl = call_user_func($mergeCallback, $rows);
             }
+
             // render elements
             $params = trim($params);
             $params = $params ? ' ' . $params : '';
@@ -296,6 +295,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $html;
     }
 
@@ -357,8 +357,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $chunks[] = $chunk;
                 $chunk = $prefix;
             }
+
             $chunk .= ',' . $item;
         }
+
         $chunks[] = $chunk;
         return $chunks;
     }
@@ -373,6 +375,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['content_type'])) {
             $this->_data['content_type'] = $this->getMediaType() . '; charset=' . $this->getCharset();
         }
+
         return $this->_data['content_type'];
     }
 
@@ -386,6 +389,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['media_type'])) {
             $this->_data['media_type'] = Mage::getStoreConfig('design/head/default_media_type');
         }
+
         return $this->_data['media_type'];
     }
 
@@ -399,6 +403,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['charset'])) {
             $this->_data['charset'] = Mage::getStoreConfig('design/head/default_charset');
         }
+
         return $this->_data['charset'];
     }
 
@@ -425,6 +430,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['title'])) {
             $this->_data['title'] = $this->getDefaultTitle();
         }
+
         return htmlspecialchars(html_entity_decode(trim($this->_data['title']), ENT_QUOTES, 'UTF-8'));
     }
 
@@ -448,6 +454,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['description'])) {
             $this->_data['description'] = Mage::getStoreConfig('design/head/default_description');
         }
+
         return $this->_data['description'];
     }
 
@@ -461,6 +468,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['keywords'])) {
             $this->_data['keywords'] = Mage::getStoreConfig('design/head/default_keywords');
         }
+
         return $this->_data['keywords'];
     }
 
@@ -474,6 +482,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['robots'])) {
             $this->_data['robots'] = Mage::getStoreConfig('design/head/default_robots');
         }
+
         return $this->_data['robots'];
     }
 
@@ -487,6 +496,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['includes'])) {
             $this->_data['includes'] = Mage::getStoreConfig('design/head/includes');
         }
+
         return $this->_data['includes'];
     }
 
@@ -500,6 +510,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['favicon_file'])) {
             $this->_data['favicon_file'] = $this->_getFaviconFile();
         }
+
         return $this->_data['favicon_file'];
     }
 
@@ -520,6 +531,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         } else {
             $url = $this->getSkinUrl('favicon.ico');
         }
+
         return $url;
     }
 
@@ -534,6 +546,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (Mage::helper('core/file_storage_database')->checkDbUsage() && !is_file($filename)) {
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
+
         return is_file($filename);
     }
 
@@ -548,10 +561,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $before = filter_var($before, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
         $items = $this->_data['items'];
-
-        // get newly inserted item so we do not have to reproduce the functionality of the parent
-        end($items);
-        $newKey = key($items);
+        $newKey = array_key_last($items);
         $newVal = array_pop($items);
 
         $newItems = [];

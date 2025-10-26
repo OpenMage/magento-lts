@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Payment
  */
 class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
@@ -55,6 +47,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
                 }
             }
         }
+
         return $types;
     }
 
@@ -71,6 +64,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $months = array_merge($months, $this->_getConfig()->getMonths());
             $this->setData('cc_months', $months);
         }
+
         return $months;
     }
 
@@ -87,6 +81,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $years = [0 => $this->__('Year')] + $years;
             $this->setData('cc_years', $years);
         }
+
         return $years;
     }
 
@@ -102,8 +97,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if (is_null($configData)) {
                 return true;
             }
+
             return (bool) $configData;
         }
+
         return true;
     }
 
@@ -117,9 +114,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
+        if ($availableTypes && $ssPresenations !== []) {
             return true;
         }
+
         return false;
     }
 
@@ -139,6 +137,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $year = $first - $index;
             $years[$year] = $year;
         }
+
         return [0 => $this->__('Year')] + $years;
     }
 

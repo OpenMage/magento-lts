@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Address Total Collector model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Config_Ordered
@@ -67,6 +59,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         } else {
             $this->_store = Mage::app()->getStore();
         }
+
         $this->_initModels()
             ->_initCollectors()
             ->_initRetrievers();
@@ -135,6 +128,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 $this->_models[$totalCode] = $this->_initModelInstance($class, $totalCode, $totalConfig);
             }
         }
+
         return $this;
     }
 
@@ -154,14 +148,17 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 while (isset($this->_retrievers[$retrieverId])) {
                     $retrieverId++;
                 }
+
                 $this->_retrievers[$retrieverId] = $this->_models[$code];
             }
         }
+
         ksort($this->_retrievers);
         $notSorted = array_diff(array_keys($this->_models), array_keys($sorts));
         foreach ($notSorted as $code) {
             $this->_retrievers[] = $this->_models[$code];
         }
+
         return $this;
     }
 }

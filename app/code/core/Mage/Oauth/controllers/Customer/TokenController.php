@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  *
  * Tab "My Applications" in the Customer Account
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Action
@@ -52,6 +44,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
@@ -76,6 +69,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (Mage::app()->getStore()->getBaseUrl() == $url) {
             $url = Mage::getUrl('*/*/index');
         }
+
         $this->_redirectUrl($url);
         return $this;
     }
@@ -123,6 +117,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                 } else {
                     $message = $this->__('Application "%s" has been enabled.', $name);
                 }
+
                 $this->_session->addSuccess($message);
             } else {
                 $this->_session->addError($this->__('Application not found.'));
@@ -133,6 +128,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             $this->_session->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
+
         $this->_redirectBack();
     }
 
@@ -175,6 +171,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             $this->_session->addError($this->__('An error occurred on delete application.'));
             Mage::logException($e);
         }
+
         $this->_redirectBack();
     }
 }

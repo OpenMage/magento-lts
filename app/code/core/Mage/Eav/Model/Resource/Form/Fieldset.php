@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Form Fieldset Resource Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_Abstract
@@ -65,12 +57,14 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                     if (empty($label)) {
                         continue;
                     }
+
                     $data[] = [
                         'fieldset_id'   => (int) $object->getId(),
                         'store_id'      => (int) $storeId,
                         'label'         => $label,
                     ];
                 }
+
                 if ($data) {
                     $adapter->insertMultiple($this->getTable('eav/form_fieldset_label'), $data);
                 }
@@ -84,15 +78,13 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 $adapter->delete($this->getTable('eav/form_fieldset_label'), $where);
             }
 
-            if (!empty($update)) {
-                foreach ($update as $storeId => $label) {
-                    $bind  = ['label' => $label];
-                    $where = [
-                        'fieldset_id =?' => $object->getId(),
-                        'store_id =?'    => $storeId,
-                    ];
-                    $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
-                }
+            foreach ($update as $storeId => $label) {
+                $bind  = ['label' => $label];
+                $where = [
+                    'fieldset_id =?' => $object->getId(),
+                    'store_id =?'    => $storeId,
+                ];
+                $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
             }
         }
 
@@ -111,6 +103,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         if (!$objectId) {
             return [];
         }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [':fieldset_id' => $objectId];
         $select  = $adapter->select()

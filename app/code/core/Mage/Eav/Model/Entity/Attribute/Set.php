@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav attribute set model
  *
- * @category   Mage
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set _getResource()
@@ -89,9 +81,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                     ->setSortOrder($attribute->getSortOrder());
                 $newAttributes[] = $newAttribute;
             }
+
             $newGroup->setAttributes($newAttributes);
             $newGroups[] = $newGroup;
         }
+
         $this->setGroups($newGroups);
 
         return $this;
@@ -113,9 +107,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             foreach ($data['attributes'] as $attribute) {
                 $ids[] = $attribute[0];
             }
+
             $attributeIds = Mage::getResourceSingleton('eav/entity_attribute')
                 ->getValidAttributeIds($ids);
         }
+
         if ($data['groups']) {
             foreach ($data['groups'] as $group) {
                 $modelGroup = Mage::getModel('eav/entity_attribute_group');
@@ -136,11 +132,14 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                             $modelAttributeArray[] = $modelAttribute;
                         }
                     }
+
                     $modelGroup->setAttributes($modelAttributeArray);
                     $modelAttributeArray = [];
                 }
+
                 $modelGroupArray[] = $modelGroup;
             }
+
             $this->setGroups($modelGroupArray);
         }
 
@@ -152,6 +151,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 $modelAttribute->setEntityAttributeId($attributeId);
                 $modelAttributeArray[] = $modelAttribute;
             }
+
             $this->setRemoveAttributes($modelAttributeArray);
         }
 
@@ -163,8 +163,10 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 
                 $modelGroupArray[] = $modelGroup;
             }
+
             $this->setRemoveGroups($modelGroupArray);
         }
+
         $this->setAttributeSetName($data['attribute_set_name'])
             ->setEntityTypeId($this->getEntityTypeId());
 
@@ -206,9 +208,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             if ($setId && is_array($attribute->getAttributeSetInfo($setId))) {
                 continue;
             }
+
             if (!$attribute->getAttributeId()) {
                 continue;
             }
+
             $attributeIds[] = $attribute->getAttributeId();
         }
 
@@ -221,24 +225,26 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 if (!$attribute->getAttributeId()) {
                     continue;
                 }
+
                 if (!in_array($attribute->getAttributeId(), $attributeIds)) {
                     continue;
                 }
+
                 if (is_numeric($setId)) {
                     $attributeSetInfo = $attribute->getAttributeSetInfo();
                     if (!is_array($attributeSetInfo)) {
                         $attributeSetInfo = [];
                     }
+
                     if (isset($setInfo[$attribute->getAttributeId()][$setId])) {
                         $attributeSetInfo[$setId] = $setInfo[$attribute->getAttributeId()][$setId];
                     }
+
                     $attribute->setAttributeSetInfo($attributeSetInfo);
+                } elseif (isset($setInfo[$attribute->getAttributeId()])) {
+                    $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
                 } else {
-                    if (isset($setInfo[$attribute->getAttributeId()])) {
-                        $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
-                    } else {
-                        $attribute->setAttributeSetInfo([]);
-                    }
+                    $attribute->setAttributeSetInfo([]);
                 }
             }
         }
@@ -250,18 +256,20 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * Return default Group Id for current or defined Attribute Set
      *
      * @param int $setId
-     * @return int|null
+     * @return string|null
      */
     public function getDefaultGroupId($setId = null)
     {
         if ($setId === null) {
             $setId = $this->getId();
         }
+
         if ($setId) {
             $groupId = $this->_getResource()->getDefaultGroupId($setId);
         } else {
             $groupId = null;
         }
+
         return $groupId;
     }
 }

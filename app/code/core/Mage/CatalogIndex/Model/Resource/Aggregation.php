@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource Model CatalogIndex Aggregation
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
@@ -66,6 +58,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         } else {
             $data = [];
         }
+
         return $data;
     }
 
@@ -133,6 +126,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         if (!$write = $this->_getWriteAdapter()) {
             return $this;
         }
+
         if (!empty($tags)) {
             $tagIds = $this->_getTagIds($tags);
             $select = $write->select()
@@ -163,6 +157,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         foreach ($tags as $tagId) {
             $data[] = $aggregationId . ',' . $tagId;
         }
+
         $query .= '(' . implode('),(', $data) . ')';
         $this->_getWriteAdapter()->query($query);
         return $this;
@@ -198,6 +193,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             $newTags = $this->_getReadAdapter()->fetchPairs($select);
             $tagIds = array_merge($tagIds, $newTags);
         }
+
         return $tagIds;
     }
 
@@ -214,6 +210,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
+
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ')';
             $this->_getWriteAdapter()->query($query);
         } else {
@@ -221,6 +218,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
                 'tag_code' => $tags,
             ]);
         }
+
         return $this;
     }
 

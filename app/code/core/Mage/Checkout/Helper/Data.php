@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Checkout default helper
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
+
     public const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
     protected $_moduleName = 'Mage_Checkout';
@@ -84,6 +77,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                     ->getAllIds();
             }
         }
+
         return $this->_agreements;
     }
 
@@ -101,7 +95,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * Get sales item (quote item, order item etc) price including tax based on row total and tax amount
      * excluding weee tax
      *
-     * @param   Mage_Core_Model_Abstract $item
+     * @param   Mage_Core_Model_Abstract|Varien_Object $item
      * @return  float
      */
     public function getPriceInclTax($item)
@@ -109,6 +103,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item->getPriceInclTax()) {
             return $item->getPriceInclTax();
         }
+
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
 
         //Unit price is rowtotal/qty
@@ -118,7 +113,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get sales item (quote item, order item etc) row total price including tax
      *
-     * @param   Mage_Core_Model_Abstract $item
+     * @param   Mage_Core_Model_Abstract|Varien_Object $item
      * @return  float
      */
     public function getSubtotalInclTax($item)
@@ -126,6 +121,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item->getRowTotalInclTax()) {
             return $item->getRowTotalInclTax();
         }
+
         //Since tax amount contains weee tax
         $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation()
             - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);
@@ -146,7 +142,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the base price of the item including tax , excluding weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBasePriceInclTax($item)
@@ -159,7 +155,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get sales item (quote item, order item etc) row total price including tax excluding wee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBaseSubtotalInclTax($item)
@@ -210,6 +206,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 ];
             }
         }
+
         $shippingMethod = '';
         if ($shippingInfo = $checkout->getShippingAddress()->getShippingMethod()) {
             $data = explode('_', $shippingInfo);
@@ -228,6 +225,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 . $checkout->getStoreCurrencyCode() . ' '
                 . $item->getProduct()->getFinalPrice($item->getQty()) . "\n";
         }
+
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
@@ -269,6 +267,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($data)) {
             return explode(',', $data);
         }
+
         return false;
     }
 
@@ -285,6 +284,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ((!$quote) || !$quote->hasItems()) {
             return $isMultiShipping;
         }
+
         $maximumQty = Mage::getStoreConfigAsInt('shipping/option/checkout_multiple_maximum_qty');
         return $isMultiShipping
             && !$quote->hasItemsWithDecimalQty()
@@ -307,6 +307,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($store === null) {
             $store = $quote->getStoreId();
         }
+
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
 
         if ($guestCheckout == true) {

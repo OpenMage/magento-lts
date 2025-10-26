@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Customer edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -34,14 +26,11 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
             $this->_addButton('order', [
                 'label'     => Mage::helper('customer')->__('Create Order'),
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateOrderUrl()),
-                'class'     => 'add',
+                'class'     => 'add create-order',
             ], 0);
         }
 
         parent::__construct();
-
-        $this->_updateButton('save', 'label', Mage::helper('customer')->__('Save Customer'));
-        $this->_updateButton('delete', 'label', Mage::helper('customer')->__('Delete Customer'));
 
         if (Mage::registry('current_customer')->isReadonly()) {
             $this->_removeButton('save');
@@ -74,6 +63,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('current_customer')->getId()) {
             return $this->escapeHtml(Mage::registry('current_customer')->getName());
         }
+
         return Mage::helper('customer')->__('New Customer');
     }
 
@@ -105,7 +95,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
             $this->_addButton('save_and_continue', [
                 'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save',
+                'class'     => 'save continue',
             ], 10);
         }
 

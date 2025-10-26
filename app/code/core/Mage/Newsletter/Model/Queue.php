@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter queue model.
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Queue _getResource()
@@ -83,9 +75,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     protected $_stores = [];
 
     public const STATUS_NEVER = 0;
+
     public const STATUS_SENDING = 1;
+
     public const STATUS_CANCEL = 2;
+
     public const STATUS_SENT = 3;
+
     public const STATUS_PAUSE = 4;
 
     protected function _construct()
@@ -151,6 +147,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $time = $locale->date($startAt, $format)->getTimestamp();
             $this->setQueueStartAt(Mage::getModel('core/date')->gmtDate(null, $time));
         }
+
         return $this;
     }
 
@@ -214,6 +211,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
         if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
+
         return $this;
     }
 
@@ -238,12 +236,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data['template_id'] = $this->getTemplateId();
-        $data['queue_status'] = $this->getQueueStatus();
-        $data['queue_start_at'] = $this->getQueueStartAt();
-        $data['queue_finish_at'] = $this->getQueueFinishAt();
-        return $data;
+        return [
+            'template_id' => $this->getTemplateId(),
+            'queue_status' => $this->getQueueStatus(),
+            'queue_start_at' => $this->getQueueStartAt(),
+            'queue_finish_at' => $this->getQueueFinishAt(),
+        ];
     }
 
     /**
@@ -340,6 +338,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $this->_template = Mage::getModel('newsletter/template')
                 ->load($this->getTemplateId());
         }
+
         return $this->_template;
     }
 

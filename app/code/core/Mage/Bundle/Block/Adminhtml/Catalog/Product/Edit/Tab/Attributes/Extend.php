@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Extended Attributes Block
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method bool getCanEditPrice()
@@ -31,6 +23,7 @@
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
     public const DYNAMIC = 0;
+
     public const FIXED = 1;
 
     /**
@@ -71,6 +64,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         ) {
             $html .= '<span class="next-toselect">' . $elementHtml . '</span>';
         }
+
         if ($this->getDisableChild() && !$this->getElement()->getReadonly()) {
             $html .= '<script type="text/javascript">
                 function ' . $switchAttributeCode . "_change() {
@@ -113,9 +107,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
             ) {
                 $html .= "$('" . $switchAttributeCode . "').observe('change', " . $switchAttributeCode . '_change);';
             }
+
             $html .= $switchAttributeCode . '_change();
             </script>';
         }
+
         return $html;
     }
 
@@ -127,6 +123,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         if (!$this->getData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
+
         return $this->getData('product');
     }
 }

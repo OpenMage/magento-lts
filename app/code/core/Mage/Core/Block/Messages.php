@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Messages block
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Block_Messages extends Mage_Core_Block_Template
@@ -105,6 +97,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         foreach ($messages->getItems() as $message) {
             $this->getMessageCollection()->add($message);
         }
+
         return $this;
     }
 
@@ -118,6 +111,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         if (!($this->_messages instanceof Mage_Core_Model_Message_Collection)) {
             $this->_messages = Mage::getModel('core/message_collection');
         }
+
         return $this->_messages;
     }
 
@@ -205,6 +199,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
+
         return $html . ('</' . $this->_messagesFirstLevelTagName . '>');
     }
 
@@ -227,6 +222,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 if (!$html) {
                     $html .= '<' . $this->_messagesFirstLevelTagName . ' class="messages">';
                 }
+
                 $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $type . '-msg">';
                 $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
@@ -237,13 +233,16 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                     $html .= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html .= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
+
                 $html .= '</' . $this->_messagesFirstLevelTagName . '>';
                 $html .= '</' . $this->_messagesSecondLevelTagName . '>';
             }
         }
+
         if ($html) {
             $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         }
+
         $this->_messages = $this->getMessageCollection()->clear();
         return $html;
     }

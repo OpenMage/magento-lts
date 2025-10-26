@@ -1,28 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Design_Package
 {
     public const DEFAULT_AREA    = 'frontend';
+
     public const DEFAULT_PACKAGE = 'default';
+
     public const DEFAULT_THEME   = 'default';
+
     public const BASE_PACKAGE    = 'base';
 
     /**
@@ -39,7 +34,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var string|integer|Mage_Core_Model_Store
+     * @var string|int|Mage_Core_Model_Store
      */
     protected $_store = null;
 
@@ -100,6 +95,7 @@ class Mage_Core_Model_Design_Package
         if (is_null($this->_config)) {
             $this->_config = Mage::getSingleton('core/design_config');
         }
+
         if (is_null($this->_fallback)) {
             $this->_fallback = Mage::getSingleton('core/design_fallback', [
                 'config' => $this->_config,
@@ -118,6 +114,7 @@ class Mage_Core_Model_Design_Package
         if ($this->_fallback) {
             $this->_fallback->setStore($store);
         }
+
         $this->_store = $store;
         return $this;
     }
@@ -125,7 +122,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Retrieve store
      *
-     * @return string|integer|Mage_Core_Model_Store
+     * @return string|int|Mage_Core_Model_Store
      */
     public function getStore()
     {
@@ -154,6 +151,7 @@ class Mage_Core_Model_Design_Package
         if (is_null($this->_area)) {
             $this->_area = self::DEFAULT_AREA;
         }
+
         return $this->_area;
     }
 
@@ -177,10 +175,12 @@ class Mage_Core_Model_Design_Package
         } else {
             $this->_name = $name;
         }
+
         // make sure not to crash, if wrong package specified
         if (!$this->designPackageExists($this->_name, $this->getArea())) {
             $this->_name = self::DEFAULT_PACKAGE;
         }
+
         return $this;
     }
 
@@ -200,14 +200,17 @@ class Mage_Core_Model_Design_Package
             $oldValues['store'] = $this->getStore();
             $this->setStore($storePackageArea['store']);
         }
+
         if (array_key_exists('area', $storePackageArea)) {
             $oldValues['area'] = $this->getArea();
             $this->setArea($storePackageArea['area']);
         }
+
         if (array_key_exists('package', $storePackageArea)) {
             $oldValues['package'] = $this->getPackageName();
             $this->setPackageName($storePackageArea['package']);
         }
+
         return $oldValues;
     }
 
@@ -221,6 +224,7 @@ class Mage_Core_Model_Design_Package
         if ($this->_name === null) {
             $this->setPackageName();
         }
+
         return $this->_name;
     }
 
@@ -249,6 +253,7 @@ class Mage_Core_Model_Design_Package
                 foreach (['layout', 'template', 'skin', 'locale', 'default'] as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
+
                 break;
 
             case 2:
@@ -258,6 +263,7 @@ class Mage_Core_Model_Design_Package
             default:
                 throw Mage::exception(Mage::helper('core')->__('Wrong number of arguments for %s', __METHOD__));
         }
+
         return $this;
     }
 
@@ -304,18 +310,23 @@ class Mage_Core_Model_Design_Package
         if ($this->getStore()) {
             $params['_store'] = $this->getStore();
         }
+
         if (empty($params['_area'])) {
             $params['_area'] = $this->getArea();
         }
+
         if (empty($params['_package'])) {
             $params['_package'] = $this->getPackageName();
         }
+
         if (empty($params['_theme'])) {
             $params['_theme'] = $this->getTheme($params['_type'] ?? '');
         }
+
         if (empty($params['_default'])) {
             $params['_default'] = false;
         }
+
         return $this;
     }
 
@@ -359,8 +370,10 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null)
-            . $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        $urlPath = $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        // Prevent XSS through malformed configuration
+        $urlPath = htmlspecialchars($urlPath, ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null) . $urlPath;
     }
 
     /**
@@ -383,6 +396,7 @@ class Mage_Core_Model_Design_Package
         if (!file_exists($testFile)) {
             return false;
         }
+
         return $fileName;
     }
 
@@ -394,19 +408,11 @@ class Mage_Core_Model_Design_Package
      */
     protected function _renderFilename($file, array $params)
     {
-        switch ($params['_type']) {
-            case 'skin':
-                $dir = $this->getSkinBaseDir($params);
-                break;
-
-            case 'locale':
-                $dir = $this->getLocaleBaseDir($params);
-                break;
-
-            default:
-                $dir = $this->getBaseDir($params);
-                break;
-        }
+        $dir = match ($params['_type']) {
+            'skin' => $this->getSkinBaseDir($params),
+            'locale' => $this->getLocaleBaseDir($params),
+            default => $this->getBaseDir($params),
+        };
         return $dir . DS . $file;
     }
 
@@ -430,9 +436,11 @@ class Mage_Core_Model_Design_Package
                     return $filename;
                 }
             }
+
             $params['_package'] = self::BASE_PACKAGE;
             $params['_theme']   = self::DEFAULT_THEME;
         }
+
         return $this->_renderFilename($file, $params);
     }
 
@@ -519,12 +527,15 @@ class Mage_Core_Model_Design_Package
         if (empty($params['_type'])) {
             $params['_type'] = 'skin';
         }
+
         if (empty($params['_default'])) {
             $params['_default'] = false;
         }
+
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback(
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
                 $file,
                 $params,
                 $this->_fallback->getFallbackScheme(
@@ -534,6 +545,7 @@ class Mage_Core_Model_Design_Package
                 ),
             );
         }
+
         $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
         Varien_Profiler::stop(__METHOD__);
         return $result;
@@ -584,14 +596,17 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
+
                 if ($fullPath) {
                     $entry = $path . DS . $entry;
                 }
+
                 $result[] = $entry;
             }
+
             unset($entry);
             closedir($dir);
         }
@@ -693,9 +708,11 @@ class Mage_Core_Model_Design_Package
         if (!$targetDir) {
             return '';
         }
+
         if ($this->_mergeFiles($files, $targetDir . DS . $targetFilename, false, null, 'js')) {
             return Mage::getBaseUrl('media', Mage::app()->getRequest()->isSecure()) . 'js/' . $targetFilename;
         }
+
         return '';
     }
 
@@ -743,6 +760,7 @@ class Mage_Core_Model_Design_Package
         if ($mergeFilesResult) {
             return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
         }
+
         return '';
     }
 
@@ -767,11 +785,13 @@ class Mage_Core_Model_Design_Package
             if (!file_exists($targetFile)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($targetFile);
             }
+
             if (file_exists($targetFile)) {
                 $filemtime = filemtime($targetFile);
             } else {
                 $filemtime = null;
             }
+
             $result = Mage::helper('core')->mergeFiles(
                 $srcFiles,
                 $targetFile,
@@ -782,6 +802,7 @@ class Mage_Core_Model_Design_Package
             if ($result && (filemtime($targetFile) > $filemtime)) {
                 Mage::helper('core/file_storage_database')->saveFile($targetFile);
             }
+
             return $result;
         } else {
             return Mage::helper('core')->mergeFiles(
@@ -822,13 +843,16 @@ class Mage_Core_Model_Design_Package
                 Varien_Io_File::rmdirRecursive($dir);
                 Mage::helper('core/file_storage_database')->deleteFolder($dir);
             }
+
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
+
             return is_writable($dir) ? $dir : false;
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         return false;
     }
 
@@ -908,6 +932,7 @@ class Mage_Core_Model_Design_Package
             if (is_int($store)) {
                 $store = Mage::app()->getStore($store);
             }
+
             if ($store->isAdmin()) {
                 $secure = $store->isAdminUrlSecure();
             } else {
@@ -928,17 +953,19 @@ class Mage_Core_Model_Design_Package
                 if ($part == '.' || $part == '..') {
                     unset($pathParts[$key]);
                 }
+
                 if ($part == '..' && count($fileDirParts)) {
                     $fileDirParts = array_slice($fileDirParts, 0, count($fileDirParts) - 1);
                 }
             }
 
-            if (count($fileDirParts)) {
+            if ($fileDirParts !== []) {
                 $fileDir = implode('/', $fileDirParts) . '/';
             }
 
             $uri = $baseUrl . $fileDir . implode('/', $pathParts);
         }
+
         return $uri;
     }
 

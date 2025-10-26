@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer reviews controller
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
@@ -33,6 +25,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
@@ -66,6 +59,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
+
         if ($block = $this->getLayout()->getBlock('review_customer_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
@@ -87,6 +81,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
+
         $this->getLayout()->getBlock('head')->setTitle($this->__('Review Details'));
         $this->renderLayout();
     }

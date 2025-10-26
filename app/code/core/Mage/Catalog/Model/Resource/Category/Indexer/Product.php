@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource model for category product indexer
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Model_Resource_Abstract
@@ -112,6 +104,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             $categoryIds[]  = $id;
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
         $allCategoryIds = array_diff($allCategoryIds, $categoryIds);
 
@@ -144,6 +137,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if (!isset($data['product_ids'])) {
             return $this;
         }
+
         $productIds     = $data['product_ids'];
         $categoryIds    = [];
         $allCategoryIds = [];
@@ -239,13 +233,15 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         foreach ($paths as $path) {
             if ($checkRootCategories) {
                 foreach ($rootCategories as $rootCategoryId => $rootCategoryPath) {
-                    if (strpos($path, sprintf('%d/', $rootCategoryPath)) === 0 || $path == $rootCategoryPath) {
+                    if (str_starts_with($path, sprintf('%d/', $rootCategoryPath)) || $path == $rootCategoryPath) {
                         $affectedRootCategoryIds[$rootCategoryId] = $rootCategoryId;
                     }
                 }
             }
+
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
 
         if ($checkRootCategories && count($affectedRootCategoryIds) > 1) {
@@ -286,6 +282,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($anchorIds) {
             $this->_refreshAnchorRelations($anchorIds);
         }
+
         if ($directIds) {
             $this->_refreshDirectRelations($directIds);
         }
@@ -497,9 +494,11 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('cp.category_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('cp.product_id IN(?)', $productIds);
         }
+
         $sql = $select->insertFromSelect(
             $this->getMainTable(),
             ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
@@ -611,6 +610,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('ce.entity_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('pw.product_id IN(?)', $productIds);
         }
@@ -964,14 +964,24 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
              * Clean up temporary tables
              */
             $this->clearTemporaryIndexTable();
-            $idxAdapter->delete($enabledTable);
-            $idxAdapter->delete($anchorTable);
-            $idxAdapter->delete($anchorProductsTable);
+            if (isset($enabledTable)) {
+                $idxAdapter->delete($enabledTable);
+            }
+
+            if (isset($anchorTable)) {
+                $idxAdapter->delete($anchorTable);
+            }
+
+            if (isset($anchorProductsTable)) {
+                $idxAdapter->delete($anchorProductsTable);
+            }
+
             $this->commit();
         } catch (Exception $e) {
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -1056,6 +1066,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_enabled_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_enabled_indexer_tmp');
     }
 
@@ -1147,6 +1158,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_indexer_tmp');
     }
 
@@ -1160,6 +1172,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_products_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_products_indexer_tmp');
     }
 
@@ -1174,6 +1187,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_indexer_tmp');
     }
 }

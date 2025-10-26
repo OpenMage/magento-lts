@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customers newsletter subscription controller
  *
- * @category   Mage
  * @package    Mage_Newsletter
  */
 class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
@@ -33,6 +25,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         return $this;
     }
 
@@ -45,6 +38,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if ($block = $this->getLayout()->getBlock('customer_newsletter')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
         $this->getLayout()->getBlock('head')->setTitle($this->__('Newsletter Subscription'));
         $this->renderLayout();
     }
@@ -54,6 +48,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('customer/account/');
         }
+
         try {
             Mage::getSingleton('customer/session')->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
@@ -64,9 +59,10 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
+
         $this->_redirect('customer/account/');
     }
 }

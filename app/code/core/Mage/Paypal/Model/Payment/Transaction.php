@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment transaction model
  * Tracks transaction history
  *
- * @category   Mage
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
@@ -131,10 +123,12 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (is_object($value)) {
             Mage::throwException(Mage::helper('paypal')->__('Payment transactions disallow storing objects.'));
         }
+
         $info = $this->_getData('additional_information');
         if (!$info) {
             $info = [];
         }
+
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
     }
@@ -150,9 +144,11 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$info) {
             $info = [];
         }
+
         if ($key) {
             return $info[$key] ?? null;
         }
+
         return $info;
     }
 
@@ -171,6 +167,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         } else {
             $info = [];
         }
+
         return $this->setData('additional_information', $info);
     }
 
@@ -185,6 +182,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
+
         $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
@@ -198,6 +196,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             $this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
         }
+
         return parent::_beforeSave();
     }
 

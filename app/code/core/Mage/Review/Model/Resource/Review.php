@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review resource model
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abstract
@@ -114,6 +106,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         if (!$object->getId()) {
             $object->setCreatedAt(Mage::getSingleton('core/date')->gmtDate());
         }
+
         if ($object->hasData('stores') && is_array($object->getStores())) {
             $stores = $object->getStores();
             $stores[] = 0;
@@ -121,6 +114,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         } elseif ($object->hasData('stores')) {
             $object->setStores([$object->getStores(), 0]);
         }
+
         return $this;
     }
 
@@ -206,6 +200,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         } else {
             $object->setStores($stores);
         }
+
         return $this;
     }
 
@@ -268,7 +263,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * @param int $entityPkValue
      * @param bool $approvedOnly
      * @param int $storeId
-     * @return int
+     * @return string
      */
     public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
     {
@@ -290,10 +285,12 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             );
             $bind[':store_id'] = (int) $storeId;
         }
+
         if ($approvedOnly) {
             $select->where("{$this->_reviewTable}.status_id = :status_id");
             $bind[':status_id'] = Mage_Review_Model_Review::STATUS_APPROVED;
         }
+
         return $adapter->fetchOne($select, $bind);
     }
 
@@ -354,8 +351,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 } else {
                     $writeAdapter->insert($this->_aggregateTable, $data->getData());
                 }
+
                 $writeAdapter->commit();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $writeAdapter->rollBack();
             }
         }
@@ -373,6 +371,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         if (empty($reviewId)) {
             return [];
         }
+
         $select = $adapter->select()
             ->from(['v' => $this->getTable('rating/rating_option_vote')], 'r.rating_id')
             ->joinInner(['r' => $this->getTable('rating/rating')], 'v.rating_id=r.rating_id')
@@ -393,6 +392,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         if ($ratingIds && !is_array($ratingIds)) {
             $ratingIds = [(int) $ratingIds];
         }
+
         if ($ratingIds && $entityPkValue
             && ($resource = Mage::getResourceSingleton('rating/rating_option'))
         ) {
@@ -403,6 +403,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 );
             }
         }
+
         return $this;
     }
 

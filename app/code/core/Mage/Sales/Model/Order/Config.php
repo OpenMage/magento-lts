@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order configuration model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
@@ -81,6 +73,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 ->loadDefaultByState($state);
             $status = $status->getStatus();
         }
+
         return $status;
     }
 
@@ -97,6 +90,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $status = Mage::getModel('sales/order_status')->load($code);
             $this->_statuses[$key] = $status->getStoreLabel();
         }
+
         return $this->_statuses[$key];
     }
 
@@ -113,6 +107,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $state = (string) $stateNode->label;
             return Mage::helper('sales')->__($state);
         }
+
         return $state;
     }
 
@@ -139,6 +134,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
             $label = (string) $state->label;
             $states[$state->getName()] = Mage::helper('sales')->__($label);
         }
+
         return $states;
     }
 
@@ -158,13 +154,16 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         } else {
             $key = $state . $addLabels;
         }
+
         if (isset($this->_stateStatuses[$key])) {
             return $this->_stateStatuses[$key];
         }
+
         $statuses = [];
         if (empty($state) || !is_array($state)) {
             $state = [$state];
         }
+
         foreach ($state as $_state) {
             $stateNode = $this->_getState($_state);
             if ($stateNode) {
@@ -182,6 +181,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         $this->_stateStatuses[$key] = $statuses;
         return $statuses;
     }
@@ -200,6 +200,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         foreach ($collection as $state) {
             $states[] = $state;
         }
+
         return $states;
     }
 
@@ -246,6 +247,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 } else {
                     $this->_states['invisible'][] = $name;
                 }
+
                 foreach ($state->statuses->children() as $status) {
                     $this->_states['statuses'][$name][] = $status->getName();
                 }

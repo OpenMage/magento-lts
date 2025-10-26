@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Model
  *
- * @category   Mage
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Model_Service extends Varien_Object
@@ -26,9 +18,13 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Cmpi public keys
      */
     public const CMPI_PARES    = 'centinel_authstatus';
+
     public const CMPI_ENROLLED = 'centinel_mpivendor';
+
     public const CMPI_CAVV     = 'centinel_cavv';
+
     public const CMPI_ECI      = 'centinel_eci';
+
     public const CMPI_XID      = 'centinel_xid';
 
     /**
@@ -154,6 +150,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $model = Mage::getModel($modelClass);
             return $model;
         }
+
         return false;
     }
 
@@ -171,9 +168,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
             if (!$model) {
                 return false;
             }
+
             $model->setDataStorage($this->_getSession());
             $this->_validationState = $model;
         }
+
         return $this->_validationState;
     }
 
@@ -281,18 +280,22 @@ class Mage_Centinel_Model_Service extends Varien_Object
             if ($validationState->getChecksum() != $newChecksum) {
                 Mage::throwException(Mage::helper('centinel')->__('Payment information error. Please start over.'));
             }
+
             if ($validationState->isAuthenticateSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('Please verify the card with the issuer bank before placing the order.'));
         } else {
             if ($validationState->getChecksum() != $newChecksum || !$validationState->isLookupSuccessful()) {
                 $this->lookup($data);
                 $validationState = $this->_getValidationState();
             }
+
             if ($validationState->isLookupSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('This card has failed validation and cannot be used.'));
         }
     }
@@ -351,6 +354,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
+
         return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
@@ -382,9 +386,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$map) {
             $map = $this->_cmpiMap;
         }
+
         if ($validationState = $this->_getValidationState()) {
             $to = Varien_Object_Mapper::accumulateByMap($validationState, $to, $map);
         }
+
         return $to;
     }
 }

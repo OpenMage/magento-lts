@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogIndex Index operation model
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer _getResource()
@@ -42,7 +34,9 @@
 class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 {
     public const REINDEX_TYPE_ALL = 0;
+
     public const REINDEX_TYPE_PRICE = 1;
+
     public const REINDEX_TYPE_ATTRIBUTE = 2;
 
     public const STEP_SIZE = 1000;
@@ -97,6 +91,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         foreach ($this->_getRegisteredIndexers() as $name => $class) {
             $this->_indexers[$name] = Mage::getSingleton($class);
         }
+
         return $this;
     }
 
@@ -113,6 +108,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         foreach ($indexerRegistry->children() as $node) {
             $result[$node->getName()] = (string) $node->class;
         }
+
         return $result;
     }
 
@@ -132,6 +128,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 $result = array_merge($result, $codes);
             }
         }
+
         return $result;
     }
 
@@ -147,6 +144,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             $stores = Mage::app()->getStores();
             $this->setData('_stores', $stores);
         }
+
         return $stores;
     }
 
@@ -164,6 +162,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
             $this->setData('_websites', $websites);
         }
+
         return $websites;
     }
 
@@ -236,6 +235,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 if ($this->_indexers['eav']->isAttributeIndexable($attributes)) {
                     $attributeCodes[] = $attributes->getAttributeId();
                 }
+
                 if ($this->_indexers['price']->isAttributeIndexable($attributes)) {
                     $priceAttributeCodes[] = $attributes->getAttributeId();
                 }
@@ -361,6 +361,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($store->getStores() as $storeObject) {
                     $this->_afterPlainReindex($storeObject->getId(), $products);
                 }
+
                 return $this;
             } elseif ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
@@ -368,6 +369,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($store as $storeObject) {
                     $this->_afterPlainReindex($storeObject->getId(), $products);
                 }
+
                 return $this;
             }
 
@@ -435,7 +437,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                 $parentIds = $retriever->getTypeInstance()
                     ->getParentIdsByChild($stepData);
-                if ($parentIds) {
+                if (isset($storeObject) && $parentIds) {
                     $parentCollection = $this->_getProductCollection($storeObject, $parentIds);
                     $parentCollection->addAttributeToFilter('status', $statusCond);
                     $parentCollection->addFieldToFilter('type_id', $type);
@@ -507,6 +509,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 $kill->delete();
             }
         }
+
         return $this;
     }
 
@@ -555,8 +558,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 $typePriority = (string) $type->index_priority;
                 $this->_productTypePriority[$typePriority] = $typeName;
             }
+
             ksort($this->_productTypePriority);
         }
+
         return $this->_productTypePriority;
     }
 
@@ -602,6 +607,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             ) {
                                 continue;
                             }
+
                             $table = $indexer->getResource()->getMainTable();
                             if (!isset($filter[$code])) {
                                 $filter[$code] = $this->_getSelect();
@@ -623,6 +629,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                     //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
                                 }
                             }
+
                             if (is_array($values[$code])) {
                                 $rateConversion = 1;
                                 $filter[$code]->distinct(true);
@@ -636,7 +643,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
                                     }
 
-                                    if (strlen($values[$code]['from']) > 0) {
+                                    if ((string) $values[$code]['from'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
@@ -644,7 +651,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         );
                                     }
 
-                                    if (strlen($values[$code]['to']) > 0) {
+                                    if ((string) $values[$code]['to'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
@@ -653,6 +660,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                     }
                                 }
                             }
+
                             $filter[$code]->where("$table.website_id = ?", $website);
 
                             if ($code == 'price') {
@@ -668,6 +676,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $filter;
     }
 
@@ -704,9 +713,11 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                 $filter[$code] = $this->_getSelect();
                                 $filter[$code]->from($table, ['entity_id']);
                             }
+
                             if ($indexer->isAttributeIdUsed()) {
                                 $filter[$code]->where('attribute_id = ?', $attribute->getId());
                             }
+
                             if (is_array($values[$code])) {
                                 if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
                                     if ($values[$code]['from']) {
@@ -722,6 +733,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         if (!is_numeric($values[$code]['to'])) {
                                             $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
                                         }
+
                                         $filter[$code]->where('value <= ?', $values[$code]['to']);
                                     }
                                 } else {
@@ -730,6 +742,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             } else {
                                 $filter[$code]->where('value = ?', $values[$code]);
                             }
+
                             $filter[$code]->where('store_id = ?', $store);
                             $filteredAttributes[] = $code;
                         }
@@ -737,6 +750,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $filter;
     }
 
@@ -804,9 +818,11 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         if ($store instanceof Mage_Core_Model_Store) {
             $store = $store->getId();
         }
+
         if ($products instanceof Mage_Catalog_Model_Product) {
             $products = $products->getId();
         }
+
         $this->_getResource()->updateCatalogProductFlat($store, $products, $resourceTable);
 
         return $this;

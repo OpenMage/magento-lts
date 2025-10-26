@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ProductAlert unsubscribe controller
  *
- * @category   Mage
  * @package    Mage_ProductAlert
  */
 class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front_Action
@@ -32,6 +24,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
+
         return $this;
     }
 
@@ -43,12 +36,13 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             $this->_redirect('');
             return;
         }
-        $session    = Mage::getSingleton('catalog/session');
 
         /** @var Mage_Catalog_Model_Session $session */
+        $session    = Mage::getSingleton('catalog/session');
+
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            /** @var Mage_Catalog_Model_Product $product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
             return ;
@@ -68,6 +62,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirectUrl($product->getProductUrl());
     }
 
@@ -85,6 +80,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirect('customer/account/');
     }
 
@@ -115,10 +111,12 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             if ($model->getId()) {
                 $model->delete();
             }
+
             $session->addSuccess($this->__('You will no longer receive stock alerts for this product.'));
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirectUrl($product->getProductUrl());
     }
 
@@ -135,6 +133,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirect('customer/account/');
     }
 }

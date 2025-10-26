@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Checkout
  *
  * @method $this setAdditionalMessages(array|null $value)
@@ -195,6 +187,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 } else {
                     $quote->loadActive($this->getQuoteId());
                 }
+
                 if ($quote->getId()) {
                     /**
                      * If current currency code of quote is not equal current currency code of store,
@@ -245,6 +238,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             $xForwardIp = Mage::app()->getRequest()->getServer('HTTP_X_FORWARDED_FOR');
             $this->_quote->setXForwardedFor($xForwardIp);
         }
+
         return $this->_quote;
     }
 
@@ -302,6 +296,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             if ($this->_quote) {
                 $this->_quote->delete();
             }
+
             $this->_quote = $customerQuote;
         } else {
             $this->getQuote()->getBillingAddress();
@@ -311,6 +306,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 ->collectTotals()
                 ->save();
         }
+
         return $this;
     }
 
@@ -335,10 +331,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             if (!isset($steps[$step])) {
                 $steps[$step] = [];
             }
+
             if (is_string($data)) {
                 $steps[$step][$data] = $value;
             }
         }
+
         $this->setSteps($steps);
 
         return $this;
@@ -358,15 +356,19 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($step)) {
             return $steps;
         }
+
         if (!isset($steps[$step])) {
             return false;
         }
+
         if (is_null($data)) {
             return $steps[$step];
         }
+
         if (!is_string($data) || !isset($steps[$step][$data])) {
             return false;
         }
+
         return $steps[$step][$data];
     }
 
@@ -385,9 +387,11 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$additionalMessages) {
             return [];
         }
+
         if ($clear) {
             $this->setData('additional_messages', null);
         }
+
         return $additionalMessages;
     }
 
@@ -412,6 +416,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             unset($allMessages[$itemKey]);
             $this->setAdditionalMessages($allMessages);
         }
+
         return $messages;
     }
 
@@ -430,6 +435,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!isset($allMessages[$itemKey])) {
             $allMessages[$itemKey] = Mage::getModel('core/message_collection');
         }
+
         $allMessages[$itemKey]->add($message);
         $this->setAdditionalMessages($allMessages);
 
@@ -518,10 +524,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->_order !== null && $orderId == $this->_order->getIncrementId()) {
             return $this->_order;
         }
+
         $this->_order = $this->_getOrderModel();
         if ($orderId) {
             $this->_order->loadByIncrementId($orderId);
         }
+
         return $this->_order;
     }
 

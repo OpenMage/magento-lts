@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog super product configurable part block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method bool hasAllowProducts()
@@ -76,6 +68,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 }
             }
         }
+
         return false;
     }
 
@@ -101,8 +94,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $products[] = $product;
                 }
             }
+
             $this->setAllowProducts($products);
         }
+
         return $this->getData('allow_products');
     }
 
@@ -145,6 +140,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
             $defaultValues       = [];
         }
+
         $productStock = [];
         foreach ($this->getAllowProducts() as $product) {
             $productId  = $product->getId();
@@ -160,6 +156,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 if (!isset($options[$productAttributeId][$attributeValue])) {
                     $options[$productAttributeId][$attributeValue] = [];
                 }
+
                 $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
@@ -185,6 +182,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
                         continue;
                     }
+
                     $currentProduct->setConfigurablePrice(
                         $this->_preparePrice($value['pricing_value'], $value['is_percent']),
                     );
@@ -238,10 +236,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
 
         $_request = $taxCalculation->getDefaultRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $defaultTax = $taxCalculation->getRate($_request);
 
         $_request = $taxCalculation->getRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $currentTax = $taxCalculation->getRate($_request);
 
         $taxConfig = [
@@ -300,6 +300,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (count($info['options']) > 0) {
             return true;
         }
+
         return false;
     }
 

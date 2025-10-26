@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth Helper
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
@@ -26,20 +18,27 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      * Endpoint types with appropriate routes
      */
     public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
+
     public const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
+
     public const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
+
     public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
+
     public const ENDPOINT_INITIATE                  = 'oauth/initiate';
+
     public const ENDPOINT_TOKEN                     = 'oauth/token';
 
     /**
      * Cleanup xpath config settings
      */
     public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
+
     public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
 
     /** Email template */
     public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
+
     public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
 
     /**
@@ -158,6 +157,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED == $callbackUrl) {
             return false;
         }
+
         if ($rejected) {
             /** @var Mage_Oauth_Model_Consumer $consumer */
             $consumer = Mage::getModel('oauth/consumer')->load($token->getConsumerId());
@@ -168,7 +168,8 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
+
+        $callbackUrl .= (!str_contains($callbackUrl, '?') ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
 
         return $callbackUrl . ($rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier());
@@ -186,6 +187,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (!in_array($type, $this->_endpoints)) {
             throw new Exception('Invalid endpoint type passed.');
         }
+
         return rtrim(Mage::getUrl($type), '/');
     }
 

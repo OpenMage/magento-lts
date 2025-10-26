@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment information model
  *
- * @category   Mage
  * @package    Mage_Payment
  *
  * @method Mage_Sales_Model_Order getOrder()
@@ -74,11 +66,13 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
                 $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
             }
         }
+
         if ($key === 'cc_cid') {
             if (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc'])) {
                 $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
             }
         }
+
         return parent::getData($key, $index);
     }
 
@@ -99,6 +93,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
                     return $instance;
                 }
             }
+
             Mage::throwException(Mage::helper('payment')->__('The requested Payment Method is not available.'));
         }
 
@@ -116,6 +111,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($data) {
             return Mage::helper('core')->encrypt($data);
         }
+
         return $data;
     }
 
@@ -130,6 +126,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($data) {
             return Mage::helper('core')->decrypt($data);
         }
+
         return $data;
     }
 
@@ -148,12 +145,14 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if (is_object($value)) {
             Mage::throwException(Mage::helper('sales')->__('Payment disallow storing objects.'));
         }
+
         $this->_initAdditionalInformation();
         if (is_array($key) && is_null($value)) {
             $this->_additionalInformation = $key;
         } else {
             $this->_additionalInformation[$key] = $value;
         }
+
         return $this->setData('additional_information', $this->_additionalInformation);
     }
 
@@ -169,6 +168,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($key === null) {
             return $this->_additionalInformation;
         }
+
         return $this->_additionalInformation[$key] ?? null;
     }
 
@@ -184,6 +184,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
             unset($this->_additionalInformation[$key]);
             return $this->setData('additional_information', $this->_additionalInformation);
         }
+
         $this->_additionalInformation = -1;
         return $this->unsetData('additional_information');
     }
@@ -210,6 +211,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($this->_additionalInformation === -1) {
             $this->_additionalInformation = $this->_getData('additional_information');
         }
+
         if ($this->_additionalInformation === null) {
             $this->_additionalInformation = [];
         }

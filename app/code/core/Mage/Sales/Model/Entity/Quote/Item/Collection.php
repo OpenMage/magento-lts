@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote addresses collection
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
@@ -69,9 +61,11 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             } else {
                 $product = false;
             }
+
             if ($this->_quote) {
                 $item->setQuote($this->_quote);
             }
+
             if (!$product) {
                 $item->isDeleted(true);
                 $recollectQuote = true;
@@ -99,9 +93,11 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             $item->checkData();
             Varien_Profiler::stop('TEST2: ' . __METHOD__);
         }
+
         if ($recollectQuote && $this->_quote) {
             $this->_quote->collectTotals();
         }
+
         return $this;
     }
 
@@ -118,6 +114,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             if ($item->getSuperProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getSuperProductId();
             }
+
             if ($item->getParentProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getParentProductId();
             }

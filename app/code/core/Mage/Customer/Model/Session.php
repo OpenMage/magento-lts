@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer session model
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method string getAddActionReferer()
@@ -109,6 +101,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
                 return $this->_logout();
             }
         }
+
         $this->_customer = $customer;
         $this->setId($customer->getId());
         // save customer as confirmed, if it is not
@@ -116,6 +109,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $customer->setConfirmation(null)->save();
             $customer->setIsJustConfirmed(true);
         }
+
         return $this;
     }
 
@@ -162,6 +156,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->getData('customer_id')) {
             return $this->getData('customer_id');
         }
+
         return ($this->isLoggedIn()) ? $this->getId() : null;
     }
 
@@ -188,9 +183,11 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->getData('customer_group_id')) {
             return $this->getData('customer_group_id');
         }
+
         if ($this->isLoggedIn() && $this->getCustomer()) {
             return $this->getCustomer()->getGroupId();
         }
+
         return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
@@ -215,6 +212,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->_isCustomerIdChecked === null) {
             $this->_isCustomerIdChecked = Mage::getResourceSingleton('customer/customer')->checkCustomerId($customerId);
         }
+
         return $this->_isCustomerIdChecked;
     }
 
@@ -238,6 +236,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setCustomerAsLoggedIn($customer);
             return true;
         }
+
         return false;
     }
 
@@ -267,6 +266,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setCustomerAsLoggedIn($customer);
             return true;
         }
+
         return false;
     }
 
@@ -281,6 +281,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             Mage::dispatchEvent('customer_logout', ['customer' => $this->getCustomer()]);
             $this->_logout();
         }
+
         return $this;
     }
 

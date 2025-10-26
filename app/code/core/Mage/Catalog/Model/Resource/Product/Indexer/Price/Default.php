@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Default Product Type Price Indexer Resource model
  * For correctly work need define product type id
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract implements Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
@@ -68,6 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if (is_null($this->_typeId)) {
             Mage::throwException(Mage::helper('catalog')->__('A product type is not defined for the indexer.'));
         }
+
         return $this->_typeId;
     }
 
@@ -111,6 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -141,6 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_final_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_final_tmp');
     }
 
@@ -230,6 +225,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         } else {
             $taxClassId = new Zend_Db_Expr('0');
         }
+
         $select->columns(['tax_class_id' => $taxClassId]);
 
         $price          = $this->_addAttributeToSelect($select, 'price', 'e.entity_id', 'cs.store_id');
@@ -310,6 +306,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_aggregate_tmp');
     }
 
@@ -323,6 +320,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_tmp');
     }
 
@@ -609,6 +607,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

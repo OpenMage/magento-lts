@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Pro payment gateway model
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
@@ -26,11 +18,17 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      * Transaction action codes
      */
     public const TRXTYPE_AUTH_ONLY         = 'A';
+
     public const TRXTYPE_SALE              = 'S';
+
     public const TRXTYPE_CREDIT            = 'C';
+
     public const TRXTYPE_DELAYED_CAPTURE   = 'D';
+
     public const TRXTYPE_DELAYED_VOID      = 'V';
+
     public const TRXTYPE_DELAYED_VOICE     = 'F';
+
     public const TRXTYPE_DELAYED_INQUIRY   = 'I';
 
     /**
@@ -42,18 +40,26 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      * Gateway request URLs
      */
     public const TRANSACTION_URL           = 'https://payflowpro.paypal.com/transaction';
+
     public const TRANSACTION_URL_TEST_MODE = 'https://pilot-payflowpro.paypal.com/transaction';
 
     /**
      * Response codes
      */
     public const RESPONSE_CODE_APPROVED                = 0;
+
     public const RESPONSE_CODE_INVALID_AMOUNT          = 4;
+
     public const RESPONSE_CODE_FRAUDSERVICE_FILTER     = 126;
+
     public const RESPONSE_CODE_DECLINED                = 12;
+
     public const RESPONSE_CODE_DECLINED_BY_FILTER      = 125;
+
     public const RESPONSE_CODE_DECLINED_BY_MERCHANT    = 128;
+
     public const RESPONSE_CODE_CAPTURE_ERROR           = 111;
+
     public const RESPONSE_CODE_VOID_ERROR              = 108;
 
     /**
@@ -65,17 +71,29 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      * Availability options
      */
     protected $_isGateway               = true;
+
     protected $_canAuthorize            = true;
+
     protected $_canCapture              = true;
+
     protected $_canCapturePartial       = true;
+
     protected $_canRefund               = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid                 = true;
+
     protected $_canUseInternal          = true;
+
     protected $_canUseCheckout          = true;
+
     protected $_canUseForMultishipping  = true;
+
     protected $_canSaveCc = false;
+
     protected $_isProxy = false;
+
     protected $_canFetchTransactionInfo = true;
 
     /**
@@ -116,6 +134,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         if (parent::isAvailable($quote) && $config->isMethodAvailable($this->getCode())) {
             return true;
         }
+
         return false;
     }
 
@@ -127,13 +146,11 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      */
     public function getConfigPaymentAction()
     {
-        switch ($this->getConfigData('payment_action')) {
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH:
-                return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE;
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
-                return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE;
-        }
-        return '';
+        return match ($this->getConfigData('payment_action')) {
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE,
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE,
+            default => '',
+        };
     }
 
     /**
@@ -160,6 +177,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
                 $payment->setIsFraudDetected(true);
                 break;
         }
+
         return $this;
     }
 
@@ -196,6 +214,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
             if ($captureAmount) {
                 $request->setAmt($captureAmount);
             }
+
             $trxType = $this->getInfoInstance()->hasAmountPaid() ? self::TRXTYPE_SALE : self::TRXTYPE_DELAYED_CAPTURE;
             $request->setTrxtype($trxType);
         } else {
@@ -216,6 +235,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
                 $payment->setIsFraudDetected(true);
                 break;
         }
+
         return $this;
     }
 
@@ -230,6 +250,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_DELAYED_VOID);
         $request->setOrigid($payment->getParentTransactionId());
+
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
@@ -254,6 +275,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         ) {
             return false;
         }
+
         if ($payment->getAmountPaid()) {
             $this->_canVoid = false;
         }
@@ -287,6 +309,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         $request->setTrxtype(self::TRXTYPE_CREDIT);
         $request->setOrigid($payment->getParentTransactionId());
         $request->setAmt(round((float) $amount, 2));
+
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 
@@ -295,6 +318,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
                 ->setIsTransactionClosed(1);
             $payment->setShouldCloseParentTransaction(!$payment->getCreditmemo()->getInvoice()->canRefund());
         }
+
         return $this;
     }
 
@@ -309,6 +333,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_DELAYED_INQUIRY);
         $request->setOrigid($transactionId);
+
         $response = $this->_postRequest($request);
 
         $this->_processErrors($response);
@@ -338,6 +363,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         if (in_array($status, [self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT])) {
             return false;
         }
+
         return true;
     }
 
@@ -353,6 +379,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         if ($testMode) {
             return self::TRANSACTION_URL_TEST_MODE;
         }
+
         return self::TRANSACTION_URL;
     }
 
@@ -472,6 +499,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
                     ->setCountry($billing->getCountry())
                     ->setEmail($payment->getOrder()->getCustomerEmail());
             }
+
             $shipping = $order->getShippingAddress();
             if (!empty($shipping)) {
                 $this->_applyCountryWorkarounds($shipping);
@@ -484,6 +512,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
                     ->setShiptocountry($shipping->getCountry());
             }
         }
+
         return $request;
     }
 

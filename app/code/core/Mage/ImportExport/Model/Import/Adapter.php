@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import adapter model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Import_Adapter
@@ -35,11 +27,13 @@ class Mage_ImportExport_Model_Import_Adapter
         if (!is_string($type) || !$type) {
             Mage::throwException(Mage::helper('importexport')->__('Adapter type must be a non empty string'));
         }
-        $adapterClass = __CLASS__ . '_' . ucfirst(strtolower($type));
+
+        $adapterClass = self::class . '_' . ucfirst(strtolower($type));
 
         if (!class_exists($adapterClass)) {
             Mage::throwException("'{$type}' file extension is not supported");
         }
+
         $adapter = new $adapterClass($options);
 
         if (!$adapter instanceof Mage_ImportExport_Model_Import_Adapter_Abstract) {
@@ -47,6 +41,7 @@ class Mage_ImportExport_Model_Import_Adapter
                 Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract'),
             );
         }
+
         return $adapter;
     }
 

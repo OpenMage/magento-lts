@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth token model
  *
- * @category   Mage
  * @package    Mage_Oauth
  *
  * @method string getName() Consumer name (joined from consumer table)
@@ -54,19 +46,23 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      * Token types
      */
     public const TYPE_REQUEST = 'request';
+
     public const TYPE_ACCESS  = 'access';
 
     /**
      * Lengths of token fields
      */
     public const LENGTH_TOKEN    = 32;
+
     public const LENGTH_SECRET   = 32;
+
     public const LENGTH_VERIFIER = 32;
 
     /**
      * Customer types
      */
     public const USER_TYPE_ADMIN    = 'admin';
+
     public const USER_TYPE_CUSTOMER = 'customer';
 
     /**
@@ -92,6 +88,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if ($helper->isCleanupProbability()) {
             $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());
         }
+
         return $this;
     }
 
@@ -107,9 +104,11 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if (!$this->getId() || !$this->getConsumerId()) {
             Mage::throwException('Token is not ready to be authorized');
         }
+
         if ($this->getAuthorized()) {
             Mage::throwException('Token is already authorized');
         }
+
         if (self::USER_TYPE_ADMIN == $userType) {
             $this->setAdminId($userId);
         } elseif (self::USER_TYPE_CUSTOMER == $userType) {
@@ -117,6 +116,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         } else {
             Mage::throwException('User type is unknown');
         }
+
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
@@ -139,6 +139,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if (self::TYPE_REQUEST != $this->getType()) {
             Mage::throwException('Can not convert due to token is not request type');
         }
+
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
@@ -214,6 +215,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         }
+
         parent::_beforeSave();
         return $this;
     }
@@ -228,7 +230,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();
-            $isWhitelisted = $callbackUrl && strpos($this->getCallbackUrl(), $callbackUrl) === 0;
+            $isWhitelisted = $callbackUrl && str_starts_with($this->getCallbackUrl(), $callbackUrl);
             $validatorUrl = Mage::getSingleton('core/url_validator');
             if (!$isWhitelisted && !$validatorUrl->isValid($this->getCallbackUrl())) {
                 $messages = $validatorUrl->getMessages();
@@ -262,6 +264,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
                 Mage::throwException(array_shift($messages));
             }
         }
+
         return true;
     }
 

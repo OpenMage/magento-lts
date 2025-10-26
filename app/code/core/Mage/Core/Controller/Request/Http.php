@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,13 +12,14 @@
  *
  * Allows dispatching before and after events for each controller action
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
     public const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
+
     public const DEFAULT_HTTP_PORT = 80;
+
     public const DEFAULT_HTTPS_PORT = 443;
 
     /**
@@ -33,7 +27,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var string
      */
     protected $_originalPathInfo = '';
+
     protected $_storeCode       = null;
+
     protected $_requestString   = '';
 
     /**
@@ -42,12 +38,15 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var null|array
      */
     protected $_rewritedPathInfo = null;
+
     protected $_requestedRouteName = null;
+
     protected $_routingInfo = [];
 
     protected $_route;
 
     protected $_directFrontNames = null;
+
     protected $_controllerModule = null;
 
     /**
@@ -84,6 +83,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (empty($this->_originalPathInfo)) {
             $this->setPathInfo();
         }
+
         return $this->_originalPathInfo;
     }
 
@@ -113,6 +113,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 $this->_storeCode = Mage::app()->getStore()->getCode();
             }
         }
+
         return $this->_storeCode;
     }
 
@@ -185,6 +186,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (($pathInfo != $this->getPathInfo()) && ($this->_rewritedPathInfo === null)) {
             $this->_rewritedPathInfo = explode('/', trim($this->getPathInfo(), '/'));
         }
+
         $this->setPathInfo($pathInfo);
         return $this;
     }
@@ -227,6 +229,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return [];
             }
         }
+
         return $this->_directFrontNames;
     }
 
@@ -259,6 +262,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         } else {
             $path = str_replace('\\', '/', $path);
         }
+
         return $path;
     }
 
@@ -283,10 +287,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$router) {
             return $this;
         }
+
         $module = $router->getFrontNameByRoute($route);
         if ($module) {
             $this->setModuleName($module);
         }
+
         return $this;
     }
 
@@ -326,6 +332,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!isset($_SERVER['HTTP_HOST'])) {
             return false;
         }
+
         $host = $_SERVER['HTTP_HOST'];
         if ($trimPort) {
             $hostParts = explode(':', $_SERVER['HTTP_HOST']);
@@ -356,6 +363,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         } else {
             $_POST[$key] = $value;
         }
+
         return $this;
     }
 
@@ -390,6 +398,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_module;
     }
+
     /**
      * Retrieve the controller name
      *
@@ -399,6 +408,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_controller;
     }
+
     /**
      * Retrieve the action name
      *
@@ -443,6 +453,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_route'])) {
             return $this->_routingInfo['requested_route'];
         }
+
         if ($this->_requestedRouteName === null) {
             if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
                 $fronName = $this->_rewritedPathInfo[0];
@@ -453,6 +464,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return $this->getRouteName();
             }
         }
+
         return $this->_requestedRouteName;
     }
 
@@ -466,9 +478,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_controller'])) {
             return $this->_routingInfo['requested_controller'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[1])) {
             return $this->_rewritedPathInfo[1];
         }
+
         return $this->getControllerName();
     }
 
@@ -482,9 +496,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_action'])) {
             return $this->_routingInfo['requested_action'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[2])) {
             return $this->_rewritedPathInfo[2];
         }
+
         return $this->getActionName();
     }
 
@@ -499,6 +515,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (is_array($data)) {
             $this->_routingInfo = $data;
         }
+
         return $this;
     }
 
@@ -552,6 +569,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($flag !== null) {
             $this->_isStraight = $flag;
         }
+
         return $this->_isStraight;
     }
 
@@ -565,9 +583,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($this->isXmlHttpRequest()) {
             return true;
         }
+
         if ($this->getParam('ajax') || $this->getParam('isAjax')) {
             return true;
         }
+
         return false;
     }
 

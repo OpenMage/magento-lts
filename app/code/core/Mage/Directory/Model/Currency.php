@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Currency model
  *
- * @category   Mage
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
@@ -29,10 +21,12 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * CONFIG path constant: ALLOW
     */
     public const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
+
     /**
      * CONFIG path constant: DEFAULT
      */
     public const XML_PATH_CURRENCY_DEFAULT = 'currency/options/default';
+
     /**
      * CONFIG path constant: BASE
      */
@@ -130,11 +124,13 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
+
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
             $rates[$code] = $this->_getResource()->getRate($this->getCode(), $toCurrency);
             $this->setRates($rates);
         }
+
         return $rates[$code];
     }
 
@@ -154,11 +150,13 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
+
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
             $rates[$code] = $this->_getResource()->getAnyRate($this->getCode(), $toCurrency);
             $this->setRates($rates);
         }
+
         return $rates[$code];
     }
 
@@ -236,10 +234,12 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!isset($options['precision'])) {
             $options['precision'] = $precision;
         }
+
         if ($includeContainer) {
             return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) .
                 ($addBrackets ? ']' : '') . '</span>';
         }
+
         return $this->formatTxt($price, $options);
     }
 
@@ -255,6 +255,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!is_numeric($price)) {
             $price = Mage::app()->getLocale()->getNumber($price);
         }
+
         /**
          * Fix problem with 12 000 000, 1 200 000
          *
@@ -265,6 +266,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($price == -0) {
             $price = 0;
         }
+
         return Mage::app()->getLocale()->currency($this->getCode())->toCurrency($price, $options);
     }
 
@@ -292,6 +294,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!in_array($appBaseCurrencyCode, $allowedCurrencies)) {
             $allowedCurrencies[] = $appBaseCurrencyCode;
         }
+
         foreach (Mage::app()->getStores() as $store) {
             $code = $store->getBaseCurrencyCode();
             if (!in_array($code, $allowedCurrencies)) {
@@ -334,6 +337,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
+
         return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
     }
 

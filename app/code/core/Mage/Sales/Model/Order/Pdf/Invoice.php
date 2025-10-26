@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Invoice PDF model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
@@ -103,6 +95,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                 Mage::app()->getLocale()->emulate($invoice->getStoreId());
                 Mage::app()->setCurrentStore($invoice->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $invoice->getOrder();
             /* Add image */
@@ -127,16 +120,19 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
+
             /* Add totals */
             $this->insertTotals($page, $invoice);
             if ($invoice->getStoreId()) {
                 Mage::app()->getLocale()->revert();
             }
         }
+
         $this->_afterGetPdf();
         return $pdf;
     }
@@ -155,6 +151,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

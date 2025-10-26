@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Collection Advanced
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -70,6 +62,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                             foreach ($conditionValue['in_set'] as $value) {
                                 $conditionParts[] = ['finset' => $value];
                             }
+
                             $conditionData[] = $conditionParts;
                         } elseif (isset($conditionValue['like'])) {
                             $conditionData[] = ['like' => $conditionValue['like']];
@@ -79,6 +72,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!Zend_Date::isDate($conditionValue['from'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
+
                                 if (!is_numeric($conditionValue['from'])) {
                                     $conditionValue['from'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['from']);
@@ -86,12 +80,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
+
                                 $conditionData[] = ['gteq' => $conditionValue['from']];
                             }
+
                             if ($conditionValue['to']) {
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
+
                                 if (!is_numeric($conditionValue['to'])) {
                                     $conditionValue['to'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['to']);
@@ -99,6 +96,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
+
                                 $conditionData[] = ['lteq' => $conditionValue['to']];
                             }
                         }
@@ -113,10 +111,14 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                     if (!is_null($previousSelect)) {
                         $select->where('t1.entity_id IN (?)', new Zend_Db_Expr($previousSelect));
                     }
+
                     $previousSelect = $select;
                 }
             }
-            $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($select)]);
+
+            if (isset($select)) {
+                $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($select)]);
+            }
         }
 
         return $this;

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
@@ -102,6 +94,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
             throw $e;
         }
+
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
         if (!empty($values)) {
             foreach ($values as $v) {
@@ -115,6 +108,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
+
             if ($this->_totals['num_orders']) {
                 $this->_totals['avgsale'] = $this->_totals['lifetime'] / $this->_totals['num_orders'];
             }
@@ -140,6 +134,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
+
         return $this;
     }
 

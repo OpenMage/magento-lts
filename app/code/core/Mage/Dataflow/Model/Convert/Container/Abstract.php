@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert container abstract
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Dataflow_Model_Convert_Container_Interface
@@ -50,6 +42,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && strlen($this->_vars[$key]) == 0)) {
             return $default;
         }
+
         return $this->_vars[$key];
     }
 
@@ -65,6 +58,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         } else {
             $this->_vars[$key] = $value;
         }
+
         return $this;
     }
 
@@ -95,6 +89,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (is_null($this->_data) && $this->getProfile()) {
             $this->_data = $this->getProfile()->getContainer()->getData();
         }
+
         return $this->_data;
     }
 
@@ -127,7 +122,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if ($this->isSerialized($data)) {
             try {
                 Mage::helper('core/unserializeArray')->unserialize($data);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result = false;
                 $this->addException(
                     'Invalid data, expecting serialized array.',
@@ -144,9 +139,11 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_string($data)) {
             $this->addException('Invalid data type, expecting string.', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
+
         return true;
     }
 
@@ -155,9 +152,11 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_array($data)) {
             $this->addException('Invalid data type, expecting array.', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
+
         return true;
     }
 
@@ -166,28 +165,32 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_array($data) || !is_array(current($data))) {
             if (count($data) == 0) {
                 return true;
             }
+
             $this->addException(
                 'Invalid data type, expecting 2D grid array.',
                 Mage_Dataflow_Model_Convert_Exception::FATAL,
             );
         }
+
         return true;
     }
 
     public function getGridFields($grid)
     {
         $fields = [];
-        foreach ($grid as $i => $row) {
+        foreach ($grid as $row) {
             foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
             }
         }
+
         return $fields;
     }
 
@@ -221,6 +224,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (is_array($data)) {
             $this->_batchParams = $data;
         }
+
         return $this;
     }
 
@@ -229,6 +233,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if (!empty($key)) {
             return $this->_batchParams[$key] ?? null;
         }
+
         return $this->_batchParams;
     }
 }

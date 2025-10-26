@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml super product links grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
@@ -87,6 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -131,6 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
 
@@ -157,6 +151,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             $productType = $this->_getProduct()->getTypeInstance(true);
             $products = $productType->getUsedProductIds($this->_getProduct());
         }
+
         return $products;
     }
 
@@ -170,6 +165,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if ($this->hasData('is_readonly')) {
             return $this->getData('is_readonly');
         }
+
         return $this->_getProduct()->getCompositeReadonly();
     }
 
@@ -336,8 +332,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 $productAttribute = $attribute->getProductAttribute();
                 $attributeCodes[] = $productAttribute->getAttributeCode();
             }
+
             $this->_configAttributeCodes = $attributeCodes;
         }
+
         return $this->_configAttributeCodes;
     }
 
@@ -355,6 +353,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 $attributeValues[$attributeCode] = $data;
             }
         }
+
         return $attributeValues;
     }
 
@@ -382,12 +381,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 if (in_array($item2->getId(), $ids)) {
                     continue;
                 }
+
                 $attributeValues = $this->_retrieveRowData($item2);
                 $disableMultiSelect = ($needleAttributeValues == $attributeValues);
                 if ($disableMultiSelect) {
                     break;
                 }
             }
+
             if ($disableMultiSelect) {
                 break;
             }

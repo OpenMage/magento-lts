@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
     protected $_modules = [];
+
     protected $_routes = [];
+
     protected $_dispatchData = [];
 
     /**
@@ -35,6 +29,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
         }
+
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string) $routerConfig->use;
             if ($use == $useRouterName) {
@@ -48,12 +43,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                                 if ($position === false) {
                                     $position = 0;
                                 }
+
                                 array_splice($modules, $position, 0, (string) $customModule);
                             } elseif ($after = $customModule->getAttribute('after')) {
                                 $position = array_search($after, $modules);
                                 if ($position === false) {
                                     $position = count($modules);
                                 }
+
                                 array_splice($modules, $position + 1, 0, (string) $customModule);
                             } else {
                                 $modules[] = (string) $customModule;
@@ -87,6 +84,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (Mage::app()->getStore()->isAdmin()) {
             return false;
         }
+
         return true;
     }
 
@@ -128,14 +126,13 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         // get module name
         if ($request->getModuleName()) {
             $module = $request->getModuleName();
+        } elseif (!empty($p[0])) {
+            $module = $p[0];
         } else {
-            if (!empty($p[0])) {
-                $module = $p[0];
-            } else {
-                $module = $this->getFront()->getDefault('module');
-                $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
-            }
+            $module = $this->getFront()->getDefault('module');
+            $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
         }
+
         if (!$module) {
             if (Mage::app()->getStore()->isAdmin()) {
                 $module = 'admin';
@@ -168,16 +165,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             // get controller name
             if ($request->getControllerName()) {
                 $controller = $request->getControllerName();
+            } elseif (!empty($p[1])) {
+                $controller = $p[1];
             } else {
-                if (!empty($p[1])) {
-                    $controller = $p[1];
-                } else {
-                    $controller = $front->getDefault('controller');
-                    $request->setAlias(
-                        Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-                        ltrim($request->getOriginalPathInfo(), '/'),
-                    );
-                }
+                $controller = $front->getDefault('controller');
+                $request->setAlias(
+                    Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+                    ltrim($request->getOriginalPathInfo(), '/'),
+                );
             }
 
             // get action name
@@ -216,7 +211,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
          * if we did not found any suitable
          */
         if (!$found) {
-            if ($this->_noRouteShouldBeApplied()) {
+            if (isset($realModule) && $this->_noRouteShouldBeApplied()) {
                 $controller = 'index';
                 $action = 'noroute';
 
@@ -242,9 +237,18 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         // set values only after all the checks are done
         $request->setModuleName($module);
-        $request->setControllerName($controller);
-        $request->setActionName($action);
-        $request->setControllerModule($realModule);
+
+        if (isset($controller)) {
+            $request->setControllerName($controller);
+        }
+
+        if (isset($action)) {
+            $request->setActionName($action);
+        }
+
+        if (isset($realModule)) {
+            $request->setControllerModule($realModule);
+        }
 
         // set parameters from path info
         for ($i = 3, $l = count($p); $i < $l; $i += 2) {
@@ -253,7 +257,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         // dispatch action
         $request->setDispatched(true);
-        $controllerInstance->dispatch($action);
+        if (isset($controllerInstance, $action)) {
+            $controllerInstance->dispatch($action);
+        }
 
         return true;
     }
@@ -343,12 +349,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             if (!file_exists($controllerFileName)) {
                 return false;
             }
+
             include $controllerFileName;
 
             if (!class_exists($controllerClassName, false)) {
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
             }
         }
+
         return true;
     }
 
@@ -388,6 +396,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 return true;
             }
         }
+
         return false;
     }
 
@@ -419,9 +428,10 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $parts = explode('_', $realModule);
         $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
-        if (count($parts)) {
+        if ($parts !== []) {
             $file .= DS . implode(DS, $parts);
         }
+
         return $file . (DS . uc_words($controller, DS) . 'Controller.php');
     }
 
@@ -434,6 +444,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
             return true;
         }
+
         return false;
     }
 
@@ -448,7 +459,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @return array
+     * @param string[] $p
+     * @return string[]
      */
     public function rewrite(array $p)
     {
@@ -458,11 +470,13 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 $p[0] = trim((string) $module);
             }
         }
+
         if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]})) {
             if (!$controller->children()) {
                 $p[1] = trim((string) $controller);
             }
         }
+
         if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]})) {
             if (!$action->children()) {
                 $p[2] = trim((string) $action);
@@ -520,9 +534,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _shouldBeSecure($path)
     {
-        return substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 0, 5) === 'https'
+        return str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https')
             || Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_FRONTEND)
-                && substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL), 0, 5) == 'https'
+                && str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL), 'https')
                 && Mage::getConfig()->shouldUrlBeSecure($path);
     }
 }

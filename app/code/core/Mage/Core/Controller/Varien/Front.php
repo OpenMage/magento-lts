@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
@@ -49,6 +41,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         } else {
             $this->_defaults[$key] = $value;
         }
+
         return $this;
     }
 
@@ -63,6 +56,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         } elseif (isset($this->_defaults[$key])) {
             return $this->_defaults[$key];
         }
+
         return false;
     }
 
@@ -136,15 +130,18 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             if (isset($routerInfo['disabled']) && $routerInfo['disabled']) {
                 continue;
             }
+
             if (isset($routerInfo['class'])) {
                 /** @var Mage_Core_Controller_Varien_Router_Standard $router */
                 $router = new $routerInfo['class']();
                 if (isset($routerInfo['area'])) {
                     $router->collectRoutes($routerInfo['area'], $routerCode);
                 }
+
                 $this->addRouter($routerCode, $router);
             }
         }
+
         Varien_Profiler::stop('mage::app::init_front_controller::collect_routers');
 
         Mage::dispatchEvent('controller_front_init_routers', ['front' => $this]);
@@ -184,10 +181,12 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 }
             }
         }
+
         Varien_Profiler::stop('mage::dispatch::routers_match');
         if ($i > 100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
+
         // This event gives possibility to launch something before sending output (allow cookie setting)
         Mage::dispatchEvent('controller_front_send_response_before', ['front' => $this]);
         Varien_Profiler::start('mage::app::dispatch::send_response');
@@ -206,9 +205,11 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected function _getRequestRewriteController()
     {
         $className = (string) Mage::getConfig()->getNode('global/request_rewrite/model');
-        return Mage::getSingleton('core/factory')->getModel($className, [
+        /** @var Mage_Core_Model_Url_Rewrite_Request $model */
+        $model = Mage::getSingleton('core/factory')->getModel($className, [
             'routers' => $this->getRouters(),
         ]);
+        return $model;
     }
 
     /**
@@ -275,12 +276,14 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         if (!$config) {
             return;
         }
+
         foreach ($config->children() as $rewrite) {
             $from = (string) $rewrite->from;
             $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
+
             $from = $this->_processRewriteUrl($from);
             $to   = $this->_processRewriteUrl($to);
 
@@ -313,6 +316,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 $url = str_replace('{' . $routeName . '}', $fronName, $url);
             }
         }
+
         return $url;
     }
 
@@ -354,7 +358,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
         if (isset($uri['scheme']) && $uri['scheme'] != $request->getScheme()
             || isset($uri['host']) && $uri['host'] != $request->getHttpHost()
-            || isset($uri['path']) && strpos($requestUri, $uri['path']) === false
+            || isset($uri['path']) && !str_contains($requestUri, $uri['path'])
         ) {
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($baseUrl, $redirectCode)
@@ -380,6 +384,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             $adminPath = (string) Mage::getConfig()
                 ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME);
         }
+
         $adminFrontNames = [$adminPath];
 
         // Check for other modules that can use admin router (a lot of Magento extensions do that)

@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Website Payments Pro implementation for payment method instances
  * This model was created because right now PayPal Direct and PayPal Express payment methods cannot have same abstract
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Pro
@@ -29,6 +21,7 @@ class Mage_Paypal_Model_Pro
      * @var string
      */
     public const PAYMENT_REVIEW_ACCEPT = 'accept';
+
     public const PAYMENT_REVIEW_DENY = 'deny';
 
     /**
@@ -80,13 +73,17 @@ class Mage_Paypal_Model_Pro
             if ($storeId !== null) {
                 $params[] = $storeId;
             }
-            $this->_config = Mage::getModel($this->_configType, $params);
+
+            /** @var Mage_Paypal_Model_Config $model */
+            $model = Mage::getModel($this->_configType, $params);
+            $this->_config = $model;
         } else {
             $this->_config->setMethod($code);
             if ($storeId !== null) {
                 $this->_config->setStoreId($storeId);
             }
         }
+
         return $this;
     }
 
@@ -102,6 +99,7 @@ class Mage_Paypal_Model_Pro
         if ($storeId !== null) {
             $this->_config->setStoreId($storeId);
         }
+
         return $this;
     }
 
@@ -126,6 +124,7 @@ class Mage_Paypal_Model_Pro
         if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType);
         }
+
         $this->_api->setConfigObject($this->_config);
         return $this->_api;
     }
@@ -152,6 +151,7 @@ class Mage_Paypal_Model_Pro
         if ($this->_infoInstance === null) {
             $this->_infoInstance = Mage::getModel('paypal/info');
         }
+
         return $this->_infoInstance;
     }
 
@@ -214,6 +214,7 @@ class Mage_Paypal_Model_Pro
         if (!$authTransactionId) {
             return false;
         }
+
         $api = $this->getApi()
             ->setAuthorizationId($authTransactionId)
             ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
@@ -327,14 +328,17 @@ class Mage_Paypal_Model_Pro
         if (strlen($profile->getSubscriberName()) > 32) { // up to 32 single-byte chars
             $errors[] = Mage::helper('paypal')->__('Subscriber name is too long.');
         }
+
         $refId = $profile->getInternalReferenceId(); // up to 127 single-byte alphanumeric
         if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $refId)
             $errors[] = Mage::helper('paypal')->__('Merchant reference ID format is not supported.');
         }
+
         $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
         if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
+
         if ($errors) {
             Mage::throwException(implode(' ', $errors));
         }
@@ -404,6 +408,7 @@ class Mage_Paypal_Model_Pro
                 $action = 'activate';
                 break;
         }
+
         $state = $profile->getState();
         $api->setRecurringProfileId($profile->getReferenceId())
             ->setIsAlreadyCanceled($state == Mage_Sales_Model_Recurring_Profile::STATE_CANCELED)

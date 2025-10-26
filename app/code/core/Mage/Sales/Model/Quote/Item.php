@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Quote Item Model
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Item _getResource()
@@ -26,7 +18,7 @@
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method $this setBackorders(float $value)
@@ -248,6 +240,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($this->getQuote()) {
             $this->setQuoteId($this->getQuote()->getId());
         }
+
         return $this;
     }
 
@@ -262,6 +255,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($this->getQuoteId() != $quote->getId()) {
             $this->setQuoteId($quote->getId());
         }
+
         return $this;
     }
 
@@ -275,6 +269,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if (is_null($this->_quote)) {
             $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
         }
+
         return $this->_quote;
     }
 
@@ -319,6 +314,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->setQtyToAdd($qty);
             $this->setQty($oldQty + $qty);
         }
+
         return $this;
     }
 
@@ -339,6 +335,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($this->getQuote() && $this->getQuote()->getIgnoreOldQty()) {
             return $this;
         }
+
         if ($this->getUseOldQty()) {
             $this->setData('qty', $oldQty);
         }
@@ -406,6 +403,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $product->setStoreId($this->getQuote()->getStoreId());
             $product->setCustomerGroupId($this->getQuote()->getCustomerGroupId());
         }
+
         $this->setData('product', $product)
             ->setProductId($product->getId())
             ->setProductType($product->getTypeId())
@@ -459,9 +457,11 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if (!$this->compareOptions($itemOptions, $productOptions)) {
             return false;
         }
+
         if (!$this->compareOptions($productOptions, $itemOptions)) {
             return false;
         }
+
         return true;
     }
 
@@ -481,6 +481,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             if (in_array($code, $this->_notRepresentOptions)) {
                 continue;
             }
+
             if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
                 || $options2[$code]->getValue() != $option->getValue()
@@ -488,6 +489,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -502,12 +504,14 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($this->getProductId() != $item->getProductId()) {
             return false;
         }
+
         foreach ($this->getOptions() as $option) {
             if (in_array($option->getCode(), $this->_notRepresentOptions)
                 && !$item->getProduct()->hasCustomOptions()
             ) {
                 continue;
             }
+
             if ($itemOption = $item->getOptionByCode($option->getCode())) {
                 $itemOptionValue = $itemOption->getValue();
                 $optionValue = $option->getValue();
@@ -546,6 +550,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -559,9 +564,11 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($option = $this->getOptionByCode('product_type')) {
             return $option->getValue();
         }
+
         if ($product = $this->getProduct()) {
             return $product->getTypeId();
         }
+
         return $this->_getData('product_type');
     }
 
@@ -587,6 +594,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($product = $this->getProduct()) {
             $data['product'] = $product->toArray();
         }
+
         return $data;
     }
 
@@ -601,6 +609,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         foreach ($options as $option) {
             $this->addOption($option);
         }
+
         return $this;
     }
 
@@ -652,6 +661,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->_addOptionCode($option);
             $this->_options[] = $option;
         }
+
         return $this;
     }
 
@@ -690,6 +700,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($option) {
             $option->isDeleted(true);
         }
+
         return $this;
     }
 
@@ -706,6 +717,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         } else {
             Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
         }
+
         return $this;
     }
 
@@ -720,6 +732,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if (isset($this->_optionsByCode[$code]) && !$this->_optionsByCode[$code]->isDeleted()) {
             return $this->_optionsByCode[$code];
         }
+
         return null;
     }
 
@@ -852,6 +865,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         } else {
             $this->_clearErrorInfo();
         }
+
         return $this;
     }
 
@@ -884,6 +898,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($message !== null) {
             $this->setMessage($message);
         }
+
         $this->_setHasError(true);
 
         return $this;

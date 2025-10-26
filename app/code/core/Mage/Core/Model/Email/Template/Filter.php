@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Email Template Filter Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
@@ -146,6 +138,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if ($this->_storeId === null) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
@@ -182,6 +175,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 if (in_array($k, $skipParams)) {
                     continue;
                 }
+
                 $block->setDataUsingMethod($k, $v);
             }
         } else {
@@ -191,9 +185,11 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($blockParameters['output'])) {
             $method = $blockParameters['output'];
         }
+
         if (!isset($method) || !is_string($method) || !method_exists($block, $method)) {
             $method = 'toHtml';
         }
+
         return $block->$method();
     }
 
@@ -224,7 +220,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $layout->generateBlocks();
 
         /** @var Mage_Core_Block_Abstract $block */
-        foreach ($layout->getAllBlocks() as $blockName => $block) {
+        foreach ($layout->getAllBlocks() as $block) {
             foreach ($params as $k => $v) {
                 if (in_array($k, $skipParams)) {
                     continue;
@@ -302,12 +298,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (!isset($params['_query'])) {
             $params['_query'] = [];
         }
+
         foreach ($params as $k => $v) {
             if (str_starts_with($k, '_query_')) {
                 $params['_query'][substr($k, 7)] = $v;
                 unset($params[$k]);
             }
         }
+
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
         if ($this->_useSessionInUrl === false) {
@@ -365,9 +363,10 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $parts = explode('|', $construction[2], 2);
         if (count($parts) === 2) {
-            list($variableName, $modifiersString) = $parts;
+            [$variableName, $modifiersString] = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }
+
         return $this->_getVariable($construction[2], '');
     }
 
@@ -386,6 +385,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             if (empty($part)) {
                 continue;
             }
+
             $params   = explode(':', $part);
             $modifier = array_shift($params);
             if (isset($this->_modifiers[$modifier])) {
@@ -393,10 +393,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 if (!$callback) {
                     $callback = $modifier;
                 }
+
                 array_unshift($params, $value);
                 $value = call_user_func_array($callback, $params);
             }
         }
+
         return $value;
     }
 
@@ -409,17 +411,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function modifierEscape($value, $type = 'html')
     {
-        switch ($type) {
-            case 'html':
-                return htmlspecialchars($value, ENT_QUOTES);
-
-            case 'htmlentities':
-                return htmlentities($value, ENT_QUOTES);
-
-            case 'url':
-                return rawurlencode($value);
-        }
-        return $value;
+        return match ($type) {
+            'html' => htmlspecialchars($value, ENT_QUOTES),
+            'htmlentities' => htmlentities($value, ENT_QUOTES),
+            'url' => rawurlencode($value),
+            default => $value,
+        };
     }
 
     /**
@@ -442,6 +439,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['store'])) {
             $store = Mage::app()->getSafeStore($params['store']);
         }
+
         $isSecure = Mage::app()->getStore($store)->isCurrentlySecure();
         $protocol = $isSecure ? 'https' : 'http';
         if (isset($params['url'])) {
@@ -450,6 +448,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             if ($isSecure) {
                 return $params['https'];
             }
+
             return $params['http'];
         }
 
@@ -471,6 +470,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['path']) && $this->_permissionVariable->isPathAllowed($params['path'])) {
             $configValue = Mage::getStoreConfig($params['path'], $storeId);
         }
+
         return $configValue;
     }
 
@@ -496,6 +496,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 $customVarValue = $value;
             }
         }
+
         return $customVarValue;
     }
 
@@ -513,6 +514,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['file'])) {
             $this->_setInlineCssFile($params['file']);
         }
+
         return '';
     }
 
@@ -553,6 +555,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $value = '';
             Mage::logException($e);
         }
+
         return $value;
     }
 
@@ -573,6 +576,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $result = '';
             Mage::logException($e);
         }
+
         Mage::unregister('varProcessing');
         return $result;
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav attribute set resource model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resource_Db_Abstract
@@ -40,15 +32,19 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
                 if ($group->itemExists() && !$group->getId()) {
                     continue;
                 }
+
                 $group->save();
             }
         }
+
         if ($object->getRemoveGroups()) {
             foreach ($object->getRemoveGroups() as $group) {
                 $group->delete();
             }
+
             Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
         }
+
         if ($object->getRemoveAttributes()) {
             foreach ($object->getRemoveAttributes() as $attribute) {
                 $attribute->deleteEntity();
@@ -107,14 +103,16 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
                 'entity.attribute_group_id = attribute_group.attribute_group_id',
                 ['group_sort_order' => 'sort_order'],
             );
-        if (count($attributeIds) > 0) {
+        if ($attributeIds !== []) {
             $select->where('entity.attribute_id IN (?)', $attributeIds);
         }
+
         $bind = [];
         if (is_numeric($setId)) {
             $bind[':attribute_set_id'] = $setId;
             $select->where('entity.attribute_set_id = :attribute_set_id');
         }
+
         $result = $adapter->fetchAll($select, $bind);
 
         foreach ($result as $row) {
@@ -126,7 +124,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
             $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
         }
 
-        if (count($attributeIds)) {
+        if ($attributeIds !== []) {
             foreach ($attributeIds as $atttibuteId) {
                 $setInfo[$atttibuteId] = $attributeToSetInfo[$atttibuteId] ?? [];
             }
@@ -141,7 +139,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
      * Retrurn default attribute group id for attribute set id
      *
      * @param int $setId
-     * @return int|null
+     * @return string
      */
     public function getDefaultGroupId($setId)
     {

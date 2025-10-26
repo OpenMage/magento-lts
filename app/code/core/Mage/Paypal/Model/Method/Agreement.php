@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal Billing Agreement method
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract implements Mage_Payment_Model_Billing_Agreement_MethodInterface
@@ -34,14 +26,23 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      */
     protected $_canAuthorize            = true;
+
     protected $_canCapture              = true;
+
     protected $_canCapturePartial       = true;
+
     protected $_canRefund               = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid                 = true;
+
     protected $_canUseCheckout          = false;
+
     protected $_canUseInternal          = false;
+
     protected $_canFetchTransactionInfo = true;
+
     protected $_canReviewPayment        = true;
 
     /**
@@ -64,6 +65,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         } else {
             $this->_pro = Mage::getModel('paypal/pro');
         }
+
         $this->_pro->setMethod($this->_code);
     }
 
@@ -80,6 +82,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
+
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
         return $this;
     }
@@ -97,6 +100,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setBillingType($this->_pro->getApi()->getBillingAgreementType());
 
         $api->callSetCustomerBillingAgreement();
+
         $agreement->setRedirectUrl(
             $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken()),
         );
@@ -113,6 +117,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api = $this->_pro->getApi()
             ->setToken($agreement->getToken());
         $api->callGetBillingAgreementCustomerDetails();
+
         $responseData = [
             'token'         => $api->getData('token'),
             'email'         => $api->getData('email'),
@@ -133,6 +138,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api = $this->_pro->getApi()
             ->setToken($agreement->getToken());
         $api->callCreateBillingAgreement();
+
         $agreement->setBillingAgreementId($api->getData('billing_agreement_id'));
         return $this;
     }
@@ -158,6 +164,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
                 throw $e;
             }
         }
+
         return $this;
     }
 
@@ -196,6 +203,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         if ($this->_pro->capture($payment, $amount) === false) {
             $this->_placeOrder($payment, $amount);
         }
+
         return $this;
     }
 
@@ -299,6 +307,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
 
         // call api and import transaction and other payment information
         $api->callDoReferenceTransaction();
+
         $this->_pro->importPaymentInfo($api, $payment);
         $api->callGetTransactionDetails();
         $this->_pro->importPaymentInfo($api, $payment);

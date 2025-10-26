@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
@@ -91,6 +83,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_query->setQueryText($this->getQueryText());
             }
         }
+
         return $this->_query;
     }
 
@@ -130,6 +123,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_queryText;
     }
 
@@ -323,6 +317,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $_index = array_merge($_index, $value);
             }
         }
+
         return implode($separator, $_index);
     }
 
@@ -347,6 +342,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_engine = $model;
                 }
             }
+
             if (!$this->_engine) {
                 $this->_engine = Mage::getResourceSingleton('catalogsearch/fulltext_engine');
             }

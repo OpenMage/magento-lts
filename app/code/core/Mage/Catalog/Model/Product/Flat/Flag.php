@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Calatog Product Flat Flag Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
@@ -41,6 +33,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData = [];
             $this->setFlagData($flagData);
         }
+
         return $flagData;
     }
 
@@ -58,6 +51,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData[$key] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData[$key];
     }
 
@@ -89,6 +83,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData['is_built'] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData['is_built'];
     }
 

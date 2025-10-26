@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Subscriber model
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
@@ -48,17 +40,27 @@
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
     public const STATUS_SUBSCRIBED     = 1;
+
     public const STATUS_NOT_ACTIVE     = 2;
+
     public const STATUS_UNSUBSCRIBED   = 3;
+
     public const STATUS_UNCONFIRMED    = 4;
 
     public const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'newsletter/subscription/confirm_email_template';
+
     public const XML_PATH_CONFIRM_EMAIL_IDENTITY       = 'newsletter/subscription/confirm_email_identity';
+
     public const XML_PATH_SUCCESS_EMAIL_TEMPLATE       = 'newsletter/subscription/success_email_template';
+
     public const XML_PATH_SUCCESS_EMAIL_IDENTITY       = 'newsletter/subscription/success_email_identity';
+
     public const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
+
     public const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
+
     public const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
+
     public const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
     /**
@@ -274,8 +276,10 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($this->getStatus() == self::STATUS_NOT_ACTIVE) {
                 $this->setStatus($customer->getIsSubscribed() ? self::STATUS_SUBSCRIBED : self::STATUS_UNSUBSCRIBED);
             }
+
             $this->save();
         }
+
         return $this;
     }
 
@@ -294,8 +298,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         for ($i = 0; $i < $length; $i++) {
             $disc = mt_rand(0, $charLen);
             $par[$i] = $char[$disc];
-            $id = $id . $char[$disc];
+            $id .= $char[$disc];
         }
+
         return $id;
     }
 
@@ -337,6 +342,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             } else {
                 $this->setStatus(self::STATUS_SUBSCRIBED);
             }
+
             $this->setSubscriberEmail($email);
         } elseif ($this->getStatus() == self::STATUS_SUBSCRIBED) {
             Mage::throwException(Mage::helper('newsletter')->__('This email address is already registered.'));
@@ -441,6 +447,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($customer->getStoreId() == 0) {
                 $storeId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
             }
+
             $this->setStoreId($storeId)
                 ->setCustomerId($customer->getId())
                 ->setEmail($customer->getEmail());
@@ -458,6 +465,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
                 $this->sendConfirmationSuccessEmail();
             }
         }
+
         return $this;
     }
 
@@ -574,6 +582,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if ($this->getImportMode()) {
             return $this;
         }
+
         if (!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE)
             || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
         ) {
@@ -611,6 +620,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if ($this->hasCustomerFirstname() || $this->hasCustomerLastname()) {
             $name = Mage::helper('customer')->getFullCustomerName($this);
         }
+
         return $name;
     }
 }

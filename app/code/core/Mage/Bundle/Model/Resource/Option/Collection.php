@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Options Resource Collection
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method Mage_Bundle_Model_Option[] getItems()
@@ -81,6 +73,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     [],
                 );
         }
+
         return $this;
     }
 
@@ -135,6 +128,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     }
                 }
             }
+
             $this->_selectionsAppended = true;
         }
 
@@ -151,6 +145,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         foreach ($this->getItems() as $option) {
             $option->setSelections([]);
         }
+
         $this->_selectionsAppended = false;
         return $this;
     }
@@ -168,6 +163,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }
+
         return $this;
     }
 
@@ -192,6 +188,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         if (is_null($this->_itemIds)) {
             $this->_itemIds = parent::getAllIds();
         }
+
         return $this->_itemIds;
     }
 }

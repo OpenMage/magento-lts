@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Index Setup Model
  *
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
@@ -25,12 +17,14 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Apply Index module DB updates and sync indexes declaration
      *
-     * @return void
+     * @return $this
      */
     public function applyUpdates()
     {
         parent::applyUpdates();
         $this->_syncIndexes();
+
+        return $this;
     }
 
     /**
@@ -44,11 +38,13 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
         if (!$connection) {
             return $this;
         }
+
         $indexes = Mage::getConfig()->getNode(Mage_Index_Model_Process::XML_PATH_INDEXER_DATA);
         $indexCodes = [];
         foreach ($indexes->children() as $code => $index) {
             $indexCodes[] = $code;
         }
+
         $table = $this->getTable('index/process');
         $select = $connection->select()->from($table, 'indexer_code');
         $existingIndexes = $connection->fetchCol($select);
@@ -58,6 +54,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
         if (!empty($delete)) {
             $connection->delete($table, $connection->quoteInto('indexer_code IN (?)', $delete));
         }
+
         if (!empty($insert)) {
             $insertData = [];
             foreach ($insert as $code) {
@@ -66,6 +63,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
                     'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
                 ];
             }
+
             if (method_exists($connection, 'insertArray')) {
                 $connection->insertArray($table, ['indexer_code', 'status'], $insertData);
             }

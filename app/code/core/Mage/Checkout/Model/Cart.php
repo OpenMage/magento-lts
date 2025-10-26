@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart model
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Model_Cart_Interface
@@ -76,6 +68,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         if (!$this->getQuote()->getId()) {
             return [];
         }
+
         return $this->getQuote()->getItemsCollection();
     }
 
@@ -93,8 +86,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $productId = $item->getProductId();
                 $products[$productId] = $productId;
             }
+
             $this->setData('product_ids', $products);
         }
+
         return $products;
     }
 
@@ -108,6 +103,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         if (!$this->hasData('quote')) {
             $this->setData('quote', $this->getCheckoutSession()->getQuote());
         }
+
         return $this->_getData('quote');
     }
 
@@ -171,6 +167,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
             $this->addProduct($product, $info);
         }
+
         return $this;
     }
 
@@ -190,6 +187,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($productInfo);
         }
+
         $currentWebsiteId = Mage::app()->getStore()->getWebsiteId();
         if (!$product
             || !$product->getId()
@@ -198,6 +196,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         ) {
             Mage::throwException(Mage::helper('checkout')->__('The product could not be found.'));
         }
+
         return $product;
     }
 
@@ -260,6 +259,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $this->getCheckoutSession()->setUseNotice(false);
                 $result = $e->getMessage();
             }
+
             /**
              * String we can get if prepare process has error
              */
@@ -274,6 +274,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 if ($this->getCheckoutSession()->getUseNotice() === null) {
                     $this->getCheckoutSession()->setUseNotice(true);
                 }
+
                 Mage::throwException($result);
             }
         } else {
@@ -302,11 +303,12 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 if (!$productId) {
                     continue;
                 }
+
                 $product = $this->_getProduct($productId);
                 if ($product->getId() && $product->isVisibleInCatalog()) {
                     try {
                         $this->getQuote()->addProduct($product);
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         $allAdded = false;
                     }
                 } else {
@@ -319,12 +321,14 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     Mage::helper('checkout')->__('Some of the requested products are unavailable.'),
                 );
             }
+
             if (!$allAdded) {
                 $this->getCheckoutSession()->addError(
                     Mage::helper('checkout')->__('Some of the requested products are not available in the desired quantity.'),
                 );
             }
         }
+
         return $this;
     }
 
@@ -344,6 +348,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             if (!isset($itemInfo['qty'])) {
                 continue;
             }
+
             $qty = (float) $itemInfo['qty'];
             if ($qty <= 0) {
                 continue;
@@ -489,8 +494,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     $this->_productIds[] = $item->getProductId();
                 }
             }
+
             $this->_productIds = array_unique($this->_productIds);
         }
+
         return $this->_productIds;
     }
 
@@ -518,6 +525,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $this->_summaryQty = $this->getItemsCount();
             }
         }
+
         return $this->_summaryQty;
     }
 
@@ -560,6 +568,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             if (!$item) {
                 Mage::throwException(Mage::helper('checkout')->__('Quote item does not exist.'));
             }
+
             $productId = $item->getProduct()->getId();
             $product = $this->_getProduct($productId);
             $request = $this->_getProductRequest($requestInfo);
@@ -588,6 +597,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             if ($this->getCheckoutSession()->getUseNotice() === null) {
                 $this->getCheckoutSession()->setUseNotice(true);
             }
+
             Mage::throwException($result);
         }
 

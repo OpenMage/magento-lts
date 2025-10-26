@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Notifications about not correct tax settings
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Template
@@ -62,6 +54,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDisplaySettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -70,6 +63,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -92,6 +86,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -139,6 +134,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDiscountSettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -147,6 +143,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -194,6 +191,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if ($model->isAllowed('system/config/tax')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
@@ -129,6 +121,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($len <= 0) {
             $len = 10;
         }
+
         return $len;
     }
 
@@ -152,6 +145,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->_calculator === null) {
             $this->_calculator = Mage::getSingleton('tax/calculation');
         }
+
         return $this->_calculator;
     }
 
@@ -170,6 +164,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         } catch (Exception $e) {
             $value = $e->getMessage();
         }
+
         return $value;
     }
 
@@ -209,6 +204,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $s = $this->__('Excl. Tax');
         }
+
         return $s;
     }
 
@@ -231,7 +227,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * If its necessary will be returned conversion type (minus or plus)
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  false|int
+     * @return  bool|int
      */
     public function needPriceConversion($store = null)
     {
@@ -257,6 +253,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($res === false) {
             $res = $this->displayTaxColumn($store);
         }
+
         return $res;
     }
 
@@ -406,6 +403,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($store) {
             $priceFormat['pattern'] = $this->_app->getStore($store)->getCurrentCurrency()->getOutputFormat();
         }
+
         return Mage::helper('core')->jsonEncode($priceFormat);
     }
 
@@ -490,10 +488,12 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$price) {
             return $price;
         }
+
         $store = $this->_app->getStore($store);
         if (!$this->needPriceConversion($store)) {
             return $store->roundPrice($price);
         }
+
         if (is_null($priceIncludesTax)) {
             $priceIncludesTax = $this->priceIncludesTax($store);
         }
@@ -510,6 +510,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                     ->getRate($request->setProductClassId($taxClassId));
             }
         }
+
         if ($taxClassId && $priceIncludesTax) {
             if ($this->isCrossBorderTradeEnabled($store)) {
                 $includingPercent = $percent;
@@ -548,57 +549,56 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 } else {
                     $price = $this->_calculatePrice($price, $includingPercent, false);
                 }
-            } else {
-                if ($includingTax) {
+            } elseif ($includingTax) {
+                $appliedRates = $product->getAppliedRates();
+                if (count($appliedRates) > 1) {
+                    $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
+                } else {
+                    $price = $this->_calculatePrice($price, $percent, true);
+                }
+            }
+        } elseif ($priceIncludesTax) {
+            switch ($this->getPriceDisplayType($store)) {
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
+                    if ($includingPercent != $percent) {
+                        // determine the customer's price that includes tax
+                        $taxablePrice = $this->_calculatePriceInclTax($price, $includingPercent, $percent, $store);
+                        // determine the customer's tax amount,
+                        // round tax unless $roundPrice is set explicitly to false
+                        $tax = $this->getCalculator()->calcTaxAmount($taxablePrice, $percent, true, $roundPrice);
+                        // determine the customer's price without taxes
+                        $price = $taxablePrice - $tax;
+                    } else {
+                        //round tax first unless $roundPrice is set to false explicitly
+                        $price = $this->_calculatePrice($price, $includingPercent, false, $roundPrice);
+                    }
+
+                    break;
+
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
+                    $price = $this->_calculatePrice($price, $includingPercent, false);
+                    $price = $this->_calculatePrice($price, $percent, true);
+                    break;
+            }
+        } else {
+            switch ($this->getPriceDisplayType($store)) {
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
                     $appliedRates = $product->getAppliedRates();
                     if (count($appliedRates) > 1) {
                         $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
                     } else {
                         $price = $this->_calculatePrice($price, $percent, true);
                     }
-                }
-            }
-        } else {
-            if ($priceIncludesTax) {
-                switch ($this->getPriceDisplayType($store)) {
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
-                        if ($includingPercent != $percent) {
-                            // determine the customer's price that includes tax
-                            $taxablePrice = $this->_calculatePriceInclTax($price, $includingPercent, $percent, $store);
-                            // determine the customer's tax amount,
-                            // round tax unless $roundPrice is set explicitly to false
-                            $tax = $this->getCalculator()->calcTaxAmount($taxablePrice, $percent, true, $roundPrice);
-                            // determine the customer's price without taxes
-                            $price = $taxablePrice - $tax;
-                        } else {
-                            //round tax first unless $roundPrice is set to false explicitly
-                            $price = $this->_calculatePrice($price, $includingPercent, false, $roundPrice);
-                        }
-                        break;
 
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
-                        $price = $this->_calculatePrice($price, $includingPercent, false);
-                        $price = $this->_calculatePrice($price, $percent, true);
-                        break;
-                }
-            } else {
-                switch ($this->getPriceDisplayType($store)) {
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
-                        $appliedRates = $product->getAppliedRates();
-                        if (count($appliedRates) > 1) {
-                            $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
-                        } else {
-                            $price = $this->_calculatePrice($price, $percent, true);
-                        }
-                        break;
+                    break;
 
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
-                        break;
-                }
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
+                    break;
             }
         }
+
         if ($roundPrice) {
             return $store->roundPrice($price);
         } else {
@@ -691,6 +691,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $taxRate = $appliedRate['percent'];
             $tax += $calculator->round($price * $taxRate / 100);
         }
+
         return $tax + $price;
     }
 
@@ -788,6 +789,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($shippingAddress && $shippingAddress->getQuote() && $shippingAddress->getQuote()->getBillingAddress()) {
             $billingAddress = $shippingAddress->getQuote()->getBillingAddress();
         }
+
         return $this->getPrice(
             $pseudoProduct,
             $price,
@@ -826,15 +828,16 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             'currentTaxString' => 'currentTaxes',
         ];
         foreach ($rateToVariable as $rateVariable => $rateArray) {
-            if ($$rateArray && is_array($$rateArray)) {
-                $$rateVariable = '';
-                foreach ($$rateArray as $classId => $rate) {
+            if (${$rateArray} && is_array(${$rateArray})) {
+                ${$rateVariable} = '';
+                foreach (${$rateArray} as $classId => $rate) {
                     if ($rate) {
-                        $$rateVariable .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
+                        ${$rateVariable} .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
                     }
                 }
-                if ($$rateVariable) {
-                    $$rateVariable = "CASE {$taxClassField} {$$rateVariable} ELSE 0 END";
+
+                if (${$rateVariable}) {
+                    ${$rateVariable} = "CASE {$taxClassField} {${$rateVariable}} ELSE 0 END";
                 }
             }
         }
@@ -845,16 +848,16 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             if ($defaultTaxString) {
                 $result = "-({$priceField}/(1+({$defaultTaxString}))*{$defaultTaxString})";
             }
+
             if (!$this->displayPriceExcludingTax() && $currentTaxString) {
                 $result .= "+(({$priceField}{$result})*{$currentTaxString})";
             }
-        } else {
-            if ($this->displayPriceIncludingTax()) {
-                if ($currentTaxString) {
-                    $result .= "+({$priceField}*{$currentTaxString})";
-                }
+        } elseif ($this->displayPriceIncludingTax()) {
+            if ($currentTaxString) {
+                $result .= "+({$priceField}*{$currentTaxString})";
             }
         }
+
         return $result;
     }
 
@@ -1027,6 +1030,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                             $price = $price - $item->getDiscountAmount() + $item->getHiddenTaxAmount();
                             $basePrice = $basePrice - $item->getBaseDiscountAmount() + $item->getBaseHiddenTaxAmount();
                         }
+
                         $taxAmount = $price * $percent / 100;
                         $baseTaxAmount = $basePrice * $percent / 100;
 
@@ -1112,6 +1116,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 if ($current->getShippingHiddenTaxAmount() > 0) {
                     $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
                 }
+
                 $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
                 $taxClassAmount[0]['percent'] = null;
             }
@@ -1218,11 +1223,13 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($flag->getId()) {
             return (bool) $flag->getFlagData();
         }
+
         $configValue = $this->_app->getStore()->getConfig($key);
         if ($configValue !== null) {
             $flag->setFlagData((bool) $configValue)->save();
             return (bool) $configValue;
         }
+
         return false;
     }
 

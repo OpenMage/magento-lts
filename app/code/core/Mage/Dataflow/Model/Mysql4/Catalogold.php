@@ -1,28 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Dataflow
  * @deprecated after 1.5.0.1
  */
 class Mage_Catalog_Model_Mysql4_Convert
 {
     protected $_productsBySku;
+
     protected $_productEntity;
+
     protected $_skuAttribute;
 
     public function getConnection()
@@ -46,6 +40,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             $this->_productEntity = Mage::getResourceModel('catalog/product')
                 ->loadAllAttributes();
         }
+
         return is_null($field) ? $this->_productEntity : $this->_productEntity->getData($field);
     }
 
@@ -54,6 +49,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         if (!$this->_skuAttribute) {
             $this->_skuAttribute = $this->getProductEntity()->getAttribute('sku');
         }
+
         return $this->_skuAttribute->getData($field);
     }
 
@@ -69,6 +65,7 @@ class Mage_Catalog_Model_Mysql4_Convert
                 $this->_productsBySku[$p['sku']] = $p['entity_id'];
             }
         }
+
         return $this->_productsBySku[$sku] ?? false;
     }
 
@@ -83,6 +80,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         } catch (Exception $e) {
             throw $e;
         }
+
         return $this;
     }
 

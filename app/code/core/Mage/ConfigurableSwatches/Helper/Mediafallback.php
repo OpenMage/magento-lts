@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class implementing the media fallback layer for swatches
  *
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Abstract
@@ -55,9 +47,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         if (!$onlyListAttributes) {
             $swatchAttributeIds = Mage::helper('configurableswatches')->getSwatchAttributeIds();
         }
+
         if ($listSwatchAttr->getId()) {
             $swatchAttributeIds[] = $listSwatchAttr->getId();
         }
+
         if (empty($swatchAttributeIds)) {
             return;
         }
@@ -105,6 +99,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     ) {
                         continue;
                     }
+
                     $optionId = $childProduct->getData($attribute->getAttributeCode());
 
                     // if we don't have a default label, skip it
@@ -121,6 +116,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                             'product_ids' => [],
                         ];
                     }
+
                     $mapping[$optionLabel]['product_ids'][] = $childProduct->getId();
                     $mapping[$optionLabel]['label'] = $optionLabel;
                     $mapping[$optionLabel]['default_label'] = $optionLabels[$optionId][0];
@@ -139,12 +135,13 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                 $mapping[$key]['product_ids'] = array_unique($mapping[$key]['product_ids']);
             }
 
-            if (count($listSwatchValues)) {
+            if ($listSwatchValues !== []) {
                 $listSwatchValues = array_replace(
                     array_intersect_key($optionLabels, $listSwatchValues),
                     $listSwatchValues,
                 );
             }
+
             $parentProduct->setChildAttributeLabelMapping($mapping)
                 ->setListSwatchAttrValues($listSwatchValues)
                 ->setListSwatchAttrStockValues($listSwatchStockValues);
@@ -275,6 +272,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         if ($image == 'no_selection') {
             $image = null;
         }
+
         if ($hasTypeData || $placeholder || $image) {
             $helper = Mage::helper('catalog/image')
                 ->init($product, $type, $image)
@@ -285,11 +283,14 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if ($type == 'small_image') {
                 $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH);
             }
+
             if (is_numeric($size)) {
                 $helper->constrainOnly(true)->resize($size);
             }
+
             return (string) $helper;
         }
+
         return false;
     }
 
@@ -336,6 +337,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if (!is_array($product->getChildrenProducts())) {
                 continue;
             }
+
             foreach ($product->getChildrenProducts() as $childProduct) {
                 $productIds[] = $childProduct->getId();
             }
@@ -369,9 +371,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if (is_null($image['label'])) {
                 $image['label'] = $image['label_default'];
             }
+
             if (is_null($image['position'])) {
                 $image['position'] = $image['position_default'];
             }
+
             if (is_null($image['disabled'])) {
                 $image['disabled'] = $image['disabled_default'];
             }
@@ -440,6 +444,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                 if (!isset($mapping[$parentId])) {
                     $mapping[$parentId] = [];
                 }
+
                 $mapping[$parentId][] = $childProduct;
             }
         }

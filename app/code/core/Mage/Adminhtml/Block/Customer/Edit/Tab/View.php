@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer account form block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
@@ -37,6 +29,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (!$this->_customer) {
             $this->_customer = Mage::registry('current_customer');
         }
+
         return $this->_customer;
     }
 
@@ -63,6 +56,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
             $this->_customerLog = Mage::getModel('log/customer')
                 ->loadByCustomer($this->getCustomer()->getId());
         }
+
         return $this->_customerLog;
     }
 
@@ -127,6 +121,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
             );
             return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
         }
+
         return Mage::helper('customer')->__('Never');
     }
 
@@ -148,6 +143,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         ) {
             return Mage::helper('customer')->__('Offline');
         }
+
         return Mage::helper('customer')->__('Online');
     }
 
@@ -160,9 +156,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (!$this->_customer->getConfirmation()) {
             return Mage::helper('customer')->__('Confirmed');
         }
+
         if ($this->_customer->isConfirmationRequired()) {
             return Mage::helper('customer')->__('Not confirmed, cannot login');
         }
+
         return Mage::helper('customer')->__('Not confirmed, can login');
     }
 
@@ -187,6 +185,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         } else {
             $html = Mage::helper('customer')->__('The customer does not have default billing address.');
         }
+
         return $html;
     }
 
@@ -230,6 +229,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (Mage::registry('current_customer')->getId()) {
             return true;
         }
+
         return false;
     }
 
@@ -241,6 +241,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (Mage::registry('current_customer')->getId()) {
             return false;
         }
+
         return true;
     }
 

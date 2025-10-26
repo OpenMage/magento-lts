@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Customer_Model_Entity_Setup $installer */
@@ -51,6 +44,7 @@ foreach ($attributes as $attributeCode => $data) {
     if (!$attribute) {
         continue;
     }
+
     if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
         $usedInForms = $defaultUsedInForms;
         if (!empty($data['adminhtml_only'])) {
@@ -58,11 +52,14 @@ foreach ($attributes as $attributeCode => $data) {
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
+
         if (!empty($data['admin_checkout'])) {
             $usedInForms[] = 'adminhtml_checkout';
         }
+
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }
 
@@ -83,8 +80,10 @@ foreach ($attributes as $attributeCode) {
     if (!$attribute) {
         continue;
     }
+
     if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
         $attribute->setData('used_in_forms', $defaultUsedInForms);
     }
+
     $attribute->save();
 }

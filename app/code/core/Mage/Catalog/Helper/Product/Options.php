@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Custom Options helper
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
@@ -45,14 +37,15 @@ class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
                 ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
                 ->setHeader('Content-type', $info['type'], true)
                 ->setHeader('Content-Length', $info['size'])
-                ->setHeader('Content-Disposition', 'inline' . '; filename=' . $info['title'])
+                ->setHeader('Content-Disposition', 'inline; filename=' . $info['title'])
                 ->clearBody();
             $response->sendHeaders();
 
             readfile($filePath);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
+
         return true;
     }
 }

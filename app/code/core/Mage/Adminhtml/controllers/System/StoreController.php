@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Store controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Action
@@ -82,6 +74,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         if (!Mage::registry('store_type')) {
             Mage::register('store_type', 'store');
         }
+
         Mage::register('store_action', 'add');
         $this->_forward('editStore');
     }
@@ -108,9 +101,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             Mage::register('store_post_data', $session->getPostData());
             $session->unsPostData();
         }
+
         if (!Mage::registry('store_type')) {
             Mage::register('store_type', 'store');
         }
+
         if (!Mage::registry('store_action')) {
             Mage::register('store_action', 'edit');
         }
@@ -144,6 +139,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php.');
                 break;
         }
+
         if ($itemId !== null) {
             $model->load($itemId);
         }
@@ -177,6 +173,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                 $this->_redirect('*/*/');
                 return;
             }
+
             $session = $this->_getSession();
 
             try {
@@ -187,6 +184,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                         if ($postData['website']['website_id']) {
                             $websiteModel->load($postData['website']['website_id']);
                         }
+
                         $websiteModel->setData($postData['website']);
                         if ($postData['website']['website_id'] == '') {
                             $websiteModel->setId(null);
@@ -202,6 +200,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                         if ($postData['group']['group_id']) {
                             $groupModel->load($postData['group']['group_id']);
                         }
+
                         $groupModel->setData($postData['group']);
                         if ($postData['group']['group_id'] == '') {
                             $groupModel->setId(null);
@@ -221,11 +220,13 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                         if ($postData['store']['store_id']) {
                             $storeModel->load($postData['store']['store_id']);
                         }
+
                         $storeModel->setData($postData['store']);
                         if ($postData['store']['store_id'] == '') {
                             $storeModel->setId(null);
                             $eventName = 'store_add';
                         }
+
                         $groupModel = Mage::getModel('core/store_group')->load($storeModel->getGroupId());
                         $storeModel->setWebsiteId($groupModel->getWebsiteId());
                         $storeModel->save();
@@ -240,6 +241,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                         $this->_redirect('*/*/');
                         return;
                 }
+
                 $this->_redirect('*/*/');
                 return;
             } catch (Mage_Core_Exception $e) {
@@ -249,9 +251,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                 $session->addException($e, Mage::helper('core')->__('An error occurred while saving. Please review the error log.'));
                 $session->setPostData($postData);
             }
+
             $this->_redirectReferer();
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -268,6 +272,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $session->addError(Mage::helper('core')->__('This website cannot be deleted.'));
             $this->_redirect('*/*/editWebsite', ['website_id' => $itemId]);
@@ -299,6 +304,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $session->addError(Mage::helper('core')->__('This store cannot be deleted.'));
             $this->_redirect('*/*/editGroup', ['group_id' => $itemId]);
@@ -330,6 +336,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $session->addError(Mage::helper('core')->__('This store view cannot be deleted.'));
             $this->_redirect('*/*/editStore', ['store_id' => $itemId]);
@@ -357,6 +364,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $this->_getSession()->addError(Mage::helper('core')->__('This website cannot be deleted.'));
             $this->_redirect('*/*/editWebsite', ['website_id' => $model->getId()]);
@@ -375,6 +383,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete website. Please, try again later.'));
         }
+
         $this->_redirect('*/*/editWebsite', ['website_id' => $itemId]);
     }
 
@@ -387,6 +396,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $this->_getSession()->addError(Mage::helper('core')->__('This store cannot be deleted.'));
             $this->_redirect('*/*/editGroup', ['group_id' => $model->getId()]);
@@ -405,6 +415,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store. Please, try again later.'));
         }
+
         $this->_redirect('*/*/editGroup', ['group_id' => $itemId]);
     }
 
@@ -421,6 +432,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return ;
         }
+
         if (!$model->isCanDelete()) {
             $this->_getSession()->addError(Mage::helper('core')->__('This store view cannot be deleted.'));
             $this->_redirect('*/*/editStore', ['store_id' => $model->getId()]);
@@ -442,6 +454,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
         }
+
         $this->_redirect('*/*/editStore', ['store_id' => $itemId]);
     }
 
@@ -464,6 +477,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         if (!$this->getRequest()->getParam('create_backup')) {
             return $this;
         }
+
         try {
             $backupDb = Mage::getModel('backup/db');
             $backup   = Mage::getModel('backup/backup')
@@ -482,6 +496,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect($failPath, $arguments);
             return;
         }
+
         return $this;
     }
 

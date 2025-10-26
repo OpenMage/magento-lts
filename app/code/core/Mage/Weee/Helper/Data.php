@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Weee
  */
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
@@ -165,6 +157,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             return Mage::getSingleton('weee/tax')->
                 getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
         }
+
         return 0;
     }
 
@@ -182,6 +175,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->isEnabled($store)) {
             return false;
         }
+
         switch ($zone) {
             case 'product_view':
                 $type = $this->getPriceDisplayType($store);
@@ -201,17 +195,16 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 } else {
                     $type = $this->getListPriceDisplayType($store);
                 }
+
                 break;
         }
 
         if (is_null($compareTo)) {
             return $type;
+        } elseif (is_array($compareTo)) {
+            return in_array($type, $compareTo);
         } else {
-            if (is_array($compareTo)) {
-                return in_array($type, $compareTo);
-            } else {
-                return $type == $compareTo;
-            }
+            return $type == $compareTo;
         }
     }
 
@@ -239,7 +232,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns applied weee taxes
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param Mage_Sales_Model_Quote_Item_Abstract|Varien_Object $item
      * @return array
      */
     public function getApplied($item)
@@ -253,6 +246,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                         $result = array_merge($result, $childData);
                     }
                 }
+
                 return $result;
             }
         }
@@ -265,6 +259,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($data)) {
             return [];
         }
+
         return unserialize($item->getWeeeTaxApplied(), ['allowed_classes' => false]);
     }
 
@@ -292,6 +287,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->isEnabled()) {
             return $this->getProductWeeeAttributes($product, null, null, null, $this->typeOfDisplay($product, 1));
         }
+
         return [];
     }
 
@@ -321,6 +317,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
             );
         }
+
         return [];
     }
 
@@ -347,9 +344,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                     /** @var Varien_Object $attribute */
                     $amount += $attribute->getAmount();
                 }
+
                 return $amount;
             }
         }
+
         return 0;
     }
 
@@ -371,6 +370,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             );
             return $this->getAmountInclTaxes($attributes);
         }
+
         return 0;
     }
 
@@ -378,13 +378,14 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns original amount
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int
+     * @return float|int
      */
     public function getOriginalAmount($product)
     {
         if ($this->isEnabled()) {
             return Mage::getModel('weee/tax')->getWeeeAmount($product, null, null, null, false, true);
         }
+
         return 0;
     }
 
@@ -413,6 +414,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             $tier['formated_price_incl_weee_only'] = $spanTag . '">' . $html . '</span>';
             $tier['formated_weee'] = $store->formatPrice($store->convertPrice($weeeAmount));
         }
+
         return $this;
     }
 
@@ -428,6 +430,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             //This is needed when order is created from backend
             $store = $this->_store;
         }
+
         return Mage::getStoreConfig(self::XML_PATH_FPT_ENABLED, $store);
     }
 
@@ -504,6 +507,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $weeeTaxAppliedAmount[$property] = $value;
             }
         }
+
         $item->setWeeeTaxApplied(serialize($weeeTaxAppliedAmounts));
     }
 
@@ -520,6 +524,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $totalWeeeTaxIncTaxApplied += max($weeeTaxAppliedAmount['amount_incl_tax'], 0);
         }
+
         return $totalWeeeTaxIncTaxApplied;
     }
 
@@ -536,6 +541,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $totalBaseWeeeTaxIncTaxApplied += max($weeeTaxAppliedAmount['base_amount_incl_tax'], 0);
         }
+
         return $totalBaseWeeeTaxIncTaxApplied;
     }
 
@@ -552,6 +558,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $totalWeeeTaxIncTaxApplied += max($weeeTaxAppliedAmount['row_amount_incl_tax'], 0);
         }
+
         return $totalWeeeTaxIncTaxApplied;
     }
 
@@ -568,6 +575,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             $totalWeeeTaxIncTaxApplied += max($weeeTaxAppliedAmount['base_row_amount_incl_tax'], 0);
         }
+
         return $totalWeeeTaxIncTaxApplied;
     }
 
@@ -585,6 +593,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['amount_incl_tax']
                 - $weeeTaxAppliedAmount['amount'], 0);
         }
+
         return $totalTaxForWeeeTax;
     }
 
@@ -602,13 +611,14 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_amount_incl_tax']
                 - $weeeTaxAppliedAmount['base_amount'], 0);
         }
+
         return $totalTaxForWeeeTax;
     }
 
     /**
      * Get the Total tax applied for Weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getTotalRowTaxAppliedForWeeeTax($item)
@@ -619,13 +629,14 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['row_amount_incl_tax']
                 - $weeeTaxAppliedAmount['row_amount'], 0);
         }
+
         return $totalTaxForWeeeTax;
     }
 
     /**
      * Get the Total tax applied in base for Weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBaseTotalRowTaxAppliedForWeeeTax($item)
@@ -636,6 +647,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             $totalTaxForWeeeTax += max($weeeTaxAppliedAmount['base_row_amount_incl_tax']
                 - $weeeTaxAppliedAmount['base_row_amount'], 0);
         }
+
         return $totalTaxForWeeeTax;
     }
 
@@ -657,6 +669,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $weeeAmountInclDiscount -= $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
         }
+
         return $weeeAmountInclDiscount;
     }
 
@@ -678,6 +691,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $baseWeeeAmountInclDiscount -= $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
         }
+
         return $baseWeeeAmountInclDiscount;
     }
 

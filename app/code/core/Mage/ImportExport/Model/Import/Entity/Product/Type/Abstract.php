@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity abstract product type model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
@@ -94,6 +86,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
             ) {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid parameters'));
             }
+
             $this->_entityModel = $params[0];
             $this->_type        = $params[1];
 
@@ -121,6 +114,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         if (!$attrParams['apply_to'] || in_array($this->_type, $attrParams['apply_to'])) {
             $this->_attributes[$attrSetName][$attrParams['code']] = $attrParams;
         }
+
         return $this;
     }
 
@@ -178,10 +172,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                                                       ->getAttributeOptions($attribute, $this->_indexValueAttributes),
                         ];
                     }
+
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
                 }
             }
         }
+
         return $this;
     }
 
@@ -263,6 +259,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
 
         return !$error;
@@ -300,6 +297,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         return $resultAttrs;
     }
 

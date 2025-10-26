@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog product downloadable items tab links section
  *
- * @category   Mage
  * @package    Mage_Downloadable
  *
  * @method $this setCanEditPrice(bool $value)
@@ -69,6 +61,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
                 Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
             }
+
             $this->_purchasedSeparatelyAttribute = $attribute;
         }
 
@@ -174,6 +167,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 if (!is_file($file)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
                 }
+
                 if (is_file($file)) {
                     $name = '<a href="'
                         . $this->getUrl('*/downloadable_product_edit/link', [
@@ -190,6 +184,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getSampleFile()) {
                 $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBaseSamplePath(),
@@ -206,17 +201,22 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = ' checked="checked"';
             }
+
             if ($this->getProduct()->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
+
             if ($this->getProduct()->getStoreId() && $priceWebsiteScope) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
+
             $linkArr[] = new Varien_Object($tmpLinkItem);
         }
+
         return $linkArr;
     }
 

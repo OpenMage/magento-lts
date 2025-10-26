@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Layer Decimal Attribute Filter Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method $this setRange(int $value)
@@ -53,6 +45,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         if (is_null($this->_resource)) {
             $this->_resource = Mage::getResourceModel('catalog/layer_filter_decimal');
         }
+
         return $this->_resource;
     }
 
@@ -79,7 +72,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             return $this;
         }
 
-        list($index, $range) = $filter;
+        [$index, $range] = $filter;
         if ((int) $index && (int) $range) {
             $this->setRange((int) $range);
 
@@ -128,10 +121,11 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     {
         $max = $this->getData('max_value');
         if (is_null($max)) {
-            list($min, $max) = $this->_getResource()->getMinMax($this);
+            [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
+
         return $max;
     }
 
@@ -144,10 +138,11 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     {
         $min = $this->getData('min_value');
         if (is_null($min)) {
-            list($min, $max) = $this->_getResource()->getMinMax($this);
+            [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
+
         return $min;
     }
 
@@ -163,10 +158,11 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $maxValue = $this->getMaxValue();
             $index = 1;
             do {
-                $range = pow(10, (strlen(floor($maxValue)) - $index));
+                $range = 10 ** (strlen(floor($maxValue)) - $index);
                 $items = $this->getRangeItemCounts($range);
                 $index++;
             } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
+
             $this->setData('range', $range);
         }
 
@@ -187,6 +183,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $items = $this->_getResource()->getCount($this, $range);
             $this->setData($rangeKey, $items);
         }
+
         return $items;
     }
 
@@ -213,6 +210,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 ];
             }
         }
+
         return $data;
     }
 }

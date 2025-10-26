@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Weee_Model_Observer
  *
- * @category   Mage
  * @package    Mage_Weee
  */
 class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
@@ -111,6 +103,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         $checkDiscountField = $select->getAdapter()->getCheckSql(
             'discount_percent.value IS NULL',
             '0',
@@ -125,6 +118,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 $additionalCalculations[] = "+($checkAdditionalCalculation)";
             }
         }
+
         $response->setAdditionalCalculations($additionalCalculations);
 
         /** @var Varien_Object $rateRequest */
@@ -157,6 +151,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         return $this;
     }
 
@@ -222,8 +217,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                     if ($option['value'] == Mage_Catalog_Model_Product_Type::TYPE_GROUPED) {
                         continue;
                     }
+
                     $applyTo[] = $option['value'];
                 }
+
                 $object->setApplyTo($applyTo);
             }
         }
@@ -262,6 +259,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         } else {
             $eventProduct = $observer->getEvent()->getProduct();
         }
+
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
 
         return $this;

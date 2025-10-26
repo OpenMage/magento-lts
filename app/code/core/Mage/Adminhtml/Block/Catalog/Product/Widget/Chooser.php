@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Chooser for "Product Link" Cms Widget Plugin
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
@@ -66,16 +58,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
             if (isset($value[0], $value[1]) && $value[0] === 'product') {
                 $productId = $value[1];
             }
+
             $categoryId = $value[2] ?? false;
             $label = '';
             if ($categoryId) {
                 $label = Mage::getResourceSingleton('catalog/category')
                     ->getAttributeRawValue($categoryId, 'name', Mage::app()->getStore()) . '/';
             }
+
             if ($productId) {
                 $label .= Mage::getResourceSingleton('catalog/product')
                     ->getAttributeRawValue($productId, 'name', Mage::app()->getStore());
             }
+
             $chooser->setLabel($label);
         }
 
@@ -95,6 +90,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 $(grid.containerId).fire('product:changed', {element: element});
             }";
         }
+
         return '';
     }
 
@@ -126,6 +122,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 }
             ';
         }
+
         return '';
     }
 
@@ -165,6 +162,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -189,6 +187,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 if (empty($productIds)) {
                     $productIds = 0;
                 }
+
                 $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
             }
         }
@@ -279,6 +278,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($selectedProducts = $this->getRequest()->getParam('selected_products', null)) {
             $this->setSelectedProducts($selectedProducts);
         }
+
         return $this->_selectedProducts;
     }
 }

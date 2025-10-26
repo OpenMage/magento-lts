@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Email Template Mailer Model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Email_Queue _getResource()
@@ -45,7 +37,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Email types
      */
     public const EMAIL_TYPE_TO  = 0;
+
     public const EMAIL_TYPE_CC  = 1;
+
     public const EMAIL_TYPE_BCC = 2;
 
     /**
@@ -90,6 +84,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             $error = Mage::helper('core')->__('Message recipients data must be set.');
             Mage::throwException("{$error} - ID: " . $this->getId());
         }
+
         return parent::_beforeSave();
     }
 
@@ -103,6 +98,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         if ($this->getIsForceCheck() && $this->_getResource()->wasEmailQueued($this)) {
             return $this;
         }
+
         try {
             $this->save();
             $this->setId(null);
@@ -136,6 +132,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         foreach ($emails as $key => $email) {
             $this->_recipients[] = [$email, $names[$key] ?? '', $type];
         }
+
         return $this;
     }
 
@@ -199,17 +196,11 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 $mailer = new Zend_Mail('utf-8');
                 foreach ($message->getRecipients() as $recipient) {
-                    list($email, $name, $type) = $recipient;
-                    switch ($type) {
-                        case self::EMAIL_TYPE_BCC:
-                            $mailer->addBcc($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                        case self::EMAIL_TYPE_TO:
-                        case self::EMAIL_TYPE_CC:
-                        default:
-                            $mailer->addTo($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                    }
+                    [$email, $name, $type] = $recipient;
+                    match ((int) $type) {
+                        self::EMAIL_TYPE_BCC => $mailer->addBcc($email),
+                        default => $mailer->addTo($email, $this->getBase64EncodedString($name)),
+                    };
                 }
 
                 if ($parameters->getIsPlain()) {
@@ -218,11 +209,12 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     $mailer->setBodyHtml($message->getMessageBody());
                 }
 
-                $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
+                $mailer->setSubject($this->getBase64EncodedString($parameters->getSubject()));
                 $mailer->setFrom($parameters->getFromEmail(), $parameters->getFromName());
                 if ($parameters->getReplyTo() !== null) {
                     $mailer->setReplyTo($parameters->getReplyTo());
                 }
+
                 if ($parameters->getReturnTo() !== null) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }
@@ -248,7 +240,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     $message->save();
 
                     foreach ($message->getRecipients() as $recipient) {
-                        list($email, $name, $type) = $recipient;
+                        [$email, $name, $type] = $recipient;
                         Mage::dispatchEvent('email_queue_send_after', [
                             'to'         => $email,
                             'html'       => !$parameters->getIsPlain(),
@@ -274,5 +266,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->removeSentMessages();
         return $this;
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }

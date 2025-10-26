@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product type model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Type
@@ -26,18 +18,27 @@ class Mage_Catalog_Model_Product_Type
      * Available product types
      */
     public const TYPE_SIMPLE       = 'simple';
+
     public const TYPE_BUNDLE       = 'bundle';
+
     public const TYPE_CONFIGURABLE = 'configurable';
+
     public const TYPE_GROUPED      = 'grouped';
+
     public const TYPE_VIRTUAL      = 'virtual';
 
     public const DEFAULT_TYPE      = 'simple';
+
     public const DEFAULT_TYPE_MODEL    = 'catalog/product_type_simple';
+
     public const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
 
     protected static $_types;
+
     protected static $_compositeTypes;
+
     protected static $_priceModels;
+
     protected static $_typesPriority;
 
     /**
@@ -65,6 +66,7 @@ class Mage_Catalog_Model_Product_Type
             $typeModel = Mage::getModel($typeModelName);
             $typeModel->setProduct($product);
         }
+
         $typeModel->setConfig($types[$typeId]);
         return $typeModel;
     }
@@ -139,6 +141,7 @@ class Mage_Catalog_Model_Product_Type
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 
@@ -154,6 +157,7 @@ class Mage_Catalog_Model_Product_Type
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 
@@ -179,6 +183,7 @@ class Mage_Catalog_Model_Product_Type
                 $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
                 $productTypes[$productKey]['label'] = $translatedLabel;
             }
+
             self::$_types = $productTypes;
         }
 
@@ -201,6 +206,7 @@ class Mage_Catalog_Model_Product_Type
                 }
             }
         }
+
         return self::$_compositeTypes;
     }
 
@@ -232,10 +238,12 @@ class Mage_Catalog_Model_Product_Type
             foreach (array_keys($a) as $typeId) {
                 self::$_typesPriority[$typeId] = $types[$typeId];
             }
+
             foreach (array_keys($b) as $typeId) {
                 self::$_typesPriority[$typeId] = $types[$typeId];
             }
         }
+
         return self::$_typesPriority;
     }
 }

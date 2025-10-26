@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Cache_Core extends Zend_Cache_Core
@@ -85,6 +78,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
                 $id = $this->_options['cache_id_prefix'] . $id;
             }
         }
+
         return $id;
     }
 
@@ -99,6 +93,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
         foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
+
         return $tags;
     }
 
@@ -110,7 +105,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  array $tags           Cache tags
      * @param bool|int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @param  int $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
-     * @return boolean True if no problem
+     * @return bool True if no problem
      */
     public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
@@ -146,7 +141,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     {
         $data = parent::load($id, $doNotTestCacheValidity, $doNotUnserialize);
 
-        if (is_string($data) && (substr($data, 0, strlen(self::CODE_WORD)) == self::CODE_WORD)) {
+        if (is_string($data) && (str_starts_with($data, self::CODE_WORD))) {
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
@@ -192,7 +187,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  string       $mode
      * @param  array|string $tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if ok
+     * @return bool True if ok
      */
     public function clean($mode = 'all', $tags = [])
     {

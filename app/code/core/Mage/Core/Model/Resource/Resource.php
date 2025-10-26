@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Resource Resource Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abstract
@@ -71,6 +63,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
                         if (is_null(self::$_dataVersions)) {
                             self::$_dataVersions = [];
                         }
+
                         self::$_dataVersions[$row['code']] = $row['data_version'];
                     }
                 }
@@ -92,6 +85,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
         if (!$this->_getReadAdapter()) {
             return false;
         }
+
         $this->_loadVersionData('db');
         return self::$_versions[$resName] ?? false;
     }
@@ -164,6 +158,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             self::$_dataVersions[$resName] = $version;
             $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
         }
+
         return $this;
     }
 }

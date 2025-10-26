@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Varien_Router_Standard
@@ -44,12 +36,33 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     }
 
     /**
-     * dummy call to pass through checking
+     * Validate admin domain before routing
      *
      * @return bool
      */
     protected function _beforeModuleMatch()
     {
+        // Check if custom admin domain is configured
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
+            if (!$adminHost) {
+                // Should never happen - URL is validated when saved
+                // If it does, fail secure (possible database corruption/bypass)
+                Mage::log(
+                    "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
+                    Zend_Log::ERR,
+                    'system.log',
+                );
+                return false;
+            }
+
+            $currentHost = $this->getFront()->getRequest()->getHttpHost();
+            // Strip port for comparison (getHttpHost may include port)
+            $currentHost = preg_replace('/:\d+$/', '', $currentHost);
+
+            return strtolower($adminHost) === strtolower($currentHost);
+        }
+
         return true;
     }
 
@@ -67,6 +80,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 ->sendResponse();
             exit;
         }
+
         return true;
     }
 
@@ -89,9 +103,9 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      */
     protected function _shouldBeSecure($path)
     {
-        return substr((string) Mage::getConfig()->getNode('default/web/unsecure/base_url'), 0, 5) === 'https'
+        return str_starts_with((string) Mage::getConfig()->getNode('default/web/unsecure/base_url'), 'https')
             || Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, Mage_Core_Model_App::ADMIN_STORE_ID)
-                && substr((string) Mage::getConfig()->getNode('default/web/secure/base_url'), 0, 5) === 'https';
+                && str_starts_with((string) Mage::getConfig()->getNode('default/web/secure/base_url'), 'https');
     }
 
     /**
@@ -121,6 +135,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 Mage::getConfig()->setNode($xmlPath, $customUrl, true);
             }
         }
+
         parent::collectRoutes($configArea, $useRouterName);
     }
 

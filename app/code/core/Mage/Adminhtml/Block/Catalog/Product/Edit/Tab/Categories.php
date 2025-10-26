@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product categories tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
     protected $_categoryIds;
+
     protected $_selectedNodes = null;
 
     /**
@@ -85,6 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if ($root && in_array($root->getId(), $this->getCategoryIds())) {
             $root->setChecked(true);
         }
+
         return $root;
     }
 
@@ -100,6 +94,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
         }
+
         $root = Mage::registry('root');
         if (is_null($root)) {
             $storeId = (int) $this->getRequest()->getParam('store');
@@ -251,6 +246,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if (empty($categoryIds)) {
             return [];
         }
+
         $collection = Mage::getResourceModel('catalog/category_collection');
 
         if ($rootId) {
@@ -266,12 +262,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
             if ($rootId && !in_array($rootId, $item->getPathIds())) {
                 continue;
             }
+
             foreach ($item->getPathIds() as $id) {
                 if (!in_array($id, $ids)) {
                     $ids[] = $id;
                 }
             }
         }
+
         return $ids;
     }
 }

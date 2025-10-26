@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -22,7 +15,6 @@
  *  - Store save (new store creation, changed store group) - require reindex all data
  *  - Store group save (changed root category or group website) - require reindex all data
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
@@ -165,6 +157,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
         }
+
         return $this;
     }
 
@@ -225,6 +218,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         if ($category->getIsChangedProductList()) {
             $event->addNewData('products_was_changed', true);
         }
+
         /**
          * Check if category has another affected category ids (category move result)
          */
@@ -242,6 +236,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         if (!empty($data['catalog_category_product_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_category_product_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_Db_Abstract
@@ -89,6 +81,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $this->_afterLoad($object);
             return true;
         }
+
         return false;
     }
 
@@ -110,7 +103,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 ->where('attribute_set_id = :attribute_set_id')
                 ->where('attribute_group_id = :attribute_group_id');
 
-            return $adapter->fetchOne($select, $bind);
+            return (int) $adapter->fetchOne($select, $bind);
         }
 
         return 0;
@@ -147,6 +140,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             if (!isset($frontendLabel[0]) || is_null($frontendLabel[0]) || $frontendLabel[0] == '') {
                 Mage::throwException(Mage::helper('eav')->__('Frontend label is not defined'));
             }
+
             $object->setFrontendLabel($frontendLabel[0])
                    ->setStoreLabels($frontendLabel);
         }
@@ -191,10 +185,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $condition = ['attribute_id =?' => $object->getId()];
                 $adapter->delete($this->getTable('eav/attribute_label'), $condition);
             }
+
             foreach ($storeLabels as $storeId => $label) {
                 if ($storeId == 0 || !strlen($label)) {
                     continue;
                 }
+
                 $bind = [
                     'attribute_id' => $object->getId(),
                     'store_id'     => $storeId,
@@ -298,6 +294,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $adapter->delete($optionTable, ['option_id = ?' => $intOptionId]);
                             $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
+
                         continue;
                     }
 
@@ -357,10 +354,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                         }
                     }
                 }
+
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
             }
+
             if (isset($option['swatch'])) {
                 Mage::helper('configurableswatches/productimg')->clearSwatchesCache();
             }
@@ -374,7 +373,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      *
      * @param string $entityType
      * @param string $code
-     * @return int
+     * @return string
      */
     public function getIdByCode($entityType, $code)
     {

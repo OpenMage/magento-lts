@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule entity resource model
  *
- * @category   Mage
  * @package    Mage_Rule
  */
 abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -118,12 +110,14 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (empty($ruleIds) || empty($entityIds)) {
             return $this;
         }
+
         $adapter    = $this->_getWriteAdapter();
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($ruleIds)) {
             $ruleIds = [(int) $ruleIds];
         }
+
         if (!is_array($entityIds)) {
             $entityIds = [(int) $entityIds];
         }
@@ -151,6 +145,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                     }
                 }
             }
+
             if (!empty($data)) {
                 $adapter->insertOnDuplicate(
                     $this->getTable($entityInfo['associations_table']),
@@ -193,6 +188,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (!is_array($entityIds)) {
             $entityIds = [(int) $entityIds];
         }
+
         if (!is_array($ruleIds)) {
             $ruleIds = [(int) $ruleIds];
         }
@@ -201,6 +197,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (!empty($ruleIds)) {
             $where[] = $writeAdapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?)', $ruleIds);
         }
+
         if (!empty($entityIds)) {
             $where[] = $writeAdapter->quoteInto($entityInfo['entity_id_field'] . ' IN (?)', $entityIds);
         }

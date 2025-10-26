@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien data selector form element
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method string getFormat()
@@ -81,15 +73,18 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             $this->_value = '';
             return $this;
         }
+
         if ($value instanceof Zend_Date) {
             $this->_value = $value;
             return $this;
         }
-        if (preg_match('/^[0-9]+$/', $value)) {
+
+        if (preg_match('/^\d+$/', $value)) {
             $this->_value = new Zend_Date($this->_toTimestamp($value));
             //$this->_value = new Zend_Date((int)value);
             return $this;
         }
+
         // last check, if input format was set
         if (null === $format) {
             $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
@@ -97,17 +92,20 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                 $format = $this->getInputFormat();
             }
         }
+
         // last check, if locale was set
         if (null === $locale) {
             if (!$locale = $this->getLocale()) {
                 $locale = null;
             }
         }
+
         try {
             $this->_value = new Zend_Date($value, $format, $locale);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_value = '';
         }
+
         return $this;
     }
 
@@ -123,9 +121,11 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($this->_value)) {
             return '';
         }
+
         if (null === $format) {
             $format = $this->getFormat();
         }
+
         return $this->_value->toString($format);
     }
 
@@ -139,6 +139,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($this->_value)) {
             return null;
         }
+
         return $this->_value;
     }
 
@@ -170,6 +171,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($outputFormat)) {
             throw new Exception('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().');
         }
+
         $displayFormat = Varien_Date::convertZendToStrftime($outputFormat, true, (bool) $this->getTime());
 
         $html .= sprintf(

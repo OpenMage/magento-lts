@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -65,6 +58,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomerId())
                 ->setOrder('agreement_id', 'desc');
         }
+
         return $this->_billingAgreements;
     }
 
@@ -95,6 +89,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
             default:
                 $value = $item->getData($key) ?: $this->__('N/A');
         }
+
         return $this->escapeHtml($value);
     }
 
@@ -112,6 +107,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $this->_paymentMethods;
     }
 
@@ -130,6 +126,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $paymentMethodOptions[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $paymentMethodOptions;
     }
 

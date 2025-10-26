@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch Fulltext Index resource model
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
@@ -127,6 +119,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         foreach ($this->_getSearchableAttributes('static') as $attribute) {
             $staticFields[] = $attribute->getAttributeCode();
         }
+
         $dynamicFields = [
             'int'       => array_keys($this->_getSearchableAttributes('int')),
             'varchar'   => array_keys($this->_getSearchableAttributes('varchar')),
@@ -180,6 +173,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 ) {
                     continue;
                 }
+
                 if (!isset($productAttr[$status->getId()]) || !in_array($productAttr[$status->getId()], $statusVals)) {
                     continue;
                 }
@@ -204,6 +198,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                         }
                     }
                 }
+
                 if (!is_null($productChildren) && !$hasChildren) {
                     continue;
                 }
@@ -366,6 +361,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $bind[':query'] = implode(' ', $preparedTerms[0]);
             $where = $searchHelper->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
         }
+
         if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
         } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
@@ -420,6 +416,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             } else {
                 $productAttributeCollection->addSearchableAttributeFilter();
             }
+
             $attributes = $productAttributeCollection->getItems();
 
             Mage::dispatchEvent('catalogsearch_searchable_attributes_load_after', [
@@ -495,6 +492,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         } else {
             $expr = $helper->castField($field);
         }
+
         return $expr;
     }
 
@@ -573,6 +571,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
                 ->factory($productEmulator);
         }
+
         return $this->_productTypes[$typeId];
     }
 
@@ -662,6 +661,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                         if (!is_array($index[$attributeCode])) {
                             $index[$attributeCode] = [$index[$attributeCode]];
                         }
+
                         $index[$attributeCode][] = $value;
                     } else { //For other types of products
                         $index[$attributeCode] = $value;
@@ -815,7 +815,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         }
 
         if (!is_empty_date($date)) {
-            list($dateObj, $format) = $this->_dates[$storeId];
+            [$dateObj, $format] = $this->_dates[$storeId];
             $dateObj->setDate($date, Varien_Date::DATETIME_INTERNAL_FORMAT);
 
             return $dateObj->toString($format);

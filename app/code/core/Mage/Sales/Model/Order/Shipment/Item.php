@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Sales_Model_Order_Shipment_Item
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item _getResource()
@@ -49,9 +41,11 @@
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_shipment_item';
+
     protected $_eventObject = 'shipment_item';
 
     protected $_shipment = null;
+
     protected $_orderItem = null;
 
     public function _construct()
@@ -91,6 +85,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         if ($this->getOrderItemId() != $item->getId()) {
             $this->setOrderItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -109,6 +104,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
                     ->load($this->getOrderItemId());
             }
         }
+
         return $this->_orderItem;
     }
 
@@ -126,6 +122,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         } else {
             $qty = (int) $qty;
         }
+
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -137,6 +134,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
                 Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName()),
             );
         }
+
         return $this;
     }
 

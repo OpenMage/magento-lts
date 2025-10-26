@@ -1,57 +1,36 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab;
 
-use Mage;
-use Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses;
+use Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses as Subject;
+use Mage_Core_Exception;
 use Mage_Customer_Model_Customer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AddressesTest extends TestCase
+final class AddressesTest extends OpenMageTest
 {
-    public Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $subject;
-
-    public function setUp(): void
-    {
-        Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses();
-    }
-
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
+     * @throws Mage_Core_Exception
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class)
-            ->setMethods(['getRegistryCurrentCustomer', 'isReadonly'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentCustomer' => new Mage_Customer_Model_Customer(),
+            'isReadonly' => true,
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentCustomer')
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            ->willReturn(new Mage_Customer_Model_Customer());
-
-        $mock
-            ->method('isReadonly')
-            ->willReturn(true);
-
-        $this->assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class, $mock->initForm());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

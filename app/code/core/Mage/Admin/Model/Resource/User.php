@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ACL user resource
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
@@ -135,6 +127,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         if ($user->isObjectNew()) {
             $user->setCreated($this->formatDate(true));
         }
+
         $user->setModified($this->formatDate(true));
 
         return parent::_beforeSave($user);
@@ -186,6 +179,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->rollBack();
             throw $e;
         }
+
         $this->_afterDelete($user);
         return $this;
     }
@@ -236,11 +230,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 // reload acl on next user http request
                 $this->saveReloadAclFlag($user, 1);
             }
+
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
-            $adapter->rollBack();
-            throw $e;
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception|Exception $e) {
             $adapter->rollBack();
             throw $e;
         }
@@ -293,7 +285,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $dbh = $this->_getWriteAdapter();
         $aRoles = $this->hasAssigned2Role($user);
         if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
+            foreach ($aRoles as $data) {
                 $dbh->delete(
                     $this->getTable('admin/role'),
                     ['role_id = ?' => $data['role_id']],
@@ -337,6 +329,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         if ($user->getUserId() <= 0) {
             return $this;
         }
+
         if ($user->getRoleId() <= 0) {
             return $this;
         }
@@ -459,9 +452,10 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         try {
             $unsterilizedData = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             $user->setExtra($unsterilizedData);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $user->setExtra(false);
         }
+
         return $user;
     }
 }

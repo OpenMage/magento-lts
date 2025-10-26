@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Link payment gateway model
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
@@ -74,13 +66,16 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     protected $_code = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
 
     protected $_formBlockType = 'paypal/payflow_link_form';
+
     protected $_infoBlockType = 'paypal/payflow_link_info';
 
     /**
      * Availability options
      */
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
+
     protected $_isInitializeNeeded      = true;
 
     /**
@@ -131,6 +126,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         if (Mage_Payment_Model_Method_Abstract::isAvailable($quote) && $config->isMethodAvailable($this->getCode())) {
             return true;
         }
+
         return false;
     }
 
@@ -180,6 +176,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             default:
                 break;
         }
+
         return $this;
     }
 
@@ -207,18 +204,21 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         foreach ($postData as $key => $val) {
             $this->getResponse()->setData(strtolower($key), $val);
         }
+
         foreach ($this->_responseParamsMappings as $originKey => $key) {
             $data = $this->getResponse()->getData($key);
             if (isset($data)) {
                 $this->getResponse()->setData($originKey, $data);
             }
         }
+
         // process AVS data separately
         $avsAddr = $this->getResponse()->getData('avsaddr');
         $avsZip = $this->getResponse()->getData('avszip');
         if (isset($avsAddr) && isset($avsZip)) {
             $this->getResponse()->setData('avsdata', $avsAddr . $avsZip);
         }
+
         // process Name separately
         $firstnameParameter = $this->getResponse()->getData('billtofirstname');
         $lastnameParameter = $this->getResponse()->getData('billtolastname');
@@ -275,6 +275,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         if ($response->getAvsdata() && strstr(substr($response->getAvsdata(), 0, 2), 'N')) {
             $payment->setAdditionalInformation('paypal_avs_code', substr($response->getAvsdata(), 0, 2));
         }
+
         if ($response->getCvv2match() && $response->getCvv2match() != 'Y') {
             $payment->setAdditionalInformation('paypal_cvv2_match', $response->getCvv2match());
         }
@@ -287,17 +288,19 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 $payment->registerCaptureNotification($payment->getBaseAmountAuthorized());
                 break;
         }
+
         $order->save();
 
         try {
             if ($canSendNewOrderEmail) {
                 $order->queueNewOrderEmail();
             }
+
             Mage::getModel('sales/quote')
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(Mage::helper('paypal')->__('Can not send new order email.'));
         }
     }
@@ -344,6 +347,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             if ($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED) {
                 $order->registerCancellation($response->getRespmsg())->save();
             }
+
             Mage::throwException($response->getRespmsg());
         }
 
@@ -400,6 +404,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->setCountry($billing->getCountry())
                 ->setEmail($order->getCustomerEmail());
         }
+
         $shipping = $order->getShippingAddress();
         if (!empty($shipping)) {
             $this->_applyCountryWorkarounds($shipping);
@@ -411,6 +416,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->setShiptozip($shipping->getPostcode())
                 ->setShiptocountry($shipping->getCountry());
         }
+
         //pass store Id to request
         $request->setUser1($order->getStoreId())
             ->setUser2($this->_getSecureSilentPostHash($payment));
@@ -473,13 +479,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       */
     protected function _getTrxTokenType()
     {
-        switch ($this->getConfigData('payment_action')) {
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH:
-                return self::TRXTYPE_AUTH_ONLY;
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
-                return self::TRXTYPE_SALE;
-        }
-        return '';
+        return match ($this->getConfigData('payment_action')) {
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH => self::TRXTYPE_AUTH_ONLY,
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE => self::TRXTYPE_SALE,
+            default => '',
+        };
     }
 
     /**

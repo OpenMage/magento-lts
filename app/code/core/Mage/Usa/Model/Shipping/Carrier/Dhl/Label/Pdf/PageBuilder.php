@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DHL International (API v1.4) Label Creation
  *
- * @category   Mage
  * @package    Mage_Usa
  * @deprecated now the process of creating the label is on DHL side
  *
@@ -76,7 +68,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Calculate x coordinate with indentation
      *
-     * @param int $pt
+     * @param int|float $pt
      * @return int
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
@@ -88,7 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Calculate y coordinate with indentation
      *
-     * @param int $pt
+     * @param int|float $pt
      * @return int
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
@@ -127,6 +119,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawLine($x, $this->_y(568.5), $x + 288, $this->_y(568.5));
 
         $this->_page->setLineWidth(0.3);
+
         $x = $this->_x(3);
         $y = $this->_y(83);
         $this->_page->drawLine($x, $y, $x + 10, $y);
@@ -164,6 +157,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($name)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product name is missing'));
         }
+
         $this->_page->drawText($name, $this->_x(8), $this->_y(12));
         $this->_page->restoreGS();
         return $this;
@@ -187,6 +181,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!array_key_exists($code, $codes)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product content code is invalid'));
         }
+
         $font = null;
         if ($codes[$code]) {
             $this->_page->drawRectangle(
@@ -201,6 +196,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         } else {
             $font = $this->_fontNormal;
         }
+
         $this->_page->setFont($font, 17);
         $this->_page->drawText($code, $this->_x(146), $this->_y(21));
         $this->_page->restoreGS();
@@ -250,16 +246,19 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('From:', $this->_x(8), $this->_y(36));
+
         $contactName = implode(' ', array_filter([(string) $sender->CompanyName,
             (string) $sender->Contact->PersonName]));
         if (!$contactName) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender contact name is missing'));
         }
+
         $this->_page->drawText($contactName, $this->_x(25), $this->_y(36));
 
         $phoneNumber = implode(' ', array_filter([(string) $sender->Contact->PhoneNumber,
             (string) $sender->Contact->PhoneExtension]));
         $phoneNumber = $phoneNumber ? 'Phone: ' . $phoneNumber : '';
+
         $pageY = $this->_drawSenderAddress($sender->AddressLine, $phoneNumber);
 
         $divisionCode = (string) (strlen($sender->DivisionCode) ? $sender->DivisionCode . ' ' : null);
@@ -267,13 +266,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($cityInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender city info is missing'));
         }
+
         $this->_page->drawText($cityInfo, $this->_x(25), $pageY);
 
         $this->_page->setFont($this->_fontBold, 6);
+
         $countryInfo = (string) (($sender->CountryName) ? $sender->CountryName : $sender->CountryCode);
         if (!strlen($countryInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender country info is missing'));
         }
+
         $this->_page->drawText($countryInfo, $this->_x(25), $pageY - $this->_page->getFontSize());
 
         $this->_page->restoreGS();
@@ -323,6 +325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (strlen(!$serviceAreaCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Origin serviceAreaCode is missing'));
         }
+
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('Origin:', $this->_x(260), $this->_y(36));
@@ -345,6 +348,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->setFont($this->_fontNormal, 9);
         $this->_page->drawText('To:', $this->_x(5), $this->_y(92));
         $this->_page->drawText($consignee->CompanyName, $this->_x(20), $this->_y(90));
+
         $y = $this->_page->drawLines($consignee->AddressLine, $this->_x(19), $this->_y(100), 50);
 
         $this->_page->setFont($this->_fontBold, 11);
@@ -390,11 +394,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 20);
+
         $code = implode('-', array_filter([$countryCode, $serviceAreaCode, $facilityCode]));
 
         if (!strlen($code)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Destination facility code is empty'));
         }
+
         $this->_page->drawText(
             $code,
             $this->_x(144),
@@ -461,6 +467,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!$refCode) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Reference code is missing'));
         }
+
         $this->_page->drawText(
             'Ref Code: ' . Mage::helper('usa')->__('Order #%s', $refCode),
             $this->_x(8),
@@ -503,6 +510,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!isset($units[$unit])) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Weight unit is invalid'));
         }
+
         $unit = $units[$unit];
 
         $this->_page->setFont($this->_fontNormal, 6);
@@ -540,6 +548,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
                 break;
             }
         }
+
         $this->_page->restoreGS();
         return $this;
     }
@@ -559,10 +568,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($number) || !strlen($barCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Waybill barcode information is missing'));
         }
+
         $image = new Zend_Pdf_Resource_Image_Png('data://image/png;base64,' . $barCode);
         $this->_page->drawImage($image, $this->_x(0), $this->_y(296), $this->_x(232), $this->_y(375));
 
         $this->_page->setFont($this->_fontNormal, 9);
+
         $number = substr($number, 0, 2) . ' ' . substr($number, 2, 4) . ' ' . substr($number, 6, 4);
         $this->_page->drawText('WAYBILL ' . $number, $this->_x(13.5), $this->_y(382));
 
@@ -591,6 +602,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawImage($image, $this->_x(0), $this->_y(386), $this->_x(232), $this->_y(465));
 
         $this->_page->setFont($this->_fontNormal, 9);
+
         $routingText = '(' . $id . ')' . $routingCode;
         $this->_page->drawText($routingText, $this->_x(12), $this->_y(472));
 
@@ -619,6 +631,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawImage($image, $this->_x(29), $this->_y(476), $this->_x(261), $this->_y(555));
 
         $this->_page->setFont($this->_fontNormal, 9);
+
         $routingText = '(' . $dataIdentifier . ')' . $licensePlate;
         $this->_page->drawText(
             $routingText,

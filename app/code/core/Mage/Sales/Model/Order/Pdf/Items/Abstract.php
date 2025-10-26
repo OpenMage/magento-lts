@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Pdf Items renderer Abstract
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model_Abstract
@@ -60,7 +52,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set order model
      *
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -71,7 +63,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set Source model
      *
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setSource(Mage_Core_Model_Abstract $source)
     {
@@ -82,7 +74,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set item object
      *
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setItem(Varien_Object $item)
     {
@@ -93,7 +85,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set Pdf model
      *
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setPdf(Mage_Sales_Model_Order_Pdf_Abstract $pdf)
     {
@@ -104,7 +96,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set current page
      *
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setPage(Zend_Pdf_Page $page)
     {
@@ -123,6 +115,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_order)) {
             Mage::throwException(Mage::helper('sales')->__('Order object is not specified.'));
         }
+
         return $this->_order;
     }
 
@@ -137,6 +130,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_source)) {
             Mage::throwException(Mage::helper('sales')->__('Source object is not specified.'));
         }
+
         return $this->_source;
     }
 
@@ -151,6 +145,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_item)) {
             Mage::throwException(Mage::helper('sales')->__('Item object is not specified.'));
         }
+
         return $this->_item;
     }
 
@@ -165,6 +160,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_pdf)) {
             Mage::throwException(Mage::helper('sales')->__('PDF object is not specified.'));
         }
+
         return $this->_pdf;
     }
 
@@ -179,6 +175,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_pdfPage)) {
             Mage::throwException(Mage::helper('sales')->__('PDF page object is not specified.'));
         }
+
         return $this->_pdfPage;
     }
 
@@ -209,6 +206,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($value['price'])) {
                 $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
+
             return  $resultValue;
         } else {
             return $value;
@@ -269,6 +267,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
                 'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
             ]];
         }
+
         return $prices;
     }
 
@@ -284,13 +283,16 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
         return $result;
     }
 

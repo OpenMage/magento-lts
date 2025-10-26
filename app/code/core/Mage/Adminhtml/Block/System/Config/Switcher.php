@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_Template
@@ -58,11 +50,13 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                 if ($group->getWebsiteId() != $website->getId()) {
                     continue;
                 }
+
                 $groupShow = false;
                 foreach ($storeModel->getStoreCollection() as $store) {
                     if ($store->getGroupId() != $group->getId()) {
                         continue;
                     }
+
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
@@ -72,6 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
                     }
+
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = [
@@ -81,6 +76,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                             'style'     => 'padding-left:32px;',
                         ];
                     }
+
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
@@ -89,6 +85,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                         'style'    => '',
                     ];
                 }
+
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = [
                         'is_group'  => true,

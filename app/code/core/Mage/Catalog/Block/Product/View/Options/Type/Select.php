@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product options text type block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method bool getSkipJsReloadPrice()
@@ -68,12 +60,15 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     ['price' => $helper::currencyByStore($value->getPrice(true), $store, false)],
                 );
             }
+
             if ($option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
                 $extraParams = ' multiple="multiple"';
             }
+
             if (!$this->getSkipJsReloadPrice()) {
                 $extraParams .= ' onchange="opConfig.reloadPrice()"';
             }
+
             $select->setExtraParams($extraParams);
 
             if ($configValue) {
@@ -100,6 +95,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                             . ' value="" checked="checked" /><span class="label"><label for="options_'
                             . $option->getId() . '">' . $this->__('None') . '</label></span></li>';
                     }
+
                     break;
                 case Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX:
                     $type = 'checkbox';
@@ -107,6 +103,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     $arraySign = '[]';
                     break;
             }
+
             $count = 1;
             foreach ($option->getValues() as $value) {
                 $count++;
@@ -126,7 +123,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 /** @var Mage_Core_Helper_Data $helper */
                 $helper = $this->helper('core');
 
-                $selectHtml .= '<li>' . '<input type="' . $type . '" class="' . $class . ' ' . $require
+                $selectHtml .= '<li><input type="' . $type . '" class="' . $class . ' ' . $require
                     . ' product-custom-option"'
                     . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"')
                     . ' name="options[' . $option->getId() . ']' . $arraySign . '" id="options_' . $option->getId()
@@ -135,11 +132,12 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     . '<span class="label"><label for="options_' . $option->getId() . '_' . $count . '">'
                     . $this->escapeHtml($value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($option->getIsRequire()) {
-                    $selectHtml .= '<script type="text/javascript">' . '$(\'options_' . $option->getId() . '_'
+                    $selectHtml .= '<script type="text/javascript">$(\'options_' . $option->getId() . '_'
                     . $count . '\').advaiceContainer = \'options-' . $option->getId() . '-container\';'
                     . '$(\'options_' . $option->getId() . '_' . $count
                     . '\').callbackFunction = \'validateOptionsCallback\';' . '</script>';
                 }
+
                 $selectHtml .= '</li>';
             }
 

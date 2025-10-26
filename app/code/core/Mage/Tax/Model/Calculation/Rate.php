@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Rate Model
  *
- * @category   Mage
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
@@ -125,6 +117,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if ($regionModel->getCountryId() != $country) {
             $this->setTaxRegionId('*');
         }
+
         return $this;
     }
 
@@ -151,6 +144,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if ($this->_isInRule()) {
             Mage::throwException(Mage::helper('tax')->__('Tax rate cannot be removed. It exists in tax rule'));
         }
+
         return parent::_beforeDelete();
     }
 
@@ -202,6 +196,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if (is_null($this->_titleModel)) {
             $this->_titleModel = Mage::getModel('tax/calculation_rate_title');
         }
+
         return $this->_titleModel;
     }
 
@@ -215,6 +210,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if (is_null($this->_titles)) {
             $this->_titles = $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
         }
+
         return $this->_titles;
     }
 

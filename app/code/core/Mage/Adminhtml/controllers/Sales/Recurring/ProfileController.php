@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profiles view/management controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @TODO: implement ACL restrictions
@@ -63,6 +55,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -79,6 +72,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -116,6 +110,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
                     $profile->activate();
                     break;
             }
+
             $this->_getSession()->addSuccess(Mage::helper('sales')->__('The profile state has been updated.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -123,6 +118,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             $this->_getSession()->addError(Mage::helper('sales')->__('Failed to update the profile.'));
             Mage::logException($e);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -151,6 +147,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             $this->_getSession()->addError($this->__('Failed to update the profile.'));
             Mage::logException($e);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -198,6 +195,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
         if (!$profile->getId()) {
             Mage::throwException($this->__('Specified profile does not exist.'));
         }
+
         Mage::register('current_recurring_profile', $profile);
         return $profile;
     }

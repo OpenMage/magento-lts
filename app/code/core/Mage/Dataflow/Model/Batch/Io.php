@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Dataflow batch Io model
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Batch_Io
 {
     public const TMP_DIR = '/var/tmp/';
+
     public const TMP_NAME = 'batch_%d.tmp';
 
     /**
@@ -82,6 +75,7 @@ class Mage_Dataflow_Model_Batch_Io
             $this->_path = $this->getIoAdapter()->getCleanPath(Mage::getBaseDir('tmp'));
             $this->getIoAdapter()->checkAndCreateFolder($this->_path);
         }
+
         return $this->_path;
     }
 
@@ -95,9 +89,11 @@ class Mage_Dataflow_Model_Batch_Io
         if (is_null($this->_filename)) {
             $this->_filename = sprintf(self::TMP_NAME, $this->_batchModel->getId());
         }
+
         if ($withPath) {
             return $this->getPath() . $this->_filename;
         }
+
         return $this->_filename;
     }
 
@@ -111,6 +107,7 @@ class Mage_Dataflow_Model_Batch_Io
         if (is_null($this->_ioFile)) {
             $this->_ioFile = new Varien_Io_File();
         }
+
         return $this->_ioFile;
     }
 
@@ -162,6 +159,7 @@ class Mage_Dataflow_Model_Batch_Io
             $content = $this->getIoAdapter()->streamRead(1024);
             $this->_fileSize += strlen($content);
         }
+
         return $content;
     }
 

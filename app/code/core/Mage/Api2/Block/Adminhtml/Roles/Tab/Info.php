@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Block for rendering role info tab
  *
- * @category   Mage
  * @package    Mage_Api2
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
@@ -51,6 +43,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
             $data['note'] = Mage::helper('api2')->__('%s role is protected.', $helper->escapeHtml($this->getRole()->getRoleName()));
             $data['readonly'] = 'readonly';
         }
+
         $fieldset->addField('role_name', 'text', $data);
 
         $fieldset->addField(
@@ -86,6 +79,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         if ($this->getRole()) {
             $form->setValues($this->getRole()->getData());
         }
+
         $this->setForm($form);
         return $this;
     }

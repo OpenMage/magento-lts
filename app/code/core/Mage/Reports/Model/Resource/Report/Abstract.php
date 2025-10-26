@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract report aggregate resource model
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -39,6 +31,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         if ($this->_flag === null) {
             $this->_flag = Mage::getModel('reports/flag');
         }
+
         return $this->_flag;
     }
 
@@ -98,6 +91,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         } else {
             $this->_getWriteAdapter()->truncateTable($table);
         }
+
         return $this;
     }
 
@@ -136,8 +130,10 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             if ($to !== null) {
                 $condition[] = $this->_getWriteAdapter()->quoteInto('period <= ?', $to);
             }
+
             $deleteCondition = implode(' AND ', $condition);
         }
+
         $this->_getWriteAdapter()->delete($table, $deleteCondition);
         return $this;
     }
@@ -189,6 +185,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 } elseif (is_array($condition)) { // Invalid condition
                     continue;
                 }
+
                 $condition = str_replace('{{table}}', $adapter->quoteIdentifier($alias), $condition);
                 $select->where($condition);
             }
@@ -218,13 +215,15 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 while ($date = $query->fetchColumn()) {
                     $selectResult[] = $date;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $selectResult = false;
             }
+
             $selectResultCache[$cacheKey] = $selectResult;
         } else {
             $selectResult = $selectResultCache[$cacheKey];
         }
+
         if ($selectResult === false) {
             return false;
         }
@@ -235,6 +234,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $date = substr($date, 0, 10); // to fix differences in oracle
             $whereCondition[] = $adapter->prepareSqlCondition($periodColumn, ['like' => $date]);
         }
+
         $whereCondition = implode(' OR ', $whereCondition);
         if ($whereCondition == '') {
             $whereCondition = '1=0';  // FALSE condition!
@@ -308,6 +308,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 } elseif (is_array($condition)) { // Invalid condition
                     continue;
                 }
+
                 $condition = str_replace(
                     ['{{table}}', '{{related_table}}'],
                     [
@@ -432,6 +433,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 if (!empty($from) && $tr['ts'] < $from) {
                     break;
                 }
+
                 $nextPeriod = $tr['time'];
             }
         } catch (Exception $e) {
@@ -495,6 +497,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         if ($date === null) {
             return null;
         }
+
         $dateUtc = new Zend_Date($date);
         $dateUtc->setTimezone('Etc/UTC');
         return $dateUtc;

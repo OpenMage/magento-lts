@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Session abstaract class
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method string getCookieDomain()
@@ -55,12 +47,15 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if ($this->getCookieDomain()) {
             $options['cookie_domain'] = $this->getCookieDomain();
         }
+
         if ($this->getCookiePath()) {
             $options['cookie_path'] = $this->getCookiePath();
         }
+
         if ($this->getCookieLifetime()) {
             $options['cookie_lifetime'] = $this->getCookieLifetime();
         }
+
         Zend_Session::setOptions($options);
         Varien_Profiler::stop(__METHOD__ . '/setOptions');
         /*
@@ -109,6 +104,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();
         }
+
         $this->_namespace->data->setData($key, $value, $isChanged);
         return $this;
     }
@@ -165,6 +161,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!is_null($id)) {
             Zend_Session::setId($id);
         }
+
         return $this;
     }
 

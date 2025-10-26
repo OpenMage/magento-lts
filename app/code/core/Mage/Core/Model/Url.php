@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,7 +55,6 @@
  * - G: route_path
  * - H: route_url
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setType(string $value)
@@ -181,6 +173,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $this->$method($data[$component]);
             }
         }
+
         return $this;
     }
 
@@ -240,6 +233,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (is_null($this->_useSession)) {
             $this->_useSession = Mage::app()->getUseSessionInUrl();
         }
+
         return $this->_useSession;
     }
 
@@ -266,6 +260,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (is_null($prefix)) {
             $prefix = 'web/' . ($this->getSecure() ? 'secure' : 'unsecure') . '/';
         }
+
         $path = $prefix . $key;
 
         $cacheId = $this->getStore()->getCode() . '/' . $path;
@@ -298,6 +293,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!$this->_request) {
             $this->_request = Mage::app()->getRequest();
         }
+
         return $this->_request;
     }
 
@@ -311,6 +307,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!$this->hasData('type')) {
             $this->setData('type', Mage_Core_Model_Store::URL_TYPE_LINK);
         }
+
         return $this->_getData('type');
     }
 
@@ -331,6 +328,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($isAdmin && !$store->isAdminUrlSecure()) {
             return false;
         }
+
         if (!$isAdmin && !$store->isFrontUrlSecure()) {
             return false;
         }
@@ -343,6 +341,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $this->setData('secure', true);
             }
         }
+
         return $this->getDataByKey('secure');
     }
 
@@ -368,6 +367,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!$this->hasData('store')) {
             $this->setStore(null);
         }
+
         return $this->_getData('store');
     }
 
@@ -382,9 +382,11 @@ class Mage_Core_Model_Url extends Varien_Object
         if (isset($params['_store'])) {
             $this->setStore($params['_store']);
         }
+
         if (isset($params['_type'])) {
             $this->setType($params['_type']);
         }
+
         if (isset($params['_secure'])) {
             $this->setSecure($params['_secure']);
         }
@@ -419,6 +421,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($route === '*') {
             $route = $this->getRequest()->getRequestedRouteName();
         }
+
         $this->setRouteName($route);
         $routePath = $route . '/';
 
@@ -427,6 +430,7 @@ class Mage_Core_Model_Url extends Varien_Object
             if ($controller === '*') {
                 $controller = $this->getRequest()->getRequestedControllerName();
             }
+
             $this->setControllerName($controller);
             $routePath .= $controller . '/';
         }
@@ -436,6 +440,7 @@ class Mage_Core_Model_Url extends Varien_Object
             if ($action === '*') {
                 $action = $this->getRequest()->getRequestedActionName();
             }
+
             $this->setActionName($action);
             $routePath .= $action . '/';
         }
@@ -474,6 +479,7 @@ class Mage_Core_Model_Url extends Varien_Object
         } elseif ($hasParams) {
             $path .= $this->getDefaultControllerName() . '/';
         }
+
         if ($this->getActionName()) {
             $path .= $this->getActionName() . '/';
         } elseif ($hasParams) {
@@ -497,20 +503,25 @@ class Mage_Core_Model_Url extends Varien_Object
                 $this->setData('route_path', $routePath);
                 return $routePath;
             }
+
             $routePath = $this->getActionPath();
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key => $value) {
                     if (is_null($value) || $value === false || $value === '' || !is_scalar($value)) {
                         continue;
                     }
+
                     $routePath .= $key . '/' . $value . '/';
                 }
             }
-            if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+
+            if ($routePath != '' && !str_ends_with($routePath, '/')) {
                 $routePath .= '/';
             }
+
             $this->setData('route_path', $routePath);
         }
+
         return $this->_getData('route_path');
     }
 
@@ -525,6 +536,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->_getData('route_name') == $data) {
             return $this;
         }
+
         $this->unsetData('route_front_name')
             ->unsetData('route_path')
             ->unsetData('controller_name')
@@ -574,6 +586,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->_getData('controller_name') == $data) {
             return $this;
         }
+
         $this->unsetData('route_path')->unsetData('action_name')->unsetData('secure');
         return $this->setData('controller_name', $data);
     }
@@ -600,6 +613,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->_getData('action_name') == $data) {
             return $this;
         }
+
         $this->unsetData('route_path');
         return $this->setData('action_name', $data)->unsetData('secure');
     }
@@ -656,6 +670,7 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (array_key_exists($key, $data) || !$this->getRequest()->getUserParam($key)) {
                         continue;
                     }
+
                     $data[$key] = $this->getRequest()->getUserParam($key);
                 }
             } elseif ($data['_current']) {
@@ -663,13 +678,17 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (array_key_exists($key, $data) || $this->getRouteParam($key)) {
                         continue;
                     }
+
                     $data[$key] = $value;
                 }
+
                 foreach ($this->getRequest()->getQuery() as $key => $value) {
                     $this->setQueryParam($key, $value);
                 }
+
                 $this->setUseUrlCache(false);
             }
+
             unset($data['_current']);
         }
 
@@ -684,6 +703,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $this->setQueryParam('___store', $this->getStore()->getCode());
             }
         }
+
         unset($data['_store_to_url']);
 
         foreach ($data as $k => $v) {
@@ -716,6 +736,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (isset($params[$key]) && $params[$key] == $data) {
             return $this;
         }
+
         $params[$key] = $data;
         $this->unsetData('route_path');
         return $this->setData('route_params', $params);
@@ -748,12 +769,14 @@ class Mage_Core_Model_Url extends Varien_Object
             if (is_array($routeParams)) {
                 $this->setRouteParams($routeParams, false);
             }
+
             return $this->getBaseUrl() . $routeParams['_direct'];
         }
 
         if (!is_null($routePath)) {
             $this->setRoutePath($routePath);
         }
+
         if (is_array($routeParams)) {
             $this->setRouteParams($routeParams, false);
         }
@@ -777,11 +800,14 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (!$helper) {
                         return $this;
                     }
+
                     self::$_encryptedSessionId = $session->getEncryptedSessionId();
                 }
+
                 $this->setQueryParam($session->getSessionIdQueryParam(), self::$_encryptedSessionId);
             }
         }
+
         return $this;
     }
 
@@ -799,8 +825,10 @@ class Mage_Core_Model_Url extends Varien_Object
             if (!$helper) {
                 return $this;
             }
+
             self::$_encryptedSessionId = $session->getEncryptedSessionId();
         }
+
         $this->setQueryParam($session->getSessionIdQueryParam(), self::$_encryptedSessionId);
         return $this;
     }
@@ -816,6 +844,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->_getData('query') == $data) {
             return $this;
         }
+
         $this->unsetData('query_params');
         return $this->setData('query', $data);
     }
@@ -835,8 +864,10 @@ class Mage_Core_Model_Url extends Varien_Object
                 ksort($params);
                 $query = http_build_query($params, '', $escape ? '&amp;' : '&');
             }
+
             $this->setData('query', $query);
         }
+
         return $this->_getData('query');
     }
 
@@ -857,9 +888,11 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!is_array($params)) {
             $params = [];
         }
+
         foreach ($data as $param => $value) {
             $params[$param] = $value;
         }
+
         $this->setData('query_params', $params);
 
         return $this;
@@ -891,8 +924,10 @@ class Mage_Core_Model_Url extends Varien_Object
                     $params[$paramArr[0]] = urldecode($paramArr[1]);
                 }
             }
+
             $this->setData('query_params', $params);
         }
+
         return $this->_getData('query_params');
     }
 
@@ -909,6 +944,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (isset($params[$key]) && $params[$key] == $data) {
             return $this;
         }
+
         $params[$key] = $data;
         $this->unsetData('query');
         return $this->setData('query_params', $params);
@@ -925,6 +961,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!$this->hasData('query_params')) {
             $this->getQueryParams();
         }
+
         return $this->getData('query_params', $key);
     }
 
@@ -998,6 +1035,7 @@ class Mage_Core_Model_Url extends Varien_Object
             } elseif (is_array($query)) {
                 $this->setQueryParams($query);
             }
+
             if ($query === false) {
                 $this->setQueryParams([]);
             }
@@ -1009,7 +1047,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery($escapeQuery);
         if ($query) {
-            $mark = (strpos($url, '?') === false) ? '?' : ($escapeQuery ? '&amp;' : '&');
+            $mark = (!str_contains($url, '?')) ? '?' : ($escapeQuery ? '&amp;' : '&');
             $url .= $mark . $query;
         }
 
@@ -1066,6 +1104,7 @@ class Mage_Core_Model_Url extends Varien_Object
         } elseif ($sessionId) {
             $this->setQueryParam($session->getSessionIdQueryParam(), $sessionId);
         }
+
         return $this;
     }
 
@@ -1084,6 +1123,7 @@ class Mage_Core_Model_Url extends Varien_Object
         } else {
             $port = '';
         }
+
         $url = $this->getScheme() . '://' . $this->getHost() . $port . $this->getPath();
 
         $this->_prepareSessionUrl($url);
@@ -1169,6 +1209,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $this->setData($key, false);
             }
         }
+
         return $this->getData($key);
     }
 
@@ -1187,17 +1228,16 @@ class Mage_Core_Model_Url extends Varien_Object
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
                 . ($match[3] ?? '');
-        } else {
-            if ($match[1] == '?' && isset($match[3])) {
-                return '?';
-            } elseif ($match[1] == '?' && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
-                return $match[3];
-            }
+        } elseif ($match[1] == '?' && isset($match[3])) {
+            return '?';
+        } elseif ($match[1] == '?' && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
+            return $match[3];
         }
+
         return '';
     }
 
@@ -1219,10 +1259,12 @@ class Mage_Core_Model_Url extends Varien_Object
             $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
             $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
+
         $storeDomains = array_unique($storeDomains);
         if (in_array($referer, $storeDomains)) {
             return true;
         }
+
         return false;
     }
 
@@ -1241,7 +1283,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery(false);
         if ($query) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . $query;
+            $url .= (!str_contains($url, '?') ? '?' : '&') . $query;
         }
 
         return $url;

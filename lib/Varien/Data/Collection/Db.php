@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base items collection class
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
@@ -159,6 +151,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($field = $this->getIdFieldName()) {
             return $item->getData($field);
         }
+
         return parent::_getItemId($item);
     }
 
@@ -211,6 +204,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $sql = $this->getSelectCountSql();
             $this->_totalRecords = (int) $this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
+
         return (int) $this->_totalRecords;
     }
 
@@ -270,6 +264,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']);
                     });
                 }
+
                 if (empty($whereUsingJoin) && empty($joinUsingBind)) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
@@ -291,6 +286,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($stringMode) {
             return $this->_select->__toString();
         }
+
         return $this->_select;
     }
 
@@ -350,10 +346,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($this->_orders as $key => $dir) {
                 $orders[$key] = $dir;
             }
+
             $this->_orders = $orders;
         } else {
             $this->_orders[$field] = $direction;
         }
+
         return $this;
     }
 
@@ -393,6 +391,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $this->_select->where($condition);
             }
         }
+
         $this->_isFiltersRendered = true;
         return $this;
     }
@@ -422,7 +421,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
-                    isset($condition[$key]) ? $condition[$key] : null,
+                    $condition[$key] ?? null,
                 );
             }
 
@@ -515,7 +514,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * will be built using above mentioned structure
      *
      * @param string $fieldName Field name must be already escaped with Varien_Db_Adapter_Interface::quoteIdentifier()
-     * @param integer|string|array $condition
+     * @param int|string|array $condition
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition)
@@ -543,6 +542,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($this->_orders as $field => $direction) {
                 $this->_select->order(new Zend_Db_Expr($field . ' ' . $direction));
             }
+
             $this->_isOrdersRendered = true;
         }
 
@@ -616,6 +616,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 if ($this->getIdFieldName()) {
                     $item->setIdFieldName($this->getIdFieldName());
                 }
+
                 $item->addData($row);
                 $item->setDataChanges(false);
                 $this->addItem($item);
@@ -639,16 +640,19 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $this->_fetchStmt = $this->getConnection()
                 ->query($this->getSelect());
         }
+
         $data = $this->_fetchStmt->fetch();
         if (!empty($data) && is_array($data)) {
             $item = $this->getNewEmptyItem();
             if ($this->getIdFieldName()) {
                 $item->setIdFieldName($this->getIdFieldName());
             }
+
             $item->setData($data);
 
             return $item;
         }
+
         return false;
     }
 
@@ -673,6 +677,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         while ($item = $this->fetchItem()) {
             $result[$item->getData($valueField)] = $item->getData($labelField);
         }
+
         return $result;
     }
 
@@ -690,6 +695,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $this->_data = $this->_fetchAll($this->_select);
             $this->_afterLoadData();
         }
+
         return $this->_data;
     }
 
@@ -750,6 +756,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
+
         return $this;
     }
 
@@ -787,6 +794,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } else {
             $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
         }
+
         return $data;
     }
 
@@ -803,6 +811,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($object) {
             $data = $object->load($this->_getSelectCacheId($select));
         }
+
         return $data;
     }
 
@@ -842,6 +851,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (isset($this->_cacheConf['prefix'])) {
             $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
+
         return $id;
     }
 
@@ -852,10 +862,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheInstance()
     {
-        if (isset($this->_cacheConf['object'])) {
-            return $this->_cacheConf['object'];
-        }
-        return false;
+        return $this->_cacheConf['object'] ?? false;
     }
 
     /**
@@ -865,10 +872,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheTags()
     {
-        if (isset($this->_cacheConf['tags'])) {
-            return $this->_cacheConf['tags'];
-        }
-        return [];
+        return $this->_cacheConf['tags'] ?? [];
     }
 
     /**
@@ -887,6 +891,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } elseif (is_null($this->_map[$group])) {
             $this->_map[$group] = [];
         }
+
         $this->_map[$group][$filter] = $alias;
 
         return $this;

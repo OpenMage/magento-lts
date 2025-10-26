@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category resource collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Category getFirstItem()
@@ -125,6 +117,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 $condition = ['in' => $ids];
             }
         }
+
         $this->addFieldToFilter('entity_id', $condition);
         return $this;
     }
@@ -192,6 +185,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (is_null($this->_productStoreId)) {
             $this->_productStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
         }
+
         return $this->_productStoreId;
     }
 
@@ -272,6 +266,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     )
                     ->where('w.website_id = ?', $websiteId);
                 }
+
                 $counts = $this->_conn->fetchPairs($select);
                 foreach ($regular as $item) {
                     if (isset($counts[$item->getId()])) {
@@ -311,12 +306,14 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                         )
                         ->where('w.website_id = ?', $websiteId);
                     }
+
                     $item->setProductCount((int) $this->_conn->fetchOne($select, $bind));
                 } else {
                     $item->setProductCount(0);
                 }
             }
         }
+
         return $this;
     }
 
@@ -426,13 +423,16 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (!is_array($paths)) {
             $paths = [$paths];
         }
+
         $cond   = [];
         foreach ($paths as $path) {
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "$path%");
         }
+
         if ($cond) {
             $this->getSelect()->where(implode(' OR ', $cond));
         }
+
         return $this;
     }
 

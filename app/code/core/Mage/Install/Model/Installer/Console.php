@@ -1,22 +1,14 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Console installer
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_Abstract
@@ -85,6 +77,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 'enable_charts'     => ['comment' => ''],
             ];
         }
+
         return $this->_options;
     }
 
@@ -118,6 +111,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 if ($currentArg) {
                     $args[$currentArg] = $arg;
                 }
+
                 $currentArg = false;
             }
         }
@@ -132,10 +126,11 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         foreach ($this->_getOptions() as $name => $option) {
             if (isset($option['required']) && $option['required'] && !isset($args[$name])) {
-                $error = 'ERROR: ' . 'You should provide the value for --' . $name . ' parameter';
+                $error = 'ERROR: You should provide the value for --' . $name . ' parameter';
                 if (!empty($option['comment'])) {
                     $error .= ': ' . $option['comment'];
                 }
+
                 $this->addError($error);
             }
         }
@@ -221,6 +216,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (is_null($this->_dataModel)) {
             $this->_dataModel = Mage::getModel('install/installer_data');
         }
+
         return $this->_dataModel;
     }
 
@@ -458,10 +454,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;
         }
+
         if (is_null($url)) {
             $url = preg_replace('/install\.php/i', '', Mage::getBaseUrl());
             $url = preg_replace('/\/\/$/', '/', $url);
         }
+
         header('Location: ' . $url);
         return false;
     }

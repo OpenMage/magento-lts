@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Event Observer
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Observer
@@ -37,6 +29,7 @@ class Mage_Tax_Model_Observer
             if (is_array($order->getAppliedTaxes())) {
                 $taxes = array_merge($order->getAppliedTaxes(), $taxes);
             }
+
             $order->setAppliedTaxes($taxes);
             $order->setConvertingFromQuote(true);
         }
@@ -61,6 +54,7 @@ class Mage_Tax_Model_Observer
         if (!is_array($getTaxesForItems)) {
             $getTaxesForItems = [];
         }
+
         foreach ($getTaxesForItems as $quoteItemId => $taxesArray) {
             foreach ($taxesArray as $rates) {
                 if (count($rates['rates']) == 1) {
@@ -102,8 +96,10 @@ class Mage_Tax_Model_Observer
                     if ($row['percent'] == 0 || $tax['percent'] == 0) {
                         continue;
                     }
+
                     $baseRealAmount = $row['base_amount'] / $row['percent'] * $tax['percent'];
                 }
+
                 $hidden = $row['hidden'] ?? 0;
                 $data = [
                     'order_id'          => $order->getId(),
@@ -194,13 +190,16 @@ class Mage_Tax_Model_Observer
                 if ($item->getTaxClassId() === null) {
                     $item->setTaxClassId($item->getMinimalTaxClassId());
                 }
+
                 if (!isset($classToRate[$item->getTaxClassId()])) {
                     $request->setProductClassId($item->getTaxClassId());
                     $classToRate[$item->getTaxClassId()] = Mage::getSingleton('tax/calculation')->getRate($request);
                 }
+
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
         }
+
         return $this;
     }
 
@@ -233,6 +232,7 @@ class Mage_Tax_Model_Observer
             $address->setExtraTaxAmount(0);
             $address->setBaseExtraTaxAmount(0);
         }
+
         return $this;
     }
 }

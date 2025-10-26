@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml account controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_Action
@@ -61,6 +53,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
 
         $backendLocale = $this->getRequest()->getParam('backend_locale', false);
         $backendLocale = $backendLocale == 0 ? null : $backendLocale;
+
         $user->setBackendLocale($backendLocale);
 
         //Validate current admin password
@@ -71,10 +64,12 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         if (!is_array($result)) {
             $result = $user->validate();
         }
+
         if (is_array($result)) {
             foreach ($result as $error) {
                 Mage::getSingleton('adminhtml/session')->addError($error);
             }
+
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
         }
@@ -84,9 +79,10 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 }

@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,23 +12,32 @@
  *
  * Allows dispatching before and after events for each controller action
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
+
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
+
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
+
     public const FLAG_NO_POST_DISPATCH         = 'no-postDispatch';
+
     public const FLAG_NO_START_SESSION         = 'no-startSession';
+
     public const FLAG_NO_DISPATCH_BLOCK_EVENT  = 'no-beforeGenerateLayoutBlocksDispatch';
+
     public const FLAG_NO_COOKIES_REDIRECT      = 'no-cookies-redirect';
 
     public const PARAM_NAME_SUCCESS_URL        = 'success_url';
+
     public const PARAM_NAME_ERROR_URL          = 'error_url';
+
     public const PARAM_NAME_REFERER_URL        = 'referer_url';
+
     public const PARAM_NAME_BASE64_URL         = 'r64';
+
     public const PARAM_NAME_URL_ENCODED        = 'uenc';
 
     public const PROFILER_KEY                  = 'mage::dispatch::controller::action';
@@ -172,6 +174,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         if ($flag === '') {
             return $this->_flags;
         } elseif (isset($this->_flags[$action][$flag])) {
@@ -194,6 +197,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         $this->_flags[$action][$flag] = $value;
         return $this;
     }
@@ -245,11 +249,13 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!$generateXml) {
             return $this;
         }
+
         $this->generateLayoutXml();
 
         if (!$generateBlocks) {
             return $this;
         }
+
         $this->generateLayoutBlocks();
         $this->_isLayoutLoaded = true;
 
@@ -426,18 +432,19 @@ abstract class Mage_Core_Controller_Varien_Action
         } catch (Mage_Core_Controller_Varien_Exception $e) {
             // set prepared flags
             foreach ($e->getResultFlags() as $flagData) {
-                list($action, $flag, $value) = $flagData;
+                [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
+
             // call forward, redirect or an action
-            list($method, $parameters) = $e->getResultCallback();
+            [$method, $parameters] = $e->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
-                    list($path, $arguments) = $parameters;
+                    [$path, $arguments] = $parameters;
                     $this->_redirect($path, $arguments);
                     break;
                 case Mage_Core_Controller_Varien_Exception::RESULT_FORWARD:
-                    list($action, $controller, $module, $params) = $parameters;
+                    [$action, $controller, $module, $params] = $parameters;
                     $this->_forward($action, $controller, $module, $params);
                     break;
                 default:
@@ -641,6 +648,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!is_array($messagesStorage)) {
             $messagesStorage = [$messagesStorage];
         }
+
         foreach ($messagesStorage as $storageName) {
             $storage = Mage::getSingleton($storageName);
             if ($storage) {
@@ -654,6 +662,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 );
             }
         }
+
         return $this;
     }
 
@@ -710,6 +719,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $session->getSessionIdQueryParam() => $session->getSessionId(),
             ]];
         }
+
         $this->getResponse()->setRedirect(Mage::getUrl($path, $arguments));
         return $this;
     }
@@ -726,9 +736,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($successUrl)) {
             $successUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($successUrl)) {
             $successUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($successUrl);
         return $this;
     }
@@ -745,9 +757,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($errorUrl)) {
             $errorUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($errorUrl)) {
             $errorUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($errorUrl);
         return $this;
     }
@@ -780,15 +794,19 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_REFERER_URL)) {
             $refererUrl = $url;
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_BASE64_URL)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         return $refererUrl;
     }
 
@@ -810,6 +828,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 return true;
             }
         }
+
         return false;
     }
 
@@ -821,13 +840,14 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _getRealModuleName()
     {
         if (empty($this->_realModuleName)) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_realModuleName = substr(
                 $class,
                 0,
                 strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller')),
             );
         }
+
         return $this->_realModuleName;
     }
 
@@ -873,6 +893,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if (count($t) !== 2 || empty($t[0]) || empty($t[1])) {
                 return false;
             }
+
             $t[2] = $action;
         } else {
             $t = explode('/', (string) $rewrite->actions->$action->to);
@@ -902,6 +923,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -942,6 +964,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->_titles = [];
             }
         }
+
         return $this;
     }
 
@@ -964,6 +987,7 @@ abstract class Mage_Core_Controller_Varien_Action
                         array_unshift($this->_titles, $title);
                     }
                 }
+
                 $titleBlock->setTitle(implode(' / ', array_reverse($this->_titles)));
             }
         }
@@ -981,19 +1005,14 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
-        $filterInput = new Zend_Filter_LocalizedToNormalized([
-            'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-        ]);
-        $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-        ]);
 
+        $filter = new Varien_Data_Form_Filter_Date(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if ($dateField && !empty($array[$dateField])) {
-                $array[$dateField] = $filterInput->filter($array[$dateField]);
-                $array[$dateField] = $filterInternal->filter($array[$dateField]);
+            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
+                $array[$dateField] = $filter->inputFilter($array[$dateField]);
             }
         }
+
         return $array;
     }
 
@@ -1009,19 +1028,14 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
-        $filterInput = new Zend_Filter_LocalizedToNormalized([
-            'date_format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-        ]);
-        $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
-        ]);
 
+        $filter = new Varien_Data_Form_Filter_Datetime(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if (array_key_exists($dateField, $array) && !empty($dateField)) {
-                $array[$dateField] = $filterInput->filter($array[$dateField]);
-                $array[$dateField] = $filterInternal->filter($array[$dateField]);
+            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
+                $array[$dateField] = $filter->inputFilter($array[$dateField]);
             }
         }
+
         return $array;
     }
 
@@ -1054,6 +1068,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 clearstatcache();
                 $isFile         = true;
@@ -1082,6 +1097,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
@@ -1092,6 +1108,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->getResponse()->setBody($content);
             }
         }
+
         return $this;
     }
 }

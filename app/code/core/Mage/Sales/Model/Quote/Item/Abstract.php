@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,7 +17,6 @@
  *  - custom_price - new price that can be declared by user and recalculated during calculation process
  *  - original_custom_price - original defined value of custom price without any conversion
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
@@ -221,6 +213,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if (is_array($this->_optionsByCode)) {
             $product->setCustomOptions($this->_optionsByCode);
         }
+
         return $product;
     }
 
@@ -247,6 +240,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if ($this->getParentItem()) {
             $this->setParentItemId($this->getParentItem()->getId());
         }
+
         return $this;
     }
 
@@ -265,6 +259,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $parentItem->addChild($this);
             }
         }
+
         return $this;
     }
 
@@ -313,11 +308,13 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if (!is_array($messages)) {
             $messages = [$messages];
         }
+
         foreach ($messages as $message) {
             if (!in_array($message, $messagesExists)) {
                 $this->addMessage($message);
             }
         }
+
         return $this;
     }
 
@@ -344,6 +341,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if ($string) {
             return implode("\n", $this->_messages);
         }
+
         return $this->_messages;
     }
 
@@ -360,6 +358,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 unset($this->_messages[$key]);
             }
         }
+
         return $this;
     }
 
@@ -414,7 +413,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 ->setMessage($e->getMessage());
             $this->getQuote()->setHasError(true)
                 ->addMessage(Mage::helper('sales')->__('Some of the products below do not have all the required options.'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->setHasError(true)
                 ->setMessage(Mage::helper('sales')->__('Item options declaration error.'));
             $this->getQuote()->setHasError(true)
@@ -459,6 +458,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if ($this->getParentItem()) {
             return $this->getQty() * $this->getParentItem()->getQty();
         }
+
         return $this->getQty();
     }
 
@@ -494,8 +494,10 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             } else {
                 $price = $this->getConvertedPrice();
             }
+
             $this->setData('calculation_price', $price);
         }
+
         return $price;
     }
 
@@ -514,8 +516,10 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             } else {
                 $price = $this->getConvertedPrice();
             }
+
             $this->setData('calculation_price', $price);
         }
+
         return $price;
     }
 
@@ -531,13 +535,15 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $price = (float) $this->getCustomPrice();
                 if ($price) {
                     $rate = $this->getStore()->convertPrice($price) / $price;
-                    $price = $price / $rate;
+                    $price /= $rate;
                 }
             } else {
                 $price = $this->getPrice();
             }
+
             $this->setBaseCalculationPrice($price);
         }
+
         return $this->_getData('base_calculation_price');
     }
 
@@ -553,13 +559,15 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $price = (float) $this->getOriginalCustomPrice();
                 if ($price) {
                     $rate = $this->getStore()->convertPrice($price) / $price;
-                    $price = $price / $rate;
+                    $price /= $rate;
                 }
             } else {
                 $price = $this->getPrice();
             }
+
             $this->setBaseCalculationPrice($price);
         }
+
         return $this->_getData('base_calculation_price');
     }
 
@@ -574,6 +582,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if (!$this->hasData('is_nominal')) {
             $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
         }
+
         return $this->_getData('is_nominal');
     }
 
@@ -601,6 +610,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $price = $this->getStore()->convertPrice($this->getBaseOriginalPrice());
             $this->setData('original_price', $price);
         }
+
         return $price;
     }
 
@@ -672,6 +682,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $price = $this->getStore()->convertPrice($this->getPrice());
             $this->setData('converted_price', $price);
         }
+
         return $price;
     }
 
@@ -715,6 +726,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if (($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             return true;
         }
+
         return false;
     }
 
@@ -737,6 +749,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -760,26 +773,21 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             }
 
             $taxPercent = $this->getTaxPercent() / 100;
-
             $this->setTaxAmount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxAmount($store->roundPrice($rowBaseTotal * $taxPercent));
-
             $rowTotal       = $this->getRowTotal();
             $rowBaseTotal   = $this->getBaseRowTotal();
             $this->setTaxBeforeDiscount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxBeforeDiscount($store->roundPrice($rowBaseTotal * $taxPercent));
-        } else {
-            if (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-                $totalBaseTax = $this->getBaseTaxAmount();
-                $totalTax = $this->getTaxAmount();
+        } elseif (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
+            $totalBaseTax = $this->getBaseTaxAmount();
+            $totalTax = $this->getTaxAmount();
+            if ($totalTax && $totalBaseTax) {
+                $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
+                $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
 
-                if ($totalTax && $totalBaseTax) {
-                    $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
-                    $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
-
-                    $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
-                    $this->setTaxAmount($store->roundPrice($totalTax));
-                }
+                $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
+                $this->setTaxAmount($store->roundPrice($totalTax));
             }
         }
 
@@ -878,7 +886,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             if ($saveTaxes) {
                 $qty = $this->getQty();
                 if ($this->getParentItem()) {
-                    $qty = $qty * $this->getParentItem()->getQty();
+                    $qty *= $this->getParentItem()->getQty();
                 }
 
                 if (Mage::helper('tax')->displayCartPriceInclTax($store)) {

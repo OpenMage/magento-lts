@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog entity setup
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
@@ -847,6 +839,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
+
         $categories = $this->getConnection()->fetchAll($select);
 
         if (is_array($categories)) {
@@ -854,7 +847,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $path = $this->_getCategoryPath($category);
                 $path = array_reverse($path);
                 $path = implode('/', $path);
-                if ($category['entity_id'] != 1 && substr($path, 0, 2) != '1/') {
+                if ($category['entity_id'] != 1 && !str_starts_with($path, '1/')) {
                     $path = "1/{$path}";
                 }
 
@@ -867,6 +860,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     );
             }
         }
+
         return $this;
     }
 
@@ -929,6 +923,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 ['entity_id = ?' => $category['entity_id']],
             );
         }
+
         return $this;
     }
 }

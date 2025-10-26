@@ -1,28 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_resourceCollectionName  = '';
+
     protected $_currentCurrencyCode     = null;
+
     protected $_storeIds                = [];
+
     protected $_aggregatedColumns       = null;
 
     /**
@@ -44,6 +39,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if (isset($this->_columnGroupBy)) {
             $this->isColumnGrouped($this->_columnGroupBy, true);
         }
+
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
@@ -64,6 +60,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $collection = Mage::getModel('reports/grouped_collection');
             $this->setCollection($collection);
         }
+
         return $this->_collection;
     }
 
@@ -77,11 +74,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 if (!is_array($this->_aggregatedColumns)) {
                     $this->_aggregatedColumns = [];
                 }
+
                 if ($column->hasTotal()) {
                     $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
                 }
             }
         }
+
         return $this->_aggregatedColumns;
     }
 
@@ -103,6 +102,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             if (!is_array($visibilityFilter)) {
                 $visibilityFilter = [$visibilityFilter];
             }
+
             foreach ($visibilityFilter as $k => $v) {
                 if (is_int($k)) {
                     $filterFieldId = $v;
@@ -111,6 +111,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldId = $k;
                     $filterFieldValue = $v;
                 }
+
                 if (!$filterData->hasData($filterFieldId) ||
                     $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
@@ -118,6 +119,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 }
             }
         }
+
         return parent::addColumn($columnId, $column);
     }
 
@@ -134,6 +136,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         } else {
             $storeIds = [];
         }
+
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());
         // And then array_intersect with post data for prevent unauthorized stores reports
@@ -142,6 +145,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if (empty($storeIds)) {
             $storeIds = $allowedStoreIds;
         }
+
         // reset array keys
         $storeIds = array_values($storeIds);
 
@@ -162,7 +166,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getData('order_statuses');
         if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && strpos($orderStatuses[0], ',') !== false) {
+            if (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ',')) {
                 $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
             }
         }
@@ -246,6 +250,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 }
             }
         }
+
         return parent::getCountTotals();
     }
 
@@ -281,6 +286,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
                 : Mage::app()->getStore()->getBaseCurrencyCode();
         }
+
         return $this->_currentCurrencyCode;
     }
 

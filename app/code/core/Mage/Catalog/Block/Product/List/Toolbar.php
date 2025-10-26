@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product list toolbar
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method string getDefaultGridPerPage()
@@ -175,6 +167,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
                 $this->_availableMode = ['list' => $this->__('List'), 'grid' => $this->__('Grid')];
                 break;
         }
+
         $this->setTemplate('catalog/product/list/toolbar.phtml');
     }
 
@@ -200,6 +193,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if ($this->_paramsMemorizeAllowed && !$session->getParamsMemorizeDisabled()) {
             $session->setData($param, $value);
         }
+
         return $this;
     }
 
@@ -220,9 +214,11 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if ($limit) {
             $this->_collection->setPageSize($limit);
         }
+
         if ($this->getCurrentOrder()) {
             $this->_collection->setOrder($this->getCurrentOrder(), $this->getCurrentDirection());
         }
+
         return $this;
     }
 
@@ -296,6 +292,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if ($page = (int) $this->getRequest()->getParam($this->getPageVarName())) {
             return $page;
         }
+
         return 1;
     }
 
@@ -329,10 +326,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         } else {
             $order = Mage::getSingleton('catalog/session')->getSortOrder();
         }
+
         // validate session value
         if (!$order || !isset($orders[$order])) {
             $order = $defaultOrder;
         }
+
         $this->setData('_current_grid_order', $order);
         return $order;
     }
@@ -360,10 +359,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         } else {
             $dir = Mage::getSingleton('catalog/session')->getSortDirection();
         }
+
         // validate direction
         if (!$dir || !in_array($dir, $directions)) {
             $dir = $this->_direction;
         }
+
         $this->setData('_current_grid_direction', $dir);
         return $dir;
     }
@@ -379,6 +380,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (isset($this->_availableOrder[$field])) {
             $this->_orderField = $field;
         }
+
         return $this;
     }
 
@@ -393,6 +395,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (in_array(strtolower($dir), ['asc', 'desc'])) {
             $this->_direction = strtolower($dir);
         }
+
         return $this;
     }
 
@@ -442,6 +445,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (isset($this->_availableOrder[$order])) {
             unset($this->_availableOrder[$order]);
         }
+
         return $this;
     }
 
@@ -468,6 +472,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (is_null($order)) {
             $order = $this->getCurrentOrder() ? $this->getCurrentOrder() : $this->_availableOrder[0];
         }
+
         return $this->getPagerUrl([
             $this->getOrderVarName() => $order,
             $this->getDirectionVarName() => $direction,
@@ -502,6 +507,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if ($mode) {
             return $mode;
         }
+
         $modes = array_keys($this->_availableMode);
         $defaultMode = current($modes);
         $mode = $this->getRequest()->getParam($this->getModeVarName());
@@ -518,6 +524,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (!$mode || !isset($this->_availableMode[$mode])) {
             $mode = $defaultMode;
         }
+
         $this->setData('_current_grid_mode', $mode);
         return $mode;
     }
@@ -554,6 +561,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (!$this->_availableMode) {
             $this->_availableMode = $modes;
         }
+
         return $this;
     }
 
@@ -643,13 +651,16 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             if ($default = $this->getDefaultListPerPage()) {
                 return $default;
             }
+
             return Mage::getStoreConfig('catalog/frontend/list_per_page');
         } elseif ($this->getCurrentMode() == 'grid') {
             if ($default = $this->getDefaultGridPerPage()) {
                 return $default;
             }
+
             return Mage::getStoreConfig('catalog/frontend/grid_per_page');
         }
+
         return '0';
     }
 
@@ -666,6 +677,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (!isset($this->_availableLimit[$mode])) {
             $this->_availableLimit[$mode] = [];
         }
+
         $this->_availableLimit[$mode][$value] = empty($label) ? $value : $label;
         return $this;
     }
@@ -696,6 +708,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         if (isset($this->_availableLimit[$mode])) {
             return $this->_availableLimit[$mode];
         }
+
         $perPageConfigKey = 'catalog/frontend/' . $mode . '_per_page_values';
         $perPageValues = (string) Mage::getStoreConfig($perPageConfigKey);
         $perPageValues = explode(',', $perPageValues);
@@ -736,6 +749,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         } else {
             $limit = Mage::getSingleton('catalog/session')->getLimitPage();
         }
+
         if (!$limit || !isset($limits[$limit])) {
             $limit = $defaultLimit;
         }

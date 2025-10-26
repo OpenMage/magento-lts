@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Popular tags block
  *
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
 {
     protected $_tags;
+
     protected $_minPopularity;
+
     protected $_maxPopularity;
 
     /**
@@ -55,8 +49,10 @@ class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
                 $tag->setRatio(($tag->getPopularity() - $this->_minPopularity) / $range);
                 $this->_tags[$tag->getName()] = $tag;
             }
+
             ksort($this->_tags);
         }
+
         return $this;
     }
 
@@ -95,6 +91,7 @@ class Mage_Tag_Block_Popular extends Mage_Core_Block_Template
         if (count($this->getTags()) > 0) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

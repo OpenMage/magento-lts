@@ -1,61 +1,55 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
 
-use Mage;
-use Mage_Sitemap_Model_Sitemap;
-use PHPUnit\Framework\TestCase;
+use Mage_Sitemap_Model_Sitemap as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
+use Throwable;
 
-class SitemapTest extends TestCase
+final class SitemapTest extends OpenMageTest
 {
-    public Mage_Sitemap_Model_Sitemap $subject;
+    use SitemapTrait;
 
-    public function setUp(): void
+    /**
+     * @dataProvider provideGetPreparedFilenameData
+     * @group Model
+     */
+    public function testGetPreparedFilename(array $methods): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('sitemap/sitemap');
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertIsString($mock->getPreparedFilename());
     }
 
     /**
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
+     * @dataProvider provideGenerateXmlData
+     * @group Model
+     * @throws Throwable
+     * @todo  test validation
+     * @todo  test content of xml
      */
-    public function testGetPreparedFilename(): void
+    public function testGenerateXml(array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Sitemap_Model_Sitemap::class)
-            ->setMethods(['getSitemapFilename'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        self::assertInstanceOf(Subject::class, $mock);
 
-        $mock->method('getSitemapFilename')->willReturn('text.xml');
-        $this->assertIsString($mock->getPreparedFilename());
-    }
+        $result = $mock->generateXml();
+        self::assertInstanceOf(Subject::class, $result);
 
-    /**
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
-     */
-    public function testGenerateXml(): void
-    {
-        $mock = $this->getMockBuilder(Mage_Sitemap_Model_Sitemap::class)
-            ->setMethods(['getSitemapFilename'])
-            ->getMock();
-
-        $mock->method('getSitemapFilename')->willReturn('text.xml');
-        $this->assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $mock->generateXml());
+        /** @var string $file */
+        $file = $methods['getSitemapFilename'];
+        self::assertFileExists($file);
+        unlink($file);
     }
 }

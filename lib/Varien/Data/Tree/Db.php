@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,14 +13,16 @@
  * Data model:
  * id  |  pid  |  level | order
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Tree_Db extends Varien_Data_Tree
 {
     public const ID_FIELD      = 'id';
+
     public const PARENT_FIELD  = 'parent';
+
     public const LEVEL_FIELD   = 'level';
+
     public const ORDER_FIELD   = 'order';
 
     /**
@@ -57,8 +52,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @var string
      */
     protected $_idField;
+
     protected $_parentField;
+
     protected $_levelField;
+
     protected $_orderField;
 
     /**
@@ -142,6 +140,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
 
         $select = clone $this->_select;
         $select->order($this->_table . '.' . $this->_orderField . ' ASC');
+
         $condition = $this->_conn->quoteInto("$this->_table.$this->_parentField=?", $parentId);
         $select->where($condition);
         $arrNodes = $this->_conn->fetchAll($select);
@@ -153,6 +152,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
                 $node->loadChildren($recursionLevel - 1);
             }
         }
+
         return $this;
     }
 
@@ -200,6 +200,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
+     * @throws Exception
      */
     public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
@@ -212,6 +213,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         } else {
             $data[$this->_orderField] = $prevNode->getData($this->_orderField) + 1;
         }
+
         $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
 
         // For reorder new node branch
@@ -238,9 +240,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_updateChildLevels($node->getId(), $data[$this->_levelField]);
             $this->_conn->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t move tree node');
+            throw new Exception('Can\'t move tree node', $exception->getCode(), $exception);
         }
     }
 
@@ -267,6 +269,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
                 $this->_updateChildLevels($id, $parentLevel + 1);
             }
         }
+
         return $this;
     }
 
@@ -311,10 +314,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             // Update old node branch
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_conn->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t remove tree node');
+            throw new Exception('Can\'t remove tree node', $exception->getCode(), $exception);
         }
+
         parent::removeNode($node);
         return $this;
     }

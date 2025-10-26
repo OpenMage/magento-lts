@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Calculation Resource Model
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Abstract
@@ -143,15 +135,18 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             if (isset($rate['base_amount'])) {
                 $row['base_amount'] = $rate['base_amount'];
             }
+
             if (isset($rate['base_real_amount'])) {
                 $row['base_real_amount'] = $rate['base_real_amount'];
             }
+
             $row['rates'][] = $oneRate;
 
             $ruleId = null;
             if (isset($rates[$i + 1]['tax_calculation_rule_id'])) {
                 $ruleId = $rate['tax_calculation_rule_id'];
             }
+
             $priority = $rate['priority'];
             $ids[] = $rate['code'];
 
@@ -173,6 +168,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                     $row['percent'] = $this->_collectPercent($totalPercent, $currentRate);
                     $totalPercent += $row['percent'];
                 }
+
                 $row['id'] = implode('', $ids);
                 $result[] = $row;
                 $row = [];
@@ -244,6 +240,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         foreach ($ids as $key => $val) {
             $ids[$key] = (int) $val; // Make it integer for equal cache keys even in case of null/false/0 values
         }
+
         $ids = array_unique($ids);
         sort($ids);
         $productClassKey = implode(',', $ids);
@@ -267,6 +264,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             if ($productClassId) {
                 $select->where('product_tax_class_id IN (?)', $productClassId);
             }
+
             $ifnullTitleValue = $this->_getReadAdapter()->getCheckSql(
                 'title_table.value IS NULL',
                 'rate.code',
@@ -315,6 +313,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 $selectClone = clone $select;
                 $selectClone->where('rate.zip_is_range IS NOT NULL');
             }
+
             $select->where('rate.zip_is_range IS NULL');
 
             if ($postcode != '*' || $postcodeIsRange) {
@@ -323,10 +322,10 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                         "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
                         $postcodeIsRange ? $postcode : $this->_createSearchPostCodeTemplates($postcode),
                     );
-                if ($postcodeIsNumeric) {
+                if (isset($selectClone) && $postcodeIsNumeric) {
                     $selectClone
                         ->where('? BETWEEN rate.zip_from AND rate.zip_to', $postcode);
-                } elseif ($postcodeIsRange) {
+                } elseif (isset($selectClone, $zipFrom, $zipTo) && $postcodeIsRange) {
                     $selectClone->where('rate.zip_from >= ?', $zipFrom)
                         ->where('rate.zip_to <= ?', $zipTo);
                 }
@@ -335,7 +334,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             /**
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
              */
-            if ($postcodeIsNumeric || $postcodeIsRange) {
+            if (isset($selectClone) && ($postcodeIsNumeric || $postcodeIsRange)) {
                 $select = $this->_getReadAdapter()->select()->union(
                     [
                         '(' . $select . ')',
@@ -416,6 +415,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 } else {
                     $result += $this->_collectPercent($result, $currentRate);
                 }
+
                 $currentRate = 0;
             }
         }

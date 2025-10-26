@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer account billing agreement view block
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method $this setAgreementCreatedAt(string $value)
@@ -70,6 +62,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
                 ->setOrder('created_at', 'desc');
         }
+
         return $this->_relatedOrders;
     }
 
@@ -106,6 +99,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             default:
                 $value = ($order->getData($key)) ?: $this->__('N/A');
         }
+
         return ($escape) ? $this->escapeHtml($value) : $value;
     }
 
@@ -119,6 +113,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
         if (is_null($this->_billingAgreementInstance)) {
             $this->_billingAgreementInstance = Mage::registry('current_billing_agreement');
         }
+
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
@@ -143,6 +138,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $this->_paymentMethods;
     }
 
@@ -175,6 +171,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             if ($updatedAt) {
                 $this->setAgreementUpdatedAt($this->formatDate($updatedAt, 'short', true));
             }
+
             $this->setAgreementStatus($this->_billingAgreementInstance->getStatusLabel());
         }
 

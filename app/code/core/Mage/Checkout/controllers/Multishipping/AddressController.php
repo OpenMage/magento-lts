@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Multishipping checkout address matipulation controller
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller_Front_Action
@@ -65,6 +57,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 $addressForm->setBackUrl(Mage::getUrl('*/cart/'));
             }
         }
+
         $this->renderLayout();
     }
 
@@ -76,6 +69,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
         if (count($this->_getCheckout()->getCustomer()->getAddresses()) == 1) {
             $this->_getCheckout()->reset();
         }
+
         $this->_redirect('*/multishipping/addresses');
     }
 
@@ -97,6 +91,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 $addressForm->setBackUrl(Mage::getUrl('*/multishipping/shipping'));
             }
         }
+
         $this->renderLayout();
     }
 
@@ -106,6 +101,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
             Mage::getModel('checkout/type_multishipping')
                 ->updateQuoteCustomerShippingAddress($addressId);
         }
+
         $this->_redirect('*/multishipping/shipping');
     }
 
@@ -132,6 +128,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
             }
         }
+
         $this->renderLayout();
     }
 
@@ -149,6 +146,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
             }
         }
+
         $this->renderLayout();
     }
 
@@ -168,6 +166,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
             }
         }
+
         $this->renderLayout();
     }
 
@@ -177,6 +176,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
             Mage::getModel('checkout/type_multishipping')
                 ->setQuoteCustomerBillingAddress($addressId);
         }
+
         $this->_redirect('*/multishipping/billing');
     }
 
@@ -186,6 +186,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
             Mage::getModel('checkout/type_multishipping')
                 ->setQuoteCustomerBillingAddress($addressId);
         }
+
         $this->_redirect('*/multishipping/overview');
     }
 }

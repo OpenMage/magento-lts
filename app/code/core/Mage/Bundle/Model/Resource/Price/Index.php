@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Product Price Index Resource model
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db_Abstract
@@ -60,6 +52,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $this->_attributes[$attributeCode] = Mage::getSingleton('catalog/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
         }
+
         return $this->_attributes[$attributeCode];
     }
 
@@ -73,6 +66,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(false);
         }
+
         return $this->_websites;
     }
 
@@ -90,6 +84,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 $this->_customerGroups[$group->getId()] = $group;
             }
         }
+
         return $this->_customerGroups;
     }
 
@@ -197,9 +192,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             if (!$website->getDefaultStore()) {
                 continue;
             }
+
             $salableStatus = $this->getProductsSalableStatus($selectionProducts, $website);
             $priceData = $this->getProductsPriceData($productId, $website);
             $priceData = $priceData[$productId];
+            $basePrice = 0;
 
             /** @var Mage_Customer_Model_Group $group */
             foreach ($this->_getCustomerGroups() as $group) {
@@ -210,7 +207,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $basePrice = 0;
                 }
 
-                list($minPrice, $maxPrice) = $this->_calculateBundleSelections(
+                [$minPrice, $maxPrice] = $this->_calculateBundleSelections(
                     $options,
                     $salableStatus,
                     $productId,
@@ -222,8 +219,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $group,
                 );
 
-                if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    list($minPrice, $maxPrice) =
+                if (isset($customOptions) && $priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
+                    [$minPrice, $maxPrice] =
                         $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
                 }
 
@@ -300,6 +297,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'selections'    => [],
                 ];
             }
+
             $options[$row['option_id']]['selections'][$row['selection_id']] = [
                 'selection_id'      => $row['selection_id'],
                 'product_id'        => $row['product_id'],
@@ -498,6 +496,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 [],
             );
         }
+
         return $this;
     }
 
@@ -604,6 +603,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'values'        => [],
                 ];
             }
+
             $options[$row['option_id']]['values'][$row['value_id']] = [
                 'price_type'        => $row['price_type'],
                 'price_value'       => $row['price'],
@@ -659,6 +659,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'values'        => [],
                 ];
             }
+
             $options[$row['option_id']]['values'][$row['value_id']] = [
                 'price_type'        => $row['price_type'],
                 'price_value'       => $row['price'],
@@ -687,11 +688,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 } else {
                     $valuePrice = $value['price_value'];
                 }
+
                 $optionPrices[] = $valuePrice;
             }
+
             if ($option['is_require']) {
                 $minPrice += min($optionPrices);
             }
+
             $multiTypes = [
                 Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN,
                 Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX,
@@ -758,19 +762,17 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                         $website->getId(),
                         $group->getId(),
                     ]);
-
                     $selectionPrice = $priceIndex[$priceIndexKey] ?? 0;
                     $selectionPrice = $this->_calculateSpecialPrice($selectionPrice, $priceData, $website);
+                } elseif ($selection['price_type']) {
+                    // percent
+                    $selectionPrice = $basePrice * $selection['price_value'] / 100;
                 } else {
-                    if ($selection['price_type']) { // percent
-                        $selectionPrice = $basePrice * $selection['price_value'] / 100;
-                    } else {
-                        $selectionPrice = $this->_calculateSpecialPrice(
-                            $selection['price_value'],
-                            $priceData,
-                            $website,
-                        );
-                    }
+                    $selectionPrice = $this->_calculateSpecialPrice(
+                        $selection['price_value'],
+                        $priceData,
+                        $website,
+                    );
                 }
 
                 // calculate selection qty
@@ -780,7 +782,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $qty = $selection['qty'];
                 }
 
-                $selectionPrice = $selectionPrice * $qty;
+                $selectionPrice *= $qty;
                 $optionPrices[$selection['selection_id']] = $selectionPrice;
             }
 
@@ -790,6 +792,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 } else {
                     $optPrice = $optPrice && $optPrice < min($optionPrices) ? $optPrice : min($optionPrices);
                 }
+
                 if (in_array($option['type'], ['multi', 'checkbox'])) {
                     $maxPrice += array_sum($optionPrices);
                 } else {
@@ -801,6 +804,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($minPrice == 0) {
             $minPrice = $optPrice;
         }
+
         return [$minPrice, $maxPrice];
     }
 

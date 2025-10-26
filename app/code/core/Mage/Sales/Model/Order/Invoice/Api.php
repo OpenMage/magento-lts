@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Invoice API
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
@@ -62,9 +54,11 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         foreach ($invoiceCollection as $invoice) {
             $invoices[] = $this->_getAttributes($invoice, 'invoice');
         }
+
         return $invoices;
     }
 
@@ -221,7 +215,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
                 ->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice capturing problem.'));
         }
 
@@ -258,7 +252,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
                 ->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice void problem'));
         }
 
@@ -294,7 +288,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
                 ->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Invoice canceling problem.'));
         }
 

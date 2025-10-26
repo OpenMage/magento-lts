@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -24,7 +17,7 @@
                             <label>CMS Home Page</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_cms_page</source_model>
-                            <sort_order>1</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -33,7 +26,7 @@
                             <label>CMS No Route Page</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_cms_page</source_model>
-                            <sort_order>2</sort_order>
+                            <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -42,7 +35,7 @@
                             <label>CMS No Cookies Page</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_cms_page</source_model>
-                            <sort_order>3</sort_order>
+                            <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -51,13 +44,26 @@
                             <label>Show Breadcrumbs for CMS Pages</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>5</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_cms_breadcrumbs>
                     </fields>
                 </default>
+                <seo translate="label" module="cms">
+                    <fields>
+                        <cms_canonical_tag translate="label">
+                            <label>Use Canonical Link Meta Tag For CMS Pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cms_canonical_tag>
+                    </fields>
+                </seo>
             </groups>
         </web>
         <cms translate="label" module="cms">

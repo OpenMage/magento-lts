@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_Abstract
@@ -101,6 +93,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 }
             }
         }
+
         return $this;
     }
 
@@ -119,6 +112,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 self::$_commitCallbacks[$adapterKey] = [];
             }
         }
+
         return $this;
     }
 
@@ -163,6 +157,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 if (is_object($defaultValue) || is_array($defaultValue)) {
                     $defaultValue = serialize($defaultValue);
                 }
+
                 $object->setData($field, $defaultValue);
             }
         } elseif (is_array($value) || is_object($value)) {
@@ -203,16 +198,15 @@ abstract class Mage_Core_Model_Resource_Abstract
                 $fieldValue = $object->getData($field);
                 if ($fieldValue instanceof Zend_Db_Expr) {
                     $data[$field] = $fieldValue;
-                } else {
-                    if ($fieldValue !== null) {
-                        $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
-                        $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
-                    } elseif (!empty($fields[$field]['NULLABLE'])) {
-                        $data[$field] = null;
-                    }
+                } elseif ($fieldValue !== null) {
+                    $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
+                    $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
+                } elseif (!empty($fields[$field]['NULLABLE'])) {
+                    $data[$field] = null;
                 }
             }
         }
+
         return $data;
     }
 
@@ -225,9 +219,10 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareTableValueForSave($value, $type)
     {
-        if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
+        if (in_array($type, ['decimal', 'numeric', 'float'])) {
             return Mage::app()->getLocale()->getNumber($value);
         }
+
         return $value;
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract items renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
@@ -91,6 +83,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (!is_null($type)) {
             $column .= '_' . $type;
         }
+
         $this->_columnRenders[$column] = [
             'block'     => $block,
             'template'  => $template,
@@ -110,6 +103,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (!isset($this->_itemRenders[$type])) {
             $type = 'default';
         }
+
         if (is_null($this->_itemRenders[$type]['renderer'])) {
             /** @var Mage_Adminhtml_Block_Sales_Items_Abstract $renderer */
             $renderer = $this->getLayout()
@@ -120,6 +114,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 $this->_itemRenders[$type]['renderer']->addColumnRender($columnType, $renderer['block'], $renderer['template']);
             }
         }
+
         return $this->_itemRenders[$type]['renderer'];
     }
 
@@ -135,15 +130,18 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (isset($this->_columnRenders[$column . '_' . $compositePart])) {
             $column .= '_' . $compositePart;
         }
+
         if (!isset($this->_columnRenders[$column])) {
             return false;
         }
+
         if (is_null($this->_columnRenders[$column]['renderer'])) {
             $this->_columnRenders[$column]['renderer'] = $this->getLayout()
                 ->createBlock($this->_columnRenders[$column]['block'])
                 ->setTemplate($this->_columnRenders[$column]['template'])
                 ->setRenderedBlock($this);
         }
+
         return $this->_columnRenders[$column]['renderer'];
     }
 
@@ -179,6 +177,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 ->setItem($item)
                 ->toHtml();
         }
+
         return '';
     }
 
@@ -202,8 +201,10 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
             if (!is_null($field)) {
                 $block->setField($field);
             }
+
             return $block->toHtml();
         }
+
         return '&nbsp;';
     }
 
@@ -222,18 +223,23 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if ($this->hasOrder()) {
             return $this->getData('order');
         }
+
         if (Mage::registry('current_order')) {
             return Mage::registry('current_order');
         }
+
         if (Mage::registry('order')) {
             return Mage::registry('order');
         }
+
         if ($this->getInvoice()) {
             return $this->getInvoice()->getOrder();
         }
+
         if ($this->getCreditmemo()) {
             return $this->getCreditmemo()->getOrder();
         }
+
         if ($this->getItem()->getOrder()) {
             return $this->getItem()->getOrder();
         }
@@ -252,6 +258,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (is_null($obj)) {
             return $this->getOrder();
         }
+
         return $obj;
     }
 
@@ -320,6 +327,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 $res = '<strong>' . $res . '</strong>';
             }
         }
+
         return $res;
     }
 
@@ -383,6 +391,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         foreach ($percents as &$percent) {
             $percent = sprintf('%.2f%%', $percent);
         }
+
         return implode(' + ', $percents);
     }
 
@@ -416,6 +425,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 return true;
             }
         }
+
         return false;
     }
 
@@ -455,9 +465,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         ) {
             return false;
         }
+
         if ($this->getOrder()->getPayment()->canCapture()) {
             return $this->getOrder()->getPayment()->canCapturePartial();
         }
+
         return true;
     }
 
@@ -466,6 +478,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/capture')) {
             return $this->getInvoice()->canCapture();
         }
+
         return false;
     }
 
@@ -525,10 +538,13 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                     $item->setCanReturnToStock(false);
                 }
             }
+
             $canReturnToStock = $item->getCanReturnToStock();
         }
+
         return $canReturnToStock;
     }
+
     /**
      * Whether to show 'Return to stock' column for item parent
      * @param Mage_Sales_Model_Order_Creditmemo_Item $item
@@ -544,6 +560,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         } elseif ($this->getOrder()->hasCanReturnToStock()) {
             $canReturnToStock = $this->getOrder()->getCanReturnToStock();
         }
+
         return $canReturnToStock;
     }
 
@@ -558,10 +575,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (is_null($order) || !$order instanceof Mage_Sales_Model_Order) {
             $order = Mage::registry('current_shipment')->getOrder();
         }
+
         $value = $order->getCanShipPartially();
         if (!is_null($value) && !$value) {
             return false;
         }
+
         return true;
     }
 
@@ -576,10 +595,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (is_null($order) || !$order instanceof Mage_Sales_Model_Order) {
             $order = Mage::registry('current_shipment')->getOrder();
         }
+
         $value = $order->getCanShipPartiallyItem();
         if (!is_null($value) && !$value) {
             return false;
         }
+
         return true;
     }
 
@@ -588,6 +609,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         if (!$this->canShipPartiallyItem() || !$this->canShipPartially()) {
             return false;
         }
+
         return true;
     }
 }

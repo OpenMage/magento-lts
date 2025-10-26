@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
 /**
  * Admihtml DirtectPost Payment Controller
  *
- * @category   Mage
  * @package    Mage_Authorizenet
  */
 class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
@@ -111,6 +103,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                             $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect'),
                         );
                     }
+
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
                 }
 
@@ -121,6 +114,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                 if (!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
+
                 $isError = true;
             } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
@@ -168,6 +162,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                     $this->_getOrderCreateModel()->getSession()->unsOrderId();
                 }
             }
+
             //clear sessions
             $this->_getSession()->clear();
             $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($redirectParams['x_invoice_num']);

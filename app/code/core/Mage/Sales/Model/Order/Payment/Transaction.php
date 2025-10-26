@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  * Tracks transaction history, allows to build transactions hierarchy
  * By default transactions are saved as closed.
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
@@ -47,10 +39,15 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @var string
      */
     public const TYPE_PAYMENT = 'payment';
+
     public const TYPE_ORDER   = 'order';
+
     public const TYPE_AUTH    = 'authorization';
+
     public const TYPE_CAPTURE = 'capture';
+
     public const TYPE_VOID    = 'void';
+
     public const TYPE_REFUND  = 'refund';
 
     /**
@@ -176,6 +173,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         } else {
             $this->setTxnId($txnId);
         }
+
         return $this->setData('parent_txn_id', $parentTxnId);
     }
 
@@ -205,7 +203,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $this->_parentTransaction = false;
             $parentId = $this->getParentId();
             if ($parentId) {
-                $class = get_class($this);
+                $class = static::class;
                 $this->_parentTransaction = new $class();
                 if ($shouldLoad) {
                     $this->_parentTransaction
@@ -220,6 +218,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 }
             }
         }
+
         return $this->_parentTransaction;
     }
 
@@ -251,6 +250,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             if (empty($this->_children)) {
                 return null;
             }
+
             $transaction = null;
             if ($this->_identifiedChildren) {
                 if (isset($this->_identifiedChildren[$txnId])) {
@@ -264,10 +264,12 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                     }
                 }
             }
+
             // return transaction only if type matches
             if (!$transaction || $types && !in_array($transaction->getTxnType(), $types, true)) {
                 return null;
             }
+
             return $transaction;
         }
 
@@ -278,6 +280,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $result[$child->getId()] = $child;
             }
         }
+
         return $result;
     }
 
@@ -300,8 +303,10 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             if ($dryRun) {
                 return false;
             }
+
             throw $e;
         }
+
         $authTransaction = false;
         switch ($this->getTxnType()) {
             case self::TYPE_VOID:
@@ -314,11 +319,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 break;
                 // case self::TYPE_PAYMENT?
         }
+
         if ($authTransaction) {
             if (!$dryRun) {
                 $authTransaction->close($shouldSave);
             }
         }
+
         return $authTransaction;
     }
 
@@ -342,9 +349,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $captureTransaction = $this->getParentTransaction();
                 break;
         }
+
         if ($captureTransaction) {
             $captureTransaction->close($shouldSave);
         }
+
         return $captureTransaction;
     }
 
@@ -360,10 +369,12 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             if ($authTransaction->hasChildTransaction() || $this->_children) {
                 return false;
             }
+
             return true;
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             // jam all logical exceptions, fallback to false
         }
+
         return false;
     }
 
@@ -384,6 +395,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $this->_hasChild = false;
             }
         }
+
         return $this->_hasChild;
     }
 
@@ -445,10 +457,12 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (is_object($value)) {
             Mage::throwException(Mage::helper('sales')->__('Payment transactions disallow storing objects.'));
         }
+
         $info = $this->_getData('additional_information');
         if (!$info) {
             $info = [];
         }
+
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
     }
@@ -464,9 +478,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (!$info) {
             $info = [];
         }
+
         if ($key) {
             return $info[$key] ?? null;
         }
+
         return $info;
     }
 
@@ -485,6 +501,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         } else {
             $info = [];
         }
+
         return $this->setData('additional_information', $info);
     }
 
@@ -499,13 +516,16 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (!$this->_isFailsafe) {
             $this->_verifyThisTransactionExists();
         }
+
         if ($this->getIsClosed() == 1 && $this->_isFailsafe) {
             Mage::throwException(Mage::helper('sales')->__('The transaction "%s" (%s) is already closed.', $this->getTxnId(), $this->getTxnType()));
         }
+
         $this->setIsClosed(1);
         if ($shouldSave) {
             $this->save();
         }
+
         if ($this->_transactionsAutoLinking && self::TYPE_AUTH === $this->getTxnType()) {
             try {
                 $paymentTransaction = $this->getParentTransaction();
@@ -518,6 +538,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 }
             }
         }
+
         return $this;
     }
 
@@ -536,6 +557,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $this->setOrderPaymentObject($payment);
             }
         }
+
         return $this->_paymentObject;
     }
 
@@ -550,6 +572,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if ($orderId) {
             return $orderId;
         }
+
         if ($this->_paymentObject) {
             return $this->_paymentObject->getOrder()
                 ? $this->_paymentObject->getOrder()->getId()
@@ -608,6 +631,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
+
         $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
@@ -633,6 +657,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
             $this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
         }
+
         return parent::_beforeSave();
     }
 
@@ -674,6 +699,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             if ($payment) {
                 $child->setOrderPaymentObject($payment);
             }
+
             $this->_children[$child->getId()] = $child;
             $childTxnId = $child->getTxnId();
             if (!$childTxnId || $childTxnId == '0') {
@@ -682,6 +708,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $this->_identifiedChildren[$child->getTxnId()] = $child;
             }
         }
+
         if ($this->_identifiedChildren === false) {
             $this->_identifiedChildren = [];
         }
@@ -734,6 +761,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (is_null($this->_orderWebsiteId)) {
             $this->_orderWebsiteId = (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
         }
+
         return $this->_orderWebsiteId;
     }
 
@@ -747,6 +775,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if ($txnType === null) {
             $txnType = $this->getTxnType();
         }
+
         switch ($txnType) {
             case self::TYPE_PAYMENT:
             case self::TYPE_ORDER:
@@ -774,6 +803,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
             }
         }
+
         return $this->_paymentObject;
     }
 
@@ -799,6 +829,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (!$this->getId()) {
             Mage::throwException(Mage::helper('sales')->__('This operation requires an existing transaction object.'));
         }
+
         $this->_verifyTxnType();
     }
 

@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +20,6 @@
  * @method $this setDisabled(bool $value)
  * @method $this setRequired(bool $value)
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Abstract extends Varien_Object
@@ -73,14 +65,15 @@ class Varien_Data_Form_Abstract extends Varien_Object
         if (empty($this->_elements)) {
             $this->_elements = new Varien_Data_Form_Element_Collection($this);
         }
+
         return $this->_elements;
     }
 
     /**
      * Disable elements
      *
-     * @param boolean $readonly
-     * @param boolean $useDisabled
+     * @param bool $readonly
+     * @param bool $useDisabled
      * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
@@ -91,6 +84,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
         } else {
             $this->setData('readonly', $readonly);
         }
+
         foreach ($this->getElements() as $element) {
             $element->setReadonly($readonly, $useDisabled);
         }
@@ -138,6 +132,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
             $className = 'Varien_Data_Form_Element_Note';
             $element = new $className($config);
         }
+
         $element->setId($elementId);
         $this->addElement($element, $after);
         return $element;
@@ -193,6 +188,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }
+
         return $res;
     }
 }

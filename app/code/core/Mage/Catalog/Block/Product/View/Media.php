@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Simple product data view
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method string getGalleryFilterHelper()
@@ -42,6 +34,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($this->_isGalleryDisabled) {
             return [];
         }
+
         return $this->getProduct()->getMediaGalleryImages();
     }
 
@@ -57,6 +50,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($image) {
             $params['image'] = $image->getValueId();
         }
+
         return $this->getUrl('catalog/product/gallery', $params);
     }
 
@@ -79,8 +73,10 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
             if (is_numeric($size)) {
                 $helper->constrainOnly(true)->resize($size);
             }
+
             return (string) $helper;
         }
+
         return null;
     }
 
@@ -95,6 +91,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if (($filterClass = $this->getGalleryFilterHelper()) && ($filterMethod = $this->getGalleryFilterMethod())) {
             return Mage::helper($filterClass)->$filterMethod($this->getProduct(), $image);
         }
+
         return true;
     }
 

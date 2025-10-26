@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch fulltext indexer model
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer_Abstract
@@ -216,22 +208,20 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
-        switch ($event->getType()) {
-            case Mage_Index_Model_Event::TYPE_SAVE:
-                /** @var Mage_Catalog_Model_Category $category */
-                $category   = $event->getDataObject();
-                $productIds = $category->getAffectedProductIds();
-                if ($productIds) {
-                    $event->addNewData('catalogsearch_category_update_product_ids', $productIds);
-                    $event->addNewData('catalogsearch_category_update_category_ids', [$category->getId()]);
-                } else {
-                    $movedCategoryId = $category->getMovedCategoryId();
-                    if ($movedCategoryId) {
-                        $event->addNewData('catalogsearch_category_update_product_ids', []);
-                        $event->addNewData('catalogsearch_category_update_category_ids', [$movedCategoryId]);
-                    }
+        if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+            /** @var Mage_Catalog_Model_Category $category */
+            $category   = $event->getDataObject();
+            $productIds = $category->getAffectedProductIds();
+            if ($productIds) {
+                $event->addNewData('catalogsearch_category_update_product_ids', $productIds);
+                $event->addNewData('catalogsearch_category_update_category_ids', [$category->getId()]);
+            } else {
+                $movedCategoryId = $category->getMovedCategoryId();
+                if ($movedCategoryId) {
+                    $event->addNewData('catalogsearch_category_update_product_ids', []);
+                    $event->addNewData('catalogsearch_category_update_category_ids', [$movedCategoryId]);
                 }
-                break;
+            }
         }
 
         return $this;
@@ -288,7 +278,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $searchableAttributes = array_intersect($this->_getSearchableAttributes(), array_keys($attrData));
                 }
 
-                if (count($searchableAttributes) > 0) {
+                if ($searchableAttributes !== []) {
                     $rebuildIndex = true;
                     $reindexData['catalogsearch_force_reindex'] = true;
                 }
@@ -300,6 +290,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         $event->addNewData($k, $v);
                     }
                 }
+
                 break;
         }
 
@@ -399,6 +390,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     }
                 }
             }
+
             if (isset($data['catalogsearch_status'])) {
                 $status = $data['catalogsearch_status'];
                 if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
@@ -411,6 +403,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         ->resetSearchResults();
                 }
             }
+
             if (isset($data['catalogsearch_force_reindex'])) {
                 $this->_getIndexer()
                     ->rebuildIndex(null, $productIds)

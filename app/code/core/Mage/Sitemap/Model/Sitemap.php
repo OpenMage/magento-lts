@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap model
  *
- * @category   Mage
  * @package    Mage_Sitemap
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
@@ -68,6 +60,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         if (!$io->allowedPath($realPath, Mage::getBaseDir())) {
             Mage::throwException(Mage::helper('sitemap')->__('Please define correct path'));
         }
+
         /**
          * Check exists and writeable path
          */
@@ -78,12 +71,14 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         if (!$io->isWriteable($realPath)) {
             Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-server.', $this->getSitemapPath()));
         }
+
         /**
          * Check allow filename
          */
         if (!preg_match('#^[a-zA-Z0-9_\.]+$#', $this->getSitemapFilename())) {
             Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.'));
         }
+
         if (!preg_match('#\.xml$#', $this->getSitemapFilename())) {
             $this->setSitemapFilename($this->getSitemapFilename() . '.xml');
         }
@@ -104,6 +99,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
             $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
                 $this->getSitemapPath());
         }
+
         return $this->_filePath;
     }
 
@@ -159,6 +155,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
             $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
+
         unset($collection);
 
         /**
@@ -178,6 +175,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
             $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
+
         unset($collection);
 
         /**
@@ -203,6 +201,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
             $xml = $this->getSitemapRow($baseUrl . $url, $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
+
         unset($collection);
 
         Mage::dispatchEvent('sitemap_urlset_generating_before', [
@@ -236,9 +235,11 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         if ($lastmod) {
             $row .= '<lastmod>' . $lastmod . '</lastmod>';
         }
+
         if ($changefreq) {
             $row .= '<changefreq>' . $changefreq . '</changefreq>';
         }
+
         if ($priority) {
             $row .= sprintf('<priority>%.1f</priority>', $priority);
         }

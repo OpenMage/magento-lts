@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Implementation of Zend_Captcha
  *
- * @category   Mage
  * @package    Mage_Captcha
  */
 class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
@@ -79,6 +71,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         if (!isset($params['formId'])) {
             throw new Exception('formId is mandatory');
         }
+
         $this->_formId = $params['formId'];
         $this->setExpiration($this->getTimeout());
     }
@@ -179,6 +172,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             $countAttemptsByLogin = Mage::getResourceModel('captcha/log')->countAttemptsByUserLogin($login);
             return ($countAttemptsByLogin >= $this->_getAllowedAttemptsForSameLogin());
         }
+
         return false;
     }
 
@@ -228,6 +222,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
              */
             $this->_expiration = (int) $this->_getHelper()->getConfigNode('timeout') * 60;
         }
+
         return $this->_expiration;
     }
 
@@ -270,6 +265,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             $storedWord = strtolower($storedWord);
             $word = strtolower($word);
         }
+
         return $word == $storedWord;
     }
 
@@ -307,6 +303,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
                 $this->getSession()->setData($this->_getFormIdKey('show_captcha'), 1);
             }
         }
+
         return $this;
     }
 
@@ -340,6 +337,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         if (empty($this->_helper)) {
             $this->_helper = Mage::helper('captcha');
         }
+
         return $this->_helper;
     }
 
@@ -356,6 +354,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         for ($i = 0; $i < $wordLen; $i++) {
             $word .= $symbols[array_rand($symbols)];
         }
+
         return $word;
     }
 
@@ -457,6 +456,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         if (!is_array($sessionData)) {
             return null;
         }
+
         return time() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 

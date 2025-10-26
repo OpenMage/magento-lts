@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
@@ -91,6 +83,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         $result = [];
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
@@ -104,6 +97,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 'website_ids'  => $product->getWebsiteIds(),
             ];
         }
+
         return $result;
     }
 
@@ -194,8 +188,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
@@ -237,8 +233,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     } else {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
@@ -301,10 +299,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 if (is_string($website)) {
                     try {
                         $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
             }
+
             $product->setWebsiteIds($productData['websites']);
         }
 
@@ -451,6 +450,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         if (is_null($attributeSet->getId())) {
             $this->_fault('product_attribute_set_not_exists');
         }
+
         if (Mage::getModel('catalog/product')->getResource()->getTypeId() != $attributeSet->getEntityTypeId()) {
             $this->_fault('product_attribute_set_not_valid');
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer orders grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
@@ -185,21 +177,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $collection = $this->getCollection();
         $value = $column->getFilter()->getValue();
         if ($collection && $value) {
-            switch ($column->getId()) {
-                case 'product_name':
-                    $collection->addProductNameFilter($value);
-                    break;
-                case 'store':
-                    $collection->addStoreFilter($value);
-                    break;
-                case 'days':
-                    $collection->addDaysFilter($value);
-                    break;
-                default:
-                    $collection->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition());
-                    break;
-            }
+            match ($column->getId()) {
+                'product_name' => $collection->addProductNameFilter($value),
+                'store' => $collection->addStoreFilter($value),
+                'days' => $collection->addDaysFilter($value),
+                default => $collection->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition()),
+            };
         }
+
         return $this;
     }
 
@@ -213,15 +198,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     {
         $collection = $this->getCollection();
         if ($collection) {
-            switch ($column->getId()) {
-                case 'product_name':
-                    $collection->setOrderByProductName($column->getDir());
-                    break;
-                default:
-                    parent::_setCollectionOrder($column);
-                    break;
-            }
+            match ($column->getId()) {
+                'product_name' => $collection->setOrderByProductName($column->getDir()),
+                default => parent::_setCollectionOrder($column),
+            };
         }
+
         return $this;
     }
 

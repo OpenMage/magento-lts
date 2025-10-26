@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS Page Helper
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_NO_ROUTE_PAGE        = 'web/default/cms_no_route';
+
     public const XML_PATH_NO_COOKIES_PAGE      = 'web/default/cms_no_cookies';
+
     public const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
     protected $_moduleName = 'Mage_Cms';
@@ -72,7 +66,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         if ($page->getCustomTheme()) {
             if ($inRange) {
-                list($package, $theme) = explode('/', $page->getCustomTheme());
+                [$package, $theme] = explode('/', $page->getCustomTheme());
                 Mage::getSingleton('core/design_package')
                     ->setPackageName($package)
                     ->setTheme($theme);

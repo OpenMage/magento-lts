@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Customer_Block_Widget_Name
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method bool getForceUseCustomerAttributes()
@@ -78,6 +70,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix() ?? ''));
             $prefixOptions[$oldPrefix] = $oldPrefix;
         }
+
         return $prefixOptions;
     }
 
@@ -135,6 +128,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             $oldSuffix = $this->escapeHtml(trim($this->getObject()->getSuffix() ?? ''));
             $suffixOptions[$oldSuffix] = $oldSuffix;
         }
+
         return $suffixOptions;
     }
 
@@ -148,6 +142,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         if (!$this->hasData('class_name')) {
             $this->setData('class_name', 'customer-name');
         }
+
         return $this->getData('class_name');
     }
 

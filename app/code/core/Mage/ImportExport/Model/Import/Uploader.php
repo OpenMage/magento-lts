@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity product model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {
     protected $_tmpDir  = '';
+
     protected $_destDir = '';
+
     protected $_allowedMimeTypes = [
         'webp' => 'image/webp',
         'jpg' => 'image/jpeg',
@@ -31,6 +25,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'gif' => 'image/gif',
         'png' => 'image/png',
     ];
+
     public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
@@ -92,6 +87,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (!is_readable($filePath)) {
             Mage::throwException("File '{$filePath}' was not found or has read restriction.");
         }
+
         $this->_file = $this->_readFileInfo($filePath);
 
         $this->_validateFile();
@@ -132,6 +128,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (!$this->checkAllowedExtension($fileExtension)) {
             throw new Exception('Disallowed file type.');
         }
+
         //run validate callbacks
         foreach ($this->_validateCallbacks as $params) {
             if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
@@ -151,6 +148,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (array_key_exists($ext, $this->_allowedMimeTypes)) {
             return $this->_allowedMimeTypes[$ext];
         }
+
         return '';
     }
 
@@ -176,6 +174,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_tmpDir = $path;
             return true;
         }
+
         return false;
     }
 
@@ -201,6 +200,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_destDir = $path;
             return true;
         }
+
         return false;
     }
 

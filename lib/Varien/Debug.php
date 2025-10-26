@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Debug
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Debug methods
  *
- * @category   Varien
  * @package    Varien_Debug
  */
 class Varien_Debug
 {
     public static $argLength = 16;
+
     /**
      * Magento Root path
      *
@@ -44,6 +37,7 @@ class Varien_Debug
                 self::$_filePath = dirname(__DIR__);
             }
         }
+
         return self::$_filePath;
     }
 
@@ -94,11 +88,12 @@ class Varien_Debug
             // prepare method's name
             $methodName = '';
             if (isset($data['class']) && isset($data['function'])) {
-                if (isset($data['object']) && get_class($data['object']) != $data['class']) {
-                    $className = get_class($data['object']) . '[' . $data['class'] . ']';
+                if (isset($data['object']) && $data['object']::class != $data['class']) {
+                    $className = $data['object']::class . '[' . $data['class'] . ']';
                 } else {
                     $className = $data['class'];
                 }
+
                 if (isset($data['object'])) {
                     $className .= sprintf('#%s#', spl_object_hash($data['object']));
                 }
@@ -106,7 +101,7 @@ class Varien_Debug
                 $methodName = sprintf(
                     '%s%s%s(%s)',
                     $className,
-                    isset($data['type']) ? $data['type'] : '->',
+                    $data['type'] ?? '->',
                     $data['function'],
                     implode(', ', $args),
                 );
@@ -119,6 +114,7 @@ class Varien_Debug
                 if ($pos !== false) {
                     $data['file'] = substr($data['file'], strlen(self::getRootPath()) + 1);
                 }
+
                 $fileName = sprintf('%s:%d', $data['file'], $data['line']);
             } else {
                 $fileName = false;
@@ -154,7 +150,7 @@ class Varien_Debug
     {
         $out = '';
         if (is_object($arg)) {
-            $out .= sprintf('&%s#%s#', get_class($arg), spl_object_hash($arg));
+            $out .= sprintf('&%s#%s#', $arg::class, spl_object_hash($arg));
         } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } elseif (is_array($arg)) {
@@ -164,13 +160,16 @@ class Varien_Debug
                 if (!is_numeric($k)) {
                     $isAssociative = true;
                 }
+
                 $args[$k] = self::_formatCalledArgument($v);
             }
+
             if ($isAssociative) {
                 $arr = [];
                 foreach ($args as $k => $v) {
                     $arr[] = self::_formatCalledArgument($k) . ' => ' . $v;
                 }
+
                 $out .= 'array(' . implode(', ', $arr) . ')';
             } else {
                 $out .= 'array(' . implode(', ', $args) . ')';
@@ -183,6 +182,7 @@ class Varien_Debug
             if (strlen($arg) > self::$argLength) {
                 $arg = substr($arg, 0, self::$argLength) . '...';
             }
+
             $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
         } elseif (is_bool($arg)) {

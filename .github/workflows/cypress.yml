@@ -1,0 +1,46 @@
+name: Cypress
+
+on:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Cypress
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        webserver: ['nginx-fpm']
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup DDEV
+        uses: ddev/github-action-setup-ddev@v1
+        with:
+          autostart: false
+
+      # install DDEV configuration
+      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }} --web-environment="MAGE_IS_DEVELOPER_MODE=1"
+
+      # install composer dependencies
+      - run: ddev composer install
+
+      # install openmage
+      - run: ddev openmage-install -q
+
+      # install cypress-addon
+      - run: ddev add-on get tyler36/ddev-cypress
+
+      # start ddev
+      - run: ddev start
+
+        # run cypress
+      - run: ddev cypress-run --config-file .cypress.config.js
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: ${{ !success() }}
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

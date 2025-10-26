@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -19,54 +13,49 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Mage;
 use Mage_Admin_Model_Acl;
-use Mage_Admin_Model_Config;
-use PHPUnit\Framework\TestCase;
+use Mage_Admin_Model_Config as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class ConfigTest extends TestCase
+final class ConfigTest extends OpenMageTest
 {
-    public Mage_Admin_Model_Config $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/config');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/config');
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAclAssert(): void
     {
-        $this->assertFalse($this->subject->getAclAssert(''));
+        self::assertFalse(self::$subject->getAclAssert(''));
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAclPrivilegeSet(): void
     {
-        $this->assertFalse($this->subject->getAclPrivilegeSet());
+        self::assertFalse(self::$subject->getAclPrivilegeSet());
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testLoadAclResources(): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->assertInstanceOf(Mage_Admin_Model_Config::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        self::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAdminhtmlConfig(): void
     {
-        $this->assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());
+        self::assertInstanceOf(Varien_Simplexml_Config::class, self::$subject->getAdminhtmlConfig());
     }
 }

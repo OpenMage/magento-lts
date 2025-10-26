@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable links validator
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resource_Abstract
@@ -86,6 +78,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
         if (!in_array($type, $this->getResourceTypes())) {
             throw new Exception('unknown_resource_type');
         }
+
         return true;
     }
 
@@ -115,21 +108,26 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
             if ($resource['type'] == 'file') {
                 $this->validateFileDetails($resource['file']);
             }
+
             if ($resource['type'] == 'url' && empty($resource['link_url'])) {
                 throw new Exception('empty_url');
             }
+
             // sample
             if ($resource['sample']['type'] == 'file') {
                 $this->validateFileDetails($resource['sample']['file']);
             }
+
             if ($resource['sample']['type'] == 'url' && empty($resource['sample']['url'])) {
                 throw new Exception('empty_url');
             }
         }
+
         if ($resourceType == 'sample') {
             if ($resource['type'] == 'file') {
                 $this->validateFileDetails($resource['file']);
             }
+
             if ($resource['type'] == 'url' && empty($resource['sample_url'])) {
                 throw new Exception('empty_url');
             }
@@ -146,6 +144,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
         if (!isset($var['name']) || !is_string($var['name']) || $var['name'] === '') {
             throw new Exception('no_filename');
         }
+
         if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
             || $var['base64_content'] === ''
@@ -163,10 +162,11 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     protected function _dispatch(&$resource, $fields)
     {
         foreach ($fields as $name => $validator) {
-            if (is_string($validator) && strlen($validator) > 0 && array_key_exists($name, $resource)) {
+            if (is_string($validator) && $validator !== '' && array_key_exists($name, $resource)) {
                 $call = 'validate' . $validator;
                 $this->$call($resource[$name]);
             }
+
             if (is_array($validator)) {
                 $this->_dispatch($resource[$name], $validator);
             }
@@ -243,7 +243,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateUrl(&$var)
     {
-        if (is_string($var) && strlen($var) > 0) {
+        if (is_string($var) && $var !== '') {
             $urlregex = "/^(https?|ftp)\:\/\/([a-z0-9+\!\*\(\)\,\;\?\&\=\$\_\.\-]+(\:[a-z0-9+\!\*\(\)\,\;\?\&\=\$\_\.\-]+)?@)?[a-z0-9\+\$\_\-]+(\.[a-z0-9+\$\_\-]+)*(\:[0-9]{2,5})?(\/([a-z0-9+\$\_\-]\.?)+)*\/?(\?[a-z\+\&\$\_\.\-][a-z0-9\;\:\@\/\&\%\=\+\$\_\.\-]*)?(#[a-z\_\.\-][a-z0-9\+\$\_\.\-]*)?$/i";
             if (!preg_match($urlregex, $var)) {
                 throw new Exception('url_not_valid');

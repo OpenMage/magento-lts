@@ -1,13 +1,14 @@
 {
     "name": "openmage/magento-lts",
     "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+    "homepage": "https://www.openmage.org/",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <8.5",
+        "php": ">=8.1 <8.6",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -24,41 +25,47 @@
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*",
+        "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
+        "components/jquery": "^3.7.1",
         "cweagans/composer-patches": "^1.7",
+        "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
+        "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^24.11",
-        "openmage/composer-plugin": "^3.0",
-        "pelago/emogrifier": "^7.0",
+        "mklkj/tinymce-i18n": "^25.2",
+        "nnnick/chartjs": "^4.4",
+        "openmage/composer-plugin": "^3.1",
+        "pelago/emogrifier": "^8.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
-        "symfony/polyfill-php74": "^1.31",
-        "symfony/polyfill-php80": "^1.31",
-        "symfony/polyfill-php81": "^1.31",
-        "symfony/polyfill-php82": "^1.31",
-        "symfony/polyfill-php83": "^1.31",
-        "symfony/polyfill-php84": "^1.31",
-        "symfony/string": "^5.4",
-        "symfony/translation-contracts": "^2.5",
-        "tinymce/tinymce": "^7.5"
+        "symfony/polyfill-php82": "^1.33",
+        "symfony/polyfill-php83": "^1.33",
+        "symfony/polyfill-php84": "^1.33",
+        "symfony/polyfill-php85": "^1.33",
+        "symfony/string": "^6.4",
+        "symfony/translation-contracts": "^3.5",
+        "tinymce/tinymce": "^8.0"
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.7",
+        "composer/composer": "^2.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
         "magento-ecg/coding-standard": "^4.5",
+        "n98/magerun": "dev-develop",
         "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",
-        "phpstan/phpstan": "^2.1",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1.18",
+        "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.6",
-        "rector/rector": "^2.0.5",
+        "rector/rector": "^2.1.7",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
@@ -76,7 +83,7 @@
         {
             "name": "Daniel Fahlke aka Flyingmana",
             "email": "flyingmana@googlemail.com",
-            "role": "Maintainer"
+            "role": "retired Maintainer"
         },
         {
             "name": "David Robinson",
@@ -100,6 +107,10 @@
         }
     ],
     "autoload-dev": {
+        "classmap": [
+            "app/code/*/*/*/controllers",
+            "app/code/*/*/*/Controller"
+        ],
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
@@ -107,16 +118,20 @@
     "extra": {
         "patches": {
             "magento-ecg/coding-standard": {
-                "PR-72 - Fix LoopSniff": "https://patch-diff.githubusercontent.com/raw/magento-ecg/coding-standard/pull/72.patch"
+                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
+            },
+            "phpseclib/mcrypt_compat": {
+                "OM-4891 - PHP 8.5 compability": ".vendor-patches/OM-4891.patch"
             },
             "shardj/zf1-future": {
-                "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/composer-patches/2ebdd7e4d2f70b11f91bd7a1bb3c5cf995a7bf93/patches/MAG-1.1.1.patch",
-                "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/composer-patches/0cc46b2487b2913d16fe308adbb1b0c2a336cdb4/patches/MAG-1.9.3.0.patch",
-                "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.7.patch",
-                "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-918.patch",
-                "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-1081.patch",
-                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
+                "MAG-1.1.1": ".vendor-patches/MAG-1.1.1.patch",
+                "MAG-1.9.3.0": ".vendor-patches/MAG-1.9.3.0.patch",
+                "MAG-1.9.3.7 - SUPEE-10415": ".vendor-patches/MAG-1.9.3.7.patch",
+                "OM-918 - Add runtime cache to Zend_Locale_Data": ".vendor-patches/OM-918.patch",
+                "OM-1081 - Not detecting HTTPS behind a proxy": ".vendor-patches/OM-1081.patch",
+                "OM-2047 - Pass delimiter char to preg_quote": ".vendor-patches/OM-2047.patch",
+                "OM-2050 - Prevent checking known date codes": ".vendor-patches/OM-2050.patch",
+                "OM-4297 - PHP 8.4 compability": ".vendor-patches/OM-4297.patch"
             }
         },
         "magento-root-dir": ".",
@@ -134,12 +149,16 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento-hackathon/magento-composer-installer": true,
-            "openmage/composer-plugin": true
+            "openmage/composer-plugin": true,
+            "phpstan/extension-installer": true
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "sort-packages": true
+    },
+    "suggest": {
+        "n98/magerun": "The n98 magerun cli tools provides some handy tools to work with Magento from command line."
     },
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
@@ -147,11 +166,18 @@
         "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
         "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.neon",
-        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage --testdox",
-        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
-        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage --testdox",
+        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
-        "rector:fix": "vendor/bin/rector --config .rector.php process"
+        "rector:test:debug": "vendor/bin/rector process --config .rector.php --dry-run --debug",
+        "rector:fix": "vendor/bin/rector process --config .rector.php",
+        "vendor:patch": "vendor/bin/vendor-patches generate --patches-folder=.vendor-patches",
+        "test": [
+            "@php-cs-fixer:test",
+            "@phpstan",
+            "@phpunit:test"
+        ]
     },
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
@@ -163,6 +189,9 @@
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
         "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",
         "rector:test": "Run rector",
-        "rector:fix": "Run rector and fix issues"
+        "rector:test:debug": "Run rector with debug option",
+        "rector:fix": "Run rector and fix issues",
+        "vendor:patch": "Create patch file",
+        "test": "Run php-cs-fixer, phpstan & phpunit"
     }
 }

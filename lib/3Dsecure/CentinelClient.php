@@ -1,4 +1,5 @@
 <?php
+
 // Distributed by license from CardinalCommerce Corporation
 /////////////////////////////////////////////////////////////////////////////////////////////
 //  CardinalCommerce (http://www.cardinalcommerce.com)
@@ -12,150 +13,159 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-    require("XMLParser.php");
-	include "CentinelErrors.php";
+require('XMLParser.php');
+include 'CentinelErrors.php';
 
-    class CentinelClient {
+class CentinelClient
+{
+    public $request ;
 
-		var $request ;
-		var $response ;
-		var $parser;
+    public $response ;
 
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Function Add(name, value)
-		//
-		// Add name/value pairs to the Centinel request collection.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+    public $parser;
 
-
-		function add($name, $value) {
-			 $this->request[$name] = $this->escapeXML($value);
-		}
-
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Function getValue(name)
-		//
-		// Retrieve a specific value for the give name within the Centinel response collection.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function Add(name, value)
+    //
+    // Add name/value pairs to the Centinel request collection.
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-		function getValue($name) {
-		    if (isset($this->response[$name])) {
-                return $this->response[$name];
-		    }else{
-		        return "";
-		    }
-		}
+    public function add($name, $value)
+    {
+        $this->request[$name] = $this->escapeXML($value);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function getValue(name)
+    //
+    // Retrieve a specific value for the give name within the Centinel response collection.
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        // Function getRequestXml(name)
-        //
-        // Serialize all elements of the request collection into a XML message, and format the required
-        // form payload according to the Centinel XML Message APIs. The form payload is returned from
-        // the function.
-        /////////////////////////////////////////////////////////////////////////////////////////////
+    public function getValue($name)
+    {
+        if (isset($this->response[$name])) {
+            return $this->response[$name];
+        } else {
+            return '';
+        }
+    }
 
 
-        function getRequestXml()
-        {
-            $queryString = "<CardinalMPI>";
-            foreach ($this->request as $name => $value) {
-                $queryString = $queryString . "<" . ($name) . ">" . ($value) . "</" . ($name) . ">";
-            }
-            $queryString = $queryString . "</CardinalMPI>";
-            return "cmpi_msg=" . urlencode($queryString);
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function getRequestXml(name)
+    //
+    // Serialize all elements of the request collection into a XML message, and format the required
+    // form payload according to the Centinel XML Message APIs. The form payload is returned from
+    // the function.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public function getRequestXml()
+    {
+        $queryString = '<CardinalMPI>';
+        foreach ($this->request as $name => $value) {
+            $queryString = $queryString . '<' . ($name) . '>' . ($value) . '</' . ($name) . '>';
         }
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        // Function sendHttp(url, "", $timeout)
-        //
-        // HTTP POST the form payload to the url using cURL.
-        // form payload according to the Centinel XML Message APIs. The form payload is returned from
-        // the function.
-        /////////////////////////////////////////////////////////////////////////////////////////////
+        $queryString .= '</CardinalMPI>';
+        return 'cmpi_msg=' . urlencode($queryString);
+    }
 
-        function sendHttp($url, $connectTimeout, $timeout)
-        {
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function sendHttp(url, "", $timeout)
+    //
+    // HTTP POST the form payload to the url using cURL.
+    // form payload according to the Centinel XML Message APIs. The form payload is returned from
+    // the function.
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
-            // verify that the URL uses a supported protocol.
+    public function sendHttp($url, $connectTimeout, $timeout)
+    {
 
-            if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
+        // verify that the URL uses a supported protocol.
 
-                //Construct the payload to POST to the url.
+        if ((str_starts_with($url, 'http://')) || (str_starts_with($url, 'https://'))) {
 
-                $data = $this->getRequestXml();
-                // create a new cURL resource
+            //Construct the payload to POST to the url.
 
-                $ch = curl_init($url);
+            $data = $this->getRequestXml();
+            // create a new cURL resource
 
-                // set URL and other appropriate options
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            $ch = curl_init($url);
 
-                // Execute the request.
+            // set URL and other appropriate options
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 
-                $result = curl_exec($ch);
-                $succeeded = curl_errno($ch) == 0 ? true : false;
+            // Execute the request.
 
-                // close cURL resource, and free up system resources
+            $result = curl_exec($ch);
+            $succeeded = curl_errno($ch) == 0 ? true : false;
 
-                curl_close($ch);
+            // close cURL resource, and free up system resources
 
-				// If Communication was not successful set error result, otherwise
+            curl_close($ch);
 
-				if(!$succeeded) {
+            // If Communication was not successful set error result, otherwise
 
-					$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8030, CENTINEL_ERROR_CODE_8030_DESC);
+            if (!$succeeded) {
 
-				}
+                $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8030, CENTINEL_ERROR_CODE_8030_DESC);
 
-				// Assert that we received an expected Centinel Message in response.
+            }
 
-				if (strpos($result, "<CardinalMPI>") === false) {
-					$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
-				}
+            // Assert that we received an expected Centinel Message in response.
+
+            if (!str_contains($result, '<CardinalMPI>')) {
+                $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
+            }
 
 
-			} else {
-				$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8000, CENTINEL_ERROR_CODE_8000_DESC);
-			}
-			$parser = new XMLParser;
-			$parser->deserializeXml($result);
-			$this->response = $parser->deserializedResponse;
-		}
+        } else {
+            $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8000, CENTINEL_ERROR_CODE_8000_DESC);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Function setErrorResponse(errorNo, errorDesc)
-		//
-		// Initialize an Error response to ensure that parsing will be handled properly.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+        $parser = new XMLParser();
+        $parser->deserializeXml($result);
 
-		function setErrorResponse($errorNo, $errorDesc) {
+        $this->response = $parser->deserializedResponse;
+    }
 
-		  $resultText  = "<CardinalMPI>";
-		  $resultText = $resultText."<ErrorNo>".($errorNo)."</ErrorNo>" ;
-		  $resultText = $resultText."<ErrorDesc>".($errorDesc)."</ErrorDesc>" ;
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function setErrorResponse(errorNo, errorDesc)
+    //
+    // Initialize an Error response to ensure that parsing will be handled properly.
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
-		  return $resultText."</CardinalMPI>";
-		}
+    public function setErrorResponse($errorNo, $errorDesc)
+    {
 
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Function escapeXML(value)
-		//
-		// Escaped string converting all '&' to '&amp;' and all '<' to '&lt'. Return the escaped value.
-		/////////////////////////////////////////////////////////////////////////////////////////////
+        $resultText  = '<CardinalMPI>';
+        $resultText = $resultText . '<ErrorNo>' . ($errorNo) . '</ErrorNo>' ;
+        $resultText = $resultText . '<ErrorDesc>' . ($errorDesc) . '</ErrorDesc>' ;
 
-		function escapeXML($elementValue){
+        return $resultText . '</CardinalMPI>';
+    }
 
-			$escapedValue = str_replace("&", "&amp;", $elementValue);
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function escapeXML(value)
+    //
+    // Escaped string converting all '&' to '&amp;' and all '<' to '&lt'. Return the escaped value.
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
-			return str_replace("<", "&lt;", $escapedValue);
+    public function escapeXML($elementValue)
+    {
 
-		}
+        $escapedValue = str_replace('&', '&amp;', $elementValue);
 
-	}
+        return str_replace('<', '&lt;', $escapedValue);
+
+    }
+
+}

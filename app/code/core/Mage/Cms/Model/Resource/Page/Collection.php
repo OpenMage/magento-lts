@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS page collection
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -107,6 +99,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
                         if (!isset($result[$item->getDataByKey('page_id')])) {
                             continue;
                         }
+
                         if ($result[$item->getDataByKey('page_id')] == 0) {
                             $stores = Mage::app()->getStores(false, true);
                             $storeId = current($stores)->getId();
@@ -115,6 +108,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
                             $storeId = $result[$item->getDataByKey('page_id')];
                             $storeCode = Mage::app()->getStore($storeId)->getCode();
                         }
+
                         $item->setData('_first_store_id', $storeId);
                         $item->setData('store_code', $storeCode);
                     }
@@ -149,6 +143,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
             $this->addFilter('store', ['in' => $store], 'public');
         }
+
         return $this;
     }
 
@@ -170,6 +165,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
              */
             $this->_useAnalyticFunction = true;
         }
+
         parent::_renderFiltersBefore();
     }
 

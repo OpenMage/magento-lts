@@ -1,29 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sftp client interface
  *
- * @category   Varien
  * @package    Varien_Io
  * @link        http://www.php.net/manual/en/function.ssh2-connect.php
  */
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 {
     public const REMOTE_TIMEOUT = 10;
+
     public const SSH2_PORT = 22;
 
     /**
@@ -46,15 +39,17 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (!isset($args['timeout'])) {
             $args['timeout'] = self::REMOTE_TIMEOUT;
         }
-        if (strpos($args['host'], ':') !== false) {
-            list($host, $port) = explode(':', $args['host'], 2);
+
+        if (str_contains($args['host'], ':')) {
+            [$host, $port] = explode(':', $args['host'], 2);
         } else {
             $host = $args['host'];
             $port = self::SSH2_PORT;
         }
+
         $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
-            throw new Exception(sprintf(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host'])));
+            throw new Exception(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host']));
         }
     }
 
@@ -87,6 +82,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             while ($no_errors && ($dir_item = next($dirlist))) {
                 $no_errors = ($this->_connection->mkdir($dir_item) && $this->_connection->chdir($dir_item));
             }
+
             $this->_connection->chdir($cwd);
             return $no_errors;
         } else {
@@ -106,6 +102,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             if (!$this->_connection->chdir($dir)) {
                 throw new Exception("chdir(): $dir: Not a directory");
             }
+
             $list = $this->_connection->nlist();
             if (!count($list)) {
                 // Go back
@@ -121,6 +118,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                     }
                 }
             }
+
             return $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
         } else {
             return $this->_connection->rmdir($dir);
@@ -154,6 +152,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (is_null($dest)) {
             $dest = false;
         }
+
         return $this->_connection->get($filename, $dest);
     }
 
@@ -208,6 +207,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                 'id' => "{$pwd}{$name}",
             ];
         }
+
         return $result;
     }
 
@@ -220,7 +220,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Write a file
      * @param  string $filename remote filename
      * @param  string $src local filename
-     * @return boolean
+     * @return bool
      */
     public function writeFile($filename, $src)
     {

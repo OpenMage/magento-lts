@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms manage pages controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
@@ -150,6 +142,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                     $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                     return;
                 }
+
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
@@ -166,6 +159,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -200,6 +194,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         // display error message
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a page to delete.'));
         // go to grid
@@ -223,15 +218,13 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'new':
-            case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-            case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-        }
+        $aclPath = match ($action) {
+            'new', 'save' => 'cms/page/save',
+            'delete' => 'cms/page/delete',
+            default => 'cms/page',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 
     /**
@@ -260,15 +253,18 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
                 $errorNo = false;
             }
+
             if (!empty($data['custom_layout_update_xml'])
                 && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
             ) {
                 $errorNo = false;
             }
+
             foreach ($validatorCustomLayout->getMessages() as $message) {
                 $this->_getSession()->addError($message);
             }
         }
+
         return $errorNo;
     }
 }

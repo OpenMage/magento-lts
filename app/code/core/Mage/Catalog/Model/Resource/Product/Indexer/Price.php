@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Price Indexer Resource Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model_Resource_Abstract
@@ -227,6 +219,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
+
         $this->reindexProductIds($processIds);
         return $this;
     }
@@ -242,9 +235,11 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if (empty($ids)) {
             return $this;
         }
+
         if (!is_array($ids)) {
             $ids = [$ids];
         }
+
         $this->clearTemporaryIndexTable();
         $write  = $this->_getWriteAdapter();
         // retrieve products types
@@ -319,6 +314,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if (!isset($types[$productTypeId])) {
             Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
         }
+
         return $types[$productTypeId];
     }
 
@@ -373,6 +369,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -587,6 +584,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             if ($data) {
                 $write->insertMultiple($table, $data);
             }
+
             $write->commit();
         } catch (Exception $e) {
             $write->rollBack();
@@ -607,6 +605,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

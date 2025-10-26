@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Provides basic logic for hashing passwords and encrypting/decrypting misc data
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Encryption
 {
     public const HASH_VERSION_MD5    = 0;
+
     public const HASH_VERSION_SHA256 = 1;
+
     public const HASH_VERSION_SHA512 = 2;
 
     /**
@@ -75,6 +69,7 @@ class Mage_Core_Model_Encryption
         if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
+
         return $salt === false
             ? $this->hash($password)
             : $this->hash($salt . $password, self::HASH_VERSION_SHA256) . ':' . $salt;
@@ -92,6 +87,7 @@ class Mage_Core_Model_Encryption
         if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
+
         return (bool) $salt
             ? $this->hash($salt . $password, $this->_helper->getVersionHash($this)) . ':' . $salt
             : $this->hash($password, $this->_helper->getVersionHash($this));
@@ -113,6 +109,7 @@ class Mage_Core_Model_Encryption
         } elseif (self::HASH_VERSION_SHA512 == $version) {
             return hash('sha512', $data);
         }
+
         return md5($data);
     }
 
@@ -149,12 +146,14 @@ class Mage_Core_Model_Encryption
         if ($version == self::HASH_VERSION_LATEST && $version == $this->_helper->getVersionHash($this)) {
             return password_verify($password, $hash);
         }
+
         // look for salt
         $hashArr = explode(':', $hash, 2);
         if (count($hashArr) === 1) {
             return hash_equals($this->hash($password, $version), $hash);
         }
-        list($hash, $salt) = $hashArr;
+
+        [$hash, $salt] = $hashArr;
         return hash_equals($this->hash($salt . $password, $version), $hash);
     }
 
@@ -170,8 +169,10 @@ class Mage_Core_Model_Encryption
             if ($key === null) {
                 $key = (string) Mage::getConfig()->getNode('global/crypt/key');
             }
+
             $this->_crypt = Varien_Crypt::factory()->init($key);
         }
+
         return $this->_crypt;
     }
 

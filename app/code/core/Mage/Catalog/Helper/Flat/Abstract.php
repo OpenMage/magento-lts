@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog flat abstract helper
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstract
@@ -79,6 +71,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
             $this->_isAccessible = $this->isEnabled()
                 && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
         }
+
         return $this->_isAccessible;
     }
 
@@ -92,6 +85,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
         if (is_null($this->_isAvailable)) {
             $this->_isAvailable = $this->isAccessible() && !$this->getProcess()->isLocked();
         }
+
         return $this->_isAvailable;
     }
 
@@ -106,6 +100,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
             $this->_process = Mage::getModel('index/process')
                 ->load($this->_indexerCode, 'indexer_code');
         }
+
         return $this->_process;
     }
 }

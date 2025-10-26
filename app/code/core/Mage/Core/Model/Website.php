@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Website model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
@@ -34,7 +26,9 @@
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_Core_Api_Data_WebsiteInterface
 {
     public const ENTITY    = 'core_website';
+
     public const CACHE_TAG = 'website';
+
     protected $_cacheTag = true;
 
     /**
@@ -148,6 +142,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             $this->_getResource()->load($this, $id, 'code');
             return $this;
         }
+
         return parent::load($id, $field);
     }
 
@@ -162,6 +157,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (!Mage::getConfig()->getNode('websites')) {
             return $this;
         }
+
         if (is_numeric($code)) {
             foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int) $website->system->website->id == $code) {
@@ -172,11 +168,13 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         } else {
             $website = Mage::getConfig()->getNode('websites/' . $code);
         }
+
         if (!empty($website)) {
             $this->setCode($code);
             $id = (int) $website->system->website->id;
             $this->setId($id)->setStoreId($id);
         }
+
         return $this;
     }
 
@@ -194,6 +192,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));
             }
+
             if ($config->hasChildren()) {
                 $value = [];
                 foreach ($config->children() as $k => $v) {
@@ -202,8 +201,10 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             } else {
                 $value = (string) $config;
             }
+
             $this->_configCache[$path] = $value;
         }
+
         return $this->_configCache[$path];
     }
 
@@ -222,6 +223,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
+
             $this->_groupsCount++;
         }
     }
@@ -243,8 +245,10 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
+
             $this->_groupsCount++;
         }
+
         return $this;
     }
 
@@ -270,6 +274,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groups;
     }
 
@@ -283,6 +288,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groupIds;
     }
 
@@ -296,6 +302,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groupsCount;
     }
 
@@ -309,9 +316,11 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (!$this->hasData('default_group_id')) {
             return false;
         }
+
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_defaultGroup;
     }
 
@@ -331,6 +340,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -352,6 +362,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -378,6 +389,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_stores;
     }
 
@@ -391,6 +403,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeIds;
     }
 
@@ -404,6 +417,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeCodes;
     }
 
@@ -417,6 +431,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storesCount;
     }
 
@@ -430,10 +445,12 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if ($this->_isReadOnly || !$this->getId()) {
             return false;
         }
+
         if (is_null($this->_isCanDelete)) {
             $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2)
                 && !$this->getIsDefault();
         }
+
         return $this->_isCanDelete;
     }
 
@@ -498,6 +515,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
         }
+
         return $currency;
     }
 
@@ -536,6 +554,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_C
         if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
+
         return $this->_isReadOnly;
     }
 

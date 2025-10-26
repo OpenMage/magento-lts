@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Auth session model
  *
- * @category   Mage
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Acl getAcl()
@@ -161,6 +153,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 }
+
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
@@ -203,15 +196,19 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->getResource()->saveReloadAclFlag($user, 0);
         }
+
         return $this;
     }
 
@@ -237,15 +234,16 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 try {
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }
+
         return false;
     }
 
@@ -269,6 +267,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_isFirstPageAfterLogin)) {
             $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
         }
+
         return $this->_isFirstPageAfterLogin;
     }
 
@@ -316,7 +315,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 'user_name' => $username,
                 'exception' => $e,
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         if ($request && !$request->getParam('messageSent')) {

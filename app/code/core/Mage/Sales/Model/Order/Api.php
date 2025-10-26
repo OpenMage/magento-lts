@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order API
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
@@ -117,9 +109,11 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         foreach ($orderCollection as $order) {
             $orders[] = $this->_getAttributes($order, 'order');
         }
+
         return $orders;
     }
 
@@ -192,7 +186,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
 
             $order->save();
             $order->sendOrderUpdateEmail($notify, $comment);
-            if ($notify && $comment) {
+            if (isset($oldStore, $oldArea) && $notify && $comment) {
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
@@ -256,15 +250,18 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         if (Mage_Sales_Model_Order::STATE_CANCELED == $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         try {
             $order->cancel();
             $order->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
         }
+
         if (Mage_Sales_Model_Order::STATE_CANCELED != $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         return true;
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API User ACL model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl extends Zend_Acl
@@ -58,9 +50,11 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         if (!isset($options['resource_type']) || empty($options['resource_type'])) {
             throw new Exception("Passed parameter 'resource_type' is wrong.");
         }
+
         if (!isset($options['operation']) || empty($options['operation'])) {
             throw new Exception("Passed parameter 'operation' is wrong.");
         }
+
         $this->_resourceType = $options['resource_type'];
         $this->_operation = $options['operation'];
 
@@ -79,6 +73,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         if ($this->_rolesCollection === null) {
             $this->_rolesCollection = Mage::getResourceModel('api2/acl_global_role_collection');
         }
+
         return $this->_rolesCollection;
     }
 
@@ -92,6 +87,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         if ($this->_config === null) {
             $this->_config = Mage::getModel('api2/config');
         }
+
         return $this->_config;
     }
 
@@ -105,6 +101,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         foreach ($this->_getConfig()->getResourcesTypes() as $type) {
             $this->addResource($type);
         }
+
         return $this;
     }
 
@@ -119,6 +116,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         foreach ($this->_getRolesCollection() as $role) {
             $this->addRole($role->getId());
         }
+
         return $this;
     }
 
@@ -153,6 +151,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
                 $this->allow($rule->getRoleId(), $rule->getResourceId(), $rule->getPrivilege());
             }
         }
+
         return $this;
     }
 
@@ -169,6 +168,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
         if (!is_numeric($roleId)) {
             throw new Exception('Invalid role identifier');
         }
+
         return parent::addRole((string) $roleId);
     }
 }

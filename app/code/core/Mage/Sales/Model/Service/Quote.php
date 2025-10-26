@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote submit service model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Service_Quote
@@ -131,6 +123,7 @@ class Mage_Sales_Model_Service_Quote
         if ($quote->getCustomerId()) {
             $transaction->addObject($quote->getCustomer());
         }
+
         $transaction->addObject($quote);
 
         $quote->reserveOrderId();
@@ -139,16 +132,19 @@ class Mage_Sales_Model_Service_Quote
         } else {
             $order = $this->_convertor->addressToOrder($quote->getShippingAddress());
         }
+
         $order->setBillingAddress($this->_convertor->addressToOrderAddress($quote->getBillingAddress()));
         if ($quote->getBillingAddress()->getCustomerAddress()) {
             $order->getBillingAddress()->setCustomerAddress($quote->getBillingAddress()->getCustomerAddress());
         }
+
         if (!$isVirtual) {
             $order->setShippingAddress($this->_convertor->addressToOrderAddress($quote->getShippingAddress()));
             if ($quote->getShippingAddress()->getCustomerAddress()) {
                 $order->getShippingAddress()->setCustomerAddress($quote->getShippingAddress()->getCustomerAddress());
             }
         }
+
         $order->setPayment($this->_convertor->paymentToOrderPayment($quote->getPayment()));
 
         foreach ($this->_orderData as $key => $value) {
@@ -160,6 +156,7 @@ class Mage_Sales_Model_Service_Quote
             if ($item->getParentItem()) {
                 $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
             }
+
             $order->addItem($orderItem);
         }
 
@@ -196,6 +193,7 @@ class Mage_Sales_Model_Service_Quote
             Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
             throw $e;
         }
+
         $this->_inactivateQuote();
         Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order' => $order, 'quote' => $quote]);
         Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order' => $order, 'quote' => $quote]);
@@ -231,11 +229,13 @@ class Mage_Sales_Model_Service_Quote
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
             throw $e;
         }
+
         // no need to submit the order if there are no normal items remained
         if (!$this->_quote->getAllVisibleItems()) {
             $this->_inactivateQuote();
             return;
         }
+
         $this->submitOrder();
     }
 
@@ -269,6 +269,7 @@ class Mage_Sales_Model_Service_Quote
         if ($this->_shouldInactivateQuote) {
             $this->_quote->setIsActive(false);
         }
+
         return $this;
     }
 
@@ -287,6 +288,7 @@ class Mage_Sales_Model_Service_Quote
                     Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation)),
                 );
             }
+
             $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
@@ -318,8 +320,10 @@ class Mage_Sales_Model_Service_Quote
             if (!$profile->isValid()) {
                 Mage::throwException($profile->getValidationErrors(true, true));
             }
+
             $profile->submit();
         }
+
         $this->_recurringPaymentProfiles = $profiles;
     }
 

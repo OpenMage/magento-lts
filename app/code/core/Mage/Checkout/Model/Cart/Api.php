@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
@@ -51,6 +43,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('create_quote_fault', $e->getMessage());
         }
+
         return (int) $quote->getId();
     }
 
@@ -109,6 +102,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                 'amount' => $total->getValue(),
             ];
         }
+
         return $totalsResult;
     }
 
@@ -134,6 +128,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         if ($quote->getIsMultiShipping()) {
             $this->_fault('invalid_checkout_type');
         }
+
         if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
                 && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())
         ) {

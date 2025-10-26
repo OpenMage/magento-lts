@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag model
  *
- * @category   Mage
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Tag _getResource()
@@ -47,13 +39,18 @@
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
     public const STATUS_DISABLED = -1;
+
     public const STATUS_PENDING = 0;
+
     public const STATUS_APPROVED = 1;
 
     // statuses for tag relation add
     public const ADD_STATUS_SUCCESS = 'success';
+
     public const ADD_STATUS_NEW = 'new';
+
     public const ADD_STATUS_EXIST = 'exist';
+
     public const ADD_STATUS_REJECTED = 'rejected';
 
     /**
@@ -381,11 +378,13 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     } else {
                         $relationModelSaveNeed = true;
                     }
+
                     $result = self::ADD_STATUS_EXIST;
                 } else {
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_SUCCESS;
                 }
+
                 break;
             case $this->getPendingStatus():
                 $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
@@ -397,6 +396,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                 } else {
                     $relationModelSaveNeed = true;
                 }
+
                 $result = self::ADD_STATUS_NEW;
                 break;
             case $this->getDisabledStatus():
@@ -407,8 +407,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_NEW;
                 }
+
                 break;
         }
+
         if ($relationModelSaveNeed) {
             $relationModel->save();
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Store group model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Store_Group _getResource()
@@ -39,6 +31,7 @@
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
     public const ENTITY         = 'store_group';
+
     public const CACHE_TAG      = 'store_group';
 
     protected $_cacheTag = true;
@@ -126,6 +119,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -147,6 +141,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -173,6 +168,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_stores;
     }
 
@@ -186,6 +182,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeIds;
     }
 
@@ -199,6 +196,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeCodes;
     }
 
@@ -210,6 +208,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storesCount;
     }
 
@@ -223,9 +222,11 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (!$this->hasDefaultStoreId()) {
             return false;
         }
+
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_defaultStore;
     }
 
@@ -265,6 +266,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
                 $stores[] = $store;
             }
         }
+
         return $stores;
     }
 
@@ -286,9 +288,11 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->getWebsiteId())) {
             return false;
         }
+
         if (is_null($this->_website)) {
             $this->_website = Mage::app()->getWebsite($this->getWebsiteId());
         }
+
         return $this->_website;
     }
 
@@ -350,6 +354,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
+
         return $this->_isReadOnly;
     }
 }

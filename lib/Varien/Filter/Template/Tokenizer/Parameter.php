@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template constructions parameters tokenizer
  *
- * @category   Varien
  * @package    Varien_Filter
  */
 
@@ -42,6 +34,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
                 $parameterName = '';
             }
         }
+
         return $parameters;
     }
 
@@ -57,6 +50,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         if ($this->isWhiteSpace()) {
             return $value;
         }
+
         $quoteStart = $this->char() == "'" || $this->char() == '"';
 
         if ($quoteStart) {

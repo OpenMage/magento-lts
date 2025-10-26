@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist Product Items abstract Block
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_Abstract
@@ -206,6 +198,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         } else {
             $id = $product->getId();
         }
+
         $params = ['id' => $id];
 
         return $this->getUrl('wishlist/index/configure/', $params);
@@ -222,13 +215,14 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if ($item->getDescription()) {
             return $this->escapeHtml($item->getDescription());
         }
+
         return '&nbsp;';
     }
 
     /**
      * Check Wishlist item has description
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return bool
      */
     public function hasDescription($item)
@@ -285,6 +279,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$qty) {
             $qty = 1;
         }
+
         return $qty;
     }
 
@@ -334,6 +329,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                 ->setTemplate($template);
             $this->_cachedItemPriceBlocks[$productType] = $block;
         }
+
         return $this->_cachedItemPriceBlocks[$productType];
     }
 
@@ -384,6 +380,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         } else {
             $product = $item->getProduct();
         }
+
         $buyRequest = $item->getBuyRequest();
         if (is_object($buyRequest)) {
             $config = $buyRequest->getSuperProductConfig();
@@ -393,6 +390,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                     ->load($config['product_id']);
             }
         }
+
         return parent::getProductUrl($product, $additional);
     }
 
@@ -408,6 +406,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getAddUrlWithCustomParams($product, [], false);
         }
+
         return $this->_getHelper()->getAddUrl($product);
     }
 
@@ -423,6 +422,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getRemoveUrlCustom($item, false);
         }
+
         return $this->_getHelper()->getRemoveUrl($item);
     }
 
@@ -438,6 +438,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getAddToCartUrlCustom($item, false);
         }
+
         return $this->_getHelper()->getAddToCartUrl($item);
     }
 }

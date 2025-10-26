@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product media gallery attribute backend model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
@@ -50,6 +42,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     $image[$localAttribute . '_use_default'] = false;
                 }
             }
+
             $value['images'][] = $image;
         }
 
@@ -79,11 +72,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
             if ($this->getAttribute()->isValueEmpty($value)) {
-                if (!(is_array($value) && count($value) > 0)) {
+                if (!(is_array($value) && $value !== [])) {
                     return false;
                 }
             }
         }
+
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
@@ -107,7 +101,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             return;
         }
 
-        if (!is_array($value['images']) && strlen($value['images']) > 0) {
+        if (!is_array($value['images']) && (string) $value['images'] !== '') {
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
@@ -115,7 +109,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['values'] = [];
         }
 
-        if (!is_array($value['values']) && strlen($value['values']) > 0) {
+        if (!is_array($value['values']) && (string) $value['values'] !== '') {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
 
@@ -147,6 +141,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!isset($image['value_id'])) {
                     continue;
                 }
+
                 $newFile = $this->_copyImage($image['file']);
                 $newImages[$image['file']] = [
                     'new_file' => $newFile,
@@ -238,6 +233,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
                     $toDelete[] = $image['value_id'];
                 }
+
                 continue;
             }
 
@@ -256,6 +252,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!isset($image['label_use_default'])) {
                     $image['label_use_default'] = null;
                 }
+
                 if (!isset($image['position_use_default'])) {
                     $image['position_use_default'] = null;
                 }
@@ -322,6 +319,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $ioAdapter = new Varien_Io_File();
         $ioAdapter->setAllowCreateFolders(true);
+
         $distanationDirectory = dirname($this->_getConfig()->getTmpMediaPath($fileName));
 
         try {
@@ -586,7 +584,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
         try {
             $ioObject->open(['path' => $destDirectory]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $ioObject->mkdir($destDirectory, 0777, true);
             $ioObject->open(['path' => $destDirectory]);
         }
@@ -594,6 +592,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (strrpos($file, '.tmp') == strlen($file) - 4) {
             $file = substr($file, 0, -4);
         }
+
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
         /** @var Mage_Core_Helper_File_Storage_Database $storageHelper */
@@ -674,7 +673,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     $this->_getConfig()->getMediaPath($destFile),
                 );
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $file = $this->_getConfig()->getMediaPath($file);
             $io = new Varien_Io_File();
             Mage::throwException(

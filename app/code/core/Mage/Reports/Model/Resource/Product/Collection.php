@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Products Report collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -65,6 +57,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         parent::__construct();
     }
+
     /**
      * Set Type for COUNT SQL Select
      *
@@ -354,6 +347,10 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
         }
 
+        if (!isset($productViewEvent)) {
+            return $this;
+        }
+
         $this->getSelect()->reset()
             ->from(
                 ['report_table_views' => $this->getTable('reports/event')],
@@ -411,6 +408,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         if (!is_array($websiteIds)) {
             $websiteIds = [$websiteIds];
         }

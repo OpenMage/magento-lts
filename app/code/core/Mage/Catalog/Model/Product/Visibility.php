@@ -1,30 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product visibilite model and attribute source model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 {
     public const VISIBILITY_NOT_VISIBLE    = 1;
+
     public const VISIBILITY_IN_CATALOG     = 2;
+
     public const VISIBILITY_IN_SEARCH      = 3;
+
     public const VISIBILITY_BOTH           = 4;
 
     /**
@@ -55,6 +50,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInCatalogIds());
         return $this;
     }
+
     /**
      * Add visibility in searchfilter to collection
      *
@@ -66,6 +62,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInSearchIds());
         return $this;
     }
+
     /**
      * Add visibility in site filter to collection
      *
@@ -160,6 +157,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 

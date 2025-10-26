@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Data Helper
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
@@ -41,8 +33,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths to VAT related customer groups
      */
     public const XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP = 'customer/create_account/viv_intra_union_group';
+
     public const XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP = 'customer/create_account/viv_domestic_group';
+
     public const XML_PATH_CUSTOMER_VIV_INVALID_GROUP = 'customer/create_account/viv_invalid_group';
+
     public const XML_PATH_CUSTOMER_VIV_ERROR_GROUP = 'customer/create_account/viv_error_group';
 
     /**
@@ -77,15 +72,20 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Configuration path to password forgotten flow change
      */
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE = 'admin/security/forgot_password_flow_secure';
+
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES = 'admin/security/forgot_password_email_times';
+
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES    = 'admin/security/forgot_password_ip_times';
 
     /**
      * VAT class constants
      */
     public const VAT_CLASS_DOMESTIC    = 'domestic';
+
     public const VAT_CLASS_INTRA_UNION = 'intra_union';
+
     public const VAT_CLASS_INVALID     = 'invalid';
+
     public const VAT_CLASS_ERROR       = 'error';
 
     protected $_moduleName = 'Mage_Customer';
@@ -122,6 +122,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($this->_customer)) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
+
         return $this->_customer;
     }
 
@@ -137,6 +138,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 ->setRealGroupsFilter()
                 ->load();
         }
+
         return $this->_groups;
     }
 
@@ -186,6 +188,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
             }
         }
+
         return $name;
     }
 
@@ -261,6 +264,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME),
             ];
         }
+
         return $this->_getUrl('customer/account/loginPost', $params);
     }
 
@@ -415,12 +419,14 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($options)) {
             return false;
         }
+
         $result = [];
         $options = explode(';', $options);
         foreach ($options as $value) {
             $value = $this->escapeHtml(trim($value));
             $result[$value] = $value;
         }
+
         return $result;
     }
 
@@ -585,7 +591,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $gatewayResponse->setIsValid(false);
             $gatewayResponse->setRequestDate('');
             $gatewayResponse->setRequestIdentifier('');

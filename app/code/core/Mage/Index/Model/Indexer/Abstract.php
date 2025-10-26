@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract index process class
  * Predefine list of methods required by indexer
  *
- * @category   Mage
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Abstract _getResource()
@@ -79,6 +71,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if ($this->matchEvent($event)) {
             $this->_registerEvent($event);
         }
+
         return $this;
     }
 
@@ -92,6 +85,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if ($this->matchEvent($event)) {
             $this->_processEvent($event);
         }
+
         return $this;
     }
 
@@ -121,6 +115,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -150,6 +145,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if (method_exists($resourceModel, $method)) {
             $resourceModel->$method($event);
         }
+
         return $this;
     }
 

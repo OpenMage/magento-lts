@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports Product Index Abstract Product Resource Collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract extends Mage_Catalog_Model_Resource_Product_Collection
@@ -63,6 +55,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
             );
             $this->setFlag('is_idx_table_joined', true);
         }
+
         return $this;
     }
 
@@ -93,6 +86,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         } else {
             $this->getSelect()->where('e.entity_id IN(?)', $ids);
         }
+
         return $this;
     }
 
@@ -139,6 +133,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if ($this->getFlag('is_idx_table_joined')) {
             $this->getSelect()->order('added_at ' . $dir);
         }
+
         return $this;
     }
 
@@ -167,8 +162,10 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
                     $orderedItems[$id] = $this->_items[$id];
                 }
             }
+
             $this->_items = $orderedItems;
         }
+
         return $this;
     }
 
@@ -195,6 +192,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if (empty($productIds)) {
             return $this;
         }
+
         $this->_joinIdxTable();
         $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
         return $this;

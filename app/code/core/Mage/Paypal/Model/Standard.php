@@ -1,33 +1,30 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  *
  * PayPal Standard Checkout Module
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = Mage_Paypal_Model_Config::METHOD_WPS;
+
     protected $_formBlockType = 'paypal/standard_form';
+
     protected $_infoBlockType = 'paypal/payment_info';
+
     protected $_isInitializeNeeded      = true;
+
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
 
     /**
@@ -162,8 +159,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
             }
+
             $this->_config = Mage::getModel('paypal/config', $params);
         }
+
         return $this->_config;
     }
 
@@ -177,6 +176,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if (parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable()) {
             return true;
         }
+
         return false;
     }
 
@@ -202,6 +202,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if ($this->_config->lineItemsSummary) {
             return $this->_config->lineItemsSummary;
         }
+
         return Mage::app()->getStore($this->getStore())->getFrontendName();
     }
 }

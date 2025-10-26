@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Indexer strategy
  *
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Model_Indexer
@@ -77,6 +69,7 @@ class Mage_Index_Model_Indexer
         if (is_null($this->_processesCollection)) {
             $this->_processesCollection = Mage::getResourceModel('index/process_collection');
         }
+
         return $this->_processesCollection;
     }
 
@@ -84,7 +77,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific id
      *
      * @param int $processId
-     * @return Mage_Index_Model_Process | false
+     * @return Mage_Index_Model_Process|false
      */
     public function getProcessById($processId)
     {
@@ -93,6 +86,7 @@ class Mage_Index_Model_Indexer
                 return $process;
             }
         }
+
         return false;
     }
 
@@ -109,6 +103,7 @@ class Mage_Index_Model_Indexer
                 return $process;
             }
         }
+
         return false;
     }
 
@@ -127,8 +122,10 @@ class Mage_Index_Model_Indexer
                 $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
                 continue;
             }
+
             $processes[$process->getIndexerCode()] = $process;
         }
+
         return $processes;
     }
 
@@ -218,11 +215,13 @@ class Mage_Index_Model_Indexer
             $resourceModel->rollBack();
             throw $e;
         }
+
         if ($allowTableChanges) {
             $this->_allowTableChanges = true;
             $this->_changeKeyStatus(true);
             $this->_currentEvent = null;
         }
+
         Mage::dispatchEvent('end_index_events' . $this->_getEventTypeName($entity, $type));
         return $this;
     }
@@ -269,6 +268,7 @@ class Mage_Index_Model_Indexer
         if ($doSave) {
             $event->save();
         }
+
         return $event;
     }
 
@@ -310,16 +310,20 @@ class Mage_Index_Model_Indexer
                     $this->_changeKeyStatus(true);
                     $this->_currentEvent = null;
                 }
+
                 throw $e;
             }
+
             if ($allowTableChanges) {
                 $this->_allowTableChanges = true;
                 $this->_changeKeyStatus(true);
                 $this->_currentEvent = null;
             }
+
             $event->save();
             Mage::dispatchEvent('end_process_event' . $this->_getEventTypeName($entityType, $eventType));
         }
+
         return $this;
     }
 
@@ -340,6 +344,7 @@ class Mage_Index_Model_Indexer
             if (in_array($code, $processed)) {
                 continue;
             }
+
             $hasLocks = false;
 
             if ($process->getDepends()) {
@@ -425,8 +430,10 @@ class Mage_Index_Model_Indexer
             } else {
                 $process->disableIndexerKeys();
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -466,6 +473,7 @@ class Mage_Index_Model_Indexer
         if (!empty($eventName)) {
             $eventName = '_' . $eventName;
         }
+
         return $eventName;
     }
 }

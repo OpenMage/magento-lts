@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Report bestsellers collection
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
@@ -78,6 +70,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 }
             }
         }
+
         return $this->_selectedColumns;
     }
 
@@ -150,49 +143,12 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $mainTable = $this->getTable('sales/bestsellers_aggregated_daily');
             $select->from($mainTable, $this->_getSelectedColumns());
         }
+
         if (!$this->isTotals()) {
             $select->group(['period', 'product_id']);
         }
+
         $select->where('rating_pos <= ?', $this->_ratingLimit);
-
-        return $this;
-    }
-
-    /**
-     * Get SQL for get record count
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $this->_renderFilters();
-        $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
-        return $this->getConnection()->select()->from($select, 'COUNT(*)');
-    }
-
-    /**
-     * Set ids for store restrictions
-     *
-     * @param  array $storeIds
-     * @return $this
-     */
-    public function addStoreRestrictions($storeIds)
-    {
-        if (!is_array($storeIds)) {
-            $storeIds = [$storeIds];
-        }
-        $currentStoreIds = $this->_storesIds;
-        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
-        ) {
-            if (!is_array($currentStoreIds)) {
-                $currentStoreIds = [$currentStoreIds];
-            }
-            $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
-        } else {
-            $this->_storesIds = $storeIds;
-        }
 
         return $this;
     }
@@ -340,6 +296,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     $query = $helper->getQueryUsingAnalyticFunction($union);
                     $unionParts[] = '(' . $query . ')';
                 }
+
                 $this->getSelect()->reset()->union($unionParts, Zend_Db_Select::SQL_UNION_ALL);
             }
 

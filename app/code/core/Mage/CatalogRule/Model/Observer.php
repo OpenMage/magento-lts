@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Price rules observer model
  *
- * @category   Mage
  * @package    Mage_CatalogRule
  */
 class Mage_CatalogRule_Model_Observer
@@ -70,6 +62,7 @@ class Mage_CatalogRule_Model_Observer
         if (!$product instanceof Mage_Catalog_Model_Product) {
             return $this;
         }
+
         Mage::getModel('catalogrule/rule')->loadProductRules($product);
         return $this;
     }
@@ -168,10 +161,12 @@ class Mage_CatalogRule_Model_Observer
                 ->getRulePrice($date, $wId, $gId, $pId);
             $this->_rulePrices[$key] = $rulePrice;
         }
+
         if ($this->_rulePrices[$key] !== false) {
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
+
         return $this;
     }
 
@@ -204,11 +199,12 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($key) {
-            if (!isset($this->_rulePrices[$key])) {
+            if (isset($wId, $gId, $pId) && !isset($this->_rulePrices[$key])) {
                 $rulePrice = Mage::getResourceModel('catalogrule/rule')
                     ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;
             }
+
             if ($this->_rulePrices[$key] !== false) {
                 $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
@@ -347,12 +343,14 @@ class Mage_CatalogRule_Model_Observer
             if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
+
             if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
                 if ($condition->getAttribute() == $attributeCode) {
                     unset($conditions[$conditionId]);
                 }
             }
         }
+
         $combine->setConditions($conditions);
     }
 
@@ -410,6 +408,7 @@ class Mage_CatalogRule_Model_Observer
                 $groupId = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
             }
         }
+
         if ($observer->getEvent()->hasDate()) {
             $date = $observer->getEvent()->getDate();
         } else {

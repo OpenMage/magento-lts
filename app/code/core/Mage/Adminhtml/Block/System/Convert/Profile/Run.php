@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profiles run block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
@@ -27,11 +19,13 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      * @var bool
      */
     protected $_batchModelPrepared = false;
+
     /**
      * Batch model instance
      * @var Mage_Dataflow_Model_Batch
      */
     protected $_batchModel = null;
+
     /**
      * Preparing batch model (initialization)
      * @return $this
@@ -41,6 +35,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         if ($this->_batchModelPrepared) {
             return $this;
         }
+
         $this->setShowFinished(true);
         $batchModel = Mage::getSingleton('dataflow/batch');
         $this->_batchModel = $batchModel;
@@ -52,6 +47,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                     $batchParams = $batchModel->getParams();
                     $numberOfRecords = $batchParams['number_of_records'] ?? 1;
                 }
+
                 $this->setNumberOfRecords($numberOfRecords);
                 $this->setShowFinished(false);
                 $batchImportModel = $batchModel->getBatchImportModel();
@@ -80,21 +76,24 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 );
                 $jsonIds = array_chunk($importIds, $numberOfRecords);
                 $importData = [];
-                foreach ($jsonIds as $part => $ids) {
+                foreach ($jsonIds as $ids) {
                     $importData[] = [
                         'batch_id'   => $batchModel->getId(),
                         'rows[]'     => $ids,
                     ];
                 }
+
                 $this->setImportData($importData);
             } else {
                 $this->setBatchModelHasAdapter(false);
                 $batchModel->delete();
             }
         }
+
         $this->_batchModelPrepared = true;
         return $this;
     }
+
     /**
      * Return a batch model instance
      * @return Mage_Dataflow_Model_Batch
@@ -103,6 +102,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return $this->_batchModel;
     }
+
     /**
      * Return a batch model config JSON
      * @return string
@@ -113,6 +113,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             $this->getBatchConfig(),
         );
     }
+
     /**
      * Encoding to JSON
      * @param string $source
@@ -122,6 +123,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::helper('core')->jsonEncode($source);
     }
+
     /**
      * Get a profile
      * @return object
@@ -130,6 +132,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::registry('current_convert_profile');
     }
+
     /**
      * Generating form key
      * @return string
@@ -138,6 +141,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
     /**
      * Return batch model and initialize it if need
      * @return Mage_Dataflow_Model_Batch
@@ -147,6 +151,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         return $this->_prepareBatchModel()
             ->_getBatchModel();
     }
+
     /**
      * Generating exceptions data
      * @return array
@@ -156,6 +161,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         if (!is_null(parent::getExceptions())) {
             return parent::getExceptions();
         }
+
         $exceptions = [];
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
@@ -178,6 +184,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                     $liStyle = 'background-color:#DDF; ';
                     break;
             }
+
             $exceptions[] = [
                 'style'     => $liStyle,
                 'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
@@ -185,6 +192,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 'position'  => $e->getPosition(),
             ];
         }
+
         parent::setExceptions($exceptions);
         return $exceptions;
     }

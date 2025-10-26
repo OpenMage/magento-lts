@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 EAV Validator
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Validator
@@ -74,6 +66,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         if (!isset($options['resource']) || !$options['resource'] instanceof Mage_Api2_Model_Resource) {
             throw new Exception("Passed parameter 'resource' is wrong.");
         }
+
         $resource = $options['resource'];
         $userType = $resource->getUserType();
 
@@ -85,25 +78,33 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         if (empty($validationConfig[$userType]['form_model'])) {
             throw new Exception("Config parameter 'formPath' is empty.");
         }
+
         $this->_formPath = $validationConfig[$userType]['form_model'];
 
         if (empty($validationConfig[$userType]['form_code'])) {
             throw new Exception("Config parameter 'formCode' is empty.");
         }
+
         $this->_formCode = $validationConfig[$userType]['form_code'];
 
         if (empty($validationConfig[$userType]['entity_model'])) {
             throw new Exception("Config parameter 'entity' is wrong.");
         }
-        $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
-        if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
+
+        $entityModel = Mage::getModel($validationConfig[$userType]['entity_model']);
+        if (empty($entityModel) || !$entityModel instanceof Mage_Core_Model_Abstract) {
             throw new Exception('Entity is not model.');
         }
 
-        $this->_eavForm = Mage::getModel($this->_formPath);
-        if (empty($this->_eavForm) || !$this->_eavForm instanceof Mage_Eav_Model_Form) {
-            throw new Exception("Eav form '{$this->_formPath}' is not found.");
+        $this->_entity = $entityModel;
+
+        $formModel = Mage::getModel($this->_formPath);
+        if (empty($formModel) || !$formModel instanceof Mage_Eav_Model_Form) {
+            throw new Exception("Eav form '{$formModel}' is not found.");
         }
+
+        $this->_eavForm = $formModel;
+
         $this->_eavForm->setEntity($this->_entity)
             ->setFormCode($this->_formCode)
             ->ignoreInvisible(false);
@@ -124,6 +125,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
                 return ['Invalid value type for ' . $attribute->getAttributeCode()];
             }
+
             $possibleValues = $attribute->getSource()->getAllOptions(false);
 
             foreach ((array) $attrValue as $value) {
@@ -138,6 +140,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                             break;
                         }
                     }
+
                     if (!$isValid) {
                         $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
                     }
@@ -146,6 +149,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 }
             }
         }
+
         return $errors ? $errors : true;
     }
 
@@ -177,9 +181,11 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             if ($partial && !array_key_exists($attribute->getAttributeCode(), $data)) {
                 continue;
             }
+
             if ($this->_eavForm->ignoreInvisible() && !$attribute->getIsVisible()) {
                 continue;
             }
+
             $attrValue = $data[$attribute->getAttributeCode()] ?? null;
 
             $result = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->_eavForm->getEntity())
@@ -196,6 +202,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 }
             }
         }
+
         $this->_setErrors($errors);
 
         return $errors ? false : true;
@@ -228,6 +235,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 $requiredAttrs[$matches[1]] = true;
             }
         }
+
         // exclude additional messages for required attributes been failed
         foreach ($this->_errors as $error) {
             if (preg_match($isRequiredRE, $error)
@@ -237,6 +245,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 $errors[] = $error;
             }
         }
+
         return $errors;
     }
 }

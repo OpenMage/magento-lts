@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Layer Price Filter resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Resource_Db_Abstract
@@ -53,6 +45,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (is_null($conditionString)) {
             return null;
         }
+
         $adapter = $this->_getReadAdapter();
         $oldAlias = [
             Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS . '.',
@@ -107,6 +100,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         foreach ($fromPart as $key => $fromJoinItem) {
             $fromPart[$key]['joinCondition'] = $this->_replaceTableAlias($fromJoinItem['joinCondition']);
         }
+
         $select->setPart(Zend_Db_Select::FROM, $fromPart);
 
         // processing WHERE part
@@ -117,16 +111,20 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
                 $wherePart[$key] = new Zend_Db_Expr('1=1');
                 continue;
             }
+
             $wherePart[$key] = $this->_replaceTableAlias($wherePartItem);
         }
+
         $select->setPart(Zend_Db_Select::WHERE, $wherePart);
         $excludeJoinPart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.entity_id';
         foreach ($priceIndexJoinConditions as $condition) {
             if (str_contains($condition, $excludeJoinPart)) {
                 continue;
             }
+
             $select->where($this->_replaceTableAlias($condition));
         }
+
         $select->where($this->_getPriceExpression($filter, $select) . ' IS NOT NULL');
 
         return $select;
@@ -218,6 +216,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         } else {
             $result = ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
         }
+
         return sprintf('%F', $result);
     }
 
@@ -253,6 +252,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if ($range == 0) {
             $range = 1;
         }
+
         $countExpr = new Zend_Db_Expr('COUNT(*)');
         $rangeExpr = new Zend_Db_Expr("FLOOR(({$priceExpression}) / {$range}) + 1");
         $rangeOrderExpr = new Zend_Db_Expr("FLOOR(({$priceExpression}) / {$range}) + 1 ASC");
@@ -292,9 +292,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $limit
-     * @param null|int $offset
-     * @param null|float $lowerPrice
-     * @param null|float $upperPrice
+     * @param int|null $offset
+     * @param float|null $lowerPrice
+     * @param float|null $upperPrice
      * @return array
      */
     public function loadPrices($filter, $limit, $offset = null, $lowerPrice = null, $upperPrice = null)
@@ -307,9 +307,11 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($lowerPrice)) {
             $select->where("$priceExpression >= " . $this->_getComparingValue($lowerPrice, $filter));
         }
+
         if (!is_null($upperPrice)) {
             $select->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));
         }
+
         $select->order(new Zend_Db_Expr("$priceExpression ASC"))->limit($limit, $offset);
 
         return $this->_getReadAdapter()->fetchCol($select);
@@ -332,6 +334,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($lowerPrice)) {
             $select->where("$priceExpression >= " . $this->_getComparingValue($lowerPrice, $filter));
         }
+
         $offset = $this->_getReadAdapter()->fetchOne($select);
         if (!$offset) {
             return false;
@@ -346,7 +349,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param float $price
      * @param int $rightIndex
-     * @param null|int $upperPrice
+     * @param float|null $upperPrice
      * @return array|false
      */
     public function loadNextPrices($filter, $price, $rightIndex, $upperPrice = null)
@@ -360,6 +363,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($upperPrice)) {
             $select->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));
         }
+
         $offset = $this->_getReadAdapter()->fetchOne($select);
         if (!$offset) {
             return false;
@@ -373,6 +377,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($upperPrice)) {
             $pricesSelect->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));
         }
+
         $pricesSelect->order(new Zend_Db_Expr("$priceExpression DESC"))->limit($rightIndex - $offset + 1, $offset - 1);
 
         return array_reverse($this->_getReadAdapter()->fetchCol($pricesSelect));
@@ -391,7 +396,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             return $this;
         }
 
-        list($from, $to) = $interval;
+        [$from, $to] = $interval;
         if ($from === '' && $to === '') {
             return $this;
         }
@@ -409,6 +414,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if ($from !== '') {
             $select->where($priceExpr . ' >= ' . $this->_getComparingValue($from, $filter));
         }
+
         if ($to !== '') {
             $select->where($priceExpr . ' < ' . $this->_getComparingValue($to, $filter));
         }

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
@@ -119,6 +111,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
             }
+
             //Validate current admin password
             $currentPassword = $this->getRequest()->getParam('current_password', null);
             $this->getRequest()->setParam('current_password', null);
@@ -142,6 +135,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 foreach ($result as $error) {
                     $this->_getSession()->addError($error);
                 }
+
                 if ($id) {
                     $this->_getSession()->setUserData($data);
                     $this->_redirect('*/*/edit', ['user_id' => $id]);
@@ -149,6 +143,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                     $this->_getSession()->setUserData($data);
                     $this->_redirect('*/*/new');
                 }
+
                 return;
             }
 
@@ -167,6 +162,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                         $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
@@ -178,6 +174,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -194,6 +191,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/edit', ['user_id' => $id]);
             return;
         }
@@ -211,6 +209,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a user to delete.'));
         $this->_redirect('*/*/');
     }

@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Xml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Xml_Generator
 {
     protected $_dom = null;
+
     protected $_currentDom;
 
     public function __construct()
     {
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
+
         $this->_currentDom = $this->_dom;
     }
 
@@ -60,14 +55,16 @@ class Mage_Xml_Generator
         if (!$content || !count($content)) {
             return $this;
         }
+
         foreach ($content as $key => $item) {
             try {
                 $node = $this->getDom()->createElement($key);
-            } catch (DOMException $e) {
+            } catch (DOMException) {
                 //  echo $e->getMessage();
                 var_dump($item);
                 die;
             }
+
             $parentNode->appendChild($node);
             if (is_array($item) && isset($item['_attribute'])) {
                 if (is_array($item['_value'])) {
@@ -82,6 +79,7 @@ class Mage_Xml_Generator
                     $child = $this->getDom()->createTextNode($item['_value']);
                     $node->appendChild($child);
                 }
+
                 foreach ($item['_attribute'] as $_attributeKey => $_attributeValue) {
                     $node->setAttribute($_attributeKey, $_attributeValue);
                 }
@@ -91,11 +89,12 @@ class Mage_Xml_Generator
             } elseif (is_array($item) && !isset($item[0])) {
                 $this->_setCurrentDom($node)->arrayToXml($item);
             } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $k => $v) {
+                foreach ($item as $v) {
                     $this->_setCurrentDom($node)->arrayToXml($v);
                 }
             }
         }
+
         return $this;
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Roles grid block
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
@@ -103,6 +95,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         if ($session->isAllowed('system/api/roles/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
+
         return null;
     }
 
@@ -117,17 +110,10 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     public function decorateUserType($renderedValue, $row, $column, $isExport)
     {
-        switch ($row->getEntityId()) {
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID:
-                $userType = Mage::helper('api2')->__('Guest');
-                break;
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID:
-                $userType = Mage::helper('api2')->__('Customer');
-                break;
-            default:
-                $userType = Mage::helper('api2')->__('Admin');
-                break;
-        }
-        return $userType;
+        return match ($row->getEntityId()) {
+            Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID => Mage::helper('api2')->__('Guest'),
+            Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID => Mage::helper('api2')->__('Customer'),
+            default => Mage::helper('api2')->__('Admin'),
+        };
     }
 }

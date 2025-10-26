@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal-specific model for shopping cart items and totals
  * The main idea is to accommodate all possible totals into PayPal-compatible 4 totals and line items
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Cart
@@ -29,8 +21,11 @@ class Mage_Paypal_Model_Cart
      * @var string
      */
     public const TOTAL_SUBTOTAL = 'subtotal';
+
     public const TOTAL_DISCOUNT = 'discount';
+
     public const TOTAL_TAX      = 'tax';
+
     public const TOTAL_SHIPPING = 'shipping';
 
     /**
@@ -142,6 +137,7 @@ class Mage_Paypal_Model_Cart
         if (!$bypassValidation && !$this->_areItemsValid) {
             return false;
         }
+
         return $this->_items;
     }
 
@@ -165,9 +161,11 @@ class Mage_Paypal_Model_Cart
             if (!$this->_isShippingAsItem) {
                 $totals[self::TOTAL_SUBTOTAL] += $this->_totals[self::TOTAL_SHIPPING];
             }
+
             if (!$this->_isDiscountAsItem) {
                 $totals[self::TOTAL_SUBTOTAL] -= $this->_totals[self::TOTAL_DISCOUNT];
             }
+
             return $totals;
         } elseif ($mergeDiscount) {
             $totals = $this->_totals;
@@ -175,8 +173,10 @@ class Mage_Paypal_Model_Cart
             if (!$this->_isDiscountAsItem) {
                 $totals[self::TOTAL_SUBTOTAL] -= $this->_totals[self::TOTAL_DISCOUNT];
             }
+
             return $totals;
         }
+
         return $this->_totals;
     }
 
@@ -200,6 +200,7 @@ class Mage_Paypal_Model_Cart
         if ($identifier) {
             $item->setData('id', $identifier);
         }
+
         $this->_items[] = $item;
         return $item;
     }
@@ -218,6 +219,7 @@ class Mage_Paypal_Model_Cart
                 return true;
             }
         }
+
         return false;
     }
 
@@ -238,6 +240,7 @@ class Mage_Paypal_Model_Cart
                 $this->_totalLineItemDescriptions[$code][] = $lineItemDescription;
             }
         }
+
         return $this;
     }
 
@@ -279,8 +282,8 @@ class Mage_Paypal_Model_Cart
                 $this->_addRegularItem($item);
             }
         }
-        end($this->_items);
-        $lastRegularItemKey = key($this->_items);
+
+        $lastRegularItemKey = array_key_last($this->_items);
 
         // regular totals
         $shippingDescription = '';
@@ -305,6 +308,7 @@ class Mage_Paypal_Model_Cart
             ];
             $this->_applyHiddenTaxWorkaround($address);
         }
+
         $originalDiscount = $this->_totals[self::TOTAL_DISCOUNT];
 
         // arbitrary items, total modifications
@@ -324,6 +328,7 @@ class Mage_Paypal_Model_Cart
                 $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT),
             );
         }
+
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
         if ($this->_isShippingAsItem && (float) $this->_totals[self::TOTAL_SHIPPING]) {
             $this->addItem(
@@ -365,12 +370,15 @@ class Mage_Paypal_Model_Cart
         if ($prepend) {
             $result[] = $prepend;
         }
+
         if (isset($this->_totalLineItemDescriptions[$code])) {
             $result = array_merge($this->_totalLineItemDescriptions[$code]);
         }
+
         if ($append) {
             $result[] = $append;
         }
+
         return implode($glue, $result);
     }
 
@@ -386,15 +394,18 @@ class Mage_Paypal_Model_Cart
 
         $itemsSubtotal = 0;
         foreach ($this->_items as $i) {
-            $itemsSubtotal = $itemsSubtotal + $i['qty'] * $i['amount'];
+            $itemsSubtotal += $i['qty'] * $i['amount'];
         }
+
         $sum = $itemsSubtotal + $this->_totals[self::TOTAL_TAX];
         if (!$this->_isShippingAsItem) {
             $sum += $this->_totals[self::TOTAL_SHIPPING];
         }
+
         if (!$this->_isDiscountAsItem) {
             $sum -= $this->_totals[self::TOTAL_DISCOUNT];
         }
+
         /**
          * numbers are intentionally converted to strings because of possible comparison error
          * see http://php.net/float
@@ -402,7 +413,7 @@ class Mage_Paypal_Model_Cart
         // match sum of all the items and totals to the reference amount
         if (sprintf('%.4F', $sum) != sprintf('%.4F', $referenceAmount)) {
             $adjustment = $sum - $referenceAmount;
-            $this->_totals[self::TOTAL_SUBTOTAL] = $this->_totals[self::TOTAL_SUBTOTAL] - $adjustment;
+            $this->_totals[self::TOTAL_SUBTOTAL] -= $adjustment;
         }
 
         // PayPal requires to have discount less than items subtotal
@@ -440,10 +451,11 @@ class Mage_Paypal_Model_Cart
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();
         }
+
         // workaround in case if item subtotal precision is not compatible with PayPal (.2)
         $subAggregatedLabel = '';
         if ($amount - round($amount, 2)) {
-            $amount = $amount * $qty;
+            $amount *= $qty;
             $subAggregatedLabel = ' x' . $qty;
             $qty = 1;
         }
@@ -472,9 +484,11 @@ class Mage_Paypal_Model_Cart
             if ($setValue != $this->$var) {
                 $this->_shouldRender = true;
             }
+
             $this->$var = $setValue;
             return $this;
         }
+
         return $this->$var;
     }
 
@@ -517,6 +531,7 @@ class Mage_Paypal_Model_Cart
                 return true;
             }
         }
+
         return false;
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Web service api main helper
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
@@ -58,6 +50,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 if (is_object($value)) {
                     $this->wsiArrayUnpacker($value);
                 }
+
                 if (is_array($value)) {
                     foreach ($value as &$val) {
                         if (is_object($val)) {
@@ -104,6 +97,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     $needReplacement = false;
                 }
             }
+
             if ($needReplacement) {
                 $obj = $arr;
             }
@@ -114,6 +108,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->v2AssociativeArrayUnpacker($obj->$key);
             }
         }
+
         return false;
     }
 
@@ -126,7 +121,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_array($mixed)) {
             $tmpArr = [];
-            foreach ($mixed as $key => $value) {
+            foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
                     if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
@@ -134,7 +129,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     }
                 }
             }
-            if (count($tmpArr)) {
+
+            if ($tmpArr !== []) {
                 $mixed = $tmpArr;
             }
         }
@@ -156,7 +152,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Corrects data representation.
      *
      * @param Object $obj - Link to Object
-     * @return array
+     * @return string[]
      */
     public function clearWsiFootprints(&$obj)
     {
@@ -171,9 +167,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 } else { // for one element array
                     $obj->$key = [$obj->$key->complexObjectArray];
                 }
+
                 $modifiedKeys[] = $key;
             }
         }
+
         return $modifiedKeys;
     }
 
@@ -194,17 +192,20 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     break;
                 }
             }
+
             if ($isDigit) {
                 $mixed = $this->packArrayToObject($mixed);
             } else {
                 $mixed = (object) $mixed;
             }
         }
+
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
             foreach ($mixed->complexObjectArray as $k => $v) {
                 $mixed->complexObjectArray[$k] = $this->wsiArrayPacker($v);
             }
         }
+
         return $mixed;
     }
 
@@ -232,6 +233,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_object($data)) {
             $data = get_object_vars($data);
         }
+
         if (is_array($data)) {
             foreach ($data as &$value) {
                 if (is_array($value) || is_object($value)) {
@@ -263,6 +265,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     }
                 }
             }
+
             // parse complex filter
             if (isset($filters->complex_filter) && is_array($filters->complex_filter)) {
                 $parsedFilters += $this->_parseComplexFilter($filters->complex_filter);
@@ -270,10 +273,12 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
             $filters = $parsedFilters;
         }
+
         // make sure that method result is always array
         if (!is_array($filters)) {
             $filters = [];
         }
+
         // apply fields mapping
         if (isset($fieldsMap) && is_array($fieldsMap)) {
             foreach ($filters as $field => $value) {
@@ -284,6 +289,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $filters;
     }
 
@@ -302,6 +308,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             if (!isset($filter->key) || !isset($filter->value)) {
                 continue;
             }
+
             $fieldName = $filter->key;
             $condition = $filter->value;
             $conditionName = $condition->key;

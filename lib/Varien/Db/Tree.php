@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Library
  *
  *
- * @category   Varien
  * @package    Varien_Db
  */
 
@@ -33,10 +25,15 @@ Zend_Loader::loadClass('Varien_Db_Tree_NodeSet');
 class Varien_Db_Tree
 {
     private $_id;
+
     private $_left;
+
     private $_right;
+
     private $_level;
+
     private $_pid;
+
     private $_nodesInfo = [];
 
     /**
@@ -195,13 +192,13 @@ class Varien_Db_Tree
 
     public function getKeys()
     {
-        $keys = [];
-        $keys['id'] = $this->_id;
-        $keys['left'] = $this->_left;
-        $keys['right'] = $this->_right;
-        $keys['pid'] = $this->_pid;
-        $keys['level'] = $this->_level;
-        return $keys;
+        return [
+            'id' => $this->_id,
+            'left' => $this->_left,
+            'right' => $this->_right,
+            'pid' => $this->_pid,
+            'level' => $this->_level,
+        ];
     }
 
     /**
@@ -225,6 +222,7 @@ class Varien_Db_Tree
         } catch (Zend_Db_Adapter_Exception $e) {
             echo $e->getMessage();
         }
+
         return $this->_db->lastInsertId();
     }
 
@@ -238,6 +236,7 @@ class Varien_Db_Tree
         } else {
             $data = $this->_nodesInfo[$ID];
         }
+
         return $data;
     }
 
@@ -276,12 +275,14 @@ class Varien_Db_Tree
                 var_dump($data);
                 exit();
             }
+
             // TODO: change to ZEND LIBRARY
             $res =  $this->_db->fetchOne('select last_insert_id()');
             return $res;
             //return $this->_db->fetchOne('select last_insert_id()');
             //return $this->_db->lastInsertId();
         }
+
         return  false;
     }
 
@@ -411,6 +412,7 @@ class Varien_Db_Tree
             $pInfo = $this->getNodeInfo($pId);
             $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         }
+
         if ($aId != 0) {
             $aInfo = $this->getNodeInfo($aId);
         }
@@ -516,6 +518,7 @@ class Varien_Db_Tree
         foreach ($data as $node) {
             $nodeSet->addNode(new Varien_Db_Tree_Node($node, $this->getKeys()));
         }
+
         return $nodeSet;
     }
 

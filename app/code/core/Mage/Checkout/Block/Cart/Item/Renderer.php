@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart item render block
  *
- * @category   Mage
  * @package    Mage_Checkout
  *
  * @method bool hasProductName()
@@ -30,8 +22,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
     /** @var Mage_Checkout_Model_Session */
     protected $_checkoutSession;
+
     protected $_item;
+
     protected $_productUrl = null;
+
     protected $_productThumbnail = null;
 
     /**
@@ -125,6 +120,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->_ignoreProductUrl) {
             return false;
         }
+
         if ($this->_productUrl || $this->getItem()->getRedirectUrl()) {
             return true;
         }
@@ -134,9 +130,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($option) {
             $product = $option->getProduct();
         }
+
         if ($product->isVisibleInSiteVisibility()) {
             return true;
         }
+
         return false;
     }
 
@@ -150,6 +148,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!is_null($this->_productUrl)) {
             return $this->_productUrl;
         }
+
         if ($this->getItem()->getRedirectUrl()) {
             return $this->getItem()->getRedirectUrl();
         }
@@ -173,6 +172,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->hasProductName()) {
             return $this->getData('product_name');
         }
+
         return $this->getProduct()->getName();
     }
 
@@ -286,6 +286,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             ],
         );
     }
+
     /**
      * Get quote item qty
      *
@@ -296,6 +297,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
             return '';
         }
+
         return $this->getItem()->getQty() * 1;
     }
 
@@ -312,6 +314,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 return true;
             }
         }
+
         return false;
     }
 
@@ -325,6 +328,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($this->_checkoutSession === null) {
             $this->_checkoutSession = Mage::getSingleton('checkout/session');
         }
+
         return $this->_checkoutSession;
     }
 

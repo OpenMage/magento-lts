@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute Multiply line Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_Data_Text
@@ -35,6 +27,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         } else {
             $value = array_map([$this, '_applyInputFilter'], $value);
         }
+
         return $value;
     }
 
@@ -61,22 +54,22 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($value)) {
             $value = [$value];
         }
+
         for ($i = 0; $i < $attribute->getMultilineCount(); $i++) {
             if (!isset($value[$i])) {
                 $value[$i] = null;
             }
+
             // validate first line
             if ($i == 0) {
                 $result = parent::validateValue($value[$i]);
                 if ($result !== true) {
                     $errors = $result;
                 }
-            } else {
-                if (!empty($value[$i])) {
-                    $result = parent::validateValue($value[$i]);
-                    if ($result !== true) {
-                        $errors = array_merge($errors, $result);
-                    }
+            } elseif (!empty($value[$i])) {
+                $result = parent::validateValue($value[$i]);
+                if ($result !== true) {
+                    $errors = array_merge($errors, $result);
                 }
             }
         }
@@ -84,6 +77,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (count($errors) == 0) {
             return true;
         }
+
         return $errors;
     }
 
@@ -97,6 +91,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (is_array($value)) {
             $value = trim(implode("\n", $value));
         }
+
         return parent::compactValue($value);
     }
 
@@ -124,21 +119,13 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($values)) {
             $values = explode("\n", (string) $values);
         }
+
         $values = array_map([$this, '_applyOutputFilter'], $values);
-        switch ($format) {
-            case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY:
-                $output = $values;
-                break;
-            case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_HTML:
-                $output = implode('<br />', $values);
-                break;
-            case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE:
-                $output = implode(' ', $values);
-                break;
-            default:
-                $output = implode("\n", $values);
-                break;
-        }
-        return $output;
+        return match ($format) {
+            Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY => $values,
+            Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_HTML => implode('<br />', $values),
+            Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE => implode(' ', $values),
+            default => implode("\n", $values),
+        };
     }
 }

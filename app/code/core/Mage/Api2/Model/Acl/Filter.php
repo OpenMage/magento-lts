@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API ACL filter
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl_Filter
@@ -65,6 +57,7 @@ class Mage_Api2_Model_Acl_Filter
                 unset($data[$attribute]);
             }
         }
+
         return $data;
     }
 
@@ -79,6 +72,7 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = is_array($data) ? $this->in($data) : [];
         }
+
         return $items;
     }
 
@@ -93,13 +87,14 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = $this->out($data);
         }
+
         return $items;
     }
 
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param string $operationType OPTIONAL One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)
@@ -111,6 +106,7 @@ class Mage_Api2_Model_Acl_Filter
             if ($operationType === null) {
                 $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
             }
+
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
@@ -123,6 +119,7 @@ class Mage_Api2_Model_Acl_Filter
                     $operationType,
                 );
             }
+
             // force attributes to be no filtered
             foreach ($this->_resource->getForcedAttributes() as $forcedAttr) {
                 if (!in_array($forcedAttr, $this->_allowedAttributes)) {
@@ -130,6 +127,7 @@ class Mage_Api2_Model_Acl_Filter
                 }
             }
         }
+
         return $this->_allowedAttributes;
     }
 
@@ -154,6 +152,7 @@ class Mage_Api2_Model_Acl_Filter
                 $this->_attributesToInclude = $allowedAttrs;
             }
         }
+
         return $this->_attributesToInclude;
     }
 

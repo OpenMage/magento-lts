@@ -1,31 +1,27 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile edit tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Adminhtml_Block_Widget_Container
 {
     protected $_storeModel;
+
     protected $_attributes;
+
     protected $_addMapButtonHtml;
+
     protected $_removeMapButtonHtml;
+
     protected $_shortDateFormat;
 
     /**
@@ -50,6 +46,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->setCanLoadCalendarJs(true);
         }
+
         return $this;
     }
 
@@ -76,6 +73,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
             array_splice($attributes, 0, 0, ['' => $this->__('Choose an attribute')]);
             $this->_attributes[$entityType] = $attributes;
         }
+
         return $this->_attributes[$entityType];
     }
 
@@ -94,7 +92,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         }
 
         $value = $this->getData($key);
-        return $this->escapeHtml($value !== null && strlen($value) > 0 ? $value : $default);
+        return $this->escapeHtml($value !== null && (string) $value !== '' ? $value : $default);
     }
 
     /**
@@ -134,6 +132,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                 ->setClass('add')->setLabel($this->__('Add Field Mapping'))
                 ->setOnClick('addFieldMapping()')->toHtml();
         }
+
         return $this->_addMapButtonHtml;
     }
 
@@ -147,6 +146,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                 ->setClass('delete')->setLabel($this->__('Remove'))
                 ->setOnClick('removeFieldMapping(this)')->toHtml();
         }
+
         return $this->_removeMapButtonHtml;
     }
 
@@ -176,6 +176,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                 $opt[$index] = $value;
             }
         }
+
         return $opt;
     }
 
@@ -210,6 +211,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                 $this->_filterStores[$storeNode->getName()] = (string) $storeNode->system->store->name;
             }
         }
+
         return $this->_filterStores;
     }
 
@@ -248,6 +250,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         if (is_null($this->_storeModel)) {
             $this->_storeModel = Mage::getSingleton('adminhtml/system_store');
         }
+
         return $this->_storeModel;
     }
 
@@ -285,6 +288,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
                 Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
             );
         }
+
         return $this->_shortDateFormat;
     }
 }

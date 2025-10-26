@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Directory Collection
  * *
- * @category   Varien
  * @package    Varien_Directory
  */
 
@@ -28,10 +20,15 @@ require_once('Varien/Directory/IFactory.php');
 class Varien_Directory_Collection extends Varien_Data_Collection implements IFactory
 {
     protected $_path = '';
+
     protected $_dirName = '';
+
     protected $_recursionLevel = 0;
+
     protected $_isRecursion;
+
     protected $_filters = [];
+
     /**
      * Constructor
      *
@@ -50,6 +47,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             $this->parseDir();
         }
     }
+
     /**
      * Get name of this directory
      *
@@ -59,6 +57,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         return $this->_dirName;
     }
+
     /**
      * Get recursion
      *
@@ -68,6 +67,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         return $this->_isRecursion;
     }
+
     /**
      * Get recursion level
      *
@@ -77,6 +77,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         return $this->_recursionLevel;
     }
+
     /**
      * Get path
      *
@@ -86,6 +87,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         return $this->_path;
     }
+
     /**
      * Set path to this directory
      * @param   string $path - path to this directory
@@ -100,6 +102,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
                 if ($isRecursion != '') {
                     $this->_isRecursion = $isRecursion;
                 }
+
                 $this->parseDir();
             } else {
                 $this->_path = $path;
@@ -108,6 +111,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             throw new Exception($path . 'is not dir.');
         }
     }
+
     /**
      * Set recursion
      *
@@ -118,6 +122,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->_isRecursion = $isRecursion;
     }
+
     /**
      * Set level of recursion
      *
@@ -128,6 +133,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->_recursionLevel = $recursionLevel;
     }
+
     /**
      * get latest dir in the path
      *
@@ -138,6 +144,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         return self::getLastDir($this->getPath());
     }
+
     /**
      * get latest dir in the path
      *
@@ -149,6 +156,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $last = strrpos($path, '/');
         return substr($path, $last + 1);
     }
+
     /**
      * add item to collection
      *
@@ -159,6 +167,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->_items[] = $item;
     }
+
     /**
      * parse this directory
      *
@@ -173,9 +182,11 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             if (!$iter->isDot() && $curr[0] != '.') {
                 $this->addItem(Varien_Directory_Factory::getFactory($iter->current(), $this->getRecursion(), $this->getRecursionLevel()));
             }
+
             $iter->next();
         }
     }
+
     /**
      * set filter using
      *
@@ -187,6 +198,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->_renderFilters();
         $this->walk('useFilter', [$useFilter]);
     }
+
     /**
      * get files names of current collection
      *
@@ -198,6 +210,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->getFilesName($files);
         return $files;
     }
+
     /**
      * get files names of current collection
      *
@@ -208,6 +221,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->walk('getFilesName', [&$files]);
     }
+
     /**
      * get files paths of current collection
      *
@@ -219,6 +233,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->getFilesPaths($paths);
         return $paths;
     }
+
     /**
      * get files paths of current collection
      *
@@ -229,6 +244,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->walk('getFilesPaths', [&$paths]);
     }
+
     /**
      * get SplFileObject objects of files of current collection
      *
@@ -240,6 +256,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->getFilesObj($objs);
         return $objs;
     }
+
     /**
      * get SplFileObject objects of files of current collection
      *
@@ -250,6 +267,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->walk('getFilesObj', [&$objs]);
     }
+
     /**
      * get names of dirs of current collection
      *
@@ -261,6 +279,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->getDirsName($dir);
         return $dir;
     }
+
     /**
      * get names of dirs of current collection
      *
@@ -274,6 +293,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             $dirs[] = $this->getDirName();
         }
     }
+
     /**
      * set filters for files
      *
@@ -284,6 +304,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     {
         $this->walk('setFilesFilter', [$filter]);
     }
+
     /**
      * display this collection as array
      *
@@ -295,6 +316,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->toArray($arr);
         return $arr;
     }
+
     /**
      * display this collection as array
      * @param   array &$arr - this collection array
@@ -309,6 +331,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             $this->walk('toArray', [&$arr]);
         }
     }
+
     /**
      * get this collection as xml
      * @param   bool $addOpenTag - add or not header of xml
@@ -321,6 +344,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->toXml($xml, $addOpenTag, $rootName);
         return $xml;
     }
+
     /**
      * get this collection as xml
      * @param   string &$xml - xml
@@ -335,8 +359,10 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             if ($addOpenTag) {
                 $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
             }
+
             $xml .= '<' . $rootName . '>' . "\n";
         }
+
         $recursionLevel = $this->getRecursionLevel();
         $xml .= str_repeat("\t", $recursionLevel + 1) . "<$this->_dirName>\n";
         $this->walk('toXml', [&$xml,$recursionLevel,$addOpenTag,$rootName]);
@@ -345,6 +371,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
             $xml .= '</' . $rootName . '>' . "\n";
         }
     }
+
     /**
      * apply filters
      * @return  none
@@ -364,6 +391,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
                     } else {
                         $exts[] = $filter['value'];
                     }
+
                     break;
                 case 'name':
                     if (is_array($filter['value'])) {
@@ -373,6 +401,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
                     } else {
                         $names[] = $filter['value'];
                     }
+
                     break;
                 case 'regName':
                     if (is_array($filter['value'])) {
@@ -382,27 +411,33 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
                     } else {
                         $regName[] = $filter['value'];
                     }
+
                     break;
             }
         }
+
         $filter = [];
-        if (count($exts) > 0) {
+        if ($exts !== []) {
             $filter['extension'] = $exts;
         } else {
             $filter['extension'] = null;
         }
-        if (count($names) > 0) {
+
+        if ($names !== []) {
             $filter['name'] = $names;
         } else {
             $filter['name'] = null;
         }
-        if (count($regName) > 0) {
+
+        if ($regName !== []) {
             $filter['regName'] = $regName;
         } else {
             $filter['regName'] = null;
         }
+
         $this->setFilesFilter($filter);
     }
+
     /**
      * add filter
      * @return  none

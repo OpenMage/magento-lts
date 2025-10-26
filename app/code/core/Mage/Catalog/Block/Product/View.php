@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product View block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method int getProductId()
@@ -53,6 +45,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             if ($title) {
                 $headBlock->setTitle($title);
             }
+
             $keyword = $product->getMetaKeyword();
             $currentCategory = Mage::registry('current_category');
             if ($keyword) {
@@ -60,6 +53,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             } elseif ($currentCategory) {
                 $headBlock->setKeywords($product->getName());
             }
+
             $description = $product->getMetaDescription();
             if ($description) {
                 $headBlock->setDescription(($description));
@@ -90,6 +84,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             $product = Mage::getModel('catalog/product')->load($this->getProductId());
             Mage::register('product', $product);
         }
+
         return Mage::registry('product');
     }
 
@@ -162,6 +157,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         if ($this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct())) {
             return true;
         }
+
         return false;
     }
 
@@ -249,6 +245,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rating
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rating collection resource model
  *
- * @category   Mage
  * @package    Mage_Rating
  *
  * @method Mage_Rating_Model_Rating getItemById()
@@ -64,6 +56,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 'string',
             );
         }
+
         return $this;
     }
 
@@ -89,11 +82,13 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     {
         $adapter = $this->getConnection();
         if (!is_array($storeId)) {
-            $storeId = [$storeId === null ? -1 : $storeId];
+            $storeId = [$storeId ?? -1];
         }
+
         if (empty($storeId)) {
             return $this;
         }
+
         if (!$this->_isStoreJoined) {
             $this->getSelect()
                 ->distinct(true)
@@ -104,6 +99,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 );
             $this->_isStoreJoined = true;
         }
+
         $inCond = $adapter->prepareSqlCondition('store.store_id', [
             'in' => $storeId,
         ]);
@@ -197,6 +193,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 $rating->setSummary($item['sum'] / $item['count']);
             }
         }
+
         return $this;
     }
 
@@ -229,14 +226,17 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         if (!$this->_isCollectionLoaded) {
             return $this;
         }
+
         $ratingIds = [];
         foreach ($this as $item) {
             $ratingIds[] = $item->getId();
             $item->setStores([]);
         }
+
         if (!$ratingIds) {
             return $this;
         }
+
         $adapter = $this->getConnection();
 
         $inCond = $adapter->prepareSqlCondition('rating_id', [
@@ -249,12 +249,13 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             ->where($inCond);
 
         $data = $adapter->fetchAll($this->_select);
-        if (is_array($data) && count($data) > 0) {
+        if (is_array($data) && $data !== []) {
             foreach ($data as $row) {
                 $item = $this->getItemById($row['rating_id']);
                 $item->setStores(array_merge($item->getStores(), [$row['store_id']]));
             }
         }
+
         return $this;
     }
 }

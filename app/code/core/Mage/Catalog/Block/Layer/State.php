@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Layered navigation state
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method $this setLayer(Mage_Catalog_Model_Layer $value)
@@ -45,6 +37,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         if (!is_array($filters)) {
             $filters = [];
         }
+
         return $filters;
     }
 
@@ -60,6 +53,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
             $filter = $item->getFilter();
             $filterState[$filter->getRequestVar()] = $filter->getCleanValue();
         }
+
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $filterState;
@@ -77,6 +71,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         if (!$this->hasData('layer')) {
             $this->setLayer(Mage::getSingleton('catalog/layer'));
         }
+
         return $this->_getData('layer');
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product in category grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
@@ -77,6 +69,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } else {
@@ -111,6 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         if ($this->getIsReadonly() === true) {
             $collection->addFieldToFilter('entity_id', ['in' => $this->_getSelectedProducts()]);
         }
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -215,6 +209,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedGroupedProducts());
         }
+
         return $products;
     }
 
@@ -234,6 +229,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                 'position'  => $product->getPosition(),
             ];
         }
+
         return $products;
     }
 
@@ -241,14 +237,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function canShowTab()
     {
         return true;
     }
+
     public function isHidden()
     {
         return false;

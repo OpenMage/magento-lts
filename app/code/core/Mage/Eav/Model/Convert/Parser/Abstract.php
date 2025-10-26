@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
     protected $_storesById;
+
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     /**
@@ -42,10 +36,12 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                     if (!$storeNode) {
                         return false;
                     }
+
                     $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
+
         return $storeIds;
     }
 
@@ -79,6 +75,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
             $this->_attributeSetsById[$id] = $name;
             $this->_attributeSetsByName[$name] = $id;
         }
+
         return $this;
     }
 
@@ -92,6 +89,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsById[$id] ?? false;
     }
 
@@ -105,6 +103,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsByName[$name] ?? false;
     }
 
@@ -119,6 +118,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                 return $option['value'];
             }
         }
+
         return null;
     }
 }

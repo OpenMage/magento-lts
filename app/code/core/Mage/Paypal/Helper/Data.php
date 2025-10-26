@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal Data helper
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
@@ -57,6 +49,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return self::$_shouldAskToCreateBillingAgreement;
     }
 
@@ -71,13 +64,16 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$config) {
             return false;
         }
+
         $config = $config->asCanonicalArray();
         if (isset($config['enable_for_countries'])) {
             $config['enable_for_countries'] = explode(',', str_replace(' ', '', $config['enable_for_countries']));
         }
+
         if (isset($config['disable_for_countries'])) {
             $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
         }
+
         return Mage::helper('core')->jsonEncode($config);
     }
 
@@ -94,9 +90,11 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
                 ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
         }
+
         if (empty($countryCode)) {
             $countryCode = Mage::helper('core')->getDefaultCountry();
         }
+
         return $countryCode;
     }
 
@@ -122,6 +120,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
                 . 'paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=' . $txnId;
             return '<a target="_blank" href="' . $url . '">' . $txnId . '</a>';
         }
+
         return $txnId;
     }
 }

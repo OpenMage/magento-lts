@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract API2 class for stock item
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_CatalogInventory_Model_Api2_Stock_Item
@@ -76,6 +68,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -112,6 +105,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                             'item_id' => $itemData['item_id'] ?? null,
                         ]);
                     }
+
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
@@ -132,7 +126,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                         'item_id' => $itemData['item_id'] ?? null,
                     ]);
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,

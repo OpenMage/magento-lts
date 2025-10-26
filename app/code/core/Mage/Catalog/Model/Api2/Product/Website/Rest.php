@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract API2 class for product website resource
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog_Model_Api2_Product_Website
@@ -41,6 +33,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         foreach ($this->_loadProductById($this->getRequest()->getParam('product_id'))->getWebsiteIds() as $websiteId) {
             $return[] = ['website_id' => $websiteId];
         }
+
         return $return;
     }
 
@@ -59,6 +52,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -106,6 +100,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     $this->_errorMessage(self::RESOURCE_DATA_INVALID, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
+
                 /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
                 $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
                 if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $singleData)) {
@@ -115,6 +110,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                             'product_id' => $product->getId(),
                         ]);
                     }
+
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
@@ -158,7 +154,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         ],
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
@@ -194,6 +190,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 

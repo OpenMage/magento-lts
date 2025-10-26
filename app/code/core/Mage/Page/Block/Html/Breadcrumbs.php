@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Html page block
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
@@ -69,6 +61,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
         }
+
         return $this;
     }
 
@@ -127,11 +120,10 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (is_array($this->_crumbs)) {
-            reset($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['first'] = true;
-            end($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['last'] = true;
+            $this->_crumbs[array_key_first($this->_crumbs)]['first'] = true;
+            $this->_crumbs[array_key_last($this->_crumbs)]['last'] = true;
         }
+
         $this->assign('crumbs', $this->_crumbs);
         return parent::_toHtml();
     }

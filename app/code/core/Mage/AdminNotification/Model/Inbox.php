@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * AdminNotification Inbox model
  *
- * @category   Mage
  * @package    Mage_AdminNotification
  *
  * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
@@ -41,8 +33,11 @@
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
     public const SEVERITY_CRITICAL = 1;
+
     public const SEVERITY_MAJOR    = 2;
+
     public const SEVERITY_MINOR    = 3;
+
     public const SEVERITY_NOTICE   = 4;
 
     protected function _construct()
@@ -119,9 +114,11 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         if (!$this->getSeverities($severity)) {
             Mage::throwException(Mage::helper('adminnotification')->__('Wrong message type'));
         }
+
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
         }
+
         $date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
         $this->parse([[
             'severity'    => $severity,

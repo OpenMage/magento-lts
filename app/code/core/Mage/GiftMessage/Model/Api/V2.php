@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * GiftMessage api
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  */
 class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
@@ -43,13 +35,16 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                         }
                     }
                 }
+
                 if (!empty($assocArr)) {
                     $arr[$key] = $assocArr;
                 }
             }
+
             $arr = $this->_prepareData($arr);
             return parent::_prepareData($arr);
         }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 if (is_object($value) || is_array($value)) {
@@ -58,8 +53,10 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                     $data[$key] = $value;
                 }
             }
+
             return parent::_prepareData($data);
         }
+
         return $data;
     }
 
@@ -89,6 +86,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
             $response->result = false;
             $response->error = $e->getMessage();
         }
+
         return $response;
     }
 }

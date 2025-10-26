@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration for Admin model
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
@@ -54,6 +46,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             if ($aclConfig) {
                 $adminhtmlConfig->getNode()->extendChild($aclConfig, true);
             }
+
             $menuConfig = Mage::getConfig()->getNode('adminhtml/menu');
             if ($menuConfig) {
                 $adminhtmlConfig->getNode()->extendChild($menuConfig, true);
@@ -104,8 +97,10 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             if ($res->disabled == 1) {
                 continue;
             }
+
             $this->loadAclResources($acl, $res, $resourceName);
         }
+
         return $this;
     }
 
@@ -164,6 +159,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         if ($menuNode->getAttribute('module')) {
             $moduleName = (string) $menuNode->getAttribute('module');
         }
+
         return Mage::helper($moduleName)->__((string) $menuNode->title);
     }
 }

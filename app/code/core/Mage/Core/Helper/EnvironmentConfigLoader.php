@@ -1,36 +1,36 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Environment helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
     protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
+
     protected const ENV_KEY_SEPARATOR = '__';
+
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
+
     protected const CONFIG_KEY_WEBSITES = 'WEBSITES';
+
     protected const CONFIG_KEY_STORES = 'STORES';
+
     /**
      * To be used as regex condition
      */
     protected const ALLOWED_CHARS = ['A-Z', '-', '_'];
+
     protected $_moduleName = 'Mage_Core';
+
     protected array $envStore = [];
 
     /**
@@ -64,18 +64,18 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+            [$configKeyParts, $scope] = $this->getConfigKey($configKey);
 
             switch ($scope) {
                 case static::CONFIG_KEY_DEFAULT:
-                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
                     break;
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    list($unused1, $unused2, $code, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $code, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
                     $xmlConfig->setNode($nodePath, $value);
@@ -97,6 +97,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         if (empty($this->envStore)) {
             $this->envStore = getenv();
         }
+
         return $this->envStore;
     }
 
@@ -109,7 +110,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             ),
             'trim',
         );
-        list($unused, $scope) = $configKeyParts;
+        [$unused, $scope] = $configKeyParts;
         return [$configKeyParts, $scope];
     }
 

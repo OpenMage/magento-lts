@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * System Template admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Controller_Action
@@ -188,6 +180,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.'),
         );
@@ -247,12 +240,15 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         if ($id) {
             $model->load($id);
         }
+
         if (!Mage::registry('email_template')) {
             Mage::register('email_template', $model);
         }
+
         if (!Mage::registry('current_email_template')) {
             Mage::register('current_email_template', $model);
         }
+
         return $model;
     }
 }

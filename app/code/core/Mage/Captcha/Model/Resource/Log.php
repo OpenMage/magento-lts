@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Log Attempts resource
  *
- * @category   Mage
  * @package    Mage_Captcha
  */
 class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
@@ -55,6 +47,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
+
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
@@ -66,6 +59,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
+
         return $this;
     }
 
@@ -83,6 +77,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login],
             );
         }
+
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
@@ -105,6 +100,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if (!$ip) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
             ->where('value = ?', $ip);
@@ -122,6 +118,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if (!$login) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_LOGIN)
             ->where('value = ?', $login);

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Pdf Items renderer
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
@@ -102,6 +94,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return true;
             }
         }
+
         return false;
     }
 
@@ -152,6 +145,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return true;
             }
         }
+
         return false;
     }
 
@@ -169,6 +163,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return $options['bundle_options'];
             }
         }
+
         return [];
     }
 
@@ -185,9 +180,11 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         } else {
             $options = $item->getOrderItem()->getProductOptions();
         }
+
         if (isset($options['bundle_selection_attributes'])) {
             return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
+
         return null;
     }
 
@@ -206,13 +203,16 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -242,12 +242,14 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
+
         if (!$this->isChildCalculated($item)) {
             $attributes = $this->getSelectionAttributes($item);
             if ($attributes) {
                 $result .= ' ' . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
             }
         }
+
         return $result;
     }
 
@@ -264,6 +266,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         ) {
             return true;
         }
+
         return false;
     }
 }

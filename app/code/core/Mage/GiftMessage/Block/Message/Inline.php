@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Gift message inline edit form
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  *
  * @method $this setDontDisplayContainer(bool $value)
@@ -25,7 +17,9 @@
 class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 {
     protected $_entity = null;
+
     protected $_type   = null;
+
     protected $_giftMessage = null;
 
     protected function _construct()
@@ -147,6 +141,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 $helper = $this->helper('giftmessage/message');
                 $entity->setGiftMessage($helper->getGiftMessage($entity->getGiftMessageId()));
             }
+
             return $entity->getGiftMessage();
         }
 
@@ -170,12 +165,15 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($this->isItemMessagesAvailable($item) || $item->getIsGiftOptionsAvailable()) {
                     $items[] = $item;
                 }
             }
+
             $this->setData('items', $items);
         }
+
         return $this->getData('items');
     }
 
@@ -221,6 +219,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 return true;
             }
         }
+
         return false;
     }
 
@@ -246,6 +245,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
         if ($value === null || strlen($value) == 0) {
             return $defaultValue;
         }
+
         return $this->escapeHtml(trim($value));
     }
 
@@ -269,7 +269,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isItemMessagesAvailable($item)
     {
-        $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
+        $type = str_starts_with($this->getType(), 'multi') ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
 }

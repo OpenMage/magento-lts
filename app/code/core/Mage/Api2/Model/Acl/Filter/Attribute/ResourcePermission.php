@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 filter ACL attribute resources permissions model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface
@@ -84,6 +76,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     if (!$resourceUserPrivileges) { // skip user without any privileges for resource
                         continue;
                     }
+
                     $operations = $operationSource::toArray();
 
                     if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_CREATE])
@@ -91,12 +84,15 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     ) {
                         unset($operations[Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE]);
                     }
+
                     if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_RETRIEVE])) {
                         unset($operations[Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ]);
                     }
+
                     if (!$operations) { // skip resource without any operations allowed
                         continue;
                     }
+
                     try {
                         /** @var Mage_Api2_Model_Resource $resourceModel */
                         $resourceModel = Mage::getModel($config->getResourceModel($resource));
@@ -110,6 +106,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                 ) {
                                     $this->_hasEntityOnlyAttributes = true;
                                 }
+
                                 $availableAttributes = $resourceModel->getAvailableAttributes(
                                     $this->_userType,
                                     $operation,
@@ -134,8 +131,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     }
                 }
             }
+
             $this->_resourcesPermissions = $rulesPairs;
         }
+
         return $this->_resourcesPermissions;
     }
 
@@ -152,6 +151,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
         if (!array_key_exists($userType, Mage_Api2_Model_Auth_User::getUserTypes())) {
             throw new Exception('Unknown user type.');
         }
+
         $this->_userType = $userType;
         return $this;
     }

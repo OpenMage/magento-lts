@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Multishipping checkout overview information
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_Abstract
@@ -55,6 +47,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
             );
         }
+
         return parent::_prepareLayout();
     }
 
@@ -86,6 +79,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $payment = new Varien_Object($this->getRequest()->getPost('payment'));
             $this->setData('payment', $payment);
         }
+
         return $this->_getData('payment');
     }
 
@@ -107,6 +101,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $count = count($this->getShippingAddresses());
             $this->setData('shipping_address_count', $count);
         }
+
         return $count;
     }
 
@@ -119,6 +114,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         if ($rate = $address->getShippingRateByCode($address->getShippingMethod())) {
             return $rate;
         }
+
         return false;
     }
 
@@ -176,6 +172,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 }
             }
         }
+
         return $totals;
     }
 
@@ -267,10 +264,12 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             if ($item->isDeleted()) {
                 continue;
             }
+
             if ($item->getProduct()->getIsVirtual() && !$item->getParentItemId()) {
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -305,6 +304,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $helper = $this->helper('tax');
             $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
+
         return $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
     }

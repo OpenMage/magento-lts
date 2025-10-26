@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product form price field helper
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data_Form_Element_Text
@@ -46,8 +38,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
             if (!($storeId = $attribute->getStoreId())) {
                 $storeId = $this->getForm()->getDataObject()->getStoreId();
             }
+
             $store = Mage::app()->getStore($storeId);
-            $html .= '<strong>[' . (string) $store->getBaseCurrencyCode() . ']</strong>';
+            $html .= '<strong>[' . $store->getBaseCurrencyCode() . ']</strong>';
             if (Mage::helper('tax')->priceIncludesTax($store)) {
                 if ($attribute->getAttributeCode() !== 'cost') {
                     $addJsObserver = true;
@@ -55,6 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
                 }
             }
         }
+
         if ($addJsObserver) {
             $html .= $this->_getTaxObservingCode($attribute);
         }
@@ -85,6 +79,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
             return null;
         }
 
-        return number_format((float) $value, 2, null, '');
+        /** @var Mage_Catalog_Helper_Price $helper */
+        $helper = Mage::helper('catalog/price');
+
+        return number_format((float) $value, $helper->getRoundingPrecision(), null, '');
     }
 }

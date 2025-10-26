@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Products Download Helper
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 {
     public const LINK_TYPE_URL         = 'url';
+
     public const LINK_TYPE_FILE        = 'file';
 
     public const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
@@ -93,9 +86,11 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
+
                 if (!isset($urlProp['host'])) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
                 }
+
                 switch ($urlProp['scheme']) {
                     case 'https':
                         $scheme = 'ssl://';
@@ -106,6 +101,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                         $scheme = '';
                         $port = 80;
                 }
+
                 $hostname = $scheme . $urlProp['host'];
 
                 if (isset($urlProp['port'])) {
@@ -140,6 +136,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     if ($str == "\r\n") {
                         break;
                     }
+
                     $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
                         $k = strtolower($match[1]);
@@ -162,15 +159,18 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
+
                 $this->_handle->open(['path' => Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }
+
                 $this->_handle->streamOpen($this->_resourceFile, 'r');
             } else {
                 Mage::throwException(Mage::helper('downloadable')->__('Invalid download link type.'));
             }
         }
+
         return $this->_handle;
     }
 
@@ -187,6 +187,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 return $this->_urlHeaders['content-length'];
             }
         }
+
         return null;
     }
 
@@ -209,6 +210,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 return $contentType[0];
             }
         }
+
         return $this->_contentType;
     }
 
@@ -225,14 +227,16 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         } elseif ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-disposition'])) {
                 $contentDisposition = explode('; ', $this->_urlHeaders['content-disposition']);
-                if (!empty($contentDisposition[1]) && strpos($contentDisposition[1], 'filename=') !== false) {
+                if (!empty($contentDisposition[1]) && str_contains($contentDisposition[1], 'filename=')) {
                     return substr($contentDisposition[1], 9);
                 }
             }
+
             if ($fileName = @pathinfo($this->_resourceFile, PATHINFO_BASENAME)) {
                 return $fileName;
             }
         }
+
         return $this->_fileName;
     }
 

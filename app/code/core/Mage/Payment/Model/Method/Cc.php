@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Payment
  */
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
     protected $_formBlockType = 'payment/form_cc';
+
     protected $_infoBlockType = 'payment/info_cc';
+
     protected $_canSaveCc     = false;
 
     /**
@@ -35,6 +29,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (!($data instanceof Varien_Object)) {
             $data = new Varien_Object($data);
         }
+
         $info = $this->getInfoInstance();
         $info->setCcType($data->getCcType())
             ->setCcOwner($data->getCcOwner())
@@ -61,6 +56,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if ($this->_canSaveCc) {
             $info->setCcNumberEnc($info->encrypt($info->getCcNumber()));
         }
+
         //$info->setCcCidEnc($info->encrypt($info->getCcCid()));
         $info->setCcNumber(null)
             ->setCcCid(null);
@@ -89,6 +85,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         // remove credit card number delimiters such as "-" and space
         $ccNumber = preg_replace('/[\-\s]+/', '', $ccNumber);
+
         $info->setCcNumber($ccNumber);
 
         $ccType = '';
@@ -108,11 +105,11 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                     // Solo only
                     'SO' => '/(^(6334)[5-9](\d{11}$|\d{13,14}$))|(^(6767)(\d{12}$|\d{14,15}$))/',
                     // Visa
-                    'VI'  => '/^4[0-9]{12}([0-9]{3})?$/',
+                    'VI'  => '/^4\d{12}(\d{3})?$/',
                     // Master Card
-                    'MC'  => '/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/',
+                    'MC'  => '/^(5[1-5]\d{14}|2(22[1-9]\d{12}|2[3-9]\d{13}|[3-6]\d{14}|7[0-1]\d{13}|720\d{12}))$/',
                     // American Express
-                    'AE'  => '/^3[47][0-9]{13}$/',
+                    'AE'  => '/^3[47]\d{13}$/',
                     // Discover Network
                     'DI'  => $discoverNetworkRegexp,
                     // Dinners Club (Belongs to Discover Network)
@@ -176,6 +173,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (is_null($configData)) {
             return true;
         }
+
         return (bool) $configData;
     }
 
@@ -185,15 +183,15 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     public function getVerificationRegEx()
     {
         return [
-            'VI' => '/^[0-9]{3}$/', // Visa
-            'MC' => '/^[0-9]{3}$/',       // Master Card
-            'AE' => '/^[0-9]{4}$/',        // American Express
-            'DI' => '/^[0-9]{3}$/',          // Discovery
-            'SS' => '/^[0-9]{3,4}$/',
-            'SM' => '/^[0-9]{3,4}$/', // Switch or Maestro
-            'SO' => '/^[0-9]{3,4}$/', // Solo
-            'OT' => '/^[0-9]{3,4}$/',
-            'JCB' => '/^[0-9]{3,4}$/', //JCB
+            'VI' => '/^\d{3}$/', // Visa
+            'MC' => '/^\d{3}$/',       // Master Card
+            'AE' => '/^\d{4}$/',        // American Express
+            'DI' => '/^\d{3}$/',          // Discovery
+            'SS' => '/^\d{3,4}$/',
+            'SM' => '/^\d{3,4}$/', // Switch or Maestro
+            'SO' => '/^\d{3,4}$/', // Solo
+            'OT' => '/^\d{3,4}$/',
+            'JCB' => '/^\d{3,4}$/', //JCB
         ];
     }
 
@@ -211,6 +209,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -347,6 +346,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             if (!$info->getQuote()->getReservedOrderId()) {
                 $info->getQuote()->reserveOrderId();
             }
+
             return $info->getQuote()->getReservedOrderId();
         }
     }
@@ -395,6 +395,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
             return true;
         }
+
         return false;
     }
 }

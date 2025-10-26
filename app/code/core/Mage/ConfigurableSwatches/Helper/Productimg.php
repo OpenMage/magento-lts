@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_ConfigurableSwatches_Helper_Productimg
  *
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstract
@@ -41,14 +33,19 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     protected $_productImageFilters = [];
 
     public const SWATCH_LABEL_SUFFIX = '-swatch';
+
     public const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
+
     public const SWATCH_CACHE_DIR = 'catalog/swatches';
+
     public const SWATCH_FILE_EXT = '.png';
 
     public const MEDIA_IMAGE_TYPE_BASE = 'base_image';
+
     public const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
 
     public const SWATCH_DEFAULT_WIDTH = 21;
+
     public const SWATCH_DEFAULT_HEIGHT = 21;
 
     /**
@@ -154,6 +151,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                     }
                 }
             }
+
             $this->_productImagesByLabel[$product->getId()] = $images;
         }
     }
@@ -255,6 +253,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             if (!$swatchImage) {
                 $swatchImage = $this->createSwatchImage($value, $width, $height);
             }
+
             if (!$swatchImage && $defaultValue == $value) {
                 return '';  // no image found and no further fallback
             } elseif (!$swatchImage) {
@@ -300,7 +299,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         $newImage = imagecreatetruecolor($width, $height);
-        list($r, $g, $b) = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
+        [$r, $g, $b] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
         $backgroundColor = imagecolorallocate($newImage, (int) $r, (int) $g, (int) $b);
         imagefill($newImage, 0, 0, $backgroundColor);
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
@@ -384,7 +383,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
             $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
-            $filters = array_unique($mapping['labels']);
+            $filters = isset($mapping['labels']) ? array_unique($mapping['labels']) : [];
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
             }, $filters));

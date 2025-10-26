@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Crypt
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mcrypt plugin
  *
- * @category   Varien
  * @package    Varien_Crypt
  */
 class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
@@ -93,9 +85,11 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (!$this->getHandler()) {
             throw new Varien_Exception('Crypt module is not initialized.');
         }
+
         if (strlen($data) == 0) {
             return $data;
         }
+
         return mcrypt_generic($this->getHandler(), $data);
     }
 
@@ -110,9 +104,11 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (!$this->getHandler()) {
             throw new Varien_Exception('Crypt module is not initialized.');
         }
+
         if (strlen($data) == 0) {
             return $data;
         }
+
         return mdecrypt_generic($this->getHandler(), $data);
     }
 

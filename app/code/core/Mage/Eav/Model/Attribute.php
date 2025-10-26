@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource model (Using Forms)
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
@@ -91,6 +83,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
             $forms = $this->_getResource()->getUsedInForms($this);
             $this->setData('used_in_forms', $forms);
         }
+
         return $forms;
     }
 
@@ -107,6 +100,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (!empty($rules)) {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
+
         return [];
     }
 
@@ -123,6 +117,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (is_array($rules)) {
             $rules = serialize($rules);
         }
+
         $this->setData('validate_rules', $rules);
 
         return $this;

@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -28,7 +21,6 @@
  * );
  * $emailTemplate->send('some@domain.com', 'Name Of User', $variables);
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
@@ -78,12 +70,17 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Configuration path for default email templates
      */
     public const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
+
     public const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
+
     public const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
 
     protected $_templateFilter;
+
     protected $_preprocessFlag = false;
+
     protected $_mail;
+
     protected $_bccEmails = [];
 
     protected static $_defaultTemplates;
@@ -107,6 +104,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (is_null($this->_mail)) {
             $this->_mail = new Zend_Mail('utf-8');
         }
+
         return $this->_mail;
     }
 
@@ -133,6 +131,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_templateFilter->setUseAbsoluteLinks($this->getUseAbsoluteLinks())
                 ->setStoreId($this->getDesignConfig()->getStore());
         }
+
         return $this->_templateFilter;
     }
 
@@ -229,8 +228,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             } else {
                 $module = 'adminhtml';
             }
+
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
+
         asort($idLabel);
         foreach ($idLabel as $templateId => $label) {
             $options[] = ['value' => $templateId, 'label' => $label];
@@ -322,6 +323,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_cancelDesignConfig();
             throw $e;
         }
+
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -354,7 +356,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getInclude($template, array $variables)
     {
-        $thisClass = __CLASS__;
+        $thisClass = self::class;
         /** @var Mage_Core_Model_Email_Template $includeTemplate */
         $includeTemplate = new $thisClass();
         $includeTemplate->loadByCode($template);
@@ -394,17 +396,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);
-        switch ($setReturnPath) {
-            case 1:
-                $returnPathEmail = $this->getSenderEmail();
-                break;
-            case 2:
-                $returnPathEmail = Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL);
-                break;
-            default:
-                $returnPathEmail = null;
-                break;
-        }
+        $returnPathEmail = match ($setReturnPath) {
+            1 => $this->getSenderEmail(),
+            2 => Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL),
+            default => null,
+        };
 
         if ($this->hasQueue() && $this->getQueue() instanceof Mage_Core_Model_Email_Queue) {
             $emailQueue = $this->getQueue();
@@ -437,7 +433,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         foreach ($emails as $key => $email) {
-            $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
+            $mail->addTo($email, $this->getBase64EncodedString($names[$key]));
         }
 
         if ($this->isPlain()) {
@@ -446,7 +442,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $mail->setBodyHtml($text);
         }
 
-        $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
+        $mail->setSubject($this->getBase64EncodedString($subject));
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
@@ -465,7 +461,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 $mail->send();
             }
 
-            foreach ($emails as $key => $email) {
+            foreach ($emails as $email) {
                 Mage::dispatchEvent('email_template_send_after', [
                     'to'         => $email,
                     'html'       => !$this->isPlain(),
@@ -474,6 +470,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'email_body' => $text,
                 ]);
             }
+
             $this->_mail = null;
         } catch (Exception $e) {
             $this->_mail = null;
@@ -529,6 +526,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (!isset($vars['store'])) {
             $vars['store'] = Mage::app()->getStore($storeId);
         }
+
         $this->setSentSuccess($this->send($email, $name, $vars));
         return $this;
     }
@@ -555,6 +553,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_cancelDesignConfig();
             throw $e;
         }
+
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -574,6 +573,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_bccEmails[] = $bcc;
             $this->getMail()->addBcc($bcc);
         }
+
         return $this;
     }
 
@@ -614,6 +614,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $variablesString = str_replace("\n", '', $variablesString);
             $variables = Zend_Json::decode($variablesString);
         }
+
         return $variables;
     }
 
@@ -634,6 +635,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'label' => Mage::helper('core')->__('%s', $label),
                 ];
             }
+
             if ($withGroup) {
                 $optionArray = [
                     'label' => Mage::helper('core')->__('Template Variables'),
@@ -641,6 +643,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 ];
             }
         }
+
         return $optionArray;
     }
 
@@ -655,9 +658,16 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (empty($code)) {
             Mage::throwException(Mage::helper('core')->__('The template Name must not be empty.'));
         }
+
         if ($this->_getResource()->checkCodeUsage($this)) {
             Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
+
         return parent::_beforeSave();
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }

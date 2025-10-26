@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag collection model
  *
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -68,10 +60,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->isLoaded()) {
             return $this;
         }
+
         parent::load($printQuery, $logQuery);
         if ($this->getFlag('add_stores_after')) {
             $this->_addStoresVisibility();
         }
+
         return $this;
     }
 
@@ -164,6 +158,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('popularity');
         }
+
         return $this;
     }
 
@@ -195,6 +190,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('summary', true);
         }
+
         return $this;
     }
 
@@ -266,6 +262,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 
@@ -307,6 +304,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             if ($this->getFlag('relation') && $allFilter) {
                 $this->getSelect()->where('relation.store_id IN (?)', $storeId);
             }
+
             if ($this->getFlag('prelation') && $allFilter) {
                 $this->getSelect()->where('prelation.store_id IN (?)', $storeId);
             }
@@ -335,6 +333,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->getSelect()->where('prelation.active = ?', $statusActive);
         }
+
         return $this;
     }
 
@@ -362,6 +361,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->addFieldToFilter('prelation.product_id', $productId);
         }
+
         return $this;
     }
 
@@ -379,6 +379,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             $this->getSelect()
                 ->where('prelation.customer_id = ?', $customerId);
         }
+
         return $this;
     }
 

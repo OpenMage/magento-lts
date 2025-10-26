@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,16 +12,20 @@
  *
  * Validator checked XML validation and protected expressions
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
+
     public const XML_INVALID                             = 'invalidXml';
+
     public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
+
     public const INVALID_BLOCK_NAME                      = 'invalidBlockName';
+
     public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
+
     public const INVALID_XML_OBJECT_EXCEPTION            = 'invalidXmlObject';
 
     /**
@@ -98,6 +95,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                     Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
             ];
         }
+
         return $this;
     }
 
@@ -114,6 +112,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 }
             }
         }
+
         return $this->_disallowedBlock;
     }
 
@@ -143,26 +142,29 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             $value = trim($value);
             try {
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::XML_INVALID);
                 return false;
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
             throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
         }
+
         if ($value->xpath($this->getXpathBlockValidationExpression())) {
             $this->_error(self::INVALID_BLOCK_NAME);
             return false;
         }
+
         // if layout update declare custom templates then validate their paths
         if ($templatePaths = $value->xpath($this->getXpathValidationExpression())) {
             try {
                 $this->validateTemplatePath($templatePaths);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::INVALID_TEMPLATE_PATH);
                 return false;
             }
         }
+
         $this->_setValue($value);
 
         foreach ($this->_protectedExpressions as $key => $xpr) {
@@ -171,6 +173,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -218,6 +221,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 }
             }
         }
+
         return $this->_xpathBlockValidationExpression;
     }
 

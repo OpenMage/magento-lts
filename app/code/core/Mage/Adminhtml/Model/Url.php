@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method bool getNoSecret()
@@ -38,6 +30,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if ($this->hasData('secure_is_forced')) {
             return $this->getData('secure');
         }
+
         return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);
     }
 
@@ -87,11 +80,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($controller, $action)];
         }
+
         if (is_array($routeParams)) {
             $routeParams = array_merge($secret, $routeParams);
         } else {
             $routeParams = $secret;
         }
+
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }
@@ -114,6 +109,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if (!$controller) {
             $controller = !empty($p[1]) ? $p[1] : $this->getRequest()->getControllerName();
         }
+
         if (!$action) {
             $action = !empty($p[2]) ? $p[2] : $this->getRequest()->getActionName();
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Quote Address Total  abstract model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -39,6 +31,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var bool
      */
     protected $_canAddAmountToAddress = true;
+
     protected $_canSetAddressAmount   = true;
 
     /**
@@ -131,6 +124,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
                 Mage::helper('sales')->__('Address model is not defined.'),
             );
         }
+
         return $this->_address;
     }
 
@@ -145,6 +139,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
@@ -159,6 +154,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
@@ -173,6 +169,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
@@ -187,6 +184,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
@@ -210,6 +208,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod($this->_itemRowTotalKey);
     }
 
@@ -223,6 +222,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
     }
 
@@ -236,6 +236,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
             return false;
         }
+
         return true;
     }
 

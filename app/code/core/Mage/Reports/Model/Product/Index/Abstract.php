@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports Product Index Abstract Model
  *
- * @category   Mage
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
@@ -51,12 +43,15 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if (!$this->hasVisitorId()) {
             $this->setVisitorId($this->getVisitorId());
         }
+
         if (!$this->hasCustomerId()) {
             $this->setCustomerId($this->getCustomerId());
         }
+
         if (!$this->hasStoreId()) {
             $this->setStoreId($this->getStoreId());
         }
+
         if (!$this->hasAddedAt()) {
             $this->setAddedAt(Varien_Date::now());
         }
@@ -91,6 +86,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('visitor_id')) {
             return $this->getData('visitor_id');
         }
+
         return Mage::getSingleton('log/visitor')->getId();
     }
 
@@ -106,6 +102,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('customer_id')) {
             return $this->getData('customer_id');
         }
+
         return Mage::getSingleton('customer/session')->getCustomerId();
     }
 
@@ -121,6 +118,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('store_id')) {
             return (int) $this->getData('store_id');
         }
+
         return Mage::app()->getStore()->getId();
     }
 
@@ -231,6 +229,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
                 Mage::logException($exception);
             }
         }
+
         $this->_getSession()->unsData($this->_countCacheKey);
         return $this;
     }

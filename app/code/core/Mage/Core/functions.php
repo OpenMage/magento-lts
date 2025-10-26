@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -26,6 +19,7 @@ function destruct($object)
             destruct($obj);
         }
     }
+
     unset($object);
 }
 
@@ -95,6 +89,7 @@ function mageFindClassFile($class)
             break;
         }
     }
+
     return $found;
 }
 
@@ -114,7 +109,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         return false;
     }
 
-    $errno = $errno & error_reporting();
+    $errno &= error_reporting();
     if ($errno == 0) {
         return false;
     }
@@ -125,6 +120,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
+
         // ignore attempts to read system files when open_basedir is set
         if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
             return true;
@@ -133,53 +129,24 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     $errorMessage = '';
 
-    switch ($errno) {
-        case E_ERROR:
-            $errorMessage .= 'Error';
-            break;
-        case E_WARNING:
-            $errorMessage .= 'Warning';
-            break;
-        case E_PARSE:
-            $errorMessage .= 'Parse Error';
-            break;
-        case E_NOTICE:
-            $errorMessage .= 'Notice';
-            break;
-        case E_CORE_ERROR:
-            $errorMessage .= 'Core Error';
-            break;
-        case E_CORE_WARNING:
-            $errorMessage .= 'Core Warning';
-            break;
-        case E_COMPILE_ERROR:
-            $errorMessage .= 'Compile Error';
-            break;
-        case E_COMPILE_WARNING:
-            $errorMessage .= 'Compile Warning';
-            break;
-        case E_USER_ERROR:
-            $errorMessage .= 'User Error';
-            break;
-        case E_USER_WARNING:
-            $errorMessage .= 'User Warning';
-            break;
-        case E_USER_NOTICE:
-            $errorMessage .= 'User Notice';
-            break;
-        case 2048: // E_STRICT prior to PHP8.4
-            $errorMessage .= 'Strict Notice';
-            break;
-        case E_RECOVERABLE_ERROR:
-            $errorMessage .= 'Recoverable Error';
-            break;
-        case E_DEPRECATED:
-            $errorMessage .= 'Deprecated functionality';
-            break;
-        default:
-            $errorMessage .= "Unknown error ($errno)";
-            break;
-    }
+    match ($errno) {
+        E_ERROR => $errorMessage .= 'Error',
+        E_WARNING => $errorMessage .= 'Warning',
+        E_PARSE => $errorMessage .= 'Parse Error',
+        E_NOTICE => $errorMessage .= 'Notice',
+        E_CORE_ERROR => $errorMessage .= 'Core Error',
+        E_CORE_WARNING => $errorMessage .= 'Core Warning',
+        E_COMPILE_ERROR => $errorMessage .= 'Compile Error',
+        E_COMPILE_WARNING => $errorMessage .= 'Compile Warning',
+        E_USER_ERROR => $errorMessage .= 'User Error',
+        E_USER_WARNING => $errorMessage .= 'User Warning',
+        E_USER_NOTICE => $errorMessage .= 'User Notice',
+        // E_STRICT prior to PHP8.4
+        2048 => $errorMessage .= 'Strict Notice',
+        E_RECOVERABLE_ERROR => $errorMessage .= 'Recoverable Error',
+        E_DEPRECATED => $errorMessage .= 'Deprecated functionality',
+        default => $errorMessage .= "Unknown error ($errno)",
+    };
 
     $errorMessage .= ": {$errstr}  in {$errfile} on line {$errline}";
     if (Mage::getIsDeveloperMode()) {
@@ -205,16 +172,20 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     if ($html) {
         $out .= '<pre>';
     }
+
     foreach ($d as $i => $r) {
         if (!$showFirst && $i == 0) {
             continue;
         }
+
         // sometimes there is undefined index 'file'
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
+
     if ($html) {
         $out .= '</pre>';
     }
+
     if ($return) {
         return $out;
     } else {
@@ -247,6 +218,7 @@ function mageDelTree($path)
                 mageDelTree($path . DS . $entry);
             }
         }
+
         @rmdir($path);
     } else {
         @unlink($path);
@@ -263,7 +235,8 @@ function mageDelTree($path)
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
-    for ($i = 0; $i < count($elements); $i++) {
+    $counter = count($elements);
+    for ($i = 0; $i < $counter; $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
         if ($nquotes % 2 == 1) {
             for ($j = $i + 1; $j < count($elements); $j++) {
@@ -279,6 +252,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
                 }
             }
         }
+
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
             $qstr = & $elements[$i];
@@ -287,6 +261,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
             $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
         }
     }
+
     return $elements;
 }
 
@@ -307,13 +282,16 @@ function isDirWriteable($dir)
             if ($fp === false) {
                 return false;
             }
+
             fclose($fp);
             if (!$exist) {
                 unlink($file);
             }
         }
+
         return true;
     }
+
     return false;
 }
 

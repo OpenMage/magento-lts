@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote payment information
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
@@ -87,6 +79,7 @@
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
     protected $_eventPrefix = 'sales_quote_payment';
+
     protected $_eventObject = 'payment';
 
     protected $_quote;
@@ -107,6 +100,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($this->getQuoteId() != $quote->getId()) {
             $this->setQuoteId($quote->getId());
         }
+
         return $this;
     }
 
@@ -172,11 +166,13 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($this->getQuote()) {
             $this->setQuoteId($this->getQuote()->getId());
         }
+
         try {
             $method = $this->getMethodInstance();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             return parent::_beforeSave();
         }
+
         $method->prepareSave();
         return parent::_beforeSave();
     }
@@ -192,6 +188,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($method) {
             return $method->getCheckoutRedirectUrl();
         }
+
         return '';
     }
 
@@ -206,6 +203,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($method) {
             return $method->getOrderPlaceRedirectUrl();
         }
+
         return '';
     }
 

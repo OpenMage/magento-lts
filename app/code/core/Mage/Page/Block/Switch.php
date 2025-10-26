@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Store and language switcher block
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Block_Switch extends Mage_Core_Block_Template
@@ -64,8 +56,10 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             foreach ($websiteGroups as $group) {
                 $groups[$group->getId()] = $group;
             }
+
             $this->setData('raw_groups', $groups);
         }
+
         return $this->getData('raw_groups');
     }
 
@@ -82,6 +76,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!$store->getIsActive()) {
                     continue;
                 }
+
                 $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
 
                 $params = [
@@ -90,13 +85,16 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!$this->isStoreInUrl()) {
                     $params['_query']['___store'] = $store->getCode();
                 }
+
                 $baseUrl = $store->getUrl('', $params);
 
                 $store->setHomeUrl($baseUrl);
                 $stores[$store->getGroupId()][$store->getId()] = $store;
             }
+
             $this->setData('raw_stores', $stores);
         }
+
         return $this->getData('raw_stores');
     }
 
@@ -117,6 +115,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }
+
                 if ($group->getId() == $this->getCurrentGroupId()) {
                     $groups[] = $group;
                     continue;
@@ -129,8 +128,10 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                     $groups[] = $group;
                 }
             }
+
             $this->setData('groups', $groups);
         }
+
         return $this->getData('groups');
     }
 
@@ -148,8 +149,10 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             } else {
                 $stores = $rawStores[$groupId];
             }
+
             $this->setData('stores', $stores);
         }
+
         return $this->getData('stores');
     }
 
@@ -170,6 +173,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         if (is_null($this->_storeInUrl)) {
             $this->_storeInUrl = Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL);
         }
+
         return $this->_storeInUrl;
     }
 }

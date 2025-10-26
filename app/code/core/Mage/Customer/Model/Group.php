@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer group model
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method Mage_Customer_Model_Resource_Group _getResource()
@@ -25,7 +17,7 @@
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
  *
- * @method string getCustomerGroupCode()
+ * @method string|null getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
  * @method $this setTaxClassId(int $value)
  */
@@ -37,6 +29,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     public const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
 
     public const NOT_LOGGED_IN_ID          = 0;
+
     public const CUST_GROUP_ALL            = 32000;
 
     public const ENTITY                    = 'customer_group';
@@ -84,7 +77,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      */
     public function getCode()
     {
-        return $this->getCustomerGroupCode();
+        return (string) $this->getCustomerGroupCode();
     }
 
     /**
@@ -99,8 +92,10 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
                 $this->load($groupId);
                 self::$_taxClassIds[$groupId] = $this->getData('tax_class_id');
             }
+
             $this->setData('tax_class_id', self::$_taxClassIds[$groupId]);
         }
+
         return $this->getData('tax_class_id');
     }
 
@@ -113,6 +108,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         if (in_array($this->getId(), $data)) {
             return true;
         }
+
         return false;
     }
 

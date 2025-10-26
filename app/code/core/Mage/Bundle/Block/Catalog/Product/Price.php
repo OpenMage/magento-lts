@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle product price block
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method string getMAPTemplate()
@@ -33,10 +25,12 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
     {
         $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
+
         $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
+
         $currentTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         return ((float) $defaultTax > 0 || (float) $currentTax > 0);
@@ -78,6 +72,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
             if (Mage::helper('catalog')->isShowPriceOnGesture($product)) {
                 $this->setWithoutPrice(true);
             }
+
             $realPriceHtml = parent::_toHtml();
             $this->unsWithoutPrice();
             $addToCartUrl  = $this->getLayout()->getBlock('product.info.bundle')->getAddToCartUrl($product);

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form select element
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method array getOptions()
@@ -65,6 +57,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         } elseif ($this->getOptions() && is_array($this->getOptions())) {
             $options = $this->getOptions();
         }
+
         foreach ($options as $k => $v) {
             if (is_string($v)) {
                 $values[] = [
@@ -75,6 +68,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 if (!isset($v['label'])) {
                     $v['label'] = $v['value'];
                 }
+
                 $values[] = [
                     'label' => $v['label'],
                     'value' => $v['value'],
@@ -118,6 +112,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         } else {
             return;
         }
+
         if (!is_array($checked)) {
             $checked = [(string) $checked];
         } else {
@@ -125,9 +120,11 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $checked[$k] = (string) $v;
             }
         }
+
         if (in_array((string) $value, $checked)) {
             return 'checked';
         }
+
         return ;
     }
 
@@ -145,10 +142,12 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                     $disabled[$k] = (string) $v;
                 }
             }
+
             if (in_array((string) $value, $disabled)) {
                 return 'disabled';
             }
         }
+
         return;
     }
 
@@ -161,6 +160,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         if ($onclick = $this->getData('onclick')) {
             return str_replace('$value', $value, $onclick);
         }
+
         return;
     }
 
@@ -173,6 +173,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         if ($onchange = $this->getData('onchange')) {
             return str_replace('$value', $value, $onchange);
         }
+
         return;
     }
 
@@ -198,6 +199,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $html .= ' ' . $attribute . '="' . $value . '"';
             }
         }
+
         return $html . (' value="' . $option['value'] . '" />'
             . ' <label for="' . $id . '">' . $option['label'] . '</label></li>'
             . "\n");

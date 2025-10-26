@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Operation abstract class
  *
- * @category   Mage
  * @package    Mage_ImportExport
  *
  * @method string getRunAt()
@@ -73,6 +65,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         } else {
             $this->_logTrace[] = $debugData;
         }
+
         if (!$this->_debugMode) {
             return $this;
         }
@@ -90,11 +83,13 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
             if (!is_dir($dirPath)) {
                 mkdir($dirPath, 0750, true);
             }
+
             $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1)
                 . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName)
                 ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
+
         $this->_logInstance->log($debugData);
         return $this;
     }
@@ -111,6 +106,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
         foreach ($this->_logTrace as &$info) {
             $trace .= $lineNumber++ . ': ' . $info . "\n";
         }
+
         return $trace;
     }
 

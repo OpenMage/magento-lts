@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model to calculate Weee amount
  *
- * @category   Mage
  * @package    Mage_Weee
  *
  * @method Mage_Weee_Model_Resource_Tax _getResource()
@@ -29,14 +21,17 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Including FPT only
      */
     public const DISPLAY_INCL              = 0;
+
     /**
      * Including FPT and FPT description
      */
     public const DISPLAY_INCL_DESCR        = 1;
+
     /**
      * Excluding FPT, FPT description, final price
      */
     public const DISPLAY_EXCL_DESCR_INCL   = 2;
+
     /**
      * Excluding FPT
      */
@@ -111,6 +106,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         foreach ($attributes as $attribute) {
             $amount += $attribute->getAmount();
         }
+
         return $amount;
     }
 
@@ -140,6 +136,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         if (is_null($this->_allAttributes)) {
             $this->_allAttributes = Mage::getModel('eav/entity_attribute')->getAttributeCodesByFrontendType('weee');
         }
+
         return $this->_allAttributes;
     }
 
@@ -183,6 +180,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         if ($customer) {
             $calculator->setCustomer($customer);
         }
+
         $rateRequest = $calculator->getRateRequest($shipping, $billing, $customerTaxClass, $store);
 
         $currentPercent = $product->getTaxPercent();
@@ -236,7 +234,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                         if (Mage::helper('weee')->isTaxIncluded($store)) {
                             $taxAmount = Mage::app()->getStore()
                                     ->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
-                            $amount =  $amount - $taxAmount;
+                            $amount -= $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
                             // phpcs:ignore Ecg.Performance.Loop.ArraySize
@@ -262,6 +260,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $result;
     }
 
@@ -280,6 +279,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
             $this->_productDiscounts[$key] = (int) $this->getResource()
                 ->getProductDiscountPercent($product->getId(), $website, $group);
         }
+
         $value = $this->_productDiscounts[$key];
         if ($value) {
             return 100 - min(100, max(0, $value));

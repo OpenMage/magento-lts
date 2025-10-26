@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  *
  * Used for retrieving configuration data by payment models
  *
- * @category   Mage
  * @package    Mage_Payment
  */
 class Mage_Payment_Model_Config
@@ -46,6 +38,7 @@ class Mage_Payment_Model_Config
                 }
             }
         }
+
         return $methods;
     }
 
@@ -65,6 +58,7 @@ class Mage_Payment_Model_Config
                 $methods[$code] = $data;
             }
         }
+
         return $methods;
     }
 
@@ -79,14 +73,17 @@ class Mage_Payment_Model_Config
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
         }
+
         if (empty($config['model'])) {
             return false;
         }
+
         $modelName = $config['model'];
         $method = Mage::getModel($modelName);
         if (!$method) {
             return false;
         }
+
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
@@ -109,6 +106,7 @@ class Mage_Payment_Model_Config
                 $types[$data['code']] = $data['name'];
             }
         }
+
         return $types;
     }
 
@@ -124,6 +122,7 @@ class Mage_Payment_Model_Config
             $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
+
         return $data;
     }
 
@@ -141,6 +140,7 @@ class Mage_Payment_Model_Config
             $year = $first + $index;
             $years[$year] = $year;
         }
+
         return $years;
     }
 

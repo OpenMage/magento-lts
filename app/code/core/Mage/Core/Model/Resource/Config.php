@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Resource Resource Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
@@ -59,6 +51,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if (!isset($websites[$s['website_id']])) {
                 continue;
             }
+
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
@@ -76,6 +69,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         if (!is_null($condition)) {
             $select->where($condition);
         }
+
         $rowset = $read->fetchAll($select);
 
         // set default config values from database
@@ -83,13 +77,14 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'default') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             $xmlConfig->setNode('default/' . $r['path'], $value);
         }
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id => $w) {
+        foreach ($websites as $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }
@@ -100,6 +95,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'websites') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             if (isset($websites[$r['scope_id']])) {
                 $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
@@ -129,6 +125,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'stores') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             if (isset($stores[$r['scope_id']])) {
                 $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
@@ -151,6 +148,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
                 'scope_id IN(?)' => $deleteStores,
             ]);
         }
+
         return $this;
     }
 
@@ -186,6 +184,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             $writeAdapter->insert($this->getMainTable(), $newData);
         }
+
         return $this;
     }
 

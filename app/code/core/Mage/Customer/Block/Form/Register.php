@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer register form block
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method $this setBackUrl(string $value)
@@ -68,6 +60,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
             $helper = $this->helper('customer');
             $url = $helper->getLoginUrl();
         }
+
         return $url;
     }
 
@@ -86,22 +79,26 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
                 $data->addData($formData);
                 $data->setCustomerData(1);
             }
+
             if (isset($data['region_id'])) {
                 $data['region_id'] = (int) $data['region_id'];
             }
+
             if ($data->getDob()) {
                 $dob = $data->getYear() . '-' . $data->getMonth() . '-' . $data->getDay();
                 $data->setDob($dob);
             }
+
             $this->setData('form_data', $data);
         }
+
         return $data;
     }
 
     /**
      * Retrieve customer country identifier
      *
-     * @return int
+     * @return string
      */
     public function getCountryId()
     {
@@ -109,6 +106,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if ($countryId) {
             return $countryId;
         }
+
         return parent::getCountryId();
     }
 
@@ -126,6 +124,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if (($region = $this->getFormData()->getRegionId()) !== false) {
             return $region;
         }
+
         return null;
     }
 

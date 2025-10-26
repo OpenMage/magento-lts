@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Inventory Stock Model
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
@@ -87,17 +79,27 @@
 class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_GLOBAL                = 'cataloginventory/options/';
+
     public const XML_PATH_CAN_SUBTRACT          = 'cataloginventory/options/can_subtract';
+
     public const XML_PATH_CAN_BACK_IN_STOCK     = 'cataloginventory/options/can_back_in_stock';
 
     public const XML_PATH_ITEM                  = 'cataloginventory/item_options/';
+
     public const XML_PATH_MIN_QTY               = 'cataloginventory/item_options/min_qty';
+
     public const XML_PATH_MIN_SALE_QTY          = 'cataloginventory/item_options/min_sale_qty';
+
     public const XML_PATH_MAX_SALE_QTY          = 'cataloginventory/item_options/max_sale_qty';
+
     public const XML_PATH_BACKORDERS            = 'cataloginventory/item_options/backorders';
+
     public const XML_PATH_NOTIFY_STOCK_QTY      = 'cataloginventory/item_options/notify_stock_qty';
+
     public const XML_PATH_MANAGE_STOCK          = 'cataloginventory/item_options/manage_stock';
+
     public const XML_PATH_ENABLE_QTY_INCREMENTS = 'cataloginventory/item_options/enable_qty_increments';
+
     public const XML_PATH_QTY_INCREMENTS        = 'cataloginventory/item_options/qty_increments';
 
     public const ENTITY                         = 'cataloginventory_stock_item';
@@ -201,6 +203,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($product instanceof Mage_Catalog_Model_Product) {
             $product = $product->getId();
         }
+
         $this->_getResource()->loadByProductId($this, $product);
         $this->setOrigData();
         return $this;
@@ -217,6 +220,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->canSubtractQty()) {
             $this->setQty($this->getQty() - $qty);
         }
+
         return $this;
     }
 
@@ -241,6 +245,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if (!$this->getManageStock()) {
             return $this;
         }
+
         $config = Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
         if (!$config) {
             return $this;
@@ -262,6 +267,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $storeId = Mage::app()->getStore()->getId();
             $this->setData('store_id', $storeId);
         }
+
         return $storeId;
     }
 
@@ -365,6 +371,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->getUseConfigNotifyStockQty()) {
             return Mage::getStoreConfigAsFloat(self::XML_PATH_NOTIFY_STOCK_QTY);
         }
+
         return (float) $this->getData('notify_stock_qty');
     }
 
@@ -399,6 +406,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 $this->_qtyIncrements = false;
             }
         }
+
         return $this->_qtyIncrements;
     }
 
@@ -425,6 +433,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->getUseConfigBackorders()) {
             return Mage::getStoreConfigAsInt(self::XML_PATH_BACKORDERS);
         }
+
         return $this->getData('backorders');
     }
 
@@ -438,6 +447,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->getUseConfigManageStock()) {
             return (int) Mage::getStoreConfigFlag(self::XML_PATH_MANAGE_STOCK);
         }
+
         return $this->getData('manage_stock');
     }
 
@@ -473,6 +483,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     return false;
             }
         }
+
         return true;
     }
 
@@ -546,6 +557,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }
+
             if (!in_array($this->getProductId(), $childrenIds)) {
                 $result->setHasError(true)
                     ->setMessage(Mage::helper('cataloginventory')
@@ -573,6 +585,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             if (!is_numeric($qty)) {
                 $qty = Mage::app()->getLocale()->getNumber($qty);
             }
+
             $origQty = (int) $origQty;
             $result->setOrigQty($origQty);
         }
@@ -624,48 +637,45 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->setQuoteMessage($message)
                 ->setQuoteMessageIndex('qty');
             return $result;
-        } else {
-            if (($this->getQty() - $summaryQty) < 0) {
-                if ($this->getProductName()) {
-                    if ($this->getIsChildItem()) {
-                        $backorderQty = ($this->getQty() > 0) ? ($summaryQty - $this->getQty()) * 1 : $qty * 1;
-                        if ($backorderQty > $qty) {
-                            $backorderQty = $qty;
-                        }
-
-                        $result->setItemBackorders($backorderQty);
-                    } else {
-                        $orderedItems = $this->getOrderedItems();
-                        $itemsLeft = ($this->getQty() > $orderedItems) ? ($this->getQty() - $orderedItems) * 1 : 0;
-                        $backorderQty = ($itemsLeft > 0) ? ($qty - $itemsLeft) * 1 : $qty * 1;
-
-                        if ($backorderQty > 0) {
-                            $result->setItemBackorders($backorderQty);
-                        }
-                        $this->setOrderedItems($orderedItems + $qty);
+        } elseif (($this->getQty() - $summaryQty) < 0) {
+            if ($this->getProductName()) {
+                if ($this->getIsChildItem()) {
+                    $backorderQty = ($this->getQty() > 0) ? ($summaryQty - $this->getQty()) * 1 : $qty * 1;
+                    if ($backorderQty > $qty) {
+                        $backorderQty = $qty;
                     }
 
-                    if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY) {
-                        if (!$this->getIsChildItem()) {
-                            $result->setMessage(
-                                Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %s of the items will be backordered.', ($backorderQty * 1)),
-                            );
-                        } else {
-                            $result->setMessage(
-                                Mage::helper('cataloginventory')->__('"%s" is not available in the requested quantity. %s of the items will be backordered.', $this->getProductName(), ($backorderQty * 1)),
-                            );
-                        }
-                    } elseif (Mage::app()->getStore()->isAdmin()) {
+                    $result->setItemBackorders($backorderQty);
+                } else {
+                    $orderedItems = $this->getOrderedItems();
+                    $itemsLeft = ($this->getQty() > $orderedItems) ? ($this->getQty() - $orderedItems) * 1 : 0;
+                    $backorderQty = ($itemsLeft > 0) ? ($qty - $itemsLeft) * 1 : $qty * 1;
+
+                    if ($backorderQty > 0) {
+                        $result->setItemBackorders($backorderQty);
+                    }
+
+                    $this->setOrderedItems($orderedItems + $qty);
+                }
+
+                if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY) {
+                    if (!$this->getIsChildItem()) {
                         $result->setMessage(
-                            Mage::helper('cataloginventory')->__('The requested quantity for "%s" is not available.', $this->getProductName()),
+                            Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %s of the items will be backordered.', ($backorderQty * 1)),
+                        );
+                    } else {
+                        $result->setMessage(
+                            Mage::helper('cataloginventory')->__('"%s" is not available in the requested quantity. %s of the items will be backordered.', $this->getProductName(), ($backorderQty * 1)),
                         );
                     }
-                }
-            } else {
-                if (!$this->getIsChildItem()) {
-                    $this->setOrderedItems($qty + (int) $this->getOrderedItems());
+                } elseif (Mage::app()->getStore()->isAdmin()) {
+                    $result->setMessage(
+                        Mage::helper('cataloginventory')->__('The requested quantity for "%s" is not available.', $this->getProductName()),
+                    );
                 }
             }
+        } elseif (!$this->getIsChildItem()) {
+            $this->setOrderedItems($qty + (int) $this->getOrderedItems());
         }
 
         return $result;
@@ -793,9 +803,11 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($qty === null) {
             $qty = $this->getQty();
         }
+
         if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_NO && $qty <= $this->getMinQty()) {
             return false;
         }
+
         return true;
     }
 
@@ -810,6 +822,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($qty === null) {
             $qty = $this->getQty();
         }
+
         return (float) $qty < $this->getNotifyStockQty();
     }
 
@@ -823,6 +836,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if (!$this->getManageStock()) {
             return true;
         }
+
         return $this->_getData('is_in_stock');
     }
 
@@ -880,19 +894,23 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                             $qty += $childProduct->getStockItem()->getStockQty();
                         }
                     }
+
                     if (is_null($stockQty) || $qty < $stockQty) {
                         $stockQty = $qty;
                     }
                 }
             }
+
             $stockQty = (float) $stockQty;
             if ($stockQty < 0 || !$this->getManageStock()
                 || !$this->getIsInStock() || ($product && !$product->isSaleable())
             ) {
                 $stockQty = 0;
             }
+
             $this->setStockQty($stockQty);
         }
+
         return $this->getData('stock_qty');
     }
 
@@ -905,6 +923,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->_productInstance) {
             $this->_productInstance = null;
         }
+
         return $this;
     }
 
@@ -937,6 +956,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         } else {
             $indexer->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
         }
+
         return $this;
     }
 }

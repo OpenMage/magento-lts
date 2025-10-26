@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
@@ -77,14 +69,15 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $res = '<strong>' . $res . '</strong>';
             }
         }
+
         return $res;
     }
 
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function applySalableProductTypesFilter($collection)
     {
@@ -100,10 +93,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             } else {
                 $type = '';
             }
+
             if (!in_array($type, $productTypes)) {
                 $collection->removeItemByKey($key);
             }
         }
+
         return $collection;
     }
 
@@ -132,10 +127,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                         $url = null;
                     }
                 }
+
                 //Use hash tag as fallback
                 if (!$url) {
                     $url = '#';
                 }
+
                 //Recreate a minimalistic secure a tag
                 $links[] = sprintf(
                     '<a href="%s">%s</a>',
@@ -145,9 +142,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $data = str_replace($matches[0], '%' . $i . '$s', $data);
                 ++$i;
             }
+
             $data = parent::escapeHtml($data, $allowedTags);
             return vsprintf($data, $links);
         }
+
         return parent::escapeHtml($data, $allowedTags);
     }
 }

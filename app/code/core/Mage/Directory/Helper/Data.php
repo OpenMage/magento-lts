@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory data helper
  *
- * @category   Mage
  * @package    Mage_Directory
  */
 class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
@@ -107,6 +99,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
                 ->addCountryFilter($countryFilter)
                 ->load();
         }
+
         return $this->_regionCollection;
     }
 
@@ -121,6 +114,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->_countryCollection) {
             $this->_countryCollection = $this->_factory->getModel('directory/country')->getResourceCollection();
         }
+
         return $this->_countryCollection;
     }
 
@@ -151,10 +145,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         Varien_Profiler::start('TEST: ' . __METHOD__);
         if (!$this->_regionJson) {
             $store = $this->_app->getStore($storeId);
-            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string) $store->getId();
+            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . $store->getId();
             if ($this->_app->useCache('config')) {
                 $json = $this->_app->loadCache($cacheKey);
             }
+
             if (empty($json)) {
                 $regions = $this->_getRegions($storeId);
                 /** @var Mage_Core_Helper_Data $helper */
@@ -165,6 +160,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_app->saveCache($json, $cacheKey, ['config']);
                 }
             }
+
             $this->_regionJson = $json;
         }
 
@@ -204,11 +200,13 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$region->getRegionId()) {
                 continue;
             }
+
             $regions[$region->getCountryId()][$region->getRegionId()] = [
                 'code' => $region->getCode(),
                 'name' => $this->__($region->getName()),
             ];
         }
+
         return $regions;
     }
 
@@ -226,9 +224,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($this->_currencyCache[$from])) {
             $this->_currencyCache[$from] = Mage::getModel('directory/currency')->load($from);
         }
+
         if (is_null($to)) {
             $to = Mage::app()->getStore()->getCurrentCurrencyCode();
         }
+
         return $this->_currencyCache[$from]->convert($amount, $to);
     }
 
@@ -248,9 +248,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
                 PREG_SPLIT_NO_EMPTY,
             );
         }
+
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($this->_optionalZipCountries);
         }
+
         return $this->_optionalZipCountries;
     }
 
@@ -278,6 +280,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($countryList);
         }
+
         return $countryList;
     }
 
@@ -303,6 +306,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if (!is_array($countyList)) {
             return false;
         }
+
         return in_array($countryId, $countyList);
     }
 

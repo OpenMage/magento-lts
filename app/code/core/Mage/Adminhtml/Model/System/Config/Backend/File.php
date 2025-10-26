@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * System config file field backend model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Config_Data
@@ -42,7 +34,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         $value = $this->getValue();
         if (!empty($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'])) {
             $uploadDir = $this->_getUploadDir();
-
             try {
                 $file = [];
                 $tmpName = $_FILES['groups']['tmp_name'];
@@ -54,7 +45,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $uploader->setAllowRenameFiles(true);
                 $this->addValidators($uploader);
                 $result = $uploader->save($uploadDir);
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
+                );
             } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
+                );
                 Mage::throwException($e->getMessage());
             }
 
@@ -63,20 +60,101 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 if ($this->_addWhetherScopeInfo()) {
                     $filename = $this->_prependScopeInfo($filename);
                 }
+
                 $this->setValue($filename);
             }
-        } else {
-            if (is_array($value) && !empty($value['delete'])) {
-                // Delete record before it is saved
-                $this->delete();
-                // Prevent record from being saved, since it was just deleted
-                $this->_dataSaveAllowed = false;
-            } else {
-                $this->unsValue();
+        } elseif (is_array($value) && !empty($value['delete'])) {
+            // When the delete checkbox is checked without a file being uploaded
+            // Delete physical file first (before DB record is deleted)
+            if ($oldValue = $this->getOldValue()) {
+                $this->deleteFile($oldValue);
             }
+
+            // Delete record before it is saved
+            $this->delete();
+            // Prevent record from being saved, since it was just deleted
+            $this->_dataSaveAllowed = false;
+        } else {
+            $this->unsValue();
         }
 
         return $this;
+    }
+
+    /**
+     * Delete file after a file is uploaded
+     *
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+
+        $groupId = $this->getGroupId();
+        $field = $this->getField();
+
+        // Check if delete checkbox is checked by looking at raw POST data
+        // <input type="checkbox" name="groups[header][fields][logo_src][value][delete]" value="1" class="checkbox" id="design_header_logo_src_delete">
+        // <input type="hidden" name="groups[header][fields][logo_src][value][value]" value="default/logo.png">
+        $groups = Mage::app()->getRequest()->getPost('groups');
+        $fieldData = $groups[$groupId]['fields'][$field]['value'] ?? [];
+
+        $deleteChecked = $fieldData['delete'] ?? false;
+        $filename = $fieldData['value'] ?? null;
+        if ($deleteChecked && $filename) {
+            $this->deleteFile($filename);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete file from the same directory as the uploaded file
+     *
+     * @param string $filename Filename with scope prefix (e.g., 'default/logo.png')
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function deleteFile(string $filename): void
+    {
+        // Get the upload directory for current scope (e.g., '/var/www/media/logo/default')
+        $currentUploadDir = $this->_getUploadDir();
+
+        // Get base upload directory without scope suffix (e.g., '/var/www/media/logo')
+        $baseUploadDir = $currentUploadDir;
+        if ($this->_addWhetherScopeInfo()) {
+            $scopeSuffix = DS . $this->getScope();
+            if ($this->getScope() !== 'default') {
+                $scopeSuffix .= DS . $this->getScopeId();
+            }
+
+            if (str_ends_with($baseUploadDir, $scopeSuffix)) {
+                $baseUploadDir = substr($baseUploadDir, 0, -strlen($scopeSuffix));
+            }
+        }
+
+        // Construct full path: /var/www/media/logo + default/logo.png
+        $filePath = $baseUploadDir . DS . $filename;
+
+        // Safety check: only delete if file is in the same directory as current upload directory
+        // This prevents deleting inherited files from parent scopes
+        $fileDir = dirname($filePath);
+        if ($fileDir !== $currentUploadDir) {
+            // File is in a different scope directory (e.g., inherited from default)
+            // Don't delete it to preserve inheritance
+            Mage::getSingleton('adminhtml/session')->addWarning(
+                Mage::helper('adminhtml')->__('The file %s is inherited from a parent scope and cannot be deleted.', basename($filename)),
+            );
+            return;
+        }
+
+        if (file_exists($filePath)) {
+            @unlink($filePath);
+            Mage::getSingleton('adminhtml/session')->addSuccess(
+                Mage::helper('adminhtml')->__('The file %s has been deleted.', basename($filename)),
+            );
+        }
     }
 
     /**
@@ -137,6 +215,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $uploadRoot = $this->_getUploadRoot((string) $el['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
+
         return $uploadDir;
     }
 
@@ -154,6 +233,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $path = str_replace('/', DS, $matches[2]);
             return Mage::getConfig()->getOptions()->getData($dir) . $path;
         }
+
         return Mage::getBaseDir('media');
     }
 
@@ -171,6 +251,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         if ($this->getScope() != 'default') {
             $scopeInfo .= '/' . $this->getScopeId();
         }
+
         return $scopeInfo . '/' . $path;
     }
 
@@ -188,6 +269,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         if ($this->getScope() != 'default') {
             $path .= '/' . $this->getScopeId();
         }
+
         return $path;
     }
 
@@ -205,6 +287,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $allowedExtensions = (string) $el['allowed_extensions'];
             return explode(',', $allowedExtensions);
         }
+
         return [];
     }
 

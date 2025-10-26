@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Helper_Abstract
@@ -32,7 +24,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Request object
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 
@@ -55,6 +47,7 @@ abstract class Mage_Core_Helper_Abstract
         if (!$this->_request) {
             $this->_request = Mage::app()->getRequest();
         }
+
         return $this->_request;
     }
 
@@ -116,9 +109,10 @@ abstract class Mage_Core_Helper_Abstract
     protected function _getModuleName()
     {
         if (!$this->_moduleName) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
+
         return $this->_moduleName;
     }
 
@@ -165,6 +159,7 @@ abstract class Mage_Core_Helper_Abstract
         if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
             return $this->modulesDisabled[$moduleName] = false;
         }
+
         return $this->modulesDisabled[$moduleName] = true;
     }
 
@@ -210,21 +205,20 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } else {
+        } elseif (is_string($data) && strlen($data)) {
             // process single item
-            if (is_string($data) && strlen($data)) {
-                if (is_array($allowedTags) && !empty($allowedTags)) {
-                    $allowed = implode('|', $allowedTags);
-                    $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
-                    $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
-                    $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
-                } else {
-                    $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
-                }
+            if (is_array($allowedTags) && !empty($allowedTags)) {
+                $allowed = implode('|', $allowedTags);
+                $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
+                $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
+                $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
             } else {
-                $result = $data;
+                $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
             }
+        } else {
+            $result = $data;
         }
+
         return $result;
     }
 
@@ -260,6 +254,7 @@ abstract class Mage_Core_Helper_Abstract
         if ($data === null) {
             return '';
         }
+
         $result = strip_tags($data, $allowableTags);
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
     }
@@ -338,8 +333,10 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = str_replace($quote, '\\' . $quote, $item);
             }
+
             return $result;
         }
+
         return str_replace($quote, '\\' . $quote, $data);
     }
 
@@ -356,9 +353,11 @@ abstract class Mage_Core_Helper_Abstract
         if (!$data) {
             return $data;
         }
+
         if ($addSlashes === true) {
             $data = addslashes($data);
         }
+
         return htmlspecialchars($data, ENT_QUOTES, null, false);
     }
 
@@ -447,8 +446,10 @@ abstract class Mage_Core_Helper_Abstract
             } elseif ($k === 'label') {
                 $v = self::__($v);
             }
+
             $arr[$k] = $v;
         }
+
         return $arr;
     }
 
@@ -467,6 +468,7 @@ abstract class Mage_Core_Helper_Abstract
                 if ($skipTags && in_array($key, $arrayKeys)) {
                     continue;
                 }
+
                 if (is_array($item)) {
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
@@ -477,15 +479,18 @@ abstract class Mage_Core_Helper_Abstract
                     if (!$skipTags && !in_array($key, $arrayKeys)) {
                         continue;
                     }
+
                     return true;
                 }
             }
+
             return false;
         } elseif (is_string($data)) {
             if ((bool) strcmp($data, $this->removeTags($data))) {
                 return true;
             }
         }
+
         return false;
     }
 }

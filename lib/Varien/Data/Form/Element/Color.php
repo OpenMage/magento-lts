@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form text element
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 {
     public const VALIDATION_REGEX_WITH_HASH = '/^#[a-f0-9]{6}$/i';
+
     public const VALIDATION_REGEX_WITHOUT_HASH = '/^[a-f0-9]{6}$/i';
 
     /**

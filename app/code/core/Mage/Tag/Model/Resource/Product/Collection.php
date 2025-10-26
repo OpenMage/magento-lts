@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tagged Product(s) Collection
  *
- * @category   Mage
  * @package    Mage_Tag
  *
  * @method Mage_Catalog_Model_Product[] getItems()
@@ -133,7 +125,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         }
 
         $tagsStores = [];
-        if (count($tagIds)) {
+        if ($tagIds !== []) {
             $select = $this->getConnection()->select()
                 ->from($this->getTable('tag/relation'), ['store_id', 'tag_id'])
                 ->where('tag_id IN(?)', $tagIds);
@@ -180,6 +172,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         if (!is_null($store)) {
             $this->getSelect()->where('relation.store_id IN (?)', $store);
         }
+
         return $this;
     }
 
@@ -199,6 +192,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             $this->getSelect()->where('relation.customer_id ' . $condition);
             return $this;
         }
+
         $this->getSelect()->where('relation.customer_id IN(?)', $customerId);
         $this->_customerFilterId = $customerId;
         return $this;
@@ -259,6 +253,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         if (!is_null($storeId)) {
             $condition[] = $this->getConnection()->quoteInto('prelation.store_id = ?', $storeId);
         }
+
         $condition = implode(' AND ', $condition);
         $innerSelect = $this->getConnection()->select()
             ->from(
@@ -302,7 +297,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             $prodIds[] = $item['product_id'];
         }
 
-        if (count($prodIds)) {
+        if ($prodIds !== []) {
             $this->getSelect()->where('e.entity_id IN(?)', $prodIds);
         } else {
             $this->getSelect()->where('e.entity_id IN(0)');
@@ -323,6 +318,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         if ($this->getFlag('prelation')) {
             $this->getSelect()->where('prelation.active = ?', $active);
         }
+
         return $this;
     }
 
@@ -432,6 +428,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         } else {
             $field = 'e.entity_id';
         }
+
         $expr = new Zend_Db_Expr('COUNT('
             . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
             . $field . ')');
@@ -465,6 +462,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 }
             }
         }
+
         return $this;
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Billing Agreement abstaract class
  *
- * @category   Mage
  * @package    Mage_Payment
  *
  * @method string getMethodCode()
@@ -74,9 +66,11 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
         if (is_null($this->_paymentMethodInstance)) {
             $this->_paymentMethodInstance = Mage::helper('payment')->getMethodInstance($this->getMethodCode());
         }
+
         if ($this->_paymentMethodInstance) {
             $this->_paymentMethodInstance->setStore($this->getStoreId());
         }
+
         return $this->_paymentMethodInstance;
     }
 
@@ -91,9 +85,11 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
         if (is_null($this->getPaymentMethodInstance()) || !$this->getPaymentMethodInstance()->getCode()) {
             $this->_errors[] = Mage::helper('payment')->__('Payment method code is not set.');
         }
+
         if (!$this->getReferenceId()) {
             $this->_errors[] = Mage::helper('payment')->__('Reference ID is not set.');
         }
+
         return empty($this->_errors);
     }
 
@@ -108,6 +104,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
         if ($this->isValid()) {
             return parent::_beforeSave();
         }
+
         array_unshift($this->_errors, Mage::helper('payment')->__('Unable to save Billing Agreement:'));
         throw new Mage_Core_Exception(implode(' ', $this->_errors));
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Attribute Abstract Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Attribute_Data_Abstract
@@ -94,6 +86,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!$this->_attribite) {
             Mage::throwException(Mage::helper('eav')->__('Attribute object is undefined'));
         }
+
         return $this->_attribite;
     }
 
@@ -101,7 +94,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set Request scope
      *
      * @param string $scope
-     * @return string
+     * @return $this
      */
     public function setRequestScope($scope)
     {
@@ -114,7 +107,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Search value only in scope or search value in scope and global
      *
      * @param bool $flag
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     public function setRequestScopeOnly($flag)
     {
@@ -125,7 +118,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set entity instance
      *
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     public function setEntity(Mage_Core_Model_Abstract $entity)
     {
@@ -143,13 +136,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!$this->_entity) {
             Mage::throwException(Mage::helper('eav')->__('Entity object is undefined'));
         }
+
         return $this->_entity;
     }
 
     /**
      * Set array of full extracted data
      *
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     public function setExtractedData(array $data)
     {
@@ -168,6 +162,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!is_null($index)) {
             return $this->_extractedData[$index] ?? null;
         }
+
         return $this->_extractedData;
     }
 
@@ -206,8 +201,10 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             } else {
                 $filter = new $filterClass();
             }
+
             return $filter;
         }
+
         return false;
     }
 
@@ -215,7 +212,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Get/Set/Reset date filter format
      *
      * @param string|null|false $format
-     * @return Mage_Eav_Model_Attribute_Data_Abstract|string
+     * @return $this|string
      */
     protected function _dateFilterFormat($format = null)
     {
@@ -224,6 +221,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             if (is_null($this->_dateFilterFormat)) {
                 $this->_dateFilterFormat = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT;
             }
+
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
         } elseif ($format === false) {
             // reset value
@@ -286,6 +284,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'numeric':
                     $validator = new Zend_Validate_Digits();
@@ -304,6 +303,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'alpha':
                     $validator = new Zend_Validate_Alpha(true);
@@ -322,6 +322,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'email':
                     /**
@@ -409,16 +410,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return array_unique($validator->getMessages());
                     }
+
                     break;
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     break;
                 case 'date':
                     $validator = new Zend_Validate_Date(Varien_Date::DATE_INTERNAL_FORMAT);
@@ -441,6 +445,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     break;
             }
         }
+
         return true;
     }
 
@@ -448,7 +453,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set is AJAX Request flag
      *
      * @param bool $flag
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     public function setIsAjaxRequest($flag = true)
     {
@@ -493,6 +498,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         } else {
             $value = $request->getParam($attrCode, false);
         }
+
         return $value;
     }
 
@@ -516,7 +522,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Export attribute value to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     abstract public function compactValue($value);
 
@@ -524,7 +530,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Restore attribute value from SESSION to entity model
      *
      * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     * @return $this
      */
     abstract public function restoreValue($value);
 

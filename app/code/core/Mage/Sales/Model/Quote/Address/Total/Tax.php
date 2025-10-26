@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -44,6 +36,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         if (!count($items)) {
             return $this;
         }
+
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
@@ -62,6 +55,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             if ($item->getParentItemId()) {
                 continue;
             }
+
             /**
              * We calculate parent tax amount as sum of children's tax amounts
              */
@@ -102,6 +96,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                         $rate,
                     );
                 }
+
                 $itemTaxAmount = $item->getTaxAmount() + $item->getDiscountTaxCompensation();
                 $address->setTaxAmount($address->getTaxAmount() + $itemTaxAmount);
                 $itemBaseTaxAmount = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation();
@@ -231,6 +226,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 unset($previouslyAppliedTaxes[$row['id']]);
             }
         }
+
         $address->setAppliedTaxes($previouslyAppliedTaxes);
     }
 
@@ -251,6 +247,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 'value' => $amount,
             ]);
         }
+
         return $this;
     }
 }

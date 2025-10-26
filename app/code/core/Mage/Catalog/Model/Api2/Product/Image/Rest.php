@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract API2 class for product images resource
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_Model_Api2_Product_Rest
@@ -55,15 +47,18 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         foreach ($galleryData['images'] as $image) {
             if ($image['value_id'] == $imageId && !$image['disabled']) {
                 $imageData = $this->_formatImageData($image);
                 break;
             }
         }
+
         if (empty($imageData)) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $imageData;
     }
 
@@ -83,6 +78,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
                 }
             }
         }
+
         return $images;
     }
 
@@ -101,6 +97,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         ) {
             $this->_critical('Requested product does not support images', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         $galleryAttribute = $attributes[self::GALLERY_ATTRIBUTE_CODE];
         /** @var Mage_Catalog_Model_Product_Attribute_Backend_Media $mediaGallery */
         $mediaGallery = $galleryAttribute->getBackend();
@@ -139,6 +136,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
                 $types[] = $attribute->getAttributeCode();
             }
         }
+
         return $types;
     }
 
@@ -164,6 +162,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         if (isset($data['file_name']) && $data['file_name']) {
             $fileName = $data['file_name'];
         }
+
         return $fileName . ('.' . $this->_getExtensionByMimeType($data['file_mime_type']));
     }
 
@@ -179,6 +178,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         if (!array_key_exists($mimeType, $this->_mimeTypes)) {
             $this->_critical('Unsuppoted image MIME type', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         return $this->_mimeTypes[$mimeType];
     }
 
@@ -196,15 +196,18 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         if (!isset($mediaGalleryData['images'])) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         foreach ($mediaGalleryData['images'] as $image) {
             if ($image['value_id'] == $imageId) {
                 $file = $image['file'];
                 break;
             }
         }
+
         if (!($file && $this->_getMediaGallery()->getImage($this->_getProduct(), $file))) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $file;
     }
 }

@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract implements Mage_Payment_Model_Recurring_Profile_MethodInterface
 {
     protected $_code  = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
+
     protected $_formBlockType = 'paypal/express_form';
+
     protected $_infoBlockType = 'paypal/payment_info';
 
     /**
@@ -35,18 +29,31 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * Availability options
      */
     protected $_isGateway                   = false;
+
     protected $_canOrder                    = true;
+
     protected $_canAuthorize                = true;
+
     protected $_canCapture                  = true;
+
     protected $_canCapturePartial           = true;
+
     protected $_canRefund                   = true;
+
     protected $_canRefundInvoicePartial     = true;
+
     protected $_canVoid                     = true;
+
     protected $_canUseInternal              = false;
+
     protected $_canUseCheckout              = true;
+
     protected $_canUseForMultishipping      = false;
+
     protected $_canFetchTransactionInfo     = true;
+
     protected $_canCreateBillingAgreement   = true;
+
     protected $_canReviewPayment            = true;
 
     /**
@@ -71,11 +78,14 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     public function __construct($params = [])
     {
         $proInstance = array_shift($params);
-        if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
+        if ($proInstance instanceof Mage_Paypal_Model_Pro) {
             $this->_pro = $proInstance;
         } else {
-            $this->_pro = Mage::getModel($this->_proType);
+            /** @var Mage_Paypal_Model_Pro $model */
+            $model = Mage::getModel($this->_proType);
+            $this->_pro = $model;
         }
+
         $this->_pro->setMethod($this->_code);
         $this->_setApiProcessableErrors();
     }
@@ -115,6 +125,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
+
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
         return $this;
     }
@@ -131,6 +142,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         ) {
             return false;
         }
+
         return parent::canUseCheckout();
     }
 
@@ -166,6 +178,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         if (parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable()) {
             return true;
         }
+
         return false;
     }
 
@@ -284,6 +297,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 $payment->setTransactionId($orderTransaction->getTxnId() . '-void');
             }
         }
+
         $this->_pro->void($payment);
         return $this;
     }
@@ -328,6 +342,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 if ($payment->getAdditionalInformation($this->_authorizationCountKey) > $maxAuthorizationNumber - 1) {
                     Mage::throwException(Mage::helper('paypal')->__('The maximum number of child authorizations is reached.'));
                 }
+
                 $api = $this->_callDoAuthorize(
                     $amount,
                     $payment,
@@ -358,6 +373,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 $payment->setParentTransactionId($api->getTransactionId());
                 $isAuthorizationCreated = true;
             }
+
             //close order transaction if needed
             if ($payment->getShouldCloseParentTransaction()) {
                 $orderTransaction = $payment->lookupTransaction(
@@ -534,6 +550,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         } elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->setAdditionalInformation($key, $data->getData($key));
         }
+
         return $result;
     }
 
@@ -604,6 +621,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         ) {
             return false;
         }
+
         $info = $this->getInfoInstance();
         if ($info->getAdditionalInformation($this->_isOrderPaymentActionKey)) {
             $orderTransaction = $info->lookupTransaction(
@@ -647,6 +665,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 return false;
             }
         }
+
         return $this->_canCapture;
     }
 
@@ -667,6 +686,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 unset($apiData[$k]);
             }
         }
+
         Mage::getSingleton('checkout/session')->setPaypalTransactionData($apiData);
         $this->_pro->resetApi();
         $api = $this->_setApiProcessableErrors()

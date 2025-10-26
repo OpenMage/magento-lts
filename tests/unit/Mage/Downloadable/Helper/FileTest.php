@@ -1,75 +1,41 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
-use Generator;
 use Mage;
-use Mage_Downloadable_Helper_File;
-use PHPUnit\Framework\TestCase;
+use Mage_Downloadable_Helper_File as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\DownloadableTrait;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FileTest extends TestCase
+final class FileTest extends OpenMageTest
 {
-    public Mage_Downloadable_Helper_File $subject;
+    use DownloadableTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('downloadable/file');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('downloadable/file');
     }
 
     /**
      * @dataProvider provideGetFilePathData
      *
-     * @group Mage_Downloadable
-     * @group Mage_Downloadable_Helper
+     * @group Helper
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
-        $result = $this->subject->getFilePath($path, $file);
-        $this->assertSame($expectedResult, $result);
-    }
-
-    public function provideGetFilePathData(): Generator
-    {
-        yield 'strings path and strings file' => [
-            'path' . DS . 'file',
-            'path',
-            'file',
-        ];
-        yield 'strings path and strings file with slash' => [
-            'path' . DS . 'file',
-            'path',
-            '/file',
-        ];
-        yield 'string path and null file' => [
-            'path' . DS,
-            'path',
-            null,
-        ];
-        yield 'string path and empty file' => [
-            'path' . DS,
-            'path',
-            '',
-        ];
-        yield 'strings path and strings file named 0' => [
-            'path' . DS . '0',
-            'path',
-            '0',
-        ];
+        $result = self::$subject->getFilePath($path, $file);
+        self::assertSame($expectedResult, $result);
     }
 }

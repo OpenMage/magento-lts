@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Locale model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Locale
@@ -26,28 +18,38 @@ class Mage_Core_Model_Locale
      * Default locale name
      */
     public const DEFAULT_LOCALE    = 'en_US';
+
     public const DEFAULT_TIMEZONE  = 'UTC';
+
     public const DEFAULT_CURRENCY  = 'USD';
 
     /**
      * XML path constants
      */
     public const XML_PATH_DEFAULT_LOCALE   = 'general/locale/code';
+
     public const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
+
     /**
      * @deprecated since 1.4.1.0
      */
     public const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
+
     public const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';
+
     public const XML_PATH_ALLOW_CURRENCIES = 'global/locale/allow/currencies';
+
     public const XML_PATH_ALLOW_CURRENCIES_INSTALLED = 'system/currency/installed';
 
     /**
      * Date and time format codes
      */
     public const FORMAT_TYPE_FULL  = 'full';
+
     public const FORMAT_TYPE_LONG  = 'long';
+
     public const FORMAT_TYPE_MEDIUM = 'medium';
+
     public const FORMAT_TYPE_SHORT = 'short';
 
     /**
@@ -113,8 +115,10 @@ class Mage_Core_Model_Locale
             if (!$locale) {
                 $locale = self::DEFAULT_LOCALE;
             }
+
             $this->_defaultLocale = $locale;
         }
+
         return $this->_defaultLocale;
     }
 
@@ -131,6 +135,7 @@ class Mage_Core_Model_Locale
         } else {
             $this->_localeCode = $this->getDefaultLocale();
         }
+
         Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
     }
@@ -182,6 +187,7 @@ class Mage_Core_Model_Locale
         if ($this->_localeCode === null) {
             $this->setLocale();
         }
+
         return $this->_localeCode;
     }
 
@@ -253,10 +259,12 @@ class Mage_Core_Model_Locale
                 if (!in_array($code, $allowed)) {
                     continue;
                 }
+
                 $data = explode('_', $code);
                 if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
                     continue;
                 }
+
                 if ($translatedName) {
                     $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
                         . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
@@ -264,12 +272,14 @@ class Mage_Core_Model_Locale
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 }
+
                 $options[] = [
                     'value' => $code,
                     'label' => $label,
                 ];
             }
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -300,6 +310,7 @@ class Mage_Core_Model_Locale
                 }
             }
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -322,6 +333,7 @@ class Mage_Core_Model_Locale
                 'value' => $ucFirstCode ? ucfirst($code) : $code,
             ];
         }
+
         return $options;
     }
 
@@ -341,6 +353,7 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -365,6 +378,7 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -383,6 +397,7 @@ class Mage_Core_Model_Locale
                 'value' => $code,
             ];
         }
+
         return $this->_sortOptionArray($options);
     }
 
@@ -396,6 +411,7 @@ class Mage_Core_Model_Locale
         foreach ($option as $item) {
             $data[$item['value']] = $item['label'];
         }
+
         asort($data);
         $option = [];
         foreach ($data as $key => $label) {
@@ -404,6 +420,7 @@ class Mage_Core_Model_Locale
                 'label' => $label,
             ];
         }
+
         return $option;
     }
 
@@ -431,6 +448,7 @@ class Mage_Core_Model_Locale
         } else {
             $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
+
         return $data;
     }
 
@@ -523,6 +541,7 @@ class Mage_Core_Model_Locale
             // $date may be false, but Zend_Date uses strict compare
             $date = null;
         }
+
         $date = new Zend_Date($date, $part, $locale);
         if ($useTimezone) {
             if ($timezone = Mage::app()->getStore()->getConfig(self::XML_PATH_DEFAULT_TIMEZONE)) {
@@ -552,6 +571,7 @@ class Mage_Core_Model_Locale
                 ->setMinute(0)
                 ->setSecond(0);
         }
+
         return $date;
     }
 
@@ -608,7 +628,7 @@ class Mage_Core_Model_Locale
             $options = [];
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 /**
                  * catch specific exceptions like "Currency 'USD' not found"
                  * - back end falls with specific locals as Malaysia and etc.
@@ -632,6 +652,7 @@ class Mage_Core_Model_Locale
             $currencyObject->setFormat($options->toArray());
             self::$_currencyCache[$this->getLocaleCode()][$currency] = $currencyObject;
         }
+
         Varien_Profiler::stop('locale/currency');
         return self::$_currencyCache[$this->getLocaleCode()][$currency];
     }
@@ -698,6 +719,7 @@ class Mage_Core_Model_Locale
         if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
+
         $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
@@ -706,18 +728,21 @@ class Mage_Core_Model_Locale
         } else {
             $decimalPoint = strlen($format);
         }
+
         $requiredPrecision = $totalPrecision;
         $t = substr($format, $decimalPoint);
         $pos = strpos($t, '#');
         if ($pos !== false) {
             $requiredPrecision = strlen($t) - $pos - $totalPrecision;
         }
+
         $group = 0;
         if (strrpos($format, ',') !== false) {
             $group = ($decimalPoint - strrpos($format, ',') - 1);
         } else {
             $group = strrpos($format, '.');
         }
+
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
         return [

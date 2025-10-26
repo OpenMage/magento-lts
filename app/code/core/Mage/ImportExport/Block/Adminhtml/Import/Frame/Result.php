@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import frame result block.
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminhtml_Block_Template
@@ -71,6 +63,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
                 $this->_actions[$actionName][$elementId] = $value;
             }
         }
+
         return $this;
     }
 
@@ -89,6 +82,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         } else {
             $this->_messages['error'][] = $message;
         }
+
         return $this;
     }
 
@@ -108,6 +102,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         } else {
             $this->_messages['notice'][] = $message . ($appendImportButton ? $this->getImportButtonHtml() : '');
         }
+
         return $this;
     }
 
@@ -127,6 +122,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         } else {
             $this->_messages['success'][] = $message . ($appendImportButton ? $this->getImportButtonHtml() : '');
         }
+
         return $this;
     }
 
@@ -179,6 +175,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
                 $messagesBlock->$method($message);
             }
         }
+
         return $messagesBlock->toHtml();
     }
 
@@ -193,6 +190,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         if (!isset($this->_actions['import_validation_messages'])) {
             $this->addAction('innerHTML', 'import_validation_messages', $this->getMessagesHtml());
         }
+
         return Mage::helper('core')->jsonEncode($this->_actions);
     }
 }

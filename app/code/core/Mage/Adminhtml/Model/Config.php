@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin configuration model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
@@ -97,9 +89,11 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         if ($this->getCacheSaved()) {
             return $this;
         }
+
         if (is_null($tags)) {
             $tags = $this->_cacheTags;
         }
+
         $xmlString = $this->_config->getXmlString();
         $this->_saveCache($xmlString, $this->getCacheId(), $tags, $this->getCacheLifetime());
         $this->setCacheSaved(true);
@@ -118,6 +112,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         if (!empty($xmlString) && $this->_config->loadString($xmlString)) {
             return true;
         }
+
         libxml_clear_errors();
         return false;
     }
@@ -177,6 +172,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                 $showTab = true;
             }
         }
+
         if ($showTab) {
             if (isset($node->groups)) {
                 foreach ($node->groups->children() as $children) {
@@ -194,6 +190,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                 return true;
             }
         }
+
         return false;
     }
 
@@ -212,10 +209,12 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             $sectionAttributes = $sectionNode->attributes();
             $moduleName = isset($sectionAttributes['module']) ? (string) $sectionAttributes['module'] : $moduleName;
         }
+
         if (is_object($groupNode) && method_exists($groupNode, 'attributes')) {
             $groupAttributes = $groupNode->attributes();
             $moduleName = isset($groupAttributes['module']) ? (string) $groupAttributes['module'] : $moduleName;
         }
+
         if (is_object($fieldNode) && method_exists($fieldNode, 'attributes')) {
             $fieldAttributes = $fieldNode->attributes();
             $moduleName = isset($fieldAttributes['module']) ? (string) $fieldAttributes['module'] : $moduleName;
@@ -242,6 +241,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             $path .= '/groups/' . trim($groupName, '/');
             $groupNode = $this->_sections->xpath($path);
         }
+
         if (!empty($fieldName)) {
             if (!empty($groupName)) {
                 $path .= '/fields/' . trim($fieldName, '/');
@@ -250,11 +250,13 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                 Mage::throwException(Mage::helper('adminhtml')->__('The group node name must be specified with field node name.'));
             }
         }
+
         $moduleName = $this->getAttributeModule($sectionNode, $groupNode, $fieldNode);
         $systemNode = $this->_sections->xpath($path);
         foreach ($systemNode as $node) {
             return Mage::helper($moduleName)->__((string) $node->label);
         }
+
         return '';
     }
 
@@ -281,6 +283,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $paths;
     }
 }

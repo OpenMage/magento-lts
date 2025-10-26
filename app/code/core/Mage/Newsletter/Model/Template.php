@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Template _getResource()
@@ -161,7 +153,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function isPreprocessed()
     {
-        return strlen($this->getTemplateTextPreprocessed()) > 0;
+        return $this->getTemplateTextPreprocessed() !== '';
     }
 
     /**
@@ -175,7 +167,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
-        return $this->getData('template_text_preprocessed');
+        return (string) $this->getData('template_text_preprocessed');
     }
 
     /**
@@ -270,6 +262,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         if (is_null($this->_mail)) {
             $this->_mail = new Zend_Mail('utf-8');
         }
+
         return $this->_mail;
     }
 
@@ -308,6 +301,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $mail = $this->getMail();
         $mail->addTo($email, $name);
+
         $text = $this->getProcessedTemplate($variables, true);
 
         if ($this->isPlain()) {
@@ -354,6 +348,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 if (!is_null($queue)) {
                     $problem->addQueueData($queue);
                 }
+
                 $problem->addErrorData($e);
                 $problem->save();
 
@@ -364,6 +359,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 // Otherwise throw error to upper level
                 throw $e;
             }
+
             return false;
         }
 

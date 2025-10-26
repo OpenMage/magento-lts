@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog category flat collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -103,7 +95,11 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 $condition = ['in' => $ids];
             }
         }
-        $this->addFieldToFilter('entity_id', $condition);
+
+        if (isset($condition)) {
+            $this->addFieldToFilter('entity_id', $condition);
+        }
+
         return $this;
     }
 
@@ -130,6 +126,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (is_null($this->_storeId)) {
             return Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
@@ -169,6 +166,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         } else {
             $this->addOrder('name', self::SORT_ORDER_ASC);
         }
+
         return $this;
     }
 
@@ -223,6 +221,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 } else {
                     $expression = $column[2];
                 }
+
                 $this->getSelect()->columns($expression, $column[0]);
             }
 
@@ -250,6 +249,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (!is_string($attribute)) {
             return $this;
         }
+
         $this->setOrder($attribute, $dir);
         return $this;
     }
@@ -313,14 +313,17 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (!is_array($paths)) {
             $paths = [$paths];
         }
+
         $select = $this->getSelect();
         $cond   = [];
         foreach ($paths as $path) {
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
         }
+
         if ($cond) {
             $select->where(implode(' OR ', $cond));
         }
+
         return $this;
     }
 

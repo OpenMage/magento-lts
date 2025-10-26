@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote item resource collection
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Item getItemById(int $value)
@@ -70,6 +62,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
             $this->_totalRecords = 0;
             $this->_setIsLoaded(true);
         }
+
         return $this;
     }
 
@@ -96,6 +89,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         if ($productId) {
             $this->getSelect()->where('qi.product_id = ?', (int) $productId);
         }
+
         return $this;
     }
 
@@ -115,6 +109,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
             if ($item->getParentItemId()) {
                 $item->setParentItem($this->getItemById($item->getParentItemId()));
             }
+
             if ($this->_quote) {
                 $item->setQuote($this->_quote);
             }
@@ -143,6 +138,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         foreach ($this as $item) {
             $item->setOptions($optionCollection->getOptionsByItem($item));
         }
+
         $productIds        = $optionCollection->getProductIds();
         $this->_productIds = array_merge($this->_productIds, $productIds);
 
@@ -164,6 +160,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         foreach ($this as $item) {
             $productIds[] = (int) $item->getProductId();
         }
+
         $this->_productIds = array_merge($this->_productIds, $productIds);
 
         $productCollection = Mage::getModel('catalog/product')->getCollection()
@@ -205,12 +202,10 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                     }
                 }
 
-                if ($optionProductIds) {
-                    foreach ($optionProductIds as $optionProductId) {
-                        $qtyOption = $item->getOptionByCode('product_qty_' . $optionProductId);
-                        if ($qtyOption) {
-                            $qtyOptions[$optionProductId] = $qtyOption;
-                        }
+                foreach ($optionProductIds as $optionProductId) {
+                    $qtyOption = $item->getOptionByCode('product_qty_' . $optionProductId);
+                    if ($qtyOption) {
+                        $qtyOptions[$optionProductId] = $qtyOption;
                     }
                 }
 
@@ -219,6 +214,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                 $item->isDeleted(true);
                 $recollectQuote = true;
             }
+
             $item->checkData();
         }
 

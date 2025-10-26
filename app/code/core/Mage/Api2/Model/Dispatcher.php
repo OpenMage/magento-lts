@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice api2 dispatcher model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Dispatcher
@@ -48,6 +40,7 @@ class Mage_Api2_Model_Dispatcher
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         $model = self::loadResourceModel(
             $request->getModel(),
             $request->getApiType(),
@@ -84,12 +77,14 @@ class Mage_Api2_Model_Dispatcher
         try {
             /** @var Mage_Api2_Model_Resource $modelObj */
             $modelObj = Mage::getModel($class);
-        } catch (Exception $e) {
+        } catch (Exception) {
             // getModel() throws exception when in application is in development mode - skip it to next check
         }
+
         if (empty($modelObj) || !$modelObj instanceof Mage_Api2_Model_Resource) {
             throw new Mage_Api2_Exception('Resource not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $modelObj;
     }
 
@@ -135,6 +130,7 @@ class Mage_Api2_Model_Dispatcher
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         return $this->getConfig()->getResourceLastVersion($resourceType, $requestedVersion);
     }
 

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml tax rate controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
@@ -112,6 +104,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $this->_redirectReferer();
             return;
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/tax_rate'));
     }
 
@@ -174,9 +167,10 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     return true;
                 } catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
+
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
                 } else {
@@ -259,12 +253,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
         } else {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
+
         $this->_redirect('*/*/importExport');
     }
 
@@ -304,6 +299,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     $found = true;
                 }
             }
+
             if (!$found) {
                 $unset[] = $i;
             }
@@ -311,11 +307,10 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $regions = [];
 
-        if ($unset) {
-            foreach ($unset as $u) {
-                unset($csvData[0][$u]);
-            }
+        foreach ($unset as $u) {
+            unset($csvData[0][$u]);
         }
+
         if ($csvData[0] == $csvFields) {
             /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
@@ -330,10 +325,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 if (count($v) <= 1 && !strlen($v[0])) {
                     continue;
                 }
-                if ($unset) {
-                    foreach ($unset as $u) {
-                        unset($v[$u]);
-                    }
+
+                foreach ($unset as $u) {
+                    unset($v[$u]);
                 }
 
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
@@ -420,6 +414,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $template  .= ',"{{' . $storeTitle . '}}"';
             $storeTaxTitleTemplate[$storeTitle] = null;
         }
+
         unset($store);
 
         $content .= "\n";
@@ -433,6 +428,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
             $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
         }
+
         unset($title);
 
         $collection = Mage::getResourceModel('tax/calculation_rate_collection')
@@ -462,12 +458,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'importexport':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
-            case 'index':
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-        }
+        $aclPath = match ($action) {
+            'importexport' => 'sales/tax/import_export',
+            default => 'sales/tax/rates',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

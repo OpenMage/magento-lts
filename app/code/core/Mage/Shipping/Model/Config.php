@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Shipping
  */
 class Mage_Shipping_Model_Config extends Varien_Object
@@ -24,8 +16,11 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * Shipping origin settings
      */
     public const XML_PATH_ORIGIN_COUNTRY_ID = 'shipping/origin/country_id';
+
     public const XML_PATH_ORIGIN_REGION_ID  = 'shipping/origin/region_id';
+
     public const XML_PATH_ORIGIN_CITY       = 'shipping/origin/city';
+
     public const XML_PATH_ORIGIN_POSTCODE   = 'shipping/origin/postcode';
 
     protected static $_carriers;
@@ -48,6 +43,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
                 }
             }
         }
+
         return $carriers;
     }
 
@@ -67,6 +63,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
                 $carriers[$code] = $model;
             }
         }
+
         return $carriers;
     }
 
@@ -83,6 +80,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         if (!empty($carrierConfig)) {
             return $this->_getCarrier($carrierCode, $carrierConfig, $store);
         }
+
         return false;
     }
 
@@ -99,12 +97,14 @@ class Mage_Shipping_Model_Config extends Varien_Object
         if (!isset($config['model'])) {
             return false;
         }
+
         $modelName = $config['model'];
         /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
         $carrier = Mage::getModel($modelName);
         if (!$carrier) {
             return false;
         }
+
         $carrier->setId($code)->setStore($store);
         self::$_carriers[$code] = $carrier;
         return self::$_carriers[$code];

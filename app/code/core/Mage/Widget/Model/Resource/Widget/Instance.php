@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance Resource Model
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resource_Db_Abstract
@@ -47,6 +39,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object save
      *
      * @inheritDoc
+     * @param Mage_Widget_Model_Widget_Instance $object
      * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -63,7 +56,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $removePageIds = array_diff($pageIds, $object->getData('page_group_ids'));
 
-        if (is_array($pageIds) && count($pageIds) > 0) {
+        if (is_array($pageIds) && $pageIds !== []) {
             $inCond = $readAdapter->prepareSqlCondition('page_id', ['in' => $pageIds]);
 
             $select = $readAdapter->select()
@@ -100,6 +93,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 );
                 $pageId = $writeAdapter->lastInsertId($pageTable);
             }
+
             foreach ($pageLayoutUpdateIds as $layoutUpdateId) {
                 $writeAdapter->insert($pageLayoutTable, [
                     'page_id' => $pageId,
@@ -152,8 +146,10 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                     'theme'            => $widgetInstance->getTheme(),
                     'layout_update_id' => $layoutUpdateId];
             }
+
             $writeAdapter->insertMultiple($layoutUpdateLinkTable, $data);
         }
+
         return $pageLayoutUpdateIds;
     }
 
@@ -169,6 +165,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         if (in_array('0', $storeIds)) {
             $storeIds = [0];
         }
+
         return $storeIds;
     }
 
@@ -224,6 +221,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 $inCond,
             );
         }
+
         return $this;
     }
 
@@ -245,6 +243,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 $inCond,
             );
         }
+
         return $this;
     }
 

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
@@ -37,7 +29,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         if (!$_formated && $object->hasData($attributeName)) {
             try {
                 $value = $this->formatDate($object->getData($attributeName));
-            } catch (Exception $e) {
+            } catch (Exception) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid date'));
             }
 
@@ -66,8 +58,9 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         if (empty($date)) {
             return null;
         }
+
         // unix timestamp given - simply instantiate date object
-        if (preg_match('/^[0-9]+$/', $date)) {
+        if (preg_match('/^\d+$/', $date)) {
             $date = new Zend_Date((int) $date);
         } elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
             // international format
@@ -82,6 +75,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                 false,
             );
         }
+
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
 }

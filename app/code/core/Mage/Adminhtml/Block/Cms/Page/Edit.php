@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Admin CMS page
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -34,19 +26,16 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         parent::__construct();
 
         if ($this->_isAllowedAction('save')) {
-            $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
             $this->_addButton('saveandcontinue', [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save',
+                'class'     => 'save continue',
             ], -100);
         } else {
             $this->_removeButton('save');
         }
 
-        if ($this->_isAllowedAction('delete')) {
-            $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Page'));
-        } else {
+        if (!$this->_isAllowedAction('delete')) {
             $this->_removeButton('delete');
         }
     }
@@ -61,6 +50,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('cms_page')->getId()) {
             return Mage::helper('cms')->__("Edit Page '%s'", $this->escapeHtml(Mage::registry('cms_page')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Page');
     }
 

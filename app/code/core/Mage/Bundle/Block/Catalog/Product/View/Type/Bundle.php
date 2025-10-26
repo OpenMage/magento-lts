@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog bundle product info block
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method string getAddToCartUrl(Mage_Catalog_Model_Product $value)
@@ -93,6 +85,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         if (empty($this->_options) || !$this->getProduct()->isSalable()) {
             return false;
         }
+
         return true;
     }
 
@@ -171,6 +164,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         false,
                     );
                 }
+
                 unset($tierPriceInfo); // break the reference with the last element
 
                 $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice(
@@ -259,6 +253,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         $selection[$o] = $v;
                     }
                 }
+
                 $option['selections'][$selectionId] = $selection;
 
                 if (($bundleSelection->getIsDefault() || ($selectionCount == 1 && $bundleOption->getRequired()))
@@ -267,6 +262,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     $selected[$optionId][] = $selectionId;
                 }
             }
+
             $options[$optionId] = $option;
 
             // Add attribute default value (if set)
@@ -320,6 +316,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         if (!isset($this->_optionRenderers[$option->getType()])) {
             return $this->__('There is no defined renderer for "%s" option type.', $option->getType());
         }
+
         return $this->getLayout()->createBlock($this->_optionRenderers[$option->getType()])
             ->setOption($option)->toHtml();
     }

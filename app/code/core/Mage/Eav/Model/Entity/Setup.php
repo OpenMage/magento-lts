@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Setup Model
  *
- * @category   Mage
  * @package    Mage_Eav
  *
  * @method array getDefaultEntities()
@@ -91,6 +83,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         'attribute_group_id',
                     );
                 }
+
                 $this->updateTableRow(
                     'eav/attribute_group',
                     'attribute_group_id',
@@ -152,7 +145,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Update entity row
      *
      * @param string $code
-     * @param string $field
+     * @param array|string $field
      * @param string $value
      * @return $this
      */
@@ -196,6 +189,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId, 'entity_type_id');
         }
+
         if (!is_numeric($entityTypeId)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong entity ID'));
         }
@@ -327,6 +321,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($setId)) {
             $setId = $this->getAttributeSet($entityTypeId, $setId, 'attribute_set_id');
         }
+
         if (!is_numeric($setId)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong attribute set ID'));
         }
@@ -389,7 +384,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Default Attribute Set for Entity Type
      *
      * @param string|int $entityType
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeSetId($entityType)
     {
@@ -399,6 +394,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         } else {
             $where = 'entity_type_code = :entity_type';
         }
+
         $select = $this->getConnection()->select()
             ->from($this->getTable('eav/entity_type'), 'default_attribute_set_id')
             ->where($where);
@@ -462,6 +458,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             if ($sortOrder === null) {
                 $data['sort_order'] = $this->getAttributeGroupSortOrder($entityTypeId, $setId, $sortOrder);
             }
+
             $this->_conn->insert($this->getTable('eav/attribute_group'), $data);
         }
 
@@ -507,13 +504,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $searchId = $id;
         if (is_numeric($id)) {
             $searchField = 'attribute_group_id';
+        } elseif (isset($this->defaultGroupIdAssociations[$id])) {
+            $searchField = 'default_id';
+            $searchId = $this->defaultGroupIdAssociations[$id];
         } else {
-            if (isset($this->defaultGroupIdAssociations[$id])) {
-                $searchField = 'default_id';
-                $searchId = $this->defaultGroupIdAssociations[$id];
-            } else {
-                $searchField = 'attribute_group_name';
-            }
+            $searchField = 'attribute_group_name';
         }
 
         return $this->getTableRow(
@@ -547,6 +542,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($groupId)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong attribute group ID'));
         }
+
         return $groupId;
     }
 
@@ -573,7 +569,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityType
      * @param int $attributeSetId
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -581,6 +577,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getDefaultAttributeSetId($entityType);
         }
+
         $bind   = ['attribute_set_id' => $attributeSetId];
         $select = $this->getConnection()->select()
             ->from($this->getTable('eav/attribute_group'), 'attribute_group_id')
@@ -598,14 +595,15 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param array $array
      * @param string $key
-     * @param string $default
-     * @return string
+     * @param string|int|bool|array $default
+     * @return string|int|bool|array|null
      */
     protected function _getValue($array, $key, $default = null)
     {
         if (isset($array[$key]) && is_bool($array[$key])) {
             $array[$key] = (int) $array[$key];
         }
+
         return $array[$key] ?? $default;
     }
 
@@ -746,6 +744,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $condition = ['option_id =?' => $intOptionId];
                         $this->_conn->delete($optionTable, $condition);
                     }
+
                     continue;
                 }
 
@@ -767,6 +766,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (!isset($values[0])) {
                     Mage::throwException(Mage::helper('eav')->__('Default option value is not defined'));
                 }
+
                 $condition = ['option_id =?' => $intOptionId];
                 $this->_conn->delete($optionValueTable, $condition);
                 foreach ($values as $storeId => $value) {
@@ -803,7 +803,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -820,7 +820,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -845,14 +845,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
                 }
             }
+
             if (!$bind) {
                 return $this;
             }
+
             $field = $bind;
-        } else {
-            if (!isset($attributeFields[$field])) {
-                return $this;
-            }
+        } elseif (!isset($attributeFields[$field])) {
+            return $this;
         }
 
         $this->updateTableRow(
@@ -873,7 +873,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @return $this
      */
@@ -883,8 +883,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!$additionalTable) {
             return $this;
         }
+
         $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
-        if ($additionalTable && $additionalTableExists) {
+        if ($additionalTableExists) {
             $attributeFields = $this->getConnection()->describeTable($this->getTable($additionalTable));
             if (is_array($field)) {
                 $bind = [];
@@ -893,15 +894,16 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
                     }
                 }
+
                 if (!$bind) {
                     return $this;
                 }
+
                 $field = $bind;
-            } else {
-                if (!isset($attributeFields[$field])) {
-                    return $this;
-                }
+            } elseif (!isset($attributeFields[$field])) {
+                return $this;
             }
+
             $this->updateTableRow(
                 $this->getTable($additionalTable),
                 'attribute_id',
@@ -976,9 +978,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!is_numeric($id)) {
             $id = $this->getAttribute($entityTypeId, $id, 'attribute_id');
         }
+
         if (!is_numeric($id)) {
             return false;
         }
+
         return $id;
     }
 
@@ -1018,6 +1022,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             if ($result['backend_type'] != 'static') {
                 $table .= '_' . $result['backend_type'];
             }
+
             return $table;
         }
 
@@ -1041,6 +1046,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 unset($this->_setupCache[$mainTable][$attribute['entity_type_id']][$attribute['attribute_code']]);
             }
         }
+
         return $this;
     }
 
@@ -1170,8 +1176,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     ->where('attribute_set_id = :attribute_set_id')
                     ->where('attribute_id = :attribute_id');
 
-                $sortOrder = $this->getConnection()->fetchOne($select, $bind) + 10;
+                $sortOrder = (int) $this->getConnection()->fetchOne($select, $bind) + 10;
             }
+
             $sortOrder = is_numeric($sortOrder) ? $sortOrder : 1;
             $data['sort_order'] = $sortOrder;
             $this->getConnection()->insert($this->getTable('eav/entity_attribute'), $data);
@@ -1211,6 +1218,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $attr['backend'] = $backendPrefix . $attr['backend'];
                     }
                 }
+
                 if (!empty($attr['frontend'])) {
                     if ($attr['frontend'] === '_') {
                         $attr['frontend'] = $frontendPrefix;
@@ -1218,6 +1226,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $attr['frontend'] = $frontendPrefix . $attr['frontend'];
                     }
                 }
+
                 if (!empty($attr['source'])) {
                     if ($attr['source'] === '_') {
                         $attr['source'] = $sourcePrefix;
@@ -1228,6 +1237,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
                 $this->addAttribute($entityName, $attrCode, $attr);
             }
+
             $this->setDefaultSetToEntityType($entityName);
         }
 
@@ -1256,12 +1266,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $isNoDefaultTypes    = $this->_getValue($options, 'no-default-types', false);
         $customTypes         = $this->_getValue($options, 'types', []);
         $tables              = [];
+        $connection          = $this->getConnection();
 
         if (!$isNoCreateMainTable) {
             /**
              * Create table main eav table
              */
-            $connection = $this->getConnection();
             $mainTable = $connection
                 ->newTable($this->getTable($baseTableName))
                 ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
@@ -1346,6 +1356,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (count($fieldType) != 2) {
                     throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong type definition for %s', $type));
                 }
+
                 $types[$type] = $fieldType;
             }
         }
@@ -1450,7 +1461,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             foreach ($tables as $tableName => $table) {
                 $connection->createTable($table);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
         }
 
@@ -1483,6 +1494,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 $bind[$k] = $this->getConnection()->prepareColumnValue($fields[$k], $v);
             }
         }
+
         if (!$bind) {
             return $this;
         }
@@ -1509,8 +1521,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!$additionalTable) {
             return $this;
         }
+
         $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
-        if ($additionalTable && $additionalTableExists) {
+        if ($additionalTableExists) {
             $bind   = [];
             $fields = $this->getConnection()->describeTable($this->getTable($additionalTable));
             foreach ($data as $k => $v) {
@@ -1518,9 +1531,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $bind[$k] = $this->getConnection()->prepareColumnValue($fields[$k], $v);
                 }
             }
+
             if (!$bind) {
                 return $this;
             }
+
             $this->getConnection()->insert($this->getTable($additionalTable), $bind);
         }
 

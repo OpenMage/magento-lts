@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option values api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api_Resource
@@ -44,6 +36,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
                 'sort_order' => $value->getSortOrder(),
             ];
         }
+
         return $result;
     }
 
@@ -61,6 +54,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (!$productOptionValue->getId()) {
             $this->_fault('value_not_exists');
         }
+
         $storeId = $this->_getStoreId($store);
         $productOptionValues = $productOptionValue
                 ->getValuesByOption(
@@ -77,6 +71,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (empty($result)) {
             $this->_fault('value_not_exists');
         }
+
         // map option_type_id to value_id
         $result['value_id'] = $result['option_type_id'];
         unset($result['option_type_id']);
@@ -102,12 +97,14 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
                 $value = Mage::helper('catalog')->stripTags($value);
             }
         }
+
         $optionValueModel->setValues($data);
         try {
             $optionValueModel->saveValues();
         } catch (Exception $e) {
             $this->_fault('add_option_value_error', $e->getMessage());
         }
+
         return true;
     }
 
@@ -131,14 +128,17 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         $productOptionValue->setOption($option);
         // Sanitize data
         foreach ($data as $key => $value) {
             $data[$key] = Mage::helper('catalog')->stripTags($value);
         }
+
         if (!isset($data['title']) || empty($data['title'])) {
             $this->_fault('option_value_title_required');
         }
+
         $data['option_type_id'] = $valueId;
         $data['store_id'] = $this->_getStoreId($store);
         $productOptionValue->addValue($data);
@@ -196,16 +196,20 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             $storeId = $this->_getStoreId($store);
             $option->setStoreId($storeId);
         }
+
         $option->load($optionId);
         if (isset($storeId)) {
             $option->setData('store_id', $storeId);
         }
+
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         if ($option->getGroupByType() != Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
             $this->_fault('invalid_option_type');
         }
+
         return $option;
     }
 }
