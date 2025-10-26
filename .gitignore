@@ -83,7 +83,6 @@ phpcs.xml
 
 # PhpStan
 .phpstan.cache
-.phpstan.*.cache
 .phpstan*.neon
 phpstan*.neon
 !.phpstan.dist.neon
