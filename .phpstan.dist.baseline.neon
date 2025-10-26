@@ -1063,12 +1063,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
 		-
-			rawMessage: 'Call to an undefined method Zend_Validate_Interface::setMessage().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Fields.php
-
-		-
 			rawMessage: 'Parameter #1 $request (Mage_Api2_Model_Request) of method Mage_Api2_Model_Route_Abstract::match() should be compatible with parameter $path (string) of method Zend_Controller_Router_Route::match()'
 			identifier: method.childParameterType
 			count: 1

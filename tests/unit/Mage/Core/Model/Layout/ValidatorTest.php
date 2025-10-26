@@ -32,16 +32,15 @@ final class ValidatorTest extends OpenMageTest
     /**
      * @dataProvider isValidDataProvider
      * @group Model
-     * @group test-validator
      */
-    public function testIsValid(bool $expected, string $value): void
+    public function testIsValid(bool $expected, string $value, array $expectedErrors): void
     {
         self::assertSame($expected, self::$subject->isValid($value));
 
         if (!$expected) {
             $messages = self::$subject->getMessages();
             self::assertIsArray($messages);
-            #self::assertSame([], $messages);
+            self::assertSame($expectedErrors, $messages);
         }
     }
 
@@ -50,11 +49,15 @@ final class ValidatorTest extends OpenMageTest
         yield 'valid string' => [
             true,
             'default',
+            [],
         ];
 
         yield 'invalid string' => [
             false,
             '<invalid-node>',
+            [
+                'invalidXml' => 'XML data is invalid.',
+            ]
         ];
     }
 }

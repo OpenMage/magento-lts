@@ -93,10 +93,9 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             message: $message,
         ));
 
-        $message = '\'invalid-email\' is not a valid email address in the basic format local-part@hostname';
         $violations->append($validator->validateEmail(
             value: $this->getDataUsingMethod('template_sender_email'),
-            message: $message,
+            message: 'You must give a non-empty value for field \'template_sender_email\'',
         ));
 
         $violations->append($validator->validateNotEmpty(

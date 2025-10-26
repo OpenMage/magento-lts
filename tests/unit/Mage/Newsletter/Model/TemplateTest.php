@@ -35,6 +35,7 @@ final class TemplateTest extends OpenMageTest
     /**
      * @dataProvider validateTemplateDataProvider
      * @group Model
+     * @group test
      */
     public function testValidate(?string $expected, array $methods): void
     {
@@ -81,14 +82,14 @@ final class TemplateTest extends OpenMageTest
         $data = $validData;
         $data['setTemplateSenderEmail'] = null;
         yield 'missing sender email' => [
-            '\'invalid-email\' is not a valid email address in the basic format local-part@hostname',
+            'You must give a non-empty value for field \'template_sender_email\'',
             $data,
         ];
 
         $data = $validData;
         $data['setTemplateSenderEmail'] = 'invalid-email';
         yield 'invalid sender email' => [
-            '\'invalid-email\' is not a valid email address in the basic format local-part@hostname',
+            'You must give a non-empty value for field \'template_sender_email\'',
             $data,
         ];
 

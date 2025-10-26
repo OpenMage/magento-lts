@@ -31,7 +31,6 @@ final class ValidatorTest extends OpenMageTest
     /**
      * @dataProvider provideUrl
      * @group Model
-     * @group test-validator
      */
     public function testIsValid(bool $expected, string $url): void
     {
