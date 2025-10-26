@@ -363,13 +363,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     $message,
                     $option->getTitle(),
                     $option->getImageSizeX(),
-                    $option->getImageSizeY()
+                    $option->getImageSizeY(),
                 ),
                 maxHeightMessage: Mage::helper('catalog')->__(
                     $message,
                     $option->getTitle(),
                     $option->getImageSizeX(),
-                    $option->getImageSizeY()
+                    $option->getImageSizeY(),
                 ),
             ));
         }
@@ -439,13 +439,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $result[] = Mage::helper('catalog')->__(
                     $errorMap['ExcludeExtension::FALSE_EXTENSION']['message'],
                     $fileInfo['title'],
-                    $option->getTitle()
+                    $option->getTitle(),
                 );
             } elseif ($errorCode == $errorMap['Extension::FALSE_EXTENSION']['code']) {
                 $result[] = Mage::helper('catalog')->__(
                     $errorMap['Extension::FALSE_EXTENSION']['message'],
                     $fileInfo['title'],
-                    $option->getTitle()
+                    $option->getTitle(),
                 );
             } elseif ($errorCode == $errorMap['ImageSize::WIDTH_TOO_BIG']['code']
                 || $errorCode == $errorMap['ImageSize::HEIGHT_TOO_BIG']['code']
@@ -454,13 +454,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     $errorMap['ImageSize::HEIGHT_TOO_BIG']['message'],
                     $option->getTitle(),
                     $option->getImageSizeX(),
-                    $option->getImageSizeY()
+                    $option->getImageSizeY(),
                 );
             } elseif ($errorCode == $errorMap['FilesSize::TOO_BIG']['code']) {
                 $result[] = Mage::helper('catalog')->__(
                     $errorMap['FilesSize::TOO_BIG']['message'],
                     $fileInfo['title'],
-                    $this->_bytesToMbytes($this->_getUploadMaxFilesize())
+                    $this->_bytesToMbytes($this->_getUploadMaxFilesize()),
                 );
             }
         }

@@ -685,7 +685,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $email = trim($email);
             $violation = $validator->validateEmail(
                 value: $email,
-                message: $this->__('Please input a valid email address.')
+                message: $this->__('Please input a valid email address.'),
             );
 
             if ($violation->count() === 0) {
