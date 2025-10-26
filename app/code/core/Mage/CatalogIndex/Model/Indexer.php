@@ -643,7 +643,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
                                     }
 
-                                    if (strlen($values[$code]['from']) > 0) {
+                                    if ((string) $values[$code]['from'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
@@ -651,7 +651,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         );
                                     }
 
-                                    if (strlen($values[$code]['to']) > 0) {
+                                    if ((string) $values[$code]['to'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
