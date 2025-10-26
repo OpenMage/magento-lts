@@ -249,7 +249,6 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         $validator = $this->getValidationHelper();
         return $validator->validateFile(
             value: $filePath,
-            maxSize: '8M',
             extensions: $extension,
         )->count() === 0;
     }
