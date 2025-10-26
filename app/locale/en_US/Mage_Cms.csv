@@ -122,6 +122,6 @@
 "Unable to find a block to delete.","Unable to find a block to delete."
 "Unable to find a page to delete.","Unable to find a page to delete."
 "WYSIWYG Options","WYSIWYG Options"
-"You cannot delete this the page as it is used to <a href=""%s"">configure</a> %s.","You cannot delete this the page as it is used to <a href=""%s"">configure</a> %s."
-"You cannot disable this the page as it is used to <a href=""%s"">configure</a> %s.","You cannot disable this the page as it is used to <a href=""%s"">configure</a> %s."
+"You cannot delete this page as it is used to <a href=""%s"">configure</a> %s.","You cannot delete this page as it is used to <a href=""%s"">configure</a> %s."
+"You cannot disable this page as it is used to <a href=""%s"">configure</a> %s.","You cannot disable this page as it is used to <a href=""%s"">configure</a> %s."
 "px.","px."
