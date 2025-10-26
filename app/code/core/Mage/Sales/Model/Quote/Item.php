@@ -18,7 +18,7 @@
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method $this setBackorders(float $value)
