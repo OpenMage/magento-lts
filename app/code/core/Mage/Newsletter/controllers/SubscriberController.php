@@ -34,8 +34,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
 
-            /** @var Mage_Core_Helper_Validation $validator */
-            $validator          = Mage::helper('core/validation');
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator          = Mage::helper('core/validate');
 
             try {
                 if ($validator->validateEmail($email)->count() > 0) {

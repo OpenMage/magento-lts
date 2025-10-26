@@ -641,8 +641,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins
-            /** @var Mage_Core_Helper_Validation $validator */
-            $validator = Mage::helper('core/validation');
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
             if ($validator->validateEmail($email)->count() > 0) {
                 $this->addRowError(self::ERROR_INVALID_EMAIL, $rowNum);
             } elseif (!isset($this->_websiteCodeToId[$website])) {

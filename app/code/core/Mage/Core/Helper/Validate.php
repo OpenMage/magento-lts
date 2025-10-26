@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @package    Mage_Validation
  */
-class Mage_Core_Helper_Validation extends Mage_Core_Helper_Abstract
+class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 {
     protected $_moduleName = 'Mage_Core';
 

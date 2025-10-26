@@ -163,10 +163,10 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         return $isValid;
     }
 
-    protected function getValidationHelper(): Mage_Core_Helper_Validation
+    protected function getValidationHelper(): Mage_Core_Helper_Validate
     {
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
         return $validator;
     }
 }

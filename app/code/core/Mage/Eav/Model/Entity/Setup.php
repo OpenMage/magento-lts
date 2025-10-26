@@ -645,8 +645,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator  = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
 
         if (isset($data['attribute_code'])
             && $validator->validateLength(

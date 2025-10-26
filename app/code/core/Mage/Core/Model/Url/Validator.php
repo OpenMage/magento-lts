@@ -12,7 +12,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Url_Validator extends Mage_Core_Helper_Validation_Abstract
+class Mage_Core_Model_Url_Validator extends Mage_Core_Helper_Validate_Abstract
 {
     /**
      * Error keys
@@ -51,8 +51,8 @@ class Mage_Core_Model_Url_Validator extends Mage_Core_Helper_Validation_Abstract
     {
         $this->_setValue($value);
 
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
 
         //check valid URL
         if ($validator->validateUrl(value: $value)->count() > 0) {

@@ -218,8 +218,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             if ($this->_validateFormKey()) {
                 if (!empty($email)) {
                     // Validate received data to be an email address
-                    /** @var Mage_Core_Helper_Validation $validator */
-                    $validator = Mage::helper('core/validation');
+                    /** @var Mage_Core_Helper_Validate $validator */
+                    $validator = Mage::helper('core/validate');
                     if ($validator->validateEmail(value: $email)->count() === 0) {
                         $collection = Mage::getResourceModel('admin/user_collection');
                         /** @var Mage_Admin_Model_Resource_User_Collection $collection */

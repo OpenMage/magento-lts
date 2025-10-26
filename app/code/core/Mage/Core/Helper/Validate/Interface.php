@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * @package    Mage_Validation
  */
-interface Mage_Core_Helper_Validation_Interface
+interface Mage_Core_Helper_Validate_Interface
 {
     /**
      * Returns true if and only if $value meets the validation requirements

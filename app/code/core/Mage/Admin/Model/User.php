@@ -678,8 +678,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validateCurrentPassword($password)
     {
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator  = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
         $result     = [];
 
         if ($validator->validateNotEmpty($password)->count() > 0) {

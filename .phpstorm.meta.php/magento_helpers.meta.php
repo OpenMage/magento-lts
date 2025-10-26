@@ -102,6 +102,8 @@ namespace PHPSTORM_META {
             'core/unserializeArray' => \Mage_Core_Helper_UnserializeArray::class,
             'core/url' => \Mage_Core_Helper_Url::class,
             'core/url_rewrite' => \Mage_Core_Helper_Url_Rewrite::class,
+            'core/validate' => \Mage_Core_Helper_Validate::class,
+            'core/validate_abstract' => \Mage_Core_Helper_Validate_Abstract::class,
             'csp' => \Mage_Csp_Helper_Data::class,
             'csp/data' => \Mage_Csp_Helper_Data::class,
             'currencysymbol' => \Mage_CurrencySymbol_Helper_Data::class,

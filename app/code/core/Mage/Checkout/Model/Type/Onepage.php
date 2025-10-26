@@ -510,8 +510,8 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            /** @var Mage_Core_Helper_Validation $validator */
-            $validator = Mage::helper('core/validation');
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
             if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,

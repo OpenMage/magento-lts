@@ -651,10 +651,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 
-    protected function getValidationHelper(): Mage_Core_Helper_Validation
+    protected function getValidationHelper(): Mage_Core_Helper_Validate
     {
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
         return $validator;
     }
 }

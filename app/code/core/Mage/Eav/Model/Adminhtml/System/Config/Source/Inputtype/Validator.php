@@ -12,7 +12,7 @@
  *
  * @package    Mage_Eav
  */
-class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Mage_Core_Helper_Validation_Abstract
+class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Mage_Core_Helper_Validate_Abstract
 {
     public const NOT_IN_ARRAY = 'notInArray';
 

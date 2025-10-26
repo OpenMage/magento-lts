@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * @package    Mage_Validation
  */
-abstract class Mage_Core_Helper_Validation_Abstract implements Mage_Core_Helper_Validation_Interface
+abstract class Mage_Core_Helper_Validate_Abstract implements Mage_Core_Helper_Validate_Interface
 {
     /**
      * The value to be validated

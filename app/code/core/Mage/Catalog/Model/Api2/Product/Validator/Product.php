@@ -128,8 +128,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
 
         // Validate weight
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
         if (!empty($data['weight']) && $data['weight'] > 0
             && $validator->validateRange(
                 value: $data['weight'],
@@ -294,8 +294,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
 
         $skuMaxLength = Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH;
 
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator  = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
         if ($validator->validateLength(value: $data['sku'], max: $skuMaxLength)->count() > 0) {
             $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }

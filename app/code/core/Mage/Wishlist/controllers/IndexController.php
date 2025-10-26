@@ -669,8 +669,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         $violations = new ArrayObject();
 
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
 
         $violations->append($validator->validateCount(
             value: $emails,

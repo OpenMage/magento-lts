@@ -12,7 +12,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_NotProtectedExtension extends Mage_Core_Helper_Validation_Abstract
+class Mage_Core_Model_File_Validator_NotProtectedExtension extends Mage_Core_Helper_Validate_Abstract
 {
     public const PROTECTED_EXTENSION = 'protectedExtension';
 

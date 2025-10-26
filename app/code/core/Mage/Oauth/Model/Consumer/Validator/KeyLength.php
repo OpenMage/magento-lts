@@ -12,7 +12,7 @@
  *
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Validation_Abstract
+class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Validate_Abstract
 {
     /**
      * Key name
@@ -64,8 +64,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
     {
         $this->_setValue($value);
 
-        /** @var Mage_Core_Helper_Validation $validator */
-        $validator = Mage::helper('core/validation');
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
         $violation = $validator->validateLength(
             value: $value,
             min: $this->min,

@@ -201,8 +201,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             //validate attribute_code
             if (isset($data['attribute_code'])) {
-                /** @var Mage_Core_Helper_Validation $validator */
-                $validator = Mage::helper('core/validation');
+                /** @var Mage_Core_Helper_Validate $validator */
+                $validator = Mage::helper('core/validate');
                 if ($validator->validateRegex(
                     value: $data['attribute_code'],
                     pattern: '/^(?!event$)[a-z][a-z_0-9]{1,254}$/',

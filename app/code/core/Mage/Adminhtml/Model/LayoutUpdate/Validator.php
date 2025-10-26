@@ -14,7 +14,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Validation_Abstract
+class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Validate_Abstract
 {
     public const XML_INVALID                             = 'invalidXml';
 
