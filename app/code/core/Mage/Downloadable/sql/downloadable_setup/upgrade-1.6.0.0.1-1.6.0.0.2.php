@@ -7,7 +7,7 @@
  * @package    Mage_Downloadable
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 $applyTo = explode(',', $installer->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'group_price', 'apply_to'));
