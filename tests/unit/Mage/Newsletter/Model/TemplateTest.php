@@ -39,9 +39,12 @@ final class TemplateTest extends OpenMageTest
      */
     public function testValidate(?string $expected, array $methods): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
+        self::$subject->setTemplateCode($methods['setTemplateCode']);
+        self::$subject->setTemplateSenderEmail($methods['setTemplateSenderEmail']);
+        self::$subject->setTemplateSenderName($methods['setTemplateSenderName']);
+        self::$subject->setTemplateSubject($methods['setTemplateSubject']);
+        self::$subject->setTemplateText($methods['setTemplateText']);
+        self::$subject->setTemplateType($methods['setTemplateType']);
 
         if ($expected) {
             $this->expectException(Mage_Core_Exception::class);
@@ -50,7 +53,7 @@ final class TemplateTest extends OpenMageTest
             $this->expectNotToPerformAssertions();
         }
 
-        $mock->validate();
+        self::$subject->validate();
     }
 
     public function validateTemplateDataProvider(): Generator
