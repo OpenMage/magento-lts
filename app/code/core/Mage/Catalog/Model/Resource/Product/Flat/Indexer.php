@@ -1163,7 +1163,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
         $select = $adapter->select();
         foreach (array_keys($this->getFlatColumns()) as $columnName) {
-            if ($columnName === 'entity_id' || $columnName === 'child_id' || $columnName === 'is_child') {
+            if (in_array($columnName, ['entity_id', 'child_id', 'is_child'], true)) {
                 continue;
             }
 
