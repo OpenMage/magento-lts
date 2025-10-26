@@ -110,6 +110,10 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      */
     public function matchEntityAndType($entity, $type)
     {
+        if ($entity === null) {
+            $entity = '';
+        }
+
         if (isset($this->_matchedEntities[$entity])) {
             if (in_array($type, $this->_matchedEntities[$entity])) {
                 return true;

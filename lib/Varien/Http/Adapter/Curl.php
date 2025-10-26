@@ -217,7 +217,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      */
     public function close()
     {
-        curl_close($this->_getResource());
         $this->_resource = null;
         return $this;
     }
