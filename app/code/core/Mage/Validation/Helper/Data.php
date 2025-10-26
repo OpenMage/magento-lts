@@ -58,6 +58,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates that a value is contained in a given set of choices.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateChoice(
         mixed $value,
@@ -100,6 +102,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates the count of elements in a given value.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateCount(
         mixed $value,
@@ -214,6 +218,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates that a file meets given constraints.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateFile(
         mixed $value,
@@ -300,6 +306,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates that a value is a valid image.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateImage(
         mixed $value,
@@ -410,6 +418,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates the length of a given value.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateLength(
         mixed $value,
@@ -490,6 +500,8 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Validates that a value is within a given range.
+     *
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function validateRange(
         mixed $value,
