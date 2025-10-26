@@ -237,16 +237,16 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $currencyModel = null;
                     }
 
-                    if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
+                    if ((string) $value['from'] !== '' && (string) $value['to'] !== '') {
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
                             ($currencyModel ? $to : $value['to']),
                         );
-                    } elseif (strlen($value['from']) > 0) {
+                    } elseif ((string) $value['from'] !== '') {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
-                    } elseif (strlen($value['to']) > 0) {
+                    } elseif ((string) $value['to'] !== '') {
                         // to
                         $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
                     }

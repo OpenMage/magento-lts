@@ -142,7 +142,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Send request to the remote server
      *
-     * @param string        $method
+     * @param Zend_Http_Client::*  $method
      * @param string|Zend_Uri_Http $url
      * @param string        $http_ver
      * @param array         $headers
@@ -163,6 +163,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             CURLOPT_RETURNTRANSFER          => true,
             CURLOPT_HEADER                  => $header,
             CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1,
+            CURLOPT_POST                    => false,
+            CURLOPT_HTTPGET                 => false,
         ];
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;

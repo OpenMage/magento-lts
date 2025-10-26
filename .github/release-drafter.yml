@@ -4,6 +4,11 @@ categories:
   - title: '🚨 Security'
     labels:
       - 'security'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
   - title: '🚀 Features'
     labels:
       - 'new feature'
@@ -11,11 +16,6 @@ categories:
     labels:
       - 'enhancement'
       - 'improvement'
-  - title: '🐛 Bug Fixes'
-    labels:
-      - 'fix'
-      - 'bugfix'
-      - 'bug'
   - title: '📖 Documentation'
     labels:
       - 'documentation'

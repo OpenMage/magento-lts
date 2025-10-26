@@ -45,7 +45,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $uploader->setAllowRenameFiles(true);
                 $this->addValidators($uploader);
                 $result = $uploader->save($uploadDir);
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
+                );
             } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
+                );
                 Mage::throwException($e->getMessage());
             }
 
@@ -58,6 +64,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $this->setValue($filename);
             }
         } elseif (is_array($value) && !empty($value['delete'])) {
+            // When the delete checkbox is checked without a file being uploaded
+            // Delete physical file first (before DB record is deleted)
+            if ($oldValue = $this->getOldValue()) {
+                $this->deleteFile($oldValue);
+            }
+
             // Delete record before it is saved
             $this->delete();
             // Prevent record from being saved, since it was just deleted
@@ -67,6 +79,82 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         }
 
         return $this;
+    }
+
+    /**
+     * Delete file after a file is uploaded
+     *
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+
+        $groupId = $this->getGroupId();
+        $field = $this->getField();
+
+        // Check if delete checkbox is checked by looking at raw POST data
+        // <input type="checkbox" name="groups[header][fields][logo_src][value][delete]" value="1" class="checkbox" id="design_header_logo_src_delete">
+        // <input type="hidden" name="groups[header][fields][logo_src][value][value]" value="default/logo.png">
+        $groups = Mage::app()->getRequest()->getPost('groups');
+        $fieldData = $groups[$groupId]['fields'][$field]['value'] ?? [];
+
+        $deleteChecked = $fieldData['delete'] ?? false;
+        $filename = $fieldData['value'] ?? null;
+        if ($deleteChecked && $filename) {
+            $this->deleteFile($filename);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete file from the same directory as the uploaded file
+     *
+     * @param string $filename Filename with scope prefix (e.g., 'default/logo.png')
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function deleteFile(string $filename): void
+    {
+        // Get the upload directory for current scope (e.g., '/var/www/media/logo/default')
+        $currentUploadDir = $this->_getUploadDir();
+
+        // Get base upload directory without scope suffix (e.g., '/var/www/media/logo')
+        $baseUploadDir = $currentUploadDir;
+        if ($this->_addWhetherScopeInfo()) {
+            $scopeSuffix = DS . $this->getScope();
+            if ($this->getScope() !== 'default') {
+                $scopeSuffix .= DS . $this->getScopeId();
+            }
+
+            if (str_ends_with($baseUploadDir, $scopeSuffix)) {
+                $baseUploadDir = substr($baseUploadDir, 0, -strlen($scopeSuffix));
+            }
+        }
+
+        // Construct full path: /var/www/media/logo + default/logo.png
+        $filePath = $baseUploadDir . DS . $filename;
+
+        // Safety check: only delete if file is in the same directory as current upload directory
+        // This prevents deleting inherited files from parent scopes
+        $fileDir = dirname($filePath);
+        if ($fileDir !== $currentUploadDir) {
+            // File is in a different scope directory (e.g., inherited from default)
+            // Don't delete it to preserve inheritance
+            Mage::getSingleton('adminhtml/session')->addWarning(
+                Mage::helper('adminhtml')->__('The file %s is inherited from a parent scope and cannot be deleted.', basename($filename)),
+            );
+            return;
+        }
+
+        if (file_exists($filePath)) {
+            @unlink($filePath);
+            Mage::getSingleton('adminhtml/session')->addSuccess(
+                Mage::helper('adminhtml')->__('The file %s has been deleted.', basename($filename)),
+            );
+        }
     }
 
     /**
