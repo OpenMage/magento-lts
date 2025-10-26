@@ -12,8 +12,6 @@
         <Mage_Core>
             <active>true</active>
             <codePool>core</codePool>
-            <depends>
-            </depends>
         </Mage_Core>
     </modules>
 </config>
