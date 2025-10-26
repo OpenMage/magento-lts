@@ -47,17 +47,17 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
             message: Mage::helper('adminhtml')->__('Block Name is required field.'),
         ));
 
-        $violations->append($validator->validateRegex(
-            value: $blockName,
-            pattern: self::BLOCK_NAME_REGEX,
-            message: Mage::helper('adminhtml')->__('Block Name is incorrect.'),
-        ));
-
         $violations->append($validator->validateChoice(
             value: $blockName,
             choices: Mage::helper('admin/block')->getDisallowedBlockNames(),
             message: Mage::helper('adminhtml')->__('Block Name is disallowed.'),
             match: false,
+        ));
+
+        $violations->append($validator->validateRegex(
+            value: $blockName,
+            pattern: self::BLOCK_NAME_REGEX,
+            message: Mage::helper('adminhtml')->__('Block Name is incorrect.'),
         ));
 
         $violations->append($validator->validateChoice(
