@@ -300,9 +300,6 @@
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
-            <js>
-                <merge_files>0</merge_files>
-            </js>
             <jquery>
                 <migrate>0</migrate>
             </jquery>
