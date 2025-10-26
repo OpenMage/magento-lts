@@ -39,7 +39,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setId(null);
                 Mage::throwException(
                     Mage::helper('cms')->__(
-                        'You cannot delete this the page as it is used for <a href="%s">configuration</a> for %s.',
+                        'You cannot delete this page as it is used to <a href="%s">configure</a> %s.',
                         Mage::helper('adminhtml')::getUrl('adminhtml/system_config/edit', ['section' => 'web']),
                         Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
@@ -80,7 +80,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setIsActive(true);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
-                        'You cannot disable this page as it is used for <a href="%s">configuration</a> for %s.',
+                        'You cannot disable this page as it is used to <a href="%s">configure</a> %s.',
                         Mage::helper('adminhtml')::getUrl('adminhtml/system_config/edit', ['section' => 'web']),
                         Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
