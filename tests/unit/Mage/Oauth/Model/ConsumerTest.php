@@ -24,6 +24,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class ConsumerTest extends OpenMageTest
 {
+    // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
