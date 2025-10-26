@@ -38,12 +38,14 @@ final class TokenTest extends OpenMageTest
      */
     public function testValidate(string|bool $expected, array $methods): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
+        self::$subject->setConsumerId($methods['setConsumerId']);
+        self::$subject->setCallbackUrl($methods['setCallbackUrl']);
+        self::$subject->setSecret($methods['setSecret']);
+        self::$subject->setToken($methods['setToken']);
+        self::$subject->setVerifier($methods['setVerifier']);
 
         try {
-            self::assertTrue($mock->validate());
+            self::assertTrue(self::$subject->validate());
         } catch (Mage_Core_Exception $exception) {
             self::assertSame($expected, $exception->getMessage());
         }

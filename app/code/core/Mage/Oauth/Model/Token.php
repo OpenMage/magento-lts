@@ -230,11 +230,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         $validator = $this->getValidationHelper();
 
-        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
+        $callback = $this->getCallbackUrl();
+
+        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $callback) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();
-            $isWhitelisted = $callbackUrl && str_starts_with($this->getCallbackUrl(), $callbackUrl);
+            $isWhitelisted = $callbackUrl && str_starts_with($callback, $callbackUrl);
             $violations = $validator->validateUrl(
-                value: $this->getCallbackUrl(),
+                value: $callback,
                 message: 'Invalid URL {{ value }}.',
             );
             if (!$isWhitelisted && $violations->count() > 0) {
