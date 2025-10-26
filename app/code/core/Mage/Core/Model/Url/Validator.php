@@ -11,10 +11,8 @@
  * Validate URL
  *
  * @package    Mage_Core
- * @deprecated Use Mage_Validation_Helper_Data::validateUrl() instead
- * @see Mage_Validation_Helper_Data::validateUrl()
  */
-class Mage_Core_Model_Url_Validator extends Mage_Validation_Helper_Abstract
+class Mage_Core_Model_Url_Validator extends Mage_Core_Helper_Validation_Abstract
 {
     /**
      * Error keys
@@ -53,8 +51,8 @@ class Mage_Core_Model_Url_Validator extends Mage_Validation_Helper_Abstract
     {
         $this->_setValue($value);
 
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        /** @var Mage_Core_Helper_Validation $validator */
+        $validator = Mage::helper('core/validation');
 
         //check valid URL
         if ($validator->validateUrl(value: $value)->count() > 0) {

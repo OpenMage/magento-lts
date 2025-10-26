@@ -268,8 +268,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         $validateRules = $this->getAttribute()->getValidateRules();
 
         if (!empty($validateRules['input_validation'])) {
-            /** @var Mage_Validation_Helper_Data $validator */
-            $validator = Mage::helper('validation');
+            /** @var Mage_Core_Helper_Validation $validator */
+            $validator = Mage::helper('core/validation');
 
             switch ($validateRules['input_validation']) {
                 case 'alphanumeric':

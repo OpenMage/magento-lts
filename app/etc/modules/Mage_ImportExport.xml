@@ -14,7 +14,6 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Catalog/>
-                <Mage_Validation/>
             </depends>
         </Mage_ImportExport>
     </modules>

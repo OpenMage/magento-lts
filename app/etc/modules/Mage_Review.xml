@@ -15,7 +15,6 @@
             <depends>
                 <Mage_Catalog/>
                 <Mage_Core/>
-                <Mage_Validation/>
             </depends>
         </Mage_Review>
     </modules>

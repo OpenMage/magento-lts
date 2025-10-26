@@ -15,7 +15,6 @@
             <depends>
                 <Mage_Core/>
                 <Mage_Oauth/>
-                <Mage_Validation/>
             </depends>
         </Mage_Api2>
     </modules>

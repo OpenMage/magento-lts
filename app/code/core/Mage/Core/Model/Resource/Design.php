@@ -29,8 +29,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         $dateFrom = $object->getDateFrom();
         $dateTo = $object->getDateTo();
         if (!empty($dateFrom) && !empty($dateTo)) {
-            /** @var Mage_Validation_Helper_Data $validator */
-            $validator = Mage::helper('validation');
+            /** @var Mage_Core_Helper_Validation $validator */
+            $validator = Mage::helper('core/validation');
             if ($validator->validateDateTime(value: $dateFrom)->count() > 0 ||
                 $validator->validateDateTime(value: $dateTo)->count() > 0
             ) {

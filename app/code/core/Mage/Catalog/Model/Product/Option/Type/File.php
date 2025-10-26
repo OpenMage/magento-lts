@@ -335,8 +335,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return false;
         }
 
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        /** @var Mage_Core_Helper_Validation $validator */
+        $validator = Mage::helper('core/validation');
         $validatorChain = new ArrayObject();
 
         $_dimentions = [];

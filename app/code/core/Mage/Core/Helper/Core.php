@@ -19,9 +19,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @package    Mage_Validation
  */
-class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
+class Mage_Core_Helper_Validation extends Mage_Core_Helper_Abstract
 {
-    protected $_moduleName = 'Mage_Validation';
+    protected $_moduleName = 'Mage_Core';
 
     private static ValidatorInterface $validator;
 
@@ -625,7 +625,7 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @return Constraint[]
-     * @throws Mage_Validation_Exception
+     * @throws Mage_Core_Exception
      */
     public function getContraintsByType(string $type, array $options = []): array
     {
@@ -653,7 +653,7 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
             'NoEmpty'       => [new Constraints\NotBlank($options)],
             'Regex'         => [new Constraints\Regex(pattern: $options['pattern'] ?? '')],
             'StringLength'  => [new Constraints\Length($options)],
-            default         => throw new Mage_Validation_Exception("Validator $type is not exist")
+            default         => throw new Mage_Core_Exception("Validator $type is not exist")
         };
     }
 

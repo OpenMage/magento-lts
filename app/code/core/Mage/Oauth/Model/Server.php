@@ -476,8 +476,8 @@ class Mage_Oauth_Model_Server
             return;
         }
 
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        /** @var Mage_Core_Helper_Validation $validator */
+        $validator = Mage::helper('core/validation');
 
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
             && $validator->validateUrl($this->_protocolParams['oauth_callback'])->count() > 0

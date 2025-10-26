@@ -670,8 +670,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $error   = false;
         $violations = new ArrayObject();
 
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        /** @var Mage_Core_Helper_Validation $validator */
+        $validator = Mage::helper('core/validation');
 
         $violations->append($validator->validateCount(
             value: $emails,

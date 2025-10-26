@@ -14,7 +14,6 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Core/>
-                <Mage_Validation/>
             </depends>
         </Mage_Contacts>
     </modules>

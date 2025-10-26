@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * @package    Mage_Validation
  */
-interface Mage_Validation_Interface
+interface Mage_Core_Helper_Validation_Interface
 {
     /**
      * Returns true if and only if $value meets the validation requirements
@@ -23,7 +23,7 @@ interface Mage_Validation_Interface
      *
      * @param  mixed $value
      * @return bool
-     * @throws Mage_Validation_Exception If validation of $value is impossible
+     * @throws Mage_Core_Exception If validation of $value is impossible
      */
     public function isValid($value);
 

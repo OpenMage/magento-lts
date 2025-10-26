@@ -13,7 +13,6 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Validation/>
             </depends>
         </Mage_Core>
     </modules>

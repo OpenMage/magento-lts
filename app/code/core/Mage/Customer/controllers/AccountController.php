@@ -737,8 +737,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
-            /** @var Mage_Validation_Helper_Data $validator */
-            $validator = Mage::helper('validation');
+            /** @var Mage_Core_Helper_Validation $validator */
+            $validator = Mage::helper('core/validation');
             if ($validator->validateEmail($email)->count() > 0) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));

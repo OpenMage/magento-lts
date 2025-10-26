@@ -71,8 +71,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
-                /** @var Mage_Validation_Helper_Data $validator */
-                $validator  = Mage::helper('validation');
+                /** @var Mage_Core_Helper_Validation $validator */
+                $validator  = Mage::helper('core/validation');
                 $violations = new ArrayObject();
 
                 $violations->append($validator->validateNotEmpty(value: trim($post['name'])));

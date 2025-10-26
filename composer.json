@@ -185,7 +185,6 @@
         "phpmd": "Run phpmd",
         "phpstan": "Run phpstan",
         "phpstan:baseline": "Run phpstan and update baseline",
-        "phpstan:phpunit": "Run phpstan for PHPUnit tests",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
         "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",

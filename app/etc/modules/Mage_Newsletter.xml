@@ -17,7 +17,6 @@
                 <Mage_Customer/>
                 <Mage_Eav/>
                 <Mage_Widget/>
-                <Mage_Validation/>
             </depends>
         </Mage_Newsletter>
     </modules>

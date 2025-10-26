@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * @package    Mage_Validation
  */
-abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interface
+abstract class Mage_Core_Helper_Validation_Abstract implements Mage_Core_Helper_Validation_Interface
 {
     /**
      * The value to be validated
@@ -72,7 +72,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
      * Sets the validation failure message template for a particular key
      *
      * @return $this
-     * @throws Mage_Validation_Exception
+     * @throws Mage_Core_Exception
      */
     public function setMessage(string $messageString, ?string $messageKey = null)
     {
@@ -86,7 +86,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
         }
 
         if (!isset($this->_messageTemplates[$messageKey])) {
-            throw new Mage_Validation_Exception("No message template exists for key '$messageKey'");
+            throw new Mage_Core_Exception("No message template exists for key '$messageKey'");
         }
 
         $this->_messageTemplates[$messageKey] = $messageString;
@@ -98,7 +98,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
      * and the array values are the message template strings.
      *
      * @return $this
-     * @throws Mage_Validation_Exception
+     * @throws Mage_Core_Exception
      */
     public function setMessages(array $messages)
     {
@@ -114,7 +114,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
      * message variable.
      *
      * @return mixed
-     * @throws Mage_Validation_Exception
+     * @throws Mage_Core_Exception
      */
     public function __get(string $property)
     {
@@ -126,7 +126,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
             return $this->{$this->_messageVariables[$property]};
         }
 
-        throw new Mage_Validation_Exception("No property exists by the name '$property'");
+        throw new Mage_Core_Exception("No property exists by the name '$property'");
     }
 
     /**

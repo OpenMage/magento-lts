@@ -57,7 +57,7 @@ final class ValidatorTest extends OpenMageTest
             '<invalid-node>',
             [
                 'invalidXml' => 'XML data is invalid.',
-            ]
+            ],
         ];
     }
 }

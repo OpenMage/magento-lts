@@ -74,7 +74,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     /**
      * Build validator chain with config data
      *
-     * @throws Mage_Validation_Exception If validator type is not set
+     * @throws Mage_Core_Exception If validator type is not set
      */
     protected function _buildValidatorsChain(array $validationConfig)
     {
@@ -93,7 +93,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
 
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
-                        throw new Mage_Validation_Exception("Validator type is not set for $validatorName");
+                        throw new Mage_Core_Exception("Validator type is not set for $validatorName");
                     }
 
                     $options = $validatorConfig['options'] ?? [];
@@ -163,10 +163,10 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         return $isValid;
     }
 
-    protected function getValidationHelper(): Mage_Validation_Helper_Data
+    protected function getValidationHelper(): Mage_Core_Helper_Validation
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        /** @var Mage_Core_Helper_Validation $validator */
+        $validator = Mage::helper('core/validation');
         return $validator;
     }
 }

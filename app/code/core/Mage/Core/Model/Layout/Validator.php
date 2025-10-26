@@ -14,7 +14,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Mage_Validation_Helper_Abstract
+class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validation_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
 
