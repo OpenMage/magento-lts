@@ -61,7 +61,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.edit.__buttons.saveAndContinue.click();
 
         const success = 'The page has been saved.';
-        const warning = 'You cannot disable this page as it is used for configuration for';
+        const warning = 'You cannot disable this page as it is used to configure';
         validation.hasWarningMessage(warning);
         validation.hasSuccessMessage(success);
         utils.screenshot(cy.openmage.validation._messagesContainer, 'message.cms.page.disableActivePage');
@@ -71,7 +71,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('no-route');
         test.edit.__buttons.delete.click();
 
-        const message = 'You cannot delete this the page as it is used for configuration for';
+        const message = 'You cannot delete this page as it is used to configure';
         const screenshot = 'message.cms.page.deleteActivePage';
         validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
     });
