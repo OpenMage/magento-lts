@@ -63,7 +63,7 @@ final class TemplateTest extends OpenMageTest
             'setTemplateSenderName'     => 'Sender Name',
             'setTemplateSubject'        => 'Valid Subject',
             'setTemplateText'           => 'Valid Template Text',
-            'setTemplateType'           => '1',
+            'setTemplateType'           => 1,
         ];
 
         yield 'valid data' => [

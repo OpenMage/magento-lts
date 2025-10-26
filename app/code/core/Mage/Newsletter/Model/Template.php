@@ -89,7 +89,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $violations->append($validator->validateType(
             value: $templateType,
-            type: 'digit',
+            type: 'int',
             message: $message,
         ));
 
