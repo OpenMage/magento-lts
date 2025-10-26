@@ -65,7 +65,7 @@
         "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.6",
-        "rector/rector": "^2.1.2",
+        "rector/rector": "^2.1.7",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
@@ -108,7 +108,8 @@
     ],
     "autoload-dev": {
         "classmap": [
-            "app/code/*/*/*/controllers"
+            "app/code/*/*/*/controllers",
+            "app/code/*/*/*/Controller"
         ],
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
@@ -169,6 +170,7 @@
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
+        "rector:test:debug": "vendor/bin/rector process --config .rector.php --dry-run --debug",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
         "vendor:patch": "vendor/bin/vendor-patches generate --patches-folder=.vendor-patches",
         "test": [
@@ -187,6 +189,7 @@
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
         "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",
         "rector:test": "Run rector",
+        "rector:test:debug": "Run rector with debug option",
         "rector:fix": "Run rector and fix issues",
         "vendor:patch": "Create patch file",
         "test": "Run php-cs-fixer, phpstan & phpunit"
