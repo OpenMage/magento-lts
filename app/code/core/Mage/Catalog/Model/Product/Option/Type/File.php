@@ -364,19 +364,18 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         if ($_dimentions !== []) {
-            $message = "Maximum allowed image size for '%s' is %sx%s px.";
             $validatorChain->append($validator->validateImage(
                 value: $fileFullPath,
                 maxWidth: $_dimentions['maxwidth'] ?? null,
                 maxHeight: $_dimentions['maxheight'] ?? null,
                 maxWidthMessage: Mage::helper('catalog')->__(
-                    $message,
+                    $this->getValidatorMessage(self::ERROR_IMAGESIZE_WIDTH_TOO_BIG),
                     $option->getTitle(),
                     $option->getImageSizeX(),
                     $option->getImageSizeY(),
                 ),
                 maxHeightMessage: Mage::helper('catalog')->__(
-                    $message,
+                    $this->getValidatorMessage(self::ERROR_IMAGESIZE_HEIGHT_TOO_BIG),
                     $option->getTitle(),
                     $option->getImageSizeX(),
                     $option->getImageSizeY(),
@@ -398,7 +397,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 ),
                 extensions: $_allowed,
                 extensionsMessage: Mage::helper('catalog')->__(
-                    "The file '%s' for '%s' has an invalid extension",
+                    $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
                     $optionValue['title'],
                     $option->getTitle(),
                 ),
@@ -410,7 +409,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                     value: $option->getFileExtension(),
                     choices: $_forbidden,
                     message: Mage::helper('catalog')->__(
-                        "The file '%s' for '%s' has an invalid extension",
+                        $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
                         $optionValue['title'],
                         $option->getTitle(),
                     ),
@@ -442,13 +441,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $option = $this->getOption();
         $result = [];
         foreach ($errors as $errorCode) {
-            if ($errorCode === self::ERROR_EXCLUDE_EXTENSION_FALSE_EXTENSION) {
-                $result[] = Mage::helper('catalog')->__(
-                    $this->getValidatorMessage($errorCode),
-                    $fileInfo['title'],
-                    $option->getTitle(),
-                );
-            } elseif ($errorCode === self::ERROR_EXTENSION_FALSE_EXTENSION) {
+            if (in_array($errorCode, [self::ERROR_EXCLUDE_EXTENSION_FALSE_EXTENSION, self::ERROR_EXTENSION_FALSE_EXTENSION])) {
                 $result[] = Mage::helper('catalog')->__(
                     $this->getValidatorMessage($errorCode),
                     $fileInfo['title'],
