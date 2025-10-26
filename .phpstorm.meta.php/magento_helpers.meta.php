@@ -190,6 +190,7 @@ namespace PHPSTORM_META {
             'uploader/file' => \Mage_Uploader_Helper_File::class,
             'usa' => \Mage_Usa_Helper_Data::class,
             'usa/data' => \Mage_Usa_Helper_Data::class,
+            'validation/abstract' => \Mage_Validation_Helper_Abstract::class,
             'validation' => \Mage_Validation_Helper_Data::class,
             'validation/data' => \Mage_Validation_Helper_Data::class,
             'weee' => \Mage_Weee_Helper_Data::class,
