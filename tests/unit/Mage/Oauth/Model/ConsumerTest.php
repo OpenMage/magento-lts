@@ -38,11 +38,12 @@ final class ConsumerTest extends OpenMageTest
      */
     public function testValidate(string|bool $expected, array $methods): void
     {
-        self::$subject->setKey($methods['setKey']);
-        self::$subject->setSecret($methods['setSecret']);
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+
+        self::assertInstanceOf(Subject::class, $mock);
 
         try {
-            self::assertTrue(self::$subject->validate());
+            self::assertTrue($mock->validate());
         } catch (Mage_Core_Exception $exception) {
             self::assertSame($expected, $exception->getMessage());
         }
