@@ -362,6 +362,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             $envConfig = $environmentConfigLoaderHelper->getAsArray($store);
             $config = array_merge($config, $envConfig);
         }
+
         return $config;
     }
 

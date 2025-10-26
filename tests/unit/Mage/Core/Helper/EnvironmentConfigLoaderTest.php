@@ -21,7 +21,7 @@ use Varien_Simplexml_Config;
 /**
  * @group Mage_Core_EnvLoader
  */
-class EnvironmentConfigLoaderTest extends OpenMageTest
+final class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
 

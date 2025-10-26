@@ -15,12 +15,19 @@
 class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
     public const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
+
     public const ENV_FEATURE_ENABLED = 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED';
+
     public const ENV_KEY_SEPARATOR = '__';
+
     public const CONFIG_KEY_DEFAULT = 'DEFAULT';
+
     public const CONFIG_KEY_WEBSITES = 'WEBSITES';
+
     public const CONFIG_KEY_STORES = 'STORES';
+
     public const REGISTRY_KEY = 'current_env_config';
+
     /**
      * To be used as regex condition
      */
@@ -62,6 +69,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         if ($data) {
             return;
         }
+
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
@@ -87,6 +95,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     } catch (Throwable) {
                         // invalid store, intentionally empty
                     }
+
                     break;
 
                 case self::CONFIG_KEY_WEBSITES:
@@ -109,9 +118,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     } catch (Throwable) {
                         // invalid store, intentionally empty
                     }
+
                     break;
             }
         }
+
         Mage::register(self::REGISTRY_KEY, true, true);
     }
 
@@ -125,6 +136,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         if ($data !== null) {
             return $data;
         }
+
         $env = $this->getEnv();
         $config = [];
 
@@ -154,6 +166,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
+
         $hasConfig = array_key_exists($wantedPath, $config);
         Mage::register("config_env_has_path_$wantedPath", $hasConfig);
         return $hasConfig;
@@ -174,6 +187,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         if ($data !== null) {
             return $data;
         }
+
         $env = $this->getEnv();
         $config = [];
 
@@ -196,11 +210,13 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     if (strtolower($storeCode) !== strtolower($wantedStore)) {
                         break;
                     }
+
                     $path = $this->buildPath($section, $group, $field);
                     $config[$path] = $value;
                     break;
             }
         }
+
         Mage::register("config_env_array_$wantedStore", $config);
         return $config;
     }
@@ -226,12 +242,14 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }, ARRAY_FILTER_USE_KEY);
             $this->envStore = $env;
         }
+
         if (!isset($this->envStore[self::ENV_FEATURE_ENABLED]) ||
             (bool) $this->envStore[self::ENV_FEATURE_ENABLED] === false
         ) {
             $this->envStore = [];
             return $this->envStore;
         }
+
         return $this->envStore;
     }
 
@@ -240,10 +258,12 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $refObject = new ReflectionObject($store);
         $refProperty = $refObject->getProperty('_configCache');
         $refProperty->setAccessible(true);
+
         $configCache = $refProperty->getValue($store);
         if (!is_array($configCache)) {
             $configCache = [];
         }
+
         $configCache[$path] = $value;
         $store->setConfigCache($configCache);
     }

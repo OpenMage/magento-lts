@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     public const SCOPE_WEBSITES = 'websites';
 
     public const SCOPE_STORES   = 'stores';
+
     public const SCOPE_ENV   = 'env';
 
     /**
@@ -405,6 +406,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $elementFieldData['can_use_default_value'] = 0;
                     $elementFieldData['can_use_website_value'] = 0;
                 }
+
                 $field = $fieldset->addField($id, $fieldType, $elementFieldData);
                 $this->_prepareFieldOriginalData($field, $element);
 
@@ -667,6 +669,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             $path = "$scope/$store/$path";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
+
         $path = "default/$path";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
