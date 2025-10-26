@@ -16,6 +16,16 @@
  */
 class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Product_Option_Type_Default
 {
+    public const ERROR_EXCLUDE_EXTENSION_FALSE_EXTENSION    = 'fileExcludeExtensionFalse';
+
+    public const ERROR_EXTENSION_FALSE_EXTENSION            = 'fileExtensionFalse';
+
+    public const ERROR_IMAGESIZE_WIDTH_TOO_BIG              = 'fileImageSizeWidthTooBig';
+
+    public const ERROR_IMAGESIZE_HEIGHT_TOO_BIG             = 'fileImageSizeHeightTooBig';
+
+    public const ERROR_FILESIZE_TOO_BIG                     = 'fileFilesSizeTooBig';
+
     /**
      * Url for custom option download controller
      * @var string
@@ -426,39 +436,34 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param array $fileInfo File info
      * @return array Array of error messages
      * @throws Mage_Core_Exception
-     * @deprecated
      */
     protected function _getValidatorErrors($errors, $fileInfo)
     {
-        $errorMap = $this->getValidatorErrorsMap();
-
         $option = $this->getOption();
         $result = [];
         foreach ($errors as $errorCode) {
-            if ($errorCode == $errorMap['ExcludeExtension::FALSE_EXTENSION']['code']) {
+            if ($errorCode === self::ERROR_EXCLUDE_EXTENSION_FALSE_EXTENSION) {
                 $result[] = Mage::helper('catalog')->__(
-                    $errorMap['ExcludeExtension::FALSE_EXTENSION']['message'],
+                    $this->getValidatorMessage($errorCode),
                     $fileInfo['title'],
                     $option->getTitle(),
                 );
-            } elseif ($errorCode == $errorMap['Extension::FALSE_EXTENSION']['code']) {
+            } elseif ($errorCode === self::ERROR_EXTENSION_FALSE_EXTENSION) {
                 $result[] = Mage::helper('catalog')->__(
-                    $errorMap['Extension::FALSE_EXTENSION']['message'],
+                    $this->getValidatorMessage($errorCode),
                     $fileInfo['title'],
                     $option->getTitle(),
                 );
-            } elseif ($errorCode == $errorMap['ImageSize::WIDTH_TOO_BIG']['code']
-                || $errorCode == $errorMap['ImageSize::HEIGHT_TOO_BIG']['code']
-            ) {
+            } elseif (in_array($errorCode, [self::ERROR_IMAGESIZE_HEIGHT_TOO_BIG, self::ERROR_IMAGESIZE_WIDTH_TOO_BIG])) {
                 $result[] = Mage::helper('catalog')->__(
-                    $errorMap['ImageSize::HEIGHT_TOO_BIG']['message'],
+                    $this->getValidatorMessage($errorCode),
                     $option->getTitle(),
                     $option->getImageSizeX(),
                     $option->getImageSizeY(),
                 );
-            } elseif ($errorCode == $errorMap['FilesSize::TOO_BIG']['code']) {
+            } elseif ($errorCode === self::ERROR_FILESIZE_TOO_BIG) {
                 $result[] = Mage::helper('catalog')->__(
-                    $errorMap['FilesSize::TOO_BIG']['message'],
+                    $this->getValidatorMessage($errorCode),
                     $fileInfo['title'],
                     $this->_bytesToMbytes($this->_getUploadMaxFilesize()),
                 );
@@ -469,38 +474,25 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
-     * @deprecated
+     * @param self::ERROR_* $errorCode
      */
-    final protected function getValidatorErrorsMap(): array
+    protected function getValidatorMessage(string $errorCode): string
     {
-        return [
-            'ExcludeExtension::FALSE_EXTENSION' => [
-                'code'      => 'fileExcludeExtensionFalse',
-                'message'   => "The file '%s' for '%s' has an invalid extension",
-            ],
-            'Extension::FALSE_EXTENSION'        => [
-                'code'      => 'fileExtensionFalse',
-                'message'   => "The file '%s' for '%s' has an invalid extension",
-            ],
-            'ImageSize::WIDTH_TOO_BIG'          => [
-                'code'      => 'fileImageSizeWidthTooBig',
-                'message'   => "Maximum allowed image size for '%s' is %sx%s px.",
-            ],
-            'ImageSize::HEIGHT_TOO_BIG'         => [
-                'code'      => 'fileImageSizeHeightTooBig',
-                'message'   => "Maximum allowed image size for '%s' is %sx%s px.",
-            ],
-            'FilesSize::TOO_BIG'                => [
-                'code'      => 'fileFilesSizeTooBig',
-                'message'   => "The file '%s' you uploaded is larger than %s Megabytes allowed by server",
-            ],
+        $messages = [
+            self::ERROR_EXCLUDE_EXTENSION_FALSE_EXTENSION   => "The file '%s' for '%s' has an invalid extension",
+            self::ERROR_EXTENSION_FALSE_EXTENSION           => "The file '%s' for '%s' has an invalid extension",
+            self::ERROR_FILESIZE_TOO_BIG                    => "The file '%s' you uploaded is larger than %s Megabytes allowed by server",
+            self::ERROR_IMAGESIZE_HEIGHT_TOO_BIG            => "Maximum allowed image size for '%s' is %sx%s px.",
+            self::ERROR_IMAGESIZE_WIDTH_TOO_BIG             => "Maximum allowed image size for '%s' is %sx%s px.",
         ];
+
+        return $messages[$errorCode] ?? '';
     }
 
     /**
      * Prepare option value for cart
      *
-     * @return mixed Prepared option value
+     * @return string|null Prepared option value
      * @throws Mage_Core_Exception
      */
     public function prepareForCart()

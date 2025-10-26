@@ -21,14 +21,15 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
      */
     protected $_messageTemplates;
 
-    protected array $_haystack = [];
+    protected array $haystack = [];
+
 
     public function __construct()
     {
         //set data haystack
         /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
-        $this->_haystack = $helper->getInputTypesValidatorData();
+        $this->haystack = $helper->getInputTypesValidatorData();
 
         //reset message template and set custom
         $this->_messageTemplates = [];
@@ -56,7 +57,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     {
         $this->_setValue($value);
 
-        if (!in_array((string) $value, $this->_haystack, true)) {
+        if (!in_array((string) $value, $this->haystack, true)) {
             $this->_error(self::NOT_IN_ARRAY);
             return false;
         }
@@ -72,8 +73,8 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
      */
     public function addInputType($type)
     {
-        if (!in_array((string) $type, $this->_haystack, true)) {
-            $this->_haystack[] = (string) $type;
+        if (!in_array((string) $type, $this->haystack, true)) {
+            $this->haystack[] = (string) $type;
         }
 
         return $this;

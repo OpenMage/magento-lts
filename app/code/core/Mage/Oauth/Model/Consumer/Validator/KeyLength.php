@@ -17,11 +17,11 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
     /**
      * Key name
      */
-    protected string $_name = 'Key';
+    protected string $name = 'Key';
 
-    protected ?int $_max = null;
+    protected ?int $max = null;
 
-    protected ?int $_min = null;
+    protected ?int $min = null;
 
     /**
      * Additional variables available for validation failure messages
@@ -29,9 +29,9 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      * @var array
      */
     protected $_messageVariables = [
-        'min'  => '_min',
-        'max'  => '_max',
-        'name' => '_name',
+        'min'  => 'min',
+        'max'  => 'max',
+        'name' => 'name',
     ];
 
     /**
@@ -42,11 +42,11 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
     public function __construct($options = [])
     {
         if (isset($options['length'])) {
-            $this->_min = $this->_max = $options['length'];
+            $this->min = $this->max = $options['length'];
         }
 
         if (isset($options['name'])) {
-            $this->_name = $options['name'];
+            $this->name = $options['name'];
         }
     }
 
@@ -58,7 +58,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      *
      * @param  string $value
      * @return bool
-     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function isValid($value)
     {
@@ -68,8 +68,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
         $validator = Mage::helper('core/validation');
         $violation = $validator->validateLength(
             value: $value,
-            min: $this->_min,
-            max: $this->_max,
+            min: $this->min,
+            max: $this->max,
             exactMessage: $this->createMessageFromTemplate(
                 Mage::helper('oauth')->__("%name% '%value%' should have exactly %min% symbols."),
             ),
@@ -82,7 +82,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
         );
 
         if ($violation->count() > 0) {
-            throw new Exception($violation->get(0)->getMessage());
+            throw new Mage_Core_Exception($violation->get(0)->getMessage());
         }
 
         return true;
@@ -96,7 +96,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -107,6 +107,6 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 }

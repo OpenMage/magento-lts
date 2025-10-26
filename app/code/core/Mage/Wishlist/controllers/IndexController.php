@@ -667,7 +667,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
 
-        $error   = false;
         $violations = new ArrayObject();
 
         /** @var Mage_Core_Helper_Validation $validator */

@@ -301,19 +301,20 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     break;
                 case 'url':
                     $parsedUrl = parse_url($value);
+                    $message = Mage::helper('eav')->__('"%s" is not a valid URL.', $label);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
-                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
+                        return [$message];
                     }
 
                     $violations = $validator->validate(value: $value, constraints: [new Constraints\Hostname()]);
                     if ($violations->count() > 0) {
-                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
+                        return [$message];
                     }
 
                     break;
                 case 'date':
                     if ($validator->validateDate(value: $value)->count() > 0) {
-                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
+                        return [Mage::helper('eav')->__('"%s" is not a valid date.', $label)];
                     }
 
                     break;
