@@ -52,6 +52,7 @@ try {
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
+            CodeQuality\ClassMethod\LocallyCalledStaticMethodToNonStaticRector::class, # todo: TMP
             CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
