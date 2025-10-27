@@ -501,7 +501,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getSpecifyOptionMessage()
     {
-        return Mage::helper('catalog')->__('Please specify the product\'s required option(s).');
+        return Mage::helper('catalog')->__("Please specify the product's required option(s).");
     }
 
     /**

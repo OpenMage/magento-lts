@@ -159,7 +159,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         if ($body != Mage_Install_Model_Installer::INSTALLER_HOST_RESPONSE) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is invalid.', $url));
-            Mage::throwException(Mage::helper('install')->__('Response from server isn\'t valid.'));
+            Mage::throwException(Mage::helper('install')->__("Response from server isn't valid."));
         }
 
         return $this;

@@ -244,7 +244,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         } catch (Exception) {
             $response = [
                 'error'     => true,
-                'message'   => $this->__('Cannot update the item\'s quantity.'),
+                'message'   => $this->__("Cannot update the item's quantity."),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
@@ -268,7 +268,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             if ($creditmemo) {
                 if (($creditmemo->getGrandTotal() <= 0) && (!$creditmemo->getAllowZeroGrandTotal())) {
                     Mage::throwException(
-                        $this->__('Credit memo\'s total must be positive.'),
+                        $this->__("Credit memo's total must be positive."),
                     );
                 }
 

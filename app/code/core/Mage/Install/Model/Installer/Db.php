@@ -61,7 +61,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             // check DB server version
             if (version_compare($version, $requiredVersion) == -1) {
                 Mage::throwException(
-                    Mage::helper('install')->__('The database server version doesn\'t match system requirements (required: %s, actual: %s).', $requiredVersion, $version),
+                    Mage::helper('install')->__("The database server version doesn't match system requirements (required: %s, actual: %s).", $requiredVersion, $version),
                 );
             }
 
