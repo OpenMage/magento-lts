@@ -91,7 +91,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         if (!empty($rules['file_extensions'])) {
             $extensions = explode(',', $rules['file_extensions']);
-            $extensions = array_map('trim', $extensions);
+            $extensions = array_map(trim(...), $extensions);
             if (!in_array($extension, $extensions)) {
                 return [
                     Mage::helper('eav')->__('"%s" is not a valid file extension.', $label),

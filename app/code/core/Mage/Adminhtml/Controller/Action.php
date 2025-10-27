@@ -429,7 +429,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         return in_array(
             strtolower($this->getRequest()->getActionName()),
-            array_map('strtolower', $this->_forcedFormKeyActions),
+            array_map(strtolower(...), $this->_forcedFormKeyActions),
         );
     }
 
