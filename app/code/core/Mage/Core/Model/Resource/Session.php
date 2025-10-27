@@ -128,12 +128,12 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     {
         if ($this->hasConnection()) {
             session_set_save_handler(
-                [$this, 'open'],
-                [$this, 'close'],
-                [$this, 'read'],
-                [$this, 'write'],
-                [$this, 'destroy'],
-                [$this, 'gc'],
+                $this->open(...),
+                $this->close(...),
+                $this->read(...),
+                $this->write(...),
+                $this->destroy(...),
+                $this->gc(...),
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));

@@ -308,8 +308,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
-            ->setIncludeProcessor([$this, 'getInclude'])
+            ->setTemplateProcessor($this->getTemplateByConfigPath(...))
+            ->setIncludeProcessor($this->getInclude(...))
             ->setVariables($variables);
 
         try {

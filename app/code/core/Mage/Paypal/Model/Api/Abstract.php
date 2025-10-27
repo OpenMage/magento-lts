@@ -243,7 +243,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function &import($to, array $publicMap = [])
     {
-        return Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $to, $publicMap);
+        return Varien_Object_Mapper::accumulateByMap($this->getDataUsingMethod(...), $to, $publicMap);
     }
 
     /**
@@ -254,7 +254,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function export($from, array $publicMap = [])
     {
-        Varien_Object_Mapper::accumulateByMap($from, [$this, 'setDataUsingMethod'], $publicMap);
+        Varien_Object_Mapper::accumulateByMap($from, $this->setDataUsingMethod(...), $publicMap);
         return $this;
     }
 
@@ -325,7 +325,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
             }
         }
 
-        $result = Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $request, $map);
+        $result = Varien_Object_Mapper::accumulateByMap($this->getDataUsingMethod(...), $request, $map);
         foreach ($privateRequestMap as $key) {
             if (isset($this->_exportToRequestFilters[$key]) && isset($result[$key])) {
                 $callback   = $this->_exportToRequestFilters[$key];
@@ -355,7 +355,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
             }
         }
 
-        Varien_Object_Mapper::accumulateByMap($response, [$this, 'setDataUsingMethod'], $map);
+        Varien_Object_Mapper::accumulateByMap($response, $this->setDataUsingMethod(...), $map);
     }
 
     /**

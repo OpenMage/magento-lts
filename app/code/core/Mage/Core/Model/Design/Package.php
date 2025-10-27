@@ -754,7 +754,7 @@ class Mage_Core_Model_Design_Package
             $files,
             $targetDir . DS . $targetFilename,
             false,
-            [$this, 'beforeMergeCss'],
+            $this->beforeMergeCss(...),
             'css',
         );
         if ($mergeFilesResult) {

@@ -120,7 +120,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'status',
             'type'      => 'options',
             'options'   => $this->_processModel->getStatusesOptions(),
-            'frame_callback' => [$this, 'decorateStatus'],
+            'frame_callback' => $this->decorateStatus(...),
         ]);
 
         $this->addColumn('update_required', [
@@ -131,7 +131,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'update_required',
             'type'      => 'options',
             'options'   => $this->_processModel->getUpdateRequiredOptions(),
-            'frame_callback' => [$this, 'decorateUpdateRequired'],
+            'frame_callback' => $this->decorateUpdateRequired(...),
         ]);
 
         $this->addColumn('ended_at', [
@@ -139,7 +139,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'type'      => 'datetime',
             'align'     => 'left',
             'index'     => 'ended_at',
-            'frame_callback' => [$this, 'decorateDate'],
+            'frame_callback' => $this->decorateDate(...),
         ]);
 
         $this->addColumn(

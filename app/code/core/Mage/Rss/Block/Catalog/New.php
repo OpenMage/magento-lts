@@ -87,7 +87,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $products->getSelect(),
-            [[$this, 'addNewItemXmlCallback']],
+            [$this->addNewItemXmlCallback(...)],
             ['rssObj' => $rssObj, 'product' => $product],
         );
 
