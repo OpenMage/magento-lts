@@ -7,10 +7,13 @@
  * @package    Mage_Sales
  */
 
-/** @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $this */
 $installer = $this;
 
-$subSelect = $installer->getConnection()->select()
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
+$connection = $installer->getConnection();
+
+$subSelect = $connection->select()
     ->from(
         ['citem' => $installer->getTable('sales/creditmemo_item')],
         [
@@ -38,7 +41,7 @@ $subSelect = $installer->getConnection()->select()
     )
     ->group('oitem.item_id');
 
-$select = $installer->getConnection()->select()
+$select = $connection->select()
     ->from(
         ['selected' => $subSelect],
         [
@@ -51,9 +54,9 @@ $select = $installer->getConnection()->select()
     )
     ->where('main.item_id = selected.item_id');
 
-$updateQuery = $installer->getConnection()->updateFromSelect(
+$updateQuery = $connection->updateFromSelect(
     $select,
     ['main' => $installer->getTable('sales/order_item')],
 );
 
-$installer->getConnection()->query($updateQuery);
+$connection->query($updateQuery);

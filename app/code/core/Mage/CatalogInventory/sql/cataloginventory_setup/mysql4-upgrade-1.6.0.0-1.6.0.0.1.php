@@ -7,7 +7,7 @@
  * @package    Mage_CatalogInventory
  */
 
-/** @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $this */
 $installer = $this;
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */

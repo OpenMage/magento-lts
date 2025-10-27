@@ -7,7 +7,7 @@
  * @package    Mage_Newsletter
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
 $newsletterContent = <<<EOD
@@ -266,5 +266,5 @@ $model = Mage::getModel('newsletter/template')->setData($data);
 try {
     $model->save();
 } catch (Exception $e) {
-    Mage::logException($e->getMessage());
+    Mage::logException($e);
 }
