@@ -124,8 +124,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
                 $tag->saveRelation($product->getId(), $customer->getId(), $storeId);
                 $result[$tagName] = $tag->getId();
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('save_error', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('save_error', $mageCoreException->getMessage());
         }
 
         return $result;
@@ -172,8 +172,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $tag->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('save_error', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('save_error', $mageCoreException->getMessage());
         }
 
         return true;
@@ -195,8 +195,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $tag->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('remove_error', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('remove_error', $mageCoreException->getMessage());
         }
 
         return true;

@@ -150,10 +150,10 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
             $body = $response->getBody();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
-            throw $e;
+            throw $exception;
         }
 
         if ($body != Mage_Install_Model_Installer::INSTALLER_HOST_RESPONSE) {

@@ -233,9 +233,9 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                 $agregateSelect->insertFromSelect($this->getTable('tag/summary'), array_keys($selectedFields)),
             );
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

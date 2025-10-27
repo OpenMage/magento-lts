@@ -153,8 +153,8 @@ try {
     }
 
     sendFile($filePath);
-} catch (Exception $e) {
-    Mage::logException($e);
+} catch (Exception $exception) {
+    Mage::logException($exception);
 }
 
 sendNotFoundPage();

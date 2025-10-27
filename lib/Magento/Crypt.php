@@ -73,9 +73,9 @@ class Magento_Crypt
             }
 
             $this->_initVector = $initVector;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             mcrypt_module_close($this->_handle);
-            throw $e;
+            throw $exception;
         }
 
         mcrypt_generic_init($this->_handle, $key, $initVector);

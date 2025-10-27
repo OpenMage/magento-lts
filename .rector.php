@@ -71,7 +71,6 @@ try {
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP
             CodingStyle\Assign\SplitDoubleAssignRector::class, # todo: TMP
-            CodingStyle\Catch_\CatchExceptionNameMatchingTypeRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP

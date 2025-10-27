@@ -208,8 +208,8 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
                 ->setRoleId($roleId)
                 ->setUserId($userId)
                 ->deleteFromRole();
-        } catch (Exception $e) {
-            throw $e;
+        } catch (Exception $exception) {
+            throw $exception;
         }
 
         return true;
