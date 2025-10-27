@@ -18,22 +18,38 @@ declare(strict_types=1);
 interface Mage_Log_Api_Data_VisitorInterface
 {
     public const DATA_ID                = 'visitor_id';
+
     public const DATA_FIRST_VISIT_AT    = 'first_visit_at';
+
     public const DATA_LAST_URL_ID       = 'last_url_id';
+
     public const DATA_LAST_VISIT_AT     = 'last_visit_at';
+
     public const DATA_SESSION_ID        = 'session_id';
+
     public const DATA_STORE_ID          = 'store_id';
 
     public function getVisitorId(): ?int;
+
     public function setVisitorId(?int $value);
+
     public function getSessionId(): ?string;
+
     public function setSessionId(?string $value);
+
     public function getFirstVisitAt();
+
     public function setFirstVisitAt(?string $value);
+
     public function getLastVisitAt();
+
     public function setLastVisitAt(string $value);
+
     public function getLastUrlId(): int;
+
     public function setLastUrlId(int $value);
+
     public function getStoreId(): int;
+
     public function setStoreId(int $storeId);
 }

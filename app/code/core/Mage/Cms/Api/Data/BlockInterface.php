@@ -19,28 +19,50 @@ declare(strict_types=1);
 interface Mage_Cms_Api_Data_BlockInterface
 {
     public const DATA_ID                = 'block_id';
+
     public const DATA_CONTENT           = 'content';
+
     public const DATA_CREATION_TIME     = 'creation_time';
+
     public const DATA_IDENTIFIER        = 'identifier';
+
     public const DATA_IS_ACTIVE         = 'is_active';
+
     public const DATA_STORE_ID          = 'store_id';
+
     public const DATA_TITLE             = 'title';
+
     public const DATA_UPDATE_TIME       = 'update_time';
 
     public function getBlockId(): ?int;
+
     public function setBlockId(?int $blockId);
+
     public function getTitle(): string;
+
     public function setTitle(string $title);
+
     public function getIdentifier(): string;
+
     public function setIdentifier(string $identifier);
+
     public function getContent(): ?string;
+
     public function setContent(?string $content);
+
     public function getCreationTime(): ?string;
+
     public function setCreationTime(?string $time);
+
     public function getUpdateTime(): ?string;
+
     public function setUpdateTime(?string $time);
+
     public function getIsActive(): int;
+
     public function setIsActive(int $value);
+
     public function getStoreId(): ?int;
+
     public function setStoreId(int $storeId);
 }

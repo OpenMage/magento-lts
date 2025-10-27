@@ -18,22 +18,38 @@ declare(strict_types=1);
 interface Mage_Core_Api_Data_WebsiteInterface
 {
     public const DATA_ID                = 'website_id';
+
     public const DATA_CODE              = 'code';
+
     public const DATA_NAME              = 'name';
+
     public const DATA_SORT_ORDER        = 'sort_order';
+
     public const DATA_DEFAULT_GROUP_ID  = 'default_group_id';
+
     public const DATA_IS_DEFAULT        = 'is_default';
 
     public function getWebsiteId(): ?int;
+
     public function setWebsiteId(?int $value);
+
     public function getCode();
+
     public function setCode(?string $code);
+
     public function getName(): ?string;
+
     public function setName(?string $name);
+
     public function getSortOrder(): int;
+
     public function setSortOrder(int $position);
+
     public function getDefaultGroupId();
+
     public function setDefaultGroupId(int $value);
+
     public function getIsDefault(): ?int;
+
     public function setIsDefault(?int $value);
 }
