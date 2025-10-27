@@ -268,7 +268,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return '';
             }
 
-            $files = array_map('trim', explode(',', $filesToLoad));
+            $files = array_map(trim(...), explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {

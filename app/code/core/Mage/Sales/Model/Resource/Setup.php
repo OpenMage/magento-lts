@@ -64,7 +64,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _flatTableExist($table)
     {
         $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map('strtoupper', $tablesList));
+        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList));
     }
 
     /**

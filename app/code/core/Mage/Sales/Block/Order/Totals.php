@@ -158,7 +158,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function addTotal(Varien_Object $total, $after = null)
     {
-        if ($after !== null && $after != 'last' && $after != 'first') {
+        if (!in_array($after, [null, 'last', 'first'])) {
             $totals = [];
             $added = false;
             foreach ($this->_totals as $code => $item) {

@@ -1805,7 +1805,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             // Set additional field filters
             foreach ($this->_priceDataFieldFilters as $filterData) {
-                $select->where(call_user_func_array('sprintf', $filterData));
+                $select->where(call_user_func_array(sprintf(...), $filterData));
             }
         } else {
             $fromPart['price_index']['joinCondition'] = $joinCond;

@@ -594,7 +594,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
 
-        $ids = array_filter(array_map('\intval', $ids));
+        $ids = array_filter(array_map(\intval(...), $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }

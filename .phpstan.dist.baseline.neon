@@ -691,19 +691,13 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Resource_Order_Collection_Abstract::setOrderFilter() expects int|Mage_Sales_Model_Order, array<string, mixed> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			rawMessage: 'Parameter #1 $prefix of function uniqid expects string, int<0, max> given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
@@ -1219,7 +1213,7 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 3
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
@@ -1723,7 +1717,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
@@ -1741,7 +1735,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
@@ -2473,7 +2467,7 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(string): bool)|null, ''trim'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(string): bool)|null, Closure(string, string=): string given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Helper/EnvironmentConfigLoader.php
@@ -3217,7 +3211,7 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/V2.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Product/Type.php
@@ -4277,12 +4271,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
-			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Resource_Order_Collection_Abstract::setOrderFilter() expects int|Mage_Sales_Model_Order, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Api2/Order.php
 
 		-
 			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Resource::_critical() expects int|null, string given.'
