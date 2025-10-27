@@ -88,7 +88,6 @@ try {
             DeadCode\ClassMethod\RemoveNullTagValueNodeRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
             DeadCode\FunctionLike\RemoveDeadReturnRector::class, # todo: TMP
-            DeadCode\If_\ReduceAlwaysFalseIfOrRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
             DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)

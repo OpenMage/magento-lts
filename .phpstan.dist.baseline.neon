@@ -2623,18 +2623,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Encryption.php
 
 		-
-			rawMessage: Negated boolean expression is always false.
-			identifier: booleanNot.alwaysFalse
-			count: 2
-			path: app/code/core/Mage/Core/Model/File/Storage.php
-
-		-
-			rawMessage: Result of || is always false.
-			identifier: booleanOr.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage.php
-
-		-
 			rawMessage: 'Parameter #1 $params of method Mage_Core_Model_File_Storage_Database_Abstract::__construct() expects array, string|null given.'
 			identifier: argument.type
 			count: 1
