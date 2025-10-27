@@ -27,7 +27,7 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
             $callbacks[] = $adapterCb;
         }
 
-        $callbacks[] = [$this, 'updateProgress'];
+        $callbacks[] = $this->updateProgress(...);
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 

@@ -531,7 +531,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, '\intval');
+            $options = array_filter($options, \intval(...));
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -632,7 +632,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selectionIds = [];
 
             // Shuffle selection array by option position
-            usort($selections, [$this, 'shakeSelections']);
+            usort($selections, $this->shakeSelections(...));
 
             foreach ($selections as $selection) {
                 if ($selection->getSelectionCanChangeQty() && isset($qtys[$selection->getOptionId()])) {
@@ -669,7 +669,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
 
                 $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
+                    ->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
 
                 if ($isStrictProcessMode) {
@@ -687,7 +687,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
 
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
+            $product->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -1008,8 +1008,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $option     = $buyRequest->getBundleOption();
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, '\intval') : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : [];
+        $option     = (is_array($option)) ? array_filter($option, \intval(...)) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, \intval(...)) : [];
 
         return [
             'bundle_option'     => $option,

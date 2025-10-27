@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             );
         }
 
-        usort($history, [self::class, '_sortHistoryByTimestamp']);
+        usort($history, $this->_sortHistoryByTimestamp(...));
         return $history;
     }
 
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
      * @return int
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private static function _sortHistoryByTimestamp($a, $b)
+    private function _sortHistoryByTimestamp($a, $b)
     {
         $createdAtA = $a['created_at'];
         $createdAtB = $b['created_at'];

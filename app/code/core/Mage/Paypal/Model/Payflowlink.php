@@ -340,9 +340,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             return false;
         }
 
-        if ($response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
-            && $response->getResult() != self::RESPONSE_CODE_DECLINED_BY_FILTER
-            && $response->getResult() != self::RESPONSE_CODE_APPROVED
+        if (!in_array($response->getResult(), [self::RESPONSE_CODE_FRAUDSERVICE_FILTER, self::RESPONSE_CODE_DECLINED_BY_FILTER, self::RESPONSE_CODE_APPROVED])
         ) {
             if ($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED) {
                 $order->registerCancellation($response->getRespmsg())->save();
