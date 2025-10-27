@@ -573,7 +573,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         //match amounts. should be equals for authorization.
         //decline the order if amount does not match.
         if (!$this->_matchAmount($payment->getBaseAmountAuthorized())) {
-            $message = Mage::helper('authorizenet')->__('Payment error. Paid amount doesn\'t match the order amount.');
+            $message = Mage::helper('authorizenet')->__("Payment error. Paid amount doesn't match the order amount.");
             $this->_declineOrder($order, $message, true);
             Mage::throwException($message);
         }

@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     {
         if (!in_array($website->getId(), $product->getWebsiteIds())) {
             $this->_addError(sprintf(
-                'Product #%d isn\'t assigned to website #%d',
+                "Product #%d isn't assigned to website #%d",
                 $product->getId(),
                 $website->getId(),
             ));

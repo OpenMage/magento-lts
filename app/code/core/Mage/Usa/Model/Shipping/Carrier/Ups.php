@@ -1215,7 +1215,7 @@ XMLAuth;
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
     {
-        $errorTitle = 'For some reason we can\'t retrieve tracking info right now.';
+        $errorTitle = "For some reason we can't retrieve tracking info right now.";
         $resultArr = [];
         $packageProgress = [];
 

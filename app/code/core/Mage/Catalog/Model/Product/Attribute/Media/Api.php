@@ -225,7 +225,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $ioAdapter->open(['path' => dirname($fileName)]);
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
             } catch (Exception) {
-                $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
+                $this->_fault('not_created', Mage::helper('catalog')->__("Can't create image."));
             }
         }
 

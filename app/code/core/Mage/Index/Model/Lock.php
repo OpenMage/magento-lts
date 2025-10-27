@@ -295,7 +295,7 @@ class Mage_Index_Model_Lock
 
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
-                throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
+                throw new Exception(sprintf("Unable to open lock file '%s': %s", $file, error_get_last()));
             }
 
             fwrite(self::$_lockFileResource[$lockName], date('r'));

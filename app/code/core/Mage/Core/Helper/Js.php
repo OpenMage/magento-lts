@@ -191,7 +191,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
         }
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
-        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+        return "deleteConfirm('" . $message . "', '" . $url . "')";
     }
 
     /**
@@ -215,7 +215,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSetLocationJs(string $url): string
     {
-        return 'setLocation(\'' . $url . '\')';
+        return "setLocation('" . $url . "')";
     }
 
     /**
@@ -223,6 +223,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSaveAndContinueEditJs(string $url): string
     {
-        return 'saveAndContinueEdit(\'' . $url . '\')';
+        return "saveAndContinueEdit('" . $url . "')";
     }
 }

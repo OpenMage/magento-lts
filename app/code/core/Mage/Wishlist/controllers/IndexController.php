@@ -409,7 +409,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     } catch (Exception $e) {
                         Mage::logException($e);
                         Mage::getSingleton('customer/session')->addError(
-                            $this->__('Can\'t delete item from wishlist'),
+                            $this->__("Can't delete item from wishlist"),
                         );
                     }
                 }
@@ -427,7 +427,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     $updatedItems++;
                 } catch (Exception) {
                     Mage::getSingleton('customer/session')->addError(
-                        $this->__('Can\'t save description %s', Mage::helper('core')->escapeHtml($description)),
+                        $this->__("Can't save description %s", Mage::helper('core')->escapeHtml($description)),
                     );
                 }
             }
@@ -438,7 +438,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     $wishlist->save();
                     Mage::helper('wishlist')->calculate();
                 } catch (Exception) {
-                    Mage::getSingleton('customer/session')->addError($this->__('Can\'t update wishlist'));
+                    Mage::getSingleton('customer/session')->addError($this->__("Can't update wishlist"));
                 }
             }
 
@@ -668,7 +668,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
         $error   = false;
         if (empty($emails)) {
-            $error = $this->__('Email address can\'t be empty.');
+            $error = $this->__("Email address can't be empty.");
         } elseif (count($emails) > 5) {
             $error = $this->__('Please enter no more than 5 email addresses.');
         } else {

@@ -1203,7 +1203,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'KI' => 'Kiribati',
             'KM' => 'Comoros',
             'KN' => 'Saint Kitts (Saint Christopher and Nevis)',
-            'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
+            'KP' => "North Korea (Korea, Democratic People's Republic of)",
             'KR' => 'South Korea (Korea, Republic of)',
             'KW' => 'Kuwait',
             'KY' => 'Cayman Islands',

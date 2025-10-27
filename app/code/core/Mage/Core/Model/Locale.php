@@ -685,7 +685,7 @@ class Mage_Core_Model_Locale
         }
 
         //trim spaces and apostrophes
-        $value = str_replace(['\'', ' '], '', $value);
+        $value = str_replace(["'", ' '], '', $value);
 
         $separatorComa = strpos($value, ',');
         $separatorDot  = strpos($value, '.');
