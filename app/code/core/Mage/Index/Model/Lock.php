@@ -239,9 +239,9 @@ class Mage_Index_Model_Lock
                 flock($fp, LOCK_UN);
                 $result = false;
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            throw $e;
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            throw $exception;
         }
 
         return $result;
