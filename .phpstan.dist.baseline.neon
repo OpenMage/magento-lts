@@ -4921,12 +4921,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Dhl::$_request (Mage_Shipping_Model_Rate_Request|null) does not accept Varien_Object.'
 			identifier: assign.propertyType
 			count: 1
@@ -5005,12 +4999,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Fedex::$_result (Mage_Shipping_Model_Rate_Result|null) does not accept Mage_Shipping_Model_Tracking_Result.'
 			identifier: assign.propertyType
 			count: 2
@@ -5029,28 +5017,10 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array|false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method SimpleXMLElement::addChild() expects string|null, float given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 18
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
 
 		-
 			rawMessage: 'Parameter #2 $serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps::_formUsSignatureConfirmationShipmentRequest() expects string, array|bool given.'
@@ -5983,18 +5953,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			rawMessage: Empty array passed to foreach.
 			identifier: foreach.emptyArray
 			count: 1
@@ -6269,12 +6227,6 @@ parameters:
 			identifier: booleanOr.leftAlwaysFalse
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
 			rawMessage: 'Parameter #2 $enable of function imageinterlace expects bool|null, int given.'
