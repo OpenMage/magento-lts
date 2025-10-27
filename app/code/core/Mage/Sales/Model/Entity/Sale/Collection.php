@@ -90,9 +90,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $this->printLogQuery($printQuery, $logQuery);
         try {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
-            throw $e;
+            throw $exception;
         }
 
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();

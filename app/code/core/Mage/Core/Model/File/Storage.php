@@ -52,10 +52,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         Mage_Core_Model_Abstract $sourceModel,
         Mage_Core_Model_Abstract $destinationModel
     ) {
-        if (!$sourceModel || !$destinationModel) {
-            return true;
-        }
-
         return $sourceModel->hasErrors() || $destinationModel->hasErrors();
     }
 

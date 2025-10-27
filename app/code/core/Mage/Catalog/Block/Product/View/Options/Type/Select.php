@@ -133,9 +133,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     . $this->escapeHtml($value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($option->getIsRequire()) {
                     $selectHtml .= '<script type="text/javascript">$(\'options_' . $option->getId() . '_'
-                    . $count . '\').advaiceContainer = \'options-' . $option->getId() . '-container\';'
+                    . $count . "').advaiceContainer = 'options-" . $option->getId() . "-container';"
                     . '$(\'options_' . $option->getId() . '_' . $count
-                    . '\').callbackFunction = \'validateOptionsCallback\';' . '</script>';
+                    . "').callbackFunction = 'validateOptionsCallback';" . '</script>';
                 }
 
                 $selectHtml .= '</li>';

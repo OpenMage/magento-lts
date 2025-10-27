@@ -48,8 +48,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                     'controller_action' => $this,
                 ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 

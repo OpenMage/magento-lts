@@ -123,10 +123,10 @@ class Mage_Api2_Model_Multicall
             /** @var Mage_Api2_Model_Response $internalResponse */
             $internalResponse = Mage::getModel('api2/response');
             $server->internalCall($internalRequest, $internalResponse);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // TODO: implement strict mode
-            Mage::logException($e);
-            $this->_getResponse()->setException($e);
+            Mage::logException($exception);
+            $this->_getResponse()->setException($exception);
             // TODO: Refactor partial success idintification process
             $this->_getResponse()->setHttpResponseCode(Mage_Api2_Model_Server::HTTP_CREATED);
         }

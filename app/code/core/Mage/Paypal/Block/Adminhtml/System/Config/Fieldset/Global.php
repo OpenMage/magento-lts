@@ -162,7 +162,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             'name' => preg_replace('/\[value\](\[\])?$/', '[inherit]', $element->getName()),
             'value' => '1',
             'class' => 'checkbox config-inherit',
-            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . '\').up())',
+            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . "').up())",
         ]);
         if ($element->getInherit()) {
             $inheritCheckbox->setChecked(true);
