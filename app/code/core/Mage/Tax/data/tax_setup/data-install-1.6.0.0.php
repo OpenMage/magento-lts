@@ -7,7 +7,7 @@
  * @package    Mage_Tax
  */
 
-/** @var Mage_Tax_Model_Resource_Setup $installer */
+/** @var Mage_Tax_Model_Resource_Setup $this */
 $installer = $this;
 
 /**

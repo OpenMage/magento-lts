@@ -7,12 +7,15 @@
  * @package    Mage_Newsletter
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
+
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
+$connection = $installer->getConnection();
 
 $subscriberTable = $installer->getTable('newsletter/subscriber');
 
-$select = $installer->getConnection()->select()
+$select = $connection->select()
     ->from(['main_table' => $subscriberTable])
     ->join(
         ['customer' => $installer->getTable('customer/entity')],
@@ -21,6 +24,6 @@ $select = $installer->getConnection()->select()
     )
     ->where('customer.website_id = 0');
 
-$installer->getConnection()->query(
-    $installer->getConnection()->deleteFromSelect($select, 'main_table'),
+$connection->query(
+    $connection->deleteFromSelect($select, 'main_table'),
 );
