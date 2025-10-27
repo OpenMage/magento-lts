@@ -102,8 +102,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_validateStockData($data);
             $this->_validateAttributes($data, $productEntity);
             $isSatisfied = count($this->getErrors()) == 0;
-        } catch (Mage_Api2_Exception $e) {
-            $this->_addError($e->getMessage());
+        } catch (Mage_Api2_Exception $mageApi2Exception) {
+            $this->_addError($mageApi2Exception->getMessage());
             $isSatisfied = false;
         }
 

@@ -45,8 +45,8 @@ final class ConsumerTest extends OpenMageTest
 
         try {
             self::assertTrue($mock->validate());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame($expected, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame($expected, $mageCoreException->getMessage());
         }
     }
 

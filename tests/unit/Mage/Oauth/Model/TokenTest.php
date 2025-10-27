@@ -46,8 +46,8 @@ final class TokenTest extends OpenMageTest
 
         try {
             self::assertTrue(self::$subject->validate());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame($expected, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame($expected, $mageCoreException->getMessage());
         }
     }
 

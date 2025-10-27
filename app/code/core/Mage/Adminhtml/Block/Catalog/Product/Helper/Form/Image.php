@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image extends Varien_Data
             } else {
                 $html .= '<input value="' . $this->getValue() . '" id="' . $this->getHtmlId() . '_hidden" type="hidden" class="required-entry" />';
                 $html .= '<script type="text/javascript">
-                    syncOnchangeValue(\'' . $this->getHtmlId() . '\', \'' . $this->getHtmlId() . '_hidden\');
+                    syncOnchangeValue(\'' . $this->getHtmlId() . "', '" . $this->getHtmlId() . '_hidden\');
                 </script>';
             }
         } else {

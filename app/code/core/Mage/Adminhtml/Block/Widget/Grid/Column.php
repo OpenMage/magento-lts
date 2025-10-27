@@ -221,7 +221,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             }
         }
 
-        if ((!is_array($decorators)) || empty($decorators)) {
+        if (empty($decorators)) {
             return $value;
         }
 

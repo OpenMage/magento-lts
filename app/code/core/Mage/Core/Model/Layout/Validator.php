@@ -43,7 +43,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstrac
     protected $_disallowedXPathExpressions = [
         '*//template',
         '*//@template',
-        '//*[@method=\'setTemplate\']',
+        "//*[@method='setTemplate']",
         '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
         \'ABCDEFGHIJKLMNOPQRSTUVWXYZ\', \'abcdefghijklmnopqrstuvwxyz\'), \'template\')]/../*',
     ];

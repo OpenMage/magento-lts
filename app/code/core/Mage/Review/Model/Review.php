@@ -141,17 +141,17 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getTitle(),
-            message: Mage::helper('review')->__('Review summary can\'t be empty'),
+            message: Mage::helper('review')->__("Review summary can't be empty"),
         ));
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getNickname(),
-            message: Mage::helper('review')->__('Nickname can\'t be empty'),
+            message: Mage::helper('review')->__("Nickname can't be empty"),
         ));
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getDetail(),
-            message: Mage::helper('review')->__('Review can\'t be empty'),
+            message: Mage::helper('review')->__("Review can't be empty"),
         ));
 
         $errors = $validator->getErrorMessages($violations);

@@ -76,10 +76,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_code'),
-            message: 'You must give a non-empty value for field \'template_code\'',
+            message: "You must give a non-empty value for field 'template_code'",
         ));
 
-        $message = 'You must give a non-empty value for field \'template_type\'';
+        $message = "You must give a non-empty value for field 'template_type'";
         $templateType = $this->getDataUsingMethod('template_type');
 
         $violations->append($validator->validateNotEmpty(
@@ -95,12 +95,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $violations->append($validator->validateEmail(
             value: $this->getDataUsingMethod('template_sender_email'),
-            message: 'You must give a non-empty value for field \'template_sender_email\'',
+            message: "You must give a non-empty value for field 'template_sender_email'",
         ));
 
         $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_sender_name'),
-            message: 'You must give a non-empty value for field \'template_sender_name\'',
+            message: "You must give a non-empty value for field 'template_sender_name'",
         ));
 
         $errors = $validator->getErrorMessages($violations);

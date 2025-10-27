@@ -137,8 +137,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initCheckout();
             $response = $this->_checkout->getShippingOptionsCallbackResponse($this->getRequest()->getParams());
             $this->getResponse()->setBody($response);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
@@ -247,8 +247,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->getResponse()->setRedirect($this->_config->getExpressCheckoutEditUrl($this->_initToken()));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/review');
         }
     }

@@ -409,7 +409,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     } catch (Exception $e) {
                         Mage::logException($e);
                         Mage::getSingleton('customer/session')->addError(
-                            $this->__('Can\'t delete item from wishlist'),
+                            $this->__("Can't delete item from wishlist"),
                         );
                     }
                 }
@@ -427,7 +427,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     $updatedItems++;
                 } catch (Exception) {
                     Mage::getSingleton('customer/session')->addError(
-                        $this->__('Can\'t save description %s', Mage::helper('core')->escapeHtml($description)),
+                        $this->__("Can't save description %s", Mage::helper('core')->escapeHtml($description)),
                     );
                 }
             }
@@ -438,7 +438,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     $wishlist->save();
                     Mage::helper('wishlist')->calculate();
                 } catch (Exception) {
-                    Mage::getSingleton('customer/session')->addError($this->__('Can\'t update wishlist'));
+                    Mage::getSingleton('customer/session')->addError($this->__("Can't update wishlist"));
                 }
             }
 
@@ -676,7 +676,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             value: $emails,
             min: 1,
             max: 5,
-            minMessage: $this->__('Email address can\'t be empty.'),
+            minMessage: $this->__("Email address can't be empty."),
             maxMessage: $this->__('Please enter no more than 5 email addresses.'),
         ));
 
@@ -752,10 +752,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $this->__('Your Wishlist has been shared.'),
             );
             $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $translate->setTranslateInline(true);
 
-            Mage::getSingleton('wishlist/session')->addError($e->getMessage());
+            Mage::getSingleton('wishlist/session')->addError($exception->getMessage());
             Mage::getSingleton('wishlist/session')->setSharingForm($this->getRequest()->getPost());
             $this->_redirect('*/*/share');
         }

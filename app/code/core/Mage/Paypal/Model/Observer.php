@@ -30,8 +30,8 @@ class Mage_Paypal_Model_Observer
                     Mage::logException($e);
                 }
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 

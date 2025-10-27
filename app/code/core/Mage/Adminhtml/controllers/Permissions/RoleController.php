@@ -160,8 +160,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         try {
             $role->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
@@ -269,8 +269,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 ->setRoleId($roleId)
                 ->setUserId($userId)
                 ->deleteFromRole();
-        } catch (Exception $e) {
-            throw $e;
+        } catch (Exception $exception) {
+            throw $exception;
         }
 
         return true;

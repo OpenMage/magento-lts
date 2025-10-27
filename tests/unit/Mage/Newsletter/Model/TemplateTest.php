@@ -35,7 +35,6 @@ final class TemplateTest extends OpenMageTest
     /**
      * @dataProvider validateTemplateDataProvider
      * @group Model
-     * @group test
      */
     public function testValidate(?string $expected, array $methods): void
     {
@@ -75,28 +74,28 @@ final class TemplateTest extends OpenMageTest
         $data = $validData;
         $data['setTemplateCode'] = null;
         yield 'missing template code' => [
-            'You must give a non-empty value for field \'template_code\'',
+            "You must give a non-empty value for field 'template_code'",
             $data,
         ];
 
         $data = $validData;
         $data['setTemplateSenderEmail'] = null;
         yield 'missing sender email' => [
-            'You must give a non-empty value for field \'template_sender_email\'',
+            "You must give a non-empty value for field 'template_sender_email'",
             $data,
         ];
 
         $data = $validData;
         $data['setTemplateSenderEmail'] = 'invalid-email';
         yield 'invalid sender email' => [
-            'You must give a non-empty value for field \'template_sender_email\'',
+            "You must give a non-empty value for field 'template_sender_email'",
             $data,
         ];
 
         $data = $validData;
         $data['setTemplateSenderName'] = null;
         yield 'missing sender name' => [
-            'You must give a non-empty value for field \'template_sender_name\'',
+            "You must give a non-empty value for field 'template_sender_name'",
             $data,
         ];
 
@@ -117,7 +116,7 @@ final class TemplateTest extends OpenMageTest
         $data = $validData;
         $data['setTemplateType'] = null;
         yield 'missing template type' => [
-            'You must give a non-empty value for field \'template_type\'',
+            "You must give a non-empty value for field 'template_type'",
             $data,
         ];
     }

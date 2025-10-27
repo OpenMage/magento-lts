@@ -384,10 +384,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_getResource()->addCommitCallback([$this, 'afterCommitCallback'])
                 ->commit();
             $this->_hasDataChanges = false;
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
-            throw $e;
+            throw $throwable;
         }
 
         return $this;
@@ -533,9 +533,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $throwable;
         }
 
         $this->_afterDeleteCommit();

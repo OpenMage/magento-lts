@@ -213,10 +213,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             } else {
                 $this->_getResource()->endProcess($this);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
             $this->_getResource()->failProcess($this);
-            throw $e;
+            throw $exception;
         }
 
         Mage::dispatchEvent('after_reindex_process_' . $this->getIndexerCode());
@@ -363,9 +363,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
             $this->_processEventsCollection($eventsCollection);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -629,9 +629,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         try {
             $this->processEvent($event);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
