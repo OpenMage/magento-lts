@@ -7,7 +7,7 @@
  * @package    Mage_Customer
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 /** @var Mage_Customer_Helper_Address $addressHelper */
@@ -192,6 +192,7 @@ foreach ($attributes as $attributeCode => $data) {
 }
 
 // update customer address system attributes data
+/** @var array<string, array{is_user_defined: int, is_system: int, is_visible: int, sort_order: int, is_required: int}> $attributes */
 $attributes = [
     'prefix'            => [
         'is_user_defined'   => 0,

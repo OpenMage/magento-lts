@@ -7,7 +7,7 @@
  * @package    Mage_CatalogRule
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -122,6 +122,7 @@ $table = $installer->getConnection()
         'nullable'  => false,
     ], 'Website Id')
     ->addIndex(
+        // @phpstan-ignore argument.type
         $installer->getIdxName('catalogrule/rule_product', ['rule_id', 'from_time', 'to_time', 'website_id', 'customer_group_id', 'product_id', 'sort_order'], true),
         ['rule_id', 'from_time', 'to_time', 'website_id', 'customer_group_id', 'product_id', 'sort_order'],
         ['type' => 'unique'],

@@ -7,7 +7,7 @@
  * @package    Mage_Weee
  */
 
-/** @var Mage_Weee_Model_Resource_Setup $installer */
+/** @var Mage_Weee_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

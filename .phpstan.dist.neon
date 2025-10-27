@@ -61,10 +61,6 @@ parameters:
         # Dataflow/Model/Convert/Iterator.php
         - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
 
-        # Too much noise from "Variable $this might not be defined"
-        - app/code/core/*/*/data/*
-        - app/code/core/*/*/sql/*
-
         # requires Mycrypt
         - lib/Magento/Crypt.php
         - lib/Varien/Crypt/Mcrypt.php
