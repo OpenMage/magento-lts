@@ -129,8 +129,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -362,7 +362,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->curlOption(CURLOPT_PORT, $this->_port);
         }
 
-        //$this->curlOption(CURLOPT_HEADER, 1);
+        //$this->curlOption(CURLOPT_HEADER, true);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
