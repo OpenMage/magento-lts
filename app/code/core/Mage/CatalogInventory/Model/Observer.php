@@ -779,7 +779,7 @@ class Mage_CatalogInventory_Model_Observer
          * This limits the number of stock re-indexing that takes place,
          * especially in stores where stock is not managed
          **/
-        $productIds = array_map('\intval', $productIds);
+        $productIds = array_map(\intval(...), $productIds);
         $stockCollection = Mage::getModel('cataloginventory/stock_item')->getCollection()
             ->addFieldToFilter('product_id', ['in' => $productIds])
             ->addFieldToFilter('manage_stock', ['eq' => 1]);

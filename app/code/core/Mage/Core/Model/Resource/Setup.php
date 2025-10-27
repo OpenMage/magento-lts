@@ -656,7 +656,7 @@ class Mage_Core_Model_Resource_Setup
         switch ($actionType) {
             case self::TYPE_DB_INSTALL:
             case self::TYPE_DATA_INSTALL:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[0] = [
@@ -670,7 +670,7 @@ class Mage_Core_Model_Resource_Setup
 
             case self::TYPE_DB_UPGRADE:
             case self::TYPE_DATA_UPGRADE:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     $versionInfo = explode('-', $version);
 
