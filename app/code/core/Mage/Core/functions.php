@@ -196,12 +196,10 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 
 function mageSendErrorHeader()
 {
-    return;
 }
 
 function mageSendErrorFooter()
 {
-    return;
 }
 
 /**
