@@ -1531,12 +1531,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer.php
 
 		-
-			rawMessage: 'Parameter #2 $filterBlock (Varien_Object) of method Mage_Catalog_Model_Layer_Filter_Attribute::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			rawMessage: 'Parameter #1 $range of method Mage_Catalog_Model_Layer_Filter_Decimal::_renderItemLabel() expects int, string given.'
 			identifier: argument.type
 			count: 1
@@ -1544,18 +1538,6 @@ parameters:
 
 		-
 			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock (Mage_Catalog_Block_Layer_Filter_Decimal) of method Mage_Catalog_Model_Layer_Filter_Decimal::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock of method Mage_Catalog_Model_Layer_Filter_Abstract::apply() expects null, Mage_Catalog_Block_Layer_Filter_Decimal given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
@@ -2159,12 +2141,6 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
-
-		-
-			rawMessage: 'Return type (int) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row::_getProduct() should be compatible with return type (null) of method Mage_CatalogRule_Model_Action_Index_Refresh::_getProduct()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
 
 		-
 			rawMessage: 'Parameter #1 $combine of method Mage_CatalogRule_Model_Observer::_removeAttributeFromConditions() expects Mage_CatalogRule_Model_Rule_Condition_Combine, Mage_Rule_Model_Condition_Combine given.'
