@@ -14,12 +14,14 @@ $installer->startSetup();
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 
+$widgetTable = $installer->getTable('widget/widget');
+
 /**
  * Create table 'widget/widget'
  */
-if (!$connection->isTableExists($installer->getTable('widget/widget'))) {
+if (!$connection->isTableExists($widgetTable)) {
     $table = $connection
-        ->newTable($installer->getTable('widget/widget'))
+        ->newTable($widgetTable)
         ->addColumn('widget_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
             'identity'  => true,
             'unsigned'  => true,
@@ -38,12 +40,12 @@ if (!$connection->isTableExists($installer->getTable('widget/widget'))) {
     $connection->createTable($table);
 } else {
     $connection->dropIndex(
-        $installer->getTable('widget/widget'),
+        $widgetTable,
         'IDX_CODE',
     );
 
     $tables = [
-        $installer->getTable('widget/widget') => [
+        $widgetTable => [
             'columns' => [
                 'widget_id' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -66,7 +68,7 @@ if (!$connection->isTableExists($installer->getTable('widget/widget'))) {
     $connection->modifyTables($tables);
 
     $connection->changeColumn(
-        $installer->getTable('widget/widget'),
+        $widgetTable,
         'code',
         'widget_code',
         [
@@ -77,7 +79,7 @@ if (!$connection->isTableExists($installer->getTable('widget/widget'))) {
     );
 
     $connection->changeColumn(
-        $installer->getTable('widget/widget'),
+        $widgetTable,
         'type',
         'widget_type',
         [
@@ -88,7 +90,7 @@ if (!$connection->isTableExists($installer->getTable('widget/widget'))) {
     );
 
     $connection->addIndex(
-        $installer->getTable('widget/widget'),
+        $widgetTable,
         $installer->getIdxName('widget/widget', ['widget_code']),
         ['widget_code'],
     );
