@@ -279,7 +279,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 self::ENV_KEY_SEPARATOR,
                 $configKey,
             ),
-            'trim',
+            trim(...),
         );
 
         unset($configKeyParts[0]);

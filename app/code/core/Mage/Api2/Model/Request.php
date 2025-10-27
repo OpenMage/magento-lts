@@ -271,7 +271,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             $include = explode(',', $include);
         }
 
-        return array_map('trim', $include);
+        return array_map(trim(...), $include);
     }
 
     /**
