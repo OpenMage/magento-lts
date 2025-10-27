@@ -7,7 +7,7 @@
  * @package    Mage_Customer
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 /** @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');

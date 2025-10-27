@@ -27,7 +27,7 @@
  * @method $this setAdjustmentNegative(float $value)
  * @method float getAdjustmentPositive()
  * @method $this setAdjustmentPositive(float $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  * @method array getAppliedTaxes()
  * @method $this setAppliedTaxes(array $value)

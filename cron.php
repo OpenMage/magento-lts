@@ -29,7 +29,7 @@ try {
 
 umask(0);
 
-$disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$disabledFuncs = array_map(trim(...), preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
 $isWinOS = !str_contains(strtolower(PHP_OS), 'darwin') && str_contains(strtolower(PHP_OS), 'win');
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
     || $isWinOS

@@ -125,8 +125,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -289,7 +289,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
 
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -319,7 +319,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
 
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }

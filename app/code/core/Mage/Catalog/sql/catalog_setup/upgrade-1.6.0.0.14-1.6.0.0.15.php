@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 foreach (['news_from_date', 'custom_design_from'] as $attributeCode) {
