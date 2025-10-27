@@ -52,7 +52,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
      * @return Mage_Core_Helper_Abstract
      * @deprecated this method is incompatible with parent class. Use Mage::helper instead
      */
-    protected function _getHelper($name)
+    protected function _getHelper($name = null)
     {
         return Mage::helper($name);
     }
