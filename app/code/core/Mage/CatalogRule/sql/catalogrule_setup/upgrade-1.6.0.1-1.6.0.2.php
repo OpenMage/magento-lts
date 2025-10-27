@@ -7,8 +7,10 @@
  * @package    Mage_CatalogRule
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer           = $this;
+
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection          = $installer->getConnection();
 
 $rulesTable          = $installer->getTable('catalogrule/rule');

@@ -7,7 +7,7 @@
  * @package    Mage_Paypal
  */
 
-/** @var Mage_Core_Model_Resource_Setup $this */
+/** @var Mage_Paypal_Model_Resource_Setup $this */
 $installer = $this;
 $connection = $installer->getConnection();
 $installer->startSetup();

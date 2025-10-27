@@ -343,7 +343,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         }
 
         $versions = explode(',', (string) $element);
-        if (count(array_filter($versions, 'is_numeric')) != count($versions)) {
+        if (count(array_filter($versions, is_numeric(...))) != count($versions)) {
             throw new Exception(sprintf('Invalid resource "%s" versions in config.', htmlspecialchars($node)));
         }
 

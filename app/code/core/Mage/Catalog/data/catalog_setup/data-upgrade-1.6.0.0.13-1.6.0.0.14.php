@@ -7,8 +7,10 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
+
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 
 $installer->startSetup();
