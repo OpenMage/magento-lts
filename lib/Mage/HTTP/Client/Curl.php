@@ -82,7 +82,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var false|resource
+     * @var CurlHandle
      */
     protected $_ch;
 
@@ -480,8 +480,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option
      */
-    public function setOption($name, $value)
+    public function setOption($key, $value)
     {
-        $this->_curlUserOptions[$name] = $value;
+        $this->_curlUserOptions[$key] = $value;
     }
 }

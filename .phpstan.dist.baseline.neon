@@ -5971,18 +5971,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			rawMessage: Empty array passed to foreach.
 			identifier: foreach.emptyArray
 			count: 1
