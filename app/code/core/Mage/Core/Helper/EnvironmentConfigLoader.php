@@ -77,20 +77,27 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            [$configKeyParts, $scope] = $this->getConfigKey($configKey);
+            $override   = $this->getConfigKey($configKey);
+            $scope      = $override->getScope();
+            $storeCode  = $override->getStoreCode();
+
+            $path       = $this->buildPath($override->getSection(), $override->getGroup(), $override->getField());
 
             switch ($scope) {
                 case self::CONFIG_KEY_DEFAULT:
-                    [$section, $group, $field] = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
-                    $nodePath = $this->buildNodePath($scope, $path);
-                    $xmlConfig->setNode($nodePath, $value);
                     try {
-                        foreach (['0', 'admin'] as $store) {
-                            $store = Mage::app()->getStore($store);
-                            if ($store instanceof Mage_Core_Model_Store) {
-                                $this->setCache($store, $value, $path);
-                            }
+                        $store = Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE);
+                        if ($store instanceof Mage_Core_Model_Store) {
+                            $nodePath = $this->buildNodePath($scope, $path, $storeCode);
+                            $xmlConfig->setNode($nodePath, $value);
+                            $this->setCache($store, $value, $path);
+                        }
+
+                        $stores = Mage::app()->getStores(withDefault: true);
+                        foreach ($stores as $store) {
+                            $nodePath = $this->buildNodePath(self::CONFIG_KEY_STORES, $path, $store->getCode());
+                            $xmlConfig->setNode($nodePath, $value);
+                            $this->setCache($store, $value, $path);
                         }
                     } catch (Throwable) {
                         // invalid store, intentionally empty
@@ -99,21 +106,42 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
 
                 case self::CONFIG_KEY_WEBSITES:
-                case self::CONFIG_KEY_STORES:
-                    [$storeCode, $section, $group, $field] = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
-                    $storeCode = strtolower($storeCode);
-                    $scope = strtolower($scope);
-                    $nodePath = sprintf('%s/%s/%s', $scope, $storeCode, $path);
-                    $xmlConfig->setNode($nodePath, $value);
                     try {
-                        if (!str_contains($nodePath, 'websites')) {
-                            foreach ([$storeCode, 'admin'] as $store) {
-                                $store = Mage::app()->getStore($store);
-                                if ($store instanceof Mage_Core_Model_Store) {
+                        $websites = Mage::app()->getWebsites();
+                        foreach ($websites as $website) {
+                            if (strtolower($website->getCode()) !== strtolower($storeCode)) {
+                                continue;
+                            }
+
+                            $nodePath = $this->buildNodePath($scope, $path, $storeCode);
+                            $xmlConfig->setNode($nodePath, $value);
+
+                            $stores = $website->getStores();
+                            foreach ($stores as $store) {
+                                if ($store instanceof Mage_Core_Model_Store && $store->getId()) {
+                                    $nodePath = $this->buildNodePath(self::CONFIG_KEY_STORES, $path, $store->getCode());
+                                    $xmlConfig->setNode($nodePath, $value);
                                     $this->setCache($store, $value, $path);
                                 }
                             }
+                        }
+                    } catch (Throwable) {
+                        // invalid store, intentionally empty
+                    }
+
+                    break;
+
+                case self::CONFIG_KEY_STORES:
+                    try {
+                        $stores = Mage::app()->getStores();
+                        foreach ($stores as $store) {
+                            if (strtolower($store->getCode()) !== strtolower($storeCode)) {
+                                continue;
+                            }
+
+                            $nodePath = $this->buildNodePath($scope, $path, $store->getCode());
+                            $xmlConfig->setNode($nodePath, $value);
+                            $this->setCache($store, $value, $path);
                         }
                     } catch (Throwable) {
                         // invalid store, intentionally empty
@@ -126,9 +154,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         Mage::register(self::REGISTRY_KEY, true, true);
     }
 
-    /**
-     * @throws Mage_Core_Exception
-     */
     public function hasPath(string $wantedPath): bool
     {
         /** @var bool|null $data */
@@ -145,30 +170,73 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            [$configKeyParts, $scope] = $this->getConfigKey($configKey);
+            $override   = $this->getConfigKey($configKey);
+            $scope      = $override->getScope();
+            $path       = $this->buildPath($override->getSection(), $override->getGroup(), $override->getField());
 
             switch ($scope) {
                 case self::CONFIG_KEY_DEFAULT:
-                    [$section, $group, $field] = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
                     $nodePath = $this->buildNodePath($scope, $path);
                     $config[$nodePath] = $value;
+
+                    try {
+                        $websites = Mage::app()->getWebsites();
+                        foreach ($websites as $website) {
+                            $nodePath = $this->buildNodePath(self::CONFIG_KEY_WEBSITES, $path, $website->getCode());
+                            $config[$nodePath] = $value;
+                        }
+
+                        $stores = Mage::app()->getStores(withDefault: true);
+                        foreach ($stores as $store) {
+                            $nodePath = $this->buildNodePath(self::CONFIG_KEY_STORES, $path, $store->getCode());
+                            $config[$nodePath] = $value;
+                        }
+                    } catch (Throwable) {
+                        // invalid store, intentionally empty
+                    }
+
                     break;
 
                 case self::CONFIG_KEY_WEBSITES:
+                    try {
+                        $websites = Mage::app()->getWebsites();
+                        foreach ($websites as $website) {
+                            if (strtolower($website->getCode()) !== strtolower($override->getStoreCode())) {
+                                continue;
+                            }
+
+                            $nodePath = $this->buildNodePath($scope, $path, $website->getCode());
+                            $config[$nodePath] = $value;
+
+                            $stores = $website->getStores();
+                            foreach ($stores as $store) {
+                                if ($store instanceof Mage_Core_Model_Store && $store->getId()) {
+                                    $nodePath = $this->buildNodePath(self::CONFIG_KEY_STORES, $path, $store->getCode());
+                                    $config[$nodePath] = $value;
+                                }
+                            }
+                        }
+                    } catch (Throwable) {
+                        // invalid store, intentionally empty
+                    }
+
+                    break;
                 case self::CONFIG_KEY_STORES:
-                    [$storeCode, $section, $group, $field] = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
-                    $storeCode = strtolower($storeCode);
-                    $scope = strtolower($scope);
-                    $nodePath = sprintf('%s/%s/%s', $scope, $storeCode, $path);
+                    $nodePath = $this->buildNodePath($scope, $path, $override->getStoreCode());
                     $config[$nodePath] = $value;
+
                     break;
             }
         }
 
         $hasConfig = array_key_exists($wantedPath, $config);
-        Mage::register("config_env_has_path_$wantedPath", $hasConfig);
+
+        try {
+            Mage::register("config_env_has_path_$wantedPath", $hasConfig);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+        }
+
         return $hasConfig;
     }
 
@@ -196,22 +264,19 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            [$configKeyParts, $scope] = $this->getConfigKey($configKey);
+            $override   = $this->getConfigKey($configKey);
+            $path       = $this->buildPath($override->getSection(), $override->getGroup(), $override->getField());
 
-            switch ($scope) {
+            switch ($override->getScope()) {
                 case self::CONFIG_KEY_DEFAULT:
-                    [$section, $group, $field] = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
                     $config[$path] = $value;
                     break;
                 case self::CONFIG_KEY_WEBSITES:
                 case self::CONFIG_KEY_STORES:
-                    [$storeCode, $section, $group, $field] = $configKeyParts;
-                    if (strtolower($storeCode) !== strtolower($wantedStore)) {
+                    if (strtolower($override->getStoreCode()) !== strtolower($wantedStore)) {
                         break;
                     }
 
-                    $path = $this->buildPath($section, $group, $field);
                     $config[$path] = $value;
                     break;
             }
@@ -257,7 +322,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     {
         $refObject = new ReflectionObject($store);
         $refProperty = $refObject->getProperty('_configCache');
-        $refProperty->setAccessible(true);
 
         $configCache = $refProperty->getValue($store);
         if (!is_array($configCache)) {
@@ -268,11 +332,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $store->setConfigCache($configCache);
     }
 
-    /**
-     * @return array{array<int, string>, string}
-     * @throws Mage_Core_Exception
-     */
-    protected function getConfigKey(string $configKey): array
+    protected function getConfigKey(string $configKey): Mage_Core_Helper_EnvironmentConfigLoader_Override
     {
         $configKeyParts = array_filter(
             explode(
@@ -282,17 +342,22 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             trim(...),
         );
 
-        unset($configKeyParts[0]);
+        $scope      = $configKeyParts[1];
+        $isDefault  = $scope === self::CONFIG_KEY_DEFAULT;
+        $storeCode  = $isDefault ? '' : $configKeyParts[2];
+        $section    = $isDefault ? $configKeyParts[2] : $configKeyParts[3];
+        $group      = $isDefault ? $configKeyParts[3] : $configKeyParts[4];
+        $field      = $isDefault ? $configKeyParts[4] : $configKeyParts[5];
 
-        /** @var string $scope */
-        $scope = array_shift($configKeyParts);
-
-        return [$configKeyParts, $scope];
+        return new Mage_Core_Helper_EnvironmentConfigLoader_Override(
+            scope: $scope,
+            section: $section,
+            group: $group,
+            field: $field,
+            storeCode: $storeCode,
+        );
     }
 
-    /**
-     * @throws Mage_Core_Exception
-     */
     protected function isConfigKeyValid(string $configKey): bool
     {
         $sectionGroupFieldRegexp = sprintf('([%s]*)', implode('', self::ALLOWED_CHARS));
@@ -318,8 +383,8 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     /**
      * Build configuration node path.
      */
-    protected function buildNodePath(string $scope, string $path): string
+    protected function buildNodePath(string $scope, string $path, string $storeCode = ''): string
     {
-        return strtolower($scope) . '/' . $path;
+        return strtolower($scope) . ($storeCode ? '/' . strtolower($storeCode) : '') . '/' . $path;
     }
 }
