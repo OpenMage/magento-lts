@@ -25,13 +25,7 @@ jobs:
           --project-type=magento \
           --php-version=8.1 \
           --webserver-type=${{ matrix.webserver }} \
-          --web-environment="\
-            MAGE_IS_DEVELOPER_MODE=1,\
-            OPENMAGE_CONFIG_OVERRIDE_ALLOWED=1,\
-            OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME=ENV name default,\
-            OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__PHONE=ENV phone website,\
-            OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__ADDRESS=ENV address store\
-          "
+          --web-environment="MAGE_IS_DEVELOPER_MODE=1,OPENMAGE_CONFIG_OVERRIDE_ALLOWED=1,OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME=ENV name default,OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__PHONE=ENV phone website,OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__ADDRESS=ENV address store"
 
       # install composer dependencies
       - run: ddev composer install
