@@ -6,7 +6,13 @@ cy.openmage.test.backend = {};
 
 /**
  * Base configuration for backend tests
- * @type {{_button: string, _title: string, __buttons: {}, __buttonsSets: {}}}
+ * @type {{
+ *      _button: string,
+ *      _title: string,
+ *      __buttons: {},
+ *      __buttonsSets: {},
+ *      __systemConfig: {}
+ * }}
  * @private
  */
 cy.openmage.test.backend.__base = {
@@ -14,11 +20,19 @@ cy.openmage.test.backend.__base = {
     _title: 'h3.icon-head',
     __buttons: {},
     __buttonsSets: {},
+    __systemConfig: {},
 };
 
 /**
  * Base buttons configuration for backend tests
- * @type {{add: {}, save: {}, saveAndContinue: {}, delete: {}, back: {}, reset: {}}}
+ * @type {{
+ *      add: {},
+ *      save: {},
+ *      saveAndContinue: {},
+ *      delete: {},
+ *      back: {},
+ *      reset: {}
+ * }}
  * @private
  */
 cy.openmage.test.backend.__base.__buttons = {
@@ -40,7 +54,11 @@ cy.openmage.test.backend.__base.__buttons.add = {
 
 /**
  * Configuration for "Save" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.save.click}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.save.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.save = {
     _: cy.openmage.test.backend.__base._button + '[title="Save"]',
@@ -52,7 +70,11 @@ cy.openmage.test.backend.__base.__buttons.save = {
 
 /**
  * Configuration for "Save and Continue Edit" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.saveAndContinue.click}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.saveAndContinue.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
@@ -64,7 +86,11 @@ cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
 
 /**
  * Configuration for "Delete" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.delete.click}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.delete.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.delete = {
     _: cy.openmage.test.backend.__base._button + '[title="Delete"]',
@@ -76,7 +102,11 @@ cy.openmage.test.backend.__base.__buttons.delete = {
 
 /**
  * Configuration for "Back" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.back.click}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.back.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.back = {
     _: cy.openmage.test.backend.__base._button + '[title="Back"]',
@@ -88,7 +118,11 @@ cy.openmage.test.backend.__base.__buttons.back = {
 
 /**
  * Configuration for "Reset" button
- * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.reset.click}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.reset.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.reset = {
     _: cy.openmage.test.backend.__base._button + '[title="Reset"]',
@@ -100,7 +134,11 @@ cy.openmage.test.backend.__base.__buttons.reset = {
 
 /**
  * Configuration for "Print" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.print.click, _: string}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.print.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.print = {
     _: cy.openmage.test.backend.__base._button + '[title="Print"]',
@@ -112,7 +150,11 @@ cy.openmage.test.backend.__base.__buttons.print = {
 
 /**
  * Configuration for "Send Email" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.email.click, _: string}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.email.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.email = {
     _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
@@ -124,7 +166,11 @@ cy.openmage.test.backend.__base.__buttons.email = {
 
 /**
  * Configuration for "Convert to Plain Text" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.convertToPlain.click, _: string}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.convertToPlain.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.convertToPlain = {
     _: cy.openmage.test.backend.__base._button + '[title="Convert to Plain Text"]',
@@ -136,7 +182,11 @@ cy.openmage.test.backend.__base.__buttons.convertToPlain = {
 
 /**
  * Configuration for "Convert to Plain Text" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.preview.click, _: string}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.preview.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.preview = {
     _: cy.openmage.test.backend.__base._button + '[title="Preview Template"]',
@@ -148,7 +198,11 @@ cy.openmage.test.backend.__base.__buttons.preview = {
 
 /**
  * Configuration for "Save and Apply" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.saveAndApply.click, _: string}}
+ * @type {{
+ *      _: string,
+ *      __class: string[],
+ *      click: cy.openmage.test.backend.__base.__buttons.saveAndApply.click
+ * }}
  */
 cy.openmage.test.backend.__base.__buttons.saveAndApply = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Apply"]',
@@ -238,6 +292,31 @@ cy.openmage.test.backend.__base.__buttonsSets.sales = {
 };
 
 /**
+ * Configuration for admin system base "System Configuration" settings
+ * @type {{
+ *      _: string,
+ *      _nav: string,
+ *      _title: string,
+ *      url: string,
+ *      labels: {},
+ *      section: {}
+ * }}
+ */
+cy.openmage.test.backend.__base.__systemConfig = {
+    _: '#nav-admin-system-config',
+    _nav: '#nav-admin-system',
+    _title: cy.openmage.test.backend.__base._title,
+    url: 'system_config/index',
+    labels: {},
+    section: {},
+}
+
+cy.openmage.test.backend.__base.__systemConfig.labels = {
+    env: '[ENV]',
+    store: '[STORE VIEW]',
+};
+
+/**
  * Namespace for backend tests
  * @type {{}}
  */
@@ -285,8 +364,12 @@ cy.openmage.test.backend.system.config = {
 cy.openmage.test.backend.system.config.catalog = {};
 cy.openmage.test.backend.system.config.catalog.configswatches = {};
 cy.openmage.test.backend.system.config.catalog.sitemap = {};
+cy.openmage.test.backend.system.config.catalog.sitemap.config = cy.openmage.test.backend.__base.__systemConfig;
 cy.openmage.test.backend.system.config.customer = {};
 cy.openmage.test.backend.system.config.customer.promo = {};
+cy.openmage.test.backend.system.config.general = {};
+cy.openmage.test.backend.system.config.general.config = cy.openmage.test.backend.__base.__systemConfig;
+cy.openmage.test.backend.system.config.general.general = {};
 cy.openmage.test.backend.system.currency = {};
 cy.openmage.test.backend.system.design = {};
 cy.openmage.test.backend.system.email = {};

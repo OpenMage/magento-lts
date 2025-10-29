@@ -20,10 +20,13 @@ cy.openmage.validation = {
         cy.log('Filling fields with invalid values');
         Object.keys(path.__fields).forEach(field => {
             const selector = path.__fields[field]._;
-            cy
-                .get(selector)
-                .clear({ force: true })
-                .should('have.class', validation.css);
+
+            if (validation.css !== undefined) {
+                cy
+                    .get(selector)
+                    .clear({ force: true })
+                    .should('have.class', validation.css);
+            }
 
             if (value !== '') {
                 cy
