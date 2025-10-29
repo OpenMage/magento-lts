@@ -309,7 +309,7 @@ cy.openmage.test.backend.__base.__systemConfig = {
     url: 'system_config/index',
     labels: {},
     section: {},
-}
+};
 
 cy.openmage.test.backend.__base.__systemConfig.labels = {
     env: '[ENV]',
