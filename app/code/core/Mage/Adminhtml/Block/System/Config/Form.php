@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     public const SCOPE_STORES   = 'stores';
 
-    public const SCOPE_ENV   = 'env';
+    public const SCOPE_ENV      = 'env';
 
     /**
      * Config data array
@@ -663,14 +663,22 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
         $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
-        $store = Mage::app()->getRequest()->getParam('store');
-        if ($store) {
-            $scope = $this->getScope();
+
+        $scope      = $this->getScope();
+        $store      = Mage::app()->getRequest()->getParam('store');
+        $website    = Mage::app()->getRequest()->getParam('website');
+
+        if ($store && $website) {
             $path = "$scope/$store/$path";
             return $environmentConfigLoaderHelper->hasPath($path);
         }
 
-        $path = "default/$path";
+        if ($website) {
+            $path = "$scope/$website/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+
+        $path = "$scope/$path";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 
