@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
 
         foreach ($this->getValue() as $currency) {
             if (!in_array($currency, $allCurrenciesValues)) {
-                Mage::throwException(Mage::helper('adminhtml')->__('Currency doesn\'t exist.'));
+                Mage::throwException(Mage::helper('adminhtml')->__("Currency doesn't exist."));
             }
         }
 

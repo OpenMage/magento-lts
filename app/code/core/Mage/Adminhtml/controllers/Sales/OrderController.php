@@ -99,7 +99,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 Mage_Sales_Model_Order::ACTION_FLAG_PRODUCTS_PERMISSION_DENIED,
             );
             if ($isActionsNotPermitted) {
-                $this->_getSession()->addError($this->__('You don\'t have permissions to manage this order because of one or more products are not permitted for your website.'));
+                $this->_getSession()->addError($this->__("You don't have permissions to manage this order because of one or more products are not permitted for your website."));
             }
 
             $this->_initAction();

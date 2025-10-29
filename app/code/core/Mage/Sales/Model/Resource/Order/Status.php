@@ -159,7 +159,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
 
         if ($this->_getWriteAdapter()->fetchOne($select) == 1) {
             throw new Mage_Core_Exception(
-                Mage::helper('sales')->__('Last status can\'t be unassigned from state.'),
+                Mage::helper('sales')->__("Last status can't be unassigned from state."),
             );
         }
 

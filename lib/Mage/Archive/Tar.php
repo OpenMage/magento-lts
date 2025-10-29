@@ -255,7 +255,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         if (is_dir($file)) {
             $treeDir = scandir($file);
             if (empty($treeDir)) {
-                throw new Mage_Exception('Can\'t scan dir: ' . $file);
+                throw new Mage_Exception("Can't scan dir: " . $file);
             }
 
             array_shift($treeDir); /* remove  './'*/
@@ -288,7 +288,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $dirFiles = scandir($file);
 
             if (false === $dirFiles) {
-                throw new Mage_Exception('Can\'t scan dir: ' . $file);
+                throw new Mage_Exception("Can't scan dir: " . $file);
             }
 
             array_shift($dirFiles); /* remove  './'*/

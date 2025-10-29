@@ -102,8 +102,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         try {
             $this->save();
             $this->setId(null);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return $this;

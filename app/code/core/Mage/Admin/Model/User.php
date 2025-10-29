@@ -404,9 +404,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 'user'     => $this,
                 'result'   => $result,
             ]);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->unsetData();
-            throw $e;
+            throw $mageCoreException;
         }
 
         if (!$result) {

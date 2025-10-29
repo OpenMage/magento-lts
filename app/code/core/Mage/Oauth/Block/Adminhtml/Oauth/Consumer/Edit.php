@@ -57,9 +57,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', $this->__('Delete'));
-        $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
+        $this->_updateButton('delete', 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
             Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
-        ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
+        ) . "')) editForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;");
 
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');

@@ -362,7 +362,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * Apply price range filter
      *
-     * @param null $filterBlock deprecated
+     * @param Varien_Object $filterBlock deprecated
      * @return $this
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)

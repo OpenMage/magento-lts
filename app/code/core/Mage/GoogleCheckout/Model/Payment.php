@@ -98,8 +98,6 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      *
      * @param string $field
      * @param int|string|null|Mage_Core_Model_Store $storeId
-     *
-     * @return  null
      */
     public function getConfigData($field, $storeId = null)
     {
