@@ -59,11 +59,8 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * @example OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME=website
      * Override the store 'german' configuration:
      * @example OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME=store_german
-     *
-     * @return void
-     * @throws Mage_Core_Exception
      */
-    public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
+    public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig): void
     {
         $data = Mage::registry(self::REGISTRY_KEY);
         if ($data) {
@@ -151,7 +148,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }
         }
 
-        Mage::register(self::REGISTRY_KEY, true, true);
+        try {
+            Mage::register(self::REGISTRY_KEY, true, true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+        }
     }
 
     public function hasPath(string $wantedPath): bool
@@ -242,7 +243,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     /**
      * @return array<string, string>
-     * @throws Mage_Core_Exception
      */
     public function getAsArray(string $wantedStore): array
     {
@@ -282,7 +282,12 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }
         }
 
-        Mage::register("config_env_array_$wantedStore", $config);
+        try {
+            Mage::register("config_env_array_$wantedStore", $config);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+        }
+
         return $config;
     }
 
