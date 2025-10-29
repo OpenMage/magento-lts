@@ -61,8 +61,8 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 
         try {
             return $statement->execute();
-        } catch (PDOException $e) {
-            throw new Zend_Db_Statement_Exception($e->getMessage(), (int) $e->getCode(), $e);
+        } catch (PDOException $pdoException) {
+            throw new Zend_Db_Statement_Exception($pdoException->getMessage(), (int) $pdoException->getCode(), $pdoException);
         }
     }
 

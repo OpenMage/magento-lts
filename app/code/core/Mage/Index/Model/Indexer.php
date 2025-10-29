@@ -211,9 +211,9 @@ class Mage_Index_Model_Indexer
         try {
             $this->_runAll('indexEvents', [$entity, $type]);
             $resourceModel->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resourceModel->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         if ($allowTableChanges) {

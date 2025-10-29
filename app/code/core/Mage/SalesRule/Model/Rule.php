@@ -443,7 +443,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         }
 
         if (!$ok) {
-            Mage::throwException(Mage::helper('salesrule')->__('Can\'t acquire coupon.'));
+            Mage::throwException(Mage::helper('salesrule')->__("Can't acquire coupon."));
         }
 
         return $coupon;

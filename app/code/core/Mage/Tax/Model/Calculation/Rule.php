@@ -31,36 +31,26 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ctcs                = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ptcs                = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_rates               = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ctcModel            = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ptcModel            = null;
 

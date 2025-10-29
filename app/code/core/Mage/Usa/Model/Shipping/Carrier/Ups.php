@@ -355,7 +355,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      *
      * @param string $code
      * @param string $origin
-     * @return array|false
+     * @return string|false
      */
     public function getShipmentByCode($code, $origin = null)
     {
@@ -798,9 +798,9 @@ XMLRequest;
             $debugData = ['request' => $xmlRequest];
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
@@ -1016,9 +1016,9 @@ XMLAuth;
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             $xmlResponse = curl_exec($ch);
@@ -1155,8 +1155,8 @@ XMLAuth;
 
         try {
             $accessToken = $this->setAPIAccessRequest();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_trackingResult = Mage::getModel('shipping/tracking_result');
             $this->_trackingResult->setError('Authentication error');
             return $this->_trackingResult;
@@ -1215,7 +1215,7 @@ XMLAuth;
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
     {
-        $errorTitle = 'For some reason we can\'t retrieve tracking info right now.';
+        $errorTitle = "For some reason we can't retrieve tracking info right now.";
         $resultArr = [];
         $packageProgress = [];
 
@@ -1592,9 +1592,9 @@ XMLAuth;
         }
 
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_xmlAccessRequest . $xmlRequest->asXML());
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
@@ -1611,8 +1611,8 @@ XMLAuth;
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+        } catch (Exception $exception) {
+            $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
         }
 
         $this->_debug($debugData);
@@ -1700,9 +1700,9 @@ XMLAuth;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $shipConfirmUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $rawJsonRequest);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -2013,9 +2013,9 @@ XMLAuth;
             $debugData = ['request' => $xmlRequest];
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
@@ -2030,9 +2030,9 @@ XMLAuth;
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            $result->setErrors($e->getMessage());
+        } catch (Exception $exception) {
+            $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+            $result->setErrors($exception->getMessage());
         }
 
         if (isset($response->Response->Error)
@@ -2219,8 +2219,8 @@ XMLAuth;
 
         try {
             $accessToken = $this->setAPIAccessRequest();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result = Mage::getModel('shipping/rate_result');
             $result->setError('Authentication error');
             return $result;
@@ -2342,9 +2342,9 @@ XMLAuth;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url . $version . '/' . $requestOption);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $ratePayload);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);

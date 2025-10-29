@@ -66,8 +66,8 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-        } catch (Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('data_invalid', $exception->getMessage());
             //$this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 

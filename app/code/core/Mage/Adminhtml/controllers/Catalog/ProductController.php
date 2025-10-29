@@ -826,9 +826,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
             $this->_redirect('*/*/edit', ['_current' => true, 'id' => $newProduct->getId()]);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_getSession()->addError($exception->getMessage());
             $this->_redirect('*/*/edit', ['_current' => true]);
         }
     }
