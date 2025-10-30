@@ -2,7 +2,7 @@ const base = cy.openmage.test.backend.__base;
 const test = cy.openmage.test.backend.system.config.general.general;
 
 /**
- * Configuration for admin system "Google Sitemap" settings
+ * Configuration for admin system "General" settings
  * @type {{_: string, _nav: string, _title: string, url: string, section: {}}}
  */
 test.config = {
