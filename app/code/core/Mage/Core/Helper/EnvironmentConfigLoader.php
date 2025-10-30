@@ -368,11 +368,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $sectionGroupFieldRegexp = sprintf('([%s]*)', implode('', self::ALLOWED_CHARS));
         $allowedChars = sprintf('[%s]', implode('', self::ALLOWED_CHARS));
         $regexp = '/' . self::ENV_STARTS_WITH . self::ENV_KEY_SEPARATOR . '(WEBSITES' . self::ENV_KEY_SEPARATOR
-            . $allowedChars . '+|DEFAULT|STORES' . self::ENV_KEY_SEPARATOR . $allowedChars . '+)'
+            . '[A-Z][A-Z0-9]' . '+|DEFAULT|STORES' . self::ENV_KEY_SEPARATOR . $allowedChars . '+)'
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp . '/';
-        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z-_]+|DEFAULT|STORES__[A-Z-_]+)__([A-Z-_]*)__([A-Z-_]*)__([A-Z-_]*)/
+        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z][A-Z0-9]+|DEFAULT|STORES__[A-Z-_]+)__([A-Z-_]*)__([A-Z-_]*)__([A-Z-_]*)/
 
         return (bool) preg_match($regexp, $configKey);
     }
