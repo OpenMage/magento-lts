@@ -429,15 +429,15 @@ abstract class Mage_Core_Controller_Varien_Action
                     Varien_Profiler::stop(self::PROFILER_KEY . '::postdispatch');
                 }
             }
-        } catch (Mage_Core_Controller_Varien_Exception $e) {
+        } catch (Mage_Core_Controller_Varien_Exception $mageCoreControllerVarienException) {
             // set prepared flags
-            foreach ($e->getResultFlags() as $flagData) {
+            foreach ($mageCoreControllerVarienException->getResultFlags() as $flagData) {
                 [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
 
             // call forward, redirect or an action
-            [$method, $parameters] = $e->getResultCallback();
+            [$method, $parameters] = $mageCoreControllerVarienException->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
                     [$path, $arguments] = $parameters;

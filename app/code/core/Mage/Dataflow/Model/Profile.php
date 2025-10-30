@@ -294,8 +294,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        } catch (Exception $e) {
-            echo $e;
+        } catch (Exception $exception) {
+            echo $exception;
         }
 
         $this->setExceptions($profile->getExceptions());

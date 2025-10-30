@@ -704,7 +704,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getSpecifyOptionMessage()
     {
-        return Mage::helper('catalog')->__('Please specify the product\'s option(s).');
+        return Mage::helper('catalog')->__("Please specify the product's option(s).");
     }
 
     /**
@@ -862,7 +862,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function processBuyRequest($product, $buyRequest)
     {
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, '\intval') : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
 
         return ['super_attribute' => $superAttribute];
     }

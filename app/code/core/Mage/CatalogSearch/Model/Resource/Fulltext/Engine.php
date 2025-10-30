@@ -130,8 +130,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
 
     /**
      * Stub method for compatibility with other search engines
-     *
-     * @return null
      */
     public function getResourceName()
     {

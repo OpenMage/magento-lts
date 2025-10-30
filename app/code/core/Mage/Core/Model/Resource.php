@@ -275,7 +275,7 @@ class Mage_Core_Model_Resource
             if ($entityConfig && !empty($entityConfig->table)) {
                 $tableName = (string) $entityConfig->table;
             } else {
-                Mage::throwException(Mage::helper('core')->__('Can\'t retrieve entity config: %s', $modelEntity));
+                Mage::throwException(Mage::helper('core')->__("Can't retrieve entity config: %s", $modelEntity));
             }
         } else {
             $tableName = $modelEntity;

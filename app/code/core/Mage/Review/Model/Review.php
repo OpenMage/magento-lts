@@ -141,15 +141,15 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         $errors = [];
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Review summary can't be empty");
         }
 
         if (!Zend_Validate::is($this->getNickname(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Nickname can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Nickname can't be empty");
         }
 
         if (!Zend_Validate::is($this->getDetail(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Review can't be empty");
         }
 
         if (empty($errors)) {

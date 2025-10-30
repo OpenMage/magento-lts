@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 $productTypes = [
@@ -58,7 +58,7 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', [
     'group'         => 'Prices',
     'backend'       => 'catalog/product_attribute_backend_price',
     'frontend'      => '',
-    'label'         => 'Manufacturer\'s Suggested Retail Price',
+    'label'         => "Manufacturer's Suggested Retail Price",
     'type'          => 'decimal',
     'input'         => 'price',
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,

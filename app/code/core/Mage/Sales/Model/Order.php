@@ -27,7 +27,7 @@
  * @method $this setAdjustmentNegative(float $value)
  * @method float getAdjustmentPositive()
  * @method $this setAdjustmentPositive(float $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  * @method array getAppliedTaxes()
  * @method $this setAppliedTaxes(array $value)
@@ -1467,13 +1467,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // Stop store emulation process
             if (isset($appEmulation, $initialEnvironmentInfo)) {
                 $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             }
 
-            throw $e;
+            throw $exception;
         }
 
         // Stop store emulation process

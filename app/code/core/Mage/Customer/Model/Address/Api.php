@@ -106,8 +106,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $address->getId();
@@ -183,8 +183,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -207,8 +207,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;

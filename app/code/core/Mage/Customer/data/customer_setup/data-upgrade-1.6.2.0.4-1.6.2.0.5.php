@@ -10,6 +10,8 @@
 /** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 $installer->startSetup();
+
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 
 $eavConfig = Mage::getSingleton('eav/config');

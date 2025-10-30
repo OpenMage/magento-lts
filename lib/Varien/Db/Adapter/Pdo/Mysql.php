@@ -499,23 +499,23 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->_checkDdlTransaction($sql);
             $this->_prepareQuery($sql, $bind);
             $result = parent::query($sql, $bind);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_debugStat(self::DEBUG_QUERY, $sql, $bind);
 
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
             if ($this->_transactionLevel > 0
-                && $e->getPrevious() && isset($e->getPrevious()->errorInfo[1])
-                && in_array($e->getPrevious()->errorInfo[1], [1205, 1213])
+                && $exception->getPrevious() && isset($exception->getPrevious()->errorInfo[1])
+                && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213])
             ) {
                 if ($this->_debug) {
-                    $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: ' . $e->getPrevious()->errorInfo[1]);
+                    $this->_debugWriteToFile('IMPLICIT ROLLBACK AFTER SQLSTATE: ' . $exception->getPrevious()->errorInfo[1]);
                 }
 
                 $this->_transactionLevel = 1; // Deadlock rolls back entire transaction
                 $this->rollBack();
             }
 
-            $this->_debugException($e);
+            $this->_debugException($exception);
         }
 
         $this->_debugStat(self::DEBUG_QUERY, $sql, $bind, $result);
@@ -706,9 +706,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             }
 
             #$this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             #$this->rollback();
-            throw $e;
+            throw $exception;
         }
 
         $this->resetDdlCache();
@@ -1826,11 +1826,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $options['default'] = $this->quote($columnData['DEFAULT']);
         }
 
-        if (isset($columnData['SCALE']) && strlen($columnData['SCALE']) > 0) {
+        if (isset($columnData['SCALE']) && (string) $columnData['SCALE'] !== '') {
             $options['scale'] = $columnData['SCALE'];
         }
 
-        if (isset($columnData['PRECISION']) && strlen($columnData['PRECISION']) > 0) {
+        if (isset($columnData['PRECISION']) && (string) $columnData['PRECISION'] !== '') {
             $options['precision'] = $columnData['PRECISION'];
         }
 

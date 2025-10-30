@@ -199,8 +199,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             } else {
                 $processedHtml = $html;
             }
-        } catch (Exception $e) {
-            $processedHtml = '{CSS inlining error: ' . $e->getMessage() . '}' . PHP_EOL . $html;
+        } catch (Exception $exception) {
+            $processedHtml = '{CSS inlining error: ' . $exception->getMessage() . '}' . PHP_EOL . $html;
         }
 
         return $processedHtml;
@@ -256,7 +256,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return '';
             }
 
-            $files = array_map('trim', explode(',', $filesToLoad));
+            $files = array_map(trim(...), explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {

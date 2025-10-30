@@ -119,8 +119,8 @@ try {
         echo 'SUCCESS: ' . $installer->getEncryptionKey() . "\n";
         exit;
     }
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
 }
 
 // print all errors if there were any

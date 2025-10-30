@@ -525,7 +525,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Attribute Group Id by Id or Name
      *
      * @param int $entityTypeId
-     * @param int $setId
+     * @param int|string $setId
      * @param int|string $groupId
      * @return int
      */
@@ -568,8 +568,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Default Attribute Group Id By Entity Type and Attribute Set
      *
      * @param string|int $entityType
-     * @param int $attributeSetId
+     * @param string|int $attributeSetId
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -1462,7 +1463,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 $connection->createTable($table);
             }
         } catch (Exception) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__("Can't create table: %s", $tableName));
         }
 
         return $this;
