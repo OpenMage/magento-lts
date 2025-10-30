@@ -20,6 +20,9 @@
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method int getCustomerGroupId()
+ * @method $this setCustomerGroupId(int $value)
+ * @method bool getCustomerIsGuest()
+ * @method $this setCustomerIsGuest(bool $value)
  * @method int|string getOrderId()
  * @method $this setOrderId(int|string $value)
  * @method int|string getQuoteId()
@@ -61,6 +64,9 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      */
     protected $_order   = null;
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function __construct()
     {
         $this->init('adminhtml_quote');
@@ -73,6 +79,8 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * Retrieve quote model object
      *
      * @return Mage_Sales_Model_Quote
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function getQuote()
     {
@@ -120,6 +128,8 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * @param bool $forceReload
      * @param bool $useSetStore
      * @return Mage_Customer_Model_Customer
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function getCustomer($forceReload = false, $useSetStore = false)
     {
@@ -145,6 +155,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * Retrieve store model object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -162,6 +173,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * Retrieve order model object
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {

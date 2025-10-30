@@ -50,7 +50,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var mixed | array | string | boolean
+     * @var array|string|bool
      */
     protected $_cacheTag = false;
 
@@ -81,6 +81,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @param   mixed $path
      * @return  Mage_Core_Model_Url_Rewrite
+     * @throws Mage_Core_Exception
      */
     public function loadByRequestPath($path)
     {
@@ -95,6 +96,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * @param string $path
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIdPath($path)
     {
@@ -105,6 +107,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * @param string|array $tags
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByTags($tags)
     {
@@ -113,12 +116,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $loadTags = is_array($tags) ? $tags : explode(',', $tags);
 
         $search = $this->getResourceCollection();
-        foreach ($loadTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($loadTags as $key => $value) {
+            if (!is_numeric($key)) {
+                $value = $key . '=' . $value;
             }
 
-            $search->addTagsFilter($t);
+            $search->addTagsFilter($value);
         }
 
         if (!is_null($this->getStoreId())) {
@@ -158,13 +161,13 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $addTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($addTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($addTags as $key => $value) {
+            if (!is_numeric($key)) {
+                $value = $key . '=' . $value;
             }
 
-            if (!in_array($t, $curTags)) {
-                $curTags[] = $t;
+            if (!in_array($value, $curTags)) {
+                $curTags[] = $value;
             }
         }
 
@@ -183,12 +186,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $removeTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($removeTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($removeTags as $key => $value) {
+            if (!is_numeric($key)) {
+                $value = $key . '=' . $value;
             }
 
-            if ($key = array_search($t, $curTags)) {
+            if ($key = array_search($value, $curTags)) {
                 unset($curTags[$key]);
             }
         }
@@ -203,6 +206,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */

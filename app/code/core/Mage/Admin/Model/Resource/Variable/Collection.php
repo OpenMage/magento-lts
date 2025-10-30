@@ -19,7 +19,6 @@ class Mage_Admin_Model_Resource_Variable_Collection extends Mage_Core_Model_Reso
 {
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {

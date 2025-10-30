@@ -24,10 +24,6 @@
  * @method $this setSecret() setSecret(string $secret)
  * @method string getCallbackUrl()
  * @method $this setCallbackUrl() setCallbackUrl(string $url)
- * @method string getCreatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $date)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt() setUpdatedAt(string $date)
  * @method string getRejectedCallbackUrl()
  * @method $this setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
  */
@@ -52,6 +48,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      * BeforeSave actions
      *
      * @return $this
+     * @throws Exception
      */
     protected function _beforeSave()
     {
@@ -71,6 +68,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      *
      * @return bool
      * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
+     * @throws Exception
      */
     public function validate()
     {

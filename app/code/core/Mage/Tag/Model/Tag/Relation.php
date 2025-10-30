@@ -18,9 +18,8 @@
  * @method $this setActive(int $value)
  * @method array getAddedProductIds()
  * @method $this setAddedProductIds(array $value)
- * @method $this setCreatedAt(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method null|int getCustomerId()
+ * @method $this setCustomerId(null|int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method $this setProductIds(array $value)
@@ -57,6 +56,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * Init indexing process after tag data commit
      *
      * @return $this
+     * @throws Throwable
      */
     public function afterCommitCallback()
     {

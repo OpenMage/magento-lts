@@ -20,10 +20,6 @@
  * @method $this setOrderIncrementId(string $value)
  * @method int getOrderItemId()
  * @method $this setOrderItemId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method string getProductName()
@@ -46,8 +42,9 @@ class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
      * Check order id
      *
      * @inheritDoc
+     * @throws Exception
      */
-    public function _beforeSave()
+    protected function _beforeSave()
     {
         if ($this->getOrderId() == null) {
             throw new Exception(

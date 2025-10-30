@@ -19,28 +19,24 @@
  * @method int getAgreementId()
  * @method string getAgreementLabel()
  * @method $this setAgreementLabel(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method string getBillingAgreementId()
+ * @method $this setCancelUrl(string $value)
  * @method Mage_Customer_Model_Customer getCustomer()
  * @method $this setCustomer(Mage_Customer_Model_Customer $value)
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
+ * @method $this setIsObjectChanged(bool $value)
  * @method string getMethodCode()
  * @method $this setMethodCode(string $value)
+ * @method string getRedirectUrl()
  * @method string getReferenceId()
  * @method $this setReferenceId(string $value)
+ * @method $this setReturnUrl(string $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- *
- * @method $this setCancelUrl(string $value)
- * @method string getRedirectUrl()
- * @method $this setReturnUrl(string $value)
  * @method $this setToken(string $value)
- * @method int getBillingAgreementId()
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {
@@ -149,6 +145,8 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Create billing agreement
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function place()
     {
@@ -170,6 +168,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      * Cancel billing agreement
      *
      * @return $this
+     * @throws Throwable
      */
     public function cancel()
     {
@@ -228,6 +227,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *  [method_code]           => string
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importOrderPayment(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -270,7 +270,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function needToCreateForCustomer($customerId)
     {
-        return $customerId ? count($this->getAvailableCustomerBillingAgreements($customerId)) == 0 : false;
+        return $customerId && count($this->getAvailableCustomerBillingAgreements($customerId)) == 0;
     }
 
     /**

@@ -26,10 +26,6 @@
  * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
  * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {
@@ -57,6 +53,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param mixed $store
      * @return $this
+     * @throws Throwable
      */
     public function rebuild($store = null)
     {
@@ -81,6 +78,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param int $store
      * @param int|array $productIds
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateAttribute($attributeCode, $store = null, $productIds = null)
     {
@@ -105,6 +103,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int $store
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareDataStorage($store = null)
     {
@@ -126,6 +125,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param int $store
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateEventAttributes($store = null)
     {
@@ -178,6 +178,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param int|array $productIds
      * @param int $store
      * @return $this
+     * @throws Exception
      */
     public function updateProduct($productIds, $store = null)
     {
@@ -210,6 +211,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * @param int|array $productIds
      * @param int $store
      * @return $this
+     * @throws Exception
      */
     public function saveProduct($productIds, $store = null)
     {
@@ -274,6 +276,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      * Rebuild Catalog Product Flat Data for all stores
      *
      * @return $this
+     * @throws Exception
      */
     public function reindexAll()
     {

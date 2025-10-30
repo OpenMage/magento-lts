@@ -49,8 +49,6 @@
  * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
  *
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method float getCost()
  * @method float getCustomPrice()
  *
@@ -132,8 +130,6 @@
  * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
  *
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method bool getUseOldQty()
  *
  * @method int getIsVirtual()
@@ -396,6 +392,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @param   Mage_Catalog_Model_Product $product
      * @return  $this
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function setProduct($product)
     {
@@ -538,8 +535,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                                 unset($itemOptionValue[$key], $optionValue[$key]);
                             }
                         }
-                    } catch (Exception $e) {
-                        Mage::logException($e);
+                    } catch (Exception $exception) {
+                        Mage::logException($exception);
                     }
                 }
 
@@ -603,6 +600,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @param   array $options
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     public function setOptions($options)
     {
@@ -697,9 +695,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function removeOption($code)
     {
         $option = $this->getOptionByCode($code);
-        if ($option) {
-            $option->isDeleted(true);
-        }
+        $option?->isDeleted(true);
 
         return $this;
     }
@@ -709,6 +705,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @param   Mage_Sales_Model_Quote_Item_Option $option
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     protected function _addOptionCode($option)
     {
@@ -778,6 +775,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Save model plus its options
      * Ensures saving options in case when resource model was not changed
+     *
+     * @throws Throwable
      */
     public function save()
     {
@@ -806,6 +805,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Clone quote item
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {

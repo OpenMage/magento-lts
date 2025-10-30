@@ -36,10 +36,6 @@
  * @method $this setQuoteAddressId(int $value)
  * @method int getQuoteItemId()
  * @method $this setQuoteItemId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method float getWeight()
  * @method $this setWeight(float $value)
  * @method $this setQty(float $value)
@@ -196,7 +192,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     public function getOptionBycode($code)
     {
         if ($this->getQuoteItem()) {
-            return $this->getQuoteItem()->getOptionBycode($code);
+            return $this->getQuoteItem()->getOptionByCode($code);
         }
 
         return null;

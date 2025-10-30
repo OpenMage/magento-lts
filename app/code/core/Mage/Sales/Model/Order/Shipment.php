@@ -19,8 +19,6 @@
  * @method string getBackUrl()
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method int getEmailSent()
@@ -41,8 +39,6 @@
  * @method $this setTotalQty(float $value)
  * @method float getTotalWeight()
  * @method $this setTotalWeight(float $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
@@ -128,6 +124,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * @param string $incrementId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIncrementId($incrementId)
     {
@@ -238,7 +235,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_shipment_item_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -303,7 +300,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getTracksCollection()
     {
-        if (empty($this->_tracks)) {
+        if (is_null($this->_tracks)) {
             $this->_tracks = Mage::getResourceModel('sales/order_shipment_track_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -434,6 +431,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -532,6 +531,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -615,6 +615,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Before object save
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -678,6 +679,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve store model instance
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {

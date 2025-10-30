@@ -16,8 +16,6 @@
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
  * @method string getTxnId()
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -60,6 +58,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      * Transaction ID setter
      * @param string $txnId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setTxnId($txnId)
     {

@@ -1231,17 +1231,17 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * NVP doesn't support passing discount total as a separate amount - add it as a line item
      *
-     * @param int $i
+     * @param int $index
      * @return bool|void
      */
-    protected function _exportLineItems(array &$request, $i = 0)
+    protected function _exportLineItems(array &$request, $index = 0)
     {
         if (!$this->_cart) {
             return;
         }
 
         $this->_cart->isDiscountAsItem(true);
-        return parent::_exportLineItems($request, $i);
+        return parent::_exportLineItems($request, $index);
     }
 
     /**

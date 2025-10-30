@@ -116,6 +116,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      *
      * @param string $paymentAction
      * @param Varien_Object $stateObject
+     * @throws Mage_Core_Exception
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -143,6 +144,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
 
     /**
      * Sends API request to PayPal to get form URL, then sets this URL to $payment object.
+     * @throws Mage_Core_Exception
      */
     protected function _setPaymentFormUrl(Mage_Payment_Model_Info $payment)
     {
@@ -170,10 +172,12 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Returns form URL from request to PayPal.
      *
-     * @return string | false
+     * @return string|false
+     * @throws Mage_Core_Exception
      */
     protected function _sendFormUrlRequest(Mage_Paypal_Model_Hostedpro_Request $request)
     {
+        /** @var Mage_Paypal_Model_Api_Nvp $api */
         $api = $this->_pro->getApi();
         $response = $api->call(self::BM_BUTTON_METHOD, $request->getRequestData());
 
@@ -201,6 +205,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      *
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReturnUrl($storeId = null)
     {
@@ -212,6 +217,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      *
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getNotifyUrl($storeId = null)
     {
@@ -223,6 +229,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      *
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCancelUrl($storeId = null)
     {
@@ -236,6 +243,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      * @param int $storeId
      * @param bool $secure
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getUrl($path, $storeId, $secure = null)
     {

@@ -24,10 +24,6 @@
  * @method $this setStoreId(int $value)
  * @method string getMethodCode()
  * @method $this setMethodCode(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getReferenceId()
  * @method $this setReferenceId(string $value)
  * @method string getSubscriberName()
@@ -623,7 +619,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      *
      * @param Varien_Object $itemInfo
-     * @return Mage_Sales_Model_Order_Item|void
+     * @return Mage_Sales_Model_Order_Item
+     * @throws Exception
      */
     protected function _getItem($itemInfo)
     {
@@ -632,16 +629,12 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             throw new Exception('Recurring profile payment type is not specified.');
         }
 
-        switch ($paymentType) {
-            case self::PAYMENT_TYPE_REGULAR:
-                return $this->_getRegularItem($itemInfo);
-            case self::PAYMENT_TYPE_TRIAL:
-                return $this->_getTrialItem($itemInfo);
-            case self::PAYMENT_TYPE_INITIAL:
-                return $this->_getInitialItem($itemInfo);
-            default:
-                new Exception("Invalid recurring profile payment type '{$paymentType}'.");
-        }
+        return match ($paymentType) {
+            self::PAYMENT_TYPE_REGULAR => $this->_getRegularItem($itemInfo),
+            self::PAYMENT_TYPE_TRIAL => $this->_getTrialItem($itemInfo),
+            self::PAYMENT_TYPE_INITIAL => $this->_getInitialItem($itemInfo),
+            default => throw new Exception("Invalid recurring profile payment type '$paymentType'."),
+        };
     }
 
     /**

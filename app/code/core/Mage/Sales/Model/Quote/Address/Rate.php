@@ -17,10 +17,6 @@
  *
  * @method int getAddressId()
  * @method $this setAddressId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getCarrier()
  * @method $this setCarrier(string $value)
  * @method string getCarrierTitle()

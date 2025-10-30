@@ -11,6 +11,35 @@
  * Abstract class for Paypal API wrappers
  *
  * @package    Mage_Paypal
+ *
+ * @method void callCreateBillingAgreement()
+ * @method void callCreateRecurringPaymentsProfile()
+ * @method void callDoReferenceTransaction()
+ * @method void callGetBillingAgreementCustomerDetails()
+ * @method void callGetTransactionDetails()
+ * @method void callRefundTransaction()
+ * @method void callSetCustomerBillingAgreement()
+ * @method void callUpdateBillingAgreement()
+ * @method $this setAmount(float $value)
+ * @method string getBillingAgreementId()
+ * @method string getBillingAgreementType()
+ * @method $this setBillingType(string $value)
+ * @method $this setBillingAgreementStatus(string $value)
+ * @method $this setCancelUrl(string $value)
+ * @method $this setCurrencyCode(string $value)
+ * @method bool getIsBillingAgreementAlreadyCancelled()
+ * @method $this setIsLineItemsEnabled(mixed $value)
+ * @method $this setInvNum(string $value)
+ * @method $this setNotifyUrl(string $value)
+ * @method $this setPaymentAction(mixed $value)
+ * @method array getProcessableErrors()
+ * @method $this setProcessableErrors(array $value)
+ * @method $this setReferenceId(string $value)
+ * @method $this setReturnUrl(string $value)
+ * @method string getToken()
+ * @method $this setToken(string $value)
+ * @method string getTransactionId()
+ * @method $this setTransactionId(string $value)
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
@@ -363,10 +392,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      *
      * Returns true if there were line items added
      *
-     * @param int $i
+     * @param int $index
      * @return bool
      */
-    protected function _exportLineItems(array &$request, $i = 0)
+    protected function _exportLineItems(array &$request, $index = 0)
     {
         if (!$this->_cart) {
             return false;
@@ -402,10 +431,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                     $value = $this->_filterAmount($value);
                 }
 
-                $request[sprintf($privateFormat, $i)] = $value;
+                $request[sprintf($privateFormat, $index)] = $value;
             }
 
-            $i++;
+            $index++;
         }
 
         return $result;
@@ -415,10 +444,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Prepare shipping options request
      * Returns false if there are no shipping options
      *
-     * @param int $i
+     * @param int $index
      * @return bool
      */
-    protected function _exportShippingOptions(array &$request, $i = 0)
+    protected function _exportShippingOptions(array &$request, $index = 0)
     {
         $options = $this->getShippingOptions();
         if (empty($options)) {
@@ -436,10 +465,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                     $value = $this->_filterBool($value);
                 }
 
-                $request[sprintf($privateFormat, $i)] = $value;
+                $request[sprintf($privateFormat, $index)] = $value;
             }
 
-            $i++;
+            $index++;
         }
 
         return true;
@@ -497,6 +526,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * region_id workaround: PayPal requires state code, try to find one in the address
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _lookupRegionCodeFromAddress(Varien_Object $address)
     {
@@ -527,10 +557,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         $street = Mage::helper('customer/address')
             ->convertStreetLines($address->getStreet(), count($keys));
 
-        $i = 0;
+        $index = 0;
         foreach ($keys as $key) {
-            $to[$key] = $street[$i] ?? '';
-            $i++;
+            $to[$key] = $street[$index] ?? '';
+            $index++;
         }
     }
 

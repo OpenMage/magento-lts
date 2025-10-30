@@ -26,10 +26,6 @@
  * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
  * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 {
@@ -152,6 +148,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Retrieve store collection
      *
      * @return Mage_Core_Model_Resource_Website_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getWebsites()
     {
@@ -185,8 +182,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      *
      * @param   mixed $products
      * @param   mixed $attributes
-     * @param   mixed $stores
+     * @param   null|Mage_Core_Model_Store|array $stores
      * @return  Mage_CatalogIndex_Model_Indexer
+     * @throws  Throwable
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)
     {
@@ -221,7 +219,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($stores as $one) {
                     $websites[] = Mage::app()->getStore($one)->getWebsiteId();
                 }
-            } elseif (!is_array($stores)) {
+            } else {
                 Mage::throwException('Invalid stores supplied for indexing');
             }
 
@@ -265,12 +263,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              * (prices depends from website level)
              */
             foreach ($websites as $website) {
-                $ws = Mage::app()->getWebsite($website);
-                if (!$ws) {
+                $indexerWebsite = Mage::app()->getWebsite($website);
+                if (!$indexerWebsite) {
                     continue;
                 }
 
-                $group = $ws->getDefaultGroup();
+                $group = $indexerWebsite->getDefaultGroup();
                 if (!$group) {
                     continue;
                 }
@@ -293,7 +291,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $collection->addFieldToFilter('type_id', $type);
                     $this->_walkCollection($collection, $store, [], $priceAttributeCodes);
                     if (!is_null($products) && !$this->getRetreiver($type)->getTypeInstance()->isComposite()) {
-                        $this->_walkCollectionRelation($collection, $ws, [], $priceAttributeCodes);
+                        $this->_walkCollectionRelation($collection, $indexerWebsite, [], $priceAttributeCodes);
                     }
                 }
             }
@@ -385,6 +383,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param Mage_Core_Model_Store $store
      * @param mixed $products
      * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getProductCollection($store, $products)
     {
@@ -411,6 +410,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param array $attributes
      * @param array $prices
      * @return $this
+     * @throws Throwable
      */
     public function _walkCollectionRelation($collection, $store, $attributes = [], $prices = [])
     {
@@ -426,9 +426,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
         $productCount = $collection->getSize();
         $iterateCount = ($productCount / self::STEP_SIZE);
-        for ($i = 0; $i < $iterateCount; $i++) {
+        for ($index = 0; $index < $iterateCount; $index++) {
             $stepData = $collection
-                ->getAllIds(self::STEP_SIZE, $i * self::STEP_SIZE);
+                ->getAllIds(self::STEP_SIZE, $index * self::STEP_SIZE);
             foreach ($this->_getPriorifiedProductTypes() as $type) {
                 $retriever = $this->getRetreiver($type);
                 if (!$retriever->getTypeInstance()->isComposite()) {
@@ -459,6 +459,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param   array $attributes
      * @param   array $prices
      * @return  Mage_CatalogIndex_Model_Indexer
+     * @throws  Throwable
      */
     protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
     {
@@ -467,12 +468,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        for ($i = 0; $i < $productCount / self::STEP_SIZE; $i++) {
+        for ($index = 0; $index < $productCount / self::STEP_SIZE; $index++) {
             $this->_getResource()->beginTransaction();
             try {
                 $deleteKill = false;
 
-                $stepData = $collection->getAllIds(self::STEP_SIZE, $i * self::STEP_SIZE);
+                $stepData = $collection->getAllIds(self::STEP_SIZE, $index * self::STEP_SIZE);
 
                 /**
                  * Reindex EAV attributes if required
@@ -500,12 +501,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 } else {
                     $this->_getResource()->commit();
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getResource()->rollBack();
-                throw $e;
+                throw $exception;
             }
 
-            if ($deleteKill && isset($kill)) {
+            if ($deleteKill) {
                 $kill->delete();
             }
         }
@@ -518,6 +519,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @return Mage_CatalogIndex_Model_Data_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getRetreiver($type)
     {
@@ -528,6 +530,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Set CatalogIndex Flag as queue Indexing
      *
      * @return $this
+     * @throws Throwable
      */
     public function queueIndexing()
     {
@@ -570,6 +573,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      *
      * @param string $code
      * @return double
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
     {
@@ -584,6 +589,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param array $filteredAttributes
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function buildEntityPriceFilter($attributes, $values, &$filteredAttributes, $productCollection)
     {
@@ -631,7 +638,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             }
 
                             if (is_array($values[$code])) {
-                                $rateConversion = 1;
                                 $filter[$code]->distinct(true);
 
                                 if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
@@ -646,7 +652,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                     if ((string) $values[$code]['from'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
+                                            . implode('', $additionalCalculations[$code]) . ")*$rateConversion >= ?",
                                             $values[$code]['from'],
                                         );
                                     }
@@ -654,7 +660,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                     if ((string) $values[$code]['to'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
+                                            . implode('', $additionalCalculations[$code]) . ")*$rateConversion <= ?",
                                             $values[$code]['to'],
                                         );
                                     }
@@ -688,6 +694,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param array $filteredAttributes
      * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function buildEntityFilter($attributes, $values, &$filteredAttributes, $productCollection)
     {

@@ -13,8 +13,9 @@
  * @package    Mage_Core
  *
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $currentTime)
- * @method $this setUpdatedAt(string $currentTime)
+ * @method $this setCreatedAt() setCreatedAt(string $createdAt)
+ * @method string getUpdatedAt()
+ * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
  * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
  * @method bool hasErrors()
  * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
@@ -71,9 +72,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @var array|string|bool
      */
-    protected $_cacheTag    = false;
+    protected $_cacheTag = false;
 
     /**
      * Flag which can stop data saving after before save
@@ -87,7 +88,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Flag which allow detect object state: is it new object (without id) or existing one (with id)
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isObjectNew     = null;
 
@@ -170,6 +171,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Get resource instance
      *
      * @return Mage_Core_Model_Resource_Db_Abstract|object
+     * @throws Mage_Core_Exception
      */
     protected function _getResource()
     {
@@ -189,6 +191,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Retrieve identifier field name for model
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getIdFieldName()
     {
@@ -204,6 +207,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Retrieve model object identifier
      *
      * @return int|string|null
+     * @throws Mage_Core_Exception
      */
     public function getId()
     {
@@ -218,15 +222,16 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Declare model object identifier value
      *
-     * @param   mixed $id
+     * @param   mixed $value
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
-    public function setId($id)
+    public function setId($value)
     {
         if ($this->getIdFieldName()) {
-            $this->setData($this->getIdFieldName(), $id);
+            $this->setData($this->getIdFieldName(), $value);
         } else {
-            $this->setData('id', $id);
+            $this->setData('id', $value);
         }
 
         return $this;
@@ -277,6 +282,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param string|null|int $id
      * @param string|null $field
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function load($id, $field = null)
     {
@@ -333,6 +339,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function afterLoad()
     {
@@ -397,6 +404,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Callback function which called after transaction commit in resource model
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function afterCommitCallback()
     {
@@ -414,6 +422,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * @param bool $flag
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isObjectNew($flag = null)
     {
@@ -428,6 +437,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Processing object before save data
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -445,6 +455,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Return false if cache tags are not supported by model
      *
      * @return array|false
+     * @throws Mage_Core_Exception
      */
     public function getCacheTags()
     {
@@ -472,7 +483,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
-     * @return array|false
+     * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheIdTags()
     {
@@ -495,6 +507,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Remove model object related cache
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanModelCache()
     {
@@ -546,6 +559,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Processing object before delete data
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -599,6 +613,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Retrieve model resource
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getResource()
     {

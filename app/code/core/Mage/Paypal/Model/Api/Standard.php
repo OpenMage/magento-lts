@@ -172,10 +172,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * For some reason PayPal ignores shipping total variables exactly when line items is enabled
      * Note that $i = 1
      *
-     * @param int $i
+     * @param int $index
      * @return bool
      */
-    protected function _exportLineItems(array &$request, $i = 1)
+    protected function _exportLineItems(array &$request, $index = 1)
     {
         if (!$this->_cart) {
             return false;
@@ -185,13 +185,14 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
             $this->_cart->isShippingAsItem(true);
         }
 
-        return parent::_exportLineItems($request, $i);
+        return parent::_exportLineItems($request, $index);
     }
 
     /**
      * Import address object, if set, to the request
      *
      * @param array|Varien_Object $request
+     * @throws Mage_Core_Exception
      */
     protected function _importAddress(&$request)
     {

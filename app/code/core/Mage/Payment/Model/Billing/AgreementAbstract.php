@@ -12,9 +12,14 @@
  *
  * @package    Mage_Payment
  *
+ * @method $this setBillingAgreementId(int $id)
+ * @method string getCancelUrl()
  * @method string getMethodCode()
  * @method string getReferenceId()
+ * @method string getReturnUrl()
+ * @method $this setRedirectUrl(string $url)
  * @method int getStoreId()
+ * @method string getToken()
  */
 abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Model_Abstract
 {
@@ -78,6 +83,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
      * Validate data before save
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isValid()
     {

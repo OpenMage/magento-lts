@@ -82,10 +82,6 @@
  * @method $this setGlobalCurrencyCode(string $value)
  * @method string getIncrementId()
  * @method $this setIncrementId(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
  * @method float getBaseHiddenTaxAmount()
@@ -195,6 +191,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 
     /**
      * Uploader clean on shutdown
+     *
+     * @throws Throwable
      */
     public function destruct()
     {
@@ -255,6 +253,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve store model instance
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -344,6 +343,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Check invice void action availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canVoid()
     {
@@ -400,6 +400,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Capture invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function capture()
     {
@@ -455,6 +456,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Void invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function void()
     {
@@ -467,6 +469,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Cancel invoice action
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel()
     {
@@ -533,6 +536,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @param string $type
      * @param bool $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function roundPrice($price, $type = 'regular', $negative = false)
     {
@@ -658,6 +662,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Apply to order, order items etc.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register()
     {
@@ -752,6 +757,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @param bool $visibleOnFront
      *
      * @return $this
+     * @throws Exception
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
     {
@@ -805,6 +811,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -908,6 +916,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -1035,6 +1044,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * After object save manipulation
      *
      * @inheritDoc
+     * @throws Throwable
      */
     protected function _afterSave()
     {

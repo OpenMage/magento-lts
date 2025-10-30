@@ -17,8 +17,6 @@
  * @method bool hasEntityPk()
  * @method int getEntityPk()
  * @method $this setEntityPk(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method $this setOldData(string|array $value)
  * @method $this setNewData(string|array $value)
  * @method Varien_Object getDataObject()
@@ -198,6 +196,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Clean new data, unset data for done processes
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanNewData()
     {

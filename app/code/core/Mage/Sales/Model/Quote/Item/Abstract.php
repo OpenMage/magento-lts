@@ -20,7 +20,7 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
- * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
+ * @method $this setAddress(Mage_Sales_Model_Quote_Address $address)
  *
  * @method $this setAppliedRuleIds(string $value)
  *
@@ -89,7 +89,7 @@
  *
  * @method bool getHasChildren()
  * @method $this setHasChildren(bool $value)
- * @method $this setHasError(bool $value)
+ * @method $this setHasError(bool $flag)
  * @method bool getHasConfigurationUnavailableError()
  * @method $this unsHasConfigurationUnavailableError()
  * @method $this setHiddenTaxAmount(float $value)
@@ -114,11 +114,11 @@
  * @method $this setPriceInclTax(float $value)
  * @method $this unsPriceInclTax()
  * @method int getProductId()
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $product)
  * @method array getProductOrderOptions()
  * @method string getProductType()
  *
- * @method $this setQty(float $value)
+ * @method $this setQty(float $qty)
  *
  * @method float getRowTax()
  * @method $this setRowTax(int $rowTax)
@@ -195,6 +195,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Retrieve product model object associated with item
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -233,6 +235,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Specify parent item id before saving data
      *
      * @return  $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -378,6 +381,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Retrieve store model object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -398,19 +402,19 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
         try {
             $this->setQty($qty);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true);
-            $this->setMessage($e->getMessage());
-        } catch (Exception $e) {
+            $this->setMessage($mageCoreException->getMessage());
+        } catch (Exception) {
             $this->setHasError(true);
             $this->setMessage(Mage::helper('sales')->__('Item qty declaration error.'));
         }
 
         try {
             $this->getProduct()->getTypeInstance(true)->checkProductBuyState($this->getProduct());
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true)
-                ->setMessage($e->getMessage());
+                ->setMessage($mageCoreException->getMessage());
             $this->getQuote()->setHasError(true)
                 ->addMessage(Mage::helper('sales')->__('Some of the products below do not have all the required options.'));
         } catch (Exception) {
@@ -466,6 +470,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Calculate item row total price
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function calcRowTotal()
     {
@@ -484,6 +489,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * This method get custom price (if it is defined) or original product final price
      *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCalculationPrice()
     {
@@ -506,6 +512,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * This method get original custom price applied before tax calculation
      *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCalculationPriceOriginal()
     {
@@ -527,6 +534,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Get calculation price used for quote calculation in base currency.
      *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getBaseCalculationPrice()
     {
@@ -551,6 +559,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Get original calculation price used for quote calculation in base currency.
      *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getBaseCalculationPriceOriginal()
     {
@@ -580,7 +589,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function isNominal()
     {
         if (!$this->hasData('is_nominal')) {
-            $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
+            $this->setData('is_nominal', $this->getProduct() && $this->getProduct()->getIsRecurring() == '1');
         }
 
         return $this->_getData('is_nominal');
@@ -602,6 +611,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * Original price value is in quote selected currency
      *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getOriginalPrice()
     {
@@ -674,6 +684,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item price converted to quote currency
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getConvertedPrice()
     {
@@ -700,6 +711,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Clone quote item
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {
@@ -756,8 +769,9 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Calculate item tax amount
      *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      * @deprecated logic moved to tax totals calculation model
-     * @return  $this
      */
     public function calcTaxAmount()
     {
@@ -836,6 +850,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      * @param bool $saveTaxes
      * @return float
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      * @deprecated
      */
     protected function _calculatePrice($value, $saveTaxes = true)

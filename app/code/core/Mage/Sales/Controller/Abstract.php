@@ -19,13 +19,14 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  bool
+     * @throws Mage_Core_Exception
      */
     protected function _canViewOrder($order)
     {
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
         $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
         if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
-            && in_array($order->getState(), $availableStates, $strict = true)
+            && in_array($order->getState(), $availableStates, true)
         ) {
             return true;
         }
@@ -35,6 +36,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Init layout, messages and set active block for customer
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _viewAction()
     {
@@ -58,6 +61,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      *
      * @param int $orderId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _loadValidOrder($orderId = null)
     {
@@ -84,6 +88,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Order view page
+     *
+     * @throws Mage_Core_Exception
      */
     public function viewAction()
     {
@@ -92,6 +98,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Invoice page
+     *
+     * @throws Mage_Core_Exception
      */
     public function invoiceAction()
     {
@@ -100,6 +108,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Shipment page
+     *
+     * @throws Mage_Core_Exception
      */
     public function shipmentAction()
     {
@@ -108,6 +118,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Creditmemo page
+     *
+     * @throws Mage_Core_Exception
      */
     public function creditmemoAction()
     {
@@ -116,6 +128,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Action for reorder
+     *
+     * @throws Mage_Core_Exception
      */
     public function reorderAction()
     {
@@ -131,17 +145,17 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         foreach ($items as $item) {
             try {
                 $cart->addOrderItem($item);
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
-                    Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
+                    Mage::getSingleton('checkout/session')->addNotice($mageCoreException->getMessage());
                 } else {
-                    Mage::getSingleton('checkout/session')->addError($e->getMessage());
+                    Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
                 }
 
                 $this->_redirect('*/*/history');
-            } catch (Exception $e) {
+            } catch (Exception $exception) { // @phpstan-ignore catch.neverThrown
                 Mage::getSingleton('checkout/session')->addException(
-                    $e,
+                    $exception,
                     Mage::helper('checkout')->__('Cannot add the item to shopping cart.'),
                 );
                 $this->_redirect('checkout/cart');
@@ -154,6 +168,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Print Order Action
+     *
+     * @throws Mage_Core_Exception
      */
     public function printAction()
     {
@@ -167,6 +183,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Print Invoice Action
+     *
+     * @throws Mage_Core_Exception
      */
     public function printInvoiceAction()
     {
@@ -196,6 +214,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Print Shipment Action
+     *
+     * @throws Mage_Core_Exception
      */
     public function printShipmentAction()
     {
@@ -225,6 +245,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Print Creditmemo Action
+     *
+     * @throws Mage_Core_Exception
      */
     public function printCreditmemoAction()
     {

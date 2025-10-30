@@ -16,10 +16,6 @@
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
- * @method string getCreatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
  * @method string getRoleName()
  * @method $this setRoleName() setRoleName(string $roleName)
  */
@@ -57,6 +53,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Before save actions
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -85,6 +82,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      * Perform checks before role delete
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -146,17 +144,10 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getConfigNodeName()
     {
-        switch ($this->getId()) {
-            case self::ROLE_GUEST_ID:
-                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_GUEST;
-                break;
-            case self::ROLE_CUSTOMER_ID:
-                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_CUSTOMER;
-                break;
-            default:
-                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_ADMIN;
-        }
-
-        return $roleNodeName;
+        return match ($this->getId()) {
+            self::ROLE_GUEST_ID => self::ROLE_CONFIG_NODE_NAME_GUEST,
+            self::ROLE_CUSTOMER_ID => self::ROLE_CONFIG_NODE_NAME_CUSTOMER,
+            default => self::ROLE_CONFIG_NODE_NAME_ADMIN,
+        };
     }
 }

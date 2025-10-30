@@ -34,7 +34,7 @@ class Mage_Paypal_Model_Pro
     /**
      * API instance
      *
-     * @var Mage_Paypal_Model_Api_Nvp|false|null
+     * @var Mage_Paypal_Model_Api_Abstract|null
      */
     protected $_api = null;
 
@@ -117,12 +117,14 @@ class Mage_Paypal_Model_Pro
      * API instance getter
      * Sets current store id to current config instance and passes it to API
      *
-     * @return Mage_Paypal_Model_Api_Nvp
+     * @return Mage_Paypal_Model_Api_Abstract|Mage_Paypal_Model_Api_Nvp
      */
     public function getApi()
     {
         if ($this->_api === null) {
-            $this->_api = Mage::getModel($this->_apiType);
+            /** @var Mage_Paypal_Model_Api_Abstract|Mage_Paypal_Model_Api_Nvp $model */
+            $model = Mage::getModel($this->_apiType);
+            $this->_api = $model;
         }
 
         $this->_api->setConfigObject($this->_config);
@@ -173,14 +175,14 @@ class Mage_Paypal_Model_Pro
         if ($from->getDataUsingMethod(Mage_Paypal_Model_Info::IS_FRAUD)) {
             $to->setIsTransactionPending(true);
             $to->setIsFraudDetected(true);
-        } elseif ($this->getInfo()->isPaymentReviewRequired($to)) {
+        } elseif ($this->getInfo()::isPaymentReviewRequired($to)) {
             $to->setIsTransactionPending(true);
         }
 
         // give generic info about transaction state
-        if ($this->getInfo()->isPaymentSuccessful($to)) {
+        if ($this->getInfo()::isPaymentSuccessful($to)) {
             $to->setIsTransactionApproved(true);
-        } elseif ($this->getInfo()->isPaymentFailed($to)) {
+        } elseif ($this->getInfo()::isPaymentFailed($to)) {
             $to->setIsTransactionDenied(true);
         }
 
@@ -189,6 +191,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Void transaction
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -205,6 +210,7 @@ class Mage_Paypal_Model_Pro
      * Attempt to capture payment
      * Will return false if the payment is not supposed to be captured
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return false|null
      */
@@ -226,17 +232,22 @@ class Mage_Paypal_Model_Pro
 
         $api->callDoCapture();
         $this->_importCaptureResultToPayment($api, $payment);
+
+        return null;
     }
 
     /**
      * Refund a capture transaction
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
         $captureTxnId = $this->_getParentTransactionId($payment);
         if ($captureTxnId) {
+            /** @var Mage_Paypal_Model_Api_Nvp $api */
             $api = $this->getApi();
             $order = $payment->getOrder();
             $api->setPayment($payment)
@@ -258,6 +269,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Cancel payment
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @throws Mage_Core_Exception
      */
     public function cancel(Varien_Object $payment)
     {
@@ -289,7 +303,7 @@ class Mage_Paypal_Model_Pro
         // check whether the review is still needed
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
-        if (!$this->getInfo()->isPaymentReviewRequired($payment)) {
+        if (!$this->getInfo()::isPaymentReviewRequired($payment)) {
             return false;
         }
 
@@ -314,7 +328,7 @@ class Mage_Paypal_Model_Pro
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
         $data = $api->getRawSuccessResponseData();
-        return ($data) ? $data : [];
+        return $data ?: [];
     }
 
     /**
@@ -335,7 +349,7 @@ class Mage_Paypal_Model_Pro
         }
 
         $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
-        if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
+        if (strlen($scheduleDescr) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
 

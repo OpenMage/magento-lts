@@ -487,13 +487,14 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Handle logical errors
      *
      * @param array $response
+     * @throws Mage_Core_Exception
      */
     protected function _handleCallErrors($response)
     {
         if ($response['RESULT'] != self::RESPONSE_CODE_APPROVED) {
             $message = $response['RESPMSG'];
-            $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
-            Mage::logException($e);
+            $exception = new Exception(sprintf('PayPal gateway errors: %s.', $message));
+            Mage::logException($exception);
             Mage::throwException(
                 Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message),
             );
@@ -509,8 +510,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k => $v) {
-            $result .= '&' . $k . '=' . $v;
+        foreach ($request as $key => $value) {
+            $result .= '&' . $key . '=' . $value;
         }
 
         return trim($result, '&');
@@ -584,13 +585,13 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Checking negative line items
      *
-     * @param int $i
+     * @param int $index
      * @return bool|void
      */
-    protected function _exportLineItems(array &$request, $i = 0)
+    protected function _exportLineItems(array &$request, $index = 0)
     {
         $requestBefore = $request;
-        $result = parent::_exportLineItems($request, $i);
+        $result = parent::_exportLineItems($request, $index);
         if ($this->getIsLineItemsEnabled() && $this->_cart->hasNegativeItemAmount()) {
             $this->_lineItemTotalExportMap = [
                 Mage_Paypal_Model_Cart::TOTAL_TAX       => 'TAXAMT',
@@ -603,7 +604,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
                 'amount' => 'L_PAYMENTREQUEST_0_AMT%d',
             ];
             $request = $requestBefore;
-            $result = parent::_exportLineItems($request, $i);
+            $result = parent::_exportLineItems($request, $index);
             $paypalNvp = new Mage_Paypal_Model_Api_Nvp();
             $this->_doCaptureResponse = $paypalNvp->_doCaptureResponse;
             $this->_refundTransactionResponse = $paypalNvp->_refundTransactionResponse;
