@@ -73,9 +73,9 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         foreach (self::$storeData as $websiteCode => $stores) {
             foreach ($stores as $storeCode => $data) {
                 $store = Mage::app()->getStore($data['store_id']);
-                $this->assertTrue((bool)$store->getIsActive(), "$storeCode is not active");
-                $this->assertEquals($data['store_id'], (int)$store->getId());
-                $this->assertEquals($data['website_id'], (int)$store->getWebsiteId());
+                self::assertTrue((bool) $store->getIsActive(), "$storeCode is not active");
+                self::assertEquals($data['store_id'], (int) $store->getId());
+                self::assertEquals($data['website_id'], (int) $store->getWebsiteId());
             }
         }
     }
@@ -480,8 +480,8 @@ XML;
         $store = Mage::getModel('core/store')->load($storeCode, 'code');
         if (!$store->getId()) {
             $store->setCode($storeCode)
-                ->setWebsiteId((int)$website->getId())
-                ->setGroupId((int)$storeGroup->getId())
+                ->setWebsiteId((int) $website->getId())
+                ->setGroupId((int) $storeGroup->getId())
                 ->setName(ucfirst($storeCode) . ' Store -- ENVTEST')
                 ->setIsActive(1)
                 ->save();
@@ -490,9 +490,9 @@ XML;
         Mage::app()->cleanCache();
         Mage::app()->reinitStores();
         return [
-            'website_id' => (int)$website->getId(),
-            'store_group_id' => (int)$storeGroup->getId(),
-            'store_id' => (int)$store->getId(),
+            'website_id' => (int) $website->getId(),
+            'store_group_id' => (int) $storeGroup->getId(),
+            'store_id' => (int) $store->getId(),
         ];
     }
 
