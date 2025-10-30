@@ -401,7 +401,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
                 ];
                 if ($this->isOverwrittenByEnvVariable($path)) {
-                    $elementFieldData['scope_label'] = $this->_scopeLabels[static::SCOPE_ENV];
+                    $elementFieldData['scope_label'] = $this->_scopeLabels[self::SCOPE_ENV];
                     $elementFieldData['disabled'] = 1;
                     $elementFieldData['can_use_default_value'] = 0;
                     $elementFieldData['can_use_website_value'] = 0;
