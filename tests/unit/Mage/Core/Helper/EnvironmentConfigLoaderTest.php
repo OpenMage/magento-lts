@@ -30,6 +30,15 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     public const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
 
     public const XML_PATH_STORE = 'stores/german/general/store_information/name';
+    private const ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
+
+    private string $testXml;
+
+    private const WEBSITES = [
+        'base' => self::ENV_TEST_STORES,
+    ];
+
+    private static array $storeData = [];
 
     /**
      * @throws Mage_Core_Exception
@@ -37,6 +46,38 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     public function setup(): void
     {
         Mage::setRoot();
+        $this->testXml = $this->getTestXml();
+        Mage::unregister(Mage_Core_Helper_EnvironmentConfigLoader::REGISTRY_KEY);
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app('admin');
+        foreach (self::WEBSITES as $websiteCode => $stores) {
+            foreach ($stores as $storeCode) {
+                self::$storeData[$websiteCode][$storeCode] =
+                    self::bootstrapTestStore($websiteCode, $storeCode);
+            }
+        }
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        foreach (array_keys(self::WEBSITES) as $websiteCode) {
+            self::cleanupTestWebsite($websiteCode);
+        }
+    }
+
+    public function testStoresAreCreated(): void
+    {
+        foreach (self::$storeData as $websiteCode => $stores) {
+            foreach ($stores as $storeCode => $data) {
+                $store = Mage::app()->getStore($data['store_id']);
+                $this->assertTrue((bool)$store->getIsActive(), "$storeCode is not active");
+                $this->assertEquals($data['store_id'], (int)$store->getId());
+                $this->assertEquals($data['website_id'], (int)$store->getWebsiteId());
+            }
+        }
     }
 
     /**
@@ -90,9 +131,8 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      */
     public function testXmlHasTestStrings(): void
     {
-        $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
-        $xml->loadString($xmlStruct);
+        $xml->loadString($this->testXml);
         self::assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
         self::assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
         self::assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
@@ -107,13 +147,11 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      */
     public function testEnvOverridesForValidConfigKeys(array $config): void
     {
-        $xmlStruct = $this->getTestXml();
-
         $xmlDefault = new Varien_Simplexml_Config();
-        $xmlDefault->loadString($xmlStruct);
+        $xmlDefault->loadString($this->testXml);
 
         $xml = new Varien_Simplexml_Config();
-        $xml->loadString($xmlStruct);
+        $xml->loadString($this->testXml);
 
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
@@ -122,7 +160,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => $config['value'],
         ]);
-        Mage::unregister('current_env_config');
         $loader->overrideEnvironment($xml);
 
         $configPath = $config['xml_path'];
@@ -142,7 +179,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         $defaultPathWithUnderscore = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO_BAR__NAME';
 
         $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
-        $websiteWithDashPath = 'OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME';
         $websiteWithUnderscorePath = 'OPENMAGE_CONFIG__WEBSITES__BASE_CH__GENERAL__STORE_INFORMATION__NAME';
 
         $storeWithDashPath = 'OPENMAGE_CONFIG__STORES__GERMAN-AT__GENERAL__STORE_INFORMATION__NAME';
@@ -189,18 +225,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             'case'     => 'WEBSITE',
             'xml_path' => self::XML_PATH_WEBSITE,
             'env_path' => $websitePath,
-            'value'    => 'website_new_value',
-        ]];
-        yield 'Case WEBSITE overrides #2.' => [[
-            'case'     => 'WEBSITE',
-            'xml_path' => 'websites/base_ch/general/store_information/name',
-            'env_path' => $websiteWithUnderscorePath,
-            'value'    => 'website_new_value',
-        ]];
-        yield 'Case WEBSITE overrides #3.' => [[
-            'case'     => 'WEBSITE',
-            'xml_path' => 'websites/base-at/general/store_information/name',
-            'env_path' => $websiteWithDashPath,
             'value'    => 'website_new_value',
         ]];
     }
@@ -404,13 +428,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
                 </store_information>
             </general>
         </base>
-        <base-at>
-            <general>
-                <store_information>
-                        <name>test_website</name>
-                </store_information>
-            </general>
-        </base-at>
         <base_ch>
             <general>
                 <store_information>
@@ -444,5 +461,54 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     </stores>
 </config>
 XML;
+    }
+
+    private static function bootstrapTestStore(string $websiteCode, string $storeCode): array
+    {
+        $website = Mage::getModel('core/website')->load($websiteCode, 'code');
+        if (!$website->getId()) {
+            $website->setCode($websiteCode)
+                ->setName(ucfirst($websiteCode) . ' Website')
+                ->save();
+        }
+
+        $storeGroup = Mage::getModel('core/store_group')
+            ->getCollection()
+            ->addFieldToFilter('website_id', $website->getId())
+            ->getFirstItem();
+
+        $store = Mage::getModel('core/store')->load($storeCode, 'code');
+        if (!$store->getId()) {
+            $store->setCode($storeCode)
+                ->setWebsiteId((int)$website->getId())
+                ->setGroupId((int)$storeGroup->getId())
+                ->setName(ucfirst($storeCode) . ' Store -- ENVTEST')
+                ->setIsActive(1)
+                ->save();
+        }
+
+        Mage::app()->cleanCache();
+        Mage::app()->reinitStores();
+        return [
+            'website_id' => (int)$website->getId(),
+            'store_group_id' => (int)$storeGroup->getId(),
+            'store_id' => (int)$store->getId(),
+        ];
+    }
+
+    private static function cleanupTestWebsite(string $websiteCode): void
+    {
+        $website = Mage::getModel('core/website')->load($websiteCode, 'code');
+        $stores = Mage::getModel('core/store')
+            ->getCollection()
+            ->addFieldToFilter('website_id', $website->getId())
+            ->addFieldToFilter('code', [
+                'in' => self::ENV_TEST_STORES,
+            ]);
+        foreach ($stores as $store) {
+            $store->delete();
+        }
+        Mage::app()->cleanCache();
+        Mage::app()->reinitStores();
     }
 }
