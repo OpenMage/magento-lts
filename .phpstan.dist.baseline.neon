@@ -2083,12 +2083,6 @@ parameters:
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Layout::setItem().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $productThumbnail of method Mage_Checkout_Block_Cart_Item_Renderer::overrideProductThumbnail() expects Mage_Catalog_Helper_Image, null given.'
 			identifier: argument.type
 			count: 1
