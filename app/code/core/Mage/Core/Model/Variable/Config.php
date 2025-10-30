@@ -25,7 +25,7 @@ class Mage_Core_Model_Variable_Config
         $variableConfig = [];
         $onclickParts = [
             'search' => ['html_id'],
-            'subject' => 'OpenmagevariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');',
+            'subject' => "OpenmagevariablePlugin.loadChooser('" . $this->getVariablesWysiwygActionUrl() . "', '{{html_id}}');",
         ];
         $variableWysiwygPlugin = [['name' => 'openmagevariable',
             'src' => $this->getWysiwygJsPluginSrc(),

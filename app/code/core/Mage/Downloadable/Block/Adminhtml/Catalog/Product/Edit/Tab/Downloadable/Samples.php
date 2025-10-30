@@ -141,7 +141,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                     'id'      => '',
                     'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                     'type'    => 'button',
-                    'onclick' => 'Downloadable.massUploadByType(\'samples\')',
+                    'onclick' => "Downloadable.massUploadByType('samples')",
                 ]),
         );
 

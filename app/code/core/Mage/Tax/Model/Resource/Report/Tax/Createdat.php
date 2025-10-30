@@ -127,9 +127,9 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

@@ -129,8 +129,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param string $name ex. "Location"
-     * @param string $value ex. "http://google.com"
+     * @param string $name name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -257,7 +257,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                 continue;
             }
 
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -287,7 +287,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                 continue;
             }
 
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -362,7 +362,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->curlOption(CURLOPT_PORT, $this->_port);
         }
 
-        //$this->curlOption(CURLOPT_HEADER, 1);
+        //$this->curlOption(CURLOPT_HEADER, true);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
@@ -480,8 +480,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option
      */
-    public function setOption($name, $value)
+    public function setOption($key, $value)
     {
-        $this->_curlUserOptions[$name] = $value;
+        $this->_curlUserOptions[$key] = $value;
     }
 }

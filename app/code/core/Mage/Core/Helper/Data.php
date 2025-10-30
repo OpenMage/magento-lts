@@ -121,8 +121,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
-        } catch (Exception $e) {
-            $value = $e->getMessage();
+        } catch (Exception $exception) {
+            $value = $exception->getMessage();
         }
 
         return $value;
@@ -878,8 +878,8 @@ XML;
             }
 
             return true; // no need in merger or merged into file successfully
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return false;

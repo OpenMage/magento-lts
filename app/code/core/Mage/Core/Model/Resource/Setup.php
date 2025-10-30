@@ -656,7 +656,7 @@ class Mage_Core_Model_Resource_Setup
         switch ($actionType) {
             case self::TYPE_DB_INSTALL:
             case self::TYPE_DATA_INSTALL:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[0] = [
@@ -670,7 +670,7 @@ class Mage_Core_Model_Resource_Setup
 
             case self::TYPE_DB_UPGRADE:
             case self::TYPE_DATA_UPGRADE:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     $versionInfo = explode('-', $version);
 
@@ -879,6 +879,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string|int|bool $value
      * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
      * @param int $scopeId
+     * @param int $inherit
      * @return $this
      * @throws Zend_Db_Exception
      */
@@ -886,7 +887,8 @@ class Mage_Core_Model_Resource_Setup
         $path,
         $value,
         $scope = Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT,
-        $scopeId = 0
+        $scopeId = 0,
+        $inherit = 0
     ) {
         $table = $this->getTable('core/config_data');
         // this is a fix for mysql 4.1

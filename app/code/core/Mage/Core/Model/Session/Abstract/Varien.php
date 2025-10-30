@@ -173,13 +173,13 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             if (session_start() === false) {
                 throw new Exception('Unable to start session.');
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             session_abort();
             if (Mage::registry(self::REGISTRY_CONCURRENCY_ERROR)) {
                 require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
             } else {
-                Mage::printException($e);
+                Mage::printException($throwable);
             }
         }
 

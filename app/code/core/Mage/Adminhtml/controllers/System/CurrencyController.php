@@ -61,7 +61,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
                 $importModel = Mage::getModel(
                     Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray(),
                 );
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));
             }
 
@@ -78,8 +78,8 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
 
             Mage::getSingleton('adminhtml/session')->setRates($rates);
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
         }
 
         $this->_redirect('*/*/');

@@ -135,8 +135,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $product->getId();
@@ -180,8 +180,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;

@@ -212,9 +212,9 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 
             // Commit increment_last_id changes
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $incrementId;

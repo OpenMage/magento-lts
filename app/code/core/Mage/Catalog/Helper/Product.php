@@ -369,8 +369,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
                     'controller_action' => $controller,
                 ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 

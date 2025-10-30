@@ -326,7 +326,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return string|string[]
      */
-    public function jsQuoteEscape($data, $quote = '\'')
+    public function jsQuoteEscape($data, $quote = "'")
     {
         if (is_array($data)) {
             $result = [];
@@ -427,7 +427,7 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = ['\'', '"'];
+        $quote = ["'", '"'];
         $replace = ['%27', '%22'];
         return str_replace($quote, $replace, $url);
     }

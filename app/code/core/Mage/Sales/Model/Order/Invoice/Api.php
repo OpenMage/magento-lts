@@ -51,8 +51,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $invoiceCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
 
         foreach ($invoiceCollection as $invoice) {
@@ -149,8 +149,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
                 ->save();
 
             $invoice->sendEmail($email, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $invoice->getIncrementId();
@@ -179,8 +179,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             $invoice->addComment($comment, $email);
             $invoice->sendUpdateEmail($email, ($includeComment ? $comment : ''));
             $invoice->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
