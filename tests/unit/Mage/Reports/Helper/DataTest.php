@@ -61,8 +61,8 @@ final class DataTest extends OpenMageTest
 
         try {
             self::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
-        } catch (Zend_Date_Exception $exception) {
-            self::assertSame("No date part in '' found.", $exception->getMessage());
+        } catch (Zend_Date_Exception $zendDateException) {
+            self::assertSame("No date part in '' found.", $zendDateException->getMessage());
         }
     }
 
@@ -78,8 +78,8 @@ final class DataTest extends OpenMageTest
         try {
             self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
             self::assertGreaterThanOrEqual(0, $collection->count());
-        } catch (\Zend_Date_Exception $exception) {
-            self::assertSame($expectedResult, $exception->getMessage());
+        } catch (\Zend_Date_Exception $zendDateException) {
+            self::assertSame($expectedResult, $zendDateException->getMessage());
         }
     }
 }

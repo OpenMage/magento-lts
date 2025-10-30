@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 $this->_updateButton(
                     'order_edit',
                     'onclick',
-                    'if (!confirm(\'' . $confirmationMessage . '\')) return false;' . $onclickJs,
+                    "if (!confirm('" . $confirmationMessage . "')) return false;" . $onclickJs,
                 );
             }
         }

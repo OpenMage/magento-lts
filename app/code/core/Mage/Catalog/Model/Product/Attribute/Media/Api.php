@@ -225,7 +225,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $ioAdapter->open(['path' => dirname($fileName)]);
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
             } catch (Exception) {
-                $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
+                $this->_fault('not_created', Mage::helper('catalog')->__("Can't create image."));
             }
         }
 
@@ -250,8 +250,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_updated', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_updated', $mageCoreException->getMessage());
         }
 
         return true;
@@ -280,8 +280,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_removed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_removed', $mageCoreException->getMessage());
         }
 
         return true;
