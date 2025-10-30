@@ -30,6 +30,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     public const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
 
     public const XML_PATH_STORE = 'stores/german/general/store_information/name';
+
     private const ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
 
     private string $testXml;
@@ -70,9 +71,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     public function testStoresAreCreated(): void
     {
-        foreach (self::$storeData as $websiteCode => $stores) {
+        foreach (self::$storeData as $stores) {
             foreach ($stores as $storeCode => $data) {
                 $store = Mage::app()->getStore($data['store_id']);
+                self::assertInstanceOf(\Mage_Core_Model_Store::class, $store);
                 self::assertTrue((bool) $store->getIsActive(), "$storeCode is not active");
                 self::assertEquals($data['store_id'], (int) $store->getId());
                 self::assertEquals($data['website_id'], (int) $store->getWebsiteId());
@@ -419,7 +421,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             </foo_bar>
         </general>
     </default>
-    
+
     <websites>
         <base>
             <general>
@@ -508,6 +510,7 @@ XML;
         foreach ($stores as $store) {
             $store->delete();
         }
+
         Mage::app()->cleanCache();
         Mage::app()->reinitStores();
     }
