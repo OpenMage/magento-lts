@@ -12,7 +12,7 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
     const labelEnv = '[ENV]';
     const labelStoreView = '[STORE VIEW]';
 
-    it(`tests ENV overide`, () => {
+    it(`tests ENV override`, () => {
         // test overrides in default config scope
         cy.get(fields.name._).should('have.value', 'ENV name default');
         cy.get(fields.name.label).should('have.text', labelEnv);
