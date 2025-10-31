@@ -469,12 +469,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			rawMessage: Variable $billingAddress might not be defined.
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Sales_Model_Order::createFromQuoteAddress().'
 			identifier: method.notFound
 			count: 1
@@ -1945,12 +1939,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Virtual.php
 
 		-
-			rawMessage: 'Call to function is_array() with mixed will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			rawMessage: 'Return type (string) of method Mage_CatalogIndex_Model_Indexer_Eav::_getIndexableAttributeConditions() should be compatible with return type (array) of method Mage_CatalogIndex_Model_Indexer_Abstract::_getIndexableAttributeConditions()'
 			identifier: method.childReturnType
 			count: 1
@@ -2317,18 +2305,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_cacheTag (string|true) does not accept default value of type false.'
-			identifier: property.defaultValue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_isObjectNew (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $group of method Mage_Core_Model_App::_getStoreByGroup() expects int, string given.'
 			identifier: argument.type
 			count: 1
@@ -2671,12 +2647,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			rawMessage: PHPDoc type bool of property Mage_Core_Model_Store::$_cacheTag is not covariant with PHPDoc type string|true of overridden property Mage_Core_Model_Abstract::$_cacheTag.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
 			rawMessage: 'Parameter #1 $options of class Zend_Translate constructor expects array|Zend_Config|Zend_Translate_Adapter, string given.'
 			identifier: argument.type
 			count: 1
@@ -2703,12 +2673,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
-			rawMessage: PHPDoc type mixed of property Mage_Core_Model_Url_Rewrite::$_cacheTag is not covariant with PHPDoc type string|true of overridden property Mage_Core_Model_Abstract::$_cacheTag.
-			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
@@ -2851,18 +2815,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Session.php
 
 		-
-			rawMessage: 'Property Mage_Dataflow_Model_Batch::$_batchExport (Mage_Dataflow_Model_Batch_Export|null) does not accept string|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
-			rawMessage: 'Property Mage_Dataflow_Model_Batch::$_batchImport (Mage_Dataflow_Model_Batch_Import|null) does not accept string|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::deleteCollection().'
 			identifier: method.notFound
 			count: 1
@@ -2945,12 +2897,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
-			rawMessage: Right side of && is always true.
-			identifier: booleanAnd.rightAlwaysTrue
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
 			rawMessage: 'Parameter #1 $value of method Zend_Currency::toCurrency() expects float|int|null, string given.'
@@ -3523,12 +3469,6 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			rawMessage: 'Method Mage_Payment_Model_Recurring_Profile::exportStartDatetime() should return string|Zend_Date but empty return statement found.'
-			identifier: return.empty
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
 			rawMessage: 'Parameter #1 $message of static method Mage::throwException() expects string, array given.'
 			identifier: argument.type
 			count: 1
@@ -3649,12 +3589,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Ipn.php
 
 		-
-			rawMessage: 'Parameter #1 $payment of method Mage_Paypal_Model_Method_Agreement::_placeOrder() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Method/Agreement.php
-
-		-
 			rawMessage: 'Parameter #1 $spec of method Zend_Controller_Response_Abstract::getBody() expects bool, string given.'
 			identifier: argument.type
 			count: 1
@@ -3689,30 +3623,6 @@ parameters:
 			identifier: property.defaultValue
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			rawMessage: 'Method Mage_Paypal_Model_Pro::capture() should return false|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $payment of method Mage_Paypal_Model_Pro::_importCaptureResultToPayment() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $payment of method Mage_Paypal_Model_Pro::_importRefundResultToPayment() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $to of method Mage_Paypal_Model_Pro::importPaymentInfo() expects Mage_Payment_Model_Info, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
 			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
@@ -3985,12 +3895,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Creditmemo::$_items (iterable<Mage_Sales_Model_Order_Creditmemo_Item>&Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract::getForceApplyDiscountToParentItem().'
 			identifier: method.notFound
 			count: 1
@@ -4007,12 +3911,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			rawMessage: 'Method Mage_Sales_Model_Order_Payment_Transaction::getOrderId() should return int|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
 			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Order_Payment_Transaction::setOrder() expects bool|Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order given.'
@@ -4063,18 +3961,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment/Packaging.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_items (Mage_Sales_Model_Resource_Order_Shipment_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_tracks (Mage_Sales_Model_Resource_Order_Shipment_Track_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -4111,12 +3997,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			rawMessage: 'Method Mage_Sales_Model_Quote::getIsVirtual() should return bool but returns int.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			rawMessage: 'Method Mage_Sales_Model_Quote::updateItem() should return Mage_Sales_Model_Quote_Item but returns Mage_Sales_Model_Quote_Item_Abstract.'
 			identifier: return.type
 			count: 1
@@ -4133,18 +4013,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Quote::$_addresses (Mage_Sales_Model_Resource_Order_Address_Collection|null) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			rawMessage: 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
 			rawMessage: 'Parameter #1 $parentItem of method Mage_Sales_Model_Quote_Item_Abstract::setParentItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Address_Item given.'
@@ -4199,12 +4067,6 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			rawMessage: 'Call to Exception::__construct() on a separate line has no effect.'
-			identifier: new.resultUnused
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Method_Abstract::canGetRecurringProfileDetails().'
