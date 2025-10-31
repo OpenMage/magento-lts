@@ -12,10 +12,10 @@
  *
  * @package    Mage_Core
  *
- * @method array getLiParams()
- * @method $this setLiParams(array $value)
- * @method array getAParams()
- * @method $this setAParams(array $value)
+ * @method array|string getLiParams()
+ * @method $this setLiParams(array|string $value)
+ * @method array|string getAParams()
+ * @method $this setAParams(array|string $value)
  * @method string getInnerText()
  * @method $this setInnerText(string $value)
  * @method string getAfterText()

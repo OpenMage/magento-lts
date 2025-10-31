@@ -504,7 +504,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set collection page size
      *
-     * @param   int|null $size
+     * @param   int $size
      * @return  $this
      */
     public function setPageSize($size)

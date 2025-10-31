@@ -17,8 +17,6 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
  * @method string getCarrierCode()
  * @method $this setCarrierCode(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
  * @method $this setNumber(string $value)
@@ -32,8 +30,6 @@
  * @method string getTitle()
  * @method $this setTitle(string $value)
  * @method string getTrackNumber()
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method float getWeight()
  * @method $this setWeight(float $value)
  */
@@ -50,7 +46,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Initialize resource model
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('sales/order_shipment_track');
     }
@@ -125,6 +121,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      * Retrieve detail for shipment track
      *
      * @return string|array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getNumberDetail()
     {
@@ -149,6 +146,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      * Get store object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -163,6 +161,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      * Get store id
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {

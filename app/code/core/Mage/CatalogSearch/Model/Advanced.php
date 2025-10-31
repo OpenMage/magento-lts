@@ -27,10 +27,6 @@
  * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
  * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 {
@@ -92,6 +88,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * Retrieve array of attributes used in advanced search
      *
      * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @throws Exception
      */
     public function getAttributes()
     {
@@ -118,11 +115,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Prepare search condition for attribute
      *
-     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
-     *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param string|array $value
      * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
      */
     protected function _prepareCondition($attribute, $value)
     {
@@ -134,6 +131,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @param   array $values
      * @return  $this
+     * @throws  Exception
      */
     public function addFilters($values)
     {
@@ -221,6 +219,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * @param   Mage_Eav_Model_Entity_Attribute $attribute
      * @param   mixed $value
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     protected function _addSearchCriteria($attribute, $value)
     {
@@ -297,6 +296,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * Retrieve advanced search product collection
      *
      * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductCollection()
     {

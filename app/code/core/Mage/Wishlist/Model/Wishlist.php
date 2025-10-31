@@ -20,8 +20,6 @@
  * @method $this setShared(int $value)
  * @method string getSharingCode()
  * @method $this setSharingCode(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getVisibility()
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
@@ -75,6 +73,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $customer
      * @param bool $create Create wishlist if don't exists
      * @return $this
+     * @throws Throwable
      */
     public function loadByCustomer($customer, $create = false)
     {
@@ -162,6 +161,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Save related items
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterSave()
     {
@@ -180,6 +180,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param   int $qty
      * @param   bool $forciblySetQty
      * @return  Mage_Wishlist_Model_Item
+     * @throws  Mage_Core_Model_Store_Exception
+     * @throws  Exception
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
@@ -249,6 +251,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param int $itemId
      * @return Mage_Wishlist_Model_Item|false
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getItem($itemId)
     {
@@ -281,7 +284,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Adding item to wishlist
      *
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     public function addItem(Mage_Wishlist_Model_Item $item)
     {
@@ -302,6 +307,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $buyRequest
      * @param bool $forciblySetQty
      * @return Mage_Wishlist_Model_Item|string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {
@@ -421,10 +427,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param bool $current Use current website or not
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSharedStoreIds($current = true)
     {
-        if (is_null($this->_storeIds) || !is_array($this->_storeIds)) {
+        if (!is_array($this->_storeIds)) {
             if ($current) {
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
@@ -457,6 +464,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist store object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -483,6 +491,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist items count
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getItemsCount()
     {
@@ -493,6 +502,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist has salable item(s)
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isSalable()
     {
@@ -535,11 +545,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param null|array|Varien_Object $params
      * @return $this
      *
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
     public function updateItem($itemId, $buyRequest, $params = null)
     {
-        $item = null;
         if ($itemId instanceof Mage_Wishlist_Model_Item) {
             $item = $itemId;
         } else {

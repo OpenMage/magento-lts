@@ -38,15 +38,17 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare data for save
      *
+     * @param  Mage_Log_Model_Visitor $object
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
-    protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
+    protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
         return [
-            'session_id'        => $visitor->getSessionId(),
-            'first_visit_at'    => $visitor->getFirstVisitAt(),
-            'last_visit_at'     => $visitor->getLastVisitAt(),
-            'last_url_id'       => $visitor->getLastUrlId() ? $visitor->getLastUrlId() : 0,
+            'session_id'        => $object->getSessionId(),
+            'first_visit_at'    => $object->getFirstVisitAt(),
+            'last_visit_at'     => $object->getLastVisitAt(),
+            'last_url_id'       => $object->getLastUrlId() ? $object->getLastUrlId() : 0,
             'store_id'          => Mage::app()->getStore()->getId(),
         ];
     }
@@ -54,8 +56,9 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about url
      *
-     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @param   Mage_Log_Model_Visitor $visitor
      * @return  $this
+     * @throws  Zend_Db_Adapter_Exception
      */
     protected function _saveUrlInfo($visitor)
     {
@@ -76,16 +79,18 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save url info before save
      *
+     * @param  Mage_Log_Model_Visitor $object
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$this->_urlLoggingCondition->isLogEnabled()) {
             return $this;
         }
 
-        if (!$visitor->getIsNewVisitor()) {
-            $this->_saveUrlInfo($visitor);
+        if (!$object->getIsNewVisitor()) {
+            $this->_saveUrlInfo($object);
         }
 
         return $this;
@@ -93,31 +98,33 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Actions after save
-     *
+     * @param  Mage_Log_Model_Visitor $object
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $visitor)
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($this->_urlLoggingCondition->isLogDisabled()) {
             return $this;
         }
 
-        if ($visitor->getIsNewVisitor()) {
+        if ($object->getIsNewVisitor()) {
             if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
-                $this->_saveVisitorInfo($visitor);
-                $visitor->setIsNewVisitor(false);
+                $this->_saveVisitorInfo($object);
+                $object->setIsNewVisitor(false);
             }
         } else {
             if ($this->_urlLoggingCondition->isLogEnabled()) {
-                $this->_saveVisitorUrl($visitor);
-                if ($visitor->getDoCustomerLogin() || $visitor->getDoCustomerLogout()) {
-                    $this->_saveCustomerInfo($visitor);
+                $this->_saveVisitorUrl($object);
+                if ($object->getDoCustomerLogin() || $object->getDoCustomerLogout()) {
+                    $this->_saveCustomerInfo($object);
                 }
             }
 
             if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
-                if ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy()) {
-                    $this->_saveQuoteInfo($visitor);
+                if ($object->getDoQuoteCreate() || $object->getDoQuoteDestroy()) {
+                    $this->_saveQuoteInfo($object);
                 }
             }
         }
@@ -128,7 +135,10 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Perform actions after object load
      *
+     * @param  Mage_Log_Model_Visitor $object
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -152,8 +162,9 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving visitor information
      *
-     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @param   Mage_Log_Model_Visitor $visitor
      * @return  $this
+     * @throws  Zend_Db_Adapter_Exception
      */
     protected function _saveVisitorInfo($visitor)
     {
@@ -193,6 +204,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return  $this
+     * @throws  Zend_Db_Adapter_Exception
      */
     protected function _saveVisitorUrl($visitor)
     {
@@ -212,6 +224,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return  $this
+     * @throws  Zend_Db_Adapter_Exception
+     * @throws  Mage_Core_Model_Store_Exception
      */
     protected function _saveCustomerInfo($visitor)
     {
@@ -256,8 +270,9 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about quote
      *
-     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @param   Mage_Log_Model_Visitor $visitor
      * @return  $this
+     * @throws  Zend_Db_Adapter_Exception
      */
     protected function _saveQuoteInfo($visitor)
     {

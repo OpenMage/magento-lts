@@ -57,7 +57,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      * Prepare for abandoned report
      *
      * @param array $storeIds
-     * @param string $filter
+     * @param array $filter
      * @return $this
      */
     public function prepareForAbandonedReport($storeIds, $filter = null)

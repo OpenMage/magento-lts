@@ -16,8 +16,6 @@
  * @method Mage_Review_Model_Resource_Review getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
  *
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method array getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method string getDetail()
@@ -175,6 +173,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function appendSummary($collection)
     {
@@ -227,6 +226,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param int|Mage_Core_Model_Store $store
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isAvailableOnStore($store = null)
     {

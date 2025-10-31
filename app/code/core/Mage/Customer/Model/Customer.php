@@ -20,7 +20,6 @@
  * @method string getCompany()
  * @method bool getConfirmation()
  * @method $this setConfirmation(bool|null $value)
- * @method string getCreatedAt()
  * @method int getCustomerId()
  * @method $this setCustomerId(int|null $value)
  *
@@ -248,7 +247,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Initialize customer model
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('customer/customer');
     }
@@ -268,8 +267,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param  string $login
      * @param  string $password
-     * @throws Mage_Core_Exception
      * @return true
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function authenticate($login, $password)
     {
@@ -362,6 +362,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Get full customer name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getName()
     {
@@ -614,7 +615,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $primaryAddress = $this->getAddressesCollection()->getItemById($this->getData($attributeCode));
 
-        return $primaryAddress ? $primaryAddress : false;
+        return $primaryAddress ?: false;
     }
 
     /**
@@ -866,10 +867,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param int|null $storeId
      * @param string|null $customerEmail
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
     {
-        $customerEmail = ($customerEmail) ? $customerEmail : $this->getEmail();
+        $customerEmail = $customerEmail ?: $this->getEmail();
         /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
@@ -915,6 +917,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @bool $isNew Send welcome email?
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function sendPasswordLinkEmail(bool $isNew = false)
     {
@@ -1177,6 +1181,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @return $this|null
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     public function importFromTextArray(array $row)
     {
@@ -1271,10 +1276,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             }
 
             $regions->addRegionNameFilter($row['billing_region'])->load();
-            if ($regions) {
-                foreach ($regions as $region) {
-                    $regionId = (int) $region->getId();
-                }
+            foreach ($regions as $region) {
+                $regionId = (int) $region->getId();
             }
 
             $billingAddress->setFirstname($row['firstname']);
@@ -1317,11 +1320,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             }
 
             $regions->addRegionNameFilter($row['shipping_region'])->load();
-
-            if ($regions) {
-                foreach ($regions as $region) {
-                    $regionId = (int) $region->getId();
-                }
+            foreach ($regions as $region) {
+                $regionId = (int) $region->getId();
             }
 
             $shippingAddress->setFirstname($row['firstname']);
@@ -1462,7 +1462,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 }
 
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
+                    && in_array(strtolower($data[$prefix . $field]), $usca)
                 ) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
@@ -1486,6 +1486,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Prepare customer for delete
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -1579,6 +1581,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Clone current object
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {
@@ -1668,6 +1672,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string $newResetPasswordLinkCustomerId
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Exception
      */
     public function changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId)
     {

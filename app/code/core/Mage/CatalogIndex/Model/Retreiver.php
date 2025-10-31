@@ -26,10 +26,6 @@
  * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
  * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
@@ -81,9 +77,11 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     public function getRetreiver($type)
     {
         if (isset($this->_retreivers[$type])) {
-            return Mage::getSingleton($this->_retreivers[$type]);
+            /** @var Mage_CatalogIndex_Model_Data_Abstract|false $model */
+            $model = Mage::getSingleton($this->_retreivers[$type]);
+            return $model;
         } else {
-            Mage::throwException("Data retreiver for '{$type}' is not defined");
+            Mage::throwException("Data retreiver for '$type' is not defined");
         }
     }
 
@@ -91,6 +89,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
      * Return customer group collection
      *
      * @return Mage_Customer_Model_Resource_Group_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCustomerGroups()
     {

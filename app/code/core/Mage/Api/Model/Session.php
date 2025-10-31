@@ -70,15 +70,16 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return void
+     * @return $this
      */
     public function revalidateCookie()
     {
         // In api we don't use cookies
+        return $this;
     }
 
     /**
-     * @return bool
+     * @return $this
      */
     public function clear()
     {
@@ -86,11 +87,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             try {
                 Mage::getModel('api/user')->logoutBySessId($sessId);
             } catch (Exception) {
-                return false;
+                return $this;
             }
         }
 
-        return true;
+        return $this;
     }
 
     /**

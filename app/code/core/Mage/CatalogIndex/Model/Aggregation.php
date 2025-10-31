@@ -18,8 +18,6 @@
  * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method string getKey()
  * @method $this setKey(string $value)
  */
@@ -46,6 +44,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   string $key
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  array|null
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function getCacheData($key, $store = null)
     {
@@ -71,6 +70,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   array $tags
      * @param   null|int|string|Mage_Core_Model_Store $store
      * @return  Mage_CatalogIndex_Model_Aggregation
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function saveCacheData($data, $key, $tags, $store = null)
     {
@@ -92,6 +92,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   array $tags
      * @param   int|null|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function clearCacheData($tags = [], $store = null)
     {
@@ -109,6 +110,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      *
      * @param   array $productIds
      * @return  Mage_CatalogIndex_Model_Aggregation
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function clearProductData($productIds)
     {

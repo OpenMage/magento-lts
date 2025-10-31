@@ -199,18 +199,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
 
 		-
-			rawMessage: 'Parameter #2 $filter of method Mage_Reports_Model_Resource_Quote_Collection::prepareForAbandonedReport() expects string|null, array<int|string, array<mixed>|string> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
-
-		-
-			rawMessage: 'Parameter #1 $statusCode of method Mage_Tag_Model_Resource_Popular_Collection::addStatusFilter() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php
-
-		-
 			rawMessage: 'Return type (int) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type::getCondition() should be compatible with return type (array|null) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select::getCondition()'
 			identifier: method.childReturnType
 			count: 1
@@ -247,24 +235,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Adjustments.php
 
 		-
-			rawMessage: 'Return type (Mage_Sales_Model_Order_Creditmemo) of method Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items::getSource() should be compatible with return type (Mage_Sales_Model_Order_Invoice) of method Mage_Adminhtml_Block_Sales_Items_Abstract::getSource()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			rawMessage: 'Return type (Mage_Sales_Model_Order_Creditmemo) of method Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items::getSource() should be compatible with return type (Mage_Sales_Model_Order_Invoice) of method Mage_Adminhtml_Block_Sales_Items_Abstract::getSource()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/View/Items.php
-
-		-
-			rawMessage: 'Return type (Mage_Sales_Model_Order_Shipment) of method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items::getSource() should be compatible with return type (Mage_Sales_Model_Order_Invoice) of method Mage_Adminhtml_Block_Sales_Items_Abstract::getSource()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Items.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Shipping_Model_Carrier_Abstract::isGirthAllowed().'
 			identifier: method.notFound
 			count: 1
@@ -275,12 +245,6 @@ parameters:
 			identifier: return.empty
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			rawMessage: 'Return type (Mage_Sales_Model_Order_Shipment) of method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items::getSource() should be compatible with return type (Mage_Sales_Model_Order_Invoice) of method Mage_Adminhtml_Block_Sales_Items_Abstract::getSource()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Items.php
 
 		-
 			rawMessage: 'Parameter #1 $entity of method Mage_Adminhtml_Block_Sales_Order_View_Giftmessage::setEntity() expects Mage_Sales_Model_Order, Mage_Eav_Model_Entity_Abstract given.'
@@ -299,24 +263,6 @@ parameters:
 			identifier: property.defaultValue
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items/Renderer/Default.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setOrderFilter().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Creditmemos.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setOrderFilter().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Invoices.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setOrderFilter().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Shipments.php
 
 		-
 			rawMessage: 'Parameter #1 $order of method Mage_Sales_Helper_Reorder::canReorder() expects Mage_Sales_Model_Order, Varien_Object given.'
@@ -377,12 +323,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
-
-		-
-			rawMessage: 'Parameter #2 $characters of function rtrim expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
 		-
 			rawMessage: 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.'
@@ -529,12 +469,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			rawMessage: Variable $billingAddress might not be defined.
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Sales_Model_Order::createFromQuoteAddress().'
 			identifier: method.notFound
 			count: 1
@@ -593,12 +527,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Cart/Product/Composite/CartController.php
-
-		-
-			rawMessage: 'Parameter #1 $content of method Zend_Controller_Response_Abstract::setBody() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Customer/System/Config/ValidatevatController.php
 
 		-
 			rawMessage: 'Parameter #2 $timestamp of function date expects int|null, array|bool given.'
@@ -877,18 +805,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
 		-
-			rawMessage: 'Return type (bool) of method Mage_Api_Model_Session::clear() should be compatible with return type ($this(Mage_Core_Model_Session_Abstract_Varien)) of method Mage_Core_Model_Session_Abstract_Varien::clear()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Api/Model/Session.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_Api_Model_Session::revalidateCookie() should be compatible with return type ($this(Mage_Core_Model_Session_Abstract_Varien)) of method Mage_Core_Model_Session_Abstract_Varien::revalidateCookie()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Api/Model/Session.php
-
-		-
 			rawMessage: Invalid array key type array.
 			identifier: offsetAccess.invalidOffset
 			count: 1
@@ -1033,12 +949,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
 		-
-			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Response::addMessage() expects string, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method Varien_Data_Collection::addFilter() expects array|string, int given.'
 			identifier: argument.type
 			count: 1
@@ -1107,18 +1017,6 @@ parameters:
 		-
 			rawMessage: 'Parameter #2 $amount of method Mage_Authorizenet_Model_Directpost::_refund() expects string, float given.'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			rawMessage: 'Return type (bool) of method Mage_Authorizenet_Model_Directpost::validate() should be compatible with return type ($this(Mage_Payment_Model_Method_Cc)) of method Mage_Payment_Model_Method_Cc::validate()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_Authorizenet_Model_Directpost::authorize() should be compatible with return type ($this(Mage_Paygate_Model_Authorizenet)) of method Mage_Paygate_Model_Authorizenet::authorize()'
-			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
 
@@ -1289,12 +1187,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Attributes.php
-
-		-
-			rawMessage: Invalid array key type array.
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
 
 		-
 			rawMessage: 'Parameter #1 $category (Mage_Catalog_Model_Category) of method Mage_Catalog_Block_Seo_Sitemap_Category::getItemUrl() should be compatible with parameter $item (Mage_Catalog_Block_Seo_Sitemap_Abstract) of method Mage_Catalog_Block_Seo_Sitemap_Abstract::getItemUrl()'
@@ -1537,12 +1429,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
 			rawMessage: 'Parameter #2 $range of method Mage_Catalog_Model_Resource_Layer_Filter_Decimal::applyFilterToCollection() expects float, string given.'
 			identifier: argument.type
 			count: 1
@@ -1559,12 +1445,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
 		-
 			rawMessage: 'Method Mage_Catalog_Model_Resource_Category_Flat::move() invoked with 3 parameters, 1 required.'
@@ -1873,12 +1753,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php
-
-		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Config::$_storeId (int) on left side of ?? is not nullable.'
 			identifier: nullCoalesce.property
 			count: 1
@@ -1999,12 +1873,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Collection.php
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -2071,12 +1939,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Virtual.php
 
 		-
-			rawMessage: 'Call to function is_array() with mixed will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			rawMessage: 'Return type (string) of method Mage_CatalogIndex_Model_Indexer_Eav::_getIndexableAttributeConditions() should be compatible with return type (array) of method Mage_CatalogIndex_Model_Indexer_Abstract::_getIndexableAttributeConditions()'
 			identifier: method.childReturnType
 			count: 1
@@ -2111,12 +1973,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
-
-		-
-			rawMessage: 'Parameter #1 $value of method Mage_Core_Block_Html_Select::addOption() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Customergroup.php
 
 		-
 			rawMessage: 'Cannot call method setTypeId() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
@@ -2213,12 +2069,6 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/code/core/Mage/Centinel/Helper/Data.php
-
-		-
-			rawMessage: 'Cannot call method setItem() on array.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
 
 		-
 			rawMessage: 'Parameter #1 $productThumbnail of method Mage_Checkout_Block_Cart_Item_Renderer::overrideProductThumbnail() expects Mage_Catalog_Helper_Image, null given.'
@@ -2365,12 +2215,6 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			rawMessage: 'Parameter #1 $array of function array_unshift expects array, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
-
-		-
 			rawMessage: 'Method Mage_Core_Block_Abstract::getParentBlock() should return $this(Mage_Core_Block_Abstract) but returns Mage_Core_Block_Abstract.'
 			identifier: return.type
 			count: 1
@@ -2457,18 +2301,6 @@ parameters:
 		-
 			rawMessage: 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_cacheTag (string|true) does not accept default value of type false.'
-			identifier: property.defaultValue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_isObjectNew (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
@@ -2561,12 +2393,6 @@ parameters:
 			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			rawMessage: 'Parameter #1 $policyCode of method Mage_Core_Model_Domainpolicy::_getDomainPolicyByCode() expects string, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Core/Model/Domainpolicy.php
 
 		-
 			rawMessage: 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.'
@@ -2821,12 +2647,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			rawMessage: PHPDoc type bool of property Mage_Core_Model_Store::$_cacheTag is not covariant with PHPDoc type string|true of overridden property Mage_Core_Model_Abstract::$_cacheTag.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
 			rawMessage: 'Parameter #1 $options of class Zend_Translate constructor expects array|Zend_Config|Zend_Translate_Adapter, string given.'
 			identifier: argument.type
 			count: 1
@@ -2853,12 +2673,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
-			rawMessage: PHPDoc type mixed of property Mage_Core_Model_Url_Rewrite::$_cacheTag is not covariant with PHPDoc type string|true of overridden property Mage_Core_Model_Abstract::$_cacheTag.
-			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
@@ -2917,12 +2731,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Helper/Data.php
 
 		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Customer/Model/Address/Api.php
-
-		-
 			rawMessage: Cannot access property $is_default_billing on array.
 			identifier: property.nonObject
 			count: 2
@@ -2935,13 +2743,7 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
 
 		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getResource().'
+			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::loadAllAttributes().'
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Api/Resource.php
@@ -2969,12 +2771,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Customer given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Customer/Model/Customer/Api.php
 
 		-
 			rawMessage: 'Parameter #1 $data (stdClass) of method Mage_Customer_Model_Customer_Api_V2::_prepareData() should be compatible with parameter $data (array) of method Mage_Customer_Model_Customer_Api::_prepareData()'
@@ -3017,18 +2813,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Session.php
-
-		-
-			rawMessage: 'Property Mage_Dataflow_Model_Batch::$_batchExport (Mage_Dataflow_Model_Batch_Export|null) does not accept string|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
-			rawMessage: 'Property Mage_Dataflow_Model_Batch::$_batchImport (Mage_Dataflow_Model_Batch_Import|null) does not accept string|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::deleteCollection().'
@@ -3113,24 +2897,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
-			rawMessage: Right side of && is always true.
-			identifier: booleanAnd.rightAlwaysTrue
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			rawMessage: 'Method Mage_Directory_Helper_Data::getCountryCollection() should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Directory_Helper_Data::$_countryCollection (Mage_Directory_Model_Resource_Country_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
 
 		-
 			rawMessage: 'Parameter #1 $value of method Zend_Currency::toCurrency() expects float|int|null, string given.'
@@ -3415,12 +3181,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			rawMessage: 'Property Mage_Eav_Model_Entity_Collection_Abstract::$_entity (Mage_Eav_Model_Entity_Abstract) in empty() is not falsy.'
 			identifier: empty.property
 			count: 1
@@ -3529,12 +3289,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
 
 		-
-			rawMessage: 'Parameter #1 $limit of method Mage_Adminhtml_Block_Widget_Grid::setDefaultLimit() expects int, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
-
-		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
@@ -3616,12 +3370,6 @@ parameters:
 			rawMessage: 'Parameter #1 $model of method Mage_Install_Model_Installer::setDataModel() expects Mage_Install_Model_Installer_Data, Mage_Install_Model_Session given.'
 			identifier: argument.type
 			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			rawMessage: 'Parameter #2 $value of method Mage_Core_Model_Resource_Setup::setConfigData() expects string, int given.'
-			identifier: argument.type
-			count: 5
 			path: app/code/core/Mage/Install/Model/Installer.php
 
 		-
@@ -3721,22 +3469,10 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			rawMessage: 'Method Mage_Payment_Model_Recurring_Profile::exportStartDatetime() should return string|Zend_Date but empty return statement found.'
-			identifier: return.empty
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
 			rawMessage: 'Parameter #1 $message of static method Mage::throwException() expects string, array given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			rawMessage: 'Parameter #2 $value of method Mage_Core_Model_Config::saveConfig() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Deprecated.php
 
 		-
 			rawMessage: 'Return type (false) of method Mage_Paypal_Block_Hosted_Pro_Info::getCcTypeName() should be compatible with return type (string|null) of method Mage_Paypal_Block_Payment_Info::getCcTypeName()'
@@ -3835,18 +3571,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			rawMessage: 'Return type (bool) of method Mage_Paypal_Model_Hostedpro::getAllowedCcTypes() should be compatible with return type (string) of method Mage_Paypal_Model_Direct::getAllowedCcTypes()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
-
-		-
-			rawMessage: 'Return type (bool) of method Mage_Paypal_Model_Hostedpro::validate() should be compatible with return type ($this(Mage_Payment_Model_Method_Cc)) of method Mage_Payment_Model_Method_Cc::validate()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
-
-		-
 			rawMessage: Binary operation "-" between array|string and array|string results in an error.
 			identifier: binaryOp.invalid
 			count: 1
@@ -3865,22 +3589,10 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Ipn.php
 
 		-
-			rawMessage: 'Parameter #1 $payment of method Mage_Paypal_Model_Method_Agreement::_placeOrder() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Method/Agreement.php
-
-		-
 			rawMessage: 'Parameter #1 $spec of method Zend_Controller_Response_Abstract::getBody() expects bool, string given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Observer.php
-
-		-
-			rawMessage: 'Return type (bool) of method Mage_Paypal_Model_Payflowlink::validate() should be compatible with return type ($this(Mage_Payment_Model_Method_Cc)) of method Mage_Payment_Model_Method_Cc::validate()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
 			rawMessage: 'Parameter #1 $payment of method Mage_Paypal_Model_Payflowpro::_buildBasicRequest() expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given.'
@@ -3911,30 +3623,6 @@ parameters:
 			identifier: property.defaultValue
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			rawMessage: 'Method Mage_Paypal_Model_Pro::capture() should return false|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $payment of method Mage_Paypal_Model_Pro::_importCaptureResultToPayment() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $payment of method Mage_Paypal_Model_Pro::_importRefundResultToPayment() expects Mage_Sales_Model_Order_Payment, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			rawMessage: 'Parameter #2 $to of method Mage_Paypal_Model_Pro::importPaymentInfo() expects Mage_Payment_Model_Info, Varien_Object given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
 			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
@@ -4015,12 +3703,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
 
 		-
-			rawMessage: 'Parameter #2 $value of method Varien_Db_Adapter_Interface::getIfNullSql() expects string, int given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
-
-		-
 			rawMessage: 'Property Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract::$_entityCollection (Mage_Eav_Model_Entity_Collection_Abstract) in empty() is not falsy.'
 			identifier: empty.property
 			count: 1
@@ -4039,64 +3721,10 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
 
 		-
-			rawMessage: 'Parameter #2 $customStart of method Mage_Reports_Model_Resource_Order_Collection::getDateRange() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
-
-		-
 			rawMessage: 'Parameter #2 $interval of method Varien_Db_Adapter_Interface::getDateAddSql() expects int, string given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $value of method Varien_Db_Adapter_Interface::getIfNullSql() expects string, int given.'
-			identifier: argument.type
-			count: 20
-			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
-
-		-
-			rawMessage: 'Parameter #3 $customEnd of method Mage_Reports_Model_Resource_Order_Collection::getDateRange() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $from of method Mage_Reports_Model_Resource_Product_Ordered_Collection::_joinFields() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Ordered/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $to of method Mage_Reports_Model_Resource_Product_Ordered_Collection::_joinFields() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Ordered/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $from of method Mage_Reports_Model_Resource_Product_Collection::addOrderedQty() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Sold/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $to of method Mage_Reports_Model_Resource_Product_Collection::addOrderedQty() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Sold/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $filter of method Mage_Reports_Model_Resource_Quote_Collection::addCustomerData() expects array|null, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $filter of method Mage_Reports_Model_Resource_Quote_Collection::addSubtotal() expects array|null, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
 		-
 			rawMessage: 'Parameter #3 $cols of method Zend_Db_Select::joinInner() expects array|string, null given.'
@@ -4237,12 +3865,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Block_Recurring_Profiles::$_profiles (Mage_Sales_Model_Resource_Recurring_Profile_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
 			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Resource::_critical() expects int|null, string given.'
 			identifier: argument.type
 			count: 2
@@ -4273,30 +3895,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Creditmemo::$_items (iterable<Mage_Sales_Model_Order_Creditmemo_Item>&Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
-
-		-
-			rawMessage: 'Parameter #2 $options of method Mage_Directory_Model_Currency::format() expects array, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php
-
-		-
-			rawMessage: 'Cannot call method addAttributeToFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			rawMessage: 'Parameter #1 $incrementId of method Mage_Sales_Model_Order_Invoice::loadByIncrementId() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Api.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract::getForceApplyDiscountToParentItem().'
 			identifier: method.notFound
 			count: 1
@@ -4313,12 +3911,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			rawMessage: 'Method Mage_Sales_Model_Order_Payment_Transaction::getOrderId() should return int|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
 			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Order_Payment_Transaction::setOrder() expects bool|Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order given.'
@@ -4369,18 +3961,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment/Packaging.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_items (Mage_Sales_Model_Resource_Order_Shipment_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_tracks (Mage_Sales_Model_Resource_Order_Shipment_Track_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -4417,12 +3997,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			rawMessage: 'Method Mage_Sales_Model_Quote::getIsVirtual() should return bool but returns int.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			rawMessage: 'Method Mage_Sales_Model_Quote::updateItem() should return Mage_Sales_Model_Quote_Item but returns Mage_Sales_Model_Quote_Item_Abstract.'
 			identifier: return.type
 			count: 1
@@ -4439,18 +4013,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Quote::$_addresses (Mage_Sales_Model_Resource_Order_Address_Collection|null) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			rawMessage: 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
 			rawMessage: 'Parameter #1 $parentItem of method Mage_Sales_Model_Quote_Item_Abstract::setParentItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Address_Item given.'
@@ -4507,12 +4069,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			rawMessage: 'Call to Exception::__construct() on a separate line has no effect.'
-			identifier: new.resultUnused
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Method_Abstract::canGetRecurringProfileDetails().'
 			identifier: method.notFound
 			count: 1
@@ -4529,12 +4085,6 @@ parameters:
 			identifier: method.notFound
 			count: 3
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			rawMessage: 'Cannot call method updateOnRelatedRecordChanged() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Address.php
 
 		-
 			rawMessage: 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.'
@@ -4948,12 +4498,6 @@ parameters:
 			rawMessage: 'Method Zend_Pdf_Canvas_Abstract::drawText() invoked with 5 parameters, 3-4 required.'
 			identifier: arguments.count
 			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, bool given.'
-			identifier: argument.type
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-
@@ -5407,12 +4951,6 @@ parameters:
 			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Catalog_Block_Product_List_Toolbar::getOrderUrl() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -5743,12 +5281,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Catalog_Block_Product_List_Toolbar::getOrderUrl() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -6073,21 +5605,9 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Fieldset.php
 
 		-
-			rawMessage: 'Parameter #1 $idSuffix of method Varien_Data_Form_Element_Abstract::getLabelHtml() expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Data/Form/Element/Multiline.php
-
-		-
 			rawMessage: 'Parameter #1 $index of method Varien_Data_Form_Element_Abstract::getEscapedValue() expects string|null, int<0, max> given.'
 			identifier: argument.type
 			count: 2
-			path: lib/Varien/Data/Form/Element/Multiline.php
-
-		-
-			rawMessage: 'Parameter #1 $suffix (int) of method Varien_Data_Form_Element_Multiline::getLabelHtml() should be compatible with parameter $idSuffix (string) of method Varien_Data_Form_Element_Abstract::getLabelHtml()'
-			identifier: method.childParameterType
-			count: 1
 			path: lib/Varien/Data/Form/Element/Multiline.php
 
 		-

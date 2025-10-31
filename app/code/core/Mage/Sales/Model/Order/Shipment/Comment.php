@@ -17,8 +17,6 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getCollection()
  * @method string getComment()
  * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method int getIsCustomerNotified()
  * @method $this setIsCustomerNotified(int $value)
  * @method int getParentId()
@@ -66,6 +64,7 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
      * Get store object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {

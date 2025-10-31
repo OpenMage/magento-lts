@@ -106,11 +106,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return $this
      */
     public function validate()
     {
-        return true;
+        return $this;
     }
 
     /**

@@ -29,8 +29,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set Date range to collection
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return $this
      */
     public function setDateRange($from, $to)

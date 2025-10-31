@@ -12,9 +12,9 @@
  *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method $this setCustomerId(null|int $value)
  * @method int getCustomerLogId()
- * @method $this setCustomerLogId(int $value)
+ * @method $this setCustomerLogId(null|int $value)
  * @method bool getDoCustomerLogin()
  * @method $this setDoCustomerLogin(bool $value)
  * @method bool getDoCustomerLogout()
@@ -36,7 +36,7 @@
  * @method int getLastUrlId()
  * @method $this setLastUrlId(int $value)
  * @method int getQuoteId()
- * @method $this setQuoteId(int $value)
+ * @method $this setQuoteId(null|int $value)
  * @method string getRemoteAddr()
  * @method string getRequestUri()
  * @method string getServerAddr()
@@ -127,6 +127,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      * Initialize visitor information from server data
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function initServerData()
     {
@@ -201,6 +202,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * @param   Varien_Event_Observer $observer
      * @return  $this
+     * @throws  Mage_Core_Model_Store_Exception
+     * @throws  Throwable
      */
     public function initByRequest($observer)
     {
@@ -297,7 +300,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function bindCustomerLogout($observer)
     {
-        if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
+        if ($this->getCustomerId() && $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
 

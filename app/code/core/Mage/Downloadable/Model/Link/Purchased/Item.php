@@ -42,10 +42,6 @@
  * @method $this setLinkType(string $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method Mage_Sales_Model_Order getOrder()
  */
 class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstract
@@ -72,8 +68,9 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
      * Check order item id
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Exception
      */
-    public function _beforeSave()
+    protected function _beforeSave()
     {
         if ($this->getOrderItemId() == null) {
             throw new Exception(

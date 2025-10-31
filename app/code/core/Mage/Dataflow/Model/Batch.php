@@ -20,8 +20,6 @@
  * @method $this setStoreId(int $value)
  * @method string getAdapter()
  * @method $this setAdapter(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  */
 class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 {
@@ -128,32 +126,42 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      * Retrieve Batch export model
      *
      * @return Mage_Dataflow_Model_Batch_Export
+     * @throws Varien_Exception
      */
     public function getBatchExportModel()
     {
         if (is_null($this->_batchExport)) {
             $object = Mage::getModel('dataflow/batch_export');
             $object->setBatchId($this->getId());
-            $this->_batchExport = Varien_Object_Cache::singleton()->save($object);
+            /** @var Mage_Dataflow_Model_Batch_Export $model */
+            $model = Varien_Object_Cache::singleton()->save($object);
+            $this->_batchExport = $model;
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchExport);
+        /** @var Mage_Dataflow_Model_Batch_Export $model */
+        $model = Varien_Object_Cache::singleton()->load($this->_batchExport);
+        return $model;
     }
 
     /**
      * Retrieve Batch import model
      *
      * @return Mage_Dataflow_Model_Batch_Import
+     * @throws Varien_Exception
      */
     public function getBatchImportModel()
     {
         if (is_null($this->_batchImport)) {
             $object = Mage::getModel('dataflow/batch_import');
             $object->setBatchId($this->getId());
-            $this->_batchImport = Varien_Object_Cache::singleton()->save($object);
+            /** @var Mage_Dataflow_Model_Batch_Import $model */
+            $model = Varien_Object_Cache::singleton()->save($object);
+            $this->_batchImport = $model;
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchImport);
+        /** @var Mage_Dataflow_Model_Batch_Import $model */
+        $model = Varien_Object_Cache::singleton()->load($this->_batchImport);
+        return $model;
     }
 
     /**

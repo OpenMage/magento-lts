@@ -319,10 +319,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $serviceAreaCode
      * @return $this
      * @throws InvalidArgumentException
+     * @throws Zend_Pdf_Exception
      */
     public function addOriginInfo($serviceAreaCode)
     {
-        if (strlen(!$serviceAreaCode)) {
+        if (!strlen($serviceAreaCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Origin serviceAreaCode is missing'));
         }
 
@@ -340,6 +341,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Receive Info
      *
      * @return $this
+     * @throws Zend_Pdf_Exception
      */
     public function addReceiveInfo(SimpleXMLElement $consignee)
     {

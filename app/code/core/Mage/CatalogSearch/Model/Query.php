@@ -35,8 +35,6 @@
  * @method $this setRedirect(string $value)
  * @method string getSynonymFor()
  * @method $this setSynonymFor(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -106,6 +104,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve collection of suggest queries
      *
      * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSuggestCollection()
     {
@@ -162,6 +161,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve store Id
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -176,6 +176,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Prepare save query for result
      *
      * @return $this
+     * @throws Throwable
      */
     public function prepare()
     {
@@ -192,8 +193,9 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      */
     public function getMinQueryLenght()
     {
@@ -204,6 +206,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve minimum query length
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getMinQueryLength()
     {
@@ -225,6 +228,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve maximum query length
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getMaxQueryLength()
     {
@@ -235,6 +239,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      * Retrieve maximum query words for like search
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getMaxQueryWords()
     {

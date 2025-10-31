@@ -58,7 +58,6 @@
  * @method $this setSenderName(string $value)
  * @method $this setSenderEmail(string $value)
  * @method $this setSentSuccess(bool $value)
- * @method $this setCreatedAt(string $value)
  * @method int getTemplateActual()
  * @method bool getUseAbsoluteLinks()
  * @method setUseAbsoluteLinks(bool $value)
@@ -223,12 +222,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
         $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
-            if (isset($row['@']) && isset($row['@']['module'])) {
-                $module = $row['@']['module'];
-            } else {
-                $module = 'adminhtml';
-            }
-
+            $module = $row['@']['module'] ?? 'adminhtml';
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
 
@@ -275,7 +269,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return int
      */
     public function getType()
     {
@@ -285,7 +279,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email template code
      *
-     * @return  string
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     public function getProcessedTemplate(array $variables = [])
     {
@@ -353,11 +349,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param   string $template
      * @return  string
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function getInclude($template, array $variables)
     {
         $thisClass = self::class;
-        /** @var Mage_Core_Model_Email_Template $includeTemplate */
         $includeTemplate = new $thisClass();
         $includeTemplate->loadByCode($template);
 
@@ -370,8 +366,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array|string       $email        E-mail(s)
      * @param   array|string|null  $name         receiver name(s)
      * @param   array              $variables    template variables
-     * @return bool
-     **/
+     * @return  bool
+     *
+     * @throws  Mage_Core_Model_Store_Exception
+     * @throws  Exception
+     */
     public function send($email, $name = null, array $variables = [])
     {
         if (!$this->isValidForSend()) {
@@ -534,7 +533,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email subject
      *
-     * @return  string
+     * @return string
+     * @throws Exception
      */
     public function getProcessedTemplateSubject(array $variables)
     {
@@ -582,6 +582,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param string $email
      * @return $this
+     * @throws Zend_Mail_Exception
      */
     public function setReturnPath($email)
     {
@@ -594,6 +595,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param string $email
      * @return $this
+     * @throws Zend_Mail_Exception
      */
     public function setReplyTo($email)
     {
@@ -606,6 +608,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param string $variablesString
      * @return array
+     * @throws Zend_Json_Exception
      */
     protected function _parseVariablesString($variablesString)
     {
@@ -623,6 +626,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param bool $withGroup if true wrap variable options in group
      * @return array
+     * @throws Zend_Json_Exception
      */
     public function getVariablesOptionArray($withGroup = false)
     {
@@ -651,6 +655,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Validate email template code
      *
      * {@inheritDoc}
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {

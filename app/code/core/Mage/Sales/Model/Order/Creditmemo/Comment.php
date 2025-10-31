@@ -20,8 +20,6 @@
  * @method $this setIsVisibleOnFront(int $value)
  * @method string getComment()
  * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method $this setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
@@ -63,6 +61,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
      * Get store object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {

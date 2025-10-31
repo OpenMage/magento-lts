@@ -31,16 +31,19 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     {
         parent::_prepareLayout();
 
+        /** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Element $renderer */
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             Varien_Data_Form::setElementRenderer($renderer);
         }
 
+        /** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset $renderer */
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             Varien_Data_Form::setFieldsetRenderer($renderer);
         }
 
+        /** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element $renderer */
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             Varien_Data_Form::setFieldsetElementRenderer($renderer);

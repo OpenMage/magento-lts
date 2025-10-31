@@ -98,6 +98,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Returns true if valid.
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
      */
     public function isValid()
     {
@@ -167,8 +169,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if ($this->_methodInstance) {
             try {
                 $this->_methodInstance->validateRecurringProfile($this);
-            } catch (Mage_Core_Exception $e) {
-                $this->_errors['payment_method'][] = $e->getMessage();
+                // @phpstan-ignore catch.neverThrown
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_errors['payment_method'][] = $mageCoreException->getMessage();
             }
         }
 
@@ -226,6 +229,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Exception
      */
     public function importBuyRequest(Varien_Object $buyRequest)
     {
@@ -251,6 +255,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Returns false if it cannot be imported
      *
      * @return $this|false
+     * @throws Zend_Date_Exception
+     * @throws Mage_Core_Exception
      */
     public function importProduct(Mage_Catalog_Model_Product $product)
     {
@@ -333,7 +339,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     {
         $datetime = $this->getStartDatetime();
         if (!$datetime || !$this->_locale || !$this->_store) {
-            return;
+            return '';
         }
 
         $date = $this->_locale->storeDate($this->_store, strtotime($datetime), true);
@@ -502,6 +508,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Filter self data to make sure it can be validated properly
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Exception
      */
     protected function _filterValues()
     {
@@ -562,6 +571,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Return payment method instance
      *
      * @return Mage_Payment_Model_Method_Abstract
+     * @throws Exception
      */
     protected function getMethodInstance()
     {
@@ -593,6 +603,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Perform full validation before saving
      *
      * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
      */
     protected function _validateBeforeSave()
     {
@@ -611,6 +622,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Validate before saving
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
      */
     protected function _beforeSave()
     {

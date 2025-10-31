@@ -301,6 +301,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      */
     public function getCentinelValidator()
     {
+        /** @var Mage_Centinel_Model_Service $validator */
         $validator = Mage::getSingleton('centinel/service');
         $validator
             ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))

@@ -128,6 +128,7 @@
  * @method $this setIdealIssuerTitle(string $value)
  * @method int getIdealTransactionChecked()
  * @method $this setIdealTransactionChecked(int $value)
+ * @method $this setIsTransactionClosed(int $value)
  * @method int getIncrementId()
  * @method $this setIsFraudDetected(bool $value)
  * @method bool getIsTransactionApproved()

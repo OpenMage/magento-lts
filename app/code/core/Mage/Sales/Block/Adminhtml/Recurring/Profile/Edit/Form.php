@@ -98,11 +98,13 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     {
         $form = new Varien_Data_Form();
 
+        /** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset $renderer */
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             $form::setFieldsetRenderer($renderer);
         }
 
+        /** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element $renderer */
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             $form::setFieldsetElementRenderer($renderer);

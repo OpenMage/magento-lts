@@ -43,8 +43,6 @@
  * @method $this setCcSsStartYear(int $value)
  * @method string getCcType()
  * @method $this setCcType(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method int getCustomerPaymentId()
  * @method $this setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
@@ -72,9 +70,6 @@
  *
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
@@ -181,6 +176,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Checkout redirect URL getter
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getCheckoutRedirectUrl()
     {
@@ -196,6 +192,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Checkout order place redirect URL getter
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getOrderPlaceRedirectUrl()
     {
@@ -211,6 +208,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Retrieve payment method model object
      *
      * @return Mage_Payment_Model_Method_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getMethodInstance()
     {

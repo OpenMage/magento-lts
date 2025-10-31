@@ -616,6 +616,7 @@ class Varien_Object implements ArrayAccess
      * @param   string $method
      * @param   array $args
      * @return  mixed
+     * @throws  Varien_Exception
      */
     public function __call($method, $args)
     {
