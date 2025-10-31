@@ -38,13 +38,13 @@
                                 <?php foreach($this->getGroupedItems() as $key => $group): ?>
                                     <?php if ($key === 'default'): ?>
                                         <?php foreach($group as $_item): ?>
-                                            <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>
+                                            <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $this->escapeHtml($_item->getLabel()) ?></option>
                                         <?php endforeach ?>
                                     <?php elseif ($key === 'grouped'): ?>
                                         <?php foreach($group as $label => $_massGroup): ?>
                                             <optgroup label="<?php echo $this->quoteEscape($label); ?>">
                                                 <?php foreach($_massGroup as $_item): ?>
-                                                    <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>
+                                                    <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $this->escapeHtml($_item->getLabel()) ?></option>
                                                 <?php endforeach ?>
                                             </optgroup>
                                         <?php endforeach ?>
