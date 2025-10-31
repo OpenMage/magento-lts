@@ -19,12 +19,8 @@
  *
  * @method $this setCode(string $value)
  * @method $this setGroupId(int $value)
- * @method string getHomeUrl()
- * @method $this setHomeUrl(string $value)
  * @method $this setIsActive(int $value)
- * @method $this setLocaleCode(string $value)
  * @method string getLanguageCode()
- * @method string getLocaleCode()
  * @method $this setName(string $value)
  * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
  * @method $this setRootCategoryPath(string $value)
@@ -1295,5 +1291,31 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         return $this->_frontendName;
+    }
+
+    public function getHomeUrl(): ?string
+    {
+        return $this->getDataByKey('home_url');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHomeUrl(?string $localeCode)
+    {
+        return $this->setData('home_url', $localeCode);
+    }
+
+    public function getLocaleCode(): ?string
+    {
+        return $this->getDataByKey('locale_code');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLocaleCode(?string $localeCode)
+    {
+        return $this->setData('locale_code', $localeCode);
     }
 }

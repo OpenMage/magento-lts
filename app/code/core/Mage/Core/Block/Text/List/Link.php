@@ -15,8 +15,8 @@
 class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
 {
     /**
-     * @param array $liParams
-     * @param array $aParams
+     * @param string|array $liParams
+     * @param string|array $aParams
      * @param string $innerText
      * @param string $afterText
      * @return $this

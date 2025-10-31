@@ -83,9 +83,10 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         $action->addActionLayoutHandles();
         if ($page->getRootTemplate()) {
-            $handle = ($page->getCustomRootTemplate()
-                        && $page->getCustomRootTemplate() != 'empty'
-                        && $inRange) ? $page->getCustomRootTemplate() : $page->getRootTemplate();
+            $customRootTemplate = $page->getCustomRootTemplate();
+            $handle = ($customRootTemplate
+                        && $customRootTemplate != 'empty'
+                        && $inRange) ? $customRootTemplate : $page->getRootTemplate();
             $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
 

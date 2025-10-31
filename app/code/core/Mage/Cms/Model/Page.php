@@ -16,49 +16,12 @@
  * @method Mage_Cms_Model_Resource_Page getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
  *
- * @method string getContentHeading()
- * @method $this setContentHeading(string $value)
- * @method string getContent()
- * @method $this setContent(string $value)
- * @method string getCreationTime()
- * @method $this setCreationTime(string $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method string getLayoutUpdateXml()
- * @method $this setLayoutUpdateXml(string $value)
- * @method bool hasCreationTime()
- * @method string getCustomTheme()
- * @method $this setCustomTheme(string $value)
- * @method string getCustomRootTemplate()
- * @method $this setCustomRootTemplate(string $value)
- * @method string getCustomLayoutUpdateXml()
- * @method $this setCustomLayoutUpdateXml(string $value)
- * @method string getCustomThemeFrom()
- * @method $this setCustomThemeFrom(string $value)
- * @method string getCustomThemeTo()
- * @method $this setCustomThemeTo(string $value)
- * @method string getIdentifier()
- * @method $this setIdentifier(string $value)
- * @method string getMetaDescription()
- * @method $this setMetaDescription(string $value)
- * @method string getMetaKeywords()
- * @method $this setMetaKeywords(string $value)
  * @method string getPreviewUrl()
- * @method string getRootTemplate()
- * @method $this setRootTemplate(string $value)
- * @method $this setStoreId(int $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method bool hasStores()
  * @method array getStores()
  * @method string getStoreCode()
- * @method string getStoreId()
- * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method string getUpdateTime()
- * @method $this setUpdateTime(string $value)
  */
-class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
+class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_Api_Data_PageInterface
 {
     public const NOROUTE_PAGE_ID = 'no-route';
 
@@ -174,5 +137,330 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     public function isUsedInStoreConfig(?array $paths = []): bool
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
+    }
+
+    public function hasCreationTime(): bool
+    {
+        return $this->hasData(self::DATA_CREATION_TIME);
+    }
+
+    /**
+     * @api
+     */
+    public function getPageId(): ?int
+    {
+        $pageId = $this->getDataByKey(self::DATA_ID);
+        return is_null($pageId) ? null : (int) $pageId;
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setPageId(?int $pageId)
+    {
+        return $this->setData(self::DATA_ID, $pageId);
+    }
+
+    /**
+     * @api
+     */
+    public function getContent(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CONTENT);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setContent(?string $content)
+    {
+        return $this->setData(self::DATA_CONTENT, $content);
+    }
+
+    /**
+     * @api
+     */
+    public function getContentHeading(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CONTENT_HEADING);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setContentHeading(?string $heading)
+    {
+        return $this->setData(self::DATA_CONTENT_HEADING, $heading);
+    }
+
+    /**
+     * @api
+     */
+    public function getCreationTime(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CREATION_TIME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCreationTime(?string $value)
+    {
+        return $this->setData(self::DATA_CREATION_TIME, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomLayoutUpdateXml(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_LAYOUT_UPDATE_XML);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomLayoutUpdateXml(?string $xml)
+    {
+        return $this->setData(self::DATA_CUSTOM_LAYOUT_UPDATE_XML, $xml);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomRootTemplate(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_ROOT_TEMPLATE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomRootTemplate(?string $template)
+    {
+        return $this->setData(self::DATA_CUSTOM_ROOT_TEMPLATE, $template);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomTheme(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomTheme(?string $from)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME, $from);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomThemeFrom(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME_FROM);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomThemeFrom(?string $from)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME_FROM, $from);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomThemeTo(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME_TO);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomThemeTo(?string $to)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME_TO, $to);
+    }
+
+    /**
+     * @api
+     */
+    public function getIdentifier(): ?string
+    {
+        return $this->getDataByKey(self::DATA_IDENTIFIER);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setIdentifier(?string $identifier)
+    {
+        return $this->setData(self::DATA_IDENTIFIER, $identifier);
+    }
+
+    /**
+     * @api
+     */
+    public function getIsActive(): int
+    {
+        return (int) $this->getDataByKey(self::DATA_IS_ACTIVE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setIsActive(int $value)
+    {
+        return $this->setData(self::DATA_IS_ACTIVE, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getLayoutUpdateXml(): ?string
+    {
+        return $this->getDataByKey(self::DATA_LAYOUT_UPDATE_XML);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setLayoutUpdateXml(?string $xml)
+    {
+        return $this->setData(self::DATA_LAYOUT_UPDATE_XML, $xml);
+    }
+
+    /**
+     * @api
+     */
+    public function getMetaDescription(): ?string
+    {
+        return $this->getDataByKey(self::DATA_META_DESCRIPTION);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setMetaDescription(?string $description)
+    {
+        return $this->setData(self::DATA_META_DESCRIPTION, $description);
+    }
+
+    /**
+     * @api
+     */
+    public function getMetaKeywords(): ?string
+    {
+        return $this->getDataByKey(self::DATA_META_KEYWORDS);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setMetaKeywords(?string $keywords)
+    {
+        return $this->setData(self::DATA_META_KEYWORDS, $keywords);
+    }
+
+    /**
+     * @api
+     */
+    public function getRootTemplate(): ?string
+    {
+        return $this->getDataByKey(self::DATA_ROOT_TEMPLATE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setRootTemplate(?string $template)
+    {
+        return $this->setData(self::DATA_ROOT_TEMPLATE, $template);
+    }
+
+    /**
+     * @api
+     */
+    public function getSortOrder(): int
+    {
+        return (int) $this->getDataByKey(self::DATA_SORT_ORDER);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setSortOrder(int $position)
+    {
+        return $this->setData(self::DATA_SORT_ORDER, $position);
+    }
+
+    /**
+     * @api
+     */
+    public function getStoreId(): ?int
+    {
+        return (int) $this->getDataByKey(self::DATA_STORE_ID);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setStoreId(int $storeId)
+    {
+        return $this->setData(self::DATA_STORE_ID, $storeId);
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->getDataByKey(self::DATA_TITLE);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTitle(?string $title)
+    {
+        return $this->setData(self::DATA_TITLE, $title);
+    }
+
+    /**
+     * @api
+     */
+    public function getUpdateTime(): ?string
+    {
+        return $this->getDataByKey(self::DATA_UPDATE_TIME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setUpdateTime(?string $time)
+    {
+        return $this->setData(self::DATA_UPDATE_TIME, $time);
     }
 }

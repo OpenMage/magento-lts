@@ -46,7 +46,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
-        $blockId = $this->getData('block_id');
+        $blockId = $this->getDataByKey('block_id');
         $blockHash = static::class . $blockId;
 
         if (isset(self::$_widgetUsageMap[$blockHash])) {

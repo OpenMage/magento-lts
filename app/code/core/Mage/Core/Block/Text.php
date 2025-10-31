@@ -11,26 +11,33 @@
  * Base html block
  *
  * @package    Mage_Core
- *
- * @method array getLiParams()
- * @method $this setLiParams(array $value)
- * @method array getAParams()
- * @method $this setAParams(array $value)
- * @method string getInnerText()
- * @method $this setInnerText(string $value)
- * @method string getAfterText()
- * @method $this setAfterText(string $value)
  */
 class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 {
+    public function getAfterText(): ?string
+    {
+        return $this->getData('after_text');
+    }
+
     /**
-     * @param string $text
      * @return $this
      */
-    public function setText($text)
+    public function setAfterText(?string $text)
     {
-        $this->setData('text', $text);
-        return $this;
+        return $this->setData('after_text', $text);
+    }
+
+    public function getInnerText(): ?string
+    {
+        return $this->getData('inner_text');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setInnerText(?string $text)
+    {
+        return $this->setData('inner_text', $text);
     }
 
     /**
@@ -39,6 +46,16 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
     public function getText()
     {
         return $this->getData('text');
+    }
+
+    /**
+     * @param string $text
+     * @return $this
+     */
+    public function setText($text)
+    {
+        $this->setData('text', $text);
+        return $this;
     }
 
     /**
@@ -52,6 +69,40 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
         } else {
             $this->setText($this->getText() . $text);
         }
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getAParams()
+    {
+        return $this->getData('a_params');
+    }
+
+    /**
+     * @param string|array $params
+     * @return $this
+     */
+    public function setAParams($params)
+    {
+        return $this->setData('a_params', $params);
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getLiParams()
+    {
+        return $this->getData('li_params');
+    }
+
+    /**
+     * @param string|array $params
+     * @return $this
+     */
+    public function setLiParams($params)
+    {
+        return $this->setData('li_params', $params);
     }
 
     /**

@@ -17,16 +17,11 @@
  *
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(int|false $value)
- * @method $this setCacheKey(string $value)
- * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
  * @method $this setDisabled(bool $value)
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
  * @method string getPosition()
- * @method $this setTemplate(string $value)
- * @method $this setType(string $value)
  * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
@@ -1419,7 +1414,15 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get tags array for saving cache
+     * @return $this
+     */
+    public function setCacheKey(string $cacheKey)
+    {
+        return $this->setData('cache_key', $cacheKey);
+    }
+
+    /**
+     * Get tags array for saving cached
      *
      * @return array
      */
@@ -1438,6 +1441,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         }
 
         return array_unique($tags);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCacheTags(array $cacheTags)
+    {
+        return $this->setData('cache_tags', $cacheTags);
     }
 
     /**
@@ -1482,6 +1493,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         }
 
         return $this->getData('cache_lifetime');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCacheLifetime($lifetime)
+    {
+        return $this->setData('cache_lifetime', $lifetime);
     }
 
     /**
@@ -1611,6 +1630,23 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTemplate()
+    {
+        return $this->getDataByKey('template');
+    }
+
+    /**
+     * @param string $template
+     * @return $this
+     */
+    public function setTemplate($template)
+    {
+        return $this->setData('template', $template);
     }
 
     public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool

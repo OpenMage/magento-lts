@@ -281,7 +281,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Clean non UTF-8 characters
      *
-     * @param string $string
+     * @param string|null $string
      * @return string
      */
     public function cleanString($string)

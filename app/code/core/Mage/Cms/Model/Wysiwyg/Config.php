@@ -88,16 +88,15 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'plugins'                       => [],
             'lang'                          => $lang,
         ]);
-        $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
+        $config->setData('directives_url_quoted', preg_quote($config->getDataByKey('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
+            $configNode = Mage::getConfig()->getNode('adminhtml/cms/browser');
             $config->addData([
-                'add_images'               => true,
-                'files_browser_window_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
-                'files_browser_window_width'
-                    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
-                'files_browser_window_height'
-                    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
+                'add_images'                    => true,
+                'files_browser_window_url'      => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
+                'files_browser_window_width'    => (int) $configNode->window_width,
+                'files_browser_window_height'   => (int) $configNode->window_height,
             ]);
         }
 
