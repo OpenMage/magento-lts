@@ -748,6 +748,10 @@ div.autocomplete ul li.selected {
   border: 1px solid #dfc97a !important;
   color: #2f2f2f !important;
 }
+.notice-msg a {
+  color: #2f2f2f !important;
+  text-decoration: underline;
+}
 
 .error-msg {
   background-image: url(images/icon-error.png) !important;
@@ -757,6 +761,10 @@ div.autocomplete ul li.selected {
   background-position: 8px center !important;
   border: 1px solid #963535 !important;
   color: #963535 !important;
+}
+.error-msg a {
+  color: #963535 !important;
+  text-decoration: underline;
 }
 
 .success-msg {
@@ -768,6 +776,10 @@ div.autocomplete ul li.selected {
   border: 1px solid #ceceb6 !important;
   color: #185b00 !important;
 }
+.success-msg a {
+  color: #185b00 !important;
+  text-decoration: underline;
+}
 
 .warning-msg {
   background-image: url(images/information-variant.svg) !important;
@@ -777,6 +789,10 @@ div.autocomplete ul li.selected {
   background-position: 8px center !important;
   border: 1px solid #d87e34 !important;
   color: #2f2f2f !important;
+}
+.warning-msg a {
+  color: #2f2f2f !important;
+  text-decoration: underline;
 }
 
 .links-feed {
