@@ -32,7 +32,8 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
                 $this->escapeHtml(Mage::helper('adminnotification')->__('Mark as Read')) . '</a> | '
             : '';
 
-        $deleteConfirmHtml = sprintf("deleteConfirm('%s', this.href)",
+        $deleteConfirmHtml = sprintf(
+            "deleteConfirm('%s', this.href)",
             Mage::helper('core')->jsQuoteEscape(Mage::helper('adminnotification')->__('Are you sure?')),
         );
 
