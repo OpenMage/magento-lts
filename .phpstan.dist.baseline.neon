@@ -691,19 +691,13 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Resource_Order_Collection_Abstract::setOrderFilter() expects int|Mage_Sales_Model_Order, array<string, mixed> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			rawMessage: 'Parameter #1 $prefix of function uniqid expects string, int<0, max> given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
@@ -1225,7 +1219,7 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 3
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
@@ -1537,12 +1531,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer.php
 
 		-
-			rawMessage: 'Parameter #2 $filterBlock (Varien_Object) of method Mage_Catalog_Model_Layer_Filter_Attribute::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			rawMessage: 'Parameter #1 $range of method Mage_Catalog_Model_Layer_Filter_Decimal::_renderItemLabel() expects int, string given.'
 			identifier: argument.type
 			count: 1
@@ -1550,18 +1538,6 @@ parameters:
 
 		-
 			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock (Mage_Catalog_Block_Layer_Filter_Decimal) of method Mage_Catalog_Model_Layer_Filter_Decimal::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock of method Mage_Catalog_Model_Layer_Filter_Abstract::apply() expects null, Mage_Catalog_Block_Layer_Filter_Decimal given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
@@ -1729,7 +1705,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
@@ -1747,7 +1723,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
@@ -2167,12 +2143,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
-			rawMessage: 'Return type (int) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row::_getProduct() should be compatible with return type (null) of method Mage_CatalogRule_Model_Action_Index_Refresh::_getProduct()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
-
-		-
 			rawMessage: 'Parameter #1 $combine of method Mage_CatalogRule_Model_Observer::_removeAttributeFromConditions() expects Mage_CatalogRule_Model_Rule_Condition_Combine, Mage_Rule_Model_Condition_Combine given.'
 			identifier: argument.type
 			count: 1
@@ -2479,7 +2449,7 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(string): bool)|null, ''trim'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(string): bool)|null, Closure(string, string=): string given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Helper/EnvironmentConfigLoader.php
@@ -2627,18 +2597,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Core/Model/Encryption.php
-
-		-
-			rawMessage: Negated boolean expression is always false.
-			identifier: booleanNot.alwaysFalse
-			count: 2
-			path: app/code/core/Mage/Core/Model/File/Storage.php
-
-		-
-			rawMessage: Result of || is always false.
-			identifier: booleanOr.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage.php
 
 		-
 			rawMessage: 'Parameter #1 $params of method Mage_Core_Model_File_Storage_Database_Abstract::__construct() expects array, string|null given.'
@@ -3223,7 +3181,7 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/V2.php
 
 		-
-			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, ''\\intval'' given.'
+			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Product/Type.php
@@ -4285,12 +4243,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Resource_Order_Collection_Abstract::setOrderFilter() expects int|Mage_Sales_Model_Order, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Api2/Order.php
-
-		-
 			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Resource::_critical() expects int|null, string given.'
 			identifier: argument.type
 			count: 2
@@ -4939,12 +4891,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Dhl::$_request (Mage_Shipping_Model_Rate_Request|null) does not accept Varien_Object.'
 			identifier: assign.propertyType
 			count: 1
@@ -5023,12 +4969,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Fedex::$_result (Mage_Shipping_Model_Rate_Result|null) does not accept Mage_Shipping_Model_Tracking_Result.'
 			identifier: assign.propertyType
 			count: 2
@@ -5047,28 +4987,10 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array|false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method SimpleXMLElement::addChild() expects string|null, float given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 18
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
 
 		-
 			rawMessage: 'Parameter #2 $serviceType of method Mage_Usa_Model_Shipping_Carrier_Usps::_formUsSignatureConfirmationShipmentRequest() expects string, array|bool given.'
@@ -6001,18 +5923,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			rawMessage: 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, resource|false given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			rawMessage: Empty array passed to foreach.
 			identifier: foreach.emptyArray
 			count: 1
@@ -6287,12 +6197,6 @@ parameters:
 			identifier: booleanOr.leftAlwaysFalse
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
-
-		-
-			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
-			identifier: argument.type
-			count: 2
-			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
 			rawMessage: 'Parameter #2 $enable of function imageinterlace expects bool|null, int given.'

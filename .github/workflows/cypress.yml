@@ -21,7 +21,7 @@ jobs:
           autostart: false
 
       # install DDEV configuration
-      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }} --web-environment="MAGE_IS_DEVELOPER_MODE=1"
+      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }} --web-environment="MAGE_IS_DEVELOPER_MODE=1,OPENMAGE_CONFIG_OVERRIDE_ALLOWED=1,OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME=ENV name default,OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__PHONE=ENV phone website,OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__ADDRESS=ENV address store"
 
       # install composer dependencies
       - run: ddev composer install
@@ -39,7 +39,7 @@ jobs:
       - run: ddev cypress-run --config-file .cypress.config.js
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ !success() }}
         with:
           name: cypress-screenshots

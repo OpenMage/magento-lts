@@ -153,7 +153,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function isPreprocessed()
     {
-        return strlen($this->getTemplateTextPreprocessed()) > 0;
+        return $this->getTemplateTextPreprocessed() !== '';
     }
 
     /**
@@ -340,7 +340,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
@@ -349,7 +349,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                     $problem->addQueueData($queue);
                 }
 
-                $problem->addErrorData($e);
+                $problem->addErrorData($exception);
                 $problem->save();
 
                 if (!is_null($queue)) {
@@ -357,7 +357,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 }
             } else {
                 // Otherwise throw error to upper level
-                throw $e;
+                throw $exception;
             }
 
             return false;

@@ -547,9 +547,9 @@ class Mage_Paypal_Model_Express_Checkout
             $debugData['response'] = $response;
             $logger->log($debugData);
             return $response;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $logger->log($debugData);
-            throw $e;
+            throw $exception;
         }
     }
 
@@ -906,11 +906,10 @@ class Mage_Paypal_Model_Express_Checkout
     {
         $options = $this->_prepareShippingOptions($address, false);
         foreach ($options as $option) {
-            if ($selectedCode === $option['code'] // the proper case as outlined in documentation
-                || $selectedCode === $option['name'] // workaround: PayPal may return name instead of the code
-                // workaround: PayPal may concatenate code and name, and return it instead of the code:
-                || $selectedCode === "{$option['code']} {$option['name']}"
-            ) {
+            // the proper case as outlined in documentation
+            // workaround: PayPal may return name instead of the code
+            // workaround: PayPal may concatenate code and name, and return it instead of the code:
+            if (in_array($selectedCode, [$option['code'], $option['name'], "{$option['code']} {$option['name']}"], true)) {
                 return $option['code'];
             }
         }

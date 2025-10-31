@@ -585,9 +585,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             }
 
             $result = $this->getQuote()->updateItem($itemId, $request, $updatingParams);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->getCheckoutSession()->setUseNotice(false);
-            $result = $e->getMessage();
+            $result = $mageCoreException->getMessage();
         }
 
         /**

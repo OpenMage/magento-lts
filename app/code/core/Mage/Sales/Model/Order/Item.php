@@ -42,7 +42,7 @@
  * @method $this setName(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
- * @method string getAppliedRuleIds()
+ * @method string|null getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)

@@ -56,6 +56,7 @@ namespace PHPSTORM_META {
             'catalog/image' => \Mage_Catalog_Helper_Image::class,
             'catalog/map' => \Mage_Catalog_Helper_Map::class,
             'catalog/output' => \Mage_Catalog_Helper_Output::class,
+            'catalog/price' => \Mage_Catalog_Helper_Price::class,
             'catalog/product' => \Mage_Catalog_Helper_Product::class,
             'catalog/product_compare' => \Mage_Catalog_Helper_Product_Compare::class,
             'catalog/product_configuration' => \Mage_Catalog_Helper_Product_Configuration::class,

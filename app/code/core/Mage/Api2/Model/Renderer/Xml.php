@@ -30,7 +30,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      * @var array
      */
     protected $_replacementInTagName = [
-        '!' => '', '"' => '', '#' => '', '$' => '', '%' => '', '&' => '', '\'' => '',
+        '!' => '', '"' => '', '#' => '', '$' => '', '%' => '', '&' => '', "'" => '',
         '(' => '', ')' => '', '*' => '', '+' => '', ',' => '', '/' => '', ';' => '',
         '<' => '', '=' => '', '>' => '', '?' => '', '@' => '', '[' => '', '\\' => '',
         ']' => '', '^' => '', '`' => '', '{' => '', '|' => '', '}' => '', '~' => '',
@@ -110,6 +110,10 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      */
     protected function _prepareValue($value)
     {
+        if ($value === null) {
+            return '';
+        }
+
         return str_replace(
             array_keys($this->_replacementInTagValue),
             array_values($this->_replacementInTagValue),

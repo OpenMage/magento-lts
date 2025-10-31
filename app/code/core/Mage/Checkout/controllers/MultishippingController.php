@@ -365,8 +365,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING,
             );
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $this->_getCheckoutSession()->addError($exception->getMessage());
             $this->_redirect('*/*/shipping');
         }
     }

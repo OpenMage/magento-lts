@@ -813,8 +813,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
 
             $this->_debug($debugData);
-        } catch (Exception $e) {
-            $this->_errors[$e->getCode()] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_errors[$exception->getCode()] = $exception->getMessage();
         }
 
         return $this->_parseResponse($responseBody);
@@ -919,7 +919,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $responseError =  Mage::helper('usa')->__('The response is in wrong format.');
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
@@ -1649,7 +1649,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             $xml = simplexml_load_string($response);
             if (!is_object($xml)) {
                 $errorTitle = Mage::helper('usa')->__('Response is in the wrong format');

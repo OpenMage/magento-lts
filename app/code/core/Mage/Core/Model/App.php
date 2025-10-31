@@ -364,8 +364,8 @@ class Mage_Core_Model_App
 
         try {
             Mage::dispatchEvent('core_app_run_after', ['app' => $this]);
-        } catch (Throwable $e) {
-            Mage::logException($e);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
         }
 
         return $this;
@@ -634,6 +634,7 @@ class Mage_Core_Model_App
      */
     protected function _initStores()
     {
+        Mage::unregister('current_env_config');
         $this->_stores   = [];
         $this->_groups   = [];
         $this->_website  = null;

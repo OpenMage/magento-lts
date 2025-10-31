@@ -76,7 +76,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         // normalize to all lower case before we start using them
         $optionLabels = array_map(function ($value) {
-            return array_map('Mage_ConfigurableSwatches_Helper_Data::normalizeKey', $value);
+            return array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKey(...), $value);
         }, $optionLabels);
 
         foreach ($parentProducts as $parentProduct) {

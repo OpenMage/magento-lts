@@ -340,10 +340,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             return false;
         }
 
-        if ($response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
-            && $response->getResult() != self::RESPONSE_CODE_DECLINED_BY_FILTER
-            && $response->getResult() != self::RESPONSE_CODE_APPROVED
-        ) {
+        if (!in_array($response->getResult(), [
+            self::RESPONSE_CODE_FRAUDSERVICE_FILTER,
+            self::RESPONSE_CODE_DECLINED_BY_FILTER,
+            self::RESPONSE_CODE_APPROVED,
+        ])) {
             if ($order->getState() != Mage_Sales_Model_Order::STATE_CANCELED) {
                 $order->registerCancellation($response->getRespmsg())->save();
             }
@@ -620,7 +621,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check response from Payflow gateway.
      *
      * @deprecated since 1.6.2.0
-     * @return null
      */
     protected function _getDocumentFromResponse()
     {

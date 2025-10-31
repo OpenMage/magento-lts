@@ -607,8 +607,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Return data for affected product
-     *
-     * @return null
      */
     protected function _getProduct()
     {

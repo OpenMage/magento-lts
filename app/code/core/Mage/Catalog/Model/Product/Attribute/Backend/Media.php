@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             return;
         }
 
-        if (!is_array($value['images']) && strlen($value['images']) > 0) {
+        if (!is_array($value['images']) && (string) $value['images'] !== '') {
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['values'] = [];
         }
 
-        if (!is_array($value['values']) && strlen($value['values']) > 0) {
+        if (!is_array($value['values']) && (string) $value['values'] !== '') {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
 
@@ -340,8 +340,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $storageHelper->saveFile($this->_getConfig()->getTmpMediaShortUrl($fileName));
                 $ioAdapter->chmod($this->_getConfig()->getTmpMediaPath($fileName), 0777);
             }
-        } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $e->getMessage()));
+        } catch (Exception $exception) {
+            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $exception->getMessage()));
         }
 
         $fileName = str_replace(DS, '/', $fileName);

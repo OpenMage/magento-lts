@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     protected function _getHeaderTitleHtml($element)
     {
         return '<div class="entry-edit-head collapseable" ><a id="' . $element->getHtmlId()
-            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . '\', \''
+            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . "', '"
             . $this->getUrl('*/*/state') . '\'); return false;">' . $element->getLegend() . '</a></div>';
     }
 

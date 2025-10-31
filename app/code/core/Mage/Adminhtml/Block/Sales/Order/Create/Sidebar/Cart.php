@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
         );
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
             'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
-            'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',
+            'onclick' => "order.clearShoppingCart('" . $deleteAllConfirmString . "')",
             'style' => 'float: right;',
         ]);
         $this->setChild('empty_customer_cart_button', $button);

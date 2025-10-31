@@ -20,6 +20,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     public const SCOPE_STORES   = 'stores';
 
+    public const SCOPE_ENV      = 'env';
+
     /**
      * Config data array
      *
@@ -73,6 +75,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             self::SCOPE_DEFAULT  => Mage::helper('adminhtml')->__('[GLOBAL]'),
             self::SCOPE_WEBSITES => Mage::helper('adminhtml')->__('[WEBSITE]'),
             self::SCOPE_STORES   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
+            self::SCOPE_ENV      => Mage::helper('adminhtml')->__('[ENV]'),
         ];
     }
 
@@ -380,7 +383,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
                 }
 
-                $field = $fieldset->addField($id, $fieldType, [
+                $elementFieldData = [
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
@@ -396,7 +399,15 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'scope_label'           => $this->getScopeLabel($element),
                     'can_use_default_value' => $this->canUseDefaultValue((int) $element->show_in_default),
                     'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
-                ]);
+                ];
+                if ($this->isOverwrittenByEnvVariable($path)) {
+                    $elementFieldData['scope_label'] = $this->_scopeLabels[self::SCOPE_ENV];
+                    $elementFieldData['disabled'] = 1;
+                    $elementFieldData['can_use_default_value'] = 0;
+                    $elementFieldData['can_use_website_value'] = 0;
+                }
+
+                $field = $fieldset->addField($id, $fieldType, $elementFieldData);
                 $this->_prepareFieldOriginalData($field, $element);
 
                 if (isset($element->validate)) {
@@ -646,6 +657,32 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Returns true if element was overwritten by ENV variable
+     */
+    public function isOverwrittenByEnvVariable(string $path): bool
+    {
+        /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+        $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+
+        $scope      = $this->getScope();
+        $store      = Mage::app()->getRequest()->getParam('store');
+        $website    = Mage::app()->getRequest()->getParam('website');
+
+        if ($store && $website) {
+            $path = "$scope/$store/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+
+        if ($website) {
+            $path = "$scope/$website/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+
+        $path = "$scope/$path";
+        return $environmentConfigLoaderHelper->hasPath($path);
+    }
+
+    /**
      * Retrieve label for scope
      *
      * @param Mage_Core_Model_Config_Element $element
@@ -720,6 +757,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 ->getBlockClassName('adminhtml/system_config_form_field_select_allowspecific'),
             'image'         => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_image'),
             'file'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_file'),
+            'logo'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_logo'),
         ];
     }
 

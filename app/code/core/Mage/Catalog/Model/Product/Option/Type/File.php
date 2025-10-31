@@ -135,12 +135,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         // Process new uploaded file
         try {
             $this->_validateUploadedFile();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($this->getSkipCheckRequiredOption()) {
                 $this->setUserValue(null);
                 return $this;
             } else {
-                Mage::throwException($e->getMessage());
+                Mage::throwException($exception->getMessage());
             }
         }
 
