@@ -22,14 +22,12 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_Page_Block_Html_Head $head */
-        $head = $this->getLayout()->getBlock('head');
-        if ($head) {
-            $head->addItem('js', 'prototype/window.js')
-                ->addItem('js_css', 'prototype/windows/themes/default.css')
-                ->addCss('lib/prototype/windows/themes/magento.css')
-                ->addItem('js', 'mage/adminhtml/variables.js');
-        }
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
+        $head
+            ?->addItem('js', 'prototype/window.js')
+            ->addItem('js_css', 'prototype/windows/themes/default.css')
+            ->addCss('lib/prototype/windows/themes/magento.css')
+            ->addItem('js', 'mage/adminhtml/variables.js');
 
         return parent::_prepareLayout();
     }

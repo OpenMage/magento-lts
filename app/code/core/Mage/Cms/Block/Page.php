@@ -48,11 +48,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     {
         $page = $this->getPage();
         $breadcrumbsArray = [];
-        $breadcrumbs = null;
 
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
-            && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
+            && ($breadcrumbs = $this->getLayout()->getBlockBreadcrumbs())
             && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page'))
             && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))
         ) {
@@ -83,14 +82,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             }
         }
 
-        /** @var Mage_Page_Block_Html $root */
-        $root = $this->getLayout()->getBlock('root');
-        if ($root) {
-            $root->addBodyClass('cms-' . $page->getIdentifier());
-        }
+        $root = $this->getLayout()->getBlockRoot();
+        $root?->addBodyClass('cms-' . $page->getIdentifier());
 
-        /** @var Mage_Page_Block_Html_Head $head */
-        $head = $this->getLayout()->getBlock('head');
+        $head = $this->getLayout()->getBlockHead();
         if ($head) {
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());

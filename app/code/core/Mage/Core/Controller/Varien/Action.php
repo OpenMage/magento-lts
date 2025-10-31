@@ -979,16 +979,16 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _renderTitles()
     {
         if ($this->_isLayoutLoaded && $this->_titles) {
-            $titleBlock = $this->getLayout()->getBlock('head');
-            if ($titleBlock) {
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
                 if (!$this->_removeDefaultTitle) {
-                    $title = trim($titleBlock->getTitle());
+                    $title = trim($head->getTitle());
                     if ($title) {
                         array_unshift($this->_titles, $title);
                     }
                 }
 
-                $titleBlock->setTitle(implode(' / ', array_reverse($this->_titles)));
+                $head->setTitle(implode(' / ', array_reverse($this->_titles)));
             }
         }
     }

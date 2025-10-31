@@ -124,23 +124,24 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function getBreadcrumbs($controller)
     {
-        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
-        $breadcrumbs = $controller->getLayout()->getBlock('breadcrumbs');
-        $breadcrumbs->addCrumb(
-            'home',
-            [
-                'label' => $this->__('Home'),
-                'title' => $this->__('Go to Home Page'),
-                'link'  => Mage::getBaseUrl(),
-            ],
-        );
-        $breadcrumbs->addCrumb(
-            'cms_page',
-            [
-                'label' => $this->__('Order Information'),
-                'title' => $this->__('Order Information'),
-            ],
-        );
+        $breadcrumbs = $controller->getLayout()->getBlockBreadcrumbs();
+        if ($breadcrumbs) {
+            $breadcrumbs->addCrumb(
+                'home',
+                [
+                    'label' => $this->__('Home'),
+                    'title' => $this->__('Go to Home Page'),
+                    'link'  => Mage::getBaseUrl(),
+                ],
+            );
+            $breadcrumbs->addCrumb(
+                'cms_page',
+                [
+                    'label' => $this->__('Order Information'),
+                    'title' => $this->__('Order Information'),
+                ],
+            );
+        }
     }
 
     /**
