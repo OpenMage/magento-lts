@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Adminhtml_Block_System_Config_Form as Form;
+
 /**
  * CMS Page Helper
  *
@@ -29,6 +31,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      *
      * @param string $pageId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
     {
@@ -41,8 +44,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
-    protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
+    protected function _renderPage(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
@@ -129,6 +133,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
@@ -140,6 +145,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      *
      * @param string $pageId
      * @return string|null
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPageUrl($pageId = null)
     {
@@ -191,15 +197,16 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
+     * @param Form::SCOPE_* $scope
      * @throws Mage_Core_Exception
      */
     public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
     {
         return match ($scope) {
-            Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
-            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
-            Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES => sprintf(
+            Form::SCOPE_ENV => Mage::helper('cms')->__('Environment Config'),
+            Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
+            Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
+            Form::SCOPE_STORES => sprintf(
                 '%s - %s',
                 Mage::app()->getStore($scopeId)->getGroup()->getName(),
                 Mage::app()->getStore($scopeId)->getName(),
