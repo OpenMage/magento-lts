@@ -28,6 +28,8 @@ return $config
         'phpdoc_single_line_var_spacing' => true,
         // Sorts PHPDoc types.
         'phpdoc_types_order' => true,
+        // @var and @type annotations must have type and name in the correct order.
+        'phpdoc_var_annotation_correct_order' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.

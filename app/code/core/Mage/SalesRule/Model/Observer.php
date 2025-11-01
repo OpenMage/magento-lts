@@ -193,6 +193,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param string $attributeCode
      * @return $this
+     * @throws Throwable
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
@@ -201,10 +202,9 @@ class Mage_SalesRule_Model_Observer
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
+        /** @var Mage_SalesRule_Model_Rule $rule */
         foreach ($collection as $rule) {
-            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
