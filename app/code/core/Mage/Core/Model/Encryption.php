@@ -143,7 +143,7 @@ class Mage_Core_Model_Encryption
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_MD5)
     {
-        if (is_null($hash)) {
+        if ($hash === null) {
             $hash = '';
         }
 
