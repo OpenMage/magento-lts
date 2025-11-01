@@ -71,31 +71,41 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = [
-            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
-            'template_type'         => 'Int',
-            'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false],
-        ];
-        $data = [];
-        foreach (array_keys($validators) as $validateField) {
-            $data[$validateField] = $this->getDataUsingMethod($validateField);
-        }
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $validateInput = new Zend_Filter_Input([], $validators, $data);
-        if (!$validateInput->isValid()) {
-            $errorMessages = [];
-            foreach ($validateInput->getMessages() as $messages) {
-                if (is_array($messages)) {
-                    foreach ($messages as $message) {
-                        $errorMessages[] = $message;
-                    }
-                } else {
-                    $errorMessages[] = $messages;
-                }
-            }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_code'),
+            message: "You must give a non-empty value for field 'template_code'",
+        ));
 
-            Mage::throwException(implode("\n", $errorMessages));
+        $message = "You must give a non-empty value for field 'template_type'";
+        $templateType = $this->getDataUsingMethod('template_type');
+
+        $violations->append($validator->validateNotEmpty(
+            value: $templateType,
+            message: $message,
+        ));
+
+        $violations->append($validator->validateType(
+            value: $templateType,
+            type: 'int',
+            message: $message,
+        ));
+
+        $violations->append($validator->validateEmail(
+            value: $this->getDataUsingMethod('template_sender_email'),
+            message: "You must give a non-empty value for field 'template_sender_email'",
+        ));
+
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_sender_name'),
+            message: "You must give a non-empty value for field 'template_sender_name'",
+        ));
+
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
+            Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }
 
@@ -103,6 +113,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Processing object before save data
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -273,7 +284,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array                                     $variables    template variables
      * @param   string|null                               $name         receiver name (if subscriber model not specified)
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
-     * @return bool
+     * @return  bool
+     * @throws  Exception|Throwable
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
@@ -370,6 +382,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Prepare Process (with save)
      *
      * @return $this
+     * @throws Throwable
      * @deprecated since 1.4.0.1
      */
     public function preprocess()
@@ -384,6 +397,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve processed template subject
      *
      * @return string
+     * @throws Exception
      */
     public function getProcessedTemplateSubject(array $variables)
     {

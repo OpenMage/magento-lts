@@ -358,27 +358,32 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('User Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('api')->__('User Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('First Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('api')->__('First Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('api')->__('Last Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
-        }
+        $violations->append($validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ));
 
         if ($this->hasNewApiKey()) {
             $apiKey = $this->getNewApiKey();
@@ -388,18 +393,39 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
-            if (strlen($apiKey) < $minCustomerPasswordLength) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength));
-            }
+            $violations->append($validator->validateLength(
+                value: $apiKey,
+                min: $minCustomerPasswordLength,
+                minMessage: $this->_getHelper('api')
+                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
+            ));
 
-            if (!preg_match('/[a-z]/iu', $apiKey) || !preg_match('/[0-9]/u', $apiKey)) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must include both numeric and alphabetic characters.'));
-            }
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[a-z]/iu',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
 
-            if ($this->hasApiKeyConfirmation() && $apiKey != $this->getApiKeyConfirmation()) {
-                $errors->append($this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'));
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[0-9]/u',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
+
+            if ($this->hasApiKeyConfirmation()) {
+                $violations->append($validator->validateIdentical(
+                    value: $apiKey,
+                    compare: $this->getApiKeyConfirmation(),
+                    message: $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
+                ));
+            }
+        }
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
             }
         }
 

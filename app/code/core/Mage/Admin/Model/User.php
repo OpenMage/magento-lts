@@ -40,7 +40,7 @@
  * @method $this setIsActive(int $value)
  * @method array getExtra()
  * @method $this setExtra(string $value)
- * @method int getUserId()
+ * @method null|int getUserId()
  * @method int getRoleId()
  * @method bool hasNewPassword()
  * @method string getNewPassword()
@@ -189,6 +189,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param   array|string $data
      * @return  $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function saveExtra($data)
     {
@@ -345,7 +346,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve user identifier
      *
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -416,6 +417,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     public function validatePasswordHash(string $string1, string $string2): bool
     {
         return Mage::helper('core')->validateHash($string1, $string2);
@@ -426,8 +430,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return  $this
+     * @return $this
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function login($username, $password)
     {
@@ -529,7 +534,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                     return (string) $child->action;
                 } elseif ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string) $child->action;
+                    return $action ?: (string) $child->action;
                 }
             }
         }
@@ -554,6 +559,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @deprecated Please use getStartupPageUrl() method instead
      * @see getStartupPageUrl()
      * @return string
+     * @codeCoverageIgnore
      */
     public function getStatrupPageUrl()
     {
@@ -585,26 +591,37 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns TRUE or array of errors.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('User Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('adminhtml')->__('User Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('First Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('adminhtml')->__('First Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('Last Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('adminhtml')->__('Last Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append(Mage::helper('adminhtml')->__('Please enter a valid email.'));
+        $violations->append($validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ));
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         if ($this->hasNewPassword()) {
@@ -615,18 +632,26 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($password)) {
             $minAdminPasswordLength = $this->getMinAdminPasswordLength();
-            if (Mage::helper('core/string')->strlen($password) < $minAdminPasswordLength) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must be at least of %d characters.', $minAdminPasswordLength));
+            $violations = new ArrayObject();
+            $violations->append($validator->validatePassword(
+                value: $password,
+                minLength: $minAdminPasswordLength,
+                message: Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
+                minMessage: Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $minAdminPasswordLength),
+            ));
+
+            if ($this->hasPasswordConfirmation()) {
+                $violations->append($validator->validateIdentical(
+                    value: $this->getPasswordConfirmation(),
+                    compare: $password,
+                    message: Mage::helper('adminhtml')->__('Password confirmation must be same as password.'),
+                ));
             }
 
-            if (!preg_match('/[a-z]/iu', $password) || !preg_match('/[0-9]/u', $password)) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must include both numeric and alphabetic characters.'));
-            }
-
-            if ($this->hasPasswordConfirmation() && $password != $this->getPasswordConfirmation()) {
-                $errors->append(Mage::helper('adminhtml')->__('Password confirmation must be same as password.'));
+            foreach ($violations as $violation) {
+                foreach ($violation as $error) {
+                    $errors->append($error->getMessage());
+                }
             }
 
             Mage::dispatchEvent('admin_user_validate', [
@@ -648,17 +673,19 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * Validate password against current user password
-     * Returns true or array of errors.
+     * Returns TRUE or array of errors.
      *
      * @param string $password
      * @return array|true
-     * @throws Zend_Validate_Exception
+     * @throws Exception
      */
     public function validateCurrentPassword($password)
     {
-        $result = [];
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
+        $result     = [];
 
-        if (!Zend_Validate::is($password, 'NotEmpty')) {
+        if ($validator->validateNotEmpty($password)->count() > 0) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
         } elseif (is_null($this->getId()) || !Mage::helper('core')->validateHash($password, $this->getPassword())) {
             $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');
