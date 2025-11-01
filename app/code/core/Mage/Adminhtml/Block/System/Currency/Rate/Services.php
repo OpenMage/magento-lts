@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
 {
     /**
      * Set import services template
-     *
      */
     protected function _construct()
     {

@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * Usa Ups type action Dropdown source
  *
  * @package    Mage_Usa

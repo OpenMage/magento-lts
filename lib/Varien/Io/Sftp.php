@@ -32,7 +32,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @param string $args[username] Remote username
      * @param string $args[password] Connection password
      * @param int $args[timeout] Connection timeout [=10]
-     *
      */
     public function open(array $args = [])
     {
@@ -55,7 +54,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Close a connection
-     *
      */
     public function close()
     {
@@ -92,7 +90,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Delete a directory
-     *
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -127,7 +124,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Get current working directory
-     *
      */
     public function pwd()
     {
@@ -136,7 +132,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Change current working directory
-     *
      */
     public function cd($dir)
     {
@@ -145,7 +140,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Read a file
-     *
      */
     public function read($filename, $dest = null)
     {
@@ -167,7 +161,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Delete a file
-     *
      */
     public function rm($filename)
     {
@@ -176,7 +169,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Rename or move a directory or a file
-     *
      */
     public function mv($src, $dest)
     {
@@ -185,7 +177,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Chamge mode of a directory or a file
-     *
      */
     public function chmod($filename, $mode)
     {
@@ -194,7 +185,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Get list of cwd subdirectories and files
-     *
      */
     public function ls($grep = null)
     {

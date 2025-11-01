@@ -154,7 +154,6 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param string $design
      * @return bool
      * @deprecated after 1.4.2.0-beta1
-     *
      */
     protected function _isApplyDesign($design, array $date)
     {

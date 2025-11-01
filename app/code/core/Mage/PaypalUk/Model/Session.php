@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PaypalUk transaction session namespace
  *
  * @package    Mage_PaypalUk

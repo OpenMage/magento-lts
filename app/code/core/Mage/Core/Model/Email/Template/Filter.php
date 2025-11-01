@@ -58,7 +58,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
     /**
      * Setup callbacks for filters
-     *
      */
     public function __construct()
     {

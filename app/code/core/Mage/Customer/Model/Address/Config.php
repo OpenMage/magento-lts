@@ -74,7 +74,6 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Define node
-     *
      */
     public function __construct()
     {

@@ -223,7 +223,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Import and export Page
-     *
      */
     public function importExportAction()
     {
@@ -386,7 +385,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * export action from import/export tax
-     *
      */
     public function exportPostAction()
     {

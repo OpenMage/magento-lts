@@ -16,13 +16,11 @@ class Mage_Api_Model_Acl extends Zend_Acl
 {
     /**
      * All the group roles are prepended by G
-     *
      */
     public const ROLE_TYPE_GROUP = 'G';
 
     /**
      * All the user roles are prepended by U
-     *
      */
     public const ROLE_TYPE_USER = 'U';
 
@@ -31,7 +29,6 @@ class Mage_Api_Model_Acl extends Zend_Acl
      * G - Guest customer (anonymous)
      * C - Authenticated customer
      * A - Authenticated admin user
-     *
      */
     public const USER_TYPE_GUEST    = 'G';
 
@@ -41,19 +38,16 @@ class Mage_Api_Model_Acl extends Zend_Acl
 
     /**
      * Permission level to deny access
-     *
      */
     public const RULE_PERM_DENY = 0;
 
     /**
      * Permission level to inheric access from parent role
-     *
      */
     public const RULE_PERM_INHERIT = 1;
 
     /**
      * Permission level to allow access
-     *
      */
     public const RULE_PERM_ALLOW = 2;
 

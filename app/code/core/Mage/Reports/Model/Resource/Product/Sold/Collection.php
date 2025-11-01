@@ -16,7 +16,6 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
 {
     /**
      * Initialize resources
-     *
      */
     protected function _construct()
     {

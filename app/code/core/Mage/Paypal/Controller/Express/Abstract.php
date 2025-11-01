@@ -535,7 +535,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
     /**
      * Redirect to login page
-     *
      */
     public function redirectLogin()
     {

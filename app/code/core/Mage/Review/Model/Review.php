@@ -46,13 +46,11 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated after 1.3.2.4
-     *
      */
     public const ENTITY_PRODUCT = 1;
 
     /**
      * Review entity codes
-     *
      */
     public const ENTITY_PRODUCT_CODE   = 'product';
 

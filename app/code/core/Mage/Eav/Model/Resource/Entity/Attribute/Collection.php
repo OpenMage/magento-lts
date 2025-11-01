@@ -36,7 +36,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
 
     /**
      * Resource model initialization
-     *
      */
     protected function _construct()
     {

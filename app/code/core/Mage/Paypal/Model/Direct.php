@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PayPal Direct Module
  *
  * @package    Mage_Paypal

@@ -16,7 +16,6 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
 {
     /**
      * AdminNotification Resource initialization
-     *
      */
     protected function _construct()
     {

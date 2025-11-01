@@ -51,7 +51,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
 
     /**
      *  Collection initialization
-     *
      */
     protected function _construct()
     {

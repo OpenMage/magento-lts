@@ -16,7 +16,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 {
     /**
      * Billing agreements
-     *
      */
     public function indexAction()
     {
@@ -30,7 +29,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * Ajax action for billing agreements
-     *
      */
     public function gridAction()
     {
@@ -40,7 +38,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * View billing agreement action
-     *
      */
     public function viewAction()
     {
@@ -62,7 +59,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * Related orders ajax action
-     *
      */
     public function ordersGridAction()
     {
@@ -73,7 +69,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * Cutomer billing agreements ajax action
-     *
      */
     public function customerGridAction()
     {
@@ -84,7 +79,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
 
     /**
      * Cancel billing agreement action
-     *
      */
     public function cancelAction()
     {

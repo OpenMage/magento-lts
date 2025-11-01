@@ -249,7 +249,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
 
     /**
      * Filter which attributes are included in getFilterableAttributes
-     *
      */
     protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute $attribute): bool
     {

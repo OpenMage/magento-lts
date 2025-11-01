@@ -37,7 +37,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
     /**
      * Import constants
-     *
      */
     public const DEFAULT_SIZE      = 50;
 

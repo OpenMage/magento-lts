@@ -325,7 +325,6 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
 
     /**
      * Rebuild all index data
-     *
      */
     public function reindexAll()
     {

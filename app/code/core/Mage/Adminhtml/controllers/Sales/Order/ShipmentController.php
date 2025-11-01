@@ -553,7 +553,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create shipping label action for specific shipment
-     *
      */
     public function createLabelAction()
     {

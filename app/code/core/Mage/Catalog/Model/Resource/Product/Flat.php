@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
 
     /**
      * Init connection and resource table
-     *
      */
     protected function _construct()
     {

@@ -222,7 +222,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
     /**
      * Attributes validation action
-     *
      */
     public function validateAction()
     {

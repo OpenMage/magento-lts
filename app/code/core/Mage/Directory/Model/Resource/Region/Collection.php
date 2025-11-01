@@ -30,7 +30,6 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
 
     /**
      * Define main, country, locale region name tables
-     *
      */
     protected function _construct()
     {

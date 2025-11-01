@@ -23,7 +23,6 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
 
     /**
      * Collection model initialization
-     *
      */
     protected function _construct()
     {

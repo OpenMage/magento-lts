@@ -16,7 +16,6 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
 {
     /**
      * Initialize main table and column
-     *
      */
     protected function _construct()
     {

@@ -16,7 +16,6 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
 {
     /**
      * Transport billing agreement id
-     *
      */
     public const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
 
@@ -91,8 +90,6 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     }
 
     /**
-     *
-     *
      * @param Mage_Sales_Model_Quote $quote
      */
     abstract protected function _isAvailable($quote);

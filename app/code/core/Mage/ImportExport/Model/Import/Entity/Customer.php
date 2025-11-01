@@ -65,7 +65,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Customer constants
-     *
      */
     public const DEFAULT_GROUP_ID = 1;
 

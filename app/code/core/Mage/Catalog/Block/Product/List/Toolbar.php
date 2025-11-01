@@ -139,7 +139,6 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
 
     /**
      * Init Toolbar
-     *
      */
     protected function _construct()
     {

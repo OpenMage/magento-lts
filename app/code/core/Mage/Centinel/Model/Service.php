@@ -178,7 +178,6 @@ class Mage_Centinel_Model_Service extends Varien_Object
 
     /**
      * Drop validation state model
-     *
      */
     protected function _resetValidationState()
     {

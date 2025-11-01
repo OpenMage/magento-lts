@@ -27,7 +27,6 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
 
     /**
      * Initialize filter and define request variable
-     *
      */
     public function __construct()
     {

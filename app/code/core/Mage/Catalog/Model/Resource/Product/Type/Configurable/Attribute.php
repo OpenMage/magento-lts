@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
 
     /**
      * Inititalize connection and define tables
-     *
      */
     protected function _construct()
     {

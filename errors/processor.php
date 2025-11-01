@@ -9,7 +9,6 @@
 
 /**
  * Error processor
- *
  */
 class Error_Processor
 {

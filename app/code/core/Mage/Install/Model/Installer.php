@@ -16,7 +16,6 @@ class Mage_Install_Model_Installer extends Varien_Object
 {
     /**
      * Installer host response used to check urls
-     *
      */
     public const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
 

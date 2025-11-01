@@ -44,7 +44,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
 
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {

@@ -16,7 +16,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
 {
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {

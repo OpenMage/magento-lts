@@ -11,7 +11,6 @@
  * Object Cache
  *
  * Stores objects for reuse, cleanup and to avoid circular references
- *
  */
 class Varien_Object_Cache
 {

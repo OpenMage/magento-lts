@@ -494,7 +494,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Validate product
-     *
      */
     public function validateAction()
     {
@@ -957,7 +956,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Update product(s) status action
-     *
      */
     public function massStatusAction()
     {
@@ -1003,7 +1001,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
-     *
      */
     public function tagCustomerGridAction()
     {

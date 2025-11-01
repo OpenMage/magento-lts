@@ -87,7 +87,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
     /**
      * Initialize email template model
-     *
      */
     protected function _construct()
     {

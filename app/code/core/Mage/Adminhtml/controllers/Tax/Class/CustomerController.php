@@ -91,7 +91,6 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * delete class action
-     *
      */
     public function deleteAction()
     {

@@ -67,7 +67,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     protected $_errors = [];
 
     /**
-     *
      * @var Mage_Payment_Model_Method_Abstract
      */
     protected $_methodInstance = null;

@@ -16,7 +16,6 @@ class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Reso
 {
     /**
      * Init model
-     *
      */
     protected function _construct()
     {
@@ -25,7 +24,6 @@ class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Reso
 
     /**
      * Add expire filter (for abandoned batches)
-     *
      */
     public function addExpireFilter()
     {

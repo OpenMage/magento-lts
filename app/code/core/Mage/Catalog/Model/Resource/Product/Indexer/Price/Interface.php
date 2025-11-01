@@ -16,7 +16,6 @@ interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
 {
     /**
      * Reindex temporary (price result data) for all products
-     *
      */
     public function reindexAll();
 

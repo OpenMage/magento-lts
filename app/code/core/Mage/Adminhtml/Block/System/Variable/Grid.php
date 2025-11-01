@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
 {
     /**
      * Internal constructor
-     *
      */
     protected function _construct()
     {

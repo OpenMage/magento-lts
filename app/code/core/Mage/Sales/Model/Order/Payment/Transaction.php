@@ -52,7 +52,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Raw details key in additional info
-     *
      */
     public const RAW_DETAILS = 'raw_details_info';
 

@@ -57,7 +57,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {

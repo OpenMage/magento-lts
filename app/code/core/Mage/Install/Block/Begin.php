@@ -16,7 +16,6 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
 {
     /**
      * Set template
-     *
      */
     public function __construct()
     {

@@ -85,7 +85,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
 
     /**
      * Set default template
-     *
      */
     protected function _construct()
     {

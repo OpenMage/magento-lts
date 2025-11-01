@@ -30,7 +30,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {

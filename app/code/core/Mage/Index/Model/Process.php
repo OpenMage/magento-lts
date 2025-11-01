@@ -170,7 +170,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
     /**
      * Reindex all data what this process responsible is
-     *
      */
     public function reindexAll()
     {

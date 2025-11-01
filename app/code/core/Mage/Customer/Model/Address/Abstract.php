@@ -217,7 +217,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * Create fields street1, street2, etc.
      *
      * To be used in controllers for views data
-     *
      */
     public function explodeStreetAddress()
     {
@@ -273,7 +272,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * Return 2 letter state code if available, otherwise full region name
-     *
      */
     public function getRegionCode()
     {

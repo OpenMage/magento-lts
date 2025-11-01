@@ -3811,7 +3811,6 @@ $installer->getConnection()->createTable($table);
 
 /**
  * Modify core/url_rewrite table
- *
  */
 $installer->getConnection()->addColumn($installer->getTable('core/url_rewrite'), 'category_id', [
     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,

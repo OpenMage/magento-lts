@@ -17,7 +17,6 @@ class Varien_Date
 {
     /**
      * Date format, used as default. Compatible with Zend_Date
-     *
      */
     public const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 

@@ -16,7 +16,6 @@ class Mage_Api_Model_Resource_User_Collection extends Mage_Core_Model_Resource_D
 {
     /**
      * Resource collection initialization
-     *
      */
     protected function _construct()
     {

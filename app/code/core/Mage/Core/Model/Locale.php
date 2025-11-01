@@ -776,7 +776,6 @@ class Mage_Core_Model_Locale
 
     /**
      * Get last locale, used before last emulation
-     *
      */
     public function revert()
     {

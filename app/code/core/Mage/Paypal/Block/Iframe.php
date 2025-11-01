@@ -43,7 +43,6 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Internal constructor
      * Set info template for payment step
-     *
      */
     protected function _construct()
     {

@@ -645,7 +645,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     *
      * @param int $addressId
      * @return Mage_Sales_Model_Quote_Address|false
      */

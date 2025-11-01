@@ -203,7 +203,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Submit nominal items
-     *
      */
     public function submitNominalItems()
     {

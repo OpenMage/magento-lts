@@ -276,7 +276,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Validate isset required parametrs
-     *
      */
     protected function _validate()
     {
@@ -295,7 +294,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Get scope name and scopeId
-     *
      */
     protected function _getScope()
     {

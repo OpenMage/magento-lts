@@ -44,7 +44,6 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
     /**
      * Get tablename from config
-     *
      */
     protected function _construct()
     {

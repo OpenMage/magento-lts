@@ -38,7 +38,6 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource
-     *
      */
     protected function _construct()
     {
