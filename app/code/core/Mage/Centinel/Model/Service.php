@@ -375,12 +375,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
     }
 
     /**
-    * Export cmpi lookups and authentication information stored in session into array
-    *
-    * @param mixed $to
-    * @param array|false $map
-    * @return mixed $to
-    */
+     * Export cmpi lookups and authentication information stored in session into array
+     *
+     * @param mixed $to
+     * @param array|false $map
+     * @return mixed $to
+     */
     public function exportCmpiData($to, $map = false)
     {
         if (!$map) {

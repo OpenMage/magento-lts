@@ -42,10 +42,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     protected $_expiration;
 
     /**
-    * Override default value to prevent a captcha cut off
-    * @var int
-    * @see Zend_Captcha_Image::$_fsize
-    */
+     * Override default value to prevent a captcha cut off
+     * @var int
+     * @see Zend_Captcha_Image::$_fsize
+     */
     protected $_fsize = 22;
 
     /**
@@ -280,10 +280,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-    * Return full URL to captcha image
-    *
-    * @return string
-    */
+     * Return full URL to captcha image
+     *
+     * @return string
+     */
     public function getImgSrc()
     {
         return $this->getImgUrl() . $this->getId() . $this->getSuffix();
@@ -489,11 +489,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-    * Override function to generate less curly captcha that will not cut off
-    *
-    * @see Zend_Captcha_Image::_randomSize()
-    * @return int
-    */
+     * Override function to generate less curly captcha that will not cut off
+     *
+     * @see Zend_Captcha_Image::_randomSize()
+     * @return int
+     */
     protected function _randomSize()
     {
         return mt_rand(280, 300) / 100;

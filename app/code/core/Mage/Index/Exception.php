@@ -9,5 +9,5 @@
 
 /**
  * @package    Mage_Index
-*/
+ */
 class Mage_Index_Exception extends Mage_Core_Exception {}

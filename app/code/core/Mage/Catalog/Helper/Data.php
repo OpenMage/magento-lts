@@ -288,10 +288,10 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-    * Initialize mapping for old and new field names
-    *
-    * @return array
-    */
+     * Initialize mapping for old and new field names
+     *
+     * @return array
+     */
     public function getOldFieldMap()
     {
         $node = Mage::getConfig()->getNode('global/catalog_product/old_fields_map');

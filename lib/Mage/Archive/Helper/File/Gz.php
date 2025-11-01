@@ -8,11 +8,11 @@
  */
 
 /**
-* Helper class that simplifies gz files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-*/
+ * Helper class that simplifies gz files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ */
 class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 {
     /**

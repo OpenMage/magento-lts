@@ -20,8 +20,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
     public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
 
     /**
-      * New subscription action
-      */
+     * New subscription action
+     */
     public function newAction()
     {
         if (!$this->_validateFormKey()) {

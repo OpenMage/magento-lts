@@ -657,10 +657,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-      * Prepare info instance for save
-      *
-      * @return $this
-      */
+     * Prepare info instance for save
+     *
+     * @return $this
+     */
     public function prepareSave()
     {
         return $this;

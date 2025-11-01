@@ -71,10 +71,10 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     protected $_recurringPaymentProfiles = [];
 
     /**
-      * Fields that should be replaced in debug with '***'
-      *
-      * @var array
-      */
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
     protected $_debugReplacePrivateDataKeys = [];
 
     /**
