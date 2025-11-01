@@ -40,7 +40,7 @@
  * @method $this setIsActive(int $value)
  * @method array getExtra()
  * @method $this setExtra(string $value)
- * @method int getUserId()
+ * @method null|int getUserId()
  * @method int getRoleId()
  * @method bool hasNewPassword()
  * @method string getNewPassword()
@@ -189,6 +189,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param   array|string $data
      * @return  $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function saveExtra($data)
     {
@@ -429,8 +430,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return  $this
+     * @return $this
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function login($username, $password)
     {
@@ -532,7 +534,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                     return (string) $child->action;
                 } elseif ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string) $child->action;
+                    return $action ?: (string) $child->action;
                 }
             }
         }
@@ -557,6 +559,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @deprecated Please use getStartupPageUrl() method instead
      * @see getStartupPageUrl()
      * @return string
+     * @codeCoverageIgnore
      */
     public function getStatrupPageUrl()
     {

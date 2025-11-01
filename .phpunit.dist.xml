@@ -119,13 +119,12 @@
         processUncoveredFiles="false"
     >
         <include>
+            <file>Mage.php</file>
             <directory suffix=".php">app/code</directory>
             <directory suffix=".php">lib</directory>
         </include>
         <exclude>
             <file>app/bootstrap.php</file>
-            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
-            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
             <directory>app/code/community</directory>
             <directory>app/code/local/</directory>
             <directory>app/code/core/Mage/*/data</directory>
