@@ -403,7 +403,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Get conditions, if current prefix is undefined use 'conditions' key
      *
-     * @return array
+     * @return Mage_Rule_Model_Condition_Combine[]
      */
     public function getConditions()
     {
@@ -414,7 +414,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
-     * @param array $conditions
+     * @param Mage_Rule_Model_Condition_Combine $conditions
      * @return $this
      */
     public function setConditions($conditions)

@@ -310,7 +310,7 @@ class Mage_CatalogRule_Model_Observer
         foreach ($collection as $rule) {
             /** @var Mage_CatalogRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
+            /** @var Mage_CatalogRule_Model_Rule_Condition_Combine $rule->getConditions() */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $rule->save();
 
