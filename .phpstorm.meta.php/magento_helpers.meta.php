@@ -90,6 +90,7 @@ namespace PHPSTORM_META {
             'core' => \Mage_Core_Helper_Data::class,
             'core/data' => \Mage_Core_Helper_Data::class,
             'core/environmentConfigLoader' => \Mage_Core_Helper_EnvironmentConfigLoader::class,
+            'core/environmentConfigLoader_override' => \Mage_Core_Helper_EnvironmentConfigLoader_Override::class,
             'core/file_storage' => \Mage_Core_Helper_File_Storage::class,
             'core/file_storage_database' => \Mage_Core_Helper_File_Storage_Database::class,
             'core/hint' => \Mage_Core_Helper_Hint::class,

@@ -6007,12 +6007,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/netz98/n98-magerun.git",
-                "reference": "4da3cecfbbf484b9d5efc1169d101a8245f8fd48"
+                "reference": "dc5b5a48b5388723b1c95b328563fc33fc5b5677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/netz98/n98-magerun/zipball/4da3cecfbbf484b9d5efc1169d101a8245f8fd48",
-                "reference": "4da3cecfbbf484b9d5efc1169d101a8245f8fd48",
+                "url": "https://api.github.com/repos/netz98/n98-magerun/zipball/dc5b5a48b5388723b1c95b328563fc33fc5b5677",
+                "reference": "dc5b5a48b5388723b1c95b328563fc33fc5b5677",
                 "shasum": ""
             },
             "require": {
@@ -6025,7 +6025,7 @@
                 "fakerphp/faker": "^1.20",
                 "n98/junit-xml": "~1.0",
                 "nesbot/carbon": "^2.73",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
                 "psy/psysh": "~0.4",
                 "rmccue/requests": "^2.0.11",
                 "symfony/console": "^5.4 || ^6.4",
@@ -6100,7 +6100,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-22T11:31:14+00:00"
+            "time": "2025-10-30T04:08:35+00:00"
         },
         {
             "name": "nikic/php-parser",
