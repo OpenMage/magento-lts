@@ -183,7 +183,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         if (is_null($stockStatus)) {
             $websiteId = $product->getStore()->getWebsiteId();
             $status = $this->getProductStatus($product->getId(), $websiteId, $stockId);
-            $stockStatus = $status[$product->getId()] ?? null;
+            $stockStatus = $status[(string) $product->getId()] ?? null;
         }
 
         $product->setIsSalable($stockStatus);
