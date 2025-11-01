@@ -98,7 +98,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -175,7 +175,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Find element by ID
      *
      * @param mixed $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function searchById($elementId)
     {

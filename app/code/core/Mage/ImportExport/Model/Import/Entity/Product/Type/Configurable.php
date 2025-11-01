@@ -133,7 +133,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      *
      * @param int $productId
      * @param int $attributeId
-     * @return array|null
+     * @return null|array
      */
     protected function _getSuperAttributeId($productId, $attributeId)
     {

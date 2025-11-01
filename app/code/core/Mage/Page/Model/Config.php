@@ -85,7 +85,7 @@ class Mage_Page_Model_Config
      * Retrieve page layout by code
      *
      * @param string $layoutCode
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getPageLayout($layoutCode)
     {

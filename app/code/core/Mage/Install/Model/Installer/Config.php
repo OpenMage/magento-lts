@@ -176,7 +176,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     }
 
     /**
-     * @param string|null $key
+     * @param null|string $key
      * @return $this
      */
     public function replaceTmpEncryptKey($key = null)

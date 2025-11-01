@@ -35,7 +35,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
      * @param string $currencyFrom
      * @param string $currencyTo
      * @param int $retry
-     * @return float|null
+     * @return null|float
      */
     protected function _convert($currencyFrom, $currencyTo, $retry = 0)
     {

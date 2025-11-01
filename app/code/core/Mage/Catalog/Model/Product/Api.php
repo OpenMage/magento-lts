@@ -64,8 +64,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve list of products with basic info (id, sku, type, set, name)
      *
-     * @param null|object|array $filters
-     * @param string|int $store
+     * @param null|array|object $filters
+     * @param int|string $store
      * @return array
      */
     public function items($filters = null, $store = null)
@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve product info
      *
      * @param int|string $productId
-     * @param string|int $store
+     * @param int|string $store
      * @param array      $attributes
      * @param string     $identifierType
      * @return array
@@ -208,8 +208,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int|string $productId
      * @param array $productData
-     * @param string|int|null $store
-     * @param string|null $identifierType
+     * @param null|int|string $store
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -329,7 +329,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param float $specialPrice
      * @param string $fromDate
      * @param string $toDate
-     * @param string|int $store
+     * @param int|string $store
      * @return bool
      */
     public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null)
@@ -345,7 +345,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve product special price
      *
      * @param int|string $productId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function getSpecialPrice($productId, $store = null)
@@ -363,7 +363,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Delete product
      *
      * @param int|string $productId
-     * @param string|null $identifierType
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */

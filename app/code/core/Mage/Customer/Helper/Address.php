@@ -32,7 +32,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Array of Customer Address Attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
@@ -80,8 +80,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      * Return customer address config value by key and store
      *
      * @param string $key
-     * @param Mage_Core_Model_Store|int|string $store
-     * @return string|null
+     * @param int|Mage_Core_Model_Store|string $store
+     * @return null|string
      */
     public function getConfig($key, $store = null)
     {
@@ -97,7 +97,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Return Number of Lines in a Street Address for store
      *
-     * @param Mage_Core_Model_Store|int|string $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getStreetLines($store = null)
@@ -226,7 +226,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isVatValidationEnabled($store = null)
@@ -247,7 +247,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve 'validate on each transaction' value
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getValidateOnEachTransaction($store = null)
@@ -258,7 +258,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer address type on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getTaxCalculationAddressType($store = null)

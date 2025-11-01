@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
      * Render an option with selected value
      *
      * @param array $option
-     * @param string|null $value
+     * @param null|string $value
      * @return string
      */
     protected function _renderOption($option, $value)
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     }
 
     /**
-     * @return array|null
+     * @return null|array
      */
     public function getCondition()
     {

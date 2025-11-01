@@ -26,7 +26,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Initialize invoice model instance
      *
-     * @return Mage_Sales_Model_Order_Invoice|false
+     * @return false|Mage_Sales_Model_Order_Invoice
      * @throws Mage_Core_Exception
      */
     protected function _initInvoice($update = false)
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Prepare shipment
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Shipment|false
+     * @return false|Mage_Sales_Model_Order_Shipment
      * @throws Mage_Core_Exception
      */
     protected function _prepareShipment($invoice)

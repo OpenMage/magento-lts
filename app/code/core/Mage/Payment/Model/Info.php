@@ -135,7 +135,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Updates data inside the 'additional_information' array
      * or all 'additional_information' if key is data array
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      * @throws Mage_Core_Exception
@@ -160,7 +160,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Getter for entire additional_information value or one of its element by key
      *
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {

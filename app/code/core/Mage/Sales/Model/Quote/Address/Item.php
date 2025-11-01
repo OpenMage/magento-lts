@@ -16,7 +16,7 @@
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- * @method string|null getAppliedRuleIds()
+ * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method float getBaseCost()
@@ -191,7 +191,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
 
     /**
      * @param string $code
-     * @return Mage_Catalog_Model_Product_Configuration_Item_Option_Interface|null
+     * @return null|Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
      */
     public function getOptionBycode($code)
     {

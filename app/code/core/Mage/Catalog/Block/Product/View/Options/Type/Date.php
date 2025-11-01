@@ -149,8 +149,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      * Return drop-down html with range of values
      *
      * @param string $name      Id/name of html select element
-     * @param string|int $from  Start position
-     * @param string|int $to    End position
+     * @param int|string $from  Start position
+     * @param int|string $to    End position
      * @param string $value     Value selected
      * @return string           Formatted Html
      */
@@ -172,7 +172,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      * HTML select element
      *
      * @param string $name Id/name of html select element
-     * @param string|null $value
+     * @param null|string $value
      * @return Mage_Core_Block_Html_Select
      */
     protected function _getHtmlSelect($name, $value = null)

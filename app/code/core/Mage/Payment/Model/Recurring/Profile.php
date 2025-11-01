@@ -326,7 +326,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Convert the start datetime (if set) to proper locale/timezone and return
      *
      * @param bool $asString
-     * @return Zend_Date|string
+     * @return string|Zend_Date
      */
     public function exportStartDatetime($asString = true)
     {
@@ -415,7 +415,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Getter for field label
      *
      * @param string $field
-     * @return string|null
+     * @return null|string
      */
     public function getFieldLabel($field)
     {
@@ -449,7 +449,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Getter for field comments
      *
      * @param string $field
-     * @return string|null
+     * @return null|string
      */
     public function getFieldComment($field)
     {

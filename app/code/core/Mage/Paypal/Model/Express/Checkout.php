@@ -279,7 +279,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $returnUrl
      * @param string $cancelUrl
-     * @param bool|null $button
+     * @param null|bool $button
      * @return mixed
      */
     public function start($returnUrl, $cancelUrl, $button = null)
@@ -679,7 +679,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Get created billing agreement
      *
-     * @return Mage_Sales_Model_Billing_Agreement|null
+     * @return null|Mage_Sales_Model_Billing_Agreement
      */
     public function getBillingAgreement()
     {

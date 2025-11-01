@@ -22,7 +22,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Session lifetime
      *
-     * @var string|int|null
+     * @var null|int|string
      */
     protected $_lifeTime;
 

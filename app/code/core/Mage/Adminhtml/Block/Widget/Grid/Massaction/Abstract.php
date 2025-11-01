@@ -139,7 +139,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item|null
+     * @return null|Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
      */
     public function getItem($itemId)
     {

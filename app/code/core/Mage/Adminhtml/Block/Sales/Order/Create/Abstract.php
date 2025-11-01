@@ -57,7 +57,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
     /**
      * Retrieve customer identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCustomerId()
     {
@@ -77,7 +77,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
     /**
      * Retrieve store identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {

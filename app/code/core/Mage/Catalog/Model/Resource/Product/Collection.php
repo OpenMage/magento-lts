@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Cache for all ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allIdsCache                  = null;
 
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Category product count select
      *
-     * @var Zend_Db_Select|null
+     * @var null|Zend_Db_Select
      */
     protected $_productCountSelect           = null;
 
@@ -143,42 +143,42 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Price expression sql
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_priceExpression;
 
     /**
      * Additional price expression sql part
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_additionalPriceExpression;
 
     /**
      * Max prise (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_maxPrice;
 
     /**
      * Min prise (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_minPrice;
 
     /**
      * Prise standard deviation (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_priceStandardDeviation;
 
     /**
      * Prises count (statistics data)
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_pricesCount = null;
 
@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get cloned Select after dispatching 'catalog_prepare_price_select' event
      *
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getCatalogPreparedSelect()
     {
@@ -671,7 +671,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add website filter to collection
      *
-     * @param array|string|int $websites
+     * @param array|int|string $websites
      * @return $this
      */
     public function addWebsiteFilter($websites = null)
@@ -887,7 +887,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get SQL for get record count
      *
-     * @param Varien_Db_Select|null $select
+     * @param null|Varien_Db_Select $select
      * @param bool $resetLeftJoins
      * @return Varien_Db_Select
      */

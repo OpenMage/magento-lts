@@ -58,7 +58,7 @@
  * @method bool hasProductCount()
  * @method $this setParentId(int $value)
  * @method string getPath()
- * @method $this setPath(string|int $value)
+ * @method $this setPath(int|string $value)
  * @method bool getProductsReadonly()
  * @method int getPosition()
  * @method $this setPosition(int $value)
@@ -148,7 +148,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree|null
+     * @var null|Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -465,7 +465,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Set store id
      *
-     * @param string|int|Mage_Core_Model_Store $storeId
+     * @param int|Mage_Core_Model_Store|string $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -998,7 +998,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Validate attribute values
      *
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
-     * @return true|array
+     * @return array|true
      */
     public function validate()
     {

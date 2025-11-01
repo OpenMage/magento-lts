@@ -284,7 +284,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Add filter by store
      *
-     * @param array | int $storeId
+     * @param array|int $storeId
      * @param bool $allFilter
      * @return $this
      */

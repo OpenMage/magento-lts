@@ -120,7 +120,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string  $id                     Cache id
      * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
-     * @return string|bool Cached data or false
+     * @return bool|string Cached data or false
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
@@ -442,7 +442,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string  $id    Cache id
      * @param  boolean $parts If true, returns array of directory parts instead of single string
      *
-     * @return string|array Complete directory path
+     * @return array|string Complete directory path
      */
     protected function _path($id, $parts = false)
     {
@@ -687,7 +687,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Fetching all existed tags' ids
      *
-     * @param string|resource $tag
+     * @param resource|string $tag
      *
      * @return array
      *

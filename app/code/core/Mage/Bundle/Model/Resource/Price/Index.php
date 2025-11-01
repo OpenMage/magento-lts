@@ -24,14 +24,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Websites cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 
     /**
      * Customer Groups cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_customerGroups;
 
@@ -91,7 +91,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve product ids array by product condition
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $product
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $product
      * @param int $lastEntityId
      * @param int $limit
      * @return array
@@ -141,7 +141,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Reindex Bundle product Price Index
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -314,7 +314,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve salable product statuses
      *
-     * @param int|array $products
+     * @param array|int $products
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -396,7 +396,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve Selection Product price from Price Index
      * Return index key {entity_id}-{website_id}-{customer_group_id}
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return array
      */
     public function getProductsPriceFromIndex($productIds)
@@ -418,7 +418,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve product(s) price data
      *
-     * @param int|array $products
+     * @param array|int $products
      * @return array
      * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
@@ -832,7 +832,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve price index for products
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $websiteId
      * @param int $groupId
      * @return array

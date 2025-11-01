@@ -184,7 +184,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Get collection of users
      *
-     * @return Object|Mage_Api_Model_Resource_User_Collection
+     * @return Mage_Api_Model_Resource_User_Collection|Object
      */
     public function getCollection()
     {

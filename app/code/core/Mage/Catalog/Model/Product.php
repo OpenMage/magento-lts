@@ -212,8 +212,8 @@
  *
  * @method int getTaxClassId()
  * @method string getThumbnail()
- * @method float|null getTaxPercent()
- * @method $this setTaxPercent(float|null $value)
+ * @method null|float getTaxPercent()
+ * @method $this setTaxPercent(null|float $value)
  * @method $this setTypeId(int $value)
  * @method bool getTypeHasOptions()
  * @method $this setTypeHasOptions(bool $value)
@@ -268,7 +268,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract|null|false
+     * @var null|false|Mage_Catalog_Model_Product_Type_Abstract
      */
     protected $_typeInstance            = null;
 
@@ -280,7 +280,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product link instance
      *
-     * @var Mage_Catalog_Model_Product_Link|null
+     * @var null|Mage_Catalog_Model_Product_Link
      */
     protected $_linkInstance;
 
@@ -294,7 +294,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product Url Instance
      *
-     * @var Mage_Catalog_Model_Product_Url|null
+     * @var null|Mage_Catalog_Model_Product_Url
      */
     protected $_urlModel = null;
 
@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
-     * @var Mage_CatalogInventory_Model_Stock_Item|null
+     * @var null|Mage_CatalogInventory_Model_Stock_Item
      */
     protected $_stockItem;
 
@@ -421,7 +421,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getName()
     {
@@ -457,7 +457,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product type identifier
      *
-     * @return string|null
+     * @return null|string
      */
     public function getTypeId()
     {
@@ -551,7 +551,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve product category id
      *
-     * @return int|false
+     * @return false|int
      */
     public function getCategoryId()
     {
@@ -920,7 +920,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get product tier price by qty
      *
      * @param   float $qty
-     * @return  float|array
+     * @return  array|float
      */
     public function getTierPrice($qty = null)
     {
@@ -941,7 +941,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get formatted by currency tier price
      *
      * @param   double $qty
-     * @return  array | double
+     * @return  array|double
      */
     public function getFormatedTierPrice($qty = null)
     {
@@ -965,7 +965,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * products it's called very often in Item->getProduct(). So removing chain of magic with more cpu consuming
      * algorithms gives nice optimization boost.
      *
-     * @param float|null $price Price amount
+     * @param null|float $price Price amount
      * @return $this
      */
     public function setFinalPrice($price)
@@ -989,7 +989,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Returns calculated final price
      *
-     * @return float|null
+     * @return null|float
      */
     public function getCalculatedFinalPrice()
     {
@@ -1314,7 +1314,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Add image to media gallery
      *
      * @param string        $file              file path of image in file system
-     * @param string|array  $mediaAttribute    code of attribute with type 'media_image',
+     * @param array|string  $mediaAttribute    code of attribute with type 'media_image',
      *                                          leave blank if image should be only in gallery
      * @param bool       $move              if true, it will move source file
      * @param bool       $exclude           mark image as disabled in product page view
@@ -1949,7 +1949,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get option from options array of product by given option id
      *
      * @param string $optionId
-     * @return Mage_Catalog_Model_Product_Option|null
+     * @return null|Mage_Catalog_Model_Product_Option
      */
     public function getOptionById($optionId)
     {
@@ -2022,7 +2022,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get product custom option info
      *
      * @param   string $code
-     * @return  Mage_Sales_Model_Quote_Item_Option|null
+     * @return  null|Mage_Sales_Model_Quote_Item_Option
      */
     public function getCustomOption($code)
     {
@@ -2222,7 +2222,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function isProductsHasSku(array $productIds)
     {
@@ -2374,7 +2374,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve product entities info as array
      *
-     * @param string|array $columns One or several columns
+     * @param array|string $columns One or several columns
      * @return array
      */
     public function getProductEntitiesInfo($columns = null)

@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
+     * @param int|Mage_Core_Model_Config_Element|string $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)

@@ -110,7 +110,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     private $_minSaleQtyCache = [];
 
     /**
-     * @var float|false
+     * @var false|float
      */
     protected $_qtyIncrements;
 
@@ -133,14 +133,14 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Associated product instance
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_productInstance = null;
 
     /**
      * Customer group id
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_customerGroupId;
 
@@ -328,7 +328,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve Minimum Qty Allowed in Shopping Cart or NULL when there is no limitation
      *
-     * @return float|null
+     * @return null|float
      */
     public function getMinSaleQty()
     {
@@ -390,7 +390,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve Quantity Increments data wrapper
      *
-     * @return float|false
+     * @return false|float
      */
     public function getQtyIncrements()
     {
@@ -414,7 +414,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Retrieve Default Quantity Increments data wrapper
      *
      * @deprecated since 1.7.0.0
-     * @return int|false
+     * @return false|int
      */
     public function getDefaultQtyIncrements()
     {
@@ -491,8 +491,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Returns suggested qty that satisfies qty increments and minQty/maxQty/minSaleQty/maxSaleQty conditions
      * or original qty if such value does not exist
      *
-     * @param int|float $qty
-     * @return int|float
+     * @param float|int $qty
+     * @return float|int
      */
     public function suggestQty($qty)
     {
@@ -684,7 +684,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Check qty increments
      *
-     * @param int|float $qty
+     * @param float|int $qty
      * @return Varien_Object
      */
     public function checkQtyIncrements($qty)
@@ -795,7 +795,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Chceck if item should be in stock or out of stock based on $qty param of existing item qty
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @return bool true - item in stock | false - item out of stock
      */
     public function verifyStock($qty = null)
@@ -814,7 +814,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Check if item qty require stock status notification
      *
-     * @param float | null $qty
+     * @param null|float $qty
      * @return bool (true - if require, false - if not require)
      */
     public function verifyNotification($qty = null)
@@ -864,7 +864,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Returns product instance
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProduct()
     {

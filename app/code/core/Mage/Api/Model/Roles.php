@@ -92,9 +92,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string|null $parentName
+     * @param null|string $parentName
      * @param int $level
-     * @param bool|null $represent2Darray
+     * @param null|bool $represent2Darray
      * @param bool $rawNodes
      * @param string $module
      * @return array|false|Varien_Simplexml_Element

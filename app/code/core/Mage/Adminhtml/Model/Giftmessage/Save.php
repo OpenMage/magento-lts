@@ -118,7 +118,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Delete a single gift message from entity
      *
      * @param Varien_Object $entityModel
-     * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
+     * @param null|Mage_GiftMessage_Model_Message $giftmessageModel
      * @return $this
      * @throws Throwable
      */

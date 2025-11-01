@@ -84,7 +84,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     /**
      * Retrieve Set info by attributes
      *
-     * @param int|null $setId
+     * @param null|int $setId
      * @return array
      */
     public function getSetInfo(array $attributeIds = [], $setId = null)

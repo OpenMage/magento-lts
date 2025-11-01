@@ -19,7 +19,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Current storage code
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_currentStorage = null;
 
@@ -60,7 +60,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Check if storage is internal
      *
-     * @param  int|null $storage
+     * @param  null|int $storage
      * @return bool
      */
     public function isInternalStorage($storage = null)
@@ -73,9 +73,9 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Retrieve storage model
      *
-     * @param  int|null $storage
+     * @param  null|int $storage
      * @param  array $params
-     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database
+     * @return Mage_Core_Model_File_Storage_Database|Mage_Core_Model_File_Storage_File
      */
     public function getStorageModel($storage = null, $params = [])
     {

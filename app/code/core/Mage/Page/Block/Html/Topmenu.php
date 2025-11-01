@@ -24,7 +24,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Current entity key
      *
-     * @var string|int
+     * @var int|string
      */
     protected $_currentEntityKey;
 

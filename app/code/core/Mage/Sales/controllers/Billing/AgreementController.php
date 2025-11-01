@@ -181,7 +181,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Init billing agreement model from request
      *
-     * @return Mage_Sales_Model_Billing_Agreement|false
+     * @return false|Mage_Sales_Model_Billing_Agreement
      */
     protected function _initAgreement()
     {

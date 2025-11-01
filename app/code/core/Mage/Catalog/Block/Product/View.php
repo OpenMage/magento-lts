@@ -191,7 +191,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Also restricts it by minimal qty.
      *
      * @param null|Mage_Catalog_Model_Product $product
-     * @return int|float
+     * @return float|int
      * @throws Mage_Core_Exception
      */
     public function getProductDefaultQty($product = null)

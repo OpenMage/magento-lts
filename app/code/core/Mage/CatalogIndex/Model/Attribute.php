@@ -33,7 +33,7 @@ class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
-     * @param int|array $entityFilter
+     * @param array|int $entityFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)

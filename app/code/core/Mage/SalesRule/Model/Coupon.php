@@ -76,7 +76,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Load primary coupon for specified rule
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param int|Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function loadPrimaryByRule($rule)

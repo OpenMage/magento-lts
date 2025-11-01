@@ -45,7 +45,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -442,7 +442,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {

@@ -93,7 +93,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Return partial authorization confirmation message and unset it in payment model
      *
-     * @return string|false
+     * @return false|string
      */
     public function getPartialAuthorizationConfirmationMessage()
     {

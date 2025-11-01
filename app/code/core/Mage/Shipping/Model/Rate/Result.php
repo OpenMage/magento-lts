@@ -60,7 +60,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Add a rate to the result
      *
-     * @param Mage_Shipping_Model_Rate_Result_Error|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result_Error $result
      * @return $this
      */
     public function append($result)
@@ -95,7 +95,7 @@ class Mage_Shipping_Model_Rate_Result
      * Return rate by id in array
      *
      * @param int $id
-     * @return Mage_Shipping_Model_Rate_Result_Method|null
+     * @return null|Mage_Shipping_Model_Rate_Result_Method
      */
     public function getRateById($id)
     {

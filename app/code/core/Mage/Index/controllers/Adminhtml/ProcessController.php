@@ -21,7 +21,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     /**
      * Initialize process object by request
      *
-     * @return Mage_Index_Model_Process|false
+     * @return false|Mage_Index_Model_Process
      */
     protected function _initProcess()
     {

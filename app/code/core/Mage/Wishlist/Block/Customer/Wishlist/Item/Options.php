@@ -54,7 +54,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      * Get item options renderer config
      *
      * @param string $productType
-     * @return array|null
+     * @return null|array
      */
     public function getOptionsRenderCfg($productType)
     {

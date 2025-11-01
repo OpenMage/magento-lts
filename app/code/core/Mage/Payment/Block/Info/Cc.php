@@ -67,7 +67,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     /**
      * Prepare credit card related payment info
      *
-     * @param Varien_Object|array $transport
+     * @param array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)

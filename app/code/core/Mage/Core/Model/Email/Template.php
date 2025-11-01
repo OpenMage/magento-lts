@@ -333,7 +333,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @return string
      */
     /**
-     * @param string|null $html
+     * @param null|string $html
      * @return string
      */
     public function getPreparedTemplateText($html = null)
@@ -367,7 +367,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Send mail to recipient
      *
      * @param   array|string       $email        E-mail(s)
-     * @param   array|string|null  $name         receiver name(s)
+     * @param   null|array|string  $name         receiver name(s)
      * @param   array              $variables    template variables
      * @return bool
      **/
@@ -483,12 +483,12 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Send transactional email to recipient
      *
-     * @param   string|int $templateId
+     * @param   int|string $templateId
      * @param   array|string $sender sender information, can be declared as part of config path
      * @param   string $email recipient email
-     * @param   array|string|null $name recipient name
+     * @param   null|array|string $name recipient name
      * @param   array $vars variables which can be used in template
-     * @param   int|null $storeId
+     * @param   null|int $storeId
      *
      * @throws Mage_Core_Exception
      *

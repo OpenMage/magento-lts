@@ -22,7 +22,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Default action to get price of product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string|float|int
+     * @return float|int|string
      */
     public function getPrice($product)
     {
@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Get base price with apply Group, Tier, Special prises
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param float|null $qty
+     * @param null|float $qty
      * @return float
      */
     public function getBasePrice($product, $qty = null)
@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Product_Type_Price
     /**
      * Retrieve product final price
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
      * @return float
      */
@@ -141,7 +141,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Apply tier price for product if not return price that was before
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @param   float|null $qty
+     * @param   null|float $qty
      * @param   float $finalPrice
      * @return  float
      */
@@ -162,9 +162,9 @@ class Mage_Catalog_Model_Product_Type_Price
     /**
      * Get product tier price by qty
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return  float|array
+     * @return  array|float
      */
     public function getTierPrice($qty, $product)
     {
@@ -295,7 +295,7 @@ class Mage_Catalog_Model_Product_Type_Price
     /**
      * Get formatted by currency tier price
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
      * @return  array|float|string
      */
@@ -320,7 +320,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Get formatted by currency product price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string|float
+     * @return float|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice($product)
@@ -362,7 +362,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param   float $specialPrice
      * @param   string $specialPriceFrom
      * @param   string $specialPriceTo
-     * @param   float|null|false $rulePrice
+     * @param   null|false|float $rulePrice
      * @param   mixed $wId
      * @param   mixed $gId
      * @param   null|int $productId

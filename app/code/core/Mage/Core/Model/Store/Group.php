@@ -49,7 +49,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Group Store collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_stores;
 
@@ -84,7 +84,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
@@ -214,7 +214,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve default store model
      *
-     * @return Mage_Core_Model_Store|false
+     * @return false|Mage_Core_Model_Store
      */
     public function getDefaultStore()
     {
@@ -235,7 +235,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      * If group has no stores - null is returned
      *
      * @param string $locale
-     * @return Mage_Core_Model_Store|null
+     * @return null|Mage_Core_Model_Store
      */
     public function getDefaultStoreByLocale($locale)
     {
@@ -280,7 +280,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve website model
      *
-     * @return Mage_Core_Model_Website|false
+     * @return false|Mage_Core_Model_Website
      */
     public function getWebsite()
     {
@@ -326,7 +326,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getWebsiteId()
     {

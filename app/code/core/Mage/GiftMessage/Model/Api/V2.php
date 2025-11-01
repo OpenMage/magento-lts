@@ -17,7 +17,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
     /**
      * Return an Array of Object attributes.
      *
-     * @param object|array $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareData($data)

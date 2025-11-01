@@ -22,6 +22,8 @@ return $config
         'phpdoc_param_order' => true,
         // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.
         'phpdoc_trim' => true,
+        // Sorts PHPDoc types.
+        'phpdoc_types_order' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.

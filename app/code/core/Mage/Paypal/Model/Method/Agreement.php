@@ -72,7 +72,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Store setter
      * Also updates store ID in config object
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)

@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
+     * @param array|Varien_Data_Tree_Node $node
      * @param int $level
      * @return array
      */

@@ -28,21 +28,21 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Full path to tmp dir
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_path;
 
     /**
      * Filename
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_filename;
 
     /**
      * Varien IO File class
      *
-     * @var Varien_Io_File|null
+     * @var null|Varien_Io_File
      */
     protected $_ioFile;
 
@@ -149,7 +149,7 @@ class Mage_Dataflow_Model_Batch_Io
      * # length  bytes have been read
      * # EOF (end of file) is reached
      *
-     * @return array|false|null|string
+     * @return null|array|false|string
      */
     public function read($csv = false, $delimiter = ',', $enclosure = '"')
     {

@@ -27,7 +27,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Data at storage
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_data = null;
 

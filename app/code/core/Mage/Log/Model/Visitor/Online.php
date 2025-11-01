@@ -52,7 +52,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Retrieve last prepare at timestamp
      *
-     * @return string|false
+     * @return false|string
      */
     public function getPrepareAt()
     {

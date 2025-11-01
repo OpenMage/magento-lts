@@ -94,7 +94,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
 
     /**
      * Get quote shipping price including tax
-     * @return string|float
+     * @return float|string
      */
     public function getShippingPriceInclTax()
     {
@@ -103,7 +103,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     }
 
     /**
-     * @return string|float
+     * @return float|string
      */
     public function getShippingPriceExclTax()
     {
@@ -112,7 +112,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
 
     /**
      * @param float $price
-     * @return string|float
+     * @return float|string
      */
     public function formatPrice($price)
     {

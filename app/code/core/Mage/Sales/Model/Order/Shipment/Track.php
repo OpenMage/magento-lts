@@ -124,7 +124,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Retrieve detail for shipment track
      *
-     * @return string|array
+     * @return array|string
      */
     public function getNumberDetail()
     {

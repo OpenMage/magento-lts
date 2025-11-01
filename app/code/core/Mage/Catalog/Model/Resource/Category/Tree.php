@@ -25,14 +25,14 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Categories resource collection
      *
-     * @var Mage_Catalog_Model_Resource_Category_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Category_Collection
      */
     protected $_collection;
 
     /**
      * Id of 'is_active' category attribute
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_isActiveAttributeId              = null;
 

@@ -20,7 +20,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      * Retrieve fixed qty value
      *
      * @param mixed $qty
-     * @return float|null
+     * @return null|float
      */
     protected function _fixQty($qty)
     {
@@ -147,7 +147,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      *
      * @param int $customerGroupId
      * @param mixed $store
-     * @return float|null
+     * @return null|float
      */
     public function getConfigValue($customerGroupId, $store = null)
     {

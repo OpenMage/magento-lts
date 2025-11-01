@@ -33,7 +33,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Initialize profiler output with timer identifiers filter
      *
-     * @param string|null $filter Pattern to filter timers by their identifiers.
+     * @param null|string $filter Pattern to filter timers by their identifiers.
      *                            Supports syntax similar to SQL LIKE operator:
      *                            % - Matches any number of characters, even zero characters
      *                            _ - Matches exactly one character
@@ -204,7 +204,7 @@ abstract class Magento_Profiler_OutputAbstract
      * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
      *
      * @param string $fetchKey
-     * @param int|float|null $minAllowedValue
+     * @param null|float|int $minAllowedValue
      */
     public function setThreshold($fetchKey, $minAllowedValue)
     {

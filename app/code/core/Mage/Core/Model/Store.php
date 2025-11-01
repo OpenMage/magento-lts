@@ -183,21 +183,21 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
     /**
      * Group model
      *
-     * @var Mage_Core_Model_Store_Group|null
+     * @var null|Mage_Core_Model_Store_Group
      */
     protected $_group;
 
     /**
      * Store configuration cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_configCache = null;
 
@@ -239,21 +239,21 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Flag that shows that backend URLs are secure
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAdminSecure = null;
 
     /**
      * Flag that shows that frontend URLs are secure
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isFrontSecure = null;
 
     /**
      * Store frontend name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_frontendName = null;
 
@@ -356,7 +356,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve store configuration data
      *
      * @param   string $path
-     * @return  string|null
+     * @return  null|string
      */
     public function getConfig($path)
     {
@@ -480,7 +480,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store website
      *
-     * @return Mage_Core_Model_Website|false
+     * @return false|Mage_Core_Model_Website
      */
     public function getWebsite()
     {
@@ -608,7 +608,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve base URL
      *
      * @param self::URL_TYPE_* $type
-     * @param bool|null $secure
+     * @param null|bool $secure
      * @return string
      */
     public function getBaseUrl($type = self::URL_TYPE_LINK, $secure = null)
@@ -740,7 +740,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getId()
     {
@@ -1025,7 +1025,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param   float $price
      * @param   bool $includeContainer
-     * @return  string|float
+     * @return  float|string
      */
     public function formatPrice($price, $includeContainer = true)
     {
@@ -1084,7 +1084,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve group model
      *
-     * @return Mage_Core_Model_Store_Group|false
+     * @return false|Mage_Core_Model_Store_Group
      */
     public function getGroup()
     {
@@ -1122,7 +1122,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group identifier
      *
-     * @return int|string|null
+     * @return null|int|string
      */
     public function getDefaultGroupId()
     {
@@ -1196,7 +1196,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if store is active
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function getIsActive()
     {
@@ -1206,7 +1206,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getName()
     {

@@ -132,7 +132,7 @@ T: {{telephone}}';
      * Retrieve format
      *
      * @param string $type
-     * @return Mage_Directory_Model_Country_Format|null
+     * @return null|Mage_Directory_Model_Country_Format
      */
     public function getFormat($type)
     {

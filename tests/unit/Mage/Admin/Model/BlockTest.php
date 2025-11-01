@@ -31,7 +31,7 @@ final class BlockTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminBlockData
-     * @param true|array<int, string> $expectedResult
+     * @param array<int, string>|true $expectedResult
      *
      * @group Model
      * @throws Exception

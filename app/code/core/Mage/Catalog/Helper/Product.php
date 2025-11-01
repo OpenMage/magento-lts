@@ -45,8 +45,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product view page url
      *
-     * @param   Mage_Catalog_Model_Product|string|int $product
-     * @return  string|false
+     * @param   int|Mage_Catalog_Model_Product|string $product
+     * @return  false|string
      */
     public function getProductUrl($product)
     {
@@ -185,7 +185,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if a product can be shown
      *
-     * @param Mage_Catalog_Model_Product|int $product
+     * @param int|Mage_Catalog_Model_Product $product
      * @param string $where
      * @return bool
      */
@@ -226,7 +226,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if <link rel="canonical"> can be used for product
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)
@@ -269,7 +269,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return default attribute backend model by input type
      *
      * @param string $inputType
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeBackendModelByInputType($inputType)
     {
@@ -285,7 +285,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return default attribute source model by input type
      *
      * @param string $inputType
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeSourceModelByInputType($inputType)
     {
@@ -405,8 +405,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file inputs,
      *   so they won't intersect with other submitted options
      *
-     * @param Varien_Object|array $buyRequest
-     * @param Varien_Object|array $params
+     * @param array|Varien_Object $buyRequest
+     * @param array|Varien_Object $params
      * @return Varien_Object
      */
     public function addParamsToBuyRequest($buyRequest, $params)
@@ -448,7 +448,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return loaded product instance
      *
      * @param  int|string $productId (SKU or ID)
-     * @param  int|null $store
+     * @param  null|int $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
@@ -509,7 +509,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float|null
+     * @return null|float
      */
     public function getMinimalQty($product)
     {
@@ -526,7 +526,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Also restricts it by minimal qty.
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|float
+     * @return float|int
      */
     public function getDefaultQty($product)
     {
@@ -570,7 +570,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param null|string $field
      * @param string $fieldset
      * @param string $area
-     * @return array|null
+     * @return null|array
      */
     public function getFieldset($field = null, $fieldset = 'catalog_product_dataflow', $area = 'admin')
     {

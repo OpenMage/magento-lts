@@ -44,7 +44,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Customer group cache
      *
-     * @var Mage_Customer_Model_Resource_Group_Collection|null
+     * @var null|Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_customerGroups;
 
@@ -74,7 +74,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
      * Returns data retriever model by specified product type
      *
      * @param string $type
-     * @return Mage_CatalogIndex_Model_Data_Abstract|false
+     * @return false|Mage_CatalogIndex_Model_Data_Abstract
      * @throws Mage_Core_Exception
      */
     public function getRetreiver($type)

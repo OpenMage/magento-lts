@@ -12,8 +12,8 @@
  *
  * @package    Mage_Review
  *
- * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false getRatingCollection()
- * @method $this setRatingCollection(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false $value)
+ * @method false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getRatingCollection()
+ * @method $this setRatingCollection(false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
  * @method array getRatingSummaryCache()
  * @method setRatingSummaryCache(array $value)
  * @method int getReviewId()

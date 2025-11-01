@@ -222,7 +222,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @param Varien_Simplexml_Element $source
      * @param string $elmNamespace
-     * @return SimpleXMLElement|Varien_Simplexml_Element|null
+     * @return null|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getElementByName($source, $elmNamespace = '')
     {
@@ -261,7 +261,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @param string $name
      * @param string $namespace
-     * @return string|null
+     * @return null|string
      */
     public function getAttribute($name, $namespace = '')
     {

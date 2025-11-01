@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product website identifiers
      *
-     * @param Mage_Catalog_Model_Product|int $product
+     * @param int|Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getWebsiteIds($product)
@@ -354,7 +354,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * if product parameter is null - idex will be refreshed for all products
      *
      * @param Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product|array $product
+     * @param array|Mage_Catalog_Model_Product $product
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -629,7 +629,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product entities info
      *
-     * @param  array|string|null $columns
+     * @param  null|array|string $columns
      * @return array
      */
     public function getProductEntitiesInfo($columns = null)
@@ -653,7 +653,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Return assigned images for specific stores
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return array
      */
     public function getAssignedImages($product, $storeIds)

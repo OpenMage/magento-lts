@@ -17,7 +17,7 @@ class Mage_Payment_Block_Form_Cashondelivery extends Mage_Payment_Block_Form
     /**
      * Instructions text
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_instructions;
 

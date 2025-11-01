@@ -68,7 +68,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Calculate x coordinate with indentation
      *
-     * @param int|float $pt
+     * @param float|int $pt
      * @return int
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
@@ -80,7 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Calculate y coordinate with indentation
      *
-     * @param int|float $pt
+     * @param float|int $pt
      * @return int
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */

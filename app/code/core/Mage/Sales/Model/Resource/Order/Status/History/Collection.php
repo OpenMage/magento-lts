@@ -37,7 +37,7 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
      * @param mixed $instance
      * @param string $historyEntityName
      *
-     * @return Mage_Sales_Model_Order_Status_History|null
+     * @return null|Mage_Sales_Model_Order_Status_History
      */
     public function getUnnotifiedForInstance($instance, $historyEntityName = Mage_Sales_Model_Order::HISTORY_ENTITY_NAME)
     {

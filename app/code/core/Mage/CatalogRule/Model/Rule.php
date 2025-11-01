@@ -66,14 +66,14 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Store matched product Ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productIds;
 
     /**
      * Limitation for products collection
      *
-     * @var int|array|null
+     * @var null|array|int
      */
     protected $_productsFilter = null;
 
@@ -271,7 +271,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Apply rule to product
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @param array|null $websiteIds
+     * @param null|array $websiteIds
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -348,7 +348,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Calculate price using catalog price rule of product
      *
      * @param float $price
-     * @return float|null
+     * @return null|float
      */
     public function calcProductPriceRule(Mage_Catalog_Model_Product $product, $price)
     {
@@ -409,7 +409,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Filtering products that must be checked for matching with rule
      *
-     * @param  int|array $productIds
+     * @param  array|int $productIds
      */
     public function setProductsFilter($productIds)
     {
@@ -419,7 +419,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Returns products filter
      *
-     * @return array|int|null
+     * @return null|array|int
      */
     public function getProductsFilter()
     {

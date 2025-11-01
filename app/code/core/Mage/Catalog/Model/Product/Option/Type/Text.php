@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return string|null Prepared option value
+     * @return null|string Prepared option value
      */
     public function prepareForCart()
     {

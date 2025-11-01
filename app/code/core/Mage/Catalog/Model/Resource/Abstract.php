@@ -200,7 +200,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Insert or Update attribute data
      *
      * @param Mage_Catalog_Model_Abstract|Varien_Object $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
      */
@@ -563,9 +563,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve attribute's raw value from DB.
      *
      * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
+     * @param array|int|string $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|null|array
+     * @return null|array|bool|string
      */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
@@ -688,9 +688,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve attribute's raw value from DB using its source model if available.
      *
      * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
+     * @param array|int|string $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|array
+     * @return array|bool|string
      */
     public function getAttributeRawText($entityId, $attribute, $store)
     {

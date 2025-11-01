@@ -436,7 +436,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set actions name for forced use form key if "Secret Key to URLs" disabled
      *
-     * @param array | string $actionNames - action names for forced use form key
+     * @param array|string $actionNames - action names for forced use form key
      */
     protected function _setForcedFormKeyActions($actionNames)
     {

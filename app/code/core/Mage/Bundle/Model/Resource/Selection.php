@@ -127,7 +127,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve array of related bundle product ids by selection product id(s)
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)

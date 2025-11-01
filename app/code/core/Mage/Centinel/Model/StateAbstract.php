@@ -17,7 +17,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Storage data model
      *
-     * @var Varien_Object|false
+     * @var false|Varien_Object
      */
     private $_dataStorage = false;
 
@@ -53,7 +53,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @see Mage_Core_Model_Session_Abstract::getData()
      *
      * @param string $key
-     * @param string|int $index
+     * @param int|string $index
      * @return mixed
      */
     public function getData($key = '', $index = null)
@@ -69,7 +69,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return Mage_Centinel_Model_StateAbstract
      */

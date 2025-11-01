@@ -144,7 +144,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Retrieve page direct URL
      *
      * @param string $pageId
-     * @return string|null
+     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPageUrl($pageId = null)

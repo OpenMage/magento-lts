@@ -134,7 +134,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Assign variable
      *
-     * @param   string|array $key
+     * @param   array|string $key
      * @param   mixed $value
      * @return  $this
      */

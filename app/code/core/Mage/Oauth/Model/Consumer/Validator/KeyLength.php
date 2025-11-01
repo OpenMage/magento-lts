@@ -24,7 +24,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     /**
      * Sets validator options
      *
-     * @param  int|array|Zend_Config $options
+     * @param  array|int|Zend_Config $options
      */
     public function __construct($options = [])
     {

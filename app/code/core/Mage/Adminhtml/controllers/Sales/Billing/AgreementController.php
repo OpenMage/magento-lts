@@ -132,7 +132,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
     /**
      * Initialize billing agreement by ID specified in request
      *
-     * @return Mage_Sales_Model_Billing_Agreement | false
+     * @return false|Mage_Sales_Model_Billing_Agreement
      */
     protected function _initBillingAgreement()
     {

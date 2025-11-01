@@ -27,7 +27,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     /**
      * Prepare tag model for manipulation
      *
-     * @return Mage_Tag_Model_Tag | false
+     * @return false|Mage_Tag_Model_Tag
      */
     protected function _initTag()
     {

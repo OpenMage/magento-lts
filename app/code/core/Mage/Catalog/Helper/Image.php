@@ -25,7 +25,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Current model
      *
-     * @var Mage_Catalog_Model_Product_Image|null
+     * @var null|Mage_Catalog_Model_Product_Image
      */
     protected $_model;
 
@@ -46,49 +46,49 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Angle
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_angle;
 
     /**
      * Watermark file name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermark;
 
     /**
      * Watermark Position
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkPosition;
 
     /**
      * Watermark Size
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkSize;
 
     /**
      * Watermark Image opacity
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_watermarkImageOpacity;
 
     /**
      * Current Product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
     /**
      * Image File
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_imageFile;
 
@@ -581,7 +581,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -592,7 +592,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Retrieve original image height
      *
      * @deprecated
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeigh()
     {
@@ -602,7 +602,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {

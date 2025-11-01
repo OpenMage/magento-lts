@@ -17,7 +17,7 @@ class Mage_Index_Model_Indexer
     /**
      * Collection of available processes
      *
-     * @var Mage_Index_Model_Resource_Process_Collection|null
+     * @var null|Mage_Index_Model_Resource_Process_Collection
      */
     protected $_processesCollection;
 
@@ -40,7 +40,7 @@ class Mage_Index_Model_Indexer
      * Current processing event(s)
      * In array case it should be array(Entity type, Event type)
      *
-     * @var null|Mage_Index_Model_Event|array
+     * @var null|array|Mage_Index_Model_Event
      */
     protected $_currentEvent = null;
 
@@ -77,7 +77,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific id
      *
      * @param int $processId
-     * @return Mage_Index_Model_Process|false
+     * @return false|Mage_Index_Model_Process
      */
     public function getProcessById($processId)
     {
@@ -94,7 +94,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific code
      *
      * @param string $code
-     * @return Mage_Index_Model_Process|false
+     * @return false|Mage_Index_Model_Process
      */
     public function getProcessByCode($code)
     {
@@ -188,8 +188,8 @@ class Mage_Index_Model_Indexer
      * Indexing all pending events.
      * Events set can be limited by event entity and type
      *
-     * @param   null | string $entity
-     * @param   null | string $type
+     * @param   null|string $entity
+     * @param   null|string $type
      * @throws Exception
      * @return  Mage_Index_Model_Indexer
      */
@@ -409,7 +409,7 @@ class Mage_Index_Model_Indexer
     /**
      * Check if the event will be processed and disable/enable keys in index tables
      *
-     * @param mixed|Mage_Index_Model_Process $process
+     * @param Mage_Index_Model_Process|mixed $process
      * @param bool $enable
      * @return bool
      */

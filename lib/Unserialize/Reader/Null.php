@@ -29,7 +29,7 @@ class Unserialize_Reader_Null
     /**
      * @param string $char
      * @param string $prevChar
-     * @return string|null
+     * @return null|string
      */
     public function read($char, $prevChar)
     {

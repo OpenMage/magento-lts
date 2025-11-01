@@ -89,7 +89,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     protected $_invoice = null;
 
     /**
-     * @var Mage_Sales_Model_Order_Item|null
+     * @var null|Mage_Sales_Model_Order_Item
      */
     protected $_orderItem = null;
 

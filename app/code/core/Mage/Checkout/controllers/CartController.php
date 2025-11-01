@@ -88,7 +88,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize product instance from request data
      *
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     protected function _initProduct()
     {

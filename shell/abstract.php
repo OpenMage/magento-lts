@@ -24,7 +24,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_rootPath;
 

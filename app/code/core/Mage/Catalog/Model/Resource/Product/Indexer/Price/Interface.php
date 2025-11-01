@@ -22,7 +22,7 @@ interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      */
     public function reindexEntity($entityIds);
 

@@ -17,7 +17,7 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
     /**
      * Prepared href attribute
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_href;
 

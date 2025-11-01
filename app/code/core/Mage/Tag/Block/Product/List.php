@@ -17,7 +17,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Unique Html Id
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_uniqueHtmlId = null;
 

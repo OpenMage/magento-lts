@@ -18,13 +18,13 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Database storage model
-     * @var Mage_Core_Model_File_Storage_Database|null
+     * @var null|Mage_Core_Model_File_Storage_Database
      */
     protected $_databaseModel = null;
 
     /**
      * Storage resource model
-     * @var Mage_Core_Model_Resource_File_Storage_Database|null
+     * @var null|Mage_Core_Model_Resource_File_Storage_Database
      */
     protected $_resourceModel = null;
 
@@ -141,7 +141,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * Check whether file exists in DB
      *
      * @param string $filename can be both full path or partial (like in DB)
-     * @return bool|null
+     * @return null|bool
      */
     public function fileExists($filename)
     {

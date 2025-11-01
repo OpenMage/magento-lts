@@ -135,7 +135,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  string  $id                     Cache id
      * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
-     * @return mixed|false Cached data
+     * @return false|mixed Cached data
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
     {

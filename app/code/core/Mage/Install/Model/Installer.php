@@ -22,7 +22,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Mage_Install_Model_Installer_Data|null
+     * @var null|Mage_Install_Model_Installer_Data
      */
     protected $_dataModel;
 

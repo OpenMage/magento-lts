@@ -173,7 +173,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * @param array $data
      * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
      * @throws Zend_Db_Adapter_Exception
      */

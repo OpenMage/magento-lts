@@ -15,7 +15,7 @@
 class Varien_Image
 {
     /**
-     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
+     * @var null|Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
      */
     protected $_adapter;
 
@@ -296,7 +296,7 @@ class Varien_Image
     /**
      * Retrieve original image width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -306,7 +306,7 @@ class Varien_Image
     /**
      * Retrieve original image height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {

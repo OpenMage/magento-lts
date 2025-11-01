@@ -39,7 +39,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * @deprecated
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]|null
+     * @var null|Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     protected $_editableAttributes;
 
@@ -176,7 +176,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve parent ids array by required child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -249,7 +249,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param int|string $attributeId
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract|null
+     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttributeById($attributeId, $product = null)
     {
@@ -277,7 +277,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is product available for sale
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool|null
+     * @return null|bool
      */
     public function isSalable($product = null)
     {
@@ -823,8 +823,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve store filter for associated products
      *
-     * @param Mage_Catalog_Model_Product|null $product
-     * @return Mage_Core_Model_Store|int|null
+     * @param null|Mage_Catalog_Model_Product $product
+     * @return null|int|Mage_Core_Model_Store
      */
     public function getStoreFilter($product = null)
     {
@@ -836,7 +836,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param int|Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setStoreFilter($store = null, $product = null)
@@ -850,7 +850,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -862,7 +862,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare Quote Item Quantity
      *
      * @param mixed $qty
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return float
      */
     public function prepareQuoteItemQty($qty, $product = null)

@@ -366,7 +366,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|string $fromDate
      * @param int|string $toDate
-     * @param int|null $productId
+     * @param null|int $productId
      *
      * @return $this
      */
@@ -405,7 +405,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Delete old price rules data
      *
      * @param string $date
-     * @param int|null $productId
+     * @param null|int $productId
      *
      * @return $this
      */
@@ -427,8 +427,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int $fromDate
      * @param int $toDate
-     * @param int|null $productId
-     * @param int|null $websiteId
+     * @param null|int $productId
+     * @param null|int $websiteId
      *
      * @return Zend_Db_Statement_Interface
      */
@@ -539,8 +539,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * If from date is not defined - will be used previous day by UTC
      * If to date is not defined - will be used next day by UTC
      *
-     * @param int|string|null $fromDate
-     * @param int|string|null $toDate
+     * @param null|int|string $fromDate
+     * @param null|int|string $toDate
      * @param int $productId
      *
      * @deprecated after 1.7.0.2 use method applyAllRules
@@ -651,7 +651,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int $gId
      * @param int $pId
      *
-     * @return float|bool
+     * @return bool|float
      */
     public function getRulePrice($date, $wId, $gId, $pId)
     {

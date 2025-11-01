@@ -46,14 +46,14 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Tarball data writer
      *
-     * @var Mage_Archive_Helper_File|null
+     * @var null|Mage_Archive_Helper_File
      */
     protected $_writer;
 
     /**
      * Tarball data reader
      *
-     * @var Mage_Archive_Helper_File|null
+     * @var null|Mage_Archive_Helper_File
      */
     protected $_reader;
 

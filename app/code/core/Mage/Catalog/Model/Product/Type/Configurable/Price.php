@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get product final price
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
      * @return  double
      */

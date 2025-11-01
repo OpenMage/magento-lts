@@ -17,7 +17,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Searchable attributes cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_searchableAttributes     = null;
 
@@ -84,8 +84,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Regenerate search index for store(s)
      *
-     * @param  int|null $storeId
-     * @param  int|array|null $productIds
+     * @param  null|int $storeId
+     * @param  null|array|int $productIds
      * @return $this
      */
     public function rebuildIndex($storeId = null, $productIds = null)
@@ -106,7 +106,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Regenerate search index for specific store
      *
      * @param int $storeId Store View Id
-     * @param int|array $productIds Product Entity Id
+     * @param array|int $productIds Product Entity Id
      * @return $this
      */
     protected function _rebuildStoreIndex($storeId, $productIds = null)
@@ -580,7 +580,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param int $productId
      * @param int $typeId
      * @param null|int $websiteId
-     * @return array|null
+     * @return null|array
      */
     protected function _getProductChildrenIds($productId, $typeId, $websiteId = null)
     {
@@ -617,7 +617,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $productId Product Entity Id
      * @param string $typeId Super Product Link Type
-     * @return array|null
+     * @return null|array
      */
     protected function _getProductChildIds($productId, $typeId)
     {
@@ -799,7 +799,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId
      * @param string $date
-     * @return string|null
+     * @return null|string
      */
     protected function _getStoreDate($storeId, $date = null)
     {

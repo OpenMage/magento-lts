@@ -65,7 +65,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by country_id
      *
-     * @param string|array $countryId
+     * @param array|string $countryId
      * @return $this
      */
     public function addCountryFilter($countryId)
@@ -102,7 +102,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by Region code
      *
-     * @param string|array $regionCode
+     * @param array|string $regionCode
      * @return $this
      */
     public function addRegionCodeFilter($regionCode)
@@ -121,7 +121,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by region name
      *
-     * @param string|array $regionName
+     * @param array|string $regionName
      * @return $this
      */
     public function addRegionNameFilter($regionName)
@@ -140,7 +140,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter region by its code or name
      *
-     * @param string|array $region
+     * @param array|string $region
      * @return $this
      */
     public function addRegionCodeOrNameFilter($region)

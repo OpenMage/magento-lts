@@ -54,7 +54,7 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param string|int|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)

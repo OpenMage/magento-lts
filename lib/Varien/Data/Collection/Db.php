@@ -55,14 +55,14 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * All collection data array
      * Used for getData method
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_data = null;
 
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_map = null;
 
@@ -408,8 +408,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @see self::_getConditionSql for $condition
      *
-     * @param   string|array $field
-     * @param   int|string|array|null $condition
+     * @param   array|string $field
+     * @param   null|array|int|string $condition
      * @return  $this
      */
     public function addFieldToFilter($field, $condition = null)
@@ -436,8 +436,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Build sql where condition part
      *
-     * @param   string|array $field
-     * @param   int|string|array $condition
+     * @param   array|string $field
+     * @param   array|int|string $condition
      *
      * @return  string
      */
@@ -475,7 +475,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve mapper data
      *
-     * @return array|bool|null
+     * @return null|array|bool
      */
     protected function _getMapper()
     {
@@ -514,7 +514,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * will be built using above mentioned structure
      *
      * @param string $fieldName Field name must be already escaped with Varien_Db_Adapter_Interface::quoteIdentifier()
-     * @param int|string|array $condition
+     * @param array|int|string $condition
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition)
@@ -632,7 +632,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Returns a collection item that corresponds to the fetched row
      * and moves the internal data pointer ahead
      *
-     * @return  Varien_Object|bool
+     * @return  bool|Varien_Object
      */
     public function fetchItem()
     {
@@ -778,7 +778,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fetch collection data
      *
-     * @param   Zend_Db_Select|string $select
+     * @param   string|Zend_Db_Select $select
      * @return  array
      */
     protected function _fetchAll($select)
@@ -802,7 +802,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string|false
+     * @return false|string
      */
     protected function _loadCache($select)
     {
@@ -832,7 +832,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Check if cache can be used for collection data
      *
-     * @return Zend_Cache_Core|false
+     * @return false|Zend_Cache_Core
      */
     protected function _canUseCache()
     {
@@ -842,7 +842,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get cache identifier base on select
      *
-     * @param Zend_Db_Select|string $select
+     * @param string|Zend_Db_Select $select
      * @return string
      */
     protected function _getSelectCacheId($select)
@@ -858,7 +858,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve cache instance
      *
-     * @return Zend_Cache_Core|false
+     * @return false|Zend_Cache_Core
      */
     protected function _getCacheInstance()
     {

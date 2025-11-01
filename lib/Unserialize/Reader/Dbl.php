@@ -18,7 +18,7 @@ class Unserialize_Reader_Dbl
     protected $_status;
 
     /**
-     * @var string|int
+     * @var int|string
      */
     protected $_value;
 
@@ -27,7 +27,7 @@ class Unserialize_Reader_Dbl
     /**
      * @param string $char
      * @param string $prevChar
-     * @return float|null
+     * @return null|float
      */
     public function read($char, $prevChar)
     {

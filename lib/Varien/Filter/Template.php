@@ -37,14 +37,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Template processor
      *
-     * @var array|string|null
+     * @var null|array|string
      */
     protected $_templateProcessor = null;
 
     /**
      * Include processor
      *
-     * @var array|string|null
+     * @var null|array|string
      */
     protected $_includeProcessor = null;
 
@@ -75,7 +75,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of templates.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getTemplateProcessor()
     {
@@ -96,7 +96,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getIncludeProcessor()
     {
@@ -267,7 +267,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Return variable value for var construction
      *
      * @param string $value raw parameters
-     * @param string|null $default default value
+     * @param null|string $default default value
      * @return string
      */
     protected function _getVariable($value, $default = '{no_value_defined}')

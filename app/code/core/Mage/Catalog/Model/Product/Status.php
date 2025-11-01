@@ -203,7 +203,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Product(s) status for store
      * Return array where key is product, value - status
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $storeId
      * @return array
      */
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

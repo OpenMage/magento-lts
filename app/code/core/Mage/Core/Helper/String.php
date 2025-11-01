@@ -27,7 +27,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string|null $string
+     * @param null|string $string
      * @param int $length
      * @param string $etc
      * @param string &$remainder
@@ -249,7 +249,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Split words
      *
-     * @param string|null $str The source string
+     * @param null|string $str The source string
      * @param bool $uniqueOnly Unique words only
      * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
@@ -301,7 +301,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int|false
+     * @return false|int
      */
     public function strpos($haystack, $needle, $offset = 0)
     {
@@ -532,7 +532,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string|null $str
+     * @param null|string $str
      * @return null|void
      * @throws Exception
      */

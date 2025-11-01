@@ -80,8 +80,8 @@ class Varien_Db_Select extends Zend_Db_Select
      * </code>
      *
      * @param string $cond The WHERE condition.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return $this
      */
     public function where($cond, $value = null, $type = null)
@@ -297,7 +297,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Cross Table Update From Current select
      *
-     * @param string|array $table
+     * @param array|string $table
      * @return string
      */
     public function crossUpdateFromSelect($table)

@@ -103,7 +103,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Last order getter
      *
-     * @return Mage_Sales_Model_Order|bool
+     * @return bool|Mage_Sales_Model_Order
      */
     public function getLastOrder()
     {

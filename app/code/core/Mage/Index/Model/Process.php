@@ -76,7 +76,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Locker Object
      *
-     * @var Mage_Index_Model_Lock|null
+     * @var null|Mage_Index_Model_Lock
      */
     protected $_lockInstance = null;
 
@@ -426,7 +426,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Returns Lock object.
      *
-     * @return Mage_Index_Model_Lock|null
+     * @return null|Mage_Index_Model_Lock
      */
     protected function _getLockInstance()
     {

@@ -109,7 +109,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * or string 'my_field_name' - will be autoconverted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_uniqueFields = null;
 
@@ -143,8 +143,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * If one or both arguments are string, will be used as prefix
      * If $tables is null and $connections is string, $tables will be the same
      *
-     * @param string|array $connections
-     * @param string|array|null $tables
+     * @param array|string $connections
+     * @param null|array|string $tables
      * @return $this
      */
     protected function _setResource($connections, $tables = null)
@@ -177,7 +177,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * If field name is omitted {table_name}_id will be used
      *
      * @param string $mainTable
-     * @param string|null $idFieldName
+     * @param null|string $idFieldName
      * @return $this
      */
     protected function _setMainTable($mainTable, $idFieldName = null)
@@ -234,7 +234,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get table name for the entity, validated by db adapter
      *
-     * @param string|array $entityName
+     * @param array|string $entityName
      * @return string
      */
     public function getTable($entityName)
@@ -295,7 +295,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Get connection by name or type
      *
      * @param string $connectionName
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getConnection($connectionName)
     {
@@ -365,7 +365,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Load an object
      *
      * @param mixed $value
-     * @param string|null $field field to load by (defaults to model id)
+     * @param null|string $field field to load by (defaults to model id)
      * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -758,7 +758,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve table checksum
      *
-     * @param string|array $table
+     * @param array|string $table
      * @return array|false
      */
     public function getChecksum($table)

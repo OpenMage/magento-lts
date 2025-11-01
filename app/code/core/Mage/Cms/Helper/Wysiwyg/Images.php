@@ -18,7 +18,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Current directory path
-     * @var string|false
+     * @var false|string
      */
     protected $_currentPath;
 
@@ -37,7 +37,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string|false
+     * @var false|string
      */
     protected $_storageRoot;
 
@@ -198,7 +198,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Try to create target directory if it doesn't exist
      *
      * @throws Mage_Core_Exception
-     * @return string|false
+     * @return false|string
      */
     public function getCurrentPath()
     {
@@ -270,7 +270,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Revert operation to idEncode
      *
      * @param string $string
-     * @return string|false
+     * @return false|string
      */
     public function idDecode($string)
     {

@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

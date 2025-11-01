@@ -17,7 +17,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     /**
      * Initialize payment transaction model
      *
-     * @return Mage_Sales_Model_Order_Payment_Transaction | bool
+     * @return bool|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _initTransaction()
     {

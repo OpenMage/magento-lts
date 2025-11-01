@@ -24,7 +24,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     /**
      * Country of default scope
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_defaultCountry;
 

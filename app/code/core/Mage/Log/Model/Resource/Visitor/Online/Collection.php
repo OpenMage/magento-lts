@@ -84,7 +84,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     /**
      * Filter collection by specified website(s)
      *
-     * @param int|array $websiteIds
+     * @param array|int $websiteIds
      * @return $this
      */
     public function addWebsiteFilter($websiteIds)
@@ -106,7 +106,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      * )
      *
      * @param string $field
-     * @param null|string|array $condition
+     * @param null|array|string $condition
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      * @see self::_getConditionSql for $condition
      */

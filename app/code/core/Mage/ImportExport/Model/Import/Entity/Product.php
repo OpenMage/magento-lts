@@ -413,14 +413,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Media files uploader
      *
-     * @var Mage_ImportExport_Model_Import_Uploader|null
+     * @var null|Mage_ImportExport_Model_Import_Uploader
      */
     protected $_fileUploader;
 
     /**
      * url_key attribute id
      *
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_urlKeyAttributeId;
 
@@ -1621,7 +1621,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @param array $rowData
      * @param int $rowScope
      * @param array $attributes
-     * @param string|null $rowSku
+     * @param null|string $rowSku
      * @param int $rowStore
      * @return array
      */
@@ -2135,7 +2135,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get next bunch of validatetd rows.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getNextBunch()
     {
@@ -2283,7 +2283,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param array $rowData
      * @param int $rowNum
-     * @param string|false|null $sku
+     * @param null|false|string $sku
      */
     protected function _validate($rowData, $rowNum, $sku)
     {
@@ -2323,7 +2323,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get product url_key attribute id
      *
-     * @return string|false|null
+     * @return null|false|string
      */
     protected function _getUrlKeyAttributeId()
     {

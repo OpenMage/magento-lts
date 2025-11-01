@@ -215,7 +215,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Hook callback to modify queries. Mysql specific property, designed only for backwards compatibility.
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_queryHook = null;
 
@@ -442,7 +442,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Run RAW query and Fetch First row
      *
      * @param string $sql
-     * @param string|int $field
+     * @param int|string $field
      * @return bool
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -527,7 +527,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * (e.g. "foo:bar"). And also changes named bind to positional one, because underlying library has problems
      * with named binds.
      *
-     * @param Zend_Db_Select|string $sql
+     * @param string|Zend_Db_Select $sql
      * @param mixed $bind
      * @param-out string $sql
      * @return $this
@@ -936,7 +936,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param   string $columnName
      * @param   array|string $definition  string specific or universal array DB Server definition
      * @param   string $schemaName
-     * @return  int|bool|Zend_Db_Statement_Interface
+     * @return  bool|int|Zend_Db_Statement_Interface
      * @throws  Zend_Db_Exception
      */
     public function addColumn($tableName, $columnName, $definition, $schemaName = null)
@@ -1389,7 +1389,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @deprecated since 1.5.0.0
      * @param string $tableName
      * @param string $indexName
-     * @param string|array $fields
+     * @param array|string $fields
      * @param string $indexType
      * @param string $schemaName
      * @return Zend_Db_Statement_Interface
@@ -1564,8 +1564,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Method revrited for handle empty arrays in value param
      *
      * @param string  $text  The text with a placeholder.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
      * @return string An SQL-safe quoted value placed into the original text.
      */
@@ -1607,7 +1607,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableCacheKey the table cache key
      * @param int $ddlType          the DDL constant
-     * @return string|array|int|false
+     * @return array|false|int|string
      */
     public function loadDdlCache($tableCacheKey, $ddlType)
     {
@@ -2804,11 +2804,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $indexName
-     * @param string|array $fields  the table column name or array of ones
+     * @param array|string $fields  the table column name or array of ones
      * @param string $indexType     the index type
      * @param string $schemaName
      * @return Zend_Db_Statement_Interface
-     * @throws Zend_Db_Exception|Exception
+     * @throws Exception|Zend_Db_Exception
      */
     public function addIndex(
         $tableName,
@@ -3042,8 +3042,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * If non matched - sequential array is expected and OR conditions
      * will be built using above mentioned structure
      *
-     * @param string|array $fieldName
-     * @param int|string|array $condition
+     * @param array|string $fieldName
+     * @param array|int|string $condition
      * @return string
      */
     public function prepareSqlCondition($fieldName, $condition)
@@ -3233,7 +3233,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Generate fragment of SQL, that check condition and return true or false value
      *
-     * @param Zend_Db_Expr|Zend_Db_Select|string $expression
+     * @param string|Zend_Db_Expr|Zend_Db_Select $expression
      * @param string $true  true value
      * @param string $false false value
      * @return Zend_Db_Expr
@@ -3252,8 +3252,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Returns valid IFNULL expression
      *
-     * @param Zend_Db_Expr|Zend_Db_Select|string $expression
-     * @param string|int $value OPTIONAL. Applies when $expression is NULL
+     * @param string|Zend_Db_Expr|Zend_Db_Select $expression
+     * @param int|string $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
     public function getIfNullSql($expression, $value = '0')
@@ -3364,7 +3364,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @see INTERVAL_ constants for $unit
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int $interval
      * @param string $unit
      * @return Zend_Db_Expr
@@ -3380,7 +3380,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @see INTERVAL_ constants for $expr
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int|string $interval
      * @param string $unit
      * @return Zend_Db_Expr
@@ -3416,7 +3416,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Extract the date part of a date or datetime expression
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @return Zend_Db_Expr
      */
     public function getDatePartSql($date)
@@ -3427,9 +3427,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Prepare substring sql function
      *
-     * @param Zend_Db_Expr|string $stringExpression quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $stringExpression quoted field name or SQL statement
      * @param int|string|Zend_Db_Expr $pos
-     * @param int|string|Zend_Db_Expr|null $len
+     * @param null|int|string|Zend_Db_Expr $len
      * @return Zend_Db_Expr
      */
     public function getSubstringSql($stringExpression, $pos, $len = null)
@@ -3444,7 +3444,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Prepare standard deviation sql function
      *
-     * @param Zend_Db_Expr|string $expressionField   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $expressionField   quoted field name or SQL statement
      * @return Zend_Db_Expr
      */
     public function getStandardDeviationSql($expressionField)
@@ -3457,7 +3457,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @see INTERVAL_ constants for $unit
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param string $unit
      * @return Zend_Db_Expr
      * @throws Zend_Db_Exception
@@ -3520,7 +3520,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Check index name length and allowed symbols
      *
      * @param string $tableName
-     * @param string|array $fields  the columns list
+     * @param array|string $fields  the columns list
      * @param string $indexType
      * @return string
      */
@@ -3776,7 +3776,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Get update table query using select object for join and update
      *
-     * @param string|array $table
+     * @param array|string $table
      * @throws Varien_Db_Exception
      * @return string
      */
@@ -3856,7 +3856,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Get delete from select object query
      *
      * @param string $table the table name or alias used in select
-     * @return string|int
+     * @return int|string
      */
     public function deleteFromSelect(Varien_Db_Select $select, $table)
     {
@@ -4056,7 +4056,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Parse text size
      * Returns max allowed size if value great it
      *
-     * @param string|int $size
+     * @param int|string $size
      * @return int
      */
     protected function _parseTextSize($size)

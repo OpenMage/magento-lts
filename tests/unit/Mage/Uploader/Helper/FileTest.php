@@ -37,7 +37,7 @@ final class FileTest extends OpenMageTest
     /**
      * @dataProvider provideGetMimeTypeFromExtensionListData
      * @param array<int, string> $expectedResult
-     * @param string|array<int, string> $extensionsList
+     * @param array<int, string>|string $extensionsList
      *
      * @group Helper
      */

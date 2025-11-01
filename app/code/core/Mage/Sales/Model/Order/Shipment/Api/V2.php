@@ -38,7 +38,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param string $comment
      * @param bool $email
      * @param bool $includeComment
-     * @return string|null
+     * @return null|string
      */
     public function create(
         $orderIncrementId,

@@ -24,8 +24,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string|array getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string|array $value)
+ * @method array|string getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(array|string $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -187,28 +187,28 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Quote customer model object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
     /**
      * Quote addresses collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Address_Collection
      */
     protected $_addresses = null;
 
     /**
      * Quote items collection
      *
-     * @var Mage_Sales_Model_Resource_Quote_Item_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Item_Collection
      */
     protected $_items = null;
 
     /**
      * Quote payments
      *
-     * @var Mage_Sales_Model_Resource_Quote_Payment_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Payment_Collection
      */
     protected $_payments = null;
 
@@ -646,7 +646,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getAddressById($addressId)
     {
@@ -661,7 +661,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getAddressByCustomerAddressId($addressId)
     {
@@ -676,7 +676,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getShippingAddressByCustomerAddressId($addressId)
     {
@@ -1268,7 +1268,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve quote item by product id
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Sales_Model_Quote_Item|false
+     * @return  false|Mage_Sales_Model_Quote_Item
      */
     public function getItemByProduct($product)
     {
@@ -1666,10 +1666,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Automatically sets error flag.
      *
      * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param null|string $origin Usually a name of module, that embeds error
+     * @param null|int $code Error code, unique for origin, that sets it
+     * @param null|string $message Error message
+     * @param null|Varien_Object $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
@@ -1694,7 +1694,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param null|string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
      * @return $this
      */

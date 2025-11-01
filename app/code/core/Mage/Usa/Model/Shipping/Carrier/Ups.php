@@ -40,28 +40,28 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
     /**
      * Tracking result data
      *
-     * @var Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Tracking_Result
      */
     protected $_trackingResult = null;
 
@@ -121,7 +121,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -309,7 +309,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -355,7 +355,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      *
      * @param string $code
      * @param string $origin
-     * @return string|false
+     * @return false|string
      */
     public function getShipmentByCode($code, $origin = null)
     {
@@ -939,7 +939,7 @@ XMLRequest;
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -982,7 +982,7 @@ XMLAuth;
      * Get xml tracking
      *
      * @param array $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getXmlTracking($trackings)
     {
@@ -1140,7 +1140,7 @@ XMLAuth;
      * Get REST tracking
      *
      * @param string[] $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getRestTracking($trackings)
     {
@@ -1522,7 +1522,7 @@ XMLAuth;
 
         $deliveryConfirmation = $packageParams->getDeliveryConfirmation();
         if ($deliveryConfirmation) {
-            /** @var SimpleXMLElement|null $serviceOptionsNode */
+            /** @var null|SimpleXMLElement $serviceOptionsNode */
             $serviceOptionsNode = null;
             switch ($this->_getDeliveryConfirmationLevel($request->getRecipientAddressCountryCode())) {
                 case self::DELIVERY_CONFIRMATION_PACKAGE:
@@ -2186,7 +2186,7 @@ XMLAuth;
      * Return null if delivery confirmation is not acceptable
      *
      * @param string $countyDest
-     * @return int|null
+     * @return null|int
      */
     protected function _getDeliveryConfirmationLevel($countyDest = null)
     {

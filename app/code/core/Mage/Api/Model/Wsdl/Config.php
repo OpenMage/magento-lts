@@ -28,7 +28,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return wsdl content
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getWsdlContent()
     {
@@ -74,7 +74,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|false|null $lifetime
+     * @param null|false|int $lifetime
      * @return bool|Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -141,7 +141,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return Xml of node as string
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getXmlString()
     {

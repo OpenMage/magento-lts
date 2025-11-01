@@ -32,7 +32,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     /**
      * Current Subscriber
      *
-     * @var Mage_Newsletter_Model_Subscriber|null
+     * @var null|Mage_Newsletter_Model_Subscriber
      */
     protected $_subscriber = null;
 
@@ -81,7 +81,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     /**
      * Retrieve Subscriber
      *
-     * @return Mage_Newsletter_Model_Subscriber|null
+     * @return null|Mage_Newsletter_Model_Subscriber
      */
     public function getSubscriber()
     {

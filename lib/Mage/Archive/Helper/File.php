@@ -46,7 +46,7 @@ class Mage_Archive_Helper_File
     /**
      * File handler
      *
-     * @var resource|false pointer
+     * @var false|resource pointer
      */
     protected $_fileHandler;
 
@@ -123,7 +123,7 @@ class Mage_Archive_Helper_File
      * Read data from file
      *
      * @param int $length
-     * @return string|bool
+     * @return bool|string
      */
     public function read($length = 4096)
     {

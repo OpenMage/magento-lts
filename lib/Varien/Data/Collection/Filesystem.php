@@ -209,7 +209,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Get files from specified directory recursively (if needed)
      *
-     * @param string|array $dir
+     * @param array|string $dir
      */
     protected function _collectRecursive($dir)
     {
@@ -601,7 +601,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Does nothing. Intentionally disabled parent method
      *
      * @param string $field
-     * @param string|array $value
+     * @param array|string $value
      * @param string $type and|or|string
      * @return $this
      */

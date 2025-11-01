@@ -130,7 +130,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @return Varien_Data_Tree_Node|null
+     * @return null|Varien_Data_Tree_Node
      */
     public function lastNode()
     {
@@ -139,7 +139,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
     /**
      * @param $nodeId
-     * @return Varien_Data_Tree_Node|null
+     * @return null|Varien_Data_Tree_Node
      */
     public function searchById($nodeId)
     {

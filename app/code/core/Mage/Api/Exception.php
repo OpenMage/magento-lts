@@ -19,7 +19,7 @@ class Mage_Api_Exception extends Mage_Core_Exception
     /**
      * Mage_Api_Exception constructor.
      * @param string $faultCode
-     * @param string|null $customMessage
+     * @param null|string $customMessage
      */
     public function __construct($faultCode, $customMessage = null)
     {

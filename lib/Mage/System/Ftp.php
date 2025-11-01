@@ -17,7 +17,7 @@ class Mage_System_Ftp
     /**
      * Connection object
      *
-     * @var FTP\Connection|false
+     * @var false|FTP\Connection
      */
     protected $_conn = false;
 

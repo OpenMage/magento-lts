@@ -25,7 +25,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve shipments by filters
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -101,7 +101,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $comment
      * @param bool $email
      * @param bool $includeComment
-     * @return string|null
+     * @return null|string
      */
     public function create(
         $orderIncrementId,

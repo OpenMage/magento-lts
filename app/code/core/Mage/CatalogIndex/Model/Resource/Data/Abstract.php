@@ -108,7 +108,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int|array $id
+     * @param array|int $id
      * @param array $additionalWheres
      * @return array
      */
@@ -225,7 +225,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $table the main table name or alias
      * @param string $field entity_id field name
      * @param int $store
-     * @param int|string|array $value the filter value
+     * @param array|int|string $value the filter value
      * @return $this
      */
     protected function _addAttributeFilter(Varien_Db_Select $select, $attributeCode, $table, $field, $store, $value)

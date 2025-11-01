@@ -17,7 +17,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
     protected $_product = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getProduct()
     {

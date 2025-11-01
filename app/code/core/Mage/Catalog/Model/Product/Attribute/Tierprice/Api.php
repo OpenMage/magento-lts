@@ -23,7 +23,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
     /**
      * @param int $productId
-     * @param string|null $identifierType
+     * @param null|string $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
-     * @param string|null $identifierType
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array|null
+     *  @return     null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {

@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Template
 {
     /**
-     * @var Mage_Newsletter_Model_Resource_Queue_Collection|null
+     * @var null|Mage_Newsletter_Model_Resource_Queue_Collection
      */
     protected $_queueCollection = null;
 

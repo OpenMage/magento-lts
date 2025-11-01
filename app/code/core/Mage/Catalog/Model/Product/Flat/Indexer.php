@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param string $attributeCode
      * @param int $store
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return $this
      */
     public function updateAttribute($attributeCode, $store = null, $productIds = null)
@@ -174,7 +174,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update Catalog Product Flat data
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */
@@ -206,7 +206,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Save Catalog Product(s) Flat data
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */
@@ -238,7 +238,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove product from flat
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */

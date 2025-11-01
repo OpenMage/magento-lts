@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param Mage_Core_Model_Website|int|string $website
+     * @param int|Mage_Core_Model_Website|string $website
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      * @deprecated
      */
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store groups for specified website
      *
-     * @param Mage_Core_Model_Website|int|string|null $website
+     * @param null|int|Mage_Core_Model_Website|string $website
      * @return array
      */
     public function getStoreGroups($website)
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param Mage_Core_Model_Store_Group|int|string $group
+     * @param int|Mage_Core_Model_Store_Group|string $group
      * @return Mage_Core_Model_Resource_Store_Collection
      * @deprecated
      */
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store views for specified store group
      *
-     * @param Mage_Core_Model_Store_Group|int|string|null $group
+     * @param null|int|Mage_Core_Model_Store_Group|string $group
      * @return array
      */
     public function getStores($group)

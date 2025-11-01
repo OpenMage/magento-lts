@@ -17,7 +17,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Current Product Type Id
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_typeId;
 
@@ -56,7 +56,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Reindex stock data for defined product ids
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -128,7 +128,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Get the select object for get stock status by product ids
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
@@ -188,7 +188,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Prepare stock status data in temporary index table
      *
-     * @param int|array $entityIds  the product limitation
+     * @param array|int $entityIds  the product limitation
      * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)

@@ -85,7 +85,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * Declare headers and content file in response for file download
      *
      * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
+     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
      *                              that case
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable

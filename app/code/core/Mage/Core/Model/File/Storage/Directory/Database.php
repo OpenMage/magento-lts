@@ -87,7 +87,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Retrieve directory parent id
      *
-     * @return string|null
+     * @return null|string
      */
     public function getParentId()
     {

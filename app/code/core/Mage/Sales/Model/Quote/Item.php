@@ -18,7 +18,7 @@
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- * @method string|null getAppliedRuleIds()
+ * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method $this setBackorders(float $value)
@@ -173,7 +173,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote;
 
@@ -276,7 +276,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Prepare quantity
      *
      * @param float|int $qty
-     * @return int|float
+     * @return float|int
      */
     protected function _prepareQty($qty)
     {
@@ -635,7 +635,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Add option to item
      *
-     * @param Mage_Sales_Model_Quote_Item_Option|Varien_Object|array $option
+     * @param array|Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -669,7 +669,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
-     * @param int|float|null $value
+     * @param null|float|int $value
      * @return $this
      */
     public function updateQtyOption(Varien_Object $option, $value)
@@ -724,7 +724,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Sales_Model_Quote_Item_Option|null
+     * @return  null|Mage_Sales_Model_Quote_Item_Option
      */
     public function getOptionByCode($code)
     {
@@ -885,10 +885,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Adds error information to the quote item.
      * Automatically sets error flag.
      *
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param null|string $origin Usually a name of module, that embeds error
+     * @param null|int $code Error code, unique for origin, that sets it
+     * @param null|string $message Error message
+     * @param null|Varien_Object $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($origin = null, $code = null, $message = null, $additionalData = null)

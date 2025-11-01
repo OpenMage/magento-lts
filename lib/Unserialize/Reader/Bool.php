@@ -18,7 +18,7 @@ class Unserialize_Reader_Bool
     protected $_status;
 
     /**
-     * @var string|int
+     * @var int|string
      */
     protected $_value;
 
@@ -27,7 +27,7 @@ class Unserialize_Reader_Bool
     /**
      * @param string $char
      * @param string $prevChar
-     * @return int|null
+     * @return null|int
      */
     public function read($char, $prevChar)
     {

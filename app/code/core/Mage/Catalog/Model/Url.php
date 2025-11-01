@@ -34,7 +34,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Resource model
      *
-     * @var Mage_Catalog_Model_Resource_Url|null
+     * @var null|Mage_Catalog_Model_Resource_Url
      */
     protected $_resourceModel;
 
@@ -62,7 +62,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Current url rewrite rule
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rewrite;
 
@@ -158,7 +158,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Sometimes attribute 'url_path' can be empty, because url_path hasn't been generated yet,
      * in this case category is loaded with empty url_path and we should generate it manually.
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category|Varien_Object $category
      */
     protected function _addCategoryUrlPath($category)
     {
@@ -187,7 +187,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Retrieve stores array or store model
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return Mage_Core_Model_Store|Mage_Core_Model_Store[]
      */
     public function getStores($storeId = null)
@@ -267,7 +267,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId Store View
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)
@@ -469,7 +469,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Called when reindexing all rewrites and as a reaction on category change that affects rewrites
      *
      * @param int $categoryId
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @param bool $refreshProducts
      * @return $this
      */
@@ -509,7 +509,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Called as a reaction on product change that affects rewrites
      *
      * @param int $productId
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function refreshProductRewrite($productId, $storeId = null)
@@ -560,7 +560,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh all product rewrites for designated store
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function refreshProductRewrites($storeId)
@@ -758,7 +758,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Get unique category request path
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @param string $parentPath
      * @return string
      */
@@ -821,8 +821,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Get unique product request path
      *
-     * @param Varien_Object|Mage_Catalog_Model_Product $product
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
+     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @return string
      */
     public function getProductRequestPath($product, $category)
@@ -916,8 +916,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * $parentPath used only for generating category path
      *
      * @param string $type
-     * @param Varien_Object|Mage_Catalog_Model_Product $product
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
+     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @param string $parentPath
      * @return string
      * @throws Mage_Core_Exception

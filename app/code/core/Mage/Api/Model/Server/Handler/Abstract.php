@@ -84,7 +84,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Allow insta-login via HTTP Basic Auth
      *
-     * @param stdClass|string|null $sessionId
+     * @param null|stdClass|string $sessionId
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */

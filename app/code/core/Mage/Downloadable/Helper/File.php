@@ -119,7 +119,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      * Return full path to file
      *
      * @param string $path
-     * @param string|null $file
+     * @param null|string $file
      * @return string
      */
     public function getFilePath($path, $file)

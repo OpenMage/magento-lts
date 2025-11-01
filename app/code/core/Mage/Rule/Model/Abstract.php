@@ -358,7 +358,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Validate rule data
      *
      *
-     * @return bool|array - return true if validation passed successfully. Array with errors description otherwise
+     * @return array|bool - return true if validation passed successfully. Array with errors description otherwise
      */
     public function validateData(Varien_Object $object)
     {

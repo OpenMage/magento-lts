@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_entity;
 
@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message|null
+     * @var null|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage;
 

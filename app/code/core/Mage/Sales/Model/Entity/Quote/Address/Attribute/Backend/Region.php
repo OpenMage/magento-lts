@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Region extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
+     * @param Mage_Sales_Model_Quote_Address|Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)

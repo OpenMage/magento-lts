@@ -541,7 +541,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      * @param string $email
      * @param string $websiteCode
-     * @return string|null
+     * @return null|string
      */
     public function getCustomerId($email, $websiteCode)
     {

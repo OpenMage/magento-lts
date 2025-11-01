@@ -19,7 +19,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array|null
+     *  @return     null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {

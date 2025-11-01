@@ -17,7 +17,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     /**
      * Zend_Date object for date comparisons
      *
-     * @var Zend_Date|null
+     * @var null|Zend_Date
      */
     protected static $_currentDate = null;
 

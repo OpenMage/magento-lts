@@ -20,7 +20,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * All item ids cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_itemIds;
 

@@ -31,7 +31,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Tax helper instance
      *
-     * @var Mage_Tax_Helper_Data|null
+     * @var null|Mage_Tax_Helper_Data
      */
     protected $_helper = null;
 
@@ -74,7 +74,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Request which can be used for tax rate calculation
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_storeTaxRequest = null;
 

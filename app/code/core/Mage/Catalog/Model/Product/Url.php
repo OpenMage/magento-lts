@@ -144,7 +144,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Returns checked store_id value
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return int
      */
     protected function _getStoreId($id = null)
@@ -158,7 +158,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * @param Mage_Catalog_Model_Product $product
      * @param array $params
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCategoryIdForUrl($product, $params)
     {

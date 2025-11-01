@@ -20,7 +20,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Catalog Product collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract|null
+     * @var null|Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected $_productCollection;
 

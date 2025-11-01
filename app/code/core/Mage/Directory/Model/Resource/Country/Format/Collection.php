@@ -22,7 +22,7 @@ class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_
     /**
      * Set country filter
      *
-     * @param string|Mage_Directory_Model_Country $country
+     * @param Mage_Directory_Model_Country|string $country
      * @return $this
      */
     public function setCountryFilter($country)

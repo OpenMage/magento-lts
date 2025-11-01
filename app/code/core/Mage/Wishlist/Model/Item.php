@@ -646,7 +646,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Wishlist_Model_Item_Option|null
+     * @return  null|Mage_Wishlist_Model_Item_Option
      */
     public function getOptionByCode($code)
     {
@@ -706,7 +706,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * can be provided in $optionsFilter.
      *
      * @param int $id
-     * @param null|string|array $optionsFilter
+     * @param null|array|string $optionsFilter
      *
      * @return $this
      */

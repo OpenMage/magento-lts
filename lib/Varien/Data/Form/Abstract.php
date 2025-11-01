@@ -95,7 +95,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = null)
@@ -151,7 +151,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * @param string $elementId
      * @param array $config
-     * @param bool|string|null $after
+     * @param null|bool|string $after
      *
      * @return Varien_Data_Form_Element_Fieldset
      */

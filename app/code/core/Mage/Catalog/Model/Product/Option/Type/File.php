@@ -502,7 +502,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Format File option html
      *
-     * @param string|array $optionValue Serialized string of option data or its data array
+     * @param array|string $optionValue Serialized string of option data or its data array
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -588,7 +588,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -762,7 +762,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Parse file extensions string with various separators
      *
      * @param string $extensions String to parse
-     * @return array|null
+     * @return null|array
      */
     protected function _parseExtensionsString($extensions)
     {

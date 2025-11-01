@@ -25,8 +25,8 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * Filters the summaries by some period
      *
      * @param string $periodType
-     * @param string|int|null $customStart
-     * @param string|int|null $customEnd
+     * @param null|int|string $customStart
+     * @param null|int|string $customEnd
      * @return $this
      */
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)

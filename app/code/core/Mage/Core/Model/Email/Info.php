@@ -51,7 +51,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      * Add new "Bcc" recipient to current email
      *
      * @param string $email
-     * @param string|null $name
+     * @param null|string $name
      * @return $this
      */
     public function addBcc($email, $name = null)
@@ -65,7 +65,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      * Add new "To" recipient to current email
      *
      * @param array|string $email
-     * @param array|string|null $name
+     * @param null|array|string $name
      * @return $this
      */
     public function addTo($email, $name = null)

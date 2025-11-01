@@ -334,7 +334,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
      * Add specific link model attribute to collection filter
      *
      * @param string $attributeCode
-     * @param array|null $condition
+     * @param null|array $condition
      *
      * @return $this
      */

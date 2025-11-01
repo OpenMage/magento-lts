@@ -611,7 +611,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Retrieve Subscribers Full Name if it was set
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSubscriberFullName()
     {

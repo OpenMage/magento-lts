@@ -136,7 +136,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Getter for entire additional_information value or one of its element by key
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {
@@ -174,8 +174,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool|null $setFailsafe
-     * @return bool|$this
+     * @param null|bool $setFailsafe
+     * @return $this|bool
      */
     public function isFailsafe($setFailsafe = null)
     {

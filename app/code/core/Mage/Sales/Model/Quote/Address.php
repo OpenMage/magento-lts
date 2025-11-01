@@ -137,7 +137,7 @@
  * @method $this setMiddlename(string $string)
  *
  * @method int getParentItemId()
- * @method $this setPaymentMethod(string|null $value)
+ * @method $this setPaymentMethod(null|string $value)
  * @method string getPostcode()
  * @method $this setPostcode(string $string)
  * @method string getPrefix()
@@ -234,7 +234,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Quote object
      *
-     * @var Mage_Sales_Model_Resource_Quote_Address_Item_Collection|Mage_Sales_Model_Quote_Address_Item[]|null
+     * @var null|Mage_Sales_Model_Quote_Address_Item[]|Mage_Sales_Model_Resource_Quote_Address_Item_Collection
      */
     protected $_items = null;
 
@@ -248,7 +248,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Sales Quote address rates
      *
-     * @var Mage_Sales_Model_Resource_Quote_Address_Rate_Collection|Mage_Sales_Model_Quote_Address_Rate[]|null
+     * @var null|Mage_Sales_Model_Quote_Address_Rate[]|Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
      */
     protected $_rates = null;
 
@@ -283,7 +283,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Whether to segregate by nominal items only
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_nominalOnly = null;
 
@@ -632,7 +632,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * null: get all
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return Mage_Sales_Model_Quote_Item_Abstract|false
+     * @return false|Mage_Sales_Model_Quote_Item_Abstract
      */
     protected function _filterNominal($item)
     {
@@ -700,7 +700,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get address item object by id without
      *
      * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @return false|Mage_Sales_Model_Quote_Address_Item
      */
     public function getItemById($itemId)
     {
@@ -717,7 +717,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get prepared not deleted item
      *
      * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @return false|Mage_Sales_Model_Quote_Address_Item
      */
     public function getValidItemById($itemId)
     {
@@ -734,7 +734,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve item object by quote item Id
      *
      * @param int $itemId
-     * @return Mage_Sales_Model_Quote_Address_Item|false
+     * @return false|Mage_Sales_Model_Quote_Address_Item
      */
     public function getItemByQuoteItemId($itemId)
     {
@@ -891,7 +891,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve shipping rate by identifier
      *
      * @param   int $rateId
-     * @return  Mage_Sales_Model_Quote_Address_Rate | false
+     * @return  false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getShippingRateById($rateId)
     {
@@ -908,7 +908,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve shipping rate by code
      *
      * @param   string $code
-     * @return  Mage_Sales_Model_Quote_Address_Rate|false
+     * @return  false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getShippingRateByCode($code)
     {
@@ -1130,7 +1130,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add total data or model
      *
-     * @param Mage_Sales_Model_Quote_Address_Total|array $total
+     * @param array|Mage_Sales_Model_Quote_Address_Total $total
      * @return $this
      */
     public function addTotal($total)

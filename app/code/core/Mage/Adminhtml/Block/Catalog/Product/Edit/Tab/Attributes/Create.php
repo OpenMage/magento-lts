@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     /**
      * Config of create new attribute
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_config = null;
 

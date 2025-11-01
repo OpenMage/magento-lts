@@ -383,7 +383,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Set for Entity Type
      *
-     * @param string|int $entityType
+     * @param int|string $entityType
      * @return string
      */
     public function getDefaultAttributeSetId($entityType)
@@ -567,8 +567,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Group Id By Entity Type and Attribute Set
      *
-     * @param string|int $entityType
-     * @param string|int $attributeSetId
+     * @param int|string $entityType
+     * @param int|string $attributeSetId
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -596,8 +596,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param array $array
      * @param string $key
-     * @param string|int|bool|array $default
-     * @return string|int|bool|array|null
+     * @param array|bool|int|string $default
+     * @return null|array|bool|int|string
      */
     protected function _getValue($array, $key, $default = null)
     {
@@ -662,7 +662,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * If attribute is system will add to all existing attribute sets
      *
-     * @param string|int $entityTypeId
+     * @param int|string $entityTypeId
      * @param string $code
      * @return $this
      */
@@ -992,7 +992,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityTypeId Entity Type id or Entity Type code
      * @param int|string $id Attribute id or Attribute code
-     * @return string|false
+     * @return false|string
      */
     public function getAttributeTable($entityTypeId, $id)
     {

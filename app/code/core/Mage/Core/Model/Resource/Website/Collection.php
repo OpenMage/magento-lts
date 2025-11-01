@@ -153,7 +153,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Adding filter by group id or array of ids but only if
      * tables with appropriate information were joined before.
      *
-     * @param int|array $groupIds
+     * @param array|int $groupIds
      * @return $this
      */
     public function addFilterByGroupIds($groupIds)

@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     /**
      * Set additional action block for this item
      *
-     * @param string|Mage_Core_Block_Abstract $block
+     * @param Mage_Core_Block_Abstract|string $block
      * @return $this
      * @throws Mage_Core_Exception
      */

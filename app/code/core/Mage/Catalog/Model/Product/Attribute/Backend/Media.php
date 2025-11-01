@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add image to media gallery and return new filename
      *
      * @param string                     $file              file path of image in file system
-     * @param string|array               $mediaAttribute    code of attribute with type 'media_image',
+     * @param array|string               $mediaAttribute    code of attribute with type 'media_image',
      *                                                      leave blank if image should be only in gallery
      * @param bool                    $move              if true, it will move source file
      * @param bool                    $exclude           mark image as disabled in product page view
@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Clear media attribute value
      *
-     * @param string|array $mediaAttribute
+     * @param array|string $mediaAttribute
      * @return $this
      */
     public function clearMediaAttribute(Mage_Catalog_Model_Product $product, $mediaAttribute)
@@ -531,7 +531,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Set media attribute value
      *
-     * @param string|array $mediaAttribute
+     * @param array|string $mediaAttribute
      * @param string $value
      * @return $this
      */

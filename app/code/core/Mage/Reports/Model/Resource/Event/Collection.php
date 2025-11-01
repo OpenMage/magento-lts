@@ -54,7 +54,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      * @param int $typeId
      * @param int $subjectId
      * @param int $subtype
-     * @param int|array $ignore
+     * @param array|int $ignore
      * @param int $limit
      * @return $this
      */

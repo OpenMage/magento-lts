@@ -47,12 +47,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_configFields;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset|false
+     * @var false|Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected $_defaultFieldsetRenderer;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Field|false
+     * @var false|Mage_Adminhtml_Block_System_Config_Form_Field
      */
     protected $_defaultFieldRenderer;
 
@@ -144,7 +144,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param Varien_Data_Form $form
      * @param Varien_Simplexml_Element $group
      * @param Varien_Simplexml_Element $section
-     * @param Varien_Data_Form_Element_Fieldset|null $parentElement
+     * @param null|Varien_Data_Form_Element_Fieldset $parentElement
      */
     protected function _initGroup($form, $group, $section, $parentElement = null)
     {

@@ -38,14 +38,14 @@ class Mage_Core_Model_Translate
     /**
      * Locale name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_locale;
 
     /**
      * Translation object
      *
-     * @var Zend_Translate|null
+     * @var null|Zend_Translate
      */
     protected $_translate;
 
@@ -61,14 +61,14 @@ class Mage_Core_Model_Translate
     /**
      * Cache identifier
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_cacheId;
 
     /**
      * Translation data
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_data = [];
 
@@ -571,7 +571,7 @@ class Mage_Core_Model_Translate
     /**
      * Check cache usage availability
      *
-     * @return false|array
+     * @return array|false
      */
     protected function _canUseCache()
     {

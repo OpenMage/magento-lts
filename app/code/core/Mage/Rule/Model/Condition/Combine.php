@@ -56,7 +56,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
      *
      * @param  string $modelClass
-     * @return Mage_Rule_Model_Condition_Abstract|bool
+     * @return bool|Mage_Rule_Model_Condition_Abstract
      */
     protected function _getNewConditionModelInstance($modelClass)
     {
@@ -274,7 +274,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param string|SimpleXMLElement $xml
+     * @param SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)

@@ -157,7 +157,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     public function hasPath(string $wantedPath): bool
     {
-        /** @var bool|null $data */
+        /** @var null|bool $data */
         $data = Mage::registry("config_env_has_path_$wantedPath");
         if ($data !== null) {
             return $data;
@@ -250,7 +250,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             $wantedStore = 'default';
         }
 
-        /** @var array<string, string>|null $data */
+        /** @var null|array<string, string> $data */
         $data = Mage::registry("config_env_array_$wantedStore");
         if ($data !== null) {
             return $data;

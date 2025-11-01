@@ -27,7 +27,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     /**
      * Flag code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_flagCode = null;
 

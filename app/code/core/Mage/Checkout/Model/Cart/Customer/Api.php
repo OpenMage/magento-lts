@@ -189,7 +189,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
      * Prepare customer entered data for implementing
      *
      * @param  array $data
-     * @return array|null
+     * @return null|array
      */
     protected function _prepareCustomerAddressData($data)
     {
