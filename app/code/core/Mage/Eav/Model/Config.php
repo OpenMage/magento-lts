@@ -444,8 +444,8 @@ class Mage_Eav_Model_Config
      * Entity_Type->getEntity() which itself requires this class and re-triggers loading.
      *
      * @param Mage_Eav_Model_Entity_Type $entityType
-     * @param int $storeId
      * @param string $attributeCode
+     * @param int $storeId
      * @return Mage_Eav_Model_Entity_Attribute_Abstract|false
      */
     protected function _getDefaultAttributeIfExists($entityType, $attributeCode, $storeId)

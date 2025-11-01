@@ -304,9 +304,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Login failed process
      *
      * @param Exception $e
+     * @param Mage_Core_Controller_Request_Http|null $request
      * @param string $username
      * @param string $message
-     * @param Mage_Core_Controller_Request_Http|null $request
      */
     protected function _loginFailed($e, $request, $username, $message)
     {

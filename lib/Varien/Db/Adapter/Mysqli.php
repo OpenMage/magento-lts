@@ -203,8 +203,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @param string $keyName
      * @param string $refTableName
      * @param string $refKeyName
-     * @param string $onUpdate
      * @param string $onDelete
+     * @param string $onUpdate
      */
     public function addConstraint(
         $fkName,
