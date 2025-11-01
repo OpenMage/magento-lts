@@ -165,7 +165,6 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load and validate order, instantiate proper configuration
      *
-     *
      * @return Mage_Sales_Model_Order
      * @throws Exception
      * @SuppressWarnings("PHPMD.ExitExpression")

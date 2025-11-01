@@ -535,7 +535,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
      *
-     *
      * @throws Exception
      */
     protected function _authOrder(Mage_Sales_Model_Order $order)

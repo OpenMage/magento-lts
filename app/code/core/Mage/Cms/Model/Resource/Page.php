@@ -277,7 +277,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is valid
      *
-     *
      * @return   false|int
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)

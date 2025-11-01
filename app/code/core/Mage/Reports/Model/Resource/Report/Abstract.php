@@ -198,7 +198,6 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * Make condition for using in where section
      * from select statement with single date column
      *
-     *
      * @param string|Zend_Db_Select $select
      * @param string $periodColumn
      * @return false|string

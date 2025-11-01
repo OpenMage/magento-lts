@@ -206,7 +206,6 @@
  * @method float getWeight()
  * @method $this setWeight(float $value)
  *
- *
  * @method Mage_Sales_Model_Quote_Address getParentItem()
  * @method Mage_Sales_Model_Quote_Address[] getChildren()
  */

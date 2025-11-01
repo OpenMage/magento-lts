@@ -150,7 +150,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Set message recipients data
      *
-     *
      * @return $this
      */
     public function setRecipients(array $recipients)

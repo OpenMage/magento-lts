@@ -27,7 +27,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
     /**
      * Get option html block
      *
-     *
      * @return string
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)

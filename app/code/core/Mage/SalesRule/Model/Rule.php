@@ -224,7 +224,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Initialize rule model data from array.
      * Set store labels if applicable.
      *
-     *
      * @return $this
      */
     public function loadPost(array $data)

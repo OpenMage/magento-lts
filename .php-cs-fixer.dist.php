@@ -22,6 +22,8 @@ return $config
         'phpdoc_param_order' => true,
         // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.
         'phpdoc_trim' => true,
+        // Removes extra blank lines after summary and after description in PHPDoc.
+        'phpdoc_trim_consecutive_blank_line_separation' => true,
         // Single line @var PHPDoc should have proper spacing.
         'phpdoc_single_line_var_spacing' => true,
         // Sorts PHPDoc types.

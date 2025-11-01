@@ -101,7 +101,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Check current user permission on resource and privilege
      *
-     *
      * @param   string $resource
      * @param   string $privilege
      * @return  bool
