@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
      * Returns currency code, false on error
      *
      * @param Varien_Object $row
-     * @return string|false
+     * @return false|string
      */
     protected function _getCurrencyCode($row)
     {

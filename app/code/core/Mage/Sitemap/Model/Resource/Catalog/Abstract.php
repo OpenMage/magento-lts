@@ -59,7 +59,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      * @param string $attributeCode
      * @param mixed $value
      * @param string $type
-     * @return Zend_Db_Select|false
+     * @return false|Zend_Db_Select
      */
     protected function _addFilter($storeId, $attributeCode, $value, $type = '=')
     {

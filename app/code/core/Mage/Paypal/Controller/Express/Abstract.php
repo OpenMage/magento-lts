@@ -25,7 +25,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote|false
+     * @var false|Mage_Sales_Model_Quote
      */
     protected $_quote = false;
 

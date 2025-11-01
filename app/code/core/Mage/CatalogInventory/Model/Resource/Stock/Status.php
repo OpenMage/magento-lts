@@ -24,9 +24,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      *
      * @param int $productId
      * @param int $status
-     * @param int|float $qty
+     * @param float|int $qty
      * @param int $stockId
-     * @param int|null $websiteId
+     * @param null|int $websiteId
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -81,7 +81,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Retrieve product status
      * Return array as key product id, value - stock status
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $websiteId
      * @param int $stockId
      * @return array
@@ -103,7 +103,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Retrieve product(s) data array
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $websiteId
      * @param int $stockId
      * @return array

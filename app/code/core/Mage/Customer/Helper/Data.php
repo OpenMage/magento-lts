@@ -383,7 +383,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -396,7 +396,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -473,7 +473,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default customer group id
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getDefaultCustomerGroupId($store = null)
@@ -516,7 +516,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
@@ -637,7 +637,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return null|string
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)

@@ -191,7 +191,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getAttributeId()
     {
@@ -553,7 +553,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute in specified set
      *
-     * @param int|array $setId
+     * @param array|int $setId
      * @return bool
      */
     public function isInSet($setId)
@@ -914,7 +914,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return $this|Varien_Db_Select|null
+     * @return null|$this|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store = null)
     {

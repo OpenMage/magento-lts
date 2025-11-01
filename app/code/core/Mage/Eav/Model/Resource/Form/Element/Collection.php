@@ -25,7 +25,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Add Form Type filter to collection
      *
-     * @param Mage_Eav_Model_Form_Type|int $type
+     * @param int|Mage_Eav_Model_Form_Type $type
      * @return $this
      */
     public function addTypeFilter($type)
@@ -40,7 +40,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Add Form Fieldset filter to collection
      *
-     * @param Mage_Eav_Model_Form_Fieldset|int $fieldset
+     * @param int|Mage_Eav_Model_Form_Fieldset $fieldset
      * @return $this
      */
     public function addFieldsetFilter($fieldset)
@@ -55,7 +55,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     /**
      * Add Attribute filter to collection
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
+     * @param int|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      *
      * @return $this
      */

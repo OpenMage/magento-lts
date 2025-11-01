@@ -156,7 +156,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      * Return selection by it's id
      *
      * @param int $selectionId
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     public function getSelectionById($selectionId)
     {

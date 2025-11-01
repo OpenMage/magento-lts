@@ -124,7 +124,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
      * @param   array|string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
-     * @return  Varien_Simplexml_Element|false
+     * @return  false|Varien_Simplexml_Element
      */
     public function descend($path)
     {
@@ -240,7 +240,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Makes nicely formatted XML from the node
      *
      * @param string $filename
-     * @param int|bool $level if false
+     * @param bool|int $level if false
      * @return string
      */
     public function asNiceXml($filename = '', $level = 0)

@@ -291,7 +291,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve oauth_token param from request
      *
-     * @return string|null
+     * @return null|string
      */
     public function getOauthToken()
     {

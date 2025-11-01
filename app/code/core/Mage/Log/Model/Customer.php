@@ -39,7 +39,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Load last log by customer id
      *
-     * @param Mage_Log_Model_Customer|int $customer
+     * @param int|Mage_Log_Model_Customer $customer
      * @return $this
      */
     public function loadByCustomer($customer)
@@ -54,7 +54,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Return last login at in Unix time format
      *
-     * @return int|null
+     * @return null|int
      */
     public function getLoginAtTimestamp()
     {

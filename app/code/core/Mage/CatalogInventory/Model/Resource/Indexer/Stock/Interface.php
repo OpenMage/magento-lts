@@ -22,7 +22,7 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
     /**
      * Reindex stock status data for defined ids
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      */
     public function reindexEntity($entityIds);
 

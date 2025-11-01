@@ -17,7 +17,7 @@ class Varien_Object_Cache
     /**
      * Singleton instance
      *
-     * @var Varien_Object_Cache|null
+     * @var null|Varien_Object_Cache
      */
     protected static $_instance;
 
@@ -106,7 +106,7 @@ class Varien_Object_Cache
     /**
      * Load an object from registry
      *
-     * @param string|object $idx
+     * @param object|string $idx
      * @param object $default
      * @return object
      */
@@ -125,7 +125,7 @@ class Varien_Object_Cache
      * @param object $object
      * @param string $idx
      * @param array|string $tags
-     * @return string|false
+     * @return false|string
      */
     public function save($object, $idx = null, $tags = null)
     {
@@ -179,7 +179,7 @@ class Varien_Object_Cache
     /**
      * Add a reference to an object
      *
-     * @param string|array $refName
+     * @param array|string $refName
      * @param string $idx
      * @return bool
      */
@@ -206,7 +206,7 @@ class Varien_Object_Cache
     /**
      * Delete an object from registry
      *
-     * @param string|object $idx
+     * @param object|string $idx
      * @return bool
      */
     public function delete($idx)
@@ -301,7 +301,7 @@ class Varien_Object_Cache
      * Find an object id
      *
      * @param object $object
-     * @return string|bool
+     * @return bool|string
      */
     public function find($object)
     {

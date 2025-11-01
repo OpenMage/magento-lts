@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getWidth()
     {
@@ -129,7 +129,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getHeight()
     {
@@ -231,7 +231,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated
-     * @param string|null $file
+     * @param null|string $file
      * @return bool
      */
     protected function _checkMemory($file = null)
@@ -642,7 +642,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Get relative watermark file path
      * or false if file not found
      *
-     * @return string | bool
+     * @return bool|string
      */
     protected function _getWatermarkFilePath()
     {

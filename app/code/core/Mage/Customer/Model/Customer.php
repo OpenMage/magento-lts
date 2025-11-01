@@ -19,16 +19,16 @@
  * @method $this setChangePassword(int $value)
  * @method string getCompany()
  * @method bool getConfirmation()
- * @method $this setConfirmation(bool|null $value)
+ * @method $this setConfirmation(null|bool $value)
  * @method string getCreatedAt()
  * @method int getCustomerId()
- * @method $this setCustomerId(int|null $value)
+ * @method $this setCustomerId(null|int $value)
  *
- * @method int|null getDefaultBilling()
- * @method $this setDefaultBilling(int|null $value)
+ * @method null|int getDefaultBilling()
+ * @method $this setDefaultBilling(null|int $value)
  * @method $this unsetDefaultBilling()
- * @method int|null getDefaultShipping()
- * @method $this setDefaultShipping(int|null $value)
+ * @method null|int getDefaultShipping()
+ * @method $this setDefaultShipping(null|int $value)
  * @method $this unsetDefaultShipping()
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
@@ -197,14 +197,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Assoc array of customer attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
     /**
      * Customer addresses array
      *
-     * @var Mage_Customer_Model_Address[]|null
+     * @var null|Mage_Customer_Model_Address[]
      * @deprecated after 1.4.0.0-rc1
      */
     protected $_addresses = null;
@@ -212,7 +212,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Customer addresses collection
      *
-     * @var Mage_Customer_Model_Resource_Address_Collection|null
+     * @var null|Mage_Customer_Model_Resource_Address_Collection
      */
     protected $_addressesCollection;
 
@@ -401,7 +401,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve customer address by address id
      *
-     * @param   int|null $addressId
+     * @param   null|int $addressId
      * @return  Mage_Customer_Model_Address
      */
     public function getAddressById($addressId)
@@ -491,7 +491,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Get customer attribute model object
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Customer|null
+     * @return null|Mage_Customer_Model_Customer
      * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
@@ -607,7 +607,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Retrieve default address by type(attribute)
      *
      * @param string $attributeCode address type attribute code
-     * @return Mage_Customer_Model_Address|false
+     * @return false|Mage_Customer_Model_Address
      * @throws Mage_Core_Exception
      */
     public function getPrimaryAddress($attributeCode)
@@ -746,7 +746,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @param string $backUrl
-     * @param string|int $storeId
+     * @param int|string $storeId
      * @param string $password
      * @throws Mage_Core_Exception
      * @return $this
@@ -863,8 +863,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string $template configuration path of email template
      * @param string $sender configuration path of email identity
      * @param array $templateParams
-     * @param int|null $storeId
-     * @param string|null $customerEmail
+     * @param null|int $storeId
+     * @param null|string $customerEmail
      * @return $this
      */
     protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
@@ -979,7 +979,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check store availability for customer
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -1174,7 +1174,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Import customer data from text array
      *
-     * @return $this|null
+     * @return null|$this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -1495,7 +1495,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Get customer created at date timestamp
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCreatedAtTimestamp()
     {
@@ -1621,7 +1621,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Get either first store ID from a set website or the provided as default
      *
-     * @param int|string|null $defaultStoreId
+     * @param null|int|string $defaultStoreId
      * @return int
      * @throws Mage_Core_Exception
      */

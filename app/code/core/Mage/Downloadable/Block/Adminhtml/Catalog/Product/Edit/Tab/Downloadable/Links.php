@@ -21,7 +21,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Purchased Separately Attribute cache
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute|null
+     * @var null|Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected $_purchasedSeparatelyAttribute = null;
 

@@ -40,14 +40,14 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select in query
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_fieldsToSelect         = null;
 
     /**
      * Fields initial fields to select like id_field
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_initialFieldsToSelect  = null;
 
@@ -278,8 +278,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Add field to select
      *
-     * @param string|array $field
-     * @param string|null $alias
+     * @param array|string $field
+     * @param null|string $alias
      * @return $this
      */
     public function addFieldToSelect($field, $alias = null)
@@ -347,7 +347,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Removes field from select
      *
-     * @param string|null $field
+     * @param null|string $field
      * @param bool $isAlias Alias identifier
      * @return $this
      */
@@ -663,7 +663,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string | false
+     * @return false|string
      */
     protected function _loadCache($select)
     {

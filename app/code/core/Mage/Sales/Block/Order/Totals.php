@@ -236,7 +236,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Get Total object by code
      *
      * @param string $code
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getTotal($code)
     {

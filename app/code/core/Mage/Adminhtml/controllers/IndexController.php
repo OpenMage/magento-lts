@@ -405,7 +405,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
      * @param   array|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @return  false|Mage_Core_Model_Abstract
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

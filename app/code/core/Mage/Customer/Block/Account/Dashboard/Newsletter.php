@@ -15,7 +15,7 @@
 class Mage_Customer_Block_Account_Dashboard_Newsletter extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_Newsletter_Model_Subscriber|null
+     * @var null|Mage_Newsletter_Model_Subscriber
      */
     protected $_subscription = null;
 

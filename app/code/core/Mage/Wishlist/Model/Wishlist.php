@@ -36,21 +36,21 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
+     * @var null|Mage_Wishlist_Model_Resource_Item_Collection
      */
     protected $_itemCollection = null;
 
     /**
      * Store filter for wishlist
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
     /**
      * Shared store ids (website stores)
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storeIds = null;
 
@@ -248,7 +248,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist item collection
      *
      * @param int $itemId
-     * @return Mage_Wishlist_Model_Item|false
+     * @return false|Mage_Wishlist_Model_Item
      */
     public function getItem($itemId)
     {

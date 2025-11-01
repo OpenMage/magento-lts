@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add product_id filter to select
      *
-     * @param array|Mage_Catalog_Model_Product|int $product
+     * @param array|int|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function addProductToFilter($product)

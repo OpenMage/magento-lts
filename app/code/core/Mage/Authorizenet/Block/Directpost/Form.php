@@ -28,7 +28,7 @@ class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
      * Render block HTML
      * If method is not directpost - nothing to return
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _toHtml()
     {

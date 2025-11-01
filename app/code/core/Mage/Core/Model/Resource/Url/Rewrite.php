@@ -73,7 +73,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      *
      * @param string $idPath
      * @param int|Mage_Core_Model_Store $store
-     * @return string|false
+     * @return false|string
      */
     public function getRequestPathByIdPath($idPath, $store)
     {

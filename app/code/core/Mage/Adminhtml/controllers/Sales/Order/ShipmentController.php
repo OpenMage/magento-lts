@@ -26,7 +26,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
-     * @return Mage_Sales_Model_Order_Shipment|bool
+     * @return bool|Mage_Sales_Model_Order_Shipment
      * @throws Mage_Core_Exception
      */
     protected function _initShipment()
@@ -726,7 +726,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
      * @param string $imageString
-     * @return Zend_Pdf_Page|bool
+     * @return bool|Zend_Pdf_Page
      */
     protected function _createPdfPageFromImageString($imageString)
     {

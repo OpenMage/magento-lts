@@ -22,7 +22,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Store id
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId = null;
 
@@ -80,14 +80,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @deprecated after 1.7.0.0 use $this->_isBuilt instead
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isRebuilt = null;
 
     /**
      * array with root category id per store
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storesRootCategories;
 
@@ -232,7 +232,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Load nodes by parent id
      *
-     * @param Mage_Catalog_Model_Category|int $parentNode
+     * @param int|Mage_Catalog_Model_Category $parentNode
      * @param int $recursionLevel
      * @param int $storeId
      * @param bool $onlyActive
@@ -347,7 +347,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return sorted array of nodes
      *
-     * @param int|null $parentId
+     * @param null|int $parentId
      * @param int $recursionLevel
      * @param int $storeId
      * @return array
@@ -427,7 +427,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      *
      * @param int $nodeId
      * @param array $nodes
-     * @return Varien_Object|array
+     * @return array|Varien_Object
      */
     public function getNodeById($nodeId, $nodes = null)
     {
@@ -451,7 +451,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Check if Catalog Category Flat Data has been initialized
      *
-     * @param bool|int|\Mage_Core_Model_Store|null $storeView Store(id) for which the value is checked
+     * @param null|bool|int|\Mage_Core_Model_Store $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)
@@ -480,7 +480,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Rebuild flat data from eav
      *
-     * @param array|null $stores
+     * @param null|array $stores
      * @return $this
      */
     public function rebuild($stores = null)
@@ -830,7 +830,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return attribute values for given entities and store
      *
-     * @param int|string|array $entityIds
+     * @param array|int|string $entityIds
      * @param int $storeId
      * @return array
      */
@@ -943,7 +943,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Synchronize flat data with eav model.
      *
-     * @param Mage_Catalog_Model_Category|int $category
+     * @param int|Mage_Catalog_Model_Category $category
      * @param array $storeIds
      * @return $this
      */
@@ -1012,7 +1012,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Remove table of given stores
      *
-     * @param int|array $stores
+     * @param array|int $stores
      * @return $this
      */
     public function removeStores($stores)
@@ -1477,7 +1477,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Retrieve array with root category id per store
      *
-     * @param int|array $storeIds   result limitation
+     * @param array|int $storeIds   result limitation
      * @return array
      */
     public function getStoresRootCategories($storeIds = null)

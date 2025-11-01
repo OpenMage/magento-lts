@@ -45,14 +45,14 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Grid virtual columns
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_virtualGridColumns           = null;
 
     /**
      * Grid columns
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_gridColumns                  = null;
 
@@ -163,7 +163,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      *
      * @param array $ids
      * @param array $flatColumnsToSelect
-     * @param array|null $gridColumns
+     * @param null|array $gridColumns
      * @return Varien_Db_Select
      */
     public function getUpdateGridRecordsSelect($ids, &$flatColumnsToSelect, $gridColumns = null)
@@ -248,7 +248,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Retrieve grid table
      *
-     * @return string|false
+     * @return false|string
      */
     public function getGridTable()
     {
@@ -300,7 +300,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Perform actions after object save
      *
-     * @param string|string[]|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string|string[] $attribute
      * @return $this
      */
     public function saveAttribute(Mage_Core_Model_Abstract $object, $attribute)

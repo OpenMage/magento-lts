@@ -101,7 +101,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form
      * @throws Exception
      */
@@ -159,7 +159,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
 
     /**
      * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function getElement($elementId)
     {

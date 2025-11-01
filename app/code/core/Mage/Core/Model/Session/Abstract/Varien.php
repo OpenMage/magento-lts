@@ -12,7 +12,7 @@ use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSamesite;
 /**
  * @package    Mage_Core
  *
- * @method bool|null getSkipEmptySessionCheck()
+ * @method null|bool getSkipEmptySessionCheck()
  * @method $this setSkipEmptySessionCheck(bool $flag)
  */
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object

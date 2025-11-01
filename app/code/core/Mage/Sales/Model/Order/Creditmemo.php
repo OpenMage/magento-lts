@@ -180,7 +180,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected static $_states;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection|Mage_Sales_Model_Order_Creditmemo_Item[]
+     * @var Mage_Sales_Model_Order_Creditmemo_Item[]|Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection
      */
     protected $_items;
 
@@ -190,7 +190,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection|Mage_Sales_Model_Order_Creditmemo_Comment[]|null
+     * @var null|Mage_Sales_Model_Order_Creditmemo_Comment[]|Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection
      */
     protected $_comments;
 
@@ -343,7 +343,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * Returns credit memo item by its order id
      *
      * @param int $orderId
-     * @return Mage_Sales_Model_Order_Creditmemo_Item|bool
+     * @return bool|Mage_Sales_Model_Order_Creditmemo_Item
      */
     public function getItemByOrderId($orderId)
     {
@@ -1002,7 +1002,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Get creditmemos collection filtered by $filter
      *
-     * @param array|null $filter
+     * @param null|array $filter
      * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
      */
     public function getFilteredCollectionItems($filter = null)

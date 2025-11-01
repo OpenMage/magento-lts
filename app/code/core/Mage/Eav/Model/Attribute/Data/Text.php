@@ -29,8 +29,8 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      * Validate data
      * Return true or array of errors
      *
-     * @param string|bool|null $value
-     * @return bool|array
+     * @param null|bool|string $value
+     * @return array|bool
      */
     public function validateValue($value)
     {
@@ -107,7 +107,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

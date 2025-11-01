@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Product type code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_typeId;
 
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Prepare products default final price in temporary index table
      *
-     * @param int|array $entityIds  the entity ids limitation
+     * @param array|int $entityIds  the entity ids limitation
      * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)

@@ -157,8 +157,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Set connections for entity operations
      *
-     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract|string $read
-     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract|string|null $write
+     * @param string|Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $read
+     * @param null|string|Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $write
      * @return $this
      */
     public function setConnection($read, $write = null)
@@ -174,7 +174,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve connection for read data
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getReadAdapter()
     {
@@ -188,7 +188,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve connection for write data
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getWriteAdapter()
     {
@@ -202,7 +202,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve read DB connection
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     public function getReadConnection()
     {
@@ -232,7 +232,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve table name
      *
-     * @param string|array $alias
+     * @param array|string $alias
      * @return string
      */
     public function getTable($alias)
@@ -245,7 +245,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * Accepts config node or name of entity type
      *
-     * @param string|Mage_Eav_Model_Entity_Type $type
+     * @param Mage_Eav_Model_Entity_Type|string $type
      * @return $this
      */
     public function setType($type)
@@ -295,7 +295,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * If NULL or not supplied removes configuration of all attributes
      * If string - removes only one, if array - all specified
      *
-     * @param array|string|null $attributes
+     * @param null|array|string $attributes
      * @return $this
      */
     public function unsetAttributes($attributes = null)
@@ -336,8 +336,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * If attribute is not found false is returned
      *
-     * @param string|int|Mage_Core_Model_Config_Element|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute|false
+     * @param int|Mage_Core_Model_Config_Element|Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attribute)
     {
@@ -787,7 +787,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Check whether the attribute is a real field in entity table
      *
      * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
-     * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param int|Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      *
      * @return bool
      */
@@ -802,7 +802,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param Varien_Object $object
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
-     * @return true|array
+     * @return array|true
      */
     public function validate($object)
     {
@@ -912,7 +912,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param   Mage_Core_Model_Abstract $object
      * @param   int $entityId
-     * @param   array|null $attributes
+     * @param   null|array $attributes
      * @return  $this
      */
     public function load($object, $entityId, $attributes = [])

@@ -27,7 +27,7 @@ class Mage_Archive
     /**
      * Current archiver is used for compress.
      *
-     * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
+     * @var Mage_Archive_Bz|Mage_Archive_Gz|Mage_Archive_Tar
      */
     protected $_archiver = null;
 
@@ -55,7 +55,7 @@ class Mage_Archive
      * Create object of current archiver by $extension.
      *
      * @param string $extension
-     * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
+     * @return Mage_Archive_Bz|Mage_Archive_Gz|Mage_Archive_Tar
      */
     protected function _getArchiver($extension)
     {

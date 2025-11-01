@@ -264,7 +264,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param bool $keepFrame
      * @param string $image
      * @param bool $placeholder
-     * @return string|bool
+     * @return bool|string
      */
     protected function _resizeProductImage($product, $type, $keepFrame, $image = null, $placeholder = false)
     {

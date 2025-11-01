@@ -67,7 +67,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Tproduct types sorted by index priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypePriority = null;
 
@@ -340,8 +340,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * After plain reindex process
      *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @param array|int|Mage_Core_Model_Store|Mage_Core_Model_Website $store
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
@@ -807,8 +807,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param Mage_Core_Model_Store|int $store
-     * @param Mage_Catalog_Model_Product|int|array|null $products
+     * @param int|Mage_Core_Model_Store $store
+     * @param null|array|int|Mage_Catalog_Model_Product $products
      * @param string $resourceTable
      * @return $this
      */

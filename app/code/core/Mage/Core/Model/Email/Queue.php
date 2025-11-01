@@ -113,7 +113,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Add message recipients by email type
      *
      * @param array|string $emails
-     * @param array|string|null $names
+     * @param null|array|string $names
      * @param int $type
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")

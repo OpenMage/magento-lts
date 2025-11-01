@@ -133,8 +133,8 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Varien_Object|Mage_Sales_Model_Order_Invoice_Item $item
-     * @return mixed|null
+     * @param Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
+     * @return null|mixed
      */
     public function getSelectionAttributes($item)
     {

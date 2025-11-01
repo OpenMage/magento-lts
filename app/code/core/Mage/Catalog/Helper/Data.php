@@ -48,7 +48,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var array<string, array<string, string|null>>
+     * @var array<string, array<string, null|string>>
      */
     protected $_categoryPath;
 
@@ -137,7 +137,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return current category object
      *
-     * @return Mage_Catalog_Model_Category|null
+     * @return null|Mage_Catalog_Model_Category
      */
     public function getCategory()
     {
@@ -147,7 +147,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current Product object
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -246,7 +246,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId Store View
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)

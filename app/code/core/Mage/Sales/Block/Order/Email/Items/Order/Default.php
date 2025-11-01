@@ -79,7 +79,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
      * Return product additional information block
      *
      * TODO set return type
-     * @return Mage_Core_Block_Abstract|null
+     * @return null|Mage_Core_Block_Abstract
      */
     public function getProductAdditionalInformationBlock()
     {

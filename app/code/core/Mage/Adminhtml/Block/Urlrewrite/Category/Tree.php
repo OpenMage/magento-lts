@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * List of allowed category ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allowedCategoryIds = null;
 

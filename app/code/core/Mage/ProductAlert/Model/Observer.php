@@ -42,7 +42,7 @@ class Mage_ProductAlert_Model_Observer
     /**
      * Website collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 

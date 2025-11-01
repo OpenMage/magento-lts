@@ -19,7 +19,7 @@
  * @method $this setInfo(string $value)
  * @method string getKey()
  * @method $this setKey(string $value)
- * @method $this setWebsiteId(int|string|null $value)
+ * @method $this setWebsiteId(null|int|string $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
@@ -74,7 +74,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Get date-time before which persistent session is expired
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getExpiredBefore($store = null)
@@ -195,7 +195,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete expired persistent sessions for the website
      *
-     * @param int|null $websiteId
+     * @param null|int $websiteId
      * @return $this
      */
     public function deleteExpired($websiteId = null)

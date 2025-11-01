@@ -133,7 +133,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      *
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @param Varien_Simplexml_Element|string $value
+     * @param string|Varien_Simplexml_Element $value
      * @return bool
      */
     public function isValid($value)

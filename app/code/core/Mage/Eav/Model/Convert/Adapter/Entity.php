@@ -15,7 +15,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Current store model
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
@@ -329,7 +329,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      * Retrieve collection for load
      *
      * @param string $entityType
-     * @return Mage_Eav_Model_Entity_Collection|false
+     * @return false|Mage_Eav_Model_Entity_Collection
      */
     protected function _getCollectionForLoad($entityType)
     {

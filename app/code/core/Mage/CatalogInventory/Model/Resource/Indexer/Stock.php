@@ -18,7 +18,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Stock Indexer models per product type
      * Sorted by priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_indexers;
 

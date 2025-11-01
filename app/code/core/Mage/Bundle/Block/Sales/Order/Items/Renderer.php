@@ -15,7 +15,7 @@
 class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Order_Item_Renderer_Default
 {
     /**
-     * @param Varien_Object|null $item
+     * @param null|Varien_Object $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -58,7 +58,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param Varien_Object|null $item
+     * @param null|Varien_Object $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -101,8 +101,8 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * @param Varien_Object|Mage_Sales_Model_Order_Item $item
-     * @return mixed|null
+     * @param Mage_Sales_Model_Order_Item|Varien_Object $item
+     * @return null|mixed
      */
     public function getSelectionAttributes($item)
     {

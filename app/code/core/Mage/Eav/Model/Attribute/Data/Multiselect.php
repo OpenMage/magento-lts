@@ -47,7 +47,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)

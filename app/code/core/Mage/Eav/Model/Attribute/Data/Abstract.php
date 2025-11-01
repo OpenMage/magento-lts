@@ -60,7 +60,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Mage_Core_Model_Locale FORMAT
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_dateFilterFormat;
 
@@ -189,7 +189,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return Data Form Input/Output Filter
      *
-     * @return Varien_Data_Form_Filter_Interface|false
+     * @return false|Varien_Data_Form_Filter_Interface
      */
     protected function _getFormFilter()
     {
@@ -211,7 +211,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Get/Set/Reset date filter format
      *
-     * @param string|null|false $format
+     * @param null|false|string $format
      * @return $this|string
      */
     protected function _dateFilterFormat($format = null)
@@ -253,7 +253,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate value by attribute input validation rule
      *
      * @param string $value
-     * @return string|array|true
+     * @return array|string|true
      */
     protected function _validateInputRule($value)
     {
@@ -538,7 +538,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      */
     abstract public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT);
 }

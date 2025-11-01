@@ -121,7 +121,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Apply filter by store id(s).
      *
-     * @param int|array $storeId
+     * @param array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)

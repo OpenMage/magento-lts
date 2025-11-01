@@ -294,7 +294,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $indexName
-     * @param string|array $fields  the table column name or array of ones
+     * @param array|string $fields  the table column name or array of ones
      * @param string $indexType     the index type
      * @param string $schemaName
      * @return Zend_Db_Statement_Interface
@@ -573,8 +573,8 @@ interface Varien_Db_Adapter_Interface
      * If an array is passed as the value, the array values are quoted
      * and then returned as a comma-separated string.
      *
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return string An SQL-safe quoted value (or string of separated values).
      */
     public function quote($value, $type = null);
@@ -593,8 +593,8 @@ interface Varien_Db_Adapter_Interface
      * </code>
      *
      * @param string  $text  The text with a placeholder.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
      * @return string An SQL-safe quoted value placed into the original text.
      */
@@ -618,7 +618,7 @@ interface Varien_Db_Adapter_Interface
      * The actual quote character surrounding the identifiers may vary depending on
      * the adapter.
      *
-     * @param string|array|Zend_Db_Expr $ident The identifier.
+     * @param array|string|Zend_Db_Expr $ident The identifier.
      * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier.
      */
@@ -627,7 +627,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Quote a column identifier and alias.
      *
-     * @param string|array|Zend_Db_Expr $ident The identifier or expression.
+     * @param array|string|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the column.
      * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
@@ -637,7 +637,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Quote a table identifier and alias.
      *
-     * @param string|array|Zend_Db_Expr $ident The identifier or expression.
+     * @param array|string|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the table.
      * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
@@ -714,7 +714,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableCacheKey the table cache key
      * @param int $ddlType          the DDL constant
-     * @return string|array|int|false
+     * @return array|false|int|string
      */
     public function loadDdlCache($tableCacheKey, $ddlType);
 
@@ -746,7 +746,7 @@ interface Varien_Db_Adapter_Interface
      * will be built using above mentioned structure
      *
      * @param string $fieldName
-     * @param int|string|array $condition
+     * @param array|int|string $condition
      * @return string
      */
     public function prepareSqlCondition($fieldName, $condition);
@@ -839,7 +839,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @see INTERVAL_ constants for $unit
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int $interval
      * @param string $unit
      * @return Zend_Db_Expr
@@ -851,7 +851,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @see INTERVAL_ constants for $unit
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int|string $interval
      * @param string $unit
      * @return Zend_Db_Expr
@@ -870,7 +870,7 @@ interface Varien_Db_Adapter_Interface
      * %m   Month, numeric (00..12)
      * %Y   Year, numeric, four digits
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param string $format
      * @return Zend_Db_Expr
      */
@@ -879,7 +879,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Extract the date part of a date or datetime expression
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @return Zend_Db_Expr
      */
     public function getDatePartSql($date);
@@ -887,9 +887,9 @@ interface Varien_Db_Adapter_Interface
     /**
      * Prepare substring sql function
      *
-     * @param Zend_Db_Expr|string $stringExpression quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $stringExpression quoted field name or SQL statement
      * @param int|string|Zend_Db_Expr $pos
-     * @param int|string|Zend_Db_Expr|null $len
+     * @param null|int|string|Zend_Db_Expr $len
      * @return Zend_Db_Expr
      */
     public function getSubstringSql($stringExpression, $pos, $len = null);
@@ -897,7 +897,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Prepare standard deviation sql function
      *
-     * @param Zend_Db_Expr|string $expressionField   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $expressionField   quoted field name or SQL statement
      * @return Zend_Db_Expr
      */
     public function getStandardDeviationSql($expressionField);
@@ -907,7 +907,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @see INTERVAL_ constants for $unit
      *
-     * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
+     * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param string $unit
      * @return Zend_Db_Expr
      */
@@ -927,7 +927,7 @@ interface Varien_Db_Adapter_Interface
      * Check index name length and allowed symbols
      *
      * @param string $tableName
-     * @param string|array $fields  the columns list
+     * @param array|string $fields  the columns list
      * @param string $indexType
      * @return string
      */
@@ -984,7 +984,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Get update table query using select object for join and update
      *
-     * @param string|array $table
+     * @param array|string $table
      * @return string
      */
     public function updateFromSelect(Varien_Db_Select $select, $table);
@@ -993,7 +993,7 @@ interface Varien_Db_Adapter_Interface
      * Get delete from select object query
      *
      * @param string $table the table name or alias used in select
-     * @return string|int
+     * @return int|string
      */
     public function deleteFromSelect(Varien_Db_Select $select, $table);
 

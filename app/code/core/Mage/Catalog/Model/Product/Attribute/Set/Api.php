@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
      *
      * @param string $attributeId
      * @param string $attributeSetId
-     * @param string|null $attributeGroupId
+     * @param null|string $attributeGroupId
      * @param string $sortOrder
      * @return bool
      */
@@ -201,7 +201,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Create group within existing attribute set
      *
-     * @param  string|int $attributeSetId
+     * @param  int|string $attributeSetId
      * @param  string $groupName
      * @return int
      */
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Rename existing group
      *
-     * @param string|int $groupId
+     * @param int|string $groupId
      * @param string $groupName
      * @return bool
      */
@@ -256,7 +256,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Remove group from existing attribute set
      *
-     * @param  string|int $attributeGroupId
+     * @param  int|string $attributeGroupId
      * @return bool
      */
     public function groupRemove($attributeGroupId)

@@ -119,9 +119,9 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param int|string|Zend_Date|bool|null $date
+     * @param null|bool|int|string|Zend_Date $date
      * @param bool $includeTime
-     * @return string|null
+     * @return null|string
      */
     public function formatDate($date, $includeTime = true)
     {

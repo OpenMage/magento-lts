@@ -17,8 +17,8 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     /**
      * Returns the result of filtering $value
      *
-     * @param string|null $value
-     * @return string|null
+     * @param null|string $value
+     * @return null|string
      */
     public function inputFilter($value)
     {
@@ -42,7 +42,7 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     /**
      * Returns the result of filtering $value
      *
-     * @param string|null $value
+     * @param null|string $value
      * @return string
      */
     public function outputFilter($value)

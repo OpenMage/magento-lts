@@ -30,7 +30,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store           = null;
 
@@ -48,7 +48,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     private $_defaultType       = [];
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */

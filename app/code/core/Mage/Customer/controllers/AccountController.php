@@ -382,7 +382,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Add session error method
      *
-     * @param string|array $errors
+     * @param array|string $errors
      */
     protected function _addSessionError($errors)
     {
@@ -527,7 +527,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Get model by path
      *
      * @param string $path
-     * @param array|null $arguments
+     * @param null|array $arguments
      * @return false|Mage_Core_Model_Abstract
      */
     public function _getModel($path, $arguments = [])
@@ -903,7 +903,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return string|false
+     * @return false|string
      */
     protected function getCustomerId()
     {
@@ -1100,7 +1100,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     protected function _isVatValidationEnabled($store = null)

@@ -57,7 +57,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return  $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -203,7 +203,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string|null $index
+     * @param null|string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -361,7 +361,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add specified values to element values
      *
-     * @param string|int|array $values
+     * @param array|int|string $values
      * @param bool $overwrite
      * @return $this
      */

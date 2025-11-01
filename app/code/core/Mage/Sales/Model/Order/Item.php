@@ -42,7 +42,7 @@
  * @method $this setName(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
- * @method string|null getAppliedRuleIds()
+ * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
@@ -217,7 +217,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Order instance
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order       = null;
 
@@ -287,7 +287,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Get parent item
      *
-     * @return $this|null
+     * @return null|$this
      */
     public function getParentItem()
     {
@@ -521,7 +521,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve backordered qty of children items
      *
-     * @return float|null
+     * @return null|float
      */
     protected function _getQtyChildrenBackordered()
     {
@@ -650,7 +650,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * If code is null return all options
      *
      * @param string $code
-     * @return array|string|null
+     * @return null|array|string
      */
     public function getProductOptionByCode($code = null)
     {
@@ -665,7 +665,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Return real product type of item or NULL if item is not composite
      *
-     * @return array|null
+     * @return null|array
      */
     public function getRealProductType()
     {

@@ -24,7 +24,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
      *
      * @param  int $quoteId
      * @param  string $shippingMethod
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function setShippingMethod($quoteId, $shippingMethod, $store = null)

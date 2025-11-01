@@ -50,8 +50,8 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      * string format used from input fields (all date input fields need apply locale settings)
      * int value can be declared in code (this meen whot we use valid date)
      *
-     * @param   string|int $date
-     * @return  string|null
+     * @param   int|string $date
+     * @return  null|string
      */
     public function formatDate($date)
     {

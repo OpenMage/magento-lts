@@ -17,7 +17,7 @@ class Mage_Install_Model_Installer_Abstract
     /**
      * Installer singleton
      *
-     * @var Mage_Install_Model_Installer|null
+     * @var null|Mage_Install_Model_Installer
      */
     protected $_installer;
 

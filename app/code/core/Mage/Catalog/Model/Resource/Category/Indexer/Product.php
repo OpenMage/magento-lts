@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Array of info about stores
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storesInfo;
 
@@ -623,7 +623,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Add product association with root store category for products which are not assigned to any another category
      *
-     * @param int | array $productIds
+     * @param array|int $productIds
      * @return $this
      */
     protected function _refreshRootRelations($productIds)

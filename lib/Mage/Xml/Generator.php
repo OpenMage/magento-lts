@@ -21,7 +21,7 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @return DOMDocument|null
+     * @return null|DOMDocument
      */
     public function getDom()
     {

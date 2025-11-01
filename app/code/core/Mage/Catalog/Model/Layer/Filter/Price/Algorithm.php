@@ -245,7 +245,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * Get quantile
      *
      * @param int $quantileNumber should be from 1 to n-1 where n is number of intervals
-     * @return float|null
+     * @return null|float
      */
     protected function _getQuantile($quantileNumber)
     {
@@ -313,7 +313,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * Find price separator for the quantile
      *
      * @param int $quantileNumber should be from 1 to n-1 where n is number of intervals
-     * @return array|null
+     * @return null|array
      */
     protected function _findPriceSeparator($quantileNumber)
     {
@@ -436,7 +436,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * @param float $upperPrice
      * @param bool $returnEmpty whether empty result is acceptable
      * @param null|float $roundingFactor if given, checks for range to contain the factor
-     * @return false|array
+     * @return array|false
      */
     protected function _findRoundPrice($lowerPrice, $upperPrice, $returnEmpty = true, $roundingFactor = null)
     {
@@ -501,7 +501,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      *
      * @param int $quantileNumber
      * @param array $separators
-     * @return bool|array [deflection, separatorPrice, $priceIndex]
+     * @return array|bool [deflection, separatorPrice, $priceIndex]
      */
     protected function _findBestSeparator($quantileNumber, $separators)
     {

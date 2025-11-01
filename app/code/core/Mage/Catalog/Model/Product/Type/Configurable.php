@@ -114,7 +114,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve parent ids array by required child
      *
-     * @param  int|array $childId
+     * @param  array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -311,7 +311,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve array of "subproducts"
      *
-     * @param  array|null $requiredAttributeIds
+     * @param  null|array $requiredAttributeIds
      * @param  Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Product[]
      */
@@ -501,7 +501,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param  array $attributesInfo
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProductByAttributes($attributesInfo, $product = null)
     {
@@ -718,7 +718,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         $options = parent::getOrderOptions($product);
         $options['attributes_info'] = $this->getSelectedAttributesInfo($product);
-        /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleOption */
+        /** @var Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option $simpleOption */
         $simpleOption = $this->getProduct($product)->getCustomOption('simple_product');
         if ($simpleOption) {
             $options['simple_name'] = $simpleOption->getProduct()->getName();
@@ -784,7 +784,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         if ($this->getProduct($product)->hasCustomOptions() &&
             ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
         ) {
-            /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleProductOption */
+            /** @var Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option $simpleProductOption */
             $simpleProduct = $simpleProductOption->getProduct();
             if ($simpleProduct) {
                 return $simpleProduct->getWeight();
@@ -798,9 +798,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Implementation of product specify logic of which product needs to be assigned to option.
      * For example if product which was added to option already removed from catalog.
      *
-     * @param  Mage_Catalog_Model_Product|null $optionProduct
+     * @param  null|Mage_Catalog_Model_Product $optionProduct
      * @param  Mage_Sales_Model_Quote_Item_Option $option
-     * @param  Mage_Catalog_Model_Product|null $product
+     * @param  null|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
@@ -872,7 +872,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool|null
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

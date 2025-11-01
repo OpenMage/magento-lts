@@ -321,7 +321,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Website name by Id
      *
      * @param int $websiteId
-     * @return string|null
+     * @return null|string
      */
     public function getWebsiteName($websiteId)
     {
@@ -338,7 +338,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Group name by Id
      *
      * @param int $groupId
-     * @return string|null
+     * @return null|string
      */
     public function getGroupName($groupId)
     {
@@ -355,7 +355,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Store name by Id
      *
      * @param int $storeId
-     * @return string|null
+     * @return null|string
      */
     public function getStoreName($storeId)
     {

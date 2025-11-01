@@ -213,7 +213,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string|null $resourceName
+     * @param null|string $resourceName
      * @return array
      */
     public function getFaults($resourceName = null)

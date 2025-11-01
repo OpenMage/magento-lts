@@ -19,7 +19,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Log instance
      *
-     * @var Mage_Log_Model_Log|null
+     * @var null|Mage_Log_Model_Log
      */
     protected $_log;
 

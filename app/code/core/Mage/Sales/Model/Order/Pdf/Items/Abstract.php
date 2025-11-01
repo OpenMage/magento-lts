@@ -17,35 +17,35 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Order model
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order;
 
     /**
      * Source model (invoice, shipment, creditmemo)
      *
-     * @var Mage_Core_Model_Abstract|null
+     * @var null|Mage_Core_Model_Abstract
      */
     protected $_source;
 
     /**
      * Item object
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_item;
 
     /**
      * Pdf object
      *
-     * @var Mage_Sales_Model_Order_Pdf_Abstract|null
+     * @var null|Mage_Sales_Model_Order_Pdf_Abstract
      */
     protected $_pdf;
 
     /**
      * Pdf current page
      *
-     * @var Zend_Pdf_Page|null
+     * @var null|Zend_Pdf_Page
      */
     protected $_pdfPage;
 
@@ -337,7 +337,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Return item Sku
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Creditmemo_Item $item
+     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getSku($item)

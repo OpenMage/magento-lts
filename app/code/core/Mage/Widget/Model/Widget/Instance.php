@@ -177,7 +177,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function validate()
     {
@@ -389,7 +389,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Load widget XML config and merge with theme widget config
      *
-     * @return Varien_Simplexml_Element|null
+     * @return null|Varien_Simplexml_Element
      */
     public function getWidgetConfig()
     {

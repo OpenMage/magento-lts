@@ -39,7 +39,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resource open handle
      *
-     * @var resource|Varien_Io_File|null
+     * @var null|resource|Varien_Io_File
      */
     protected $_handle          = null;
 

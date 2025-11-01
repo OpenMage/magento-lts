@@ -281,7 +281,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * WYSIWYG editor action for ajax request
      *
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function wysiwygAction()
     {

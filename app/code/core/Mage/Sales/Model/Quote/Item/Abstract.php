@@ -25,7 +25,7 @@
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method bool hasBaseCalculationPrice()
- * @method $this setBaseCalculationPrice(float|null $value)
+ * @method $this setBaseCalculationPrice(null|float $value)
  * @method $this setBaseCustomPrice(float $value)
  * @method float getBaseDiscountAmount()
  * @method $this setBaseDiscountAmount(float $value)
@@ -68,7 +68,7 @@
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
  *
- * @method $this setCalculationPrice(float|null $value)
+ * @method $this setCalculationPrice(null|float $value)
  * @method bool hasCustomPrice()
  * @method float getCustomPrice()
  *
@@ -162,7 +162,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Parent item for sub items for bundle product, configurable product, etc.
      *
-     * @var Mage_Sales_Model_Quote_Item_Abstract|null
+     * @var null|Mage_Sales_Model_Quote_Item_Abstract
      */
     protected $_parentItem  = null;
 
@@ -265,7 +265,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get parent item
      *
-     * @return Mage_Sales_Model_Quote_Item_Abstract|null
+     * @return null|Mage_Sales_Model_Quote_Item_Abstract
      */
     public function getParentItem()
     {
@@ -440,7 +440,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get original (not related with parent item) item quantity
      *
-     * @return  int|float
+     * @return  float|int
      */
     public function getQty()
     {
@@ -450,7 +450,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get total item quantity (include parent item relation)
      *
-     * @return  int|float
+     * @return  float|int
      */
     public function getTotalQty()
     {
@@ -687,7 +687,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Set new value for converted price
-     * @param float|null $value
+     * @param null|float $value
      * @return $this
      */
     public function setConvertedPrice($value)

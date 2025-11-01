@@ -72,8 +72,8 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of Reference ID Type
      * If no code specified, return full list of codes with their description
      *
-     * @param string|null $code
-     * @return string|array
+     * @param null|string $code
+     * @return array|string
      */
     public function getReferenceType($code = null)
     {
@@ -118,8 +118,8 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of "Debit or Credit" value
      * If no code specified, return full list of codes with their description
      *
-     * @param string|null $code
-     * @return string|array
+     * @param null|string $code
+     * @return array|string
      */
     public function getDebitCreditText($code = null)
     {

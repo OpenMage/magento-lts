@@ -137,7 +137,7 @@ class Mage_Core_Model_Encryption
      * Validate hash by specified version
      *
      * @param string $password
-     * @param string|null $hash
+     * @param null|string $hash
      * @param int $version
      * @return bool
      */

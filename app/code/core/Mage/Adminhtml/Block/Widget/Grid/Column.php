@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getCssClass()
     {
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getCssProperty()
     {
@@ -118,7 +118,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getHeaderCssClass()
     {
@@ -339,7 +339,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract|false
+     * @return false|Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
      */
     public function getFilter()
     {

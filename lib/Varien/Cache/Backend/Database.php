@@ -120,7 +120,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string  $id                     Cache id
      * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @return string|false cached data
+     * @return false|string cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
@@ -143,7 +143,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Test if a cache is available or not (for the given id)
      *
      * @param  string $id cache id
-     * @return mixed|false (a cache is not available) or "last modified" timestamp (int) of the available cache record
+     * @return false|mixed (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id)
     {
@@ -167,7 +167,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param  string $data Data to cache
      * @param  string $id Cache id
      * @param  array $tags Array of strings, the cache record will be tagged by each string entry
-     * @param  int|bool|null $specificLifetime If != false, set a specific lifetime for this cache record
+     * @param  null|bool|int $specificLifetime If != false, set a specific lifetime for this cache record
      *                                    (null => infinite lifetime)
      *
      * @return bool true if no problem

@@ -89,7 +89,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Retrieve card by ID
      *
      * @param string $cardId
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getCard($cardId)
     {

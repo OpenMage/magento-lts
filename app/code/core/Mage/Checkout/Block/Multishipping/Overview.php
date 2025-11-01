@@ -107,7 +107,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
 
     /**
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Rate|false
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getShippingAddressRate($address)
     {
@@ -294,7 +294,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
 
     /**
      * @param Mage_Sales_Model_Order_Total $totals
-     * @param int|null $colspan
+     * @param null|int $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)

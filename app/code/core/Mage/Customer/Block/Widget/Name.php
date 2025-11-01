@@ -163,7 +163,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      * Retrieve customer or customer address attribute instance
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Attribute|false
+     * @return false|Mage_Customer_Model_Attribute
      */
     protected function _getAttribute($attributeCode)
     {

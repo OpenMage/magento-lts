@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * Get attribute value for save.
      *
      * @param Varien_Object $object
-     * @return string|bool
+     * @return bool|string
      */
     protected function _getValueForSave($object)
     {

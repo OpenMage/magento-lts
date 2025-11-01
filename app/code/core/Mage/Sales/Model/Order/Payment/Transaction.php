@@ -64,13 +64,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Order instance
      *
-     * @var Mage_Sales_Model_Order|false
+     * @var false|Mage_Sales_Model_Order
      */
     protected $_order = null;
 
     /**
      * Parent transaction instance
-     * @var Mage_Sales_Model_Order_Payment_Transaction|false
+     * @var false|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected $_parentTransaction = null;
 
@@ -120,7 +120,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected $_eventObject = 'order_payment_transaction';
 
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_orderWebsiteId = null;
 
@@ -231,7 +231,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @param array|string $types
      * @param string $txnId
      * @param bool $recursive
-     * @return $this|array|null
+     * @return null|$this|array
      */
     public function getChildTransactions($types = null, $txnId = null, $recursive = false)
     {
@@ -332,7 +332,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Close a capture transaction
      * Logic is similar to closeAuthorization(), but for a capture transaction
      * @param bool $shouldSave
-     * @return bool|false|$this
+     * @return $this|bool|false
      * @see self::closeAuthorization()
      * @para, bool $shouldSave
      */
@@ -380,7 +380,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Getter/Setter of whether current transaction has a child transaction
      * @param bool $whetherHasChild
-     * @return bool|$this
+     * @return $this|bool
      */
     public function hasChildTransaction($whetherHasChild = null)
     {
@@ -469,7 +469,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Getter for entire additional_information value or one of its element by key
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {
@@ -563,7 +563,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Order ID getter
      * Attempts to get ID from set order payment object, if any, or from data by key 'order_id'
-     * @return int|null
+     * @return null|int
      */
     public function getOrderId()
     {
@@ -582,7 +582,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Retrieve order instance
      *
-     * @return Mage_Sales_Model_Order|false
+     * @return false|Mage_Sales_Model_Order
      */
     public function getOrder()
     {
@@ -597,7 +597,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Set order instance for transaction depends on transaction behavior
      * If $order equals to true, method isn't loading new order instance.
      *
-     * @param Mage_Sales_Model_Order_Payment|null|bool $order
+     * @param null|bool|Mage_Sales_Model_Order_Payment $order
      * @return $this
      */
     public function setOrder($order = null)
@@ -622,8 +622,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool|null $setFailsafe
-     * @return bool|$this
+     * @param null|bool $setFailsafe
+     * @return $this|bool
      */
     public function isFailsafe($setFailsafe = null)
     {
@@ -792,7 +792,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Check whether the payment object is set and it has order object or there is an order_id is set
      * $dryRun allows to not throw exception
      * @param bool $dryRun
-     * @return Mage_Sales_Model_Order_Payment|null|false
+     * @return null|false|Mage_Sales_Model_Order_Payment
      * @throws Mage_Core_Exception
      */
     protected function _verifyPaymentObject($dryRun = false)

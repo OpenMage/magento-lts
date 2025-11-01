@@ -62,7 +62,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array|null
+     * @return null|array
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getRequiredAgreementIds()

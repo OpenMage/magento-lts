@@ -30,7 +30,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Express Checkout payment method instance
      *
-     * @var Mage_Payment_Model_Method_Abstract|false
+     * @var false|Mage_Payment_Model_Method_Abstract
      */
     protected $_ecInstance = null;
 

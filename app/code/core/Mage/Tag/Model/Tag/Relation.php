@@ -72,10 +72,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Load relation by Product (optional), tag, customer and store
      *
-     * @param int|null $productId
+     * @param null|int $productId
      * @param int $tagId
      * @param int $customerId
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function loadByTagCustomer($productId, $tagId, $customerId, $storeId = null)

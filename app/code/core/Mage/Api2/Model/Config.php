@@ -41,7 +41,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Initializes XML for this configuration
      * Local cache configuration
      *
-     * @param string|Varien_Simplexml_Element|null $sourceData
+     * @param null|string|Varien_Simplexml_Element $sourceData
      */
     public function __construct($sourceData = null)
     {
@@ -139,7 +139,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve all resource groups from config files api2.xml
      *
-     * @return Varien_Simplexml_Element|false
+     * @return false|Varien_Simplexml_Element
      */
     public function getResourceGroups()
     {
@@ -184,7 +184,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource group from config files api2.xml
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|bool
+     * @return bool|Mage_Core_Model_Config_Element
      */
     public function getResourceGroup($name)
     {
@@ -200,7 +200,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource by type (node)
      *
      * @param string $node
-     * @return Varien_Simplexml_Element|bool
+     * @return bool|Varien_Simplexml_Element
      */
     public function getResource($node)
     {

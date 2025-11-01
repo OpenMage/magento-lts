@@ -20,7 +20,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     }
 
     /**
-     * @param string|int $productId
+     * @param int|string $productId
      * @return $this
      */
     public function addProductFilter($productId)

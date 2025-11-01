@@ -31,7 +31,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     /**
      * FreeShipping Rates Collector
      *
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {

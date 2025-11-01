@@ -240,7 +240,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Get review entity type id by code
      *
      * @param string $entityCode
-     * @return int|bool
+     * @return bool|int
      */
     public function getEntityIdByCode($entityCode)
     {

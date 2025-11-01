@@ -52,7 +52,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param   string $configPath The path to the config setting that defines which global/template/email/* node
      * should be used to load the email template
-     * @return   $this|null
+     * @return   null|$this
      */
     public function loadByConfigPath($configPath)
     {
@@ -98,7 +98,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Return logo URL for emails
      * Take logo from skin if custom logo is undefined
      *
-     * @param  Mage_Core_Model_Store|int|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return string
      */
     protected function _getLogoUrl($store)
@@ -119,7 +119,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Return logo alt for emails
      *
-     * @param  Mage_Core_Model_Store|int|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return string
      */
     protected function _getLogoAlt($store)

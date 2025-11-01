@@ -17,7 +17,7 @@
  *
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(int|false $value)
+ * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheKey(string $value)
  * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
@@ -119,7 +119,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages|null
+     * @var null|Mage_Core_Block_Messages
      */
     protected $_messagesBlock = null;
 
@@ -172,14 +172,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory|null
+     * @var null|Mage_Core_Model_Factory
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App|null
+     * @var null|Mage_Core_Model_App
      */
     protected $_app;
 
@@ -1132,7 +1132,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param string|int|Zend_Date|null $date
+     * @param null|int|string|Zend_Date $date
      * @param string $format
      * @param bool $showTime
      * @return string
@@ -1147,7 +1147,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting timezone date
      *
-     * @param string|int|Zend_Date|null $date
+     * @param null|int|string|Zend_Date $date
      */
     public function formatTimezoneDate(
         $date = null,
@@ -1209,7 +1209,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param string|array $data
+     * @param array|string $data
      * @param array $allowedTags
      * @return string
      * @see self::escapeHtml()
@@ -1224,7 +1224,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Escape html entities
      *
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -1235,7 +1235,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Wrapper for escapeHtml() function with keeping original value
      *
-     * @param string[]|null $allowedTags
+     * @param null|string[] $allowedTags
      *
      * @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
      */
@@ -1248,7 +1248,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Wrapper for escapeHtml() function with keeping original value
      *
      * @param string[] $data
-     * @param string[]|null $allowedTags
+     * @param null|string[] $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString[]
      *
      *  @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
@@ -1442,7 +1442,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add tag to block
      *
-     * @param string|array $tag
+     * @param array|string $tag
      * @return $this
      */
     public function addCacheTag($tag)
@@ -1472,7 +1472,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Get block cache lifetime
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCacheLifetime()
     {
@@ -1496,7 +1496,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Load block html from cache storage
      *
-     * @return string | false
+     * @return false|string
      */
     protected function _loadCache()
     {

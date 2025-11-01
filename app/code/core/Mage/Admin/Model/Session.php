@@ -49,7 +49,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Whether it is the first page after successful login
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isFirstPageAfterLogin;
 
@@ -132,7 +132,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  string $username
      * @param  string $password
      * @param  Mage_Core_Controller_Request_Http $request
-     * @return Mage_Admin_Model_User|null
+     * @return null|Mage_Admin_Model_User
      */
     public function login($username, $password, $request = null)
     {
@@ -287,7 +287,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Custom REQUEST_URI logic
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * @return string|null
+     * @return null|string
      */
     protected function _getRequestUri($request = null)
     {
@@ -304,7 +304,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Login failed process
      *
      * @param Exception $e
-     * @param Mage_Core_Controller_Request_Http|null $request
+     * @param null|Mage_Core_Controller_Request_Http $request
      * @param string $username
      * @param string $message
      */

@@ -50,7 +50,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve list of orders. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)

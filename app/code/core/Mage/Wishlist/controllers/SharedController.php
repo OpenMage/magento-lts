@@ -23,7 +23,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist instance by requested code
      *
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist()
     {

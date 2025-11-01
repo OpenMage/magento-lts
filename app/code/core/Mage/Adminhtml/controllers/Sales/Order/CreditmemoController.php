@@ -76,7 +76,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Initialize creditmemo model instance
      *
-     * @return Mage_Sales_Model_Order_Creditmemo|false
+     * @return false|Mage_Sales_Model_Order_Creditmemo
      * @throws Mage_Core_Exception
      */
     protected function _initCreditmemo($update = false)

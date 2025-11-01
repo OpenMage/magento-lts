@@ -85,7 +85,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity type attributes collection
      *
-     * @param int|null $setId
+     * @param null|int $setId
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
@@ -110,7 +110,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Create entity type attributes collection
      *
-     * @param int|null $setId
+     * @param null|int $setId
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function newAttributeCollection($setId = null)
@@ -223,7 +223,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity id field
      *
-     * @return string|null
+     * @return null|string
      */
     public function getEntityIdField()
     {
@@ -233,7 +233,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity table name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getEntityTable()
     {
@@ -243,7 +243,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity table prefix name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getValueTablePrefix()
     {
@@ -274,7 +274,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Get default attribute set identifier for entity type
      *
-     * @return int|null
+     * @return null|int
      */
     public function getDefaultAttributeSetId()
     {
@@ -284,7 +284,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity type id
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {
@@ -294,7 +294,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity type code
      *
-     * @return string|null
+     * @return null|string
      */
     public function getEntityTypeCode()
     {
@@ -304,7 +304,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve attribute codes
      *
-     * @return array|null
+     * @return null|array
      */
     public function getAttributeCodes()
     {

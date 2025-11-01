@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[]|null
+     * @var null|Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     protected $_comparableAttributes;
 

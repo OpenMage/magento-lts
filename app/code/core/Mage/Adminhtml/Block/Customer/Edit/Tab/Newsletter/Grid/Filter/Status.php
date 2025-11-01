@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
     }
 
     /**
-     * @return array|null
+     * @return null|array
      */
     public function getCondition()
     {

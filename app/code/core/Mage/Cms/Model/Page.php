@@ -131,7 +131,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      */
     public function getCmsPageTitleById($id): string
     {
@@ -141,7 +141,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page identifier from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      */
     public function getCmsPageIdentifierById($id): string
     {

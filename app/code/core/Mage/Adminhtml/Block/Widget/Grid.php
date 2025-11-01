@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var Varien_Data_Collection_Db|null
+     * @var null|Varien_Data_Collection_Db
      */
     protected $_collection = null;
 
@@ -87,14 +87,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Empty grid text
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_emptyText;
 
     /**
      * Empty grid text CSS class
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_emptyTextCss    = 'a-center';
 
@@ -517,7 +517,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid column by column id
      *
      * @param   string $columnId
-     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|false
+     * @return  false|Mage_Adminhtml_Block_Widget_Grid_Column
      */
     public function getColumn($columnId)
     {
@@ -1778,7 +1778,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve subtotal item
      *
      * @param Varien_Object $item
-     * @return Varien_Object|string
+     * @return string|Varien_Object
      */
     public function getSubTotalItem($item)
     {
@@ -1829,7 +1829,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Object $item
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return int|bool
+     * @return bool|int
      */
     public function getRowspan($item, $column)
     {
@@ -1841,9 +1841,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param string|object $column
-     * @param string|bool $value
-     * @return bool|$this
+     * @param object|string $column
+     * @param bool|string $value
+     * @return $this|bool
      */
     public function isColumnGrouped($column, $value = null)
     {

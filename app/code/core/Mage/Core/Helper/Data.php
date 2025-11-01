@@ -155,7 +155,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|int|Zend_Date|null   $date If empty, return current datetime.
+     * @param   null|int|string|Zend_Date   $date If empty, return current datetime.
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @return  string
@@ -168,7 +168,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|int|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   null|int|string|Zend_Date   $date If empty, return current locale datetime.
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @param   bool                        $useTimezone Convert to local datetime?
@@ -203,7 +203,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format time using current locale options
      *
-     * @param   string|Zend_Date|null $time
+     * @param   null|string|Zend_Date $time
      * @param   string              $format
      * @param   bool                $showDate
      * @return  string
@@ -273,7 +273,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param int $len
-     * @param string|null $chars
+     * @param null|string $chars
      * @return string
      */
     public function getRandomString($len, $chars = null)
@@ -293,7 +293,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|int|bool $salt
+     * @param bool|int|string $salt
      * @return string
      */
     public function getHash($password, $salt = false)
@@ -345,7 +345,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -415,7 +415,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
@@ -790,7 +790,7 @@ XML;
      * May filter files by specified extension(s)
      * Returns false on error
      *
-     * @param string|false $targetFile - file path to be written
+     * @param false|string $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
@@ -888,7 +888,7 @@ XML;
     /**
      * Return default country code
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getDefaultCountry($store = null)
@@ -899,7 +899,7 @@ XML;
     /**
      * Return list with protected file extensions
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getProtectedFileExtensions($store = null)
@@ -949,7 +949,7 @@ XML;
     /**
      * Retrieve merchant country code
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getMerchantCountryCode($store = null)
@@ -960,7 +960,7 @@ XML;
     /**
      * Retrieve merchant VAT number
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getMerchantVatNumber($store = null)

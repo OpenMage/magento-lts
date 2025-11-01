@@ -22,7 +22,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Address instance with data
      *
-     * @var Mage_Customer_Model_Address|null
+     * @var null|Mage_Customer_Model_Address
      */
     protected $_address;
 
@@ -113,7 +113,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Retrieve customer region identifier
      *
-     * @return string|int|null
+     * @return null|int|string
      */
     public function getRegion()
     {
@@ -156,7 +156,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Restore entity data from session
      * Entity and form code must be defined for the form
      *
-     * @param string|null $scope
+     * @param null|string $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)

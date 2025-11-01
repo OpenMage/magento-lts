@@ -19,7 +19,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Payment rendered specific information
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_paymentSpecificInformation = null;
 
@@ -146,7 +146,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Prepare information specific to current payment method
      *
-     * @param Varien_Object|array $transport
+     * @param array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)

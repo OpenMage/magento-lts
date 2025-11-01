@@ -21,14 +21,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Store preconfigured options
      *
-     * @var int|array|string|null
+     * @var null|array|int|string
      */
     protected $_selectedOptions = null;
 
     /**
      * Show if option has a single selection
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_showSingle = null;
 
@@ -90,7 +90,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Collect selected options
      *
-     * @return int|array|string
+     * @return array|int|string
      */
     protected function _getSelectedOptions()
     {
@@ -189,7 +189,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      * Get price for selection product
      *
      * @param Mage_Catalog_Model_Product $selection
-     * @return int|float
+     * @return float|int
      */
     public function getSelectionPrice($selection)
     {

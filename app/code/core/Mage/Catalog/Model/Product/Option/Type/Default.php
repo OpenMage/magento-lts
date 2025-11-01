@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_productOptions = [];
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $_formattedOptionValue = null;
 
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return option html
      *
      * @param array $optionInfo
-     * @return string|array
+     * @return array|string
      */
     public function getCustomizedView($optionInfo)
     {
@@ -299,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {

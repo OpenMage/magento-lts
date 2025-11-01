@@ -146,7 +146,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Return validate class by attribute input validation rule
      *
-     * @return string|false
+     * @return false|string
      */
     protected function _getInputValidateClass()
     {
@@ -202,7 +202,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      * Retrieve option by option id
      *
      * @param int $optionId
-     * @return string|bool
+     * @return bool|string
      */
     public function getOption($optionId)
     {
@@ -217,7 +217,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Retrieve Input Renderer Class
      *
-     * @return string|null
+     * @return null|string
      */
     public function getInputRendererClass()
     {

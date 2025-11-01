@@ -221,7 +221,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @return Mage_Core_Model_App|false
+     * @return false|Mage_Core_Model_App
      */
     public function saveCache()
     {
@@ -423,7 +423,7 @@ class Mage_Core_Model_Layout_Update
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return SimpleXMLElement
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)

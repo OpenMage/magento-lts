@@ -27,7 +27,7 @@
  * @method $this setAdjustmentNegative(float $value)
  * @method float getAdjustmentPositive()
  * @method $this setAdjustmentPositive(float $value)
- * @method string|null getAppliedRuleIds()
+ * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  * @method array getAppliedTaxes()
  * @method $this setAppliedTaxes(array $value)
@@ -457,42 +457,42 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
+     * @var null|Mage_Sales_Model_Order_Address[]|Mage_Sales_Model_Resource_Order_Address_Collection
      */
     protected $_addresses       = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]|null
+     * @var null|Mage_Sales_Model_Order_Item[]|Mage_Sales_Model_Resource_Order_Item_Collection
      */
     protected $_items           = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]|null
+     * @var null|Mage_Sales_Model_Order_Payment[]|Mage_Sales_Model_Resource_Order_Payment_Collection
      */
     protected $_payments        = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]|null
+     * @var null|Mage_Sales_Model_Order_Status_History[]|Mage_Sales_Model_Resource_Order_Status_History_Collection
      */
     protected $_statusHistory   = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Invoice_Collection
      */
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false|null
+     * @var null|false|Mage_Sales_Model_Resource_Order_Shipment_Collection
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false|null
+     * @var null|false|Mage_Sales_Model_Order_Creditmemo[]|Mage_Sales_Model_Resource_Order_Creditmemo_Collection
      */
     protected $_creditmemos;
 
@@ -565,7 +565,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve can flag for action (edit, unhold, etc..)
      *
      * @param string $action
-     * @return bool|null
+     * @return null|bool
      */
     public function getActionFlag($action)
     {
@@ -1019,7 +1019,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order payment model object
      *
-     * @return Mage_Sales_Model_Order_Payment|false
+     * @return false|Mage_Sales_Model_Order_Payment
      */
     public function getPayment()
     {
@@ -1067,7 +1067,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order billing address
      *
-     * @return Mage_Sales_Model_Order_Address|false
+     * @return false|Mage_Sales_Model_Order_Address
      */
     public function getBillingAddress()
     {
@@ -1083,7 +1083,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order shipping address
      *
-     * @return Mage_Sales_Model_Order_Address|false
+     * @return false|Mage_Sales_Model_Order_Address
      */
     public function getShippingAddress()
     {
@@ -1102,7 +1102,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * the setData() cannot be overridden because of compatibility issues with resource model
      *
      * @param string $state
-     * @param string|bool $status
+     * @param bool|string $status
      * @param string $comment
      * @param bool $isCustomerNotified
      * @return $this
@@ -1118,7 +1118,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Сomplete and closed states are encapsulated intentionally, see the _checkState()
      *
      * @param string $state
-     * @param string|bool $status
+     * @param bool|string $status
      * @param string $comment
      * @param bool $isCustomerNotified
      * @param bool $shouldProtectState
@@ -1833,7 +1833,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $itemId
-     * @return Mage_Sales_Model_Order_Item|null
+     * @return null|Mage_Sales_Model_Order_Item
      */
     public function getItemById($itemId)
     {
@@ -1842,7 +1842,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $quoteItemId
-     * @return Mage_Sales_Model_Order_Item|null
+     * @return null|Mage_Sales_Model_Order_Item
      */
     public function getItemByQuoteItemId($quoteItemId)
     {
@@ -2196,7 +2196,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param string $key
-     * @param int|string|null $index
+     * @param null|int|string $index
      * @return float|mixed
      */
     public function getData($key = '', $index = null)
@@ -2246,7 +2246,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order shipments collection
      *
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     * @return false|Mage_Sales_Model_Resource_Order_Shipment_Collection
      */
     public function getShipmentsCollection()
     {
@@ -2266,7 +2266,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order creditmemos collection
      *
-     * @return  Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
+     * @return  false|Mage_Sales_Model_Order_Creditmemo[]|Mage_Sales_Model_Resource_Order_Creditmemo_Collection
      */
     public function getCreditmemosCollection()
     {

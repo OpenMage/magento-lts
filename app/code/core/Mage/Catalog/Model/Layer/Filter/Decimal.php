@@ -21,7 +21,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Layer_Filter_Decimal|null
+     * @var null|Mage_Catalog_Model_Resource_Layer_Filter_Decimal
      */
     protected $_resource;
 

@@ -23,7 +23,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getReadAdapter()
     {
@@ -31,7 +31,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getWriteAdapter()
     {
@@ -40,7 +40,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 
     /**
      * @param mixed $file
-     * @param mixed|null $field
+     * @param null|mixed $field
      * @return $this
      */
     public function load(Mage_Media_Model_Image $object, $file, $field = null)
@@ -150,7 +150,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Creates image
      *
-     * @param string|null $extension
+     * @param null|string $extension
      * @return $this
      */
     public function saveAs(Mage_Media_Model_Image $object, $extension = null)

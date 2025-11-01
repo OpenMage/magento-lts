@@ -17,7 +17,7 @@ class Mage_Oauth_Model_Observer
     /**
      * Retrieve oauth_token param from request
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getOauthToken()
     {

@@ -116,7 +116,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param Mage_Core_Model_Store|int $storeId
+     * @param int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)

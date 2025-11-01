@@ -43,7 +43,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string|null $defValue
+     * @param null|string $defValue
      * @param string $name
      * @param string $id
      * @param string $title

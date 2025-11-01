@@ -21,7 +21,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Get object store identifier
      *
-     * @return int|string|Mage_Core_Model_Store
+     * @return int|Mage_Core_Model_Store|string
      */
     abstract public function getStore();
 

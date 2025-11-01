@@ -17,14 +17,14 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Database versions
      *
-     * @var array|null
+     * @var null|array
      */
     protected static $_versions        = null;
 
     /**
      * Resource data versions cache array
      *
-     * @var array|null
+     * @var null|array
      */
     protected static $_dataVersions    = null;
 
@@ -77,7 +77,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * Get Module version from DB
      *
      * @param string $resName
-     * @return string|false
+     * @return false|string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDbVersion($resName)
@@ -122,7 +122,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * Get resource data version
      *
      * @param string $resName
-     * @return string|false
+     * @return false|string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDataVersion($resName)

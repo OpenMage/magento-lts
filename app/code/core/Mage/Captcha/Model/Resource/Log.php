@@ -32,7 +32,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save or Update count Attempts
      *
-     * @param string|null $login
+     * @param null|string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -92,7 +92,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by ip
      *
-     * @return string|int
+     * @return int|string
      */
     public function countAttemptsByRemoteAddress()
     {
@@ -111,7 +111,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Get count attempts by user login
      *
      * @param string $login
-     * @return string|int
+     * @return int|string
      */
     public function countAttemptsByUserLogin($login)
     {

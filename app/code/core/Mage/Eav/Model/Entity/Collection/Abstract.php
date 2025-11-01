@@ -276,8 +276,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * )
      *
      * @see self::_getConditionSql for $condition
-     * @param Mage_Eav_Model_Entity_Attribute_Interface|int|string|array $attribute
-     * @param null|int|string|array $condition
+     * @param array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
+     * @param null|array|int|string $condition
      * @param string $joinType
      * @return $this
      */
@@ -406,7 +406,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * If $attribute=='*' select all attributes
      *
-     * @param   array|string|int|Mage_Core_Model_Config_Element $attribute
+     * @param   array|int|Mage_Core_Model_Config_Element|string $attribute
      * @param   bool|string $joinType flag for joining attribute
      * @return  $this
      */
@@ -493,7 +493,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param string $alias
      * @param string $expression
-     * @param string|array $attribute
+     * @param array|string $attribute
      * @return $this
      */
     public function addExpressionAttributeToSelect($alias, $expression, $attribute)
@@ -543,7 +543,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Groups results by specified attribute
      *
-     * @param string|array $attribute
+     * @param array|string $attribute
      * @return $this
      */
     public function groupByAttribute($attribute)
@@ -596,7 +596,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * After first use of string entity name it will be cached in the collection
      *
      * @param string $alias alias for the joined attribute
-     * @param string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      * @param string $bind attribute of the main entity to link with joined $filter
      * @param string $filter primary key for the joined entity (entity_id default)
      * @param string $joinType inner|left
@@ -689,7 +689,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param string $table 'directory/country_name'
      * @param string $field 'name'
      * @param string $bind 'PK(country_id)=FK(shipping_country_id)'
-     * @param string|array $cond "{{table}}.language_code='en'" OR array('language_code'=>'en')
+     * @param array|string $cond "{{table}}.language_code='en'" OR array('language_code'=>'en')
      * @param string $joinType 'left'
      * @return $this
      */
@@ -753,8 +753,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param array|string|Zend_Db_Expr $table
      * @param string $bind
-     * @param string|array $fields
-     * @param string|array|null $cond
+     * @param array|string $fields
+     * @param null|array|string $cond
      * @param string $joinType
      * @return $this
      */

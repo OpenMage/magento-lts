@@ -18,7 +18,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Get customer wishlist model instance
      *
      * @param   int $customerId
-     * @return  Mage_Wishlist_Model_Wishlist|false
+     * @return  false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($customerId)
     {

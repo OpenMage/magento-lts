@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
     /**
-     * @var Mage_Core_Model_Resource_Website_Collection|null
+     * @var null|Mage_Core_Model_Resource_Website_Collection
      */
     protected $_websiteCollection = null;
 
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     }
 
     /**
-     * @return array|null
+     * @return null|array
      * @throws Mage_Core_Exception
      */
     public function getCondition()

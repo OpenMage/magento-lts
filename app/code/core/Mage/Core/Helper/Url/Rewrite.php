@@ -80,7 +80,7 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates suffix for url rewrites to inform user about errors in it
      * Either returns TRUE (success) or throws error (validation failed)
      *
-     * @throws Mage_Core_Exception|Exception
+     * @throws Exception|Mage_Core_Exception
      * @param string $suffix
      * @return bool
      */

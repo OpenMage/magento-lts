@@ -189,9 +189,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
-     * @param Varien_Data_Tree_Node|null $parentNode
+     * @param null|Varien_Data_Tree_Node $parentNode
      * @param int $level
      */
     public function addChildNodes($children, $path, $parentNode, $level = 0)
@@ -371,7 +371,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param bool $withChildren

@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     /**
      * Prepare option value for cart
      *
-     * @return int|string|null Prepared option value
+     * @return null|int|string Prepared option value
      */
     public function prepareForCart()
     {
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {

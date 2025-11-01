@@ -88,7 +88,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
      * Get row URL
      *
      * @param Mage_Oauth_Model_Consumer $row
-     * @return string|null
+     * @return null|string
      */
     public function getRowUrl($row)
     {

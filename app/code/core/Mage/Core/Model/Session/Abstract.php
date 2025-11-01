@@ -315,7 +315,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adds messages array to message collection, but doesn't add duplicates to it
      *
-     * @param   array|string|Mage_Core_Model_Message_Abstract $messages
+     * @param   array|Mage_Core_Model_Message_Abstract|string $messages
      * @return  $this
      */
     public function addUniqueMessages($messages)
@@ -540,7 +540,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Retrieve session save method
      *
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false|string
+     * @return false|Mage_Core_Model_Config_Element|string|Varien_Simplexml_Element
      */
     public function getSessionSaveMethod()
     {
@@ -554,7 +554,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Get session save path
      *
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false|string
+     * @return false|Mage_Core_Model_Config_Element|string|Varien_Simplexml_Element
      */
     public function getSessionSavePath()
     {

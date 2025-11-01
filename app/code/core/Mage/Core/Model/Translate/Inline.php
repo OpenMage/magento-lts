@@ -30,7 +30,7 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Is enabled and allowed inline translates flags
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAllowed;
 
@@ -174,7 +174,7 @@ class Mage_Core_Model_Translate_Inline
      * Strip inline translations from text
      *
      * @param array|string $body
-     * @param-out array|string|null $body
+     * @param-out null|array|string $body
      * @return $this
      */
     public function stripInlineTranslations(&$body)
@@ -193,7 +193,7 @@ class Mage_Core_Model_Translate_Inline
      * Replace translate templates to HTML fragments
      *
      * @param array|string $body
-     * @param-out array|string|null $body
+     * @param-out null|array|string $body
      * @return $this
      */
     public function processResponseBody(&$body)
@@ -305,7 +305,7 @@ class Mage_Core_Model_Translate_Inline
      *
      * @param string $regexp
      * @param string $text
-     * @param string|array $locationCallback
+     * @param array|string $locationCallback
      * @param array $options
      * @return array
      */
@@ -436,7 +436,7 @@ class Mage_Core_Model_Translate_Inline
      *
      * @param string $content
      * @param array $tagsList
-     * @param string|array $formatCallback
+     * @param array|string $formatCallback
      * @param bool $isNeedTranslateAttributes
      */
     protected function _translateTags(&$content, $tagsList, $formatCallback, $isNeedTranslateAttributes)

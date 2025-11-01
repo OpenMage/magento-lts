@@ -18,7 +18,7 @@ class Mage_Bundle_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_
     /**
      * Get tier prices (formatted)
      *
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getTierPrices($product = null)

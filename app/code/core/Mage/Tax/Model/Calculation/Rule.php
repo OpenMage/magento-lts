@@ -64,7 +64,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     /**
      * Holds the tax Calculation model
      *
-     * @var Mage_Tax_Model_Calculation|null
+     * @var null|Mage_Tax_Model_Calculation
      */
     protected $_calculationModel    = null;
 
@@ -128,7 +128,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract|Mage_Tax_Model_Calculation|null
+     * @return null|Mage_Core_Model_Abstract|Mage_Tax_Model_Calculation
      */
     public function getCalculationModel()
     {

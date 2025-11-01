@@ -166,7 +166,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get table name (validated by db adapter) by table placeholder
      *
-     * @param string|array $tableName
+     * @param array|string $tableName
      * @return string
      */
     public function getTable($tableName)
@@ -182,7 +182,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve table name for cache
      *
-     * @param string|array $tableName
+     * @param array|string $tableName
      * @return string
      */
     protected function _getTableCacheName($tableName)
@@ -584,7 +584,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $actionType self::TYPE_*
      * @param string $fromVersion
      * @param string $toVersion
-     * @return string|false
+     * @return false|string
      * @throws Mage_Core_Exception
      */
 
@@ -709,11 +709,11 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
+     * @param int|string $id
      * @param string $field
      * @param string $parentField
-     * @param string|int $parentId
-     * @return mixed|bool
+     * @param int|string $parentId
+     * @return bool|mixed
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
@@ -778,11 +778,11 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
-     * @param string|array $field
-     * @param mixed|null $value
+     * @param int|string $id
+     * @param array|string $field
+     * @param null|mixed $value
      * @param string $parentField
-     * @param string|int $parentId
+     * @param int|string $parentId
      * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)

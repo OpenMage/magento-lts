@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      * Lock product items
      *
      * @param Mage_CatalogInventory_Model_Stock $stock
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return $this
      */
     public function lockProductItems($stock, $productIds)

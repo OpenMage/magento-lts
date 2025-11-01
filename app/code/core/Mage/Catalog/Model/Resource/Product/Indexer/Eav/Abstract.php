@@ -44,7 +44,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Rebuild index data by entities
      *
      *
-     * @param int|array $processIds
+     * @param array|int $processIds
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      * @throws Exception
      */

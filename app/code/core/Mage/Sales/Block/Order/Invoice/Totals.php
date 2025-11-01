@@ -15,7 +15,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
     protected $_invoice = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getInvoice()
     {

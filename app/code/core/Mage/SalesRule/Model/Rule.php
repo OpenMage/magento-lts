@@ -314,9 +314,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Get Rule label by specified store
      *
-     * @param Mage_Core_Model_Store|int|bool|null $store
+     * @param null|bool|int|Mage_Core_Model_Store $store
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getStoreLabel($store = null)
     {
@@ -395,7 +395,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param bool $saveNewlyCreated Whether or not to save newly created coupon
      * @param int $saveAttemptCount Number of attempts to save newly created coupon
      *
-     * @return Mage_SalesRule_Model_Coupon|null
+     * @return null|Mage_SalesRule_Model_Coupon
      */
     public function acquireCoupon($saveNewlyCreated = true, $saveAttemptCount = 10)
     {

@@ -26,7 +26,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     /**
      * Try to load valid order by $_POST or $_COOKIE
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function loadValidOrder()
     {
@@ -146,7 +146,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     /**
      * Try to load order by cookie hash
      *
-     * @param string|null $cookie
+     * @param null|string $cookie
      * @return null|Mage_Sales_Model_Order
      */
     protected function _loadOrderByCookie($cookie = null)

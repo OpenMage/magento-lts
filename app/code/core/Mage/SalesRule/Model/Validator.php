@@ -876,7 +876,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Retrieve information about usage cart fixed rule by quote address
      *
      * @param int $ruleId
-     * @return int|null
+     * @return null|int
      */
     public function getCartFixedRuleUsedForAddress($ruleId)
     {

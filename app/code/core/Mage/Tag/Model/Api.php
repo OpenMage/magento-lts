@@ -18,7 +18,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve list of tags for specified product
      *
      * @param int $productId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function items($productId, $store = null)
@@ -52,7 +52,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      * 'base_popularity' => .., 'products' => array($productId => $popularity, ...))
      *
      * @param int $tagId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function info($tagId, $store)
@@ -136,7 +136,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $tagId
      * @param array $data
-     * @param string|int $store
+     * @param int|string $store
      * @return bool
      */
     public function update($tagId, $data, $store)

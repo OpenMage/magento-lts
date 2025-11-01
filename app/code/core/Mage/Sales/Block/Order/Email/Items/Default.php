@@ -62,7 +62,7 @@ class Mage_Sales_Block_Order_Email_Items_Default extends Mage_Core_Block_Templat
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo_Item | Mage_Sales_Model_Order_Invoice_Item | Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item $item
      * @return array|string
      */
     public function getSku($item)

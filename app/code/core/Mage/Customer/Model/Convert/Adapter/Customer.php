@@ -17,7 +17,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Customer model
      *
-     * @var Mage_Customer_Model_Customer|string|null
+     * @var null|Mage_Customer_Model_Customer|string
      */
     protected $_customerModel;
 
@@ -112,7 +112,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      * Retrieve store object by code
      *
      * @param string $store
-     * @return Mage_Core_Model_Store|false
+     * @return false|Mage_Core_Model_Store
      */
     public function getStoreByCode($store)
     {
@@ -127,7 +127,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      * Retrieve website model by code
      *
      * @param string $websiteCode
-     * @return Mage_Core_Model_Website|false
+     * @return false|Mage_Core_Model_Website
      */
     public function getWebsiteByCode($websiteCode)
     {

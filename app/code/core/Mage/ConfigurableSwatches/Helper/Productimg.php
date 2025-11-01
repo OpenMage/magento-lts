@@ -54,7 +54,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $text
      * @param Mage_Catalog_Model_Product $product
      * @param string $type
-     * @return Varien_Object|null
+     * @return null|Varien_Object
      */
     public function getProductImgByLabel($text, $product, $type = null)
     {
@@ -82,7 +82,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * Create the separated index of product images
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array|null $preValues
+     * @param null|array $preValues
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -210,7 +210,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Return URL for a matching swatch image from the global directory
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Layer_Filter_Item $object
+     * @param Mage_Catalog_Model_Layer_Filter_Item|Mage_Catalog_Model_Product $object
      * @param string $value
      * @param int $width
      * @param int $height
@@ -272,7 +272,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @return string|false $destPath
+     * @return false|string $destPath
      * @throws Mage_Core_Exception
      */
     public function createSwatchImage($value, $width, $height)

@@ -448,7 +448,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Get captcha word
      *
-     * @return string|null
+     * @return null|string
      */
     public function getWord()
     {

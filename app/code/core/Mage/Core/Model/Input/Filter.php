@@ -166,7 +166,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get filters
      *
-     * @param string|null $name     Get filter for selected name
+     * @param null|string $name     Get filter for selected name
      * @return array
      */
     public function getFilters($name = null)
@@ -192,7 +192,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Recursive filtering
      *
-     * @param array|null $filters
+     * @param null|array $filters
      * @param bool $isFilterListSimple
      * @param-out array $filters
      * @return array
@@ -281,7 +281,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Zend filter based on $filterData. Return false on failure
      *
-     * @param Zend_Filter_Interface|array $filterData
+     * @param array|Zend_Filter_Interface $filterData
      * @return false|Zend_Filter_Interface
      */
     protected function _getZendFilter($filterData)

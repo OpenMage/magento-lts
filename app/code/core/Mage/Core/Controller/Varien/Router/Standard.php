@@ -375,7 +375,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * @param string $frontName
-     * @return bool|array
+     * @return array|bool
      */
     public function getModuleByFrontName($frontName)
     {

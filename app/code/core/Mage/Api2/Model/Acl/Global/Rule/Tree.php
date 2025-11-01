@@ -257,9 +257,9 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Get tree node
      *
-     * @param Varien_Simplexml_Element|array $node
+     * @param array|Varien_Simplexml_Element $node
      * @param int $level
-     * @return array|null
+     * @return null|array
      */
     protected function _getTreeNode($node, $level = 0)
     {

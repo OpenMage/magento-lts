@@ -76,7 +76,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      * Get row URL
      *
      * @param Varien_Object $row
-     * @return string|null
+     * @return null|string
      */
     public function getRowUrl($row)
     {

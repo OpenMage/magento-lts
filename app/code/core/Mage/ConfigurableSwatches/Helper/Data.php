@@ -120,7 +120,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get swatches product javascript
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSwatchesProductJs()
     {

@@ -30,7 +30,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
      * Check whether current payment method is enabled
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @param callback|null $configCallback
+     * @param null|callback $configCallback
      * @return bool
      */
     protected function _isPaymentEnabled($element, $configCallback = null)

@@ -41,7 +41,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Original data that was loaded
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_origData;
 
@@ -154,7 +154,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * If collection name is omitted, resource name will be used with _collection appended
      *
      * @param string $resourceName
-     * @param string|null $resourceCollectionName
+     * @param null|string $resourceCollectionName
      */
     protected function _setResourceModel($resourceName, $resourceCollectionName = null)
     {
@@ -203,7 +203,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model object identifier
      *
-     * @return int|string|null
+     * @return null|int|string
      */
     public function getId()
     {
@@ -263,7 +263,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return false|Mage_Core_Model_Resource_Db_Collection_Abstract
      * @throws Mage_Core_Exception
      */
     public function getCollection()
@@ -274,8 +274,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param string|null|int $id
-     * @param string|null $field
+     * @param null|int|string $id
+     * @param null|string $field
      * @return $this
      */
     public function load($id, $field = null)
@@ -305,7 +305,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Processing object before load data
      *
      * @param int $id
-     * @param string|null $field
+     * @param null|string $field
      * @return $this
      */
     protected function _beforeLoad($id, $field = null)

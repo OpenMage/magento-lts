@@ -131,7 +131,7 @@ class Magento_Db_Sql_Trigger
      * Set trigger part
      *
      * @param $part
-     * @return string|array
+     * @return array|string
      * @throws Exception
      */
     protected function _getPart($part)
