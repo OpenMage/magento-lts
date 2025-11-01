@@ -18,7 +18,7 @@ class Mage_Core_Model_Mysql4_Design_Theme_Collection extends Varien_Directory_Co
     /**
      * @return $this
      */
-    public function load()
+    public function load($printQuery = false, $logQuery = false)
     {
         $packages = $this->getData('themes');
         if (is_null($packages)) {
