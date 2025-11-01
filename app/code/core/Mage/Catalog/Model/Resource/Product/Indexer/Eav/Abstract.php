@@ -17,7 +17,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild all index data
      *
-     *
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     public function reindexAll()
@@ -42,7 +41,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
 
     /**
      * Rebuild index data by entities
-     *
      *
      * @param array|int $processIds
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
@@ -93,7 +91,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild index data by attribute id
      * If attribute is not indexable remove data by attribute
-     *
      *
      * @param int $attributeId
      * @param bool $isIndexable

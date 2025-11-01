@@ -22,7 +22,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     /**
      * Increment times_used counter
      *
-     *
      * @param int $customerId
      * @param int $couponId
      * @param bool $decrement   Decrement instead of increment times_used
@@ -65,7 +64,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
     /**
      * Load an object by customer_id & coupon_id
-     *
      *
      * @param int $customerId
      * @param int $couponId

@@ -10,7 +10,6 @@
 /**
  * Varien Library
  *
- *
  * @package    Varien_Db
  */
 

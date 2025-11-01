@@ -177,7 +177,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check current user permission on resource and privilege
      *
-     *
      * @param   string $resource
      * @param   string $privilege
      * @return  bool

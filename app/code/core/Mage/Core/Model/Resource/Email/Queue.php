@@ -54,7 +54,6 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Check if email was added to queue for requested recipients
      *
-     *
      * @return bool
      */
     public function wasEmailQueued(Mage_Core_Model_Email_Queue $queue)

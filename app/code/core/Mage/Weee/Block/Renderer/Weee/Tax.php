@@ -56,7 +56,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Renders html of block
      *
-     *
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -68,7 +67,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
 
     /**
      * Sets internal reference to element
-     *
      *
      * @return $this
      */

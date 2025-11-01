@@ -43,7 +43,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     /**
      * Add rule IDs to filter
      *
-     *
      * @return $this
      */
     public function addRuleIdsToFilter(array $ruleIds)

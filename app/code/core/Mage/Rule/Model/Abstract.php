@@ -282,7 +282,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Initialize rule model data from array
      *
-     *
      * @return Mage_Rule_Model_Abstract
      */
     public function loadPost(array $data)
@@ -303,7 +302,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Set specified data to current rule.
      * Set conditions and actions recursively.
      * Convert dates into Zend_Date.
-     *
      *
      * @return array
      */
@@ -346,7 +344,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Validate rule conditions to determine if rule can run
      *
-     *
      * @return bool
      */
     public function validate(Varien_Object $object)
@@ -356,7 +353,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * Validate rule data
-     *
      *
      * @return array|bool - return true if validation passed successfully. Array with errors description otherwise
      */
@@ -483,7 +479,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Returns rule as an array for admin interface
      *
      * @deprecated since 1.7.0.0
-     *
      *
      * @return array
      */

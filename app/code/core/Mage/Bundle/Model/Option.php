@@ -107,22 +107,6 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         }
 
         return $this->_defaultSelection;
-        /**
-         *         if (!$this->_defaultSelection && $this->getSelections()) {
-            $_selections = array();
-            foreach ($this->getSelections() as $selection) {
-                if ($selection->getIsDefault()) {
-                    $_selections[] = $selection;
-                }
-            }
-            if (!empty($_selections)) {
-                $this->_defaultSelection = $_selections;
-            } else {
-                return null;
-            }
-        }
-        return $this->_defaultSelection;
-         */
     }
 
     /**

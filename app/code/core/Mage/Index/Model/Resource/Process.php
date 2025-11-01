@@ -86,7 +86,6 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update process status field
      *
-     *
      * @param Mage_Index_Model_Process $process
      * @param string $status
      * @return $this
