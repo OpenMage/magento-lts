@@ -170,10 +170,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     }
 
     /**
-    * Initialize website values.
-    *
-    * @return $this
-    */
+     * Initialize website values.
+     *
+     * @return $this
+     */
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {

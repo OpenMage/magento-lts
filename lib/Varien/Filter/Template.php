@@ -264,12 +264,12 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     }
 
     /**
-    * Return variable value for var construction
-    *
-    * @param string $value raw parameters
-    * @param string|null $default default value
-    * @return string
-    */
+     * Return variable value for var construction
+     *
+     * @param string $value raw parameters
+     * @param string|null $default default value
+     * @return string
+     */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Varien_Profiler::start('email_template_proccessing_variables');

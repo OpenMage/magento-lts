@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
     CONSTRAINT `FK_CORE_CACHE_TAG` FOREIGN KEY (`cache_id`)
     REFERENCES `core_cache` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-*/
+ */
 
 /**
  * Database cache backend

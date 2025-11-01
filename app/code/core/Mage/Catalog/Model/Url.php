@@ -88,10 +88,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
     protected $_saveRewritesHistory = null;
 
     /**
-    * Singleton of category model for building URL path
-    *
-    * @var Mage_Catalog_Model_Category
-    */
+     * Singleton of category model for building URL path
+     *
+     * @var Mage_Catalog_Model_Category
+     */
     protected static $_categoryForUrlPath;
 
     protected ?string $locale = null;

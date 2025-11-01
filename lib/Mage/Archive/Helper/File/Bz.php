@@ -8,11 +8,11 @@
  */
 
 /**
-* Helper class that simplifies bz2 files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-*/
+ * Helper class that simplifies bz2 files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ */
 class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
 {
     /**
