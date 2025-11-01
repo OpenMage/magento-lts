@@ -136,7 +136,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * init model
-     *
      */
     protected function _construct()
     {
@@ -220,7 +219,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load group collection and set internal data
-     *
      */
     protected function _loadGroups()
     {
@@ -336,7 +334,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load store collection and set internal data
-     *
      */
     protected function _loadStores()
     {

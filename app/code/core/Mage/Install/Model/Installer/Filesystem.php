@@ -28,7 +28,6 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
 
     /**
      * Check and prepare file system
-     *
      */
     public function install()
     {

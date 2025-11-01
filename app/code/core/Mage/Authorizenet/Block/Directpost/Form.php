@@ -17,7 +17,6 @@ class Mage_Authorizenet_Block_Directpost_Form extends Mage_Payment_Block_Form_Cc
     /**
      * Internal constructor
      * Set info template for payment step
-     *
      */
     protected function _construct()
     {

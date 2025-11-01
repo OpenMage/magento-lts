@@ -510,7 +510,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
-     *
      */
     public function hasProductUrl($product)
     {

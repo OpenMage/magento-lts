@@ -45,7 +45,6 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 
     /**
      * Standard model resource initialization
-     *
      */
     protected function _construct()
     {

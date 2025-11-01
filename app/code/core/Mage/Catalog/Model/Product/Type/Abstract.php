@@ -84,7 +84,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
     /**
      * values for shipment type (invoice etc)
-     *
      */
     public const SHIPMENT_SEPARATELY = 1;
 

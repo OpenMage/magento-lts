@@ -157,7 +157,6 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Cutomer billing agreements ajax action
-     *
      */
     public function customerGridAction()
     {

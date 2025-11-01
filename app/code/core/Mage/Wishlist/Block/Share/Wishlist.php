@@ -25,7 +25,6 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
      * Prepare global layout
      *
      * @return $this
-     *
      */
     protected function _prepareLayout()
     {

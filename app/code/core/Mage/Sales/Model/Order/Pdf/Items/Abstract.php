@@ -181,7 +181,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
 
     /**
      * Draw item line
-     *
      */
     abstract public function draw();
 

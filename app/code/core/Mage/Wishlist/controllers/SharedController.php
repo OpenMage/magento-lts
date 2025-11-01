@@ -44,7 +44,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Shared wishlist view page
-     *
      */
     public function indexAction()
     {
@@ -69,7 +68,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      *
      * If Product has required options - redirect
      * to product view page with message about needed defined required options
-     *
      */
     public function cartAction()
     {

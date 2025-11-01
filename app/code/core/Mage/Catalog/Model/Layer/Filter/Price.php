@@ -57,7 +57,6 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {

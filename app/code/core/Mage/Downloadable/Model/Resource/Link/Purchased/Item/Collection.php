@@ -16,7 +16,6 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection extends Ma
 {
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {

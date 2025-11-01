@@ -655,7 +655,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param Mage_Catalog_Model_Product $product
      * @param int|array $storeIds
      * @return array
-     *
      */
     public function getAssignedImages($product, $storeIds)
     {

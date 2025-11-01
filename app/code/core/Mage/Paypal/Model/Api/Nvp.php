@@ -822,7 +822,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Create Billing Agreement call
-     *
      */
     public function callCreateBillingAgreement()
     {
@@ -833,7 +832,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Billing Agreement Update call
-     *
      */
     public function callUpdateBillingAgreement()
     {

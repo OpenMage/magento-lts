@@ -31,7 +31,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 
     /**
      * Initialize object
-     *
      */
     public function __construct()
     {

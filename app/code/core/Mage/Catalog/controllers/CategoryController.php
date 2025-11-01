@@ -62,7 +62,6 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * @return Mage_Catalog_Model_Category
      * @throws Mage_Core_Exception
      * @deprecated use method _initCategory
-     *
      */
     protected function _initCatagory()
     {

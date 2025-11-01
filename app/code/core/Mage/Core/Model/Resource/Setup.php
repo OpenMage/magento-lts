@@ -245,7 +245,6 @@ class Mage_Core_Model_Resource_Setup
 
     /**
      * Apply database data updates whenever needed
-     *
      */
     public static function applyAllDataUpdates()
     {

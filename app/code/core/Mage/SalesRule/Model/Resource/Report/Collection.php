@@ -44,7 +44,6 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {

@@ -16,7 +16,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
 {
     /**
      * Set grid params
-     *
      */
     public function __construct()
     {

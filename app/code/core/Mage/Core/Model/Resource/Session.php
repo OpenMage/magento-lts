@@ -66,7 +66,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 
     /**
      * Destructor
-     *
      */
     public function __destruct()
     {

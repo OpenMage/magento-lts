@@ -249,7 +249,6 @@ final class Mage
 
     /**
      * Set all my static data to defaults
-     *
      */
     public static function reset()
     {

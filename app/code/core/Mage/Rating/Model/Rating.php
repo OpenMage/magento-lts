@@ -45,7 +45,6 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 {
     /**
      * rating entity codes
-     *
      */
     public const ENTITY_PRODUCT_CODE           = 'product';
 

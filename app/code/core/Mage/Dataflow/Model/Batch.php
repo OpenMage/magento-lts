@@ -27,7 +27,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 {
     /**
      * Lifetime abandoned batches
-     *
      */
     public const LIFETIME = 86400;
 
@@ -61,7 +60,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 
     /**
      * Init model
-     *
      */
     protected function _construct()
     {
@@ -158,7 +156,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 
     /**
      * Run finish actions for Adapter
-     *
      */
     public function beforeFinish()
     {

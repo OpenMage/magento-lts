@@ -85,7 +85,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -161,7 +160,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

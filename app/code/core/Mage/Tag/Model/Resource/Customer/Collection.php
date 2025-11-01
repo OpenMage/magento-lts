@@ -214,7 +214,6 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
     /**
      * Joins tables to select
-     *
      */
     protected function _joinFields()
     {

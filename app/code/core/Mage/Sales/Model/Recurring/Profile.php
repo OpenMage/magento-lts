@@ -132,7 +132,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
 
     /**
      * Submit a recurring profile right after an order is placed
-     *
      */
     public function submit()
     {

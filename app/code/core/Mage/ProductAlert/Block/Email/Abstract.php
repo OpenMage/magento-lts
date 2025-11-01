@@ -78,7 +78,6 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
 
     /**
      * Reset product collection
-     *
      */
     public function reset()
     {

@@ -38,7 +38,6 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
 
     /**
      * Initialize filter template
-     *
      */
     public function __construct()
     {

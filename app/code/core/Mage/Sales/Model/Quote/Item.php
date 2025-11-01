@@ -200,7 +200,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Flag stating that options were successfully saved
-     *
      */
     protected $_flagOptionsSaved = null;
 

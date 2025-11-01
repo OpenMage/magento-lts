@@ -267,7 +267,6 @@ class Mage_Paypal_Model_Pro
     }
 
     /**
-     *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */

@@ -16,7 +16,6 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {
     /**
      * Reindex all stock status data
-     *
      */
     public function reindexAll();
 
@@ -38,7 +37,6 @@ interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
      * Retrieve Product Type Id for indexer
      *
      * @throws Mage_Core_Exception
-     *
      */
     public function getTypeId();
 }

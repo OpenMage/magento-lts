@@ -638,7 +638,6 @@ class Mage_Eav_Model_Config
      * @throws Mage_Core_Exception
      * @deprecated Equivalent to getAttribute(...), use getAttribute(...) instead
      * Get attribute object for collection usage
-     *
      */
     public function getCollectionAttribute($entityType, $attribute)
     {
@@ -651,7 +650,6 @@ class Mage_Eav_Model_Config
      * @return  Mage_Eav_Model_Config
      * @deprecated No longer required to preload only collection attributes explicitly
      * Prepare attributes for usage in EAV collection
-     *
      */
     public function loadCollectionAttributes($entityType, $attributes)
     {

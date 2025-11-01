@@ -112,7 +112,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Promo quote save action
-     *
      */
     public function saveAction()
     {

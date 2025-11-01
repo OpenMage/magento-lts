@@ -50,7 +50,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
 
     /**
      * Set sales order entity and establish read connection
-     *
      */
     public function __construct()
     {

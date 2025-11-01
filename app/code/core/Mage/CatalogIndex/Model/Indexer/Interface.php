@@ -9,7 +9,6 @@
 
 /**
  * Catalog indexer interface
- *
  */
 interface Mage_CatalogIndex_Model_Indexer_Interface
 {

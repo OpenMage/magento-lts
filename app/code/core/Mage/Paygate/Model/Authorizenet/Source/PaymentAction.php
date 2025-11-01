@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * Authorizenet Payment Action Dropdown source
  *
  * @package    Mage_Paygate

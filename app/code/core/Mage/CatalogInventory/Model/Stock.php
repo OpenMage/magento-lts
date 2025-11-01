@@ -153,7 +153,6 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     *
      * @param array $items
      * @return Mage_CatalogInventory_Model_Stock
      */

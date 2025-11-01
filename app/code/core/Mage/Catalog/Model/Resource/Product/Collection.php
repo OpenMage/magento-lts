@@ -330,7 +330,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Initialize resources
-     *
      */
     protected function _construct()
     {
@@ -345,7 +344,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Define product website and category product tables
-     *
      */
     protected function _initTables()
     {
@@ -1148,7 +1146,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Add URL rewrites to collection
-     *
      */
     protected function _addUrlRewrite()
     {
@@ -1466,7 +1463,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * @deprecated from 1.3.0
-     *
      */
     protected function _addTaxPercents()
     {

@@ -16,7 +16,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
      * Database constants
-     *
      */
     public const DB_MAX_PACKET_COEFFICIENT = 900000;
 

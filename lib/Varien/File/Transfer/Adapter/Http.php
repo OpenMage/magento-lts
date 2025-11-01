@@ -9,7 +9,6 @@
 
 /**
  * Csv parse
- *
  */
 class Varien_File_Transfer_Adapter_Http
 {

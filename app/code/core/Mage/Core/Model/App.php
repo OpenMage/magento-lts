@@ -36,13 +36,11 @@ class Mage_Core_Model_App
 
     /**
      * Default store code (for install)
-     *
      */
     public const DISTRO_STORE_CODE     = 'default';
 
     /**
      * Admin store Id
-     *
      */
     public const ADMIN_STORE_ID = 0;
 
@@ -630,7 +628,6 @@ class Mage_Core_Model_App
 
     /**
      * Init store, group and website collections
-     *
      */
     protected function _initStores()
     {
@@ -1294,7 +1291,6 @@ class Mage_Core_Model_App
 
     /**
      * Deletes all session files
-     *
      */
     public function cleanAllSessions()
     {

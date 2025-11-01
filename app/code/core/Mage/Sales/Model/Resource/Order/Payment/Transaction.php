@@ -25,7 +25,6 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
 
     /**
      * Initialize main table and the primary key field name
-     *
      */
     protected function _construct()
     {

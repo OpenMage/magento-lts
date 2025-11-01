@@ -143,7 +143,6 @@ class Varien_Profiler
 
     /**
      * Output SQl Zend_Db_Profiler
-     *
      */
     public static function getSqlProfiler($res)
     {

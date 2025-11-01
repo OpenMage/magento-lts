@@ -329,7 +329,6 @@ class Mage_Core_Model_Translate_Inline
 
     /**
      * Prepare tags inline translates
-     *
      */
     protected function _tagAttributes()
     {

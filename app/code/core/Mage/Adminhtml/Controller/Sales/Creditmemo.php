@@ -22,7 +22,6 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
 
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {

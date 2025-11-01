@@ -83,7 +83,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
 
     /**
      * Init collection and determine table names
-     *
      */
     protected function _construct()
     {
@@ -218,7 +217,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
 
     /**
      * Load categories product count
-     *
      */
     protected function _loadProductCount()
     {

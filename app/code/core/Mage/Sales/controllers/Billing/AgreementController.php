@@ -50,7 +50,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * View billing agreement
-     *
      */
     public function viewAction()
     {
@@ -109,7 +108,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * Wizard return action
-     *
      */
     public function returnWizardAction()
     {
@@ -141,7 +139,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * Wizard cancel action
-     *
      */
     public function cancelWizardAction()
     {
@@ -151,7 +148,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Cancel action
      * Set billing agreement status to 'Canceled'
-     *
      */
     public function cancelAction()
     {

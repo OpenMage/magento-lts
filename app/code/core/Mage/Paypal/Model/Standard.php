@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PayPal Standard Checkout Module
  *
  * @package    Mage_Paypal
@@ -76,7 +75,6 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create main block for standard form
-     *
      */
     public function createFormBlock($name)
     {

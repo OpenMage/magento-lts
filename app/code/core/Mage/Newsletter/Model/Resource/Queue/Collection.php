@@ -30,7 +30,6 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
 
     /**
      * Initializes collection
-     *
      */
     protected function _construct()
     {

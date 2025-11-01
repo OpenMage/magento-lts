@@ -16,7 +16,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 {
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -626,7 +625,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Show item update result from loadBlockAction
      * to prevent popup alert with resend data question
-     *
      */
     public function showUpdateResultAction()
     {

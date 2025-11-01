@@ -20,6 +20,8 @@ return $config
         'phpdoc_indent' => true,
         // Orders all @param annotations in DocBlocks according to method signature.
         'phpdoc_param_order' => true,
+        // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.
+        'phpdoc_trim' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.

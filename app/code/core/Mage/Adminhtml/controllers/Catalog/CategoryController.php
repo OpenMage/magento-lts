@@ -201,7 +201,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * WYSIWYG editor action for ajax request
-     *
      */
     public function wysiwygAction()
     {

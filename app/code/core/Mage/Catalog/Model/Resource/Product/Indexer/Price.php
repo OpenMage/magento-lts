@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
     /**
      * Define main index table
-     *
      */
     protected function _construct()
     {

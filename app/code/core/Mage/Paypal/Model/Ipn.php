@@ -36,7 +36,6 @@ class Mage_Paypal_Model_Ipn
     protected $_recurringProfile = null;
 
     /**
-     *
      * @var Mage_Paypal_Model_Config
      */
     protected $_config = null;

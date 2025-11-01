@@ -33,7 +33,6 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
 
     /**
      * Init model and resource model
-     *
      */
     protected function _construct()
     {

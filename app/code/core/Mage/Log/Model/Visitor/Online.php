@@ -26,7 +26,6 @@
  * @method $this setCustomerId(int $value)
  * @method string getLastUrl()
  * @method $this setLastUrl(string $value)
- *
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
