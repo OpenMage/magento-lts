@@ -429,8 +429,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate Customer Group field
      *
-     * @param string $fieldSet
      * @param array $data
+     * @param string $fieldSet
      */
     protected function _validateCustomerGroup($data, $fieldSet)
     {

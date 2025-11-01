@@ -528,8 +528,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * with named binds.
      *
      * @param Zend_Db_Select|string $sql
-     * @param-out string $sql
      * @param mixed $bind
+     * @param-out string $sql
      * @return $this
      */
     protected function _prepareQuery(&$sql, &$bind = [])
@@ -878,8 +878,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $columnName main table field name
      * @param string $refTableName referred table name
      * @param string $refColumnName referred table field name
-     * @param string $onUpdate on update statement
      * @param string $onDelete on delete statement
+     * @param string $onUpdate on update statement
      * @param bool $purge
      * @return mixed
      */
