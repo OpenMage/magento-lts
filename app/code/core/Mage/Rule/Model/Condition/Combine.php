@@ -13,7 +13,7 @@
  * @method $this setActions(array $value)
  * @method string getAggregator()
  * @method $this setAggregator(string $value)
- * @method string getAggregatorOption()
+ * @method array|string getAggregatorOption()
  * @method array getAggregatorOptions()
  * @method $this setAggregatorOption(array $value)
  * @method string getPrefix()
@@ -37,7 +37,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
-            /** @var Mage_Rule_Model_Condition_Abstract $condition */
             $wheres[] = '(' . $condition->prepareConditionSql() . ')';
         }
 
@@ -115,8 +114,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAggregatorOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAggregatorOption() as $key => $value) {
+            $opt[] = ['value' => $key, 'label' => $value];
         }
 
         return $opt;
@@ -136,8 +135,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorElement()
     {
         if (is_null($this->getAggregator())) {
-            foreach ($this->getAggregatorOption() as $k => $v) {
-                $this->setAggregator($k);
+            foreach ($this->getAggregatorOption() as $key => $value) {
+                $this->setAggregator($key);
                 break;
             }
         }
@@ -264,8 +263,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                         $this->addCondition($cond);
                         $cond->loadArray($condArr, $key);
                     }
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         }
