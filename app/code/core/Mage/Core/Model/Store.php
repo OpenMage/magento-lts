@@ -89,9 +89,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const PRICE_SCOPE_GLOBAL              = 0;
 
-    /**
-     *
-     */
     public const PRICE_SCOPE_WEBSITE             = 1;
 
     /**
@@ -99,29 +96,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const URL_TYPE_LINK                   = 'link';
 
-    /**
-     *
-     */
     public const URL_TYPE_DIRECT_LINK            = 'direct_link';
 
-    /**
-     *
-     */
     public const URL_TYPE_WEB                    = 'web';
 
-    /**
-     *
-     */
     public const URL_TYPE_SKIN                   = 'skin';
 
-    /**
-     *
-     */
     public const URL_TYPE_JS                     = 'js';
 
-    /**
-     *
-     */
     public const URL_TYPE_MEDIA                  = 'media';
 
     /**
@@ -129,9 +111,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const DEFAULT_CODE                    = 'default';
 
-    /**
-     *
-     */
     public const ADMIN_CODE                      = 'admin';
 
     /**
