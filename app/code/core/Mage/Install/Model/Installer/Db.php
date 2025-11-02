@@ -137,8 +137,8 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      * Retrieve the database resource
      *
      * @param  string $model database type
-     * @return Mage_Install_Model_Installer_Db_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Install_Model_Installer_Db_Abstract
      */
     protected function _getDbResource($model)
     {

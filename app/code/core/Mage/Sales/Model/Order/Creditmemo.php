@@ -357,8 +357,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Creditmemo_Item $item)
     {
@@ -443,9 +443,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function refund()
     {
@@ -951,8 +951,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Abstract
      */
     protected function _beforeDelete()
     {

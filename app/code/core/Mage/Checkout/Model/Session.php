@@ -243,8 +243,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     protected function _getQuoteIdKey()
     {

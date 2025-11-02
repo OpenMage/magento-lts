@@ -37,10 +37,10 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
     /**
      * Aggregate coupons reports by orders
      *
-     * @throws Exception
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
+     * @throws Exception
      * @return $this
      */
     protected function _aggregateByOrder($aggregationField, $from, $to)

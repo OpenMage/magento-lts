@@ -80,9 +80,9 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
+     * @param string|Varien_Simplexml_Element $value
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @param string|Varien_Simplexml_Element $value
      * @return bool
      */
     public function isValid($value)

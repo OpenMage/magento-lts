@@ -272,8 +272,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @return false|string $destPath
      * @throws Mage_Core_Exception
+     * @return false|string $destPath
      */
     public function createSwatchImage($value, $width, $height)
     {

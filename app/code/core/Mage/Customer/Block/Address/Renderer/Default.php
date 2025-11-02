@@ -65,8 +65,8 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
      * Render address
      *
      * @param null|string $format
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {

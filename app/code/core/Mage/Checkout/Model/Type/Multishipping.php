@@ -412,8 +412,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Prepare order based on quote address
      *
-     * @return  Mage_Sales_Model_Order
      * @throws  Mage_Checkout_Exception
+     * @return  Mage_Sales_Model_Order
      */
     protected function _prepareOrder(Mage_Sales_Model_Quote_Address $address)
     {

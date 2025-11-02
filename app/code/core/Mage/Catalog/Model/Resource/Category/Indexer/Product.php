@@ -301,8 +301,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Reindex not anchor root categories
      *
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     protected function _refreshNotAnchorRootCategories(?array $categoryIds = null)
     {

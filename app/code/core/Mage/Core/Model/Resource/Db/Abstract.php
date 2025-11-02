@@ -396,8 +396,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @param string $field
      * @param mixed $value
      * @param Mage_Core_Model_Abstract $object
-     * @return Varien_Db_Select
      * @throws Exception
+     * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -502,8 +502,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Delete the object
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -630,8 +630,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Check for unique values existence
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {

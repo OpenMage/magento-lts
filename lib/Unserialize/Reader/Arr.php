@@ -45,8 +45,8 @@ class Unserialize_Reader_Arr
     /**
      * @param $char
      * @param $prevChar
-     * @return null|array
      * @throws Exception
+     * @return null|array
      */
     public function read($char, $prevChar)
     {

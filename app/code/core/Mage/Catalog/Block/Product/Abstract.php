@@ -269,8 +269,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param false|string $templateType
      * @param bool $displayIfNoReviews
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getReviewsSummaryHtml(
         Mage_Catalog_Model_Product $product,
@@ -386,8 +386,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Get tier prices (formatted)
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return array
      * @throws Mage_Core_Model_Store_Exception
+     * @return array
      */
     public function getTierPrices($product = null)
     {

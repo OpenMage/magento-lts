@@ -247,8 +247,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param string $dir direction
-     * @return Mage_Catalog_Model_Product_Visibility
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Visibility
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {

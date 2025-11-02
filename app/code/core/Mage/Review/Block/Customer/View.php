@@ -36,8 +36,8 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @return Mage_Catalog_Model_Product
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Catalog_Model_Product
      */
     public function getProductData()
     {
@@ -72,8 +72,8 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Rating_Model_Resource_Rating_Option_Vote_Collection
      */
     public function getRating()
     {
@@ -104,8 +104,8 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @return int
      * @throws Mage_Core_Model_Store_Exception
+     * @return int
      */
     public function getTotalReviews()
     {

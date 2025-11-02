@@ -245,8 +245,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getResourceCollection()
     {
@@ -263,8 +263,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return false|Mage_Core_Model_Resource_Db_Collection_Abstract
      * @throws Mage_Core_Exception
+     * @return false|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {
@@ -356,8 +356,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Save object data
      *
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     public function save()
     {
@@ -521,8 +521,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Delete object from database
      *
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     public function delete()
     {

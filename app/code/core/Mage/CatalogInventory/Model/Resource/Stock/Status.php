@@ -27,8 +27,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param float|int $qty
      * @param int $stockId
      * @param null|int $websiteId
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function saveProductStatus(
         Mage_CatalogInventory_Model_Stock_Status $object,

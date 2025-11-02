@@ -107,8 +107,8 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getFormUrl()
     {

@@ -59,8 +59,8 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * Prepare anchor title attribute using passed title
      * as parameter or retrieve page title from DB using passed identifier or page id.
      *
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getTitle()
     {
@@ -84,8 +84,8 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * If anchor text was not specified use title instead and
      * if title will be blank string, page identifier will be used.
      *
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getAnchorText()
     {

@@ -263,8 +263,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function addActionLayoutHandles()
     {
@@ -286,8 +286,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function loadLayoutUpdates()
     {

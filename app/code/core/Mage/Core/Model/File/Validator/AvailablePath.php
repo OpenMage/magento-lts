@@ -192,8 +192,8 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @throws Exception        Throw exception on empty both paths masks types
      * @param string $value     File/dir path
+     * @throws Exception        Throw exception on empty both paths masks types
      * @return bool
      */
     public function isValid($value)

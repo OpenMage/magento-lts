@@ -410,8 +410,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Secure set groups
      *
      * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
+     * @return Mage_Adminhtml_Model_Config_Data
      */
     public function setGroupsSecure($groups)
     {
@@ -488,8 +488,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Select group setter is secure or not based on the configuration
      *
      * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
+     * @return Mage_Adminhtml_Model_Config_Data
      */
     public function setGroupsSelector($groups)
     {

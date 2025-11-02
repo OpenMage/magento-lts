@@ -19,8 +19,8 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     protected $_mapfields = [];
 
     /**
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     public function parse()
     {

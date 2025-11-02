@@ -70,8 +70,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Get object with payment info posted data
      *
-     * @return Varien_Object
      * @throws Exception
+     * @return Varien_Object
      */
     public function getPayment()
     {

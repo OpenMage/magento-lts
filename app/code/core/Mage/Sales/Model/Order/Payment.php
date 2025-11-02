@@ -431,8 +431,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
      * @param null|Mage_Sales_Model_Order_Invoice $invoice
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function capture($invoice)
     {
@@ -656,8 +656,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Check order payment void availability
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function canVoid(Varien_Object $document)
     {

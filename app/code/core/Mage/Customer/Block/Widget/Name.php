@@ -187,8 +187,8 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
      * Retrieve store attribute label
      *
      * @param string $attributeCode
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getStoreLabel($attributeCode)
     {

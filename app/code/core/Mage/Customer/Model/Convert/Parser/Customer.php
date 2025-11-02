@@ -214,8 +214,8 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function unparse()
     {

@@ -187,8 +187,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param string $field
      * @param mixed $value
      * @param Mage_Cms_Model_Page $object
-     * @return Zend_Db_Select
      * @throws Exception
+     * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -331,8 +331,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieves cms page title from DB by passed identifier.
      *
      * @param int|string $identifier
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getCmsPageTitleByIdentifier($identifier)
     {
@@ -424,8 +424,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve store model
      *
-     * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {

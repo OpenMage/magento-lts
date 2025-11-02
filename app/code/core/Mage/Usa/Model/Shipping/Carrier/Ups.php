@@ -2522,8 +2522,8 @@ XMLAuth;
     /**
      * To receive access token
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     protected function setAPIAccessRequest()
     {

@@ -402,8 +402,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * in the string.
      *
      * @param string $destination path to file is unpacked
-     * @return array list of files
      * @throws Mage_Exception
+     * @return array list of files
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

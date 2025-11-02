@@ -66,8 +66,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Retrieve invoice information
      *
      * @param string $invoiceIncrementId
-     * @return array
      * @throws Mage_Api_Exception
+     * @return array
      */
     public function info($invoiceIncrementId)
     {
@@ -226,8 +226,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Void invoice
      *
      * @param int $invoiceIncrementId
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function void($invoiceIncrementId)
     {

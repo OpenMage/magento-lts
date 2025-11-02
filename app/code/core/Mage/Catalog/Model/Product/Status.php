@@ -299,8 +299,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir direction
-     * @return Mage_Catalog_Model_Product_Status
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Status
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {

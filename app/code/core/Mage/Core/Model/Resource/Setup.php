@@ -584,8 +584,8 @@ class Mage_Core_Model_Resource_Setup
      * @param string $actionType self::TYPE_*
      * @param string $fromVersion
      * @param string $toVersion
-     * @return false|string
      * @throws Mage_Core_Exception
+     * @return false|string
      */
 
     protected function _modifyResourceDb($actionType, $fromVersion, $toVersion)

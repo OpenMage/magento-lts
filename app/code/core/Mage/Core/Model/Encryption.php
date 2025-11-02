@@ -118,8 +118,8 @@ class Mage_Core_Model_Encryption
      *
      * @param string $password
      * @param string $hash
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function validateHash($password, $hash)
     {

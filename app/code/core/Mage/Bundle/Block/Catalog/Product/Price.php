@@ -40,8 +40,8 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
      * Check if we have display prices including and excluding tax
      * With corrections for Dynamic prices
      *
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function displayBothPrices()
     {

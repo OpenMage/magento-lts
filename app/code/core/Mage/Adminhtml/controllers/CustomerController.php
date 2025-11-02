@@ -33,8 +33,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * @param string $idFieldName
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _initCustomer($idFieldName = 'id')
     {

@@ -214,8 +214,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      * Validate object
      *
      * @param Varien_Object $object
-     * @return $this|bool
      * @throws Mage_Core_Exception|Mage_Eav_Exception
+     * @return $this|bool
      */
     public function validate($object)
     {

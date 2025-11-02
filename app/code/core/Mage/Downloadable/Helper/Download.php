@@ -192,8 +192,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array|string
      * @throws Exception
+     * @return array|string
      */
     public function getContentType()
     {
@@ -215,8 +215,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return bool|mixed|string
      * @throws Exception
+     * @return bool|mixed|string
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getFilename()

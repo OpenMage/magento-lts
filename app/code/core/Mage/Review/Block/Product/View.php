@@ -35,8 +35,8 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      *
      * @param false|string $templateType
      * @param bool $displayIfNoReviews
-     * @return string
      * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
@@ -54,8 +54,8 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
     }
 
     /**
-     * @return Mage_Review_Model_Resource_Review_Collection
      * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
+     * @return Mage_Review_Model_Resource_Review_Collection
      */
     public function getReviewsCollection()
     {

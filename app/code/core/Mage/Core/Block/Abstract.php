@@ -234,8 +234,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve request object
      *
-     * @return Mage_Core_Controller_Request_Http
      * @throws Exception
+     * @return Mage_Core_Controller_Request_Http
      */
     public function getRequest()
     {

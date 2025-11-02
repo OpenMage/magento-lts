@@ -42,8 +42,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
      * Set additional action block for this item
      *
      * @param Mage_Core_Block_Abstract|string $block
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setAdditionalActionBlock($block)
     {

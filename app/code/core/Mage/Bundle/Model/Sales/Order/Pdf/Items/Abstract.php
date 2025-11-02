@@ -219,8 +219,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Order Item
      *
-     * @return Mage_Sales_Model_Order_Item
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Order_Item
      */
     public function getOrderItem()
     {

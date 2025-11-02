@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicate that block can display container
      *
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function canDisplayContainer()
     {

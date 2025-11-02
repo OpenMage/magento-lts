@@ -1248,8 +1248,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function hold()
     {
@@ -1266,8 +1266,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Attempt to unhold the order
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function unhold()
     {
@@ -1301,8 +1301,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Prepare order totals to cancellation
      * @param string $comment
      * @param bool $graceful
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function registerCancellation($comment = '', $graceful = true)
     {
@@ -1439,8 +1439,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function queueNewOrderEmail($forceMode = false)
     {
@@ -1695,8 +1695,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -1856,8 +1856,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -1937,8 +1937,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addPayment(Mage_Sales_Model_Order_Payment $payment)
     {

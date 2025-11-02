@@ -161,8 +161,8 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve new incrementId
      *
      * @param int $storeId
-     * @return false|string
      * @throws Exception
+     * @return false|string
      */
     public function fetchNewIncrementId($storeId = null)
     {
