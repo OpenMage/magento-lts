@@ -23,7 +23,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * Data changes flag (true after setData|unsetData call)
-     * @var bool $_hasDataChange
+     * @var bool
      */
     protected $_hasDataChanges = false;
 

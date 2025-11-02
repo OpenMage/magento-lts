@@ -20,7 +20,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     public const SSH2_PORT = 22;
 
     /**
-     * @var \phpseclib3\Net\SFTP $_connection
+     * @var \phpseclib3\Net\SFTP
      */
     protected $_connection = null;
 

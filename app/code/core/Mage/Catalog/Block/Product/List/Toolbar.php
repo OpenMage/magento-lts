@@ -123,7 +123,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     protected $_defaultAvailableLimit  = [10 => 10,20 => 20,50 => 50];
 
     /**
-     * @var bool $_paramsMemorizeAllowed
+     * @var bool
      */
     protected $_paramsMemorizeAllowed = true;
 
