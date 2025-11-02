@@ -12,7 +12,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Specific slab size = 1Mb minus overhead
      *
-     * @var array $_specificOptions
+     * @var array
      */
     protected $_specificOptions = ['slab_size' => 0];
 

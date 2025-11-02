@@ -53,7 +53,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 

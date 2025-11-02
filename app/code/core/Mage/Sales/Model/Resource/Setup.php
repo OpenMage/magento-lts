@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities converted from EAV to flat data structure
      *
-     * @var array $_flatEntityTables
+     * @var array
      */
     protected $_flatEntityTables     = [
         'quote'             => 'sales/quote',
@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities used with separate grid table
      *
-     * @var array $_flatEntitiesGrid
+     * @var array
      */
     protected $_flatEntitiesGrid     = [
         'order',
