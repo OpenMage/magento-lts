@@ -12,6 +12,8 @@ return $config
         'logical_operators' => true,
         // RISKY: Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operator.
         'modernize_types_casting' => true,
+        // There should not be empty PHPDoc blocks.
+        'no_empty_phpdoc' => true,
         // PHP84: Adds or removes ? before single type declarations or |null at the end of union types when parameters have a default null value.
         'nullable_type_declaration_for_default_null_value' => true,
         // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::
