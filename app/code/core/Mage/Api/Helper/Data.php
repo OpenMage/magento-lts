@@ -115,7 +115,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Go through mixed and turns it to a correct look.
      *
-     * @param Mixed $mixed A link to variable that may contain associative array.
+     * @param Mixed $mixed a link to variable that may contain associative array
      */
     public function associativeArrayUnpack(&$mixed)
     {

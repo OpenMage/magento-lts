@@ -1317,7 +1317,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @param array $checkedPaths internal variable to prevent infinite loops.
+     * @param array $checkedPaths internal variable to prevent infinite loops
      * @return bool|string
      */
     public function findFinalTargetPath($requestPath, $storeId, &$checkedPaths = [])

@@ -18,6 +18,8 @@ return $config
         'nullable_type_declaration_for_default_null_value' => true,
         // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
+        // PHPDoc annotation descriptions should not be a sentence.
+        'phpdoc_annotation_without_dot' => true,
         // Docblocks should have the same indentation as the documented subject.
         'phpdoc_indent' => true,
         // Annotations in PHPDoc should be ordered in defined sequence.

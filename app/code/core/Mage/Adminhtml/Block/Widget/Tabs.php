@@ -220,8 +220,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Find the root parent Tab ID recursively.
      *
      * @param string $currentAfterTabId
-     * @param int $degree Degrees of separation between child and root parent.
-     * @return string The parent tab ID.
+     * @param int $degree degrees of separation between child and root parent
+     * @return string the parent tab ID
      */
     protected function _getRootParentTabId($currentAfterTabId, &$degree)
     {

@@ -274,7 +274,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   Mage_Newsletter_Model_Subscriber|string   $subscriber   subscriber Model or E-mail
      * @param   array                                     $variables    template variables
      * @param   null|string                               $name         receiver name (if subscriber model not specified)
-     * @param   null|Mage_Newsletter_Model_Queue          $queue        queue model, used for problems reporting.
+     * @param   null|Mage_Newsletter_Model_Queue          $queue        queue model, used for problems reporting
      * @return bool
      * @deprecated since 1.4.0.1
      **/
