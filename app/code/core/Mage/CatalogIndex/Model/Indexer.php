@@ -569,7 +569,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Retrieve Base to Specified Currency Rate
      *
      * @param string $code
-     * @return double
+     * @return float
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
     {

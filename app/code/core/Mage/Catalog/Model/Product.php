@@ -921,8 +921,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get formatted by currency tier price
      *
-     * @param   double $qty
-     * @return  array|double
+     * @param   float $qty
+     * @return  array|float
      */
     public function getFormatedTierPrice($qty = null)
     {
@@ -932,7 +932,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get formatted by currency product price
      *
-     * @return  array|double
+     * @return  array|float
      */
     public function getFormatedPrice()
     {
@@ -958,8 +958,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product final price
      *
-     * @param double $qty
-     * @return double
+     * @param float $qty
+     * @return float
      */
     public function getFinalPrice($qty = null)
     {

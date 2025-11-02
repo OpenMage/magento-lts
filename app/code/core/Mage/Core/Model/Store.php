@@ -989,7 +989,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Round price
      *
      * @param mixed $price
-     * @return double
+     * @return float
      */
     public function roundPrice($price)
     {

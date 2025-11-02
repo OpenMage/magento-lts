@@ -886,7 +886,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Convert integer permissions format into human readable
      *
-     * @param integer $mode
+     * @param int $mode
      * @access protected
      * @return string
      */

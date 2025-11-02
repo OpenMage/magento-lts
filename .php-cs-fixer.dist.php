@@ -30,6 +30,8 @@ return $config
         'phpdoc_trim' => true,
         // Removes extra blank lines after summary and after description in PHPDoc.
         'phpdoc_trim_consecutive_blank_line_separation' => true,
+        // Scalar types should always be written in the same form. int not integer, bool not boolean, float not real or double.
+        'phpdoc_scalar' => true,
         // Single line @var PHPDoc should have proper spacing.
         'phpdoc_single_line_var_spacing' => true,
         // Fixes casing of PHPDoc tags.
