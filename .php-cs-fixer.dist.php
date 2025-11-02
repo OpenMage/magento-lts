@@ -58,7 +58,6 @@ return $config
             ])
             ->exclude([
                 __DIR__ . '/shell/translations.php',
-                __DIR__ . '/shell/update-copyright.php',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)

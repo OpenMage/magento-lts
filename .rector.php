@@ -122,7 +122,6 @@ try {
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
-            __DIR__ . '/shell/update-copyright.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
         ])
         ->withPreparedSets(
