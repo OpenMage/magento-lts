@@ -32,6 +32,8 @@ return $config
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         // Single line @var PHPDoc should have proper spacing.
         'phpdoc_single_line_var_spacing' => true,
+        // Fixes casing of PHPDoc tags.
+        'phpdoc_tag_casing' => true,
         // Sorts PHPDoc types.
         'phpdoc_types_order' => true,
         // @var and @type annotations must have type and name in the correct order.
