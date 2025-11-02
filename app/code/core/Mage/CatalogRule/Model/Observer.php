@@ -298,6 +298,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param string $attributeCode
      *
+     * @throws Throwable
      * @return $this
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
@@ -307,10 +308,9 @@ class Mage_CatalogRule_Model_Observer
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
+        /** @var Mage_CatalogRule_Model_Rule $rule */
         foreach ($collection as $rule) {
-            /** @var Mage_CatalogRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $rule->save();
 
