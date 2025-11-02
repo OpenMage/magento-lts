@@ -153,7 +153,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                             $this->_soap->handle(),
                         ),
                     );
-            } catch (Zend_Soap_Server_Exception|Exception $e) {
+            } catch (Exception|Zend_Soap_Server_Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }

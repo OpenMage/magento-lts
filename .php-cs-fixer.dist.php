@@ -18,6 +18,8 @@ return $config
         'nullable_type_declaration_for_default_null_value' => true,
         // Operators - when multiline - must always be at the beginning or at the end of the line.
         'operator_linebreak' => true,
+        // Sort union types and intersection types using configured order.
+        'ordered_types' => true,
         // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         // PHPDoc annotation descriptions should not be a sentence.
@@ -44,12 +46,16 @@ return $config
         'phpdoc_var_annotation_correct_order' => true,
         // @var and @type annotations of classy properties should not contain the name.
         'phpdoc_var_without_name' => true,
+        // There MUST NOT be more than one property or constant declared per statement.
+        'single_class_element_per_statement' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.
         // removed "match" and "parameters" for PHP7
         // see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues/8308
         'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arguments', 'array_destructuring', 'arrays']],
+        // A single space or none should be around union type and intersection type operators.
+        'types_spaces' => true,
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

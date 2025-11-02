@@ -274,7 +274,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        } catch (Mage_Core_Exception|Exception $e) {
+        } catch (Exception|Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
