@@ -519,9 +519,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                     ->joinLeft(
                         ['t_store' => $tableName],
                         $adapter->quoteInto(
-                            't_default.entity_id=t_store.entity_id' .
-                                ' AND t_default.attribute_id=t_store.attribute_id' .
-                                ' AND t_store.store_id=?',
+                            't_default.entity_id=t_store.entity_id'
+                                . ' AND t_default.attribute_id=t_store.attribute_id'
+                                . ' AND t_store.store_id=?',
                             $storeId,
                         ),
                         ['value' => $this->_unifyField($ifStoreValue, $backendType)],

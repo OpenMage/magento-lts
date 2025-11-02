@@ -831,8 +831,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         $adapter->update(
             $table,
             [
-                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ',' .
-                    $adapter->quote($category->getPath() . '/') . ', ' . $adapter->quote($newPath . '/') . ')'),
+                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ','
+                    . $adapter->quote($category->getPath() . '/') . ', ' . $adapter->quote($newPath . '/') . ')'),
                 'level' => new Zend_Db_Expr($levelFiled . ' + ' . $levelDisposition),
             ],
             [$pathField . ' LIKE ?' => $category->getPath() . '/%'],

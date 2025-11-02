@@ -61,11 +61,11 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     {
         return hash_hmac(
             'md5',
-            $merchantApiLoginId . '^' .
-            $fpSequence . '^' .
-            $fpTimestamp . '^' .
-            $amount . '^' .
-            $currencyCode,
+            $merchantApiLoginId . '^'
+            . $fpSequence . '^'
+            . $fpTimestamp . '^'
+            . $amount . '^'
+            . $currencyCode,
             $merchantTransactionKey,
         );
     }

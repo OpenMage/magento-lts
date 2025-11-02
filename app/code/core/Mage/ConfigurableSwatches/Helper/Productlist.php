@@ -77,8 +77,8 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     public function getSwatchAttributeId()
     {
         if (is_null($this->_swatchAttributeId)) {
-            $this->_swatchAttributeId =
-                Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
+            $this->_swatchAttributeId
+                = Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
         }
 
         return $this->_swatchAttributeId;

@@ -781,8 +781,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getWeight($product = null)
     {
-        if ($this->getProduct($product)->hasCustomOptions() &&
-            ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
+        if ($this->getProduct($product)->hasCustomOptions()
+            && ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
         ) {
             /** @var Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option $simpleProductOption */
             $simpleProduct = $simpleProductOption->getProduct();

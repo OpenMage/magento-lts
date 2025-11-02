@@ -584,10 +584,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable    *= $qty;
                 $taxSubtotal     = $taxPrice * $qty;
                 $baseTaxSubtotal = $baseTaxPrice * $qty;
-                $rowTax =
-                    $this->_deltaRound($calc->calcTaxAmount($taxable, $rate, true, false), $rate, true);
-                $baseRowTax =
-                    $this->_deltaRound($calc->calcTaxAmount($baseTaxable, $rate, true, false), $rate, true, 'base');
+                $rowTax
+                    = $this->_deltaRound($calc->calcTaxAmount($taxable, $rate, true, false), $rate, true);
+                $baseRowTax
+                    = $this->_deltaRound($calc->calcTaxAmount($baseTaxable, $rate, true, false), $rate, true, 'base');
                 $subtotal = $taxSubtotal - $rowTax;
                 $baseSubtotal = $baseTaxSubtotal - $baseRowTax;
                 $isPriceInclTax  = true;

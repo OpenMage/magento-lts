@@ -336,8 +336,8 @@ class Mage_Core_Model_Design_Package
     public function getBaseDir(array $params)
     {
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . $params['_type'];
+        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . $params['_type'];
     }
 
     /**
@@ -347,8 +347,8 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('skin') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'];
+        return (empty($params['_relative']) ? Mage::getBaseDir('skin') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'];
     }
 
     /**
@@ -358,9 +358,9 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . 'locale' . DS .
-            Mage::app()->getLocale()->getLocaleCode();
+        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . 'locale' . DS
+            . Mage::app()->getLocale()->getLocaleCode();
     }
 
     /**

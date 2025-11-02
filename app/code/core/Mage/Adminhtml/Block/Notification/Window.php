@@ -130,8 +130,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     public function getSeverityIconsUrl()
     {
         if (is_null($this->_severityIconsUrl)) {
-            $this->_severityIconsUrl =
-                (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
+            $this->_severityIconsUrl
+                = (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
                 . sprintf(
                     Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
                     Mage::getVersion(),

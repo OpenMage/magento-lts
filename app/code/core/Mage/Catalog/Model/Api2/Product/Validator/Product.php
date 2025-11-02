@@ -505,8 +505,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             }
 
             if (isset($data[$field]) && (!is_numeric($data[$field]) || $data[$field] < 0)) {
-                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. ' .
-                    'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
+                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. '
+                    . 'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
             }
         }
     }

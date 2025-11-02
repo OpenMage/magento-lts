@@ -104,8 +104,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isTaxable($store = null)
     {
-        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED ||
-            Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
+        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED
+            || Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
     }
 
     /**
@@ -154,8 +154,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAmount($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
     {
         if ($this->isEnabled()) {
-            return Mage::getSingleton('weee/tax')->
-                getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+            return Mage::getSingleton('weee/tax')
+                ->getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
         }
 
         return 0;

@@ -297,8 +297,8 @@ class Mage_Paypal_Model_Cart
             ];
             $this->_applyHiddenTaxWorkaround($this->_salesEntity);
         } else {
-            $address = $this->_salesEntity->getIsVirtual() ?
-                $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
+            $address = $this->_salesEntity->getIsVirtual()
+                ? $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
             $shippingDescription = $address->getShippingDescription();
             $this->_totals = [
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),

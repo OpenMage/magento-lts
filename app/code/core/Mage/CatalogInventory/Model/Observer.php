@@ -604,8 +604,8 @@ class Mage_CatalogInventory_Model_Observer
     protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
     {
         $qty = $itemQty;
-        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
-            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
+        if (isset($this->_checkedQuoteItems[$productId]['qty'])
+            && !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
         ) {
             $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }

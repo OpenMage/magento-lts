@@ -236,8 +236,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         }
 
         $addUrlValue = Mage::getUrl('*/*/*', ['_use_rewrite' => true, '_current' => true]);
-        $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED] =
-            Mage::helper('core')->urlEncode($addUrlValue);
+        $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED]
+            = Mage::helper('core')->urlEncode($addUrlValue);
 
         /** @var Mage_Checkout_Helper_Cart $helper */
         $helper = $this->helper('checkout/cart');

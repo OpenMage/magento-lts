@@ -70,8 +70,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         $dateTo = $object->getToDate();
 
         # fix when from and to day are the same
-        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date) &&
-            ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
+        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date)
+            && ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
         ) {
             $dateTo->setHour(23)->setMinute(59)->setSecond(59);
         }

@@ -112,8 +112,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldValue = $v;
                 }
 
-                if (!$filterData->hasData($filterFieldId) ||
-                    $filterData->getData($filterFieldId) != $filterFieldValue
+                if (!$filterData->hasData($filterFieldId)
+                    || $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
                     return $this;  // don't add column
                 }

@@ -240,8 +240,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         }
 
         if ($includeContainer) {
-            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) .
-                ($addBrackets ? ']' : '') . '</span>';
+            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options)
+                . ($addBrackets ? ']' : '') . '</span>';
         }
 
         return $this->formatTxt($price, $options);

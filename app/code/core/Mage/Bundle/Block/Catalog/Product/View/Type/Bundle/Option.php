@@ -267,10 +267,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
 
         $formated = $coreHelper::currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
-            $formated .=
-                    ' (+' .
-                    $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
-                    ' ' . $this->__('Incl. Tax') . ')';
+            $formated
+                    .= ' (+'
+                    . $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer)
+                    . ' ' . $this->__('Incl. Tax') . ')';
         }
 
         return $formated;

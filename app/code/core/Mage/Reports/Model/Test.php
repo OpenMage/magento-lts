@@ -39,10 +39,8 @@ class Mage_Reports_Model_Test extends Varien_Object
         for ($i = 0; $i < $rows -> length; $i++) {
             for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
                 ) {
                     $childsToRemove[] = $rows -> item($i);
                 }
