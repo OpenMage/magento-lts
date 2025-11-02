@@ -192,8 +192,8 @@ class Mage_SalesRule_Model_Observer
      * If rules were found they will be set to inactive and notice will be add to admin session
      *
      * @param string $attributeCode
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
