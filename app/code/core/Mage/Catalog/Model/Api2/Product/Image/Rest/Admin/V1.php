@@ -87,8 +87,8 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Get added image ID
      *
-     * @throws Mage_Api2_Exception
      * @param string $imageFileUri
+     * @throws Mage_Api2_Exception
      * @return int
      */
     protected function _getCreatedImageId($imageFileUri)

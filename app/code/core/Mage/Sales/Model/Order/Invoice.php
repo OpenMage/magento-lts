@@ -12,6 +12,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getResourceCollection()
+ *
  * @method string getBackUrl()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
@@ -598,8 +601,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Invoice_Item $item)
     {
@@ -987,8 +990,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Abstract
      */
     protected function _beforeDelete()
     {

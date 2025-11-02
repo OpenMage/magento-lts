@@ -43,8 +43,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      *
      * @param int $storeId
      * @param bool $useDefaultValue
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function setStoreFilter($storeId = null, $useDefaultValue = true)
     {

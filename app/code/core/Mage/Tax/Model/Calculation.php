@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
  * @method Mage_Tax_Model_Resource_Calculation getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
  *
  * @method $this setCalculationProcess(array $value)
  * @method array getCalculationProcess()

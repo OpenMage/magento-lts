@@ -15,6 +15,7 @@
  * @method Mage_Downloadable_Model_Resource_Sample _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
+ * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
  *
  * @method int getProductId()
  * @method $this setProductId(int $value)

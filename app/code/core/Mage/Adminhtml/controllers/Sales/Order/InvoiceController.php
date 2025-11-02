@@ -26,8 +26,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Initialize invoice model instance
      *
-     * @return false|Mage_Sales_Model_Order_Invoice
      * @throws Mage_Core_Exception
+     * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _initInvoice($update = false)
     {
@@ -76,8 +76,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Save data for invoice and related order
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return  Mage_Adminhtml_Sales_Order_InvoiceController
      * @throws Exception
+     * @return  Mage_Adminhtml_Sales_Order_InvoiceController
      */
     protected function _saveInvoice($invoice)
     {
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Prepare shipment
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return false|Mage_Sales_Model_Order_Shipment
      * @throws Mage_Core_Exception
+     * @return false|Mage_Sales_Model_Order_Shipment
      */
     protected function _prepareShipment($invoice)
     {

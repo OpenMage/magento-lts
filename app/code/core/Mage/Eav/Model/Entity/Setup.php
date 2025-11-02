@@ -311,9 +311,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Set Id By Id or Name
      *
-     * @throws Mage_Eav_Exception
      * @param mixed $entityTypeId
      * @param mixed $setId
+     * @throws Mage_Eav_Exception
      * @return int
      */
     public function getAttributeSetId($entityTypeId, $setId)
@@ -347,9 +347,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string $entityType
      * @param string $attributeSet
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @return $this
      */
     public function setDefaultSetToEntityType($entityType, $attributeSet = 'Default')
     {
@@ -363,8 +363,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Get identifiers of all attribute sets
      *
      * @param int $entityTypeId
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function getAllAttributeSetIds($entityTypeId = null)
     {
@@ -569,8 +569,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityType
      * @param int|string $attributeSetId
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -1257,9 +1257,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * - no-main
      * - no-default-types
      * - types
-     * @return Mage_Eav_Model_Entity_Setup
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
+     * @return Mage_Eav_Model_Entity_Setup
      */
     public function createEntityTables($baseTableName, array $options = [])
     {

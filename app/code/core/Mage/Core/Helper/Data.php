@@ -322,8 +322,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param string $password
      * @param string $hash
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function validateHash($password, $hash)
     {
@@ -624,8 +624,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Array has some limitations. Appropriate exceptions will be thrown
      *
      * @param string $rootName
-     * @return SimpleXMLElement
      * @throws Exception
+     * @return SimpleXMLElement
      */
     public function assocToXml(array $array, $rootName = '_')
     {
@@ -651,8 +651,8 @@ XML;
      * Function, that actually recursively transforms array to xml
      *
      * @param string $rootName
-     * @return SimpleXMLElement
      * @throws Exception
+     * @return SimpleXMLElement
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
@@ -743,8 +743,8 @@ XML;
      *
      * @param string $encodedValue
      * @param int $objectDecodeType
-     * @return mixed
      * @throws Zend_Json_Exception
+     * @return mixed
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
@@ -920,8 +920,8 @@ XML;
     /**
      * Check LFI protection
      *
-     * @throws Mage_Core_Exception
      * @param string $name
+     * @throws Mage_Core_Exception
      * @return bool
      */
     public function checkLfiProtection($name)

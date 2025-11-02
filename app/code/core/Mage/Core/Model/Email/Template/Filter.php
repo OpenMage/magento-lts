@@ -129,8 +129,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Getter
      * if $_storeId is null return Design store id
      *
-     * @return int
      * @throws Mage_Core_Model_Store_Exception
+     * @return int
      */
     public function getStoreId()
     {
@@ -196,8 +196,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve layout html directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function layoutDirective($construction)
     {
@@ -260,8 +260,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve Skin URL directive
      *
      * @param array $construction
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function skinDirective($construction)
     {
@@ -288,8 +288,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Support url and direct_url properties
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function storeDirective($construction)
     {
@@ -350,8 +350,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Var directive with modifiers support
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function varDirective($construction)
     {
@@ -428,8 +428,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * also allow additional parameter "store"
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function protocolDirective($construction)
     {
@@ -458,8 +458,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Store config directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function configDirective($construction)
     {
@@ -477,8 +477,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Custom Variable directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function customvarDirective($construction)
     {
@@ -563,8 +563,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param string $value raw parameters
      * @param string $default default value
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {

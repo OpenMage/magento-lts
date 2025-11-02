@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
  *
  * @method string getBackUrl()
  * @method int getBillingAddressId()
@@ -205,8 +206,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function register()
     {
@@ -283,8 +284,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Shipment_Item $item)
     {
@@ -348,8 +349,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addTrack(Mage_Sales_Model_Order_Shipment_Track $track)
     {
@@ -378,8 +379,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * @param bool $notify
      * @param bool $visibleOnFront
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
     {

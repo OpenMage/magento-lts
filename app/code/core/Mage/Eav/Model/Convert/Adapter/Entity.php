@@ -71,8 +71,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      * @param array $attrToDb
      * @param string $bind
      * @param string $joinType
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function setFilter($attrFilterArray, $attrToDb = null, $bind = null, $joinType = null)
     {
@@ -256,8 +256,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @return $this
      * @throws Varien_Convert_Exception
+     * @return $this
      */
     public function load()
     {
@@ -337,8 +337,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @return $this
      * @throws Varien_Convert_Exception
+     * @return $this
      */
     public function save()
     {

@@ -17,8 +17,8 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve available order
      *
-     * @return Mage_Sales_Model_Order
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Order
      */
     public function getOrder()
     {

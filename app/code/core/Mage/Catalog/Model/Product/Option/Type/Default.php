@@ -63,8 +63,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Option Instance getter
      *
-     * @return Mage_Catalog_Model_Product_Option
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Option
      */
     public function getOption()
     {
@@ -192,8 +192,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function validateUserValue($values)

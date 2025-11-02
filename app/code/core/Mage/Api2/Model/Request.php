@@ -147,8 +147,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Get Content-Type of request
      *
-     * @return string
      * @throws Mage_Api2_Exception
+     * @return string
      */
     public function getContentType()
     {
@@ -197,8 +197,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Retrieve one of CRUD operation dependent on HTTP method
      *
-     * @return string
      * @throws Mage_Api2_Exception
+     * @return string
      */
     public function getOperation()
     {

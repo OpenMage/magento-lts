@@ -362,8 +362,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh product rewrite
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _refreshProductRewrite(Varien_Object $product, Varien_Object $category)
     {
@@ -919,8 +919,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @param string $parentPath
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function generatePath($type = 'target', $product = null, $category = null, $parentPath = null)
     {

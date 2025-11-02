@@ -14,6 +14,7 @@
  *
  * @method Mage_Admin_Model_Resource_Roles _getResource()
  * @method Mage_Admin_Model_Resource_Roles getResource()
+ * @method Mage_Admin_Model_Resource_Roles_Collection getCollection()
  * @method Mage_Admin_Model_Resource_Roles_Collection getResourceCollection()
  *
  * @method int getParentId()

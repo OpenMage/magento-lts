@@ -14,6 +14,7 @@
  *
  * @method Mage_Dataflow_Model_Resource_Session _getResource()
  * @method Mage_Dataflow_Model_Resource_Session getResource()
+ *
  * @method int getUserId()
  * @method $this setUserId(int $value)
  * @method string getCreatedDate()

@@ -141,8 +141,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return  Varien_Data_Collection_Db
      * @throws Mage_Core_Model_Store_Exception
+     * @return  Varien_Data_Collection_Db
      */
     public function load($printQuery = false, $logQuery = false)
     {

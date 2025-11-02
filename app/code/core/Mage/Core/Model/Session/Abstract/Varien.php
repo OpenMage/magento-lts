@@ -53,8 +53,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Configure and start session
      *
      * @param string $sessionName
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      * @SuppressWarnings("PHPMD.ExitExpression")
      */

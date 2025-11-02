@@ -16,6 +16,7 @@
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection getResourceCollection()
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute getResource()
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute _getResource()
+ *
  * @method string getUserType()
  * @method $this setUserType() setUserType(string $type)
  * @method string getResourceId()

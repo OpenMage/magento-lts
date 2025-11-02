@@ -14,6 +14,7 @@
  *
  * @method Mage_Core_Model_Resource_Translate_String _getResource()
  * @method Mage_Core_Model_Resource_Translate_String getResource()
+ *
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method string getTranslate()

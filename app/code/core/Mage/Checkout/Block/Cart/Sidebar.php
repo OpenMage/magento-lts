@@ -160,8 +160,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Define if Shopping Cart Sidebar enabled
      *
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function getIsNeedToDisplaySideBar()
     {

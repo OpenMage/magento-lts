@@ -12,6 +12,7 @@
  *
  * @package    Mage_CatalogIndex
  *
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
  *
  * @method array getMinimalPriceData()

@@ -18,6 +18,8 @@ return $config
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         // Docblocks should have the same indentation as the documented subject.
         'phpdoc_indent' => true,
+        // Annotations in PHPDoc should be ordered in defined sequence.
+        'phpdoc_order' => true,
         // Orders all @param annotations in DocBlocks according to method signature.
         'phpdoc_param_order' => true,
         // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.

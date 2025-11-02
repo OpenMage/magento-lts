@@ -14,6 +14,8 @@
  *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
+ * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
+ *
  * @method string getFirstname()
  * @method $this setFirstname(string $value)
  * @method string getLastname()
@@ -46,7 +48,6 @@
  * @method int getRoleId()
  * @method array getRoleIds()
  * @method $this setLogdate(string $value)
- *
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
  */
@@ -104,8 +105,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Delete user
      *
-     * @return $this|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return $this|Mage_Core_Model_Abstract
      */
     public function delete()
     {
@@ -118,8 +119,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save relations for users
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function saveRelations()
     {
@@ -227,8 +228,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function authenticate($username, $apiKey)
     {
@@ -251,8 +252,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @return Mage_Api_Model_User
      * @throws Exception
+     * @return Mage_Api_Model_User
      */
     public function login($username, $apiKey)
     {
@@ -357,8 +358,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Validate user attribute values.
      *
-     * @return array|true
      * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validate()
     {

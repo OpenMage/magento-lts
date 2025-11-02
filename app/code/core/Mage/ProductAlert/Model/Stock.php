@@ -15,6 +15,7 @@
  * @method Mage_ProductAlert_Model_Resource_Stock _getResource()
  * @method Mage_ProductAlert_Model_Resource_Stock getResource()
  * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
+ * @method Mage_ProductAlert_Model_Resource_Stock_Collection getResourceCollection()
  *
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)

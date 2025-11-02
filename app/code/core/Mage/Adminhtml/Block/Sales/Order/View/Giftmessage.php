@@ -74,8 +74,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getSaveButtonHtml()
     {
@@ -101,8 +101,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve entity for form
      *
-     * @return Mage_Sales_Model_Order
      * @throws Exception
+     * @return Mage_Sales_Model_Order
      */
     public function getEntity()
     {
@@ -117,8 +117,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve default value for giftmessage sender
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getDefaultSender()
     {
@@ -136,8 +136,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve default value for giftmessage recipient
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getDefaultRecipient()
     {
@@ -170,8 +170,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve real name for field
      *
      * @param string $name
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getFieldName($name)
     {
@@ -182,8 +182,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve real html id for field
      *
      * @param string $id
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getFieldId($id)
     {
@@ -193,8 +193,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve field html id prefix
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getFieldIdPrefix()
     {
@@ -204,8 +204,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Initialize gift message for entity
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _initMessage()
     {
@@ -228,8 +228,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve gift message for entity
      *
-     * @return Mage_GiftMessage_Model_Message
      * @throws Exception
+     * @return Mage_GiftMessage_Model_Message
      */
     public function getMessage()
     {
@@ -241,8 +241,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getSaveUrl()
     {
@@ -259,8 +259,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve block html id
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getHtmlId()
     {
@@ -271,8 +271,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Indicates that block can display giftmessages form
      *
      * TODO set return type
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function canDisplayGiftmessage()
     {

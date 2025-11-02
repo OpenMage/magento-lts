@@ -76,8 +76,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Initialize creditmemo model instance
      *
-     * @return false|Mage_Sales_Model_Order_Creditmemo
      * @throws Mage_Core_Exception
+     * @return false|Mage_Sales_Model_Order_Creditmemo
      */
     protected function _initCreditmemo($update = false)
     {
@@ -152,8 +152,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Save creditmemo and related order, invoice in one transaction
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _saveCreditmemo($creditmemo)
     {

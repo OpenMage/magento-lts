@@ -441,8 +441,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return bool
      * @throws Exception
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -492,8 +492,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param resource|string $src
      * @param int $mode
      *
-     * @return bool|int
      * @throws Exception
+     * @return bool|int
      */
     public function write($filename, $src, $mode = null)
     {

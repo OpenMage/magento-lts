@@ -89,8 +89,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * Retrieve current store
      *
      * @param null|bool|int|Mage_Core_Model_Store|string $storeId
-     * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Core_Model_Store
      */
     public function getCurrentStore($storeId = null)
     {

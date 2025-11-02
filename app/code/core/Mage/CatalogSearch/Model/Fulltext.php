@@ -15,6 +15,7 @@
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
  *
  * @method int getProductId()
  * @method $this setProductId(int $value)

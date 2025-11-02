@@ -86,8 +86,8 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
     }
 
     /**
-     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getCompareItems()
     {

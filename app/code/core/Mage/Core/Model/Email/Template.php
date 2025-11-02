@@ -25,6 +25,9 @@
  *
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
  * @method Mage_Core_Model_Resource_Email_Template getResource()
+ * @method Mage_Core_Model_Resource_Email_Template_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Email_Template_Collection getResourceCollection()
+ *
  * @method string getTemplateCode()
  * @method $this setTemplateCode(string $value)
  * @method string getTemplateText()

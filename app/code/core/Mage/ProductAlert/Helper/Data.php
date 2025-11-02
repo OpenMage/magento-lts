@@ -58,8 +58,8 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     }
 
     /**
-     * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {
@@ -80,8 +80,8 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 
     /**
      * @param string $block
-     * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      * @throws Mage_Core_Exception
+     * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      */
     public function createBlock($block)
     {

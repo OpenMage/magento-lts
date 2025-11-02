@@ -57,8 +57,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Prepare sales rule's discount quantity
      *
-     * @return $this
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {

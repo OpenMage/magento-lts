@@ -79,8 +79,8 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      *
      * @param string $table
      * @param array|int $attributeIds
-     * @return Varien_Db_Select|Zend_Db_Select
      * @throws Mage_Core_Exception
+     * @return Varien_Db_Select|Zend_Db_Select
      */
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {

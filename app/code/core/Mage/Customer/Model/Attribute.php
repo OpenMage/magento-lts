@@ -15,6 +15,7 @@
  * @method Mage_Customer_Model_Resource_Attribute _getResource()
  * @method Mage_Customer_Model_Resource_Attribute getResource()
  * @method Mage_Customer_Model_Resource_Attribute_Collection getCollection()
+ * @method Mage_Customer_Model_Resource_Attribute_Collection getResourceCollection()
  *
  * @method $this setScopeIsVisible(string $value)
  * @method $this setScopeIsRequired(string $value)

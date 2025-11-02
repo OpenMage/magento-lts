@@ -16,6 +16,7 @@
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
+ *
  * @method string getCreatedAt()
  * @method $this setCreatedAt() setCreatedAt(string $createdAt)
  * @method string getUpdatedAt()

@@ -942,8 +942,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Do the API call
      *
      * @param string $methodName
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function call($methodName, array $request)
     {

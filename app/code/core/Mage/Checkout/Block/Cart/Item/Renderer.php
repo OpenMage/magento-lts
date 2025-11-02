@@ -250,8 +250,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get item ajax delete url
      *
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getAjaxDeleteUrl()
     {
@@ -270,8 +270,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get item ajax update url
      *
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getAjaxUpdateUrl()
     {
@@ -512,8 +512,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Returns true if user is going through checkout process now.
      *
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function isOnCheckoutPage()
     {

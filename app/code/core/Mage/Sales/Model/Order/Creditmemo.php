@@ -21,7 +21,6 @@
  * @method $this setAdjustment(float $value)
  * @method float getAdjustmentNegative()
  * @method float getAdjustmentPositive()
- *
  * @method float getBaseAdjustment()
  * @method $this setBaseAdjustment(float $value)
  * @method float getBaseAdjustmentNegative()
@@ -42,22 +41,17 @@
  * @method $this setBaseToOrderRate(float $value)
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
- *
  * @method $this setCommentText(string $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
  * @method int getCreditmemoStatus()
  * @method $this setCreditmemoStatus(int $value)
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- *
  * @method int getEmailSent()
  * @method $this setEmailSent(int $value)
- *
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method $this setStoreId(int $value)
  * @method float getStoreToOrderRate()
  * @method $this setStoreToOrderRate(float $value)
@@ -74,12 +68,10 @@
  * @method $this setState(int $value)
  * @method float getStoreToBaseRate()
  * @method $this setStoreToBaseRate(float $value)
- *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
- *
  * @method float getBaseToGlobalRate()
  * @method $this setBaseToGlobalRate(float $value)
  * @method float getBaseSubtotal()
@@ -357,8 +349,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Creditmemo_Item $item)
     {
@@ -443,9 +435,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function refund()
     {
@@ -951,8 +943,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Abstract
      */
     protected function _beforeDelete()
     {

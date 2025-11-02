@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
  *
  * @method $this setCalculateSubtotal(float $value)
  * @method string getCode()

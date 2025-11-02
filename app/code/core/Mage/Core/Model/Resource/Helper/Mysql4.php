@@ -158,8 +158,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare and returns having array
      *
      * @param bool $autoReset
-     * @return array
      * @throws Zend_Db_Exception
+     * @return array
      */
     protected function _prepareHaving(Varien_Db_Select $select, $autoReset = false)
     {
@@ -227,8 +227,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare select column list
      *
      * @param string $groupByCondition
-     * @return array
      * @throws Zend_Db_Exception
+     * @return array
      */
     public function prepareColumnsList(Varien_Db_Select $select, $groupByCondition = null)
     {

@@ -14,6 +14,9 @@
  *
  * @method Mage_Oauth_Model_Resource_Nonce getResource()
  * @method Mage_Oauth_Model_Resource_Nonce _getResource()
+ * @method Mage_Oauth_Model_Resource_Nonce_Collection getCollection()
+ * @method Mage_Oauth_Model_Resource_Nonce_Collection getResourceCollection()
+ *
  * @method string getNonce()
  * @method $this setNonce(string $nonce)
  * @method string getTimestamp()

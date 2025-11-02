@@ -243,8 +243,8 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @param array $data
      * @param int $customerAddressId
-     * @return array|true
      * @throws Mage_Core_Exception
+     * @return array|true
      */
     public function saveBilling($data, $customerAddressId)
     {

@@ -15,6 +15,8 @@
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()
  * @method Mage_Core_Model_Resource_Config_Data_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Config_Data_Collection getResourceCollection()
+ *
  * @method $this setConfigId(string $value)
  * @method $this unsConfigId()
  * @method string getField()

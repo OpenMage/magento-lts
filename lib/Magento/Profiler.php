@@ -217,8 +217,8 @@ class Magento_Profiler
      *
      * @param  string $timerId
      * @param  string $key Information to return
-     * @return float|int
      * @throws Varien_Exception
+     * @return float|int
      */
     public static function fetch($timerId, $key = self::FETCH_TIME)
     {

@@ -12,6 +12,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment getResource()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection getResourceCollection()
+ *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method int getIsCustomerNotified()

@@ -23,8 +23,8 @@ class Mage_Rating_Block_Entity_Detailed extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     protected function _toHtml()
     {

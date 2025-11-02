@@ -113,8 +113,8 @@ class Mage_Core_Model_Design_Fallback
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     protected function _getFallbackScheme($area, $package, $theme)
     {

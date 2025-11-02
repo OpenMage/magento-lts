@@ -30,8 +30,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getHtml()
     {

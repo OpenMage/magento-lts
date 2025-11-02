@@ -15,6 +15,7 @@
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getResourceCollection()
  *
  * @method array getPageGroups()
  * @method $this setPageGroups(array $value)

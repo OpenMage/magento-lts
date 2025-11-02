@@ -210,9 +210,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param array $productData
      * @param null|int|string $store
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function update($productId, $productData, $store = null, $identifierType = null)
     {
@@ -364,8 +364,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int|string $productId
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function delete($productId, $identifierType = null)
     {

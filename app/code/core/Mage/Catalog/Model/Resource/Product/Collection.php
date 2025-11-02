@@ -1767,9 +1767,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join Product Price Table with left-join possibility
      *
      * @param bool $joinLeft
-     * @return $this
      * @throws Zend_Db_Exception
      * @throws Zend_Db_Select_Exception
+     * @return $this
      * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
      */
     protected function _productLimitationPrice($joinLeft = false)
@@ -2071,8 +2071,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $comparisonFormat - expression for sprintf()
      * @param array $fields - list of fields
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addPriceDataFieldFilter($comparisonFormat, $fields)
     {

@@ -447,8 +447,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns all summed weee taxes with all local taxes applied
      *
-     * @throws Mage_Core_Exception
      * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
+     * @throws Mage_Core_Exception
      * @return float
      */
     public function getAmountInclTaxes($attributes)

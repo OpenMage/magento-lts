@@ -217,8 +217,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param string $callbackType
      * @param int $fileType
-     * @return string
      * @throws Exception
+     * @return string
      */
     private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
     {

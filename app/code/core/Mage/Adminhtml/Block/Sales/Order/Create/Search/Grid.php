@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -170,8 +170,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @return array
      * @throws Exception
+     * @return array
      */
     protected function _getSelectedProducts()
     {

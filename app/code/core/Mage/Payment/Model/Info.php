@@ -14,7 +14,6 @@
  *
  * @method Mage_Sales_Model_Order getOrder()
  * @method Mage_Sales_Model_Quote getQuote()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getCcCid()
@@ -79,8 +78,8 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     /**
      * Retrieve payment method model object
      *
-     * @return Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Payment_Model_Method_Abstract
      */
     public function getMethodInstance()
     {
@@ -137,8 +136,8 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      *
      * @param array|string $key
      * @param mixed $value
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setAdditionalInformation($key, $value = null)
     {

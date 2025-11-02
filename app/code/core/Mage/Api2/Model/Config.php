@@ -330,8 +330,8 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Get resource allowed versions sorted in reverse order
      *
      * @param string $node
-     * @return array
      * @throws Exception
+     * @return array
      */
     public function getVersions($node)
     {

@@ -66,9 +66,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate payment method information object
      *
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function validate()
     {
@@ -198,8 +198,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * @param string $expYear
      * @param string $expMonth
-     * @return bool
      * @throws Zend_Date_Exception
+     * @return bool
      */
     protected function _validateExpDate($expYear, $expMonth)
     {

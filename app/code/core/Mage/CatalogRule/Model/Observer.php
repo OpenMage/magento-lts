@@ -385,8 +385,8 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function prepareCatalogProductCollectionPrices(Varien_Event_Observer $observer)
     {

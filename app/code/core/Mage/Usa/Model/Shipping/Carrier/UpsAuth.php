@@ -20,8 +20,8 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     public const CACHE_KEY_PREFIX = 'ups_api_token_';
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
     {

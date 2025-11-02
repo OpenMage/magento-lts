@@ -14,6 +14,7 @@
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
  * @method Mage_Log_Model_Resource_Log getResource()
+ *
  * @method string getSessionId()
  * @method $this setSessionId(string $value)
  * @method string getFirstVisitAt()

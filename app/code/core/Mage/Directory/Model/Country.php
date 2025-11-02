@@ -14,7 +14,9 @@
  *
  * @method Mage_Directory_Model_Resource_Country _getResource()
  * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method Mage_Directory_Model_Resource_Country_Collection getCollection()
  * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
+ *
  * @method string getCode()
  * @method string getCountryId()
  * @method $this setCountryId(string $value)
@@ -34,8 +36,8 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 
     /**
      * @param string $code
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function loadByCode($code)
     {

@@ -43,8 +43,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Rebuild index data by entities
      *
      * @param array|int $processIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      * @throws Exception
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     public function reindexEntities($processIds)
     {
@@ -238,8 +238,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Synchronize temporary index table with index table by attribute id
      *
      * @param int $attributeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      * @throws Exception
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     protected function _synchronizeAttributeIndexData($attributeId)
     {

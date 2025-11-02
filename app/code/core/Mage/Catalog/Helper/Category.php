@@ -42,8 +42,8 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * @param bool|string $sorted
      * @param bool $asCollection
      * @param bool $toLoad
-     * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      * @throws Mage_Core_Model_Store_Exception
+     * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      */
     public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {

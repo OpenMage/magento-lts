@@ -100,8 +100,8 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
 
     /**
      * @param Mage_Sales_Model_Quote $quote
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getReservedOrderId($quote)
     {

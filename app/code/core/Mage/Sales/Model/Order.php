@@ -22,6 +22,7 @@
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
  * @method Mage_Sales_Model_Resource_Order_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Collection getResourceCollection()
  *
  * @method float getAdjustmentNegative()
  * @method $this setAdjustmentNegative(float $value)
@@ -33,7 +34,6 @@
  * @method $this setAppliedTaxes(array $value)
  * @method bool getAppliedTaxIsSaved()
  * @method $this setAppliedTaxIsSaved(bool $value)
- *
  * @method string getBackUrl()
  * @method float getBaseAdjustmentNegative()
  * @method $this setBaseAdjustmentNegative(float $value)
@@ -124,7 +124,6 @@
  * @method $this unsBillingAddressId()
  * @method int getBillingFirstname()
  * @method int getBillingLastname()
- *
  * @method bool hasCanReturnToStock()
  * @method bool getCanReturnToStock()
  * @method $this setCanReturnToStock()
@@ -170,7 +169,6 @@
  * @method $this setCustomerSuffix(string $value)
  * @method string getCustomerTaxvat()
  * @method $this setCustomerTaxvat(string $value)
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
  * @method float getDiscountCanceled()
@@ -181,7 +179,6 @@
  * @method $this setDiscountInvoiced(float $value)
  * @method float getDiscountRefunded()
  * @method $this setDiscountRefunded(float $value)
- *
  * @method int getEditIncrement()
  * @method $this setEditIncrement(int $value)
  * @method int getEmailSent()
@@ -190,13 +187,11 @@
  * @method $this setExtCustomerId(string $value)
  * @method string getExtOrderId()
  * @method $this setExtOrderId(string $value)
- *
  * @method bool hasForcedCanCreditmemo()
  * @method bool getForcedCanCreditmemo()
  * @method $this setForcedCanCreditmemo(bool $value)
  * @method int getForcedDoShipmentWithInvoice()
  * @method $this setForcedDoShipmentWithInvoice(int $value)
- *
  * @method $this setGiftMessage(string $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
@@ -204,7 +199,6 @@
  * @method $this setGlobalCurrencyCode(string $value)
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
  * @method float getHiddenTaxInvoiced()
@@ -215,18 +209,15 @@
  * @method $this setHoldBeforeState(string $value)
  * @method string getHoldBeforeStatus()
  * @method $this setHoldBeforeStatus(string $value)
- *
  * @method string getIncrementId()
  * @method $this setIncrementId(string $value)
  * @method bool getIsInProcess()
  * @method $this setIsInProcess(bool $value)
  * @method bool getIsMultiPayment()
- *
  * @method string getOrderCurrencyCode()
  * @method $this setOrderCurrencyCode(string $value)
  * @method string getOriginalIncrementId()
  * @method $this setOriginalIncrementId(string $value)
- *
  * @method float getPaymentAuthorizationAmount()
  * @method $this setPaymentAuthorizationAmount(float $value)
  * @method int getPaymentAuthorizationExpiration()
@@ -235,7 +226,6 @@
  * @method $this setPaypalIpnCustomerNotified(int $value)
  * @method string getProtectCode()
  * @method $this setProtectCode(string $value)
- *
  * @method float getQuantity()
  * @method Mage_Sales_Model_Quote getQuote()
  * @method int getQuoteAddressId()
@@ -244,7 +234,6 @@
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
  * @method $this setQuote(Mage_Sales_Model_Quote $value)
- *
  * @method string getRelationChildId()
  * @method $this setRelationChildId(string $value)
  * @method string getRelationChildRealId()
@@ -258,7 +247,6 @@
  * @method bool getReordered()
  * @method float getRevenue()
  * @method int getRowTaxDisplayPrecision()
- *
  * @method float getShipping()
  * @method bool hasShippingAddressId()
  * @method int getShippingAddressId()
@@ -312,7 +300,6 @@
  * @method $this setSubtotalInvoiced(float $value)
  * @method float getSubtotalRefunded()
  * @method $this setSubtotalRefunded(float $value)
- *
  * @method float getTax()
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
@@ -339,16 +326,12 @@
  * @method $this setTotalQtyOrdered(float $value)
  * @method float getTotalRefunded()
  * @method $this setTotalRefunded(float $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method int getIsVirtual()
  * @method $this setIsVirtual(int $value)
- *
  * @method float getWeight()
  * @method $this setWeight(float $value)
- *
  * @method string getXForwardedFor()
  * @method $this setXForwardedFor(string $value)
  */
@@ -1248,8 +1231,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function hold()
     {
@@ -1266,8 +1249,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Attempt to unhold the order
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function unhold()
     {
@@ -1301,8 +1284,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Prepare order totals to cancellation
      * @param string $comment
      * @param bool $graceful
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function registerCancellation($comment = '', $graceful = true)
     {
@@ -1439,8 +1422,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function queueNewOrderEmail($forceMode = false)
     {
@@ -1695,8 +1678,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -1856,8 +1839,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -1937,8 +1920,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addPayment(Mage_Sales_Model_Order_Payment $payment)
     {

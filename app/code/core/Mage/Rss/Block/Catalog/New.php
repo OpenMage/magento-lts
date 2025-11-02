@@ -17,10 +17,10 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
     protected function _construct() {}
 
     /**
-     * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Date_Exception
+     * @return string
      */
     protected function _toHtml()
     {

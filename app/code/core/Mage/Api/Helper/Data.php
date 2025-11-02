@@ -360,8 +360,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * @param null|string $routePath
      * @param null|array $routeParams
      * @param bool $htmlSpecialChars
-     * @return string
      * @throws Zend_Uri_Exception
+     * @return string
      */
     public function getServiceUrl($routePath = null, $routeParams = null, $htmlSpecialChars = false)
     {

@@ -485,8 +485,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Retrieve configuration for all attributes
      *
      * @param object $object
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function loadAllAttributes($object = null)
     {
@@ -588,8 +588,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * for example: $this->walkAttributes('backend/validate');
      *
      * @param string $partMethod
-     * @return array
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @return array
      */
     public function walkAttributes($partMethod, array $args = [])
     {
@@ -1579,8 +1579,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Delete entity using current object's data
      *
      * @param int|string|Varien_Object $object
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete($object)
     {

@@ -15,6 +15,7 @@
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
  *
  * @method $this setEntityTypeCode(string $value)
  * @method string getEntityModel()
@@ -161,8 +162,8 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve new incrementId
      *
      * @param int $storeId
-     * @return false|string
      * @throws Exception
+     * @return false|string
      */
     public function fetchNewIncrementId($storeId = null)
     {

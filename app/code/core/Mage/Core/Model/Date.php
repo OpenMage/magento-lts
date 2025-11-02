@@ -214,8 +214,8 @@ class Mage_Core_Model_Date
     /**
      * @param string $dateTimeString
      * @param string $dateTimeFormat
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      * @deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)

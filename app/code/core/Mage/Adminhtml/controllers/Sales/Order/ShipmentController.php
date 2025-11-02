@@ -26,8 +26,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
-     * @return bool|Mage_Sales_Model_Order_Shipment
      * @throws Mage_Core_Exception
+     * @return bool|Mage_Sales_Model_Order_Shipment
      */
     protected function _initShipment()
     {
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment and order in one transaction
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _saveShipment($shipment)
     {

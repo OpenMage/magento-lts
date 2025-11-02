@@ -104,8 +104,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param null|int $parentId
      * @param int|string $store
-     * @return array
      * @throws Mage_Core_Model_Store_Exception
+     * @return array
      */
     public function tree($parentId = null, $store = null)
     {
@@ -386,8 +386,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string  $productId      The product ID or SKU
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
      *
-     * @return int
      * @throws Mage_Api_Exception
+     * @return int
      */
     protected function _getProductId($productId, $identifierType = null)
     {
@@ -436,8 +436,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function assignProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
@@ -463,8 +463,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param null|int $position
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function updateProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
@@ -493,8 +493,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param null|int $productId
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function removeProduct($categoryId, $productId, $identifierType = null)
     {

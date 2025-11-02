@@ -14,6 +14,7 @@
  *
  * @method Mage_Log_Model_Resource_Customer _getResource()
  * @method Mage_Log_Model_Resource_Customer getResource()
+ *
  * @method int getVisitorId()
  * @method $this setVisitorId(int $value)
  * @method int getCustomerId()

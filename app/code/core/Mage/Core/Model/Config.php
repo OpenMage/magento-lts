@@ -517,8 +517,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *   - CLI: throws exception
      *   - Other: 503 error
      *
-     * @return void
      * @throws Exception
+     * @return void
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
@@ -1236,8 +1236,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @deprecated in favor of Mage_Core_Model_Config_Options
      * @todo get global dir config
      * @param string $type
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getBaseDir($type = 'base')
     {

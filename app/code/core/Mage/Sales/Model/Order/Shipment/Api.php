@@ -62,8 +62,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * Retrieve shipment information
      *
      * @param string $shipmentIncrementId
-     * @return array
      * @throws Mage_Api_Exception
+     * @return array
      */
     public function info($shipmentIncrementId)
     {

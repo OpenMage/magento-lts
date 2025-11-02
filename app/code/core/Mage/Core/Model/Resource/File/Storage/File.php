@@ -183,8 +183,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  string $filePath
      * @param  string $content
      * @param  bool $overwrite
-     * @return bool true if file written, otherwise false
      * @throws Mage_Core_Exception
+     * @return bool true if file written, otherwise false
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

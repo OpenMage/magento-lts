@@ -62,8 +62,8 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
     /**
      * Check for email duplicates before saving customers sharing options
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function _beforeSave()
     {

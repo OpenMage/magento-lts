@@ -15,6 +15,8 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getResourceCollection()
+ *
  * @method string getCarrierCode()
  * @method $this setCarrierCode(string $value)
  * @method string getCreatedAt()

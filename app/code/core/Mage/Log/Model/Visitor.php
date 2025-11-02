@@ -10,7 +10,9 @@
 /**
  * @package    Mage_Log
  *
+ * @method Mage_Log_Model_Resource_Visitor _getResource()
  * @method Mage_Log_Model_Resource_Visitor getResource()
+ *
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method int getCustomerLogId()

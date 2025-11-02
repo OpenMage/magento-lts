@@ -93,8 +93,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Copy data from temporary index table to main table by defined ids
      *
      * @param array $processIds
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _copyIndexDataToMainTable($processIds)
     {
@@ -304,8 +304,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Retrieve Price indexer by Product Type
      *
      * @param string $productTypeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
      */
     protected function _getIndexer($productTypeId)
     {
