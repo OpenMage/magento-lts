@@ -12,23 +12,23 @@
  *
  * @package    Mage_Rule
  *
- * @method $this unsActions()
- * @method bool hasActionsSerialized()
- * @method $this unsActionsSerialized()
  * @method string getActionsSerialized()
- * @method $this setActionsSerialized(string $value)
- * @method $this unsConditions()
- * @method bool hasConditionsSerialized()
- * @method $this unsConditionsSerialized()
  * @method string getConditionsSerialized()
- * @method $this setConditionsSerialized(string $value)
- * @method bool hasCustomerGroupIds()
  * @method array getCustomerGroupIds()
- * @method $this setCustomerGroupIds(array $value)
- * @method bool hasDiscountAmount()
  * @method float getDiscountAmount()
+ * @method bool hasActionsSerialized()
+ * @method bool hasConditionsSerialized()
+ * @method bool hasCustomerGroupIds()
+ * @method bool hasDiscountAmount()
  * @method bool hasWebsiteIds()
+ * @method $this setActionsSerialized(string $value)
+ * @method $this setConditionsSerialized(string $value)
+ * @method $this setCustomerGroupIds(array $value)
  * @method $this setWebsiteIds(array $value)
+ * @method $this unsActions()
+ * @method $this unsActionsSerialized()
+ * @method $this unsConditions()
+ * @method $this unsConditionsSerialized()
  */
 abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 {

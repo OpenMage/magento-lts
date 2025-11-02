@@ -13,17 +13,17 @@
  * @package    Mage_Catalog
  *
  * @method array getAvailableOrders()
- * @method $this setAvailableOrders(array $value)
  * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
  * @method string getDefaultDirection()
- * @method $this setDefaultDirection(string $value)
  * @method array getModes()
- * @method $this setModes(array $value)
- * @method string getToolbarBlockName()
- * @method string getSortBy()
- * @method $this setSortBy(string $value)
  * @method bool getShowRootCategory()
+ * @method string getSortBy()
+ * @method string getToolbarBlockName()
+ * @method $this setAvailableOrders(array $value)
+ * @method $this setCategoryId(int $value)
+ * @method $this setDefaultDirection(string $value)
+ * @method $this setModes(array $value)
+ * @method $this setSortBy(string $value)
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {

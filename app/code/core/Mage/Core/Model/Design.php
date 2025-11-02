@@ -11,17 +11,17 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Design _getResource()
+ * @method string getDateFrom()
+ * @method string getDateTo()
+ * @method string getDesign()
+ * @method string getPackage()
  * @method Mage_Core_Model_Resource_Design getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDesign()
- * @method $this setDesign(string $value)
- * @method string getDateFrom()
- * @method $this setDateFrom(string $value)
- * @method string getDateTo()
- * @method $this setDateTo(string $value)
- * @method string getPackage()
  * @method string getTheme()
+ * @method $this setDateFrom(string $value)
+ * @method $this setDateTo(string $value)
+ * @method $this setDesign(string $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {

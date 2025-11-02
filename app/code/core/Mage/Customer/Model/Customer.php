@@ -12,93 +12,93 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- *
- * @method $this setChangePassword(int $value)
  * @method string getCompany()
+ *
  * @method bool getConfirmation()
- * @method $this setConfirmation(null|bool $value)
  * @method string getCreatedAt()
  * @method int getCustomerId()
- * @method $this setCustomerId(null|int $value)
- *
  * @method null|int getDefaultBilling()
- * @method $this setDefaultBilling(null|int $value)
- * @method $this unsetDefaultBilling()
  * @method null|int getDefaultShipping()
- * @method $this setDefaultShipping(null|int $value)
- * @method $this unsetDefaultShipping()
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
- * @method $this setDob(string  $value)
  *
  * @method string getEmail()
- * @method $this setEmail(string $value)
- *
  * @method string getFirstname()
- * @method $this setFirstname(string $value)
  * @method bool getForceConfirmed()
- * @method $this setForceConfirmed(bool $value)
- *
  * @method string getGender()
- * @method $this setGroupId(int $value)
- *
  * @method bool getImportMode()
- * @method $this setImportMode(bool $value)
  * @method int getIncrementId()
  * @method bool getIsChangeEmail()
- * @method $this setIsChangeEmail(bool $value)
  * @method bool getIsChangePassword()
- * @method $this setIsChangePassword(bool $value)
  * @method bool getIsJustConfirmed()
- * @method $this setIsJustConfirmed(bool $value)
- * @method bool hasIsSubscribed()
- * @method bool getIsSubscribed()
- * @method $this setIsSubscribed(bool $value)
- * @method $this setItems(int $value)
  *
+ * @method bool getIsSubscribed()
  * @method string getLastname()
- * @method $this setLastname(string $value)
  *
  * @method string getMiddlename()
  * @method string getMode()
- * @method $this setMode(bool $value)
- *
  * @method string getOldEmail()
- * @method $this setOldEmail(string $value)
- *
  * @method string getPasswordConfirm()
+ *
  * @method string getPasswordConfirmation()
- * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
+ *
  * @method string getPasswordHash()
- * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
- *
- * @method $this setRpCustomerId(string $value)
+ * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method string getRpToken()
- * @method $this setRpToken(string $value)
  * @method string getRpTokenCreatedAt()
- * @method $this setRpTokenCreatedAt(string $value)
- *
  * @method string getSendemailStoreId()
- * @method setSendemailStoreId(string $value)
- * @method bool hasSkipConfirmationIfEmail()
  * @method string getSkipConfirmationIfEmail()
- * @method bool hasStoreId()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getSuffix()
- *
  * @method int getTagId()
- * @method $this setTaxClassId(bool $value)
  * @method string getTaxvat()
- * @method $this setTotal(float $value)
- *
  * @method int getWebsiteId()
+ * @method bool hasIsSubscribed()
+ *
+ * @method bool hasSkipConfirmationIfEmail()
+ * @method bool hasStoreId()
+ *
+ * @method $this setChangePassword(int $value)
+ * @method $this setConfirmation(null|bool $value)
+ * @method $this setCustomerId(null|int $value)
+ *
+ * @method $this setDefaultBilling(null|int $value)
+ * @method $this setDefaultShipping(null|int $value)
+ *
+ * @method $this setDob(string  $value)
+ * @method $this setEmail(string $value)
+ * @method $this setFirstname(string $value)
+ * @method $this setForceConfirmed(bool $value)
+ * @method $this setGroupId(int $value)
+ * @method $this setImportMode(bool $value)
+ * @method $this setIsChangeEmail(bool $value)
+ *
+ * @method $this setIsChangePassword(bool $value)
+ * @method $this setIsJustConfirmed(bool $value)
+ * @method $this setIsSubscribed(bool $value)
+ * @method $this setItems(int $value)
+ * @method $this setLastname(string $value)
+ *
+ * @method $this setMode(bool $value)
+ * @method $this setOldEmail(string $value)
+ * @method $this setPasswordConfirmation(string $value)
+ * @method $this setPasswordHash(string $value)
+ * @method $this setRpCustomerId(string $value)
+ * @method $this setRpToken(string $value)
+ * @method $this setRpTokenCreatedAt(string $value)
+ * @method setSendemailStoreId(string $value)
+ *
+ * @method $this setStoreId(int $value)
+ * @method $this setTaxClassId(bool $value)
+ * @method $this setTotal(float $value)
  * @method $this setWebsiteId(int $value)
+ *
+ * @method $this unsetDefaultBilling()
+ * @method $this unsetDefaultShipping()
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {

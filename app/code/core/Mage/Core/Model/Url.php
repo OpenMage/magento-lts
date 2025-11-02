@@ -57,13 +57,13 @@
  *
  * @package    Mage_Core
  *
- * @method $this setType(string $value)
+ * @method string getHost()
+ * @method string getPath()
+ * @method string getPort()
+ * @method string getScheme()
  * @method $this setSecure(bool $value)
  * @method $this setSecureIsForced(bool $value)
- * @method string getScheme()
- * @method string getHost()
- * @method string getPort()
- * @method string getPath()
+ * @method $this setType(string $value)
  */
 class Mage_Core_Model_Url extends Varien_Object
 {

@@ -15,13 +15,13 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Aggregation _getResource()
+ * @method string getCreatedAt()
+ * @method string getKey()
  * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method string getKey()
  * @method $this setKey(string $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {

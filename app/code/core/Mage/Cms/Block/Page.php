@@ -111,8 +111,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     /**
      * Prepare HTML content
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return string
      */
     protected function _toHtml()

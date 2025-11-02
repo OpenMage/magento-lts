@@ -12,9 +12,9 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Catalog_Model_Product getProduct()
  * @method string getDisplayMinimalPrice()
  * @method string getIdSuffix()
+ * @method Mage_Catalog_Model_Product getProduct()
  */
 class Mage_Wishlist_Block_Render_Item_Price extends Mage_Core_Block_Template
 {

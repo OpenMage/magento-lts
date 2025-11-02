@@ -12,14 +12,14 @@
  *
  * @package    Mage_ConfigurableSwatches
  *
- * @method $this setJsonConfig(string $value)
  * @method int getSwatchInnerHeight()
- * @method $this setSwatchInnerHeight(int $value)
  * @method int getSwatchInnerWidth()
+ * @method string getSwatchUrl()
+ * @method $this setJsonConfig(string $value)
+ * @method $this setSwatchInnerHeight(int $value)
  * @method $this setSwatchInnerWidth(int $value)
  * @method $this setSwatchOuterHeight(int $value)
  * @method $this setSwatchOuterWidth(int $value)
- * @method string getSwatchUrl()
  * @method $this setSwatchUrl(string $value)
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Core_Block_Template

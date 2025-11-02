@@ -12,8 +12,8 @@
  *
  * @package    Mage_Review
  *
- * @method $this setDisplayIfEmpty(bool $value)
  * @method Mage_Catalog_Model_Product getProduct()
+ * @method $this setDisplayIfEmpty(bool $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template

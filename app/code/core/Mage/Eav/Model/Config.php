@@ -396,8 +396,8 @@ class Mage_Eav_Model_Config
      *
      * @param int|Mage_Eav_Model_Entity_Type|string $code
      * @param null|string $field
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Type
      */
     public function getEntityType($code, $field = null)
@@ -478,8 +478,8 @@ class Mage_Eav_Model_Config
      * @param mixed $entityType
      * @param mixed $code
      * @param null|int $storeId
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return false|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($entityType, $code, $storeId = null)
@@ -546,8 +546,8 @@ class Mage_Eav_Model_Config
      *
      * @param int|Mage_Eav_Model_Entity_Type|string $entityType
      * @param Varien_Object $object
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return array
      */
     public function getEntityAttributeCodes($entityType, $object = null)

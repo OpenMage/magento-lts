@@ -13,19 +13,19 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method string getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  *
- * @method $this setCalculateSubtotal(float $value)
- * @method string getCode()
- * @method $this setCode(string $value)
- * @method int getPriority()
- * @method $this setPriority(int $value)
  * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method float getTaxRate()
+ * @method int getPriority()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
  * @method string getTaxCustomerClass()
  * @method string getTaxProductClass()
+ * @method float getTaxRate()
+ * @method $this setCalculateSubtotal(float $value)
+ * @method $this setCode(string $value)
+ * @method $this setPosition(int $value)
+ * @method $this setPriority(int $value)
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {

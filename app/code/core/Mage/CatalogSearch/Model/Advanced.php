@@ -12,24 +12,24 @@
  *
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
+ * @method int getAttributeSetId()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
  *
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method int getEntityTypeId()
+ * @method int getHasOptions()
+ * @method int getRequiredOptions()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
+ * @method string getSku()
+ * @method string getTypeId()
  * @method string getUpdatedAt()
+ * @method $this setAttributeSetId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setEntityTypeId(int $value)
+ * @method $this setHasOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
+ * @method $this setSku(string $value)
+ * @method $this setTypeId(string $value)
  * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract

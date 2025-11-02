@@ -54,12 +54,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      * - resource
      *
      * @param array $options
-     * @throws Exception If passed parameter 'resource' is wrong
-     * @throws Exception If config parameter 'formPath' is empty
-     * @throws Exception If config parameter 'formCode' is empty
      * @throws Exception If config parameter 'entity' is wrong
-     * @throws Exception If entity is not model
+     * @throws Exception If config parameter 'formCode' is empty
+     * @throws Exception If config parameter 'formPath' is empty
      * @throws Exception If eav form is not found
+     * @throws Exception If entity is not model
+     * @throws Exception If passed parameter 'resource' is wrong
      */
     public function __construct($options)
     {

@@ -50,8 +50,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
     {

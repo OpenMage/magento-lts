@@ -14,10 +14,10 @@
  *
  * @method Mage_Core_Model_Resource_File_Storage_Directory_Database _getResource()
  * @method string getConnectionName()
- * @method $this setName(string $value)
  * @method string getPath()
- * @method $this setPath(string $value)
+ * @method $this setName(string $value)
  * @method $this setParentId(string $value)
+ * @method $this setPath(string $value)
  * @method $this setUploadTime(string $value)
  */
 class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_File_Storage_Database_Abstract

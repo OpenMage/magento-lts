@@ -13,12 +13,12 @@
  * @package    Mage_Core
  *
  * @method string getErrorMessage()
- * @method $this setErrorMessage(string $value)
- * @method $this unsErrorMessage()
  * @method string getSuccessMessage()
- * @method $this setSuccessMessage(string $value)
- * @method $this unsSuccessMessage()
+ * @method $this setErrorMessage(string $value)
  * @method $this setMessages(Mage_Core_Model_Abstract|Mage_Core_Model_Message_Collection $value)
+ * @method $this setSuccessMessage(string $value)
+ * @method $this unsErrorMessage()
+ * @method $this unsSuccessMessage()
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {

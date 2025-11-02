@@ -12,21 +12,21 @@
  *
  * @package    Mage_SalesRule
  *
- * @method Mage_SalesRule_Model_Resource_Coupon getResource()
- *
  * @method string getDash()
+ *
  * @method string getFormat()
  * @method string getLength()
- * @method $this setLength(int $value)
  * @method int getMaxAttempts()
  * @method int getMaxProbability()
  * @method string getPrefix()
  * @method int getQty()
+ * @method Mage_SalesRule_Model_Resource_Coupon getResource()
  * @method int getRuleId()
  * @method string getSuffix()
  * @method string getToDate()
  * @method int getUsesPerCoupon()
  * @method int getUsesPerCustomer()
+ * @method $this setLength(int $value)
  */
 class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {

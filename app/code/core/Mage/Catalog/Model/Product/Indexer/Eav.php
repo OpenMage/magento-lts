@@ -13,13 +13,13 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
- * @method $this setEntityId(int $value)
  * @method int getAttributeId()
- * @method $this setAttributeId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getValue()
+ * @method $this setAttributeId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setValue(int $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract

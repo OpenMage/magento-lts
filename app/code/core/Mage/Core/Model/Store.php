@@ -13,27 +13,27 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Store _getResource()
- * @method Mage_Core_Model_Resource_Store getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
- * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
+ * @method string getHomeUrl()
+ * @method string getLanguageCode()
  *
+ * @method string getLocaleCode()
+ * @method Mage_Core_Model_Resource_Store getResource()
+ * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
+ * @method string getRootCategoryPath()
+ * @method int getSortOrder()
+ * @method int getStoreId()
  * @method $this setCode(string $value)
  * @method $this setGroupId(int $value)
- * @method string getHomeUrl()
  * @method $this setHomeUrl(string $value)
  * @method $this setIsActive(int $value)
  * @method $this setLocaleCode(string $value)
- * @method string getLanguageCode()
- * @method string getLocaleCode()
  * @method $this setName(string $value)
  * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
  * @method $this setRootCategoryPath(string $value)
- * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
- * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method $this setWebsiteId(int $value)
- * @method string getRootCategoryPath()
  */
 class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 {

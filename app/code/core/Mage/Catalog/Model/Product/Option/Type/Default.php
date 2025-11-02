@@ -12,13 +12,13 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setConfigurationItemOption(Varien_Object $value)
  * @method bool getIsValid()
- * @method $this setIsValid(bool $value)
  * @method string getProcessMode()
+ * @method array|int getUserValue()
+ * @method $this setConfigurationItemOption(Varien_Object $value)
+ * @method $this setIsValid(bool $value)
  * @method $this setProcessMode(string $value)
  * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
- * @method array|int getUserValue()
  * @method $this setRequest(Varien_Object $value)
  * @method $this setUserValue(array|int $value)
  */

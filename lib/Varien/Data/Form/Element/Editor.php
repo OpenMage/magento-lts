@@ -12,10 +12,10 @@
  *
  * @package    Varien_Data
  *
- * @method string getTitle()
  * @method string getForceLoad()
- * @method $this setConfig(Varien_Object $value)
+ * @method string getTitle()
  * @method bool getWysiwyg()
+ * @method $this setConfig(Varien_Object $value)
  */
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {

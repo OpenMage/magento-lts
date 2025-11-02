@@ -12,8 +12,8 @@
  *
  * @package    Mage_Page
  *
- * @method string getLayoutCode()
  * @method bool getIsHandle()
+ * @method string getLayoutCode()
  * @method $this setBodyClass(string $value)
  */
 class Mage_Page_Block_Html extends Mage_Core_Block_Template

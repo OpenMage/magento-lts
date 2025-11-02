@@ -13,8 +13,8 @@
  * @package    Mage_Widget
  *
  * @method string getSelected()
- * @method $this setSelected(string $value)
  * @method array getWidgetTemplates()
+ * @method $this setSelected(string $value)
  * @method $this setWidgetTemplates(array $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Template extends Mage_Adminhtml_Block_Widget

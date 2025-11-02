@@ -13,21 +13,21 @@
  * @package    Mage_CatalogRule
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
+ * @method int getCustomerGroupId()
+ * @method string getEarliestEndDate()
+ * @method string getLatestStartDate()
+ * @method int getProductId()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
  * @method string getRuleDate()
- * @method $this setRuleDate(string $value)
- * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
  * @method float getRulePrice()
- * @method $this setRulePrice(float $value)
  * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method string getLatestStartDate()
- * @method $this setLatestStartDate(string $value)
- * @method string getEarliestEndDate()
+ * @method $this setCustomerGroupId(int $value)
  * @method $this setEarliestEndDate(string $value)
+ * @method $this setLatestStartDate(string $value)
+ * @method $this setProductId(int $value)
+ * @method $this setRuleDate(string $value)
+ * @method $this setRulePrice(float $value)
+ * @method $this setWebsiteId(int $value)
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {

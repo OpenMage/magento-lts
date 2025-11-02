@@ -21,9 +21,9 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
     }
 
     /**
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @throws Exception
      */
     protected function _prepareLayout()
     {

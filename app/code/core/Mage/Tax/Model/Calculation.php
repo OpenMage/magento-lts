@@ -13,18 +13,18 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
- * @method Mage_Tax_Model_Resource_Calculation getResource()
+ * @method array getCalculationProcess()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
  *
- * @method $this setCalculationProcess(array $value)
- * @method array getCalculationProcess()
- * @method $this unsCalculationProcess()
- * @method $this unsEventModuleId()
  * @method string getRateId()
  * @method string getRateTitle()
- * @method bool hasRateValue()
  * @method string getRateValue()
+ * @method Mage_Tax_Model_Resource_Calculation getResource()
+ * @method bool hasRateValue()
+ * @method $this setCalculationProcess(array $value)
  * @method $this setRateValue(string $value)
+ * @method $this unsCalculationProcess()
+ * @method $this unsEventModuleId()
  * @method $this unsRateValue()
  */
 class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract

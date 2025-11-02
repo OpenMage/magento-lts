@@ -12,10 +12,10 @@
  *
  * @package    Varien_Data
  *
- * @method $this setSize(int $value)
  * @method bool getCanBeEmpty()
- * @method string getSelectAll()
  * @method string getDeselectAll()
+ * @method string getSelectAll()
+ * @method $this setSize(int $value)
  */
 class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abstract
 {

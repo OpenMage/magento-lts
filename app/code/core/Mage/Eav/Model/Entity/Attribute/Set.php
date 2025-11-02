@@ -13,23 +13,23 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Set getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
- *
  * @method int getAttributeSetId(string $value)
  * @method string getAttributeSetName()
- * @method $this setAttributeSetName(string $value)
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
+ *
  * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
  * @method Mage_Eav_Model_Entity_Attribute_Group[] getGroups()
- * @method $this setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method Mage_Eav_Model_Entity_Attribute[] getRemoveAttributes()
- * @method $this setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
  * @method Mage_Eav_Model_Entity_Attribute_Group[] getRemoveGroups()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
+ * @method int getSortOrder()
+ * @method $this setAttributeSetName(string $value)
+ * @method $this setEntityTypeId(int $value)
+ * @method $this setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
+ * @method $this setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
  * @method $this setRemoveGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
+ * @method $this setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 {

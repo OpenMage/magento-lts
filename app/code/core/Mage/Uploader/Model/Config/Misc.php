@@ -12,8 +12,8 @@
  *
  * @package    Mage_Uploader
  *
- * @method $this setMaxSizePlural (string $sizePlural) Set plural info about max upload size
  * @method $this setMaxSizeInBytes (int $sizeInBytes) Set max upload size in bytes
+ * @method $this setMaxSizePlural (string $sizePlural) Set plural info about max upload size
  * @method $this setReplaceBrowseWithRemove (bool $replaceBrowseWithRemove)
  *      Replace browse button with remove
  */

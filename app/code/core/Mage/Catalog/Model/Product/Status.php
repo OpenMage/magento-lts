@@ -13,12 +13,12 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getVisibility()
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract

@@ -18,18 +18,18 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
- * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
  * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getPosition()
- * @method $this setPosition(int $value)
  * @method int getIsParent()
- * @method $this setIsParent(int $value)
+ * @method int getPosition()
+ * @method int getProductId()
+ * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getVisibility()
+ * @method $this setCategoryId(int $value)
+ * @method $this setIsParent(int $value)
+ * @method $this setPosition(int $value)
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract

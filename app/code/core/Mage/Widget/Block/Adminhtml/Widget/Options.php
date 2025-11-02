@@ -13,9 +13,9 @@
  * @package    Mage_Widget
  *
  * @method string getMainFieldsetHtmlId()
- * @method $this setMainFieldsetHtmlId(string $value)
  * @method string getWidgetType()
  * @method array getWidgetValues()
+ * @method $this setMainFieldsetHtmlId(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {

@@ -15,12 +15,12 @@
  * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getCollection()
  * @method bool hasAddedAt()
- * @method $this setAddedAt(string $value)
  * @method bool hasCustomerId()
- * @method $this setCustomerId(int $value)
  * @method bool hasStoreId()
- * @method $this setStoreId(int $value)
  * @method bool hasVisitorId()
+ * @method $this setAddedAt(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisitorId(int $value)
  */
 abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model_Abstract

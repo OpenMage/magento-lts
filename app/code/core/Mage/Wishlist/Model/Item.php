@@ -13,25 +13,25 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
- * @method Mage_Wishlist_Model_Resource_Item getResource()
+ * @method string getAddedAt()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  *
- * @method string getAddedAt()
- * @method $this setAddedAt(string $value)
  * @method string getDescription()
- * @method $this setDescription(string $value)
  * @method bool getHasError()
  * @method string getMessage()
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method $this unsProduct()
  * @method float getQty()
+ * @method Mage_Wishlist_Model_Resource_Item getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getWishlistId()
- * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
+ * @method $this setAddedAt(string $value)
+ * @method $this setDescription(string $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
+ * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
+ * @method $this unsProduct()
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {

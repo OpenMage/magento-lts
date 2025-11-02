@@ -12,16 +12,16 @@
  *
  * @package    Mage_Paypal
  *
- * @method string getShortcutHtmlId()
- * @method string getImageUrl()
- * @method string getCheckoutUrl()
- * @method string getBmlShortcutHtmlId()
  * @method string getBmlCheckoutUrl()
  * @method string getBmlImageUrl()
- * @method string getIsBmlEnabled()
- * @method string getConfirmationUrl()
- * @method string getIsInCatalogProduct()
+ * @method string getBmlShortcutHtmlId()
+ * @method string getCheckoutUrl()
  * @method string getConfirmationMessage()
+ * @method string getConfirmationUrl()
+ * @method string getImageUrl()
+ * @method string getIsBmlEnabled()
+ * @method string getIsInCatalogProduct()
+ * @method string getShortcutHtmlId()
  */
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {

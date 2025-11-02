@@ -13,21 +13,21 @@
  * @package    Mage_AdminNotification
  *
  * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
- * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
  * @method string getDateAdded()
- * @method $this setDateAdded(string $value)
  * @method string getDescription()
- * @method $this setDescription(string $value)
  * @method int getIsRead()
- * @method $this setIsRead(int $value)
  * @method int getIsRemove()
- * @method $this setIsRemove(int $value)
+ * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
  * @method int getSeverity()
- * @method $this setSeverity(int $value)
  * @method string getTitle()
- * @method $this setTitle(string $value)
  * @method string getUrl()
+ * @method $this setDateAdded(string $value)
+ * @method $this setDescription(string $value)
+ * @method $this setIsRead(int $value)
+ * @method $this setIsRemove(int $value)
+ * @method $this setSeverity(int $value)
+ * @method $this setTitle(string $value)
  * @method $this setUrl(string $value)
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract

@@ -15,22 +15,22 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()()
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method int getIsClosed()
+ * @method int getParentId()
+ * @method string getParentTxnId()
+ * @method int getPaymentId()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
+ * @method string getTxnId()
+ * @method string getTxnType()
+ * @method $this setCreatedAt(string $value)
  * @method $this setIsClosed(int $value)
  * @method $this setOrderId(int $value)
  * @method $this setOrderUrl(string $value)
- * @method int getParentId()
  * @method $this setParentId(int $value)
- * @method string getParentTxnId()
- * @method int getPaymentId()
  * @method $this setPaymentId(int $value)
- * @method string getTxnId()
- * @method string getTxnType()
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {

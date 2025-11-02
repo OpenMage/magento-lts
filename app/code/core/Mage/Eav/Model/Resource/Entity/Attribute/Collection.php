@@ -12,11 +12,11 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
  *
  * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
  * @method Mage_Eav_Model_Entity_Attribute[] getItems()
- * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

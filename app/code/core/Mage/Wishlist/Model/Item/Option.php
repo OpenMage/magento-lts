@@ -12,13 +12,13 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
  * @method string getCode()
+ * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
  * @method int getProductId()
- * @method $this setProductId(int $value)
  * @method int getWishlistItemId()
- * @method $this setWishlistItemId(int $value)
+ * @method $this setProductId(int $value)
  * @method $this setValue(string $sBuyRequest)
+ * @method $this setWishlistItemId(int $value)
  */
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {

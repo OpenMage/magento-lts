@@ -13,59 +13,59 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
- * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
- * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
- *
  * @method array getAffectedCategoryIds()
- * @method $this setAffectedCategoryIds(array $categoryIds)
  * @method array getAffectedProductIds()
- * @method $this setAffectedProductIds(array $productIds)
- * @method $this setAttributeSetId(int $value)
  *
  * @method string getCategoryPath()
  * @method string getCategoryUrl()
- * @method $this setChildrenCount(int $value)
  * @method int getChildrenCount()
+ * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
  * @method bool getCustomUseParentSettings()
  *
- * @method $this setDeletedChildrenIds(array $value)
  * @method bool getDisableFlat()
  * @method string getDisplayMode()
- * @method $this setDisplayMode(string $value)
- *
  * @method string getImage()
- * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
- * @method $this setInitialSetupFlag(bool $value)
  * @method int getIsActive()
- * @method $this setIsActive(int $value)
+ *
  * @method int getIsAnchor()
- * @method $this setIsAnchor(int $value)
- * @method $this setIsChangedProductList(bool $bool)
- *
  * @method int getLandingPage()
- * @method bool hasLevel()
- * @method $this setLevel(int $value)
- *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
+ *
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
- *
- * @method $this setMovedCategoryId(int $value)
- * @method $this setName(string $value)
+ * @method string getPath()
+ * @method int getPosition()
+ * @method array getPostedProducts()
+ * @method bool getProductsReadonly()
+ * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
+ * @method string getUrlKey()
+ * @method bool hasLevel()
  *
  * @method bool hasProductCount()
- * @method $this setParentId(int $value)
- * @method string getPath()
- * @method $this setPath(int|string $value)
- * @method bool getProductsReadonly()
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method array getPostedProducts()
- * @method $this setPostedProducts(array $value)
+ * @method $this setAffectedCategoryIds(array $categoryIds)
+ * @method $this setAffectedProductIds(array $productIds)
  *
- * @method string getUrlKey()
+ * @method $this setAttributeSetId(int $value)
+ * @method $this setChildrenCount(int $value)
+ * @method $this setDeletedChildrenIds(array $value)
+ * @method $this setDisplayMode(string $value)
+ *
+ * @method $this setIncludeInMenu(int $value)
+ * @method $this setInitialSetupFlag(bool $value)
+ *
+ * @method $this setIsActive(int $value)
+ * @method $this setIsAnchor(int $value)
+ * @method $this setIsChangedProductList(bool $bool)
+ * @method $this setLevel(int $value)
+ * @method $this setMovedCategoryId(int $value)
+ * @method $this setName(string $value)
+ * @method $this setParentId(int $value)
+ * @method $this setPath(int|string $value)
+ * @method $this setPosition(int $value)
+ *
+ * @method $this setPostedProducts(array $value)
  * @method $this setUrlKey(string $value)
  * @method $this setUrlPath(string $value)
  */

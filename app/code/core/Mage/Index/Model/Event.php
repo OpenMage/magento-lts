@@ -11,19 +11,19 @@
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
- * @method Mage_Index_Model_Resource_Event getResource()
- * @method $this setType(string $value)
- * @method $this setEntity(string $value)
- * @method bool hasEntityPk()
- * @method int getEntityPk()
- * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method $this setOldData(array|string $value)
- * @method $this setNewData(array|string $value)
  * @method Varien_Object getDataObject()
- * @method $this setDataObject(Varien_Object $value)
+ * @method int getEntityPk()
+ * @method Mage_Index_Model_Resource_Event getResource()
  * @method bool hasCreatedAt()
+ * @method bool hasEntityPk()
+ * @method $this setCreatedAt(string $value)
+ * @method $this setDataObject(Varien_Object $value)
+ * @method $this setEntity(string $value)
+ * @method $this setEntityPk(int $value)
+ * @method $this setNewData(array|string $value)
+ * @method $this setOldData(array|string $value)
+ * @method $this setType(string $value)
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {

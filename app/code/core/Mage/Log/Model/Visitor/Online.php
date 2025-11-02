@@ -13,19 +13,19 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
+ * @method int getCustomerId()
+ * @method string getFirstVisitAt()
+ * @method string getLastUrl()
+ * @method string getLastVisitAt()
+ * @method int getRemoteAddr()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
  * @method string getVisitorType()
- * @method $this setVisitorType(string $value)
- * @method int getRemoteAddr()
- * @method $this setRemoteAddr(int $value)
- * @method string getFirstVisitAt()
- * @method $this setFirstVisitAt(string $value)
- * @method string getLastVisitAt()
- * @method $this setLastVisitAt(string $value)
- * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
- * @method string getLastUrl()
+ * @method $this setFirstVisitAt(string $value)
  * @method $this setLastUrl(string $value)
+ * @method $this setLastVisitAt(string $value)
+ * @method $this setRemoteAddr(int $value)
+ * @method $this setVisitorType(string $value)
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {

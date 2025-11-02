@@ -13,25 +13,25 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
- * @method Mage_Core_Model_Resource_Website getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
- * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
- *
- * @method $this setCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method $this setDefaultGroupId(int $value)
- * @method int getIsDefault()
- * @method $this setIsDefault(int $value)
  * @method int getGroupId()
+ * @method int getIsDefault()
+ *
+ * @method string getName()
+ * @method Mage_Core_Model_Resource_Website getResource()
+ * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
+ * @method int getSortOrder()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method array getStoresIds()
- * @method bool hasWebsiteId()
  * @method int getWebsiteId()
  * @method bool hasDefaultGroupId()
+ * @method bool hasWebsiteId()
+ * @method $this setCode(string $value)
+ * @method $this setDefaultGroupId(int $value)
+ * @method $this setIsDefault(int $value)
+ * @method $this setName(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {

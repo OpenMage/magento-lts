@@ -13,8 +13,8 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Catalog_Model_Product getFormatProduct()
- * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
  * @method Mage_Bundle_Model_Option getOption()
+ * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {

@@ -13,10 +13,10 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Batch_Import _getResource()
- * @method Mage_Dataflow_Model_Resource_Batch_Import getResource()
  * @method int getBatchId()
- * @method $this setBatchId(int $value)
+ * @method Mage_Dataflow_Model_Resource_Batch_Import getResource()
  * @method int getStatus()
+ * @method $this setBatchId(int $value)
  * @method $this setStatus(int $value)
  */
 class Mage_Dataflow_Model_Batch_Import extends Mage_Dataflow_Model_Batch_Abstract

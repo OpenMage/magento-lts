@@ -551,8 +551,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Returns success URL
      *
      * @param bool $isJustConfirmed
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return string
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)

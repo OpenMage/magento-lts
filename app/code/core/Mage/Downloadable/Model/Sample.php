@@ -13,24 +13,24 @@
  * @package    Mage_Downloadable
  *
  * @method Mage_Downloadable_Model_Resource_Sample _getResource()
- * @method Mage_Downloadable_Model_Resource_Sample getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
- *
  * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method string getSampleUrl()
- * @method $this setSampleUrl(string $value)
+ *
+ * @method Mage_Downloadable_Model_Resource_Sample getResource()
  * @method null|string getSampleFile()
- * @method $this setSampleFile(string $value)
  * @method string getSampleType()
- * @method $this setSampleType(string $value)
+ * @method string getSampleUrl()
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getStoreTitle()
  * @method string getTitle()
  * @method bool getUseDefaultTitle()
+ * @method $this setProductId(int $value)
+ * @method $this setSampleFile(string $value)
+ * @method $this setSampleType(string $value)
+ * @method $this setSampleUrl(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {

@@ -12,8 +12,8 @@
  *
  * @package    Mage_Wishlist
  *
- * @method float getQty()
  * @method int getProductId()
+ * @method float getQty()
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 {

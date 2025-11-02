@@ -13,8 +13,8 @@
  * @package    Mage_Core
  *
  * @method array getLanguages()
- * @method $this setLanguages(array $value)
  * @method array getStores()
+ * @method $this setLanguages(array $value)
  * @method $this setStores(array $value)
  */
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template

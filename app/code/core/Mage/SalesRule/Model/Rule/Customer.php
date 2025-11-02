@@ -13,12 +13,12 @@
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Rule_Customer _getResource()
+ * @method int getCustomerId()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer getResource()
  * @method int getRuleId()
- * @method $this setRuleId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method int getTimesUsed()
+ * @method $this setCustomerId(int $value)
+ * @method $this setRuleId(int $value)
  * @method $this setTimesUsed(int $value)
  */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract

@@ -10,13 +10,13 @@
 /**
  * @package    Mage_Rule
  *
- * @method $this setActions(array $value)
  * @method string getAggregator()
- * @method $this setAggregator(string $value)
  * @method string getAggregatorOption()
  * @method array getAggregatorOptions()
- * @method $this setAggregatorOption(array $value)
  * @method string getPrefix()
+ * @method $this setActions(array $value)
+ * @method $this setAggregator(string $value)
+ * @method $this setAggregatorOption(array $value)
  * @method $this setValueOption(array $value)
  */
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract

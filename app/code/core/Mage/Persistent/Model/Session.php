@@ -12,12 +12,12 @@
  *
  * @package    Mage_Persistent
  *
- * @method Mage_Persistent_Model_Resource_Session getResource()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method string getInfo()
- * @method $this setInfo(string $value)
  * @method string getKey()
+ * @method Mage_Persistent_Model_Resource_Session getResource()
+ * @method $this setCustomerId(int $value)
+ * @method $this setInfo(string $value)
  * @method $this setKey(string $value)
  * @method $this setWebsiteId(null|int|string $value)
  */

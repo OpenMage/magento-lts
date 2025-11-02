@@ -12,9 +12,9 @@
  *
  * @package    Mage_Widget
  *
+ * @method string getSelected()
  * @method $this setArea(string $value)
  * @method $this setPackage(string $value)
- * @method string getSelected()
  * @method $this setSelected(string $value)
  * @method $this setTheme(string $value)
  */

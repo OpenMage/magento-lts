@@ -13,8 +13,8 @@
  * @package    Mage_Core
  *
  * @method string getCookieDomain()
- * @method string getCookiePath()
  * @method string getCookieLifetime()
+ * @method string getCookiePath()
  */
 abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
 {

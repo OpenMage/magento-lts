@@ -13,8 +13,8 @@
  * @package    Mage_Catalog
  *
  * @method array getInterval()
- * @method $this setInterval(array $value)
  * @method array getPriorIntervals()
+ * @method $this setInterval(array $value)
  * @method $this setPriorIntervals(array $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Filter_Abstract

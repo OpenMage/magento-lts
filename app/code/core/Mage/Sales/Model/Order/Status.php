@@ -13,11 +13,11 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Status _getResource()
- * @method Mage_Sales_Model_Resource_Order_Status getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_Collection getCollection()
- *
- * @method string getStatus()
  * @method string getLabel()
+ *
+ * @method Mage_Sales_Model_Resource_Order_Status getResource()
+ * @method string getStatus()
  * @method bool hasStoreLabels()
  */
 class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract

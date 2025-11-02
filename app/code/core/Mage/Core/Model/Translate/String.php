@@ -13,15 +13,15 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Translate_String _getResource()
+ * @method string getLocale()
  * @method Mage_Core_Model_Resource_Translate_String getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getTranslate()
- * @method $this setTranslate(string $value)
  * @method array getStoreTranslations()
- * @method $this setStoreTranslations(array $value)
- * @method string getLocale()
+ * @method string getTranslate()
  * @method $this setLocale(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setStoreTranslations(array $value)
+ * @method $this setTranslate(string $value)
  */
 class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
 {

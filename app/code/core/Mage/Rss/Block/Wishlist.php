@@ -88,8 +88,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Render block HTML
      *
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return string
      */
     protected function _toHtml()

@@ -13,14 +13,14 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Compared _getResource()
- * @method Mage_Reports_Model_Resource_Product_Index_Compared getResource()
- * @method $this setVisitorId(int $value)
- * @method $this setCustomerId(int $value)
+ * @method string getAddedAt()
  * @method int getProductId()
+ * @method Mage_Reports_Model_Resource_Product_Index_Compared getResource()
+ * @method $this setAddedAt(string $value)
+ * @method $this setCustomerId(int $value)
  * @method $this setProductId(int $value)
  * @method $this setStoreId(int $value)
- * @method string getAddedAt()
- * @method $this setAddedAt(string $value)
+ * @method $this setVisitorId(int $value)
  */
 class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Product_Index_Abstract
 {

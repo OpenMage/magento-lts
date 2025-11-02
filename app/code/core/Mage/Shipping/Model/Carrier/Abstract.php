@@ -12,11 +12,11 @@
  *
  * @package    Mage_Shipping
  *
- * @method $this setActiveFlag(bool $value)
  * @method array getAllowedMethods()
  * @method array getContainerTypesAll()
  * @method array getContainerTypesFilter()
  * @method Mage_Core_Model_Store getStore()
+ * @method $this setActiveFlag(bool $value)
  * @method $this setStore(Mage_Core_Model_Store $value)
  */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object

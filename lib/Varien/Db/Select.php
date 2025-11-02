@@ -11,23 +11,23 @@
  * Class for SQL SELECT generation and results.
  *
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
- * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @method $this columns($cols = '*', $correlationName = null)
+ * @method $this distinct($flag = true)
+ * @method $this forUpdate($flag = true)
  * @method $this from($name, $cols = '*', $schema = null)
+ * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @method $this group($spec)
  * @method $this join($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinCross($name, $cols = '*', $schema = null)
+ * @method $this joinFull($name, $cond, $cols = '*', $schema = null)
  * @method $this joinInner($name, $cond, $cols = '*', $schema = null)
  * @method $this joinLeft($name, $cond, $cols = '*', $schema = null)
  * @method $this joinNatural($name, $cond, $cols = '*', $schema = null)
- * @method $this joinFull($name, $cond, $cols = '*', $schema = null)
  * @method $this joinRight($name, $cond, $cols = '*', $schema = null)
- * @method $this joinCross($name, $cols = '*', $schema = null)
- * @method $this orWhere($cond, $value = null, $type = null)
- * @method $this group($spec)
- * @method $this order($spec)
  * @method $this limitPage($page, $rowCount)
- * @method $this forUpdate($flag = true)
- * @method $this distinct($flag = true)
+ * @method $this order($spec)
+ * @method $this orWhere($cond, $value = null, $type = null)
  * @method $this reset($part = null)
- * @method $this columns($cols = '*', $correlationName = null)
  *
  * @package    Varien_Db
  */
