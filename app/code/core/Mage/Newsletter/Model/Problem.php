@@ -14,6 +14,7 @@
  *
  * @method Mage_Newsletter_Model_Resource_Problem _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem getResource()
+ *
  * @method int getCustomerId()
  * @method $this setCustomerName(string $value)
  * @method $this setCustomerFirstName(string $value)

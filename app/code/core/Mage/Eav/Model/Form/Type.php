@@ -15,6 +15,7 @@
  * @method Mage_Eav_Model_Resource_Form_Type _getResource()
  * @method Mage_Eav_Model_Resource_Form_Type getResource()
  * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
+ *
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method string getLabel()

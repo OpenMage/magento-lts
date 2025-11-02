@@ -17,6 +17,7 @@
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
  * @method Mage_Oauth_Model_Resource_Token getResource()
  * @method Mage_Oauth_Model_Resource_Token _getResource()
+ *
  * @method int getConsumerId()
  * @method $this setConsumerId(int $consumerId)
  * @method int getAdminId()

@@ -19,6 +19,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
+ *
  * @method int getCategoryId()
  * @method $this setCategoryId(int $value)
  * @method int getProductId()

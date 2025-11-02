@@ -14,6 +14,7 @@
  *
  * @method Mage_Core_Model_Resource_Variable _getResource()
  * @method Mage_Core_Model_Resource_Variable getResource()
+ *
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method string getName()

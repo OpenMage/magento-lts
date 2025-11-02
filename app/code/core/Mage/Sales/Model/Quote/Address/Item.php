@@ -18,7 +18,6 @@
  * @method $this setAdditionalData(string $value)
  * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
- *
  * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
  * @method float getBaseDiscountAmount()
@@ -28,7 +27,6 @@
  * @method $this setBaseHiddenTaxAmount(float $value)
  * @method float getBasePrice()
  * @method $this setBasePrice(float $value)
- *
  * @method $this setCustomerAddressId(int $value)
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)

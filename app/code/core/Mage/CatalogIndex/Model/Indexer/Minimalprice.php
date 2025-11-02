@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
+ *
  * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
  * @method $this setCustomerGroupId(int $value)

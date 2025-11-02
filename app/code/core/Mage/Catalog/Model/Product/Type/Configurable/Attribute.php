@@ -27,6 +27,7 @@
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method Mage_Catalog_Model_Resource_Eav_Attribute getProductAttribute()
+ *
  * @method $this setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)

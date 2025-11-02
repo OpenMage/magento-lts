@@ -14,6 +14,7 @@
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
  * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
+ *
  * @method string getChangeStatusAt()
  * @method $this setChangeStatusAt(string $value)
  * @method bool hasCheckCode()

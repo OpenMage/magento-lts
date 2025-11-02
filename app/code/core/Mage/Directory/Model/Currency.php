@@ -13,6 +13,7 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
+ *
  * @method $this unsRate()
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract

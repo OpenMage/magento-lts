@@ -13,6 +13,7 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
+ *
  * @method string getCode()
  * @method int getProductId()
  * @method $this setProductId(int $value)

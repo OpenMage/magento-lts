@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status getResource()
+ *
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method int getWebsiteId()

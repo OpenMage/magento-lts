@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
+ *
  * @method string getFrontendInputRenderer()
  * @method $this setFrontendInputRenderer(string $value)
  * @method $this setIsGlobal(int $value)

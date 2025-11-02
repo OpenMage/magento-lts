@@ -14,6 +14,7 @@
  *
  * @method Mage_Dataflow_Model_Resource_Import _getResource()
  * @method Mage_Dataflow_Model_Resource_Import getResource()
+ *
  * @method int getSessionId()
  * @method $this setSessionId(int $value)
  * @method int getSerialNumber()

@@ -12,6 +12,7 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Tax _getResource()
  * @method Mage_Sales_Model_Resource_Order_Tax getResource()
+ *
  * @method int getOrderId()
  * @method $this setOrderId(int $value)
  * @method string getCode()

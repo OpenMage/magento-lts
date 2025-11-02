@@ -21,18 +21,15 @@
  * @method array getAffectedProductIds()
  * @method $this setAffectedProductIds(array $productIds)
  * @method $this setAttributeSetId(int $value)
- *
  * @method string getCategoryPath()
  * @method string getCategoryUrl()
  * @method $this setChildrenCount(int $value)
  * @method int getChildrenCount()
  * @method bool getCustomUseParentSettings()
- *
  * @method $this setDeletedChildrenIds(array $value)
  * @method bool getDisableFlat()
  * @method string getDisplayMode()
  * @method $this setDisplayMode(string $value)
- *
  * @method string getImage()
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
@@ -42,19 +39,15 @@
  * @method int getIsAnchor()
  * @method $this setIsAnchor(int $value)
  * @method $this setIsChangedProductList(bool $bool)
- *
  * @method int getLandingPage()
  * @method bool hasLevel()
  * @method $this setLevel(int $value)
- *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
- *
  * @method $this setMovedCategoryId(int $value)
  * @method $this setName(string $value)
- *
  * @method bool hasProductCount()
  * @method $this setParentId(int $value)
  * @method string getPath()
@@ -64,7 +57,6 @@
  * @method $this setPosition(int $value)
  * @method array getPostedProducts()
  * @method $this setPostedProducts(array $value)
- *
  * @method string getUrlKey()
  * @method $this setUrlKey(string $value)
  * @method $this setUrlPath(string $value)

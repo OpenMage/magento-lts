@@ -14,6 +14,7 @@
  *
  * @method Mage_Core_Model_Resource_Email_Queue _getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getCollection()
+ *
  * @method $this setCreatedAt(string $value)
  * @method int getEntityId()
  * @method $this setEntityId(int $value)

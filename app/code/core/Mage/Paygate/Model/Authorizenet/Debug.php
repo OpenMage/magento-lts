@@ -12,6 +12,7 @@
  *
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug _getResource()
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug getResource()
+ *
  * @method string getRequestBody()
  * @method $this setRequestBody(string $value)
  * @method string getResponseBody()

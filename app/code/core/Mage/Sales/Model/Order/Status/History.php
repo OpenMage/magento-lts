@@ -14,6 +14,7 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
+ *
  * @method string getComment()
  * @method $this setComment(string $value)
  * @method string getCreatedAt()

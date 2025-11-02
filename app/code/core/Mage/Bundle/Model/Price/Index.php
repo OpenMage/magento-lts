@@ -14,6 +14,7 @@
  *
  * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
+ *
  * @method $this setEntityId(int $value)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)

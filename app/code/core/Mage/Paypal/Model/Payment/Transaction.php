@@ -15,6 +15,7 @@
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
+ *
  * @method string getTxnId()
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)

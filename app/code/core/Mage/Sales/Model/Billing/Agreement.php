@@ -35,7 +35,6 @@
  * @method $this setStoreId(int $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method $this setCancelUrl(string $value)
  * @method string getRedirectUrl()
  * @method $this setReturnUrl(string $value)

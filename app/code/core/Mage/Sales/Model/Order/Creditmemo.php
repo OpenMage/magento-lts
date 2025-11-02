@@ -21,7 +21,6 @@
  * @method $this setAdjustment(float $value)
  * @method float getAdjustmentNegative()
  * @method float getAdjustmentPositive()
- *
  * @method float getBaseAdjustment()
  * @method $this setBaseAdjustment(float $value)
  * @method float getBaseAdjustmentNegative()
@@ -42,22 +41,17 @@
  * @method $this setBaseToOrderRate(float $value)
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
- *
  * @method $this setCommentText(string $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
  * @method int getCreditmemoStatus()
  * @method $this setCreditmemoStatus(int $value)
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- *
  * @method int getEmailSent()
  * @method $this setEmailSent(int $value)
- *
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method $this setStoreId(int $value)
  * @method float getStoreToOrderRate()
  * @method $this setStoreToOrderRate(float $value)
@@ -74,12 +68,10 @@
  * @method $this setState(int $value)
  * @method float getStoreToBaseRate()
  * @method $this setStoreToBaseRate(float $value)
- *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
- *
  * @method float getBaseToGlobalRate()
  * @method $this setBaseToGlobalRate(float $value)
  * @method float getBaseSubtotal()

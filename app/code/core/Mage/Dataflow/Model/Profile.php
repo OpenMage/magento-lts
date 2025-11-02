@@ -14,6 +14,7 @@
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ *
  * @method string getName()
  * @method $this setName(string $value)
  * @method string getCreatedAt()

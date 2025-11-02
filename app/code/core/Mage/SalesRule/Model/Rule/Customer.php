@@ -14,6 +14,7 @@
  *
  * @method Mage_SalesRule_Model_Resource_Rule_Customer _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer getResource()
+ *
  * @method int getRuleId()
  * @method $this setRuleId(int $value)
  * @method int getCustomerId()

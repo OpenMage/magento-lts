@@ -15,6 +15,7 @@
  * @method Mage_Directory_Model_Resource_Country _getResource()
  * @method Mage_Directory_Model_Resource_Country getResource()
  * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
+ *
  * @method string getCode()
  * @method string getCountryId()
  * @method $this setCountryId(string $value)

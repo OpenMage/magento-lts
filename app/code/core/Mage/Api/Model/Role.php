@@ -14,6 +14,7 @@
  *
  * @method Mage_Api_Model_Resource_Role _getResource()
  * @method Mage_Api_Model_Resource_Role getResource()
+ *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method int getTreeLevel()

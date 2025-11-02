@@ -15,6 +15,7 @@
  * @method Mage_Eav_Model_Resource_Form_Element _getResource()
  * @method Mage_Eav_Model_Resource_Form_Element getResource()
  * @method Mage_Eav_Model_Resource_Form_Element_Collection getCollection()
+ *
  * @method int getTypeId()
  * @method $this setTypeId(int $value)
  * @method int getFieldsetId()

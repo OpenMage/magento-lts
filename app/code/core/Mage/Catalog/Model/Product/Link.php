@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Link getResource()
+ *
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method int getLinkedProductId()

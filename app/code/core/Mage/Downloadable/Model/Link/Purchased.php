@@ -14,6 +14,7 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased getResource()
+ *
  * @method int getOrderId()
  * @method $this setOrderId(int $value)
  * @method string getOrderIncrementId()

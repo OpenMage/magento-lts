@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
+ *
  * @method string getRuleDate()
  * @method $this setRuleDate(string $value)
  * @method int getCustomerGroupId()
