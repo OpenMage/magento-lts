@@ -118,7 +118,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Trying to load cached value by id, in case of failure will return false, in other case will return cached string
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
      * @return bool|string Cached data or false
      */
@@ -424,7 +424,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string  $id        Cache id
      * @param  array   $metadatas Associative array of metadatas
-     * @param  boolean $save      Optional pass false to disable saving to file
+     * @param  bool $save      Optional pass false to disable saving to file
      *
      * @return bool In case of success returns true
      */
@@ -440,7 +440,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Uses multiple letters for a single-level hash rather than multiple levels
      *
      * @param  string  $id    Cache id
-     * @param  boolean $parts If true, returns array of directory parts instead of single string
+     * @param  bool $parts If true, returns array of directory parts instead of single string
      *
      * @return array|string Complete directory path
      */

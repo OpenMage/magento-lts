@@ -1566,7 +1566,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string  $text  the text with a placeholder
      * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
      * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
-     * @param integer $count OPTIONAL count of placeholders to replace
+     * @param int $count OPTIONAL count of placeholders to replace
      * @return string an SQL-safe quoted value placed into the original text
      */
     public function quoteInto($text, $value, $type = null, $count = null)

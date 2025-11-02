@@ -119,7 +119,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return false|string cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
