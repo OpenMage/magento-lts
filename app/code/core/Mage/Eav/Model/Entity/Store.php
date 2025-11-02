@@ -11,15 +11,16 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
- * @method int getEntityTypeId()
- * @method string getIncrementLastId()
- * @method string getIncrementPrefix()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()
- * @method int getStoreId()
+ *
+ * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
- * @method $this setIncrementLastId(string $value)
- * @method $this setIncrementPrefix(string $value)
+ * @method int getStoreId()
  * @method $this setStoreId(int $value)
+ * @method string getIncrementPrefix()
+ * @method $this setIncrementPrefix(string $value)
+ * @method string getIncrementLastId()
+ * @method $this setIncrementLastId(string $value)
  */
 class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
 {

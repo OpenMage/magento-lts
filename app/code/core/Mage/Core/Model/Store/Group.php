@@ -13,20 +13,21 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Store_Group _getResource()
- * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
- * @method int getGroupId()
- *
- * @method string getName()
- * @method int getOriginalGroupId()
- * @method int getOriginalWebsiteId()
  * @method Mage_Core_Model_Resource_Store_Group getResource()
- * @method bool hasDefaultStoreId()
- * @method bool hasGroupId()
- * @method $this setDefaultStoreId(int $value)
- * @method $this setHomeUrl(string $value)
+ * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Store_Group_Collection getResourceCollection()
+ *
+ * @method $this setWebsiteId(int $value)
+ * @method string getName()
  * @method $this setName(string $value)
  * @method $this setRootCategoryId(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method $this setDefaultStoreId(int $value)
+ * @method $this setHomeUrl(string $value)
+ * @method bool hasDefaultStoreId()
+ * @method bool hasGroupId()
+ * @method int getGroupId()
+ * @method int getOriginalGroupId()
+ * @method int getOriginalWebsiteId()
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {

@@ -13,11 +13,14 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Event_Type _getResource()
- * @method int getCustomerLogin()
- * @method string getEventName()
  * @method Mage_Reports_Model_Resource_Event_Type getResource()
- * @method $this setCustomerLogin(int $value)
+ * @method Mage_Reports_Model_Resource_Event_Type_Collection getCollection()
+ * @method Mage_Reports_Model_Resource_Event_Type_Collection getResourceCollection()
+ *
+ * @method string getEventName()
  * @method $this setEventName(string $value)
+ * @method int getCustomerLogin()
+ * @method $this setCustomerLogin(int $value)
  */
 class Mage_Reports_Model_Event_Type extends Mage_Core_Model_Abstract
 {

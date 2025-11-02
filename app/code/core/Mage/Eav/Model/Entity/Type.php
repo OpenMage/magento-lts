@@ -15,6 +15,7 @@
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method string getAdditionalAttributeTable()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
  *
  * @method string getDataSharingKey()
  * @method string getEntityModel()

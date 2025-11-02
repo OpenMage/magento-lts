@@ -17,6 +17,7 @@
  * @method int getLastUrlId()
  * @method string getLastVisitAt()
  * @method Mage_Log_Model_Resource_Log getResource()
+ *
  * @method string getSessionId()
  * @method int getStoreId()
  * @method $this setFirstVisitAt(string $value)

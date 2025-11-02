@@ -13,21 +13,24 @@
  * @package    Mage_Api
  *
  * @method Mage_Api_Model_Resource_Role _getResource()
- * @method int getParentId()
  * @method Mage_Api_Model_Resource_Role getResource()
- * @method string getRoleName()
- * @method string getRoleType()
- * @method int getSortOrder()
+ * @method Mage_Api_Model_Resource_Role_Collection getCollection()
+ * @method Mage_Api_Model_Resource_Role_Collection getResourceCollection()
+ *
+ * @method int getParentId()
+ * @method $this setParentId(int $value)
  * @method int getTreeLevel()
+ * @method $this setTreeLevel(int $value)
+ * @method int getSortOrder()
+ * @method $this setSortOrder(int $value)
+ * @method string getRoleType()
+ * @method $this setRoleType(string $value)
  * @method int getUserId()
+ * @method $this setUserId(int $value)
+ * @method string getRoleName()
+ * @method $this setRoleName(string $value)
  * @method $this setCreated(string $value)
  * @method $this setModified(string $value)
- * @method $this setParentId(int $value)
- * @method $this setRoleName(string $value)
- * @method $this setRoleType(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setTreeLevel(int $value)
- * @method $this setUserId(int $value)
  */
 class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
 {

@@ -13,13 +13,14 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Attribute _getResource()
- * @method int getAttributeId()
  * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
- * @method int getStoreId()
- * @method int getValue()
- * @method $this setAttributeId(int $value)
+ *
  * @method $this setEntityId(int $value)
+ * @method int getAttributeId()
+ * @method $this setAttributeId(int $value)
+ * @method int getStoreId()
  * @method $this setStoreId(int $value)
+ * @method int getValue()
  * @method $this setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract

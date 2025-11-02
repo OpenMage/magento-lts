@@ -13,17 +13,18 @@
  * @package    Mage_GiftMessage
  *
  * @method Mage_GiftMessage_Model_Resource_Message _getResource()
- * @method Mage_GiftMessage_Model_Resource_Message_Collection getCollection()
- * @method int getCustomerId()
- *
- * @method string getMessage()
- * @method string getRecipient()
  * @method Mage_GiftMessage_Model_Resource_Message getResource()
- * @method string getSender()
+ * @method Mage_GiftMessage_Model_Resource_Message_Collection getCollection()
+ * @method Mage_GiftMessage_Model_Resource_Message_Collection getResourceCollection()
+ *
+ * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
- * @method $this setMessage(string $value)
- * @method $this setRecipient(string $value)
+ * @method string getSender()
  * @method $this setSender(string $value)
+ * @method string getRecipient()
+ * @method $this setRecipient(string $value)
+ * @method string getMessage()
+ * @method $this setMessage(string $value)
  */
 class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
 {

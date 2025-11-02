@@ -13,19 +13,22 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
- * @method string getComment()
- * @method string getCreatedAt()
- * @method int getIsCustomerNotified()
- * @method int getIsVisibleOnFront()
- * @method int getParentId()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
- * @method string getStatus()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
+ *
+ * @method string getComment()
  * @method $this setComment(string $value)
+ * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
+ * @method int getIsCustomerNotified()
  * @method $this setEntityName(string $value)
- * @method $this setIsVisibleOnFront(int $value)
+ * @method int getParentId()
  * @method $this setParentId(int $value)
+ * @method string getStatus()
  * @method $this setStatus(string $value)
+ * @method int getIsVisibleOnFront()
+ * @method $this setIsVisibleOnFront(int $value)
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {

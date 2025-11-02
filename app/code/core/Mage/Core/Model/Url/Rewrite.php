@@ -22,6 +22,7 @@
  * @method int getProductId()
  * @method string getRequestPath()
  * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
  * @method array|string getTags()
  * @method string getTargetPath()

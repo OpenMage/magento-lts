@@ -15,6 +15,7 @@
  * @method Mage_ProductAlert_Model_Resource_Price _getResource()
  * @method string getAddDate()
  * @method Mage_ProductAlert_Model_Resource_Price_Collection getCollection()
+ * @method Mage_ProductAlert_Model_Resource_Price_Collection getResourceCollection()
  *
  * @method int getCustomerId()
  * @method string getLastSendDate()

@@ -13,16 +13,17 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
- * @method int getCustomerGroupId()
- * @method float getMaxPrice()
- * @method float getMinPrice()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
+ *
  * @method $this setEntityId(int $value)
- * @method $this setMaxPrice(float $value)
- * @method $this setMinPrice(float $value)
+ * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
+ * @method int getCustomerGroupId()
+ * @method $this setCustomerGroupId(int $value)
+ * @method float getMinPrice()
+ * @method $this setMinPrice(float $value)
+ * @method float getMaxPrice()
+ * @method $this setMaxPrice(float $value)
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {

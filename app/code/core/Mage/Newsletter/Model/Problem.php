@@ -13,18 +13,21 @@
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Problem _getResource()
- * @method int getCustomerId()
- * @method int getProblemErrorCode()
- * @method string getProblemErrorText()
- * @method int getQueueId()
  * @method Mage_Newsletter_Model_Resource_Problem getResource()
- * @method int getSubscriberId()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
+ *
+ * @method int getCustomerId()
+ * @method $this setCustomerName(string $value)
  * @method $this setCustomerFirstName(string $value)
  * @method $this setCustomerLastName(string $value)
- * @method $this setCustomerName(string $value)
- * @method $this setProblemErrorCode(int $value)
- * @method $this setProblemErrorText(string $value)
+ * @method int getQueueId()
  * @method $this setQueueId(int $value)
+ * @method int getProblemErrorCode()
+ * @method $this setProblemErrorCode(int $value)
+ * @method string getProblemErrorText()
+ * @method $this setProblemErrorText(string $value)
+ * @method int getSubscriberId()
  * @method $this setSubscriberId(int $value)
  */
 class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract

@@ -18,6 +18,7 @@
  *
  * @method int getPid()
  * @method Mage_Admin_Model_Resource_Roles getResource()
+ * @method Mage_Admin_Model_Resource_Roles_Collection getCollection()
  * @method Mage_Admin_Model_Resource_Roles_Collection getResourceCollection()
  * @method string getRoleName()
  * @method string getRoleType()

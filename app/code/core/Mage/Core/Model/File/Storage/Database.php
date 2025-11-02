@@ -13,8 +13,9 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
- * @method string getConnectionName()
  * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
+ *
+ * @method string getConnectionName()
  * @method $this setDirectoryId(int $value)
  */
 class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage_Database_Abstract

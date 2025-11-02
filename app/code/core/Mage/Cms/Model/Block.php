@@ -15,6 +15,7 @@
  * @method Mage_Cms_Model_Resource_Block _getResource()
  * @method int getBlockId()
  * @method Mage_Cms_Model_Resource_Block_Collection getCollection()
+ * @method Mage_Cms_Model_Resource_Block_Collection getResourceCollection()
  *
  * @method string getContent()
  * @method string getCreationTime()

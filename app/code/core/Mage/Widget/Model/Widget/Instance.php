@@ -13,17 +13,18 @@
  * @package    Mage_Widget
  *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
- * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
- * @method array getPageGroups()
- *
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
- * @method int getSortOrder()
- * @method string getTitle()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getResourceCollection()
+ *
+ * @method array getPageGroups()
  * @method $this setPageGroups(array $value)
- * @method $this setSortOrder(int $value)
  * @method $this setStoreIds(string $value)
+ * @method string getTitle()
  * @method $this setTitle(string $value)
  * @method $this setWidgetParameters(string $value)
+ * @method int getSortOrder()
+ * @method $this setSortOrder(int $value)
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {

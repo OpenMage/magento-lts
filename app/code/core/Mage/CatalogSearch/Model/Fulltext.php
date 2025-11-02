@@ -13,15 +13,16 @@
  * @package    Mage_CatalogSearch
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
- * @method string getDataIndex()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
  *
  * @method int getProductId()
- * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
- * @method int getStoreId()
- * @method $this setDataIndex(string $value)
  * @method $this setProductId(int $value)
+ * @method int getStoreId()
  * @method $this setStoreId(int $value)
+ * @method string getDataIndex()
+ * @method $this setDataIndex(string $value)
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {

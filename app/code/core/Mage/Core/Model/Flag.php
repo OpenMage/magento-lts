@@ -13,14 +13,15 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
- * @method string getFlagCode()
- * @method string getLastUpdate()
  * @method Mage_Core_Model_Resource_Flag getResource()
- * @method int getState()
- * @method bool hasFlagData()
+ *
+ * @method string getFlagCode()
  * @method $this setFlagCode(string $value)
- * @method $this setLastUpdate(string $value)
+ * @method int getState()
  * @method $this setState(int $value)
+ * @method string getLastUpdate()
+ * @method $this setLastUpdate(string $value)
+ * @method bool hasFlagData()
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {

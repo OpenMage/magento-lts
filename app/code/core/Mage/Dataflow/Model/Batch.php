@@ -13,15 +13,18 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Batch _getResource()
- * @method string getAdapter()
- * @method string getCreatedAt()
- * @method int getProfileId()
  * @method Mage_Dataflow_Model_Resource_Batch getResource()
- * @method int getStoreId()
- * @method $this setAdapter(string $value)
- * @method $this setCreatedAt(string $value)
+ * @method Mage_Dataflow_Model_Resource_Batch_Collection getCollection()
+ * @method Mage_Dataflow_Model_Resource_Batch_Collection getResourceCollection()
+ *
+ * @method int getProfileId()
  * @method $this setProfileId(int $value)
+ * @method int getStoreId()
  * @method $this setStoreId(int $value)
+ * @method string getAdapter()
+ * @method $this setAdapter(string $value)
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $value)
  */
 class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 {

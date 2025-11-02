@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Quote_Item_Option _getResource()
  * @method string getCode()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getResourceCollection()
  *
  * @method int getItemId()
  * @method int getProductId()

@@ -15,6 +15,7 @@
  * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
  * @method string getCode()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
  *
  * @method Zend_Date getExpirationDate()
  * @method int getIsPrimary()

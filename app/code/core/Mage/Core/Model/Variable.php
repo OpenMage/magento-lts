@@ -13,14 +13,17 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Variable _getResource()
- * @method string getCode()
- * @method string getHtmlValue()
- * @method string getName()
- * @method string getPlainValue()
  * @method Mage_Core_Model_Resource_Variable getResource()
- * @method bool getUseDefaultValue()
+ * @method Mage_Core_Model_Resource_Variable_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Variable_Collection getResourceCollection()
+ *
+ * @method string getCode()
  * @method $this setCode(string $value)
+ * @method string getName()
  * @method $this setName(string $value)
+ * @method bool getUseDefaultValue()
+ * @method string getHtmlValue()
+ * @method string getPlainValue()
  */
 class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 {

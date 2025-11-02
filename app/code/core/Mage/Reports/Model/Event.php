@@ -13,20 +13,22 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Event _getResource()
- * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
- * @method int getEventTypeId()
- * @method string getLoggedAt()
- * @method int getObjectId()
  * @method Mage_Reports_Model_Resource_Event getResource()
- * @method int getStoreId()
- * @method int getSubjectId()
- * @method int getSubtype()
- * @method $this setEventTypeId(int $value)
+ * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
+ * @method Mage_Reports_Model_Resource_Event_Collection getResourceCollection()
+ *
+ * @method string getLoggedAt()
  * @method $this setLoggedAt(string $value)
+ * @method int getEventTypeId()
+ * @method $this setEventTypeId(int $value)
+ * @method int getObjectId()
  * @method $this setObjectId(int $value)
- * @method $this setStoreId(int $value)
+ * @method int getSubjectId()
  * @method $this setSubjectId(int $value)
+ * @method int getSubtype()
  * @method $this setSubtype(int $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {

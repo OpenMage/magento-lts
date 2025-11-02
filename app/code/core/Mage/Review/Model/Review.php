@@ -13,27 +13,28 @@
  * @package    Mage_Review
  *
  * @method Mage_Review_Model_Resource_Review _getResource()
- * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- * @method string getCreatedAt()
- *
- * @method array getCustomerId()
- * @method string getDetail()
- * @method int getEntityPkValue()
- * @method string getNickname()
  * @method Mage_Review_Model_Resource_Review getResource()
+ * @method Mage_Review_Model_Resource_Review_Collection getCollection()
+ * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
+ *
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $value)
+ * @method array getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method string getDetail()
+ * @method $this setEntityId(int $value)
+ * @method int getEntityPkValue()
+ * @method $this setEntityPkValue(int $value)
+ * @method string getNickname()
+ * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
  * @method int getReviewId()
  * @method int getStatusId()
- * @method int getStoreId()
- * @method array getStores()
- * @method string getTitle()
- * @method $this setCreatedAt(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setEntityPkValue(int $value)
- * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
  * @method $this setStatusId(int $value)
  * @method $this setStoreId(int $value)
+ * @method int getStoreId()
+ * @method array getStores()
  * @method $this setStores(array $value)
+ * @method string getTitle()
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {

@@ -13,17 +13,19 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
- * @method string getCode()
- * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
- * @method string getLabel()
  * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
- * @method int getSortOrder()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getResourceCollection()
+ *
  * @method int getTypeId()
- * @method bool hasLabels()
- * @method bool hasStoreId()
- * @method $this setCode(string $value)
- * @method $this setSortOrder(int $value)
  * @method $this setTypeId(int $value)
+ * @method string getCode()
+ * @method $this setCode(string $value)
+ * @method string getLabel()
+ * @method bool hasLabels()
+ * @method int getSortOrder()
+ * @method $this setSortOrder(int $value)
+ * @method bool hasStoreId()
  */
 class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
 {

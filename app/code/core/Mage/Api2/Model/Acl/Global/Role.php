@@ -12,16 +12,17 @@
  *
  * @package    Mage_Api2
  *
- * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
- * @method string getCreatedAt()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
- * @method string getRoleName()
- * @method string getUpdatedAt()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
+ *
+ * @method string getCreatedAt()
  * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method $this setRoleName() setRoleName(string $roleName)
+ * @method string getUpdatedAt()
  * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method string getRoleName()
+ * @method $this setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {

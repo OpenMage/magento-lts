@@ -15,6 +15,7 @@
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method int getApplyToShipping()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
  *
  * @method string getCouponCode()
  * @method int getCouponType()

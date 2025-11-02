@@ -13,17 +13,18 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Customer _getResource()
- * @method int getCustomerId()
- * @method string getLoginAt()
- * @method string getLogoutAt()
  * @method Mage_Log_Model_Resource_Customer getResource()
- * @method int getStoreId()
+ *
  * @method int getVisitorId()
- * @method $this setCustomerId(int $value)
- * @method $this setLoginAt(string $value)
- * @method $this setLogoutAt(string $value)
- * @method $this setStoreId(int $value)
  * @method $this setVisitorId(int $value)
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method string getLoginAt()
+ * @method $this setLoginAt(string $value)
+ * @method string getLogoutAt()
+ * @method $this setLogoutAt(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
  */
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {

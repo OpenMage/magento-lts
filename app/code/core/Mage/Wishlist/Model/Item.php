@@ -15,6 +15,7 @@
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
  * @method string getAddedAt()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getResourceCollection()
  *
  * @method string getDescription()
  * @method bool getHasError()

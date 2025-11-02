@@ -14,6 +14,8 @@
  *
  * @method Mage_Directory_Model_Resource_Country_Format _getResource()
  * @method Mage_Directory_Model_Resource_Country_Format_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Country_Format_Collection getResourceCollection()
+ *
  * @method string getCountryId()
  * @method string getFormat()
  * @method Mage_Directory_Model_Resource_Country_Format getResource()

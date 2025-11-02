@@ -13,10 +13,11 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Batch_Export _getResource()
- * @method int getBatchId()
  * @method Mage_Dataflow_Model_Resource_Batch_Export getResource()
- * @method int getStatus()
+ *
+ * @method int getBatchId()
  * @method $this setBatchId(int $value)
+ * @method int getStatus()
  * @method $this setStatus(int $value)
  */
 class Mage_Dataflow_Model_Batch_Export extends Mage_Dataflow_Model_Batch_Abstract

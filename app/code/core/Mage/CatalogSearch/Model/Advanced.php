@@ -14,6 +14,7 @@
  *
  * @method int getAttributeSetId()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getResourceCollection()
  *
  * @method string getCreatedAt()
  * @method int getEntityTypeId()

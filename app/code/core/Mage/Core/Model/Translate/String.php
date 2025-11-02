@@ -15,6 +15,7 @@
  * @method Mage_Core_Model_Resource_Translate_String _getResource()
  * @method string getLocale()
  * @method Mage_Core_Model_Resource_Translate_String getResource()
+ *
  * @method int getStoreId()
  * @method array getStoreTranslations()
  * @method string getTranslate()

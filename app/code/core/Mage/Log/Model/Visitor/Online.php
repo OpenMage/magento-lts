@@ -19,6 +19,9 @@
  * @method string getLastVisitAt()
  * @method int getRemoteAddr()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
+ *
  * @method string getVisitorType()
  * @method $this setCustomerId(int $value)
  * @method $this setFirstVisitAt(string $value)

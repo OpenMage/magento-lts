@@ -12,9 +12,10 @@
  *
  * @package    Mage_CatalogIndex
  *
- * @method array getMinimalPriceData()
- *
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
+ *
+ * @method array getMinimalPriceData()
  * @method $this setMinimalPriceData(array $data)
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract

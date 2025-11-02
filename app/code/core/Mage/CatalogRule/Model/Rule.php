@@ -15,6 +15,7 @@
  * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
  * @method array getCollectedAttributes()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
+ * @method Mage_CatalogRule_Model_Resource_Rule_Collection getResourceCollection()
  *
  * @method string getDescription()
  * @method string getFromDate()

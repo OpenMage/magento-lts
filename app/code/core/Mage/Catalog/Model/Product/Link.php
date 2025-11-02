@@ -13,13 +13,16 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
- * @method int getLinkedProductId()
- * @method int getLinkTypeId()
- * @method int getProductId()
  * @method Mage_Catalog_Model_Resource_Product_Link getResource()
- * @method $this setLinkedProductId(int $value)
- * @method $this setLinkTypeId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getCollection()
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getResourceCollection()
+ *
+ * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method int getLinkedProductId()
+ * @method $this setLinkedProductId(int $value)
+ * @method int getLinkTypeId()
+ * @method $this setLinkTypeId(int $value)
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
