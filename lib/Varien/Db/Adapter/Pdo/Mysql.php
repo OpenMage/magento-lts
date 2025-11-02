@@ -487,9 +487,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Special handling for PDO query().
      * All bind parameter names must begin with ':'.
      *
-     * @param string|Zend_Db_Select $sql The SQL statement with placeholders.
-     * @param mixed $bind An array of data or data itself to bind to the placeholders.
-     * @throws Zend_Db_Adapter_Exception To re-throw PDOException.
+     * @param string|Zend_Db_Select $sql the SQL statement with placeholders
+     * @param mixed $bind an array of data or data itself to bind to the placeholders
+     * @throws Zend_Db_Adapter_Exception to re-throw PDOException
      * @return Zend_Db_Statement_Pdo
      */
     public function query($sql, $bind = [])
@@ -1563,11 +1563,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * Method revrited for handle empty arrays in value param
      *
-     * @param string  $text  The text with a placeholder.
-     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param string  $text  the text with a placeholder
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
      * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
-     * @return string An SQL-safe quoted value placed into the original text.
+     * @return string an SQL-safe quoted value placed into the original text
      */
     public function quoteInto($text, $value, $type = null, $count = null)
     {
@@ -2051,7 +2051,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Special for Zero values to identity column
      *
      * @param string $table
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertForce($table, array $bind)
     {
@@ -2065,11 +2065,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of column-value pairs
      * @param array $fields update fields pairs or values
      * @throws Zend_Db_Exception
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {
@@ -2138,10 +2138,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Inserts a table multiply rows with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of Column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of Column-value pairs
      * @throws Zend_Db_Exception
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertMultiple($table, array $data)
     {
@@ -2203,10 +2203,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $bind Column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $bind column-value pairs
      * @throws Zend_Db_Adapter_Exception
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertIgnore($table, array $bind)
     {

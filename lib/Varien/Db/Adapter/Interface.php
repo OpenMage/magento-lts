@@ -409,19 +409,19 @@ interface Varien_Db_Adapter_Interface
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of column-value pairs
      * @param array $fields update fields pairs or values
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = []);
 
     /**
      * Inserts a table multiply rows with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of Column-value pairs.
-     * @return int The number of affected rows.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of Column-value pairs
+     * @return int the number of affected rows
      */
     public function insertMultiple($table, array $data);
 
@@ -437,9 +437,9 @@ interface Varien_Db_Adapter_Interface
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $bind Column-value pairs.
-     * @return int The number of affected rows.
+     * @param mixed $table the table to insert data into
+     * @param array $bind column-value pairs
+     * @return int the number of affected rows
      */
     public function insert($table, array $bind);
 
@@ -448,35 +448,35 @@ interface Varien_Db_Adapter_Interface
      * Special for Zero values to identity column
      *
      * @param string $table
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertForce($table, array $bind);
 
     /**
      * Updates table rows with specified data based on a WHERE clause.
      *
-     * @param  mixed        $table The table to update.
-     * @param  array        $bind  Column-value pairs.
-     * @param  mixed        $where UPDATE WHERE clause(s).
-     * @return int          The number of affected rows.
+     * @param  mixed        $table the table to update
+     * @param  array        $bind  column-value pairs
+     * @param  mixed        $where UPDATE WHERE clause(s)
+     * @return int          the number of affected rows
      */
     public function update($table, array $bind, $where = '');
 
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $bind Column-value pairs.
-     * @return int The number of affected rows.
+     * @param mixed $table the table to insert data into
+     * @param array $bind column-value pairs
+     * @return int the number of affected rows
      */
     public function insertIgnore($table, array $bind);
 
     /**
      * Deletes table rows based on a WHERE clause.
      *
-     * @param  mixed        $table The table to update.
-     * @param  mixed        $where DELETE WHERE clause(s).
-     * @return int          The number of affected rows.
+     * @param  mixed        $table the table to update
+     * @param  mixed        $where DELETE WHERE clause(s)
+     * @return int          the number of affected rows
      */
     public function delete($table, $where = '');
 
@@ -485,7 +485,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param  mixed  $sql  The SQL statement with placeholders.
      *                      May be a string or Zend_Db_Select.
-     * @param  mixed  $bind An array of data or data itself to bind to the placeholders.
+     * @param  mixed  $bind an array of data or data itself to bind to the placeholders
      * @return Zend_Db_Statement_Interface
      */
     public function query($sql, $bind = []);
@@ -502,9 +502,9 @@ interface Varien_Db_Adapter_Interface
      * Fetches all SQL result rows as a sequential array.
      * Uses the current fetchMode for the adapter.
      *
-     * @param string|Zend_Db_Select $sql  An SQL SELECT statement.
-     * @param mixed                 $bind Data to bind into SELECT placeholders.
-     * @param mixed                 $fetchMode Override current fetch mode.
+     * @param string|Zend_Db_Select $sql  an SQL SELECT statement
+     * @param mixed                 $bind data to bind into SELECT placeholders
+     * @param mixed                 $fetchMode override current fetch mode
      * @return array
      */
     public function fetchAll($sql, $bind = [], $fetchMode = null);
@@ -513,9 +513,9 @@ interface Varien_Db_Adapter_Interface
      * Fetches the first row of the SQL result.
      * Uses the current fetchMode for the adapter.
      *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
-     * @param mixed                 $fetchMode Override current fetch mode.
+     * @param string|Zend_Db_Select $sql an SQL SELECT statement
+     * @param mixed $bind data to bind into SELECT placeholders
+     * @param mixed                 $fetchMode override current fetch mode
      * @return array
      */
     public function fetchRow($sql, $bind = [], $fetchMode = null);
@@ -529,8 +529,8 @@ interface Varien_Db_Adapter_Interface
      * rows with duplicate values in the first column will
      * overwrite previous data.
      *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
+     * @param string|Zend_Db_Select $sql an SQL SELECT statement
+     * @param mixed $bind data to bind into SELECT placeholders
      * @return array
      */
     public function fetchAssoc($sql, $bind = []);
@@ -540,8 +540,8 @@ interface Varien_Db_Adapter_Interface
      *
      * The first column in each row is used as the array key.
      *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
+     * @param string|Zend_Db_Select $sql an SQL SELECT statement
+     * @param mixed $bind data to bind into SELECT placeholders
      * @return array
      */
     public function fetchCol($sql, $bind = []);
@@ -552,8 +552,8 @@ interface Varien_Db_Adapter_Interface
      * The first column is the key, the second column is the
      * value.
      *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
+     * @param string|Zend_Db_Select $sql an SQL SELECT statement
+     * @param mixed $bind data to bind into SELECT placeholders
      * @return array
      */
     public function fetchPairs($sql, $bind = []);
@@ -561,8 +561,8 @@ interface Varien_Db_Adapter_Interface
     /**
      * Fetches the first column of the first row of the SQL result.
      *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
+     * @param string|Zend_Db_Select $sql an SQL SELECT statement
+     * @param mixed $bind data to bind into SELECT placeholders
      * @return string
      */
     public function fetchOne($sql, $bind = []);
@@ -573,9 +573,9 @@ interface Varien_Db_Adapter_Interface
      * If an array is passed as the value, the array values are quoted
      * and then returned as a comma-separated string.
      *
-     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
      * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
-     * @return string An SQL-safe quoted value (or string of separated values).
+     * @return string an SQL-safe quoted value (or string of separated values)
      */
     public function quote($value, $type = null);
 
@@ -592,11 +592,11 @@ interface Varien_Db_Adapter_Interface
      * // $safe = "WHERE date < '2005-01-02'"
      * </code>
      *
-     * @param string  $text  The text with a placeholder.
-     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition.
+     * @param string  $text  the text with a placeholder
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
      * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
-     * @return string An SQL-safe quoted value placed into the original text.
+     * @return string an SQL-safe quoted value placed into the original text
      */
     public function quoteInto($text, $value, $type = null, $count = null);
 
@@ -618,29 +618,29 @@ interface Varien_Db_Adapter_Interface
      * The actual quote character surrounding the identifiers may vary depending on
      * the adapter.
      *
-     * @param array|string|Zend_Db_Expr $ident The identifier.
-     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
-     * @return string The quoted identifier.
+     * @param array|string|Zend_Db_Expr $ident the identifier
+     * @param bool $auto if true, heed the AUTO_QUOTE_IDENTIFIERS config option
+     * @return string the quoted identifier
      */
     public function quoteIdentifier($ident, $auto = false);
 
     /**
      * Quote a column identifier and alias.
      *
-     * @param array|string|Zend_Db_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the column.
-     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
-     * @return string The quoted identifier and alias.
+     * @param array|string|Zend_Db_Expr $ident the identifier or expression
+     * @param string $alias an alias for the column
+     * @param bool $auto if true, heed the AUTO_QUOTE_IDENTIFIERS config option
+     * @return string the quoted identifier and alias
      */
     public function quoteColumnAs($ident, $alias, $auto = false);
 
     /**
      * Quote a table identifier and alias.
      *
-     * @param array|string|Zend_Db_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the table.
-     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
-     * @return string The quoted identifier and alias.
+     * @param array|string|Zend_Db_Expr $ident the identifier or expression
+     * @param string $alias an alias for the table
+     * @param bool $auto if true, heed the AUTO_QUOTE_IDENTIFIERS config option
+     * @return string the quoted identifier and alias
      */
     public function quoteTableAs($ident, $alias = null, $auto = false);
 

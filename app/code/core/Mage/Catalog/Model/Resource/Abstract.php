@@ -522,7 +522,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param mixed $value New value of the attribute.
+     * @param mixed $value new value of the attribute
      * @return bool
      */
     protected function _canUpdateAttribute(

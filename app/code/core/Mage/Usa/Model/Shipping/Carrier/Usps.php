@@ -1345,7 +1345,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated This method should not be used anymore.
+     * @deprecated this method should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
      */
     protected function _formUsExpressShipmentRequest(Varien_Object $request)
@@ -1490,7 +1490,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated Should not be used anymore.
+     * @deprecated should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
      */
     protected function _formIntlShipmentRequest(Varien_Object $request)

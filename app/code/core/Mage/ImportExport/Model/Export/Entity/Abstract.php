@@ -322,7 +322,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
+     * @param int $errorRowNum row number
      * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
