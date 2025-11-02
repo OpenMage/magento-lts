@@ -46,8 +46,8 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
      *
      * @param string|Zend_Db_Select|Zend_Db_Statement_Interface $query
      * @param Zend_Db_Adapter_Abstract $conn
-     * @return Zend_Db_Statement_Interface
      * @throws Mage_Core_Exception
+     * @return Zend_Db_Statement_Interface
      */
     protected function _getStatement($query, $conn = null)
     {

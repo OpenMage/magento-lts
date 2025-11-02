@@ -112,8 +112,8 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
      * Declare qty
      *
      * @param float $qty
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setQty($qty)
     {

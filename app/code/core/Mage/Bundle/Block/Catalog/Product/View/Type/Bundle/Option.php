@@ -171,8 +171,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getSelectionQtyTitlePrice($selection, $includeContainer = true)
     {
@@ -212,8 +212,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getSelectionTitlePrice($selection, $includeContainer = true)
     {
@@ -245,8 +245,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param float $price
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function formatPriceString($price, $includeContainer = true)
     {

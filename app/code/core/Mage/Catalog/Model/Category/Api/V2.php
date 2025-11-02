@@ -53,10 +53,10 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param int $parentId
      * @param array $categoryData
      * @param null|int|string $store
-     * @return int
      * @throws Mage_Api_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Mage_Core_Exception
+     * @return int
      */
     public function create($parentId, $categoryData, $store = null)
     {
@@ -109,8 +109,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param int $categoryId
      * @param array $categoryData
      * @param int|string $store
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function update($categoryId, $categoryData, $store = null)
     {

@@ -212,8 +212,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get resource instance
      *
-     * @return Mage_Eav_Model_Entity_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getResource()
     {
@@ -601,9 +601,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param string $filter primary key for the joined entity (entity_id default)
      * @param string $joinType inner|left
      * @param int $storeId
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @return $this
      * @todo connect between joined attributes of same entity
      */
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)
@@ -862,9 +862,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -906,8 +906,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param int $limit
      * @param int $offset
-     * @return Varien_Db_Select
      * @throws Mage_Core_Exception
+     * @return Varien_Db_Select
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
@@ -1053,8 +1053,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function _loadEntities($printQuery = false, $logQuery = false)
     {
@@ -1096,9 +1096,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @return $this
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
@@ -1168,8 +1168,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param   string $table
      * @param array $attributeIds
-     * @return  Varien_Db_Select
      * @throws Mage_Core_Exception
+     * @return  Varien_Db_Select
      */
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {

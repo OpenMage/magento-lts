@@ -32,8 +32,8 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
      * Parse Request body into array of params
      *
      * @param string $body  Posted content from request
-     * @return array
      * @throws Exception|Mage_Api2_Exception
+     * @return array
      */
     public function interpret($body)
     {

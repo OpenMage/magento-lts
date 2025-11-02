@@ -149,9 +149,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param array|stdClass $productData
      * @param int|string $store
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function update($productId, $productData, $store = null, $identifierType = null)
     {

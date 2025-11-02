@@ -324,8 +324,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Success Registration
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer)
     {
@@ -551,9 +551,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Returns success URL
      *
      * @param bool $isJustConfirmed
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @return string
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)
     {

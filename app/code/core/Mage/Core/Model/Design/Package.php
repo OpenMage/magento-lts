@@ -450,8 +450,8 @@ class Mage_Core_Model_Design_Package
      * $params['_type'] is required
      *
      * @param string $file
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getFilename($file, array $params)
     {
@@ -511,8 +511,8 @@ class Mage_Core_Model_Design_Package
      * Get skin file url
      *
      * @param null|string $file
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getSkinUrl($file = null, array $params = [])
     {

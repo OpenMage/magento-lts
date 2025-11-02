@@ -88,8 +88,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
+     * @return null|string
      */
     public function getStoreCodeFromPath()
     {

@@ -58,8 +58,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     /**
      * @param string $expr
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setCronExpr($expr)
     {
@@ -114,8 +114,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     /**
      * @param string $expr
      * @param int $num
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function matchCronExpression($expr, $num)
     {

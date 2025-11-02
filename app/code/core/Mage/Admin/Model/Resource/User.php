@@ -157,8 +157,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role record with user
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {

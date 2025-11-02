@@ -24,8 +24,8 @@ class Mage_Sales_Model_Observer
     /**
      * Clean expired quotes (cron process)
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function cleanExpiredQuotes()
     {
@@ -173,8 +173,8 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales shipment report statistics for last day
      *
-     * @return $this
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function aggregateSalesReportShipmentData()
     {
@@ -189,8 +189,8 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales invoiced report statistics for last day
      *
-     * @return $this
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function aggregateSalesReportInvoicedData()
     {
@@ -205,8 +205,8 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales refunded report statistics for last day
      *
-     * @return $this
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function aggregateSalesReportRefundedData()
     {
@@ -221,8 +221,8 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh bestsellers report statistics for last day
      *
-     * @return $this
      * @throws Zend_Date_Exception
+     * @return $this
      */
     public function aggregateSalesReportBestsellersData()
     {

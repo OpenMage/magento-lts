@@ -24,8 +24,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getAfterElementHtml()
     {

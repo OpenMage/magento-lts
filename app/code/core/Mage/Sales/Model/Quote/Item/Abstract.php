@@ -833,8 +833,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      *
      * @param float $value
      * @param bool $saveTaxes
-     * @return float
      * @throws Mage_Core_Model_Store_Exception
+     * @return float
      * @deprecated
      */
     protected function _calculatePrice($value, $saveTaxes = true)

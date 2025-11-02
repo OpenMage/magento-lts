@@ -98,8 +98,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Initialize form object
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function initForm()
     {
@@ -246,8 +246,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Return JSON object with countries associated to possible websites
      *
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getDefaultCountriesJson()
     {

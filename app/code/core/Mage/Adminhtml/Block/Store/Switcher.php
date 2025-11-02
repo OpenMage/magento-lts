@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Website_Collection
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Resource_Website_Collection
      * @deprecated
      */
     public function getWebsiteCollection()
@@ -172,8 +172,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @return mixed
      * @throws Exception
+     * @return mixed
      */
     public function getStoreId()
     {

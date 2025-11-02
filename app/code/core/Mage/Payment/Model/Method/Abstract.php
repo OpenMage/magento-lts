@@ -581,8 +581,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to accept a payment that us under review
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
@@ -596,8 +596,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to deny a payment that us under review
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {

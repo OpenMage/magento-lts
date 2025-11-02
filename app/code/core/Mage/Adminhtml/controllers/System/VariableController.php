@@ -36,8 +36,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     /**
      * Initialize Variable object
      *
-     * @return Mage_Core_Model_Variable
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Variable
      */
     protected function _initVariable()
     {

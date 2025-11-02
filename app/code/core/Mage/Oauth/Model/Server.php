@@ -389,8 +389,8 @@ class Mage_Oauth_Model_Server
      * Extract parameters from sources (GET, FormBody, Authorization header), decode them and validate
      *
      * @param string $requestType Request type - one of REQUEST_... class constant
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _processRequest($requestType)
     {
@@ -709,8 +709,8 @@ class Mage_Oauth_Model_Server
      * Create response string for problem during request and set HTTP error code
      *
      * @param null|Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
-     * @return string
      * @throws Zend_Controller_Response_Exception
+     * @return string
      */
     public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
     {

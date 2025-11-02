@@ -112,8 +112,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Get currency rate (only base=>allowed)
      *
      * @param Mage_Directory_Model_Currency|string $toCurrency
-     * @return float|int
      * @throws Mage_Core_Exception
+     * @return float|int
      */
     public function getRate($toCurrency)
     {
@@ -138,8 +138,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Get currency rate (base=>allowed or allowed=>base)
      *
      * @param Mage_Directory_Model_Currency|string $toCurrency
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getAnyRate($toCurrency)
     {
@@ -165,8 +165,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      *
      * @param float $price
      * @param null|Mage_Directory_Model_Currency|string $toCurrency
-     * @return float
      * @throws Exception
+     * @return float
      */
     public function convert($price, $toCurrency = null)
     {

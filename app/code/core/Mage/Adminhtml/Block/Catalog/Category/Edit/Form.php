@@ -86,8 +86,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getStoreConfigurationUrl()
     {

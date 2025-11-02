@@ -161,8 +161,8 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
     /**
      * Get tax management url
      *
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getInfoUrl()
     {

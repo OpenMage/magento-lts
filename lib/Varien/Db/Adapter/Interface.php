@@ -216,8 +216,8 @@ interface Varien_Db_Adapter_Interface
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @return bool
      * @throws Zend_Db_Exception
+     * @return bool
      */
     public function renameTablesBatch(array $tablePairs);
 

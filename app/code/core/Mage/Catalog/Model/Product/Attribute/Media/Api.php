@@ -72,8 +72,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param string $file
      * @param int|string $store
      * @param null|string $identifierType
-     * @return array
      * @throws Mage_Api_Exception
+     * @return array
      */
     public function info($productId, $file, $store = null, $identifierType = null)
     {
@@ -95,8 +95,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param array $data
      * @param int|string $store
      * @param null|string $identifierType
-     * @return string
      * @throws Mage_Api_Exception
+     * @return string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -189,8 +189,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param array $data
      * @param int|string $store
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -262,8 +262,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param string $file
      * @param null|string $identifierType
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function remove($productId, $file, $identifierType = null)
     {

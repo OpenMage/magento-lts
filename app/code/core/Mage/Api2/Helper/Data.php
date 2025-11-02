@@ -164,8 +164,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      * Get operation type for specified operation
      *
      * @param Mage_Api2_Model_Resource::OPERATION_* $operation
-     * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
+     * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      */
     public function getTypeOfOperation($operation)
     {

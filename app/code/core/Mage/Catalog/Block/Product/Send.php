@@ -34,8 +34,8 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getProductId()
     {

@@ -270,9 +270,9 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     }
 
     /**
-     * @return Mage_Eav_Model_Convert_Adapter_Entity
      * @throws Mage_Core_Model_Store_Exception
      * @throws Varien_Convert_Exception
+     * @return Mage_Eav_Model_Convert_Adapter_Entity
      */
     public function load()
     {
@@ -373,8 +373,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function save()
     {

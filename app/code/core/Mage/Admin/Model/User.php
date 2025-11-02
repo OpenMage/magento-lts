@@ -203,8 +203,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function saveRelations()
     {
@@ -367,8 +367,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function authenticate($username, $password)
     {
@@ -426,8 +426,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return  $this
      * @throws Mage_Core_Exception
+     * @return  $this
      */
     public function login($username, $password)
     {
@@ -584,8 +584,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      * Returns TRUE or array of errors.
      *
-     * @return array|true
      * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validate()
     {
@@ -651,8 +651,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns true or array of errors.
      *
      * @param string $password
-     * @return array|true
      * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validateCurrentPassword($password)
     {
@@ -677,8 +677,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {

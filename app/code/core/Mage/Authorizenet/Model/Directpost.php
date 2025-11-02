@@ -61,8 +61,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send authorize request to gateway
      *
      * @param  float $amount
-     * @return void
      * @throws Mage_Core_Exception
+     * @return void
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -74,8 +74,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -144,8 +144,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Void the payment through gateway
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -211,8 +211,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Need to decode Last 4 digits for request.
      *
      * @param float $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -234,8 +234,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param string $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _refund(Varien_Object $payment, $amount)
     {
@@ -391,8 +391,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Validate response data. Needed in controllers.
      *
-     * @return bool true in case of validation success.
      * @throws Mage_Core_Exception in case of validation error
+     * @return bool true in case of validation success.
      */
     public function validateResponse()
     {
@@ -486,8 +486,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check response code came from authorize.net.
      *
-     * @return true in case of Approved response
      * @throws Mage_Core_Exception in case of Declined or Error response from Authorize.net
+     * @return true in case of Approved response
      */
     public function checkResponseCode()
     {
@@ -506,8 +506,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check transaction id came from Authorize.net
      *
-     * @return true in case of right transaction id
      * @throws Mage_Core_Exception in case of bad transaction id.
+     * @return true in case of right transaction id
      */
     public function checkTransId()
     {

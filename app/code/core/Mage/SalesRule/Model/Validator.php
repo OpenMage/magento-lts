@@ -292,8 +292,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Quote item discount calculation process
      *
-     * @return Mage_SalesRule_Model_Validator
      * @throws Mage_Core_Exception
+     * @return Mage_SalesRule_Model_Validator
      */
     public function process(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -997,8 +997,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Return item original price
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return float
      * @throws Mage_Core_Model_Store_Exception
+     * @return float
      */
     protected function _getItemOriginalPrice($item)
     {
@@ -1021,8 +1021,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Return item base original price
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return float
      * @throws Mage_Core_Model_Store_Exception
+     * @return float
      */
     protected function _getItemBaseOriginalPrice($item)
     {

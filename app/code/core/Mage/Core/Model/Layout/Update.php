@@ -302,8 +302,8 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function fetchFileLayoutUpdates()
     {
@@ -335,8 +335,8 @@ class Mage_Core_Model_Layout_Update
 
     /**
      * @param string $handle
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function fetchPackageLayoutUpdates($handle)
     {

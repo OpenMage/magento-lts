@@ -309,8 +309,8 @@ class Mage_CatalogInventory_Model_Observer
      * Check product inventory data when quote item quantity declaring
      *
      * @param  Varien_Event_Observer $observer
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function checkQuoteItemQty($observer)
     {

@@ -30,9 +30,9 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
      * @throws Exception
      * @throws Zend_Validate_Exception
+     * @return array|bool
      */
     public function validate()
     {

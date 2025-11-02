@@ -341,8 +341,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve all customer attributes
      *
      * @param bool $noDesignAttributes
-     * @return Mage_Eav_Model_Entity_Attribute[]
      * @throws Mage_Core_Exception
+     * @return Mage_Eav_Model_Entity_Attribute[]
      * @todo Use with Flat Resource
      */
     public function getAttributes($noDesignAttributes = false)

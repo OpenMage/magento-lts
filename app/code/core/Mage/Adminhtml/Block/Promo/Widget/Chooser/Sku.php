@@ -169,8 +169,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @return array
      * @throws Exception
+     * @return array
      */
     protected function _getSelectedProducts()
     {

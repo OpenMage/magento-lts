@@ -258,8 +258,8 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  string $cond Join on this condition
      * @param  array|string $cols The columns to select from the joined table
      * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object
      * @throws Zend_Db_Select_Exception
+     * @return Zend_Db_Select This Zend_Db_Select object
      */
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
@@ -348,8 +348,8 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param string $part
      * @param mixed $value
-     * @return $this
      * @throws Zend_Db_Select_Exception
+     * @return $this
      */
     public function setPart($part, $value)
     {

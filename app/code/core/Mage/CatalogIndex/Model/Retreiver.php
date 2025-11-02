@@ -74,8 +74,8 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
      * Returns data retriever model by specified product type
      *
      * @param string $type
-     * @return false|Mage_CatalogIndex_Model_Data_Abstract
      * @throws Mage_Core_Exception
+     * @return false|Mage_CatalogIndex_Model_Data_Abstract
      */
     public function getRetreiver($type)
     {

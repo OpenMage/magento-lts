@@ -675,8 +675,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param int $amount
      * @param Varien_Object $payment
      * @param string $parentTransactionId
-     * @return Mage_Paypal_Model_Api_Abstract
      * @throws Mage_Paypal_Model_Api_ProcessableException
+     * @return Mage_Paypal_Model_Api_Abstract
      */
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {

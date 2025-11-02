@@ -471,8 +471,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param null|Mage_Core_Model_Store $store
      * @param bool $priceIncludesTax flag what price parameter contain tax
      * @param bool $roundPrice
-     * @return  float
      * @throws Mage_Core_Model_Store_Exception
+     * @return  float
      */
     public function getPrice(
         $product,
@@ -1129,8 +1129,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Get all FPTs
      *
      * @param null|mixed $source
-     * @return array
      * @throws Mage_Core_Model_Store_Exception
+     * @return array
      */
     public function getAllWeee($source = null)
     {
@@ -1213,9 +1213,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Use flag to store ignore setting rather than config to avoid config re-init/save
      * Read config value for backwards compatibility.
      *
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @throws Throwable
+     * @return bool
      */
     protected function _isIgnored(string $key)
     {
@@ -1234,8 +1234,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return void
      * @throws Throwable
+     * @return void
      */
     public function setIsIgnored(string $key, bool $value)
     {

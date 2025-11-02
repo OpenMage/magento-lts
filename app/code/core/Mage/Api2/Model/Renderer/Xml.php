@@ -73,8 +73,8 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      *
      * @param array|Varien_Object $data
      * @param bool $root
-     * @return array
      * @throws Exception
+     * @return array
      */
     protected function _prepareData($data, $root = false)
     {

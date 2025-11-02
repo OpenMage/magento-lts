@@ -69,8 +69,8 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Create image resource for operation from file
      *
-     * @return false|GdImage|resource
      * @throws Mage_Core_Exception
+     * @return false|GdImage|resource
      */
     public function getImage(Mage_Media_Model_Image $object)
     {

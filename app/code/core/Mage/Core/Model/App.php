@@ -854,8 +854,8 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|bool|int|Mage_Core_Model_Store|string $id
-     * @return null|Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return null|Mage_Core_Model_Store
      */
     public function getStore($id = null)
     {
@@ -1402,8 +1402,8 @@ class Mage_Core_Model_App
     /**
      * @param string $eventName
      * @param array $args
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function dispatchEvent($eventName, $args)
     {
@@ -1477,8 +1477,8 @@ class Mage_Core_Model_App
      * @param string $method
      * @param Varien_Event_Observer $observer
      * @param string $observerName
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
     {

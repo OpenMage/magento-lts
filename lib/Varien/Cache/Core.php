@@ -24,8 +24,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Constructor
      *
-     * @throws Varien_Exception
      * @param array|Zend_Config $options Associative array of options or Zend_Config instance
+     * @throws Varien_Exception
      */
     public function __construct($options = [])
     {

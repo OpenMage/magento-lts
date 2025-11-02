@@ -46,8 +46,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
     /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -84,8 +84,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * @return array
      * @throws Exception
+     * @return array
      */
     protected function _getCreatedProducts()
     {

@@ -169,8 +169,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Retrieve file extension using MIME type
      *
-     * @throws Mage_Api2_Exception
      * @param string $mimeType
+     * @throws Mage_Api2_Exception
      * @return string
      */
     protected function _getExtensionByMimeType($mimeType)
@@ -185,8 +185,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Get file URI by its id. File URI is used by media backend to identify image
      *
-     * @throws Mage_Api2_Exception
      * @param int $imageId
+     * @throws Mage_Api2_Exception
      * @return string
      */
     protected function _getImageFileById($imageId)

@@ -317,8 +317,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * Prepare product collection
      *
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function prepareProductCollection($collection)
     {

@@ -636,8 +636,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Add option to item
      *
      * @param array|Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function addOption($option)
     {

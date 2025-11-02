@@ -556,8 +556,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Type_Abstract
      */
     public function checkProductBuyState($product = null)
     {

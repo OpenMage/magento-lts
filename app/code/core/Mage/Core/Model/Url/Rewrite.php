@@ -201,8 +201,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Implement logic of custom rewrites
      *
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */

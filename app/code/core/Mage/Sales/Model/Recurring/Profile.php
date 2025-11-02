@@ -353,8 +353,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Import quote information to the profile
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function importQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -573,8 +573,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      *
      * @param string $againstState
      * @param bool $soft
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     protected function _checkWorkflow($againstState, $soft = true)
     {

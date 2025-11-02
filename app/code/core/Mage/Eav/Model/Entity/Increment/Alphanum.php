@@ -21,8 +21,8 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getNextId()
     {

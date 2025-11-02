@@ -27,8 +27,8 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
      * @param Mage_Catalog_Model_Product $product
      * @param string $templateType
      * @param bool $displayIfNoReviews
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getSummaryHtml($product, $templateType, $displayIfNoReviews)
     {

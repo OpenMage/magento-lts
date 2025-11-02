@@ -404,8 +404,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Run RAW Query
      *
      * @param string $sql
-     * @return Zend_Db_Statement_Interface
      * @throws PDOException
+     * @return Zend_Db_Statement_Interface
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
@@ -489,8 +489,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string|Zend_Db_Select $sql The SQL statement with placeholders.
      * @param mixed $bind An array of data or data itself to bind to the placeholders.
-     * @return Zend_Db_Statement_Pdo
      * @throws Zend_Db_Adapter_Exception To re-throw PDOException.
+     * @return Zend_Db_Statement_Pdo
      */
     public function query($sql, $bind = [])
     {
@@ -936,8 +936,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param   string $columnName
      * @param   array|string $definition  string specific or universal array DB Server definition
      * @param   string $schemaName
-     * @return  bool|int|Zend_Db_Statement_Interface
      * @throws  Zend_Db_Exception
+     * @return  bool|int|Zend_Db_Statement_Interface
      */
     public function addColumn($tableName, $columnName, $definition, $schemaName = null)
     {
@@ -1021,8 +1021,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param array $definition
      * @param bool $flushData        flush table statistic
      * @param string $schemaName
-     * @return Zend_Db_Statement_Interface|Zend_Db_Statement_Pdo
      * @throws Zend_Db_Exception
+     * @return Zend_Db_Statement_Interface|Zend_Db_Statement_Pdo
      */
     public function changeColumn(
         $tableName,
@@ -1071,8 +1071,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param array|string $definition
      * @param bool $flushData
      * @param string $schemaName
-     * @return $this
      * @throws Zend_Db_Exception
+     * @return $this
      */
     public function modifyColumn($tableName, $columnName, $definition, $flushData = false, $schemaName = null)
     {
@@ -2068,8 +2068,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param mixed $table The table to insert data into.
      * @param array $data Column-value pairs or array of column-value pairs.
      * @param array $fields update fields pairs or values
-     * @return int The number of affected rows.
      * @throws Zend_Db_Exception
+     * @return int The number of affected rows.
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {
@@ -2140,8 +2140,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param mixed $table The table to insert data into.
      * @param array $data Column-value pairs or array of Column-value pairs.
-     * @return int The number of affected rows.
      * @throws Zend_Db_Exception
+     * @return int The number of affected rows.
      */
     public function insertMultiple($table, array $data)
     {
@@ -2176,8 +2176,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Insert array to table based on columns definition
      *
      * @param   string $table
-     * @return  int
      * @throws  Zend_Db_Exception
+     * @return  int
      */
     public function insertArray($table, array $columns, array $data)
     {
@@ -2205,8 +2205,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param mixed $table The table to insert data into.
      * @param array $bind Column-value pairs.
-     * @return int The number of affected rows.
      * @throws Zend_Db_Adapter_Exception
+     * @return int The number of affected rows.
      */
     public function insertIgnore($table, array $bind)
     {
@@ -2341,8 +2341,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve columns and primary keys definition array for create table
      *
-     * @return array
      * @throws Zend_Db_Exception
+     * @return array
      */
     protected function _getColumnsDefinition(Varien_Db_Ddl_Table $table)
     {
@@ -2457,8 +2457,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table options definition array for create table
      *
-     * @return array
      * @throws Zend_Db_Exception
+     * @return array
      */
     protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)
     {
@@ -2515,8 +2515,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param array $options
      * @param string $ddlType Table DDL Column type constant
      * @throws Varien_Exception
-     * @return string
      * @throws Zend_Db_Exception
+     * @return string
      */
     protected function _getColumnDefinition($options, $ddlType = null)
     {
@@ -2691,8 +2691,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return $this
      * @throws Zend_Db_Exception
+     * @return $this
      */
     public function truncateTable($tableName, $schemaName = null)
     {
@@ -2740,8 +2740,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $oldTableName
      * @param string $newTableName
      * @param string $schemaName
-     * @return bool
      * @throws Zend_Db_Exception
+     * @return bool
      */
     public function renameTable($oldTableName, $newTableName, $schemaName = null)
     {
@@ -2769,8 +2769,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @return bool
      * @throws Zend_Db_Exception
+     * @return bool
      */
     public function renameTablesBatch(array $tablePairs)
     {
@@ -2807,8 +2807,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param array|string $fields  the table column name or array of ones
      * @param string $indexType     the index type
      * @param string $schemaName
-     * @return Zend_Db_Statement_Interface
      * @throws Exception|Zend_Db_Exception
+     * @return Zend_Db_Statement_Interface
      */
     public function addIndex(
         $tableName,
@@ -3347,8 +3347,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param int $interval
      * @param string $unit
-     * @return string
      * @throws Zend_Db_Exception
+     * @return string
      */
     protected function _getIntervalUnitSql($interval, $unit)
     {
@@ -3459,8 +3459,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param string $unit
-     * @return Zend_Db_Expr
      * @throws Zend_Db_Exception
+     * @return Zend_Db_Expr
      */
     public function getDateExtractSql($date, $unit)
     {
@@ -3696,8 +3696,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $rangeField
      * @param int $stepCount
-     * @return array
      * @throws Varien_Db_Exception
+     * @return array
      */
     public function selectsByRange($rangeField, Varien_Db_Select $select, $stepCount = 100)
     {

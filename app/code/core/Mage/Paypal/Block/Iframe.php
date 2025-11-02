@@ -68,8 +68,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get current block instance
      *
-     * @return Mage_Paypal_Block_Iframe
      * @throws Mage_Core_Exception
+     * @return Mage_Paypal_Block_Iframe
      */
     protected function _getBlock()
     {
@@ -137,8 +137,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Render the block if needed
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     protected function _toHtml()
     {
@@ -157,8 +157,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Check whether block is rendering after save payment
      *
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     protected function _isAfterPaymentSave()
     {
@@ -177,8 +177,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get iframe action URL
      *
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getFrameActionUrl()
     {
@@ -188,8 +188,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get secure token
      *
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getSecureToken()
     {
@@ -199,8 +199,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get secure token ID
      *
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getSecureTokenId()
     {
@@ -210,8 +210,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get payflow transaction URL
      *
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getTransactionUrl()
     {
@@ -221,8 +221,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Check sandbox mode
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function isTestMode()
     {

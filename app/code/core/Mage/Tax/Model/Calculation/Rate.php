@@ -136,8 +136,8 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Processing object before delete data
      *
-     * @return Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Abstract
      */
     protected function _beforeDelete()
     {

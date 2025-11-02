@@ -627,8 +627,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Check - is this file an image
      *
      * @param string $filePath
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function validateUploadFile($filePath)
     {

@@ -56,8 +56,8 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order is placed
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      * @throws Throwable
+     * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
