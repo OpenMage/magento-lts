@@ -12,6 +12,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getResourceCollection()
+ *
  * @method string getBackUrl()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)

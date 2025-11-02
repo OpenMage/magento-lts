@@ -21,12 +21,13 @@
  *
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getResourceCollection()
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
  * @method array|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(array|string $value)
- *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
  * @method float getBaseGrandTotal()
@@ -39,7 +40,6 @@
  * @method $this setBaseToGlobalRate(float $value)
  * @method float getBaseToQuoteRate()
  * @method $this setBaseToQuoteRate(float $value)
- *
  * @method bool hasChangedFlag()
  * @method bool getChangedFlag()
  * @method $this setCheckoutMethod(string $value)
@@ -75,13 +75,10 @@
  * @method $this setCustomerTaxClassId(int $value)
  * @method string getCustomerTaxvat()
  * @method $this setCustomerTaxvat(string $value)
- *
  * @method string getExtShippingInfo()
  * @method $this setExtShippingInfo(string $value)
- *
  * @method bool hasForcedCurrency()
  * @method string getForcedCurrency()
- *
  * @method $this setGiftMessage(string $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
@@ -89,9 +86,7 @@
  * @method $this setGlobalCurrencyCode(string $value)
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method bool getHasError()
- *
  * @method bool getIgnoreOldQty()
  * @method $this setIgnoreOldQty(bool $value)
  * @method bool getInventoryProcessed()
@@ -115,24 +110,18 @@
  * @method $this setItemsCount(int $value)
  * @method float getItemsQty()
  * @method $this setItemsQty(float $value)
- *
  * @method string getMethod()
- *
  * @method $this setOrderId(int $value)
  * @method int getOrigOrderId()
  * @method $this setOrigOrderId(int $value)
- *
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
- *
  * @method string getQuoteCurrencyCode()
  * @method $this setQuoteCurrencyCode(string $value)
- *
  * @method string getRemoteIp()
  * @method $this setRemoteIp(string $value)
  * @method string getReservedOrderId()
  * @method $this setReservedOrderId(string $value)
- *
  * @method $this setSharedStoreIds(array $value)
  * @method string getStoreCurrencyCode()
  * @method $this setStoreCurrencyCode(string $value)
@@ -146,27 +135,22 @@
  * @method $this setSubtotal(float $value)
  * @method float getSubtotalWithDiscount()
  * @method $this setSubtotalWithDiscount(float $value)
- *
  * @method array getTaxesForItems()
  * @method $this setTaxesForItems(array $itemTaxGroups)
  * @method bool getTotalsCollectedFlag()
  * @method $this setTotalsCollectedFlag(bool $value)
  * @method int getTriggerRecollect()
  * @method $this setTriggerRecollect(int $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method bool getUseCustomerBalance()
  * @method $this setUseCustomerBalance(bool $value)
  * @method bool getUseRewardPoints()
  * @method $this setUseRewardPoints(bool $value)
- *
  * @method float getVirtualItemsQty()
  * @method $this setVirtualItemsQty(float $value)
- *
  * @method Mage_Core_Model_Website getWebsite()
  * @method $this setWebsite(Mage_Core_Model_Website $value)
- *
  * @method $this setXForwardedFor(string $value)
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract

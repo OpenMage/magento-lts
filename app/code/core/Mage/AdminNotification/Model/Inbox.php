@@ -15,6 +15,8 @@
  * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
+ * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getResourceCollection()
+ *
  * @method string getDateAdded()
  * @method $this setDateAdded(string $value)
  * @method string getDescription()

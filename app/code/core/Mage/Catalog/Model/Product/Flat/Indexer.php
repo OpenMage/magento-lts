@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
+ *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()

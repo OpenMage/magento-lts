@@ -14,6 +14,9 @@
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row getResource()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection getCollection()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection getResourceCollection()
+ *
  * @method int getReportId()
  * @method $this setReportId(int $value)
  * @method string getTransactionId()

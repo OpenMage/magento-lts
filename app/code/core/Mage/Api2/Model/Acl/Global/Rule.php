@@ -16,6 +16,7 @@
  * @method Mage_Api2_Model_Resource_Acl_Global_Rule_Collection getResourceCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Rule getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Rule _getResource()
+ *
  * @method int getRoleId()
  * @method $this setRoleId(int $roleId)
  * @method string getResourceId()

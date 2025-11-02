@@ -15,6 +15,7 @@
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
+ * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getResourceCollection()
  *
  * @method int getSitemapId()
  * @method string getSitemapType()

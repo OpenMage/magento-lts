@@ -15,6 +15,7 @@
  * @method Mage_Review_Model_Resource_Review _getResource()
  * @method Mage_Review_Model_Resource_Review getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
+ * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
  *
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)

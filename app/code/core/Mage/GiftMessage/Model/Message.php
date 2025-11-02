@@ -15,6 +15,7 @@
  * @method Mage_GiftMessage_Model_Resource_Message _getResource()
  * @method Mage_GiftMessage_Model_Resource_Message getResource()
  * @method Mage_GiftMessage_Model_Resource_Message_Collection getCollection()
+ * @method Mage_GiftMessage_Model_Resource_Message_Collection getResourceCollection()
  *
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)

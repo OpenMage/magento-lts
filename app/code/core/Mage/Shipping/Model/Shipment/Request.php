@@ -12,7 +12,6 @@
  *
  * @method $this setOrderShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
  * @method Mage_Sales_Model_Order_Shipment getOrderShipment()
- *
  * @method $this setShipperContactPersonName(string $value)
  * @method string getShipperContactPersonName()
  * @method $this setShipperContactPersonFirstName(string $value)

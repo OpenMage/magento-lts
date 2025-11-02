@@ -14,6 +14,7 @@
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
+ *
  * @method int getActive()
  * @method $this setActive(int $value)
  * @method array getAddedProductIds()

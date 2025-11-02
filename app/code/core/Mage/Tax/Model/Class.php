@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Class _getResource()
  * @method Mage_Tax_Model_Resource_Class getResource()
  * @method Mage_Tax_Model_Resource_Class_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Class_Collection getResourceCollection()
  *
  * @method string getClassName()
  * @method $this setClassName(string $value)

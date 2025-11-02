@@ -13,12 +13,12 @@
  * @method Mage_Sales_Model_Resource_Quote_Address_Item _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Item getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Item_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Address_Item_Collection getResourceCollection()
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method null|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
- *
  * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
  * @method float getBaseDiscountAmount()
@@ -28,7 +28,6 @@
  * @method $this setBaseHiddenTaxAmount(float $value)
  * @method float getBasePrice()
  * @method $this setBasePrice(float $value)
- *
  * @method $this setCustomerAddressId(int $value)
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)

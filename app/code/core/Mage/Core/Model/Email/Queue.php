@@ -13,7 +13,10 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Email_Queue _getResource()
+ * @method Mage_Core_Model_Resource_Email_Queue getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Email_Queue_Collection getResourceCollection()
+ *
  * @method $this setCreatedAt(string $value)
  * @method int getEntityId()
  * @method $this setEntityId(int $value)

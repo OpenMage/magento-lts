@@ -15,6 +15,8 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getResourceCollection()
+ *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getDescription()

@@ -12,6 +12,9 @@
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
+ * @method Mage_Index_Model_Resource_Event_Collection getCollection()
+ * @method Mage_Index_Model_Resource_Event_Collection getResourceCollection()
+ *
  * @method $this setType(string $value)
  * @method $this setEntity(string $value)
  * @method bool hasEntityPk()

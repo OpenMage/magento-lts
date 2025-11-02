@@ -16,6 +16,7 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Aggregation _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
+ *
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method string getCreatedAt()

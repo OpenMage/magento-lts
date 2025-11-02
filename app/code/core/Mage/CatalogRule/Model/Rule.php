@@ -15,6 +15,7 @@
  * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
+ * @method Mage_CatalogRule_Model_Resource_Rule_Collection getResourceCollection()
  *
  * @method int getIsActive()
  * @method $this setIsActive(int $value)

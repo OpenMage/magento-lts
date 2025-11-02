@@ -15,6 +15,8 @@
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method Mage_Cron_Model_Resource_Schedule_Collection getResourceCollection()
+ *
  * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)

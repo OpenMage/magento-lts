@@ -12,6 +12,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Item_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Item_Collection getResourceCollection()
+ *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method float getBasePrice()

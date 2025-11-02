@@ -14,6 +14,7 @@
  *
  * @method Mage_Dataflow_Model_Resource_Profile_History _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile_History getResource()
+ *
  * @method int getProfileId()
  * @method $this setProfileId(int $value)
  * @method string getActionCode()

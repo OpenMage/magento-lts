@@ -12,6 +12,9 @@
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
  * @method Mage_Index_Model_Resource_Process getResource()
+ * @method Mage_Index_Model_Resource_Process_Collection getCollection()
+ * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
+ *
  * @method string getIndexCode()
  * @method string getIndexerCode()
  * @method $this setIndexerCode(string $value)

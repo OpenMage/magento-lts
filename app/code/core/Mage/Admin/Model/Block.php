@@ -15,6 +15,7 @@
  * @method Mage_Admin_Model_Resource_Block _getResource()
  * @method Mage_Admin_Model_Resource_Block getResource()
  * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
+ * @method Mage_Admin_Model_Resource_Block_Collection getResourceCollection()
  *
  * @method string getBlockName()
  * @method string getIsAllowed()

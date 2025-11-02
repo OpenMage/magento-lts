@@ -14,6 +14,8 @@
  *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
+ * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
+ *
  * @method string getFirstname()
  * @method $this setFirstname(string $value)
  * @method string getLastname()
@@ -46,7 +48,6 @@
  * @method int getRoleId()
  * @method array getRoleIds()
  * @method $this setLogdate(string $value)
- *
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
  */

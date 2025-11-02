@@ -15,10 +15,10 @@
  * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getResourceCollection()
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- *
  * @method $this setCcCid(string $value)
  * @method string getCcCidEnc()
  * @method $this setCcCidEnc(string $value)
@@ -49,15 +49,12 @@
  * @method $this setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
  * @method $this setCybersourceToken(string $value)
- *
  * @method string getIdealIssuerId()
  * @method $this setIdealIssuerId(string $value)
  * @method string getIdealIssuerList()
  * @method $this setIdealIssuerList(string $value)
- *
  * @method string getMethod()
  * @method $this setMethod(string $value)
- *
  * @method string getPaypalCorrelationId()
  * @method $this setPaypalCorrelationId(string $value)
  * @method string getPaypalPayerId()
@@ -66,13 +63,10 @@
  * @method $this setPaypalPayerStatus(string $value)
  * @method string getPoNumber()
  * @method $this setPoNumber(string $value)
- *
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
- *
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  */

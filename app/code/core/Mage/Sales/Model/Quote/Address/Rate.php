@@ -13,6 +13,7 @@
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getResourceCollection()
  *
  * @method int getAddressId()
  * @method $this setAddressId(int $value)

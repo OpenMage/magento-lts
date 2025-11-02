@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
  *
  * @method string getBackUrl()
  * @method int getBillingAddressId()

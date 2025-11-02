@@ -20,20 +20,14 @@
  * @method $this setCheckoutState(string $value)
  * @method string getContinueShoppingUrl()
  * @method $this setContinueShoppingUrl(string $value)
- *
  * @method bool getDisplaySuccess()
  * @method $this setDisplaySuccess(bool $value)
- *
  * @method array getEstimatedShippingAddressData()
  * @method $this setEstimatedShippingAddressData(array $value)
- *
  * @method bool getHasDownloadableProducts()
- *
  * @method string getGotoSection()
  * @method $this setGotoSection(string $value)
- *
  * @method $this setHasDownloadableProducts(bool $value)
- *
  * @method int getLastAddedProductId()
  * @method $this setLastAddedProductId(int $value)
  * @method int getLastBillingAgreementId()
@@ -52,32 +46,25 @@
  * @method int getLastSuccessQuoteId()
  * @method $this setLastSuccessQuoteId(null|int $value)
  * @method $this unsLastSuccessQuoteId()
- *
  * @method array getMethodData()
- *
  * @method bool getNoCartRedirect()
  * @method $this setNoCartRedirect(bool $value)
- *
  * @method array getPaypalTransactionData()
- *
  * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
  * @method bool getRememberMeChecked()
  * @method $this setRememberMeChecked(bool $value)
  * @method $this unsRememberMeChecked()
- *
  * @method string getSharedWishlist()
  * @method $this setSharedWishlist(string $value)
  * @method int getSingleWishlistId()
  * @method $this setSingleWishlistId(int $value)
  * @method array getSteps()
  * @method $this setSteps(array $value)
- *
  * @method string getUpdateSection()
  * @method $this setUpdateSection(string $value)
  * @method bool getUseNotice()
  * @method $this setUseNotice(bool $value)
- *
  * @method array getWishlistIds()
  * @method $this setWishlistIds(array $value)
  * @method array getWishlistPendingMessages()

@@ -12,7 +12,9 @@
  *
  * @package    Mage_Persistent
  *
+ * @method Mage_Persistent_Model_Resource_Session _getResource()
  * @method Mage_Persistent_Model_Resource_Session getResource()
+ *
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method string getInfo()
