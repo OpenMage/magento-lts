@@ -298,8 +298,8 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param string $attributeCode
      *
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
