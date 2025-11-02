@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Status _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Status_Collection getResourceCollection()
  *
  * @method string getStatus()
  * @method string getLabel()

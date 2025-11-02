@@ -15,6 +15,7 @@
  * @method Mage_Newsletter_Model_Resource_Queue _getResource()
  * @method Mage_Newsletter_Model_Resource_Queue getResource()
  * @method Mage_Newsletter_Model_Resource_Queue_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Queue_Collection getResourceCollection()
  *
  * @method int getTemplateId()
  * @method $this setTemplateId(int $value)

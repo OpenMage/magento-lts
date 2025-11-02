@@ -14,6 +14,8 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
  *
  * @method string getComment()
  * @method $this setComment(string $value)

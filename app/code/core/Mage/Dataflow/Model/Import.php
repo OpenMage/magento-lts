@@ -14,6 +14,8 @@
  *
  * @method Mage_Dataflow_Model_Resource_Import _getResource()
  * @method Mage_Dataflow_Model_Resource_Import getResource()
+ * @method Mage_Dataflow_Model_Resource_Import_Collection getCollection()
+ * @method Mage_Dataflow_Model_Resource_Import_Collection getResourceCollection()
  *
  * @method int getSessionId()
  * @method $this setSessionId(int $value)

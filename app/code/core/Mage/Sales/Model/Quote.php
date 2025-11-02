@@ -21,12 +21,13 @@
  *
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getResourceCollection()
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
  * @method array|string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(array|string $value)
- *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
  * @method float getBaseGrandTotal()
@@ -148,7 +149,6 @@
  * @method $this setUseRewardPoints(bool $value)
  * @method float getVirtualItemsQty()
  * @method $this setVirtualItemsQty(float $value)
- *
  * @method Mage_Core_Model_Website getWebsite()
  * @method $this setWebsite(Mage_Core_Model_Website $value)
  * @method $this setXForwardedFor(string $value)

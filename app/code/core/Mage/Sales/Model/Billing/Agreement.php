@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Billing_Agreement _getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getResourceCollection()
  *
  * @method int getAgreementId()
  * @method string getAgreementLabel()

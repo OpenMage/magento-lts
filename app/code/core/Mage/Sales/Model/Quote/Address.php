@@ -133,7 +133,6 @@
  * @method $this setPrefix(string $string)
  * @method $this setPrevQuoteCustomerGroupId(int $groupId)
  * @method Mage_Catalog_Model_Product getProduct()
- *
  * @method float getQty()
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)

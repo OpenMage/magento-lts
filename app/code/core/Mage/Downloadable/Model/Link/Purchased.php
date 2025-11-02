@@ -14,6 +14,8 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased getResource()
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getCollection()
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getResourceCollection()
  *
  * @method int getOrderId()
  * @method $this setOrderId(int $value)

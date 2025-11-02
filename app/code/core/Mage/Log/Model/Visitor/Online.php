@@ -14,6 +14,8 @@
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
  *
  * @method string getVisitorType()
  * @method $this setVisitorType(string $value)

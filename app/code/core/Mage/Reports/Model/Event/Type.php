@@ -14,6 +14,8 @@
  *
  * @method Mage_Reports_Model_Resource_Event_Type _getResource()
  * @method Mage_Reports_Model_Resource_Event_Type getResource()
+ * @method Mage_Reports_Model_Resource_Event_Type_Collection getCollection()
+ * @method Mage_Reports_Model_Resource_Event_Type_Collection getResourceCollection()
  *
  * @method string getEventName()
  * @method $this setEventName(string $value)

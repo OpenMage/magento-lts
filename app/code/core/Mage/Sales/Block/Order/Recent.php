@@ -13,7 +13,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
- *
  * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $orders)
  */
 class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template

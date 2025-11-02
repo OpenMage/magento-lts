@@ -14,6 +14,8 @@
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Compared _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Compared getResource()
+ * @method Mage_Reports_Model_Resource_Product_Index_Compared_Collection getCollection()
+ * @method Mage_Reports_Model_Resource_Product_Index_Compared_Collection getResourceCollection()
  *
  * @method $this setVisitorId(int $value)
  * @method $this setCustomerId(int $value)

@@ -78,7 +78,6 @@
  * @method $this setDownloadableLinks(Mage_Downloadable_Model_Link[] $value)
  * @method bool getDownloadableReadonly()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getDownloadableSamples()
- *
  * @method $this setDownloadableSamples(Mage_Downloadable_Model_Resource_Sample_Collection $value)
  * @method bool getForceReindexRequired()
  * @method array getGroupedLinkData()

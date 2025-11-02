@@ -12,6 +12,8 @@
  *
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug _getResource()
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug getResource()
+ * @method Mage_Paygate_Model_Resource_Authorizenet_Debug_Collection getCollection()
+ * @method Mage_Paygate_Model_Resource_Authorizenet_Debug_Collection getResourceCollection()
  *
  * @method string getRequestBody()
  * @method $this setRequestBody(string $value)

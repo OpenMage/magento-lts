@@ -15,6 +15,7 @@
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
  *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)

@@ -13,9 +13,8 @@
  * @package    Mage_Downloadable
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
-  * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
+ * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getPurchased()
- *
  * @method $this setPurchased(Mage_Downloadable_Model_Resource_Link_Purchased_Collection $value)
  * @method string getRefererUrl()
  * @method $this setRefererUrl(string $value)

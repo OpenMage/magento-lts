@@ -13,6 +13,9 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
+ * @method Mage_Directory_Model_Resource_Currency getResource()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getResourceCollection()
  *
  * @method $this unsRate()
  */

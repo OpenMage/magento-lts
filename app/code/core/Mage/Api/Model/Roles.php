@@ -12,6 +12,8 @@
  *
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
+ * @method Mage_Api_Model_Resource_Roles_Collection getCollection()
+ * @method Mage_Api_Model_Resource_Roles_Collection getResourceCollection()
  *
  * @method int getParentId()
  * @method $this setParentId(int $value)

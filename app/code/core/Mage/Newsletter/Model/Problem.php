@@ -14,6 +14,8 @@
  *
  * @method Mage_Newsletter_Model_Resource_Problem _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem getResource()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
  *
  * @method int getCustomerId()
  * @method $this setCustomerName(string $value)

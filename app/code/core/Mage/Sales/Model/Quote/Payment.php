@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getResourceCollection()
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)

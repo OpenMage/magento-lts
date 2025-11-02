@@ -14,6 +14,8 @@
  *
  * @method Mage_Dataflow_Model_Resource_Batch _getResource()
  * @method Mage_Dataflow_Model_Resource_Batch getResource()
+ * @method Mage_Dataflow_Model_Resource_Batch_Collection getCollection()
+ * @method Mage_Dataflow_Model_Resource_Batch_Collection getResourceCollection()
  *
  * @method int getProfileId()
  * @method $this setProfileId(int $value)

@@ -15,6 +15,7 @@
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
  * @method Mage_Wishlist_Model_Resource_Item getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getResourceCollection()
  *
  * @method string getAddedAt()
  * @method $this setAddedAt(string $value)

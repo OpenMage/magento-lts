@@ -15,6 +15,7 @@
  * @method Mage_Core_Model_Resource_Store_Group _getResource()
  * @method Mage_Core_Model_Resource_Store_Group getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Store_Group_Collection getResourceCollection()
  *
  * @method $this setWebsiteId(int $value)
  * @method string getName()

@@ -14,7 +14,6 @@
  *
  * @method Mage_Sales_Model_Order getOrder()
  * @method Mage_Sales_Model_Quote getQuote()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getCcCid()

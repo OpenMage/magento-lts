@@ -14,6 +14,8 @@
  *
  * @method Mage_Newsletter_Model_Resource_Template _getResource()
  * @method Mage_Newsletter_Model_Resource_Template getResource()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getResourceCollection()
  *
  * @method string getTemplateCode()
  * @method $this setTemplateCode(string $value)

@@ -13,7 +13,9 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
+ * @method Mage_Reports_Model_Resource_Product_Index_Abstract getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getCollection()
+ * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getResourceCollection()
  *
  * @method bool hasAddedAt()
  * @method $this setAddedAt(string $value)

@@ -15,6 +15,7 @@
  * @method Mage_Cms_Model_Resource_Page _getResource()
  * @method Mage_Cms_Model_Resource_Page getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
+ * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
  *
  * @method string getContentHeading()
  * @method $this setContentHeading(string $value)

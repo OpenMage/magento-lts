@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Address _getResource()
  * @method Mage_Sales_Model_Resource_Order_Address getResource()
  * @method Mage_Sales_Model_Resource_Order_Address_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Address_Collection getResourceCollection()
  *
  * @method string getAddressType()
  * @method $this setAddressType(string $value)

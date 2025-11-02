@@ -15,6 +15,7 @@
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
  * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
+ * @method Mage_Catalog_Model_Resource_Category_Collection getResourceCollection()
  *
  * @method array getAffectedCategoryIds()
  * @method $this setAffectedCategoryIds(array $categoryIds)

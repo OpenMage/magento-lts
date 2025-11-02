@@ -22,6 +22,7 @@
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
  * @method Mage_Sales_Model_Resource_Order_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Collection getResourceCollection()
  *
  * @method float getAdjustmentNegative()
  * @method $this setAdjustmentNegative(float $value)

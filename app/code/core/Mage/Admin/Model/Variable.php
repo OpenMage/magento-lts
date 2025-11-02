@@ -15,6 +15,7 @@
  * @method Mage_Admin_Model_Resource_Variable _getResource()
  * @method Mage_Admin_Model_Resource_Variable getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
+ * @method Mage_Admin_Model_Resource_Variable_Collection getResourceCollection()
  *
  * @method string getIsAllowed()
  * @method string getVariableName()

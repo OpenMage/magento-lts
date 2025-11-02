@@ -15,6 +15,7 @@
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection getCollection()
+ * @method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection getResourceCollection()
  *
  * @method $this setProductId(int $value)
  * @method $this setStockId(int $value)

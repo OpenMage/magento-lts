@@ -15,6 +15,7 @@
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getResourceCollection()
  *
  * @method int getAttributeId()
  * @method $this setAttributeId(int $value)

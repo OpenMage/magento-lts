@@ -15,6 +15,7 @@
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
  *
  * @method $this setChangePassword(int $value)
  * @method string getCompany()
@@ -23,7 +24,6 @@
  * @method string getCreatedAt()
  * @method int getCustomerId()
  * @method $this setCustomerId(null|int $value)
- *
  * @method null|int getDefaultBilling()
  * @method $this setDefaultBilling(null|int $value)
  * @method $this unsetDefaultBilling()

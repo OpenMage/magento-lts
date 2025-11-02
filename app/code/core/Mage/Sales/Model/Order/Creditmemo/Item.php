@@ -13,6 +13,7 @@
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getResourceCollection()
  *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
