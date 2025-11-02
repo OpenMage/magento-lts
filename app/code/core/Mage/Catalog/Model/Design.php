@@ -203,10 +203,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
             $useParentSettings = $object->getCustomUseParentSettings();
             if ($useParentSettings) {
-                if ($category &&
-                    $category->getId() &&
-                    $category->getLevel() > 1 &&
-                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
+                if ($category
+                    && $category->getId()
+                    && $category->getLevel() > 1
+                    && $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
                 ) {
                     return $this->_inheritDesign($category, $calledFrom);
                 }

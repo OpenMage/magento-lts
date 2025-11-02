@@ -695,8 +695,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
                 foreach ($xml->Entry as $entry) {
                     if (in_array((string) $entry->Service, $allowedMethods)) {
-                        $costArr[(string) $entry->Service] =
-                           (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
+                        $costArr[(string) $entry->Service]
+                           = (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
                         $priceArr[(string) $entry->Service] = $this->getMethodPrice(
                             (float) $entry->EstimatedCharges->DiscountedCharges->NetCharge,
                             (string) $entry->Service,
@@ -1447,10 +1447,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         // for international shipping
         if ($request->getShipperAddressCountryCode() != $request->getRecipientAddressCountryCode()) {
-            $requestClient['RequestedShipment']['CustomsClearanceDetail'] =
-                [
-                    'CustomsValue' =>
-                    [
+            $requestClient['RequestedShipment']['CustomsClearanceDetail']
+                = [
+                    'CustomsValue'
+                    => [
                         'Currency' => $request->getBaseCurrencyCode(),
                         'Amount' => $customsValue,
                     ],

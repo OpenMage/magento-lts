@@ -160,8 +160,8 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     protected function _returnCustomerQuote($cancelOrder = false, $errorMsg = '')
     {
         $incrementId = $this->_getDirectPostSession()->getLastOrderIncrementId();
-        if ($incrementId &&
-            $this->_getDirectPostSession()
+        if ($incrementId
+            && $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
             /** @var Mage_Sales_Model_Order $order */

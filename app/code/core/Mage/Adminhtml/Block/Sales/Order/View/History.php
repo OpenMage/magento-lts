@@ -50,8 +50,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
 
     public function canAddComment()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/comment') &&
-               $this->getOrder()->canComment();
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/comment')
+               && $this->getOrder()->canComment();
     }
 
     public function getSubmitUrl()

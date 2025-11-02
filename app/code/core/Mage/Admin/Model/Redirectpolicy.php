@@ -24,8 +24,8 @@ class Mage_Admin_Model_Redirectpolicy
      */
     public function __construct($parameters = [])
     {
-        $this->_urlModel = (!empty($parameters['urlModel'])) ?
-            $parameters['urlModel'] : Mage::getModel('adminhtml/url');
+        $this->_urlModel = (!empty($parameters['urlModel']))
+            ? $parameters['urlModel'] : Mage::getModel('adminhtml/url');
     }
 
     /**
@@ -47,7 +47,7 @@ class Mage_Admin_Model_Redirectpolicy
             && $request->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME)) ? 1 : 0;
         $countGetParams = count($request->getUserParams()) + count($request->getQuery());
 
-        return ($countGetParams > $countRequiredParams) ?
-            $this->_urlModel->getUrl($user->getStartupPageUrl()) : $alternativeUrl;
+        return ($countGetParams > $countRequiredParams)
+            ? $this->_urlModel->getUrl($user->getStartupPageUrl()) : $alternativeUrl;
     }
 }

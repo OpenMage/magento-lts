@@ -1167,8 +1167,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     {
         foreach ($this->getAttributeCollection() as $attribute) {
             $this->_attributeValues[$attribute->getAttributeCode()] = $this->getAttributeOptions($attribute);
-            $this->_attributeTypes[$attribute->getAttributeCode()] =
-                Mage_ImportExport_Model_Import::getAttributeType($attribute);
+            $this->_attributeTypes[$attribute->getAttributeCode()]
+                = Mage_ImportExport_Model_Import::getAttributeType($attribute);
             $this->_attributeScopes[$attribute->getAttributeCode()] = $attribute->getIsGlobal();
         }
 

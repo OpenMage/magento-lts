@@ -56,8 +56,8 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         Mage::app('admin');
         foreach (self::WEBSITES as $websiteCode => $stores) {
             foreach ($stores as $storeCode) {
-                self::$storeData[$websiteCode][$storeCode] =
-                    self::bootstrapTestStore($websiteCode, $storeCode);
+                self::$storeData[$websiteCode][$storeCode]
+                    = self::bootstrapTestStore($websiteCode, $storeCode);
             }
         }
     }

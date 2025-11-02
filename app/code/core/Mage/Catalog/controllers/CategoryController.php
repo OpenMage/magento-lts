@@ -89,9 +89,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
         $validityDate = $category->getCustomDesignDate();
 
-        if (array_key_exists('from', $validityDate) &&
-            array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+        if (array_key_exists('from', $validityDate)
+            && array_key_exists('to', $validityDate)
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
         ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')

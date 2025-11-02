@@ -477,10 +477,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         if ($disableLocalModules === true) {
             set_include_path(
-                BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
-                BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
-                BP . DS . 'lib' . PS .
-                Mage::registry('original_include_path'),
+                BP . DS . 'app' . DS . 'code' . DS . 'community' . PS
+                . BP . DS . 'app' . DS . 'code' . DS . 'core' . PS
+                . BP . DS . 'lib' . PS
+                . Mage::registry('original_include_path'),
             );
         }
 

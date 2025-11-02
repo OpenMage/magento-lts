@@ -313,8 +313,8 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             $this->envStore = $env;
         }
 
-        if (!isset($this->envStore[self::ENV_FEATURE_ENABLED]) ||
-            (bool) $this->envStore[self::ENV_FEATURE_ENABLED] === false
+        if (!isset($this->envStore[self::ENV_FEATURE_ENABLED])
+            || (bool) $this->envStore[self::ENV_FEATURE_ENABLED] === false
         ) {
             $this->envStore = [];
             return $this->envStore;

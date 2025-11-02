@@ -570,12 +570,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             Mage::dispatchEvent('sales_order_item_cancel', ['item' => $this]);
             $this->setQtyCanceled($this->getQtyToCancel());
             $this->setTaxCanceled(
-                $this->getTaxCanceled() +
-                $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
+                $this->getTaxCanceled()
+                + $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
             );
             $this->setHiddenTaxCanceled(
-                $this->getHiddenTaxCanceled() +
-                $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
+                $this->getHiddenTaxCanceled()
+                + $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
             );
         }
 
@@ -715,8 +715,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             $options = $this->getProductOptions();
         }
 
-        if (isset($options['product_calculations']) &&
-             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+        if (isset($options['product_calculations'])
+             && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
         ) {
             return true;
         }
@@ -754,8 +754,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             $options = $this->getProductOptions();
         }
 
-        if (isset($options['shipment_type']) &&
-            $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+        if (isset($options['shipment_type'])
+            && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
         ) {
             return true;
         }

@@ -52,8 +52,8 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         $select   = $adapter->select()
             ->from(['bo' => $this->getTable('bundle/option')], ['parent_id']);
         $this->_addWebsiteJoinToSelect($select, false);
-        $status = new Zend_Db_Expr('MAX(' .
-                $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
+        $status = new Zend_Db_Expr('MAX('
+                . $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
         $select->columns('website_id', 'cw')
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],

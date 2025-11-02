@@ -261,12 +261,12 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setIsTransactionClosed(0);
         $canSendNewOrderEmail = true;
 
-        if ($response->getResult() == self::RESPONSE_CODE_FRAUDSERVICE_FILTER ||
-            $response->getResult() == self::RESPONSE_CODE_DECLINED_BY_FILTER
+        if ($response->getResult() == self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+            || $response->getResult() == self::RESPONSE_CODE_DECLINED_BY_FILTER
         ) {
             $canSendNewOrderEmail = false;
-            $fraudMessage = $this->_getFraudMessage() ?
-                $response->getFraudMessage() : $response->getRespmsg();
+            $fraudMessage = $this->_getFraudMessage()
+                ? $response->getFraudMessage() : $response->getRespmsg();
             $payment->setIsTransactionPending(true)
                 ->setIsFraudDetected(true)
                 ->setAdditionalInformation('paypal_fraud_filters', $fraudMessage);
@@ -519,9 +519,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      */
     protected function _processTokenErrors($response, $payment)
     {
-        if (!$response->getSecuretoken() &&
-            $response->getResult() != self::RESPONSE_CODE_APPROVED &&
-            $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+        if (!$response->getSecuretoken()
+            && $response->getResult() != self::RESPONSE_CODE_APPROVED
+            && $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
         ) {
             Mage::throwException($response->getRespmsg());
         } else {

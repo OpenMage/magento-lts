@@ -199,8 +199,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     '1',
                     '0',
                 ),
-            ) . ' > 0 AND ' .
-            $write->getCheckSql(
+            ) . ' > 0 AND '
+            . $write->getCheckSql(
                 $specialTo . ' IS NULL',
                 '1',
                 $write->getCheckSql(

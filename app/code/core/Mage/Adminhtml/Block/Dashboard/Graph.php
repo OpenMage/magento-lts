@@ -182,8 +182,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $valueBuffer = [];
 
-        if (!array_key_exists(self::AXIS_X, $this->_axisLabels) ||
-            !array_key_exists(self::AXIS_Y, $this->_axisLabels)
+        if (!array_key_exists(self::AXIS_X, $this->_axisLabels)
+            || !array_key_exists(self::AXIS_Y, $this->_axisLabels)
         ) {
             return $params;
         }

@@ -88,8 +88,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             if ($this->_helper->isCrossBorderTradeEnabled($store)) {
                 $this->_areTaxRequestsSimilar = true;
             } else {
-                $this->_areTaxRequestsSimilar =
-                        $this->_calculator->compareRequests($storeTaxRequest, $addressTaxRequest);
+                $this->_areTaxRequestsSimilar
+                        = $this->_calculator->compareRequests($storeTaxRequest, $addressTaxRequest);
             }
         }
 

@@ -295,8 +295,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
             if (count($selectionPrices)) {
                 $selectionMinPrice = is_array($selectionPrices) ? min($selectionPrices) : $selectionPrices;
-                $selectMinPriceWithTax = is_array($selectionPricesWithTax) ?
-                    min($selectionPricesWithTax) : $selectionPricesWithTax;
+                $selectMinPriceWithTax = is_array($selectionPricesWithTax)
+                    ? min($selectionPricesWithTax) : $selectionPricesWithTax;
                 if ($option->getRequired()) {
                     $minimalPrice += $selectionMinPrice;
                     $minimalPriceWithTax += $selectMinPriceWithTax;

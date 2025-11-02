@@ -278,8 +278,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ],
         );
 
-        if ($this->isModuleEnabled('Mage_Rss', 'catalog') &&
-            Mage::helper('rss')->isRssAdminCatalogNotifyStockEnabled()
+        if ($this->isModuleEnabled('Mage_Rss', 'catalog')
+            && Mage::helper('rss')->isRssAdminCatalogNotifyStockEnabled()
         ) {
             $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'));
         }

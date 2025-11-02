@@ -246,8 +246,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 ) {
                     // For the default scope - if this is a new product or
                     // for an old product, if the imported doc has the column present for the attrCode
-                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
-                            ($isNewProduct || array_key_exists($attrCode, $rowData))
+                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope
+                            && ($isNewProduct || array_key_exists($attrCode, $rowData))
                     ) {
                         $this->_entityModel->addRowError(
                             Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
@@ -288,8 +288,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
             if (!$attrParams['is_static']) {
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $resultAttrs[$attrCode] =
-                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
+                    $resultAttrs[$attrCode]
+                        = ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
                 } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
