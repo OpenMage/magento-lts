@@ -4237,12 +4237,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Block_Recurring_Profiles::$_profiles (Mage_Sales_Model_Resource_Recurring_Profile_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
 			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Resource::_critical() expects int|null, string given.'
 			identifier: argument.type
 			count: 2
@@ -4283,12 +4277,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php
-
-		-
-			rawMessage: 'Cannot call method addAttributeToFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
 			rawMessage: 'Parameter #1 $incrementId of method Mage_Sales_Model_Order_Invoice::loadByIncrementId() expects string, int given.'
