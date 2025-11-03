@@ -7,6 +7,8 @@
  * @package    Mage_Admin
  */
 
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+
 /**
  * Admin user model
  *
@@ -631,14 +633,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if (isset($password)) {
-            $minAdminPasswordLength = $this->getMinAdminPasswordLength();
             $violations = new ArrayObject();
-            $violations->append($validator->validatePassword(
-                value: $password,
-                minLength: $minAdminPasswordLength,
-                message: Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
-                minMessage: Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $minAdminPasswordLength),
-            ));
+            $violations->append($this->getPasswordValidator(value: $password));
 
             if ($this->hasPasswordConfirmation()) {
                 $violations->append($validator->validateIdentical(
@@ -671,6 +667,19 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return (array) $errors;
     }
 
+    public function getPasswordValidator(mixed $value): ConstraintViolationListInterface
+    {
+        $min = $this->getMinAdminPasswordLength();
+        $validator  = $this->getValidationHelper();
+
+        return $validator->validatePassword(
+            value: $value,
+            min: $min,
+            minMessage: Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $min),
+            regexMessage: Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
+        );
+    }
+
     /**
      * Validate password against current user password
      * Returns TRUE or array of errors.
@@ -681,8 +690,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validateCurrentPassword($password)
     {
-        /** @var Mage_Core_Helper_Validate $validator */
-        $validator  = Mage::helper('core/validate');
+        $validator  = $this->getValidationHelper();
         $result     = [];
 
         if ($validator->validateNotEmpty($password)->count() > 0) {

@@ -471,6 +471,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         mixed $payload = null
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
+
         return $validator->validate($value, [
             new Constraints\NotBlank(
                 options: $options,
@@ -483,17 +484,33 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ]);
     }
 
-    public function validatePassword(mixed $value, int $minLength, string $message, string $minMessage): ConstraintViolationListInterface
-    {
+    /**
+     * Validates that a password meets given constraints.
+     */
+    public function validatePassword(
+        mixed   $value,
+        ?int    $min = null,
+        ?int    $max = null,
+        ?string $emptyMessage = null,
+        ?string $minMessage = null,
+        ?string $maxMessage = null,
+        ?string $regexMessage = null,
+    ): ConstraintViolationListInterface {
         $validator = self::getValidator();
+
         return $validator->validate($value, [
+            new Constraints\NotBlank(
+                message: $emptyMessage,
+            ),
             new Constraints\Length(
-                min: $minLength,
+                min: $min,
+                max: $max,
                 minMessage: $minMessage,
+                maxMessage: $maxMessage,
             ),
             new Constraints\Regex(
                 pattern: '/^(?=.*[a-z])(?=.*[0-9]).+$/iu',
-                message: $message,
+                message: $regexMessage,
             ),
         ]);
     }

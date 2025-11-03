@@ -7,6 +7,8 @@
  * @package    Mage_Customer
  */
 
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+
 /**
  * Customer model
  *
@@ -1096,26 +1098,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
         ));
 
-        $password = $this->getPassword();
-        $minPasswordLength = $this->getMinPasswordLength();
+        $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
-        $violations->append($validator->validateNotEmpty(
-            value: $password,
-            message: Mage::helper('customer')->__('The password cannot be empty.'),
-        ));
-
-        $violations->append($validator->validateLength(
-            value: $password,
-            min: $minPasswordLength,
-            max: self::MAXIMUM_PASSWORD_LENGTH,
-            minMessage: Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength),
-            maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
-        ));
-
-        $confirmation = $this->getPasswordConfirmation();
         $violations->append($validator->validateIdentical(
-            value: $confirmation,
-            compare: $password,
+            value: $this->getPasswordConfirmation(),
+            compare: $this->getPassword(),
             message: Mage::helper('customer')->__('Please make sure your passwords match.'),
         ));
 
@@ -1159,25 +1146,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $validator  = $this->getValidationHelper();
         $violations = new ArrayObject();
 
-        $password = $this->getPassword();
-        $minPasswordLength = $this->getMinPasswordLength();
-
-        $violations->append($validator->validateNotEmpty(
-            value: $password,
-            message: Mage::helper('customer')->__('The password cannot be empty.'),
-        ));
-
-        $violations->append($validator->validateLength(
-            value: $password,
-            min: $minPasswordLength,
-            max: self::MAXIMUM_PASSWORD_LENGTH,
-            minMessage: Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength),
-            maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
-        ));
+        $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
         $violations->append($validator->validateIdentical(
             value: $this->getPasswordConfirmation(),
-            compare: $password,
+            compare: $this->getPassword(),
             message: Mage::helper('customer')->__('Please make sure your passwords match.'),
         ));
 
@@ -1187,6 +1160,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         return (array) $errors;
+    }
+
+    public function getPasswordValidator(mixed $value): ConstraintViolationListInterface
+    {
+        $min = $this->getMinPasswordLength();
+        $validator  = $this->getValidationHelper();
+
+        return $validator->validatePassword(
+            value: $value,
+            min: $min,
+            max: self::MAXIMUM_PASSWORD_LENGTH,
+            emptyMessage: Mage::helper('customer')->__('The password cannot be empty.'),
+            minMessage: Mage::helper('customer')->__('The minimum password length is %s', $min),
+            maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
+        );
     }
 
     /**
