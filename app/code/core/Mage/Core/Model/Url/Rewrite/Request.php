@@ -346,7 +346,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Retrieve router by name
      *
      * @param string $name
-     * @return Mage_Core_Controller_Varien_Router_Abstract|false
+     * @return false|Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouter($name)
     {

@@ -450,7 +450,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Retrieve rates by customer tax class
      *
      * @param int $customerTaxClass
-     * @param int|null $productTaxClass
+     * @param null|int $productTaxClass
      * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)

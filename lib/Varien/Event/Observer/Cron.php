@@ -112,8 +112,8 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     }
 
     /**
-     * @param string|int $value
-     * @return string|int|false
+     * @param int|string $value
+     * @return false|int|string
      */
     public function getNumeric($value)
     {

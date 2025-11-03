@@ -16,7 +16,7 @@ abstract class Varien_Image_Adapter_Abstract
     public $fileName = null;
 
     /**
-     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     * @var int Color used to fill space when rotating image, do not confuse it with
      */
     public $imageBackgroundColor = 0;
 
@@ -76,7 +76,7 @@ abstract class Varien_Image_Adapter_Abstract
      * original image, but after resize() it's already a scaled version.
      *
      * @see Varien_Image_Adapter_Gd2::open()
-     * @var resource|GdImage
+     * @var GdImage|resource
      */
     protected $_imageHandler = null;
 
@@ -84,7 +84,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Width of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcWidth = null;
 
@@ -92,7 +92,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Height of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcHeight = null;
 
@@ -171,7 +171,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -182,7 +182,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {
@@ -298,7 +298,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Get/set quality, values in percentage from 0 to 100
      *
      * @param int $value
-     * @return int|null
+     * @return null|int
      */
     public function quality($value = null)
     {

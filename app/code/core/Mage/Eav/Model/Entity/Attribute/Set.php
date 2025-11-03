@@ -176,8 +176,8 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Validate attribute set name
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function validate()
     {
@@ -194,7 +194,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Add set info to attributes
      *
-     * @param string|Mage_Eav_Model_Entity_Type $entityType
+     * @param Mage_Eav_Model_Entity_Type|string $entityType
      * @param int $setId
      * @return $this
      */
@@ -256,7 +256,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * Return default Group Id for current or defined Attribute Set
      *
      * @param int $setId
-     * @return string|null
+     * @return null|string
      */
     public function getDefaultGroupId($setId = null)
     {

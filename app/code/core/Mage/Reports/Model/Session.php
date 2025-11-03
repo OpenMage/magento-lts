@@ -18,7 +18,6 @@ class Mage_Reports_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     /**
      * Initialize session name space
-     *
      */
     public function __construct()
     {

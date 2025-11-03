@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
 {
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {

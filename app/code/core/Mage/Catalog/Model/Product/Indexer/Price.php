@@ -11,6 +11,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
+ *
  * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
  * @method $this setCustomerGroupId(int $value)

@@ -187,8 +187,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param string $field
      * @param mixed $value
      * @param Mage_Cms_Model_Page $object
-     * @return Zend_Db_Select
      * @throws Exception
+     * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -214,7 +214,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieve load select with filter by identifier, store and activity
      *
      * @param string $identifier
-     * @param int|array $store
+     * @param array|int $store
      * @param int $isActive
      * @return Varien_Db_Select
      */
@@ -267,7 +267,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is numeric
      *
-     * @return int|false
+     * @return false|int
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -277,8 +277,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is valid
      *
-     *
-     * @return   int|false
+     * @return   false|int
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -331,9 +330,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed identifier.
      *
-     * @param string|int $identifier
-     * @return string
+     * @param int|string $identifier
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getCmsPageTitleByIdentifier($identifier)
     {
@@ -354,7 +353,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      * @return string
      */
     public function getCmsPageTitleById($id)
@@ -376,7 +375,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieves cms page identifier from DB by passed id.
      *
      * @param string $id
-     * @return string|false
+     * @return false|string
      */
     public function getCmsPageIdentifierById($id)
     {
@@ -425,8 +424,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve store model
      *
-     * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {

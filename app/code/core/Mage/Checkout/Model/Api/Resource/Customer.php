@@ -32,8 +32,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
 
     /**
      * @param int $customerId
-     * @return Mage_Customer_Model_Customer
      * @throws Mage_Api_Exception
+     * @return Mage_Customer_Model_Customer
      */
     protected function _getCustomer($customerId)
     {

@@ -53,19 +53,19 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * @param string $merchantApiLoginId
      * @param string $merchantTransactionKey
      * @param string $amount
-     * @param string $fpSequence An invoice number or random number.
+     * @param string $fpSequence an invoice number or random number
      * @param string $fpTimestamp
-     * @return string The fingerprint.
+     * @return string the fingerprint
      */
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)
     {
         return hash_hmac(
             'md5',
-            $merchantApiLoginId . '^' .
-            $fpSequence . '^' .
-            $fpTimestamp . '^' .
-            $amount . '^' .
-            $currencyCode,
+            $merchantApiLoginId . '^'
+            . $fpSequence . '^'
+            . $fpTimestamp . '^'
+            . $amount . '^'
+            . $currencyCode,
             $merchantTransactionKey,
         );
     }
@@ -189,9 +189,9 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * @param string $merchantSignatureKey
      * @param string $amount
      * @param string $currencyCode
-     * @param string $fpSequence An invoice number or random number.
+     * @param string $fpSequence an invoice number or random number
      * @param string $fpTimestamp
-     * @return string The fingerprint.
+     * @return string the fingerprint
      */
     protected function _generateSha2RequestSign(
         $merchantApiLoginId,

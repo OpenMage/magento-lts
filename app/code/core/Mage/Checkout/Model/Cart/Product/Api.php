@@ -28,7 +28,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * @param  int $quoteId
      * @param  array $productsData
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function add($quoteId, $productsData, $store = null)
@@ -81,7 +81,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * @param  int $quoteId
      * @param  array $productsData
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function update($quoteId, $productsData, $store = null)
@@ -138,7 +138,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * @param  int $quoteId
      * @param  array $productsData
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function remove($quoteId, $productsData, $store = null)
@@ -196,7 +196,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
     /**
      * @param  int $quoteId
-     * @param  string|int $store
+     * @param  int|string $store
      * @return array
      */
     public function items($quoteId, $store = null)
@@ -230,7 +230,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * @param  int $quoteId
      * @param  array $productsData
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function moveToCustomerQuote($quoteId, $productsData, $store = null)

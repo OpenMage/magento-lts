@@ -14,6 +14,9 @@
  *
  * @method Mage_Core_Model_Resource_Variable _getResource()
  * @method Mage_Core_Model_Resource_Variable getResource()
+ * @method Mage_Core_Model_Resource_Variable_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Variable_Collection getResourceCollection()
+ *
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method string getName()
@@ -101,7 +104,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Validation of object data. Checking for unique variable code
      *
-     * @return bool | string
+     * @return bool|string
      */
     public function validate()
     {

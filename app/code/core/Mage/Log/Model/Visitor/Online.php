@@ -14,6 +14,9 @@
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
+ *
  * @method string getVisitorType()
  * @method $this setVisitorType(string $value)
  * @method int getRemoteAddr()
@@ -26,7 +29,6 @@
  * @method $this setCustomerId(int $value)
  * @method string getLastUrl()
  * @method $this setLastUrl(string $value)
- *
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
@@ -53,7 +55,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Retrieve last prepare at timestamp
      *
-     * @return string|false
+     * @return false|string
      */
     public function getPrepareAt()
     {

@@ -31,7 +31,7 @@ class Mage_Api_Model_Server
      * Complex retrieve adapter code by calling auxiliary model method
      *
      * @param string $alias Alias name
-     * @return string|null Returns NULL if no alias found
+     * @return null|string Returns NULL if no alias found
      */
     public function getAdapterCodeByAlias($alias)
     {
@@ -116,7 +116,6 @@ class Mage_Api_Model_Server
 
     /**
      * Run server
-     *
      */
     public function run()
     {

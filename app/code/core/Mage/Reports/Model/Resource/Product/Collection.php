@@ -46,7 +46,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Init main class options
-     *
      */
     public function __construct()
     {

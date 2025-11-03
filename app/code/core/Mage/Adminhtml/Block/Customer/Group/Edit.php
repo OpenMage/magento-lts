@@ -27,8 +27,8 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getDeleteUrl()
     {

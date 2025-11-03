@@ -12,7 +12,10 @@
  *
  * @package    Mage_SalesRule
  *
+ * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
  *
  * @method string getDash()
  * @method string getFormat()

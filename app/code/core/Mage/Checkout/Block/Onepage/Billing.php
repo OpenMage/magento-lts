@@ -17,7 +17,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Sales Quote Billing Address instance
      *
-     * @var Mage_Sales_Model_Quote_Address|null
+     * @var null|Mage_Sales_Model_Quote_Address
      */
     protected $_address;
 
@@ -30,7 +30,6 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
 
     /**
      * Initialize billing address step
-     *
      */
     protected function _construct()
     {
@@ -145,7 +144,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      * Return Customer Address Middle Name
      * If Sales Quote Address Middle Name is not defined - return Customer Middle Name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMiddlename()
     {

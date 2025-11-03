@@ -12,11 +12,12 @@
  *
  * @package    Mage_Oauth
  *
- * @method string getName() Consumer name (joined from consumer table)
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
  * @method Mage_Oauth_Model_Resource_Token getResource()
  * @method Mage_Oauth_Model_Resource_Token _getResource()
+ *
+ * @method string getName() Consumer name (joined from consumer table)
  * @method int getConsumerId()
  * @method $this setConsumerId(int $consumerId)
  * @method int getAdminId()
@@ -178,8 +179,8 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**
      * Get OAuth user type
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getUserType()
     {

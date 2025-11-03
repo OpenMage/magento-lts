@@ -18,7 +18,7 @@ class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
     /**
      * Don't show CC type for non-CC methods
      *
-     * @return string|null
+     * @return null|string
      */
     public function getCcTypeName()
     {
@@ -32,7 +32,7 @@ class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
     /**
      * Prepare PayPal-specific payment information
      *
-     * @param Varien_Object|array $transport
+     * @param array|Varien_Object $transport
      * return Varien_Object
      * @return Varien_Object
      */

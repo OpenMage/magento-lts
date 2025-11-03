@@ -93,7 +93,6 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
 
     /**
      * Retrieve params and put javascript into iframe
-     *
      */
     public function redirectAction()
     {
@@ -120,7 +119,6 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
 
     /**
      * Send request to authorize.net
-     *
      */
     public function placeAction()
     {
@@ -146,7 +144,6 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
 
     /**
      * Return customer quote by ajax
-     *
      */
     public function returnQuoteAction()
     {
@@ -163,8 +160,8 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     protected function _returnCustomerQuote($cancelOrder = false, $errorMsg = '')
     {
         $incrementId = $this->_getDirectPostSession()->getLastOrderIncrementId();
-        if ($incrementId &&
-            $this->_getDirectPostSession()
+        if ($incrementId
+            && $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
             /** @var Mage_Sales_Model_Order $order */

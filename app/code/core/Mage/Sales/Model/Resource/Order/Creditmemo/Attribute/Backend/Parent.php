@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Attribute_Backend_Parent extend
     /**
      * Method is invoked after save
      *
-     * @param Varien_Object|Mage_Sales_Model_Order_Creditmemo $object
+     * @param Mage_Sales_Model_Order_Creditmemo|Varien_Object $object
      * @return $this
      */
     public function afterSave($object)

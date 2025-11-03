@@ -118,8 +118,8 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
                 $filePath = realpath($path . DS . $file);
-                if (str_starts_with($filePath, realpath($path)) &&
-                    str_starts_with($filePath, realpath($helper->getStorageRoot()))
+                if (str_starts_with($filePath, realpath($path))
+                    && str_starts_with($filePath, realpath($helper->getStorageRoot()))
                 ) {
                     $this->getStorage()->deleteFile($path . DS . $file);
                 }

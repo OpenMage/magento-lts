@@ -16,7 +16,6 @@ class Mage_Sales_Model_Resource_Quote_Address extends Mage_Sales_Model_Resource_
 {
     /**
      * Main table and field initialization
-     *
      */
     protected function _construct()
     {

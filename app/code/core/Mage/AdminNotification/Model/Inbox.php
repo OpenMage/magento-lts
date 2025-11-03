@@ -15,6 +15,8 @@
  * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
+ * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getResourceCollection()
+ *
  * @method string getDateAdded()
  * @method $this setDateAdded(string $value)
  * @method string getDescription()
@@ -48,8 +50,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Severity collection array
      *
-     * @param int|null $severity
-     * @return array|string|null
+     * @param null|int $severity
+     * @return null|array|string
      */
     public function getSeverities($severity = null)
     {
@@ -104,7 +106,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      *
      * @param int $severity
      * @param string $title
-     * @param string|array $description
+     * @param array|string $description
      * @param string $url
      * @param bool $isInternal
      * @return $this
@@ -135,7 +137,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Add critical severity message
      *
      * @param string $title
-     * @param string|array $description
+     * @param array|string $description
      * @param string $url
      * @param bool $isInternal
      * @return $this
@@ -150,7 +152,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Add major severity message
      *
      * @param string $title
-     * @param string|array $description
+     * @param array|string $description
      * @param string $url
      * @param bool $isInternal
      * @return $this
@@ -165,7 +167,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Add minor severity message
      *
      * @param string $title
-     * @param string|array $description
+     * @param array|string $description
      * @param string $url
      * @param bool $isInternal
      * @return $this
@@ -180,7 +182,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Add notice
      *
      * @param string $title
-     * @param string|array $description
+     * @param array|string $description
      * @param string $url
      * @param bool $isInternal
      * @return $this

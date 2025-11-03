@@ -166,7 +166,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get filters
      *
-     * @param string|null $name     Get filter for selected name
+     * @param null|string $name     Get filter for selected name
      * @return array
      */
     public function getFilters($name = null)
@@ -192,11 +192,11 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Recursive filtering
      *
-     * @param array|null $filters
+     * @param null|array $filters
      * @param bool $isFilterListSimple
      * @param-out array $filters
-     * @return array
      * @throws Exception    Exception when filter is not found or not instance of defined instances
+     * @return array
      */
     protected function _filter(array $data, &$filters = null, $isFilterListSimple = false)
     {
@@ -258,8 +258,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Try to create Magento helper for filtration based on $filterData. Return false on failure
      *
      * @param array $filterData
-     * @return Mage_Core_Helper_Abstract
      * @throws Exception
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _getFiltrationHelper($filterData)
     {
@@ -281,7 +281,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Zend filter based on $filterData. Return false on failure
      *
-     * @param Zend_Filter_Interface|array $filterData
+     * @param array|Zend_Filter_Interface $filterData
      * @return false|Zend_Filter_Interface
      */
     protected function _getZendFilter($filterData)
@@ -302,8 +302,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Get Magento filters
      *
      * @param array $filterData
-     * @return Zend_Filter_Interface
      * @throws Exception
+     * @return Zend_Filter_Interface
      */
     protected function _createCustomZendFilter($filterData)
     {
@@ -330,8 +330,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Get native Zend_Filter
      *
      * @param array $filterData
-     * @return Zend_Filter_Interface
      * @throws Exception
+     * @return Zend_Filter_Interface
      */
     protected function _createNativeZendFilter($filterData)
     {

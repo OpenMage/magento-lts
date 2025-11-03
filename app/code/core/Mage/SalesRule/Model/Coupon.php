@@ -15,6 +15,7 @@
  * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
  *
  * @method int getRuleId()
  * @method $this setRuleId(int $value)
@@ -76,7 +77,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Load primary coupon for specified rule
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param int|Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function loadPrimaryByRule($rule)

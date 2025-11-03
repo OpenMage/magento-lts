@@ -70,7 +70,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Sample|array|int $items
+     * @param array|int|Mage_Downloadable_Model_Sample $items
      * @return $this
      */
     public function deleteItems($items)

@@ -44,7 +44,6 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {
@@ -65,8 +64,8 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ($this->_period == 'year') {
-            $this->_periodFormat =
-                $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
+            $this->_periodFormat
+                = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
@@ -91,9 +90,9 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         }
 
         if ($this->isSubTotals()) {
-            $this->_selectedColumns =
-                $this->getAggregatedColumns() +
-                    ['period' => $this->_periodFormat];
+            $this->_selectedColumns
+                = $this->getAggregatedColumns()
+                    + ['period' => $this->_periodFormat];
         }
 
         return $this->_selectedColumns;

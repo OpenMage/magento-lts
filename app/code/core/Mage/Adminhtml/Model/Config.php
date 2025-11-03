@@ -81,7 +81,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param array|null $tags
+     * @param null|array $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
     public function saveCache($tags = null)
@@ -197,9 +197,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Get translate module name
      *
-     * @param Varien_Simplexml_Element|false|null $sectionNode
-     * @param Varien_Simplexml_Element|false|null $groupNode
-     * @param Varien_Simplexml_Element|false|null $fieldNode
+     * @param null|false|Varien_Simplexml_Element $sectionNode
+     * @param null|false|Varien_Simplexml_Element $groupNode
+     * @param null|false|Varien_Simplexml_Element $fieldNode
      * @return string
      */
     public function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)

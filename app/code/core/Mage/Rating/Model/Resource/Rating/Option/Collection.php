@@ -31,7 +31,6 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
 
     /**
      * Define model
-     *
      */
     protected function _construct()
     {
@@ -43,7 +42,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     /**
      * Add rating filter
      *
-     * @param   int|array $rating
+     * @param   array|int $rating
      * @return  $this
      */
     public function addRatingFilter($rating)

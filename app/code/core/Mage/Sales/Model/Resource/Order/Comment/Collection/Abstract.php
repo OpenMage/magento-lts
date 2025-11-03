@@ -17,7 +17,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract exten
     /**
      * Set filter on comments by their parent item
      *
-     * @param Mage_Core_Model_Abstract|int $parent
+     * @param int|Mage_Core_Model_Abstract $parent
      * @return $this
      */
     public function setParentFilter($parent)

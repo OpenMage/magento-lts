@@ -14,6 +14,7 @@
  *
  * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
  * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
  *
  * @method $this setStoreId(int $value)
@@ -33,8 +34,8 @@
  * @method $this setOptions(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
- * @method string|array getTags()
- * @method $this setTags(string|array $value)
+ * @method array|string getTags()
+ * @method $this setTags(array|string $value)
  * @method bool hasCategoryId()
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
@@ -50,7 +51,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var mixed | array | string | boolean
+     * @var array|bool|mixed|string
      */
     protected $_cacheTag = false;
 
@@ -103,7 +104,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function loadByTags($tags)
@@ -149,7 +150,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function addTag($tags)
@@ -174,7 +175,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function removeTag($tags)
@@ -201,8 +202,8 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Implement logic of custom rewrites
      *
-     * @return bool
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -344,7 +345,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {

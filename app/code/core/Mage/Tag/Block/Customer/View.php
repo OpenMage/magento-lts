@@ -20,20 +20,19 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Tagged Product Collection
      *
-     * @var Mage_Tag_Model_Resource_Product_Collection|null
+     * @var null|Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_collection;
 
     /**
      * Current Tag object
      *
-     * @var Mage_Tag_Model_Tag|null
+     * @var null|Mage_Tag_Model_Tag
      */
     protected $_tagInfo;
 
     /**
      * Initialize block
-     *
      */
     protected function _construct()
     {

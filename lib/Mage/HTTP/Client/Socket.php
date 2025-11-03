@@ -477,8 +477,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Convert headers hash to string
-     * @param $delimiter
      * @param $append
+     * @param $delimiter
      * @return string
      */
     protected function headersToString($append = [])

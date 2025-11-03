@@ -97,7 +97,7 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * Retrieve information from payment configuration
      *
      * @param string $field
-     * @param int|string|null|Mage_Core_Model_Store $storeId
+     * @param null|int|Mage_Core_Model_Store|string $storeId
      */
     public function getConfigData($field, $storeId = null)
     {

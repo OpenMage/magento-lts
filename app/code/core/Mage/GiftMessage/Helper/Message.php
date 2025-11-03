@@ -16,7 +16,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
     /**
      * Giftmessages allow section in configuration
-     *
      */
     public const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS = 'sales/gift_options/allow_items';
 
@@ -95,7 +94,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability of giftmessages for specified entity.
      *
      * @param self::TYPE_* $type $type
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store = null)
@@ -158,7 +157,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability of gift messages from store config if flag eq 2.
      *
      * @param bool $productGiftMessageAllow
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
@@ -175,7 +174,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Alias for isMessagesAvailable(...)
      *
      * @param self::TYPE_* $type
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getIsMessagesAvailable($type, Varien_Object $entity, $store = null)
@@ -186,7 +185,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve escaped and preformatted gift message text for specified entity
      *
-     * @return string|null
+     * @return null|string
      */
     public function getEscapedGiftMessage(Varien_Object $entity)
     {
@@ -219,7 +218,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * If cached data not found return null.
      *
      * @param string $key
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getCached($key)
     {
@@ -258,7 +257,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for onepage checkout items
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function getAvailableForQuoteItems($quote, $store = null)
@@ -276,7 +275,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for multishiping checkout items
      *
      * @param array $items
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function getAvailableForAddressItems($items, $store = null)

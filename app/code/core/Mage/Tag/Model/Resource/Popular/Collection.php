@@ -16,7 +16,6 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
 {
     /**
      * Defines resource model and model
-     *
      */
     protected function _construct()
     {

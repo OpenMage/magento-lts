@@ -23,7 +23,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist instance by requested code
      *
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist()
     {
@@ -44,7 +44,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Shared wishlist view page
-     *
      */
     public function indexAction()
     {
@@ -69,7 +68,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      *
      * If Product has required options - redirect
      * to product view page with message about needed defined required options
-     *
      */
     public function cartAction()
     {

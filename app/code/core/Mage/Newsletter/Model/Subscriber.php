@@ -14,6 +14,9 @@
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
  * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getResourceCollection()
+ *
  * @method string getChangeStatusAt()
  * @method $this setChangeStatusAt(string $value)
  * @method bool hasCheckCode()
@@ -372,7 +375,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     /**
      * Unsubscribes loaded subscription
-     *
      */
     public function unsubscribe()
     {
@@ -612,7 +614,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Retrieve Subscribers Full Name if it was set
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSubscriberFullName()
     {

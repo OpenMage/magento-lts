@@ -27,7 +27,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Get Store Config
      *
      * @param string $path
-     * @param mixed|null $store
+     * @param null|mixed $store
      * @return string
      */
     protected function _getStoreConfig($path, $store = null)
@@ -55,7 +55,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Loads Item By Id
      *
      * @param string $countryId
-     * @return Mage_Directory_Model_Resource_Country|Mage_Directory_Model_Country
+     * @return Mage_Directory_Model_Country|Mage_Directory_Model_Resource_Country
      */
     public function getItemById($countryId)
     {
@@ -74,8 +74,8 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * $iso can be either array containing 'iso2', 'iso3' values or string with containing one of that values directly.
      * The collection will contain countries where at least one of country $iso fields matches $countryCode.
      *
-     * @param string|array $countryCode
-     * @param string|array $iso
+     * @param array|string $countryCode
+     * @param array|string $iso
      * @return $this
      */
     public function addCountryCodeFilter($countryCode, $iso = ['iso3', 'iso2'])
@@ -110,7 +110,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Add filter by country code(s) to collection
      *
-     * @param string|array $countryId
+     * @param array|string $countryId
      * @return $this
      */
     public function addCountryIdFilter($countryId)

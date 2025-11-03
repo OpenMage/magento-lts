@@ -56,8 +56,8 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
             return $this;
         }
 
-        if ($this->getLayout()->getBlock('root') &&
-            !$this->getLayout()->getBlock('root')->getIsHandle()
+        if ($this->getLayout()->getBlock('root')
+            && !$this->getLayout()->getBlock('root')->getIsHandle()
         ) {
             // If not applied handle
             $this->getLayout()
@@ -71,12 +71,12 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current applied page layout
      *
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getCurrentPageLayout()
     {
-        if ($this->getLayout()->getBlock('root') &&
-            $this->getLayout()->getBlock('root')->getLayoutCode()
+        if ($this->getLayout()->getBlock('root')
+            && $this->getLayout()->getBlock('root')->getLayoutCode()
         ) {
             return $this->_getConfig()->getPageLayout($this->getLayout()->getBlock('root')->getLayoutCode());
         }

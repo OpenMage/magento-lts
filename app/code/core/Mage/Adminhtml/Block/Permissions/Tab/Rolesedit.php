@@ -65,7 +65,6 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {

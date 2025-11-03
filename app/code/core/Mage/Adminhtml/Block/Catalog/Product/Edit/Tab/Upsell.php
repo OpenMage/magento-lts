@@ -18,7 +18,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
 {
     /**
      * Set grid params
-     *
      */
     public function __construct()
     {

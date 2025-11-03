@@ -17,7 +17,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Current loaded product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
@@ -180,10 +180,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
     {
         $isPriceRequired = false;
-        if ($this->isAllowedAttribute('regular_price_with_tax') ||
-            $this->isAllowedAttribute('regular_price_without_tax') ||
-            $this->isAllowedAttribute('final_price_with_tax') ||
-            $this->isAllowedAttribute('final_price_without_tax')
+        if ($this->isAllowedAttribute('regular_price_with_tax')
+            || $this->isAllowedAttribute('regular_price_without_tax')
+            || $this->isAllowedAttribute('final_price_with_tax')
+            || $this->isAllowedAttribute('final_price_without_tax')
         ) {
             $isPriceRequired = true;
         }
@@ -462,7 +462,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCustomerGroupId()
     {

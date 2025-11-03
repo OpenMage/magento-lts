@@ -20,13 +20,13 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Remote address cache
-     * @var string|null
+     * @var null|string
      */
     protected $_remoteAddr;
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param array|null $headers
+     * @param null|array $headers
      * @return array
      * @SuppressWarnings("PHPMD.Superglobals")
      */

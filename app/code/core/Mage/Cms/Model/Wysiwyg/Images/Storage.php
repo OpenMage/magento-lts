@@ -271,8 +271,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $targetPath Target directory
      * @param string $type Type of storage, e.g. image, media etc.
-     * @return array|bool|void
      *@throws Mage_Core_Exception
+     * @return array|bool|void
      */
     public function uploadFile($targetPath, $type = null)
     {
@@ -318,7 +318,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param  string $filePath original file path
      * @param bool $checkFile OPTIONAL is it necessary to check file availability
-     * @return string | false
+     * @return false|string
      */
     public function getThumbnailPath($filePath, $checkFile = false)
     {
@@ -340,7 +340,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param  string $filePath original file path
      * @param bool $checkFile OPTIONAL is it necessary to check file availability
-     * @return string|false
+     * @return false|string
      */
     public function getThumbnailUrl($filePath, $checkFile = false)
     {

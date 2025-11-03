@@ -533,7 +533,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Cancel payment abstract method
      *
-     *
      * @return $this
      */
     public function cancel(Varien_Object $payment)
@@ -558,7 +557,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Void payment abstract method
      *
-     *
      * @return $this
      */
     public function void(Varien_Object $payment)
@@ -573,7 +571,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Whether this method can accept or deny payment
      *
-     *
      * @return bool
      */
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
@@ -584,8 +581,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to accept a payment that us under review
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
@@ -599,8 +596,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to deny a payment that us under review
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {
@@ -625,7 +622,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Retrieve information from payment configuration
      *
      * @param string $field
-     * @param int|string|null|Mage_Core_Model_Store $storeId
+     * @param null|int|Mage_Core_Model_Store|string $storeId
      *
      * @return mixed
      */
@@ -657,10 +654,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-      * Prepare info instance for save
-      *
-      * @return $this
-      */
+     * Prepare info instance for save
+     *
+     * @return $this
+     */
     public function prepareSave()
     {
         return $this;
@@ -671,7 +668,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * TODO: payment method instance is not supposed to know about quote
      *
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param null|Mage_Sales_Model_Quote $quote
      *
      * @return bool
      */
@@ -699,7 +696,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Purposed to allow use in controllers some logic that was implemented in blocks only before
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @param int|null $checksBitMask
+     * @param null|int $checksBitMask
      * @return bool
      */
     public function isApplicableToQuote($quote, $checksBitMask)

@@ -32,7 +32,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Inits query modifier
      *
-     * @param Varien_Db_Adapter_Pdo_Mysql|array $args
+     * @param array|Varien_Db_Adapter_Pdo_Mysql $args
      */
     public function __construct($args)
     {
@@ -204,7 +204,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      *
      * @param string $table
      * @param string $column
-     * @return array|null
+     * @return null|array
      */
     protected function _getColumnDefinitionFromTable($table, $column)
     {

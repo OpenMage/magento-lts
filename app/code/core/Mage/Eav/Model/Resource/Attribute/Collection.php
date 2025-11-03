@@ -46,7 +46,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -67,7 +67,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
     /**
      * Set Website scope
      *
-     * @param Mage_Core_Model_Website|int $website
+     * @param int|Mage_Core_Model_Website $website
      * @return $this
      */
     public function setWebsite($website)

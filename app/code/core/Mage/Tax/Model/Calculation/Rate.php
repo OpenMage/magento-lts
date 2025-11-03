@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
  *
  * @method string getCode()
  * @method $this setCode(string $value)
@@ -43,14 +44,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * List of tax titles
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_titles = null;
 
     /**
      * The Mage_Tax_Model_Calculation_Rate_Title
      *
-     * @var Mage_Tax_Model_Calculation_Rate_Title|null
+     * @var null|Mage_Tax_Model_Calculation_Rate_Title
      */
     protected $_titleModel = null;
 
@@ -136,8 +137,8 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Processing object before delete data
      *
-     * @return Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Abstract
      */
     protected function _beforeDelete()
     {
@@ -163,7 +164,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Saves the tax titles
      *
-     * @param array | null $titles
+     * @param null|array $titles
      */
     public function saveTitles($titles = null)
     {

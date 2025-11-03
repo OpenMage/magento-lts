@@ -95,10 +95,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Use sql compatible with Full Text indexes
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of column-value pairs
      * @param array $fields update fields pairs or values
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {

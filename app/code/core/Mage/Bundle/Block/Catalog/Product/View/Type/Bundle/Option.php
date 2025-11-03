@@ -21,14 +21,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Store preconfigured options
      *
-     * @var int|array|string|null
+     * @var null|array|int|string
      */
     protected $_selectedOptions = null;
 
     /**
      * Show if option has a single selection
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_showSingle = null;
 
@@ -90,7 +90,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Collect selected options
      *
-     * @return int|array|string
+     * @return array|int|string
      */
     protected function _getSelectedOptions()
     {
@@ -171,8 +171,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getSelectionQtyTitlePrice($selection, $includeContainer = true)
     {
@@ -189,7 +189,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      * Get price for selection product
      *
      * @param Mage_Catalog_Model_Product $selection
-     * @return int|float
+     * @return float|int
      */
     public function getSelectionPrice($selection)
     {
@@ -212,8 +212,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getSelectionTitlePrice($selection, $includeContainer = true)
     {
@@ -245,8 +245,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @param float $price
      * @param bool $includeContainer
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function formatPriceString($price, $includeContainer = true)
     {
@@ -267,10 +267,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
 
         $formated = $coreHelper::currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
-            $formated .=
-                    ' (+' .
-                    $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
-                    ' ' . $this->__('Incl. Tax') . ')';
+            $formated
+                    .= ' (+'
+                    . $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer)
+                    . ' ' . $this->__('Incl. Tax') . ')';
         }
 
         return $formated;

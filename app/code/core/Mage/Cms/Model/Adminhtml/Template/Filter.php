@@ -21,9 +21,8 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
      *
      * @param array $construction
      *
-     * @return string
-     *
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function mediaDirective($construction)
     {

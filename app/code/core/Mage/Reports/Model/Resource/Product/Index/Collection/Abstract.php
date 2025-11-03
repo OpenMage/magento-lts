@@ -31,7 +31,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
 
     /**
      * Retrieve Product Index table name
-     *
      */
     abstract protected function _getTableName();
 
@@ -184,7 +183,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add exclude Product Ids
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function excludeProductIds($productIds)

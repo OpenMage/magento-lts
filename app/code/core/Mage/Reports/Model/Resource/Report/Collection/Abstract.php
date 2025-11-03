@@ -17,14 +17,14 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * From date
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_from               = null;
 
     /**
      * To date
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_to                 = null;
 
@@ -38,7 +38,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Store ids
      *
-     * @var int|array
+     * @var array|int
      */
     protected $_storesIds          = 0;
 
