@@ -324,8 +324,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Success Registration
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer)
     {
@@ -382,7 +382,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Add session error method
      *
-     * @param string|array $errors
+     * @param array|string $errors
      */
     protected function _addSessionError($errors)
     {
@@ -527,7 +527,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Get model by path
      *
      * @param string $path
-     * @param array|null $arguments
+     * @param null|array $arguments
      * @return false|Mage_Core_Model_Abstract
      */
     public function _getModel($path, $arguments = [])
@@ -551,9 +551,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Returns success URL
      *
      * @param bool $isJustConfirmed
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @return string
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)
     {
@@ -799,7 +799,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display reset forgotten password form
-     *
      */
     public function changeForgottenAction()
     {
@@ -818,7 +817,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Checks reset forgotten password token
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email.
-     *
      */
     public function resetPasswordAction()
     {
@@ -906,7 +904,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return string|false
+     * @return false|string
      */
     protected function getCustomerId()
     {
@@ -1103,7 +1101,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     protected function _isVatValidationEnabled($store = null)

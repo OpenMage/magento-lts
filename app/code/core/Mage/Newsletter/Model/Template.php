@@ -14,6 +14,9 @@
  *
  * @method Mage_Newsletter_Model_Resource_Template _getResource()
  * @method Mage_Newsletter_Model_Resource_Template getResource()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getResourceCollection()
+ *
  * @method string getTemplateCode()
  * @method $this setTemplateCode(string $value)
  * @method $this setTemplateText(string $value)
@@ -51,13 +54,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail|null
+     * @var null|Zend_Mail
      */
     protected $_mail;
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
@@ -229,7 +231,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Makes additional text preparations for HTML templates
      *
      * @param bool $usePreprocess Use Preprocessed text or original text
-     * @param string|null $html
+     * @param null|string $html
      * @return string
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
@@ -282,10 +284,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param   Mage_Newsletter_Model_Subscriber|string   $subscriber   subscriber Model or E-mail
      * @param   array                                     $variables    template variables
-     * @param   string|null                               $name         receiver name (if subscriber model not specified)
-     * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
-     * @return  bool
+     * @param   null|string                               $name         receiver name (if subscriber model not specified)
+     * @param   null|Mage_Newsletter_Model_Queue          $queue        queue model, used for problems reporting
      * @throws  Exception|Throwable
+     * @return  bool
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
@@ -381,8 +383,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Prepare Process (with save)
      *
-     * @return $this
      * @throws Throwable
+     * @return $this
      * @deprecated since 1.4.0.1
      */
     public function preprocess()
@@ -396,8 +398,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template subject
      *
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getProcessedTemplateSubject(array $variables)
     {

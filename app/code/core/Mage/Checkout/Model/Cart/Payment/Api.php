@@ -62,7 +62,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
 
     /**
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return array|null
+     * @return null|array
      */
     protected function _getPaymentMethodAvailableCcTypes($method)
     {
@@ -119,7 +119,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * @param  int $quoteId
      * @param  array $paymentData
-     * @param  string|int $store
+     * @param  int|string $store
      * @return bool
      */
     public function setPaymentMethod($quoteId, $paymentData, $store = null)

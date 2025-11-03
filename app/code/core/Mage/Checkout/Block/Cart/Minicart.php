@@ -17,7 +17,7 @@ class Mage_Checkout_Block_Cart_Minicart extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get shopping cart items qty based on configuration (summary qty or items qty)
      *
-     * @return int | float
+     * @return float|int
      */
     public function getSummaryCount()
     {

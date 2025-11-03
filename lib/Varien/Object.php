@@ -17,13 +17,13 @@ class Varien_Object implements ArrayAccess
     /**
      * Object attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_data = [];
 
     /**
      * Data changes flag (true after setData|unsetData call)
-     * @var bool $_hasDataChange
+     * @var bool
      */
     protected $_hasDataChanges = false;
 
@@ -231,7 +231,7 @@ class Varien_Object implements ArrayAccess
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      */
@@ -309,7 +309,7 @@ class Varien_Object implements ArrayAccess
      * by new line character and converted to array.
      *
      * @param string $key
-     * @param string|int $index
+     * @param int|string $index
      * @return mixed
      */
     public function getData($key = '', $index = null)
@@ -753,7 +753,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param mixed $data
      * @param array $objects
-     * @return string|array
+     * @return array|string
      */
     public function debug($data = null, &$objects = [])
     {

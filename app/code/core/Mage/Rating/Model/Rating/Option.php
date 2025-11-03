@@ -12,9 +12,11 @@
  *
  * @package    Mage_Rating
  *
+ * @method Mage_Rating_Model_Resource_Rating_Option_Collection getCollection()
  * @method Mage_Rating_Model_Resource_Rating_Option_Collection getResourceCollection()
  * @method Mage_Rating_Model_Resource_Rating_Option _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Option getResource()
+ *
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method int getDoUpdate()
@@ -41,8 +43,8 @@ class Mage_Rating_Model_Rating_Option extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addVote()
     {

@@ -71,7 +71,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist object
      * @param int $wishlistId
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($wishlistId = null)
     {
@@ -171,8 +171,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @return void
      * @throws Throwable
+     * @return void
      */
     protected function _addItemToWishList()
     {

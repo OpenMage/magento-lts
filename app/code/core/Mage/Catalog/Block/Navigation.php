@@ -17,7 +17,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Category instance
      *
-     * @var Mage_Catalog_Model_Category|null
+     * @var null|Mage_Catalog_Model_Category
      */
     protected $_categoryInstance;
 
@@ -355,7 +355,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      */
     public function getCurrentCategory()
     {

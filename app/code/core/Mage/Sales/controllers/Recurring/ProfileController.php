@@ -22,8 +22,8 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Make sure customer is logged in and put it into registry
      *
-     * @return $this|void
      * @throws Mage_Core_Exception
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -162,8 +162,8 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     /**
      * Instantiate current profile and put it into registry
      *
-     * @return Mage_Sales_Model_Recurring_Profile
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Recurring_Profile
      */
     protected function _initProfile()
     {

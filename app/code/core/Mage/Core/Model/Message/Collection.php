@@ -74,7 +74,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Get last added message if any
      *
-     * @return Mage_Core_Model_Message_Abstract|null
+     * @return null|Mage_Core_Model_Message_Abstract
      */
     public function getLastAddedMessage()
     {
@@ -174,7 +174,7 @@ class Mage_Core_Model_Message_Collection
     /**
      * Retrieve messages count
      *
-     * @param string|null $type
+     * @param null|string $type
      * @return int
      */
     public function count($type = null)

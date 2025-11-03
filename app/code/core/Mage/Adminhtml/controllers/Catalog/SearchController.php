@@ -83,7 +83,6 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
     /**
      * Save search query
-     *
      */
     public function saveAction()
     {

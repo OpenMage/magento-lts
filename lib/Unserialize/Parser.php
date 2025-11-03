@@ -32,8 +32,8 @@ class Unserialize_Parser
 
     /**
      * @param $str
-     * @return array|null
      * @throws Exception
+     * @return null|array
      */
     public function unserialize($str)
     {

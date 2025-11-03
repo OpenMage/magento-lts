@@ -15,6 +15,7 @@
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
  * @method Mage_Wishlist_Model_Resource_Item getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getResourceCollection()
  *
  * @method string getAddedAt()
  * @method $this setAddedAt(string $value)
@@ -94,7 +95,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
     /**
      * Flag stating that options were successfully saved
-     *
      */
     protected $_flagOptionsSaved = null;
 
@@ -340,8 +340,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Return true if product was successful added or exception with code
      * Return false for disabled or unvisible products
      *
-     * @throws Mage_Core_Exception
      * @param bool $delete  delete the item after successful add to cart
+     * @throws Mage_Core_Exception
      * @return bool
      */
     public function addToCart(Mage_Checkout_Model_Cart $cart, $delete = false)
@@ -647,7 +647,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Wishlist_Model_Item_Option|null
+     * @return  null|Mage_Wishlist_Model_Item_Option
      */
     public function getOptionByCode($code)
     {
@@ -707,7 +707,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * can be provided in $optionsFilter.
      *
      * @param int $id
-     * @param null|string|array $optionsFilter
+     * @param null|array|string $optionsFilter
      *
      * @return $this
      */

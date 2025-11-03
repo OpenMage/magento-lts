@@ -300,8 +300,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param string $realModule
      * @param string $controller
-     * @return false|string
      * @throws Mage_Core_Exception
+     * @return false|string
      */
     protected function _validateControllerClassName($realModule, $controller)
     {
@@ -326,8 +326,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     /**
      * @param string $controllerFileName
      * @param string $controllerClassName
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      * @deprecated
      * @see _includeControllerClass()
      */
@@ -375,7 +375,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * @param string $frontName
-     * @return bool|array
+     * @return array|bool
      */
     public function getModuleByFrontName($frontName)
     {

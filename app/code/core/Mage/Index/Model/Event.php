@@ -12,6 +12,9 @@
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
+ * @method Mage_Index_Model_Resource_Event_Collection getCollection()
+ * @method Mage_Index_Model_Resource_Event_Collection getResourceCollection()
+ *
  * @method $this setType(string $value)
  * @method $this setEntity(string $value)
  * @method bool hasEntityPk()
@@ -19,8 +22,8 @@
  * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method $this setOldData(string|array $value)
- * @method $this setNewData(string|array $value)
+ * @method $this setOldData(array|string $value)
+ * @method $this setNewData(array|string $value)
  * @method Varien_Object getDataObject()
  * @method $this setDataObject(Varien_Object $value)
  * @method bool hasCreatedAt()
@@ -67,7 +70,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param Mage_Index_Model_Process|null $process
+     * @param null|Mage_Index_Model_Process $process
      * @return $this
      */
     public function setProcess($process)
@@ -79,7 +82,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process|null
+     * @return null|Mage_Index_Model_Process
      */
     public function getProcess()
     {
@@ -88,7 +91,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
-     * @param string|null $namespace
+     * @param null|string $namespace
      * @return $this
      */
     public function setDataNamespace($namespace)

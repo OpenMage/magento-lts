@@ -40,8 +40,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Authenticate user by $username and $password
      *
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function recordLogin(Mage_Admin_Model_User $user)
     {
@@ -65,7 +65,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Load data by specified username
      *
      * @param string $username
-     * @return false|array
+     * @return array|false
      */
     public function loadByUsername($username)
     {
@@ -85,7 +85,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if user is assigned to any role
      *
-     * @param string|int|Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param int|Mage_Admin_Model_User|Mage_Core_Model_Abstract|string $user
      * @return null|array
      */
     public function hasAssigned2Role($user)
@@ -161,9 +161,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Delete user role record with user
      *
      * @param Mage_Admin_Model_User $object
-     * @inheritDoc
      * @throws Exception
      * @throws Throwable
+     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -193,8 +193,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
      * @param Mage_Admin_Model_User $user
-     * @return $this|Mage_Core_Model_Abstract|Mage_Admin_Model_User
      * @throws Mage_Core_Exception
+     * @return $this|Mage_Admin_Model_User|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -287,9 +287,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Save user roles
      *
      * @param Mage_Admin_Model_User $user
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
      * @throws Zend_Cache_Exception
+     * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
@@ -414,8 +414,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Admin_Model_User $object
      * @param string $data
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function saveExtra($object, $data)
     {
@@ -435,9 +435,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Admin_Model_User $object
      * @param int $flag
-     * @return $this
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function saveReloadAclFlag($object, $flag)
     {

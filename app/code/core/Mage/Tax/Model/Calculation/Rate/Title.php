@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getResourceCollection()
  *
  * @method int getTaxCalculationRateId()
  * @method $this setTaxCalculationRateId(int $value)

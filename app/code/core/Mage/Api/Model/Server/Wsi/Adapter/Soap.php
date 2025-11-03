@@ -30,8 +30,8 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
     /**
      * Run webservice
      *
-     * @return $this
      * @throws SoapFault
+     * @return $this
      */
     public function run()
     {

@@ -15,6 +15,9 @@
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getCollection()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getResourceCollection()
+ *
  * @method string getTxnId()
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
@@ -115,8 +118,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      *
      * @param string $key
      * @param mixed $value
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setAdditionalInformation($key, $value)
     {
@@ -136,7 +139,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Getter for entire additional_information value or one of its element by key
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {
@@ -174,8 +177,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool|null $setFailsafe
-     * @return bool|$this
+     * @param null|bool $setFailsafe
+     * @return $this|bool
      */
     public function isFailsafe($setFailsafe = null)
     {

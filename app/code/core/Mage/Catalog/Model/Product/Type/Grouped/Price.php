@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
     /**
      * Returns product final price depending on options chosen
      *
-     * @param float|null $qty
+     * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return  double
+     * @return  float
      */
     public function getFinalPrice($qty, $product)
     {

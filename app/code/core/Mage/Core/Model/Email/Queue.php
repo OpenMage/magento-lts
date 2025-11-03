@@ -13,7 +13,10 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Email_Queue _getResource()
+ * @method Mage_Core_Model_Resource_Email_Queue getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Email_Queue_Collection getResourceCollection()
+ *
  * @method $this setCreatedAt(string $value)
  * @method int getEntityId()
  * @method $this setEntityId(int $value)
@@ -113,7 +116,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Add message recipients by email type
      *
      * @param array|string $emails
-     * @param array|string|null $names
+     * @param null|array|string $names
      * @param int $type
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
@@ -149,7 +152,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
     /**
      * Set message recipients data
-     *
      *
      * @return $this
      */

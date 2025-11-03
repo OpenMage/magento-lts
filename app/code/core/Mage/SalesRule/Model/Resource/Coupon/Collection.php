@@ -23,7 +23,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     /**
      * Add rule to filter
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param int|Mage_SalesRule_Model_Rule $rule
      *
      * @return $this
      */
@@ -42,7 +42,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
 
     /**
      * Add rule IDs to filter
-     *
      *
      * @return $this
      */

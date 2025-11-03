@@ -205,8 +205,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect backend storage type using frontend input type
      *
-     * @return string backend_type field value
      * @param string $type frontend_input field value
+     * @return string backend_type field value
      */
     public function getBackendTypeByInput($type)
     {
@@ -225,8 +225,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Detect default value using frontend input type
      *
-     * @return string default_value field value
      * @param string $type frontend_input field name
+     * @return string default_value field value
      */
     public function getDefaultValueByInput($type)
     {
@@ -293,8 +293,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Return store label of attribute
      *
      * @param int $storeId
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getStoreLabel($storeId = null)
     {

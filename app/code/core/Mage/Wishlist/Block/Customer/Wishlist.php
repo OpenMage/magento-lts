@@ -101,7 +101,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @deprecated after 1.6.2.0
      * @param string $productType
-     * @return array|null
+     * @return null|array
      */
     public function getOptionsRenderCfg($productType)
     {

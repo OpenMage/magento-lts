@@ -88,7 +88,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update status for events of process
      *
-     * @param int|array|Mage_Index_Model_Process $process
+     * @param array|int|Mage_Index_Model_Process $process
      * @param string $status
      * @return $this
      */

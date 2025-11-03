@@ -41,7 +41,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Authenticate customer on frontend
-     *
      */
     public function authFrontend()
     {
@@ -102,7 +101,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Send authenticate failed headers
-     *
      */
     public function authFailed()
     {
@@ -147,7 +145,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public function isRssAdminOrderNewEnabled($store = null): bool
     {
@@ -155,7 +153,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public function getRssAdminOrderNewPeriod($store = null): int
     {

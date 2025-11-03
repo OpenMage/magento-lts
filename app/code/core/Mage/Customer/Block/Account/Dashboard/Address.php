@@ -23,7 +23,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getPrimaryShippingAddressHtml()
     {
@@ -37,7 +37,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getPrimaryBillingAddressHtml()
     {

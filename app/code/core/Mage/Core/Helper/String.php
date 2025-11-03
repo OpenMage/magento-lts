@@ -27,7 +27,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string|null $string
+     * @param null|string $string
      * @param int $length
      * @param string $etc
      * @param string &$remainder
@@ -249,7 +249,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Split words
      *
-     * @param string|null $str The source string
+     * @param null|string $str The source string
      * @param bool $uniqueOnly Unique words only
      * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
@@ -301,7 +301,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int|false
+     * @return false|int
      */
     public function strpos($haystack, $needle, $offset = 0)
     {
@@ -523,8 +523,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         } elseif ($h <= 0xEF) {
             $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
         } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
-                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12
+                | (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
         }
 
         return $ord;
@@ -532,9 +532,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string|null $str
-     * @return null|void
+     * @param null|string $str
      * @throws Exception
+     * @return null|void
      */
     public function unserialize($str)
     {
@@ -565,8 +565,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function isSerializedArrayOrObject($data)
     {
-        $pattern =
-            '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
+        $pattern
+            = '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
         return is_string($data) && preg_match($pattern, $data);
     }
 

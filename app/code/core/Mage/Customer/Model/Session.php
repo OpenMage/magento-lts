@@ -137,7 +137,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer id
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -149,7 +149,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Retrieve customer id from current session
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCustomerId()
     {
@@ -163,7 +163,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer group id
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return $this
      */
     public function setCustomerGroupId($id)

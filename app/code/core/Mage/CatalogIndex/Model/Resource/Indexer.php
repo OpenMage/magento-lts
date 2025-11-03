@@ -55,7 +55,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param bool $minimal clear minimal price index data flag
      * @param bool $finalPrice clear final price index data flag
      * @param bool $tierPrice clear tier price index data flag
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|int|array|null $products applicable products
+     * @param null|array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products applicable products
      * @param mixed $store applicable stores
      */
     public function clear(
@@ -173,7 +173,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param array $products array of product ids
      * @param Mage_Core_Model_Store $store
-     * @param int | null $forcedId identifier of "parent" product
+     * @param null|int $forcedId identifier of "parent" product
      * @return $this
      */
     public function reindexTiers($products, $store, $forcedId = null)
@@ -242,7 +242,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Reindex product prices
      *
-     * @param array | int $products product ids
+     * @param array|int $products product ids
      * @param array $attributeIds
      * @param Mage_Core_Model_Store $store
      * @return $this
@@ -258,7 +258,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      *
      * @param array $products array of product ids
      * @param Mage_Core_Model_Store $store
-     * @param int | null $forcedId identifier of "parent" product
+     * @param null|int $forcedId identifier of "parent" product
      * @return $this
      */
     public function reindexFinalPrices($products, $store, $forcedId = null)
@@ -373,7 +373,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param array $products
      * @param array $attributeIds
      * @param mixed $store
-     * @param int|null $forcedId
+     * @param null|int $forcedId
      * @param string $table
      * @param bool $storeIsWebsite
      * @return $this

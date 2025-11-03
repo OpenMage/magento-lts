@@ -181,8 +181,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * Retrieve decoding domain name from punycode
      *
      * @param string $url decode url from Punycode
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function decodePunycode($url)
     {

@@ -111,8 +111,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Run webservice
      *
-     * @return $this
      * @throws SoapFault
+     * @return $this
      */
     public function run()
     {
@@ -199,8 +199,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      *
      * @param array $params
      * @param bool $withAuth
-     * @return string
      * @throws Zend_Uri_Exception
+     * @return string
      */
     protected function getWsdlUrl($params = null, $withAuth = true)
     {

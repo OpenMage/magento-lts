@@ -22,8 +22,8 @@ interface Mage_Core_Helper_Validate_Interface
      * validation failed.
      *
      * @param  mixed $value
-     * @return bool
      * @throws Mage_Core_Exception If validation of $value is impossible
+     * @return bool
      */
     public function isValid($value);
 

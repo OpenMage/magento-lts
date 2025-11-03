@@ -9,7 +9,6 @@
 
 /**
  * Csv parse
- *
  */
 
 require_once 'Varien/File/Csv.php';

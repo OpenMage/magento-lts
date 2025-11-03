@@ -44,7 +44,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
     /**
      * Define module
-     *
      */
     protected function _construct()
     {
@@ -299,7 +298,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Render SQL for retrieve product count
      *
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getSelectCountSql()
     {
@@ -426,7 +425,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
     /**
      * Add store data
-     *
      */
     protected function _addStoreData()
     {

@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Add new tab after another
      *
      * @param   string $tabId new tab Id
-     * @param   string|array|Varien_Object $tab
+     * @param   array|string|Varien_Object $tab
      * @param   string $afterTabId
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Add new tab
      *
      * @param   string $tabId
-     * @param   string|array|Varien_Object $tab
+     * @param   array|string|Varien_Object $tab
      * @return  $this
      */
     public function addTab($tabId, $tab)
@@ -220,8 +220,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Find the root parent Tab ID recursively.
      *
      * @param string $currentAfterTabId
-     * @param int $degree Degrees of separation between child and root parent.
-     * @return string The parent tab ID.
+     * @param int $degree degrees of separation between child and root parent
+     * @return string the parent tab ID
      */
     protected function _getRootParentTabId($currentAfterTabId, &$degree)
     {
@@ -282,7 +282,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @param bool $withPrefix
      * @return string
      */
@@ -296,7 +296,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return bool
      */
     public function canShowTab($tab)
@@ -309,7 +309,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return bool
      */
     public function getTabIsHidden($tab)
@@ -322,7 +322,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return string
      */
     public function getTabUrl($tab)
@@ -343,7 +343,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return string
      */
     public function getTabTitle($tab)
@@ -356,7 +356,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return string
      */
     public function getTabClass($tab)
@@ -373,7 +373,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return string
      */
     public function getTabLabel($tab)
@@ -386,7 +386,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object $tab
      * @return string
      */
     public function getTabContent($tab)

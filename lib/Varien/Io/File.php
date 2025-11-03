@@ -54,7 +54,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream open file pointer
      *
-     * @var resource|null
+     * @var null|resource
      */
     protected $_streamHandler;
 
@@ -195,7 +195,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Gets line from file pointer and parse for CSV fields
      *
-     * @return array|false|null
+     * @return null|array|false
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -441,8 +441,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return bool
      * @throws Exception
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -464,7 +464,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Otherwise it will be saved to the file or stream and operation result is returned.
      *
      * @param string $filename
-     * @param string|resource $dest
+     * @param resource|string $dest
      * @return bool|string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -489,11 +489,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Write a file from string, file or stream
      *
      * @param string $filename
-     * @param string|resource $src
+     * @param resource|string $src
      * @param int $mode
      *
-     * @return int|bool
      * @throws Exception
+     * @return bool|int
      */
     public function write($filename, $src, $mode = null)
     {
@@ -525,7 +525,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Check source is valid
      *
-     * @param string|resource $src
+     * @param resource|string $src
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -605,7 +605,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * File put content wrapper
      *
      * @param string $filename
-     * @param string|resource $src
+     * @param resource|string $src
      *
      * @return int
      *
@@ -886,7 +886,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Convert integer permissions format into human readable
      *
-     * @param integer $mode
+     * @param int $mode
      * @access protected
      * @return string
      */

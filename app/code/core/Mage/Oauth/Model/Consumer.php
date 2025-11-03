@@ -16,6 +16,7 @@
  * @method Mage_Oauth_Model_Resource_Consumer getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
+ *
  * @method string getName()
  * @method $this setName() setName(string $name)
  * @method string getKey()
@@ -69,8 +70,8 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     /**
      * Validate data
      *
-     * @return bool
      * @throws Mage_Core_Exception   Throw exception on fail validation
+     * @return bool
      */
     public function validate()
     {

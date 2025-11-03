@@ -24,21 +24,21 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     /**
      * Store catalog Flat index process instance
      *
-     * @var Mage_Index_Model_Process|null
+     * @var null|Mage_Index_Model_Process
      */
     protected $_process = null;
 
     /**
      * Flag for accessibility
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAccessible = null;
 
     /**
      * Flag for availability
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isAvailable = null;
 

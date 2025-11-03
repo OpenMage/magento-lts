@@ -236,7 +236,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function appendChild($prevNode = null)
@@ -247,7 +247,7 @@ class Varien_Data_Tree_Node extends Varien_Object
 
     /**
      * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function moveTo($parentNode, $prevNode = null)
@@ -258,7 +258,7 @@ class Varien_Data_Tree_Node extends Varien_Object
 
     /**
      * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function copyTo($parentNode, $prevNode = null)

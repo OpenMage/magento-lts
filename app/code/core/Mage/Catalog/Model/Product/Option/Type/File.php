@@ -85,8 +85,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Returns file info array if we need to get file from already existing file.
      * Or returns null, if we need to get file from uploaded array.
      *
-     * @return null|array
      * @throws Mage_Core_Exception
+     * @return null|array
      */
     protected function _getCurrentConfigFileInfo()
     {
@@ -114,8 +114,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Validate user input for option
      *
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function validateUserValue($values)
     {
@@ -159,8 +159,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate uploaded file
      *
-     * @return $this
      * @throws Mage_Core_Exception|Zend_File_Transfer_Exception
+     * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _validateUploadedFile()
@@ -308,8 +308,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Validate file
      *
      * @param array $optionValue
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     protected function _validateFile($optionValue)
     {
@@ -433,8 +433,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Get Error messages for validator Errors
      * @param array $errors Array of validation failure message codes
      * @param array $fileInfo File info
-     * @return array Array of error messages
      * @throws Mage_Core_Exception
+     * @return array Array of error messages
      */
     protected function _getValidatorErrors($errors, $fileInfo)
     {
@@ -485,8 +485,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return string|null Prepared option value
      * @throws Mage_Core_Exception
+     * @return null|string Prepared option value
      */
     public function prepareForCart()
     {
@@ -562,9 +562,9 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Format File option html
      *
-     * @param string|array $optionValue Serialized string of option data or its data array
-     * @return string
+     * @param array|string $optionValue Serialized string of option data or its data array
      * @throws Mage_Core_Exception
+     * @return string
      */
     protected function _getOptionHtml($optionValue)
     {
@@ -597,8 +597,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Create a value from a storable representation
      *
      * @param mixed $value
-     * @return array
      * @throws Exception
+     * @return array
      */
     protected function _unserializeValue($value)
     {
@@ -648,7 +648,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -801,8 +801,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $route
      * @param array $params
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     protected function _getOptionDownloadUrl($route, $params)
     {
@@ -822,7 +822,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Parse file extensions string with various separators
      *
      * @param string $extensions String to parse
-     * @return array|null
+     * @return null|array
      */
     protected function _parseExtensionsString($extensions)
     {

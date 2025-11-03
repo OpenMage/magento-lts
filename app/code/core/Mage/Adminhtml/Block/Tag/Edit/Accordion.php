@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_Tag_Edit_Accordion extends Mage_Adminhtml_Block_Widge
 {
     /**
      * Add products and customers accordion to layout
-     *
      */
     protected function _prepareLayout()
     {

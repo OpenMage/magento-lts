@@ -17,7 +17,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Data Form object
      *
-     * @var Varien_Data_Form|null
+     * @var null|Varien_Data_Form
      */
     protected $_form;
 

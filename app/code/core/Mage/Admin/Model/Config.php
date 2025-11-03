@@ -108,7 +108,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Get acl assert config
      *
      * @param string $name
-     * @return false|SimpleXMLElement|Varien_Simplexml_Element|Mage_Core_Model_Config_Element
+     * @return false|Mage_Core_Model_Config_Element|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclAssert($name = '')
     {

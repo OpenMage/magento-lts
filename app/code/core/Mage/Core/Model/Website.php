@@ -61,7 +61,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Group Coleection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_groups;
 
@@ -82,7 +82,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Store collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_stores;
 
@@ -124,7 +124,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * is can delete website
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isCanDelete;
 
@@ -136,7 +136,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * init model
-     *
      */
     protected function _construct()
     {
@@ -220,7 +219,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load group collection and set internal data
-     *
      */
     protected function _loadGroups()
     {
@@ -319,7 +317,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group model
      *
-     * @return Mage_Core_Model_Store_Group|false
+     * @return false|Mage_Core_Model_Store_Group
      */
     public function getDefaultGroup()
     {
@@ -336,7 +334,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load store collection and set internal data
-     *
      */
     protected function _loadStores()
     {

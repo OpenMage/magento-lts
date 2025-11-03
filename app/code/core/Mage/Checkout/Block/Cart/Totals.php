@@ -19,7 +19,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     protected $_totals = null;
 
     /**
-     * @return array|null
+     * @return null|array
      */
     public function getTotals()
     {
@@ -67,7 +67,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 
     /**
      * @param Mage_Sales_Model_Quote_Address_Total $total
-     * @param string|null $area
+     * @param null|string $area
      * @param int $colspan
      * @return string
      */

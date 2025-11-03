@@ -18,14 +18,14 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Current scope (store Id)
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId;
 
     /**
      * Set store scope
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Set store scope
      *
-     * @param int|string|Mage_Core_Model_Store $storeId
+     * @param int|Mage_Core_Model_Store|string $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -79,8 +79,8 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      *
      * @param string $table
      * @param array|int $attributeIds
-     * @return Varien_Db_Select|Zend_Db_Select
      * @throws Mage_Core_Exception
+     * @return Varien_Db_Select|Zend_Db_Select
      */
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {

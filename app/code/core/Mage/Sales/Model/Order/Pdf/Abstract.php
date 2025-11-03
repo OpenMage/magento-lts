@@ -79,9 +79,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {
-        $drawingString = '"libiconv"' == ICONV_IMPL ?
-            iconv('UTF-8', 'UTF-16BE//IGNORE', $string) :
-            @iconv('UTF-8', 'UTF-16BE', $string);
+        $drawingString = '"libiconv"' == ICONV_IMPL
+            ? iconv('UTF-8', 'UTF-16BE//IGNORE', $string)
+            : @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
         for ($i = 0; $i < strlen($drawingString); $i++) {
@@ -128,7 +128,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert logo to pdf page
      *
      * @param Zend_Pdf_Page $page
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
      */
     protected function insertLogo(&$page, $store = null)
     {
@@ -174,7 +174,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Insert address to pdf page
      *
      * @param Zend_Pdf_Page $page
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
      */
     protected function insertAddress(&$page, $store = null)
     {

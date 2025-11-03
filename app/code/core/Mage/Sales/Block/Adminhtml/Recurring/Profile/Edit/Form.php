@@ -37,7 +37,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected $_profile = null;
 
     /**
-     *
      * @var Mage_Catalog_Model_Product
      */
     protected $_product = null;

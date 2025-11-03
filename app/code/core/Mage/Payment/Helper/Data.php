@@ -24,7 +24,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve the class name of the payment method's model
      *
      * @param $code
-     * @return string|null
+     * @return null|string
      */
     public function getMethodModelClassName($code)
     {
@@ -36,7 +36,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve method model object
      *
      * @param   string $code
-     * @return  Mage_Payment_Model_Method_Abstract|false
+     * @return  false|Mage_Payment_Model_Method_Abstract
      */
     public function getMethodInstance($code)
     {
@@ -55,7 +55,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @param Mage_Sales_Model_Quote $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
@@ -68,7 +68,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            /** @var Mage_Payment_Model_Method_Abstract|false $methodInstance */
+            /** @var false|Mage_Payment_Model_Method_Abstract $methodInstance */
             $methodInstance = Mage::getModel($model);
             if (!$methodInstance) {
                 continue;
@@ -106,7 +106,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment method form html
      *
-     * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
+     * @return  Mage_Core_Block_Abstract|Mage_Payment_Block_Form
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -123,7 +123,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment information block
      *
-     * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
+     * @return  Mage_Core_Block_Abstract|Mage_Core_Block_Template
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)
     {
@@ -186,7 +186,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve all payment methods
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getPaymentMethods($store = null)
@@ -213,7 +213,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $sorted
      * @param bool $asLabelValue
      * @param bool $withGroups
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)

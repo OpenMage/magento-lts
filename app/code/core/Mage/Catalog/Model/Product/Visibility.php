@@ -31,7 +31,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 
     /**
      * Initialize object
-     *
      */
     public function __construct()
     {
@@ -131,10 +130,10 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     }
 
     /**
-    * Retrieve all options
-    *
-    * @return array
-    */
+     * Retrieve all options
+     *
+     * @return array
+     */
     public static function getAllOption()
     {
         $options = self::getOptionArray();
@@ -213,7 +212,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -248,8 +247,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param string $dir direction
-     * @return Mage_Catalog_Model_Product_Visibility
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Visibility
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {

@@ -59,7 +59,7 @@
         "macopedia/phpstan-magento1": "^1.1",
         "magento-ecg/coding-standard": "^4.5",
         "n98/magerun": "dev-develop",
-        "openmage/dev-meta-package": "^1.0.5",
+        "openmage/dev-meta-package": "^1.1.0",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",

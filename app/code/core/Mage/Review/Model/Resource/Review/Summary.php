@@ -16,7 +16,6 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
 {
     /**
      * Define module
-     *
      */
     protected function _construct()
     {

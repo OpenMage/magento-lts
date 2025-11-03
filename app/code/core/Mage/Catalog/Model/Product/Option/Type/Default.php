@@ -20,7 +20,7 @@
  * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
  * @method array|int getUserValue()
  * @method $this setRequest(Varien_Object $value)
- * @method $this setUserValue(array|int|null $value)
+ * @method $this setUserValue(null|array|int $value)
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_productOptions = [];
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $_formattedOptionValue = null;
 
@@ -63,8 +63,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Option Instance getter
      *
-     * @return Mage_Catalog_Model_Product_Option
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Option
      */
     public function getOption()
     {
@@ -192,8 +192,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function validateUserValue($values)
@@ -220,8 +220,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getSkipCheckRequiredOption()
     {
-        return $this->getProduct()->getSkipCheckRequiredOption() ||
-            $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+        return $this->getProduct()->getSkipCheckRequiredOption()
+            || $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return option html
      *
      * @param array $optionInfo
-     * @return string|array
+     * @return array|string
      */
     public function getCustomizedView($optionInfo)
     {
@@ -299,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {

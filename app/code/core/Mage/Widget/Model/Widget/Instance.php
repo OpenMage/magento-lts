@@ -15,6 +15,7 @@
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getResourceCollection()
  *
  * @method array getPageGroups()
  * @method $this setPageGroups(array $value)
@@ -389,7 +390,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Load widget XML config and merge with theme widget config
      *
-     * @return Varien_Simplexml_Element|null
+     * @return null|Varien_Simplexml_Element
      */
     public function getWidgetConfig()
     {

@@ -180,7 +180,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * @return Mage_Admin_Model_Session
-*/
+     */
     protected function getSession()
     {
         return  Mage::getSingleton('admin/session');
@@ -190,8 +190,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Save admin user extra data (like configuration sections state)
      *
      * @param   array|string $data
+     * @throws  Zend_Db_Adapter_Exception
      * @return  $this
-     * @throws Zend_Db_Adapter_Exception
      */
     public function saveExtra($data)
     {
@@ -206,8 +206,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function saveRelations()
     {
@@ -370,8 +370,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function authenticate($username, $password)
     {
@@ -432,9 +432,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function login($username, $password)
     {
@@ -486,7 +486,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Check if user is assigned to any role
      *
      * @param int|Mage_Admin_Model_User $user
-     * @return array|null
+     * @return null|array
      */
     public function hasAssigned2Role($user)
     {
@@ -685,8 +685,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns TRUE or array of errors.
      *
      * @param string $password
-     * @return array|true
      * @throws Exception
+     * @return array|true
      */
     public function validateCurrentPassword($password)
     {
@@ -712,8 +712,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {
@@ -776,7 +776,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string|bool $dayOnly
+     * @param bool|string $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)

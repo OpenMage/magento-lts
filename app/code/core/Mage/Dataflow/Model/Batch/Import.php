@@ -14,6 +14,7 @@
  *
  * @method Mage_Dataflow_Model_Resource_Batch_Import _getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Import getResource()
+ *
  * @method int getBatchId()
  * @method $this setBatchId(int $value)
  * @method int getStatus()

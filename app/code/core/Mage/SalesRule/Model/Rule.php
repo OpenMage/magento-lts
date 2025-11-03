@@ -15,6 +15,7 @@
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
  *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)
@@ -224,7 +225,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Initialize rule model data from array.
      * Set store labels if applicable.
      *
-     *
      * @return $this
      */
     public function loadPost(array $data)
@@ -314,9 +314,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Get Rule label by specified store
      *
-     * @param Mage_Core_Model_Store|int|bool|null $store
+     * @param null|bool|int|Mage_Core_Model_Store $store
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getStoreLabel($store = null)
     {
@@ -395,7 +395,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param bool $saveNewlyCreated Whether or not to save newly created coupon
      * @param int $saveAttemptCount Number of attempts to save newly created coupon
      *
-     * @return Mage_SalesRule_Model_Coupon|null
+     * @return null|Mage_SalesRule_Model_Coupon
      */
     public function acquireCoupon($saveNewlyCreated = true, $saveAttemptCount = 10)
     {
@@ -430,9 +430,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     }
 
                     $coupon->setCode(
-                        $couponCode .
-                        self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', random_int(0, 9999)),
+                        $couponCode
+                        . self::getCouponCodeGenerator()->getDelimiter()
+                        . sprintf('%04u', random_int(0, 9999)),
                     );
                     continue;
                 }

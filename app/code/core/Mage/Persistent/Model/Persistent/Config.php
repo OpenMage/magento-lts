@@ -43,8 +43,8 @@ class Mage_Persistent_Model_Persistent_Config
     /**
      * Load persistent XML config
      *
-     * @return Varien_Simplexml_Element
      * @throws Mage_Core_Exception
+     * @return Varien_Simplexml_Element
      */
     public function getXmlConfig()
     {
@@ -102,9 +102,9 @@ class Mage_Persistent_Model_Persistent_Config
      * Run one method by given method info
      *
      * @param array $info
-     * @param Mage_Core_Block_Abstract|false $instance
-     * @return $this
+     * @param false|Mage_Core_Block_Abstract $instance
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function fireOne($info, $instance = false)
     {

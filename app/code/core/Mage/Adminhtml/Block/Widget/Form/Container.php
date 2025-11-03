@@ -89,8 +89,8 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getDeleteUrl()
     {

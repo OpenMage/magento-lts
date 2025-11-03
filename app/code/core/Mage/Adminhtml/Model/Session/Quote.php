@@ -36,28 +36,28 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote   = null;
 
     /**
      * Customer mofrl object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer = null;
 
     /**
      * Store model object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store   = null;
 
     /**
      * Order model object
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order   = null;
 
