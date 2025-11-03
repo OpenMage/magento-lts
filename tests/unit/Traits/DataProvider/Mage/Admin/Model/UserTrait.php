@@ -109,7 +109,7 @@ trait UserTrait
             true,
             [
                 'getRpToken'       => '1',
-                'getRpTokenCreatedAt' => Varien_Date::now(),
+                'getRpTokenCreatedAt' => '2025-01-01 10:20:30',
             ],
         ];
     }
