@@ -403,11 +403,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 ),
             ));
         } else {
+            $_allowed = $this->_parseExtensionsString($option->getFileExtension());
             $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_forbidden !== null) {
+            if ($_allowed !== null && $_forbidden !== null) {
                 $validatorChain->append($validator->validateChoice(
-                    value: $option->getFileExtension(),
+                    value: $_allowed,
                     choices: $_forbidden,
+                    multiple: true,
                     message: Mage::helper('catalog')->__(
                         $this->getValidatorMessage(self::ERROR_EXTENSION_FALSE_EXTENSION),
                         $optionValue['title'],
