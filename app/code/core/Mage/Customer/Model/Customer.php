@@ -1162,6 +1162,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             emptyMessage: Mage::helper('customer')->__('The password cannot be empty.'),
             minMessage: Mage::helper('customer')->__('The minimum password length is %s', $min),
             maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
+            regexMessage: Mage::helper('customer')->__('Password must include both numeric and alphabetic characters.'),
         );
     }
 

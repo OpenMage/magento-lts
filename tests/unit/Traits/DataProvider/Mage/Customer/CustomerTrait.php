@@ -75,7 +75,10 @@ trait CustomerTrait
         $data['getPassword'] = $password;
         $data['getPasswordConfirmation'] = $password;
         yield 'passwords to short' => [
-            ['The minimum password length is 7'],
+            [
+                'The minimum password length is 7',
+                'Password must include both numeric and alphabetic characters.',
+            ],
             $data,
         ];
 
@@ -84,7 +87,10 @@ trait CustomerTrait
         $data['getPassword'] = $password;
         $data['getPasswordConfirmation'] = $password;
         yield 'passwords to long' => [
-            ['Please enter a password with at most 256 characters.'],
+            [
+                'Please enter a password with at most 256 characters.',
+                'Password must include both numeric and alphabetic characters.',
+            ],
             $data,
         ];
 
