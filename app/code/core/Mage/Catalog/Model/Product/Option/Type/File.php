@@ -403,9 +403,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 ),
             ));
         } else {
-            $_allowed = $this->_parseExtensionsString($option->getFileExtension());
             $_forbidden = $this->_parseExtensionsString($this->getConfigData('forbidden_extensions'));
-            if ($_allowed !== null && $_forbidden !== null) {
+            if ($_forbidden !== null) {
                 $validatorChain->append($validator->validateChoice(
                     value: $_allowed,
                     choices: $_forbidden,
