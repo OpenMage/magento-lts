@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+                    'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
                     'class' => 'back',
                 ]),
         );
@@ -55,9 +55,9 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                    'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
+                    'onclick'   => "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
                         Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
-                    ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
+                    ) . "')) roleForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;",
                     'class' => 'delete',
                 ]),
         );

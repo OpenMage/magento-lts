@@ -59,7 +59,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {

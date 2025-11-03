@@ -85,8 +85,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * $row is bestseller row wrapped in Product model
      *
      * @param Mage_Catalog_Model_Product $row
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function getRowUrl($row)
     {

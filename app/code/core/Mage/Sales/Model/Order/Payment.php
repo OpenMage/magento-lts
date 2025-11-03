@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Collection getResourceCollection()
  *
  * @method string getAccountStatus()
  * @method $this setAccountStatus(string $value)
@@ -34,7 +35,6 @@
  * @method $this setAmountRefunded(float $value)
  * @method string getAnetTransMethod()
  * @method $this setAnetTransMethod(string $value)
- *
  * @method float getBaseAmountAuthorized()
  * @method $this setBaseAmountAuthorized(float $value)
  * @method float getBaseAmountCanceled()
@@ -56,7 +56,6 @@
  * @method float getBaseShippingRefunded()
  * @method $this setBaseShippingRefunded(float $value)
  * @method array getBillingAgreementData()
- *
  * @method string getCcApproval()
  * @method $this setCcApproval(string $value)
  * @method string getCcAvsStatus()
@@ -104,7 +103,6 @@
  * @method $this setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
  * @method $this setCybersourceToken(string $value)
- *
  * @method string getEcheckAccountName()
  * @method $this setEcheckAccountName(string $value)
  * @method string getEcheckAccountType()
@@ -115,13 +113,11 @@
  * @method $this setEcheckRoutingNumber(string $value)
  * @method string getEcheckType()
  * @method $this setEcheckType(string $value)
- *
  * @method string getFlo2cashAccountId()
  * @method $this setFlo2cashAccountId(string $value)
  * @method bool hasForcedState()
  * @method string getForcedState()
  * @method bool getIsFraudDetected()
- *
  * @method string getIdealIssuerId()
  * @method $this setIdealIssuerId(string $value)
  * @method string getIdealIssuerTitle()
@@ -135,18 +131,14 @@
  * @method bool getIsTransactionClosed()
  * @method bool getIsTransactionDenied()
  * @method bool getIsTransactionPending()
- *
  * @method string getLastTransId()
  * @method $this setLastTransId(string $value)
- *
  * @method bool hasMessage()
  * @method string getMessage()
  * @method $this setMessage(string $value)
  * @method string getMethod()
  * @method $this setMethod(string $value)
- *
  * @method bool getNotificationResult()
- *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method string getParentTransactionId()
@@ -160,12 +152,9 @@
  * @method string getPreparedMessage()
  * @method string getProtectionEligibility()
  * @method $this setProtectionEligibility(string $value)
- *
  * @method int getQuotePaymentId()
  * @method $this setQuotePaymentId(int $value)
- *
  * @method $this setRefundTransactionId(string $value)
- *
  * @method float getShippingAmount()
  * @method $this setShippingAmount(float $value)
  * @method float getShippingCaptured()
@@ -178,11 +167,9 @@
  * @method bool getSkipTransactionCreation()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
  * @method $this unsTransactionId()
- *
  * @method $this setVoidTransactionId(string $value)
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
@@ -430,9 +417,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
-     * @param Mage_Sales_Model_Order_Invoice|null $invoice
-     * @return $this
+     * @param null|Mage_Sales_Model_Order_Invoice $invoice
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function capture($invoice)
     {
@@ -656,8 +643,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Check order payment void availability
      *
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function canVoid(Varien_Object $document)
     {
@@ -1352,7 +1339,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param string $type
      * @param Mage_Sales_Model_Abstract $salesDocument
      * @param bool $failsafe
-     * @param string|false $message
+     * @param false|string $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
@@ -1388,7 +1375,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Get the billing agreement, if any
      *
-     * @return Mage_Sales_Model_Billing_Agreement|null
+     * @return null|Mage_Sales_Model_Billing_Agreement
      */
     public function getBillingAgreement()
     {
@@ -1446,7 +1433,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Append transaction ID (if any) message to the specified message
      *
-     * @param Mage_Sales_Model_Order_Payment_Transaction|string|null $transaction
+     * @param null|Mage_Sales_Model_Order_Payment_Transaction|string $transaction
      * @param string $message
      * @return string
      */
@@ -1464,8 +1451,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prepend a "prepared_message" that may be set to the payment instance before, to the specified message
      * Prepends value to the specified string or to the comment of specified order status history item instance
      *
-     * @param string|Mage_Sales_Model_Order_Status_History $messagePrependTo
-     * @return string|Mage_Sales_Model_Order_Status_History
+     * @param Mage_Sales_Model_Order_Status_History|string $messagePrependTo
+     * @return Mage_Sales_Model_Order_Status_History|string
      */
     protected function _prependMessage($messagePrependTo)
     {
@@ -1487,9 +1474,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Round up and cast specified amount to float or string
      *
-     * @param string|float $amount
+     * @param float|string $amount
      * @param bool $asFloat
-     * @return string|float
+     * @return float|string
      */
     protected function _formatAmount($amount, $asFloat = false)
     {
@@ -1513,9 +1500,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param string|false|null $txnId
-     * @param string|false $txnType
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @param null|false|string $txnId
+     * @param false|string $txnType
+     * @return false|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _lookupTransaction($txnId, $txnType = false)
     {
@@ -1556,9 +1543,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param string|false $txnId
-     * @param string|false $txnType
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @param false|string $txnId
+     * @param false|string $txnType
+     * @return false|Mage_Sales_Model_Order_Payment_Transaction
      */
     public function lookupTransaction($txnId, $txnType = false)
     {
@@ -1567,7 +1554,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Lookup an authorization transaction using parent transaction id, if set
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @return false|Mage_Sales_Model_Order_Payment_Transaction
      */
     public function getAuthorizationTransaction()
     {
@@ -1587,7 +1574,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Lookup the transaction by id
      * @param string $transactionId
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     * @return false|Mage_Sales_Model_Order_Payment_Transaction
      */
     public function getTransaction($transactionId)
     {
@@ -1599,7 +1586,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * If no transactions were set before invoking, may generate an "offline" transaction id
      *
      * @param string $type
-     * @param Mage_Sales_Model_Order_Payment_Transaction|false $transactionBasedOn
+     * @param false|Mage_Sales_Model_Order_Payment_Transaction $transactionBasedOn
      */
     protected function _generateTransactionId($type, $transactionBasedOn = false)
     {
@@ -1727,7 +1714,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Return invoice model for transaction
      *
      * @param string $transactionId
-     * @return Mage_Sales_Model_Order_Invoice|false
+     * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _getInvoiceForTransactionId($transactionId)
     {

@@ -47,8 +47,8 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
 
     /**
      * @param int $storeId
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getStoreCode($storeId)
     {
@@ -109,7 +109,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
 
     /**
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {

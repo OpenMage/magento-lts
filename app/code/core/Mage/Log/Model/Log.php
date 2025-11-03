@@ -14,6 +14,7 @@
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
  * @method Mage_Log_Model_Resource_Log getResource()
+ *
  * @method string getSessionId()
  * @method $this setSessionId(string $value)
  * @method string getFirstVisitAt()
@@ -31,7 +32,6 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 
     /**
      * Init Resource Model
-     *
      */
     protected function _construct()
     {

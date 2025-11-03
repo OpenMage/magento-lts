@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Get validator product
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     protected function _getProduct()
     {
@@ -429,8 +429,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate Customer Group field
      *
-     * @param string $fieldSet
      * @param array $data
+     * @param string $fieldSet
      */
     protected function _validateCustomerGroup($data, $fieldSet)
     {
@@ -505,8 +505,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             }
 
             if (isset($data[$field]) && (!is_numeric($data[$field]) || $data[$field] < 0)) {
-                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. ' .
-                    'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
+                $this->_addError(sprintf('Please use numbers only in the "%s" field in the "%s" set. '
+                    . 'Please avoid spaces or other non numeric characters.', $field, $fieldSet));
             }
         }
     }

@@ -101,9 +101,9 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param string|false $after
-     * @return Varien_Data_Form
+     * @param false|string $after
      * @throws Exception
+     * @return Varien_Data_Form
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
@@ -137,8 +137,8 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
 
     /**
      * @param string $elementId
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function checkElementId($elementId)
     {
@@ -159,7 +159,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
 
     /**
      * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function getElement($elementId)
     {

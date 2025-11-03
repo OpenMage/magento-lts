@@ -58,19 +58,19 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         $concatenate = [];
         if (isset($fields['prefix'])) {
             $concatenate[] = $adapter->getCheckSql(
-                '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
-                $adapter->getConcatSql(['LTRIM(RTRIM({{prefix}}))', '\' \'']),
-                '\'\'',
+                "{{prefix}} IS NOT NULL AND {{prefix}} != ''",
+                $adapter->getConcatSql(['LTRIM(RTRIM({{prefix}}))', "' '"]),
+                "''",
             );
         }
 
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
-        $concatenate[] = '\' \'';
+        $concatenate[] = "' '";
         if (isset($fields['middlename'])) {
             $concatenate[] = $adapter->getCheckSql(
-                '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
-                $adapter->getConcatSql(['LTRIM(RTRIM({{middlename}}))', '\' \'']),
-                '\'\'',
+                "{{middlename}} IS NOT NULL AND {{middlename}} != ''",
+                $adapter->getConcatSql(['LTRIM(RTRIM({{middlename}}))', "' '"]),
+                "''",
             );
         }
 
@@ -78,9 +78,9 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         if (isset($fields['suffix'])) {
             $concatenate[] = $adapter
                     ->getCheckSql(
-                        '{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
-                        $adapter->getConcatSql(['\' \'', 'LTRIM(RTRIM({{suffix}}))']),
-                        '\'\'',
+                        "{{suffix}} IS NOT NULL AND {{suffix}} != ''",
+                        $adapter->getConcatSql(["' '", 'LTRIM(RTRIM({{suffix}}))']),
+                        "''",
                     );
         }
 

@@ -23,7 +23,6 @@ class Varien_Event_Observer_Collection
 
     /**
      * Initializes observers
-     *
      */
     public function __construct()
     {

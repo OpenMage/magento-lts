@@ -79,9 +79,9 @@ class Varien_Db_Select extends Zend_Db_Select
      * $db->fetchAll($select, array('id' => 5));
      * </code>
      *
-     * @param string $cond The WHERE condition.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param string $cond the WHERE condition
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return $this
      */
     public function where($cond, $value = null, $type = null)
@@ -257,9 +257,9 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  array|string|Zend_Db_Expr $name Table name
      * @param  string $cond Join on this condition
      * @param  array|string $cols The columns to select from the joined table
-     * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object
+     * @param  string $schema the database name to specify, if any
      * @throws Zend_Db_Select_Exception
+     * @return Zend_Db_Select This Zend_Db_Select object
      */
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
@@ -273,9 +273,9 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Sets a limit count and offset to the query.
      *
-     * @param int $count OPTIONAL The number of rows to return.
-     * @param int $offset OPTIONAL Start returning after this many rows.
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param int $count OPTIONAL The number of rows to return
+     * @param int $offset OPTIONAL Start returning after this many rows
+     * @return Zend_Db_Select this Zend_Db_Select object
      */
     public function limit($count = null, $offset = null)
     {
@@ -297,7 +297,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Cross Table Update From Current select
      *
-     * @param string|array $table
+     * @param array|string $table
      * @return string
      */
     public function crossUpdateFromSelect($table)
@@ -348,8 +348,8 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param string $part
      * @param mixed $value
-     * @return $this
      * @throws Zend_Db_Select_Exception
+     * @return $this
      */
     public function setPart($part, $value)
     {
@@ -365,8 +365,8 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Use a STRAIGHT_JOIN for the SQL Select
      *
-     * @param bool $flag Whether or not the SELECT use STRAIGHT_JOIN (default true).
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param bool $flag whether or not the SELECT use STRAIGHT_JOIN (default true)
+     * @return Zend_Db_Select this Zend_Db_Select object
      */
     public function useStraightJoin($flag = true)
     {

@@ -30,7 +30,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
 
     /**
      * Mage_ImportExport_Model_Import_Uploader constructor.
-     * @param string|null $filePath
+     * @param null|string $filePath
      */
     public function __construct($filePath = null)
     {
@@ -65,8 +65,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      * Proceed moving a file from TMP to destination folder
      *
      * @param string $fileName
-     * @return array
      * @throws Exception
+     * @return array
      */
     public function move($fileName)
     {

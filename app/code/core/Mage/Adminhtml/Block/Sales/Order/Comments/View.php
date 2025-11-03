@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
      * Replace links in string
      *
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)

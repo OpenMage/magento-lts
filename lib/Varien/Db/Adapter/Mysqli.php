@@ -16,8 +16,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Creates a real connection to the database with multi-query capability.
      *
-     * @return void
      * @throws Zend_Db_Adapter_Mysqli_Exception
+     * @return void
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -197,14 +197,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * ADD CONSTRAINT
      *
-     *
      * @param string $fkName
      * @param string $tableName
      * @param string $keyName
      * @param string $refTableName
      * @param string $refKeyName
-     * @param string $onUpdate
      * @param string $onDelete
+     * @param string $onUpdate
      */
     public function addConstraint(
         $fkName,

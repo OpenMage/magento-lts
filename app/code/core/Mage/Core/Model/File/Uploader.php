@@ -94,9 +94,9 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      * Added file name length validation.
      *
      * @param string $destinationFolder
-     * @param string|null $newFileName
-     * @return array|bool
+     * @param null|string $newFileName
      * @throws Exception
+     * @return array|bool
      */
     public function save($destinationFolder, $newFileName = null)
     {

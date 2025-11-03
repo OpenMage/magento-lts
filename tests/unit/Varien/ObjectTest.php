@@ -31,7 +31,7 @@ final class ObjectTest extends TestCase
      * @param mixed $expectedResult
      * @param string $setKey
      * @param mixed $setValue
-     * @param string|int|null $index
+     * @param null|int|string $index
      *
      * @group Varien_Object
      */

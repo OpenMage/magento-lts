@@ -16,7 +16,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
 {
     /**
      * Resource model initialization
-     *
      */
     protected function _construct()
     {
@@ -178,8 +177,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     public function addSearchableAttributeFilter()
     {
         $this->getSelect()->where(
-            'additional_table.is_searchable = 1 OR ' .
-            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
+            'additional_table.is_searchable = 1 OR '
+            . $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
         );
 
         return $this;

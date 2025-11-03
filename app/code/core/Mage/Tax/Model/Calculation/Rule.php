@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
  *
  * @method $this setCalculateSubtotal(float $value)
  * @method string getCode()
@@ -31,36 +32,26 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ctcs                = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ptcs                = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_rates               = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ctcModel            = null;
 
     /**
      * No references found in the project. Variable kept for backward compatibility
-     *
-     * @var null
      */
     protected $_ptcModel            = null;
 
@@ -74,7 +65,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     /**
      * Holds the tax Calculation model
      *
-     * @var Mage_Tax_Model_Calculation|null
+     * @var null|Mage_Tax_Model_Calculation
      */
     protected $_calculationModel    = null;
 
@@ -138,7 +129,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract|Mage_Tax_Model_Calculation|null
+     * @return null|Mage_Core_Model_Abstract|Mage_Tax_Model_Calculation
      */
     public function getCalculationModel()
     {

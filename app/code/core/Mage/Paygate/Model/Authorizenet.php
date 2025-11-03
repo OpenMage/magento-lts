@@ -132,7 +132,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_allowCurrencyCode = ['USD'];
 
     /**
-     * @var Mage_Paygate_Model_Authorizenet_Cards|null
+     * @var null|Mage_Paygate_Model_Authorizenet_Cards
      */
     protected $_cardsStorage;
 
@@ -445,8 +445,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $requestedAmount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function refund(Varien_Object $payment, $requestedAmount)
     {
@@ -532,8 +532,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @param self::REQUEST_TYPE_AUTH_* $requestType
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _place($payment, $amount, $requestType)
     {
@@ -1556,9 +1556,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Round up and cast specified amount to float or string
      *
-     * @param string|float $amount
+     * @param float|string $amount
      * @param bool $asFloat
-     * @return string|float
+     * @return float|string
      */
     protected function _formatAmount($amount, $asFloat = false)
     {

@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected $_messageTemplates;
 
@@ -46,8 +46,8 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::NOT_IN_ARRAY =>
-                    Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
+                self::NOT_IN_ARRAY
+                    => Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
             ];
         }
 

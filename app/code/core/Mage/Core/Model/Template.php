@@ -29,14 +29,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Configuration of design package for template
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_designConfig;
 
     /**
      * Configuration of emulated design package.
      *
-     * @var Varien_Object|false
+     * @var false|Varien_Object
      */
     protected $_emulatedDesignConfig = false;
 
@@ -44,7 +44,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_initialEnvironmentInfo = null;
 

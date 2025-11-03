@@ -24,7 +24,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     /**
      * Sets validator options
      *
-     * @param  int|array|Zend_Config $options
+     * @param  array|int|Zend_Config $options
      */
     public function __construct($options = [])
     {
@@ -39,8 +39,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
             return;
         } else {
             if (isset($options['length'])) {
-                $options['max'] =
-                $options['min'] = $options['length'];
+                $options['max']
+                = $options['min'] = $options['length'];
             }
 
             if (isset($options['name'])) {
@@ -58,10 +58,10 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      */
     protected function _initMessageTemplates()
     {
-        $_messageTemplates[self::TOO_LONG] =
-            Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
-        $_messageTemplates[self::TOO_SHORT] =
-            Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
+        $_messageTemplates[self::TOO_LONG]
+            = Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
+        $_messageTemplates[self::TOO_SHORT]
+            = Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
 
         return $this;
     }

@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Parent extends M
     /**
      * Method is invoked after save
      *
-     * @param Varien_Object|Mage_Sales_Model_Order_Invoice $object
+     * @param Mage_Sales_Model_Order_Invoice|Varien_Object $object
      * @return $this
      */
     public function afterSave($object)

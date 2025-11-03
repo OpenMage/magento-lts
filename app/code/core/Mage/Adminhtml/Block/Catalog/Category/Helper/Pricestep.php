@@ -57,6 +57,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
             . Mage::helper('adminhtml')->__('Use Config Settings') . '</label>';
 
         return $html . ('<script type="text/javascript">toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
-            . '\').parentNode);' . '</script>');
+            . "').parentNode);" . '</script>');
     }
 }

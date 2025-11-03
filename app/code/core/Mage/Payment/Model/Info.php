@@ -14,7 +14,6 @@
  *
  * @method Mage_Sales_Model_Order getOrder()
  * @method Mage_Sales_Model_Quote getQuote()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getCcCid()
@@ -79,8 +78,8 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     /**
      * Retrieve payment method model object
      *
-     * @return Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Payment_Model_Method_Abstract
      */
     public function getMethodInstance()
     {
@@ -135,10 +134,10 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Updates data inside the 'additional_information' array
      * or all 'additional_information' if key is data array
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setAdditionalInformation($key, $value = null)
     {
@@ -160,7 +159,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Getter for entire additional_information value or one of its element by key
      *
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {

@@ -21,9 +21,9 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $productId
      * @param int|string $linkedProductId
      * @param array $data
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
@@ -81,9 +81,9 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $productId
      * @param int|string $linkedProductId
      * @param array $data
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {

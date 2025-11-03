@@ -115,8 +115,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
             return false;
         }
 
-        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG &&
-            $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
+        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
+            && $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
         ) {
             return false;
         }

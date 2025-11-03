@@ -17,7 +17,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_A
     /**
      * Carrier Product Type Indicator
      *
-     * @var string $_contentType
+     * @var string
      */
     protected $_contentType;
 

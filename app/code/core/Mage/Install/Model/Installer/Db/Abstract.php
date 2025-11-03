@@ -114,8 +114,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
 
     /**
      * Return pdo type
-     *
-     * @return null
      */
     public function getPdoType()
     {

@@ -30,7 +30,6 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
 
     /**
      * Set default template
-     *
      */
     protected function _construct()
     {
@@ -56,8 +55,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param bool $prepare
      * @param array $urlParams
      * @param int $position
-     * @param string|array $liParams
-     * @param string|array $aParams
+     * @param array|string $liParams
+     * @param array|string $aParams
      * @param string $beforeText
      * @param string $afterText
      * @return $this
@@ -191,7 +190,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param string|array $params
+     * @param array|string $params
      * @return string
      */
     protected function _prepareParams($params)

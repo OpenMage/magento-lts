@@ -23,7 +23,6 @@ class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_C
 
     /**
      * Set custom labels and headers
-     *
      */
     public function __construct()
     {

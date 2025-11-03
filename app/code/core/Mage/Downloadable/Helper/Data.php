@@ -19,7 +19,7 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is link shareable or not
      *
-     * @param Mage_Downloadable_Model_Link | Mage_Downloadable_Model_Link_Purchased_Item $link
+     * @param Mage_Downloadable_Model_Link|Mage_Downloadable_Model_Link_Purchased_Item $link
      * @return bool
      */
     public function getIsShareable($link)

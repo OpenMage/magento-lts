@@ -311,9 +311,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Set Id By Id or Name
      *
-     * @throws Mage_Eav_Exception
      * @param mixed $entityTypeId
      * @param mixed $setId
+     * @throws Mage_Eav_Exception
      * @return int
      */
     public function getAttributeSetId($entityTypeId, $setId)
@@ -347,9 +347,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string $entityType
      * @param string $attributeSet
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @return $this
      */
     public function setDefaultSetToEntityType($entityType, $attributeSet = 'Default')
     {
@@ -363,8 +363,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Get identifiers of all attribute sets
      *
      * @param int $entityTypeId
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function getAllAttributeSetIds($entityTypeId = null)
     {
@@ -383,7 +383,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Set for Entity Type
      *
-     * @param string|int $entityType
+     * @param int|string $entityType
      * @return string
      */
     public function getDefaultAttributeSetId($entityType)
@@ -567,10 +567,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Group Id By Entity Type and Attribute Set
      *
-     * @param string|int $entityType
-     * @param string|int $attributeSetId
-     * @return string
+     * @param int|string $entityType
+     * @param int|string $attributeSetId
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -596,8 +596,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param array $array
      * @param string $key
-     * @param string|int|bool|array $default
-     * @return string|int|bool|array|null
+     * @param array|bool|int|string $default
+     * @return null|array|bool|int|string
      */
     protected function _getValue($array, $key, $default = null)
     {
@@ -645,8 +645,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
-        if (isset($data['attribute_code']) &&
-            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+        if (isset($data['attribute_code'])
+            && !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
         ) {
             throw Mage::exception(
                 'Mage_Eav',
@@ -662,7 +662,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * If attribute is system will add to all existing attribute sets
      *
-     * @param string|int $entityTypeId
+     * @param int|string $entityTypeId
      * @param string $code
      * @return $this
      */
@@ -992,7 +992,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityTypeId Entity Type id or Entity Type code
      * @param int|string $id Attribute id or Attribute code
-     * @return string|false
+     * @return false|string
      */
     public function getAttributeTable($entityTypeId, $id)
     {
@@ -1257,9 +1257,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * - no-main
      * - no-default-types
      * - types
-     * @return Mage_Eav_Model_Entity_Setup
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
+     * @return Mage_Eav_Model_Entity_Setup
      */
     public function createEntityTables($baseTableName, array $options = [])
     {
@@ -1463,7 +1463,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 $connection->createTable($table);
             }
         } catch (Exception) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__("Can't create table: %s", $tableName));
         }
 
         return $this;

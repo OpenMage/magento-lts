@@ -38,7 +38,7 @@ class Mage_Core_Model_Resource
     /**
      * Instances of actual connections
      *
-     * @var Varien_Db_Adapter_Interface[]|false
+     * @var false|Varien_Db_Adapter_Interface[]
      */
     protected $_connections        = [];
 
@@ -67,7 +67,7 @@ class Mage_Core_Model_Resource
      * Creates a connection to resource whenever needed
      *
      * @param string $name
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     public function getConnection($name)
     {
@@ -119,7 +119,7 @@ class Mage_Core_Model_Resource
     /**
      * Get Instances of actual connections
      *
-     * @return Varien_Db_Adapter_Interface[]|false
+     * @return false|Varien_Db_Adapter_Interface[]
      */
     public function getConnections()
     {
@@ -130,7 +130,7 @@ class Mage_Core_Model_Resource
      * Retrieve connection adapter class name by connection type
      *
      * @param string $type  the connection type
-     * @return string|false
+     * @return false|string
      */
     protected function _getConnectionAdapterClassName($type)
     {
@@ -146,8 +146,8 @@ class Mage_Core_Model_Resource
      * Create new connection adapter instance by connection type and config
      *
      * @param string $type the connection type
-     * @param Mage_Core_Model_Config_Element|array $config the connection configuration
-     * @return Varien_Db_Adapter_Interface|false
+     * @param array|Mage_Core_Model_Config_Element $config the connection configuration
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _newConnection($type, $config)
     {
@@ -193,7 +193,7 @@ class Mage_Core_Model_Resource
      * Retrieve default connection name by required connection name
      *
      * @param string $requiredConnectionName
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
@@ -253,7 +253,7 @@ class Mage_Core_Model_Resource
     /**
      * Get resource table name, validated by db adapter
      *
-     * @param   string|array $modelEntity
+     * @param   array|string $modelEntity
      * @return  string
      */
     public function getTableName($modelEntity)
@@ -275,7 +275,7 @@ class Mage_Core_Model_Resource
             if ($entityConfig && !empty($entityConfig->table)) {
                 $tableName = (string) $entityConfig->table;
             } else {
-                Mage::throwException(Mage::helper('core')->__('Can\'t retrieve entity config: %s', $modelEntity));
+                Mage::throwException(Mage::helper('core')->__("Can't retrieve entity config: %s", $modelEntity));
             }
         } else {
             $tableName = $modelEntity;

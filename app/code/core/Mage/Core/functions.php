@@ -100,7 +100,7 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param int $errline
- * @return bool|null
+ * @return null|bool
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -161,7 +161,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string|null
+ * @return null|string
  *
  * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */

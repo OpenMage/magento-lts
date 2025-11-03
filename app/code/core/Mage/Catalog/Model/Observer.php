@@ -195,7 +195,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Recursively adds categories to top menu
      *
-     * @param Varien_Data_Tree_Node_Collection|array $categories
+     * @param array|Varien_Data_Tree_Node_Collection $categories
      * @param Varien_Data_Tree_Node $parentCategoryNode
      * @param Mage_Page_Block_Html_Topmenu $menuBlock
      * @param bool $addTags
@@ -275,7 +275,7 @@ class Mage_Catalog_Model_Observer
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {
             throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode()),
+                Mage::helper('catalog')->__("The attribute code '%s' is reserved by system. Please try another attribute code", $attribute->getAttributeCode()),
             );
         }
     }

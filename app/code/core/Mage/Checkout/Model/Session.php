@@ -10,7 +10,7 @@
 /**
  * @package    Mage_Checkout
  *
- * @method $this setAdditionalMessages(array|null $value)
+ * @method $this setAdditionalMessages(null|array $value)
  *
  * @method string getCartCouponCode()
  * @method $this setCartCouponCode(string $value)
@@ -20,26 +20,20 @@
  * @method $this setCheckoutState(string $value)
  * @method string getContinueShoppingUrl()
  * @method $this setContinueShoppingUrl(string $value)
- *
  * @method bool getDisplaySuccess()
  * @method $this setDisplaySuccess(bool $value)
- *
  * @method array getEstimatedShippingAddressData()
  * @method $this setEstimatedShippingAddressData(array $value)
- *
  * @method bool getHasDownloadableProducts()
- *
  * @method string getGotoSection()
  * @method $this setGotoSection(string $value)
- *
  * @method $this setHasDownloadableProducts(bool $value)
- *
  * @method int getLastAddedProductId()
  * @method $this setLastAddedProductId(int $value)
  * @method int getLastBillingAgreementId()
- * @method $this setLastBillingAgreementId(int|null $value)
+ * @method $this setLastBillingAgreementId(null|int $value)
  * @method int getLastOrderId()
- * @method $this setLastOrderId(int|null $value)
+ * @method $this setLastOrderId(null|int $value)
  * @method $this unsLastOrderId()
  * @method int getLastQuoteId()
  * @method $this setLastQuoteId(int $value)
@@ -48,36 +42,29 @@
  * @method $this setLastRealOrderId(string $value)
  * @method $this unsLastRealOrderId()
  * @method int getLastRecurringProfileIds()
- * @method $this setLastRecurringProfileIds(array|null $value)
+ * @method $this setLastRecurringProfileIds(null|array $value)
  * @method int getLastSuccessQuoteId()
- * @method $this setLastSuccessQuoteId(int|null $value)
+ * @method $this setLastSuccessQuoteId(null|int $value)
  * @method $this unsLastSuccessQuoteId()
- *
  * @method array getMethodData()
- *
  * @method bool getNoCartRedirect()
  * @method $this setNoCartRedirect(bool $value)
- *
  * @method array getPaypalTransactionData()
- *
  * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
  * @method bool getRememberMeChecked()
  * @method $this setRememberMeChecked(bool $value)
  * @method $this unsRememberMeChecked()
- *
  * @method string getSharedWishlist()
  * @method $this setSharedWishlist(string $value)
  * @method int getSingleWishlistId()
  * @method $this setSingleWishlistId(int $value)
  * @method array getSteps()
  * @method $this setSteps(array $value)
- *
  * @method string getUpdateSection()
  * @method $this setUpdateSection(string $value)
  * @method bool getUseNotice()
  * @method $this setUseNotice(bool $value)
- *
  * @method array getWishlistIds()
  * @method $this setWishlistIds(array $value)
  * @method array getWishlistPendingMessages()
@@ -138,7 +125,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer instance
      *
-     * @param Mage_Customer_Model_Customer|null $customer
+     * @param null|Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomer($customer)
@@ -243,8 +230,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     protected function _getQuoteIdKey()
     {
@@ -252,7 +239,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param int|null $quoteId
+     * @param null|int $quoteId
      */
     public function setQuoteId($quoteId)
     {
@@ -317,7 +304,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param string $step
      * @param array|string $data
-     * @param mixed|null $value
+     * @param null|mixed $value
      * @return $this
      */
     public function setStepData($step, $data, $value = null)
@@ -346,9 +333,9 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Returns existing step data for all steps ($step = null) or the provided checkout step.
      * By providing $data only this data of the given step will be returned, or false if not set.
      *
-     * @param string|null $step
-     * @param string|null $data
-     * @return array|mixed|false
+     * @param null|string $step
+     * @param null|string $data
+     * @return array|false|mixed
      */
     public function getStepData($step = null, $data = null)
     {

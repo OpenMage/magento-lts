@@ -16,7 +16,7 @@
 class Mage_Adminhtml_Block_System_Store_Grid_Render_Store extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
-     * @return string|null
+     * @return null|string
      */
     public function render(Varien_Object $row)
     {

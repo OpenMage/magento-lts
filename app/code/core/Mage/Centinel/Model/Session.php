@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * Payment centinel session model
  *
  * @package    Mage_Centinel

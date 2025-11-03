@@ -68,7 +68,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
      * @return bool
      * @deprecated
      */
@@ -136,7 +136,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param null $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -158,7 +158,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)
@@ -186,7 +186,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param int|float|string $price
+     * @param float|int|string $price
      */
     public function formatPrice($price): string
     {

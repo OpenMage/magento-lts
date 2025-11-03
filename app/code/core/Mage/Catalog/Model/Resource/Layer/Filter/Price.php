@@ -37,8 +37,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     /**
      * Replace table alias in condition string
      *
-     * @param string|null $conditionString
-     * @return string|null
+     * @param null|string $conditionString
+     * @return null|string
      */
     protected function _replaceTableAlias($conditionString)
     {
@@ -292,9 +292,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $limit
-     * @param int|null $offset
-     * @param float|null $lowerPrice
-     * @param float|null $upperPrice
+     * @param null|int $offset
+     * @param null|float $lowerPrice
+     * @param null|float $upperPrice
      * @return array
      */
     public function loadPrices($filter, $limit, $offset = null, $lowerPrice = null, $upperPrice = null)
@@ -323,7 +323,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param float $price
      * @param int $index
-     * @param float|null $lowerPrice
+     * @param null|float $lowerPrice
      * @return array|false
      */
     public function loadPreviousPrices($filter, $price, $index, $lowerPrice = null)
@@ -349,7 +349,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param float $price
      * @param int $rightIndex
-     * @param float|null $upperPrice
+     * @param null|float $upperPrice
      * @return array|false
      */
     public function loadNextPrices($filter, $price, $rightIndex, $upperPrice = null)

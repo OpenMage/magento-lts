@@ -18,7 +18,6 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 {
     /**
      * Initialize Layer State template
-     *
      */
     public function __construct()
     {

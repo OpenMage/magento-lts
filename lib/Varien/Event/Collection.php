@@ -37,7 +37,6 @@ class Varien_Event_Collection
 
     /**
      * Initializes global observers collection
-     *
      */
     public function __construct()
     {

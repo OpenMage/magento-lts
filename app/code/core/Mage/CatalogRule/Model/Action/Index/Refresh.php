@@ -389,8 +389,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
                     $nA,
-                ) . ' != cppt.grouped_id' =>
-                '@price := ' . $this->_connection->getCaseSql(
+                ) . ' != cppt.grouped_id'
+                => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
                     [
                         $toPercent => new Zend_Db_Expr('cppt.price * cppt.action_amount/100'),
@@ -607,8 +607,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Return data for affected product
-     *
-     * @return null
      */
     protected function _getProduct()
     {

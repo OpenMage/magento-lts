@@ -16,7 +16,6 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Process authentication start action
-     *
      */
     public function authenticationStartAction()
     {
@@ -29,7 +28,6 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Process authentication complete action
-     *
      */
     public function authenticationCompleteAction()
     {
@@ -64,7 +62,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service|false
+     * @return false|Mage_Centinel_Model_Service
      */
     private function _getValidator()
     {

@@ -121,8 +121,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Perform actions after object save
      *
-     * @return $this
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -185,8 +185,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Perform actions after object load
      *
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -422,7 +422,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Get review entity type id by code
      *
      * @param string $entityCode
-     * @return int|bool
+     * @return bool|int
      */
     public function getEntityIdByCode($entityCode)
     {

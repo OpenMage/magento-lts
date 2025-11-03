@@ -88,9 +88,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     * @param string|array|null $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
-     * @return Mage_Directory_Model_Resource_Region_Collection
+     * @param null|array|string $countryFilter if string, accepts iso2_code; if array, accepts iso2_code[]
      * @throws Mage_Core_Exception
+     * @return Mage_Directory_Model_Resource_Region_Collection
      */
     public function getRegionCollection($countryFilter = null)
     {
@@ -106,8 +106,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve country collection
      *
-     * @return Mage_Directory_Model_Resource_Country_Collection
      * @throws Mage_Core_Exception
+     * @return Mage_Directory_Model_Resource_Country_Collection
      */
     public function getCountryCollection()
     {
@@ -123,9 +123,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @deprecated after 1.7.0.2
      * @see Mage_Directory_Helper_Data::getRegionJsonByStore()
-     * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getRegionJson()
     {
@@ -135,10 +135,10 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve regions data json
      *
-     * @param int|null $storeId
-     * @return string
+     * @param null|int $storeId
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function getRegionJsonByStore($storeId = null)
     {
@@ -170,9 +170,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get Regions for specific Countries
-     * @param string|int|null $storeId
-     * @return array|null
+     * @param null|int|string $storeId
      * @throws Mage_Core_Exception
+     * @return null|array
      */
     protected function _getRegions($storeId)
     {
@@ -216,8 +216,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * @param float $amount
      * @param string $from
      * @param string $to
-     * @return float
      * @throws Mage_Core_Model_Store_Exception
+     * @return float
      */
     public function currencyConvert($amount, $from, $to = null)
     {

@@ -17,8 +17,8 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
 {
     public function __construct()
     {
-        $backupAvailable =
-            Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
+        $backupAvailable
+            = Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
             && $this->isModuleEnabled('Mage_Backup')
             && !Mage::getStoreConfigFlag('advanced/modules_disable_output/Mage_Backup');
 

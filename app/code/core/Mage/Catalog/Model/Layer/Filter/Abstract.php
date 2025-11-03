@@ -24,7 +24,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Array of filter items
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_items;
 
@@ -73,7 +73,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Apply filter to collection
      *
-     * @param null $filterBlock deprecated
+     * @param Varien_Object $filterBlock deprecated
      * @return $this
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)

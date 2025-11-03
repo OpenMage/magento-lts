@@ -24,14 +24,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Websites cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 
     /**
      * Customer Groups cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_customerGroups;
 
@@ -73,8 +73,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve customer groups collection array
      *
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     protected function _getCustomerGroups()
     {
@@ -91,11 +91,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve product ids array by product condition
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $product
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $product
      * @param int $lastEntityId
      * @param int $limit
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
@@ -141,9 +141,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Reindex Bundle product Price Index
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
-     * @return $this
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function reindex($products = null)
     {
@@ -168,8 +168,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      *
      * @param int $productId
      * @param int $priceType
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -220,8 +220,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 );
 
                 if (isset($customOptions) && $priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    [$minPrice, $maxPrice] =
-                        $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
+                    [$minPrice, $maxPrice]
+                        = $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
                 }
 
                 $this->_savePriceIndex($productId, $website->getId(), $group->getId(), $minPrice, $maxPrice);
@@ -239,8 +239,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $groupId
      * @param float $minPrice
      * @param float $maxPrice
-     * @return $this
      * @throws Zend_Db_Exception
+     * @return $this
      */
     protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
     {
@@ -262,8 +262,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve bundle options with selections and prices by product
      *
      * @param int $productId
-     * @return array
      * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
+     * @return array
      */
     public function getSelections($productId)
     {
@@ -314,9 +314,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve salable product statuses
      *
-     * @param int|array $products
-     * @return array
+     * @param array|int $products
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function getProductsSalableStatus($products, Mage_Core_Model_Website $website)
     {
@@ -396,7 +396,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve Selection Product price from Price Index
      * Return index key {entity_id}-{website_id}-{customer_group_id}
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return array
      */
     public function getProductsPriceFromIndex($productIds)
@@ -418,9 +418,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve product(s) price data
      *
-     * @param int|array $products
-     * @return array
+     * @param array|int $products
      * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
+     * @return array
      */
     public function getProductsPriceData($products, Mage_Core_Model_Website $website)
     {
@@ -452,8 +452,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Add attribute data to select
      *
      * @param string $attributeCode
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _addAttributeDataToSelect(
         Varien_Db_Select $select,
@@ -528,8 +528,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve custom options for product
      *
      * @param int $productId
-     * @return array
      * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
+     * @return array
      */
     public function getCustomOptions($productId, Mage_Core_Model_Website $website)
     {
@@ -553,8 +553,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($price->isScopeGlobal()) {
             $select->join(
                 ['price_table' => $this->getTable('catalog/product_option_price')],
-                'option_table.option_id = price_table.option_id' .
-                ' AND price_table.store_id = 0',
+                'option_table.option_id = price_table.option_id'
+                . ' AND price_table.store_id = 0',
                 ['value_id' => 'option_price_id', 'price', 'price_type'],
             );
         } else {
@@ -577,8 +577,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $select
                 ->join(
                     ['price_global_table' => $this->getTable('catalog/product_option_price')],
-                    'option_table.option_id=price_global_table.option_id' .
-                    ' AND price_global_table.store_id=0',
+                    'option_table.option_id=price_global_table.option_id'
+                    . ' AND price_global_table.store_id=0',
                     [
                         'value_id'   => $valueIdCond,
                         'price'      => $priceCond,
@@ -587,8 +587,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 )
                 ->joinLeft(
                     ['price_store_table' => $this->getTable('catalog/product_option_price')],
-                    'option_table.option_id = price_store_table.option_id' .
-                    ' AND price_store_table.store_id=:store_id',
+                    'option_table.option_id = price_store_table.option_id'
+                    . ' AND price_store_table.store_id=:store_id',
                     [],
                 );
         }
@@ -625,16 +625,16 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($price->isScopeGlobal()) {
             $select->join(
                 ['price_table' => $this->getTable('catalog/product_option_type_price')],
-                'type_table.option_type_id=price_table.option_type_id' .
-                ' AND price_table.store_id=0',
+                'type_table.option_type_id=price_table.option_type_id'
+                . ' AND price_table.store_id=0',
                 ['value_id' => 'option_type_id', 'price', 'price_type'],
             );
         } else {
             $select
                 ->join(
                     ['price_global_table' => $this->getTable('catalog/product_option_type_price')],
-                    'type_table.option_type_id=price_global_table.option_type_id' .
-                    ' AND price_global_table.store_id=0',
+                    'type_table.option_type_id=price_global_table.option_type_id'
+                    . ' AND price_global_table.store_id=0',
                     [
                         'value_id'   => $valueIdCond,
                         'price'      => $priceCond,
@@ -643,8 +643,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 )
                 ->joinLeft(
                     ['price_store_table' => $this->getTable('catalog/product_option_type_price')],
-                    'type_table.option_type_id=price_store_table.option_type_id' .
-                    ' AND price_store_table.store_id=:store_id',
+                    'type_table.option_type_id=price_store_table.option_type_id'
+                    . ' AND price_store_table.store_id=:store_id',
                     [],
                 );
         }
@@ -832,11 +832,11 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve price index for products
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $websiteId
      * @param int $groupId
-     * @return array
      * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
+     * @return array
      */
     public function loadPriceIndex($productIds, $websiteId, $groupId)
     {

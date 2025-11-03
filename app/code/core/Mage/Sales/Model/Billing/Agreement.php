@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Billing_Agreement _getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getResourceCollection()
  *
  * @method int getAgreementId()
  * @method string getAgreementLabel()
@@ -35,7 +36,6 @@
  * @method $this setStoreId(int $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method $this setCancelUrl(string $value)
  * @method string getRedirectUrl()
  * @method $this setReturnUrl(string $value)
@@ -66,7 +66,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Set created_at parameter
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

@@ -28,8 +28,8 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
 
     /**
      * @param int $tagId
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function addTagFilter($tagId)
     {
@@ -40,8 +40,8 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
 
     /**
      * @param int $productId
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function addProductFilter($productId)
     {
