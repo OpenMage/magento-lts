@@ -153,7 +153,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     }
 
     /**
-     * @param string|null $id
+     * @param null|string $id
      * @return $this
      */
     public function setSessionId($id = null)

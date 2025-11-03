@@ -335,8 +335,8 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Downloadable_Model_Product_Type
      * @throws Mage_Core_Exception
+     * @return Mage_Downloadable_Model_Product_Type
      */
     public function checkProductBuyState($product = null)
     {
@@ -474,7 +474,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function processBuyRequest($product, $buyRequest)
     {
         $links = $buyRequest->getLinks();
-        $links = (is_array($links)) ? array_filter($links, '\intval') : [];
+        $links = (is_array($links)) ? array_filter($links, \intval(...)) : [];
 
         return ['links' => $links];
     }

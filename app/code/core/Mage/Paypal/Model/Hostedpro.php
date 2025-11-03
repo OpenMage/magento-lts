@@ -170,7 +170,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Returns form URL from request to PayPal.
      *
-     * @return string | false
+     * @return false|string
      */
     protected function _sendFormUrlRequest(Mage_Paypal_Model_Hostedpro_Request $request)
     {

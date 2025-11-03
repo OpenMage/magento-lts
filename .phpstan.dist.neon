@@ -27,10 +27,6 @@ parameters:
         - tests/unit
     excludePaths:
         #incompatible interfaces
-        - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
-        - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
-        - app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
-        - app/code/core/Mage/Api/Model/Acl/Assert/Time.php
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
         - lib/Varien/Directory/Collection.php
         - lib/Varien/Directory/Factory.php
@@ -60,10 +56,6 @@ parameters:
 
         # Dataflow/Model/Convert/Iterator.php
         - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
-
-        # Too much noise from "Variable $this might not be defined"
-        - app/code/core/*/*/data/*
-        - app/code/core/*/*/sql/*
 
         # requires Mycrypt
         - lib/Magento/Crypt.php

@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Update product attribute
      *
-     * @param string|int $attribute attribute code or ID
+     * @param int|string $attribute attribute code or ID
      * @param array $data
      * @return bool
      */

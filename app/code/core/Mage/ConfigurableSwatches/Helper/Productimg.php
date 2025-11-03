@@ -54,7 +54,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $text
      * @param Mage_Catalog_Model_Product $product
      * @param string $type
-     * @return Varien_Object|null
+     * @return null|Varien_Object
      */
     public function getProductImgByLabel($text, $product, $type = null)
     {
@@ -82,7 +82,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * Create the separated index of product images
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array|null $preValues
+     * @param null|array $preValues
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -95,7 +95,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             $searchValues = [];
 
             if (!is_null($preValues) && is_array($preValues)) { // If a pre-defined list of valid values was passed
-                $preValues = array_map('Mage_ConfigurableSwatches_Helper_Data::normalizeKey', $preValues);
+                $preValues = array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKey(...), $preValues);
                 foreach ($preValues as $value) {
                     $searchValues[] = $value;
                 }
@@ -210,7 +210,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Return URL for a matching swatch image from the global directory
      *
-     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Layer_Filter_Item $object
+     * @param Mage_Catalog_Model_Layer_Filter_Item|Mage_Catalog_Model_Product $object
      * @param string $value
      * @param int $width
      * @param int $height
@@ -272,8 +272,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @return string|false $destPath
      * @throws Mage_Core_Exception
+     * @return false|string $destPath
      */
     public function createSwatchImage($value, $width, $height)
     {
@@ -382,7 +382,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
+            $mapping = call_user_func_array(array_merge_recursive(...), array_values($product->getChildAttributeLabelMapping()));
             $filters = isset($mapping['labels']) ? array_unique($mapping['labels']) : [];
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;

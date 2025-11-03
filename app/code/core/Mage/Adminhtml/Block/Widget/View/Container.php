@@ -24,14 +24,14 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+            'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
             'class'     => 'back',
         ]);
 
         $this->_addButton('edit', [
             'label'     => Mage::helper('adminhtml')->__('Edit'),
             'class'     => 'edit',
-            'onclick'   => 'window.location.href=\'' . $this->getEditUrl() . '\'',
+            'onclick'   => "window.location.href='" . $this->getEditUrl() . "'",
         ]);
     }
 

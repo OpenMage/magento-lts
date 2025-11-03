@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d08371d539850633c9d775e19bbb063d",
+    "content-hash": "17025e35a7b5f18113eb2defff3bfebf",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1167,16 +1167,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "25.10.6",
+            "version": "25.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "2894edc7c9261ea68b96256dec006822d04ee216"
+                "reference": "a784b5d9225e740cbea448403edc2c80cbf2fc47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/2894edc7c9261ea68b96256dec006822d04ee216",
-                "reference": "2894edc7c9261ea68b96256dec006822d04ee216",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/a784b5d9225e740cbea448403edc2c80cbf2fc47",
+                "reference": "a784b5d9225e740cbea448403edc2c80cbf2fc47",
                 "shasum": ""
             },
             "type": "library",
@@ -1198,9 +1198,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.10.6"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.10.27"
             },
-            "time": "2025-10-06T10:26:03+00:00"
+            "time": "2025-10-27T17:17:53+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1311,16 +1311,16 @@
         },
         {
             "name": "nnnick/chartjs",
-            "version": "v4.5.0",
+            "version": "v4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chartjs/Chart.js.git",
-                "reference": "b5ee134effb0d1b28d48bf8c0146eff13f2fa3e5"
+                "reference": "9c5cf9fac7ec04a71b516e2aff3f7d76876be369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/b5ee134effb0d1b28d48bf8c0146eff13f2fa3e5",
-                "reference": "b5ee134effb0d1b28d48bf8c0146eff13f2fa3e5",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/9c5cf9fac7ec04a71b516e2aff3f7d76876be369",
+                "reference": "9c5cf9fac7ec04a71b516e2aff3f7d76876be369",
                 "shasum": ""
             },
             "require": {
@@ -1350,9 +1350,9 @@
             ],
             "support": {
                 "issues": "https://github.com/chartjs/Chart.js/issues",
-                "source": "https://github.com/chartjs/Chart.js/tree/v4.5.0"
+                "source": "https://github.com/chartjs/Chart.js/tree/v4.5.1"
             },
-            "time": "2025-06-14T20:19:17+00:00"
+            "time": "2025-10-13T05:37:11+00:00"
         },
         {
             "name": "openmage/composer-plugin",
@@ -4562,16 +4562,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.1.2",
+            "version": "8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "d93b748fa069acc845901677a97fb701b0eec7ba"
+                "reference": "7dcce3851a3c9bec77b73a303c62784a98758d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/d93b748fa069acc845901677a97fb701b0eec7ba",
-                "reference": "d93b748fa069acc845901677a97fb701b0eec7ba",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7dcce3851a3c9bec77b73a303c62784a98758d3d",
+                "reference": "7dcce3851a3c9bec77b73a303c62784a98758d3d",
                 "shasum": ""
             },
             "type": "component",
@@ -4615,9 +4615,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.1.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.2.0"
             },
-            "time": "2025-09-18T08:46:07+00:00"
+            "time": "2025-10-23T01:11:24+00:00"
         },
         {
             "name": "voku/portable-ascii",
@@ -5724,16 +5724,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.89.0",
+            "version": "v3.89.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "4dd6768cb7558440d27d18f54909eee417317ce9"
+                "reference": "f34967da2866ace090a2b447de1f357356474573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/4dd6768cb7558440d27d18f54909eee417317ce9",
-                "reference": "4dd6768cb7558440d27d18f54909eee417317ce9",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/f34967da2866ace090a2b447de1f357356474573",
+                "reference": "f34967da2866ace090a2b447de1f357356474573",
                 "shasum": ""
             },
             "require": {
@@ -5815,7 +5815,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.89.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.89.1"
             },
             "funding": [
                 {
@@ -5823,7 +5823,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-18T19:30:16+00:00"
+            "time": "2025-10-24T12:05:10+00:00"
         },
         {
             "name": "macopedia/phpstan-magento1",
@@ -6007,12 +6007,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/netz98/n98-magerun.git",
-                "reference": "4da3cecfbbf484b9d5efc1169d101a8245f8fd48"
+                "reference": "dc5b5a48b5388723b1c95b328563fc33fc5b5677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/netz98/n98-magerun/zipball/4da3cecfbbf484b9d5efc1169d101a8245f8fd48",
-                "reference": "4da3cecfbbf484b9d5efc1169d101a8245f8fd48",
+                "url": "https://api.github.com/repos/netz98/n98-magerun/zipball/dc5b5a48b5388723b1c95b328563fc33fc5b5677",
+                "reference": "dc5b5a48b5388723b1c95b328563fc33fc5b5677",
                 "shasum": ""
             },
             "require": {
@@ -6025,7 +6025,7 @@
                 "fakerphp/faker": "^1.20",
                 "n98/junit-xml": "~1.0",
                 "nesbot/carbon": "^2.73",
-                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
                 "psy/psysh": "~0.4",
                 "rmccue/requests": "^2.0.11",
                 "symfony/console": "^5.4 || ^6.4",
@@ -6100,7 +6100,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-22T11:31:14+00:00"
+            "time": "2025-10-30T04:08:35+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -6161,57 +6161,20 @@
             "time": "2025-08-13T20:13:15+00:00"
         },
         {
-            "name": "openmage/dev-copyright",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OpenMage/dev-copyright.git",
-                "reference": "46f78294b262fc0fd08435107587a6a8c4c4ff18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/46f78294b262fc0fd08435107587a6a8c4c4ff18",
-                "reference": "46f78294b262fc0fd08435107587a6a8c4c4ff18",
-                "shasum": ""
-            },
-            "require": {
-                "magento-hackathon/magento-composer-installer": "*"
-            },
-            "default-branch": true,
-            "type": "magento-module",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Beaty",
-                    "homepage": "https://github.com/justinbeaty"
-                }
-            ],
-            "description": "Updated copyright blocks.",
-            "support": {
-                "issues": "https://github.com/OpenMage/dev-copyright/issues",
-                "source": "https://github.com/OpenMage/dev-copyright/tree/main"
-            },
-            "time": "2024-11-25T12:51:17+00:00"
-        },
-        {
             "name": "openmage/dev-meta-package",
-            "version": "1.0.5",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "0f40938e7fdce04fbed5dadae29d8a62c314c2c4"
+                "reference": "d463c0e3a7ea0067f48dc21c1ce47ebd04345677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/0f40938e7fdce04fbed5dadae29d8a62c314c2c4",
-                "reference": "0f40938e7fdce04fbed5dadae29d8a62c314c2c4",
+                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/d463c0e3a7ea0067f48dc21c1ce47ebd04345677",
+                "reference": "d463c0e3a7ea0067f48dc21c1ce47ebd04345677",
                 "shasum": ""
             },
             "require": {
-                "openmage/dev-copyright": "dev-main",
                 "openmage/dev-translations": "dev-main"
             },
             "type": "metapackage",
@@ -6228,9 +6191,9 @@
             "description": "OpenMage tools that are only needed for development.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.5"
+                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.1.0"
             },
-            "time": "2024-11-25T12:52:37+00:00"
+            "time": "2025-11-02T07:56:11+00:00"
         },
         {
             "name": "openmage/dev-translations",
@@ -6238,12 +6201,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a"
+                "reference": "cac06c24c2bc32eb7c75eb414708070da9648b9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/609f0aca73d32883d128400b8b2763c13b95ad6a",
-                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/cac06c24c2bc32eb7c75eb414708070da9648b9a",
+                "reference": "cac06c24c2bc32eb7c75eb414708070da9648b9a",
                 "shasum": ""
             },
             "require": {
@@ -6266,7 +6229,7 @@
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
                 "source": "https://github.com/OpenMage/dev-translations/tree/main"
             },
-            "time": "2024-12-07T17:45:49+00:00"
+            "time": "2025-11-02T07:57:54+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -6706,16 +6669,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.29",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan-phar-composer-source.git",
-                "reference": "git"
-            },
+            "version": "2.1.31",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d618573eed4a1b6b75e37b2e0b65ac65c885d88e",
-                "reference": "d618573eed4a1b6b75e37b2e0b65ac65c885d88e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ead89849d879fe203ce9292c6ef5e7e76f867b96",
+                "reference": "ead89849d879fe203ce9292c6ef5e7e76f867b96",
                 "shasum": ""
             },
             "require": {
@@ -6760,7 +6718,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-25T06:58:18+00:00"
+            "time": "2025-10-10T14:14:11+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -7951,21 +7909,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.1.7",
+            "version": "2.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "c34cc07c4698f007a20dc5c99ff820089ae413ce"
+                "reference": "022038537838bc8a4e526af86c2d6e38eaeff7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/c34cc07c4698f007a20dc5c99ff820089ae413ce",
-                "reference": "c34cc07c4698f007a20dc5c99ff820089ae413ce",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/022038537838bc8a4e526af86c2d6e38eaeff7ef",
+                "reference": "022038537838bc8a4e526af86c2d6e38eaeff7ef",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.18"
+                "phpstan/phpstan": "^2.1.26"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -7999,7 +7957,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.1.7"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.7"
             },
             "funding": [
                 {
@@ -8007,7 +7965,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-10T11:13:58+00:00"
+            "time": "2025-10-29T15:46:12+00:00"
         },
         {
             "name": "rmccue/requests",

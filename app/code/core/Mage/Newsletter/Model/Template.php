@@ -14,6 +14,9 @@
  *
  * @method Mage_Newsletter_Model_Resource_Template _getResource()
  * @method Mage_Newsletter_Model_Resource_Template getResource()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getCollection()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getResourceCollection()
+ *
  * @method string getTemplateCode()
  * @method $this setTemplateCode(string $value)
  * @method $this setTemplateText(string $value)
@@ -51,13 +54,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail|null
+     * @var null|Zend_Mail
      */
     protected $_mail;
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
@@ -153,7 +155,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function isPreprocessed()
     {
-        return strlen($this->getTemplateTextPreprocessed()) > 0;
+        return $this->getTemplateTextPreprocessed() !== '';
     }
 
     /**
@@ -218,7 +220,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Makes additional text preparations for HTML templates
      *
      * @param bool $usePreprocess Use Preprocessed text or original text
-     * @param string|null $html
+     * @param null|string $html
      * @return string
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
@@ -271,8 +273,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @param   Mage_Newsletter_Model_Subscriber|string   $subscriber   subscriber Model or E-mail
      * @param   array                                     $variables    template variables
-     * @param   string|null                               $name         receiver name (if subscriber model not specified)
-     * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
+     * @param   null|string                               $name         receiver name (if subscriber model not specified)
+     * @param   null|Mage_Newsletter_Model_Queue          $queue        queue model, used for problems reporting
      * @return bool
      * @deprecated since 1.4.0.1
      **/
@@ -340,7 +342,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
@@ -349,7 +351,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                     $problem->addQueueData($queue);
                 }
 
-                $problem->addErrorData($e);
+                $problem->addErrorData($exception);
                 $problem->save();
 
                 if (!is_null($queue)) {
@@ -357,7 +359,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 }
             } else {
                 // Otherwise throw error to upper level
-                throw $e;
+                throw $exception;
             }
 
             return false;

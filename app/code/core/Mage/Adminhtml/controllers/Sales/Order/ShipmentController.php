@@ -26,8 +26,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
-     * @return Mage_Sales_Model_Order_Shipment|bool
      * @throws Mage_Core_Exception
+     * @return bool|Mage_Sales_Model_Order_Shipment
      */
     protected function _initShipment()
     {
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment and order in one transaction
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _saveShipment($shipment)
     {
@@ -553,7 +553,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create shipping label action for specific shipment
-     *
      */
     public function createLabelAction()
     {
@@ -579,6 +578,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Print label for one specific shipment
+     *
+     * @return Mage_Core_Controller_Varien_Action|void
      */
     public function printLabelAction()
     {
@@ -652,7 +653,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                array_filter($ids, '\intval');
+                $ids = array_filter($ids, \intval(...));
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
@@ -661,7 +662,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                array_filter($ids, '\intval');
+                $ids = array_filter($ids, \intval(...));
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);
@@ -725,7 +726,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
      * @param string $imageString
-     * @return Zend_Pdf_Page|bool
+     * @return bool|Zend_Pdf_Page
      */
     protected function _createPdfPageFromImageString($imageString)
     {

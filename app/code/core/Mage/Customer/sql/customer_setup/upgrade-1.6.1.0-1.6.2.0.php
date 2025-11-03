@@ -7,7 +7,7 @@
  * @package    Mage_Customer
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 $disableAGCAttributeCode = 'disable_auto_group_change';

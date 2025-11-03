@@ -65,7 +65,6 @@ class Mage_Core_Model_File_Validator_Image
      * Destroy malicious code in image by reprocessing
      *
      * @param  string $filePath Path to temporary uploaded file
-     * @return null
      * @throws Mage_Core_Exception
      */
     public function validate($filePath)

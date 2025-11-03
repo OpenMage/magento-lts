@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Retrieve attribute options
      *
      * @param int $attributeId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function options($attributeId, $store = null)
@@ -165,8 +165,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache([Mage_Core_Model_Translate::CACHE_TAG]);
-        } catch (Exception $e) {
-            $this->_fault('unable_to_save', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('unable_to_save', $exception->getMessage());
         }
 
         return (int) $model->getId();
@@ -175,7 +175,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Update product attribute
      *
-     * @param string|int $attribute attribute code or ID
+     * @param int|string $attribute attribute code or ID
      * @param array $data
      * @return bool
      */
@@ -198,8 +198,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache([Mage_Core_Model_Translate::CACHE_TAG]);
-        } catch (Exception $e) {
-            $this->_fault('unable_to_save', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('unable_to_save', $exception->getMessage());
         }
 
         return true;
@@ -226,8 +226,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         try {
             $model->delete();
             return true;
-        } catch (Exception $e) {
-            $this->_fault('can_not_delete', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('can_not_delete', $exception->getMessage());
         }
     }
 
@@ -376,8 +376,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model->addData($modelData);
         try {
             $model->save();
-        } catch (Exception $e) {
-            $this->_fault('unable_to_add_option', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('unable_to_add_option', $exception->getMessage());
         }
 
         return true;
@@ -414,8 +414,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model->addData($modelData);
         try {
             $model->save();
-        } catch (Exception $e) {
-            $this->_fault('unable_to_remove_option', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('unable_to_remove_option', $exception->getMessage());
         }
 
         return true;

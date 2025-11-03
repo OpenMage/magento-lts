@@ -15,6 +15,8 @@
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method Mage_Cron_Model_Resource_Schedule_Collection getResourceCollection()
+ *
  * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
@@ -58,8 +60,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     /**
      * @param string $expr
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function setCronExpr($expr)
     {
@@ -77,7 +79,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      *
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
-     * @param string|int $time
+     * @param int|string $time
      * @return bool
      */
     public function trySchedule($time)
@@ -114,8 +116,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     /**
      * @param string $expr
      * @param int $num
-     * @return bool
      * @throws Mage_Core_Exception
+     * @return bool
      */
     public function matchCronExpression($expr, $num)
     {
@@ -178,7 +180,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     /**
      * @param int|string $value
-     * @return int|string|false
+     * @return false|int|string
      */
     public function getNumeric($value)
     {
@@ -224,7 +226,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Returns true if status was changed and false otherwise.
      *
      * @param string $oldStatus
-     * This is used to implement locking for cron jobs.
+     * This is used to implement locking for cron jobs
      *
      * @return bool
      */

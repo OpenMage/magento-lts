@@ -36,13 +36,11 @@ class Mage_Core_Model_App
 
     /**
      * Default store code (for install)
-     *
      */
     public const DISTRO_STORE_CODE     = 'default';
 
     /**
      * Admin store Id
-     *
      */
     public const ADMIN_STORE_ID = 0;
 
@@ -72,14 +70,14 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
@@ -133,10 +131,10 @@ class Mage_Core_Model_App
     protected $_cache;
 
     /**
-    * Use Cache
-    *
-    * @var array
-    */
+     * Use Cache
+     *
+     * @var array
+     */
     protected $_useCache;
 
     /**
@@ -241,9 +239,9 @@ class Mage_Core_Model_App
     /**
      * Initialize application without request processing
      *
-     * @param  string|array $code
+     * @param  array|string $code
      * @param  string $type
-     * @param  string|array $options
+     * @param  array|string $options
      * @return $this
      */
     public function init($code, $type = null, $options = [])
@@ -276,7 +274,7 @@ class Mage_Core_Model_App
     /**
      * Common logic for all run types
      *
-     * @param  string|array $options
+     * @param  array|string $options
      * @return $this
      */
     public function baseInit($options)
@@ -298,10 +296,10 @@ class Mage_Core_Model_App
      *
      * @see Mage_Core_Model_App::run()
      *
-     * @param  string|array $scopeCode
+     * @param  array|string $scopeCode
      * @param  string $scopeType
-     * @param  string|array $options
-     * @param  string|array $modules
+     * @param  array|string $options
+     * @param  array|string $modules
      * @return $this
      */
     public function initSpecified($scopeCode, $scopeType = null, $options = [], $modules = [])
@@ -364,8 +362,8 @@ class Mage_Core_Model_App
 
         try {
             Mage::dispatchEvent('core_app_run_after', ['app' => $this]);
-        } catch (Throwable $e) {
-            Mage::logException($e);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
         }
 
         return $this;
@@ -630,10 +628,10 @@ class Mage_Core_Model_App
 
     /**
      * Init store, group and website collections
-     *
      */
     protected function _initStores()
     {
+        Mage::unregister('current_env_config');
         $this->_stores   = [];
         $this->_groups   = [];
         $this->_website  = null;
@@ -739,7 +737,7 @@ class Mage_Core_Model_App
      * Retrieve store code or null by store group
      *
      * @param int $group
-     * @return string|null
+     * @return null|string
      */
     protected function _getStoreByGroup($group)
     {
@@ -758,7 +756,7 @@ class Mage_Core_Model_App
      * Retrieve store code or null by website
      *
      * @param int|string $website
-     * @return string|null
+     * @return null|string
      */
     protected function _getStoreByWebsite($website)
     {
@@ -776,7 +774,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -803,7 +801,7 @@ class Mage_Core_Model_App
     /**
      * Redeclare custom error handler
      *
-     * @param   callable|null $handler
+     * @param   null|callable $handler
      * @return  $this
      */
     public function setErrorHandler($handler)
@@ -855,9 +853,9 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store object
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store|null
+     * @param null|bool|int|Mage_Core_Model_Store|string $id
      * @throws Mage_Core_Model_Store_Exception
+     * @return null|Mage_Core_Model_Store
      */
     public function getStore($id = null)
     {
@@ -908,7 +906,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store object without Store_Exception
      *
-     * @param string|int|Mage_Core_Model_Store $id
+     * @param int|Mage_Core_Model_Store|string $id
      * @return Mage_Core_Model_Store|Varien_Object
      */
     public function getSafeStore($id = null)
@@ -967,7 +965,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store|null
+     * @return null|Mage_Core_Model_Store
      */
     public function getDefaultStoreView()
     {
@@ -994,7 +992,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application website object
      *
-     * @param null|Mage_Core_Model_Website|true|int|string $id
+     * @param null|int|Mage_Core_Model_Website|string|true $id
      * @return Mage_Core_Model_Website
      */
     public function getWebsite($id = null)
@@ -1059,7 +1057,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application store group object
      *
-     * @param null|Mage_Core_Model_Store_Group|int|string $id
+     * @param null|int|Mage_Core_Model_Store_Group|string $id
      * @return Mage_Core_Model_Store_Group
      */
     public function getGroup($id = null)
@@ -1210,7 +1208,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  string|false
+     * @return  false|string
      */
     public function loadCache($id)
     {
@@ -1272,7 +1270,7 @@ class Mage_Core_Model_App
      * Check whether to use cache for specific component
      *
      * @param null|string $type
-     * @return false|array
+     * @return array|false
      */
     public function useCache($type = null)
     {
@@ -1293,7 +1291,6 @@ class Mage_Core_Model_App
 
     /**
      * Deletes all session files
-     *
      */
     public function cleanAllSessions()
     {
@@ -1405,8 +1402,8 @@ class Mage_Core_Model_App
     /**
      * @param string $eventName
      * @param array $args
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function dispatchEvent($eventName, $args)
     {
@@ -1480,8 +1477,8 @@ class Mage_Core_Model_App
      * @param string $method
      * @param Varien_Event_Observer $observer
      * @param string $observerName
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
     {
@@ -1708,7 +1705,7 @@ class Mage_Core_Model_App
     /**
      *  Unset website by id from app cache
      *
-     * @param null|bool|int|string|Mage_Core_Model_Website $id
+     * @param null|bool|int|Mage_Core_Model_Website|string $id
      */
     public function clearWebsiteCache($id = null)
     {

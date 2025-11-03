@@ -103,7 +103,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -531,7 +531,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, '\intval');
+            $options = array_filter($options, \intval(...));
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -669,7 +669,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
 
                 $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
+                    ->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
 
                 if ($isStrictProcessMode) {
@@ -687,7 +687,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
 
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
+            $product->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -849,19 +849,17 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function shakeSelections($a, $b)
     {
-        $aPosition = [
+        return [
             $a->getOption()->getPosition(),
             $a->getOptionId(),
             $a->getPosition(),
             $a->getSelectionId(),
-        ];
-        $bPosition = [
+        ] <=> [
             $b->getOption()->getPosition(),
             $b->getOptionId(),
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        return $aPosition <=> $bPosition;
     }
 
     /**
@@ -920,8 +918,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function checkProductBuyState($product = null)
     {
@@ -1010,8 +1008,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $option     = $buyRequest->getBundleOption();
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, '\intval') : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : [];
+        $option     = (is_array($option)) ? array_filter($option, \intval(...)) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, \intval(...)) : [];
 
         return [
             'bundle_option'     => $option,
@@ -1037,7 +1035,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool|null
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

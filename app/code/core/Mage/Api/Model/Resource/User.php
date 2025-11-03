@@ -176,8 +176,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve api user role data if it was assigned to role
      *
-     * @param int | Mage_Api_Model_User $user
-     * @return null | array
+     * @param int|Mage_Api_Model_User $user
+     * @return null|array
      */
     public function hasAssigned2Role($user)
     {
@@ -219,8 +219,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete the object
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -231,9 +231,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $dbh->delete($this->getTable('api/user'), ['user_id = ?' => $uid]);
             $dbh->delete($this->getTable('api/role'), ['user_id = ?' => $uid]);
             $dbh->commit();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $dbh->rollBack();
-            throw $e;
+            throw $throwable;
         }
 
         return $this;

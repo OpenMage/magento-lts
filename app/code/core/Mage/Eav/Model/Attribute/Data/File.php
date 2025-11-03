@@ -24,7 +24,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Extract data from request and return value
      *
-     * @return false|array|string
+     * @return array|false|string
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function extractValue(Zend_Controller_Request_Http $request)
@@ -91,7 +91,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         if (!empty($rules['file_extensions'])) {
             $extensions = explode(',', $rules['file_extensions']);
-            $extensions = array_map('trim', $extensions);
+            $extensions = array_map(trim(...), $extensions);
             if (!in_array($extension, $extensions)) {
                 return [
                     Mage::helper('eav')->__('"%s" is not a valid file extension.', $label),
@@ -131,7 +131,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return true|array
+     * @return array|true
      */
     public function validateValue($value)
     {
@@ -178,8 +178,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Export attribute value to entity model
      *
      * @param array|string $value
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function compactValue($value)
     {
@@ -248,8 +248,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
      * @throws Mage_Core_Exception
+     * @return array|string
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

@@ -95,7 +95,6 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 
     /**
      * Filter which attributes are included in getFilterableAttributes
-     *
      */
     protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute  $attribute): bool
     {

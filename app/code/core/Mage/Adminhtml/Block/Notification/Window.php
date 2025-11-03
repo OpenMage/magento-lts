@@ -20,14 +20,14 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     /**
      * Severity icons url
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_severityIconsUrl;
 
     /**
      * Is available flag
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_available = null;
 
@@ -130,8 +130,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     public function getSeverityIconsUrl()
     {
         if (is_null($this->_severityIconsUrl)) {
-            $this->_severityIconsUrl =
-                (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
+            $this->_severityIconsUrl
+                = (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
                 . sprintf(
                     Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
                     Mage::getVersion(),

@@ -137,7 +137,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Checks if customer should be redirected to shopping cart after adding a product
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getShouldRedirectToCart($store = null)

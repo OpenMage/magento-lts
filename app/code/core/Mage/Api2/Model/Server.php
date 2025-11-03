@@ -63,8 +63,8 @@ class Mage_Api2_Model_Server
         try {
             /** @var Mage_Api2_Model_Response $response */
             $response = Mage::getSingleton('api2/response');
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
 
             if (!headers_sent()) {
                 header('HTTP/1.1 ' . self::HTTP_INTERNAL_ERROR);
@@ -80,8 +80,8 @@ class Mage_Api2_Model_Server
             $request = Mage::getSingleton('api2/request');
             /** @var Mage_Api2_Model_Renderer_Interface $renderer */
             $renderer = Mage_Api2_Model_Renderer::factory($request->getAcceptTypes());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
 
             $response->setHttpResponseCode(self::HTTP_INTERNAL_ERROR)
                 ->setBody('Service temporary unavailable')
@@ -196,8 +196,8 @@ class Mage_Api2_Model_Server
     /**
      * Global ACL processing
      *
-     * @return $this
      * @throws Mage_Api2_Exception
+     * @return $this
      */
     protected function _allow(Mage_Api2_Model_Request $request, Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {

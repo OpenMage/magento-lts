@@ -21,10 +21,10 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
-    * Wishlist we're working with
-    *
-    * @var Mage_Wishlist_Model_Wishlist
-    */
+     * Wishlist we're working with
+     *
+     * @var Mage_Wishlist_Model_Wishlist
+     */
     protected $_wishlist = null;
 
     /**
@@ -79,9 +79,9 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
             $configureResult->setCurrentCustomerId($this->_wishlist->getCustomerId());
 
             $configureResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $configureResult->setError(true);
-            $configureResult->setMessage($e->getMessage());
+            $configureResult->setMessage($exception->getMessage());
         }
 
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
@@ -111,9 +111,9 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
                 ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $updateResult->setError(true);
-            $updateResult->setMessage($e->getMessage());
+            $updateResult->setMessage($exception->getMessage());
         }
 
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));

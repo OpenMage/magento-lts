@@ -17,8 +17,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @return Mage_Catalog_Model_Category|false
      * @throws Mage_Core_Exception
+     * @return false|Mage_Catalog_Model_Category
      */
     protected function _initCategory()
     {
@@ -48,8 +48,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                     'controller_action' => $this,
                 ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -59,10 +59,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @return Mage_Catalog_Model_Category
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Category
      * @deprecated use method _initCategory
-     *
      */
     protected function _initCatagory()
     {
@@ -90,9 +89,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
         $validityDate = $category->getCustomDesignDate();
 
-        if (array_key_exists('from', $validityDate) &&
-            array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+        if (array_key_exists('from', $validityDate)
+            && array_key_exists('to', $validityDate)
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
         ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')

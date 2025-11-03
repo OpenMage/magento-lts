@@ -44,7 +44,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      * Retrieve database block by type
      *
      * @param  string $type database model type
-     * @return bool | Mage_Core_Block_Template
+     * @return bool|Mage_Core_Block_Template
      */
     public function getDatabaseBlock($type)
     {

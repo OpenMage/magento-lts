@@ -22,7 +22,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Current comments collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract|null
+     * @var null|Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      */
     protected $_commentCollection;
 

@@ -103,8 +103,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Save Product Index data (forced save)
      *
-     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      */
     public function save(Mage_Core_Model_Abstract  $object)
     {
@@ -170,7 +170,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
     /**
      * Add information about product ids to visitor/customer
-     *
      *
      * @param array $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract

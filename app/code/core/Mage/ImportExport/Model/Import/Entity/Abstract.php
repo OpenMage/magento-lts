@@ -16,7 +16,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
      * Database constants
-     *
      */
     public const DB_MAX_PACKET_COEFFICIENT = 900000;
 
@@ -50,7 +49,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -310,8 +309,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
-     * @param string $colName OPTIONAL Column name.
+     * @param int $errorRowNum row number
+     * @param string $colName OPTIONAL Column name
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
@@ -340,7 +339,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values.
+     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = [])
@@ -382,9 +381,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function getBehavior()
     {
         if (!isset($this->_parameters['behavior'])
-            || ($this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)
+            || (!in_array($this->_parameters['behavior'], [
+                Mage_ImportExport_Model_Import::BEHAVIOR_APPEND,
+                Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE,
+                Mage_ImportExport_Model_Import::BEHAVIOR_DELETE,
+            ]))
         ) {
             return Mage_ImportExport_Model_Import::getDefaultBehavior();
         }
@@ -403,7 +404,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {
@@ -512,7 +513,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Import process start.
      *
-     * @return bool Result of operation.
+     * @return bool result of operation
      */
     public function importData()
     {

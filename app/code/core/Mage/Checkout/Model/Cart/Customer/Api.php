@@ -73,8 +73,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 ->setCheckoutMethod($customer->getMode())
                 ->setPasswordHash($customer->encryptPassword($customer->getPassword()))
                 ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('customer_not_set', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('customer_not_set', $mageCoreException->getMessage());
         }
 
         return true;
@@ -160,8 +160,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             $quote
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault('address_is_not_set', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('address_is_not_set', $exception->getMessage());
         }
 
         return true;
@@ -189,7 +189,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
      * Prepare customer entered data for implementing
      *
      * @param  array $data
-     * @return array|null
+     * @return null|array
      */
     protected function _prepareCustomerAddressData($data)
     {

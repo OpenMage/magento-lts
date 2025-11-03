@@ -179,8 +179,8 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve URL of specified endpoint.
      *
      * @param string $type Endpoint type (one of ENDPOINT_ constants)
-     * @return string
      * @throws Exception    Exception when endpoint not found
+     * @return string
      */
     public function getProtocolEndpointUrl($type)
     {
@@ -291,7 +291,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve oauth_token param from request
      *
-     * @return string|null
+     * @return null|string
      */
     public function getOauthToken()
     {

@@ -26,7 +26,6 @@ class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_M
 
     /**
      * Entity initialization
-     *
      */
     protected function _construct()
     {

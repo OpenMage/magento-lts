@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
+ *
  * @method string getFrontendInputRenderer()
  * @method $this setFrontendInputRenderer(string $value)
  * @method $this setIsGlobal(int $value)
@@ -39,7 +40,7 @@
  * @method $this setUsedForSortBy(int $value)
  * @method int getIsConfigurable()
  * @method $this setIsConfigurable(int $value)
- * @method $this setApplyTo(string|array $value)
+ * @method $this setApplyTo(array|string $value)
  * @method int getIsVisibleInAdvancedSearch()
  * @method $this setIsVisibleInAdvancedSearch(int $value)
  * @method int getPosition()
@@ -79,7 +80,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Array with labels
      *
-     * @var array|null
+     * @var null|array
      */
     protected static $_labels                   = null;
 
@@ -216,7 +217,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve store id
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {
@@ -279,7 +280,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve don't translated frontend label
      *
-     * @return string|array
+     * @return array|string
      */
     public function getFrontendLabel()
     {
@@ -322,7 +323,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             $attributeLabels = [];
             $attributes = Mage::getResourceSingleton('catalog/product')->getAttributesByCode();
             foreach ($attributes as $attribute) {
-                if (strlen($attribute->getData('frontend_label')) > 0) {
+                if ((string) $attribute->getData('frontend_label') !== '') {
                     $attributeLabels[] = $attribute->getData('frontend_label');
                 }
             }
@@ -375,7 +376,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve index type for indexable attribute
      *
-     * @return string|false
+     * @return false|string
      */
     public function getIndexType()
     {

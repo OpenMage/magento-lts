@@ -19,7 +19,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      *
      * @param string $productId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool $isAdded
      */
     public function add($productId, $data, $store = null)
@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      *
      * @param string $optionId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool
      */
     public function update($optionId, $data, $store = null)
@@ -158,8 +158,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
 
                 $product->save();
             }
-        } catch (Exception $e) {
-            $this->_fault('save_option_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('save_option_error', $exception->getMessage());
         }
     }
 
@@ -191,7 +191,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      * Get full information about custom option in product
      *
      * @param int|string $optionId
-     * @param  int|string|null $store
+     * @param  null|int|string $store
      * @return array
      */
     public function info($optionId, $store = null)
@@ -253,7 +253,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      * Retrieve list of product custom options
      *
      * @param  string $productId
-     * @param  int|string|null $store
+     * @param  null|int|string $store
      * @return array
      */
     public function items($productId, $store = null)

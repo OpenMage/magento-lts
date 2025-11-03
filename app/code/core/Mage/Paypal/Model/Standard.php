@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PayPal Standard Checkout Module
  *
  * @package    Mage_Paypal
@@ -45,10 +44,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-    * Get paypal session namespace
-    *
-    * @return Mage_Paypal_Model_Session
-    */
+     * Get paypal session namespace
+     *
+     * @return Mage_Paypal_Model_Session
+     */
     public function getSession()
     {
         return Mage::getSingleton('paypal/session');
@@ -76,7 +75,6 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create main block for standard form
-     *
      */
     public function createFormBlock($name)
     {
@@ -168,7 +166,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)

@@ -15,6 +15,7 @@
  * @method Mage_Admin_Model_Resource_Block _getResource()
  * @method Mage_Admin_Model_Resource_Block getResource()
  * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
+ * @method Mage_Admin_Model_Resource_Block_Collection getResourceCollection()
  *
  * @method string getBlockName()
  * @method string getIsAllowed()
@@ -30,9 +31,9 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|true
      * @throws Exception
      * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validate()
     {

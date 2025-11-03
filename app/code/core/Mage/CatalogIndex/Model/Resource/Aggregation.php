@@ -30,7 +30,6 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
     /**
      * Initialize resource tables
-     *
      */
     protected function _construct()
     {
@@ -117,7 +116,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Clear data in cache
      *
      * @param   array $tags
-     * @param   int|null|string $storeId
+     * @param   null|int|string $storeId
      * @return $this
      */
     public function clearCacheData($tags, $storeId)
@@ -200,7 +199,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     /**
      * Insert tags to tag table
      *
-     * @param string | array $tags
+     * @param array|string $tags
      * @return $this
      */
     protected function _addTags($tags)

@@ -118,8 +118,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] =
-                    array_keys($attribute->locked_fields->asArray());
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code]
+                    = array_keys($attribute->locked_fields->asArray());
             }
 
             return $this->_attributesLockedFields[$entityTypeCode];

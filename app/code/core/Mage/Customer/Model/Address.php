@@ -15,6 +15,7 @@
  * @method Mage_Customer_Model_Resource_Customer _getResource()
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
  *
  * @method bool hasEmail()
  * @method string getEmail()
@@ -55,7 +56,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Retrieve address customer
      *
-     * @return Mage_Customer_Model_Customer|false
+     * @return false|Mage_Customer_Model_Customer
      */
     public function getCustomer()
     {

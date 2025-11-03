@@ -24,7 +24,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Curl handle
      *
-     * @var resource|CurlHandle|null
+     * @var null|CurlHandle|resource
      */
     protected $_resource;
 
@@ -63,7 +63,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         }
 
         $verifyPeer = $this->_config['verifypeer'] ?? 0;
-        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
+        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, (bool) $verifyPeer);
 
         $verifyHost = $this->_config['verifyhost'] ?? 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
@@ -104,7 +104,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional options list to curl
      *
-     *
      * @return Varien_Http_Adapter_Curl
      */
     public function addOptions(array $options)
@@ -142,7 +141,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Send request to the remote server
      *
-     * @param string        $method
+     * @param Zend_Http_Client::*  $method
      * @param string|Zend_Uri_Http $url
      * @param string        $http_ver
      * @param array         $headers
@@ -163,6 +162,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             CURLOPT_RETURNTRANSFER          => true,
             CURLOPT_HEADER                  => $header,
             CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1,
+            CURLOPT_POST                    => false,
+            CURLOPT_HTTPGET                 => false,
         ];
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;
@@ -183,7 +184,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Read response from server
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function read()
     {
@@ -223,7 +224,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Returns a cURL handle on success
      *
-     * @return resource|CurlHandle
+     * @return CurlHandle|resource
      */
     protected function _getResource()
     {
@@ -286,8 +287,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         foreach ($urls as $key => $url) {
             $handles[$key] = curl_init();
             curl_setopt($handles[$key], CURLOPT_URL, $url);
-            curl_setopt($handles[$key], CURLOPT_HEADER, 0);
-            curl_setopt($handles[$key], CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($handles[$key], CURLOPT_HEADER, false);
+            curl_setopt($handles[$key], CURLOPT_RETURNTRANSFER, true);
             if (!empty($options)) {
                 curl_setopt_array($handles[$key], $options);
             }

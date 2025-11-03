@@ -25,7 +25,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve shipments by filters
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -47,8 +47,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $shipmentCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
 
         foreach ($shipmentCollection as $shipment) {
@@ -62,8 +62,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * Retrieve shipment information
      *
      * @param string $shipmentIncrementId
-     * @return array
      * @throws Mage_Api_Exception
+     * @return array
      */
     public function info($shipmentIncrementId)
     {
@@ -101,7 +101,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $comment
      * @param bool $email
      * @param bool $includeComment
-     * @return string|null
+     * @return null|string
      */
     public function create(
         $orderIncrementId,
@@ -113,8 +113,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
@@ -189,8 +189,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         try {
             $shipment->save();
             $track->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $track->getId();
@@ -217,8 +217,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
 
         try {
             $track->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('track_not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('track_not_deleted', $mageCoreException->getMessage());
         }
 
         return true;
@@ -249,8 +249,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
                 $historyItem->setIsCustomerNotified(1);
                 $historyItem->save();
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -305,8 +305,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             $shipment->addComment($comment, $email);
             $shipment->sendUpdateEmail($email, ($includeInEmail ? $comment : ''));
             $shipment->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -323,8 +323,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }

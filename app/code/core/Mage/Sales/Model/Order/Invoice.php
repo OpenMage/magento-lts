@@ -12,6 +12,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getResourceCollection()
+ *
  * @method string getBackUrl()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
@@ -159,17 +162,17 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected static $_states;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Item_Collection|Mage_Sales_Model_Order_Invoice_Item[]|null
+     * @var null|Mage_Sales_Model_Order_Invoice_Item[]|Mage_Sales_Model_Resource_Order_Invoice_Item_Collection
      */
     protected $_items;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection|Mage_Sales_Model_Order_Invoice_Comment[]|null
+     * @var null|Mage_Sales_Model_Order_Invoice_Comment[]|Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
      */
     protected $_comments;
 
     /**
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order;
 
@@ -598,8 +601,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Order_Invoice_Item $item)
     {
@@ -834,13 +837,13 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // Stop store emulation process
             if (isset($appEmulation, $initialEnvironmentInfo)) {
                 $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             }
 
-            throw $e;
+            throw $exception;
         }
 
         // Stop store emulation process
@@ -987,8 +990,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Sales_Model_Abstract
      */
     protected function _beforeDelete()
     {

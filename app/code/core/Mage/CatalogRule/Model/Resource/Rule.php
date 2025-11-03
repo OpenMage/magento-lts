@@ -80,7 +80,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Add customer group ids and website ids to rule data after load
      *
-     *
      * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -94,7 +93,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Bind catalog rule to customer group(s) and website(s).
      * Update products which are matched for rule.
-     *
      *
      * @return $this
      */
@@ -304,7 +302,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Update products which are matched for rule
      *
-     *
      * @throws Exception
      * @return $this
      */
@@ -337,9 +334,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
             $this->insertRuleData($rule, $websiteIds);
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $write->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -366,7 +363,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|string $fromDate
      * @param int|string $toDate
-     * @param int|null $productId
+     * @param null|int $productId
      *
      * @return $this
      */
@@ -405,7 +402,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Delete old price rules data
      *
      * @param string $date
-     * @param int|null $productId
+     * @param null|int $productId
      *
      * @return $this
      */
@@ -427,8 +424,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int $fromDate
      * @param int $toDate
-     * @param int|null $productId
-     * @param int|null $websiteId
+     * @param null|int $productId
+     * @param null|int $websiteId
      *
      * @return Zend_Db_Statement_Interface
      */
@@ -482,9 +479,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
             $select->joinInner(
                 ['product_website' => $this->getTable('catalog/product_website')],
-                'product_website.product_id=rp.product_id ' .
-                'AND rp.website_id=product_website.website_id ' .
-                'AND product_website.website_id=' . $websiteId,
+                'product_website.product_id=rp.product_id '
+                . 'AND rp.website_id=product_website.website_id '
+                . 'AND product_website.website_id=' . $websiteId,
                 [],
             );
 
@@ -539,8 +536,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * If from date is not defined - will be used previous day by UTC
      * If to date is not defined - will be used next day by UTC
      *
-     * @param int|string|null $fromDate
-     * @param int|string|null $toDate
+     * @param null|int|string $fromDate
+     * @param null|int|string $toDate
      * @param int $productId
      *
      * @deprecated after 1.7.0.2 use method applyAllRules
@@ -634,9 +631,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $adapter->insertOnDuplicate($this->getTable('catalogrule/affected_product'), array_unique($productIds));
             $adapter->insertOnDuplicate($this->getTable('catalogrule/rule_product_price'), $arrData);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -651,7 +648,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int $gId
      * @param int $pId
      *
-     * @return float|bool
+     * @return bool|float
      */
     public function getRulePrice($date, $wId, $gId, $pId)
     {
@@ -767,9 +764,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             }
 
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $write->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

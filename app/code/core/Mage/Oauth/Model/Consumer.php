@@ -16,6 +16,7 @@
  * @method Mage_Oauth_Model_Resource_Consumer getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
+ *
  * @method string getName()
  * @method $this setName() setName(string $name)
  * @method string getKey()

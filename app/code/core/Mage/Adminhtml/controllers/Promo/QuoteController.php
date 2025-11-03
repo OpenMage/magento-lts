@@ -19,10 +19,10 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     public const ADMIN_RESOURCE = 'promo/quote';
 
     /**
-    * Controller pre-dispatch method
-    *
-    * @return Mage_Adminhtml_Controller_Action
-    */
+     * Controller pre-dispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -112,7 +112,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Promo quote save action
-     *
      */
     public function saveAction()
     {

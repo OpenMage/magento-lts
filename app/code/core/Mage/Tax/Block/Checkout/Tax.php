@@ -9,7 +9,6 @@
 
 /**
  * Tax Total Row Renderer
- *
  */
 class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
 {

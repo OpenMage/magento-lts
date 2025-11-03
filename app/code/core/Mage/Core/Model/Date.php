@@ -23,7 +23,6 @@ class Mage_Core_Model_Date
 
     /**
      * Init offset
-     *
      */
     public function __construct()
     {
@@ -112,7 +111,7 @@ class Mage_Core_Model_Date
      * Forms GMT timestamp
      *
      * @param  int|string $input date in current timezone
-     * @return string|false|int
+     * @return false|int|string
      */
     public function gmtTimestamp($input = null)
     {
@@ -215,8 +214,8 @@ class Mage_Core_Model_Date
     /**
      * @param string $dateTimeString
      * @param string $dateTimeFormat
-     * @return array
      * @throws Mage_Core_Exception
+     * @return array
      * @deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)

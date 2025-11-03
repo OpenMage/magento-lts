@@ -71,7 +71,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      * Retrieve search string for given field from request
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param string|null $part
+     * @param null|string $part
      * @return mixed|string
      */
     public function getAttributeValue($attribute, $part = null)

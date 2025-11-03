@@ -171,8 +171,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function unsetData($key = null)
     {
-        if ((!is_null($key) && $this->isLockedAttribute($key)) ||
-            $this->isReadonly()
+        if ((!is_null($key) && $this->isLockedAttribute($key))
+            || $this->isReadonly()
         ) {
             return $this;
         }
@@ -194,10 +194,10 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Load entity by attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Interface|int|string|array $attribute
-     * @param null|string|array $value
+     * @param array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
+     * @param null|array|string $value
      * @param string $additionalAttributes
-     * @return false|$this
+     * @return $this|false
      */
     public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
     {

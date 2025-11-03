@@ -126,7 +126,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     ->from($ratingTitleTable, ['store_id', 'value'])
                     ->where('rating_id = :rating_id');
                 $old    = $adapter->fetchPairs($select, [':rating_id' => $ratingId]);
-                $new    = array_filter(array_map('trim', $object->getRatingCodes()));
+                $new    = array_filter(array_map(trim(...), $object->getRatingCodes()));
 
                 $insert = array_diff_assoc($new, $old);
                 $delete = array_diff_assoc($old, $new);

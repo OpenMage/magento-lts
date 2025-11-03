@@ -47,9 +47,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info extends Mage_Ad
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
                 $website->getDefaultStore(),
             );
-            $path = $secure ?
-                Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL :
-                Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_LINK_URL;
+            $path = $secure
+                ? Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL
+                : Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_LINK_URL;
             $websiteUrl = Mage::getStoreConfig($path, $website->getDefaultStore());
         } else {
             $secure = Mage::getStoreConfigFlag(

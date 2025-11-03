@@ -134,7 +134,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Assign variable
      *
-     * @param   string|array $key
+     * @param   array|string $key
      * @param   mixed $value
      * @return  $this
      */
@@ -275,25 +275,24 @@ HTML;
 
         try {
             if (!str_contains($this->_viewDir . DS . $fileName, '..')
-                &&
-                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
+                && ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = static::class;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if (!$do) {
                 ob_get_clean();
                 $do = true;
             }
 
             if (Mage::getIsDeveloperMode()) {
-                throw $e;
+                throw $throwable;
             }
 
-            Mage::logException($e);
+            Mage::logException($throwable);
         }
 
         if ($hints) {

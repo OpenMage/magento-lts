@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Dashboard_Grids extends Mage_Adminhtml_Block_Widget_T
      *     2) specify url (BE CAREFUL)
      *     3) specify class 'ajax'
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _prepareLayout()
     {

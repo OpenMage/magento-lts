@@ -21,9 +21,9 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $productId
      * @param int|string $linkedProductId
      * @param array $data
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
@@ -66,8 +66,8 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
             $indexerPrice = Mage::getResourceModel('catalog/product_indexer_price');
             $indexerPrice->reindexProductIds($productId);
-        } catch (Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('data_invalid', $exception->getMessage());
             //$this->_fault('data_invalid', Mage::helper('catalog')->__('Link product does not exist.'));
         }
 
@@ -81,9 +81,9 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param int|string $productId
      * @param int|string $linkedProductId
      * @param array $data
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {

@@ -251,8 +251,8 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             Mage::app()->getStore()->resetConfig();
 
             $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
-        } catch (Exception $e) {
-            Mage::getSingleton('install/session')->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('install/session')->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
         }
     }
@@ -309,10 +309,10 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         try {
             $this->_getInstaller()->createAdministrator($user);
             $this->_getInstaller()->installEnryptionKey($encryptionKey);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('install/session')
                 ->setAdminData($adminData)
-                ->addError($e->getMessage());
+                ->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
             return false;
         }

@@ -212,7 +212,7 @@ class Mage_Paypal_Model_Info
     /**
      * Grab data from source and map it into payment
      *
-     * @param array|Varien_Object|callback $from
+     * @param array|callable|Varien_Object $from
      */
     public function importToPayment($from, Mage_Payment_Model_Info $payment)
     {
@@ -227,7 +227,7 @@ class Mage_Paypal_Model_Info
     /**
      * Grab data from payment and map it into target
      *
-     * @param array|Varien_Object|callback $to
+     * @param array|callable|Varien_Object $to
      * @return array|Varien_Object
      */
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, ?array $map = null)
@@ -329,7 +329,7 @@ class Mage_Paypal_Model_Info
             'authorization', 'order' => Mage::helper('paypal')->__('The payment is authorized but not settled.'),
             'echeck' => Mage::helper('paypal')->__('The payment eCheck is not yet cleared.'),
             'intl' => Mage::helper('paypal')->__('Merchant holds a non-U.S. account and does not have a withdrawal mechanism.'),
-            'multi-currency', 'multi_currency', 'multicurrency' => Mage::helper('paypal')->__('The payment curency does not match any of the merchant\'s balances currency.'),
+            'multi-currency', 'multi_currency', 'multicurrency' => Mage::helper('paypal')->__("The payment curency does not match any of the merchant's balances currency."),
             'paymentreview' => Mage::helper('paypal')->__('The payment is pending while it is being reviewed by PayPal for risk.'),
             'unilateral' => Mage::helper('paypal')->__('The payment is pending because it was made to an email address that is not yet registered or confirmed.'),
             'verify' => Mage::helper('paypal')->__('The merchant account is not yet verified.'),
@@ -442,8 +442,8 @@ class Mage_Paypal_Model_Info
             'paypal_correlation_id' => Mage::helper('paypal')->__('Last Correlation ID'),
             'paypal_avs_code' => Mage::helper('paypal')->__('Address Verification System Response'),
             'paypal_cvv2_match' => Mage::helper('paypal')->__('CVV2 Check Result by PayPal'),
-            self::BUYER_TAX_ID => Mage::helper('paypal')->__('Buyer\'s Tax ID'),
-            self::BUYER_TAX_ID_TYPE => Mage::helper('paypal')->__('Buyer\'s Tax ID Type'),
+            self::BUYER_TAX_ID => Mage::helper('paypal')->__("Buyer's Tax ID"),
+            self::BUYER_TAX_ID_TYPE => Mage::helper('paypal')->__("Buyer's Tax ID Type"),
             self::CENTINEL_VPAS => Mage::helper('paypal')->__('PayPal/Centinel Visa Payer Authentication Service Result'),
             self::CENTINEL_ECI => Mage::helper('paypal')->__('PayPal/Centinel Electronic Commerce Indicator'),
             default => '',

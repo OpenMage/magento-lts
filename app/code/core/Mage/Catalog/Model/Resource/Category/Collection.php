@@ -38,7 +38,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Store id, that we should count products on
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_productStoreId;
 
@@ -83,7 +83,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
 
     /**
      * Init collection and determine table names
-     *
      */
     protected function _construct()
     {
@@ -96,7 +95,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     /**
      * Add Id filter
      *
-     * @param int|string|array $categoryIds
+     * @param array|int|string $categoryIds
      * @return $this
      */
     public function addIdFilter($categoryIds)
@@ -218,7 +217,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
 
     /**
      * Load categories product count
-     *
      */
     protected function _loadProductCount()
     {

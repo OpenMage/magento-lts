@@ -44,8 +44,8 @@ final class AbstractTest extends OpenMageTest
     {
         try {
             self::assertInstanceOf(Varien_Db_Select::class, self::$subject->getProductFlatSelect(0));
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Resource is not set.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Resource is not set.', $mageCoreException->getMessage());
         }
     }
 
@@ -174,8 +174,8 @@ final class AbstractTest extends OpenMageTest
     {
         try {
             self::assertIsArray(self::$subject->getWebsiteIds());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Resource is not set.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Resource is not set.', $mageCoreException->getMessage());
         }
     }
 

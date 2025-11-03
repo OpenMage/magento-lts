@@ -15,6 +15,7 @@
  * @method Mage_Sales_Model_Resource_Order_Status _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Status_Collection getResourceCollection()
  *
  * @method string getStatus()
  * @method string getLabel()
@@ -40,9 +41,9 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         try {
             $this->_getResource()->assignState($this->getStatus(), $state, $isDefault);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -60,9 +61,9 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         try {
             $this->_getResource()->unassignState($this->getStatus(), $state);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

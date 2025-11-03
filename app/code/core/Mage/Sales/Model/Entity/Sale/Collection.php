@@ -15,7 +15,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Read connection
      *
-     * @var Varien_Db_Adapter_Interface|false
+     * @var false|Varien_Db_Adapter_Interface
      */
     protected $_read;
 
@@ -60,8 +60,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -90,9 +90,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $this->printLogQuery($printQuery, $logQuery);
         try {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
-            throw $e;
+            throw $exception;
         }
 
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();

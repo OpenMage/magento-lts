@@ -46,7 +46,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
             }
         } elseif (!empty($string)) {
             $codes = explode(',', $string);
-            $codes = array_map('trim', $codes);
+            $codes = array_map(trim(...), $codes);
             $processes = $this->_getIndexer()->getProcessesCollectionByCodes($codes);
             foreach ($processes as $key => $process) {
                 if ($process->getIndexer()->getVisibility() === false) {
@@ -64,7 +64,6 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -173,7 +172,6 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

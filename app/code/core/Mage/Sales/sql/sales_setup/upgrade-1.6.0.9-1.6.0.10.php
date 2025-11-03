@@ -7,7 +7,7 @@
  * @package    Mage_Sales
  */
 
-/** @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

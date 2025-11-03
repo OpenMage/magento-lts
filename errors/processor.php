@@ -8,9 +8,8 @@
  */
 
 /**
-* Error processor
-*
-*/
+ * Error processor
+ */
 class Error_Processor
 {
     public const MAGE_ERRORS_LOCAL_XML = 'local.xml';
@@ -54,7 +53,7 @@ class Error_Processor
      * Show message after sending email
      *
      * @var bool
-    */
+     */
     public $showSentMsg;
 
     /** @var bool */
@@ -64,7 +63,7 @@ class Error_Processor
      * Server script name
      *
      * @var string
-    */
+     */
     protected $_scriptName;
 
     /** @var bool */
@@ -83,7 +82,7 @@ class Error_Processor
      * Internal config object
      *
      * @var stdClass
-    */
+     */
     protected $_config;
 
     public function __construct()
@@ -115,7 +114,7 @@ class Error_Processor
 
     /**
      * Process 404 error
-    */
+     */
     public function process404()
     {
         $this->pageTitle = 'Error 404: Not Found';
@@ -125,7 +124,7 @@ class Error_Processor
 
     /**
      * Process 503 error
-    */
+     */
     public function process503()
     {
         $this->pageTitle = 'Error 503: Service Unavailable';
@@ -135,7 +134,7 @@ class Error_Processor
 
     /**
      * Process report
-    */
+     */
     public function processReport()
     {
         $this->pageTitle = 'There has been an error processing your request';
@@ -275,7 +274,7 @@ class Error_Processor
      * Load xml file
      *
      * @param string $xmlFile file name
-     * @return SimpleXMLElement|null
+     * @return null|SimpleXMLElement
      */
     protected function _loadXml(string $xmlFile)
     {
@@ -312,8 +311,8 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param array|null $directories
-     * @return string|null
+     * @param null|array $directories
+     * @return null|string
      */
     protected function _getFilePath(string $file, $directories = null)
     {
@@ -339,7 +338,7 @@ class Error_Processor
     /**
      * Find template path
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getTemplatePath(string $template)
     {
@@ -392,7 +391,7 @@ class Error_Processor
             @mkdir($this->_reportDir, 0750, true);
         }
 
-        $reportData = array_map('strip_tags', $reportData);
+        $reportData = array_map(strip_tags(...), $reportData);
         @file_put_contents($this->_reportFile, serialize($reportData));
         @chmod($this->_reportFile, 0640);
 
@@ -411,7 +410,7 @@ class Error_Processor
     }
 
     /**
-     * @return void|no-return
+     * @return no-return|void
      */
     public function loadReport(int $reportId)
     {

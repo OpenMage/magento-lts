@@ -42,8 +42,8 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * @param bool|string $sorted
      * @param bool $asCollection
      * @param bool $toLoad
-     * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      * @throws Mage_Core_Model_Store_Exception
+     * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      */
     public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
@@ -93,7 +93,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Check if a category can be shown
      *
-     * @param  Mage_Catalog_Model_Category|int $category
+     * @param  int|Mage_Catalog_Model_Category $category
      * @return bool
      */
     public function canShow($category)
@@ -118,11 +118,11 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     }
 
     /**
-         * Retrieve category rewrite sufix for store
-         *
-         * @param int $storeId
-         * @return string
-         */
+     * Retrieve category rewrite sufix for store
+     *
+     * @param int $storeId
+     * @return string
+     */
     public function getCategoryUrlSuffix($storeId = null)
     {
         if (is_null($storeId)) {
@@ -165,7 +165,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Check if <link rel="canonical"> can be used for category
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)

@@ -23,9 +23,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
     /**
      * @param int $productId
-     * @param string|null $identifierType
-     * @return array
+     * @param null|string $identifierType
      * @throws Mage_Core_Exception
+     * @return array
      */
     public function info($productId, $identifierType = null)
     {
@@ -60,9 +60,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function update($productId, $tierPrices, $identifierType = null)
     {
@@ -89,8 +89,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_updated', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_updated', $mageCoreException->getMessage());
         }
 
         return true;
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array|null
+     *  @return     null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {

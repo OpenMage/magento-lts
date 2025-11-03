@@ -62,7 +62,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale|null
+     * @var null|Zend_Locale
      */
     protected $_locale;
 
@@ -84,7 +84,7 @@ class Mage_Core_Model_Locale
 
     /**
      * Mage_Core_Model_Locale constructor.
-     * @param string|null $locale
+     * @param null|string $locale
      */
     public function __construct($locale = null)
     {
@@ -555,10 +555,10 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
-     * @param   string|int|Zend_Date|array|null $date date in UTC
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store Information about store
+     * @param   null|array|int|string|Zend_Date $date date in UTC
      * @param   bool $includeTime flag for including time to date
-     * @param   string|null $format
+     * @param   null|string $format
      * @return  Zend_Date
      */
     public function storeDate($store = null, $date = null, $includeTime = false, $format = null)
@@ -581,7 +581,7 @@ class Mage_Core_Model_Locale
      * or in format which was passed as parameter.
      *
      * @param mixed $store Information about store
-     * @param string|int|Zend_Date|array|null $date date in store's timezone
+     * @param null|array|int|string|Zend_Date $date date in store's timezone
      * @param bool $includeTime flag for including time to date
      * @param null|string $format
      * @return Zend_Date
@@ -671,8 +671,8 @@ class Mage_Core_Model_Locale
      * '2'054.52' = 2054.52
      * '2,46 GB' = 2.46
      *
-     * @param string|float|int $value
-     * @return float|null
+     * @param float|int|string $value
+     * @return null|float
      */
     public function getNumber($value)
     {
@@ -685,7 +685,7 @@ class Mage_Core_Model_Locale
         }
 
         //trim spaces and apostrophes
-        $value = str_replace(['\'', ' '], '', $value);
+        $value = str_replace(["'", ' '], '', $value);
 
         $separatorComa = strpos($value, ',');
         $separatorDot  = strpos($value, '.');
@@ -776,7 +776,6 @@ class Mage_Core_Model_Locale
 
     /**
      * Get last locale, used before last emulation
-     *
      */
     public function revert()
     {
@@ -807,7 +806,7 @@ class Mage_Core_Model_Locale
      *
      * @param  string             $value  Name to get detailed information about
      * @param  string             $path   (Optional) Type of information to return
-     * @return string|false The wished information in the given language
+     * @return false|string The wished information in the given language
      */
     public function getTranslation($value = null, $path = null)
     {
@@ -818,7 +817,7 @@ class Mage_Core_Model_Locale
      * Replace all yy date format to yyyy
      *
      * @param string $currentFormat
-     * @return string|string[]|null
+     * @return null|string|string[]
      */
     protected function _convertYearTwoDigitTo4($currentFormat)
     {
@@ -849,9 +848,9 @@ class Mage_Core_Model_Locale
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store|null $store
-     * @param string|null $dateFrom
-     * @param string|null $dateTo
+     * @param null|int|Mage_Core_Model_Store|string $store
+     * @param null|string $dateFrom
+     * @param null|string $dateTo
      * @return bool
      */
     public function isStoreDateInInterval($store, $dateFrom = null, $dateTo = null)

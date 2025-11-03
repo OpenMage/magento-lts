@@ -16,7 +16,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Available options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options;
 
@@ -30,7 +30,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
+     * @var null|Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -419,8 +419,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-        } catch (Exception $e) {
-            $this->addError('ERROR: ' . $e->getMessage());
+        } catch (Exception $exception) {
+            $this->addError('ERROR: ' . $exception->getMessage());
             return false;
         }
 

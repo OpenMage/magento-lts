@@ -57,7 +57,7 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize order model instance
      *
-     * @return Mage_Sales_Model_Order|false
+     * @return false|Mage_Sales_Model_Order
      */
     protected function _initOrder()
     {

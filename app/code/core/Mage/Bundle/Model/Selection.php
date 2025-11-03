@@ -15,6 +15,7 @@
  * @method Mage_Bundle_Model_Resource_Selection _getResource()
  * @method Mage_Bundle_Model_Resource_Selection getResource()
  * @method Mage_Bundle_Model_Resource_Selection_Collection getCollection()
+ * @method Mage_Bundle_Model_Resource_Selection_Collection getResourceCollection()
  *
  * @method string getDefaultPriceScope()
  * @method int getIsDefault()

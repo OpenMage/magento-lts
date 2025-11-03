@@ -217,8 +217,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param string $callbackType
      * @param int $fileType
-     * @return string
      * @throws Exception
+     * @return string
      */
     private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
     {
@@ -312,7 +312,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         // assume that transparency is supported by gif/png/webp only
-        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
+        if (in_array($fileType, [IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_WEBP], true)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
@@ -451,9 +451,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             'Unsupported watermark image format.',
         ), $watermarkImage);
 
-        if ($this->getWatermarkWidth() &&
-            $this->getWatermarkHeigth() &&
-            ($this->getWatermarkPosition() != self::POSITION_STRETCH)
+        if ($this->getWatermarkWidth()
+            && $this->getWatermarkHeigth()
+            && ($this->getWatermarkPosition() != self::POSITION_STRETCH)
         ) {
             $newWatermark = imagecreatetruecolor($this->getWatermarkWidth(), $this->getWatermarkHeigth());
             imagealphablending($newWatermark, false);

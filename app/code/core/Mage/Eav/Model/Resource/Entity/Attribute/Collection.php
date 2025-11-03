@@ -36,7 +36,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
 
     /**
      * Resource model initialization
-     *
      */
     protected function _construct()
     {
@@ -79,7 +78,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify attribute entity type filter
      *
-     * @param  Mage_Eav_Model_Entity_Type | int $type
+     * @param  int|Mage_Eav_Model_Entity_Type $type
      * @return $this
      */
     public function setEntityTypeFilter($type)
@@ -390,7 +389,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string | array $code
+     * @param array|string $code
      * @return $this
      */
     public function setCodeFilter($code)

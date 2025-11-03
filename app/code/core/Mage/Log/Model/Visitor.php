@@ -10,7 +10,9 @@
 /**
  * @package    Mage_Log
  *
+ * @method Mage_Log_Model_Resource_Visitor _getResource()
  * @method Mage_Log_Model_Resource_Visitor getResource()
+ *
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
  * @method int getCustomerLogId()
@@ -83,8 +85,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     {
         $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
         $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
-        $this->_logCondition = !empty($data['log_condition']) ?
-            $data['log_condition'] : Mage::helper('log');
+        $this->_logCondition = !empty($data['log_condition'])
+            ? $data['log_condition'] : Mage::helper('log');
         $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
         parent::__construct($data);
     }
@@ -260,8 +262,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return $this;

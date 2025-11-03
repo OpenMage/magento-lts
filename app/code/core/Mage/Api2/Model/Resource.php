@@ -860,8 +860,8 @@ abstract class Mage_Api2_Model_Resource
      * Check ACL permission for specified resource with current other conditions
      *
      * @param string $resourceId Resource identifier
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     protected function _isSubCallAllowed($resourceId)
     {
@@ -870,8 +870,8 @@ abstract class Mage_Api2_Model_Resource
 
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
-        } catch (Mage_Api2_Exception $e) {
-            throw new Exception('Invalid arguments for isAllowed() call', $e->getCode(), $e);
+        } catch (Mage_Api2_Exception $mageApi2Exception) {
+            throw new Exception('Invalid arguments for isAllowed() call', $mageApi2Exception->getCode(), $mageApi2Exception);
         }
     }
 

@@ -71,7 +71,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Prepare bind array of ids from string or array
      *
-     * @param string|int|array $value
+     * @param array|int|string $value
      * @return array
      */
     public function bindArrayOfIds($value)
@@ -80,9 +80,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value = explode(',', $value);
         }
 
-        $value = array_map('trim', $value);
+        $value = array_map(trim(...), $value);
 
-        return array_filter($value, 'is_numeric');
+        return array_filter($value, is_numeric(...));
     }
 
     /**

@@ -23,7 +23,6 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
 
     /**
      * Initialize block
-     *
      */
     protected function _construct()
     {

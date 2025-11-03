@@ -24,7 +24,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_rootPath;
 
@@ -58,7 +58,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Initialize application and parse input parameters
-     *
      */
     public function __construct()
     {
@@ -92,7 +91,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Parse .htaccess file and apply php settings to shell script
-     *
      */
     protected function _applyPhpVariables()
     {
@@ -152,7 +150,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Validate arguments
-     *
      */
     protected function _validate()
     {
@@ -163,13 +160,11 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     abstract public function run();
 
     /**
      * Check is show usage help
-     *
      */
     protected function _showHelp()
     {
@@ -180,7 +175,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

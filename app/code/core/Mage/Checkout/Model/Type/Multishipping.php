@@ -237,9 +237,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
              * MultishippingQty should be defined for each quote item when it processed with _addShippingItem
              */
             foreach ($quote->getAllItems() as $item) {
-                if (!$item->getProduct()->getIsVirtual() &&
-                    !$item->getParentItem() &&
-                    !$item->getMultishippingQty()
+                if (!$item->getProduct()->getIsVirtual()
+                    && !$item->getParentItem()
+                    && !$item->getMultishippingQty()
                 ) {
                     $quote->removeItem($item->getId());
                 }
@@ -412,8 +412,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Prepare order based on quote address
      *
-     * @return  Mage_Sales_Model_Order
      * @throws  Mage_Checkout_Exception
+     * @return  Mage_Sales_Model_Order
      */
     protected function _prepareOrder(Mage_Sales_Model_Quote_Address $address)
     {
@@ -548,9 +548,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::dispatchEvent('checkout_submit_all_after', ['orders' => $orders, 'quote' => $this->getQuote()]);
 
             return $this;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::dispatchEvent('checkout_multishipping_refund_all', ['orders' => $orders]);
-            throw $e;
+            throw $exception;
         }
     }
 

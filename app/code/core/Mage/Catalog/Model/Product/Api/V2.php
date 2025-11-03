@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * Retrieve product info
      *
      * @param int|string $productId
-     * @param string|int $store
+     * @param int|string $store
      * @param stdClass   $attributes
      * @param string     $identifierType
      * @return array
@@ -135,8 +135,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $product->getId();
@@ -147,11 +147,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      * @param int|string $productId
      * @param array|stdClass $productData
-     * @param string|int $store
-     * @param string|null $identifierType
-     * @return bool
+     * @param int|string $store
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @return bool
      */
     public function update($productId, $productData, $store = null, $identifierType = null)
     {
@@ -180,8 +180,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -192,7 +192,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      * @param array      $productIds
      * @param array      $productData
-     * @param string|int $store
+     * @param int|string $store
      * @param string     $identifierType
      * @return true|void
      */
@@ -323,7 +323,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param float $specialPrice
      * @param string $fromDate
      * @param string $toDate
-     * @param string|int $store
+     * @param int|string $store
      * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
      *                                        otherwise - try to determine identifier type automatically
      * @return bool

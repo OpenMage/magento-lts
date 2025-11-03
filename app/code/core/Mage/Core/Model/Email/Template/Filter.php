@@ -50,15 +50,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     protected $_inlineCssFile = false;
 
-    /** @var Mage_Admin_Model_Variable  */
+    /** @var Mage_Admin_Model_Variable */
     protected $_permissionVariable;
 
-    /** @var Mage_Admin_Model_Block  */
+    /** @var Mage_Admin_Model_Block */
     protected $_permissionBlock;
 
     /**
      * Setup callbacks for filters
-     *
      */
     public function __construct()
     {
@@ -117,7 +116,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param Mage_Core_Model_Store|int $storeId
+     * @param int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -130,8 +129,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Getter
      * if $_storeId is null return Design store id
      *
-     * @return int
      * @throws Mage_Core_Model_Store_Exception
+     * @return int
      */
     public function getStoreId()
     {
@@ -197,8 +196,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve layout html directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function layoutDirective($construction)
     {
@@ -261,8 +260,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve Skin URL directive
      *
      * @param array $construction
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function skinDirective($construction)
     {
@@ -289,8 +288,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Support url and direct_url properties
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function storeDirective($construction)
     {
@@ -351,8 +350,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Var directive with modifiers support
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function varDirective($construction)
     {
@@ -429,8 +428,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * also allow additional parameter "store"
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function protocolDirective($construction)
     {
@@ -459,8 +458,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Store config directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function configDirective($construction)
     {
@@ -478,8 +477,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Custom Variable directive
      *
      * @param array $construction
-     * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function customvarDirective($construction)
     {
@@ -551,9 +550,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     {
         try {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $value = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         return $value;
@@ -564,17 +563,17 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param string $value raw parameters
      * @param string $default default value
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Mage::register('varProcessing', true);
         try {
             $result = parent::_getVariable($value, $default);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         Mage::unregister('varProcessing');

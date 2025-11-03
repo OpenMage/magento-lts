@@ -138,8 +138,8 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                     //Adjust the discount amounts for the base and well as the weee to display the right totals
                     foreach ($this->_source->getAllItems() as $item) {
                         $subtotalIncl += $item->getHiddenTaxAmount() + $item->getDiscountAppliedForWeeeTax();
-                        $baseSubtotalIncl += $item->getBaseHiddenTaxAmount() +
-                            $item->getBaseDiscountAppliedForWeeeTax();
+                        $baseSubtotalIncl += $item->getBaseHiddenTaxAmount()
+                            + $item->getBaseDiscountAppliedForWeeeTax();
                     }
                 }
             }

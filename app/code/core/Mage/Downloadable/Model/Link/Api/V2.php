@@ -36,7 +36,7 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
      * @param int|string $productId
      * @param object $resource
      * @param string $resourceType
-     * @param string|int $store
+     * @param int|string $store
      * @param string $identifierType ('sku'|'id')
      * @return bool
      */

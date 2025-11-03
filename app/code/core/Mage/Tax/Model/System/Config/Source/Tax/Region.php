@@ -13,7 +13,7 @@
 class Mage_Tax_Model_System_Config_Source_Tax_Region
 {
     /**
-     * @var Mage_Directory_Model_Region|null
+     * @var null|Mage_Directory_Model_Region
      */
     protected $_optionsModel;
 

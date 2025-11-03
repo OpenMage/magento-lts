@@ -25,7 +25,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote|false
+     * @var false|Mage_Sales_Model_Quote
      */
     protected $_quote = false;
 
@@ -137,8 +137,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initCheckout();
             $response = $this->_checkout->getShippingOptionsCallbackResponse($this->getRequest()->getParams());
             $this->getResponse()->setBody($response);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
@@ -247,8 +247,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->getResponse()->setRedirect($this->_config->getExpressCheckoutEditUrl($this->_initToken()));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/review');
         }
     }
@@ -444,8 +444,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     /**
      * Instantiate quote and checkout
      *
-     * @return Mage_Paypal_Model_Express_Checkout
      * @throws Mage_Core_Exception
+     * @return Mage_Paypal_Model_Express_Checkout
      */
     protected function _initCheckout()
     {
@@ -535,7 +535,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
     /**
      * Redirect to login page
-     *
      */
     public function redirectLogin()
     {

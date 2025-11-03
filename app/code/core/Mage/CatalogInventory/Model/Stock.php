@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
+ *
  * @method string getStockName()
  * @method $this setStockName(string $value)
  */
@@ -144,16 +145,15 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 
             $this->_getResource()->correctItemsQty($this, $qtys, '-');
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $fullSaveItems;
     }
 
     /**
-     *
      * @param array $items
      * @return Mage_CatalogInventory_Model_Stock
      */

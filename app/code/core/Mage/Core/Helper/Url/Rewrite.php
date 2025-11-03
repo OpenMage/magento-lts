@@ -34,8 +34,8 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * If something is wrong with a path it throws localized error message and error code,
      * that can be checked to by wrapper func to alternate error message
      *
-     * @throws Mage_Core_Exception
      * @param string $requestPath
+     * @throws Mage_Core_Exception
      * @return bool
      */
     protected function _validateRequestPath($requestPath)
@@ -80,24 +80,24 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates suffix for url rewrites to inform user about errors in it
      * Either returns TRUE (success) or throws error (validation failed)
      *
-     * @throws Mage_Core_Exception|Exception
      * @param string $suffix
+     * @throws Exception|Mage_Core_Exception
      * @return bool
      */
     public function validateSuffix($suffix)
     {
         try {
             $this->_validateRequestPath($suffix); // Suffix itself must be a valid request path
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // Make message saying about suffix, not request path
-            switch ($e->getCode()) {
+            switch ($exception->getCode()) {
                 case self::VERR_MANYSLASHES:
-                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'), $e->getCode(), $e);
+                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'), $exception->getCode(), $exception);
                 case self::VERR_ANCHOR:
-                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'), $e->getCode(), $e);
+                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'), $exception->getCode(), $exception);
             }
 
-            throw $e;
+            throw $exception;
         }
 
         return true;

@@ -43,28 +43,28 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|Varien_Object|null
+     * @var null|Mage_Shipping_Model_Rate_Request|Varien_Object
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
     /**
      * Countries parameters data
      *
-     * @var SimpleXMLElement|null
+     * @var null|SimpleXMLElement
      */
     protected $_countryParams = null;
 
@@ -168,7 +168,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Collect and get rates
      *
-     * @return bool|Mage_Shipping_Model_Rate_Result|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -233,7 +233,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Returns request result
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -400,7 +400,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @param string $type
      * @param string $code
-     * @return array|string|false
+     * @return array|false|string
      */
     public function getCode($type, $code = '')
     {
@@ -531,7 +531,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @param float $weight
      * @param bool $maxWeight
-     * @param string|bool $configWeightUnit
+     * @param bool|string $configWeightUnit
      * @return float
      */
     protected function _getWeight($weight, $maxWeight = false, $configWeightUnit = false)
@@ -720,7 +720,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * Convert item dimension to needed dimension based on config dimension unit of measure
      *
      * @param float $dimension
-     * @param string|bool $configWeightUnit
+     * @param bool|string $configWeightUnit
      * @return float
      */
     protected function _getDimension($dimension, $configWeightUnit = false)
@@ -813,8 +813,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
 
             $this->_debug($debugData);
-        } catch (Exception $e) {
-            $this->_errors[$e->getCode()] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_errors[$exception->getCode()] = $exception->getMessage();
         }
 
         return $this->_parseResponse($responseBody);
@@ -919,7 +919,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $responseError =  Mage::helper('usa')->__('The response is in wrong format.');
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
@@ -1134,7 +1134,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Processing additional validation to check is carrier applicable.
      *
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -1551,7 +1551,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
     {
@@ -1649,7 +1649,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             $xml = simplexml_load_string($response);
             if (!is_object($xml)) {
                 $errorTitle = Mage::helper('usa')->__('Response is in the wrong format');

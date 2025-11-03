@@ -118,7 +118,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      * Payment ID filter setter
      * Can take either the integer id or the payment instance
      *
-     * @param Mage_Sales_Model_Order_Payment|int $payment
+     * @param int|Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
     public function addPaymentIdFilter($payment)
@@ -163,7 +163,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Add filter by store ids
      *
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)

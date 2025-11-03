@@ -48,13 +48,14 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
          * If there is not price skip saving price
          */
 
-        if ($object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-            || $object->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
-        ) {
+        if (in_array($object->getType(), [
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD,
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA,
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE,
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE,
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME,
+        ])) {
             //save for store_id = 0
             if (!$object->getData('scope', 'price')) {
                 $statement = $readAdapter->select()

@@ -12,6 +12,9 @@
  *
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
+ * @method Mage_Api_Model_Resource_Roles_Collection getCollection()
+ * @method Mage_Api_Model_Resource_Roles_Collection getResourceCollection()
+ *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method int getTreeLevel()
@@ -92,9 +95,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string|null $parentName
+     * @param null|string $parentName
      * @param int $level
-     * @param bool|null $represent2Darray
+     * @param null|bool $represent2Darray
      * @param bool $rawNodes
      * @param string $module
      * @return array|false|Varien_Simplexml_Element
@@ -115,8 +118,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if ($resource->getName() != 'title' && $resource->getName() != 'sort_order'
-                && $resource->getName() != 'children'
+            if (!in_array($resource->getName(), ['title', 'sort_order', 'children'])
             ) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 

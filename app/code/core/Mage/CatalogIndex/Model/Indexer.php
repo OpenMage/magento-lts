@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer getResource()
+ *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
@@ -67,13 +68,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Tproduct types sorted by index priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypePriority = null;
 
     /**
      * Initialize all indexers and resource model
-     *
      */
     protected function _construct()
     {
@@ -326,9 +326,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $this->updateCatalogProductFlat($store, $products);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $flag->delete();
-            throw $e;
+            throw $exception;
         }
 
         if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING) {
@@ -341,8 +341,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * After plain reindex process
      *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @param array|int|Mage_Core_Model_Store|Mage_Core_Model_Website $store
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
@@ -569,7 +569,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Retrieve Base to Specified Currency Rate
      *
      * @param string $code
-     * @return double
+     * @return float
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
     {
@@ -643,7 +643,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
                                     }
 
-                                    if (strlen($values[$code]['from']) > 0) {
+                                    if ((string) $values[$code]['from'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
@@ -651,7 +651,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         );
                                     }
 
-                                    if (strlen($values[$code]['to']) > 0) {
+                                    if ((string) $values[$code]['to'] !== '') {
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
@@ -808,8 +808,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param Mage_Core_Model_Store|int $store
-     * @param Mage_Catalog_Model_Product|int|array|null $products
+     * @param int|Mage_Core_Model_Store $store
+     * @param null|array|int|Mage_Catalog_Model_Product $products
      * @param string $resourceTable
      * @return $this
      */

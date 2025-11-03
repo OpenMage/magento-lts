@@ -15,6 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
  * @method Mage_Tax_Model_Resource_Calculation getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
  *
  * @method $this setCalculationProcess(array $value)
  * @method array getCalculationProcess()
@@ -98,7 +99,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Hold the customer
      *
-     * @var Mage_Customer_Model_Customer|false
+     * @var false|Mage_Customer_Model_Customer
      */
     protected $_customer = null;
 
@@ -160,7 +161,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get customer object
      *
-     * @return Mage_Customer_Model_Customer|false
+     * @return false|Mage_Customer_Model_Customer
      */
     public function getCustomer()
     {
@@ -310,7 +311,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * store price excluding tax
      *
      * @param Varien_Object $request
-     * @param Mage_Core_Model_Store|null $store
+     * @param null|Mage_Core_Model_Store $store
      * @return float
      */
     public function getStoreRate($request, $store = null)
@@ -339,7 +340,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -356,7 +357,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
@@ -381,7 +382,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|false|Mage_Sales_Model_Quote_Address $shippingAddress
      * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
      * @param   null|int $customerTaxClass
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  Varien_Object
      */
     public function getRateRequest(

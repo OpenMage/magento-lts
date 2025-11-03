@@ -93,8 +93,8 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
 
     /**
      * @param bool $json
-     * @return string
      * @throws Exception
+     * @return string
      */
     protected function _getSelectedRoles($json = false)
     {

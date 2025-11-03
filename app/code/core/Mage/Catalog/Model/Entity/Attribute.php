@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
+ *
  * @method string getFrontendInputRenderer()
  * @method $this setFrontendInputRenderer(string $value)
  * @method int setIsGlobal(int $value)
@@ -40,7 +41,7 @@
  * @method $this setUsedForSortBy(int $value)
  * @method int getIsConfigurable()
  * @method $this setIsConfigurable(int $value)
- * @method $this setApplyTo(string|array $value)
+ * @method $this setApplyTo(array|string $value)
  * @method int getIsVisibleInAdvancedSearch()
  * @method $this setIsVisibleInAdvancedSearch(int $value)
  * @method int getPosition()

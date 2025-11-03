@@ -72,7 +72,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'purchases' || $attribute == 'downloads' || $attribute == 'link_title') {
+        if (in_array($attribute, ['purchases', 'downloads', 'link_title'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

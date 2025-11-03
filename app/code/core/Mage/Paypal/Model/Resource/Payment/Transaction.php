@@ -26,7 +26,6 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
 
     /**
      * Initialize main table and the primary key field name
-     *
      */
     protected function _construct()
     {
@@ -94,7 +93,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * Load cell/row by specified unique key parts
      *
      * @param string $txnId
-     * @param array|string|object $columns
+     * @param array|object|string $columns
      * @param bool $isRow
      * @return array|string
      */
@@ -112,7 +111,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * Get select object for loading transaction by the unique key of order_id, payment_id, txn_id
      *
      * @param string $txnId
-     * @param string|array|Zend_Db_Expr $columns
+     * @param array|string|Zend_Db_Expr $columns
      * @return Varien_Db_Select
      */
     private function _getLoadByUniqueKeySelect($txnId, $columns = '*')

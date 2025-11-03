@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer  = $this;
 
 $attributeId = $this->getAttribute('catalog_product', 'group_price', 'attribute_id');

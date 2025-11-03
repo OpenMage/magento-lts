@@ -97,7 +97,6 @@
  * --admin_password             // required, admin user password
  * Encryption key:
  * --encryption_key             // optional, will be automatically generated and displayed on success, if not specified
- *
  */
 
 set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
@@ -119,8 +118,8 @@ try {
         echo 'SUCCESS: ' . $installer->getEncryptionKey() . "\n";
         exit;
     }
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
 }
 
 // print all errors if there were any

@@ -30,7 +30,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      * Processes localized qty (entered by user at frontend) into internal php format
      *
      * @param string $qty
-     * @return float|int|null
+     * @return null|float|int
      * @deprecated
      */
     protected function _processLocalizedQty($qty)
@@ -46,13 +46,12 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
     /**
      * Retrieve current wishlist instance
      *
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     abstract protected function _getWishlist();
 
     /**
      * Add all items from wishlist to shopping cart
-     *
      */
     public function allcartAction()
     {

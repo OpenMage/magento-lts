@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * @package    Mage_Dataflow
  * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */

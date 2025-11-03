@@ -54,7 +54,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _convert($currencyFrom, $currencyTo)
     {
@@ -128,7 +128,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
             } elseif (empty($response['rates'][$currencyTo])) {
                 $this->_messages[] = Mage::helper('directory')
-                    ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
+                    ->__("We can't retrieve a rate from %s for %s.", $url, $currencyTo);
                 $data[$currencyFrom][$currencyTo] = null;
             } else {
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response['rates'][$currencyTo]);
@@ -191,7 +191,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
                     ->__('One or more invalid symbols have been specified.'),
             ];
 
-            $this->_messages[] = $errorCodes[$response['error']['code']] ?? Mage::helper('directory')->__('Currency rates can\'t be retrieved.');
+            $this->_messages[] = $errorCodes[$response['error']['code']] ?? Mage::helper('directory')->__("Currency rates can't be retrieved.");
 
             return false;
         }

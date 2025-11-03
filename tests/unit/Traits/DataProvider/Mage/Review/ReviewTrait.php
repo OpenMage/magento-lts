@@ -33,21 +33,21 @@ trait ReviewTrait
         $data = $validReview;
         $data['getTitle'] = '';
         yield 'missing title' => [
-            ['Review summary can\'t be empty'],
+            ["Review summary can't be empty"],
             $data,
         ];
 
         $data = $validReview;
         $data['getDetail'] = '';
         yield 'missing detail' => [
-            ['Review can\'t be empty'],
+            ["Review can't be empty"],
             $data,
         ];
 
         $data = $validReview;
         $data['getNickname'] = '';
         yield 'missing nickname' => [
-            ['Nickname can\'t be empty'],
+            ["Nickname can't be empty"],
             $data,
         ];
     }

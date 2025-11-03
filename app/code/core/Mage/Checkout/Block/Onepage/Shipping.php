@@ -17,7 +17,7 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
     /**
      * Sales Quote Shipping Address instance
      *
-     * @var Mage_Sales_Model_Quote_Address|null
+     * @var null|Mage_Sales_Model_Quote_Address
      */
     protected $_address = null;
 

@@ -119,9 +119,9 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param int|string|Zend_Date|bool|null $date
+     * @param null|bool|int|string|Zend_Date $date
      * @param bool $includeTime
-     * @return string|null
+     * @return null|string
      */
     public function formatDate($date, $includeTime = true)
     {
@@ -219,7 +219,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareTableValueForSave($value, $type)
     {
-        if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
+        if (in_array($type, ['decimal', 'numeric', 'float'])) {
             return Mage::app()->getLocale()->getNumber($value);
         }
 

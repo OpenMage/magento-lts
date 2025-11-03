@@ -39,8 +39,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setId(null);
                 Mage::throwException(
                     Mage::helper('cms')->__(
-                        'Cannot delete page, it is used in "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
+                        'You cannot delete this page as it is used to <a href="%s">configure</a> %s.',
+                        Mage::helper('adminhtml')::getUrl('adminhtml/system_config/edit', ['section' => 'web']),
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }
@@ -79,8 +80,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setIsActive(true);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
-                        'Cannot disable page, it is used in configuration "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
+                        'You cannot disable this page as it is used to <a href="%s">configure</a> %s.',
+                        Mage::helper('adminhtml')::getUrl('adminhtml/system_config/edit', ['section' => 'web']),
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }
@@ -111,6 +113,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @param Mage_Cms_Model_Page $object
      * @inheritDoc
+     * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -184,6 +187,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param string $field
      * @param mixed $value
      * @param Mage_Cms_Model_Page $object
+     * @throws Exception
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -210,7 +214,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieve load select with filter by identifier, store and activity
      *
      * @param string $identifier
-     * @param int|array $store
+     * @param array|int $store
      * @param int $isActive
      * @return Varien_Db_Select
      */
@@ -236,6 +240,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of page to selected store(s).
      *
+     * @param Mage_Cms_Model_Page $object
      * @return bool
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
@@ -262,7 +267,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is numeric
      *
-     * @return int|false
+     * @return false|int
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -272,8 +277,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is valid
      *
-     *
-     * @return   int|false
+     * @return   false|int
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -282,7 +286,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
     {
-        $storeIds   = (array) $page->getStoreId();
+        $storeId    = (array) $page->getStoreId(); # null on save
+        $stores     = (array) $page->getStores(); # null on delete
+        $storeIds   = array_merge($storeId, $stores);
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         $config     = Mage::getResourceModel('core/config_data_collection')
             ->addFieldToFilter('value', $page->getIdentifier())
@@ -324,7 +330,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed identifier.
      *
-     * @param string|int $identifier
+     * @param int|string $identifier
+     * @throws Mage_Core_Model_Store_Exception
      * @return string
      */
     public function getCmsPageTitleByIdentifier($identifier)
@@ -346,7 +353,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      * @return string
      */
     public function getCmsPageTitleById($id)
@@ -368,7 +375,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieves cms page identifier from DB by passed id.
      *
      * @param string $id
-     * @return string|false
+     * @return false|string
      */
     public function getCmsPageIdentifierById($id)
     {
@@ -417,6 +424,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve store model
      *
+     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Core_Model_Store
      */
     public function getStore()

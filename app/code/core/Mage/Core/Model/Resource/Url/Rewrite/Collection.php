@@ -16,7 +16,6 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
 {
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -26,7 +25,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     /**
      * Add filter for tags (combined by OR)
      *
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function addTagsFilter($tags)

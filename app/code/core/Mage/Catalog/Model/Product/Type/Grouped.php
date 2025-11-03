@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -375,7 +375,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function processBuyRequest($product, $buyRequest)
     {
         $superGroup = $buyRequest->getSuperGroup();
-        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : [];
+        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, \intval(...)) : [];
 
         return ['super_group' => $superGroup];
     }

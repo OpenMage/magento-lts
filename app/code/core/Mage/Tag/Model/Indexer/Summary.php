@@ -14,6 +14,7 @@
  *
  * @method Mage_Tag_Model_Resource_Indexer_Summary _getResource()
  * @method Mage_Tag_Model_Resource_Indexer_Summary getResource()
+ *
  * @method int getTagId()
  * @method $this setTagId(int $value)
  * @method int getStoreId()
