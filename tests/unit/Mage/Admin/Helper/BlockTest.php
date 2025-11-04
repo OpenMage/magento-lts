@@ -26,6 +26,7 @@ final class BlockTest extends OpenMageTest
     }
 
     /**
+     * @covers Mage_Admin_Helper_Block::__construct()
      * @covers Mage_Admin_Helper_Block::isTypeAllowed()
      * @group Helper
      */
@@ -40,6 +41,7 @@ final class BlockTest extends OpenMageTest
      */
     public function testGetDisallowedBlockNames(): void
     {
+        self::assertIsArray(self::$subject->getDisallowedBlockNames());
         self::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
     }
 }

@@ -383,6 +383,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * If product has required options add special key to URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getProductUrl()
     {
@@ -510,6 +511,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @param   Mage_Catalog_Model_Product $product
      * @return  bool
+     * @throws  Mage_Core_Exception
      */
     public function representProduct($product)
     {
@@ -662,6 +664,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Returns whether Qty field is valid for this item
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canHaveQty()
     {
@@ -679,11 +682,14 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
     /**
      * Sets custom option download url
+     *
      * @param string $url
+     * @return $this
      */
     public function setCustomDownloadUrl($url)
     {
         $this->_customOptionDownloadUrl = $url;
+        return $this;
     }
 
     /**

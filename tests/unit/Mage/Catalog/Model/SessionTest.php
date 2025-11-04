@@ -9,28 +9,29 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Page\Helper;
+namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
 use Mage;
-use Mage_Page_Helper_Layout as Subject;
+use Mage_Catalog_Model_Session as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-final class LayoutTest extends OpenMageTest
+final class SessionTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        self::$subject = Mage::helper('page/layout');
+        self::$subject = Mage::getModel('catalog/session');
     }
 
     /**
-     * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Helper
+     * @covers Mage_Catalog_Model_Session::__construct()
+     * @covers Mage_Catalog_Model_Session::getDisplayMode()
+     * @group Model
      */
-    public function testIsModuleEnabled(): void
+    public function testGetDisplayMode(): void
     {
-        self::assertTrue(self::$subject->isModuleEnabled());
+        self::assertIsString(self::$subject->getDisplayMode());
     }
 }
