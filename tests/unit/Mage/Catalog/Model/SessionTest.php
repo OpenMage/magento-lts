@@ -29,6 +29,8 @@ final class SessionTest extends OpenMageTest
      * @covers Mage_Catalog_Model_Session::__construct()
      * @covers Mage_Catalog_Model_Session::getDisplayMode()
      * @group Model
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
      */
     public function testGetDisplayMode(): void
     {
