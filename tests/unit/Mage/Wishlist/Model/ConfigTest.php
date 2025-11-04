@@ -13,12 +13,9 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 use Mage;
 use Mage_Wishlist_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\ItemTrait;
 
 final class ConfigTest extends OpenMageTest
 {
-    use ItemTrait;
-
     private static Subject $subject;
 
     protected function setUp(): void
