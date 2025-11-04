@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Mage\Index\Model;
+namespace OpenMage\Tests\Unit\Mage\Index\Model;
 
 use Mage;
 use Mage_Index_Model_Event;
