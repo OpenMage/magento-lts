@@ -185,7 +185,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     /**
      * Update 'back' button url
      *
-     * @return Mage_Adminhtml_Block_Widget_Container|Mage_Adminhtml_Block_Sales_Order_Creditmemo_View
+     * @return Mage_Adminhtml_Block_Sales_Order_Creditmemo_View|Mage_Adminhtml_Block_Widget_Container
      */
     public function updateBackButtonUrl($flag)
     {

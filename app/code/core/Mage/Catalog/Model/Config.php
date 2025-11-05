@@ -37,21 +37,21 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * Array of attributes codes needed for product load
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productAttributes;
 
     /**
      * Product Attributes used in product listing
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_usedInProductListing;
 
     /**
      * Product Attributes For Sort By
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_usedForSortBy;
 
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     /**
      * @param int|string $id
-     * @return string|false
+     * @return false|string
      */
     public function getProductTypeName($id)
     {
@@ -276,7 +276,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     /**
      * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function getSourceOptionId($source, $value)
     {

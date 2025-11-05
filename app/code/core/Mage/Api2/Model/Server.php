@@ -196,8 +196,8 @@ class Mage_Api2_Model_Server
     /**
      * Global ACL processing
      *
-     * @return $this
      * @throws Mage_Api2_Exception
+     * @return $this
      */
     protected function _allow(Mage_Api2_Model_Request $request, Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {

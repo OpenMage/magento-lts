@@ -63,7 +63,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
      * Get element by id
      *
      * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract|false
+     * @return false|Varien_Data_Form_Element_Abstract
      */
     public function getElement($elementId)
     {

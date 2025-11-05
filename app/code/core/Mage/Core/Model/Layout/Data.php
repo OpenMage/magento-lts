@@ -12,6 +12,7 @@
  *
  * @method Mage_Core_Model_Resource_Layout _getResource()
  * @method Mage_Core_Model_Resource_Layout getResource()
+ *
  * @method string getHandle()
  * @method $this setHandle(string $value)
  * @method string getXml()

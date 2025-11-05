@@ -15,6 +15,7 @@
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
  *
  * @method int getProductId()
  * @method $this setProductId(int $value)
@@ -57,8 +58,8 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * (1, 2)       => Regenerate index for product Id=2 and its store view Id=1
      * (null, 2)    => Regenerate index for all store views of product Id=2
      *
-     * @param int|null $storeId Store View Id
-     * @param int|array|null $productIds Product Entity Id
+     * @param null|int $storeId Store View Id
+     * @param null|array|int $productIds Product Entity Id
      *
      * @return $this
      */

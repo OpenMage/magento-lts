@@ -180,7 +180,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Create layout blocks hierarchy from layout xml configuration
      *
-     * @param Mage_Core_Model_Layout_Element|Varien_Simplexml_Element|null $parent
+     * @param null|Mage_Core_Model_Layout_Element|Varien_Simplexml_Element $parent
      */
     public function generateBlocks($parent = null)
     {
@@ -453,8 +453,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Block Factory
      *
      * @param     string $type
-     * @param     string|null $name
-     * @return    Mage_Core_Block_Abstract|false
+     * @param     null|string $name
+     * @return    false|Mage_Core_Block_Abstract
      */
     public function createBlock($type, $name = '', array $attributes = [])
     {
@@ -489,7 +489,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Add a block to registry, create new object if needed
      *
-     * @param string|Mage_Core_Block_Abstract $block
+     * @param Mage_Core_Block_Abstract|string $block
      * @param string $blockName
      * @return Mage_Core_Block_Abstract
      */
@@ -540,9 +540,9 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Get block object by name
      *
      * @param string $name
-     * @return Mage_Core_Block_Abstract|false
      * @deprecated Use getBlockByName() which returns null if block does not exist
      * @see getBlockByName()
+     * @return false|Mage_Core_Block_Abstract
      */
     public function getBlock($name)
     {
@@ -705,7 +705,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Retrieve helper object
      *
      * @param   string $name
-     * @return  Mage_Core_Helper_Abstract|false
+     * @return  false|Mage_Core_Helper_Abstract
      */
     public function helper($name)
     {

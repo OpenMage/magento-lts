@@ -68,7 +68,7 @@ class Mage_Core_Model_Log_Adapter
     /**
      * Log data setter
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      * @todo replace whole data

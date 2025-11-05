@@ -103,7 +103,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 
     /**
      * @param Mage_Customer_Model_Address $address
-     * @return string|null
+     * @return null|string
      */
     public function getAddressHtml($address)
     {

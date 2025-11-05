@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Retrieve attribute options
      *
      * @param int $attributeId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function options($attributeId, $store = null)
@@ -175,7 +175,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Update product attribute
      *
-     * @param string|int $attribute attribute code or ID
+     * @param int|string $attribute attribute code or ID
      * @param array $data
      * @return bool
      */

@@ -149,7 +149,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     /**
      * Retrieve product relations by children
      *
-     * @param int|array $childIds
+     * @param array|int $childIds
      * @return array
      */
     public function getRelationsByChild($childIds)
@@ -165,7 +165,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     /**
      * Retrieve product relations by parents
      *
-     * @param int|array $parentIds
+     * @param array|int $parentIds
      * @return array
      */
     public function getRelationsByParent($parentIds)

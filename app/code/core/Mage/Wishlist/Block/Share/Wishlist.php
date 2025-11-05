@@ -17,7 +17,7 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer = null;
 
@@ -25,7 +25,6 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
      * Prepare global layout
      *
      * @return $this
-     *
      */
     protected function _prepareLayout()
     {

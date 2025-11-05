@@ -56,8 +56,8 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order is placed
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      * @throws Throwable
+     * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -192,6 +192,7 @@ class Mage_SalesRule_Model_Observer
      * If rules were found they will be set to inactive and notice will be add to admin session
      *
      * @param string $attributeCode
+     * @throws Throwable
      * @return $this
      */
     protected function _checkSalesRulesAvailability($attributeCode)
@@ -201,10 +202,9 @@ class Mage_SalesRule_Model_Observer
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
+        /** @var Mage_SalesRule_Model_Rule $rule */
         foreach ($collection as $rule) {
-            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD

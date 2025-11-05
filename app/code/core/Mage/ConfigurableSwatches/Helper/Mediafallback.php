@@ -41,7 +41,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      */
     public function attachProductChildrenAttributeMapping(array $parentProducts, $storeId, $onlyListAttributes = false)
     {
-        /** @var  Mage_Eav_Model_Attribute $listSwatchAttr */
+        /** @var Mage_Eav_Model_Attribute $listSwatchAttr */
         $listSwatchAttr = Mage::helper('configurableswatches/productlist')->getSwatchAttribute();
         $swatchAttributeIds = [];
         if (!$onlyListAttributes) {
@@ -205,12 +205,12 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
                     if ($imagePath) {
                         $imagesByLabel[$map['label']]['configurable_product']
-                            [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL] =
-                                $this->_resizeProductImage($product, 'small_image', $keepFrame, $imagePath);
+                            [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL]
+                                = $this->_resizeProductImage($product, 'small_image', $keepFrame, $imagePath);
 
                         $imagesByLabel[$map['label']]['configurable_product']
-                            [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE] =
-                                $this->_resizeProductImage($product, 'image', $keepFrame, $imagePath);
+                            [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE]
+                                = $this->_resizeProductImage($product, 'image', $keepFrame, $imagePath);
                     }
                 }
             }
@@ -264,7 +264,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param bool $keepFrame
      * @param string $image
      * @param bool $placeholder
-     * @return string|bool
+     * @return bool|string
      */
     protected function _resizeProductImage($product, $type, $keepFrame, $image = null, $placeholder = false)
     {

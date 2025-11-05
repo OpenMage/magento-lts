@@ -40,14 +40,14 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Fields to select in query
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_fieldsToSelect         = null;
 
     /**
      * Fields initial fields to select like id_field
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_initialFieldsToSelect  = null;
 
@@ -225,9 +225,9 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $column = $field;
                 }
 
-                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
+                if (($alias !== null && in_array($alias, $columnsToSelect))
                     // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))
+                    || ($alias === null && isset($alias, $columnsToSelect))
                 ) {
                     continue;
                 }
@@ -278,8 +278,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Add field to select
      *
-     * @param string|array $field
-     * @param string|null $alias
+     * @param array|string $field
+     * @param null|string $alias
      * @return $this
      */
     public function addFieldToSelect($field, $alias = null)
@@ -347,7 +347,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Removes field from select
      *
-     * @param string|null $field
+     * @param null|string $field
      * @param bool $isAlias Alias identifier
      * @return $this
      */
@@ -500,7 +500,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                  ->_renderLimit();
             /**
              * Prepare select for execute
-             *
              */
             $query       = $this->_prepareSelect($this->getSelect());
             $this->_data = $this->_fetchAll($query);
@@ -513,8 +512,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Prepare select for load
      *
-     * @return string
      * @throws Zend_Db_Select_Exception
+     * @return string
      */
     protected function _prepareSelect(Varien_Db_Select $select)
     {
@@ -664,7 +663,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string | false
+     * @return false|string
      */
     protected function _loadCache($select)
     {

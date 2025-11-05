@@ -14,6 +14,7 @@
  *
  * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
  * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
+ *
  * @method string getConnectionName()
  * @method $this setDirectoryId(int $value)
  */
@@ -29,7 +30,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Directory singleton
      *
-     * @var Mage_Core_Model_File_Storage_Directory_Database|null
+     * @var null|Mage_Core_Model_File_Storage_Directory_Database
      */
     protected $_directoryModel = null;
 
@@ -133,7 +134,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @param  int $offset
      * @param  int $count
-     * @return bool|array
+     * @return array|bool
      */
     public function exportDirectories($offset = 0, $count = 100)
     {

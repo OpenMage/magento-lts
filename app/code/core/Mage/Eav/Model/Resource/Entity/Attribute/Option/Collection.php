@@ -43,8 +43,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      *
      * @param int $storeId
      * @param bool $useDefaultValue
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function setStoreFilter($storeId = null, $useDefaultValue = true)
     {
@@ -90,7 +90,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Add option id(s) frilter to collection
      *
-     * @param int|array $optionId
+     * @param array|int $optionId
      * @return $this
      */
     public function setIdFilter($optionId)

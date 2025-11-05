@@ -30,9 +30,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Reports_Model_Resource_Report_Product_Viewed
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
+     * @return Mage_Reports_Model_Resource_Report_Product_Viewed
      */
     public function aggregate($from = null, $to = null)
     {

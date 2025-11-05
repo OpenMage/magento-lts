@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * Collapsed or expanded fieldset when page loaded?
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return int|false
+     * @return false|int
      */
     protected function _getCollapseState($element)
     {

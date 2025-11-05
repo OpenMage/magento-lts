@@ -70,7 +70,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      * Login user and Retrieve session id
      *
      * @param string $username
-     * @param string|null $apiKey
+     * @param null|string $apiKey
      * @return stdClass
      */
     public function login($username, $apiKey = null)

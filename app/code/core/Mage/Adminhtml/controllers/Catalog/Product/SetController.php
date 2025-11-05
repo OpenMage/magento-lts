@@ -94,7 +94,6 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * [POST] Create attribute set from another set and redirect to edit page
      * [AJAX] Save attribute set data
-     *
      */
     public function saveAction()
     {
@@ -218,7 +217,6 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
     /**
      * Define in register catalog_product entity type code as entityType
-     *
      */
     protected function _setTypeId()
     {

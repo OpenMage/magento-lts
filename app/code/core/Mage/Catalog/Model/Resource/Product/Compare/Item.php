@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      *
      * @param int $customerId
      * @param int $visitorId
-     * @return false|string|null
+     * @return null|false|string
      */
     public function getCount($customerId, $visitorId)
     {

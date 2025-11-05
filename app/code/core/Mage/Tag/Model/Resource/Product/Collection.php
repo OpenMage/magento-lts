@@ -164,7 +164,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Store ID filter
      *
-     * @param int|array $store
+     * @param array|int $store
      * @return $this
      */
     public function addStoreFilter($store = null)
@@ -182,7 +182,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * then condition with IS NULL or IS NOT NULL will be added.
      * Otherwise condition with IN() will be added
      *
-     * @param int|array $customerId
+     * @param array|int $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)

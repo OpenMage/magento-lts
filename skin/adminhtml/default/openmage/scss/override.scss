@@ -796,6 +796,10 @@ div {
   background-position: 8px center !important;
   border: 1px solid $color_chenin_approx !important;
   color: $color_dark_grey !important;
+  a {
+    color: $color_dark_grey !important;
+    text-decoration: underline;
+  }
 }
 
 .error-msg {
@@ -807,6 +811,10 @@ div {
   background-position: 8px center !important;
   border: 1px solid $color_sanguine_brown_approx !important;
   color: $color_sanguine_brown_approx !important;
+  a {
+    color: $color_sanguine_brown_approx !important;
+    text-decoration: underline;
+  }
 }
 
 .success-msg {
@@ -818,6 +826,10 @@ div {
   background-position: 8px center !important;
   border: 1px solid $color_foggy_gray_approx !important;
   color: $color_san_felix_approx !important;
+  a {
+    color: $color_san_felix_approx !important;
+    text-decoration: underline;
+  }
 }
 
 .warning-msg {
@@ -829,6 +841,10 @@ div {
   background-position: 8px center !important;
   border: 1px solid $color_brandy_punch_approx !important;
   color: $color_dark_grey !important;
+  a {
+    color: $color_dark_grey !important;
+    text-decoration: underline;
+  }
 }
 
 .links-feed {

@@ -174,7 +174,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Add order statistics
      *
-     * @param int|bool $isFilter
+     * @param bool|int $isFilter
      * @return $this
      */
     public function addOrdersStatistics($isFilter = false)

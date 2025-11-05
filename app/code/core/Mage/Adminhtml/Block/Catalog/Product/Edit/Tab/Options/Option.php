@@ -186,10 +186,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             ->setCanReadPrice($canReadPrice)
             ->setCanEditPrice($canEditPrice);
 
-        return $this->getChildHtml('text_option_type') . "\n" .
-            $this->getChildHtml('file_option_type') . "\n" .
-            $this->getChildHtml('select_option_type') . "\n" .
-            $this->getChildHtml('date_option_type');
+        return $this->getChildHtml('text_option_type') . "\n"
+            . $this->getChildHtml('file_option_type') . "\n"
+            . $this->getChildHtml('select_option_type') . "\n"
+            . $this->getChildHtml('date_option_type');
     }
 
     public function getOptionValues()
@@ -274,8 +274,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $value['file_extension'] = $this->escapeHtml($option->getFileExtension());
                     $value['image_size_x'] = $option->getImageSizeX();
                     $value['image_size_y'] = $option->getImageSizeY();
-                    if ($this->getProduct()->getStoreId() != '0' &&
-                        $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
+                    if ($this->getProduct()->getStoreId() != '0'
+                        && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
                     ) {
                         $value['checkboxScopePrice'] = $this->getCheckboxScopeHtml(
                             $option->getOptionId(),
@@ -318,12 +318,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             $selectIdHtml = 'select_' . $selectId . '_';
         }
 
-        $checkbox = '<input type="checkbox" id="' . $this->getFieldId() . '_' . $id . '_' .
-            $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="' .
-            $this->getFieldName() . '[' . $id . ']' . $selectNameHtml . '[scope][' . $name . ']" value="1" ' .
-            $checkedHtml . '/>';
-        return $checkbox . ('<label class="normal" for="' . $this->getFieldId() . '_' . $id . '_' .
-            $selectIdHtml . $name . '_use_default">' . $this->__('Use Default Value') . '</label>');
+        $checkbox = '<input type="checkbox" id="' . $this->getFieldId() . '_' . $id . '_'
+            . $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="'
+            . $this->getFieldName() . '[' . $id . ']' . $selectNameHtml . '[scope][' . $name . ']" value="1" '
+            . $checkedHtml . '/>';
+        return $checkbox . ('<label class="normal" for="' . $this->getFieldId() . '_' . $id . '_'
+            . $selectIdHtml . $name . '_use_default">' . $this->__('Use Default Value') . '</label>');
     }
 
     public function getPriceValue($value, $type)

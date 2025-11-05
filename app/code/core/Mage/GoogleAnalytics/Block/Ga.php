@@ -115,8 +115,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
     /**
      * Render information about specified orders and their items
      *
-     * @return string
      * @throws JsonException
+     * @return string
      */
     protected function _getEnhancedEcommerceDataForAnalytics4()
     {

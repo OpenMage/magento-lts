@@ -370,7 +370,7 @@ class Mage_Shipping_Model_Shipping
     /**
      * Collect rates by address
      *
-     * @param null|bool|array $limitCarrier
+     * @param null|array|bool $limitCarrier
      * @return $this
      */
     public function collectRatesByAddress(Varien_Object $address, $limitCarrier = null)

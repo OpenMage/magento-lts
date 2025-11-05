@@ -28,7 +28,7 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
      * @param string $route Map used to match with later submitted URL path
      * @param array $defaults Defaults for map variables with keys as variable names
      * @param array $reqs Regular expression requirements for variables (keys as variable names)
-     * @param Zend_Translate|null $translator Translator to use for this instance
+     * @param null|Zend_Translate $translator Translator to use for this instance
      * @param mixed $locale
      */
     public function __construct(

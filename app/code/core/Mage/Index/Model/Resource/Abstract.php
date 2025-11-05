@@ -218,7 +218,6 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
 
     /**
      * Clean up temporary index table
-     *
      */
     public function clearTemporaryIndexTable()
     {

@@ -30,7 +30,6 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {

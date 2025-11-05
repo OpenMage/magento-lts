@@ -15,6 +15,7 @@
  * @method Mage_Review_Model_Resource_Review _getResource()
  * @method Mage_Review_Model_Resource_Review getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
+ * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
  *
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
@@ -46,13 +47,11 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated after 1.3.2.4
-     *
      */
     public const ENTITY_PRODUCT = 1;
 
     /**
      * Review entity codes
-     *
      */
     public const ENTITY_PRODUCT_CODE   = 'product';
 
@@ -133,8 +132,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
      * @throws Zend_Validate_Exception
+     * @return array|bool
      */
     public function validate()
     {
@@ -203,8 +202,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Abstract
      */
     protected function _beforeDelete()
     {
@@ -242,7 +241,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Get review entity type id by code
      *
      * @param string $entityCode
-     * @return int|bool
+     * @return bool|int
      */
     public function getEntityIdByCode($entityCode)
     {

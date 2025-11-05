@@ -24,7 +24,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Curl handle
      *
-     * @var resource|CurlHandle|null
+     * @var null|CurlHandle|resource
      */
     protected $_resource;
 
@@ -103,7 +103,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
 
     /**
      * Add additional options list to curl
-     *
      *
      * @return Varien_Http_Adapter_Curl
      */
@@ -185,7 +184,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Read response from server
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function read()
     {
@@ -225,7 +224,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Returns a cURL handle on success
      *
-     * @return resource|CurlHandle
+     * @return CurlHandle|resource
      */
     protected function _getResource()
     {

@@ -17,7 +17,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_enteredData = null;
 

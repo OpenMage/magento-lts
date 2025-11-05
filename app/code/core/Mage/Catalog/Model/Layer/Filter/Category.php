@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Active Category Id
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_categoryId;
 
@@ -62,8 +62,8 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      * Apply category filter to layer
      *
      * @param   Varien_Object $filterBlock
-     * @return  $this
      * @throws  Mage_Core_Exception
+     * @return  $this
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {

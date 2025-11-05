@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getResourceCollection()
  *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
@@ -44,14 +45,14 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Current search engine
      *
-     * @var object|Mage_CatalogSearch_Model_Resource_Fulltext_Engine
+     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Engine|object
      */
     protected $_engine;
 
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
+     * @var null|Mage_CatalogSearch_Model_Resource_Advanced_Collection
      */
     protected $_productCollection;
 
@@ -121,7 +122,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param array|string $value
      * @return mixed
      */
     protected function _prepareCondition($attribute, $value)
@@ -317,8 +318,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * Prepare product collection
      *
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function prepareProductCollection($collection)
     {

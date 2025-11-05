@@ -52,8 +52,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Initialize product from request parameters
      *
-     * @return Mage_Catalog_Model_Product
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct()
     {
@@ -283,7 +283,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * WYSIWYG editor action for ajax request
      *
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function wysiwygAction()
     {
@@ -496,7 +496,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Validate product
-     *
      */
     public function validateAction()
     {
@@ -795,8 +794,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Duplicates product attributes between stores.
      * @param array $stores list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
      * @param Mage_Catalog_Model_Product $product whose attributes should be copied
-     * @return $this
      * @throws Throwable
+     * @return $this
      */
     protected function _copyAttributesBetweenStores(array $stores, Mage_Catalog_Model_Product $product)
     {
@@ -959,7 +958,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Update product(s) status action
-     *
      */
     public function massStatusAction()
     {
@@ -989,8 +987,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
-     * @throws Mage_Core_Exception
      * @param  int $status
+     * @throws Mage_Core_Exception
      */
     public function _validateMassStatus(array $productIds, $status)
     {
@@ -1005,7 +1003,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
-     *
      */
     public function tagCustomerGridAction()
     {

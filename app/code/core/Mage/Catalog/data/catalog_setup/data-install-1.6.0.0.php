@@ -180,7 +180,6 @@ $installer->getConnection()->insertMultiple($installer->getTable('catalog/produc
 
 /**
  * Remove Catalog specified attribute options (columns) from eav/attribute table
- *
  */
 $describe = $installer->getConnection()->describeTable($installer->getTable('catalog/eav_attribute'));
 foreach ($describe as $columnData) {

@@ -39,8 +39,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * Obtain existing data from form element
      *
      * Each row will be instance of Varien_Object
-     * @return array<string, Varien_Object> Array of rows
      * @throws Exception
+     * @return array<string, Varien_Object> Array of rows
      */
     public function getArrayRows(): array
     {
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     /**
      * Extract and validate area and directive name from the node path
      *
-     * @return array{Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
      * @throws Exception If path format is invalid or contains disallowed values
+     * @return array{Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
      */
     private function _parseNodePath(): array
     {
@@ -122,8 +122,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * Render array cell for prototypeJS template
      *
      * @param string $columnName
-     * @return string
      * @throws Exception
+     * @return string
      */
     protected function _renderCellTemplate($columnName)
     {
@@ -137,10 +137,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         $elementName = $element->getName();
         $inputName   = $elementName . '[#{_id}][' . $columnName . ']';
 
-        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
-            '#{readonly}' .
-            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"' .
-            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
+        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" '
+            . '#{readonly}'
+            . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="'
+            . ($column['class'] ?? 'input-text') . '"'
+            . (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 }

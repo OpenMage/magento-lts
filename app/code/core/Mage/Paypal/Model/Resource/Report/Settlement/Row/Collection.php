@@ -16,7 +16,6 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_C
 {
     /**
      * Resource initializing
-     *
      */
     protected function _construct()
     {

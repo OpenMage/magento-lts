@@ -110,7 +110,7 @@ class Varien_Db_Ddl_Table
     /**
      * Name of table
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_tableName;
 
@@ -267,7 +267,7 @@ class Varien_Db_Ddl_Table
     /**
      * Get schema name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSchema()
     {
@@ -299,7 +299,7 @@ class Varien_Db_Ddl_Table
      *
      * @param string $name the column name
      * @param string $type the column data type
-     * @param string|int|array $size the column length
+     * @param array|int|string $size the column length
      * @param array $options array of additional options
      * @param string $comment column description
      * @throws Zend_Db_Exception

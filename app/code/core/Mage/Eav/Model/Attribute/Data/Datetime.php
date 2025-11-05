@@ -17,7 +17,7 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
     /**
      * Return Data Form Input/Output Filter
      *
-     * @return Varien_Data_Form_Filter_Interface|false
+     * @return false|Varien_Data_Form_Filter_Interface
      */
     protected function _getFormFilter()
     {

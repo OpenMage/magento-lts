@@ -136,10 +136,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 // recalculate currency
                 $tierPrices = $bundleSelection->getTierPrice();
                 foreach ($tierPrices as &$tierPriceInfo) {
-                    $tierPriceInfo['price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
-                    $tierPriceInfo['website_price'] =
-                        $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
+                    $tierPriceInfo['price']
+                        = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
+                    $tierPriceInfo['website_price']
+                        = $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
                     $tierPriceInfo['price'] = $coreHelper::currency($tierPriceInfo['price'], false, false);
                     $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice(
                         $bundleSelection,

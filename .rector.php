@@ -91,6 +91,7 @@ try {
             DeadCode\FunctionLike\RemoveDeadReturnRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
             DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
+            DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\Switch_\RemoveDuplicatedCaseInSwitchRector::class, # todo: TMP  (!?!)
@@ -127,7 +128,6 @@ try {
             # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
-            __DIR__ . '/shell/update-copyright.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
         ])
         ->withPreparedSets(

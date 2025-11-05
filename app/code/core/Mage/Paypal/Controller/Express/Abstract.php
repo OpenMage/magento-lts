@@ -25,7 +25,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote|false
+     * @var false|Mage_Sales_Model_Quote
      */
     protected $_quote = false;
 
@@ -447,8 +447,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     /**
      * Instantiate quote and checkout
      *
-     * @return Mage_Paypal_Model_Express_Checkout
      * @throws Mage_Core_Exception
+     * @return Mage_Paypal_Model_Express_Checkout
      */
     protected function _initCheckout()
     {
@@ -538,7 +538,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
     /**
      * Redirect to login page
-     *
      */
     public function redirectLogin()
     {
