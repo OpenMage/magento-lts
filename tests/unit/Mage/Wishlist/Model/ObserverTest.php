@@ -8,20 +8,17 @@
 
 declare(strict_types=1);
 
-namespace unit\Mage\Wishlist\Model;
+namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 
 use Mage;
 use Mage_Wishlist_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\ItemTrait;
 use Varien_Event;
 use Varien_Event_Observer;
 use Varien_Object;
 
 final class ObserverTest extends OpenMageTest
 {
-    use ItemTrait;
-
     private static Subject $subject;
 
     protected function setUp(): void

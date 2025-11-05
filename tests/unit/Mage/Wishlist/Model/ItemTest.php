@@ -54,7 +54,7 @@ final class ItemTest extends OpenMageTest
      */
     public function testValidate(?string $expectedExceptionMessage, ?int $wishlistId, ?int $productId): void
     {
-        // TODO: pass methods
+        // TODO: mock methods
         self::$subject->setWishlistId($wishlistId);
         self::$subject->setProductId($productId);
 
