@@ -65,7 +65,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Add suffix for help page url
      *
-     * @param string $suffix
+     * @param null|string $suffix
      * @return $this
      * @deprecated
      */
