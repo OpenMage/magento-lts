@@ -105,7 +105,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Valid
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Adminhtml_Model_LayoutUpdate_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
