@@ -745,12 +745,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
 
 		-
-			rawMessage: 'Parameter #1 $modelClass of static method Mage::getModel() expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
-
-		-
 			rawMessage: 'Method Mage_Directory_Model_Country::loadByCode() invoked with 2 parameters, 1 required.'
 			identifier: arguments.count
 			count: 1
@@ -841,34 +835,10 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
-
-		-
-			rawMessage: 'Parameter #2 $needle of function str_contains expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
-
-		-
 			rawMessage: 'Return type (Mage_Api_Model_Wsdl_Config) of method Mage_Api_Model_Server_Wsi_Adapter_Soap::_getWsdlConfig() should be compatible with return type (Varien_Object) of method Mage_Api_Model_Server_Adapter_Soap::_getWsdlConfig()'
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Adapter/Soap.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
-
-		-
-			rawMessage: 'Parameter #2 $needle of function str_contains expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
 		-
 			rawMessage: 'Return type (stdClass) of method Mage_Api_Model_Server_Wsi_Handler::endSession() should be compatible with return type (true) of method Mage_Api_Model_Server_Handler_Abstract::endSession()'
@@ -887,12 +857,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Session.php
-
-		-
-			rawMessage: Invalid array key type array.
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
 
 		-
 			rawMessage: 'Call to an undefined method SimpleXMLElement::extendChild().'
@@ -1537,12 +1501,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
 			rawMessage: 'Parameter #2 $range of method Mage_Catalog_Model_Resource_Layer_Filter_Decimal::applyFilterToCollection() expects float, string given.'
 			identifier: argument.type
 			count: 1
@@ -1559,12 +1517,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
 		-
 			rawMessage: 'Method Mage_Catalog_Model_Resource_Category_Flat::move() invoked with 3 parameters, 1 required.'
@@ -3143,12 +3095,6 @@ parameters:
 			identifier: return.missing
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
-			rawMessage: 'Parameter #1 $modelClass of static method Mage::getModel() expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
 			rawMessage: 'Cannot call method streamRead() on resource.'
@@ -4936,12 +4882,6 @@ parameters:
 			rawMessage: 'Method Zend_Pdf_Canvas_Abstract::drawText() invoked with 5 parameters, 3-4 required.'
 			identifier: arguments.count
 			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, bool given.'
-			identifier: argument.type
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-
