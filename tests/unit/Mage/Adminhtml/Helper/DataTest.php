@@ -26,6 +26,33 @@ final class DataTest extends OpenMageTest
     }
 
     /**
+     * @covers Mage_Adminhtml_Helper_Data::getPageHelpUrl()
+     * @group Helper
+     */
+    public function testGetPageHelpUrl(): void
+    {
+        self::assertNull(self::$subject->getPageHelpUrl());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Helper_Data::setPageHelpUrl()
+     * @group Helper
+     */
+    public function testSetPageHelpUrl(): void
+    {
+        self::assertInstanceOf(self::$subject::class, self::$subject->setPageHelpUrl());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Helper_Data::addPageHelpUrl()
+     * @group Helper
+     */
+    public function testAddPageHelpUrl(): void
+    {
+        self::assertInstanceOf(self::$subject::class, self::$subject->addPageHelpUrl(null));
+    }
+
+    /**
      * @covers Mage_Adminhtml_Helper_Data::getUrl()
      * @group Helper
      * @group runInSeparateProcess
@@ -34,6 +61,15 @@ final class DataTest extends OpenMageTest
     public function testGetUrl(): void
     {
         self::assertIsString(self::$subject->getUrl());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Helper_Data::getCustomAdminUrl()
+     * @group Helper
+     */
+    public function testGetCustomAdminUrl(): void
+    {
+        self::assertIsString(self::$subject->getCustomAdminUrl());
     }
 
     /**
