@@ -37,8 +37,8 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 
     public function isValid(
         mixed $value,
-        array|null|Constraint $constraints = null,
-        array|null|string|GroupSequence $groups = null
+        null|array|Constraint $constraints = null,
+        null|array|GroupSequence|string $groups = null
     ): bool {
         $validator = self::getValidator();
         return $validator->validate($value, $constraints, $groups)->count() === 0;
@@ -49,8 +49,8 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
      */
     public function validate(
         mixed $value,
-        array|null|Constraint $constraints = null,
-        array|null|string|GroupSequence $groups = null
+        null|array|Constraint $constraints = null,
+        null|array|GroupSequence|string $groups = null
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
         return $validator->validate($value, $constraints, $groups);
@@ -65,7 +65,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         mixed $value,
         array|string $options = [],
         ?array $choices = null,
-        callable|null|string $callback = null,
+        null|callable|string $callback = null,
         ?bool $multiple = null,
         ?bool $strict = null,
         ?int $min = null,
@@ -107,7 +107,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
      */
     public function validateCount(
         mixed $value,
-        array|int|null $exactly = null,
+        null|array|int $exactly = null,
         ?int $min = null,
         ?int $max = null,
         ?int $divisibleBy = null,
@@ -165,7 +165,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 
     public function validateDateTime(
         mixed $value,
-        array|null|string $format = null,
+        null|array|string $format = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
@@ -224,9 +224,9 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
     public function validateFile(
         mixed $value,
         ?array $options = null,
-        int|null|string $maxSize = null,
+        null|int|string $maxSize = null,
         ?bool $binaryFormat = null,
-        array|null|string $mimeTypes = null,
+        null|array|string $mimeTypes = null,
         ?int $filenameMaxLength = null,
         ?string $notFoundMessage = null,
         ?string $notReadableMessage = null,
@@ -244,7 +244,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ?string $uploadErrorMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        array|null|string $extensions = null,
+        null|array|string $extensions = null,
         ?string $extensionsMessage = null
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
@@ -312,7 +312,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
     public function validateImage(
         mixed $value,
         ?array $options = null,
-        int|null|string $maxSize = null,
+        null|int|string $maxSize = null,
         ?bool $binaryFormat = null,
         ?array $mimeTypes = null,
         ?int $filenameMaxLength = null,
@@ -320,10 +320,10 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ?int $maxWidth = null,
         ?int $maxHeight = null,
         ?int $minHeight = null,
-        float|int|null $maxRatio = null,
-        float|int|null $minRatio = null,
-        float|int|null $minPixels = null,
-        float|int|null $maxPixels = null,
+        null|float|int $maxRatio = null,
+        null|float|int $minRatio = null,
+        null|float|int $minPixels = null,
+        null|float|int $maxPixels = null,
         ?bool $allowSquare = null,
         ?bool $allowLandscape = null,
         ?bool $allowPortrait = null,
@@ -357,7 +357,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ?string $corruptedMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        array|null|string $extensions = null,
+        null|array|string $extensions = null,
         ?string $extensionsMessage = null
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
@@ -423,7 +423,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
      */
     public function validateLength(
         mixed $value,
-        array|int|null $exactly = null,
+        null|array|int $exactly = null,
         ?int $min = null,
         ?int $max = null,
         ?string $charset = null,

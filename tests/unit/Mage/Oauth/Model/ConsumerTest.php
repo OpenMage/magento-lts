@@ -37,7 +37,7 @@ final class ConsumerTest extends OpenMageTest
      * @dataProvider validateDataProvider
      * @group Model
      */
-    public function testValidate(string|bool $expected, array $methods): void
+    public function testValidate(bool|string $expected, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
