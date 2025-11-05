@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @param   int $range
      * @param   float $value
-     *@throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return  string
      * @deprecated since 1.7.0.0
      */
@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
     /**
      * Get price aggreagation data cache key
-     *@throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return string
      * @deprecated after 1.4
      */
