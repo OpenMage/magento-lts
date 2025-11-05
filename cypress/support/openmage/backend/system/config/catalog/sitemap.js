@@ -53,8 +53,14 @@ test.config.section.page = {
  */
 test.config.section.__groupPriority = {
     __fields: {
-        category: test.config.section.category.__fields.priority,
-        page: test.config.section.page.__fields.priority,
-        product: test.config.section.product.__fields.priority,
+        category: {
+            _: '#sitemap_category_priority',
+        },
+        page: {
+            _: '#sitemap_page_priority',
+        },
+        product: {
+            _: '#sitemap_product_priority',
+        },
     }
 }
