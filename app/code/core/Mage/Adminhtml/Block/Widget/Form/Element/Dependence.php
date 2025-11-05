@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      *
      * @param string $fieldName
      * @param string $fieldNameFrom
-     * @param string|array $refValues
+     * @param array|string $refValues
      * @return $this
      */
     public function addFieldDependence($fieldName, $fieldNameFrom, $refValues)

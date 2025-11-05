@@ -189,7 +189,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $action
      * @param   string $flag
-     * @param   string|int|bool $value
+     * @param   bool|int|string $value
      * @return  $this
      */
     public function setFlag($action, $flag, $value)
@@ -211,9 +211,9 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function getFullActionName($delimiter = '_')
     {
-        return $this->getRequest()->getRequestedRouteName() . $delimiter .
-            $this->getRequest()->getRequestedControllerName() . $delimiter .
-            $this->getRequest()->getRequestedActionName();
+        return $this->getRequest()->getRequestedRouteName() . $delimiter
+            . $this->getRequest()->getRequestedControllerName() . $delimiter
+            . $this->getRequest()->getRequestedActionName();
     }
 
     /**
@@ -229,7 +229,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   array|string|null|bool $handles
+     * @param   null|array|bool|string $handles
      * @param   bool $generateBlocks
      * @param   bool $generateXml
      * @return  $this
@@ -263,8 +263,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
+     * @return $this
      */
     public function addActionLayoutHandles()
     {
@@ -286,8 +286,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function loadLayoutUpdates()
     {
@@ -429,15 +429,15 @@ abstract class Mage_Core_Controller_Varien_Action
                     Varien_Profiler::stop(self::PROFILER_KEY . '::postdispatch');
                 }
             }
-        } catch (Mage_Core_Controller_Varien_Exception $e) {
+        } catch (Mage_Core_Controller_Varien_Exception $mageCoreControllerVarienException) {
             // set prepared flags
-            foreach ($e->getResultFlags() as $flagData) {
+            foreach ($mageCoreControllerVarienException->getResultFlags() as $flagData) {
                 [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
 
             // call forward, redirect or an action
-            [$method, $parameters] = $e->getResultCallback();
+            [$method, $parameters] = $mageCoreControllerVarienException->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
                     [$path, $arguments] = $parameters;
@@ -561,7 +561,7 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @param mixed|null $coreRoute
+     * @param null|mixed $coreRoute
      */
     public function norouteAction($coreRoute = null)
     {
@@ -611,8 +611,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Throw control to different action (control and module if was specified).
      *
      * @param string $action
-     * @param string|null $controller
-     * @param string|null $module
+     * @param null|string $controller
+     * @param null|string $module
      */
     protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
@@ -640,7 +640,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param array|string $messagesStorage
      * @return $this
      */
     protected function _initLayoutMessages($messagesStorage)
@@ -669,7 +669,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param array|string $messagesStorage
      * @return $this
      */
     public function initLayoutMessages($messagesStorage)
@@ -941,7 +941,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * bar / <default title>
      *
      * @see self::_renderTitles()
-     * @param string|false|int|null $text
+     * @param null|false|int|string $text
      * @param bool $resetIfExists
      * @return $this
      */
@@ -1043,7 +1043,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Declare headers and content file in response for file download
      *
      * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
+     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
      *                              that case
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable

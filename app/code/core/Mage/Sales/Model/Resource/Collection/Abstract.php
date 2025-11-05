@@ -17,7 +17,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     /**
      * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
      *
-     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Mage_Eav_Model_Entity_Attribute|string $attribute
      * @return string
      */
     protected function _attributeToField($attribute)
@@ -53,8 +53,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * Specify collection select filter by attribute value
      * Backward compatibility with EAV collection
      *
-     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
-     * @param array|int|string|null $condition
+     * @param Mage_Eav_Model_Entity_Attribute|string $attribute
+     * @param null|array|int|string $condition
      * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null)

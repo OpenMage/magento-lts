@@ -18,7 +18,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
 {
     /**
      * Set grid params
-     *
      */
     public function __construct()
     {

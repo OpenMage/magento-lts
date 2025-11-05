@@ -69,35 +69,35 @@ final class Mage
     /**
      * Application root absolute path
      *
-     * @var string|null
+     * @var null|string
      */
     private static $_appRoot;
 
     /**
      * Application model
      *
-     * @var Mage_Core_Model_App|null
+     * @var null|Mage_Core_Model_App
      */
     private static $_app;
 
     /**
      * Config Model
      *
-     * @var Mage_Core_Model_Config|null
+     * @var null|Mage_Core_Model_Config
      */
     private static $_config;
 
     /**
      * Event Collection Object
      *
-     * @var Varien_Event_Collection|null
+     * @var null|Varien_Event_Collection
      */
     private static $_events;
 
     /**
      * Object cache instance
      *
-     * @var Varien_Object_Cache|null
+     * @var null|Varien_Object_Cache
      */
     private static $_objects;
 
@@ -118,7 +118,7 @@ final class Mage
     /**
      * Is installed flag
      *
-     * @var bool|null
+     * @var null|bool
      */
     private static $_isInstalled;
 
@@ -212,7 +212,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '15',
+                'minor'     => '16',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -249,7 +249,6 @@ final class Mage
 
     /**
      * Set all my static data to defaults
-     *
      */
     public static function reset()
     {
@@ -404,7 +403,7 @@ final class Mage
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -413,7 +412,7 @@ final class Mage
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public static function getStoreConfigAsFloat(string $path, $store = null): float
     {
@@ -421,7 +420,7 @@ final class Mage
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public static function getStoreConfigAsInt(string $path, $store = null): int
     {
@@ -432,7 +431,7 @@ final class Mage
      * Retrieve config flag for store by path
      *
      * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -483,7 +482,7 @@ final class Mage
     /**
      * Retrieve a config instance
      *
-     * @return Mage_Core_Model_Config|null
+     * @return null|Mage_Core_Model_Config
      */
     public static function getConfig()
     {
@@ -494,7 +493,7 @@ final class Mage
      * Add observer to events object
      *
      * @param string $eventName
-     * @param callback $callback
+     * @param callable $callback
      * @param array $data
      * @param string $observerName
      * @param string $observerClass
@@ -533,8 +532,8 @@ final class Mage
      *
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
-     * @param   array|string|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @param   array|object|string $arguments
+     * @return  false|Mage_Core_Model_Abstract
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
@@ -545,7 +544,7 @@ final class Mage
      * Retrieve model object singleton
      *
      * @param   string $modelClass
-     * @return  Mage_Core_Model_Abstract|false
+     * @return  false|Mage_Core_Model_Abstract
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
@@ -562,7 +561,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return  false|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public static function getResourceModel($modelClass, $arguments = [])
     {
@@ -602,7 +601,7 @@ final class Mage
      * Retrieve block object
      *
      * @param string $type
-     * @return Mage_Core_Block_Abstract|false
+     * @return false|Mage_Core_Block_Abstract
      */
     public static function getBlockSingleton($type)
     {
@@ -679,7 +678,7 @@ final class Mage
      *
      * @param string $code
      * @param string $type
-     * @param string|array $options
+     * @param array|string $options
      * @return Mage_Core_Model_App
      */
     public static function app($code = '', $type = 'store', $options = [])
@@ -705,7 +704,7 @@ final class Mage
      * @param string $code
      * @param string $type
      * @param array $options
-     * @param string|array $modules
+     * @param array|string $modules
      */
     public static function init($code = '', $type = 'store', $options = [], $modules = [])
     {
@@ -737,7 +736,7 @@ final class Mage
      *
      * @param string $code
      * @param string $type
-     * @param string|array $options
+     * @param array|string $options
      */
     public static function run($code = '', $type = 'store', $options = [])
     {
@@ -829,7 +828,7 @@ final class Mage
     /**
      * Retrieve application installation flag
      *
-     * @param string|array $options
+     * @param array|string $options
      * @return bool
      */
     public static function isInstalled($options = [])
@@ -867,7 +866,7 @@ final class Mage
      *
      * @param array|object|string $message
      * @param int $level
-     * @param string|null $file
+     * @param null|string $file
      * @param bool $forceLog
      */
     public static function log($message, $level = null, $file = '', $forceLog = false)
@@ -903,8 +902,8 @@ final class Mage
             return;
         }
 
-        $file = empty($file) ?
-            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+        $file = empty($file)
+            ? (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
@@ -1036,7 +1035,7 @@ final class Mage
      * Try to find requested folder by shifting to domain root directory
      *
      * @param   string  $folder
-     * @param   boolean $exitIfNot
+     * @param   bool $exitIfNot
      * @return  string
      */
     public static function getScriptSystemUrl($folder, $exitIfNot = false)

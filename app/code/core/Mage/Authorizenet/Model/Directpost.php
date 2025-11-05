@@ -61,8 +61,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Send authorize request to gateway
      *
      * @param  float $amount
-     * @return void
      * @throws Mage_Core_Exception
+     * @return void
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -74,8 +74,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -98,8 +98,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
-                    if (!$payment->getParentTransactionId() ||
-                        $result->getTransactionId() != $payment->getParentTransactionId()
+                    if (!$payment->getParentTransactionId()
+                        || $result->getTransactionId() != $payment->getParentTransactionId()
                     ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
@@ -144,8 +144,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Void the payment through gateway
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -211,8 +211,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Need to decode Last 4 digits for request.
      *
      * @param float $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -220,9 +220,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         $payment->setCcLast4($payment->decrypt($last4));
         try {
             $this->_refund($payment, $amount);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $payment->setCcLast4($last4);
-            throw $e;
+            throw $exception;
         }
 
         $payment->setCcLast4($last4);
@@ -234,8 +234,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param string $amount
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     protected function _refund(Varien_Object $payment, $amount)
     {
@@ -304,8 +304,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         }
 
         return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
-            'authorizenet/directpost_payment/response';
+            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)
+            . 'authorizenet/directpost_payment/response';
     }
 
     /**
@@ -362,7 +362,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Sales_Model_Order $order Quote or order object.
+     * @param Mage_Sales_Model_Order $order quote or order object
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)
@@ -391,8 +391,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Validate response data. Needed in controllers.
      *
-     * @return bool true in case of validation success.
      * @throws Mage_Core_Exception in case of validation error
+     * @return bool true in case of validation success
      */
     public function validateResponse()
     {
@@ -459,9 +459,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
         if ($isError) {
             Mage::throwException(
-                ($responseText && !$response->isApproved()) ?
-                $responseText :
-                Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
+                ($responseText && !$response->isApproved())
+                ? $responseText
+                : Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
             );
         }
     }
@@ -486,8 +486,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check response code came from authorize.net.
      *
-     * @return true in case of Approved response
      * @throws Mage_Core_Exception in case of Declined or Error response from Authorize.net
+     * @return true in case of Approved response
      */
     public function checkResponseCode()
     {
@@ -506,8 +506,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check transaction id came from Authorize.net
      *
+     * @throws Mage_Core_Exception in case of bad transaction id
      * @return true in case of right transaction id
-     * @throws Mage_Core_Exception in case of bad transaction id.
      */
     public function checkTransId()
     {
@@ -535,7 +535,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
      *
-     *
      * @throws Exception
      */
     protected function _authOrder(Mage_Sales_Model_Order $order)
@@ -543,11 +542,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         try {
             $this->checkResponseCode();
             $this->checkTransId();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //decline the order (in case of wrong response code) but don't return money to customer.
-            $message = $e->getMessage();
+            $message = $exception->getMessage();
             $this->_declineOrder($order, $message, false);
-            throw $e;
+            throw $exception;
         }
 
         $response = $this->getResponse();
@@ -573,7 +572,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         //match amounts. should be equals for authorization.
         //decline the order if amount does not match.
         if (!$this->_matchAmount($payment->getBaseAmountAuthorized())) {
-            $message = Mage::helper('authorizenet')->__('Payment error. Paid amount doesn\'t match the order amount.');
+            $message = Mage::helper('authorizenet')->__("Payment error. Paid amount doesn't match the order amount.");
             $this->_declineOrder($order, $message, true);
             Mage::throwException($message);
         }
@@ -590,8 +589,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
-            Mage::logException($e); // do not cancel order if we couldn't send email
+        } catch (Exception $exception) {
+            Mage::logException($exception); // do not cancel order if we couldn't send email
         }
     }
 
@@ -605,9 +604,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     {
         try {
             $response = $this->getResponse();
-            if ($voidPayment &&
-                $response->getXTransId() &&
-                strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
+            if ($voidPayment
+                && $response->getXTransId()
+                && strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
             ) {
                 $order->getPayment()
                     ->setTransactionId(null)
@@ -617,9 +616,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
             $order->registerCancellation($message)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //quiet decline
-            Mage::logException($e);
+            Mage::logException($exception);
         }
     }
 

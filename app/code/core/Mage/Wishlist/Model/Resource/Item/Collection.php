@@ -35,7 +35,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * If product out of stock, its item will be removed after load
      *
      * @var bool
-      */
+     */
     protected $_productInStock = false;
 
     /**
@@ -62,7 +62,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Sum of items collection qty
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_itemsQty;
 
@@ -428,10 +428,10 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             $this->getSelect()
                 ->join(
                     ['product_name_table' => $attribute->getBackendTable()],
-                    'product_name_table.entity_id=main_table.product_id' .
-                        ' AND product_name_table.store_id=' . $storeId .
-                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
-                        ' AND product_name_table.entity_type_id=' . $entityTypeId,
+                    'product_name_table.entity_id=main_table.product_id'
+                        . ' AND product_name_table.store_id=' . $storeId
+                        . ' AND product_name_table.attribute_id=' . $attribute->getId()
+                        . ' AND product_name_table.entity_type_id=' . $entityTypeId,
                     [],
                 );
 

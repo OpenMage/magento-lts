@@ -24,19 +24,18 @@ class Mage_Paypal_Model_Ipn
     /**
      * Store order instance
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order = null;
 
     /**
      * Recurring profile instance
      *
-     * @var Mage_Sales_Model_Recurring_Profile|null
+     * @var null|Mage_Sales_Model_Recurring_Profile
      */
     protected $_recurringProfile = null;
 
     /**
-     *
      * @var Mage_Paypal_Model_Config
      */
     protected $_config = null;
@@ -103,10 +102,10 @@ class Mage_Paypal_Model_Ipn
 
                 $this->_processOrder();
             }
-        } catch (Exception $e) {
-            $this->_debugData['exception'] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_debugData['exception'] = $exception->getMessage();
             $this->_debug();
-            throw $e;
+            throw $exception;
         }
 
         $this->_debug();
@@ -134,9 +133,9 @@ class Mage_Paypal_Model_Ipn
 
         try {
             $postbackResult = $httpAdapter->read();
-        } catch (Exception $e) {
-            $this->_debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            throw $e;
+        } catch (Exception $exception) {
+            $this->_debugData['http_error'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+            throw $exception;
         }
 
         /*
@@ -166,9 +165,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load and validate order, instantiate proper configuration
      *
-     *
-     * @return Mage_Sales_Model_Order
      * @throws Exception
+     * @return Mage_Sales_Model_Order
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _getOrder()
@@ -202,8 +200,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load recurring profile
      *
-     * @return Mage_Sales_Model_Recurring_Profile
      * @throws Exception
+     * @return Mage_Sales_Model_Recurring_Profile
      */
     protected function _getRecurringProfile()
     {
@@ -279,10 +277,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::TXN_TYPE_ADJUSTMENT => $this->_registerAdjustment(),
                 default => $this->_registerTransaction(),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -342,10 +340,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED, Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED => $this->_registerPaymentVoid(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -365,8 +363,8 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED => $this->_registerRecurringProfilePaymentCapture(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            throw $e;
+        } catch (Mage_Core_Exception $mageCoreException) {
+            throw $mageCoreException;
         }
     }
 
@@ -652,7 +650,7 @@ class Mage_Paypal_Model_Ipn
      *
      * @param string $comment
      * @param bool $addToHistory
-     * @return string|Mage_Sales_Model_Order_Status_History
+     * @return Mage_Sales_Model_Order_Status_History|string
      */
     protected function _createIpnComment($comment = '', $addToHistory = false)
     {

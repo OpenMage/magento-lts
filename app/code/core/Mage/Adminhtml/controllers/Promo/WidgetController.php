@@ -93,7 +93,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
     /**
      * Initialize category object in registry
      *
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      */
     protected function _initCategory()
     {

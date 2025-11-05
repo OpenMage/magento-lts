@@ -83,8 +83,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckoutSession()->setCheckoutState(
                 Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN,
             );
-        } elseif (!$checkoutSessionQuote->getIsMultiShipping() &&
-            !in_array($action, ['login', 'register', 'success'])
+        } elseif (!$checkoutSessionQuote->getIsMultiShipping()
+            && !in_array($action, ['login', 'register', 'success'])
         ) {
             $this->_redirect('*/*/index');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -109,8 +109,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
-        if ($this->_getCheckoutSession()->getCartWasUpdated(true) &&
-            !in_array($action, ['index', 'login', 'register', 'addresses', 'success'])
+        if ($this->_getCheckoutSession()->getCartWasUpdated(true)
+            && !in_array($action, ['index', 'login', 'register', 'addresses', 'success'])
         ) {
             $this->_redirectUrl($this->_getHelper()->getCartUrl());
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -365,8 +365,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING,
             );
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $this->_getCheckoutSession()->addError($exception->getMessage());
             $this->_redirect('*/*/shipping');
         }
     }

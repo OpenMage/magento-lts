@@ -38,7 +38,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
 
     /**
      * Define resource model and item
-     *
      */
     protected function _construct()
     {

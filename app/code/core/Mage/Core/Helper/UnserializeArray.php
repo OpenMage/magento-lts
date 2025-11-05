@@ -16,8 +16,8 @@ class Mage_Core_Helper_UnserializeArray
 {
     /**
      * @param string $str
-     * @return array
      * @throws Exception
+     * @return array
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function unserialize($str)
@@ -30,8 +30,8 @@ class Mage_Core_Helper_UnserializeArray
             }
 
             return $result;
-        } catch (Error $e) {
-            throw new Exception('Error unserializing data: ' . $e->getMessage(), 0, $e);
+        } catch (Error $error) {
+            throw new Exception('Error unserializing data: ' . $error->getMessage(), 0, $error);
         }
     }
 }

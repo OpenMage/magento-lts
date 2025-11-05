@@ -36,16 +36,16 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
         }
 
         $this->setAllowWriteReviewFlag(
-            $customerSession->isLoggedIn() ||
-            Mage::helper('review')->getIsGuestAllowToWrite(),
+            $customerSession->isLoggedIn()
+            || Mage::helper('review')->getIsGuestAllowToWrite(),
         );
 
         if (!$this->getAllowWriteReviewFlag()) {
             $this->setLoginLink(
                 Mage::getUrl('customer/account/login/', [
                     Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
-                        Mage::getUrl('*/*/*', ['_current' => true]) .
-                        '#review-form',
+                        Mage::getUrl('*/*/*', ['_current' => true])
+                        . '#review-form',
                     ),
                 ]),
             );
@@ -57,8 +57,8 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @return false|Mage_Catalog_Model_Product|Mage_Core_Model_Abstract
      * @throws Exception
+     * @return false|Mage_Catalog_Model_Product|Mage_Core_Model_Abstract
      */
     public function getProductInfo()
     {
@@ -81,8 +81,8 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Rating_Model_Resource_Rating_Collection
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Rating_Model_Resource_Rating_Collection
      */
     public function getRatings()
     {

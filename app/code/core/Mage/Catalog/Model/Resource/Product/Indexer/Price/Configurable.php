@@ -29,9 +29,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             $this->_applyConfigurableOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)

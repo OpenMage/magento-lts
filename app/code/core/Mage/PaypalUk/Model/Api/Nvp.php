@@ -425,7 +425,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Return Payflow Edition
      *
      * @param string $methodName
-     * @return string|null
+     * @return null|string
      */
     protected function _getPaypalUkActionName($methodName)
     {

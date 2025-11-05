@@ -37,7 +37,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
     /**
      * Import constants
-     *
      */
     public const DEFAULT_SIZE      = 50;
 
@@ -175,8 +174,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     public static function getAttributeType(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         if ($attribute->usesSource()) {
-            return $attribute->getFrontendInput() == 'multiselect' ?
-                'multiselect' : 'select';
+            return $attribute->getFrontendInput() == 'multiselect'
+                ? 'multiselect' : 'select';
         } elseif ($attribute->isStatic()) {
             return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
         } else {
@@ -425,9 +424,9 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         // trying to create source adapter for file and catch possible exception to be convinced in its adequacy
         try {
             $this->_getSourceAdapter($sourceFile);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             unlink($sourceFile);
-            Mage::throwException($e->getMessage());
+            Mage::throwException($exception->getMessage());
         }
 
         return $sourceFile;

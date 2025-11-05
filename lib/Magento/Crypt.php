@@ -41,7 +41,7 @@ class Magento_Crypt
      *                                 It's unsafe to store encryption key in memory, so no getter for key exists.
      * @param  string      $cipher     Cipher algorithm (one of the MCRYPT_ciphername constants)
      * @param  string      $mode       Mode of cipher algorithm (MCRYPT_MODE_modeabbr constants)
-     * @param  string|bool $initVector Initial vector to fill algorithm blocks.
+     * @param  bool|string $initVector Initial vector to fill algorithm blocks.
      *                                 TRUE generates a random initial vector.
      *                                 FALSE fills initial vector with zero bytes to not use it.
      * @throws Magento_Exception
@@ -73,9 +73,9 @@ class Magento_Crypt
             }
 
             $this->_initVector = $initVector;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             mcrypt_module_close($this->_handle);
-            throw $e;
+            throw $exception;
         }
 
         mcrypt_generic_init($this->_handle, $key, $initVector);

@@ -16,7 +16,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 {
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -187,8 +186,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         /**
          * Collecting shipping rates
          */
-        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() &&
-            $this->getRequest()->getPost('collect_shipping_rates')
+        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual()
+            && $this->getRequest()->getPost('collect_shipping_rates')
         ) {
             $this->_getOrderCreateModel()->collectShippingRates();
         }
@@ -424,9 +423,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         try {
             $this->_initSession()
                 ->_processData();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_reloadQuote();
-            $errorMessage = $e->getMessage();
+            $errorMessage = $exception->getMessage();
         }
 
         // Form result for client javascript
@@ -610,9 +609,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $configureResult->setProductId($quoteItem->getProductId());
             $sessionQuote = Mage::getSingleton('adminhtml/session_quote');
             $configureResult->setCurrentCustomerId($sessionQuote->getCustomerId());
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $configureResult->setError(true);
-            $configureResult->setMessage($e->getMessage());
+            $configureResult->setMessage($exception->getMessage());
         }
 
         // Render page
@@ -626,7 +625,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Show item update result from loadBlockAction
      * to prevent popup alert with resend data question
-     *
      */
     public function showUpdateResultAction()
     {

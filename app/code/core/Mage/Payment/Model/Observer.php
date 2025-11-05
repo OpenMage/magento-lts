@@ -121,7 +121,7 @@ class Mage_Payment_Model_Observer
     {
         $state = $observer->getEvent()->getState();
         if ($state == Mage_Sales_Model_Order::STATE_NEW) {
-            /** @var Mage_Sales_Model_Order_Status|false $statusModel */
+            /** @var false|Mage_Sales_Model_Order_Status $statusModel */
             $statusModel = $observer->getEvent()->getStatus();
             $status      = $statusModel->getStatus();
             $used        = 0;

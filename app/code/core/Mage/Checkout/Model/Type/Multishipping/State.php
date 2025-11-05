@@ -40,7 +40,6 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     /**
      * Init model, steps
-     *
      */
     public function __construct()
     {

@@ -17,14 +17,14 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Shopping cart items summary quantity(s)
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_summaryQty;
 
     /**
      * List of product ids in shopping cart
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productIds;
 
@@ -61,7 +61,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * List of shopping cart items
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection|array
+     * @return array|Mage_Sales_Model_Resource_Quote_Item_Collection
      */
     public function getItems()
     {
@@ -482,7 +482,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     }
 
     /**
-     * @return array|null
+     * @return null|array
      */
     public function getProductIds()
     {
@@ -504,7 +504,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Get shopping cart items summary (includes config settings)
      *
-     * @return int|float
+     * @return float|int
      */
     public function getSummaryQty()
     {
@@ -542,7 +542,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Get shopping cart summary qty
      *
-     * @return int|float
+     * @return float|int
      */
     public function getItemsQty()
     {
@@ -555,7 +555,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * $updatingParams - information on how to perform update, passed to Quote->updateItem() method
      *
      * @param int $itemId
-     * @param int|array|Varien_Object $requestInfo
+     * @param array|int|Varien_Object $requestInfo
      * @param null|array|Varien_Object $updatingParams
      * @return Mage_Sales_Model_Quote_Item|string
      *
@@ -585,9 +585,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             }
 
             $result = $this->getQuote()->updateItem($itemId, $request, $updatingParams);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->getCheckoutSession()->setUseNotice(false);
-            $result = $e->getMessage();
+            $result = $mageCoreException->getMessage();
         }
 
         /**

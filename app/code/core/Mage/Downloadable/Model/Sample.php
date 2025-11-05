@@ -15,12 +15,13 @@
  * @method Mage_Downloadable_Model_Resource_Sample _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
+ * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
  *
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method string getSampleUrl()
  * @method $this setSampleUrl(string $value)
- * @method string|null getSampleFile()
+ * @method null|string getSampleFile()
  * @method $this setSampleFile(string $value)
  * @method string getSampleType()
  * @method $this setSampleType(string $value)
@@ -38,7 +39,6 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource
-     *
      */
     protected function _construct()
     {

@@ -30,7 +30,6 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {

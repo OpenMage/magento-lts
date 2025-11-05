@@ -15,24 +15,22 @@
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
  * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
+ * @method Mage_Catalog_Model_Resource_Category_Collection getResourceCollection()
  *
  * @method array getAffectedCategoryIds()
  * @method $this setAffectedCategoryIds(array $categoryIds)
  * @method array getAffectedProductIds()
  * @method $this setAffectedProductIds(array $productIds)
  * @method $this setAttributeSetId(int $value)
- *
  * @method string getCategoryPath()
  * @method string getCategoryUrl()
  * @method $this setChildrenCount(int $value)
  * @method int getChildrenCount()
  * @method bool getCustomUseParentSettings()
- *
  * @method $this setDeletedChildrenIds(array $value)
  * @method bool getDisableFlat()
  * @method string getDisplayMode()
  * @method $this setDisplayMode(string $value)
- *
  * @method string getImage()
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
@@ -42,29 +40,24 @@
  * @method int getIsAnchor()
  * @method $this setIsAnchor(int $value)
  * @method $this setIsChangedProductList(bool $bool)
- *
  * @method int getLandingPage()
  * @method bool hasLevel()
  * @method $this setLevel(int $value)
- *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
- *
  * @method $this setMovedCategoryId(int $value)
  * @method $this setName(string $value)
- *
  * @method bool hasProductCount()
  * @method $this setParentId(int $value)
  * @method string getPath()
- * @method $this setPath(string|int $value)
+ * @method $this setPath(int|string $value)
  * @method bool getProductsReadonly()
  * @method int getPosition()
  * @method $this setPosition(int $value)
  * @method array getPostedProducts()
  * @method $this setPostedProducts(array $value)
- *
  * @method string getUrlKey()
  * @method $this setUrlKey(string $value)
  * @method $this setUrlPath(string $value)
@@ -148,7 +141,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree|null
+     * @var null|Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -265,7 +258,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         /**
          * Setting affected category ids for third party engine index refresh
-        */
+         */
         $this->setMovedCategoryId($this->getId());
 
         $eventParams = [
@@ -297,9 +290,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $moveComplete = true;
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         if ($moveComplete) {
@@ -341,8 +334,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve all customer attributes
      *
      * @param bool $noDesignAttributes
-     * @return Mage_Eav_Model_Entity_Attribute[]
      * @throws Mage_Core_Exception
+     * @return Mage_Eav_Model_Entity_Attribute[]
      * @todo Use with Flat Resource
      */
     public function getAttributes($noDesignAttributes = false)
@@ -465,7 +458,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Set store id
      *
-     * @param string|int|Mage_Core_Model_Store $storeId
+     * @param int|Mage_Core_Model_Store|string $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -998,7 +991,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Validate attribute values
      *
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
-     * @return true|array
+     * @return array|true
      */
     public function validate()
     {

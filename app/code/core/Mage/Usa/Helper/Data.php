@@ -20,7 +20,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  mixed $value
      * @param  string $sourceWeightMeasure
      * @param  string $toWeightMeasure
-     * @return int|null|string
+     * @return null|int|string
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
@@ -40,7 +40,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  mixed $value
      * @param  string $sourceDimensionMeasure
      * @param  string $toDimensionMeasure
-     * @return int|null|string
+     * @return null|int|string
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {

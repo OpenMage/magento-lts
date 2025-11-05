@@ -239,9 +239,9 @@ class Mage_Index_Model_Lock
                 flock($fp, LOCK_UN);
                 $result = false;
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            throw $e;
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            throw $exception;
         }
 
         return $result;
@@ -279,8 +279,8 @@ class Mage_Index_Model_Lock
      * Get lock file resource
      *
      * @param string $lockName
-     * @return resource
      * @throws Exception
+     * @return resource
      */
     protected function _getLockFile($lockName)
     {
@@ -295,7 +295,7 @@ class Mage_Index_Model_Lock
 
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
-                throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
+                throw new Exception(sprintf("Unable to open lock file '%s': %s", $file, error_get_last()));
             }
 
             fwrite(self::$_lockFileResource[$lockName], date('r'));

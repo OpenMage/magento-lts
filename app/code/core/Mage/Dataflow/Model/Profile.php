@@ -14,6 +14,9 @@
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
+ *
  * @method string getName()
  * @method $this setName(string $value)
  * @method string getCreatedAt()
@@ -85,8 +88,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
         // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
-            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        if ($actionsXML !== null && strlen($actionsXML) < 0
+            && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
         }
@@ -294,8 +297,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        } catch (Exception $e) {
-            echo $e;
+        } catch (Exception $exception) {
+            echo $exception;
         }
 
         $this->setExceptions($profile->getExceptions());
@@ -512,8 +515,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      *
      * @param object $xmlObject
      * @param string $nodeName
-     * @return object
      * @throws Exception
+     * @return object
      */
     protected function getNode($xmlObject, $nodeName)
     {

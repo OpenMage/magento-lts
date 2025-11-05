@@ -79,9 +79,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
         $this->_transformActionData($action, $actionCaption, $row);
 
         if (isset($action['confirm'])) {
-            $action['onclick'] = 'return window.confirm(\''
+            $action['onclick'] = "return window.confirm('"
                                . addslashes($this->escapeHtml($action['confirm']))
-                               . '\')';
+                               . "')";
             unset($action['confirm']);
         }
 
@@ -129,8 +129,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                     break;
 
                 case 'popup':
-                    $action['onclick'] =
-                        'popWin(this.href,\'_blank\',\'width=800,height=700,resizable=1,scrollbars=1\');return false;';
+                    $action['onclick']
+                        = "popWin(this.href,'_blank','width=800,height=700,resizable=1,scrollbars=1');return false;";
                     break;
             }
         }

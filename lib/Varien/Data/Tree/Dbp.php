@@ -189,9 +189,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
-     * @param Varien_Data_Tree_Node|null $parentNode
+     * @param null|Varien_Data_Tree_Node $parentNode
      * @param int $level
      */
     public function addChildNodes($children, $path, $parentNode, $level = 0)
@@ -326,9 +326,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             );
 
             $this->_conn->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception("Can't move tree node due to error: " . $e->getMessage(), $e->getCode(), $e);
+            throw new Exception("Can't move tree node due to error: " . $exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
@@ -371,7 +371,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param bool $withChildren

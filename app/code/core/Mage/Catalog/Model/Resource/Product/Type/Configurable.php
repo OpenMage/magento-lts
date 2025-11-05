@@ -16,7 +16,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
 {
     /**
      * Init resource
-     *
      */
     protected function _construct()
     {
@@ -111,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)

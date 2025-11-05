@@ -12,6 +12,9 @@
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
  * @method Mage_Index_Model_Resource_Process getResource()
+ * @method Mage_Index_Model_Resource_Process_Collection getCollection()
+ * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
+ *
  * @method string getIndexCode()
  * @method string getIndexerCode()
  * @method $this setIndexerCode(string $value)
@@ -76,7 +79,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Locker Object
      *
-     * @var Mage_Index_Model_Lock|null
+     * @var null|Mage_Index_Model_Lock
      */
     protected $_lockInstance = null;
 
@@ -170,7 +173,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
     /**
      * Reindex all data what this process responsible is
-     *
      */
     public function reindexAll()
     {
@@ -213,10 +215,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             } else {
                 $this->_getResource()->endProcess($this);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
             $this->_getResource()->failProcess($this);
-            throw $e;
+            throw $exception;
         }
 
         Mage::dispatchEvent('after_reindex_process_' . $this->getIndexerCode());
@@ -227,8 +229,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Reindex all data what this process responsible is
      * Check and using depends processes
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function reindexEverything()
     {
@@ -293,8 +295,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get Indexer strategy object
      *
-     * @return Mage_Index_Model_Indexer_Abstract
      * @throws Mage_Core_Exception
+     * @return Mage_Index_Model_Indexer_Abstract
      */
     public function getIndexer()
     {
@@ -363,9 +365,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
             $this->_processEventsCollection($eventsCollection);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -427,7 +429,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Returns Lock object.
      *
-     * @return Mage_Index_Model_Lock|null
+     * @return null|Mage_Index_Model_Lock
      */
     protected function _getLockInstance()
     {
@@ -581,8 +583,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Disable keys in index table
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function disableIndexerKeys()
     {
@@ -597,8 +599,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Enable keys in index table
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function enableIndexerKeys()
     {
@@ -629,9 +631,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         try {
             $this->processEvent($event);
             $this->unlock();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->unlock();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

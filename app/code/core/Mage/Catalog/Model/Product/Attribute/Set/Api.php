@@ -98,8 +98,8 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
 
         try {
             $attributeSet->delete();
-        } catch (Exception $e) {
-            $this->_fault('remove_attribute_set_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_attribute_set_error', $exception->getMessage());
         }
 
         return true;
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
      *
      * @param string $attributeId
      * @param string $attributeSetId
-     * @param string|null $attributeGroupId
+     * @param null|string $attributeGroupId
      * @param string $sortOrder
      * @return bool
      */
@@ -151,8 +151,8 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
                     ->setAttributeGroupId($attributeGroupId)
                     ->setSortOrder($sortOrder)
                     ->save();
-        } catch (Exception $e) {
-            $this->_fault('add_attribute_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('add_attribute_error', $exception->getMessage());
         }
 
         return true;
@@ -191,8 +191,8 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
             // delete record from eav_entity_attribute
             // using entity_attribute_id loaded by loadEntityAttributeIdBySet()
             $attribute->deleteEntity();
-        } catch (Exception $e) {
-            $this->_fault('remove_attribute_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_attribute_error', $exception->getMessage());
         }
 
         return true;
@@ -201,7 +201,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Create group within existing attribute set
      *
-     * @param  string|int $attributeSetId
+     * @param  int|string $attributeSetId
      * @param  string $groupName
      * @return int
      */
@@ -219,8 +219,8 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
 
         try {
             $group->save();
-        } catch (Exception $e) {
-            $this->_fault('group_add_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_add_error', $exception->getMessage());
         }
 
         return (int) $group->getId();
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Rename existing group
      *
-     * @param string|int $groupId
+     * @param int|string $groupId
      * @param string $groupName
      * @return bool
      */
@@ -246,19 +246,19 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         );
         try {
             $model->save();
-        } catch (Exception $e) {
-            $this->_fault('group_rename_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_rename_error', $exception->getMessage());
         }
 
         return true;
     }
 
     /**
-        * Remove group from existing attribute set
-        *
-        * @param  string|int $attributeGroupId
-        * @return bool
-        */
+     * Remove group from existing attribute set
+     *
+     * @param  int|string $attributeGroupId
+     * @return bool
+     */
     public function groupRemove($attributeGroupId)
     {
         /** @var Mage_Catalog_Model_Product_Attribute_Group $group */
@@ -277,8 +277,8 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
 
         try {
             $group->delete();
-        } catch (Exception $e) {
-            $this->_fault('group_remove_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_remove_error', $exception->getMessage());
         }
 
         return true;

@@ -26,8 +26,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
-     * @return Mage_Sales_Model_Order_Shipment|bool
      * @throws Mage_Core_Exception
+     * @return bool|Mage_Sales_Model_Order_Shipment
      */
     protected function _initShipment()
     {
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment and order in one transaction
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     protected function _saveShipment($shipment)
     {
@@ -553,7 +553,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create shipping label action for specific shipment
-     *
      */
     public function createLabelAction()
     {
@@ -727,7 +726,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
      * @param string $imageString
-     * @return Zend_Pdf_Page|bool
+     * @return bool|Zend_Pdf_Page
      */
     protected function _createPdfPageFromImageString($imageString)
     {

@@ -28,7 +28,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve invoices list. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -51,8 +51,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $invoiceCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
 
         foreach ($invoiceCollection as $invoice) {
@@ -66,8 +66,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Retrieve invoice information
      *
      * @param string $invoiceIncrementId
-     * @return array
      * @throws Mage_Api_Exception
+     * @return array
      */
     public function info($invoiceIncrementId)
     {
@@ -115,8 +115,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         /** @var Mage_Sales_Model_Order $order */
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
@@ -149,8 +149,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
                 ->save();
 
             $invoice->sendEmail($email, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $invoice->getIncrementId();
@@ -179,8 +179,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             $invoice->addComment($comment, $email);
             $invoice->sendUpdateEmail($email, ($includeComment ? $comment : ''));
             $invoice->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -226,8 +226,8 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Void invoice
      *
      * @param int $invoiceIncrementId
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function void($invoiceIncrementId)
     {

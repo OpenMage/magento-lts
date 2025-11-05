@@ -34,8 +34,8 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function removeProducts($websiteIds, $productIds)
     {
@@ -56,9 +56,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         try {
             $adapter->delete($this->getMainTable(), $whereCond);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -69,8 +69,8 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function addProducts($websiteIds, $productIds)
     {
@@ -107,9 +107,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
             }
 
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getWriteAdapter()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

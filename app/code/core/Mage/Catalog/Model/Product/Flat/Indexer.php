@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
+ *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
@@ -45,7 +46,6 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 
     /**
      * Standard model resource initialization
-     *
      */
     protected function _construct()
     {
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param string $attributeCode
      * @param int $store
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return $this
      */
     public function updateAttribute($attributeCode, $store = null, $productIds = null)
@@ -175,7 +175,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update Catalog Product Flat data
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */
@@ -196,9 +196,9 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->updateProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resource->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -207,7 +207,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Save Catalog Product(s) Flat data
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */
@@ -228,9 +228,9 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->saveProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resource->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -239,7 +239,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove product from flat
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $store
      * @return $this
      */

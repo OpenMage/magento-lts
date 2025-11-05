@@ -44,8 +44,8 @@ final class AbstractTest extends OpenMageTest
     {
         try {
             self::assertInstanceOf(Varien_Db_Select::class, self::$subject->getProductFlatSelect(0));
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Resource is not set.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Resource is not set.', $mageCoreException->getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ final class AbstractTest extends OpenMageTest
      * @dataProvider provideValidateData
      * @group Model
      */
-    public function testValidate(bool|array $expectedResul, ?array $data = null): void
+    public function testValidate(array|bool $expectedResul, ?array $data = null): void
     {
         $object = new Varien_Object($data);
         try {
@@ -119,7 +119,7 @@ final class AbstractTest extends OpenMageTest
      * @dataProvider provideValidateData
      * @group Model
      */
-    public function testValidateData(bool|array $expectedResul, ?array $data = null): void
+    public function testValidateData(array|bool $expectedResul, ?array $data = null): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
@@ -174,8 +174,8 @@ final class AbstractTest extends OpenMageTest
     {
         try {
             self::assertIsArray(self::$subject->getWebsiteIds());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Resource is not set.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Resource is not set.', $mageCoreException->getMessage());
         }
     }
 

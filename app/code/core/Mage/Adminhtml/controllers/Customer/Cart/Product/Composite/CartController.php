@@ -94,9 +94,9 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
             $configureResult->setBuyRequest($quoteItem->getBuyRequest());
             $configureResult->setCurrentStoreId($quoteItem->getStoreId());
             $configureResult->setCurrentCustomer($this->_customer);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $configureResult->setError(true);
-            $configureResult->setMessage($e->getMessage());
+            $configureResult->setMessage($exception->getMessage());
         }
 
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
@@ -125,9 +125,9 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
                 ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $updateResult->setError(true);
-            $updateResult->setMessage($e->getMessage());
+            $updateResult->setMessage($exception->getMessage());
         }
 
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));

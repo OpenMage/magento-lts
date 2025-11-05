@@ -64,7 +64,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Load data by specified username
      *
      * @param string $username
-     * @return false|array
+     * @return array|false
      */
     public function loadByUsername($username)
     {
@@ -84,7 +84,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if user is assigned to any role
      *
-     * @param int|Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param int|Mage_Admin_Model_User|Mage_Core_Model_Abstract $user
      * @return null|array
      */
     public function hasAssigned2Role($user)
@@ -157,8 +157,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role record with user
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -175,9 +175,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getMainTable(), $conditions);
             $adapter->delete($this->getTable('admin/role'), $conditions);
             $adapter->commit();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $adapter->rollBack();
-            throw $e;
+            throw $throwable;
         }
 
         $this->_afterDelete($user);
@@ -187,6 +187,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      * @return $this|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
@@ -232,9 +234,12 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception|Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
+            throw $mageCoreException;
+        } catch (Exception $exception) {
+            $adapter->rollBack();
+            throw $exception;
         }
 
         return $this;

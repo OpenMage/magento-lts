@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      * Lock product items
      *
      * @param Mage_CatalogInventory_Model_Stock $stock
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return $this
      */
     public function lockProductItems($stock, $productIds)
@@ -162,9 +162,9 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         try {
             $adapter->update($this->getTable('cataloginventory/stock_item'), ['qty' => $value], $where);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -202,7 +202,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
     /**
      * Load some inventory configuration settings
-     *
      */
     protected function _initConfig()
     {
@@ -226,7 +225,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
     /**
      * Set items out of stock basing on their quantities and config settings
-     *
      */
     public function updateSetOutOfStock()
     {
@@ -261,7 +259,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
     /**
      * Set items in stock basing on their quantities and config settings
-     *
      */
     public function updateSetInStock()
     {
@@ -293,7 +290,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
     /**
      * Update items low stock date basing on their quantities and config settings
-     *
      */
     public function updateLowStockDate()
     {

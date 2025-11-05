@@ -71,9 +71,9 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
         try {
             $this->_getSyncSingleton()->synchronize($storage);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $flag->passError($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $flag->passError($exception);
         }
 
         $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_FINISHED)->save();

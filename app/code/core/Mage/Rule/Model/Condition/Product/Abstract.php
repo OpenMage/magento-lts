@@ -71,7 +71,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Prepare bind array of ids from string or array
      *
-     * @param string|int|array $value
+     * @param array|int|string $value
      * @return array
      */
     public function bindArrayOfIds($value)

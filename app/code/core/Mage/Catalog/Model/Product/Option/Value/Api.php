@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Retrieve values from specified option
      *
      * @param string $optionId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return array
      */
     public function items($optionId, $store = null)
@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Retrieve specified option value info
      *
      * @param string $valueId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return array
      */
     public function info($valueId, $store = null)
@@ -83,7 +83,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      *
      * @param string $optionId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool
      */
     public function add($optionId, $data, $store = null)
@@ -101,8 +101,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $optionValueModel->setValues($data);
         try {
             $optionValueModel->saveValues();
-        } catch (Exception $e) {
-            $this->_fault('add_option_value_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('add_option_value_error', $exception->getMessage());
         }
 
         return true;
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      *
      * @param string $valueId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool
      */
     public function update($valueId, $data, $store = null)
@@ -146,8 +146,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
 
         try {
             $productOptionValue->save()->saveValues();
-        } catch (Exception $e) {
-            $this->_fault('update_option_value_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('update_option_value_error', $exception->getMessage());
         }
 
         return true;
@@ -174,8 +174,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
 
         try {
             $optionValue->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;
@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Load option by id and store
      *
      * @param string $optionId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return Mage_Catalog_Model_Product_Option
      */
     protected function _prepareOption($optionId, $store = null)

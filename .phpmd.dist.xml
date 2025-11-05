@@ -76,7 +76,7 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [x] ShortVariable
+    [-] ShortVariable
     [x] ShortMethodName - TMP disabled
     -->
     <rule ref="rulesets/naming.xml">

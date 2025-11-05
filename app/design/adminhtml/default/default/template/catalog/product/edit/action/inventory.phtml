@@ -61,7 +61,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                 <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
             </tr>
             <tr>
-                <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Minimum Qty for Item\'s Status to be Out of Stock') ?></label></td>
+                <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__("Minimum Qty for Item's Status to be Out of Stock") ?></label></td>
                 <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_qty" name="<?php echo $this->getFieldSuffix() ?>[min_qty]" value="<?php echo $this->getDefaultConfigValue('min_qty')*1 ?>" disabled="disabled" />
                     <input type="checkbox" id="inventory_use_config_min_qty" name="<?php echo $this->getFieldSuffix() ?>[use_config_min_qty]" value="1" onclick="toggleValueElements(this, this.parentNode, $('inventory_min_qty_checkbox'));" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_min_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>

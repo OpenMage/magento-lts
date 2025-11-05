@@ -85,14 +85,14 @@ class Mage_Core_Model_Cache
     /**
      * List of allowed cache options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allowedCacheOptions;
 
     /**
      * DB connection
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_dbConnection = 'core_write';
 
@@ -366,7 +366,7 @@ class Mage_Core_Model_Cache
      * Load data from cache by id
      *
      * @param   string $id
-     * @return  string|false
+     * @return  false|string
      */
     public function load($id)
     {
@@ -509,7 +509,7 @@ class Mage_Core_Model_Cache
      * Check if cache can be used for specific data type
      *
      * @param string $typeCode
-     * @return bool|array
+     * @return array|bool
      */
     public function canUse($typeCode)
     {
@@ -649,7 +649,7 @@ class Mage_Core_Model_Cache
     /**
      * Mark specific cache type(s) as invalidated
      *
-     * @param string|array $typeCode
+     * @param array|string $typeCode
      * @return $this
      */
     public function invalidateType($typeCode)

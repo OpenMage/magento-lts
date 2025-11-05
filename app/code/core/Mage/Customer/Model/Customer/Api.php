@@ -51,8 +51,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $customer
                 ->setData($customerData)
                 ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $customer->getId();
@@ -93,7 +93,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customers data
      *
-     * @param  object|array $filters
+     * @param  array|object $filters
      * @return array
      */
     public function items($filters)
@@ -106,8 +106,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
 
         $result = [];
@@ -174,8 +174,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $customer->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;

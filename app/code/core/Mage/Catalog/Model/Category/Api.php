@@ -22,9 +22,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve level of categories for category/store view/website
      *
-     * @param string|int|null $website
-     * @param string|int|null $store
-     * @param int|null $categoryId
+     * @param null|int|string $website
+     * @param null|int|string $store
+     * @param null|int $categoryId
      * @return array
      */
     public function level($website = null, $store = null, $categoryId = null)
@@ -102,10 +102,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve category tree
      *
-     * @param int|null $parentId
-     * @param string|int $store
-     * @return array
+     * @param null|int $parentId
+     * @param int|string $store
      * @throws Mage_Core_Model_Store_Exception
+     * @return array
      */
     public function tree($parentId = null, $store = null)
     {
@@ -163,7 +163,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Initialize and return category model
      *
      * @param int $categoryId
-     * @param string|int $store
+     * @param int|string $store
      * @return Mage_Catalog_Model_Category
      */
     protected function _initCategory($categoryId, $store = null)
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve category data
      *
      * @param int $categoryId
-     * @param string|int $store
+     * @param int|string $store
      * @param array $attributes
      * @return array
      */
@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $parentId
      * @param array $categoryData
-     * @param int|null|string $store
+     * @param null|int|string $store
      * @return int
      */
     public function create($parentId, $categoryData, $store = null)
@@ -239,10 +239,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 // check whether value is 'use_config'
                 $attrCode = $attribute->getAttributeCode();
                 $categoryDataValue = $categoryData[$attrCode];
-                if ($categoryDataValue === 'use_config' ||
-                    (is_array($categoryDataValue) &&
-                    count($categoryDataValue) == 1 &&
-                    $categoryDataValue[0] === 'use_config')
+                if ($categoryDataValue === 'use_config'
+                    || (is_array($categoryDataValue)
+                    && count($categoryDataValue) == 1
+                    && $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;
                     $category->setData($attrCode, null);
@@ -274,8 +274,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        } catch (Mage_Core_Exception|Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('data_invalid', $exception->getMessage());
         }
 
         return $category->getId();
@@ -286,7 +288,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $categoryId
      * @param array $categoryData
-     * @param string|int $store
+     * @param int|string $store
      * @return bool
      */
     public function update($categoryId, $categoryData, $store = null)
@@ -349,8 +351,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $category->move($parentId, $afterId);
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_moved', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_moved', $mageCoreException->getMessage());
         }
 
         return true;
@@ -372,8 +374,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $category->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;
@@ -386,8 +388,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string  $productId      The product ID or SKU
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
      *
-     * @return int
      * @throws Mage_Api_Exception
+     * @return int
      */
     protected function _getProductId($productId, $identifierType = null)
     {
@@ -403,7 +405,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve list of assigned products to category
      *
      * @param int $categoryId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function assignedProducts($categoryId, $store = null)
@@ -436,8 +438,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @param int $position
      * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
-     * @return bool
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function assignProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
@@ -449,8 +451,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -461,10 +463,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $categoryId
      * @param int $productId
-     * @param int|null $position
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|int $position
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function updateProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
@@ -480,8 +482,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -491,10 +493,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Remove product assignment from category
      *
      * @param int $categoryId
-     * @param int|null $productId
-     * @param string|null $identifierType
-     * @return bool
+     * @param null|int $productId
+     * @param null|string $identifierType
      * @throws Mage_Api_Exception
+     * @return bool
      */
     public function removeProduct($categoryId, $productId, $identifierType = null)
     {
@@ -510,8 +512,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;

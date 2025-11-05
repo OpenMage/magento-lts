@@ -50,7 +50,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     protected function _initProduct()
     {
@@ -74,8 +74,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                 'product'           => $product,
                 'controller_action' => $this,
             ]);
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -135,7 +135,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Submit new review action
-     *
      */
     public function postAction()
     {
@@ -208,7 +207,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show list of product's reviews
-     *
      */
     public function listAction()
     {
@@ -243,7 +241,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show details of one review
-     *
      */
     public function viewAction()
     {

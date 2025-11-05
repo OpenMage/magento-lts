@@ -30,7 +30,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
      * Check whether current payment method is enabled
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @param callback|null $configCallback
+     * @param null|callable $configCallback
      * @return bool
      */
     protected function _isPaymentEnabled($element, $configCallback = null)
@@ -98,7 +98,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
             . ($this->_isPaymentEnabled($element) ? '' : ' disabled="disabled"') . ' class="button'
             . (empty($groupConfig['paypal_ec_separate']) ? '' : ' paypal-ec-separate')
             . ($this->_isPaymentEnabled($element) ? '' : ' disabled') . '" id="' . $element->getHtmlId()
-            . '-head" onclick="paypalToggleSolution.call(this, \'' . $element->getHtmlId() . '\', \''
+            . '-head" onclick="paypalToggleSolution.call(this, \'' . $element->getHtmlId() . "', '"
             . $this->getUrl('*/*/state') . '\'); return false;"><span class="state-closed">'
             . $this->__('Configure') . '</span><span class="state-opened">'
             . $this->__('Close') . '</span></button></div></div>');

@@ -62,7 +62,6 @@ $installer->getConnection()->createTable($table);
 
 /**
  * Alter sales_flat_quote table with is_persistent flag
- *
  */
 $installer->getConnection()
     ->addColumn(

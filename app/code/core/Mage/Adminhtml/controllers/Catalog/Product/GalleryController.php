@@ -61,10 +61,10 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain(),
             ];
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = [
-                'error' => $e->getMessage(),
-                'errorcode' => $e->getCode()];
+                'error' => $exception->getMessage(),
+                'errorcode' => $exception->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

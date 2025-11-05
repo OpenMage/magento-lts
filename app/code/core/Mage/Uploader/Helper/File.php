@@ -19,8 +19,8 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_mimeTypes =
-        [
+    protected $_mimeTypes
+        = [
             'x123' => 'application/vnd.lotus-1-2-3',
             'x3dml' => 'text/vnd.in3d.3dml',
             'x3g2' => 'video/3gpp2',

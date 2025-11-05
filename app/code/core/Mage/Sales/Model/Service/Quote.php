@@ -176,7 +176,7 @@ class Mage_Sales_Model_Service_Quote
         Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order' => $order, 'quote' => $quote]);
         try {
             $transaction->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -191,7 +191,7 @@ class Mage_Sales_Model_Service_Quote
             }
 
             Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
-            throw $e;
+            throw $exception;
         }
 
         $this->_inactivateQuote();
@@ -203,7 +203,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Submit nominal items
-     *
      */
     public function submitNominalItems()
     {
@@ -225,9 +224,9 @@ class Mage_Sales_Model_Service_Quote
         try {
             $this->submitNominalItems();
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-            throw $e;
+            throw $exception;
         }
 
         // no need to submit the order if there are no normal items remained

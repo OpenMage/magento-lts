@@ -103,7 +103,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * Get revoke URL
      *
      * @param Mage_Oauth_Model_Token $row
-     * @return string|null
+     * @return null|string
      */
     public function getRevokeUrl($row)
     {
@@ -114,7 +114,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * Get delete URL
      *
      * @param Mage_Oauth_Model_Token $row
-     * @return string|null
+     * @return null|string
      */
     public function getDeleteUrl($row)
     {

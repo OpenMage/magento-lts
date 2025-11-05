@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
-        $this->setEmptyText(Mage::helper('customer')->__('There are no items in customer\'s shopping cart at the moment'));
+        $this->setEmptyText(Mage::helper('customer')->__("There are no items in customer's shopping cart at the moment"));
     }
 
     /**

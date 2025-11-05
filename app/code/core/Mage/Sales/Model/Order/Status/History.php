@@ -14,6 +14,9 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
+ *
  * @method string getComment()
  * @method $this setComment(string $value)
  * @method string getCreatedAt()
@@ -120,8 +123,8 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Get store object
      *
-     * @return Mage_Core_Model_Store
      * @throws Mage_Core_Model_Store_Exception
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {
