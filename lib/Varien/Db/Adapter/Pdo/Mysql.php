@@ -1767,10 +1767,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
         if ($ddl === false) {
             $ddl = array_map(
-                [
-                    $this,
-                    'decorateTableInfo',
-                ],
+                $this->decorateTableInfo(...),
                 parent::describeTable($tableName, $schemaName),
             );
             /**
@@ -2369,7 +2366,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // PRIMARY KEY
         if (!empty($primary)) {
             asort($primary, SORT_NUMERIC);
-            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
+            $primary      = array_map($this->quoteIdentifier(...), array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
         }
 
@@ -3645,7 +3642,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
-            $columns = array_map([$this, 'quoteIdentifier'], $fields);
+            $columns = array_map($this->quoteIdentifier(...), $fields);
             $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
@@ -3971,7 +3968,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)
     {
         $tableName = $this->quoteIdentifier($tableName, true);
-        $columns   = array_map([$this, 'quoteIdentifier'], $columns);
+        $columns   = array_map($this->quoteIdentifier(...), $columns);
         $columns   = implode(',', $columns);
 
         $values    = implode(', ', $values);
