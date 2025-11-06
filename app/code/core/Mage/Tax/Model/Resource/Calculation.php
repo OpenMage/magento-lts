@@ -95,7 +95,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve Calculation Process
      *
-     * @param Varien_Object $request
+     * @param null|Varien_Object $request
      * @param null|array $rates
      * @return array
      */

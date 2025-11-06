@@ -619,7 +619,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function reproduceProcess($rates)
     {
-        return $this->getResource()->getCalculationProcess(new Varien_Object(), $rates);
+        return $this->getResource()->getCalculationProcess(null, $rates);
     }
 
     /**
