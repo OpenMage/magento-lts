@@ -33,7 +33,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel($this->_getCollectionClass())
+        /** @var Mage_Sales_Model_Resource_Order_Invoice_Grid_Collection $collection */
+        $collection = Mage::getResourceModel($this->_getCollectionClass());
+        $collection
             ->addFieldToSelect('entity_id')
             ->addFieldToSelect('created_at')
             ->addFieldToSelect('order_id')

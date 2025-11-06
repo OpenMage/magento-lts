@@ -178,7 +178,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Quote addresses collection
      *
-     * @var null|Mage_Sales_Model_Resource_Order_Address_Collection
+     * @var null|Mage_Sales_Model_Resource_Quote_Address_Collection
      */
     protected $_addresses = null;
 
@@ -275,7 +275,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getSharedStoreIds()
     {
         $ids = $this->_getData('shared_store_ids');
-        if (is_null($ids) || !is_array($ids)) {
+        if (!is_array($ids)) {
             if ($website = $this->getWebsite()) {
                 return $website->getStoreIds();
             }
@@ -539,7 +539,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote address collection
      *
-     * @return Mage_Sales_Model_Resource_Order_Address_Collection
+     * @return Mage_Sales_Model_Resource_Quote_Address_Collection
      */
     public function getAddressesCollection()
     {
@@ -1827,8 +1827,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $isVirtual = true;
         $countItems = 0;
+        /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItemsCollection() as $item) {
-            /** @var Mage_Sales_Model_Quote_Item $item */
             if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }

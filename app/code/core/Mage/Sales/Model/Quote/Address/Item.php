@@ -195,7 +195,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     public function getOptionBycode($code)
     {
         if ($this->getQuoteItem()) {
-            return $this->getQuoteItem()->getOptionBycode($code);
+            return $this->getQuoteItem()->getOptionByCode($code);
         }
 
         return null;
