@@ -1327,12 +1327,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
 		-
-			rawMessage: 'Parameter #3 $subject of function str_replace expects array<string>|string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Type/Composite.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -3095,24 +3089,6 @@ parameters:
 			identifier: return.missing
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
-			rawMessage: 'Cannot call method streamRead() on resource.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/Download.php
-
-		-
-			rawMessage: 'Cannot call method streamStat() on resource.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/Download.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strtolower expects string, bool given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
 			rawMessage: 'Parameter #2 $code of class Exception constructor expects int, string given.'
@@ -6017,18 +5993,6 @@ parameters:
 			identifier: method.childParameterType
 			count: 1
 			path: lib/Varien/Data/Form/Element/Multiline.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function str_pad expects string, int<0, 23> given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Data/Form/Element/Time.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function str_pad expects string, int<0, 59> given.'
-			identifier: argument.type
-			count: 2
-			path: lib/Varien/Data/Form/Element/Time.php
 
 		-
 			rawMessage: 'Method Varien_Data_Tree::load() invoked with 2 parameters, 0-1 required.'
