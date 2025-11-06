@@ -628,7 +628,7 @@ interface Varien_Db_Adapter_Interface
      * Quote a column identifier and alias.
      *
      * @param array|string|Zend_Db_Expr $ident the identifier or expression
-     * @param string $alias an alias for the column
+     * @param null|string $alias an alias for the column
      * @param bool $auto if true, heed the AUTO_QUOTE_IDENTIFIERS config option
      * @return string the quoted identifier and alias
      */

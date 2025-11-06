@@ -1231,12 +1231,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
 
 		-
-			rawMessage: 'Property Mage_Catalog_Block_Product_List_Toolbar::$_collection (Mage_Core_Model_Resource_Db_Collection_Abstract) does not accept Varien_Data_Collection.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
 			rawMessage: 'Parameter #1 $price of method Mage_Core_Model_Store::convertPrice() expects float, string given.'
 			identifier: argument.type
 			count: 1
@@ -1807,12 +1801,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php
-
-		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Config::$_storeId (int) on left side of ?? is not nullable.'
 			identifier: nullCoalesce.property
 			count: 1
@@ -1931,12 +1919,6 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Collection.php
 
 		-
 			rawMessage: Left side of && is always true.
@@ -2155,12 +2137,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
 
 		-
-			rawMessage: 'Parameter #1 $productThumbnail of method Mage_Checkout_Block_Cart_Item_Renderer::overrideProductThumbnail() expects Mage_Catalog_Helper_Image, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Grouped.php
-
-		-
 			rawMessage: PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null.
 			identifier: varTag.nativeType
 			count: 1
@@ -2297,12 +2273,6 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $array of function array_unshift expects array, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
 
 		-
 			rawMessage: 'Method Mage_Core_Block_Abstract::getParentBlock() should return $this(Mage_Core_Block_Abstract) but returns Mage_Core_Block_Abstract.'
@@ -2699,12 +2669,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Session.php
-
-		-
-			rawMessage: 'Parameter #1 $hook of method Varien_Db_Adapter_Pdo_Mysql::setQueryHook() expects array, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
 			rawMessage: 'Property Mage_Core_Model_Resource_Setup::$_resourceConfig (Mage_Core_Model_Config_Element) does not accept SimpleXMLElement.'
@@ -3313,12 +3277,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			rawMessage: 'Parameter #2 $alias of method Varien_Db_Adapter_Interface::quoteColumnAs() expects string, null given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			rawMessage: 'Property Mage_Eav_Model_Entity_Collection_Abstract::$_entity (Mage_Eav_Model_Entity_Abstract) in empty() is not falsy.'
 			identifier: empty.property
 			count: 1
@@ -3427,12 +3385,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
 
 		-
-			rawMessage: 'Parameter #1 $limit of method Mage_Adminhtml_Block_Widget_Grid::setDefaultLimit() expects int, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
-
-		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
@@ -3479,6 +3431,12 @@ parameters:
 			identifier: booleanOr.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
+
+		-
+			rawMessage: 'Method Mage_ImportExport_Model_Resource_Import_Data::getIterator() should return IteratorIterator but returns Traversable<mixed, mixed>.'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php
 
 		-
 			rawMessage: 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string, int|string>|null given.'
@@ -3553,22 +3511,10 @@ parameters:
 			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
 
 		-
-			rawMessage: 'Parameter #2 $idFieldName of method Mage_Core_Model_Resource_Db_Abstract::_init() expects string, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Oauth/Model/Resource/Nonce.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method Varien_Data_Collection::addFilter() expects array|string, int given.'
 			identifier: argument.type
 			count: 4
 			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $data of method Mage_Oauth_Adminhtml_Oauth_ConsumerController::_setFormData() expects array, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/ConsumerController.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Method_Abstract::isPartialAuthorization().'
@@ -4165,12 +4111,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
-			rawMessage: 'Parameter #2 $options of method Mage_Directory_Model_Currency::format() expects array, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php
-
-		-
 			rawMessage: 'Parameter #1 $incrementId of method Mage_Sales_Model_Order_Invoice::loadByIncrementId() expects string, int given.'
 			identifier: argument.type
 			count: 1
@@ -4513,12 +4453,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
-			rawMessage: 'Parameter #2 $title of method Mage_Weee_Helper_Data::setWeeeTaxesAppliedProperty() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			rawMessage: 'Parameter #4 $value of method Mage_Weee_Helper_Data::setWeeeTaxesAppliedProperty() expects string, (float|int) given.'
 			identifier: argument.type
 			count: 2
@@ -4673,18 +4607,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysFalse
 			count: 1
 			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
-			rawMessage: 'Parameter #1 $request of method Mage_Tax_Model_Resource_Calculation::getCalculationProcess() expects Varien_Object, null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			rawMessage: 'Property Mage_Tax_Model_Calculation::$_defaultCustomerTaxClass (string) does not accept int.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation.php
 
 		-
 			rawMessage: 'Property Mage_Tax_Model_Calculation_Rate::$_titles (array|null) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection.'
@@ -5269,12 +5191,6 @@ parameters:
 			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
 
 		-
-			rawMessage: 'Parameter #1 $order of method Mage_Catalog_Block_Product_List_Toolbar::getOrderUrl() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -5603,12 +5519,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			rawMessage: 'Parameter #1 $order of method Mage_Catalog_Block_Product_List_Toolbar::getOrderUrl() expects string, null given.'
-			identifier: argument.type
-			count: 2
-			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
 
 		-
 			rawMessage: Left side of && is always true.
@@ -5986,12 +5896,6 @@ parameters:
 			rawMessage: 'Cannot call method setAttribute() on object|resource.'
 			identifier: method.nonObject
 			count: 2
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			rawMessage: 'Method Varien_Db_Adapter_Pdo_Mysql::query() should return Zend_Db_Statement_Pdo but returns PDOStatement|Zend_Db_Statement_Interface.'
-			identifier: return.type
-			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
