@@ -82,8 +82,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Multiselect field filter HTML.
      *
-     * @deprecated
+     * @throws Mage_Core_Exception
      * @return string
+     * @deprecated
      */
     protected function _getMultiSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
@@ -133,8 +134,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Select field filter HTML.
      *
-     * @deprecated
+     * @throws Mage_Core_Exception
      * @return string
+     * @deprecated
      */
     protected function _getSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
@@ -219,6 +221,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Multiselect field filter HTML with selected values
      *
      * @param mixed $value
+     * @throws Mage_Core_Exception
      * @return string
      */
     protected function _getMultiSelectHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -279,6 +282,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Select field filter HTML with selected value.
      *
      * @param mixed $value
+     * @throws Mage_Core_Exception
      * @return string
      */
     protected function _getSelectHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -293,7 +297,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
 
-        if (($size = count($options))) {
+        if (count($options)) {
             // add empty value option
             $firstOption = reset($options);
 
@@ -319,6 +323,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Add columns to grid
      *
+     * @throws Exception
      * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareColumns()
@@ -373,6 +378,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      *
      * @param mixed $value
      * @param bool $isExport
+     * @throws Exception
      * @return string
      */
     public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)
@@ -400,7 +406,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementId($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_$attributeCode";
     }
 
     /**
@@ -411,7 +417,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      */
     public function getFilterElementName($attributeCode)
     {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[$attributeCode]";
     }
 
     /**
@@ -428,6 +434,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Prepare collection by setting page number, sorting etc..
      *
+     * @throws Exception
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)

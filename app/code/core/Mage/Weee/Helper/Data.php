@@ -314,7 +314,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $shipping,
                 $billing,
                 $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
+                $calculateTaxes ?: $this->typeOfDisplay($product, 1),
             );
         }
 
@@ -356,7 +356,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns amount to display including taxes
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float
+     * @throws Mage_Core_Exception
+     * @return float|int
      */
     public function getAmountForDisplayInclTaxes($product)
     {
@@ -394,7 +395,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
-     * @param bool                    $includeIndex
+     * @param bool                       $includeIndex
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
@@ -490,7 +492,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Set a value to a specific property searching FPT by title for the Item
      *
      * @param Mage_Core_Model_Abstract $item
-     * @param string $title
+     * @param null|string $title
      * @param string $property
      * @param string $value
      */
