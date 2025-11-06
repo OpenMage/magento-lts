@@ -379,12 +379,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			rawMessage: 'Parameter #2 $characters of function rtrim expects string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
-
-		-
 			rawMessage: 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.'
 			identifier: arguments.count
 			count: 1
@@ -4181,12 +4175,6 @@ parameters:
 			identifier: method.notFound
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function trim expects string, float given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
 			rawMessage: 'Property Mage_Sales_Model_Order_Creditmemo::$_items (iterable<Mage_Sales_Model_Order_Creditmemo_Item>&Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection) in empty() is not falsy.'
