@@ -3235,12 +3235,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
-			rawMessage: 'Parameter #2 $string of function explode expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php
-
-		-
 			rawMessage: 'Cannot call method lastInsertId() on Varien_Db_Adapter_Interface|false.'
 			identifier: method.nonObject
 			count: 1
@@ -4799,18 +4793,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			rawMessage: 'Parameter #1 $shippingDays of method Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract::_determineShippingDay() expects array, string|false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
-
-		-
-			rawMessage: 'Parameter #2 $string of function explode expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
 
 		-
 			rawMessage: Access to an undefined property Varien_Object::$domestic.
