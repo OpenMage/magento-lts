@@ -23,7 +23,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $isPercent
      * @param null|int $storeId
-     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function preparePrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -41,7 +42,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $isPercent
      * @param null|int $storeId
-     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     * @return string
      */
     public function prepareOldPrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -60,7 +62,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      */
     public function registerJsPrice($price)
     {
-        return str_replace(',', '.', $price);
+        return str_replace(',', '.', (string) $price);
     }
 
     /**
@@ -69,6 +71,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $round
      * @param null|int $storeId
+     * @throws Mage_Core_Model_Store_Exception
      * @return float|int
      */
     public function convertPrice($price, $round = false, $storeId = null)
@@ -122,11 +125,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
     /**
      * Prepare product specific params to be used in getJsonConfig()
-     * @see Mage_Catalog_Block_Product_View::getJsonConfig()
-     * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
-     *
      * @param Mage_Catalog_Model_Product $product
+     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     *
+     * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
+     * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      */
     public function prepareJsonProductConfig($product)
     {
