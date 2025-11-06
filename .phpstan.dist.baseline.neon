@@ -685,12 +685,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Parameter #1 $prefix of function uniqid expects string, int<0, max> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 2
@@ -2819,12 +2813,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			rawMessage: 'Parameter #1 $prefix of function uniqid expects string, int<0, max> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection::addAttributeToSelect().'
