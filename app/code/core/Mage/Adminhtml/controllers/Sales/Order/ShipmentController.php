@@ -26,6 +26,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @return bool|Mage_Sales_Model_Order_Shipment
      */
@@ -110,6 +111,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Shipment information page
+     *
+     * @throws Mage_Core_Exception
      */
     public function viewAction()
     {
@@ -143,6 +146,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Shipment create page
+     *
+     * @throws Mage_Core_Exception
      */
     public function newAction()
     {
@@ -165,6 +170,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Save shipment
      * We can save only new shipment. Existing shipments are not editable
+     *
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -216,16 +223,16 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $this->_getSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage
                 : $shipmentCreatedMessage);
             Mage::getSingleton('adminhtml/session')->getCommentText(true);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
-                $responseAjax->setMessage($e->getMessage());
+                $responseAjax->setMessage($mageCoreException->getMessage());
             } else {
-                $this->_getSession()->addError($e->getMessage());
+                $this->_getSession()->addError($mageCoreException->getMessage());
                 $this->_redirect('*/*/new', ['order_id' => $this->getRequest()->getParam('order_id')]);
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);
                 $responseAjax->setMessage(
@@ -264,8 +271,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
                 $this->_getSession()->addSuccess($this->__('The shipment has been sent.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
         } catch (Exception) {
             $this->_getSession()->addError($this->__('Cannot send shipment information.'));
         }
@@ -309,10 +316,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                     'message'   => $this->__('Cannot initialize shipment for adding tracking number.'),
                 ];
             }
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage(),
+                'message'   => $mageCoreException->getMessage(),
             ];
         } catch (Exception) {
             $response = [
@@ -438,10 +445,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
             $this->loadLayout(false);
             $response = $this->getLayout()->getBlock('shipment_comments')->toHtml();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage(),
+                'message'   => $mageCoreException->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception) {
@@ -503,6 +510,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create shipping label for specific shipment with validation.
      *
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
+     * @throws Exception
      * @return bool
      */
     protected function _createShippingLabel(Mage_Sales_Model_Order_Shipment $shipment)
@@ -564,11 +574,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The shipping label has been created.'));
                 $response->setOk(true);
             }
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response->setError(true);
-            $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+            $response->setMessage($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $response->setError(true);
             $response->setMessage(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
         }
@@ -607,10 +617,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                     'application/pdf',
                 );
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_getSession()
                 ->addError(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
         }
@@ -622,6 +632,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create pdf document with information about packages
+     *
+     * @throws Zend_Pdf_Exception
+     * @throws Mage_Core_Exception
      */
     public function printPackageAction()
     {
@@ -642,6 +655,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Batch print shipping labels for whole shipments.
      * Push pdf document with shipping labels to user browser
+     *
+     * @throws Zend_Pdf_Exception
      */
     public function massPrintShippingLabelAction()
     {
@@ -700,6 +715,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Combine array of labels as instance PDF
      *
+     * @throws Zend_Pdf_Exception
      * @return Zend_Pdf
      */
     protected function _combineLabelsPdf(array $labelsContent)
@@ -726,6 +742,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
      * @param string $imageString
+     * @throws Zend_Pdf_Exception
      * @return bool|Zend_Pdf_Page
      */
     protected function _createPdfPageFromImageString($imageString)
@@ -741,7 +758,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, 0);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid(mt_rand()) . time() . '.png';
+                     . uniqid((string) mt_rand()) . time() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);
@@ -752,6 +769,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Return grid with shipping items for Ajax request
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Core_Controller_Response_Http
      */
     public function getShippingItemsGridAction()

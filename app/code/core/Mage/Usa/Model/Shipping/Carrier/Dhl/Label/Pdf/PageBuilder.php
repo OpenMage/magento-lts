@@ -37,6 +37,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
     /**
      * Create font instances
+     * @throws Zend_Pdf_Exception
      */
     public function __construct()
     {
@@ -92,53 +93,54 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Border
      *
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addBorder()
     {
-        $x = $this->_x(0);
-        $y = $this->_y(0);
+        $xAxis = $this->_x(0);
+        $yAxis = $this->_y(0);
 
         $image = new Zend_Pdf_Resource_Image_Jpeg(Mage::getBaseDir('media') . DS . 'dhl' . DS . 'logo.jpg');
-        $this->_page->drawImage($image, $x + 191, $this->_y(27), $x + 287, $this->_y(1));
+        $this->_page->drawImage($image, $xAxis + 191, $this->_y(27), $xAxis + 287, $this->_y(1));
 
         /* Vertical borders */
-        $this->_page->drawLine($x, $y, $x, $this->_y(568));
-        $this->_page->drawLine($x + 287.5, $y, $x + 287.5, $this->_y(568));
-        $this->_page->drawLine($x + 139.5, $y, $x + 139.5, $this->_y(28));
-        $this->_page->drawLine($x + 190.5, $y, $x + 190.5, $this->_y(28));
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis, $this->_y(568));
+        $this->_page->drawLine($xAxis + 287.5, $yAxis, $xAxis + 287.5, $this->_y(568));
+        $this->_page->drawLine($xAxis + 139.5, $yAxis, $xAxis + 139.5, $this->_y(28));
+        $this->_page->drawLine($xAxis + 190.5, $yAxis, $xAxis + 190.5, $this->_y(28));
 
         /* Horisontal borders */
-        $this->_page->drawLine($x, $y, $x + 288, $y);
-        $this->_page->drawLine($x, $this->_y(28), $x + 288, $this->_y(28));
-        $this->_page->drawLine($x, $this->_y(80.5), $x + 288, $this->_y(80.5));
-        $this->_page->drawLine($x, $this->_y(164), $x + 288, $this->_y(164));
-        $this->_page->drawLine($x, $this->_y(194), $x + 288, $this->_y(194));
-        $this->_page->drawLine($x, $this->_y(217.5), $x + 288, $this->_y(217.5));
-        $this->_page->drawLine($x, $this->_y(245.5), $x + 288, $this->_y(245.5));
-        $this->_page->drawLine($x, $this->_y(568.5), $x + 288, $this->_y(568.5));
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis + 288, $yAxis);
+        $this->_page->drawLine($xAxis, $this->_y(28), $xAxis + 288, $this->_y(28));
+        $this->_page->drawLine($xAxis, $this->_y(80.5), $xAxis + 288, $this->_y(80.5));
+        $this->_page->drawLine($xAxis, $this->_y(164), $xAxis + 288, $this->_y(164));
+        $this->_page->drawLine($xAxis, $this->_y(194), $xAxis + 288, $this->_y(194));
+        $this->_page->drawLine($xAxis, $this->_y(217.5), $xAxis + 288, $this->_y(217.5));
+        $this->_page->drawLine($xAxis, $this->_y(245.5), $xAxis + 288, $this->_y(245.5));
+        $this->_page->drawLine($xAxis, $this->_y(568.5), $xAxis + 288, $this->_y(568.5));
 
         $this->_page->setLineWidth(0.3);
 
-        $x = $this->_x(3);
-        $y = $this->_y(83);
-        $this->_page->drawLine($x, $y, $x + 10, $y);
-        $this->_page->drawLine($x, $y, $x, $y - 10);
+        $xAxis = $this->_x(3);
+        $yAxis = $this->_y(83);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis + 10, $yAxis);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis, $yAxis - 10);
 
-        $x = $this->_x(3);
-        $y = $this->_y(161);
-        $this->_page->drawLine($x, $y, $x + 10, $y);
-        $this->_page->drawLine($x, $y, $x, $y + 10);
+        $xAxis = $this->_x(3);
+        $yAxis = $this->_y(161);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis + 10, $yAxis);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis, $yAxis + 10);
 
-        $x = $this->_x(285);
-        $y = $this->_y(83);
-        $this->_page->drawLine($x, $y, $x - 10, $y);
-        $this->_page->drawLine($x, $y, $x, $y - 10);
+        $xAxis = $this->_x(285);
+        $yAxis = $this->_y(83);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis - 10, $yAxis);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis, $yAxis - 10);
 
-        $x = $this->_x(285);
-        $y = $this->_y(161);
-        $this->_page->drawLine($x, $y, $x - 10, $y);
-        $this->_page->drawLine($x, $y, $x, $y + 10);
+        $xAxis = $this->_x(285);
+        $yAxis = $this->_y(161);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis - 10, $yAxis);
+        $this->_page->drawLine($xAxis, $yAxis, $xAxis, $yAxis + 10);
 
         return $this;
     }
@@ -147,6 +149,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Product Name
      *
      * @param string $name
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -167,6 +170,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Product Content Code
      *
      * @param string $code
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -182,7 +186,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product content code is invalid'));
         }
 
-        $font = null;
         if ($codes[$code]) {
             $this->_page->drawRectangle(
                 $this->_x(140),
@@ -207,6 +210,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Unit Id
      *
      * @param int $id
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addUnitId($id)
@@ -223,6 +227,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Reference Data
      *
      * @param $data
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addReferenceData($data)
@@ -238,6 +243,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Sender Info
      *
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -286,6 +292,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Draw Sender Address
      *
      * @param string $phoneNumber
+     * @throws Zend_Pdf_Exception
      * @return float
      */
     protected function _drawSenderAddress(SimpleXMLElement $addressLines, $phoneNumber)
@@ -295,7 +302,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
             $lines [] = $line;
         }
 
-        $pageY = 0;
         if (strlen($lines[0]) > 28) {
             $firstLine = array_shift($lines);
             $pageY = $this->_page->drawLines([$firstLine], $this->_x(25), $this->_y(42), 28);
@@ -317,12 +323,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Origin Info
      *
      * @param string $serviceAreaCode
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
     public function addOriginInfo($serviceAreaCode)
     {
-        if (strlen(!$serviceAreaCode)) {
+        if (!strlen($serviceAreaCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Origin serviceAreaCode is missing'));
         }
 
@@ -339,6 +346,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Receive Info
      *
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addReceiveInfo(SimpleXMLElement $consignee)
@@ -349,18 +357,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawText('To:', $this->_x(5), $this->_y(92));
         $this->_page->drawText($consignee->CompanyName, $this->_x(20), $this->_y(90));
 
-        $y = $this->_page->drawLines($consignee->AddressLine, $this->_x(19), $this->_y(100), 50);
+        $yAxis = $this->_page->drawLines($consignee->AddressLine, $this->_x(19), $this->_y(100), 50);
 
         $this->_page->setFont($this->_fontBold, 11);
         $cityInfo = implode(' ', array_filter([$consignee->PostalCode, $consignee->City,
             $consignee->DivisionCode]));
-        $y = min($y - 3, 460);
-        $this->_page->drawLines([$cityInfo, $consignee->CountryName], $this->_x(20), $y, 44);
+        $yAxis = min($yAxis - 3, 460);
+        $this->_page->drawLines([$cityInfo, $consignee->CountryName], $this->_x(20), $yAxis, 44);
 
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('Contact:', $this->_x(260), $this->_y(90));
 
-        $y = $this->_page->drawLines(
+        $yAxis = $this->_page->drawLines(
             [$consignee->Contact->PersonName],
             $this->_x(283),
             $this->_y(98),
@@ -372,7 +380,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawText(
             $phoneNumber,
             $this->_x(283),
-            $y,
+            $yAxis,
             'UTF-8',
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_RIGHT,
         );
@@ -387,6 +395,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $countryCode
      * @param string $serviceAreaCode
      * @param string $facilityCode
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -416,6 +425,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Service Features Codes
      *
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addServiceFeaturesCodes()
@@ -435,6 +445,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Delivery Date Code
      *
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addDeliveryDateCode()
@@ -455,6 +466,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Shipment Information
      *
      * @param Mage_Sales_Model_Order_Shipment $data
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -480,6 +492,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Date Info
      * @param string $date
+     * @throws Zend_Pdf_Exception
      * @return $this
      */
     public function addDateInfo($date)
@@ -499,6 +512,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param string $weight
      * @param string $unit
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -526,6 +540,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * Add Content: Shipment Description
      *
      * @param array $package
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -537,14 +552,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
             throw new InvalidArgumentException(Mage::helper('usa')->__('Package content is missing'));
         }
 
-        $x = 225;
-        $y = 300;
-        $this->_page->drawText('Content: ', $this->_x($x), $this->_y($y));
-        $i = 0;
+        $xAxis = 225;
+        $yAxis = 300;
+        $this->_page->drawText('Content: ', $this->_x($xAxis), $this->_y($yAxis));
+        $index = 0;
         foreach ($package['items'] as $item) {
-            $i++;
-            $this->_page->drawText(substr($item['name'], 0, 20), $this->_x($x), $this->_y($y += 6));
-            if ($i == 12) {
+            $index++;
+            $this->_page->drawText(substr($item['name'], 0, 20), $this->_x($xAxis), $this->_y($yAxis += 6));
+            if ($index == 12) {
                 break;
             }
         }
@@ -558,6 +573,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param string $number
      * @param string $barCode
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -587,6 +603,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $routingCode
      * @param string $id
      * @param string $barCode
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -616,6 +633,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param string $dataIdentifier
      * @param string $licensePlate
      * @param string $barCode
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */
@@ -650,6 +668,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param int $pieceNumber
      * @param int $piecesTotal
+     * @throws Zend_Pdf_Exception
      * @throws InvalidArgumentException
      * @return $this
      */

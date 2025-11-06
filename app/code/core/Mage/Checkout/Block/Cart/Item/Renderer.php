@@ -75,7 +75,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Catalog_Helper_Image $productThumbnail
+     * @param null|Mage_Catalog_Helper_Image $productThumbnail
      * @return $this
      */
     public function overrideProductThumbnail($productThumbnail)
@@ -179,7 +179,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get product customize options
      *
-     * @return array|false
+     * @return array
      */
     public function getProductOptions()
     {
