@@ -177,12 +177,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
         $_tierPrices = [];
         $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
-            $_tierPrices[] = Mage::helper('core')::currency(
+            $_tierPrices[] = Mage::helper('core')->currency(
                 Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], false) - $_priceExclTax,
                 false,
                 false,
             );
-            $_tierPricesInclTax[] = Mage::helper('core')::currency(
+            $_tierPricesInclTax[] = Mage::helper('core')->currency(
                 Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], true) - $_priceInclTax,
                 false,
                 false,
@@ -191,10 +191,10 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
         return [
             'productId'           => $product->getId(),
-            'productPrice'        => Mage::helper('core')::currency($_finalPrice, false, false),
-            'productOldPrice'     => Mage::helper('core')::currency($_regularPrice, false, false),
-            'priceInclTax'        => Mage::helper('core')::currency($_priceInclTax, false, false),
-            'priceExclTax'        => Mage::helper('core')::currency($_priceExclTax, false, false),
+            'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
+            'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
+            'priceInclTax'        => Mage::helper('core')->currency($_priceInclTax, false, false),
+            'priceExclTax'        => Mage::helper('core')->currency($_priceExclTax, false, false),
             'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
             'defaultTax'          => $defaultTax,
             'currentTax'          => $currentTax,
