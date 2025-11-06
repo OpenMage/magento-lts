@@ -131,7 +131,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Standard resource model initialization
      *
      * @param string $mainTable
-     * @param string $idFieldName
+     * @param null|string $idFieldName
      */
     protected function _init($mainTable, $idFieldName)
     {
@@ -152,8 +152,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_resources = Mage::getSingleton('core/resource');
 
         if (is_array($connections)) {
-            foreach ($connections as $k => $v) {
-                $this->_connections[$k] = $this->_resources->getConnection($v);
+            foreach ($connections as $key => $value) {
+                $this->_connections[$key] = $this->_resources->getConnection($value);
             }
         } elseif (is_string($connections)) {
             $this->_resourcePrefix = $connections;
@@ -162,8 +162,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($tables) && is_string($connections)) {
             $this->_resourceModel = $this->_resourcePrefix;
         } elseif (is_array($tables)) {
-            foreach ($tables as $k => $v) {
-                $this->_tables[$k] = $this->_resources->getTableName($v);
+            foreach ($tables as $key => $value) {
+                $this->_tables[$key] = $this->_resources->getTableName($value);
             }
         } elseif (is_string($tables)) {
             $this->_resourceModel = $tables;
@@ -205,6 +205,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get primary key field name
      *
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function getIdFieldName()
@@ -220,6 +221,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Returns main table name - extracted from "module/table" style and
      * validated by db adapter
      *
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function getMainTable()
@@ -366,6 +368,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param mixed $value
      * @param null|string $field field to load by (defaults to model id)
+     * @throws Exception
      * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -404,7 +407,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
 
         if (!isset($fields[$field])) {
-            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
+            throw new Exception("Column \"$field\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
         $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
@@ -417,6 +420,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Save object object data
      *
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Mage_Core_Exception
+     * @throws Exception
      * @return $this
      */
     public function save(Mage_Core_Model_Abstract $object)
@@ -476,8 +482,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Forced save object data
      * forced update If duplicate unique key data
      *
-     * @deprecated
+     * @throws Zend_Db_Exception
+     * @throws Mage_Core_Exception
      * @return $this
+     * @deprecated
      */
     public function forsedSave(Mage_Core_Model_Abstract $object)
     {
@@ -585,6 +593,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Prepare data for save
      *
+     * @throws Mage_Core_Exception
      * @return array
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
@@ -597,6 +606,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
+     * @throws Zend_Cache_Exception
+     * @throws Mage_Core_Exception
      * @return bool
      */
     public function hasDataChanged($object)

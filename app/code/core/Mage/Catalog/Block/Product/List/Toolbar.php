@@ -199,7 +199,8 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Set collection to pager
      *
-     * @param Varien_Data_Collection $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @throws Exception
      * @return $this
      */
     public function setCollection($collection)
@@ -284,6 +285,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Return current page from request
      *
+     * @throws Exception
      * @return int
      */
     public function getCurrentPage()
@@ -298,6 +300,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Get grit products sort order field
      *
+     * @throws Exception
      * @return string
      */
     public function getCurrentOrder()
@@ -338,6 +341,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve current direction
      *
+     * @throws Exception
      * @return string
      */
     public function getCurrentDirection()
@@ -452,6 +456,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Compare defined order field vith current order field
      *
      * @param string $order
+     * @throws Exception
      * @return bool
      */
     public function isOrderCurrent($order)
@@ -462,8 +467,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve Pager URL
      *
-     * @param string $order
+     * @param null|string $order
      * @param string $direction
+     * @throws Exception
      * @return string
      */
     public function getOrderUrl($order, $direction)
@@ -498,6 +504,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve current View mode
      *
+     * @throws Exception
      * @return string
      */
     public function getCurrentMode()
@@ -532,6 +539,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Compare defined view mode with current active mode
      *
      * @param string $mode
+     * @throws Exception
      * @return bool
      */
     public function isModeActive($mode)
@@ -642,6 +650,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve default per page values
      *
+     * @throws Exception
      * @return string (comma separated)
      */
     public function getDefaultPerPageValue()
@@ -684,6 +693,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve available limits for current view mode
      *
+     * @throws Exception
      * @return array
      */
     public function getAvailableLimit()
@@ -722,6 +732,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Get specified products limit display per page
      *
+     * @throws Exception
      * @return string
      */
     public function getLimit()
@@ -773,6 +784,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
 
     /**
      * @param int $limit
+     * @throws Exception
      * @return bool
      */
     public function isLimitCurrent($limit)
@@ -825,6 +837,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Render pagination HTML
      *
+     * @throws Exception
      * @return string
      */
     public function getPagerHtml()
