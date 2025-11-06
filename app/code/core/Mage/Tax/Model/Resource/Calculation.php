@@ -224,13 +224,17 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Returns tax rates for request - either pereforms SELECT from DB, or returns already cached result
      * Notice that productClassId due to optimization can be array of ids
      *
-     * @param Varien_Object $request
+     * @param null|Varien_Object $request
      * @throws Zend_Db_Select_Exception
      * @throws Mage_Core_Exception
      * @return array
      */
     protected function _getRates($request)
     {
+        if (!$request instanceof Varien_Object) {
+            return [];
+        }
+
         // Extract params that influence our SELECT statement and use them to create cache key
         $storeId = Mage::app()->getStore($request->getStore())->getId();
         $customerClassId = $request->getCustomerClassId();
