@@ -15,12 +15,12 @@
 class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Interface
 {
     /**
-    * Pack file by BZIP2 compressor.
-    *
-    * @param string $source
-    * @param string $destination
-    * @return string
-    */
+     * Pack file by BZIP2 compressor.
+     *
+     * @param string $source
+     * @param string $destination
+     * @return string
+     */
     public function pack($source, $destination)
     {
         $fileReader = new Mage_Archive_Helper_File($source);
@@ -40,12 +40,12 @@ class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Inte
     }
 
     /**
-    * Unpack file by BZIP2 compressor.
-    *
-    * @param string $source
-    * @param string $destination
-    * @return string
-    */
+     * Unpack file by BZIP2 compressor.
+     *
+     * @param string $source
+     * @param string $destination
+     * @return string
+     */
     public function unpack($source, $destination)
     {
         if (is_dir($destination)) {

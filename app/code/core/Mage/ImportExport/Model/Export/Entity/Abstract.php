@@ -45,7 +45,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -170,10 +170,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     }
 
     /**
-    * Initialize website values.
-    *
-    * @return $this
-    */
+     * Initialize website values.
+     *
+     * @return $this
+     */
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
@@ -322,7 +322,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
+     * @param int $errorRowNum row number
      * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
@@ -442,7 +442,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {

@@ -25,7 +25,6 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
 
     /**
      * Initialize main table and the primary key field name
-     *
      */
     protected function _construct()
     {
@@ -177,7 +176,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param array|string|object $columns
+     * @param array|object|string $columns
      * @param bool $isRow
      * @param string $txnType
      * @return array|string
@@ -202,7 +201,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param string|array|Zend_Db_Expr $columns
+     * @param array|string|Zend_Db_Expr $columns
      * @return Varien_Db_Select
      */
     private function _getLoadByUniqueKeySelect($orderId, $paymentId, $txnId, $columns = '*')

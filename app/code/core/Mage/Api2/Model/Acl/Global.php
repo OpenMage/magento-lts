@@ -19,8 +19,8 @@ class Mage_Api2_Model_Acl_Global
      *
      * @param string $resourceType
      * @param string $operation
-     * @return bool
      * @throws Mage_Api2_Exception
+     * @return bool
      */
     public function isAllowed(Mage_Api2_Model_Auth_User_Abstract $apiUser, $resourceType, $operation)
     {

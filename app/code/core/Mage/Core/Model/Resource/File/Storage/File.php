@@ -17,7 +17,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Prefix of model events names
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_mediaBaseDirectory = null;
 
@@ -28,7 +28,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     protected $_ignoredFiles;
 
     /**
-     * @var resource|null
+     * @var null|resource
      */
     protected $filePointer;
 
@@ -183,8 +183,8 @@ class Mage_Core_Model_Resource_File_Storage_File
      * @param  string $filePath
      * @param  string $content
      * @param  bool $overwrite
-     * @return bool true if file written, otherwise false
      * @throws Mage_Core_Exception
+     * @return bool true if file written, otherwise false
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

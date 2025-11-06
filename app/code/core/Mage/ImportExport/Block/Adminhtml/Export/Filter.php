@@ -17,7 +17,7 @@
 class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
+     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_collection = null;
 

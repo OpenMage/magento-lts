@@ -23,7 +23,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -47,7 +46,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Initialize order model instance
      *
-     * @return Mage_Sales_Model_Order | false
+     * @return false|Mage_Sales_Model_Order
      */
     protected function _initOrder()
     {
@@ -99,7 +98,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 Mage_Sales_Model_Order::ACTION_FLAG_PRODUCTS_PERMISSION_DENIED,
             );
             if ($isActionsNotPermitted) {
-                $this->_getSession()->addError($this->__('You don\'t have permissions to manage this order because of one or more products are not permitted for your website.'));
+                $this->_getSession()->addError($this->__("You don't have permissions to manage this order because of one or more products are not permitted for your website."));
             }
 
             $this->_initAction();
@@ -712,7 +711,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order transactions grid ajax action
-     *
      */
     public function transactionsAction()
     {

@@ -98,7 +98,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param string $elementId
      * @param string $type
      * @param array $config
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after = false)

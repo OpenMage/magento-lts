@@ -16,7 +16,6 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
 {
     /**
      * Initialize table nad PK name
-     *
      */
     protected function _construct()
     {
@@ -136,7 +135,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Check is order increment id use in sales/order table
      *
-     * @param string|int $orderIncrementId
+     * @param int|string $orderIncrementId
      *
      * @return bool
      */
@@ -158,7 +157,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Mark quotes - that depend on catalog price rules - to be recollected on demand
      *
-     *  @param  array|null $productIdList
+     *  @param  null|array $productIdList
      *
      * @return $this
      */

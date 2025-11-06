@@ -123,8 +123,8 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Initialize objects save transaction
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function save()
     {
@@ -160,8 +160,8 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Initialize objects delete transaction
      *
-     * @return $this
      * @throws Exception
+     * @return $this
      */
     public function delete()
     {

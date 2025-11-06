@@ -26,7 +26,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
 
     /**
      * Initialize tab
-     *
      */
     public function __construct()
     {

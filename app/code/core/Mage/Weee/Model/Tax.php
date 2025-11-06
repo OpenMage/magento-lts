@@ -40,7 +40,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     /**
      * All weee attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allAttributes = null;
 
@@ -146,7 +146,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Sales_Model_Quote_Address $shipping
      * @param Mage_Sales_Model_Quote_Address $billing
-     * @param int|Mage_Core_Model_Website|null|string|true $website
+     * @param null|int|Mage_Core_Model_Website|string|true $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return array

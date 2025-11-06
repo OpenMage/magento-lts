@@ -17,7 +17,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -40,7 +40,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Prepare stock status per Bundle options, website and stock
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return $this
      */
@@ -52,8 +52,8 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         $select   = $adapter->select()
             ->from(['bo' => $this->getTable('bundle/option')], ['parent_id']);
         $this->_addWebsiteJoinToSelect($select, false);
-        $status = new Zend_Db_Expr('MAX(' .
-                $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
+        $status = new Zend_Db_Expr('MAX('
+                . $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
         $select->columns('website_id', 'cw')
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
@@ -104,7 +104,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Get the select object for get stock status by product ids
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
@@ -171,7 +171,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Prepare stock status data in temporary index table
      *
-     * @param int|array $entityIds  the product limitation
+     * @param array|int $entityIds  the product limitation
      * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)

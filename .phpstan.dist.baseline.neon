@@ -745,12 +745,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
 
 		-
-			rawMessage: 'Parameter #1 $modelClass of static method Mage::getModel() expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
-
-		-
 			rawMessage: 'Method Mage_Directory_Model_Country::loadByCode() invoked with 2 parameters, 1 required.'
 			identifier: arguments.count
 			count: 1
@@ -841,34 +835,10 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php
 
 		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
-
-		-
-			rawMessage: 'Parameter #2 $needle of function str_contains expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
-
-		-
 			rawMessage: 'Return type (Mage_Api_Model_Wsdl_Config) of method Mage_Api_Model_Server_Wsi_Adapter_Soap::_getWsdlConfig() should be compatible with return type (Varien_Object) of method Mage_Api_Model_Server_Adapter_Soap::_getWsdlConfig()'
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Adapter/Soap.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
-
-		-
-			rawMessage: 'Parameter #2 $needle of function str_contains expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
 		-
 			rawMessage: 'Return type (stdClass) of method Mage_Api_Model_Server_Wsi_Handler::endSession() should be compatible with return type (true) of method Mage_Api_Model_Server_Handler_Abstract::endSession()'
@@ -887,12 +857,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Session.php
-
-		-
-			rawMessage: Invalid array key type array.
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: app/code/core/Mage/Api/Model/Wsdl/Config.php
 
 		-
 			rawMessage: 'Call to an undefined method SimpleXMLElement::extendChild().'
@@ -1531,31 +1495,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer.php
 
 		-
-			rawMessage: 'Parameter #2 $filterBlock (Varien_Object) of method Mage_Catalog_Model_Layer_Filter_Attribute::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			rawMessage: 'Parameter #1 $range of method Mage_Catalog_Model_Layer_Filter_Decimal::_renderItemLabel() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock (Mage_Catalog_Block_Layer_Filter_Decimal) of method Mage_Catalog_Model_Layer_Filter_Decimal::apply() should be compatible with parameter $filterBlock (null) of method Mage_Catalog_Model_Layer_Filter_Abstract::apply()'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #2 $filterBlock of method Mage_Catalog_Model_Layer_Filter_Abstract::apply() expects null, Mage_Catalog_Block_Layer_Filter_Decimal given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
@@ -1577,12 +1517,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
 		-
 			rawMessage: 'Method Mage_Catalog_Model_Resource_Category_Flat::move() invoked with 3 parameters, 1 required.'
@@ -2159,12 +2093,6 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
-
-		-
-			rawMessage: 'Return type (int) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row::_getProduct() should be compatible with return type (null) of method Mage_CatalogRule_Model_Action_Index_Refresh::_getProduct()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
 
 		-
 			rawMessage: 'Parameter #1 $combine of method Mage_CatalogRule_Model_Observer::_removeAttributeFromConditions() expects Mage_CatalogRule_Model_Rule_Condition_Combine, Mage_Rule_Model_Condition_Combine given.'
@@ -3167,12 +3095,6 @@ parameters:
 			identifier: return.missing
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
-			rawMessage: 'Parameter #1 $modelClass of static method Mage::getModel() expects string, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
 			rawMessage: 'Cannot call method streamRead() on resource.'
@@ -4261,12 +4183,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Block_Recurring_Profiles::$_profiles (Mage_Sales_Model_Resource_Recurring_Profile_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
 			rawMessage: 'Parameter #2 $code of method Mage_Api2_Model_Resource::_critical() expects int|null, string given.'
 			identifier: argument.type
 			count: 2
@@ -4307,12 +4223,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php
-
-		-
-			rawMessage: 'Cannot call method addAttributeToFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
 			rawMessage: 'Parameter #1 $incrementId of method Mage_Sales_Model_Order_Invoice::loadByIncrementId() expects string, int given.'
@@ -4972,12 +4882,6 @@ parameters:
 			rawMessage: 'Method Zend_Pdf_Canvas_Abstract::drawText() invoked with 5 parameters, 3-4 required.'
 			identifier: arguments.count
 			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			rawMessage: 'Parameter #1 $string of function strlen expects string, bool given.'
-			identifier: argument.type
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-

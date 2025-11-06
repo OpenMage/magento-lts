@@ -136,7 +136,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Link|array|int $items
+     * @param array|int|Mage_Downloadable_Model_Link $items
      * @return $this
      */
     public function deleteItems($items)

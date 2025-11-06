@@ -31,7 +31,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Websites cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 
@@ -114,7 +114,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Retrieve allowed customer groups
      *
-     * @param int|null $groupId  return name by customer group id
+     * @param null|int $groupId  return name by customer group id
      * @return array|string
      */
     public function getCustomerGroups($groupId = null)

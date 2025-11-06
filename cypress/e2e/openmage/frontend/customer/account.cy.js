@@ -48,7 +48,9 @@ describe('Checks customer account create', () => {
         const lastname = 'Doe';
         const password = '12345678';
 
-        const message = 'Thank you for registering with Madison Island.';
+        // see PR: https://github.com/OpenMage/magento-lts/pull/4617
+        // const message = 'Thank you for registering with Madison Island.';
+        const message = 'Thank you for registering with ENV name default.';
         const filename = 'message.customer.account.create.success';
         cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
         cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);

@@ -117,8 +117,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if ($setId) {
             $select->join(
                 ['set_table' => $this->getTable('eav/entity_attribute')],
-                $this->_getReadAdapter()->quoteInto('attr_table.attribute_id = set_table.attribute_id' .
-                ' AND set_table.attribute_set_id = ?', $setId),
+                $this->_getReadAdapter()->quoteInto('attr_table.attribute_id = set_table.attribute_id'
+                . ' AND set_table.attribute_set_id = ?', $setId),
                 [],
             );
         }
@@ -200,7 +200,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Insert or Update attribute data
      *
      * @param Mage_Catalog_Model_Abstract|Varien_Object $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
      */
@@ -522,7 +522,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param mixed $value New value of the attribute.
+     * @param mixed $value new value of the attribute
      * @return bool
      */
     protected function _canUpdateAttribute(
@@ -531,11 +531,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         array &$origData
     ) {
         $result = parent::_canUpdateAttribute($attribute, $value, $origData);
-        if ($result &&
-            ($attribute->isScopeStore() || $attribute->isScopeWebsite()) &&
-            !$this->_isAttributeValueEmpty($attribute, $value) &&
-            $value == $origData[$attribute->getAttributeCode()] &&
-            isset($origData['store_id']) && $origData['store_id'] != $this->getDefaultStoreId()
+        if ($result
+            && ($attribute->isScopeStore() || $attribute->isScopeWebsite())
+            && !$this->_isAttributeValueEmpty($attribute, $value)
+            && $value == $origData[$attribute->getAttributeCode()]
+            && isset($origData['store_id']) && $origData['store_id'] != $this->getDefaultStoreId()
         ) {
             return false;
         }
@@ -563,9 +563,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve attribute's raw value from DB.
      *
      * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
+     * @param array|int|string $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|null|array
+     * @return null|array|bool|string
      */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
@@ -688,9 +688,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve attribute's raw value from DB using its source model if available.
      *
      * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
+     * @param array|int|string $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|array
+     * @return array|bool|string
      */
     public function getAttributeRawText($entityId, $attribute, $store)
     {

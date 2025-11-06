@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Base;
+namespace OpenMage\Tests\Unit\Base;
 
 use Composer\InstalledVersions;
 use PHPUnit\Framework\TestCase;

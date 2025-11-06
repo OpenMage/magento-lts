@@ -23,7 +23,6 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
 
     /**
      * Define main and locale region name tables
-     *
      */
     protected function _construct()
     {

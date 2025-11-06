@@ -60,7 +60,7 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Validates Form key
      *
-     * @param string|null $formKey
+     * @param null|string $formKey
      * @return bool
      */
     public function validateFormKey($formKey)

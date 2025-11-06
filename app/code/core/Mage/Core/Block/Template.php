@@ -134,7 +134,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Assign variable
      *
-     * @param   string|array $key
+     * @param   array|string $key
      * @param   mixed $value
      * @return  $this
      */
@@ -275,8 +275,7 @@ HTML;
 
         try {
             if (!str_contains($this->_viewDir . DS . $fileName, '..')
-                &&
-                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
+                && ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {

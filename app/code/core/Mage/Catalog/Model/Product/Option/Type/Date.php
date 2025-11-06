@@ -12,16 +12,16 @@
  *
  * @package    Mage_Catalog
  *
- * @method array|null getUserValue()
- * @method $this setUserValue(array|null $userValue)
+ * @method null|array getUserValue()
+ * @method $this setUserValue(null|array $userValue)
  */
 class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Product_Option_Type_Default
 {
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
     public function validateUserValue($values)
@@ -193,7 +193,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {

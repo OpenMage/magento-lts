@@ -41,8 +41,8 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     ];
 
     /**
-     * @param string|array|null $value
-     * @return string|array
+     * @param null|array|string $value
+     * @return array|string
      */
     public function filter($value)
     {
@@ -88,8 +88,8 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      *
      * @param string $html
      * @param bool $removeWrapper flag for remove wrapper tags: Doctype, html, body
-     * @return string
      * @throws Mage_Core_Exception
+     * @return string
      */
     public function linkFilter($html, $removeWrapper = true)
     {

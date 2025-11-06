@@ -16,7 +16,6 @@ class Mage_Catalog_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_Fil
 {
     /**
      * Initialize Price filter module
-     *
      */
     public function __construct()
     {

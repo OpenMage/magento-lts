@@ -49,7 +49,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Whether it is the first page after successful login
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isFirstPageAfterLogin;
 
@@ -74,14 +74,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function __construct($parameters = [])
     {
-        $this->_urlPolicy = (!empty($parameters['redirectPolicy'])) ?
-            $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
+        $this->_urlPolicy = (!empty($parameters['redirectPolicy']))
+            ? $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
 
-        $this->_response = (!empty($parameters['response'])) ?
-            $parameters['response'] : new Mage_Core_Controller_Response_Http();
+        $this->_response = (!empty($parameters['response']))
+            ? $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        $this->_factory = (!empty($parameters['factory'])) ?
-            $parameters['factory'] : Mage::getModel('core/factory');
+        $this->_factory = (!empty($parameters['factory']))
+            ? $parameters['factory'] : Mage::getModel('core/factory');
 
         $this->init('admin');
         $this->logoutIndirect();
@@ -132,7 +132,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  string $username
      * @param  string $password
      * @param  Mage_Core_Controller_Request_Http $request
-     * @return Mage_Admin_Model_User|null
+     * @return null|Mage_Admin_Model_User
      */
     public function login($username, $password, $request = null)
     {
@@ -287,7 +287,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Custom REQUEST_URI logic
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * @return string|null
+     * @return null|string
      */
     protected function _getRequestUri($request = null)
     {
@@ -304,9 +304,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Login failed process
      *
      * @param Exception $e
+     * @param null|Mage_Core_Controller_Request_Http $request
      * @param string $username
      * @param string $message
-     * @param Mage_Core_Controller_Request_Http|null $request
      */
     protected function _loginFailed($e, $request, $username, $message)
     {

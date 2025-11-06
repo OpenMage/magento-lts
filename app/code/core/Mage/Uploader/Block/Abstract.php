@@ -27,17 +27,17 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     protected $_misc;
 
     /**
-     * @var Mage_Uploader_Model_Config_Uploader|null
+     * @var null|Mage_Uploader_Model_Config_Uploader
      */
     protected $_uploaderConfig;
 
     /**
-     * @var Mage_Uploader_Model_Config_Browsebutton|null
+     * @var null|Mage_Uploader_Model_Config_Browsebutton
      */
     protected $_browseButtonConfig;
 
     /**
-     * @var Mage_Uploader_Model_Config_Misc|null
+     * @var null|Mage_Uploader_Model_Config_Misc
      */
     protected $_miscConfig;
 

@@ -29,8 +29,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Check if the uploaded file exists
      *
-     * @throws Exception
      * @param array $file
+     * @throws Exception
      */
     public function __construct($file)
     {
@@ -45,8 +45,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Sets uploaded file info and decodes the file
      *
-     * @throws Exception
      * @param array $fileInfo
+     * @throws Exception
      */
     private function _setUploadFile($fileInfo)
     {

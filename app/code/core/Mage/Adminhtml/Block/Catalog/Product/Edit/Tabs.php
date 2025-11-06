@@ -191,7 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     /**
      * Getting attribute block name for tabs
      *
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeTabBlock()
     {

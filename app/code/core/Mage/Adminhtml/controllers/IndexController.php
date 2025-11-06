@@ -200,7 +200,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     protected function _getDeniedIframe()
     {
         return '<script type="text/javascript">parent.window.location = \''
-            . $this->getUrl('*/index/login') . '\';</script>';
+            . $this->getUrl('*/index/login') . "';</script>";
     }
 
     /**
@@ -405,7 +405,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * @link    Mage_Core_Model_Config::getModelInstance
      * @param   string $modelClass
      * @param   array|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @return  false|Mage_Core_Model_Abstract
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

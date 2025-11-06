@@ -14,6 +14,7 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()
+ *
  * @method $this setEntityId(int $value)
  * @method int getAttributeId()
  * @method $this setAttributeId(int $value)

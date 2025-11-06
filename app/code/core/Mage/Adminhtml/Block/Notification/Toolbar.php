@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
 {
     /**
      * Initialize Toolbar block
-     *
      */
     protected function _construct() {}
 
@@ -33,8 +32,8 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     /**
      * Check is show toolbar
      *
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function isShow()
     {

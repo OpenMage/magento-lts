@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     /**
      * Returns root node
      *
-     * @param Mage_Catalog_Model_Category|null $parentNodeCategory
+     * @param null|Mage_Catalog_Model_Category $parentNodeCategory
      * @param int                              $recursionLevel
      * @return Varien_Data_Tree_Node
      */

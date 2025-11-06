@@ -40,14 +40,14 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
+     * @param int|Mage_Core_Model_Config_Element|string $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)
     {
         if (empty($this->_productAttributes[$attribute])) {
-            $this->_productAttributes[$attribute] =
-                Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
+            $this->_productAttributes[$attribute]
+                = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
         }
 
         return $this->_productAttributes[$attribute];
@@ -81,9 +81,9 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * @param int $productId
      * @param int $storeId
      * @param int $value
-     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
+     * @return $this
      */
     public function updateProductStatus($productId, $storeId, $value)
     {

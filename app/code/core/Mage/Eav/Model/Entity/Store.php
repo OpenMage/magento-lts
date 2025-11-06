@@ -12,6 +12,7 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()
+ *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
  * @method int getStoreId()

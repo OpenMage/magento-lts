@@ -860,8 +860,8 @@ abstract class Mage_Api2_Model_Resource
      * Check ACL permission for specified resource with current other conditions
      *
      * @param string $resourceId Resource identifier
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     protected function _isSubCallAllowed($resourceId)
     {

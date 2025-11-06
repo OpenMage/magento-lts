@@ -49,7 +49,7 @@
         </tr>
 
         <tr>
-            <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Qty for Item\'s Status to Become Out of Stock') ?></label></td>
+            <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__("Qty for Item's Status to Become Out of Stock") ?></label></td>
             <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_qty]" value="<?php echo $this->getFieldValueAsFloat('min_qty') ?>" <?php echo $_readonly;?>/>
 
             <?php $_checked = ($this->getFieldValue('use_config_min_qty') || $this->isNew()) ? 'checked="checked"' : '' ?>

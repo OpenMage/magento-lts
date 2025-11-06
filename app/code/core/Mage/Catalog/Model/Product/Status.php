@@ -14,6 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
+ *
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method int getStoreId()
@@ -203,7 +204,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Product(s) status for store
      * Return array where key is product, value - status
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @param int $storeId
      * @return array
      */
@@ -264,7 +265,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -299,8 +300,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir direction
-     * @return Mage_Catalog_Model_Product_Status
      * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product_Status
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {

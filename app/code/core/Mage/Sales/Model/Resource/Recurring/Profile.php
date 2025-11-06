@@ -16,7 +16,6 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
 {
     /**
      * Initialize main table and column
-     *
      */
     protected function _construct()
     {
@@ -63,7 +62,6 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
 
     /**
      * Return recurring profile child Orders Ids
-     *
      *
      * @param Varien_Object $object
      * @return array

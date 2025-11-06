@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicate that block can display container
      *
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function canDisplayContainer()
     {
@@ -134,8 +134,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()]
+            = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
         if (!$this->getMessage()->getSender()) {

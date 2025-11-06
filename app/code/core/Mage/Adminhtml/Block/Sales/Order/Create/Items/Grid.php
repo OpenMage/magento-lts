@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      * Returns the item's original price
      *
      * @param Mage_Sales_Model_Quote_Item $item
-     * @return double
+     * @return float
      */
     public function getItemOrigPrice($item)
     {
@@ -364,7 +364,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      * Returns the item's original price that includes tax
      *
      * @param Mage_Sales_Model_Quote_Item $item
-     * @return double
+     * @return float
      */
     public function displayOriginalPriceInclTax($item)
     {
@@ -462,8 +462,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     /**
      * Retrieve collection of customer wishlists
      *
-     * @return Mage_Wishlist_Model_Resource_Wishlist_Collection
      * @throws Mage_Core_Exception
+     * @return Mage_Wishlist_Model_Resource_Wishlist_Collection
      */
     public function getCustomerWishlists()
     {

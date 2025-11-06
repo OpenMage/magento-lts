@@ -20,11 +20,32 @@ final class PageTest extends OpenMageTest
     use CmsTrait;
 
     /**
+     * @covers Mage_Cms_Helper_Page::getUsedInStoreConfigPaths()
      * @dataProvider provideGetUsedInStoreConfigPaths
      * @group Helper
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
         self::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
+    }
+
+    /**
+     * @covers Mage_Cms_Helper_Page::getConfigLabelFromConfigPath()
+     * @dataProvider provideGetConfigLabelFromConfigPath
+     * @group Helper
+     */
+    public function testGetConfigLabelFromConfigPath(string $expectedResult, string $paths): void
+    {
+        self::assertSame($expectedResult, Subject::getConfigLabelFromConfigPath($paths));
+    }
+
+    /**
+     * @covers Mage_Cms_Helper_Page::getScopeInfoFromConfigScope()
+     * @dataProvider provideGetScopeInfoFromConfigScope
+     * @group Helper
+     */
+    public function testGetScopeInfoFromConfigScope(string $expectedResult, string $scope, string $scopeId): void
+    {
+        self::assertStringStartsWith($expectedResult, Subject::getScopeInfoFromConfigScope($scope, $scopeId));
     }
 }

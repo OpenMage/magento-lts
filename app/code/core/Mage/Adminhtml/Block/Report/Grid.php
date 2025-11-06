@@ -480,9 +480,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
-                        $data[] = ($j == 1) ?
-                                '"' . $this->__('Subtotal') . '"' :
-                                '"' . str_replace('"', '""', $column->getRowField($this->getTotals())) . '"';
+                        $data[] = ($j == 1)
+                                ? '"' . $this->__('Subtotal') . '"'
+                                : '"' . str_replace('"', '""', $column->getRowField($this->getTotals())) . '"';
                     }
                 }
 
@@ -654,8 +654,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return double
+     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @return float
      */
     public function getRate($toCurrency)
     {

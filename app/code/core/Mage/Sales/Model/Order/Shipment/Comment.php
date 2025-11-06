@@ -15,6 +15,8 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getResourceCollection()
+ *
  * @method string getComment()
  * @method $this setComment(string $value)
  * @method string getCreatedAt()

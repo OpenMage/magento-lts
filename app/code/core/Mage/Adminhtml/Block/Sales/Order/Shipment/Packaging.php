@@ -353,7 +353,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
      * Get ordered qty of item
      *
      * @param int $itemId
-     * @return int|null
+     * @return null|int
      */
     public function getQtyOrderedItem($itemId)
     {

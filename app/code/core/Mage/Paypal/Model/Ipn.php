@@ -24,19 +24,18 @@ class Mage_Paypal_Model_Ipn
     /**
      * Store order instance
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order = null;
 
     /**
      * Recurring profile instance
      *
-     * @var Mage_Sales_Model_Recurring_Profile|null
+     * @var null|Mage_Sales_Model_Recurring_Profile
      */
     protected $_recurringProfile = null;
 
     /**
-     *
      * @var Mage_Paypal_Model_Config
      */
     protected $_config = null;
@@ -166,9 +165,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load and validate order, instantiate proper configuration
      *
-     *
-     * @return Mage_Sales_Model_Order
      * @throws Exception
+     * @return Mage_Sales_Model_Order
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _getOrder()
@@ -202,8 +200,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load recurring profile
      *
-     * @return Mage_Sales_Model_Recurring_Profile
      * @throws Exception
+     * @return Mage_Sales_Model_Recurring_Profile
      */
     protected function _getRecurringProfile()
     {
@@ -652,7 +650,7 @@ class Mage_Paypal_Model_Ipn
      *
      * @param string $comment
      * @param bool $addToHistory
-     * @return string|Mage_Sales_Model_Order_Status_History
+     * @return Mage_Sales_Model_Order_Status_History|string
      */
     protected function _createIpnComment($comment = '', $addToHistory = false)
     {

@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
     /**
      * Retrieve parent ids array by required child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @param int $typeId
      * @return array
      */

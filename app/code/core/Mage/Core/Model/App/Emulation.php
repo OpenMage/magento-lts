@@ -102,7 +102,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function disables inline translation if $storeId is null
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @param string $area
      *
      * @return bool initial inline translation state
@@ -146,7 +146,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId
      * @param string $area
      *
      * @return string initial locale code
@@ -167,7 +167,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)
@@ -191,7 +191,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
 
     /**
      * Restore design of the initial store
-     *
      *
      * @return $this
      */

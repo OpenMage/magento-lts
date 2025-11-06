@@ -21,12 +21,13 @@
  *
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getResourceCollection()
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string|array getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string|array $value)
- *
+ * @method array|string getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(array|string $value)
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
  * @method float getBaseGrandTotal()
@@ -39,7 +40,6 @@
  * @method $this setBaseToGlobalRate(float $value)
  * @method float getBaseToQuoteRate()
  * @method $this setBaseToQuoteRate(float $value)
- *
  * @method bool hasChangedFlag()
  * @method bool getChangedFlag()
  * @method $this setCheckoutMethod(string $value)
@@ -75,13 +75,10 @@
  * @method $this setCustomerTaxClassId(int $value)
  * @method string getCustomerTaxvat()
  * @method $this setCustomerTaxvat(string $value)
- *
  * @method string getExtShippingInfo()
  * @method $this setExtShippingInfo(string $value)
- *
  * @method bool hasForcedCurrency()
  * @method string getForcedCurrency()
- *
  * @method $this setGiftMessage(string $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
@@ -89,9 +86,7 @@
  * @method $this setGlobalCurrencyCode(string $value)
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method bool getHasError()
- *
  * @method bool getIgnoreOldQty()
  * @method $this setIgnoreOldQty(bool $value)
  * @method bool getInventoryProcessed()
@@ -115,24 +110,18 @@
  * @method $this setItemsCount(int $value)
  * @method float getItemsQty()
  * @method $this setItemsQty(float $value)
- *
  * @method string getMethod()
- *
  * @method $this setOrderId(int $value)
  * @method int getOrigOrderId()
  * @method $this setOrigOrderId(int $value)
- *
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
- *
  * @method string getQuoteCurrencyCode()
  * @method $this setQuoteCurrencyCode(string $value)
- *
  * @method string getRemoteIp()
  * @method $this setRemoteIp(string $value)
  * @method string getReservedOrderId()
  * @method $this setReservedOrderId(string $value)
- *
  * @method $this setSharedStoreIds(array $value)
  * @method string getStoreCurrencyCode()
  * @method $this setStoreCurrencyCode(string $value)
@@ -146,27 +135,22 @@
  * @method $this setSubtotal(float $value)
  * @method float getSubtotalWithDiscount()
  * @method $this setSubtotalWithDiscount(float $value)
- *
  * @method array getTaxesForItems()
  * @method $this setTaxesForItems(array $itemTaxGroups)
  * @method bool getTotalsCollectedFlag()
  * @method $this setTotalsCollectedFlag(bool $value)
  * @method int getTriggerRecollect()
  * @method $this setTriggerRecollect(int $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method bool getUseCustomerBalance()
  * @method $this setUseCustomerBalance(bool $value)
  * @method bool getUseRewardPoints()
  * @method $this setUseRewardPoints(bool $value)
- *
  * @method float getVirtualItemsQty()
  * @method $this setVirtualItemsQty(float $value)
- *
  * @method Mage_Core_Model_Website getWebsite()
  * @method $this setWebsite(Mage_Core_Model_Website $value)
- *
  * @method $this setXForwardedFor(string $value)
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
@@ -187,28 +171,28 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Quote customer model object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
     /**
      * Quote addresses collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Address_Collection
      */
     protected $_addresses = null;
 
     /**
      * Quote items collection
      *
-     * @var Mage_Sales_Model_Resource_Quote_Item_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Item_Collection
      */
     protected $_items = null;
 
     /**
      * Quote payments
      *
-     * @var Mage_Sales_Model_Resource_Quote_Payment_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Payment_Collection
      */
     protected $_payments = null;
 
@@ -448,8 +432,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model to quote with billing and shipping address change
      *
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
@@ -645,9 +629,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     *
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getAddressById($addressId)
     {
@@ -662,7 +645,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getAddressByCustomerAddressId($addressId)
     {
@@ -677,7 +660,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getShippingAddressByCustomerAddressId($addressId)
     {
@@ -747,8 +730,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function addAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -1146,8 +1129,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Adding catalog product object data to quote
      *
      * @param int $qty
-     * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
+     * @return  Mage_Sales_Model_Quote_Item
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
@@ -1269,7 +1252,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve quote item by product id
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Sales_Model_Quote_Item|false
+     * @return  false|Mage_Sales_Model_Quote_Item
      */
     public function getItemByProduct($product)
     {
@@ -1393,8 +1376,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return $this
      * @throws Mage_Core_Exception
+     * @return $this
      */
     public function addPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
@@ -1667,10 +1650,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Automatically sets error flag.
      *
      * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param null|string $origin Usually a name of module, that embeds error
+     * @param null|int $code Error code, unique for origin, that sets it
+     * @param null|string $message Error message
+     * @param null|Varien_Object $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
@@ -1695,7 +1678,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param null|string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
      * @return $this
      */

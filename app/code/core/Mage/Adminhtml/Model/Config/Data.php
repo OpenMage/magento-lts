@@ -38,14 +38,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Config data for sections
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_configData;
 
     /**
      * Root config node
      *
-     * @var Mage_Core_Model_Config_Element|null
+     * @var null|Mage_Core_Model_Config_Element
      */
     protected $_configRoot;
 
@@ -276,7 +276,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Validate isset required parametrs
-     *
      */
     protected function _validate()
     {
@@ -295,7 +294,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Get scope name and scopeId
-     *
      */
     protected function _getScope()
     {
@@ -355,6 +353,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
         }
 
+        if (!$full) {
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $store = $this->getStore();
+            $envConfig = $environmentConfigLoaderHelper->getAsArray($store);
+            $config = array_merge($config, $envConfig);
+        }
+
         return $config;
     }
 
@@ -404,8 +410,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Secure set groups
      *
      * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
+     * @return Mage_Adminhtml_Model_Config_Data
      */
     public function setGroupsSecure($groups)
     {
@@ -482,8 +488,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Select group setter is secure or not based on the configuration
      *
      * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
+     * @return Mage_Adminhtml_Model_Config_Data
      */
     public function setGroupsSelector($groups)
     {
