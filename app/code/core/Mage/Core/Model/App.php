@@ -1309,7 +1309,7 @@ class Mage_Core_Model_App
      */
     public function getRequest()
     {
-        if (empty($this->_request)) {
+        if (is_null($this->_request)) {
             $this->_request = new Mage_Core_Controller_Request_Http();
         }
 
@@ -1366,7 +1366,7 @@ class Mage_Core_Model_App
      */
     public function getResponse()
     {
-        if (empty($this->_response)) {
+        if (is_null($this->_response)) {
             $this->_response = new Mage_Core_Controller_Response_Http();
             $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader('Content-Type', 'text/html; charset=UTF-8');
