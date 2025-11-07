@@ -83,7 +83,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Flag to overwrite config settings for Catalog URL rewrites history maintenance
      *
-     * @var bool
+     * @var null|bool
      */
     protected $_saveRewritesHistory = null;
 
@@ -280,6 +280,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Used to make full reindexing of url rewrites
      *
      * @param int $storeId
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function refreshRewrites($storeId = null)
@@ -309,6 +310,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      *
      * @param string $parentPath
      * @param bool $refreshProducts
+     * @throws Mage_Core_Exception
      * @return $this
      */
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
@@ -418,6 +420,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh products for category
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
@@ -471,6 +474,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * @param int $categoryId
      * @param null|int $storeId
      * @param bool $refreshProducts
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function refreshCategoryRewrite($categoryId, $storeId = null, $refreshProducts = true)
@@ -510,6 +514,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      *
      * @param int $productId
      * @param null|int $storeId
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function refreshProductRewrite($productId, $storeId = null)
@@ -561,6 +566,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Refresh all product rewrites for designated store
      *
      * @param null|int $storeId
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function refreshProductRewrites($storeId)
@@ -760,6 +766,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      *
      * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @param string $parentPath
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function getCategoryRequestPath($category, $parentPath)
@@ -823,6 +830,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      *
      * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @param Mage_Catalog_Model_Category|Varien_Object $category
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function getProductRequestPath($product, $category)

@@ -46,7 +46,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Return code of carrier
      *
-     * @return string
+     * @return null|string
      */
     public function getCarrierCode()
     {
@@ -55,8 +55,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     public function getTrackingInfo($tracking)
     {
-        $info = [];
-
         $result = $this->getTracking($tracking);
 
         if ($result instanceof Mage_Shipping_Model_Tracking_Result) {

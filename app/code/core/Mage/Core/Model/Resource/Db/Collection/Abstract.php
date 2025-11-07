@@ -35,7 +35,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @var Mage_Core_Model_Resource_Db_Abstract
      */
-    protected $_resource;
+    protected $_resource = null;
 
     /**
      * Fields to select in query
@@ -105,6 +105,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Collection constructor
      *
      * @param Mage_Core_Model_Resource_Db_Abstract $resource
+     * @throws Zend_Exception
      */
     public function __construct($resource = null)
     {
@@ -219,16 +220,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $alias = null;
                 }
 
-                if ($field instanceof Zend_Db_Expr) {
-                    $column = $field->__toString();
-                } else {
-                    $column = $field;
-                }
-
-                if (($alias !== null && in_array($alias, $columnsToSelect))
-                    // If field already joined from another table
-                    || ($alias === null && isset($alias, $columnsToSelect))
-                ) {
+                if ($alias !== null && in_array($alias, $columnsToSelect)) {
                     continue;
                 }
 
@@ -454,7 +446,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function getResource()
     {
-        if (empty($this->_resource)) {
+        if (is_null($this->_resource) || $this->_resource === []) {
             $this->_resource = Mage::getResourceModel($this->getResourceModelName());
         }
 

@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Type_Onepage
     protected $_checkoutSession;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote = null;
 

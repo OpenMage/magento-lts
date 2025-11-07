@@ -25,12 +25,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
 
 		-
-			rawMessage: 'Parameter #1 $role of method Mage_Admin_Model_Resource_Roles::_updateRoleUsersAcl() expects Mage_Admin_Model_Roles, Mage_Core_Model_Abstract given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/Roles.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Roles::update().'
 			identifier: method.notFound
 			count: 1
@@ -139,12 +133,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
 
 		-
-			rawMessage: 'Parameter #3 $refValues of method Mage_Adminhtml_Block_Widget_Form_Element_Dependence::addFieldDependence() expects array|string, int given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
-
-		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given.'
 			identifier: argument.type
 			count: 1
@@ -159,12 +147,6 @@ parameters:
 		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Grouped_Collection given.'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Adminhtml_Block_Report_Grid_Abstract::$_columnGroupBy (string) in isset() is not nullable.'
-			identifier: isset.property
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -559,18 +541,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
 		-
-			rawMessage: 'Variable $id in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
-
-		-
-			rawMessage: 'Variable $id in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
-
-		-
 			rawMessage: 'Cannot call method aggregate() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
 			identifier: method.nonObject
 			count: 2
@@ -671,12 +641,6 @@ parameters:
 			identifier: argument.type
 			count: 4
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			rawMessage: 'Variable $data in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
 
 		-
 			rawMessage: 'Cannot call method fetchRates() on Mage_Core_Model_Abstract|false.'
@@ -1139,12 +1103,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
-			rawMessage: 'Property Mage_Captcha_Model_Zend::$_helper (Mage_Captcha_Helper_Data) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Captcha/Model/Zend.php
 
 		-
 			rawMessage: 'Return type (Mage_Customer_Model_Session) of method Mage_Captcha_Model_Zend::getSession() should be compatible with return type (Zend_Session_Namespace) of method Zend_Captcha_Word::getSession()'
@@ -1663,12 +1621,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_storeId (int) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_tree (Varien_Data_Tree_Db) does not accept Varien_Data_Tree_Dbp.'
 			identifier: assign.propertyType
 			count: 1
@@ -1745,12 +1697,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			rawMessage: 'Property Mage_Catalog_Model_Resource_Config::$_storeId (int) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
 
 		-
 			rawMessage: Binary operation "-" between int and non-falsy-string results in an error.
@@ -1882,12 +1828,6 @@ parameters:
 			rawMessage: 'Loose comparison using == between true and true will always evaluate to true.'
 			identifier: equal.alwaysTrue
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
-			rawMessage: 'Property Mage_Catalog_Model_Url::$_saveRewritesHistory (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
@@ -2035,12 +1975,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
 
 		-
-			rawMessage: 'Property Mage_CatalogSearch_Helper_Data::$_queryText (string) in isset() is not nullable.'
-			identifier: isset.property
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
-
-		-
 			rawMessage: 'Method Mage_CatalogSearch_Model_Advanced::getProductCollection() should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array|float|int|string|false|null.'
 			identifier: return.type
 			count: 1
@@ -2163,12 +2097,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			rawMessage: 'Property Mage_Checkout_Model_Type_Onepage::$_quote (Mage_Sales_Model_Quote) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
@@ -2311,26 +2239,8 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_isObjectNew (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $group of method Mage_Core_Model_App::_getStoreByGroup() expects int, string given.'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_App::$_request (Mage_Core_Controller_Request_Http) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_App::$_response (Mage_Core_Controller_Response_Http) in empty() is not falsy.'
-			identifier: empty.property
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -2393,18 +2303,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Config.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Design_Fallback::$_store (Mage_Core_Model_Store) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Fallback.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Design_Package::$_store (int|Mage_Core_Model_Store|string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
 			rawMessage: 'Parameter #1 $policyCode of method Mage_Core_Model_Domainpolicy::_getDomainPolicyByCode() expects string, int given.'
@@ -2545,33 +2443,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Resource_Db_Collection_Abstract::$_resource (Mage_Core_Model_Resource_Db_Abstract) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: Result of && is always false.
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: 'Variable $alias in isset() always exists and is always null.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
 			rawMessage: Variable $alias might not be defined.
 			identifier: variable.undefined
 			count: 3
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: 'Variable $columnsToSelect in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
@@ -2729,24 +2603,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
-
-		-
-			rawMessage: 'Property Mage_Customer_Helper_Data::$_customer (Mage_Customer_Model_Customer) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Customer_Helper_Data::$_groups (Mage_Customer_Model_Entity_Group_Collection) does not accept Mage_Customer_Model_Resource_Group_Collection.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Customer_Helper_Data::$_groups (Mage_Customer_Model_Entity_Group_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Data.php
 
 		-
 			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given.'
@@ -3139,38 +2995,14 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Abstract::$_type (Mage_Eav_Model_Entity_Type) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::getIdByCode().'
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Attribute_Abstract::$_backend (Mage_Eav_Model_Entity_Attribute_Backend_Abstract) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
 			rawMessage: 'Property Mage_Eav_Model_Entity_Attribute_Abstract::$_entity (Mage_Eav_Model_Entity_Abstract) does not accept Mage_Eav_Model_Entity_Type.'
 			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Attribute_Abstract::$_frontend (Mage_Eav_Model_Entity_Attribute_Frontend_Abstract) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Attribute_Abstract::$_source (Mage_Eav_Model_Entity_Attribute_Source_Abstract) in empty() is not falsy.'
-			identifier: empty.property
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
@@ -3217,12 +3049,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Collection_Abstract::$_entity (Mage_Eav_Model_Entity_Abstract) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $code of method Mage_Eav_Model_Entity_Setup::updateEntityType() expects string, int given.'
 			identifier: argument.type
 			count: 1
@@ -3233,12 +3059,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			rawMessage: 'Property Mage_Eav_Model_Entity_Type::$_sets (Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
 			rawMessage: 'Parameter #1 $attribute of static method Mage_Eav_Model_Attribute_Data::factory() expects Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute given.'
@@ -3431,12 +3251,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer/Db.php
-
-		-
-			rawMessage: 'Property Mage_Install_Model_Installer_Db_Abstract::$_connection (Varien_Db_Adapter_Interface) in isset() is not nullable.'
-			identifier: isset.property
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
 
 		-
 			rawMessage: Binary operation "+" between non-falsy-string and 1 results in an error.
@@ -3799,12 +3613,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
 
 		-
-			rawMessage: 'Property Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract::$_entityCollection (Mage_Eav_Model_Entity_Collection_Abstract) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Entity/Summary/Collection/Abstract.php
-
-		-
 			rawMessage: 'Call to an undefined method Varien_Data_Collection_Db::getResource().'
 			identifier: method.notFound
 			count: 1
@@ -3883,12 +3691,6 @@ parameters:
 			path: app/code/core/Mage/Rss/Helper/Data.php
 
 		-
-			rawMessage: 'Property Mage_Rule_Model_Abstract::$_conditions (Mage_Rule_Model_Condition_Combine) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Rule_Model_Action_Interface::getId().'
 			identifier: method.notFound
 			count: 1
@@ -3921,12 +3723,6 @@ parameters:
 		-
 			rawMessage: Binary operation "." between array and ' ' results in an error.
 			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Rule_Model_Condition_Abstract::$_inputType (string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
 
@@ -3983,12 +3779,6 @@ parameters:
 			identifier: method.notFound
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Creditmemo::$_items (iterable<Mage_Sales_Model_Order_Creditmemo_Item>&Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract::getForceApplyDiscountToParentItem().'
@@ -4063,18 +3853,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment/Packaging.php
 
 		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_items (Mage_Sales_Model_Resource_Order_Shipment_Item_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
-			rawMessage: 'Property Mage_Sales_Model_Order_Shipment::$_tracks (Mage_Sales_Model_Resource_Order_Shipment_Track_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -4129,12 +3907,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			rawMessage: 'Parameter #2 $array of function implode expects array<string>, list<array|string> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			rawMessage: 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.'
 			identifier: return.type
 			count: 1
@@ -4179,12 +3951,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
-
-		-
-			rawMessage: 'Variable $addressQty in isset() always exists and is not nullable.'
-			identifier: isset.variable
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
 
@@ -4375,12 +4141,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Info.php
 
 		-
-			rawMessage: 'Property Mage_Shipping_Model_Shipping::$_result (Mage_Shipping_Model_Rate_Result) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Shipping_Model_Rate_Result::getAllTrackings().'
 			identifier: method.notFound
 			count: 1
@@ -4547,12 +4307,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Shipping_Model_Carrier_Abstract::$_code (string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php
 
 		-
 			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl::$_rawTrackRequest.
@@ -4739,6 +4493,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Wishlist/Controller/Abstract.php
+
+		-
+			rawMessage: Variable $wishlist might not be defined.
+			identifier: variable.undefined
+			count: 1
+			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().'
@@ -5699,12 +5459,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
-
-		-
-			rawMessage: 'Property Varien_Data_Form_Abstract::$_elements (Varien_Data_Form_Element_Collection) in empty() is not falsy.'
-			identifier: empty.property
-			count: 1
-			path: lib/Varien/Data/Form/Abstract.php
 
 		-
 			rawMessage: Access to an undefined property Varien_Data_Form_Element_Fieldset::$_sortDirection.

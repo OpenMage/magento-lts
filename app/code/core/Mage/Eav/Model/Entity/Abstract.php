@@ -258,11 +258,12 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve current entity config
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Type
      */
     public function getEntityType()
     {
-        if (empty($this->_type)) {
+        if (is_null($this->_type)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Entity is not initialized'));
         }
 
