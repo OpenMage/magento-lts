@@ -20,8 +20,8 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         $this->_objectId = 'id';
         $this->_controller = 'customer';
 
-        if ($this->getCustomerId() &&
-            Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')
+        if ($this->getCustomerId()
+            && Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')
         ) {
             $this->_addButton('order', [
                 'label'     => Mage::helper('customer')->__('Create Order'),

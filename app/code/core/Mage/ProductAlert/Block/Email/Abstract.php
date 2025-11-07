@@ -66,10 +66,10 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Convert price from default currency to current currency
      *
-     * @param double $price
+     * @param float $price
      * @param bool $format             Format price to currency format
      * @param bool $includeContainer   Enclose into <span class="price"><span>
-     * @return double
+     * @return float
      */
     public function formatPrice($price, $format = true, $includeContainer = true)
     {

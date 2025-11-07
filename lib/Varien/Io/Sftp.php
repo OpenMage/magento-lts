@@ -7,6 +7,8 @@
  * @package    Varien_Io
  */
 
+use phpseclib3\Net\SFTP;
+
 /**
  * Sftp client interface
  *
@@ -20,18 +22,15 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     public const SSH2_PORT = 22;
 
     /**
-     * @var \phpseclib3\Net\SFTP $_connection
+     * @var SFTP
      */
     protected $_connection = null;
 
     /**
      * Open a SFTP connection to a remote site.
      *
-     * @param array $args Connection arguments
-     * @param string $args[host] Remote hostname
-     * @param string $args[username] Remote username
-     * @param string $args[password] Connection password
-     * @param int $args[timeout] Connection timeout [=10]
+     * @param array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
+     * @throws Exception
      */
     public function open(array $args = [])
     {
@@ -46,7 +45,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $port = self::SSH2_PORT;
         }
 
-        $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
+        $this->_connection = new SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host']));
         }
@@ -57,14 +56,14 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function close()
     {
-        return $this->_connection->disconnect();
+        $this->_connection->disconnect();
     }
 
     /**
      * Create a directory
      *
-     * @param $mode Ignored here; uses logged-in user's umask
-     * @param $recursive Analogous to mkdir -p
+     * @param int $mode Ignored here; uses logged-in user's umask
+     * @param bool $recursive Analogous to mkdir -p
      *
      * Note: if $recursive is true and an error occurs mid-execution,
      * false is returned and some part of the hierarchy might be created.
@@ -152,7 +151,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Write a file
-     * @param $src Must be a local file name
+     * @param resource|string $src Must be a local file name
      */
     public function write($filename, $src, $mode = null)
     {
@@ -214,6 +213,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function writeFile($filename, $src)
     {
-        return $this->_connection->put($filename, $src, \phpseclib3\Net\SFTP::SOURCE_LOCAL_FILE);
+        return $this->_connection->put($filename, $src, SFTP::SOURCE_LOCAL_FILE);
     }
 }

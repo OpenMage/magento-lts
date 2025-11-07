@@ -472,7 +472,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Create Product entity from raw data.
      *
      * @throws Exception
-     * @return bool Result of operation.
+     * @return bool result of operation
      */
     protected function _importData()
     {
@@ -1313,10 +1313,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         we default to the default scope values.
                         In this case, remove all the existing store based values stored in the table.
                         */
-                        $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues)) .
-                            $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId) .
-                            $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
-                            $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+                        $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues))
+                            . $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId)
+                            . $this->_connection->quoteInto(' AND entity_id = ?', $productId)
+                            . $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
 
                         $this->_connection->delete(
                             $tableName,

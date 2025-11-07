@@ -12,7 +12,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Specific slab size = 1Mb minus overhead
      *
-     * @var array $_specificOptions
+     * @var array
      */
     protected $_specificOptions = ['slab_size' => 0];
 
@@ -133,8 +133,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * Load data from cached, glue from several chunks if it was split upon save.
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
+     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
      * @return false|mixed Cached data
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)

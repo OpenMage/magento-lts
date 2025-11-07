@@ -220,8 +220,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 );
 
                 if (isset($customOptions) && $priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    [$minPrice, $maxPrice] =
-                        $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
+                    [$minPrice, $maxPrice]
+                        = $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
                 }
 
                 $this->_savePriceIndex($productId, $website->getId(), $group->getId(), $minPrice, $maxPrice);
@@ -553,8 +553,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($price->isScopeGlobal()) {
             $select->join(
                 ['price_table' => $this->getTable('catalog/product_option_price')],
-                'option_table.option_id = price_table.option_id' .
-                ' AND price_table.store_id = 0',
+                'option_table.option_id = price_table.option_id'
+                . ' AND price_table.store_id = 0',
                 ['value_id' => 'option_price_id', 'price', 'price_type'],
             );
         } else {
@@ -577,8 +577,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $select
                 ->join(
                     ['price_global_table' => $this->getTable('catalog/product_option_price')],
-                    'option_table.option_id=price_global_table.option_id' .
-                    ' AND price_global_table.store_id=0',
+                    'option_table.option_id=price_global_table.option_id'
+                    . ' AND price_global_table.store_id=0',
                     [
                         'value_id'   => $valueIdCond,
                         'price'      => $priceCond,
@@ -587,8 +587,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 )
                 ->joinLeft(
                     ['price_store_table' => $this->getTable('catalog/product_option_price')],
-                    'option_table.option_id = price_store_table.option_id' .
-                    ' AND price_store_table.store_id=:store_id',
+                    'option_table.option_id = price_store_table.option_id'
+                    . ' AND price_store_table.store_id=:store_id',
                     [],
                 );
         }
@@ -625,16 +625,16 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($price->isScopeGlobal()) {
             $select->join(
                 ['price_table' => $this->getTable('catalog/product_option_type_price')],
-                'type_table.option_type_id=price_table.option_type_id' .
-                ' AND price_table.store_id=0',
+                'type_table.option_type_id=price_table.option_type_id'
+                . ' AND price_table.store_id=0',
                 ['value_id' => 'option_type_id', 'price', 'price_type'],
             );
         } else {
             $select
                 ->join(
                     ['price_global_table' => $this->getTable('catalog/product_option_type_price')],
-                    'type_table.option_type_id=price_global_table.option_type_id' .
-                    ' AND price_global_table.store_id=0',
+                    'type_table.option_type_id=price_global_table.option_type_id'
+                    . ' AND price_global_table.store_id=0',
                     [
                         'value_id'   => $valueIdCond,
                         'price'      => $priceCond,
@@ -643,8 +643,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 )
                 ->joinLeft(
                     ['price_store_table' => $this->getTable('catalog/product_option_type_price')],
-                    'type_table.option_type_id=price_store_table.option_type_id' .
-                    ' AND price_store_table.store_id=:store_id',
+                    'type_table.option_type_id=price_store_table.option_type_id'
+                    . ' AND price_store_table.store_id=:store_id',
                     [],
                 );
         }

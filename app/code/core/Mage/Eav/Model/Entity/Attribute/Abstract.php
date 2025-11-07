@@ -424,11 +424,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve backend instance
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
     public function getBackend()
     {
-        if (empty($this->_backend)) {
+        if (is_null($this->_backend)) {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel($this->_getDefaultBackendModel());
             }
@@ -451,7 +452,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getFrontend()
     {
-        if (empty($this->_frontend)) {
+        if (is_null($this->_frontend)) {
             if (!$this->getFrontendModel()) {
                 $this->setFrontendModel($this->_getDefaultFrontendModel());
             }
@@ -466,11 +467,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve source instance
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
      */
     public function getSource()
     {
-        if (empty($this->_source)) {
+        if (is_null($this->_source)) {
             if (!$this->getSourceModel()) {
                 $this->setSourceModel($this->_getDefaultSourceModel());
             }

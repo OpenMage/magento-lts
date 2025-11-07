@@ -131,8 +131,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         /**
          * Check for maximum attribute_code length
          */
-        if (isset($this->_data['attribute_code']) &&
-            !Zend_Validate::is(
+        if (isset($this->_data['attribute_code'])
+            && !Zend_Validate::is(
                 $this->_data['attribute_code'],
                 'StringLength',
                 ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],

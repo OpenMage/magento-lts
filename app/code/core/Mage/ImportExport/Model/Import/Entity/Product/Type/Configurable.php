@@ -115,7 +115,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * Add attribute parameters to appropriate attribute set.
      *
      * @param string $attrSetName
-     * @param array $attrParams Refined attribute parameters.
+     * @param array $attrParams refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)

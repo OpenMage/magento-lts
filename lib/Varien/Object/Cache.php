@@ -392,7 +392,7 @@ class Varien_Object_Cache
     /**
      * Return debug information by ids
      *
-     * @param array|integer $ids
+     * @param array|int $ids
      * @return array
      */
     public function debugByIds($ids)

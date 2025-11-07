@@ -83,7 +83,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * @param string $cardNumber
      * @param string $cardExpMonth
      * @param string $cardExpYear
-     * @param double $amount
+     * @param float $amount
      * @param string $currencyCode
      * @return string
      */

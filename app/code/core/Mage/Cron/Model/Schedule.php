@@ -226,7 +226,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Returns true if status was changed and false otherwise.
      *
      * @param string $oldStatus
-     * This is used to implement locking for cron jobs.
+     * This is used to implement locking for cron jobs
      *
      * @return bool
      */

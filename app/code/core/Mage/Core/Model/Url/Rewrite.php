@@ -51,7 +51,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var array|boolean|mixed|string
+     * @var array|bool|mixed|string
      */
     protected $_cacheTag = false;
 

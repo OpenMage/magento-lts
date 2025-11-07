@@ -334,7 +334,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getHelper()
     {
-        if (empty($this->_helper)) {
+        if (is_null($this->_helper)) {
             $this->_helper = Mage::helper('captcha');
         }
 

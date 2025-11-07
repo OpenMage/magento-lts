@@ -137,10 +137,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         $elementName = $element->getName();
         $inputName   = $elementName . '[#{_id}][' . $columnName . ']';
 
-        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
-            '#{readonly}' .
-            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"' .
-            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
+        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" '
+            . '#{readonly}'
+            . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="'
+            . ($column['class'] ?? 'input-text') . '"'
+            . (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 }

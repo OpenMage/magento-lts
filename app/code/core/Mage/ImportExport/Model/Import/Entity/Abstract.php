@@ -309,8 +309,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
-     * @param string $colName OPTIONAL Column name.
+     * @param int $errorRowNum row number
+     * @param string $colName OPTIONAL Column name
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
@@ -339,7 +339,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values.
+     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = [])
@@ -513,7 +513,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Import process start.
      *
-     * @return bool Result of operation.
+     * @return bool result of operation
      */
     public function importData()
     {

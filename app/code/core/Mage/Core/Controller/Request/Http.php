@@ -53,7 +53,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 
@@ -313,9 +313,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
-            self::SCHEME_HTTPS :
-            self::SCHEME_HTTP;
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure())
+            ? self::SCHEME_HTTPS
+            : self::SCHEME_HTTP;
     }
 
     /**

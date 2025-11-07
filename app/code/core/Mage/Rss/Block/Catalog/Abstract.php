@@ -88,7 +88,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * Returns product price html for RSS feed
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param bool $displayMinimalPrice Display "As low as" etc.
+     * @param bool $displayMinimalPrice display "As low as" etc
      * @param string $idSuffix Suffix for HTML containers
      * @return string
      */

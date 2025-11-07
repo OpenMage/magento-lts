@@ -198,11 +198,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get collection's entity object
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
     {
-        if (empty($this->_entity)) {
+        if (is_null($this->_entity)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Entity is not initialized'));
         }
 

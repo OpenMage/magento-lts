@@ -24,7 +24,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Carrier's code
      *
-     * @var string
+     * @var null|string
      */
     protected $_code;
 

@@ -150,7 +150,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getAttributeSetCollection()
     {
-        if (empty($this->_sets)) {
+        if (is_null($this->_sets)) {
             $this->_sets = Mage::getModel('eav/entity_attribute_set')->getResourceCollection()
                 ->setEntityTypeFilter($this->getId());
         }

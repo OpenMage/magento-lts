@@ -52,19 +52,21 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Defines which operators will be available for this condition
      *
-     * @var string
+     * @var null|string
      */
     protected $_inputType = null;
 
     /**
      * Default values for possible operator options
-     * @var array
+     *
+     * @var null|array
      */
     protected $_defaultOperatorOptions = null;
 
     /**
      * Default combinations of operator options, depending on input type
-     * @var array
+     *
+     * @var null|array
      */
     protected $_defaultOperatorInputByType = null;
 

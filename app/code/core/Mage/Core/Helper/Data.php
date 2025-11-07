@@ -155,7 +155,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   null|int|string|Zend_Date   $date If empty, return current datetime.
+     * @param   null|int|string|Zend_Date   $date if empty, return current datetime
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @return  string
@@ -168,7 +168,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   null|int|string|Zend_Date   $date If empty, return current locale datetime.
+     * @param   null|int|string|Zend_Date   $date if empty, return current locale datetime
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @param   bool                        $useTimezone Convert to local datetime?

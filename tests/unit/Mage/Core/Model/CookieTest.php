@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Mage\Core\Model;
+namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
 use Mage_Core_Model_Cookie as Subject;

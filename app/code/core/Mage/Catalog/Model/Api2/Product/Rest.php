@@ -180,10 +180,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
     {
         $isPriceRequired = false;
-        if ($this->isAllowedAttribute('regular_price_with_tax') ||
-            $this->isAllowedAttribute('regular_price_without_tax') ||
-            $this->isAllowedAttribute('final_price_with_tax') ||
-            $this->isAllowedAttribute('final_price_without_tax')
+        if ($this->isAllowedAttribute('regular_price_with_tax')
+            || $this->isAllowedAttribute('regular_price_without_tax')
+            || $this->isAllowedAttribute('final_price_with_tax')
+            || $this->isAllowedAttribute('final_price_without_tax')
         ) {
             $isPriceRequired = true;
         }

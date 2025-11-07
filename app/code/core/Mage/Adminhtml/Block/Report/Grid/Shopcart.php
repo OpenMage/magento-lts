@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
      * Get currency rate (base to given currency)
      *
      * @param Mage_Directory_Model_Currency|string $toCurrency
-     * @return double
+     * @return float
      */
     public function getRate($toCurrency)
     {

@@ -56,8 +56,8 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         Mage::app('admin');
         foreach (self::WEBSITES as $websiteCode => $stores) {
             foreach ($stores as $storeCode) {
-                self::$storeData[$websiteCode][$storeCode] =
-                    self::bootstrapTestStore($websiteCode, $storeCode);
+                self::$storeData[$websiteCode][$storeCode]
+                    = self::bootstrapTestStore($websiteCode, $storeCode);
             }
         }
     }
@@ -69,6 +69,9 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         }
     }
 
+    /**
+     * @group Helper
+     */
     public function testStoresAreCreated(): void
     {
         foreach (self::$storeData as $stores) {
@@ -118,8 +121,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildNodePath(): void
     {
@@ -234,7 +236,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     /**
      * @runInSeparateProcess
      * @dataProvider envAsArrayDataProvider
-     * @group Mage_Core
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -285,7 +287,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     /**
      * @runInSeparateProcess
      * @dataProvider envHasPathDataProvider
-     * @group Mage_Core
+     * @group Helper
      *
      * @param array<string, string> $config
      */

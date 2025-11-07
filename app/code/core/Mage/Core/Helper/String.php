@@ -281,7 +281,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Clean non UTF-8 characters
      *
-     * @param string $string
+     * @param null|string $string
      * @return string
      */
     public function cleanString($string)
@@ -523,8 +523,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         } elseif ($h <= 0xEF) {
             $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
         } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
-                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12
+                | (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
         }
 
         return $ord;
@@ -565,8 +565,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function isSerializedArrayOrObject($data)
     {
-        $pattern =
-            '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
+        $pattern
+            = '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
         return is_string($data) && preg_match($pattern, $data);
     }
 

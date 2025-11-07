@@ -241,8 +241,8 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         $attributeSetId = $this->getProductModel()->getAttributeSetId();
 
         if (!isset($this->_setInstances[$productType][$attributeSetId])) {
-            $this->_setInstances[$productType][$attributeSetId] =
-                Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
+            $this->_setInstances[$productType][$attributeSetId]
+                = Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
         }
 
         return $this->_setInstances[$productType][$attributeSetId];

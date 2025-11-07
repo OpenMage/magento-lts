@@ -275,7 +275,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * Starting from 23.02.2018 USPS doesn't allow to create free shipping labels via their API.
      */
     public function isShippingLabelsAvailable()
@@ -1345,7 +1345,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated This method should not be used anymore.
+     * @deprecated this method should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
      */
     protected function _formUsExpressShipmentRequest(Varien_Object $request)
@@ -1490,7 +1490,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated Should not be used anymore.
+     * @deprecated should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
      */
     protected function _formIntlShipmentRequest(Varien_Object $request)

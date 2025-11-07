@@ -16,7 +16,7 @@ abstract class Varien_Image_Adapter_Abstract
     public $fileName = null;
 
     /**
-     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     * @var int Color used to fill space when rotating image, do not confuse it with
      */
     public $imageBackgroundColor = 0;
 

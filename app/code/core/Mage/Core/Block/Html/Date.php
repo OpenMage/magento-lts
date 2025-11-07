@@ -45,8 +45,8 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         $html .= '<img src="' . $this->getImage() . '" alt="' . $this->helper('core')->__('Select Date') . '" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
-        $html .=
-        '<script type="text/javascript">
+        $html
+        .= '<script type="text/javascript">
         //<![CDATA[
             var calendarSetupObject = {
                 inputField  : "' . $this->getId() . '",

@@ -300,8 +300,8 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourceEntityOnlyAttributes($resource, $userType, $operationType)
     {
-        $node = $this->getNode('resources/' . $resource . '/entity_only_attributes/' . $userType . '/' .
-            $operationType);
+        $node = $this->getNode('resources/' . $resource . '/entity_only_attributes/' . $userType . '/'
+            . $operationType);
         $entityOnlyAttributes = [];
 
         if ($node) {

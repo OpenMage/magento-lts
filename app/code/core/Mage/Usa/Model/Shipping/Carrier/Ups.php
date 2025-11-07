@@ -715,10 +715,10 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 XMLRequest;
 
         if ($params['serviceCode'] !== null) {
-            $xmlRequest .= '<Service>' .
-                "<Code>{$params['serviceCode']}</Code>" .
-                "<Description>{$params['serviceDescription']}</Description>" .
-                '</Service>';
+            $xmlRequest .= '<Service>'
+                . "<Code>{$params['serviceCode']}</Code>"
+                . "<Description>{$params['serviceDescription']}</Description>"
+                . '</Service>';
         }
 
         $xmlRequest .= <<< XMLRequest
@@ -1838,8 +1838,8 @@ XMLAuth;
             $shipperData['Phone']['Number'] = $request->getRecipientContactPhoneNumber();
 
             $addressData = &$shipperData['Address'];
-            $addressData['AddressLine'] =
-                $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2();
+            $addressData['AddressLine']
+                = $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2();
             $addressData['City'] = $request->getRecipientAddressCity();
             $addressData['CountryCode'] = $request->getRecipientAddressCountryCode();
             $addressData['PostalCode'] = $request->getRecipientAddressPostalCode();
@@ -1932,10 +1932,10 @@ XMLAuth;
             if ($request->getReferenceData()) {
                 $referenceData = $request->getReferenceData() . $request->getPackageId();
             } else {
-                $referenceData = 'Order #' .
-                    $request->getOrderShipment()->getOrder()->getIncrementId() .
-                    ' P' .
-                    $request->getPackageId();
+                $referenceData = 'Order #'
+                    . $request->getOrderShipment()->getOrder()->getIncrementId()
+                    . ' P'
+                    . $request->getPackageId();
             }
 
             $packagePart['ReferenceNumber'] = [];

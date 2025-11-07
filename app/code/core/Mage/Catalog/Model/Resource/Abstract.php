@@ -117,8 +117,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if ($setId) {
             $select->join(
                 ['set_table' => $this->getTable('eav/entity_attribute')],
-                $this->_getReadAdapter()->quoteInto('attr_table.attribute_id = set_table.attribute_id' .
-                ' AND set_table.attribute_set_id = ?', $setId),
+                $this->_getReadAdapter()->quoteInto('attr_table.attribute_id = set_table.attribute_id'
+                . ' AND set_table.attribute_set_id = ?', $setId),
                 [],
             );
         }
@@ -522,7 +522,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param mixed $value New value of the attribute.
+     * @param mixed $value new value of the attribute
      * @return bool
      */
     protected function _canUpdateAttribute(
@@ -531,11 +531,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         array &$origData
     ) {
         $result = parent::_canUpdateAttribute($attribute, $value, $origData);
-        if ($result &&
-            ($attribute->isScopeStore() || $attribute->isScopeWebsite()) &&
-            !$this->_isAttributeValueEmpty($attribute, $value) &&
-            $value == $origData[$attribute->getAttributeCode()] &&
-            isset($origData['store_id']) && $origData['store_id'] != $this->getDefaultStoreId()
+        if ($result
+            && ($attribute->isScopeStore() || $attribute->isScopeWebsite())
+            && !$this->_isAttributeValueEmpty($attribute, $value)
+            && $value == $origData[$attribute->getAttributeCode()]
+            && isset($origData['store_id']) && $origData['store_id'] != $this->getDefaultStoreId()
         ) {
             return false;
         }

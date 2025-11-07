@@ -162,7 +162,7 @@ class Mage_Tax_Model_Config
     protected $_needUseShippingExcludeTax = false;
 
     /**
-     * @var bool $_shippingPriceIncludeTax
+     * @var bool
      */
     protected $_shippingPriceIncludeTax = null;
 

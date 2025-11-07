@@ -97,7 +97,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Customer groups collection
      *
-     * @var Mage_Customer_Model_Entity_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_groups;
 
@@ -118,7 +118,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomer()
     {
-        if (empty($this->_customer)) {
+        if (is_null($this->_customer)) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
 
@@ -128,11 +128,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer groups collection
      *
-     * @return Mage_Customer_Model_Entity_Group_Collection
+     * @return Mage_Customer_Model_Resource_Group_Collection
      */
     public function getGroups()
     {
-        if (empty($this->_groups)) {
+        if (is_null($this->_groups)) {
             $this->_groups = Mage::getModel('customer/group')->getResourceCollection()
                 ->setRealGroupsFilter()
                 ->load();

@@ -96,7 +96,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      */
     public function getCollection()
     {
-        if (empty($this->_entityCollection)) {
+        if (is_null($this->_entityCollection)) {
             $this->_initCollection();
         }
 

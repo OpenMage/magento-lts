@@ -88,7 +88,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     * @param null|array|string $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
+     * @param null|array|string $countryFilter if string, accepts iso2_code; if array, accepts iso2_code[]
      * @throws Mage_Core_Exception
      * @return Mage_Directory_Model_Resource_Region_Collection
      */

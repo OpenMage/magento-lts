@@ -232,13 +232,13 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $escapedValue = Mage::helper('core')->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
-            if (str_contains($value, $delimiter) ||
-                empty($enclosure) ||
-                str_contains($value, $enclosure) ||
-                str_contains($value, "\n") ||
-                str_contains($value, "\r") ||
-                str_contains($value, "\t") ||
-                str_contains($value, ' ')
+            if (str_contains($value, $delimiter)
+                || empty($enclosure)
+                || str_contains($value, $enclosure)
+                || str_contains($value, "\n")
+                || str_contains($value, "\r")
+                || str_contains($value, "\t")
+                || str_contains($value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;

@@ -600,9 +600,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     'unsigned' => $fieldProp['unsigned'],
                     'default'  => $default,
                     'primary'  => $fieldProp['primary'] ?? false,
-                ], ($fieldProp['comment'] != '') ?
-                    $fieldProp['comment'] :
-                    ucwords(str_replace('_', ' ', $fieldName)));
+                ], ($fieldProp['comment'] != '')
+                    ? $fieldProp['comment']
+                    : ucwords(str_replace('_', ' ', $fieldName)));
             }
         }
 
@@ -1152,9 +1152,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 }
 
                 $update = substr($update, 0, -1);
-                $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND " .
-                    "($catalogCategoryTable}.path like '{$parent->getPath()}/%' OR " .
-                    "{$catalogCategoryTable}.path like '{$prevParent->getPath()}/%')";
+                $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND "
+                    . "($catalogCategoryTable}.path like '{$parent->getPath()}/%' OR "
+                    . "{$catalogCategoryTable}.path like '{$prevParent->getPath()}/%')";
                 $this->_getWriteAdapter()->query($update);
             }
         }

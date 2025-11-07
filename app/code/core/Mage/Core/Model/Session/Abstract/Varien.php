@@ -627,8 +627,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // get time when password was last changed
         if (isset($this->_data['visitor_data']['customer_id'])) {
-            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
-                Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
+            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+                = Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
         }
 
         return $parts;

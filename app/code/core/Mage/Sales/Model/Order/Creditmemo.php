@@ -287,7 +287,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_creditmemo_item_collection')
                 ->setCreditmemoFilter($this->getId());
 
@@ -554,6 +554,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function register()
@@ -660,7 +661,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function setAdjustmentPositive($amount)
     {
-        $amount = trim($amount);
+        $amount = trim((string) $amount);
         if (str_ends_with($amount, '%')) {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
@@ -682,7 +683,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function setAdjustmentNegative($amount)
     {
-        $amount = trim($amount);
+        $amount = trim((string) $amount);
         if (str_ends_with($amount, '%')) {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
@@ -705,7 +706,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @param string $comment
      * @param bool $notify
      * @param bool $visibleOnFront
-     *
+     * @throws Exception
      * @return $this
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
@@ -759,6 +760,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @param bool $notifyCustomer
      * @param string $comment
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
@@ -956,6 +959,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * After save object manipulations
      *
      * @inheritDoc
+     * @throws Throwable
      */
     protected function _afterSave()
     {
@@ -995,6 +999,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * Get creditmemos collection filtered by $filter
      *
      * @param null|array $filter
+     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
      */
     public function getFilteredCollectionItems($filter = null)

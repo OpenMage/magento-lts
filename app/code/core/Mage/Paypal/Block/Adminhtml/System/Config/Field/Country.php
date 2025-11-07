@@ -104,7 +104,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
-        return parent::_getElementHtml($element) .
-            $helper->getScript('document.observe("dom:loaded", function() {' . $jsString . '});');
+        return parent::_getElementHtml($element)
+            . $helper->getScript('document.observe("dom:loaded", function() {' . $jsString . '});');
     }
 }

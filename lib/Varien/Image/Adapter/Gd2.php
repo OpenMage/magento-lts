@@ -451,9 +451,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             'Unsupported watermark image format.',
         ), $watermarkImage);
 
-        if ($this->getWatermarkWidth() &&
-            $this->getWatermarkHeigth() &&
-            ($this->getWatermarkPosition() != self::POSITION_STRETCH)
+        if ($this->getWatermarkWidth()
+            && $this->getWatermarkHeigth()
+            && ($this->getWatermarkPosition() != self::POSITION_STRETCH)
         ) {
             $newWatermark = imagecreatetruecolor($this->getWatermarkWidth(), $this->getWatermarkHeigth());
             imagealphablending($newWatermark, false);

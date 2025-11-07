@@ -493,7 +493,7 @@ final class Mage
      * Add observer to events object
      *
      * @param string $eventName
-     * @param callback $callback
+     * @param callable $callback
      * @param array $data
      * @param string $observerName
      * @param string $observerClass
@@ -902,8 +902,8 @@ final class Mage
             return;
         }
 
-        $file = empty($file) ?
-            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+        $file = empty($file)
+            ? (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
@@ -1035,7 +1035,7 @@ final class Mage
      * Try to find requested folder by shifting to domain root directory
      *
      * @param   string  $folder
-     * @param   boolean $exitIfNot
+     * @param   bool $exitIfNot
      * @return  string
      */
     public static function getScriptSystemUrl($folder, $exitIfNot = false)

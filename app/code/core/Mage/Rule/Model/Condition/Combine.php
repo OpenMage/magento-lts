@@ -37,7 +37,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
-            /** @var Mage_Rule_Model_Condition_Abstract $condition */
             $wheres[] = '(' . $condition->prepareConditionSql() . ')';
         }
 
@@ -115,8 +114,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAggregatorOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAggregatorOption() as $key => $value) {
+            $opt[] = ['value' => $key, 'label' => $value];
         }
 
         return $opt;
@@ -136,8 +135,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorElement()
     {
         if (is_null($this->getAggregator())) {
-            foreach ($this->getAggregatorOption() as $k => $v) {
-                $this->setAggregator($k);
+            foreach ($this->getAggregatorOption() as $key => $value) {
+                $this->setAggregator($key);
                 break;
             }
         }
@@ -264,8 +263,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                         $this->addCondition($cond);
                         $cond->loadArray($condArr, $key);
                     }
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         }
@@ -297,8 +296,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml() .
-               Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
+        $html = $this->getTypeElement()->getHtml()
+               . Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
@@ -403,7 +402,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Get conditions, if current prefix is undefined use 'conditions' key
      *
-     * @return array
+     * @return Mage_Rule_Model_Condition_Product_Abstract[]
      */
     public function getConditions()
     {
@@ -414,7 +413,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
-     * @param array $conditions
+     * @param Mage_Rule_Model_Condition_Product_Abstract[] $conditions
      * @return $this
      */
     public function setConditions($conditions)

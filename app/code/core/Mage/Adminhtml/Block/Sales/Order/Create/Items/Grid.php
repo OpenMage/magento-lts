@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      * Returns the item's original price
      *
      * @param Mage_Sales_Model_Quote_Item $item
-     * @return double
+     * @return float
      */
     public function getItemOrigPrice($item)
     {
@@ -364,7 +364,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      * Returns the item's original price that includes tax
      *
      * @param Mage_Sales_Model_Quote_Item $item
-     * @return double
+     * @return float
      */
     public function displayOriginalPriceInclTax($item)
     {

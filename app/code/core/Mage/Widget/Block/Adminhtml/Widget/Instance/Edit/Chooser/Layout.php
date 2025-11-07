@@ -109,8 +109,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
             ->setName($this->getSelectName())
             ->setId('layout_handle')
             ->setClass('required-entry select')
-            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', " .
-                            "this.up(\'div.pages\'), this.value)\"")
+            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', "
+                            . "this.up(\'div.pages\'), this.value)\"")
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),
                 $this->getPackage(),
