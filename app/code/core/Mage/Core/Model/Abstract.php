@@ -280,8 +280,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * @param null|int|string $id
      * @param null|string $field
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function load($id, $field = null)

@@ -11,14 +11,13 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Design _getResource()
+ * @method Mage_Core_Model_Resource_Design_Collection getCollection()
  * @method string getDateFrom()
  * @method string getDateTo()
  * @method string getDesign()
  * @method string getPackage()
  * @method Mage_Core_Model_Resource_Design getResource()
- * @method Mage_Core_Model_Resource_Design_Collection getCollection()
  * @method Mage_Core_Model_Resource_Design_Collection getResourceCollection()
- *
  * @method int getStoreId()
  * @method string getTheme()
  * @method $this setDateFrom(string $value)

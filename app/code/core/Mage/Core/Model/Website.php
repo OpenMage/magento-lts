@@ -16,7 +16,6 @@
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
  * @method int getGroupId()
  * @method int getIsDefault()
- *
  * @method string getName()
  * @method Mage_Core_Model_Resource_Website getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()

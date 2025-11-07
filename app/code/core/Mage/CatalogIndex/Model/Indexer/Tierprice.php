@@ -14,7 +14,6 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
  * @method int getCustomerGroupId()
- *
  * @method float getFinalPrice()
  * @method float getMaxPrice()
  * @method float getMinPrice()

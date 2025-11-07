@@ -16,7 +16,6 @@
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
  * @method int getDisplayInTerms()
  * @method int getIsActive()
- *
  * @method int getIsProcessed()
  * @method string getName()
  * @method int getNumResults()

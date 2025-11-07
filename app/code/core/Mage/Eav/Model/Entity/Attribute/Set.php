@@ -16,7 +16,6 @@
  * @method int getAttributeSetId(string $value)
  * @method string getAttributeSetName()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
- *
  * @method int getEntityTypeId()
  * @method Mage_Eav_Model_Entity_Attribute_Group[] getGroups()
  * @method Mage_Eav_Model_Entity_Attribute[] getRemoveAttributes()

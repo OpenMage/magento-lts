@@ -14,13 +14,12 @@
  *
  * @method int getAttributeSetId()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
- * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getResourceCollection()
- *
  * @method string getCreatedAt()
  * @method int getEntityTypeId()
  * @method int getHasOptions()
  * @method int getRequiredOptions()
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getResourceCollection()
  * @method string getSku()
  * @method string getTypeId()
  * @method string getUpdatedAt()

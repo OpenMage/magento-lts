@@ -420,9 +420,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Save object object data
      *
-     * @throws Zend_Db_Adapter_Exception
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      * @return $this
      */
     public function save(Mage_Core_Model_Abstract $object)
@@ -482,8 +482,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Forced save object data
      * forced update If duplicate unique key data
      *
-     * @throws Zend_Db_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      * @return $this
      * @deprecated
      */
@@ -606,8 +606,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
-     * @throws Zend_Cache_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      * @return bool
      */
     public function hasDataChanged($object)

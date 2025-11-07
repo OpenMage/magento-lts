@@ -67,8 +67,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Resource file handle (socket, file pointer etc)
      *
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return resource|Varien_Io_File
      */
     protected function _getHandle()

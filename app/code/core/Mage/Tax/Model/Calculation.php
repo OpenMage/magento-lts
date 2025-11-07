@@ -15,12 +15,11 @@
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
  * @method array getCalculationProcess()
  * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
- * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
- *
  * @method string getRateId()
  * @method string getRateTitle()
  * @method string getRateValue()
  * @method Mage_Tax_Model_Resource_Calculation getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
  * @method bool hasRateValue()
  * @method $this setCalculationProcess(array $value)
  * @method $this setRateValue(string $value)
@@ -387,8 +386,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
      * @param   null|int $customerTaxClass
      * @param   null|bool|int|Mage_Core_Model_Store|string $store
-     * @throws  Mage_Core_Model_Store_Exception
      * @throws  Mage_Core_Exception
+     * @throws  Mage_Core_Model_Store_Exception
      * @return  Varien_Object
      */
     public function getRateRequest(

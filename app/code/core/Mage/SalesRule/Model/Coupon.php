@@ -15,11 +15,10 @@
  * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
  * @method string getCode()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
- * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
- *
  * @method Zend_Date getExpirationDate()
  * @method int getIsPrimary()
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
  * @method int getRuleId()
  * @method int getTimesUsed()
  * @method int getType()

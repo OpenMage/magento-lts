@@ -13,15 +13,14 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
  * @method int getCustomerId()
  * @method string getFirstVisitAt()
  * @method string getLastUrl()
  * @method string getLastVisitAt()
  * @method int getRemoteAddr()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
- * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
  * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
- *
  * @method string getVisitorType()
  * @method $this setCustomerId(int $value)
  * @method $this setFirstVisitAt(string $value)

@@ -14,7 +14,6 @@
  * @method string getCode()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
  * @method string getCountryId()
- *
  * @method string getDefaultName()
  * @method int getRegionId()
  * @method Mage_Directory_Model_Resource_Region getResource()

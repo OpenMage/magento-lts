@@ -15,7 +15,6 @@
  * @method Mage_Admin_Model_Resource_Rules _getResource()
  * @method int getAssertId()
  * @method string getPermission()
- *
  * @method string getPrivileges()
  * @method Mage_Admin_Model_Resource_Rules getResource()
  * @method Mage_Admin_Model_Resource_Rules_Collection getResourceCollection()

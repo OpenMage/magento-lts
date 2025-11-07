@@ -16,7 +16,6 @@
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
  * @method string getHomeUrl()
  * @method string getLanguageCode()
- *
  * @method string getLocaleCode()
  * @method Mage_Core_Model_Resource_Store getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()

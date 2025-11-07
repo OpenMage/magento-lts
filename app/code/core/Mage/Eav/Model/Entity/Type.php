@@ -15,8 +15,6 @@
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method string getAdditionalAttributeTable()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
- * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
- *
  * @method string getDataSharingKey()
  * @method string getEntityModel()
  * @method string getIncrementModel()
@@ -25,6 +23,7 @@
  * @method int getIncrementPerStore()
  * @method int getIsDataSharing()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
  * @method $this setAdditionalAttributeTable(string $value)
  * @method $this setAttributeCodes(array $value)
  * @method $this setAttributeModel(string $value)

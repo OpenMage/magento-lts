@@ -15,8 +15,6 @@
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method int getApplyToShipping()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
- *
  * @method string getCouponCode()
  * @method int getCouponType()
  * @method string getDescription()
@@ -29,6 +27,7 @@
  * @method string getName()
  * @method string getProductIds()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
  * @method int getRuleId()
  * @method string getSimpleAction()
  * @method int getSimpleFreeShipping()

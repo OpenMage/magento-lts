@@ -15,7 +15,6 @@
  * @method Mage_Admin_Model_Resource_User _getResource()
  * @method string getCreated()
  * @method string getEmail()
- *
  * @method array getExtra()
  * @method string getFirstname()
  * @method int getIsActive()

@@ -16,7 +16,6 @@
  * @method int getAttributeGroupId()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
  * @method int getEntityAttributeId()
- *
  * @method array getFilterOptions()
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()

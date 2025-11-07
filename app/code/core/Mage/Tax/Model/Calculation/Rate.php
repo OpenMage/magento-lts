@@ -15,10 +15,9 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
  * @method string getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
- * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
- *
  * @method float getRate()
  * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
  * @method int getTaxCalculationRateId()
  * @method string getTaxCountryId()
  * @method string getTaxPostcode()

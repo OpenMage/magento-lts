@@ -14,14 +14,13 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getCollection()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getResourceCollection()
- *
  * @method string getComment()
  * @method string getCreatedAt()
  * @method int getIsCustomerNotified()
  * @method int getIsVisibleOnFront()
  * @method int getParentId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getResourceCollection()
  * @method $this setComment(string $value)
  * @method $this setCreatedAt(string $value)
  * @method $this setIsCustomerNotified(int $value)

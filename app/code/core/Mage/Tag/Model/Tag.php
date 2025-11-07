@@ -16,7 +16,6 @@
  * @method int getBasePopularity()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  * @method int getFirstCustomerId()
- *
  * @method int getFirstStoreId()
  * @method Mage_Tag_Model_Resource_Tag getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()

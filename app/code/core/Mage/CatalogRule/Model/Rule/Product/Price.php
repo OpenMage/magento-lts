@@ -13,14 +13,13 @@
  * @package    Mage_CatalogRule
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
+ * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection getCollection()
  * @method int getCustomerGroupId()
  * @method string getEarliestEndDate()
  * @method string getLatestStartDate()
  * @method int getProductId()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
- * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection getCollection()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection getResourceCollection()
- *
  * @method string getRuleDate()
  * @method float getRulePrice()
  * @method int getWebsiteId()

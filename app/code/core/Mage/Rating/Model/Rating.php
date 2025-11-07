@@ -16,7 +16,6 @@
  * @method Mage_Rating_Model_Resource_Rating_Collection getCollection()
  * @method string getEntityPkValue()
  * @method string getRatingCode()
- *
  * @method array getRatingCodes()
  * @method Mage_Rating_Model_Resource_Rating getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getResourceCollection()

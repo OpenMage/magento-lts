@@ -14,7 +14,6 @@
  * @method string getAttributeGroupName()
  * @method Mage_Eav_Model_Entity_Attribute[] getAttributes()
  * @method int getAttributeSetId()
- *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection getCollection()
  * @method int getDefaultId()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Group getResource()

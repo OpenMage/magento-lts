@@ -15,7 +15,6 @@
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
  * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
- *
  * @method int getShared()
  * @method string getSharingCode()
  * @method string getUpdatedAt()

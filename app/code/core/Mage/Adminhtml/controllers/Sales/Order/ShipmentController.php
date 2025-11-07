@@ -510,9 +510,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create shipping label for specific shipment with validation.
      *
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
-     * @throws Exception
      * @return bool
      */
     protected function _createShippingLabel(Mage_Sales_Model_Order_Shipment $shipment)
@@ -633,8 +633,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create pdf document with information about packages
      *
-     * @throws Zend_Pdf_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function printPackageAction()
     {

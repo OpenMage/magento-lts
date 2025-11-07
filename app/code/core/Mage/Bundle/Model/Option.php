@@ -16,7 +16,6 @@
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
  * @method string getDefaultTitle()
  * @method int getOptionId()
- *
  * @method int getParentId()
  * @method int getPosition()
  * @method int getRequired()

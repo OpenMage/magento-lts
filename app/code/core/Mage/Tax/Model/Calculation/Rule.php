@@ -15,11 +15,10 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method string getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
- * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
- *
  * @method int getPosition()
  * @method int getPriority()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
  * @method string getTaxCustomerClass()
  * @method string getTaxProductClass()
  * @method float getTaxRate()
