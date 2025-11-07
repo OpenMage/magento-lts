@@ -32,9 +32,9 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
     }
 
     /**
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @throws Exception
      * @return string
      */
     protected function _toHtml()

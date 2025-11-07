@@ -12,12 +12,12 @@
  *
  * @package    Varien_Data
  *
- * @method string getHtmlIdPrefix()
- * @method $this setHtmlIdPrefix(string $value)
- * @method string getHtmlIdSuffix()
  * @method string getFieldNameSuffix()
+ * @method string getHtmlIdPrefix()
+ * @method string getHtmlIdSuffix()
  * @method setDataObject(Mage_Core_Model_Abstract $value)
  * @method $this setFieldNameSuffix(string $value)
+ * @method $this setHtmlIdPrefix(string $value)
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {

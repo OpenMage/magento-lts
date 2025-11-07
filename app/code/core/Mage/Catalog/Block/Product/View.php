@@ -12,12 +12,12 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getProductId()
- * @method $this setCustomAddToCartUrl(string $value)
- * @method bool hasCustomAddToCartUrl()
- * @method string getCustomAddToCartUrl()
- * @method bool hasCustomAddToCartPostUrl()
  * @method string getCustomAddToCartPostUrl()
+ * @method string getCustomAddToCartUrl()
+ * @method int getProductId()
+ * @method bool hasCustomAddToCartPostUrl()
+ * @method bool hasCustomAddToCartUrl()
+ * @method $this setCustomAddToCartUrl(string $value)
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {

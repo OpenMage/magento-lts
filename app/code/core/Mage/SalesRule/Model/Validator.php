@@ -15,10 +15,10 @@
  * @package    Mage_SalesRule
  *
  * @method string getCouponCode()
- * @method $this setCouponCode(string $value)
  * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
+ * @method $this setCouponCode(string $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method $this setWebsiteId(int $value)
  */
 class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract

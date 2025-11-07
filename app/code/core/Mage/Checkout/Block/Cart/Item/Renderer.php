@@ -12,11 +12,11 @@
  *
  * @package    Mage_Checkout
  *
- * @method bool hasProductName()
- * @method $this setProductName(string $value)
- * @method bool hasDeleteUrl()
- * @method $this setDeleteUrl(string $value)
  * @method string getIdSuffix()
+ * @method bool hasDeleteUrl()
+ * @method bool hasProductName()
+ * @method $this setDeleteUrl(string $value)
+ * @method $this setProductName(string $value)
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {

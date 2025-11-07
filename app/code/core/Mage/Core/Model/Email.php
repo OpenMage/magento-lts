@@ -20,16 +20,16 @@
  * @package    Mage_Adminhtml
  *
  * @method getFromEmail()
- * @method $this setFromEmail(string $string)
  * @method getFromName()
- * @method $this setFromName(string $string)
  * @method string getTemplate()
- * @method $this setTemplate(string $string)
  * @method array|string getToEmail()
- * @method $this setToEmail(array|string $string)
  * @method getToName()
- * @method $this setToName(string $string)
  * @method string getType()
+ * @method $this setFromEmail(string $string)
+ * @method $this setFromName(string $string)
+ * @method $this setTemplate(string $string)
+ * @method $this setToEmail(array|string $string)
+ * @method $this setToName(string $string)
  * @method $this setType(string $string)
  */
 class Mage_Core_Model_Email extends Varien_Object

@@ -13,13 +13,12 @@
  * @package    Mage_Customer
  *
  * @method Mage_Customer_Model_Resource_Customer _getResource()
- * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
- *
- * @method bool hasEmail()
  * @method string getEmail()
  * @method int getPostIndex()
+ * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
+ * @method bool hasEmail()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {

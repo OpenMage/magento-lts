@@ -12,15 +12,15 @@
  *
  * @package    Mage_Payment
  *
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
  * @method string getCheckoutRedirectUrl()
- * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
  * @method string getInstructions()
  * @method string getOrderPlaceRedirectUrl()
  * @method int getStore()
- * @method $this setStore(int $value)
  * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
- * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
  * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
+ * @method $this setStore(int $value)
  * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
  * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */

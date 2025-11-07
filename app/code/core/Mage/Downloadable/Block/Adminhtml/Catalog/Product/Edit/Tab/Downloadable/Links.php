@@ -12,8 +12,8 @@
  *
  * @package    Mage_Downloadable
  *
- * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Uploader_Block_Single

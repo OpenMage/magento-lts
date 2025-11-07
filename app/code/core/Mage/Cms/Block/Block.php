@@ -32,8 +32,8 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     /**
      * Prepare Content HTML
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return string
      */
     protected function _toHtml()

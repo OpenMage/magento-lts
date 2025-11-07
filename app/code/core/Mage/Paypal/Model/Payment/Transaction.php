@@ -14,12 +14,11 @@
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
- * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getCollection()
- * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getResourceCollection()
- *
- * @method string getTxnId()
  * @method string getCreatedAt()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
+ * @method Mage_Paypal_Model_Resource_Payment_Transaction_Collection getResourceCollection()
+ * @method string getTxnId()
  * @method $this setCreatedAt(string $value)
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract

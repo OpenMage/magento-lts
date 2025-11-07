@@ -15,19 +15,19 @@
  *
  * @package    Mage_Core
  *
+ * @method string getPosition()
+ * @method bool hasWrapperMustBeVisible()
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheKey(string $value)
+ * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
  * @method $this setDisabled(bool $value)
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
- * @method string getPosition()
  * @method $this setTemplate(string $value)
  * @method $this setType(string $value)
- * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {

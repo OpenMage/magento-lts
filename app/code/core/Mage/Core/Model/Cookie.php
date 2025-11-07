@@ -213,8 +213,8 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      * @return $this
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
@@ -289,8 +289,8 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      * @return $this
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
@@ -327,8 +327,8 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool|int $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      * @return $this
      */
     public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)

@@ -13,12 +13,12 @@
  * @method Varien_Data_Form getForm()
  * @method bool getUseContainer()
  * @method $this setAction(string $value)
+ * @method $this setDisabled(bool $value)
  * @method $this setMethod(string $value)
  * @method $this setName(string $value)
- * @method $this setValue(mixed $value)
- * @method $this setUseContainer(bool $value)
- * @method $this setDisabled(bool $value)
  * @method $this setRequired(bool $value)
+ * @method $this setUseContainer(bool $value)
+ * @method $this setValue(mixed $value)
  *
  * @package    Varien_Data
  */

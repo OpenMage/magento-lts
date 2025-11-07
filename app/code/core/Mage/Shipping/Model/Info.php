@@ -14,9 +14,9 @@
  *
  * @method int getOrderId()
  * @method string getProtectCode()
- * @method $this setProtectCode(string $value)
  * @method int getShipId()
  * @method int getTrackId()
+ * @method $this setProtectCode(string $value)
  */
 class Mage_Shipping_Model_Info extends Varien_Object
 {

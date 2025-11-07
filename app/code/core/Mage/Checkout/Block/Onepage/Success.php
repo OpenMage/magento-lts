@@ -12,13 +12,13 @@
  *
  * @package    Mage_Checkout
  *
- * @method $this setCanViewProfiles(bool $value)
- * @method $this setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
- * @method string getOrderId()
- * @method string getPrintUrl()
  * @method bool getCanPrintOrder()
  * @method bool getCanViewOrder()
  * @method Mage_Sales_Model_Order getOrder()
+ * @method string getOrderId()
+ * @method string getPrintUrl()
+ * @method $this setCanViewProfiles(bool $value)
+ * @method $this setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
  */
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {

@@ -74,8 +74,8 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
     /**
      * Retrieve currency model if not set then return currency model for current store
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Directory_Model_Currency
      */
     public function getCurrency()

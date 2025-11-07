@@ -54,8 +54,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param array $categoryData
      * @param null|int|string $store
      * @throws Mage_Api_Exception
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return int
      */
     public function create($parentId, $categoryData, $store = null)

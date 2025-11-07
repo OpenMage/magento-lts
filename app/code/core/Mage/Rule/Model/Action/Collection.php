@@ -13,9 +13,9 @@
  * @package    Mage_Rule
  *
  * @method array getActions()
+ * @method Mage_Rule_Model_Abstract getRule()
  * @method $this setActions(array $value)
  * @method $this setType(string $value)
- * @method Mage_Rule_Model_Abstract getRule()
  */
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {

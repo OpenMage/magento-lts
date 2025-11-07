@@ -11,8 +11,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
- * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  * @method bool getNoRender()
+ * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {

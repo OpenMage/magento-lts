@@ -12,10 +12,10 @@
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_User getUser()
- * @method $this setUser(Mage_Api_Model_User $user)
  * @method Mage_Api_Model_Acl getAcl()
+ * @method Mage_Api_Model_User getUser()
  * @method $this setAcl(Mage_Api_Model_Acl $loadAcl)
+ * @method $this setUser(Mage_Api_Model_User $user)
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {

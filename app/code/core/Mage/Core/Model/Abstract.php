@@ -12,13 +12,13 @@
  *
  * @package    Mage_Core
  *
+ * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
  * @method string getCreatedAt()
+ * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
+ * @method bool hasErrors()
+ * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
  * @method $this setCreatedAt(string $currentTime)
  * @method $this setUpdatedAt(string $currentTime)
- * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
- * @method bool hasErrors()
- * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
- * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -280,8 +280,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * @param null|int|string $id
      * @param null|string $field
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function load($id, $field = null)

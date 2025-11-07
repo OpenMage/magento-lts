@@ -13,18 +13,18 @@
  * @package    Mage_Adminhtml
  *
  * @method array getGroups()
- * @method $this setGroups(array $value)
  * @method string getScope()
- * @method $this setScope(string $value)
  * @method string getScopeCode()
- * @method $this setScopeCode(string $value)
  * @method int getScopeId()
- * @method $this setScopeId(int $value)
  * @method string getSection()
- * @method $this setSection(string $value)
  * @method string getStore()
- * @method $this setStore(string $value)
  * @method string getWebsite()
+ * @method $this setGroups(array $value)
+ * @method $this setScope(string $value)
+ * @method $this setScopeCode(string $value)
+ * @method $this setScopeId(int $value)
+ * @method $this setSection(string $value)
+ * @method $this setStore(string $value)
  * @method $this setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object

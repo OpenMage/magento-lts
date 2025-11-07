@@ -12,13 +12,13 @@
  *
  * @package    Mage_Page
  *
- * @method bool hasElementClass()
  * @method string getElementClass()
- * @method bool hasElementId()
  * @method string getElementId()
+ * @method string getOtherParams()
+ * @method bool hasElementClass()
+ * @method bool hasElementId()
  * @method bool hasMayBeInvisible()
  * @method bool hasOtherParams()
- * @method string getOtherParams()
  */
 class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
 {

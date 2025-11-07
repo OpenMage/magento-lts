@@ -292,8 +292,8 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
     }
 
     /**
-     * @throws Throwable
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function batchFinishAction()
     {

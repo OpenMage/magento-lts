@@ -13,9 +13,9 @@
  * @package    Mage_Page
  *
  * @method $this setCanLoadCalendarJs(bool $value)
+ * @method $this setCanLoadTinyMce(bool $value)
  * @method $this setDescription(string $value)
  * @method $this setKeywords(string $value)
- * @method $this setCanLoadTinyMce(bool $value)
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {

@@ -225,8 +225,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Notice that productClassId due to optimization can be array of ids
      *
      * @param null|Varien_Object $request
-     * @throws Zend_Db_Select_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      * @return array
      */
     protected function _getRates($request)
@@ -435,8 +435,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Retrieve rate ids
      *
      * @param Varien_Object $request
-     * @throws Zend_Db_Select_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      * @return array
      */
     public function getRateIds($request)

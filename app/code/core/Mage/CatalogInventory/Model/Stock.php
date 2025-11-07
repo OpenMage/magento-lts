@@ -14,7 +14,6 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
- *
  * @method string getStockName()
  * @method $this setStockName(string $value)
  */
