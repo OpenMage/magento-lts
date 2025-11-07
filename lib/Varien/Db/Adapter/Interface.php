@@ -787,7 +787,7 @@ interface Varien_Db_Adapter_Interface
      * Returns valid IFNULL expression
      *
      * @param string $expression
-     * @param string $value OPTIONAL. Applies when $expression is NULL
+     * @param int|string $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
     public function getIfNullSql($expression, $value = '0');
