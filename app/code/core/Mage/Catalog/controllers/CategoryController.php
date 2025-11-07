@@ -148,12 +148,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $this->getLayout()->helper('page/layout')->applyTemplate($settings->getPageLayout());
             }
 
-            /** @var Mage_Page_Block_Html $root */
-            $root = $this->getLayout()->getBlock('root');
-            if ($root) {
-                $root->addBodyClass('categorypath-' . $category->getUrlPath())
-                    ->addBodyClass('category-' . $category->getUrlKey());
-            }
+            $root = $this->getLayout()->getBlockRoot();
+            $root?->addBodyClass('categorypath-' . $category->getUrlPath())
+                ->addBodyClass('category-' . $category->getUrlKey());
 
             $this->_initLayoutMessages('catalog/session');
             $this->_initLayoutMessages('checkout/session');

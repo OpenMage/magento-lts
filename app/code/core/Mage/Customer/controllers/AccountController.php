@@ -102,7 +102,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('customer/account_dashboard'),
         );
-        $this->getLayout()->getBlock('head')->setTitle($this->__('My Account'));
+
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('My Account'));
+
         $this->renderLayout();
     }
 
@@ -120,7 +123,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Customer Login'));
+
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('Customer Login'));
+
         $this->renderLayout();
     }
 
@@ -974,7 +980,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setChangePassword(1);
         }
 
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Account Information'));
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('Account Information'));
+
         $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
         $this->renderLayout();
     }

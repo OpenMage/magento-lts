@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 {
+    use Mage_Core_Model_Layout_Traits_Adminhtml;
+    use Mage_Core_Model_Layout_Traits_Frontend;
+
     /**
      * Layout Update module
      *
@@ -540,11 +543,26 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Get block object by name
      *
      * @param string $name
+     * @deprecated Use getBlockByName() which returns null if block does not exist
+     * @see getBlockByName()
      * @return false|Mage_Core_Block_Abstract
      */
     public function getBlock($name)
     {
         return $this->_blocks[$name] ?? false;
+    }
+
+    /**
+     * Returns null instead of false if block does not exist
+     */
+    public function getBlockByName(string $name): ?Mage_Core_Block_Abstract
+    {
+        $block = $this->_blocks[$name] ?? null;
+        if (!$block instanceof Mage_Core_Block_Abstract) {
+            return null;
+        }
+
+        return $block;
     }
 
     /**

@@ -157,7 +157,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _getReviewHtml()
     {
-        return $this->getLayout()->getBlock('root')->toHtml();
+        $root = $this->getLayout()->getBlockRoot();
+        if ($root) {
+            return $root->toHtml();
+        }
+
+        return '';
     }
 
     /**
@@ -202,7 +207,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Checkout'));
+
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('Checkout'));
+
         $this->renderLayout();
     }
 

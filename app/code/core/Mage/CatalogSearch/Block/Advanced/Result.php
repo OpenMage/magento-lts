@@ -21,20 +21,20 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
-        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
-        if ($breadcrumbs) {
-            $breadcrumbs->addCrumb('home', [
+        $breadcrumbs = $this->getLayout()->getBlockBreadcrumbs();
+        $breadcrumbs
+            ?->addCrumb('home', [
                 'label' => Mage::helper('catalogsearch')->__('Home'),
                 'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
+                'link'  => Mage::getBaseUrl(),
+            ])
+            ->addCrumb('search', [
                 'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link' => $this->getUrl('*/*/'),
-            ])->addCrumb('search_result', [
+                'link'  => $this->getUrl('*/*/'),
+            ])
+            ->addCrumb('search_result', [
                 'label' => Mage::helper('catalogsearch')->__('Results'),
             ]);
-        }
 
         return parent::_prepareLayout();
     }

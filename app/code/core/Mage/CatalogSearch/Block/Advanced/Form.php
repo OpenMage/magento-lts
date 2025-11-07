@@ -19,18 +19,16 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function _prepareLayout()
     {
-        // add Home breadcrumb
-        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
-        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
-        if ($breadcrumbs) {
-            $breadcrumbs->addCrumb('home', [
+        $breadcrumbs = $this->getLayout()->getBlockBreadcrumbs();
+        $breadcrumbs
+            ?->addCrumb('home', [
                 'label' => Mage::helper('catalogsearch')->__('Home'),
                 'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
+                'link'  => Mage::getBaseUrl(),
+            ])
+            ->addCrumb('search', [
                 'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
             ]);
-        }
 
         return parent::_prepareLayout();
     }

@@ -221,17 +221,16 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
             $this->_initProductLayout($product);
 
-            // update breadcrumbs
-            /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
-            $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
-            if ($breadcrumbsBlock) {
-                $breadcrumbsBlock->addCrumb('product', [
-                    'label'    => $product->getName(),
-                    'link'     => $product->getProductUrl(),
-                    'readonly' => true,
+            $breadcrumbs = $this->getLayout()->getBlockBreadcrumbs();
+            $breadcrumbs
+                ?->addCrumb('product', [
+                    'label'     => $product->getName(),
+                    'link'      => $product->getProductUrl(),
+                    'readonly'  => true,
+                ])
+                ->addCrumb('reviews', [
+                    'label'     => Mage::helper('review')->__('Product Reviews'),
                 ]);
-                $breadcrumbsBlock->addCrumb('reviews', ['label' => Mage::helper('review')->__('Product Reviews')]);
-            }
 
             $this->renderLayout();
         } elseif (!$this->getResponse()->isRedirect()) {
