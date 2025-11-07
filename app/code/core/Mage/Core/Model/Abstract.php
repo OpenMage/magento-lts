@@ -87,7 +87,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Flag which allow detect object state: is it new object (without id) or existing one (with id)
      *
-     * @var bool
+     * @var null|bool
      */
     protected $_isObjectNew     = null;
 
@@ -169,6 +169,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Resource_Db_Abstract|object
      */
     protected function _getResource()
@@ -188,6 +189,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve identifier field name for model
      *
+     * @throws Mage_Core_Exception
      * @return string
      */
     public function getIdFieldName()
@@ -203,6 +205,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model object identifier
      *
+     * @throws Mage_Core_Exception
      * @return null|int|string
      */
     public function getId()
@@ -219,6 +222,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Declare model object identifier value
      *
      * @param   mixed $id
+     * @throws  Mage_Core_Exception
      * @return  $this
      */
     public function setId($id)
@@ -276,6 +280,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * @param null|int|string $id
      * @param null|string $field
+     * @throws Mage_Core_Exception
+     * @throws Exception
      * @return $this
      */
     public function load($id, $field = null)
@@ -396,6 +402,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Callback function which called after transaction commit in resource model
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function afterCommitCallback()
@@ -413,6 +420,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * created in this transaction
      *
      * @param bool $flag
+     * @throws Mage_Core_Exception
      * @return bool
      */
     public function isObjectNew($flag = null)
@@ -427,6 +435,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before save data
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     protected function _beforeSave()
@@ -444,6 +453,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Get list of cache tags applied to model object.
      * Return false if cache tags are not supported by model
      *
+     * @throws Mage_Core_Exception
      * @return array|false
      */
     public function getCacheTags()
@@ -472,6 +482,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
+     * @throws Mage_Core_Exception
      * @return array|false
      */
     public function getCacheIdTags()
@@ -494,6 +505,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Remove model object related cache
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     public function cleanModelCache()
@@ -545,6 +557,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before delete data
      *
+     * @throws Mage_Core_Exception
      * @return $this
      */
     protected function _beforeDelete()
@@ -598,6 +611,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model resource
      *
+     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function getResource()

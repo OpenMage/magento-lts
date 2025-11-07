@@ -220,16 +220,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $alias = null;
                 }
 
-                if ($field instanceof Zend_Db_Expr) {
-                    $column = $field->__toString();
-                } else {
-                    $column = $field;
-                }
-
-                if (($alias !== null && in_array($alias, $columnsToSelect))
-                    // If field already joined from another table
-                    || ($alias === null && isset($alias, $columnsToSelect))
-                ) {
+                if ($alias !== null && in_array($alias, $columnsToSelect)) {
                     continue;
                 }
 

@@ -25,12 +25,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
 
 		-
-			rawMessage: 'Parameter #1 $role of method Mage_Admin_Model_Resource_Roles::_updateRoleUsersAcl() expects Mage_Admin_Model_Roles, Mage_Core_Model_Abstract given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/Roles.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Roles::update().'
 			identifier: method.notFound
 			count: 1
@@ -139,12 +133,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
 
 		-
-			rawMessage: 'Parameter #3 $refValues of method Mage_Adminhtml_Block_Widget_Form_Element_Dependence::addFieldDependence() expects array|string, int given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
-
-		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given.'
 			identifier: argument.type
 			count: 1
@@ -159,12 +147,6 @@ parameters:
 		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Grouped_Collection given.'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Adminhtml_Block_Report_Grid_Abstract::$_columnGroupBy (string) in isset() is not nullable.'
-			identifier: isset.property
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -559,18 +541,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
 		-
-			rawMessage: 'Variable $id in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
-
-		-
-			rawMessage: 'Variable $id in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
-
-		-
 			rawMessage: 'Cannot call method aggregate() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
 			identifier: method.nonObject
 			count: 2
@@ -671,12 +641,6 @@ parameters:
 			identifier: argument.type
 			count: 4
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			rawMessage: 'Variable $data in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
 
 		-
 			rawMessage: 'Cannot call method fetchRates() on Mage_Core_Model_Abstract|false.'
@@ -1657,12 +1621,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_storeId (int) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_tree (Varien_Data_Tree_Db) does not accept Varien_Data_Tree_Dbp.'
 			identifier: assign.propertyType
 			count: 1
@@ -1739,12 +1697,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			rawMessage: 'Property Mage_Catalog_Model_Resource_Config::$_storeId (int) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
 
 		-
 			rawMessage: Binary operation "-" between int and non-falsy-string results in an error.
@@ -1876,12 +1828,6 @@ parameters:
 			rawMessage: 'Loose comparison using == between true and true will always evaluate to true.'
 			identifier: equal.alwaysTrue
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
-			rawMessage: 'Property Mage_Catalog_Model_Url::$_saveRewritesHistory (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
@@ -2029,12 +1975,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
 
 		-
-			rawMessage: 'Property Mage_CatalogSearch_Helper_Data::$_queryText (string) in isset() is not nullable.'
-			identifier: isset.property
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
-
-		-
 			rawMessage: 'Method Mage_CatalogSearch_Model_Advanced::getProductCollection() should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array|float|int|string|false|null.'
 			identifier: return.type
 			count: 1
@@ -2157,12 +2097,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			rawMessage: 'Property Mage_Checkout_Model_Type_Onepage::$_quote (Mage_Sales_Model_Quote) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
@@ -2305,12 +2239,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Abstract::$_isObjectNew (bool) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $group of method Mage_Core_Model_App::_getStoreByGroup() expects int, string given.'
 			identifier: argument.type
 			count: 1
@@ -2375,18 +2303,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Config.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Design_Fallback::$_store (Mage_Core_Model_Store) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Fallback.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Design_Package::$_store (int|Mage_Core_Model_Store|string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
 			rawMessage: 'Parameter #1 $policyCode of method Mage_Core_Model_Domainpolicy::_getDomainPolicyByCode() expects string, int given.'
@@ -2527,27 +2443,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
-			rawMessage: Result of && is always false.
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: 'Variable $alias in isset() always exists and is always null.'
-			identifier: isset.variable
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
 			rawMessage: Variable $alias might not be defined.
 			identifier: variable.undefined
 			count: 3
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: 'Variable $columnsToSelect in isset() always exists and is not nullable.'
-			identifier: isset.variable
-			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
@@ -3355,12 +3253,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Db.php
 
 		-
-			rawMessage: 'Property Mage_Install_Model_Installer_Db_Abstract::$_connection (Varien_Db_Adapter_Interface) in isset() is not nullable.'
-			identifier: isset.property
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
-
-		-
 			rawMessage: Binary operation "+" between non-falsy-string and 1 results in an error.
 			identifier: binaryOp.invalid
 			count: 2
@@ -3835,12 +3727,6 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Rule_Model_Condition_Abstract::$_inputType (string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
-
-		-
 			rawMessage: 'Method Mage_Rule_Model_Condition_Abstract::loadArray() invoked with 2 parameters, 1 required.'
 			identifier: arguments.count
 			count: 1
@@ -4065,12 +3951,6 @@ parameters:
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
-
-		-
-			rawMessage: 'Variable $addressQty in isset() always exists and is not nullable.'
-			identifier: isset.variable
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
 
@@ -4429,12 +4309,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Helper/Data.php
 
 		-
-			rawMessage: 'Property Mage_Shipping_Model_Carrier_Abstract::$_code (string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php
-
-		-
 			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl::$_rawTrackRequest.
 			identifier: property.notFound
 			count: 2
@@ -4619,6 +4493,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Wishlist/Controller/Abstract.php
+
+		-
+			rawMessage: Variable $wishlist might not be defined.
+			identifier: variable.undefined
+			count: 1
+			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().'

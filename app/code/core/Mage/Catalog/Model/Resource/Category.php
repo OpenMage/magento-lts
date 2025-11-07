@@ -31,14 +31,14 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Id of 'is_active' category attribute
      *
-     * @var int
+     * @var null|int
      */
     protected $_isActiveAttributeId      = null;
 
     /**
      * Store id
      *
-     * @var int
+     * @var null|int
      */
     protected $_storeId                  = null;
 
