@@ -108,7 +108,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get role users
      *
-     * @param Mage_Admin_Model_Roles $role
      * @throws Mage_Core_Exception
      * @return array
      */
