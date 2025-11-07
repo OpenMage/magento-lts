@@ -276,7 +276,7 @@ function isDirWriteable($dir)
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
             $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
-            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
+            $file   = $dir . DIRECTORY_SEPARATOR . uniqid((string) mt_rand()) . '.tmp';
             $exist  = file_exists($file);
             $fp     = @fopen($file, 'a');
             if ($fp === false) {

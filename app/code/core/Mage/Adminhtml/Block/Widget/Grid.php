@@ -967,7 +967,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param int $limit
+     * @param null|int $limit
      * @return $this
      */
     public function setDefaultLimit($limit)
