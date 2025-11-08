@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
      * @param bool $sorted
-     * @param array $exclude
+     * @param array|int|string $exclude
      * @param bool $toLoad
      * @param bool $onlyActive
      * @return $this

@@ -494,7 +494,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Model_Abstract $item
      * @param null|string $title
      * @param string $property
-     * @param string $value
+     * @param float|int $value
      */
     public function setWeeeTaxesAppliedProperty($item, $title, $property, $value)
     {

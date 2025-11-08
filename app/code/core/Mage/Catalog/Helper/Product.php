@@ -47,6 +47,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param   int|Mage_Catalog_Model_Product|string $product
      * @return  false|string
+     * @throws  Mage_Core_Exception
      */
     public function getProductUrl($product)
     {
@@ -62,9 +63,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product view page url including provided category Id
      *
-     * @param   int $productId
-     * @param   int $categoryId
+     * @param   int|string $productId
+     * @param   int|string $categoryId
      * @return  string
+     * @throws  Mage_Core_Exception
      */
     public function getFullProductUrl($productId, $categoryId = null)
     {
@@ -104,6 +106,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
      */
     public function getImageUrl($product)
     {
@@ -122,6 +125,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getSmallImageUrl($product)
     {
@@ -140,6 +145,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getThumbnailUrl($product)
     {
@@ -156,6 +163,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * @param Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getEmailToFriendUrl($product)
     {
@@ -188,6 +196,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param int|Mage_Catalog_Model_Product $product
      * @param string $where
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShow($product, $where = 'catalog')
     {
@@ -196,7 +205,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         /** @var Mage_Catalog_Model_Product $product */
-
         if (!$product->getId()) {
             return false;
         }
@@ -209,6 +217,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductUrlSuffix($storeId = null)
     {
@@ -308,6 +317,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param Varien_Object $params
      *
      * @return false|Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function initProduct($productId, $controller, $params = null)
     {
@@ -451,6 +462,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param  null|int $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProduct($productId, $store, $identifierType = null)
     {
