@@ -357,8 +357,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Set filenames for base file and new file
      *
      * @param string $file
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function setBaseFile($file)
     {
@@ -548,8 +548,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @param int $width
      * @param int $heigth
      * @param int $imageOpacity
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function setWatermark($file, $position = null, $size = null, $width = null, $heigth = null, $imageOpacity = null)
     {
@@ -675,9 +675,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Get relative watermark file path
      * or false if file not found
      *
+     * @return bool|string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return bool|string
      */
     protected function _getWatermarkFilePath()
     {
