@@ -24,9 +24,9 @@ class Mage_SalesRule_Model_Observer
     /**
      * Get quote item validator/processor object
      *
-     * @deprecated
      * @param   Varien_Event $event
      * @return  Mage_SalesRule_Model_Validator
+     * @deprecated
      */
     public function getValidator($event)
     {
@@ -41,8 +41,8 @@ class Mage_SalesRule_Model_Observer
     /**
      * Process quote item (apply discount to item)
      *
-     * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
+     * @deprecated process call moved to total model
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -56,8 +56,8 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order is placed
      *
      * @param Varien_Event_Observer $observer
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -192,8 +192,8 @@ class Mage_SalesRule_Model_Observer
      * If rules were found they will be set to inactive and notice will be add to admin session
      *
      * @param string $attributeCode
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {

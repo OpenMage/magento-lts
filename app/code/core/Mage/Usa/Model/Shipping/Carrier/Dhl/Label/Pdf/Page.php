@@ -82,8 +82,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * @param string $charEncoding (optional) Character encoding of source text.
      *   Defaults to current locale.
      * @param $align
-     * @throws Zend_Pdf_Exception
      * @return Zend_Pdf_Canvas_Interface
+     * @throws Zend_Pdf_Exception
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {
@@ -116,8 +116,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * @param int $y
      * @param int $maxWidth - number of symbols
      * @param string $align
-     * @throws Zend_Pdf_Exception
      * @return float
+     * @throws Zend_Pdf_Exception
      */
     public function drawLines($lines, $x, $y, $maxWidth, $align = self::ALIGN_LEFT)
     {

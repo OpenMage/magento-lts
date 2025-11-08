@@ -131,8 +131,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Zend_Validate_Exception
      * @return array|bool
+     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
@@ -201,8 +201,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {

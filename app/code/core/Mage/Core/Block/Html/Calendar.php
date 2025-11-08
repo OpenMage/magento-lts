@@ -16,8 +16,8 @@
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 {
     /**
-     * @throws Zend_Locale_Exception
      * @return string
+     * @throws Zend_Locale_Exception
      */
     protected function _toHtml()
     {

@@ -215,9 +215,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Add summary data to current object
      *
-     * @deprecated after 1.4.0.0
      * @param int $storeId
      * @return $this
+     * @deprecated after 1.4.0.0
      */
     public function addSummary($storeId)
     {
@@ -334,8 +334,8 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {

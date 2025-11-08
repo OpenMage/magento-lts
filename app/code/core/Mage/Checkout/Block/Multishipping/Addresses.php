@@ -37,8 +37,8 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function getItems()
     {

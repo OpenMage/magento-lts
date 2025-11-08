@@ -74,8 +74,8 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Tag_Model_Resource_Product_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getProductCollection()
     {
@@ -100,8 +100,8 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getResultCount()
     {

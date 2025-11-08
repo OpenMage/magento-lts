@@ -31,8 +31,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Disable showing of login form
      *
-     * @see Mage_Admin_Model_Observer::actionPreDispatchAdmin() method for explanation
      * @return $this
+     * @see Mage_Admin_Model_Observer::actionPreDispatchAdmin() method for explanation
      */
     public function preDispatch()
     {

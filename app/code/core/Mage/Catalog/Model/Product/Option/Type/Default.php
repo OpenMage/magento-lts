@@ -63,8 +63,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Option Instance getter
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product_Option
+     * @throws Mage_Core_Exception
      */
     public function getOption()
     {
@@ -90,8 +90,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Product Instance getter
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -193,8 +193,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Validate user input for option
      *
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -227,8 +227,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Prepare option value for cart
      *
-     * @throws Mage_Core_Exception
      * @return mixed Prepared option value
+     * @throws Mage_Core_Exception
      */
     public function prepareForCart()
     {

@@ -313,8 +313,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $setId
-     * @throws Mage_Eav_Exception
      * @return int
+     * @throws Mage_Eav_Exception
      */
     public function getAttributeSetId($entityTypeId, $setId)
     {
@@ -347,9 +347,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string $entityType
      * @param string $attributeSet
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @return $this
      */
     public function setDefaultSetToEntityType($entityType, $attributeSet = 'Default')
     {
@@ -363,8 +363,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Get identifiers of all attribute sets
      *
      * @param int $entityTypeId
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllAttributeSetIds($entityTypeId = null)
     {
@@ -569,8 +569,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param int|string $entityType
      * @param int|string $attributeSetId
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -638,8 +638,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Validate attribute data before insert into table
      *
      * @param  array $data
-     * @throws Mage_Eav_Exception
      * @return true
+     * @throws Mage_Eav_Exception
      */
     protected function _validateAttributeData($data)
     {
@@ -1248,18 +1248,17 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
-     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
-     *
-     * Create entity tables
-     *
      * @param string $baseTableName
      * @param array $options
      * - no-main
      * - no-default-types
      * - types
+     * @return Mage_Eav_Model_Entity_Setup
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @return Mage_Eav_Model_Entity_Setup
+     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
+     *
+     * Create entity tables
      */
     public function createEntityTables($baseTableName, array $options = [])
     {

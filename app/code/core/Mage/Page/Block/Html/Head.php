@@ -301,13 +301,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Classify HTML head item and queue it into "lines" array
      *
-     * @see self::getCssJsHtml()
      * @param array $lines
      * @param string $itemIf
      * @param string $itemType
      * @param string $itemParams
      * @param string $itemName
      * @param array $itemThe
+     * @see self::getCssJsHtml()
      */
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {
@@ -330,9 +330,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Render arbitrary HTML head items
      *
-     * @see self::getCssJsHtml()
      * @param array $items
      * @return string
+     * @see self::getCssJsHtml()
      */
     protected function _prepareOtherHtmlHeadElements($items)
     {

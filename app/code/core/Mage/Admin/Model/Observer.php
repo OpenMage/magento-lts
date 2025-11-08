@@ -96,8 +96,8 @@ class Mage_Admin_Model_Observer
     /**
      * Unset session first visit flag after displaying page
      *
-     * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
+     * @deprecated after 1.4.0.1, logic moved to admin session
      */
     public function actionPostDispatchAdmin($event) {}
 

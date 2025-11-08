@@ -47,8 +47,8 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      * @param string $name
      * @param string $id
      * @param string $title
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCountryHtmlSelect($defValue = null, $name = 'country_id', $id = 'country', $title = 'Country')
     {
@@ -98,8 +98,8 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRegionHtmlSelect()
     {

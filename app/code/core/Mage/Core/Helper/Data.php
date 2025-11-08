@@ -322,8 +322,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param string $password
      * @param string $hash
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function validateHash($password, $hash)
     {
@@ -624,8 +624,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Array has some limitations. Appropriate exceptions will be thrown
      *
      * @param string $rootName
-     * @throws Exception
      * @return SimpleXMLElement
+     * @throws Exception
      */
     public function assocToXml(array $array, $rootName = '_')
     {
@@ -651,8 +651,8 @@ XML;
      * Function, that actually recursively transforms array to xml
      *
      * @param string $rootName
-     * @throws Exception
      * @return SimpleXMLElement
+     * @throws Exception
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
@@ -743,8 +743,8 @@ XML;
      *
      * @param string $encodedValue
      * @param int $objectDecodeType
-     * @throws Zend_Json_Exception
      * @return mixed
+     * @throws Zend_Json_Exception
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
@@ -921,8 +921,8 @@ XML;
      * Check LFI protection
      *
      * @param string $name
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function checkLfiProtection($name)
     {
@@ -1004,9 +1004,9 @@ XML;
      * Escaping CSV-data
      *
      * Security enhancement for CSV data processing by Excel-like applications.
-     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
      * @return array
+     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      */
     public function getEscapedCSVData(array $data)
     {

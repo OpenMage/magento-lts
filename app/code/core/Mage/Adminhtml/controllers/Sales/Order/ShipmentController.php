@@ -26,9 +26,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Initialize shipment model instance
      *
+     * @return bool|Mage_Sales_Model_Order_Shipment
      * @throws Exception
      * @throws Mage_Core_Exception
-     * @return bool|Mage_Sales_Model_Order_Shipment
      */
     protected function _initShipment()
     {
@@ -95,8 +95,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment and order in one transaction
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _saveShipment($shipment)
     {
@@ -467,10 +467,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      * @param Mage_Sales_Model_Order_Item $item
      * @param array $qtys
      * @return bool
+     * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
     protected function _needToAddDummy($item, $qtys)
     {
@@ -510,10 +510,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create shipping label for specific shipment with validation.
      *
+     * @return bool
      * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
-     * @return bool
      */
     protected function _createShippingLabel(Mage_Sales_Model_Order_Shipment $shipment)
     {
@@ -715,8 +715,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Combine array of labels as instance PDF
      *
-     * @throws Zend_Pdf_Exception
      * @return Zend_Pdf
+     * @throws Zend_Pdf_Exception
      */
     protected function _combineLabelsPdf(array $labelsContent)
     {
@@ -742,8 +742,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
      * @param string $imageString
-     * @throws Zend_Pdf_Exception
      * @return bool|Zend_Pdf_Page
+     * @throws Zend_Pdf_Exception
      */
     protected function _createPdfPageFromImageString($imageString)
     {
@@ -769,8 +769,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Return grid with shipping items for Ajax request
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Controller_Response_Http
+     * @throws Mage_Core_Exception
      */
     public function getShippingItemsGridAction()
     {

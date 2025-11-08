@@ -108,9 +108,9 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     /**
      * Save action
      *
+     * @return $this|void
      * @throws Mage_Core_Exception
      * @throws Zend_Validate_Exception
-     * @return $this|void
      */
     public function saveAction()
     {

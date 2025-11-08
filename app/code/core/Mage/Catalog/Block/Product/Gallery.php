@@ -43,8 +43,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return null|Varien_Object
+     * @throws Exception
      */
     public function getCurrentImage()
     {
@@ -100,8 +100,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return false|Varien_Object
+     * @throws Exception
      */
     public function getPreviusImage()
     {
@@ -123,8 +123,8 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return false|Varien_Object
+     * @throws Exception
      */
     public function getNextImage()
     {

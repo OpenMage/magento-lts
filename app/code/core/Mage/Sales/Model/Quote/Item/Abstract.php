@@ -738,8 +738,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Calculate item tax amount
      *
-     * @deprecated logic moved to tax totals calculation model
      * @return  $this
+     * @deprecated logic moved to tax totals calculation model
      */
     public function calcTaxAmount()
     {
@@ -792,8 +792,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item tax amount
      *
-     * @deprecated
      * @return  float
+     * @deprecated
      */
     public function getTaxAmount()
     {
@@ -803,8 +803,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item base tax amount
      *
-     * @deprecated
      * @return float
+     * @deprecated
      */
     public function getBaseTaxAmount()
     {
@@ -816,8 +816,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      *
      * @param float $value
      * @param bool $saveTaxes
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      * @deprecated
      */
     protected function _calculatePrice($value, $saveTaxes = true)

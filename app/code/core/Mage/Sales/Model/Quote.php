@@ -431,8 +431,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model to quote with billing and shipping address change
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
@@ -729,8 +729,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -1129,8 +1129,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Adding catalog product object data to quote
      *
      * @param int $qty
-     * @throws Mage_Core_Model_Store_Exception
      * @return  Mage_Sales_Model_Quote_Item
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
@@ -1376,8 +1376,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
@@ -2069,9 +2069,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Return quote checkout method code
      *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      * @param bool $originalMethod if true return defined method from beginning
      * @return string
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
     public function getCheckoutMethod($originalMethod = false)
     {
@@ -2085,8 +2085,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Check is allow Guest Checkout
      *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      * @return bool
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
     public function isAllowedGuestCheckout()
     {

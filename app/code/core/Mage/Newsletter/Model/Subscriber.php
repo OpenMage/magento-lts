@@ -310,8 +310,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Subscribes by email
      *
      * @param string $email
-     * @throws Exception
      * @return int
+     * @throws Exception
      */
     public function subscribe($email)
     {

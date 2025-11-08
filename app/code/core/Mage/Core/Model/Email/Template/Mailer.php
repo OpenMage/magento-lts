@@ -38,9 +38,9 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 
     /**
      * Send all emails from email list
-     * @see self::$_emailInfos
      *
      * @return $this
+     * @see self::$_emailInfos
      */
     public function send()
     {

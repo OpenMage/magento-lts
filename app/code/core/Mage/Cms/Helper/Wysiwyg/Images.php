@@ -197,8 +197,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Return path of the current selected directory or root directory for startup
      * Try to create target directory if it doesn't exist
      *
-     * @throws Mage_Core_Exception
      * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getCurrentPath()
     {

@@ -65,8 +65,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
      * Proceed moving a file from TMP to destination folder
      *
      * @param string $fileName
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function move($fileName)
     {

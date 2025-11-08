@@ -179,8 +179,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      *
      * @param bool $isGrouped
      * @param bool $asMessage
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getValidationErrors($isGrouped = true, $asMessage = false)
     {
@@ -205,8 +205,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Setter for payment method instance
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function setMethodInstance(Mage_Payment_Model_Method_Abstract $object)
     {
@@ -223,8 +223,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Collect needed information from buy request
      * Then filter data
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importBuyRequest(Varien_Object $buyRequest)
     {
@@ -307,8 +307,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @throws Zend_Date_Exception
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function setNearestStartDatetime(?Zend_Date $minAllowed = null)
     {

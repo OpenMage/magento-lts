@@ -32,8 +32,8 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _toHtml()
     {

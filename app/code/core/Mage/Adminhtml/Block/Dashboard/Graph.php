@@ -483,8 +483,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Prepare chart data
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     protected function _prepareData()
     {

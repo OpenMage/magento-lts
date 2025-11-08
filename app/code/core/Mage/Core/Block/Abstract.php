@@ -234,8 +234,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve request object
      *
-     * @throws Exception
      * @return Mage_Core_Controller_Request_Http
+     * @throws Exception
      */
     public function getRequest()
     {
@@ -1212,8 +1212,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param array|string $data
      * @param array $allowedTags
      * @return string
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {

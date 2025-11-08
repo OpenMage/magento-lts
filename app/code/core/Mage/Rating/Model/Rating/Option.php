@@ -42,8 +42,8 @@ class Mage_Rating_Model_Rating_Option extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addVote()
     {

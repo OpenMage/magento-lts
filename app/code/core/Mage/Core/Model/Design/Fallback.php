@@ -46,8 +46,8 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Retrieve store
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -56,8 +56,8 @@ class Mage_Core_Model_Design_Fallback
 
     /**
      * @param int|Mage_Core_Model_Store|string $store
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStore($store)
     {
@@ -76,8 +76,8 @@ class Mage_Core_Model_Design_Fallback
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFallbackScheme($area, $package, $theme)
     {
@@ -116,8 +116,8 @@ class Mage_Core_Model_Design_Fallback
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getFallbackScheme($area, $package, $theme)
     {
@@ -161,8 +161,8 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Get fallback scheme when inheritance is not defined (backward compatibility)
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getLegacyFallbackScheme()
     {
@@ -176,8 +176,8 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Default theme getter
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getFallbackTheme()
     {

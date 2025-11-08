@@ -211,8 +211,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     }
 
     /**
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     protected function _getSelectedProducts()
     {

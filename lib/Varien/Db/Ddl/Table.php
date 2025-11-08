@@ -252,8 +252,8 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve name of table
      *
-     * @throws Zend_Db_Exception
      * @return string
+     * @throws Zend_Db_Exception
      */
     public function getName()
     {
@@ -302,8 +302,8 @@ class Varien_Db_Ddl_Table
      * @param array|int|string $size the column length
      * @param array $options array of additional options
      * @param string $comment column description
-     * @throws Zend_Db_Exception
      * @return Varien_Db_Ddl_Table
+     * @throws Zend_Db_Exception
      */
     public function addColumn($name, $type, $size = null, $options = [], $comment = null)
     {
@@ -468,8 +468,8 @@ class Varien_Db_Ddl_Table
      * @param string $refColumn     the reference table column name
      * @param string $onDelete      the action on delete row
      * @param string $onUpdate      the action on update
-     * @throws Zend_Db_Exception
      * @return Varien_Db_Ddl_Table
+     * @throws Zend_Db_Exception
      */
     public function addForeignKey($fkName, $column, $refTable, $refColumn, $onDelete = null, $onUpdate = null)
     {

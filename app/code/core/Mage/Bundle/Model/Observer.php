@@ -263,9 +263,8 @@ class Mage_Bundle_Model_Observer
     /**
      * Add price index to bundle product after load
      *
-     * @deprecated since 1.4.0.0
-     *
      * @return $this
+     * @deprecated since 1.4.0.0
      */
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
@@ -282,10 +281,9 @@ class Mage_Bundle_Model_Observer
     /**
      * CatalogIndex Indexer after plain reindex process
      *
+     * @return $this
      * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
-     *
-     * @return $this
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {

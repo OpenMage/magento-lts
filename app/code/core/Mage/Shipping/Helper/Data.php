@@ -40,12 +40,11 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking url with params
      *
-     * @deprecated the non-model usage
-     *
      * @param  string $key
      * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string $method - option
      * @return string
+     * @deprecated the non-model usage
      */
     protected function _getTrackingUrl($key, $model, $method = 'getId')
     {

@@ -205,8 +205,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get primary key field name
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getIdFieldName()
     {
@@ -221,8 +221,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Returns main table name - extracted from "module/table" style and
      * validated by db adapter
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMainTable()
     {
@@ -368,8 +368,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param mixed $value
      * @param null|string $field field to load by (defaults to model id)
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -399,8 +399,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @param string $field
      * @param mixed $value
      * @param Mage_Core_Model_Abstract $object
-     * @throws Exception
      * @return Varien_Db_Select
+     * @throws Exception
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -420,10 +420,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Save object object data
      *
+     * @return $this
      * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
-     * @return $this
      */
     public function save(Mage_Core_Model_Abstract $object)
     {
@@ -482,9 +482,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Forced save object data
      * forced update If duplicate unique key data
      *
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @return $this
      * @deprecated
      */
     public function forsedSave(Mage_Core_Model_Abstract $object)
@@ -510,8 +510,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Delete the object
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -593,8 +593,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Prepare data for save
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
@@ -606,9 +606,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
+     * @return bool
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
-     * @return bool
      */
     public function hasDataChanged($object)
     {
@@ -641,8 +641,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Check for unique values existence
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {

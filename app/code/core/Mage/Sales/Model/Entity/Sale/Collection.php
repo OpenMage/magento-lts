@@ -60,8 +60,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * @param bool $printQuery
      * @param bool $logQuery
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {

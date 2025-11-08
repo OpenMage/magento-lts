@@ -16,8 +16,8 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
 {
     /**
      * Prepare read-only data and group it by fieldsets
-     * @throws Zend_Currency_Exception
      * @return $this
+     * @throws Zend_Currency_Exception
      */
     protected function _prepareForm()
     {

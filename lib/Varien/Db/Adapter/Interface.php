@@ -92,16 +92,16 @@ interface Varien_Db_Adapter_Interface
     /**
      * Create table from DDL object
      *
-     * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Interface
+     * @throws Zend_Db_Exception
      */
     public function createTable(Varien_Db_Ddl_Table $table);
 
     /**
      * Create temporary table from DDL object
      *
-     * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Interface
+     * @throws Zend_Db_Exception
      */
     public function createTemporaryTable(Varien_Db_Ddl_Table $table);
 
@@ -216,8 +216,8 @@ interface Varien_Db_Adapter_Interface
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @throws Zend_Db_Exception
      * @return bool
+     * @throws Zend_Db_Exception
      */
     public function renameTablesBatch(array $tablePairs);
 
@@ -837,24 +837,22 @@ interface Varien_Db_Adapter_Interface
     /**
      * Add time values (intervals) to a date value
      *
-     * @see INTERVAL_ constants for $unit
-     *
      * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int $interval
      * @param string $unit
      * @return Zend_Db_Expr
+     * @see INTERVAL_ constants for $unit
      */
     public function getDateAddSql($date, $interval, $unit);
 
     /**
      * Subtract time values (intervals) to a date value
      *
-     * @see INTERVAL_ constants for $unit
-     *
      * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param int|string $interval
      * @param string $unit
      * @return Zend_Db_Expr
+     * @see INTERVAL_ constants for $unit
      */
     public function getDateSubSql($date, $interval, $unit);
 
@@ -905,11 +903,10 @@ interface Varien_Db_Adapter_Interface
     /**
      * Extract part of a date
      *
-     * @see INTERVAL_ constants for $unit
-     *
      * @param string|Zend_Db_Expr $date   quoted field name or SQL statement
      * @param string $unit
      * @return Zend_Db_Expr
+     * @see INTERVAL_ constants for $unit
      */
     public function getDateExtractSql($date, $unit);
 
@@ -1055,8 +1052,8 @@ interface Varien_Db_Adapter_Interface
      * different RDBMS. Thus now it is recommended to use same default value equal for all RDBMS - either NULL
      * or specific date supported by all RDBMS.
      *
-     * @deprecated after 1.5.1.0
      * @return string
+     * @deprecated after 1.5.1.0
      */
     public function getSuggestedZeroDate();
 
