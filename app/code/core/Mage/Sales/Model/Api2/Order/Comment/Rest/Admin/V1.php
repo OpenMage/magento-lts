@@ -53,7 +53,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
-        } catch (Mage_Core_Exception $mageCoreException) {
+        } catch (Mage_Core_Exception) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         } catch (Throwable $throwable) {
             Mage::logException($throwable);
