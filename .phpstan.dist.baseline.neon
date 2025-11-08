@@ -403,24 +403,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Controller/Report/Abstract.php
 
 		-
-			rawMessage: 'Parameter #1 $creditmemos of method Mage_Sales_Model_Order_Pdf_Creditmemo::getPdf() expects array<Mage_Sales_Model_Order_Creditmemo>, Mage_Sales_Model_Resource_Order_Creditmemo_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
-
-		-
-			rawMessage: 'Parameter #1 $invoices of method Mage_Sales_Model_Order_Pdf_Invoice::getPdf() expects array<Mage_Sales_Model_Order_Invoice>, Mage_Sales_Model_Resource_Order_Invoice_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php
-
-		-
-			rawMessage: 'Parameter #1 $shipments of method Mage_Sales_Model_Order_Pdf_Shipment::getPdf() expects array<Mage_Sales_Model_Order_Shipment>, Mage_Sales_Model_Resource_Order_Shipment_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php
-
-		-
 			rawMessage: 'Parameter #1 $cache of method Varien_Simplexml_Config::setCache() expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given.'
 			identifier: argument.type
 			count: 1
@@ -515,12 +497,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/SearchController.php
-
-		-
-			rawMessage: 'Parameter #1 $item of method Mage_Sales_Model_Resource_Quote_Item_Option_Collection::addItemFilter() expects array|int, Mage_Sales_Model_Quote_Item given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Customer/Cart/Product/Composite/CartController.php
 
 		-
 			rawMessage: 'Parameter #1 $content of method Zend_Controller_Response_Abstract::setBody() expects string, int given.'
@@ -622,24 +598,6 @@ parameters:
 			rawMessage: 'Method Mage_Adminhtml_Controller_Action::_setForcedFormKeyActions() invoked with 2 parameters, 1 required.'
 			identifier: arguments.count
 			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			rawMessage: 'Parameter #1 $creditmemos of method Mage_Sales_Model_Order_Pdf_Creditmemo::getPdf() expects array<Mage_Sales_Model_Order_Creditmemo>, Mage_Sales_Model_Resource_Order_Creditmemo_Collection given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			rawMessage: 'Parameter #1 $invoices of method Mage_Sales_Model_Order_Pdf_Invoice::getPdf() expects array<Mage_Sales_Model_Order_Invoice>, Mage_Sales_Model_Resource_Order_Invoice_Collection given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			rawMessage: 'Parameter #1 $shipments of method Mage_Sales_Model_Order_Pdf_Shipment::getPdf() expects array<Mage_Sales_Model_Order_Shipment>, Mage_Sales_Model_Resource_Order_Shipment_Collection given.'
-			identifier: argument.type
-			count: 4
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
@@ -909,6 +867,12 @@ parameters:
 		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
+			count: 1
+			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
+
+		-
+			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
+			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
@@ -1453,6 +1417,30 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
+			rawMessage: 'Parameter #1 $height of method Mage_Catalog_Model_Product_Image::setHeight() expects int, string given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
+			rawMessage: 'Parameter #1 $heigth of method Varien_Image::setWatermarkHeigth() expects int, string given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
+			rawMessage: 'Parameter #1 $size of method Mage_Catalog_Model_Product_Image::setWatermarkSize() expects array, string given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
+			rawMessage: 'Parameter #1 $width of method Mage_Catalog_Model_Product_Image::setWidth() expects int, string given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
 			rawMessage: 'Cannot call method isIndexable() on Mage_Eav_Model_Entity_Attribute_Abstract|false.'
 			identifier: method.nonObject
 			count: 1
@@ -1577,6 +1565,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
+
+		-
+			rawMessage: 'Parameter #3 $exclude of method Mage_Catalog_Model_Resource_Category_Tree::addCollectionData() expects array, int given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_tree (Varien_Data_Tree_Db) does not accept Varien_Data_Tree_Dbp.'
@@ -3019,6 +3013,12 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Form.php
 
 		-
+			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Eav/Model/Form.php
+
+		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -3655,12 +3655,6 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Action/Collection.php
 
 		-
-			rawMessage: Binary operation "." between array and ' ' results in an error.
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
-
-		-
 			rawMessage: 'Method Mage_Rule_Model_Condition_Abstract::loadArray() invoked with 2 parameters, 1 required.'
 			identifier: arguments.count
 			count: 1
@@ -3689,12 +3683,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Api2/Order/Comment/Rest/Admin/V1.php
-
-		-
-			rawMessage: 'Call to an undefined method Varien_Simplexml_Element::getClassName().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Sales_Model_Resource_Quote_Collection::addAttributeToSelect().'
@@ -3763,12 +3751,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Shipment/Default.php
 
 		-
-			rawMessage: 'Parameter #2 $obj of method Mage_Sales_Model_Order_Pdf_Abstract::insertOrder() expects Mage_Sales_Model_Order, Mage_Sales_Model_Order_Shipment given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
 			rawMessage: 'Parameter #1 $text of method Zend_Pdf_Canvas_Abstract::drawText() expects string, (float|int) given.'
 			identifier: argument.type
 			count: 1
@@ -3797,12 +3779,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php
-
-		-
-			rawMessage: 'Parameter #2 $totalConfig of method Mage_Sales_Model_Config_Ordered::_prepareConfigArray() expects Mage_Core_Model_Config_Element, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Total/Config/Base.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Sales_Model_Quote_Item_Abstract::compare().'
@@ -3851,12 +3827,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			rawMessage: 'Parameter #2 $totalConfig of method Mage_Sales_Model_Config_Ordered::_prepareConfigArray() expects Mage_Core_Model_Config_Element, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
 
 		-
 			rawMessage: 'Parameter #2 $visibility of method Mage_Catalog_Helper_Data::canApplyMsrp() expects int|null, string given.'
@@ -3989,12 +3959,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Rule.php
-
-		-
-			rawMessage: 'Return type (string) of method Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned::getOperatorName() should be compatible with return type (array) of method Mage_Rule_Model_Condition_Abstract::getOperatorName()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Rule/Condition/Product/Attribute/Assigned.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().'

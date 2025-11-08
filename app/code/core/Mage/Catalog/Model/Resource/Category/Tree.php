@@ -64,6 +64,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * Initialize tree
+     *
+     * @throws Exception
      */
     public function __construct()
     {
@@ -96,6 +98,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return store id
      *
+     * @throws Mage_Core_Model_Store_Exception
      * @return int
      */
     public function getStoreId()
@@ -113,6 +116,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param array $exclude
      * @param bool $toLoad
      * @param bool $onlyActive
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return $this
      */
     public function addCollectionData(
@@ -221,6 +226,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Return disable category ids
      *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @throws Mage_Core_Model_Store_Exception
      * @return array
      */
     protected function _getDisabledIds($collection)
@@ -330,6 +336,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Get categories collection
      *
      * @param bool $sorted
+     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCollection($sorted = false)
@@ -357,6 +364,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * @param bool $sorted
+     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     protected function _getDefaultCollection($sorted = false)
@@ -407,17 +415,19 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Executing parents move method and cleaning cache after it
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category $node
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
-    public function move($category, $newParent, $prevNode = null)
+    public function move($node, $newParent, $prevNode = null)
     {
-        $this->_beforeMove($category, $newParent, $prevNode);
-        Mage::getResourceSingleton('catalog/category')->move($category->getId(), $newParent->getId());
-        parent::move($category, $newParent, $prevNode);
+        $this->_beforeMove($node, $newParent, $prevNode);
+        Mage::getResourceSingleton('catalog/category')->move($node->getId(), $newParent->getId());
+        parent::move($node, $newParent, $prevNode);
 
-        $this->_afterMove($category, $newParent, $prevNode);
+        $this->_afterMove($node, $newParent, $prevNode);
     }
 
     /**
@@ -581,6 +591,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      *
      * @param bool $sorted
      * @param array $optionalAttributes
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return Zend_Db_Select
      */
     protected function _createCollectionDataSelect($sorted = true, $optionalAttributes = [])
