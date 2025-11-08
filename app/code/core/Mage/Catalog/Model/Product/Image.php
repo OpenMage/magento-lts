@@ -16,6 +16,8 @@
  */
 class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 {
+    public const DIMENSIONS_SEPARATOR = 'x';
+
     /**
      * Requested width for the scaled image
      * @var int
@@ -101,7 +103,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected static $_baseMediaPath;
 
     /**
-     * @param int $width
+     * @param null|int $width
      * @return $this
      */
     public function setWidth($width)
@@ -119,7 +121,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $height
+     * @param null|int $height
      * @return $this
      */
     public function setHeight($height)
@@ -209,18 +211,42 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $size
+     * @param string $size in format WIDTHxHEIGHT, WIDTHx, xHEIGHT or single numeric value
      * @return $this
      */
     public function setSize($size)
     {
+        $width = null;
+        $height = null;
+
+        $hasWidthDimensions = false;
+        $hasHeightDimensions = false;
+
+        $hasDimensions = str_contains($size, self::DIMENSIONS_SEPARATOR);
+
+        if ($hasDimensions) {
+            $hasWidthDimensions = str_ends_with($size, self::DIMENSIONS_SEPARATOR);
+            $hasHeightDimensions = str_starts_with($size, self::DIMENSIONS_SEPARATOR);
+        }
+
+        if ($hasHeightDimensions && !$hasWidthDimensions) {
+            $dimension = substr($size, 1);
+            $height = $dimension ? (int) $dimension : null;
+        }
+
+        if ($hasWidthDimensions && !$hasHeightDimensions) {
+            $dimension = substr($size, 0, -1);
+            $width = $dimension ? (int) $dimension : null;
+        }
+
         // determine width and height from string
-        [$width, $height] = explode('x', strtolower($size), 2);
-        foreach (['width', 'height'] as $wh) {
-            ${$wh}  = (int) ${$wh};
-            if (empty(${$wh})) {
-                ${$wh} = null;
-            }
+        if ($hasDimensions && (!$hasWidthDimensions && !$hasHeightDimensions)) {
+            [$width, $height] = array_map(intval(...), explode(self::DIMENSIONS_SEPARATOR, strtolower($size), 2));
+        }
+
+        if (is_numeric($size)) {
+            $width = (int) $size;
+            $height = (int) $size;
         }
 
         // set sizes
@@ -326,6 +352,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Set filenames for base file and new file
      *
      * @param string $file
+     * @throws Exception
      * @return $this
      */
     public function setBaseFile($file)
@@ -512,10 +539,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * @param string $file
      * @param string $position
-     * @param string $size
+     * @param array $size
      * @param int $width
      * @param int $heigth
      * @param int $imageOpacity
+     * @throws Exception
      * @return $this
      */
     public function setWatermark($file, $position = null, $size = null, $width = null, $heigth = null, $imageOpacity = null)
@@ -642,6 +670,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Get relative watermark file path
      * or false if file not found
      *
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      * @return bool|string
      */
     protected function _getWatermarkFilePath()
