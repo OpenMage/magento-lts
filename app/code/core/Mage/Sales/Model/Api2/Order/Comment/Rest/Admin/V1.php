@@ -57,7 +57,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
             $this->_critical(self::RESOURCE_INTERNAL_ERROR, $mageCoreException->getCode());
         } catch (Throwable $throwable) {
             Mage::logException($throwable);
-            $this->_critical(self::RESOURCE_UNKNOWN_ERROR, $throwable->getCode());
+            $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
 
         return $this->_getLocation($historyItem);
