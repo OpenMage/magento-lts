@@ -102,7 +102,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Add collection filter
      *
      * @param string $field
-     * @param array|string $value
+     * @param array|int|string $value
      * @param string $type and|or|string
      * @return $this
      */

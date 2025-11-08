@@ -246,7 +246,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param array $arr
+     * @param array|Mage_Rule_Model_Condition_Abstract $arr
      * @param string $key
      * @return $this
      */
@@ -293,6 +293,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtml()
     {
@@ -307,6 +308,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
     /**
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Exception
      */
     public function getNewChildElement()
     {
@@ -326,6 +328,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtmlRecursive()
     {

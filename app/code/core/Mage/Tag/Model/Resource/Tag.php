@@ -36,9 +36,10 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Loading tag by name
      *
-     * @param Mage_Tag_Model_Tag $model
+     * @param Mage_Tag_Model_Tag|Varien_Object $model
      * @param string $name
      * @return false|void
+     * @throws Mage_Core_Exception
      */
     public function loadByName($model, $name)
     {
@@ -64,6 +65,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Tag_Model_Tag $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -89,6 +91,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Tag_Model_Tag $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -266,6 +271,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      * @deprecated after 1.4.0.0
      */
     public function aggregate($object)
@@ -298,9 +305,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         // prepare static parameters to final summary for insertion
         foreach ($finalSummary as $key => $row) {
             $finalSummary[$key]['tag_id'] = $tagId;
-            foreach (['base_popularity', 'popularity', 'historical_uses', 'uses', 'products', 'customers'] as $k) {
-                if (!isset($row[$k])) {
-                    $finalSummary[$key][$k] = 0;
+            foreach (['base_popularity', 'popularity', 'historical_uses', 'uses', 'products', 'customers'] as $str) {
+                if (!isset($row[$str])) {
+                    $finalSummary[$key][$str] = 0;
                 }
             }
 
@@ -322,6 +329,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Decrementing tag products quantity as action for product delete
      *
      * @return int The number of affected rows
+     * @throws Zend_Db_Adapter_Exception
      */
     public function decrementProducts(array $tagsId)
     {
@@ -342,6 +350,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
+     * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0
      */
     public function addSummary($object)
@@ -381,6 +390,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @param mixed $value
      * @param Mage_Core_Model_Abstract|Mage_Tag_Model_Tag $object
      * @return Zend_Db_Select
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -400,6 +411,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Fetch store ids in which tag visible
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {

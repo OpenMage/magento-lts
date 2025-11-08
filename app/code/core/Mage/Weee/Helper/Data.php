@@ -266,8 +266,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Sets applied weee taxes
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param array                                $value
+     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param array $value
      * @return $this
      */
     public function setApplied($item, $value)
@@ -494,7 +494,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Model_Abstract $item
      * @param null|string $title
      * @param string $property
-     * @param string $value
+     * @param float|int $value
      */
     public function setWeeeTaxesAppliedProperty($item, $title, $property, $value)
     {

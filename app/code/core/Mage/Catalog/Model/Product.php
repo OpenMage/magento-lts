@@ -341,6 +341,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve Store Id
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -355,6 +356,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get collection instance
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getResourceCollection()
     {
@@ -385,9 +388,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Validate Product Data
      *
-     * @todo implement full validation process with errors returning which are ignoring now
-     *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @todo implement full validation process with errors returning which are ignoring now
      */
     public function validate()
     {
@@ -521,6 +525,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param   string $sku
      * @return  string
+     * @throws  Mage_Core_Exception
      */
     public function getIdBySku($sku)
     {
@@ -545,6 +550,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product category
      *
      * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      */
     public function getCategory()
     {
@@ -562,6 +568,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param array|int|string $ids the ID(s) as int, comma-separated string or array of ints
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCategoryIds($ids)
     {
@@ -582,6 +589,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve assigned category Ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCategoryIds()
     {
@@ -606,6 +614,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product categories
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCategoryCollection()
     {
@@ -616,6 +625,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product websites identifiers
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteIds()
     {
@@ -631,6 +641,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get all sore ids where product is presented
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStoreIds()
     {
@@ -828,12 +839,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     /**
      * Init indexing process after product delete commit
+     *
+     * @throws Throwable
      */
     protected function _afterDeleteCommit()
     {
         parent::_afterDeleteCommit();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
 
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
@@ -844,6 +857,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Load product options if they exists
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoad()
     {
@@ -865,6 +879,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Clear cache related with product id
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanCache()
     {
@@ -878,7 +893,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product price model
      *
-     * @return Mage_Bundle_Model_Product_Price
+     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public function getPriceModel()
     {
@@ -930,7 +945,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get formatted by currency product price
      *
-     * @return  array|float
+     * @return array|float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice()
     {
@@ -1042,6 +1058,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve related products identifiers
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRelatedProductIds()
     {
@@ -1110,6 +1127,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve up sell products identifiers
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getUpSellProductIds()
     {
@@ -1267,6 +1285,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve media gallery images
      *
      * @return Varien_Data_Collection
+     * @throws Exception
      */
     public function getMediaGalleryImages()
     {
@@ -1295,9 +1314,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string        $file              file path of image in file system
      * @param array|string  $mediaAttribute    code of attribute with type 'media_image',
      *                                          leave blank if image should be only in gallery
-     * @param bool       $move              if true, it will move source file
-     * @param bool       $exclude           mark image as disabled in product page view
+     * @param bool          $move              if true, it will move source file
+     * @param bool          $exclude           mark image as disabled in product page view
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addImageToMediaGallery($file, $mediaAttribute = null, $move = false, $exclude = true)
     {
@@ -1326,6 +1346,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Create duplicate
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function duplicate()
     {
@@ -1655,6 +1677,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param string $attributeCode of the attribute
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getAttributeText($attributeCode)
     {
@@ -1738,6 +1761,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $code  Attribute code
      * @param mixed  $value New attribute value
      * @param int    $store Store ID
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addAttributeUpdate($code, $value, $store)
     {
@@ -1805,6 +1830,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Delete product
      *
      * @return $this
+     * @throws Throwable
      */
     public function delete()
     {
@@ -1917,6 +1943,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Add option to array of product options
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addOption(Mage_Catalog_Model_Product_Option $option)
     {
@@ -1958,14 +1985,15 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Add custom option information to product
      *
-     * @param   string $code    Option code
-     * @param   mixed  $value   Value of the option
-     * @param   int    $product Product ID
+     * @param   string                     $code    Option code
+     * @param   mixed                      $value   Value of the option
+     * @param   Mage_Catalog_Model_Product $product Product ID
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     public function addCustomOption($code, $value, $product = null)
     {
-        $product = $product ? $product : $this;
+        $product = $product ?: $this;
         $option = Mage::getModel('catalog/product_configuration_item_option')
             ->addData([
                 'product_id' => $product->getId(),
@@ -2027,6 +2055,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param   int $categoryId
      * @return  string
+     * @throws  Mage_Core_Exception
      */
     public function canBeShowInCategory($categoryId)
     {
@@ -2037,6 +2066,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve category ids where product is available
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAvailableInCategories()
     {
@@ -2047,6 +2077,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve default attribute set id
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getDefaultAttributeSetId()
     {
@@ -2145,6 +2176,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $key
      * @param mixed $data
      * @return Varien_Object
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setOrigData($key = null, $data = null)
     {
@@ -2159,6 +2191,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Reset all model data
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function reset()
     {
@@ -2171,6 +2204,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get cache tags associated with object id
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheIdTagsWithCategories()
     {
@@ -2187,11 +2221,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Remove model object related cache
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function cleanModelCache()
     {
         $tags = $this->getCacheIdTagsWithCategories();
-        if ($tags !== false) {
+        if ($tags !== []) {
             Mage::app()->cleanCache($tags);
         }
 
@@ -2202,6 +2237,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check for empty SKU on each product
      *
      * @return null|bool
+     * @throws Mage_Core_Exception
      */
     public function isProductsHasSku(array $productIds)
     {
@@ -2271,6 +2307,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * To be sure that all product custom options does not has ID and has product instance
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareCustomOptions()
     {
@@ -2298,6 +2335,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Clearing product's data
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _clearData()
     {
@@ -2355,6 +2393,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param array|string $columns One or several columns
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductEntitiesInfo($columns = null)
     {
@@ -2375,12 +2414,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Callback function which called after transaction commit in resource model
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
 
@@ -2405,6 +2446,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * @param int $storeId
      * @return Mage_Review_Model_Review_Summary
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReviewSummary($storeId = null)
     {

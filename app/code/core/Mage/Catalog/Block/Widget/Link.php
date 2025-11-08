@@ -42,6 +42,8 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      * or return false if path was not found.
      *
      * @return false|string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getHref()
     {
@@ -89,6 +91,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      * If anchor text was not specified get entity name from DB.
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAnchorText()
     {
@@ -102,10 +105,10 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
             if (!$this->_getData('anchor_text')) {
                 $idPath = explode('/', $this->_getData('id_path'));
                 if (isset($idPath[1])) {
-                    $id = $idPath[1];
-                    if ($id) {
+                    $entityId = $idPath[1];
+                    if ($entityId) {
                         $this->_anchorText = $this->_entityResource
-                            ->getAttributeRawValue($id, 'name', $store);
+                            ->getAttributeRawValue((int) $entityId, 'name', $store);
                     }
                 }
             } else {
