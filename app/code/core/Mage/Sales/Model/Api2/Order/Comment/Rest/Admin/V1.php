@@ -54,7 +54,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
                 Mage::getDesign()->setArea($oldArea);
             }
         } catch (Mage_Core_Exception $mageCoreException) {
-            $this->_critical(self::RESOURCE_INTERNAL_ERROR, $mageCoreException->getCode());
+            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         } catch (Throwable $throwable) {
             Mage::logException($throwable);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
