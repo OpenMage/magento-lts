@@ -49,8 +49,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * In case invalid data throws exception.
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return bool
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function validate($object)
     {

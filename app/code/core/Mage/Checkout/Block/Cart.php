@@ -167,8 +167,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      * Return HTML of checkout method (link, button etc.)
      *
      * @param string $name Block name in layout
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMethodHtml($name)
     {

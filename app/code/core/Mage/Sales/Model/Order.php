@@ -1165,12 +1165,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Add status change information to history
-     * @deprecated after 1.4.0.0-alpha3
      *
      * @param  string $status
      * @param  string $comment
      * @param  bool $isCustomerNotified
      * @return $this
+     * @deprecated after 1.4.0.0-alpha3
      */
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
@@ -1231,8 +1231,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function hold()
     {
@@ -1249,8 +1249,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Attempt to unhold the order
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function unhold()
     {
@@ -1284,8 +1284,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Prepare order totals to cancellation
      * @param string $comment
      * @param bool $graceful
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function registerCancellation($comment = '', $graceful = true)
     {
@@ -1422,8 +1422,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function queueNewOrderEmail($forceMode = false)
     {
@@ -1678,8 +1678,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -1839,8 +1839,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -1920,8 +1920,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addPayment(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -2117,9 +2117,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Retrieve order website currency for working with base prices
-     * @deprecated  please use getBaseCurrency instead
      *
      * @return Mage_Directory_Model_Currency
+     * @deprecated  please use getBaseCurrency instead
      */
     public function getStoreCurrency()
     {

@@ -66,8 +66,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Create instance of entity adapter and returns it.
      *
-     * @throws Mage_Core_Exception
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getEntityAdapter()
     {
@@ -384,8 +384,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Move uploaded file and create source adapter instance.
      *
-     * @throws Mage_Core_Exception
      * @return string Source file path
+     * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function uploadSource()

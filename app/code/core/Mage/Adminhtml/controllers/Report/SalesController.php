@@ -93,8 +93,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Retrieve array of collection names by code specified in request
      *
-     * @deprecated after 1.4.0.1
      * @return array
+     * @deprecated after 1.4.0.1
      */
     protected function _getCollectionNames()
     {
@@ -104,8 +104,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for last 25 hours
      *
-     * @deprecated after 1.4.0.1
      * @return $this
+     * @deprecated after 1.4.0.1
      */
     public function refreshRecentAction()
     {
@@ -115,8 +115,8 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Refresh statistics for all period
      *
-     * @deprecated after 1.4.0.1
      * @return $this
+     * @deprecated after 1.4.0.1
      */
     public function refreshLifetimeAction()
     {

@@ -504,11 +504,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Collect all product attributes used in serialized rule's action or condition
      *
-     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
-     *
      * @param string $serializedString
      *
      * @return array
+     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
      */
     protected function _getUsedAttributes($serializedString)
     {
@@ -516,11 +515,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * @deprecated after 1.6.2.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated after 1.6.2.0
      */
     public function toString($format = '')
     {
@@ -529,8 +527,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 
     /**
      * Returns rule as an array for admin interface
-     *
-     * @deprecated after 1.6.2.0
      *
      * @param array $arrAttributes
      *
@@ -542,6 +538,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
+     * @deprecated after 1.6.2.0
      */
     public function toArray(array $arrAttributes = [])
     {

@@ -245,8 +245,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Retrieve loaded attribute by code
      *
      * @param string $attributeCode
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
     {
@@ -506,13 +506,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve column definition fragment
-     * @deprecated since 1.5.0.0
-     *
-     * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
      *
      * @param string $fieldName
      * @param array $fieldProp
      * @return string
+     * @deprecated since 1.5.0.0
+     *
+     * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
      */
     protected function _sqlColunmDefinition($fieldName, $fieldProp)
     {
@@ -538,13 +538,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve index definition fragment
-     * @deprecated since 1.5.0.0
-     *
-     * Example: INDEX `IDX_NAME` (`field_id`)
      *
      * @param string $indexName
      * @param array $indexProp
      * @return string
+     * @deprecated since 1.5.0.0
+     *
+     * Example: INDEX `IDX_NAME` (`field_id`)
      */
     protected function _sqlIndexDefinition($indexName, $indexProp)
     {
@@ -590,8 +590,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Prepare flat table for store
      *
      * @param int $storeId
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareFlatTable($storeId)
     {

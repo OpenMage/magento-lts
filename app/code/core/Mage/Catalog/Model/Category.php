@@ -333,8 +333,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve all customer attributes
      *
      * @param bool $noDesignAttributes
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute[]
+     * @throws Mage_Core_Exception
      * @todo Use with Flat Resource
      */
     public function getAttributes($noDesignAttributes = false)
@@ -989,8 +989,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Validate attribute values
      *
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return array|true
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function validate()
     {

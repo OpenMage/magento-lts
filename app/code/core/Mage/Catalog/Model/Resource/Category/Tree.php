@@ -98,8 +98,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return store id
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -116,9 +116,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param array $exclude
      * @param bool $toLoad
      * @param bool $onlyActive
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return $this
      */
     public function addCollectionData(
         $collection = null,
@@ -226,8 +226,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Return disable category ids
      *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getDisabledIds($collection)
     {
@@ -336,8 +336,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Get categories collection
      *
      * @param bool $sorted
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCollection($sorted = false)
     {
@@ -364,8 +364,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * @param bool $sorted
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getDefaultCollection($sorted = false)
     {
@@ -591,9 +591,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      *
      * @param bool $sorted
      * @param array $optionalAttributes
+     * @return Zend_Db_Select
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return Zend_Db_Select
      */
     protected function _createCollectionDataSelect($sorted = true, $optionalAttributes = [])
     {

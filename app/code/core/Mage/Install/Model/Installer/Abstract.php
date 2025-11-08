@@ -40,8 +40,8 @@ class Mage_Install_Model_Installer_Abstract
      * If empty, will return 'files'
      *
      * @param string $value
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _checkSessionSave($value)
     {
@@ -61,8 +61,8 @@ class Mage_Install_Model_Installer_Abstract
      * If empty, "admin" will be returned
      *
      * @param string $value
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _checkAdminFrontname($value)
     {

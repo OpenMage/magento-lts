@@ -193,8 +193,8 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * validation failed.
      *
      * @param string $value     File/dir path
-     * @throws Exception        Throw exception on empty both paths masks types
      * @return bool
+     * @throws Exception        Throw exception on empty both paths masks types
      */
     public function isValid($value)
     {

@@ -104,8 +104,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Delete user
      *
-     * @throws Mage_Core_Exception
      * @return $this|Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function delete()
     {
@@ -118,8 +118,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save relations for users
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -227,8 +227,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function authenticate($username, $apiKey)
     {
@@ -251,8 +251,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @throws Exception
      * @return Mage_Api_Model_User
+     * @throws Exception
      */
     public function login($username, $apiKey)
     {
@@ -357,8 +357,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Validate user attribute values.
      *
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validate()
     {

@@ -1105,8 +1105,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Joins url rewrite rules to collection
      *
-     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      * @return $this
+     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      */
     public function joinUrlRewrite()
     {
@@ -1204,10 +1204,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add minimal price data to result
      *
+     * @return $this
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     public function addMinimalPrice()
     {
@@ -1217,10 +1216,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add minimal price to product collection
      *
+     * @return $this
      * @deprecated since 1.3.2.2
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     protected function _addMinimalPrice()
     {
@@ -1230,10 +1228,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add price data for calculate final price
      *
+     * @return $this
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     public function addFinalPrice()
     {
@@ -1767,9 +1764,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join Product Price Table with left-join possibility
      *
      * @param bool $joinLeft
+     * @return $this
      * @throws Zend_Db_Exception
      * @throws Zend_Db_Select_Exception
-     * @return $this
      * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
      */
     protected function _productLimitationPrice($joinLeft = false)
@@ -2071,8 +2068,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $comparisonFormat - expression for sprintf()
      * @param array $fields - list of fields
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addPriceDataFieldFilter($comparisonFormat, $fields)
     {

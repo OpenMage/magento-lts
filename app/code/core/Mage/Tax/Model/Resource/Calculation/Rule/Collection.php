@@ -121,8 +121,8 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
      *
      * @param string $type
      * @param int $id
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setClassTypeFilter($type, $id)
     {

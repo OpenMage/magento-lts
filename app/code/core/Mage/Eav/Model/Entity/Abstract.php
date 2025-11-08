@@ -258,8 +258,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve current entity config
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Type
+     * @throws Mage_Core_Exception
      */
     public function getEntityType()
     {
@@ -486,8 +486,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Retrieve configuration for all attributes
      *
      * @param object $object
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadAllAttributes($object = null)
     {
@@ -589,8 +589,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * for example: $this->walkAttributes('backend/validate');
      *
      * @param string $partMethod
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return array
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function walkAttributes($partMethod, array $args = [])
     {
@@ -787,10 +787,10 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Check whether the attribute is a real field in entity table
      *
-     * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
      * @param int|Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
      *
      * @return bool
+     * @see Mage_Eav_Model_Entity_Abstract::getAttribute for $attribute format
      */
     public function isAttributeStatic($attribute)
     {
@@ -802,8 +802,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Validate all object's attributes against configuration
      *
      * @param Varien_Object $object
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return array|true
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function validate($object)
     {
@@ -1580,8 +1580,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Delete entity using current object's data
      *
      * @param int|string|Varien_Object $object
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function delete($object)
     {
@@ -1701,8 +1701,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After set config process
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     protected function _afterSetConfig()
     {

@@ -127,8 +127,8 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function saveValues()
     {

@@ -23,8 +23,8 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
      * Validate user input for option
      *
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {

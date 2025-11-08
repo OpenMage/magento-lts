@@ -533,8 +533,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * UnSerialize string
      * @param null|string $str
-     * @throws Exception
      * @return null|void
+     * @throws Exception
      */
     public function unserialize($str)
     {

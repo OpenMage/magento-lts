@@ -1793,8 +1793,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @deprecated after 1.4.2.0
      * @return $this
+     * @deprecated after 1.4.2.0
      */
     public function loadParentProductIds()
     {
@@ -2066,8 +2066,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Return re-sized image URL
      *
-     * @deprecated since 1.1.5
      * @return string
+     * @deprecated since 1.1.5
      */
     public function getImageUrl()
     {
@@ -2077,10 +2077,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Return re-sized small image URL
      *
-     * @deprecated since 1.1.5
      * @param int $width
      * @param int $height
      * @return string
+     * @deprecated since 1.1.5
      */
     public function getSmallImageUrl($width = 88, $height = 77)
     {
@@ -2090,10 +2090,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Return re-sized thumbnail image URL
      *
-     * @deprecated since 1.1.5
      * @param int $width
      * @param int $height
      * @return string
+     * @deprecated since 1.1.5
      */
     public function getThumbnailUrl($width = 75, $height = 75)
     {

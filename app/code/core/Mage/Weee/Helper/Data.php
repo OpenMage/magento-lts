@@ -356,8 +356,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns amount to display including taxes
      *
      * @param Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getAmountForDisplayInclTaxes($product)
     {
@@ -396,8 +396,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
      * @param bool                       $includeIndex
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
     {
@@ -450,8 +450,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns all summed weee taxes with all local taxes applied
      *
      * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
-     * @throws Mage_Core_Exception
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getAmountInclTaxes($attributes)
     {

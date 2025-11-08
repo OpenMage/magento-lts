@@ -67,9 +67,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Resource file handle (socket, file pointer etc)
      *
+     * @return resource|Varien_Io_File
      * @throws Exception
      * @throws Mage_Core_Exception
-     * @return resource|Varien_Io_File
      */
     protected function _getHandle()
     {
@@ -196,8 +196,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @throws Exception
      * @return array|string
+     * @throws Exception
      */
     public function getContentType()
     {
@@ -220,8 +220,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     * @throws Exception
      * @return array|string
+     * @throws Exception
      */
     public function getFilename()
     {
@@ -249,8 +249,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      *
      * @param string $resourceFile
      * @param string $linkType
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setResource($resourceFile, $linkType = self::LINK_TYPE_FILE)
     {

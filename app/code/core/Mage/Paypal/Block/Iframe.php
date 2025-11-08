@@ -68,8 +68,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get current block instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Paypal_Block_Iframe
+     * @throws Mage_Core_Exception
      */
     protected function _getBlock()
     {
@@ -137,8 +137,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Render the block if needed
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _toHtml()
     {
@@ -157,8 +157,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Check whether block is rendering after save payment
      *
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     protected function _isAfterPaymentSave()
     {
@@ -177,8 +177,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get iframe action URL
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFrameActionUrl()
     {
@@ -188,8 +188,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get secure token
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSecureToken()
     {
@@ -199,8 +199,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get secure token ID
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSecureTokenId()
     {
@@ -210,8 +210,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get payflow transaction URL
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTransactionUrl()
     {
@@ -221,8 +221,8 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Check sandbox mode
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isTestMode()
     {

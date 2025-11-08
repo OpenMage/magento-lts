@@ -55,9 +55,9 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Make filter of appropriate format for list method
      *
-     * @deprecated since 1.7.0.1
      * @param null|array $filter
      * @return null|array
+     * @deprecated since 1.7.0.1
      */
     protected function _prepareListFilter($filter = null)
     {

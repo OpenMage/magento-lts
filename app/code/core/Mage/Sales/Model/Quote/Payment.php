@@ -112,8 +112,8 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Method calls quote totals collect because payment method availability
      * can be related to quote totals
      *
-     * @throws  Mage_Core_Exception
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     public function importData(array $data)
     {

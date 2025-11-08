@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

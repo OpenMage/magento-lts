@@ -130,8 +130,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Validate data
      *
      * @param array|string $value
-     * @throws Mage_Core_Exception
      * @return array|true
+     * @throws Mage_Core_Exception
      */
     public function validateValue($value)
     {
@@ -178,8 +178,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Export attribute value to entity model
      *
      * @param array|string $value
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function compactValue($value)
     {
@@ -248,8 +248,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @throws Mage_Core_Exception
      * @return array|string
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

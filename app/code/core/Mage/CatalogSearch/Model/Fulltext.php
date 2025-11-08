@@ -143,10 +143,9 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
-     *
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {
@@ -157,12 +156,11 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Update category products indexes
      *
-     * @deprecated after 1.6.2.0
-     *
      * @param array $productIds
      * @param array $categoryIds
      *
      * @return $this
+     * @deprecated after 1.6.2.0
      */
     public function updateCategoryIndex($productIds, $categoryIds)
     {

@@ -78,8 +78,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return Attribute instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute()
     {
@@ -513,8 +513,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate data
      *
      * @param array|string $value
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     abstract public function validateValue($value);
 

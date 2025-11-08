@@ -139,9 +139,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Convert items array to hash for select options
      * unsing fetchItem method
      *
-     * @see     _toOptionHashOptimized()
-     *
      * @return  array
+     * @see     _toOptionHashOptimized()
      */
     public function toOptionHashOptimized()
     {

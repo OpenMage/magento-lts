@@ -302,14 +302,13 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Update entity attribute value
      *
-     * @deprecated after 1.5.1.0
-     * @see Mage_Catalog_Model_Resource_Abstract::_saveAttributeValue()
-     *
      * @param Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $valueId
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
+     * @deprecated after 1.5.1.0
+     * @see Mage_Catalog_Model_Resource_Abstract::_saveAttributeValue()
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
@@ -456,10 +455,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Collect original data
      *
-     * @deprecated after 1.5.1.0
-     *
      * @param Varien_Object $object
      * @return array
+     * @deprecated after 1.5.1.0
      */
     protected function _collectOrigData($object)
     {

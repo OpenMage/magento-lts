@@ -116,8 +116,8 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @param string $type
      * @param array $options
-     * @throws Exception If validator is not exist
      * @return Zend_Validate_Interface
+     * @throws Exception If validator is not exist
      */
     protected function _getValidatorInstance($type, $options)
     {

@@ -1752,8 +1752,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Save customer
      *
-     * @deprecated after 1.4.0.0.
      * @param Mage_Customer_Model_Customer $order
+     * @deprecated after 1.4.0.0.
      */
     protected function _saveCustomerAfterOrder($order)
     {
@@ -1814,8 +1814,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * @deprecated after 1.1.7
      * @return $this
+     * @deprecated after 1.1.7
      */
     protected function _saveCustomer()
     {

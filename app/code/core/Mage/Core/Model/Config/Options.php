@@ -56,8 +56,8 @@ class Mage_Core_Model_Config_Options extends Varien_Object
 
     /**
      * @param string $type
-     * @throws Mage_Core_Exception
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function getDir($type)
     {
@@ -160,8 +160,8 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getVarDir()
     {
@@ -178,8 +178,8 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTmpDir()
     {

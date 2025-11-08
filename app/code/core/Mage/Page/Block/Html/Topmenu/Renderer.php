@@ -21,8 +21,8 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 
     /**
      * Renders block html
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _toHtml()
     {

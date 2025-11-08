@@ -46,8 +46,8 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
     /**
      * Prevent blocks recursion
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {

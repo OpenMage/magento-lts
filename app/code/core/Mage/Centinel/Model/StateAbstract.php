@@ -50,11 +50,11 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * Otherwise it will return value of the attribute specified by $key
      *
      * $index parameter is ignored
-     * @see Mage_Core_Model_Session_Abstract::getData()
      *
      * @param string $key
      * @param int|string $index
      * @return mixed
+     * @see Mage_Core_Model_Session_Abstract::getData()
      */
     public function getData($key = '', $index = null)
     {

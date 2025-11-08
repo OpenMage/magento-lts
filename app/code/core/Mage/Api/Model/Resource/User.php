@@ -219,8 +219,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete the object
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
