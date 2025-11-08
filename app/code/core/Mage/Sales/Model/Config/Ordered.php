@@ -74,7 +74,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * @abstract
      * @param string $class
      * @param string $totalCode
-     * @param array $totalConfig
+     * @param Mage_Core_Model_Config_Element $totalConfig
      * @return mixed
      */
     abstract protected function _initModelInstance($class, $totalCode, $totalConfig);

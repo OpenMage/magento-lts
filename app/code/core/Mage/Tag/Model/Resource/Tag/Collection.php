@@ -244,7 +244,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds field to filter
      *
      * @param string $field
-     * @param array $condition
+     * @param null|array|int|string $condition
      * @return $this
      */
     public function addFieldToFilter($field, $condition = null)

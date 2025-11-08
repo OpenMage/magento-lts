@@ -907,20 +907,8 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
 		-
-			rawMessage: 'Parameter #2 $value of method Varien_Data_Collection::addFilter() expects array|string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Acl/Global/Rule/Collection.php
-
-		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
@@ -1465,30 +1453,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
-			rawMessage: 'Parameter #1 $height of method Mage_Catalog_Model_Product_Image::setHeight() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			rawMessage: 'Parameter #1 $heigth of method Varien_Image::setWatermarkHeigth() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			rawMessage: 'Parameter #1 $size of method Mage_Catalog_Model_Product_Image::setWatermarkSize() expects array, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			rawMessage: 'Parameter #1 $width of method Mage_Catalog_Model_Product_Image::setWidth() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
 			rawMessage: 'Cannot call method isIndexable() on Mage_Eav_Model_Entity_Attribute_Abstract|false.'
 			identifier: method.nonObject
 			count: 1
@@ -1613,12 +1577,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
-
-		-
-			rawMessage: 'Parameter #3 $exclude of method Mage_Catalog_Model_Resource_Category_Tree::addCollectionData() expects array, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			rawMessage: 'Property Mage_Catalog_Model_Resource_Category::$_tree (Varien_Data_Tree_Db) does not accept Varien_Data_Tree_Dbp.'
@@ -1925,12 +1883,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $products of method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection::addProductsFilter() expects array<Mage_Catalog_Model_Product>, Mage_Catalog_Model_Resource_Product_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Stock.php
 
 		-
 			rawMessage: 'Call to function is_numeric() with int will always evaluate to true.'
@@ -3067,12 +3019,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Form.php
 
 		-
-			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -3263,12 +3209,6 @@ parameters:
 			identifier: function.impossibleType
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-
-		-
-			rawMessage: 'Parameter #2 $value of method Varien_Data_Collection::addFilter() expects array|string, int given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Method_Abstract::isPartialAuthorization().'
@@ -3571,12 +3511,6 @@ parameters:
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
 		-
-			rawMessage: 'Parameter #2 $value of method Varien_Data_Collection::addFilter() expects array|string, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating/Option/Collection.php
-
-		-
 			rawMessage: 'Cannot call method addAttributeToSelect() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
 			identifier: method.nonObject
 			count: 1
@@ -3733,12 +3667,6 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Combine.php
 
 		-
-			rawMessage: 'Parameter #1 $arr of method Mage_Rule_Model_Condition_Combine::loadArray() expects array, $this(Mage_Rule_Model_Condition_Combine) given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Combine.php
-
-		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
@@ -3765,12 +3693,6 @@ parameters:
 		-
 			rawMessage: 'Call to an undefined method Varien_Simplexml_Element::getClassName().'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
-
-		-
-			rawMessage: 'Parameter #3 $totalConfig of method Mage_Sales_Model_Config_Ordered::_initModelInstance() expects array, Varien_Simplexml_Element given.'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
 
@@ -3932,12 +3854,6 @@ parameters:
 
 		-
 			rawMessage: 'Parameter #2 $totalConfig of method Mage_Sales_Model_Config_Ordered::_prepareConfigArray() expects Mage_Core_Model_Config_Element, array given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
-
-		-
-			rawMessage: 'Parameter #3 $totalConfig of method Mage_Sales_Model_Quote_Address_Total_Collector::_initModelInstance() expects array, Mage_Core_Model_Config_Element given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
@@ -4169,12 +4085,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Resource/Tag.php
-
-		-
-			rawMessage: 'Parameter #2 $condition of method Mage_Tag_Model_Resource_Tag_Collection::addFieldToFilter() expects array|null, int given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php
 
 		-
 			rawMessage: 'Parameter #1 $store of method Mage_Weee_Helper_Data::validateCatalogPricesAndFptConfiguration() expects Mage_Core_Model_Store|null, int given.'
@@ -4469,18 +4379,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			rawMessage: 'Parameter #1 $item of method Mage_Weee_Helper_Data::setApplied() expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Creditmemo_Item given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Creditmemo/Weee.php
-
-		-
-			rawMessage: 'Parameter #1 $item of method Mage_Weee_Helper_Data::setApplied() expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Invoice_Item given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Invoice/Weee.php
 
 		-
 			rawMessage: PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee::$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax::$_helper.
