@@ -164,6 +164,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
+     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -1312,6 +1313,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Map request to shipment
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
@@ -1349,6 +1352,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
+     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)

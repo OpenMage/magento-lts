@@ -15,7 +15,7 @@
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _delete() deletion of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
- * @method void _multidelete() _multidelete(array $requestData) deletion of a collection
+ * @method void _multidelete() _multiDelete(array $requestData) deletion of a collection
  * @method void _multiUpdate() _multiUpdate(array $filteredData) update of a collection
  * @method array _retrieve() retrieving an entity
  * @method array _retrieveCollection() retrieving a collection
@@ -191,6 +191,9 @@ abstract class Mage_Api2_Model_Resource
      * or collection (several objects).
      *
      * HTTP_MULTI_STATUS is used for several status codes in the response
+     *
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     public function dispatch()
     {
@@ -296,6 +299,7 @@ abstract class Mage_Api2_Model_Resource
      * Trigger error for not-implemented operations
      *
      * @param string $methodName
+     * @throws Mage_Api2_Exception
      */
     protected function _errorIfMethodNotExist($methodName)
     {
@@ -348,6 +352,7 @@ abstract class Mage_Api2_Model_Resource
      * If not exists get from Request
      *
      * @return string
+     * @throws Exception
      */
     public function getResourceType()
     {
@@ -375,6 +380,7 @@ abstract class Mage_Api2_Model_Resource
      * If not exists get from Request.
      *
      * @return string
+     * @throws Exception
      */
     public function getApiType()
     {
@@ -401,6 +407,7 @@ abstract class Mage_Api2_Model_Resource
      * Determine version from class name
      *
      * @return int
+     * @throws Exception
      */
     public function getVersion()
     {
@@ -418,7 +425,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set API version
      *
-     * @param int $version
+     * @param string $version
      */
     public function setVersion($version)
     {
@@ -429,6 +436,7 @@ abstract class Mage_Api2_Model_Resource
      * Get response
      *
      * @return Mage_Api2_Model_Response
+     * @throws Exception
      */
     public function getResponse()
     {
@@ -475,6 +483,8 @@ abstract class Mage_Api2_Model_Resource
      * Get renderer if not exists create
      *
      * @return Mage_Api2_Model_Renderer_Interface
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     public function getRenderer()
     {
@@ -499,6 +509,7 @@ abstract class Mage_Api2_Model_Resource
      * If not exists get from apiUser
      *
      * @return string
+     * @throws Exception
      */
     public function getUserType()
     {
@@ -552,6 +563,7 @@ abstract class Mage_Api2_Model_Resource
      * If not exists get from Request
      *
      * @return self::ACTION_TYPE_*
+     * @throws Exception
      */
     public function getActionType()
     {
@@ -579,6 +591,8 @@ abstract class Mage_Api2_Model_Resource
      * If not exists get from Request
      *
      * @return self::OPERATION_*
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     public function getOperation()
     {
@@ -615,6 +629,7 @@ abstract class Mage_Api2_Model_Resource
      * Get working model
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Exception
      */
     public function getWorkingModel()
     {
@@ -625,6 +640,8 @@ abstract class Mage_Api2_Model_Resource
      * Render data using registered Renderer
      *
      * @param mixed $data
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     protected function _render($data)
     {
@@ -638,6 +655,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @param bool $shouldLog Log the error in the log file?
+     * @throws Exception
      * @throws Mage_Api2_Exception
      */
     protected function _critical($message, $code = null, $shouldLog = true)
@@ -689,6 +707,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @return $this
+     * @throws Exception
      */
     protected function _error($message, $code)
     {
@@ -703,6 +722,7 @@ abstract class Mage_Api2_Model_Resource
      * @param int $code
      * @param array $params
      * @return $this
+     * @throws Exception
      */
     protected function _successMessage($message, $code, $params = [])
     {
@@ -717,6 +737,7 @@ abstract class Mage_Api2_Model_Resource
      * @param int $code
      * @param array $params
      * @return $this
+     * @throws Exception
      */
     protected function _errorMessage($message, $code, $params = [])
     {
@@ -728,6 +749,8 @@ abstract class Mage_Api2_Model_Resource
      * Set navigation parameters and apply filters from URL params
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     final protected function _applyCollectionModifiers(Varien_Data_Collection_Db $collection)
     {
@@ -765,6 +788,8 @@ abstract class Mage_Api2_Model_Resource
      * Validate filter data and apply it to collection if possible
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     protected function _applyFilter(Varien_Data_Collection_Db $collection)
     {
@@ -813,6 +838,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceInstanceId
      * @return Mage_Api2_Model_Response
+     * @throws Exception
      */
     protected function _multicall($resourceInstanceId)
     {
@@ -830,6 +856,8 @@ abstract class Mage_Api2_Model_Resource
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
      * @return Mage_Api2_Model_Resource
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {
@@ -892,6 +920,8 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param Mage_Core_Model_Abstract $resource
      * @return string URL
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getLocation($resource)
     {
@@ -926,6 +956,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $userType
      * @param string $operation
      * @return array
+     * @throws Exception
      */
     public function getAvailableAttributes($userType, $operation)
     {
@@ -965,6 +996,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $userType
      * @param string $operation
      * @return array
+     * @throws Exception
      */
     public function getExcludedAttributes($userType, $operation)
     {
@@ -975,6 +1007,7 @@ abstract class Mage_Api2_Model_Resource
      * Get forced attributes
      *
      * @return array
+     * @throws Exception
      */
     public function getForcedAttributes()
     {
@@ -987,6 +1020,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $userType API user type
      * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
+     * @throws Exception
      */
     public function getIncludedAttributes($userType, $operationType)
     {
@@ -999,6 +1033,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $userType API user type
      * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
+     * @throws Exception
      */
     public function getEntityOnlyAttributes($userType, $operationType)
     {
@@ -1009,6 +1044,7 @@ abstract class Mage_Api2_Model_Resource
      * Get available attributes of API resource from configuration file
      *
      * @return array
+     * @throws Exception
      */
     public function getAvailableAttributesFromConfig()
     {
@@ -1019,6 +1055,9 @@ abstract class Mage_Api2_Model_Resource
      * Get available attributes of API resource from data base
      *
      * @return array
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getDbAttributes()
     {
@@ -1043,6 +1082,8 @@ abstract class Mage_Api2_Model_Resource
      * @param bool $onlyVisible OPTIONAL Show only the attributes which are visible on frontend
      * @param bool $excludeSystem OPTIONAL Exclude attributes marked as system
      * @return array
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
     {
@@ -1072,6 +1113,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve current store according to request and API user type
      *
      * @return Mage_Core_Model_Store
+     * @throws Exception
      */
     protected function _getStore()
     {

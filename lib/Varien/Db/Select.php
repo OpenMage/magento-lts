@@ -252,7 +252,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * @param  string $cond Join on this condition
      * @param  array|string $cols The columns to select from the joined table
      * @param  string $schema the database name to specify, if any
-     * @return Zend_Db_Select This Zend_Db_Select object
+     * @return $this This Zend_Db_Select object
      * @throws Zend_Db_Select_Exception
      * @see $_parts
      *
@@ -275,7 +275,7 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param int $count OPTIONAL The number of rows to return
      * @param int $offset OPTIONAL Start returning after this many rows
-     * @return Zend_Db_Select this Zend_Db_Select object
+     * @return $this this Zend_Db_Select object
      */
     public function limit($count = null, $offset = null)
     {
@@ -366,7 +366,7 @@ class Varien_Db_Select extends Zend_Db_Select
      * Use a STRAIGHT_JOIN for the SQL Select
      *
      * @param bool $flag whether or not the SELECT use STRAIGHT_JOIN (default true)
-     * @return Zend_Db_Select this Zend_Db_Select object
+     * @return $this this Zend_Db_Select object
      */
     public function useStraightJoin($flag = true)
     {
@@ -398,9 +398,9 @@ class Varien_Db_Select extends Zend_Db_Select
             $cols = [$cols];
         }
 
-        foreach ($cols as $k => $v) {
-            if ($v instanceof Varien_Db_Select) {
-                $cols[$k] = new Zend_Db_Expr(sprintf('(%s)', $v->assemble()));
+        foreach ($cols as $key => $value) {
+            if ($value instanceof Varien_Db_Select) {
+                $cols[$key] = new Zend_Db_Expr(sprintf('(%s)', $value->assemble()));
             }
         }
 
@@ -439,7 +439,7 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param  Varien_Db_Select $select
      * @param  string           $joinCondition
-     * @param   bool            $isExists
+     * @param  bool            $isExists
      * @return $this
      */
     public function exists($select, $joinCondition, $isExists = true)

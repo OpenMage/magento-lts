@@ -41,13 +41,16 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      */
     protected function _getConfig()
     {
-        return $this->_factory->getModel('core/config_data');
+        /** @var Mage_Core_Model_Config_Data $model */
+        $model = $this->_factory->getModel('core/config_data');
+        return $model;
     }
 
     /**
      * Prepare and store cron settings after save
      *
      * @inheritDoc
+     * @throws Throwable
      */
     protected function _afterSave()
     {
@@ -64,6 +67,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      *
      * @param string $path
      * @return $this
+     * @throws Throwable
      */
     protected function _resetNotificationFlag($path)
     {

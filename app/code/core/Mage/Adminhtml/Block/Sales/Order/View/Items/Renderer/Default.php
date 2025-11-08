@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Giftmessage object
      *
      * @deprecated after 1.4.2.0
-     * @var Mage_GiftMessage_Model_Message
+     * @var array|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage = [];
 

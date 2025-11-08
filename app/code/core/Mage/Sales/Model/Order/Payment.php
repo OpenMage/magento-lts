@@ -206,13 +206,15 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Whether can void
-     * @var string
+     *
+     * @var bool
      */
     protected $_canVoidLookup = null;
 
     /**
      * Transactions registry to spare resource calls
      * array(txn_id => sales/order_payment_transaction)
+     *
      * @var array
      */
     protected $_transactionsLookup = [];
@@ -264,6 +266,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check order payment capture action availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapture()
     {
@@ -287,6 +290,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether refund could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canRefund()
     {
@@ -297,6 +301,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether partial refund could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canRefundPartialPerInvoice()
     {
@@ -307,6 +312,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether partial capture could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapturePartial()
     {
@@ -318,6 +324,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * This method is supposed to be called only when order is placed
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function place()
     {
@@ -511,6 +518,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param float $amount
      * @param bool $skipFraudDetection
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function registerCaptureNotification($amount, $skipFraudDetection = false)
     {
@@ -577,6 +585,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param float $amount
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_authorize()
      */
     public function registerAuthorizationNotification($amount)
@@ -625,6 +634,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * register this invoice and capture
      *
      * @return Mage_Sales_Model_Order_Invoice
+     * @throws Mage_Core_Exception
      */
     protected function _invoice()
     {
@@ -662,6 +672,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Void payment online
      *
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_void()
      */
     public function void(Varien_Object $document)
@@ -676,6 +687,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param float $amount
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_void()
      */
     public function registerVoidNotification($amount = null)
@@ -694,6 +706,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refund($creditmemo)
     {
@@ -723,12 +736,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                         ->refund($this, $baseAmountToRefund)
                         ->processCreditmemo($creditmemo, $this)
                     ;
-                } catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception $mageCoreException) {
                     if (!$captureTxn) {
-                        $e->setMessage(' ' . Mage::helper('sales')->__('If the invoice was created offline, try creating an offline creditmemo.'), true);
+                        $mageCoreException->setMessage(' ' . Mage::helper('sales')->__('If the invoice was created offline, try creating an offline creditmemo.'), true);
                     }
 
-                    throw $e;
+                    throw $mageCoreException;
                 }
             }
         }
@@ -775,6 +788,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param float $amount
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function registerRefundNotification($amount)
     {
@@ -889,7 +905,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Order cancellation hook for payment method instance
      * Adds void transaction if needed
+     *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel()
     {
@@ -916,6 +934,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check order payment review availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReviewPayment()
     {
@@ -926,6 +945,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether fetching info of transaction could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canFetchTransactionInfo()
     {
@@ -936,6 +956,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Accept online a payment that is in review state
      *
      * @return $this
+     * @throws Exception
      */
     public function accept()
     {
@@ -947,6 +968,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Accept order with payment method instance
      *
      * @return $this
+     * @throws Exception
      */
     public function deny()
     {
@@ -962,6 +984,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param string $action
      * @param bool $isOnline
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function registerPaymentReviewAction($action, $isOnline)
     {
@@ -1073,6 +1097,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param float $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _order($amount)
     {
@@ -1118,6 +1143,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param bool $isOnline
      * @param float $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _authorize($isOnline, $amount)
     {
@@ -1175,6 +1201,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param bool $isOnline
      * @param float $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function authorize($isOnline, $amount)
     {
@@ -1191,6 +1218,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param float $amount
      * @param string $gatewayCallback
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _void($isOnline, $amount = null, $gatewayCallback = 'void')
     {
@@ -1265,6 +1293,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param Mage_Sales_Model_Abstract $salesDocument
      * @param bool $failsafe
      * @return null|Mage_Sales_Model_Order_Payment_Transaction|void
+     * @throws Mage_Core_Exception
      */
     protected function _addTransaction($type, $salesDocument = null, $failsafe = false)
     {
@@ -1340,6 +1369,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param bool $failsafe
      * @param false|string $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
     {
@@ -1358,6 +1388,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Import details data of specified transaction
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importTransactionInfo(Mage_Sales_Model_Order_Payment_Transaction $transactionTo)
     {
@@ -1419,6 +1450,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param string $txnId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isTransactionExists($txnId = null)
     {
@@ -1499,9 +1531,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
+     *
      * @param null|false|string $txnId
      * @param false|string $txnType
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     protected function _lookupTransaction($txnId, $txnType = false)
     {
@@ -1542,9 +1576,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
+     *
      * @param false|string $txnId
      * @param false|string $txnType
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function lookupTransaction($txnId, $txnType = false)
     {
@@ -1553,7 +1589,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Lookup an authorization transaction using parent transaction id, if set
+     *
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function getAuthorizationTransaction()
     {
@@ -1572,8 +1610,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Lookup the transaction by id
+     *
      * @param string $transactionId
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function getTransaction($transactionId)
     {
@@ -1634,6 +1674,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Before object save manipulations
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
