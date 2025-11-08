@@ -250,7 +250,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 static function ($value) {
                     return $value === '' ? null : (int) $value;
                 },
-                explode(self::DIMENSIONS_SEPARATOR, strtolower($size), 2)
+                explode(self::DIMENSIONS_SEPARATOR, strtolower($size), 2),
             );
         }
 
