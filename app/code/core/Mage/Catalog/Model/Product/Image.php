@@ -216,37 +216,42 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setSize($size)
     {
+        if (is_numeric($size)) {
+            $this->setWidth((int) $size)->setHeight((int) $size);
+            return $this;
+        }
+
         $width = null;
         $height = null;
 
-        $hasWidthDimensions = false;
-        $hasHeightDimensions = false;
+        $endsWithSeparator = false;
+        $startsWithSeparator = false;
 
         $hasDimensions = str_contains($size, self::DIMENSIONS_SEPARATOR);
 
         if ($hasDimensions) {
-            $hasWidthDimensions = str_ends_with($size, self::DIMENSIONS_SEPARATOR);
-            $hasHeightDimensions = str_starts_with($size, self::DIMENSIONS_SEPARATOR);
+            $endsWithSeparator = str_ends_with($size, self::DIMENSIONS_SEPARATOR);
+            $startsWithSeparator = str_starts_with($size, self::DIMENSIONS_SEPARATOR);
         }
 
-        if ($hasHeightDimensions && !$hasWidthDimensions) {
+        if ($startsWithSeparator && !$endsWithSeparator) {
             $dimension = substr($size, 1);
             $height = $dimension ? (int) $dimension : null;
         }
 
-        if ($hasWidthDimensions && !$hasHeightDimensions) {
+        if ($endsWithSeparator && !$startsWithSeparator) {
             $dimension = substr($size, 0, -1);
             $width = $dimension ? (int) $dimension : null;
         }
 
         // determine width and height from string
-        if ($hasDimensions && (!$hasWidthDimensions && !$hasHeightDimensions)) {
-            [$width, $height] = array_map(intval(...), explode(self::DIMENSIONS_SEPARATOR, strtolower($size), 2));
-        }
-
-        if (is_numeric($size)) {
-            $width = (int) $size;
-            $height = (int) $size;
+        if ($hasDimensions && (!$endsWithSeparator && !$startsWithSeparator)) {
+            [$width, $height] = array_map(
+                static function ($value) {
+                    return $value === '' ? null : (int) $value;
+                },
+                explode(self::DIMENSIONS_SEPARATOR, strtolower($size), 2)
+            );
         }
 
         // set sizes
