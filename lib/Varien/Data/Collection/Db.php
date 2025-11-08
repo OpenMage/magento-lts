@@ -406,11 +406,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add field filter to collection
      *
-     * @see self::_getConditionSql for $condition
-     *
      * @param   array|string $field
      * @param   null|array|int|string $condition
      * @return  $this
+     * @see self::_getConditionSql for $condition
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -665,11 +664,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * return items hash
      * array($value => $label)
      *
-     * @see     fetchItem()
-     *
      * @param   string $valueField
      * @param   string $labelField
      * @return  array
+     * @see     fetchItem()
      */
     protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
     {

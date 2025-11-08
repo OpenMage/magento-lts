@@ -147,8 +147,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getGridParentHtml()
     {

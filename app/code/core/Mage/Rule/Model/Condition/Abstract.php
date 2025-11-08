@@ -584,8 +584,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Value element type will define renderer for condition value element
      *
-     * @see Varien_Data_Form_Element
      * @return string
+     * @see Varien_Data_Form_Element
      */
     public function getValueElementType()
     {

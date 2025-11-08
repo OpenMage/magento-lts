@@ -139,8 +139,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     /**
      * Add link to RSS feed when enabled for filtered store-view
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssFeedLink()
     {

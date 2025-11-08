@@ -294,13 +294,12 @@ class Mage_Core_Model_App
     /**
      * Run light version of application with specified modules support
      *
-     * @see Mage_Core_Model_App::run()
-     *
      * @param  array|string $scopeCode
      * @param  string $scopeType
      * @param  array|string $options
      * @param  array|string $modules
      * @return $this
+     * @see Mage_Core_Model_App::run()
      */
     public function initSpecified($scopeCode, $scopeType = null, $options = [], $modules = [])
     {
@@ -854,8 +853,8 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|bool|int|Mage_Core_Model_Store|string $id
-     * @throws Mage_Core_Model_Store_Exception
      * @return null|Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore($id = null)
     {
@@ -1402,8 +1401,8 @@ class Mage_Core_Model_App
     /**
      * @param string $eventName
      * @param array $args
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function dispatchEvent($eventName, $args)
     {
@@ -1477,8 +1476,8 @@ class Mage_Core_Model_App
      * @param string $method
      * @param Varien_Event_Observer $observer
      * @param string $observerName
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
     {
@@ -1515,8 +1514,8 @@ class Mage_Core_Model_App
 
     /**
      * @param string $text
-     * @throws Mage_Core_Model_Store_Exception
      * @return never
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function throwStoreException($text = '')
     {
@@ -1628,8 +1627,8 @@ class Mage_Core_Model_App
     /**
      * Retrieve application installation flag
      *
-     * @deprecated since 1.2
      * @return bool
+     * @deprecated since 1.2
      */
     public function isInstalled()
     {
@@ -1655,8 +1654,8 @@ class Mage_Core_Model_App
     /**
      * Get file name with cache configuration settings
      *
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      * @return string
+     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
     public function getUseCacheFilename()
     {
@@ -1666,9 +1665,9 @@ class Mage_Core_Model_App
     /**
      * Generate cache id with application specific data
      *
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      * @param   string $id
      * @return  string
+     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
     protected function _getCacheId($id = null)
     {
@@ -1682,9 +1681,9 @@ class Mage_Core_Model_App
     /**
      * Prepare identifier which can be used as cache id or cache tag
      *
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      * @param   string $id
      * @return  string
+     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
      */
     public function prepareCacheId($id)
     {

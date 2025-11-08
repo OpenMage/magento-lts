@@ -246,20 +246,20 @@ class Varien_Db_Select extends Zend_Db_Select
 
     /**
      * Populate the $_parts 'join' key
-     * @see $_parts
-     *
-     * Does the dirty work of populating the join key.
-     *
-     * The $name and $cols parameters follow the same logic
-     * as described in the from() method.
      *
      * @param  null|string $type Type of join; inner, left, and null are currently supported
      * @param  array|string|Zend_Db_Expr $name Table name
      * @param  string $cond Join on this condition
      * @param  array|string $cols The columns to select from the joined table
      * @param  string $schema the database name to specify, if any
-     * @throws Zend_Db_Select_Exception
      * @return Zend_Db_Select This Zend_Db_Select object
+     * @throws Zend_Db_Select_Exception
+     * @see $_parts
+     *
+     * Does the dirty work of populating the join key.
+     *
+     * The $name and $cols parameters follow the same logic
+     * as described in the from() method.
      */
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
@@ -348,8 +348,8 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param string $part
      * @param mixed $value
-     * @throws Zend_Db_Select_Exception
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function setPart($part, $value)
     {

@@ -169,8 +169,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $name New directory name
      * @param string $path Parent directory path
-     * @throws Mage_Core_Exception
      * @return array New directory info
+     * @throws Mage_Core_Exception
      */
     public function createDirectory($name, $path)
     {
@@ -271,8 +271,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      *
      * @param string $targetPath Target directory
      * @param string $type Type of storage, e.g. image, media etc.
-     * @throws Mage_Core_Exception
      * @return array|bool|void
+     * @throws Mage_Core_Exception
      */
     public function uploadFile($targetPath, $type = null)
     {

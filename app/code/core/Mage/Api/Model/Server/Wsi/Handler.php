@@ -21,9 +21,9 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param string $function
      * @param array $args
+     * @return stdClass
      * @throws Mage_Api_Exception
      * @throws ReflectionException
-     * @return stdClass
      */
     public function __call($function, $args)
     {
@@ -124,8 +124,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param String $modelName
      * @param String $methodName
-     * @throws ReflectionException
      * @return array of ReflectionParameter
+     * @throws ReflectionException
      */
     public function getMethodParams($modelName, $methodName)
     {
@@ -139,8 +139,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param array $params
      * @param array $args
-     * @throws ReflectionException
      * @return array
+     * @throws ReflectionException
      */
     public function prepareArgs($params, $args)
     {

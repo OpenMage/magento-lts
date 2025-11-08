@@ -524,9 +524,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert config values for url paths
      *
-     * @deprecated after 1.4.2.0
      * @param string $value
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function processSubst($value)
     {
@@ -771,8 +771,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     public function isCurrentlySecure()
     {

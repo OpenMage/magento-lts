@@ -31,8 +31,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Wishlist model
      *
-     * @throws Exception
      * @return Mage_Wishlist_Model_Wishlist
+     * @throws Exception
      */
     protected function _getWishlist()
     {
@@ -55,8 +55,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Customer instance
      *
-     * @throws Exception
      * @return Mage_Customer_Model_Customer
+     * @throws Exception
      */
     protected function _getCustomer()
     {
@@ -77,8 +77,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Build wishlist rss feed title
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _getTitle()
     {
@@ -88,9 +88,9 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Render block HTML
      *
+     * @return string
      * @throws Exception
      * @throws Mage_Core_Exception
-     * @return string
      */
     protected function _toHtml()
     {

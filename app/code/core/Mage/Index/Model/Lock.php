@@ -279,8 +279,8 @@ class Mage_Index_Model_Lock
      * Get lock file resource
      *
      * @param string $lockName
-     * @throws Exception
      * @return resource
+     * @throws Exception
      */
     protected function _getLockFile($lockName)
     {

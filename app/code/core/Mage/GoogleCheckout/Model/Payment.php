@@ -53,8 +53,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * Capture payment
      *
      * @param float $amount
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -65,8 +65,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      * Refund money
      *
      * @param float $amount
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -74,8 +74,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     }
 
     /**
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -85,8 +85,8 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     /**
      * Void payment
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function cancel(Varien_Object $payment)
     {

@@ -226,8 +226,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Validate wish list item data
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate()
     {
@@ -270,8 +270,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve wishlist item data as array
      *
-     * @deprecated since 1.4.0.0
      * @return array
+     * @deprecated since 1.4.0.0
      */
     public function getDataForSave()
     {
@@ -304,8 +304,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve item product instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -340,8 +340,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Return false for disabled or unvisible products
      *
      * @param bool $delete  delete the item after successful add to cart
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function addToCart(Mage_Checkout_Model_Cart $cart, $delete = false)
     {
@@ -381,8 +381,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * If product has required options add special key to URL
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getProductUrl()
     {
@@ -509,8 +509,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Check product representation in item
      *
      * @param   Mage_Catalog_Model_Product $product
-     * @throws  Mage_Core_Exception
      * @return  bool
+     * @throws  Mage_Core_Exception
      */
     public function representProduct($product)
     {
@@ -662,8 +662,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Returns whether Qty field is valid for this item
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canHaveQty()
     {

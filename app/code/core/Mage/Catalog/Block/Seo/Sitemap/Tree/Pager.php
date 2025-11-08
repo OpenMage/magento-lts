@@ -27,8 +27,8 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
 
     /**
      * @param int $displacement
-     * @throws Exception
      * @return int
+     * @throws Exception
      */
     public function getCurrentPage($displacement = 0)
     {

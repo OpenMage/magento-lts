@@ -221,8 +221,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve wishlist item collection
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Wishlist_Model_Resource_Item_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getItemCollection()
     {
@@ -261,10 +261,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product collection
      *
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
-     *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {

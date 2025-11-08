@@ -89,9 +89,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * @deprecated after 1.5.0.0
      * @param array|string $value
      * @return array|string
+     * @deprecated after 1.5.0.0
      */
     protected function _escapeValue($value)
     {

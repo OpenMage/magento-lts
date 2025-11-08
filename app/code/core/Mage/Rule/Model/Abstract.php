@@ -454,11 +454,10 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated since 1.7.0.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated since 1.7.0.0
      */
     public function asString($format = '')
     {
@@ -466,9 +465,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated since 1.7.0.0
-     *
      * @return string
+     * @deprecated since 1.7.0.0
      */
     public function asHtml()
     {
@@ -478,9 +476,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns rule as an array for admin interface
      *
-     * @deprecated since 1.7.0.0
-     *
      * @return array
+     * @deprecated since 1.7.0.0
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -490,9 +487,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Combine website ids to string
      *
-     * @deprecated since 1.7.0.0
-     *
      * @return Mage_Rule_Model_Abstract
+     * @deprecated since 1.7.0.0
      */
     protected function _prepareWebsiteIds()
     {

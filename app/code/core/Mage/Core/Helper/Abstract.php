@@ -183,8 +183,8 @@ abstract class Mage_Core_Helper_Abstract
      * @param null|array $allowedTags
      * @return null|string|string[]
      *
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {

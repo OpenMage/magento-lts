@@ -134,10 +134,10 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * Prepare response object and dispatch prepare price event
      * Return response object
      *
-     * @deprecated since 1.7.0.0
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param Varien_Db_Select $select
      * @return Varien_Object
+     * @deprecated since 1.7.0.0
      */
     protected function _dispatchPreparePriceEvent($filter, $select)
     {
@@ -169,9 +169,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     /**
      * Retrieve maximal price for attribute
      *
-     * @deprecated since 1.7.0.0
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @return float
+     * @deprecated since 1.7.0.0
      */
     public function getMaxPrice($filter)
     {
@@ -269,11 +269,11 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     /**
      * Apply attribute filter to product collection
      *
-     * @deprecated since 1.7.0.0
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $range
      * @param int $index    the range factor
      * @return $this
+     * @deprecated since 1.7.0.0
      */
     public function applyFilterToCollection($filter, $range, $index)
     {

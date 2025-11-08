@@ -52,8 +52,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * Apply decimal range filter to product collection
      *
      * @param Mage_Catalog_Block_Layer_Filter_Decimal $filterBlock
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
@@ -103,8 +103,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      *
      * @param   int $range
      * @param   float $value
-     * @throws  Mage_Core_Model_Store_Exception
      * @return  string
+     * @throws  Mage_Core_Model_Store_Exception
      */
     protected function _renderItemLabel($range, $value)
     {
@@ -191,8 +191,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Retrieve data for build decimal filter items
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getItemsData()
     {

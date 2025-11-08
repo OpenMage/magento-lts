@@ -42,8 +42,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Check customer scope, email and confirmation key before saving
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Varien_Object $customer)
     {
@@ -185,8 +185,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param string $email
      * @param bool $testOnly
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {
@@ -333,8 +333,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Stores new reset password link customer Id
      *
      * @param string $newResetPasswordLinkCustomerId
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function changeResetPasswordLinkCustomerId(
         Mage_Customer_Model_Customer $customer,

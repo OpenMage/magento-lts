@@ -35,8 +35,8 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 
     /**
      * @param string $code
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByCode($code)
     {

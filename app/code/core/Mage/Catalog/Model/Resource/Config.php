@@ -49,8 +49,8 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      * Return store id.
      * If is not set return current app store
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -60,8 +60,8 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Retrieve catalog_product entity type id
      *
-     * @throws Mage_Core_Exception
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getEntityTypeId()
     {
@@ -75,8 +75,8 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Retrieve Product Attributes Used in Catalog Product listing
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAttributesUsedInListing()
     {
@@ -103,8 +103,8 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Retrieve Used Product Attributes for Catalog Product Listing Sort By
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAttributesUsedForSortBy()
     {

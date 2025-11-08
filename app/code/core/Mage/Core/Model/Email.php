@@ -112,8 +112,8 @@ class Mage_Core_Model_Email extends Varien_Object
     }
 
     /**
-     * @throws Zend_Mail_Exception
      * @return $this
+     * @throws Zend_Mail_Exception
      */
     public function send()
     {

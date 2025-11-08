@@ -19,8 +19,8 @@ class Mage_ImportExport_Model_Config
      *
      * @static
      * @param string $configKey
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public static function getModels($configKey)
     {

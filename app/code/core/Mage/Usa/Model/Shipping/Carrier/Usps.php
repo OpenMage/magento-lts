@@ -1409,8 +1409,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param string $serviceType
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
     {

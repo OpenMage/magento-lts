@@ -107,8 +107,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve order object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -122,8 +122,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve source object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
@@ -137,8 +137,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve item object
      *
-     * @throws Mage_Core_Exception
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getItem()
     {
@@ -152,8 +152,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve Pdf model
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getPdf()
     {
@@ -167,8 +167,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve Pdf page object
      *
-     * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
+     * @throws Mage_Core_Exception
      */
     public function getPage()
     {
@@ -213,9 +213,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     }
 
     /**
-     * @deprecated To be Removed on next release
-     *
      * @return array
+     * @deprecated To be Removed on next release
      */
     protected function _parseDescription()
     {

@@ -190,8 +190,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      * @return int
+     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      */
     public function getMinQueryLenght()
     {
@@ -211,8 +211,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve maximum query length
      *
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      * @return int
+     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      */
     public function getMaxQueryLenght()
     {

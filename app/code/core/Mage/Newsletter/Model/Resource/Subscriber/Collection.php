@@ -162,10 +162,9 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Returns field table alias
      *
-     * @deprecated after 1.4.0.0-rc1
-     *
      * @param string $field
      * @return string|Zend_Db_Expr
+     * @deprecated after 1.4.0.0-rc1
      */
     public function _getFieldTableAlias($field)
     {

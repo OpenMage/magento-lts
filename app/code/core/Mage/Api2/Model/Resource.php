@@ -318,8 +318,8 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Get request
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Request
+     * @throws Exception
      */
     public function getRequest()
     {
@@ -524,8 +524,8 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Get API user
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
+     * @throws Exception
      */
     public function getApiUser()
     {
@@ -860,8 +860,8 @@ abstract class Mage_Api2_Model_Resource
      * Check ACL permission for specified resource with current other conditions
      *
      * @param string $resourceId Resource identifier
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     protected function _isSubCallAllowed($resourceId)
     {

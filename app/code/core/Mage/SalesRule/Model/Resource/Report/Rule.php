@@ -67,11 +67,10 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
     /**
      * Aggregate coupons reports by order created at as range
      *
-     * @deprecated after 1.6.0.0-rc2
-     *
      * @param mixed $from
      * @param mixed $to
      * @return $this
+     * @deprecated after 1.6.0.0-rc2
      */
     protected function _aggregateByOrderCreatedAt($from, $to)
     {

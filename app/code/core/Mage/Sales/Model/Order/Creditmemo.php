@@ -348,8 +348,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addItem(Mage_Sales_Model_Order_Creditmemo_Item $item)
     {
@@ -434,9 +434,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return $this
      */
     public function refund()
     {
@@ -553,8 +553,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register()
     {
@@ -705,8 +705,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @param string $comment
      * @param bool $notify
      * @param bool $visibleOnFront
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
     {
@@ -759,9 +759,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @param bool $notifyCustomer
      * @param string $comment
+     * @return $this
      * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -945,8 +945,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -998,8 +998,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * Get creditmemos collection filtered by $filter
      *
      * @param null|array $filter
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @throws Mage_Core_Exception
      */
     public function getFilteredCollectionItems($filter = null)
     {

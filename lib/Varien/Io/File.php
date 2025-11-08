@@ -323,11 +323,11 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     /**
      * Used to set the _allowCreateFolders value
-     * @see _allowCreateFolders
      *
      * @param bool $flag
      * @access public
      * @return $this
+     * @see _allowCreateFolders
      */
     public function setAllowCreateFolders($flag)
     {
@@ -441,8 +441,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @throws Exception
      * @return bool
+     * @throws Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -492,8 +492,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param resource|string $src
      * @param int $mode
      *
-     * @throws Exception
      * @return bool|int
+     * @throws Exception
      */
     public function write($filename, $src, $mode = null)
     {
@@ -549,8 +549,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * If filename not exist check dirname writeable
      *
      * @param string $filename
-     * @throws Varien_Io_Exception
      * @return bool
+     * @throws Varien_Io_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -689,8 +689,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $folder
      * @param int $mode
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function checkAndCreateFolder($folder, $mode = 0777)
     {

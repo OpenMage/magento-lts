@@ -491,8 +491,8 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Override function to generate less curly captcha that will not cut off
      *
-     * @see Zend_Captcha_Image::_randomSize()
      * @return int
+     * @see Zend_Captcha_Image::_randomSize()
      */
     protected function _randomSize()
     {

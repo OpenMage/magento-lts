@@ -340,8 +340,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Return is attribute global
      *
-     * @deprecated moved to catalog attribute model
      * @return int
+     * @deprecated moved to catalog attribute model
      */
     public function getIsGlobal()
     {
@@ -424,8 +424,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve backend instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getBackend()
     {
@@ -467,8 +467,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve source instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
@@ -530,8 +530,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
     /**
      * @param mixed $value
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isValueEmpty($value)
     {

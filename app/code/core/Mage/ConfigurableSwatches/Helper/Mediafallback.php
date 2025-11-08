@@ -23,8 +23,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      * @param int $storeId
+     * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      */
     public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
     {

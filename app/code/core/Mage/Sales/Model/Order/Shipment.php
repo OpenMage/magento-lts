@@ -205,8 +205,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      *
      * Apply to order, order items etc.
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register()
     {
@@ -283,8 +283,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addItem(Mage_Sales_Model_Order_Shipment_Item $item)
     {
@@ -348,8 +348,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addTrack(Mage_Sales_Model_Order_Shipment_Track $track)
     {
@@ -378,8 +378,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * @param bool $notify
      * @param bool $visibleOnFront
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
     {

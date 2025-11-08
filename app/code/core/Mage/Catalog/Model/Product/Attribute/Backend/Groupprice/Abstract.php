@@ -103,8 +103,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      * Validate group price data
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate($object)
     {

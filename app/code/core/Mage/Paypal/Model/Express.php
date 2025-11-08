@@ -160,8 +160,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Payment action getter compatible with payment model
      *
-     * @see Mage_Sales_Model_Payment::place()
      * @return string
+     * @see Mage_Sales_Model_Payment::place()
      */
     public function getConfigPaymentAction()
     {
@@ -463,9 +463,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Checkout redirect URL getter for onepage checkout (hardcode)
      *
+     * @return string
      * @see Mage_Checkout_OnepageController::savePaymentAction()
      * @see Mage_Sales_Model_Quote_Payment::getCheckoutRedirectUrl()
-     * @return string
      */
     public function getCheckoutRedirectUrl()
     {
@@ -675,8 +675,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param int $amount
      * @param Varien_Object $payment
      * @param string $parentTransactionId
-     * @throws Mage_Paypal_Model_Api_ProcessableException
      * @return Mage_Paypal_Model_Api_Abstract
+     * @throws Mage_Paypal_Model_Api_ProcessableException
      */
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {

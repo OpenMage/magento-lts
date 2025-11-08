@@ -73,8 +73,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve customer groups collection array
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getCustomerGroups()
     {
@@ -94,8 +94,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $product
      * @param int $lastEntityId
      * @param int $limit
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
@@ -142,8 +142,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Reindex Bundle product Price Index
      *
      * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function reindex($products = null)
     {
@@ -168,8 +168,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      *
      * @param int $productId
      * @param int $priceType
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -239,8 +239,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $groupId
      * @param float $minPrice
      * @param float $maxPrice
-     * @throws Zend_Db_Exception
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
     {
@@ -262,8 +262,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve bundle options with selections and prices by product
      *
      * @param int $productId
-     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getSelections($productId)
     {
@@ -315,8 +315,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve salable product statuses
      *
      * @param array|int $products
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductsSalableStatus($products, Mage_Core_Model_Website $website)
     {
@@ -419,8 +419,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve product(s) price data
      *
      * @param array|int $products
-     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getProductsPriceData($products, Mage_Core_Model_Website $website)
     {
@@ -452,8 +452,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Add attribute data to select
      *
      * @param string $attributeCode
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _addAttributeDataToSelect(
         Varien_Db_Select $select,
@@ -528,8 +528,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve custom options for product
      *
      * @param int $productId
-     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getCustomOptions($productId, Mage_Core_Model_Website $website)
     {
@@ -835,8 +835,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param array|int $productIds
      * @param int $websiteId
      * @param int $groupId
-     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function loadPriceIndex($productIds, $websiteId, $groupId)
     {

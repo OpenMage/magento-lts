@@ -155,8 +155,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function dispatch()
     {

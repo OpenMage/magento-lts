@@ -443,11 +443,10 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * @deprecated after 1.11.2.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated after 1.11.2.0
      */
     public function toString($format = '')
     {
@@ -456,8 +455,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
     /**
      * Returns rule as an array for admin interface
-     *
-     * @deprecated after 1.11.2.0
      *
      * @param array $arrAttributes
      *
@@ -469,6 +466,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
+     * @deprecated after 1.11.2.0
      */
     public function toArray(array $arrAttributes = [])
     {

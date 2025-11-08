@@ -22,8 +22,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     protected $_uniqueHtmlId = null;
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCount()
     {
@@ -31,8 +31,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTags()
     {
@@ -52,8 +52,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getCollection()
     {
@@ -101,8 +101,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      *
      * @param string $pattern
      * @param string $glue
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function renderTags($pattern, $glue = ' ')
     {

@@ -178,8 +178,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Set entity to use for attributes
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @throws Mage_Eav_Exception
      * @return $this
+     * @throws Mage_Eav_Exception
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function setEntity($entity)
@@ -198,8 +198,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get collection's entity object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
@@ -213,8 +213,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get resource instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getResource()
     {
@@ -276,11 +276,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *     array('attribute'=>'lastname', 'like'=>'test%'),
      * )
      *
-     * @see self::_getConditionSql for $condition
      * @param array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
      * @param null|array|int|string $condition
      * @param string $joinType
      * @return $this
+     * @see self::_getConditionSql for $condition
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -602,9 +602,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param string $filter primary key for the joined entity (entity_id default)
      * @param string $joinType inner|left
      * @param int $storeId
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @return $this
      * @todo connect between joined attributes of same entity
      */
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)
@@ -863,9 +863,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -907,8 +907,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param int $limit
      * @param int $offset
-     * @throws Mage_Core_Exception
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getAllIdsSelect($limit = null, $offset = null)
     {
@@ -938,8 +938,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Retrieve all ids sql
      *
-     * @deprecated
      * @return Varien_Db_Select
+     * @deprecated
      */
     public function getAllIdsSql()
     {
@@ -1054,8 +1054,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function _loadEntities($printQuery = false, $logQuery = false)
     {
@@ -1097,9 +1097,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param bool $printQuery
      * @param bool $logQuery
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @return $this
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
@@ -1169,8 +1169,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param   string $table
      * @param array $attributeIds
-     * @throws Mage_Core_Exception
      * @return  Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {
@@ -1210,8 +1210,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * $valueInfo is _getLoadAttributesSelect fetch result row
      *
      * @param   array $valueInfo
-     * @throws Mage_Eav_Exception
      * @return  $this
+     * @throws Mage_Eav_Exception
      */
     protected function _setItemAttributeValue($valueInfo)
     {
@@ -1296,8 +1296,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param   string $attributeCode
      * @param   bool|string $joinType inner|left
-     * @throws  Mage_Eav_Exception
      * @return  $this
+     * @throws  Mage_Eav_Exception
      */
     protected function _addAttributeJoin($attributeCode, $joinType = 'inner')
     {
@@ -1402,11 +1402,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Get condition sql for the attribute
      *
-     * @see self::_getConditionSql
      * @param string $attribute
      * @param mixed $condition
      * @param string $joinType
      * @return string
+     * @see self::_getConditionSql
      */
     protected function _getAttributeConditionSql($attribute, $condition, $joinType = 'inner')
     {

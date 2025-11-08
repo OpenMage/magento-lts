@@ -171,8 +171,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @throws Throwable
      * @return void
+     * @throws Throwable
      */
     protected function _addItemToWishList()
     {
