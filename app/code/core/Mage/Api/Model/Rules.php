@@ -51,8 +51,8 @@ class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRel()
     {

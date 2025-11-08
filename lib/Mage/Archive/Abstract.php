@@ -19,8 +19,8 @@ class Mage_Archive_Abstract
      *
      * @param string $destination
      * @param string $data
-     * @throws Mage_Exception
      * @return bool
+     * @throws Mage_Exception
      */
     protected function _writeFile($destination, $data)
     {
@@ -36,8 +36,8 @@ class Mage_Archive_Abstract
      * Read data from file. If file can't be opened, throw to exception.
      *
      * @param string $source
-     * @throws Mage_Exception
      * @return string
+     * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

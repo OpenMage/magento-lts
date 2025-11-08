@@ -391,8 +391,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     /**
      * Retrieve current Attribute Set object
      *
-     * @deprecated use _getAttributeSet
      * @return Mage_Eav_Model_Entity_Attribute_Set
+     * @deprecated use _getAttributeSet
      */
     protected function _getSetData()
     {

@@ -136,8 +136,8 @@ class Mage_Index_Model_Observer
     /**
      * Clean old index events for indexers in manual mode
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function cleanOutdatedEvents()
     {

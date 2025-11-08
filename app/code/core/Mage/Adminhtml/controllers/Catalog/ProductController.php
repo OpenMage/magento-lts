@@ -52,8 +52,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Initialize product from request parameters
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     protected function _initProduct()
     {
@@ -792,8 +792,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Duplicates product attributes between stores.
      * @param array $stores list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
      * @param Mage_Catalog_Model_Product $product whose attributes should be copied
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     protected function _copyAttributesBetweenStores(array $stores, Mage_Catalog_Model_Product $product)
     {
@@ -895,8 +895,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function addCustomersToAlertQueueAction()
     {

@@ -24,8 +24,8 @@ class Mage_Api2_Model_Auth_Adapter
     /**
      * Load adapters configuration and create adapters models
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _initAdapters()
     {

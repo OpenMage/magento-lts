@@ -355,8 +355,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Core_Model_Store $store
      * @param array|Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refreshEnabledIndex($store = null, $product = null)
     {

@@ -417,8 +417,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
      * @param null|Mage_Sales_Model_Order_Invoice $invoice
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function capture($invoice)
     {
@@ -575,9 +575,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Process authorization notification
      *
-     * @see self::_authorize()
      * @param float $amount
      * @return $this
+     * @see self::_authorize()
      */
     public function registerAuthorizationNotification($amount)
     {
@@ -642,8 +642,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Check order payment void availability
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canVoid(Varien_Object $document)
     {
@@ -661,8 +661,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Void payment online
      *
-     * @see self::_void()
      * @return $this
+     * @see self::_void()
      */
     public function void(Varien_Object $document)
     {
@@ -1401,9 +1401,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prevent double processing of the same transaction by a payment notification
      * Uses either specified txn_id or the transaction id that was set before
      *
-     * @deprecated after 1.4.0.1
      * @param string $txnId
      * @throws Mage_Core_Exception
+     * @deprecated after 1.4.0.1
      */
     protected function _avoidDoubleTransactionProcessing($txnId = null)
     {

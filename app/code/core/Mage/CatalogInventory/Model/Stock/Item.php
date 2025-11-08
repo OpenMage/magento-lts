@@ -413,8 +413,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve Default Quantity Increments data wrapper
      *
-     * @deprecated since 1.7.0.0
      * @return false|int
+     * @deprecated since 1.7.0.0
      */
     public function getDefaultQtyIncrements()
     {
@@ -465,8 +465,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Check quantity
      *
      * @param   float $qty
-     * @throws  Mage_Core_Exception
      * @return  bool
+     * @throws  Mage_Core_Exception
      */
     public function checkQty($qty)
     {

@@ -24,8 +24,8 @@ class Mage_System_Ftp
     /**
      * Check connected, throw exception if not
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     protected function checkConnected()
     {
@@ -85,8 +85,8 @@ class Mage_System_Ftp
      *
      * @param string $login
      * @param string $password
-     * @throws Exception on invalid login credentials
      * @return bool
+     * @throws Exception on invalid login credentials
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -108,8 +108,8 @@ class Mage_System_Ftp
      * Validate connection string
      *
      * @param string $string
-     * @throws Exception
      * @return array
+     * @throws Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

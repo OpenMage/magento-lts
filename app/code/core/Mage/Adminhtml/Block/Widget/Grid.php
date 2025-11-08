@@ -333,8 +333,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $columnId
      * @param array $column
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addColumn($columnId, $column)
     {
@@ -436,8 +436,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param string $columnId
      * @param array|Varien_Object $column
      * @param string $after
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addColumnAfter($columnId, $column, $after)
     {
@@ -626,8 +626,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare grid collection object
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -758,8 +758,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _prepareGrid()
     {
@@ -1059,8 +1059,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Can be overloaded in descendant classes to perform custom changes to url passed to addRssList()
      *
      * @param string $url
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getRssUrl($url)
     {
@@ -1078,8 +1078,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @param string $label
-     * @throws Mage_Core_Model_Store_Exception
      * @return  $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssList($url, $label)
     {
@@ -1213,8 +1213,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * Return array with keys type and value
      *
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function getCsvFile()
     {
@@ -1254,8 +1254,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve Grid data as CSV
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getCsv()
     {
@@ -1311,8 +1311,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getXml()
     {
@@ -1371,8 +1371,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Return array with keys type and value
      *
      * @param string $sheetName
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function getExcelFile($sheetName = '')
     {
@@ -1414,8 +1414,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid data as MS Excel 2003 XML Document
      *
      * @param string $filename the Workbook sheet name
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getExcel($filename = '')
     {
@@ -1467,8 +1467,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function canDisplayContainer()
     {
@@ -1482,8 +1482,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Grid url getter
      *
-     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
      * @return string current grid url
+     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
      */
     public function getGridUrl()
     {
@@ -1507,8 +1507,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $paramName
      * @param mixed $default
-     * @throws Exception
      * @return mixed
+     * @throws Exception
      */
     public function getParam($paramName, $default = null)
     {

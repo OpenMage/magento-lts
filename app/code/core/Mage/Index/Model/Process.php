@@ -228,8 +228,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Reindex all data what this process responsible is
      * Check and using depends processes
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function reindexEverything()
     {
@@ -294,8 +294,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get Indexer strategy object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Index_Model_Indexer_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getIndexer()
     {
@@ -569,9 +569,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {
@@ -582,8 +582,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Disable keys in index table
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function disableIndexerKeys()
     {
@@ -598,8 +598,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Enable keys in index table
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function enableIndexerKeys()
     {

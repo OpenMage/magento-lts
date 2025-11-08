@@ -471,8 +471,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Create Product entity from raw data.
      *
-     * @throws Exception
      * @return bool result of operation
+     * @throws Exception
      */
     protected function _importData()
     {
@@ -598,8 +598,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize product type models.
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _initTypeModels()
     {
@@ -1588,8 +1588,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve pattern for time formatting
      *
-     * @deprecated
      * @return string
+     * @deprecated
      */
     protected function _getStrftimeFormat()
     {

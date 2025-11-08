@@ -254,8 +254,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Save customer data to DB.
      *
-     * @throws Exception
      * @return bool result of operation
+     * @throws Exception
      */
     protected function _importData()
     {

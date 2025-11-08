@@ -111,10 +111,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Getting base popularity per store view for specified tag
      *
-     * @deprecated after 1.4.0.0
-     *
      * @param int $tagId
      * @return array
+     * @deprecated after 1.4.0.0
      */
     protected function _getExistingBasePopularity($tagId)
     {
@@ -133,10 +132,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get aggregation data per store view
      *
-     * @deprecated after 1.4.0.0
-     *
      * @param int $tagId
      * @return array
+     * @deprecated after 1.4.0.0
      */
     protected function _getAggregationPerStoreView($tagId)
     {
@@ -204,10 +202,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get global aggregation data for row with store_id = 0
      *
-     * @deprecated after 1.4.0.0
-     *
      * @param int $tagId
      * @return array
+     * @deprecated after 1.4.0.0
      */
     protected function _getGlobalAggregation($tagId)
     {
@@ -267,10 +264,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Getting statistics data into buffer.
      * Replacing our buffer array with new statistics and incoming data.
      *
-     * @deprecated after 1.4.0.0
-     *
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
+     * @deprecated after 1.4.0.0
      */
     public function aggregate($object)
     {
@@ -344,10 +340,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add summary data to specified object
      *
-     * @deprecated after 1.4.0.0
-     *
      * @param Mage_Tag_Model_Tag $object
      * @return Mage_Tag_Model_Tag
+     * @deprecated after 1.4.0.0
      */
     public function addSummary($object)
     {

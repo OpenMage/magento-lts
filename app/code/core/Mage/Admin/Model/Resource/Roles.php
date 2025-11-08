@@ -40,8 +40,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * Process role before saving
      *
      * @param Mage_Admin_Model_Roles $object
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -77,8 +77,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * Process role after saving
      *
      * @param Mage_Admin_Model_Roles $object
-     * @throws Zend_Cache_Exception
      * @return $this
+     * @throws Zend_Cache_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -94,8 +94,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * Process role after deleting
      *
      * @param Mage_Admin_Model_Roles $object
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
@@ -108,8 +108,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get role users
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers(Mage_Admin_Model_Roles $role)
     {
@@ -125,9 +125,9 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update role users
      *
+     * @return bool
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
-     * @return bool
      */
     private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role)
     {

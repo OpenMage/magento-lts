@@ -215,8 +215,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param int $width
      * @param int $height
      * @param string $fileExt
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getGlobalSwatchUrl(
         $object,
@@ -272,8 +272,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @throws Mage_Core_Exception
      * @return false|string $destPath
+     * @throws Mage_Core_Exception
      */
     public function createSwatchImage($value, $width, $height)
     {

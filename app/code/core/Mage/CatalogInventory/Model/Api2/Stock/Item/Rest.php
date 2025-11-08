@@ -17,8 +17,8 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
     /**
      * Retrieve information about specified stock item
      *
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {

@@ -18,8 +18,8 @@ class Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Mage_Customer_Mode
      * Retrieve information about customer
      * Add last logged in datetime
      *
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {

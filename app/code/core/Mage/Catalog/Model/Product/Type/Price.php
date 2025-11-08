@@ -320,8 +320,8 @@ class Mage_Catalog_Model_Product_Type_Price
      * Get formatted by currency product price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Model_Store_Exception
      * @return float|string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice($product)
     {

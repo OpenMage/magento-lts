@@ -117,8 +117,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      *
      * @param string $key
      * @param mixed $value
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setAdditionalInformation($key, $value)
     {

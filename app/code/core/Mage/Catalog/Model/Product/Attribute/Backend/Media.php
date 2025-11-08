@@ -64,8 +64,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Validate media_gallery attribute data
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate($object)
     {
@@ -90,8 +90,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
     /**
      * @param Mage_Catalog_Model_Product $object
-     * @throws Zend_Json_Exception
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
+     * @throws Zend_Json_Exception
      */
     public function beforeSave($object)
     {
@@ -282,8 +282,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      *                                                      leave blank if image should be only in gallery
      * @param bool                    $move              if true, it will move source file
      * @param bool                    $exclude           mark image as disabled in product page view
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function addImage(
         Mage_Catalog_Model_Product $product,
@@ -386,8 +386,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param string $filePath path, where image cand be found
      * @param bool $move if true, it will move source file
      * @param bool $exclude mark image as disabled in product page view
-     * @throws Mage_Core_Exception
      * @return array array of parallel arrays with original and renamed files
+     * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
         Mage_Catalog_Model_Product $product,
@@ -643,8 +643,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Copy image and return new filename.
      *
      * @param string $file
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _copyImage($file)
     {

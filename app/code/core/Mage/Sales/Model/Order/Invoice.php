@@ -600,8 +600,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function addItem(Mage_Sales_Model_Order_Invoice_Item $item)
     {
@@ -989,8 +989,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {

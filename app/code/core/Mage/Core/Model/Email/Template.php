@@ -492,9 +492,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array $vars variables which can be used in template
      * @param   null|int $storeId
      *
-     * @throws Mage_Core_Exception
-     *
      * @return  $this
+     * @throws Mage_Core_Exception
      */
     public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
     {

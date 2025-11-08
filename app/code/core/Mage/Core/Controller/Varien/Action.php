@@ -263,8 +263,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addActionLayoutHandles()
     {
@@ -286,8 +286,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadLayoutUpdates()
     {
@@ -940,10 +940,10 @@ abstract class Mage_Core_Controller_Varien_Action
      * $this->_title('foo')->_title(false)->_title('bar');
      * bar / <default title>
      *
-     * @see self::_renderTitles()
      * @param null|false|int|string $text
      * @param bool $resetIfExists
      * @return $this
+     * @see self::_renderTitles()
      */
     protected function _title($text = null, $resetIfExists = true)
     {

@@ -91,8 +91,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Processing object before save data
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -298,8 +298,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Get Attribute translated label for store
      *
-     * @deprecated
      * @return string
+     * @deprecated
      */
     protected function _getLabelForStore()
     {
@@ -309,8 +309,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Initialize store Labels for attributes
      *
-     * @deprecated
      * @param int $storeId
+     * @deprecated
      */
     public static function initLabels($storeId = null)
     {

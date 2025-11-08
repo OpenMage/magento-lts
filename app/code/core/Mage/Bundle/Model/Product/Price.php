@@ -61,8 +61,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param null|float $qty
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTotalBundleItemsPrice($product, $qty = null)
     {
@@ -103,8 +103,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFinalPrice($qty, $product)
     {
@@ -131,8 +131,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param float $productQty
      * @param Mage_Catalog_Model_Product $childProduct
      * @param float $childProductQty
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getChildFinalPrice($product, $productQty, $childProduct, $childProductQty)
     {
@@ -144,8 +144,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $which
-     * @throws Mage_Core_Model_Store_Exception
      * @return array|float
+     * @throws Mage_Core_Model_Store_Exception
      * @deprecated after 1.5.1.0
      * @see Mage_Bundle_Model_Product_Price::getTotalPrices()
      */
@@ -160,11 +160,11 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $product
      * @param string $which
      * @param null|bool $includeTax
-     * @throws Mage_Core_Model_Store_Exception
      * @return array|float
-     * @see Mage_Bundle_Model_Product_Price::getTotalPrices()
+     * @throws Mage_Core_Model_Store_Exception
      *
      * @deprecated after 1.5.1.0
+     * @see Mage_Bundle_Model_Product_Price::getTotalPrices()
      */
     public function getPricesDependingOnTax($product, $which = null, $includeTax = null)
     {
@@ -178,8 +178,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param null|string $which
      * @param null|bool $includeTax
      * @param bool $takeTierPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return array|float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTotalPrices($product, $which = null, $includeTax = null, $takeTierPrice = true)
     {
@@ -272,8 +272,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $product
      * @param null|bool $includeTax
      * @param bool $takeTierPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return int|mixed
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getMinimalBundleOptionsPrice($product, $includeTax, $takeTierPrice)
     {
@@ -338,8 +338,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $product
      * @param null|bool $includeTax
      * @param bool $takeTierPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getMaximalBundleOptionsPrice($product, $includeTax, $takeTierPrice)
     {
@@ -369,8 +369,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Bundle_Model_Option $option
      * @param bool $takeTierPrice
      * @param null|bool $includeTax
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getSelectionPrices($product, $option, $takeTierPrice, $includeTax)
     {
@@ -481,8 +481,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $selectionProduct
      * @param null|float $selectionQty
      * @param null|bool $multiplyQty Whether to multiply selection's price by its quantity
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      * @deprecated after 1.6.2.0
      * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
@@ -497,8 +497,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $bundleProduct
      * @param Mage_Catalog_Model_Product $selectionProduct
      * @param float $qty
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSelectionPreFinalPrice($bundleProduct, $selectionProduct, $qty = null)
     {
@@ -513,11 +513,11 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param float $bundleQty
      * @param float $selectionQty
      * @param bool $multiplyQty
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
-     * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
+     * @throws Mage_Core_Model_Store_Exception
      *
      * @deprecated after 1.5.1.0
+     * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
     public function getSelectionFinalPrice(
         $bundleProduct,
@@ -545,8 +545,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param null|float $selectionQty
      * @param bool $multiplyQty
      * @param bool $takeTierPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSelectionFinalTotalPrice(
         $bundleProduct,
@@ -590,8 +590,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $bundleProduct
      * @param float|string $price
      * @param int $bundleQty
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getLowestPrice($bundleProduct, $price, $bundleQty = 1)
     {
@@ -609,8 +609,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param float $finalPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _applyGroupPrice($product, $finalPrice)
     {
@@ -630,8 +630,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * Get product group price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return null|float
+     * @throws Mage_Core_Exception
      */
     public function getGroupPrice($product)
     {
@@ -669,8 +669,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param Mage_Catalog_Model_Product $product
      * @param float $qty
      * @param float $finalPrice
-     * @throws Mage_Core_Model_Store_Exception
      * @return  float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _applyTierPrice($product, $qty, $finalPrice)
     {
@@ -694,8 +694,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param null|float $qty
      * @param Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return array|float
+     * @throws Mage_Core_Exception
      */
     public function getTierPrice($qty, $product)
     {
@@ -791,8 +791,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param mixed $wId
      * @param mixed $gId
      * @param null|int $productId
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public static function calculatePrice(
         $basePrice,
@@ -951,8 +951,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param string $specialPriceFrom
      * @param string $specialPriceTo
      * @param mixed $store
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public static function calculateSpecialPrice(
         $finalPrice,

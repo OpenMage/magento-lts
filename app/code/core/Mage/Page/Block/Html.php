@@ -153,8 +153,8 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
     /**
      * @param string $theme
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setTheme($theme)
     {

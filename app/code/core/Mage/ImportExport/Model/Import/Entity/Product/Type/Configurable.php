@@ -350,8 +350,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Save product type specific data.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     * @throws Exception
      */
     public function saveData()
     {

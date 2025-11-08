@@ -287,8 +287,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getSelectedTabId()
     {

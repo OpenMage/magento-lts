@@ -151,9 +151,9 @@ class Mage_Index_Model_Indexer
 
     /**
      * Lock indexer actions
-     * @deprecated after 1.6.1.0
      *
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function lockIndexer()
     {
@@ -163,9 +163,9 @@ class Mage_Index_Model_Indexer
 
     /**
      * Unlock indexer actions
-     * @deprecated after 1.6.1.0
      *
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function unlockIndexer()
     {
@@ -176,8 +176,8 @@ class Mage_Index_Model_Indexer
     /**
      * Check if object actions are locked
      *
-     * @deprecated after 1.6.1.0
      * @return bool
+     * @deprecated after 1.6.1.0
      */
     public function isLocked()
     {
@@ -190,8 +190,8 @@ class Mage_Index_Model_Indexer
      *
      * @param   null|string $entity
      * @param   null|string $type
-     * @throws Exception
      * @return  Mage_Index_Model_Indexer
+     * @throws Exception
      */
     public function indexEvents($entity = null, $type = null)
     {

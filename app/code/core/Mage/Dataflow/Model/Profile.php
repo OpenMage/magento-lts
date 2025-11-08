@@ -514,8 +514,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      *
      * @param object $xmlObject
      * @param string $nodeName
-     * @throws Exception
      * @return object
+     * @throws Exception
      */
     protected function getNode($xmlObject, $nodeName)
     {

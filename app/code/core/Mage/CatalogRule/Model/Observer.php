@@ -298,8 +298,8 @@ class Mage_CatalogRule_Model_Observer
      *
      * @param string $attributeCode
      *
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
@@ -385,8 +385,8 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function prepareCatalogProductCollectionPrices(Varien_Event_Observer $observer)
     {

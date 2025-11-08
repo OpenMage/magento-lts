@@ -202,8 +202,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -366,8 +366,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
     {
@@ -425,8 +425,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return  $this
+     * @throws Mage_Core_Exception
      */
     public function login($username, $password)
     {
@@ -550,9 +550,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find admin start page url
      *
+     * @return string
      * @deprecated Please use getStartupPageUrl() method instead
      * @see getStartupPageUrl()
-     * @return string
      */
     public function getStatrupPageUrl()
     {
@@ -583,8 +583,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      * Returns TRUE or array of errors.
      *
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
@@ -650,8 +650,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns true or array of errors.
      *
      * @param string $password
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validateCurrentPassword($password)
     {
@@ -676,8 +676,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {

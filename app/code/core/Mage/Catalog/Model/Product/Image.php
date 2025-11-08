@@ -261,9 +261,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
      * @param null|string $file
      * @return bool
+     * @deprecated
      */
     protected function _checkMemory($file = null)
     {
@@ -286,8 +286,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
      * @return int
+     * @deprecated
      */
     protected function _getMemoryUsage()
     {
@@ -299,9 +299,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
      * @param string $file
      * @return float|int
+     * @deprecated
      */
     protected function _getNeedMemoryForFile($file = null)
     {
@@ -500,8 +500,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @see Varien_Image_Adapter_Abstract
      * @return $this
+     * @see Varien_Image_Adapter_Abstract
      */
     public function resize()
     {

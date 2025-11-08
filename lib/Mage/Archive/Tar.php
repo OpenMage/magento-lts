@@ -236,9 +236,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Walk through directory and add to tar file or directory.
      * Result is packed string on TAR format.
      *
-     * @deprecated after 1.7.0.0
      * @param bool $skipRoot
      * @return string
+     * @deprecated after 1.7.0.0
      */
     protected function _packToTar($skipRoot = false)
     {
@@ -402,8 +402,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * in the string.
      *
      * @param string $destination path to file is unpacked
-     * @throws Mage_Exception
      * @return array list of files
+     * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -455,9 +455,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Get header from TAR string and unpacked it by format.
      *
-     * @deprecated after 1.7.0.0
      * @param resource $pointer
      * @return array|false
+     * @deprecated after 1.7.0.0
      */
     protected function _parseHeader(&$pointer)
     {

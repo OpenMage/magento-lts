@@ -211,8 +211,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
 
     /**
      * @param array|int|Mage_Core_Model_Config_Element|string $code
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAttribute($code)
     {

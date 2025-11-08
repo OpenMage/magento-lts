@@ -138,8 +138,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param int $messageId
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function saveRecipients($messageId, array $recipients)
     {
