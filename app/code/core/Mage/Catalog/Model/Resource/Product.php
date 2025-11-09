@@ -551,12 +551,25 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param int $newId
      * @return $this
      */
-    public function duplicate($oldId, $newId)
+    public function duplicate($oldId, $newId, $skipImagesOnDuplicate = false)
     {
         $adapter = $this->_getWriteAdapter();
         $eavTables = ['datetime', 'decimal', 'int', 'text', 'varchar'];
-
+        $mediaImageAttributeSkipIds = [];
         $adapter = $this->_getWriteAdapter();
+
+        if($skipImagesOnDuplicate){
+
+            /**
+             * @var int $attributeId
+             * @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+             */
+            foreach($this->getAttributesById() as $attributeId => $attribute){
+                if($attribute->getFrontendInput() == 'media_image'){
+                    $mediaImageAttributeSkipIds[$attribute->getBackendType()][] = $attributeId;
+                }
+            }
+        }
 
         // duplicate EAV store values
         foreach ($eavTables as $suffix) {
@@ -572,6 +585,10 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ])
                 ->where('entity_id = ?', $oldId)
                 ->where('store_id > ?', 0);
+
+            if(isset($mediaImageAttributeSkipIds[$suffix])){
+                $select->where('attribute_id NOT IN (?)', $mediaImageAttributeSkipIds[$suffix]);
+            }
 
             $adapter->query($adapter->insertFromSelect(
                 $select,

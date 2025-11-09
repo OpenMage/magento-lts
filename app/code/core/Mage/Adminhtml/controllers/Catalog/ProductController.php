@@ -823,6 +823,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $product = $this->_initProduct();
         try {
+            $imgHelper = Mage::helper('catalog/image');
+
+            if($imgHelper->skipProductImageOnDuplicate() === -1){
+                $product->setSkipImagesOnDuplicate((bool) $this->getRequest()->getParam('skipImages',true));
+            }
+
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
             $this->_redirect('*/*/edit', ['_current' => true, 'id' => $newProduct->getId()]);

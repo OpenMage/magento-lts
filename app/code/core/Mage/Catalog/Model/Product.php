@@ -105,6 +105,8 @@
  * @method bool getIsDefault()
  * @method bool getIsRelationsChanged()
  * @method $this setIsRelationsChanged(bool $value)
+ * @method bool getSkipImagesOnDuplicate()
+ * @method $this setSkipImagesOnDuplicate(bool $value)
  * @method bool getIsDuplicate()
  * @method $this setIsDuplicate(bool $value)
  * @method $this setIsQtyDecimal(int $value)
@@ -854,7 +856,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         parent::_afterDeleteCommit();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
 
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
@@ -1364,6 +1366,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
+        if($newProduct->getSkipImagesOnDuplicate() == null && $this->_getImageHelper()->skipProductImageOnDuplicate() === -1){
+            $newProduct->setSkipImagesOnDuplicate(false);
+        }else{
+            $newProduct->setSkipImagesOnDuplicate((bool) $this->_getImageHelper()->skipProductImageOnDuplicate());
+        }
+
         Mage::dispatchEvent(
             'catalog_model_product_duplicate',
             ['current_product' => $this, 'new_product' => $newProduct],
@@ -1436,7 +1444,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $newProduct->save();
 
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
-        $this->getResource()->duplicate($this->getId(), $newProduct->getId());
+        $this->getResource()->duplicate($this->getId(), $newProduct->getId(), $newProduct->getSkipImagesOnDuplicate());
 
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
@@ -2401,7 +2409,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         parent::afterCommitCallback();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
 

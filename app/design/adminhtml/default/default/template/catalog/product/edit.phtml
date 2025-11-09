@@ -92,6 +92,38 @@
         return 1;
     }
 
+    function openDuplicateDialog(keepImagesUrl,skipImagesUrl) {
+        var html = '<p><small><?php echo $this->__('You can disable this message on'); ?>:<br/> <i><?php echo $this->__('System'); ?> > <?php echo $this->__('Configuration'); ?> > <?php echo $this->__('Catalog Images'); ?> > <?php echo $this->__('Product Image'); ?></i></small></p><br/>';
+
+        function duplicateKeepImages(dialogWindow) {
+            dialogWindow.close();
+            setLocation(keepImagesUrl);
+        }
+        function duplicateSkipImages(dialogWindow) {
+            dialogWindow.close();
+            setLocation(skipImagesUrl);
+        }
+
+        Dialog.confirm(html, {
+            width: 450,
+            height: 120,
+            draggable:true,
+            closable:true,
+            className:"magento",
+            windowClassName:"popup-window",
+            title:'<?php echo $this->__('Copy the images onto the new product?') ?>',
+            recenterAuto:false,
+            hideEffect:Element.hide,
+            showEffect:Element.show,
+            id:"duplicate-product",
+            buttonClass:"form-button",
+            okLabel:"<?php echo $this->__('Yes'); ?>",
+            ok: duplicateKeepImages.bind(this),
+            cancelLabel: "<?php echo $this->__('Duplicate product without images'); ?>",
+            cancel: duplicateSkipImages.bind(this),
+        });
+    }
+
 Event.observe(window, 'load', function() {
     var objName = '<?php echo $this->getSelectedTabId() ?>';
     if (objName) {
