@@ -188,9 +188,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
 
         if (!$quote->validateMinimumAmount()) {
-            $error = Mage::getStoreConfig('sales/minimum_order/error_message') ?
-                Mage::getStoreConfig('sales/minimum_order/error_message') :
-                Mage::helper('checkout')->__('Subtotal must exceed minimum order amount');
+            $error = Mage::getStoreConfig('sales/minimum_order/error_message')
+                ? Mage::getStoreConfig('sales/minimum_order/error_message')
+                : Mage::helper('checkout')->__('Subtotal must exceed minimum order amount');
 
             Mage::getSingleton('checkout/session')->addError($error);
             $this->_redirect('checkout/cart');
@@ -214,7 +214,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      * This function is called from the reloadProgessBlock
      * function from the javascript
      *
-     * @return string|null
+     * @return null|string
      */
     public function progressAction()
     {
@@ -526,8 +526,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Get Order by quoteId
      *
-     * @throws Mage_Payment_Model_Info_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Payment_Model_Info_Exception
      */
     protected function _getOrder()
     {

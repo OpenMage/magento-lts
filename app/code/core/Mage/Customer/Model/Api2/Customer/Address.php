@@ -103,8 +103,8 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      * Load customer by id
      *
      * @param int $id
-     * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Customer
+     * @throws Mage_Api2_Exception
      */
     protected function _loadCustomerById($id)
     {

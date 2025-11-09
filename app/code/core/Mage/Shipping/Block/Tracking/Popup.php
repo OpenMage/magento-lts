@@ -88,10 +88,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @return false|Mage_Sales_Model_Order
      * @deprecated after 1.4.0.0-alpha3
      * Initialize order model instance
-     *
-     * @return Mage_Sales_Model_Order|false
      */
     protected function _initOrder()
     {
@@ -105,10 +104,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @return false|Mage_Sales_Model_Order_Shipment
      * @deprecated after 1.4.0.0-alpha3
      * Initialize ship model instance
-     *
-     * @return Mage_Sales_Model_Order_Shipment|false
      */
     protected function _initShipment()
     {
@@ -135,10 +133,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @return array
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve all tracking by orders id
-     *
-     * @return array
      */
     public function getTrackingInfoByOrder()
     {
@@ -163,10 +160,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @return array
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve all tracking by ship id
-     *
-     * @return array
      */
     public function getTrackingInfoByShip()
     {
@@ -187,10 +183,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @return array
      * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking by tracking entity id
-     *
-     * @return array
      */
     public function getTrackingInfoByTrackId()
     {

@@ -12,36 +12,35 @@
  *
  * @package    Mage_Payment
  *
- * @method Mage_Sales_Model_Order getOrder()
- * @method Mage_Sales_Model_Quote getQuote()
- *
  * @method string getAdditionalData()
- * @method $this setAdditionalData(string $value)
  * @method string getCcCid()
- * @method $this setCcCid(string $value)
  * @method string getCcCidEnc()
  * @method string getCcExpMonth()
- * @method $this setCcExpMonth(string $value)
  * @method string getCcExpYear()
- * @method $this setCcExpYear(string $value)
  * @method string getCcLast4()
- * @method $this setCcLast4(string $value)
  * @method string getCcNumber()
- * @method $this setCcNumber(string $value)
  * @method string getCcNumberEnc()
- * @method $this setCcNumberEnc(string $value)
  * @method string getCcOwner()
- * @method $this setCcOwner(string $value)
  * @method string getCcSsIssue()
- * @method $this setCcSsIssue(string $value)
  * @method string getCcSsStartMonth()
- * @method $this setCcSsStartMonth(string $value)
  * @method string getCcSsStartYear()
- * @method $this setCcSsStartYear(string $value)
  * @method string getCcType()
- * @method $this setCcType(string $value)
  * @method string getMethod()
+ * @method Mage_Sales_Model_Order getOrder()
+ * @method Mage_Sales_Model_Quote getQuote()
  * @method bool hasMethodInstance()
+ * @method $this setAdditionalData(string $value)
+ * @method $this setCcCid(string $value)
+ * @method $this setCcExpMonth(string $value)
+ * @method $this setCcExpYear(string $value)
+ * @method $this setCcLast4(string $value)
+ * @method $this setCcNumber(string $value)
+ * @method $this setCcNumberEnc(string $value)
+ * @method $this setCcOwner(string $value)
+ * @method $this setCcSsIssue(string $value)
+ * @method $this setCcSsStartMonth(string $value)
+ * @method $this setCcSsStartYear(string $value)
+ * @method $this setCcType(string $value)
  * @method $this setMethodInstance(false|Mage_Payment_Model_Method_Abstract $value)
  * @method $this setPoNumber(string $value)
  */
@@ -135,7 +134,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Updates data inside the 'additional_information' array
      * or all 'additional_information' if key is data array
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      * @throws Mage_Core_Exception
@@ -160,7 +159,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      * Getter for entire additional_information value or one of its element by key
      *
      * @param string $key
-     * @return array|null|mixed
+     * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
     {

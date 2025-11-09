@@ -13,17 +13,18 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
- *
- * @method $this setVisitorId(int $value)
- * @method $this setCustomerId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getCollection()
  * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getResourceCollection()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method bool hasVisitorId()
  * @method bool hasCustomerId()
  * @method bool hasStoreId()
+ * @method bool hasVisitorId()
+ * @method $this setCustomerId(int $value)
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setVisitorId(int $value)
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {

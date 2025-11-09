@@ -93,7 +93,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customers data
      *
-     * @param  object|array $filters
+     * @param  array|object $filters
      * @return array
      */
     public function items($filters)

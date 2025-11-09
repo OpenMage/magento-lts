@@ -13,27 +13,26 @@
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Tag _getResource()
- * @method Mage_Tag_Model_Resource_Tag getResource()
- * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
- * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
- *
- * @method bool hasBasePopularity()
  * @method int getBasePopularity()
- * @method $this setBasePopularity(int $value)
+ * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  * @method int getFirstCustomerId()
- * @method $this setFirstCustomerId(int $value)
  * @method int getFirstStoreId()
- * @method $this setFirstStoreId(int $value)
- * @method $this setName(string $value)
+ * @method Mage_Tag_Model_Resource_Tag getResource()
+ * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  * @method int getStatus()
- * @method $this setStatus(int $value)
  * @method array getStatusFilter()
  * @method int getStore()
- * @method $this setStore(int $value)
- * @method bool hasStoreId()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method array getVisibleInStoreIds()
+ * @method bool hasBasePopularity()
+ * @method bool hasStoreId()
+ * @method $this setBasePopularity(int $value)
+ * @method $this setFirstCustomerId(int $value)
+ * @method $this setFirstStoreId(int $value)
+ * @method $this setName(string $value)
+ * @method $this setStatus(int $value)
+ * @method $this setStore(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisibleInStoreIds(array $value)
  */
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
@@ -216,9 +215,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Add summary data to current object
      *
-     * @deprecated after 1.4.0.0
      * @param int $storeId
      * @return $this
+     * @deprecated after 1.4.0.0
      */
     public function addSummary($storeId)
     {

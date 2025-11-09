@@ -279,7 +279,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $returnUrl
      * @param string $cancelUrl
-     * @param bool|null $button
+     * @param null|bool $button
      * @return mixed
      */
     public function start($returnUrl, $cancelUrl, $button = null)
@@ -679,7 +679,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Get created billing agreement
      *
-     * @return Mage_Sales_Model_Billing_Agreement|null
+     * @return null|Mage_Sales_Model_Billing_Agreement
      */
     public function getBillingAgreement()
     {
@@ -884,9 +884,9 @@ class Mage_Paypal_Model_Express_Checkout
      * Compare two shipping options based on their amounts
      *
      * This function is used as a callback comparison function in shipping options sorting process
-     * @see self::_prepareShippingOptions()
      *
      * @return int
+     * @see self::_prepareShippingOptions()
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {

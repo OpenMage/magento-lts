@@ -46,7 +46,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Return code of carrier
      *
-     * @return string
+     * @return null|string
      */
     public function getCarrierCode()
     {
@@ -55,8 +55,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     public function getTrackingInfo($tracking)
     {
-        $info = [];
-
         $result = $this->getTracking($tracking);
 
         if ($result instanceof Mage_Shipping_Model_Tracking_Result) {
@@ -94,7 +92,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Determine whether zip-code is required for the country of destination
      *
-     * @param string|null $countryId
+     * @param null|string $countryId
      * @return bool
      */
     public function isZipCodeRequired($countryId = null)
@@ -153,7 +151,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Processing additional validation to check if carrier applicable.
      *
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -211,7 +209,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Returns cache key for some request to carrier quotes service
      *
-     * @param string|array $requestParams
+     * @param array|string $requestParams
      * @return int
      */
     protected function _getQuotesCacheKey($requestParams)
@@ -236,7 +234,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * Returns cached response or null
      *
-     * @param string|array $requestParams
+     * @param array|string $requestParams
      * @return null|string
      */
     protected function _getCachedQuotes($requestParams)
@@ -248,7 +246,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Sets received carrier quotes to cache
      *
-     * @param string|array $requestParams
+     * @param array|string $requestParams
      * @param string $response
      * @return Mage_Usa_Model_Shipping_Carrier_Abstract
      */
@@ -262,7 +260,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Prepare service name. Strip tags and entities from name
      *
-     * @param string|object $name  service name or object with implemented __toString() method
+     * @param object|string $name  service name or object with implemented __toString() method
      * @return string              prepared service name
      */
     protected function _prepareServiceName($name)
@@ -275,8 +273,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Prepare shipment request.
      * Validate and correct request information
-     *
-     *
      */
     protected function _prepareShipmentRequest(Varien_Object $request)
     {

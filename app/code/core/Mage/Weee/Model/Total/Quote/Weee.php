@@ -257,11 +257,11 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Check if discount should be applied to weee and add weee to discounted price
      *
-     * @deprecated since 1.8
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   float $value
      * @param   float $baseValue
      * @return  $this
+     * @deprecated since 1.8
      */
     protected function _processDiscountSettings($item, $value, $baseValue)
     {
@@ -386,10 +386,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Process item fixed taxes
      *
-     * @deprecated since 1.3.2.3
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   bool $updateParent
      * @return  $this
+     * @deprecated since 1.3.2.3
      */
     protected function _processItem(Mage_Sales_Model_Quote_Address $address, $item, $updateParent = false)
     {

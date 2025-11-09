@@ -13,17 +13,17 @@
  * @package    Mage_Widget
  *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
- * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
- *
  * @method array getPageGroups()
- * @method $this setPageGroups(array $value)
- * @method $this setStoreIds(string $value)
+ * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getResourceCollection()
+ * @method int getSortOrder()
  * @method string getTitle()
+ * @method $this setPageGroups(array $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStoreIds(string $value)
  * @method $this setTitle(string $value)
  * @method $this setWidgetParameters(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {
@@ -177,7 +177,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function validate()
     {
@@ -265,9 +265,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Replace '_' to '/', if was set from request(GET request)
      *
-     * @deprecated after 1.6.1.0-alpha1
-     *
      * @return $this
+     * @deprecated after 1.6.1.0-alpha1
      */
     protected function _preparePackageTheme()
     {
@@ -389,7 +388,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Load widget XML config and merge with theme widget config
      *
-     * @return Varien_Simplexml_Element|null
+     * @return null|Varien_Simplexml_Element
      */
     public function getWidgetConfig()
     {

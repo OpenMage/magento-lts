@@ -248,7 +248,7 @@ class Mage_Paypal_Model_Cart
      * Get/Set whether to render the discount total as a line item
      *
      * @param bool $setValue
-     * @return bool|$this
+     * @return $this|bool
      */
     public function isDiscountAsItem($setValue = null)
     {
@@ -259,7 +259,7 @@ class Mage_Paypal_Model_Cart
      * Get/Set whether to render the discount total as a line item
      *
      * @param bool $setValue
-     * @return bool|$this
+     * @return $this|bool
      */
     public function isShippingAsItem($setValue = null)
     {
@@ -297,8 +297,8 @@ class Mage_Paypal_Model_Cart
             ];
             $this->_applyHiddenTaxWorkaround($this->_salesEntity);
         } else {
-            $address = $this->_salesEntity->getIsVirtual() ?
-                $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
+            $address = $this->_salesEntity->getIsVirtual()
+                ? $this->_salesEntity->getBillingAddress() : $this->_salesEntity->getShippingAddress();
             $shippingDescription = $address->getShippingDescription();
             $this->_totals = [
                 self::TOTAL_SUBTOTAL => $this->_salesEntity->getBaseSubtotal(),
@@ -476,7 +476,7 @@ class Mage_Paypal_Model_Cart
      *
      * @param string $var
      * @param mixed $setValue
-     * @return mixed|$this
+     * @return $this|mixed
      */
     private function _totalAsItem($var, $setValue = null)
     {

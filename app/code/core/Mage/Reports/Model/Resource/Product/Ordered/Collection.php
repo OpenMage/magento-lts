@@ -31,8 +31,8 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     }
 
     /**
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return $this
      */
     public function setDateRange($from, $to)

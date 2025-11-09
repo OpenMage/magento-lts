@@ -13,27 +13,29 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
- * @method Mage_Dataflow_Model_Resource_Profile getResource()
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getActionsXml()
- * @method $this setActionsXml(string $value)
- * @method array|string getGuiData()
- * @method $this setGuiData(array|string $value)
- * @method string getDirection()
- * @method $this setDirection(string $value)
- * @method string getEntityType()
- * @method $this setEntityType(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDataTransfer()
- * @method $this setDataTransfer(string $value)
  * @method int getAdminUserId()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
+ * @method string getCreatedAt()
+ * @method string getDataTransfer()
+ * @method string getDirection()
+ * @method string getEntityType()
+ * @method array|string getGuiData()
+ * @method string getName()
+ * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
+ * @method int getStoreId()
+ * @method string getUpdatedAt()
+ * @method $this setActionsXml(string $value)
  * @method $this setAdminUserId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setDataTransfer(string $value)
+ * @method $this setDirection(string $value)
+ * @method $this setEntityType(string $value)
+ * @method $this setGuiData(array|string $value)
+ * @method $this setName(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
@@ -85,8 +87,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
         // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
-            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        if ($actionsXML !== null && strlen($actionsXML) < 0
+            && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
         }

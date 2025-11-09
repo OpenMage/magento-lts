@@ -86,7 +86,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
     /**
      * Return PDF document
      *
-     * @param  Mage_Sales_Model_Order_Creditmemo[] $creditmemos
+     * @param  array|Mage_Sales_Model_Resource_Order_Creditmemo_Collection $creditmemos
      * @return Zend_Pdf
      */
     public function getPdf($creditmemos = [])

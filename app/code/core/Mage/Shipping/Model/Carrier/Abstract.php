@@ -12,11 +12,11 @@
  *
  * @package    Mage_Shipping
  *
- * @method $this setActiveFlag(bool $value)
  * @method array getAllowedMethods()
  * @method array getContainerTypesAll()
  * @method array getContainerTypesFilter()
  * @method Mage_Core_Model_Store getStore()
+ * @method $this setActiveFlag(bool $value)
  * @method $this setStore(Mage_Core_Model_Store $value)
  */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
@@ -24,14 +24,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Carrier's code
      *
-     * @var string
+     * @var null|string
      */
     protected $_code;
 
     /**
      * Rates result
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_rates;
 
@@ -87,14 +87,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result;
 
@@ -102,7 +102,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Retrieve information from carrier configuration
      *
      * @param   string $field
-     * @return  string|false
+     * @return  false|string
      */
     public function getConfigData($field)
     {
@@ -134,7 +134,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Collect and get rates
      *
      * @abstract
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     abstract public function collectRates(Mage_Shipping_Model_Rate_Request $request);
 
@@ -540,7 +540,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Determine whether zip-code is required for the country of destination
      *
-     * @param string|null $countryId
+     * @param null|string $countryId
      * @return false
      */
     public function isZipCodeRequired($countryId = null)

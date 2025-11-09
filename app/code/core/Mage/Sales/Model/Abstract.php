@@ -11,17 +11,17 @@
  * Sales abstract model
  * Provide date processing functionality
  *
- *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
- * @method $this setTransactionId(int $value)
  * @method bool getForceUpdateGridRecords()
+ * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
+ * @method $this setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {
     /**
      * Get object store identifier
      *
-     * @return int|string|Mage_Core_Model_Store
+     * @return int|Mage_Core_Model_Store|string
      */
     abstract public function getStore();
 

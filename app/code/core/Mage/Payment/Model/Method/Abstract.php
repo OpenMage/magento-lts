@@ -12,15 +12,15 @@
  *
  * @package    Mage_Payment
  *
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
  * @method string getCheckoutRedirectUrl()
- * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
  * @method string getInstructions()
  * @method string getOrderPlaceRedirectUrl()
  * @method int getStore()
- * @method $this setStore(int $value)
  * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
- * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
  * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
+ * @method $this setStore(int $value)
  * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
  * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */
@@ -533,7 +533,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Cancel payment abstract method
      *
-     *
      * @return $this
      */
     public function cancel(Varien_Object $payment)
@@ -542,12 +541,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * @deprecated after 1.4.0.0-alpha3
-     * this method doesn't make sense, because invoice must not void entire authorization
-     * there should be method for invoice cancellation
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return Mage_Payment_Model_Method_Abstract
+     * @deprecated after 1.4.0.0-alpha3
+     * this method doesn't make sense, because invoice must not void entire authorization
+     * there should be method for invoice cancellation
      */
     public function processBeforeVoid($invoice, $payment)
     {
@@ -557,7 +556,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     /**
      * Void payment abstract method
-     *
      *
      * @return $this
      */
@@ -572,7 +570,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     /**
      * Whether this method can accept or deny payment
-     *
      *
      * @return bool
      */
@@ -625,7 +622,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Retrieve information from payment configuration
      *
      * @param string $field
-     * @param int|string|null|Mage_Core_Model_Store $storeId
+     * @param null|int|Mage_Core_Model_Store|string $storeId
      *
      * @return mixed
      */
@@ -657,10 +654,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-      * Prepare info instance for save
-      *
-      * @return $this
-      */
+     * Prepare info instance for save
+     *
+     * @return $this
+     */
     public function prepareSave()
     {
         return $this;
@@ -671,7 +668,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * TODO: payment method instance is not supposed to know about quote
      *
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param null|Mage_Sales_Model_Quote $quote
      *
      * @return bool
      */
@@ -699,7 +696,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Purposed to allow use in controllers some logic that was implemented in blocks only before
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @param int|null $checksBitMask
+     * @param null|int $checksBitMask
      * @return bool
      */
     public function isApplicableToQuote($quote, $checksBitMask)

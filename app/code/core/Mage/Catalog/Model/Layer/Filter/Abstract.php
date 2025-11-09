@@ -24,7 +24,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Array of filter items
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_items;
 

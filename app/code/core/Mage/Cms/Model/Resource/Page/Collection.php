@@ -23,7 +23,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -33,9 +32,8 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * @deprecated after 1.4.0.1, use toOptionIdArray()
-     *
      * @return array
+     * @deprecated after 1.4.0.1, use toOptionIdArray()
      */
     public function toOptionArray()
     {

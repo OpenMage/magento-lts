@@ -80,10 +80,10 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
+     * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @param Varien_Simplexml_Element|string $value
-     * @return bool
      */
     public function isValid($value)
     {
@@ -105,21 +105,21 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Adminhtml_Model_LayoutUpdate_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
-                    Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
+                    => Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('adminhtml')->__(
                     'Invalid template path used in layout update.',
                 ),
                 self::INVALID_BLOCK_NAME => Mage::helper('adminhtml')->__('Disallowed block name for frontend.'),
-                Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION =>
-                    Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
+                Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION
+                    => Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
             ];
         }
 

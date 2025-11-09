@@ -13,29 +13,28 @@
  * @package    Mage_CatalogSearch
  *
  * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
- * @method Mage_CatalogSearch_Model_Resource_Query getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
- * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
- *
  * @method int getDisplayInTerms()
- * @method $this setDisplayInTerms(int $value)
  * @method int getIsActive()
- * @method $this setIsActive(int $value)
  * @method int getIsProcessed()
- * @method $this setIsProcessed(int $value)
  * @method string getName()
  * @method int getNumResults()
- * @method $this setNumResults(int $value)
  * @method int getPopularity()
- * @method $this setPopularity(int $value)
  * @method string getQueryText()
+ * @method string getRedirect()
+ * @method Mage_CatalogSearch_Model_Resource_Query getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
+ * @method string getSynonymFor()
+ * @method string getUpdatedAt()
+ * @method $this setDisplayInTerms(int $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setIsProcessed(int $value)
+ * @method $this setNumResults(int $value)
+ * @method $this setPopularity(int $value)
  * @method $this setQueryText(string $value)
  * @method $this setRatio(float $value)
- * @method string getRedirect()
  * @method $this setRedirect(string $value)
- * @method string getSynonymFor()
  * @method $this setSynonymFor(string $value)
- * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
@@ -59,7 +58,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {
@@ -192,8 +190,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      * @return int
+     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      */
     public function getMinQueryLenght()
     {
@@ -213,8 +211,8 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve maximum query length
      *
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      * @return int
+     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      */
     public function getMaxQueryLenght()
     {

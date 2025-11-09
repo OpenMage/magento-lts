@@ -67,7 +67,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Move forward to next element
      *
-     * @return void Any returned value is ignored.
+     * @return void any returned value is ignored
      */
     #[\ReturnTypeWillChange]
     public function next()
@@ -79,7 +79,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Rewind the Iterator to the first element.
      *
-     * @return void Any returned value is ignored.
+     * @return void any returned value is ignored
      */
     #[\ReturnTypeWillChange]
     public function rewind()
@@ -97,9 +97,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Seeks to a position.
      *
-     * @param int $position The position to seek to.
-     * @throws OutOfBoundsException
+     * @param int $position the position to seek to
      * @return void
+     * @throws OutOfBoundsException
      */
     #[\ReturnTypeWillChange]
     public function seek($position)

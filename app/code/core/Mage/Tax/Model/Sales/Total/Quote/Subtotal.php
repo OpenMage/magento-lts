@@ -31,7 +31,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Tax helper instance
      *
-     * @var Mage_Tax_Helper_Data|null
+     * @var null|Mage_Tax_Helper_Data
      */
     protected $_helper = null;
 
@@ -74,7 +74,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Request which can be used for tax rate calculation
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_storeTaxRequest = null;
 
@@ -107,7 +107,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Calculate item price including/excluding tax, row total including/excluding tax
      * and subtotal including/excluding tax.
      * Determine discount price if needed
-     *
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -585,10 +584,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable    *= $qty;
                 $taxSubtotal     = $taxPrice * $qty;
                 $baseTaxSubtotal = $baseTaxPrice * $qty;
-                $rowTax =
-                    $this->_deltaRound($calc->calcTaxAmount($taxable, $rate, true, false), $rate, true);
-                $baseRowTax =
-                    $this->_deltaRound($calc->calcTaxAmount($baseTaxable, $rate, true, false), $rate, true, 'base');
+                $rowTax
+                    = $this->_deltaRound($calc->calcTaxAmount($taxable, $rate, true, false), $rate, true);
+                $baseRowTax
+                    = $this->_deltaRound($calc->calcTaxAmount($baseTaxable, $rate, true, false), $rate, true, 'base');
                 $subtotal = $taxSubtotal - $rowTax;
                 $baseSubtotal = $baseTaxSubtotal - $baseRowTax;
                 $isPriceInclTax  = true;
@@ -731,7 +730,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Recalculate row information for item based on children calculation
      *
-     *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -833,9 +831,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Unset item prices/totals with price include tax.
      * Operation is necessary for reset item state in case if configuration was changed
      *
-     * @deprecated after 1.4.1
-     *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.1
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -843,11 +840,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     }
 
     /**
-     *
-     * @deprecated after 1.4.0.1
-     *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.0.1
      */
     protected function _processShippingAmount($address)
     {
@@ -858,11 +853,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Recollect item price and row total using after taxes subtract.
      * Declare item price including tax attributes
      *
-     * @deprecated after 1.4.1
-     *
      * @param   Mage_Sales_Model_Quote_Address $address
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.1
      */
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -940,11 +934,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Check if we need subtract store tax amount from item prices
      *
-     * @deprecated after 1.4.1
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
+     * @deprecated after 1.4.1
      */
     protected function _needSubtractTax($address)
     {
@@ -959,11 +952,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Subtract shipping tax
      *
-     * @deprecated after 1.4.0.1
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
+     * @deprecated after 1.4.0.1
      */
     protected function _needSubtractShippingTax($address)
     {

@@ -10,20 +10,13 @@
 /**
  * @package    Mage_Log
  *
- * @method Mage_Log_Model_Resource_Visitor getResource()
+ * @method Mage_Log_Model_Resource_Visitor _getResource()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method int getCustomerLogId()
- * @method $this setCustomerLogId(int $value)
  * @method bool getDoCustomerLogin()
- * @method $this setDoCustomerLogin(bool $value)
  * @method bool getDoCustomerLogout()
- * @method $this setDoCustomerLogout(bool $value)
  * @method bool getDoQuoteCreate()
- * @method $this setDoQuoteCreate(bool $value)
  * @method bool getDoQuoteDestroy()
- * @method $this setDoQuoteDestroy(bool $value)
- * @method $this setFirstVisitAt(string $value)
  * @method string getHttpAcceptCharset()
  * @method string getHttpAcceptLanguage()
  * @method string getHttpHost()
@@ -31,20 +24,28 @@
  * @method string getHttpSecure()
  * @method string getHttpUserAgent()
  * @method bool getIsNewVisitor()
- * @method $this setIsNewVisitor(bool $value)
- * @method $this setLastVisitAt(string $value)
  * @method int getLastUrlId()
- * @method $this setLastUrlId(int $value)
  * @method int getQuoteId()
- * @method $this setQuoteId(int $value)
  * @method string getRemoteAddr()
  * @method string getRequestUri()
+ * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method string getServerAddr()
  * @method string getSessionId()
- * @method $this setSessionId(string $value)
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getVisitorId()
+ * @method $this setCustomerId(int $value)
+ * @method $this setCustomerLogId(int $value)
+ * @method $this setDoCustomerLogin(bool $value)
+ * @method $this setDoCustomerLogout(bool $value)
+ * @method $this setDoQuoteCreate(bool $value)
+ * @method $this setDoQuoteDestroy(bool $value)
+ * @method $this setFirstVisitAt(string $value)
+ * @method $this setIsNewVisitor(bool $value)
+ * @method $this setLastUrlId(int $value)
+ * @method $this setLastVisitAt(string $value)
+ * @method $this setQuoteId(int $value)
+ * @method $this setSessionId(string $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
@@ -83,8 +84,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     {
         $this->_httpHelper = !empty($data['http_helper']) ? $data['http_helper'] : Mage::helper('core/http');
         $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
-        $this->_logCondition = !empty($data['log_condition']) ?
-            $data['log_condition'] : Mage::helper('log');
+        $this->_logCondition = !empty($data['log_condition'])
+            ? $data['log_condition'] : Mage::helper('log');
         $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
         parent::__construct($data);
     }

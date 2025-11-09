@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getStoreCreateDate()
     {
@@ -248,8 +248,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     /**
      * Return instance of core helper
      *
-     * @deprecated
      * @return Mage_Core_Helper_Data
+     * @deprecated
      */
     protected function _getCoreHelper()
     {

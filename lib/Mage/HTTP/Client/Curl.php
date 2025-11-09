@@ -386,8 +386,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Throw error exception
      * @param $string
-     * @throws Exception
      * @return never
+     * @throws Exception
      */
     public function doError($string)
     {
@@ -453,7 +453,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Set curl option directly
      *
      * @param int $name
-     * @param int|array|string $value
+     * @param array|int|string $value
      */
     protected function curlOption($name, $value)
     {

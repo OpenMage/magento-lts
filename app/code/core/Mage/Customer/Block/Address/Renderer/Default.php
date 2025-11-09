@@ -64,7 +64,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     /**
      * Render address
      *
-     * @param string|null $format
+     * @param null|string $format
      * @return string
      * @throws Exception
      */

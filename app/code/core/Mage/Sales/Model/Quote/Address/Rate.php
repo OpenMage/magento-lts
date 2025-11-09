@@ -8,35 +8,34 @@
  */
 
 /**
- *
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate _getResource()
- * @method Mage_Sales_Model_Resource_Quote_Address_Rate getResource()
- * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
- *
  * @method int getAddressId()
- * @method $this setAddressId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getCarrier()
- * @method $this setCarrier(string $value)
  * @method string getCarrierTitle()
- * @method $this setCarrierTitle(string $value)
  * @method string getCode()
- * @method $this setCode(string $value)
- * @method string getMethod()
- * @method $this setMethod(string $value)
- * @method string getMethodDescription()
- * @method $this setMethodDescription(string $value)
- * @method float getPrice()
- * @method $this setPrice(float $value)
+ * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
+ * @method string getCreatedAt()
  * @method string getErrorMessage()
- * @method $this setErrorMessage(string $value)
+ * @method string getMethod()
+ * @method string getMethodDescription()
  * @method string getMethodTitle()
+ * @method float getPrice()
+ * @method Mage_Sales_Model_Resource_Quote_Address_Rate getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getResourceCollection()
+ * @method string getUpdatedAt()
+ * @method $this setAddressId(int $value)
+ * @method $this setCarrier(string $value)
+ * @method $this setCarrierTitle(string $value)
+ * @method $this setCode(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setErrorMessage(string $value)
+ * @method $this setMethod(string $value)
+ * @method $this setMethodDescription(string $value)
  * @method $this setMethodTitle(string $value)
+ * @method $this setPrice(float $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstract
 {

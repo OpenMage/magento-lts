@@ -13,59 +13,49 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Address _getResource()
- * @method Mage_Sales_Model_Resource_Order_Address getResource()
- * @method Mage_Sales_Model_Resource_Order_Address_Collection getCollection()
- *
  * @method string getAddressType()
- * @method $this setAddressType(string $value)
- *
  * @method string getCity()
- * @method $this setCity(string $value)
+ * @method Mage_Sales_Model_Resource_Order_Address_Collection getCollection()
  * @method string getCompany()
- * @method $this setCompany(string $value)
  * @method string getCountryId()
- * @method $this setCountryId(string $value)
  * @method Mage_Customer_Model_Address getCustomerAddress()
- * @method $this setCustomerAddress(Mage_Customer_Model_Address $value)
  * @method int getCustomerAddressId()
- * @method $this setCustomerAddressId(int $value)
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- *
  * @method string getEmail()
- * @method $this setEmail(string $value)
- *
  * @method string getFax()
- * @method $this setFax(string $value)
  * @method string getFirstname()
- * @method $this setFirstname(string $value)
- *
  * @method string getLastname()
- * @method $this setLastname(string $value)
- *
  * @method string getMiddlename()
- * @method $this setMiddlename(string $value)
- *
  * @method int getParentId()
- * @method $this setParentId(int $value)
  * @method string getPostcode()
- * @method $this setPostcode(string $value)
  * @method string getPrefix()
- * @method $this setPrefix(string $value)
- *
  * @method int getQuoteAddressId()
- * @method $this setQuoteAddressId(int $value)
- *
- * @method $this setRegionId(int $value)
- * @method $this setRegion(string $value)
- *
+ * @method Mage_Sales_Model_Resource_Order_Address getResource()
+ * @method Mage_Sales_Model_Resource_Order_Address_Collection getResourceCollection()
  * @method bool getSameAsBilling()
- * @method $this setSameAsBilling(bool $value)
  * @method $this getStoreId(int $value)
  * @method string getSuffix()
- * @method $this setSuffix(string $value)
- *
  * @method string getTelephone()
+ * @method $this setAddressType(string $value)
+ * @method $this setCity(string $value)
+ * @method $this setCompany(string $value)
+ * @method $this setCountryId(string $value)
+ * @method $this setCustomerAddress(Mage_Customer_Model_Address $value)
+ * @method $this setCustomerAddressId(int $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setEmail(string $value)
+ * @method $this setFax(string $value)
+ * @method $this setFirstname(string $value)
+ * @method $this setLastname(string $value)
+ * @method $this setMiddlename(string $value)
+ * @method $this setParentId(int $value)
+ * @method $this setPostcode(string $value)
+ * @method $this setPrefix(string $value)
+ * @method $this setQuoteAddressId(int $value)
+ * @method $this setRegion(string $value)
+ * @method $this setRegionId(int $value)
+ * @method $this setSameAsBilling(bool $value)
+ * @method $this setSuffix(string $value)
  * @method $this setTelephone(string $value)
  */
 class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstract

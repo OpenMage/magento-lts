@@ -822,7 +822,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Create Billing Agreement call
-     *
      */
     public function callCreateBillingAgreement()
     {
@@ -833,7 +832,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Billing Agreement Update call
-     *
      */
     public function callUpdateBillingAgreement()
     {
@@ -1309,9 +1307,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Prepare request data basing on provided address
      *
-     * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
-     *
      * @return array
+     * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      */
     protected function _importAddress(Varien_Object $address, array $to)
     {

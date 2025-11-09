@@ -32,7 +32,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Order state value
      *
-     * @var null|string|array
+     * @var null|array|string
      */
     protected $_state = null;
 
@@ -44,13 +44,12 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     protected $_orderStateCondition = null;
 
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $_orderStateValue;
 
     /**
      * Set sales order entity and establish read connection
-     *
      */
     public function __construct()
     {
@@ -83,7 +82,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Set filter by order state
      *
-     * @param string|array $state
+     * @param array|string $state
      * @param bool $exclude
      * @return $this
      */

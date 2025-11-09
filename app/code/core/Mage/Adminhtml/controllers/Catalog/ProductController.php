@@ -281,7 +281,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * WYSIWYG editor action for ajax request
      *
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function wysiwygAction()
     {
@@ -494,7 +494,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Validate product
-     *
      */
     public function validateAction()
     {
@@ -902,8 +901,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function addCustomersToAlertQueueAction()
     {
@@ -963,7 +962,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Update product(s) status action
-     *
      */
     public function massStatusAction()
     {
@@ -993,8 +991,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
-     * @throws Mage_Core_Exception
      * @param  int $status
+     * @throws Mage_Core_Exception
      */
     public function _validateMassStatus(array $productIds, $status)
     {
@@ -1009,7 +1007,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
-     *
      */
     public function tagCustomerGridAction()
     {

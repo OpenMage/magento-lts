@@ -88,7 +88,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     * @param string|array|null $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
+     * @param null|array|string $countryFilter if string, accepts iso2_code; if array, accepts iso2_code[]
      * @return Mage_Directory_Model_Resource_Region_Collection
      * @throws Mage_Core_Exception
      */
@@ -121,11 +121,11 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve regions data json
      *
-     * @deprecated after 1.7.0.2
-     * @see Mage_Directory_Helper_Data::getRegionJsonByStore()
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated after 1.7.0.2
+     * @see Mage_Directory_Helper_Data::getRegionJsonByStore()
      */
     public function getRegionJson()
     {
@@ -135,7 +135,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve regions data json
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -170,8 +170,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get Regions for specific Countries
-     * @param string|int|null $storeId
-     * @return array|null
+     * @param null|int|string $storeId
+     * @return null|array
      * @throws Mage_Core_Exception
      */
     protected function _getRegions($storeId)

@@ -12,9 +12,9 @@
  *
  * @package    Mage_CatalogIndex
  *
- * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
- *
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract _getResource()
  * @method array getMinimalPriceData()
+ * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
  * @method $this setMinimalPriceData(array $data)
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
@@ -22,14 +22,14 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Product Type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract|Mage_Core_Model_Abstract|null
+     * @var null|Mage_Catalog_Model_Product_Type_Abstract|Mage_Core_Model_Abstract
      */
     protected $_typeInstance;
 
     /**
      * Defines when product type has children
      *
-     * @var int[]|bool[]
+     * @var bool[]|int[]
      */
     protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => true,
@@ -50,7 +50,6 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * Initialize abstract resource model
-     *
      */
     protected function _construct()
     {
@@ -61,7 +60,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all children ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int|array $parentIds
+     * @param array|int $parentIds
      * @return array|false
      */
     public function getChildProductIds($store, $parentIds)
@@ -81,7 +80,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * Return all parent ids
      *
      * @param Mage_Core_Model_Store $store
-     * @param int|array $childIds
+     * @param array|int $childIds
      * @return array|false
      */
     public function getParentProductIds($store, $childIds)
@@ -103,7 +102,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @param Mage_Core_Model_Store $store
      * @param array $settings
      * @param int $type
-     * @param int|array $suppliedId
+     * @param array|int $suppliedId
      * @return array
      */
     protected function fetchLinkInformation($store, $settings, $type, $suppliedId)

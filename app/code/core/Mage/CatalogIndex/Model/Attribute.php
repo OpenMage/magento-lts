@@ -13,13 +13,13 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Attribute _getResource()
- * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
- * @method $this setEntityId(int $value)
  * @method int getAttributeId()
- * @method $this setAttributeId(int $value)
+ * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getValue()
+ * @method $this setAttributeId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
@@ -33,7 +33,7 @@ class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
-     * @param int|array $entityFilter
+     * @param array|int $entityFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)

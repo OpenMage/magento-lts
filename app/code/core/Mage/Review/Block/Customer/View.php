@@ -12,17 +12,17 @@
  *
  * @package    Mage_Review
  *
- * @method string getReviewId()
- * @method $this setReviewId(string $value)
  * @method Mage_Catalog_Model_Product getProductCacheData()
- * @method $this setProductCacheData(Mage_Catalog_Model_Product $value)
- * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false getRatingCollection()
- * @method $this setRatingCollection(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false $value)
+ * @method false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getRatingCollection()
  * @method array getRatingSummaryCache()
- * @method setRatingSummaryCache(array $value)
  * @method Mage_Review_Model_Review getReviewCachedData()
- * @method $this setReviewCachedData(Mage_Review_Model_Review $value)
+ * @method string getReviewId()
  * @method int getTotalReviewsCache()
+ * @method $this setProductCacheData(Mage_Catalog_Model_Product $value)
+ * @method $this setRatingCollection(false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
+ * @method setRatingSummaryCache(array $value)
+ * @method $this setReviewCachedData(Mage_Review_Model_Review $value)
+ * @method $this setReviewId(string $value)
  * @method $this setTotalReviewsCache(int $entityPkValue, bool $approvedOnly, int $storeId)
  */
 class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract

@@ -49,7 +49,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * Prepare search condition for attribute
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param array|string $value
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @return array|false|string|string[]
      */
@@ -81,7 +81,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      *
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param array|string $value
      * @param int $rate
      * @return bool
      */
@@ -127,7 +127,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      *
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param array|string $value
      * @return bool
      */
     public function addIndexableAttributeModifiedFilter($collection, $attribute, $value)

@@ -22,7 +22,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
-     * @param int|array $entityFilter
+     * @param array|int $entityFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)

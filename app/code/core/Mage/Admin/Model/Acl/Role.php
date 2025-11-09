@@ -13,19 +13,21 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_Acl_Role _getResource()
- * @method Mage_Admin_Model_Resource_Acl_Role getResource()
+ * @method Mage_Admin_Model_Resource_Acl_Role_Collection getCollection()
  * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method int getTreeLevel()
- * @method $this setTreeLevel(int $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method string getRoleType()
- * @method $this setRoleType(string $value)
- * @method int getUserId()
- * @method $this setUserId(int $value)
+ * @method Mage_Admin_Model_Resource_Acl_Role getResource()
+ * @method Mage_Admin_Model_Resource_Acl_Role_Collection getResourceCollection()
  * @method string getRoleName()
+ * @method string getRoleType()
+ * @method int getSortOrder()
+ * @method int getTreeLevel()
+ * @method int getUserId()
+ * @method $this setParentId(int $value)
  * @method $this setRoleName(string $value)
+ * @method $this setRoleType(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setTreeLevel(int $value)
+ * @method $this setUserId(int $value)
  */
 class Mage_Admin_Model_Acl_Role extends Mage_Core_Model_Abstract
 {

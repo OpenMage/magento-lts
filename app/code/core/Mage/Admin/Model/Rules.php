@@ -13,22 +13,21 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_Rules _getResource()
+ * @method int getAssertId()
+ * @method string getPermission()
+ * @method string getPrivileges()
  * @method Mage_Admin_Model_Resource_Rules getResource()
  * @method Mage_Admin_Model_Resource_Rules_Collection getResourceCollection()
- *
- * @method int getAssertId()
- * @method $this setAssertId(int $value)
- * @method string getPermission()
- * @method $this setPermission(string $value)
- * @method array getResources()
- * @method $this setResources(array $value)
  * @method string getResourceId()
- * @method $this setResourceId(string $value)
- * @method string getPrivileges()
- * @method $this setPrivileges(string $value)
+ * @method array getResources()
  * @method int getRoleId()
- * @method $this setRoleId(int $value)
  * @method string getRoleType()
+ * @method $this setAssertId(int $value)
+ * @method $this setPermission(string $value)
+ * @method $this setPrivileges(string $value)
+ * @method $this setResourceId(string $value)
+ * @method $this setResources(array $value)
+ * @method $this setRoleId(int $value)
  * @method $this setRoleType(string $value)
  */
 class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract

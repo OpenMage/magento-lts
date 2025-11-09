@@ -16,7 +16,6 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 {
     /**
      * Attribute code for media gallery
-     *
      */
     public const ATTRIBUTE_CODE = 'media_gallery';
 
@@ -41,8 +40,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Retrieve images for product
      *
      * @param int|string $productId
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param int|string $store
+     * @param null|string $identifierType
      * @return array
      */
     public function items($productId, $store = null, $identifierType = null)
@@ -71,8 +70,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string $file
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param int|string $store
+     * @param null|string $identifierType
      * @return array
      * @throws Mage_Api_Exception
      */
@@ -94,8 +93,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param array $data
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param int|string $store
+     * @param null|string $identifierType
      * @return string
      * @throws Mage_Api_Exception
      *
@@ -188,8 +187,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param string $file
      * @param array $data
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param int|string $store
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      *
@@ -262,7 +261,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string $file
-     * @param string|null $identifierType
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -339,7 +338,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Retrieve gallery attribute from product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Attribute|bool
+     * @return bool|Mage_Catalog_Model_Resource_Attribute
      */
     protected function _getGalleryAttribute($product)
     {
@@ -395,7 +394,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Retrieve product
      *
      * @param int|string $productId
-     * @param string|int $store
+     * @param int|string $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */

@@ -11,25 +11,27 @@
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
- * @method Mage_Index_Model_Resource_Process getResource()
+ * @method Mage_Index_Model_Resource_Process_Collection getCollection()
+ * @method string getDescription()
+ * @method string getEndedAt()
+ * @method bool getForcePartialReindex()
  * @method string getIndexCode()
  * @method string getIndexerCode()
- * @method $this setIndexerCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method string getStartedAt()
- * @method $this setStartedAt(string $value)
- * @method string getEndedAt()
- * @method $this setEndedAt(string $value)
  * @method string getMode()
- * @method $this setMode(string $value)
- * @method bool getForcePartialReindex()
- * @method $this setForcePartialReindex(bool $value)
+ * @method string getName()
+ * @method Mage_Index_Model_Resource_Process getResource()
+ * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
+ * @method string getStartedAt()
+ * @method string getStatus()
  * @method int getUpdateRequired()
+ * @method $this setDescription(string $value)
+ * @method $this setEndedAt(string $value)
+ * @method $this setForcePartialReindex(bool $value)
+ * @method $this setIndexerCode(string $value)
+ * @method $this setMode(string $value)
+ * @method $this setName(string $value)
+ * @method $this setStartedAt(string $value)
+ * @method $this setStatus(string $value)
  * @method $this setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
@@ -76,7 +78,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Locker Object
      *
-     * @var Mage_Index_Model_Lock|null
+     * @var null|Mage_Index_Model_Lock
      */
     protected $_lockInstance = null;
 
@@ -170,7 +172,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
     /**
      * Reindex all data what this process responsible is
-     *
      */
     public function reindexAll()
     {
@@ -427,7 +428,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Returns Lock object.
      *
-     * @return Mage_Index_Model_Lock|null
+     * @return null|Mage_Index_Model_Lock
      */
     protected function _getLockInstance()
     {
@@ -568,9 +569,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {

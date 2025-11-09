@@ -44,7 +44,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type on product view page
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getPriceDisplayType($store = null)
@@ -55,7 +55,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type on product list page
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getListPriceDisplayType($store = null)
@@ -66,7 +66,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type in sales modules
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getSalesPriceDisplayType($store = null)
@@ -77,7 +77,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get weee amount display type in email templates
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getEmailPriceDisplayType($store = null)
@@ -88,7 +88,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be discounted
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  bool
      */
     public function isDiscounted($store = null)
@@ -99,19 +99,19 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be taxable
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  bool
      */
     public function isTaxable($store = null)
     {
-        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED ||
-            Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
+        return Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::TAXED
+            || Mage::getStoreConfig('tax/weee/apply_vat', $store) == self::LOADED_AND_DISPLAY_WITH_TAX;
     }
 
     /**
      * Returns true if default store tax is already applied to the FPT(weee)
      *
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isTaxIncluded($store = null)
@@ -122,7 +122,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get Weee Tax Configuration Type
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getTaxType($store = null)
@@ -133,7 +133,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if weee tax amount should be included to subtotal
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  bool
      */
     public function includeInSubtotal($store = null)
@@ -154,8 +154,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAmount($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
     {
         if ($this->isEnabled()) {
-            return Mage::getSingleton('weee/tax')->
-                getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+            return Mage::getSingleton('weee/tax')
+                ->getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
         }
 
         return 0;
@@ -165,7 +165,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns display type for price accordingly to current zone
      *
      * @param mixed                      $product
-     * @param array|int|null             $compareTo
+     * @param null|array|int             $compareTo
      * @param string                     $zone
      * @param Mage_Core_Model_Store      $store
      * @return bool|int
@@ -214,7 +214,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param null|false|Varien_Object   $shipping
      * @param null|false|Varien_Object   $billing
-     * @param int|Mage_Core_Model_Website|null|string|true $website
+     * @param null|int|Mage_Core_Model_Website|string|true $website
      * @param bool                       $calculateTaxes
      * @return array
      */
@@ -266,8 +266,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Sets applied weee taxes
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param array                                $value
+     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param array $value
      * @return $this
      */
     public function setApplied($item, $value)
@@ -297,7 +297,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param null|false|Varien_Object $shipping Shipping Address
      * @param null|false|Varien_Object $billing Billing Address
-     * @param int|Mage_Core_Model_Website|null|string|true $website
+     * @param null|int|Mage_Core_Model_Website|string|true $website
      * @param mixed $calculateTaxes
      * @return array
      */
@@ -314,7 +314,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $shipping,
                 $billing,
                 $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
+                $calculateTaxes ?: $this->typeOfDisplay($product, 1),
             );
         }
 
@@ -356,7 +356,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns amount to display including taxes
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float
+     * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getAmountForDisplayInclTaxes($product)
     {
@@ -394,8 +395,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
-     * @param bool                    $includeIndex
+     * @param bool                       $includeIndex
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
     {
@@ -421,7 +423,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if fixed taxes are used in system
      *
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isEnabled($store = null)
@@ -447,9 +449,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns all summed weee taxes with all local taxes applied
      *
-     * @throws Mage_Core_Exception
      * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getAmountInclTaxes($attributes)
     {
@@ -470,7 +472,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if the configuration for the particular store causes conflicts
      *
-     * @param Mage_Core_Model_Store|null $store
+     * @param null|Mage_Core_Model_Store $store
      * @return bool
      */
     public function validateCatalogPricesAndFptConfiguration($store = null)
@@ -490,9 +492,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Set a value to a specific property searching FPT by title for the Item
      *
      * @param Mage_Core_Model_Abstract $item
-     * @param string $title
+     * @param null|string $title
      * @param string $property
-     * @param string $value
+     * @param float|int $value
      */
     public function setWeeeTaxesAppliedProperty($item, $title, $property, $value)
     {

@@ -13,28 +13,27 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
- * @method Mage_Core_Model_Resource_Flag getResource()
  * @method string getFlagCode()
- * @method $this setFlagCode(string $value)
- * @method int getState()
- * @method $this setState(int $value)
  * @method string getLastUpdate()
- * @method $this setLastUpdate(string $value)
+ * @method Mage_Core_Model_Resource_Flag getResource()
+ * @method int getState()
  * @method bool hasFlagData()
+ * @method $this setFlagCode(string $value)
+ * @method $this setLastUpdate(string $value)
+ * @method $this setState(int $value)
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
     /**
      * Flag code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_flagCode = null;
 
     /**
      * Init resource model
      * Set flag_code if it is specified in arguments
-     *
      */
     protected function _construct()
     {

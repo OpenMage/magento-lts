@@ -17,8 +17,8 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Product image add
      *
-     * @throws Mage_Api2_Exception
      * @return string|void
+     * @throws Mage_Api2_Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _create(array $data)
@@ -87,9 +87,9 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Get added image ID
      *
-     * @throws Mage_Api2_Exception
      * @param string $imageFileUri
      * @return int
+     * @throws Mage_Api2_Exception
      */
     protected function _getCreatedImageId($imageFileUri)
     {
@@ -114,8 +114,8 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Retrieve product images data
      *
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {

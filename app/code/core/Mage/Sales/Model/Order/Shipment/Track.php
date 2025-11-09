@@ -13,28 +13,29 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track _getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Track getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
  * @method string getCarrierCode()
- * @method $this setCarrierCode(string $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method $this setNumber(string $value)
  * @method int getOrderId()
- * @method $this setOrderId(int $value)
  * @method int getParentId()
- * @method $this setParentId(int $value)
  * @method float getQty()
- * @method $this setQty(float $value)
- * @method $this setStoreId(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Track getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getResourceCollection()
  * @method string getTitle()
- * @method $this setTitle(string $value)
  * @method string getTrackNumber()
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method float getWeight()
+ * @method $this setCarrierCode(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setDescription(string $value)
+ * @method $this setNumber(string $value)
+ * @method $this setOrderId(int $value)
+ * @method $this setParentId(int $value)
+ * @method $this setQty(float $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setTitle(string $value)
+ * @method $this setUpdatedAt(string $value)
  * @method $this setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
@@ -124,7 +125,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Retrieve detail for shipment track
      *
-     * @return string|array
+     * @return array|string
      */
     public function getNumberDetail()
     {

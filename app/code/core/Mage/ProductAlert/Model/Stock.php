@@ -13,23 +13,23 @@
  * @package    Mage_ProductAlert
  *
  * @method Mage_ProductAlert_Model_Resource_Stock _getResource()
- * @method Mage_ProductAlert_Model_Resource_Stock getResource()
- * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
- *
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
  * @method string getAddDate()
- * @method $this setAddDate(string $value)
- * @method string getSendDate()
- * @method $this setSendDate(string $value)
+ * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
+ * @method int getCustomerId()
+ * @method int getProductId()
+ * @method Mage_ProductAlert_Model_Resource_Stock getResource()
+ * @method Mage_ProductAlert_Model_Resource_Stock_Collection getResourceCollection()
  * @method int getSendCount()
- * @method $this setSendCount(int $value)
+ * @method string getSendDate()
  * @method int getStatus()
+ * @method int getWebsiteId()
+ * @method $this setAddDate(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setProductId(int $value)
+ * @method $this setSendCount(int $value)
+ * @method $this setSendDate(string $value)
  * @method $this setStatus(int $value)
+ * @method $this setWebsiteId(int $value)
  */
 class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 {

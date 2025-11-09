@@ -13,8 +13,8 @@
  * @package    Mage_Bundle
  *
  * @method bool getCanEditPrice()
- * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Adminhtml_Block_Widget
@@ -22,7 +22,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     /**
      * Form element
      *
-     * @var Varien_Data_Form_Element_Abstract|null
+     * @var null|Varien_Data_Form_Element_Abstract
      */
     protected $_element = null;
 
@@ -30,7 +30,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      * List of customer groups
      *
      * @deprecated since 1.7.0.0
-     * @var array|null
+     * @var null|array
      */
     protected $_customerGroups = null;
 
@@ -38,14 +38,14 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      * List of websites
      *
      * @deprecated since 1.7.0.0
-     * @var array|null
+     * @var null|array
      */
     protected $_websites = null;
 
     /**
      * List of bundle product options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options = null;
 
@@ -110,7 +110,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     }
 
     /**
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function getElement()
     {

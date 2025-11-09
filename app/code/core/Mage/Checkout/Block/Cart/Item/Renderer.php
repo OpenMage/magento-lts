@@ -12,11 +12,11 @@
  *
  * @package    Mage_Checkout
  *
- * @method bool hasProductName()
- * @method $this setProductName(string $value)
- * @method bool hasDeleteUrl()
- * @method $this setDeleteUrl(string $value)
  * @method string getIdSuffix()
+ * @method bool hasDeleteUrl()
+ * @method bool hasProductName()
+ * @method $this setDeleteUrl(string $value)
+ * @method $this setProductName(string $value)
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
 {
@@ -75,7 +75,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Catalog_Helper_Image $productThumbnail
+     * @param null|Mage_Catalog_Helper_Image $productThumbnail
      * @return $this
      */
     public function overrideProductThumbnail($productThumbnail)
@@ -179,7 +179,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Get product customize options
      *
-     * @return array | false
+     * @return array
      */
     public function getProductOptions()
     {
@@ -304,8 +304,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Check item is in stock
      *
-     * @deprecated after 1.4.2.0-beta1
      * @return bool
+     * @deprecated after 1.4.2.0-beta1
      */
     public function getIsInStock()
     {

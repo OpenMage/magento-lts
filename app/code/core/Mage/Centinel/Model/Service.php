@@ -44,14 +44,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Validation api model
      *
-     * @var Mage_Centinel_Model_Api|null
+     * @var null|Mage_Centinel_Model_Api
      */
     protected $_api;
 
     /**
      * Validation state model
      *
-     * @var Mage_Centinel_Model_StateAbstract|false
+     * @var false|Mage_Centinel_Model_StateAbstract
      */
     protected $_validationState;
 
@@ -83,7 +83,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * @param string $cardNumber
      * @param string $cardExpMonth
      * @param string $cardExpYear
-     * @param double $amount
+     * @param float $amount
      * @param string $currencyCode
      * @return string
      */
@@ -141,7 +141,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Create and return validation state model for card type
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
+     * @return false|Mage_Centinel_Model_StateAbstract
      */
     protected function _getValidationStateModel($cardType)
     {
@@ -158,7 +158,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Return validation state model
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
+     * @return false|Mage_Centinel_Model_StateAbstract
      */
     protected function _getValidationState($cardType = null)
     {
@@ -178,7 +178,6 @@ class Mage_Centinel_Model_Service extends Varien_Object
 
     /**
      * Drop validation state model
-     *
      */
     protected function _resetValidationState()
     {
@@ -375,12 +374,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
     }
 
     /**
-    * Export cmpi lookups and authentication information stored in session into array
-    *
-    * @param mixed $to
-    * @param array|false $map
-    * @return mixed $to
-    */
+     * Export cmpi lookups and authentication information stored in session into array
+     *
+     * @param mixed $to
+     * @param array|false $map
+     * @return mixed $to
+     */
     public function exportCmpiData($to, $map = false)
     {
         if (!$map) {

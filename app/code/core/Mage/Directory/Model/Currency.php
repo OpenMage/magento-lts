@@ -13,13 +13,16 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Currency getResource()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getResourceCollection()
  * @method $this unsRate()
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
 {
     /**
      * CONFIG path constant: ALLOW
-    */
+     */
     public const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
 
     /**
@@ -111,7 +114,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Get currency rate (only base=>allowed)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param Mage_Directory_Model_Currency|string $toCurrency
      * @return float|int
      * @throws Mage_Core_Exception
      */
@@ -137,7 +140,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Get currency rate (base=>allowed or allowed=>base)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param Mage_Directory_Model_Currency|string $toCurrency
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -164,7 +167,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Convert price to currency format
      *
      * @param float $price
-     * @param null|string|Mage_Directory_Model_Currency $toCurrency
+     * @param null|Mage_Directory_Model_Currency|string $toCurrency
      * @return float
      * @throws Exception
      */
@@ -236,8 +239,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         }
 
         if ($includeContainer) {
-            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) .
-                ($addBrackets ? ']' : '') . '</span>';
+            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options)
+                . ($addBrackets ? ']' : '') . '</span>';
         }
 
         return $this->formatTxt($price, $options);
@@ -328,7 +331,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Retrieve currency rates to other currencies
      *
-     * @param array|string|Mage_Directory_Model_Currency $currency
+     * @param array|Mage_Directory_Model_Currency|string $currency
      * @param array $toCurrencies
      * @return array
      */

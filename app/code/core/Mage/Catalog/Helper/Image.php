@@ -27,7 +27,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Current model
      *
-     * @var Mage_Catalog_Model_Product_Image|null
+     * @var null|Mage_Catalog_Model_Product_Image
      */
     protected $_model;
 
@@ -48,49 +48,49 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Angle
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_angle;
 
     /**
      * Watermark file name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermark;
 
     /**
      * Watermark Position
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkPosition;
 
     /**
      * Watermark Size
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_watermarkSize;
 
     /**
      * Watermark Image opacity
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_watermarkImageOpacity;
 
     /**
      * Current Product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
     /**
      * Image File
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_imageFile;
 
@@ -162,10 +162,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Schedule resize of the image
      * $width *or* $height can be null - in this case, lacking dimension will be calculated.
      *
-     * @see Mage_Catalog_Model_Product_Image
      * @param int $width
      * @param int $height
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function resize($width, $height = null)
     {
@@ -191,9 +191,9 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Applicable before calling resize()
      * It is true by default.
      *
-     * @see Mage_Catalog_Model_Product_Image
      * @param bool $flag
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepAspectRatio($flag)
     {
@@ -208,10 +208,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      *
      * $position - TODO, not used for now - picture position inside the frame.
      *
-     * @see Mage_Catalog_Model_Product_Image
      * @param bool $flag
      * @param array $position
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepFrame($flag, $position = ['center', 'middle'])
     {
@@ -226,10 +226,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      *
      * $alphaOpacity - TODO, not used for now
      *
-     * @see Mage_Catalog_Model_Product_Image
      * @param bool $flag
      * @param int $alphaOpacity
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function keepTransparency($flag, $alphaOpacity = null)
     {
@@ -257,9 +257,9 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * The keepTransparency(true) overrides this (if image has transparent color)
      * It is white by default.
      *
-     * @see Mage_Catalog_Model_Product_Image
      * @param array $colorRGB
      * @return $this
+     * @see Mage_Catalog_Model_Product_Image
      */
     public function backgroundColor($colorRGB)
     {
@@ -583,7 +583,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -593,8 +593,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image height
      *
+     * @return null|int
      * @deprecated
-     * @return int|null
      */
     public function getOriginalHeigh()
     {
@@ -604,7 +604,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Retrieve original image height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {

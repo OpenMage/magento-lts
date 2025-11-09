@@ -118,9 +118,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Trying to load cached value by id, in case of failure will return false, in other case will return cached string
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
-     * @return string|bool Cached data or false
+     * @return bool|string Cached data or false
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
@@ -424,7 +424,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string  $id        Cache id
      * @param  array   $metadatas Associative array of metadatas
-     * @param  boolean $save      Optional pass false to disable saving to file
+     * @param  bool $save      Optional pass false to disable saving to file
      *
      * @return bool In case of success returns true
      */
@@ -440,9 +440,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Uses multiple letters for a single-level hash rather than multiple levels
      *
      * @param  string  $id    Cache id
-     * @param  boolean $parts If true, returns array of directory parts instead of single string
+     * @param  bool $parts If true, returns array of directory parts instead of single string
      *
-     * @return string|array Complete directory path
+     * @return array|string Complete directory path
      */
     protected function _path($id, $parts = false)
     {
@@ -478,8 +478,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $mode Clean mode
      * @param array  $tags
      *
-     * @throws Zend_Cache_Exception
      * @return bool In case of success returns true
+     * @throws Zend_Cache_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -562,8 +562,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      *
-     * @throws Zend_Cache_Exception
      * @return bool In case of success returns true
+     * @throws Zend_Cache_Exception
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -687,7 +687,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Fetching all existed tags' ids
      *
-     * @param string|resource $tag
+     * @param resource|string $tag
      *
      * @return array
      *

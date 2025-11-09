@@ -15,13 +15,13 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Aggregation _getResource()
+ * @method string getCreatedAt()
+ * @method string getKey()
  * @method Mage_CatalogIndex_Model_Resource_Aggregation getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method string getKey()
  * @method $this setKey(string $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
@@ -44,8 +44,8 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * Get aggregated data by data key and store
      *
      * @param   string $key
-     * @param   null|int|string|Mage_Core_Model_Store $store
-     * @return  array|null
+     * @param   null|int|Mage_Core_Model_Store|string $store
+     * @return  null|array
      */
     public function getCacheData($key, $store = null)
     {
@@ -69,7 +69,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param array $data
      * @param   string $key
      * @param   array $tags
-     * @param   null|int|string|Mage_Core_Model_Store $store
+     * @param   null|int|Mage_Core_Model_Store|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
     public function saveCacheData($data, $key, $tags, $store = null)
@@ -90,7 +90,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * Delete cached aggregation data
      *
      * @param   array $tags
-     * @param   int|null|string $store
+     * @param   null|int|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
     public function clearCacheData($tags = [], $store = null)

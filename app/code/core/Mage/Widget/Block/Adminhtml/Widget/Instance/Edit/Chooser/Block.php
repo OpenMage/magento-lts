@@ -12,9 +12,9 @@
  *
  * @package    Mage_Widget
  *
+ * @method string getSelected()
  * @method $this setArea(string $value)
  * @method $this setPackage(string $value)
- * @method string getSelected()
  * @method $this setSelected(string $value)
  * @method $this setTheme(string $value)
  */
@@ -76,7 +76,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      * Setter
      * If string given exlopde to array by ',' delimiter
      *
-     * @param string|array $layoutHandle
+     * @param array|string $layoutHandle
      * @return $this
      */
     public function setLayoutHandle($layoutHandle)

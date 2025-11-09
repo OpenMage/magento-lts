@@ -13,11 +13,11 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Admin_Model_Resource_Block _getResource()
- * @method Mage_Admin_Model_Resource_Block getResource()
- * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
- *
  * @method string getBlockName()
+ * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
  * @method string getIsAllowed()
+ * @method Mage_Admin_Model_Resource_Block getResource()
+ * @method Mage_Admin_Model_Resource_Block_Collection getResourceCollection()
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {

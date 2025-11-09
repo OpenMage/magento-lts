@@ -39,7 +39,6 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare rule's active "from" and "to" dates
      *
-     *
      * @return Mage_Rule_Model_Resource_Abstract
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -102,8 +101,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param string $entityType
      * @param bool $deleteOldResults
      *
-     * @throws Exception
      * @return Mage_Rule_Model_Resource_Abstract
+     * @throws Exception
      */
     public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
     {
@@ -157,8 +156,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             if ($deleteOldResults) {
                 $adapter->delete(
                     $this->getTable($entityInfo['associations_table']),
-                    $adapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?) AND ', $ruleIds) .
-                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds),
+                    $adapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?) AND ', $ruleIds)
+                    . $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds),
                 );
             }
 

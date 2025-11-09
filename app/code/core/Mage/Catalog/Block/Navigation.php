@@ -17,7 +17,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Category instance
      *
-     * @var Mage_Catalog_Model_Category|null
+     * @var null|Mage_Catalog_Model_Category
      */
     protected $_categoryInstance;
 
@@ -343,11 +343,11 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Render category to html
      *
-     * @deprecated deprecated after 1.4
      * @param Mage_Catalog_Model_Category $category
      * @param int $level Nesting level number
      * @param bool $last Whether ot not this item is last, affects list item class
      * @return string
+     * @deprecated deprecated after 1.4
      */
     public function drawItem($category, $level = 0, $last = false)
     {
@@ -355,7 +355,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      */
     public function getCurrentCategory()
     {

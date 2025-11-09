@@ -45,7 +45,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat index process instance
      *
-     * @var Mage_Index_Model_Process|null
+     * @var null|Mage_Index_Model_Process
      */
     protected $_process = null;
 
@@ -61,7 +61,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Flag object
      *
-     * @var Mage_Catalog_Model_Product_Flat_Flag|null
+     * @var null|Mage_Catalog_Model_Product_Flat_Flag
      */
     protected $_flagObject;
 
@@ -77,7 +77,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Old Catalog Product Flat forced status
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_forceFlatStatusOld;
 
@@ -103,7 +103,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Check Catalog Product Flat functionality is enabled
      *
-     * @param int|string|null|Mage_Core_Model_Store $store this parameter is deprecated and no longer in use
+     * @param null|int|Mage_Core_Model_Store|string $store this parameter is deprecated and no longer in use
      *
      * @return bool
      */

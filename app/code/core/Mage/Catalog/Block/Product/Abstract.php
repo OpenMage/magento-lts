@@ -159,7 +159,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float|null
+     * @return null|float
      */
     public function getMinimalQty($product)
     {
@@ -267,7 +267,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get product reviews summary
      *
-     * @param string|false $templateType
+     * @param false|string $templateType
      * @param bool $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception
@@ -510,7 +510,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
-     *
      */
     public function hasProductUrl($product)
     {
@@ -575,7 +574,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve row size depends on page layout
      *
      * @param string $pageLayout
-     * @return int|bool
+     * @return bool|int
      */
     public function getColumnCountLayoutDepend($pageLayout)
     {

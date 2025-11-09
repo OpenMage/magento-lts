@@ -18,8 +18,8 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Customer_V1 extends Mage_Sales_Mo
      * Load order by id
      *
      * @param int $id
-     * @throws Mage_Api2_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Api2_Exception
      */
     protected function _loadOrderById($id)
     {

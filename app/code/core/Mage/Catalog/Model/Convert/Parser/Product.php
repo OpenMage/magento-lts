@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Product Type cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypes;
 
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
      * Retrieve product type code by name
      *
      * @param string $name
-     * @return string|false
+     * @return false|string
      */
     public function getProductTypeId($name)
     {
@@ -241,8 +241,8 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         $attributeSetId = $this->getProductModel()->getAttributeSetId();
 
         if (!isset($this->_setInstances[$productType][$attributeSetId])) {
-            $this->_setInstances[$productType][$attributeSetId] =
-                Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
+            $this->_setInstances[$productType][$attributeSetId]
+                = Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
         }
 
         return $this->_setInstances[$productType][$attributeSetId];

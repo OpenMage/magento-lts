@@ -12,21 +12,21 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
- * @method int|null getOptionId()
- * @method $this setOptionId(int|null $value)
- * @method int|null getOptionTypeId()
- * @method $this setOptionTypeId(int|null $value)
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
+ * @method null|int getOptionId()
+ * @method null|int getOptionTypeId()
  * @method string getPriceType()
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
  * @method string getSku()
- * @method $this setSku(string $value)
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
+ * @method $this setOptionId(null|int $value)
+ * @method $this setOptionTypeId(null|int $value)
+ * @method $this setSku(string $value)
+ * @method $this setSortOrder(int $value)
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {

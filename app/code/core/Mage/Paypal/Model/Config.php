@@ -220,7 +220,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Current payment method code
-     * @var string|null
+     * @var null|string
      */
     protected $_methodCode = null;
 
@@ -662,7 +662,7 @@ class Mage_Paypal_Model_Config
     /**
      * Method code setter
      *
-     * @param string|Mage_Payment_Model_Method_Abstract $method
+     * @param Mage_Payment_Model_Method_Abstract|string $method
      * @return $this
      */
     public function setMethod($method)
@@ -719,7 +719,7 @@ class Mage_Paypal_Model_Config
      * Check whether method available for checkout or not
      * Logic based on merchant country, methods dependence
      *
-     * @param string|null $methodCode Method code
+     * @param null|string $methodCode Method code
      * @return bool
      */
     public function isMethodAvailable($methodCode = null)
@@ -801,7 +801,7 @@ class Mage_Paypal_Model_Config
      * Sets the values into public class parameters, to avoid redundant calls of this method
      *
      * @param string $key
-     * @return string|null
+     * @return null|string
      */
     public function __get($key)
     {
@@ -1319,8 +1319,8 @@ class Mage_Paypal_Model_Config
      * Return PayPal logo URL with additional options
      *
      * @param string $localeCode Supported locale code
-     * @param string|false $type One of supported logo types
-     * @return string|bool Logo Image URL or false if logo disabled in configuration
+     * @param false|string $type One of supported logo types
+     * @return bool|string Logo Image URL or false if logo disabled in configuration
      */
     public function getAdditionalOptionsLogoUrl($localeCode, $type = false)
     {
@@ -1409,7 +1409,7 @@ class Mage_Paypal_Model_Config
     /**
      * Mapper from PayPal-specific payment actions to Magento payment actions
      *
-     * @return string|null
+     * @return null|string
      */
     public function getPaymentAction()
     {
@@ -1424,8 +1424,8 @@ class Mage_Paypal_Model_Config
     /**
      * Returns array of possible Authorization Amounts for Account Verification
      *
-     * @deprecated since 1.6.2.0
      * @return array
+     * @deprecated since 1.6.2.0
      */
     public function getAuthorizationAmounts()
     {
@@ -1636,7 +1636,7 @@ class Mage_Paypal_Model_Config
      * Map any supported payment method into a config path by specified field name
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _getSpecificConfigPath($fieldName)
     {
@@ -1698,7 +1698,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Standard config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapStandardFieldset($fieldName)
     {
@@ -1712,7 +1712,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Express config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapExpressFieldset($fieldName)
     {
@@ -1726,7 +1726,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Express Bill Me Later config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapBmlFieldset($fieldName)
     {
@@ -1740,7 +1740,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Express Bill Me Later config fields (Payflow Edition)
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapBmlUkFieldset($fieldName)
     {
@@ -1754,7 +1754,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Direct config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapDirectFieldset($fieldName)
     {
@@ -1768,7 +1768,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Website Payments Pro common config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapWppFieldset($fieldName)
     {
@@ -1782,7 +1782,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal Website Payments Pro common config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapWpukFieldset($fieldName)
     {
@@ -1808,7 +1808,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal common style config fields
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapGenericStyleFieldset($fieldName)
     {
@@ -1822,7 +1822,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal General Settings
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapGeneralFieldset($fieldName)
     {
@@ -1836,7 +1836,7 @@ class Mage_Paypal_Model_Config
      * Map PayPal General Settings
      *
      * @param string $fieldName
-     * @return string|null
+     * @return null|string
      */
     protected function _mapMethodFieldset($fieldName)
     {

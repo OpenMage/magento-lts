@@ -13,29 +13,29 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
- *
  * @method string getCode()
- * @method $this setCode(string $value)
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
  * @method float getRate()
- * @method $this setRate(float $value)
+ * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
  * @method int getTaxCalculationRateId()
- * @method bool hasTaxPostcode()
  * @method string getTaxCountryId()
- * @method $this setTaxCountryId(string $value)
- * @method int getTaxRegionId()
- * @method $this setTaxRegionId(int $value)
- * @method $this setRegionName(string $value)
  * @method string getTaxPostcode()
- * @method $this setTaxPostcode(string $value)
+ * @method int getTaxRegionId()
  * @method array getTitle()
- * @method $this setTitle(array $value)
- * @method int getZipIsRange()
- * @method $this setZipIsRange(int $value)
  * @method int getZipFrom()
- * @method $this setZipFrom(int $value)
+ * @method int getZipIsRange()
  * @method int getZipTo()
+ * @method bool hasTaxPostcode()
+ * @method $this setCode(string $value)
+ * @method $this setRate(float $value)
+ * @method $this setRegionName(string $value)
+ * @method $this setTaxCountryId(string $value)
+ * @method $this setTaxPostcode(string $value)
+ * @method $this setTaxRegionId(int $value)
+ * @method $this setTitle(array $value)
+ * @method $this setZipFrom(int $value)
+ * @method $this setZipIsRange(int $value)
  * @method $this setZipTo(int $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
@@ -43,14 +43,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * List of tax titles
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_titles = null;
 
     /**
      * The Mage_Tax_Model_Calculation_Rate_Title
      *
-     * @var Mage_Tax_Model_Calculation_Rate_Title|null
+     * @var null|Mage_Tax_Model_Calculation_Rate_Title
      */
     protected $_titleModel = null;
 
@@ -163,7 +163,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Saves the tax titles
      *
-     * @param array | null $titles
+     * @param null|array $titles
      */
     public function saveTitles($titles = null)
     {

@@ -30,7 +30,6 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
 
     /**
      * Define main and currency rate tables
-     *
      */
     protected function _construct()
     {
@@ -190,7 +189,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     /**
      * Return currency rates
      *
-     * @param string|array $currency
+     * @param array|string $currency
      * @param array $toCurrencies
      *
      * @return array

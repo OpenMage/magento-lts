@@ -604,8 +604,8 @@ class Mage_CatalogInventory_Model_Observer
     protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
     {
         $qty = $itemQty;
-        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
-            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
+        if (isset($this->_checkedQuoteItems[$productId]['qty'])
+            && !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
         ) {
             $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }
@@ -981,9 +981,9 @@ class Mage_CatalogInventory_Model_Observer
      *
      * We need do it for resolving problems with inventory on placing
      * some orders in one time
-     * @deprecated after 1.4
      * @param   Varien_Event_Observer $observer
      * @return  $this
+     * @deprecated after 1.4
      */
     public function lockOrderInventoryData($observer)
     {
@@ -1014,9 +1014,9 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Register saving order item
      *
-     * @deprecated after 1.4
      * @param   Varien_Event_Observer $observer
      * @return  $this
+     * @deprecated after 1.4
      */
     public function createOrderItem($observer)
     {
@@ -1038,9 +1038,9 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Back refunded item qty to stock
      *
-     * @deprecated after 1.4
      * @param   Varien_Event_Observer $observer
      * @return  $this
+     * @deprecated after 1.4
      */
     public function refundOrderItem($observer)
     {

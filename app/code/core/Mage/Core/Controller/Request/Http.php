@@ -53,7 +53,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 
@@ -88,7 +88,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * @return string|null
+     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCodeFromPath()
@@ -121,7 +121,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param string|null $pathInfo
+     * @param null|string $pathInfo
      * @return Zend_Controller_Request_Http
      */
     public function setPathInfo($pathInfo = null)
@@ -313,9 +313,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
-            self::SCHEME_HTTPS :
-            self::SCHEME_HTTP;
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure())
+            ? self::SCHEME_HTTPS
+            : self::SCHEME_HTTP;
     }
 
     /**
@@ -351,7 +351,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Set a member of the $_POST superglobal
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
@@ -425,7 +425,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Retrieve the actual key represented by the alias $name.
      *
      * @param string $name
-     * @return string|null Returns null when no alias exists
+     * @return null|string Returns null when no alias exists
      */
     public function getAlias($name)
     {
@@ -545,7 +545,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * If passed name will be null whole state array will be returned.
      *
      * @param string $name
-     * @return array|string|null
+     * @return null|array|string
      */
     public function getBeforeForwardInfo($name = null)
     {

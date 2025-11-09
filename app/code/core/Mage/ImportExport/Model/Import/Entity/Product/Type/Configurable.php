@@ -115,7 +115,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * Add attribute parameters to appropriate attribute set.
      *
      * @param string $attrSetName
-     * @param array $attrParams Refined attribute parameters.
+     * @param array $attrParams refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
@@ -133,7 +133,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      *
      * @param int $productId
      * @param int $attributeId
-     * @return array|null
+     * @return null|array
      */
     protected function _getSuperAttributeId($productId, $attributeId)
     {
@@ -350,8 +350,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Save product type specific data.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     * @throws Exception
      */
     public function saveData()
     {

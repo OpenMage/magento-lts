@@ -192,7 +192,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Use Manage Stock Condition to collection
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function useManageStockFilter($storeId = null)

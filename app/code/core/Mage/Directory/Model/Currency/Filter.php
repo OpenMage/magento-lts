@@ -42,7 +42,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Set filter rate
      *
-     * @param double $rate
+     * @param float $rate
      */
     public function setRate($rate)
     {
@@ -52,7 +52,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Filter value
      *
-     * @param   double $value
+     * @param   float $value
      * @return  string
      */
     public function filter($value)

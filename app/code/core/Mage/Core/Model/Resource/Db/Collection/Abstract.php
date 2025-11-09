@@ -35,19 +35,19 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @var Mage_Core_Model_Resource_Db_Abstract
      */
-    protected $_resource;
+    protected $_resource = null;
 
     /**
      * Fields to select in query
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_fieldsToSelect         = null;
 
     /**
      * Fields initial fields to select like id_field
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_initialFieldsToSelect  = null;
 
@@ -105,6 +105,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Collection constructor
      *
      * @param Mage_Core_Model_Resource_Db_Abstract $resource
+     * @throws Mage_Core_Exception
+     * @throws Zend_Exception
      */
     public function __construct($resource = null)
     {
@@ -126,6 +128,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Retrieve main table
      *
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getMainTable()
     {
@@ -141,6 +145,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @param string $table
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function setMainTable($table)
     {
@@ -165,6 +170,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Init collection select
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelect()
     {
@@ -176,6 +183,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Get Zend_Db_Select instance and applies fields to select if needed
      *
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     public function getSelect()
     {
@@ -191,6 +199,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Init fields for select
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelectFields()
     {
@@ -219,16 +228,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $alias = null;
                 }
 
-                if ($field instanceof Zend_Db_Expr) {
-                    $column = $field->__toString();
-                } else {
-                    $column = $field;
-                }
-
-                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
-                    // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))
-                ) {
+                if ($alias !== null && in_array($alias, $columnsToSelect)) {
                     continue;
                 }
 
@@ -249,6 +249,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Retrieve initial fields to select like id field
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getInitialFieldsToSelect()
     {
@@ -264,6 +265,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Initialize initial fields to select like id field
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initInitialFieldsToSelect()
     {
@@ -278,9 +280,10 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Add field to select
      *
-     * @param string|array $field
-     * @param string|null $alias
+     * @param array|string $field
+     * @param null|string $alias
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addFieldToSelect($field, $alias = null)
     {
@@ -326,6 +329,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * @param string $expression
      * @param array|string $fields
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function addExpressionFieldToSelect($alias, $expression, $fields)
     {
@@ -347,7 +351,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Removes field from select
      *
-     * @param string|null $field
+     * @param null|string $field
      * @param bool $isAlias Alias identifier
      * @return $this
      */
@@ -374,6 +378,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Removes all fields from select
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAllFieldsFromSelect()
     {
@@ -386,7 +391,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Standard resource collection initialization
      *
      * @param string $model
-     * @param Mage_Core_Model_Resource_Db_Abstract $resourceModel
+     * @param string $resourceModel
      * @return $this
      */
     protected function _init($model, $resourceModel = null)
@@ -454,7 +459,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function getResource()
     {
-        if (empty($this->_resource)) {
+        if (is_null($this->_resource) || $this->_resource === []) {
             $this->_resource = Mage::getResourceModel($this->getResourceModelName());
         }
 
@@ -476,6 +481,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Retrieve all ids for collection
      *
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getAllIds()
     {
@@ -491,6 +498,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
     /**
      * @return array
+     * @throws Zend_Db_Select_Exception
      */
     public function getData()
     {
@@ -500,7 +508,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                  ->_renderLimit();
             /**
              * Prepare select for execute
-             *
              */
             $query       = $this->_prepareSelect($this->getSelect());
             $this->_data = $this->_fetchAll($query);
@@ -540,13 +547,14 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * @param  string $cond Join on this condition
      * @param  array|string $cols The columns to select from the joined table
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function join($table, $cond, $cols = '*')
     {
         if (is_array($table)) {
-            foreach ($table as $k => $v) {
-                $alias = $k;
-                $table = $v;
+            foreach ($table as $key => $value) {
+                $alias = $key;
+                $table = $value;
                 break;
             }
         } else {
@@ -664,7 +672,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string | false
+     * @return false|string
      */
     protected function _loadCache($select)
     {

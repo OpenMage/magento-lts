@@ -65,9 +65,8 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Save entity types after save form type
      *
-     * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
-     *
      * @param Mage_Eav_Model_Form_Type $object
+     * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -114,7 +113,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve form type filtered by given attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
+     * @param int|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getFormTypesByAttribute($attribute)

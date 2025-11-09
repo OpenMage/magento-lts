@@ -195,7 +195,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Recursively adds categories to top menu
      *
-     * @param Varien_Data_Tree_Node_Collection|array $categories
+     * @param array|Varien_Data_Tree_Node_Collection $categories
      * @param Varien_Data_Tree_Node $parentCategoryNode
      * @param Mage_Page_Block_Html_Topmenu $menuBlock
      * @param bool $addTags

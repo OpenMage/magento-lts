@@ -21,7 +21,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     /**
      * Initialize process object by request
      *
-     * @return Mage_Index_Model_Process|false
+     * @return false|Mage_Index_Model_Process
      */
     protected function _initProcess()
     {
@@ -156,7 +156,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Mass rebuild selected processes index
-     *
      */
     public function massReindexAction()
     {
@@ -192,7 +191,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Mass change index mode of selected processes index
-     *
      */
     public function massChangeModeAction()
     {

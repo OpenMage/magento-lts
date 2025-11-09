@@ -17,7 +17,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Customer groups cache
      *
-     * @var array|null
+     * @var null|array
      */
     private $_customerGroups;
 
@@ -70,7 +70,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     {
         if (!$this->getOptions()) {
             if ($this->_addGroupAllOption) {
-                $this->addOption(Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
+                $this->addOption((string) Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
             }
 
             foreach ($this->_getCustomerGroups() as $groupId => $groupLabel) {

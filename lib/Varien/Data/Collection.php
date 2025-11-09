@@ -56,7 +56,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Current page number for items pager
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_curPage = 1;
 
@@ -65,14 +65,14 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * if page size is false, then we works with all items
      *
-     * @var int|false|null
+     * @var null|false|int
      */
     protected $_pageSize = false;
 
     /**
      * Total items number
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_totalRecords;
 
@@ -102,7 +102,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Add collection filter
      *
      * @param string $field
-     * @param string|array $value
+     * @param array|int|string $value
      * @param string $type and|or|string
      * @return $this
      */
@@ -127,8 +127,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * - array('foo', 'bar') -- get all filters with field name 'foo' or 'bar'
      * - array() -- get all filters
      *
-     * @param string|array $field
-     * @return Varien_Object|array|null
+     * @param array|string $field
+     * @return null|array|Varien_Object
      */
     public function getFilter($field)
     {
@@ -326,7 +326,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param   string $column
      * @param   mixed $value
-     * @return  Varien_Object|null
+     * @return  null|Varien_Object
      */
     public function getItemByColumnValue($column, $value)
     {
@@ -433,7 +433,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * Returns array with results of callback for each item
      *
-     * @param string|callable $callback
+     * @param callable|string $callback
      * @return array
      */
     public function walk($callback, array $args = [])
@@ -492,7 +492,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set current page
      *
-     * @param   int|null $page
+     * @param   null|int $page
      * @return  $this
      */
     public function setCurPage($page)
@@ -504,7 +504,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set collection page size
      *
-     * @param   int|null $size
+     * @param   null|int $size
      * @return  $this
      */
     public function setPageSize($size)
@@ -733,7 +733,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Retrieve item by id
      *
      * @param   mixed $idValue
-     * @return  Varien_Object|null
+     * @return  null|Varien_Object
      */
     public function getItemById($idValue)
     {

@@ -15,7 +15,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Read connection
      *
-     * @var Varien_Db_Adapter_Interface|false
+     * @var false|Varien_Db_Adapter_Interface
      */
     protected $_read;
 

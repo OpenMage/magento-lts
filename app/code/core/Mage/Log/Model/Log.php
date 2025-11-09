@@ -13,16 +13,16 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
+ * @method string getFirstVisitAt()
+ * @method int getLastUrlId()
+ * @method string getLastVisitAt()
  * @method Mage_Log_Model_Resource_Log getResource()
  * @method string getSessionId()
- * @method $this setSessionId(string $value)
- * @method string getFirstVisitAt()
- * @method $this setFirstVisitAt(string $value)
- * @method string getLastVisitAt()
- * @method $this setLastVisitAt(string $value)
- * @method int getLastUrlId()
- * @method $this setLastUrlId(int $value)
  * @method int getStoreId()
+ * @method $this setFirstVisitAt(string $value)
+ * @method $this setLastUrlId(int $value)
+ * @method $this setLastVisitAt(string $value)
+ * @method $this setSessionId(string $value)
  * @method $this setStoreId(int $value)
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
@@ -31,7 +31,6 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 
     /**
      * Init Resource Model
-     *
      */
     protected function _construct()
     {

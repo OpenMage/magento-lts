@@ -17,7 +17,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Extract data from request and return value
      *
-     * @return array|string|false
+     * @return array|false|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {
@@ -30,7 +30,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      * Return true or array of errors
      *
      * @param array|string $value
-     * @return bool|array
+     * @return array|bool
      */
     public function validateValue($value)
     {
@@ -109,7 +109,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

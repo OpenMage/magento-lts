@@ -17,7 +17,6 @@ class Varien_Date
 {
     /**
      * Date format, used as default. Compatible with Zend_Date
-     *
      */
     public const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 
@@ -106,7 +105,7 @@ class Varien_Date
      * Convert date to UNIX timestamp
      * Returns current UNIX timestamp if date is true
      *
-     * @param Zend_Date|string|true $date
+     * @param string|true|Zend_Date $date
      * @return int
      */
     public static function toTimestamp($date)
@@ -137,9 +136,9 @@ class Varien_Date
     /**
      * Format date to internal format
      *
-     * @param int|string|Zend_Date|bool|null $date
+     * @param null|bool|int|string|Zend_Date $date
      * @param bool $includeTime
-     * @return string|null
+     * @return null|string
      */
     public static function formatDate($date, $includeTime = true)
     {

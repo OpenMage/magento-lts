@@ -31,14 +31,14 @@ class Mage_Core_Model_Cookie
     /**
      * Store object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Set Store object
      *
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -156,7 +156,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve use HTTP only flag
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function getHttponly()
     {
@@ -207,15 +207,15 @@ class Mage_Core_Model_Cookie
      *
      * @param string $name The cookie name
      * @param string $value The cookie value
-     * @param int|bool $period Lifetime period
+     * @param bool|int $period Lifetime period
      * @param string $path
      * @param string $domain
-     * @param int|bool $secure
+     * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
      * @return $this
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -286,12 +286,12 @@ class Mage_Core_Model_Cookie
      * @param int $period Lifetime period
      * @param string $path
      * @param string $domain
-     * @param int|bool $secure
+     * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
      * @return $this
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -311,7 +311,7 @@ class Mage_Core_Model_Cookie
      * Retrieve cookie or false if not exists
      *
      * @param string $name The cookie name
-     * @return mixed|false
+     * @return false|mixed
      */
     public function get($name = null)
     {
@@ -324,12 +324,12 @@ class Mage_Core_Model_Cookie
      * @param string $name
      * @param string $path
      * @param string $domain
-     * @param int|bool $secure
-     * @param int|bool $httponly
+     * @param bool|int $secure
+     * @param bool|int $httponly
      * @param string $sameSite
      * @return $this
-     * @throws Zend_Controller_Response_Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {

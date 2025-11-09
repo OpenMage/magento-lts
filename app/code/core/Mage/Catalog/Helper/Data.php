@@ -48,7 +48,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var array<string, array<string, string|null>>
+     * @var array<string, array<string, null|string>>
      */
     protected $_categoryPath;
 
@@ -83,6 +83,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * and creating array of categories|product paths for breadcrumbs
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getBreadcrumbPath()
     {
@@ -118,8 +119,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is category link
      *
-     * @param int $categoryId
+     * @param int|string $categoryId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isCategoryLink($categoryId)
     {
@@ -137,7 +139,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return current category object
      *
-     * @return Mage_Catalog_Model_Category|null
+     * @return null|Mage_Catalog_Model_Category
      */
     public function getCategory()
     {
@@ -147,7 +149,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current Product object
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -158,6 +160,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve Visitor/Customer Last Viewed URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getLastViewedUrl()
     {
@@ -246,7 +249,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId Store View
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)
@@ -288,10 +291,10 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-    * Initialize mapping for old and new field names
-    *
-    * @return array
-    */
+     * Initialize mapping for old and new field names
+     *
+     * @return array
+     */
     public function getOldFieldMap()
     {
         $node = Mage::getConfig()->getNode('global/catalog_product/old_fields_map');
@@ -363,9 +366,11 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * in specific visibility
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @param int $visibility Check displaying price in concrete place (by default generally)
+     * @param Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_* $visibility Check displaying price in concrete place (by default generally)
      * @param bool $checkAssociatedItems
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function canApplyMsrp($product, $visibility = null, $checkAssociatedItems = true)
     {
@@ -419,6 +424,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canApplyMsrpToProductType($product)
     {

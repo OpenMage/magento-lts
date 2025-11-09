@@ -13,29 +13,31 @@
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
- * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
  * @method string getChangeStatusAt()
- * @method $this setChangeStatusAt(string $value)
- * @method bool hasCheckCode()
  * @method string getCheckCode()
- * @method $this setCheckCode(string $value)
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getCollection()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method setImportMode(bool $value)
- * @method string getName()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getSubscriberConfirmCode()
- * @method $this setSubscriberConfirmCode(string $value)
- * @method string getSubscriberEmail()
- * @method $this setSubscriberEmail(string $value)
- * @method int getSubscriberId()
- * @method $this setSubscriberId(int $value)
- * @method int getSubscriberStatus()
- * @method $this setSubscriberStatus(int $value)
  * @method bool getImportMode()
+ * @method string getName()
+ * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getResourceCollection()
+ * @method int getStoreId()
+ * @method string getSubscriberConfirmCode()
+ * @method string getSubscriberEmail()
+ * @method int getSubscriberId()
+ * @method int getSubscriberStatus()
+ * @method bool hasCheckCode()
  * @method bool hasCustomerFirstname()
  * @method bool hasCustomerLastname()
+ * @method $this setChangeStatusAt(string $value)
+ * @method $this setCheckCode(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method setImportMode(bool $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setSubscriberConfirmCode(string $value)
+ * @method $this setSubscriberEmail(string $value)
+ * @method $this setSubscriberId(int $value)
+ * @method $this setSubscriberStatus(int $value)
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
@@ -308,8 +310,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Subscribes by email
      *
      * @param string $email
-     * @throws Exception
      * @return int
+     * @throws Exception
      */
     public function subscribe($email)
     {
@@ -372,7 +374,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     /**
      * Unsubscribes loaded subscription
-     *
      */
     public function unsubscribe()
     {
@@ -612,7 +613,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Retrieve Subscribers Full Name if it was set
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSubscriberFullName()
     {

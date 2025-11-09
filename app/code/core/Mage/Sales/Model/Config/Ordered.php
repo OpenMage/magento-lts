@@ -17,14 +17,14 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Cache key for collectors
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_collectorsCacheKey = null;
 
     /**
      * Configuration path where to collect registered totals
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_totalsConfigNode = null;
 
@@ -56,6 +56,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      */
     protected function _initModels()
     {
+        /** @var Mage_Core_Model_Config_Element $totalsConfig */
         $totalsConfig = $this->getNode($this->_totalsConfigNode);
 
         foreach ($totalsConfig->children() as $totalCode => $totalConfig) {
@@ -74,7 +75,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * @abstract
      * @param string $class
      * @param string $totalCode
-     * @param array $totalConfig
+     * @param Mage_Core_Model_Config_Element $totalConfig
      * @return mixed
      */
     abstract protected function _initModelInstance($class, $totalCode, $totalConfig);

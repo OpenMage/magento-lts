@@ -12,38 +12,38 @@
  *
  * @package    Mage_Eav
  *
- * @method bool hasAttributeSetInfo()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
  * @method array getAttributeSetInfo()
- * @method $this setAttributeSetInfo(array $value)
- * @method $this setAttributeGroupId(int $value)
  * @method bool getFlatAddChildData()
  * @method array getFlatAddFilterableAttributes()
  * @method string getFrontendClass()
  * @method string getFrontendInput()
  * @method string getFrontendLabel()
  * @method string getFrontendModel()
- * @method $this setFrontendModel(string $value)
  * @method bool getIsConfigurable()
  * @method bool getIsFilterable()
  * @method bool getIsFilterableInSearch()
- * @method $this setIsGlobal(int $value)
  * @method bool getIsRequired()
  * @method bool getIsSearchable()
  * @method bool getIsUnique()
  * @method bool getIsUserDefined()
- * @method bool hasIsVisible()
  * @method bool getIsVisible()
  * @method bool getIsVisibleInAdvancedSearch()
- * @method string getSourceModel()
- * @method $this setSourceModel(string $value)
  * @method string getSortOrder()
- * @method $this setSortOrder(string $value)
+ * @method string getSourceModel()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getStoreLabel()
  * @method string getUsedForSortBy()
  * @method array getValidateRules()
- * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
+ * @method bool hasAttributeSetInfo()
+ * @method bool hasIsVisible()
+ * @method $this setAttributeGroupId(int $value)
+ * @method $this setAttributeSetInfo(array $value)
+ * @method $this setFrontendModel(string $value)
+ * @method $this setIsGlobal(int $value)
+ * @method $this setSortOrder(string $value)
+ * @method $this setSourceModel(string $value)
+ * @method $this setStoreId(int $value)
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
@@ -191,7 +191,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getAttributeId()
     {
@@ -340,8 +340,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Return is attribute global
      *
-     * @deprecated moved to catalog attribute model
      * @return int
+     * @deprecated moved to catalog attribute model
      */
     public function getIsGlobal()
     {
@@ -425,10 +425,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve backend instance
      *
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getBackend()
     {
-        if (empty($this->_backend)) {
+        if (is_null($this->_backend)) {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel($this->_getDefaultBackendModel());
             }
@@ -451,7 +452,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getFrontend()
     {
-        if (empty($this->_frontend)) {
+        if (is_null($this->_frontend)) {
             if (!$this->getFrontendModel()) {
                 $this->setFrontendModel($this->_getDefaultFrontendModel());
             }
@@ -467,10 +468,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve source instance
      *
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
-        if (empty($this->_source)) {
+        if (is_null($this->_source)) {
             if (!$this->getSourceModel()) {
                 $this->setSourceModel($this->_getDefaultSourceModel());
             }
@@ -553,7 +555,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute in specified set
      *
-     * @param int|array $setId
+     * @param array|int $setId
      * @return bool
      */
     public function isInSet($setId)
@@ -914,7 +916,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return $this|Varien_Db_Select|null
+     * @return null|$this|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store = null)
     {

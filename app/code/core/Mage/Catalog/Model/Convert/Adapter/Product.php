@@ -23,14 +23,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Product model
      *
-     * @var Mage_Catalog_Model_Product|string|null
+     * @var null|Mage_Catalog_Model_Product|string
      */
     protected $_productModel;
 
     /**
      * product types collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypes;
 
@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * product attribute set collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productAttributeSets;
 
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Store affected entity ids
      *
-     * @param  int|array $ids
+     * @param  array|int $ids
      * @return $this
      */
     protected function _addAffectedEntityIds($ids)
@@ -226,7 +226,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Retrieve eav entity attribute model
      *
      * @param string $code
-     * @return Mage_Eav_Model_Entity_Attribute|false
+     * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
     {
@@ -321,7 +321,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Retrieve store object by code
      *
      * @param string $store
-     * @return Mage_Core_Model_Store|false
+     * @return false|Mage_Core_Model_Store
      */
     public function getStoreByCode($store)
     {
@@ -340,7 +340,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Retrieve store object by code
      *
      * @param string $id
-     * @return Mage_Core_Model_Store|false
+     * @return false|Mage_Core_Model_Store
      */
     public function getStoreById($id)
     {
@@ -380,7 +380,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
     /**
      * Initialize convert adapter model for products collection
-     *
      */
     public function __construct()
     {
@@ -643,8 +642,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Save product (import)
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function saveRow(array $importData)
     {

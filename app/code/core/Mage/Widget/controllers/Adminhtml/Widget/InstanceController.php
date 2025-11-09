@@ -53,7 +53,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Init widget instance object and set it to registry
      *
-     * @return Mage_Widget_Model_Widget_Instance|bool
+     * @return bool|Mage_Widget_Model_Widget_Instance
      * @throws Mage_Core_Exception
      */
     protected function _initWidgetInstance()
@@ -215,7 +215,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Categories chooser Action (Ajax request)
-     *
      */
     public function categoriesAction()
     {

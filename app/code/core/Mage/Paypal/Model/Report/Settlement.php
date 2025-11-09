@@ -16,15 +16,15 @@
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
- * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
- * @method string getReportDate()
- * @method $this setReportDate(string $value)
  * @method string getAccountId()
- * @method $this setAccountId(string $value)
  * @method string getFilename()
- * @method $this setFilename(string $value)
  * @method string getLastModified()
+ * @method string getReportDate()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
+ * @method $this setAccountId(string $value)
+ * @method $this setFilename(string $value)
  * @method $this setLastModified(string $value)
+ * @method $this setReportDate(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {

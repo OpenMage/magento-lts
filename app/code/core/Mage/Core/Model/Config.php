@@ -167,7 +167,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Resource_Config|null
+     * @var null|Mage_Core_Model_Resource_Config
      */
     protected $_resourceModel;
 
@@ -444,7 +444,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Reinitialize configuration
      *
-     * @param   Mage_Core_Model_Config_Options|array $options
+     * @param   array|Mage_Core_Model_Config_Options $options
      * @return  $this
      */
     public function reinit($options = [])
@@ -477,10 +477,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         if ($disableLocalModules === true) {
             set_include_path(
-                BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
-                BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
-                BP . DS . 'lib' . PS .
-                Mage::registry('original_include_path'),
+                BP . DS . 'app' . DS . 'code' . DS . 'community' . PS
+                . BP . DS . 'app' . DS . 'code' . DS . 'core' . PS
+                . BP . DS . 'lib' . PS
+                . Mage::registry('original_include_path'),
             );
         }
 
@@ -762,7 +762,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element|false
+     * @return false|Mage_Core_Model_Config_Element
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -865,7 +865,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Add module(s) to allowed list
      *
-     * @param  string|array $module
+     * @param  array|string $module
      * @return $this
      */
     public function addAllowedModules($module)
@@ -1074,7 +1074,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param array|string $fileName
      * @param null|Mage_Core_Model_Config_Base|Varien_Simplexml_Config $mergeToObject
-     * @param Varien_Simplexml_Config|null $mergeModel
+     * @param null|Varien_Simplexml_Config $mergeModel
      * @return Mage_Core_Model_Config_Base|Varien_Simplexml_Config
      */
     public function loadModulesConfiguration($fileName, $mergeToObject = null, $mergeModel = null)
@@ -1172,7 +1172,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string|array $data
+     * @param array|string $data
      * @return array|string
      */
     public function substDistroServerVars($data)
@@ -1206,7 +1206,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * Defaults to Mage_Core_Setup
      *
-     * @param string|Mage_Core_Model_Config_Element $module
+     * @param Mage_Core_Model_Config_Element|string $module
      * @return object
      */
     public function getModuleSetup($module = '')
@@ -1233,11 +1233,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * If $moduleName is specified retrieves specific value for the module.
      *
-     * @deprecated in favor of Mage_Core_Model_Config_Options
      * @todo get global dir config
      * @param string $type
      * @return string
      * @throws Mage_Core_Exception
+     * @deprecated in favor of Mage_Core_Model_Config_Options
      */
     public function getBaseDir($type = 'base')
     {
@@ -1448,7 +1448,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * will instantiate Mage_Cms_Model_Resource_Helper_<db_adapter_name>
      *
      * @param string $moduleName
-     * @return Mage_Core_Model_Resource_Helper_Abstract|false
+     * @return false|Mage_Core_Model_Resource_Helper_Abstract
      */
     public function getResourceHelper($moduleName)
     {
@@ -1488,7 +1488,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param string $modelClass
      * @param array|object $constructArguments
-     * @return Mage_Core_Model_Abstract|false
+     * @return false|Mage_Core_Model_Abstract
      * @see Mage_Catalog_Model_Resource_Product
      */
     public function getModelInstance($modelClass = '', $constructArguments = [])
@@ -1524,7 +1524,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $modelClass
      * @param   array $constructArguments
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return false|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getResourceModelInstance($modelClass = '', $constructArguments = [])
     {
@@ -1575,7 +1575,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Retrieve resource type configuration for resource name
      *
      * @param string $type
-     * @return SimpleXMLElement|Varien_Simplexml_Element|Mage_Core_Model_Config_Element
+     * @return Mage_Core_Model_Config_Element|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getResourceTypeConfig($type)
     {
@@ -1728,7 +1728,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get config value from DB
      *
-     * @return  string|false
+     * @return  false|string
      */
     public function getConfig(string $path, string $scope = 'default', int $scopeId = 0)
     {
@@ -1778,7 +1778,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get factory class name for a resource
      *
      * @param string $modelClass
-     * @return string|false
+     * @return false|string
      */
     protected function _getResourceModelFactoryClassName($modelClass)
     {
@@ -1806,7 +1806,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get a resource model class name
      *
      * @param string $modelClass
-     * @return string|false
+     * @return false|string
      */
     public function getResourceModelClassName($modelClass)
     {

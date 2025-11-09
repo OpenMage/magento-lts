@@ -14,9 +14,9 @@
  *
  * @method int getOrderId()
  * @method string getProtectCode()
- * @method $this setProtectCode(string $value)
  * @method int getShipId()
  * @method int getTrackId()
+ * @method $this setProtectCode(string $value)
  */
 class Mage_Shipping_Model_Info extends Varien_Object
 {
@@ -67,7 +67,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate order model
      *
-     * @return Mage_Sales_Model_Order|bool
+     * @return bool|Mage_Sales_Model_Order
      */
     protected function _initOrder()
     {
@@ -83,7 +83,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate ship model
      *
-     * @return Mage_Sales_Model_Order_Shipment|bool
+     * @return bool|Mage_Sales_Model_Order_Shipment
      */
     protected function _initShipment()
     {

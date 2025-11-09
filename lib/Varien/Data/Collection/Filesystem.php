@@ -209,7 +209,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Get files from specified directory recursively (if needed)
      *
-     * @param string|array $dir
+     * @param array|string $dir
      */
     protected function _collectRecursive($dir)
     {
@@ -384,7 +384,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param string $field
      * @param mixed $value
      * @param string $type 'and'|'or'
-     * @param callback $callback
+     * @param callable $callback
      * @param bool $isInverted
      * @return $this
      */
@@ -441,7 +441,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Invokes specified callback
      * Skips, if there is no filtered key in the row
      *
-     * @param callback $callback
+     * @param callable $callback
      * @param array $callbackParams
      * @return bool
      */
@@ -461,8 +461,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param string $field
      * @param mixed $cond
      * @param string $type 'and' | 'or'
-     * @see Varien_Data_Collection_Db::addFieldToFilter()
      * @return $this
+     * @see Varien_Data_Collection_Db::addFieldToFilter()
      */
     public function addFieldToFilter($field, $cond, $type = 'and')
     {
@@ -601,7 +601,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Does nothing. Intentionally disabled parent method
      *
      * @param string $field
-     * @param string|array $value
+     * @param array|string $value
      * @param string $type and|or|string
      * @return $this
      */

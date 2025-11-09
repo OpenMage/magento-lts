@@ -15,7 +15,7 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
     /**
      * Get url for config settings where base url option can be changed
      *
-     * @return string|false
+     * @return false|string
      */
     public function getConfigUrl()
     {

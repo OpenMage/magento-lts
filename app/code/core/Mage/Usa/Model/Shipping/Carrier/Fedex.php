@@ -45,21 +45,21 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
@@ -152,7 +152,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -265,7 +265,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -407,7 +407,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Do remote request for and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool
+     * @return bool|Mage_Shipping_Model_Rate_Result
      */
     protected function _getQuotes()
     {
@@ -589,8 +589,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get xml quotes
      *
-     * @deprecated
      * @return Mage_Shipping_Model_Rate_Result
+     * @deprecated
      */
     protected function _getXmlQuotes()
     {
@@ -695,8 +695,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
                 foreach ($xml->Entry as $entry) {
                     if (in_array((string) $entry->Service, $allowedMethods)) {
-                        $costArr[(string) $entry->Service] =
-                           (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
+                        $costArr[(string) $entry->Service]
+                           = (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
                         $priceArr[(string) $entry->Service] = $this->getMethodPrice(
                             (float) $entry->EstimatedCharges->DiscountedCharges->NetCharge,
                             (string) $entry->Service,
@@ -739,7 +739,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Parse XML string and return XML document object or false
      *
      * @param string $xmlContent
-     * @return SimpleXMLElement|bool
+     * @return bool|SimpleXMLElement
      */
     protected function _parseXml($xmlContent)
     {
@@ -954,7 +954,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
     {
@@ -1159,9 +1159,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Parse xml tracking response
      *
-     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
+     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
@@ -1447,10 +1447,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         // for international shipping
         if ($request->getShipperAddressCountryCode() != $request->getRecipientAddressCountryCode()) {
-            $requestClient['RequestedShipment']['CustomsClearanceDetail'] =
-                [
-                    'CustomsValue' =>
-                    [
+            $requestClient['RequestedShipment']['CustomsClearanceDetail']
+                = [
+                    'CustomsValue'
+                    => [
                         'Currency' => $request->getBaseCurrencyCode(),
                         'Amount' => $customsValue,
                     ],

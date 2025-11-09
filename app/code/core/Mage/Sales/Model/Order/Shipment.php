@@ -13,35 +13,35 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
- *
  * @method string getBackUrl()
  * @method int getBillingAddressId()
- * @method $this setBillingAddressId(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method int getEmailSent()
- * @method $this setEmailSent(int $value)
  * @method string getIncrementId()
- * @method $this setIncrementId(string $value)
  * @method int getOrderId()
- * @method $this setOrderId(int $value)
  * @method mixed getPackages()
- * @method $this setPackages(string $value)
- * @method int getStoreId()
+ * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
  * @method int getShipmentStatus()
- * @method $this setShipmentStatus(int $value)
  * @method int getShippingAddressId()
+ * @method int getStoreId()
+ * @method float getTotalQty()
+ * @method float getTotalWeight()
+ * @method string getUpdatedAt()
+ * @method $this setBillingAddressId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setEmailSent(int $value)
+ * @method $this setIncrementId(string $value)
+ * @method $this setOrderId(int $value)
+ * @method $this setPackages(string $value)
+ * @method $this setShipmentStatus(int $value)
  * @method $this setShippingAddressId(int $value)
  * @method $this setStoreId(int $value)
- * @method float getTotalQty()
  * @method $this setTotalQty(float $value)
- * @method float getTotalWeight()
  * @method $this setTotalWeight(float $value)
- * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
@@ -97,7 +97,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
      */
     protected $_comments;
 
@@ -238,7 +238,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_shipment_item_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -303,7 +303,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getTracksCollection()
     {
-        if (empty($this->_tracks)) {
+        if (is_null($this->_tracks)) {
             $this->_tracks = Mage::getResourceModel('sales/order_shipment_track_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -334,7 +334,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $trackId
-     * @return Mage_Sales_Model_Order_Shipment_Track|false
+     * @return false|Mage_Sales_Model_Order_Shipment_Track
      */
     public function getTrackById($trackId)
     {

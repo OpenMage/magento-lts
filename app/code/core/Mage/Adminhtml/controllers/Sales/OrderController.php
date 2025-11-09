@@ -23,7 +23,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -47,7 +46,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Initialize order model instance
      *
-     * @return Mage_Sales_Model_Order | false
+     * @return false|Mage_Sales_Model_Order
      */
     protected function _initOrder()
     {
@@ -712,7 +711,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order transactions grid ajax action
-     *
      */
     public function transactionsAction()
     {

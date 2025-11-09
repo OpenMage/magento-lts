@@ -15,7 +15,7 @@
 class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstract
 {
     /**
-     * @var Mage_Install_Model_Installer_Db_Abstract|null database
+     * @var null|Mage_Install_Model_Installer_Db_Abstract database
      */
     protected $_dbResource;
 

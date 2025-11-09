@@ -13,14 +13,14 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title _getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
- *
- * @method int getTaxCalculationRateId()
- * @method $this setTaxCalculationRateId(int $value)
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getResourceCollection()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method int getTaxCalculationRateId()
  * @method string getValue()
+ * @method $this setStoreId(int $value)
+ * @method $this setTaxCalculationRateId(int $value)
  * @method $this setValue(string $value)
  */
 class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract

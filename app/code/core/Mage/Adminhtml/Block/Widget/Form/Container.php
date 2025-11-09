@@ -103,9 +103,9 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     /**
      * Get form save URL
      *
+     * @return string
      * @deprecated
      * @see getFormActionUrl()
-     * @return string
      */
     public function getSaveUrl()
     {

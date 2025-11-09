@@ -13,36 +13,36 @@
  * @package    Mage_Customer
  *
  * @method string getAddActionReferer()
- * @method $this setAddActionReferer(string $value)
  * @method array getAddressFormData()
- * @method $this setAddressFormData(array $value)
  * @method string getAfterAuthUrl()
- * @method string getBeforeUrl()
- * @method $this setBeforeUrl(string $value)
  * @method string getBeforeAuthUrl()
+ * @method string getBeforeUrl()
  * @method array getBeforeWishlistRequest()
- * @method $this setBeforeWishlistRequest(array $value)
- * @method $this unsBeforeWishlistRequest()
  * @method string getBeforeWishlistUrl()
- * @method $this setBeforeWishlistUrl(string $value)
  * @method array getCustomerFormData()
- * @method $this setCustomerFormData(array $value)
- * @method bool  hasDisplayOutOfStockProducts()
  * @method string  getDisplayOutOfStockProducts(string $value)
- * @method $this  setDisplayOutOfStockProducts()
  * @method string getForgottenEmail()
- * @method $this setForgottenEmail(string $value)
- * @method $this unsForgottenEmail()
  * @method bool getNoReferer(bool $value)
- * @method $this setNoReferer(bool $value)
- * @method $this unsNoReferer(bool $value)
  * @method string getUsername()
- * @method $this setUsername(string $value)
  * @method string  getWishlistDisplayType()
- * @method $this  setWishlistDisplayType(string $value)
- * @method bool hasWishlistItemCount()
  * @method int getWishlistItemCount()
+ * @method bool  hasDisplayOutOfStockProducts()
+ * @method bool hasWishlistItemCount()
+ * @method $this setAddActionReferer(string $value)
+ * @method $this setAddressFormData(array $value)
+ * @method $this setBeforeUrl(string $value)
+ * @method $this setBeforeWishlistRequest(array $value)
+ * @method $this setBeforeWishlistUrl(string $value)
+ * @method $this setCustomerFormData(array $value)
+ * @method $this  setDisplayOutOfStockProducts()
+ * @method $this setForgottenEmail(string $value)
+ * @method $this setNoReferer(bool $value)
+ * @method $this setUsername(string $value)
+ * @method $this  setWishlistDisplayType(string $value)
  * @method $this setWishlistItemCount(int $value)
+ * @method $this unsBeforeWishlistRequest()
+ * @method $this unsForgottenEmail()
+ * @method $this unsNoReferer(bool $value)
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -137,7 +137,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer id
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -149,7 +149,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Retrieve customer id from current session
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCustomerId()
     {
@@ -163,7 +163,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer group id
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return $this
      */
     public function setCustomerGroupId($id)

@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message|null
+     * @var null|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage;
 
@@ -162,7 +162,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Prepare form fieldset
      * All fields are hidden
      *
-     *
      * @return $this
      */
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
@@ -195,7 +194,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Prepare form fieldset
      * All fields are visible
-     *
      *
      * @return $this
      */

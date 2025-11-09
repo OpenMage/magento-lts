@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Cache for all ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allIdsCache                  = null;
 
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Category product count select
      *
-     * @var Zend_Db_Select|null
+     * @var null|Zend_Db_Select
      */
     protected $_productCountSelect           = null;
 
@@ -143,42 +143,42 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Price expression sql
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_priceExpression;
 
     /**
      * Additional price expression sql part
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_additionalPriceExpression;
 
     /**
      * Max prise (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_maxPrice;
 
     /**
      * Min prise (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_minPrice;
 
     /**
      * Prise standard deviation (statistics data)
      *
-     * @var float|null
+     * @var null|float
      */
     protected $_priceStandardDeviation;
 
     /**
      * Prises count (statistics data)
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_pricesCount = null;
 
@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get cloned Select after dispatching 'catalog_prepare_price_select' event
      *
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getCatalogPreparedSelect()
     {
@@ -330,7 +330,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Initialize resources
-     *
      */
     protected function _construct()
     {
@@ -345,7 +344,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Define product website and category product tables
-     *
      */
     protected function _initTables()
     {
@@ -673,7 +671,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add website filter to collection
      *
-     * @param array|string|int $websites
+     * @param array|int|string $websites
      * @return $this
      */
     public function addWebsiteFilter($websites = null)
@@ -889,16 +887,16 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get SQL for get record count
      *
-     * @param Varien_Db_Select|null $select
+     * @param null|Varien_Db_Select $select
      * @param bool $resetLeftJoins
      * @return Varien_Db_Select
      */
     protected function _getSelectCountSql($select = null, $resetLeftJoins = true)
     {
         $this->_renderFilters();
-        $countSelect = (is_null($select)) ?
-            $this->_getClearSelect() :
-            $this->_buildClearSelect($select);
+        $countSelect = (is_null($select))
+            ? $this->_getClearSelect()
+            : $this->_buildClearSelect($select);
         // Clear GROUP condition for count method
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->columns('COUNT(DISTINCT e.entity_id)');
@@ -1107,8 +1105,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Joins url rewrite rules to collection
      *
-     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      * @return $this
+     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      */
     public function joinUrlRewrite()
     {
@@ -1148,7 +1146,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Add URL rewrites to collection
-     *
      */
     protected function _addUrlRewrite()
     {
@@ -1207,10 +1204,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add minimal price data to result
      *
+     * @return $this
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     public function addMinimalPrice()
     {
@@ -1220,10 +1216,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add minimal price to product collection
      *
+     * @return $this
      * @deprecated since 1.3.2.2
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     protected function _addMinimalPrice()
     {
@@ -1233,10 +1228,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add price data for calculate final price
      *
+     * @return $this
      * @deprecated use addPriceData
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
-     *
-     * @return $this
      */
     public function addFinalPrice()
     {
@@ -1466,7 +1460,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * @deprecated from 1.3.0
-     *
      */
     protected function _addTaxPercents()
     {

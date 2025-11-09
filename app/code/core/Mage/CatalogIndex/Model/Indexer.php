@@ -13,22 +13,22 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer _getResource()
- * @method Mage_CatalogIndex_Model_Resource_Indexer getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method int getEntityTypeId()
+ * @method int getHasOptions()
+ * @method int getRequiredOptions()
+ * @method Mage_CatalogIndex_Model_Resource_Indexer getResource()
+ * @method string getSku()
+ * @method string getTypeId()
  * @method string getUpdatedAt()
+ * @method $this setAttributeSetId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setEntityTypeId(int $value)
+ * @method $this setHasOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
+ * @method $this setSku(string $value)
+ * @method $this setTypeId(string $value)
  * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
@@ -67,13 +67,12 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Tproduct types sorted by index priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_productTypePriority = null;
 
     /**
      * Initialize all indexers and resource model
-     *
      */
     protected function _construct()
     {
@@ -341,8 +340,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * After plain reindex process
      *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @param array|int|Mage_Core_Model_Store|Mage_Core_Model_Website $store
+     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
@@ -569,7 +568,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Retrieve Base to Specified Currency Rate
      *
      * @param string $code
-     * @return double
+     * @return float
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
     {
@@ -767,9 +766,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Add indexable attributes to product collection select
      *
-     * @deprecated
      * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return  Mage_CatalogIndex_Model_Indexer
+     * @deprecated
      */
     protected function _addFilterableAttributesToCollection($collection)
     {
@@ -808,8 +807,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param Mage_Core_Model_Store|int $store
-     * @param Mage_Catalog_Model_Product|int|array|null $products
+     * @param int|Mage_Core_Model_Store $store
+     * @param null|array|int|Mage_Catalog_Model_Product $products
      * @param string $resourceTable
      * @return $this
      */

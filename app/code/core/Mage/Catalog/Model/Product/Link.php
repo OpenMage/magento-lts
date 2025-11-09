@@ -13,13 +13,15 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Link _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Link getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getCollection()
  * @method int getLinkedProductId()
- * @method $this setLinkedProductId(int $value)
  * @method int getLinkTypeId()
+ * @method int getProductId()
+ * @method Mage_Catalog_Model_Resource_Product_Link getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Link_Collection getResourceCollection()
+ * @method $this setLinkedProductId(int $value)
  * @method $this setLinkTypeId(int $value)
+ * @method $this setProductId(int $value)
  */
 class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
 {
@@ -109,7 +111,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int|null $type
+     * @param null|int $type
      * @return array
      */
     public function getAttributes($type = null)

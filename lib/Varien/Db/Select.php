@@ -11,23 +11,23 @@
  * Class for SQL SELECT generation and results.
  *
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
- * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @method $this columns($cols = '*', $correlationName = null)
+ * @method $this distinct($flag = true)
+ * @method $this forUpdate($flag = true)
  * @method $this from($name, $cols = '*', $schema = null)
+ * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
+ * @method $this group($spec)
  * @method $this join($name, $cond, $cols = '*', $schema = null)
+ * @method $this joinCross($name, $cols = '*', $schema = null)
+ * @method $this joinFull($name, $cond, $cols = '*', $schema = null)
  * @method $this joinInner($name, $cond, $cols = '*', $schema = null)
  * @method $this joinLeft($name, $cond, $cols = '*', $schema = null)
  * @method $this joinNatural($name, $cond, $cols = '*', $schema = null)
- * @method $this joinFull($name, $cond, $cols = '*', $schema = null)
  * @method $this joinRight($name, $cond, $cols = '*', $schema = null)
- * @method $this joinCross($name, $cols = '*', $schema = null)
- * @method $this orWhere($cond, $value = null, $type = null)
- * @method $this group($spec)
- * @method $this order($spec)
  * @method $this limitPage($page, $rowCount)
- * @method $this forUpdate($flag = true)
- * @method $this distinct($flag = true)
+ * @method $this order($spec)
+ * @method $this orWhere($cond, $value = null, $type = null)
  * @method $this reset($part = null)
- * @method $this columns($cols = '*', $correlationName = null)
  *
  * @package    Varien_Db
  */
@@ -79,9 +79,9 @@ class Varien_Db_Select extends Zend_Db_Select
      * $db->fetchAll($select, array('id' => 5));
      * </code>
      *
-     * @param string $cond The WHERE condition.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param string $cond the WHERE condition
+     * @param null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
+     * @param null|int|string $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @return $this
      */
     public function where($cond, $value = null, $type = null)
@@ -246,20 +246,20 @@ class Varien_Db_Select extends Zend_Db_Select
 
     /**
      * Populate the $_parts 'join' key
+     *
+     * @param  null|string $type Type of join; inner, left, and null are currently supported
+     * @param  array|string|Zend_Db_Expr $name Table name
+     * @param  string $cond Join on this condition
+     * @param  array|string $cols The columns to select from the joined table
+     * @param  string $schema the database name to specify, if any
+     * @return Zend_Db_Select This Zend_Db_Select object
+     * @throws Zend_Db_Select_Exception
      * @see $_parts
      *
      * Does the dirty work of populating the join key.
      *
      * The $name and $cols parameters follow the same logic
      * as described in the from() method.
-     *
-     * @param  null|string $type Type of join; inner, left, and null are currently supported
-     * @param  array|string|Zend_Db_Expr $name Table name
-     * @param  string $cond Join on this condition
-     * @param  array|string $cols The columns to select from the joined table
-     * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object
-     * @throws Zend_Db_Select_Exception
      */
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
@@ -273,9 +273,9 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Sets a limit count and offset to the query.
      *
-     * @param int $count OPTIONAL The number of rows to return.
-     * @param int $offset OPTIONAL Start returning after this many rows.
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param int $count OPTIONAL The number of rows to return
+     * @param int $offset OPTIONAL Start returning after this many rows
+     * @return Zend_Db_Select this Zend_Db_Select object
      */
     public function limit($count = null, $offset = null)
     {
@@ -297,7 +297,7 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Cross Table Update From Current select
      *
-     * @param string|array $table
+     * @param array|string $table
      * @return string
      */
     public function crossUpdateFromSelect($table)
@@ -365,8 +365,8 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Use a STRAIGHT_JOIN for the SQL Select
      *
-     * @param bool $flag Whether or not the SELECT use STRAIGHT_JOIN (default true).
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param bool $flag whether or not the SELECT use STRAIGHT_JOIN (default true)
+     * @return Zend_Db_Select this Zend_Db_Select object
      */
     public function useStraightJoin($flag = true)
     {

@@ -413,14 +413,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Media files uploader
      *
-     * @var Mage_ImportExport_Model_Import_Uploader|null
+     * @var null|Mage_ImportExport_Model_Import_Uploader
      */
     protected $_fileUploader;
 
     /**
      * url_key attribute id
      *
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_urlKeyAttributeId;
 
@@ -471,8 +471,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Create Product entity from raw data.
      *
+     * @return bool result of operation
      * @throws Exception
-     * @return bool Result of operation.
      */
     protected function _importData()
     {
@@ -598,8 +598,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize product type models.
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _initTypeModels()
     {
@@ -1313,10 +1313,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         we default to the default scope values.
                         In this case, remove all the existing store based values stored in the table.
                         */
-                        $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues)) .
-                            $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId) .
-                            $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
-                            $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+                        $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues))
+                            . $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId)
+                            . $this->_connection->quoteInto(' AND entity_id = ?', $productId)
+                            . $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
 
                         $this->_connection->delete(
                             $tableName,
@@ -1588,8 +1588,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve pattern for time formatting
      *
-     * @deprecated
      * @return string
+     * @deprecated
      */
     protected function _getStrftimeFormat()
     {
@@ -1621,7 +1621,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @param array $rowData
      * @param int $rowScope
      * @param array $attributes
-     * @param string|null $rowSku
+     * @param null|string $rowSku
      * @param int $rowStore
      * @return array
      */
@@ -2135,7 +2135,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get next bunch of validatetd rows.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getNextBunch()
     {
@@ -2283,7 +2283,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param array $rowData
      * @param int $rowNum
-     * @param string|false|null $sku
+     * @param null|false|string $sku
      */
     protected function _validate($rowData, $rowNum, $sku)
     {
@@ -2323,7 +2323,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get product url_key attribute id
      *
-     * @return string|false|null
+     * @return null|false|string
      */
     protected function _getUrlKeyAttributeId()
     {

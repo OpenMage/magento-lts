@@ -191,9 +191,9 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @deprecated
      * @return bool|mixed
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated
      */
     public function getCountryOptions()
     {

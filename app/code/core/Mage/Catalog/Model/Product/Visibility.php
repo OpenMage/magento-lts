@@ -31,7 +31,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 
     /**
      * Initialize object
-     *
      */
     public function __construct()
     {
@@ -42,8 +41,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add visible in catalog filter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -54,8 +53,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add visibility in searchfilter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -66,8 +65,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add visibility in site filter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -131,10 +130,10 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     }
 
     /**
-    * Retrieve all options
-    *
-    * @return array
-    */
+     * Retrieve all options
+     *
+     * @return array
+     */
     public static function getAllOption()
     {
         $options = self::getOptionArray();
@@ -213,7 +212,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

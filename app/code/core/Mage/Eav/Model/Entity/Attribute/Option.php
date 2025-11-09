@@ -13,12 +13,12 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
- *
  * @method int getAttributeId()
- * @method $this setAttributeId(int $value)
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getResourceCollection()
  * @method int getSortOrder()
+ * @method $this setAttributeId(int $value)
  * @method $this setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract
@@ -31,7 +31,7 @@ class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract
     /**
      * Retrieve swatch hex value
      *
-     * @return string|false
+     * @return false|string
      */
     public function getSwatchValue()
     {

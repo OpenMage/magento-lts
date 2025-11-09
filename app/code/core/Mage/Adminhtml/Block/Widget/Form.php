@@ -23,7 +23,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 
     /**
      * Class constructor
-     *
      */
     protected function _construct()
     {
@@ -73,9 +72,9 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Get form object
      *
+     * @return Varien_Data_Form
      * @deprecated deprecated since version 1.2
      * @see getForm()
-     * @return Varien_Data_Form
      */
     public function getFormObject()
     {

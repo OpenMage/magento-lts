@@ -27,7 +27,6 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
     /**
      *  Define resource model
-     *
      */
     protected function _construct()
     {
@@ -72,7 +71,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add filter by group id.
      * Group id can be passed as one single value or array of values.
      *
-     * @param int|array $groupId
+     * @param array|int $groupId
      * @return $this
      */
     public function addGroupFilter($groupId)
@@ -83,7 +82,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add store id(s) filter to collection
      *
-     * @param int|array $store
+     * @param array|int $store
      * @return $this
      */
     public function addIdFilter($store)
@@ -94,7 +93,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add filter by website to collection
      *
-     * @param int|array $website
+     * @param array|int $website
      * @return $this
      */
     public function addWebsiteFilter($website)
@@ -105,7 +104,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add root category id filter to store collection
      *
-     * @param int|array $category
+     * @param array|int $category
      * @return $this
      */
     public function addCategoryFilter($category)

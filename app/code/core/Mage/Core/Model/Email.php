@@ -20,16 +20,16 @@
  * @package    Mage_Adminhtml
  *
  * @method getFromEmail()
- * @method $this setFromEmail(string $string)
  * @method getFromName()
- * @method $this setFromName(string $string)
  * @method string getTemplate()
- * @method $this setTemplate(string $string)
- * @method string|array getToEmail()
- * @method $this setToEmail(string|array $string)
+ * @method array|string getToEmail()
  * @method getToName()
- * @method $this setToName(string $string)
  * @method string getType()
+ * @method $this setFromEmail(string $string)
+ * @method $this setFromName(string $string)
+ * @method $this setTemplate(string $string)
+ * @method $this setToEmail(array|string $string)
+ * @method $this setToName(string $string)
  * @method $this setType(string $string)
  */
 class Mage_Core_Model_Email extends Varien_Object
@@ -50,8 +50,8 @@ class Mage_Core_Model_Email extends Varien_Object
     }
 
     /**
-     * @param string|array $var
-     * @param string|null $value
+     * @param array|string $var
+     * @param null|string $value
      * @return $this
      */
     public function setTemplateVar($var, $value = null)

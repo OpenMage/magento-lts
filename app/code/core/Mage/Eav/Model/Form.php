@@ -31,21 +31,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Current entity type instance
      *
-     * @var Mage_Eav_Model_Entity_Type|null
+     * @var null|Mage_Eav_Model_Entity_Type
      */
     protected $_entityType;
 
     /**
      * Current entity instance
      *
-     * @var Mage_Core_Model_Abstract|null
+     * @var null|Mage_Core_Model_Abstract
      */
     protected $_entity;
 
@@ -59,21 +59,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Array of form attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
     /**
      * Array of form system attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_systemAttributes;
 
     /**
      * Array of form user defined attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_userAttributes;
 
@@ -120,7 +120,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set current store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -147,7 +147,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set entity type instance
      *
-     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
+     * @param int|Mage_Eav_Model_Entity_Type|string $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -185,8 +185,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return current form code
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFormCode()
     {
@@ -215,8 +215,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return current entity instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
@@ -263,7 +263,7 @@ abstract class Mage_Eav_Model_Form
      * Return attribute instance by code or false
      *
      * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute|false
+     * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($attributeCode)
     {
@@ -356,7 +356,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Validate data array and return true or array of errors
      *
-     * @return bool|array
+     * @return array|bool
      */
     public function validateData(array $data)
     {
@@ -519,7 +519,7 @@ abstract class Mage_Eav_Model_Form
      * Combined getter/setter whether to omit invisible attributes during rendering/validation
      *
      * @param mixed $setValue
-     * @return bool|$this
+     * @return $this|bool
      */
     public function ignoreInvisible($setValue = null)
     {

@@ -13,29 +13,29 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
+ * @method int getCategoryId()
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
+ * @method string getDescription()
+ * @method string getIdPath()
+ * @method int getIsSystem()
+ * @method string getOptions()
+ * @method int getProductId()
+ * @method string getRequestPath()
  * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
- *
- * @method $this setStoreId(int $value)
- * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method string getIdPath()
- * @method $this setIdPath(string $value)
- * @method string getRequestPath()
- * @method $this setRequestPath(string $value)
+ * @method array|string getTags()
  * @method string getTargetPath()
- * @method $this setTargetPath(string $value)
- * @method int getIsSystem()
- * @method $this setIsSystem(int $value)
- * @method string getOptions()
- * @method $this setOptions(string $value)
- * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method string|array getTags()
- * @method $this setTags(string|array $value)
  * @method bool hasCategoryId()
+ * @method $this setCategoryId(int $value)
+ * @method $this setDescription(string $value)
+ * @method $this setIdPath(string $value)
+ * @method $this setIsSystem(int $value)
+ * @method $this setOptions(string $value)
+ * @method $this setProductId(int $value)
+ * @method $this setRequestPath(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setTags(array|string $value)
+ * @method $this setTargetPath(string $value)
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
@@ -50,7 +50,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var mixed | array | string | boolean
+     * @var array|bool|mixed|string
      */
     protected $_cacheTag = false;
 
@@ -103,7 +103,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function loadByTags($tags)
@@ -149,7 +149,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function addTag($tags)
@@ -174,7 +174,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string|array $tags
+     * @param array|string $tags
      * @return $this
      */
     public function removeTag($tags)
@@ -344,7 +344,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {

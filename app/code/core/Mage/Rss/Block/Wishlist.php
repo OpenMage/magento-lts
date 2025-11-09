@@ -17,7 +17,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
@@ -89,8 +89,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * Render block HTML
      *
      * @return string
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _toHtml()
     {

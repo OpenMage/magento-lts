@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Region extends M
     /**
      * Set region to the attribute
      *
-     * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
+     * @param Mage_Sales_Model_Quote_Address|Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)

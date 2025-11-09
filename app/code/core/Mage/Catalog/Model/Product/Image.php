@@ -111,7 +111,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getWidth()
     {
@@ -129,7 +129,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getHeight()
     {
@@ -230,9 +230,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
-     * @param string|null $file
+     * @param null|string $file
      * @return bool
+     * @deprecated
      */
     protected function _checkMemory($file = null)
     {
@@ -255,8 +255,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
      * @return int
+     * @deprecated
      */
     protected function _getMemoryUsage()
     {
@@ -268,9 +268,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
      * @param string $file
      * @return float|int
+     * @deprecated
      */
     protected function _getNeedMemoryForFile($file = null)
     {
@@ -468,8 +468,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @see Varien_Image_Adapter_Abstract
      * @return $this
+     * @see Varien_Image_Adapter_Abstract
      */
     public function resize()
     {
@@ -642,7 +642,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Get relative watermark file path
      * or false if file not found
      *
-     * @return string | bool
+     * @return bool|string
      */
     protected function _getWatermarkFilePath()
     {

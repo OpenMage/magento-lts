@@ -12,12 +12,12 @@
  *
  * @package    Varien_Data
  *
- * @method string getHtmlIdPrefix()
- * @method $this setHtmlIdPrefix(string $value)
- * @method string getHtmlIdSuffix()
  * @method string getFieldNameSuffix()
+ * @method string getHtmlIdPrefix()
+ * @method string getHtmlIdSuffix()
  * @method setDataObject(Mage_Core_Model_Abstract $value)
  * @method $this setFieldNameSuffix(string $value)
+ * @method $this setHtmlIdPrefix(string $value)
  */
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
@@ -101,7 +101,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form
      * @throws Exception
      */
@@ -159,7 +159,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
 
     /**
      * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function getElement($elementId)
     {

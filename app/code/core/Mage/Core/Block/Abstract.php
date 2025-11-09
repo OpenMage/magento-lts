@@ -15,19 +15,19 @@
  *
  * @package    Mage_Core
  *
+ * @method string getPosition()
+ * @method bool hasWrapperMustBeVisible()
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(int|false $value)
  * @method $this setCacheKey(string $value)
+ * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
  * @method $this setDisabled(bool $value)
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
- * @method string getPosition()
  * @method $this setTemplate(string $value)
  * @method $this setType(string $value)
- * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -119,7 +119,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages|null
+     * @var null|Mage_Core_Block_Messages
      */
     protected $_messagesBlock = null;
 
@@ -172,14 +172,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory|null
+     * @var null|Mage_Core_Model_Factory
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App|null
+     * @var null|Mage_Core_Model_App
      */
     protected $_app;
 
@@ -203,7 +203,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Internal constructor, that is called from real constructor
      *
      * Please override this one instead of overriding real __construct constructor
-     *
      */
     protected function _construct()
     {
@@ -1133,7 +1132,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param string|int|Zend_Date|null $date
+     * @param null|int|string|Zend_Date $date
      * @param string $format
      * @param bool $showTime
      * @return string
@@ -1148,7 +1147,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting timezone date
      *
-     * @param string|int|Zend_Date|null $date
+     * @param null|int|string|Zend_Date $date
      */
     public function formatTimezoneDate(
         $date = null,
@@ -1210,11 +1209,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param string|array $data
+     * @param array|string $data
      * @param array $allowedTags
      * @return string
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -1225,7 +1224,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Escape html entities
      *
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -1236,7 +1235,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Wrapper for escapeHtml() function with keeping original value
      *
-     * @param string[]|null $allowedTags
+     * @param null|string[] $allowedTags
      *
      * @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
      */
@@ -1249,7 +1248,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Wrapper for escapeHtml() function with keeping original value
      *
      * @param string[] $data
-     * @param string[]|null $allowedTags
+     * @param null|string[] $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString[]
      *
      *  @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
@@ -1443,14 +1442,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add tag to block
      *
-     * @param string|array $tag
+     * @param array|string $tag
      * @return $this
      */
     public function addCacheTag($tag)
     {
         $tag = is_array($tag) ? $tag : [$tag];
-        $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY) ?
-            $tag : array_merge($this->getData(self::CACHE_TAGS_DATA_KEY), $tag);
+        $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY)
+            ? $tag : array_merge($this->getData(self::CACHE_TAGS_DATA_KEY), $tag);
         $this->setData(self::CACHE_TAGS_DATA_KEY, $tags);
         return $this;
     }
@@ -1473,7 +1472,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Get block cache lifetime
      *
-     * @return int|null
+     * @return null|int
      */
     public function getCacheLifetime()
     {
@@ -1497,7 +1496,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Load block html from cache storage
      *
-     * @return string | false
+     * @return false|string
      */
     protected function _loadCache()
     {

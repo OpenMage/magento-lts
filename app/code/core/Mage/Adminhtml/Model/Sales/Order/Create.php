@@ -26,21 +26,21 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Quote customer wishlist model object
      *
-     * @var Mage_Wishlist_Model_Wishlist|false|null
+     * @var null|false|Mage_Wishlist_Model_Wishlist
      */
     protected $_wishlist;
 
     /**
      * Sales Quote instance
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_cart;
 
     /**
      * Catalog Compare List instance
      *
-     * @var Mage_Catalog_Model_Product_Compare_List|false|null
+     * @var null|false|Mage_Catalog_Model_Product_Compare_List
      */
     protected $_compareList;
 
@@ -75,14 +75,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Customer Address Form instance
      *
-     * @var Mage_Customer_Model_Form|null
+     * @var null|Mage_Customer_Model_Form
      */
     protected $_customerAddressForm;
 
     /**
      * Customer Form instance
      *
-     * @var Mage_Customer_Model_Form|null
+     * @var null|Mage_Customer_Model_Form
      */
     protected $_customerForm;
 
@@ -131,7 +131,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Retrieve quote item
      *
      * @param   int|Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Sales_Model_Quote_Item|false
+     * @return  false|Mage_Sales_Model_Quote_Item
      */
     protected function _getQuoteItem($item)
     {
@@ -403,7 +403,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order Item
      *
      * @param int $qty
-     * @return Mage_Sales_Model_Quote_Item|string|$this
+     * @return $this|Mage_Sales_Model_Quote_Item|string
      */
     public function initFromOrderItem(Mage_Sales_Model_Order_Item $orderItem, $qty = null)
     {
@@ -767,7 +767,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * $config can be either buyRequest config, or just qty
      *
      * @param   int|Mage_Catalog_Model_Product $product
-     * @param   float|array|Varien_Object $config
+     * @param   array|float|Varien_Object $config
      * @return  Mage_Adminhtml_Model_Sales_Order_Create
      */
     public function addProduct($product, $config = 1)
@@ -827,7 +827,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Add multiple products to current order quote
      *
-     * @return  Mage_Adminhtml_Model_Sales_Order_Create|Exception
+     * @return  Exception|Mage_Adminhtml_Model_Sales_Order_Create
      */
     public function addProducts(array $products)
     {
@@ -1752,8 +1752,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Save customer
      *
-     * @deprecated after 1.4.0.0.
      * @param Mage_Customer_Model_Customer $order
+     * @deprecated after 1.4.0.0.
      */
     protected function _saveCustomerAfterOrder($order)
     {
@@ -1814,8 +1814,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * @deprecated after 1.1.7
      * @return $this
+     * @deprecated after 1.1.7
      */
     protected function _saveCustomer()
     {
