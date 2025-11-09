@@ -1444,7 +1444,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $newProduct->save();
 
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
-        $this->getResource()->duplicate($this->getId(), $newProduct->getId(), $newProduct->getSkipImagesOnDuplicate());
+        $this->getResource()
+            ->setSkipImagesOnDuplicate($newProduct->getSkipImagesOnDuplicate())
+            ->duplicate($this->getId(), $newProduct->getId());
 
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {

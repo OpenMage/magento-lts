@@ -29,6 +29,13 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     protected $_productCategoryTable;
 
     /**
+     * Used when duplicating product
+     *
+     * @var string
+     */
+    protected $_skipImagesOnDuplicate = false;
+
+    /**
      * Initialize resource
      */
     public function __construct()
@@ -551,14 +558,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param int $newId
      * @return $this
      */
-    public function duplicate($oldId, $newId, $skipImagesOnDuplicate = false)
+    public function duplicate($oldId, $newId)
     {
         $adapter = $this->_getWriteAdapter();
         $eavTables = ['datetime', 'decimal', 'int', 'text', 'varchar'];
         $mediaImageAttributeSkipIds = [];
         $adapter = $this->_getWriteAdapter();
 
-        if($skipImagesOnDuplicate){
+        if($this->getSkipImagesOnDuplicate()){
 
             /**
              * @var int $attributeId
@@ -726,4 +733,22 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
+
+    /**
+     * @param bool $newProductSkipImages
+     * @return $this
+     */
+    public function setSkipImagesOnDuplicate(bool $newProductSkipImages){
+        $this->_skipImagesOnDuplicate = $newProductSkipImages;
+        return $this;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getSkipImagesOnDuplicate(){
+        return $this->_skipImagesOnDuplicate;
+    }
+
+
 }
