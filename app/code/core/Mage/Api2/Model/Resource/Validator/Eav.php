@@ -115,6 +115,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      *
      * @param mixed $attrValue
      * @return array|bool
+     * @throws Mage_Core_Exception
      */
     protected function _validateAttributeWithSource(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $attrValue)
     {
@@ -173,6 +174,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      *
      * @param bool $partial
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isValidData(array $data, $partial = false)
     {
@@ -205,7 +207,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
 
         $this->_setErrors($errors);
 
-        return $errors ? false : true;
+        return !$errors;
     }
 
     /**

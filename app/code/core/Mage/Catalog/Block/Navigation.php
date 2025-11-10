@@ -244,13 +244,9 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $flatHelper = Mage::helper('catalog/category_flat');
         if ($flatHelper->isAvailable() && $flatHelper->isBuilt(true) && !Mage::app()->getStore()->isAdmin()) {
             $children = (array) $category->getChildrenNodes();
-            $childrenCount = count($children);
         } else {
             $children = $category->getChildren();
-            $childrenCount = $children->count();
         }
-
-        $hasChildren = ($children && $childrenCount);
 
         // select active children
         $activeChildren = [];

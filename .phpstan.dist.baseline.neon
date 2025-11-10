@@ -79,12 +79,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			rawMessage: 'Method Mage_Wishlist_Model_Resource_Item_Collection::addDaysInWishlist() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
-
-		-
 			rawMessage: Access to an undefined property Mage_Adminhtml_Block_Notification_Window::$_aclResourcePath.
 			identifier: property.notFound
 			count: 1
@@ -173,18 +167,6 @@ parameters:
 			identifier: class.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
-
-		-
-			rawMessage: 'Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection::useProductItem() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Compared.php
-
-		-
-			rawMessage: 'Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection::useProductItem() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pcompared.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Shipping_Model_Carrier_Abstract::isGirthAllowed().'
@@ -373,12 +355,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/SetController.php
 
 		-
-			rawMessage: 'Method Mage_Adminhtml_Controller_Action::_setForcedFormKeyActions() invoked with 2 parameters, 1 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/SearchController.php
-
-		-
 			rawMessage: 'Parameter #1 $content of method Zend_Controller_Response_Abstract::setBody() expects string, int given.'
 			identifier: argument.type
 			count: 1
@@ -398,12 +374,6 @@ parameters:
 
 		-
 			rawMessage: 'Method Mage_Adminhtml_Model_Sales_Order_Create::moveQuoteItem() invoked with 2 parameters, 3 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
-
-		-
-			rawMessage: 'Method Mage_Adminhtml_Model_Sales_Order_Create::resetShippingMethod() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
@@ -439,10 +409,10 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: 'Method Mage_Adminhtml_Controller_Action::_setForcedFormKeyActions() invoked with 2 parameters, 1 required.'
-			identifier: arguments.count
+			rawMessage: Dead catch - Exception is never thrown in the try block.
+			identifier: catch.neverThrown
 			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php
 
 		-
 			rawMessage: 'Cannot call method fetchRates() on Mage_Core_Model_Abstract|false.'
@@ -625,38 +595,8 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Multicall.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Api2_Model_Resource::_multiDelete().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
 			rawMessage: 'Call to an undefined method Varien_Data_Collection_Db::addAttributeToFilter().'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			rawMessage: 'Method Mage_Api2_Model_Resource::_create() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			rawMessage: 'Method Mage_Api2_Model_Resource::_multiCreate() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			rawMessage: 'Method Mage_Api2_Model_Resource::_multiUpdate() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			rawMessage: 'Method Mage_Api2_Model_Resource::_update() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
@@ -679,12 +619,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
 		-
-			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
 			rawMessage: 'Call to an undefined method Zend_Validate_Interface::setMessage().'
 			identifier: method.notFound
 			count: 1
@@ -695,36 +629,6 @@ parameters:
 			identifier: method.childParameterType
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Route/Abstract.php
-
-		-
-			rawMessage: Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter $defaults.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
-
-		-
-			rawMessage: Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter $locale.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
-
-		-
-			rawMessage: Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter $reqs.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
-
-		-
-			rawMessage: Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter $route.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
-
-		-
-			rawMessage: Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter $translator.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
 			rawMessage: 'Call to an undefined method Varien_Object::encrypt().'
@@ -855,7 +759,7 @@ parameters:
 		-
 			rawMessage: 'Cannot call method count() on string.'
 			identifier: method.nonObject
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
@@ -869,12 +773,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product.php
-
-		-
-			rawMessage: 'Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection::useProductItem() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
 
 		-
 			rawMessage: 'Parameter #1 $category (Mage_Catalog_Model_Category) of method Mage_Catalog_Block_Seo_Sitemap_Category::getItemUrl() should be compatible with parameter $item (Mage_Catalog_Block_Seo_Sitemap_Abstract) of method Mage_Catalog_Block_Seo_Sitemap_Abstract::getItemUrl()'
@@ -2335,12 +2233,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			rawMessage: Constructor of class Mage_Eav_Model_Entity_Collection_Abstract has an unused parameter $resource.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $className of method Varien_Data_Collection::setItemObjectClass() expects string, null given.'
 			identifier: argument.type
 			count: 1
@@ -2360,12 +2252,6 @@ parameters:
 
 		-
 			rawMessage: 'Parameter #1 $attribute of static method Mage_Eav_Model_Attribute_Data::factory() expects Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Form.php
-
-		-
-			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, false given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Form.php
