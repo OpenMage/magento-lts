@@ -27,7 +27,6 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Constructor
      *
-     * @param array $options
      * @throws Varien_Exception
      * @throws Zend_Cache_Exception
      * @see Zend_Cache_Backend_Memcached::__construct()
