@@ -141,12 +141,11 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      *
      * @param Varien_Object $category
      * @return bool
-     * @throws Mage_Core_Exception
      */
     public function isCategoryActive($category)
     {
-        $category = $this->getCurrentCategory();
-        return $category && in_array($category->getId(), $category->getPathIds());
+        $currentCategory = $this->getCurrentCategory();
+        return $currentCategory && in_array($category->getId(), $currentCategory->getPathIds());
     }
 
     /**
