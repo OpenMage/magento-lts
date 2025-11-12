@@ -1513,12 +1513,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Front/Action.php
 
 		-
-			rawMessage: Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter $invokeArgs.
-			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method Zend_Controller_Response_Abstract::setHeader() expects string, int|false given.'
 			identifier: argument.type
 			count: 1
