@@ -116,6 +116,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @param   mixed $entityType
      * @param   string $code
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     public function loadByCode($entityType, $code)
     {
@@ -353,6 +354,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity exclude this entity
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getAlias($entity = null)
     {
@@ -379,6 +381,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity type
      *
      * @return Mage_Eav_Model_Entity_Type
+     * @throws Mage_Core_Exception
      */
     public function getEntityType()
     {
@@ -401,6 +404,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity instance
      *
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
@@ -415,6 +419,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity type
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getEntityIdField()
     {
@@ -522,6 +527,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getDefaultSourceModel()
     {
@@ -602,15 +608,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @param string $entityType
      * @param string $code
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getIdByCode($entityType, $code)
     {
-        $k = "{$entityType}|{$code}";
-        if (!isset($this->_attributeIdCache[$k])) {
-            $this->_attributeIdCache[$k] = $this->getResource()->getIdByCode($entityType, $code);
+        $key = "{$entityType}|{$code}";
+        if (!isset($this->_attributeIdCache[$key])) {
+            $this->_attributeIdCache[$key] = $this->getResource()->getIdByCode($entityType, $code);
         }
 
-        return $this->_attributeIdCache[$k];
+        return $this->_attributeIdCache[$key];
     }
 
     /**
@@ -627,6 +634,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Get attribute backend table name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBackendTable()
     {
@@ -651,6 +659,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve flat columns definition
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFlatColumns()
     {
@@ -670,6 +679,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve flat columns DDL definition
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function _getFlatColumnsDdlDefinition()
     {
@@ -754,6 +764,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Used in database compatible mode
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getFlatColumnsOldDefinition()
     {
@@ -835,6 +846,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve index data for flat table
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFlatIndexes()
     {
@@ -917,6 +929,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param int $store
      * @return null|$this|Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     public function getFlatUpdateSelect($store = null)
     {

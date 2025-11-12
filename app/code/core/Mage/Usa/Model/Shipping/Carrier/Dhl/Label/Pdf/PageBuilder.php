@@ -31,7 +31,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Pdf Page Instance
      *
-     * @var Zend_Pdf_Page
+     * @var Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page
      */
     protected $_page;
 
@@ -58,6 +58,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Set Page
      *
+     * @param Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page $page
      * @return $this
      */
     public function setPage(Zend_Pdf_Page $page)

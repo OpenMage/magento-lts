@@ -11,6 +11,8 @@
  * Adminhtml products report grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -28,6 +30,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Reports_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('reports/product_collection');
         $collection->getEntity()->setStore(0);
 

@@ -76,9 +76,9 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         if ((int) $index && (int) $range) {
             $this->setRange((int) $range);
 
-            $this->_getResource()->applyFilterToCollection($this, $range, $index);
+            $this->_getResource()->applyFilterToCollection($this, (float) $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter),
+                $this->_createItem($this->_renderItemLabel((int) $range, (float) $index), $filter),
             );
 
             $this->_items = [];
@@ -104,7 +104,9 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      * @param   int $range
      * @param   float $value
      * @return  string
+     * @throws  Mage_Core_Exception
      * @throws  Mage_Core_Model_Store_Exception
+     * @throws  Zend_Controller_Response_Exception
      */
     protected function _renderItemLabel($range, $value)
     {

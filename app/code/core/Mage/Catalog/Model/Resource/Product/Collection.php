@@ -12,6 +12,7 @@
  *
  * @package    Mage_Catalog
  *
+ * @method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract getEntity()
  * @method Mage_Catalog_Model_Product getItemById($value)
  * @method Mage_Catalog_Model_Product[] getItems()
  */
@@ -60,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @var int
      */
-    protected $_urlRewriteCategory           = '';
+    protected $_urlRewriteCategory           = 0;
 
     /**
      * Is add minimal price to product collection flag
@@ -110,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Category product count select
      *
-     * @var null|Zend_Db_Select
+     * @var null|Varien_Db_Select
      */
     protected $_productCountSelect           = null;
 
@@ -224,6 +225,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param Varien_Db_Select $select
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _preparePriceExpressionParameters($select)
     {
@@ -261,6 +263,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param Varien_Db_Select $select
      * @return string
+     * @throws Zend_Db_Select_Exception
      */
     public function getPriceExpression($select)
     {
@@ -276,6 +279,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param Varien_Db_Select $select
      * @return string
+     * @throws Zend_Db_Select_Exception
      */
     public function getAdditionalPriceExpression($select)
     {
@@ -330,6 +334,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Initialize resources
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _construct()
     {
@@ -344,6 +350,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Define product website and category product tables
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _initTables()
     {
@@ -384,6 +392,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Redeclared for specifying id field name without getting resource model inside model
      *
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getNewEmptyItem()
     {
@@ -415,6 +424,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param mixed $store
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setStore($store)
     {
@@ -432,6 +442,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * in catalog_product_entity we store just products
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initSelect()
     {
@@ -471,6 +482,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * If $attribute=='*' select all attributes
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function addAttributeToSelect($attribute, $joinType = false)
     {
@@ -521,6 +533,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Adding url rewrites, minimal prices, final prices, tax percents
      *
      * @return $this
+     * @throws Exception
      */
     protected function _afterLoad()
     {
@@ -611,6 +624,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add for each product websites information
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addWebsiteNamesToResult()
     {
@@ -673,6 +687,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param array|int|string $websites
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function addWebsiteFilter($websites = null)
     {
@@ -700,6 +717,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Specify category filter for product collection
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function addCategoryFilter(Mage_Catalog_Model_Category $category)
     {
@@ -723,6 +743,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join minimal price attribute to result
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinMinimalPrice()
     {
@@ -736,6 +757,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function getMaxAttributeValue($attribute)
     {
@@ -764,6 +786,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @param string $attribute
      * @param int $range
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAttributeValueCountByRange($attribute, $range)
     {
@@ -803,6 +826,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute
      * @return array ($value=>$count)
+     * @throws Mage_Core_Exception
      */
     public function getAttributeValueCount($attribute)
     {
@@ -849,6 +873,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param string $attribute attribute code
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllAttributeValues($attribute)
     {
@@ -911,6 +936,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Prepare statistics data
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _prepareStatisticsData()
     {
@@ -968,6 +994,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Retrieve all ids for collection
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function getAllIds($limit = null, $offset = null)
     {
@@ -1106,6 +1133,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Joins url rewrite rules to collection
      *
      * @return $this
+     * @throws Mage_Core_Exception
      * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      */
     public function joinUrlRewrite()
@@ -1241,6 +1269,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join prices from price rules to products collection
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _joinPriceRules()
     {
@@ -1316,6 +1345,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param bool $resetCache
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllIdsCache($resetCache = false)
     {
@@ -1378,6 +1408,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -1483,6 +1515,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Adding product custom options to result collection
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addOptionsToResult()
     {
@@ -1514,6 +1547,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Filter products with required options
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function addFilterByRequiredOptions()
     {
@@ -1539,6 +1574,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add attribute to sort order
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -1596,6 +1632,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Prepare limitation filters
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareProductLimitationFilters()
     {
@@ -1627,6 +1664,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join website product limitation
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _productLimitationJoinWebsite()
     {
@@ -1676,6 +1714,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Join additional (alternative) store visibility filter
      *
      * @return $this
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _productLimitationJoinStore()
     {
@@ -1822,6 +1862,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Apply front-end price limitation filters to the collection
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function applyFrontendPriceLimitations()
     {
@@ -1847,6 +1888,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Method supports multiple changes in one collection object for this parameters
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _applyProductLimitations()
     {
@@ -1909,6 +1953,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * for combinations of category_id filter states
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _applyZeroStoreProductLimitations()
     {
@@ -1944,6 +1989,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add category ids to loaded items
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addCategoryIds()
     {
@@ -1989,6 +2035,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add tier price data to loaded items
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addTierPriceData()
     {
@@ -2096,16 +2143,16 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function clear()
     {
-        foreach ($this->_items as $i => $item) {
+        foreach ($this->_items as $itemId => $item) {
             if ($item->hasStockItem()) {
                 $item->unsStockItem();
             }
 
-            $item = $this->_items[$i] = null;
+            $item = $this->_items[$itemId] = null;
         }
 
-        foreach ($this->_itemsById as $i => $item) {
-            $item = $this->_itemsById[$i] = null;
+        foreach ($this->_itemsById as $itemId => $item) {
+            $item = $this->_itemsById[$itemId] = null;
         }
 
         unset($this->_items, $this->_data, $this->_itemsById);
@@ -2120,6 +2167,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * @param string $attribute
      * @param string $dir
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setOrder($attribute, $dir = 'desc')
     {
@@ -2136,6 +2184,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Get products max price
      *
      * @return float
+     * @throws Zend_Db_Select_Exception
      */
     public function getMaxPrice()
     {
@@ -2150,6 +2199,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Get products min price
      *
      * @return float
+     * @throws Zend_Db_Select_Exception
      */
     public function getMinPrice()
     {
@@ -2164,6 +2214,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Get standard deviation of products price
      *
      * @return float
+     * @throws Zend_Db_Select_Exception
      */
     public function getPriceStandardDeviation()
     {
@@ -2178,6 +2229,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Get count of product prices
      *
      * @return int
+     * @throws Zend_Db_Select_Exception
      */
     public function getPricesCount()
     {

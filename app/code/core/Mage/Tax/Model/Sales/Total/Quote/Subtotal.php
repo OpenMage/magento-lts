@@ -706,7 +706,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Round price based on previous rounding operation delta
      *
      * @param float $price
-     * @param string $rate
+     * @param float $rate
      * @param bool $direction
      * @param string $type
      *

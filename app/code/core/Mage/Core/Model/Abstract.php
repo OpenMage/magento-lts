@@ -71,7 +71,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @var array|bool|string
      */
     protected $_cacheTag    = false;
 
@@ -339,6 +339,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function afterLoad()
     {
