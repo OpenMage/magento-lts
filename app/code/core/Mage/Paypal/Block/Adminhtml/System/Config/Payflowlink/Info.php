@@ -35,9 +35,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info extends Mage_Ad
     /**
      * Get frontend url
      *
-     * @deprecated since 1.7.0.1
      * @param string $routePath
      * @return string
+     * @deprecated since 1.7.0.1
      */
     public function getFrontendUrl($routePath)
     {

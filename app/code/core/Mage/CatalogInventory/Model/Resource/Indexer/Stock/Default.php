@@ -80,9 +80,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Retrieve active Product Type Id
      *
-     * @throws Mage_Core_Exception
-     *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTypeId()
     {

@@ -37,8 +37,8 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _aggregateByOrder($aggregationField, $from, $to)
     {

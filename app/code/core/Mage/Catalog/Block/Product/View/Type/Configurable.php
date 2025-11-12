@@ -104,8 +104,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * retrieve current store
      *
-     * @deprecated
      * @return Mage_Core_Model_Store
+     * @deprecated
      */
     public function getCurrentStore()
     {
@@ -275,7 +275,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Validating of super product option value
      *
-     * @param array $attributeId
+     * @param string $attributeId
      * @param array $value
      * @param array $options
      * @return bool
@@ -307,10 +307,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation real price
      *
-     * @deprecated
      * @param float $price
      * @param bool $isPercent
      * @return mixed
+     * @deprecated
      */
     protected function _preparePrice($price, $isPercent = false)
     {
@@ -320,10 +320,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Calculation price before special price
      *
-     * @deprecated
      * @param float $price
      * @param bool $isPercent
      * @return mixed
+     * @deprecated
      */
     protected function _prepareOldPrice($price, $isPercent = false)
     {
@@ -333,9 +333,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Replace ',' on '.' for js
      *
-     * @deprecated
      * @param float $price
      * @return string
+     * @deprecated
      */
     protected function _registerJsPrice($price)
     {
@@ -345,10 +345,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Convert price from default currency to current currency
      *
-     * @deprecated
      * @param float $price
      * @param bool $round
      * @return float
+     * @deprecated
      */
     protected function _convertPrice($price, $round = false)
     {

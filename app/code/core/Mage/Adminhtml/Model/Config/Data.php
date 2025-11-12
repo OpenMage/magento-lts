@@ -13,18 +13,18 @@
  * @package    Mage_Adminhtml
  *
  * @method array getGroups()
- * @method $this setGroups(array $value)
  * @method string getScope()
- * @method $this setScope(string $value)
  * @method string getScopeCode()
- * @method $this setScopeCode(string $value)
  * @method int getScopeId()
- * @method $this setScopeId(int $value)
  * @method string getSection()
- * @method $this setSection(string $value)
  * @method string getStore()
- * @method $this setStore(string $value)
  * @method string getWebsite()
+ * @method $this setGroups(array $value)
+ * @method $this setScope(string $value)
+ * @method $this setScopeCode(string $value)
+ * @method $this setScopeId(int $value)
+ * @method $this setSection(string $value)
+ * @method $this setStore(string $value)
  * @method $this setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
@@ -410,8 +410,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Secure set groups
      *
      * @param array $groups
-     * @throws Mage_Core_Exception
      * @return Mage_Adminhtml_Model_Config_Data
+     * @throws Mage_Core_Exception
      */
     public function setGroupsSecure($groups)
     {
@@ -488,8 +488,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * Select group setter is secure or not based on the configuration
      *
      * @param array $groups
-     * @throws Mage_Core_Exception
      * @return Mage_Adminhtml_Model_Config_Data
+     * @throws Mage_Core_Exception
      */
     public function setGroupsSelector($groups)
     {

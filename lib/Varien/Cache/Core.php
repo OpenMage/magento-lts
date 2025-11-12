@@ -186,8 +186,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @param  string       $mode
      * @param  array|string $tags
-     * @throws Zend_Cache_Exception
      * @return bool True if ok
+     * @throws Zend_Cache_Exception
      */
     public function clean($mode = 'all', $tags = [])
     {

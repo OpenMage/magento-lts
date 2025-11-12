@@ -27,7 +27,9 @@ return $config
         // Docblocks should have the same indentation as the documented subject.
         'phpdoc_indent' => true,
         // Annotations in PHPDoc should be ordered in defined sequence.
-        'phpdoc_order' => true,
+        'phpdoc_order' => ['order' => ['param', 'return', 'throws', 'deprecated', 'see', 'SuppressWarnings', 'phpstan-ignore']],
+        // Order PHPDoc tags by value.
+        'phpdoc_order_by_value' => ['annotations' => ['author', 'covers', 'group', 'method', 'throws', 'uses']],
         // Orders all @param annotations in DocBlocks according to method signature.
         'phpdoc_param_order' => true,
         // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.

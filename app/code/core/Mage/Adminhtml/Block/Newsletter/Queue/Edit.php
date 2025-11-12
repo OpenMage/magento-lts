@@ -52,8 +52,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getSaveUrl()
     {

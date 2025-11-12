@@ -16,8 +16,8 @@
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 {
     /**
-     * @throws Zend_Locale_Exception
      * @return string
+     * @throws Zend_Locale_Exception
      */
     protected function _toHtml()
     {
@@ -38,7 +38,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         ]);
 
         // get "today" and "week" words
-        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
+        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', '0')));
         $this->assign('week', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'field', 'week')));
 
         // get "am" & "pm" words

@@ -12,16 +12,16 @@
  *
  * @package    Mage_Payment
  *
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method string getCheckoutRedirectUrl()
- * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
  * @method string getInstructions()
  * @method string getOrderPlaceRedirectUrl()
  * @method int getStore()
+ * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $agreement)
+ * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $agreement)
+ * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
  * @method $this setStore(int $value)
- * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
- * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
- * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
- * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
@@ -541,12 +541,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * @deprecated after 1.4.0.0-alpha3
-     * this method doesn't make sense, because invoice must not void entire authorization
-     * there should be method for invoice cancellation
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return Mage_Payment_Model_Method_Abstract
+     * @deprecated after 1.4.0.0-alpha3
+     * this method doesn't make sense, because invoice must not void entire authorization
+     * there should be method for invoice cancellation
      */
     public function processBeforeVoid($invoice, $payment)
     {
@@ -581,8 +581,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to accept a payment that us under review
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
@@ -596,8 +596,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to deny a payment that us under review
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {

@@ -46,7 +46,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Determine shipping day according to configuration settings
      *
-     * @param array $shippingDays
+     * @param string $shippingDays
      * @param string $date
      * @return string
      */
@@ -58,13 +58,13 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
 
         $shippingDays = explode(',', $shippingDays);
 
-        $i = 0;
+        $index = 0;
         $weekday = date('D', strtotime($date));
-        while (!in_array($weekday, $shippingDays) && $i < 10) {
-            $i++;
-            $weekday = date('D', strtotime("$date +$i day"));
+        while (!in_array($weekday, $shippingDays) && $index < 10) {
+            $index++;
+            $weekday = date('D', strtotime("$date +$index day"));
         }
 
-        return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$i day"));
+        return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$index day"));
     }
 }

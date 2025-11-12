@@ -165,8 +165,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load and validate order, instantiate proper configuration
      *
-     * @throws Exception
      * @return Mage_Sales_Model_Order
+     * @throws Exception
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _getOrder()
@@ -200,8 +200,8 @@ class Mage_Paypal_Model_Ipn
     /**
      * Load recurring profile
      *
-     * @throws Exception
      * @return Mage_Sales_Model_Recurring_Profile
+     * @throws Exception
      */
     protected function _getRecurringProfile()
     {

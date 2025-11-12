@@ -111,7 +111,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Centinel cardinal fields map
      *
-     * @var string
+     * @var array
      */
     protected $_centinelFieldMap = [
         'centinel_mpivendor'    => 'MPIVENDOR3DS',
@@ -141,8 +141,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Payment action getter compatible with payment model
      *
-     * @see Mage_Sales_Model_Payment::place()
      * @return string
+     * @see Mage_Sales_Model_Payment::place()
      */
     public function getConfigPaymentAction()
     {
@@ -158,6 +158,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -200,6 +202,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -244,6 +248,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -286,6 +292,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Attempt to void the authorization on cancelling
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this|false
      */
     public function cancel(Varien_Object $payment)
@@ -302,6 +309,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -327,6 +336,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param string $transactionId
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
@@ -387,6 +398,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      * Post request to gateway and return response
      *
      * @return Varien_Object
+     * @throws Zend_Http_Client_Exception
      */
     protected function _postRequest(Varien_Object $request)
     {
@@ -458,6 +470,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     protected function _buildPlaceRequest(Varien_Object $payment, $amount)
     {

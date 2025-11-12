@@ -42,8 +42,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Adminhtml_Block_Widget_Grid
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareCollection()
     {
@@ -75,9 +75,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
+     * @return Mage_Adminhtml_Block_Widget_Grid
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareColumns()
     {
@@ -146,8 +146,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getGridUrl()
     {
@@ -155,8 +155,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     protected function _getSelectedProducts()
     {
@@ -164,8 +164,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     protected function _getProducts()
     {
@@ -179,8 +179,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {

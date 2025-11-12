@@ -40,9 +40,8 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     }
 
     /**
-     * @deprecated since 1.3.2
-     *
      * @return string
+     * @deprecated since 1.3.2
      */
     public function getAddNewButtonHtml()
     {

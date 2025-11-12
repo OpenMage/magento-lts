@@ -15,19 +15,19 @@
  *
  * @package    Mage_Core
  *
+ * @method string getPosition()
+ * @method bool hasWrapperMustBeVisible()
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
- * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheKey(string $value)
+ * @method $this setCacheLifetime(false|int $value)
  * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
  * @method $this setDisabled(bool $value)
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
- * @method string getPosition()
  * @method $this setTemplate(string $value)
  * @method $this setType(string $value)
- * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -234,8 +234,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve request object
      *
-     * @throws Exception
      * @return Mage_Core_Controller_Request_Http
+     * @throws Exception
      */
     public function getRequest()
     {
@@ -252,7 +252,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve parent block
      *
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getParentBlock()
     {
@@ -506,6 +506,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param mixed $result
      * @param array $params
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function unsetCallChild($alias, $callback, $result, $params)
     {
@@ -845,6 +846,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param string $callback
      * @param bool $skipEmptyResults
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getChildGroup($groupName, $callback = null, $skipEmptyResults = true)
     {
@@ -1072,6 +1074,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   string $file path to file in skin
      * @return  string
+     * @throws  Exception
      */
     public function getSkinUrl($file = null, array $params = [])
     {
@@ -1212,8 +1215,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param array|string $data
      * @param array $allowedTags
      * @return string
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -1316,7 +1319,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param mixed $data
      * @param string $quote
-     * @return mixed
+     * @return string|string[]
      */
     public function jsQuoteEscape($data, $quote = "'")
     {
@@ -1458,6 +1461,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Add tags from specified model to current block
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addModelTags(Mage_Core_Model_Abstract $model)
     {
@@ -1585,6 +1589,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param array|Varien_Data_Collection $items
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemsTags($items)
     {

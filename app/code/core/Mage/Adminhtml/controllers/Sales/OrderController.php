@@ -782,7 +782,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('cancel', 'massCancel');
+        $this->_setForcedFormKeyActions(['cancel', 'massCancel']);
         return parent::preDispatch();
     }
 }

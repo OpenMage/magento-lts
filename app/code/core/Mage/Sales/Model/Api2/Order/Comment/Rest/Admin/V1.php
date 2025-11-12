@@ -18,16 +18,19 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
      * Add comment to order
      *
      * @return string
+     * @throws Exception
+     * @throws Mage_Api2_Exception
+     * @throws Throwable
      */
-    protected function _create(array $data)
+    protected function _create(array $filteredData)
     {
         $orderId = $this->getRequest()->getParam(self::PARAM_ORDER_ID);
         $order   = $this->_loadOrderById($orderId);
 
-        $status         = $data['status'] ?? false;
-        $comment        = $data['comment'] ?? '';
-        $visibleOnFront = $data['is_visible_on_front'] ?? 0;
-        $notifyCustomer = array_key_exists('is_customer_notified', $data) ? $data['is_customer_notified'] : false;
+        $status         = $filteredData['status'] ?? false;
+        $comment        = $filteredData['comment'] ?? '';
+        $visibleOnFront = $filteredData['is_visible_on_front'] ?? 0;
+        $notifyCustomer = array_key_exists('is_customer_notified', $filteredData) ? $filteredData['is_customer_notified'] : false;
 
         $historyItem = $order->addStatusHistoryComment($comment, $status);
         $historyItem->setIsCustomerNotified($notifyCustomer)
@@ -50,11 +53,11 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), self::RESOURCE_INTERNAL_ERROR);
-        } catch (Throwable $t) {
-            Mage::logException($t);
-            $this->_critical($t->getMessage(), self::RESOURCE_UNKNOWN_ERROR);
+        } catch (Mage_Core_Exception) {
+            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
+            $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
 
         return $this->_getLocation($historyItem);
@@ -64,6 +67,8 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
      * Retrieve order comment by id
      *
      * @return array
+     * @throws Exception
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {

@@ -52,6 +52,11 @@ class Mage_Api_Model_Acl extends Zend_Acl
     public const RULE_PERM_ALLOW = 2;
 
     /**
+     * @var Mage_Api_Model_Acl_Role_Registry
+     */
+    protected $_roleRegistry;
+
+    /**
      * Get role registry object or create one
      *
      * @return Mage_Api_Model_Acl_Role_Registry
@@ -71,6 +76,7 @@ class Mage_Api_Model_Acl extends Zend_Acl
      * @param string|Zend_Acl_Role_Interface $role
      * @param array|string|Zend_Acl_Role_Interface $parent
      * @return $this
+     * @throws Zend_Acl_Role_Registry_Exception
      */
     public function addRoleParent($role, $parent)
     {

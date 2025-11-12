@@ -12,9 +12,9 @@
  *
  * @package    Mage_ImportExport
  *
+ * @method string getOperationType()
  * @method string getRunAt()
  * @method int getScheduledOperationId()
- * @method string getOperationType()
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {

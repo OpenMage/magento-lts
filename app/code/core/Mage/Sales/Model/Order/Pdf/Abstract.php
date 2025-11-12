@@ -695,8 +695,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Retrieve renderer model
      *
      * @param  string $type
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getRenderer($type)
     {
@@ -832,8 +832,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Retrieve PDF object
      *
-     * @throws Mage_Core_Exception
      * @return Zend_Pdf
+     * @throws Mage_Core_Exception
      */
     protected function _getPdf()
     {
@@ -878,8 +878,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * align        string; text align (also see feed parameter), optional left, right
      * height       int;line spacing (default 10)
      *
-     * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
+     * @throws Mage_Core_Exception
      */
     public function drawLineBlocks(Zend_Pdf_Page $page, array $draw, array $pageSettings = [])
     {

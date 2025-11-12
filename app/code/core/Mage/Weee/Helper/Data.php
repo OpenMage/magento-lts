@@ -266,8 +266,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Sets applied weee taxes
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param array                                $value
+     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param array $value
      * @return $this
      */
     public function setApplied($item, $value)
@@ -314,7 +314,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $shipping,
                 $billing,
                 $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
+                $calculateTaxes ?: $this->typeOfDisplay($product, 1),
             );
         }
 
@@ -356,7 +356,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns amount to display including taxes
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float
+     * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getAmountForDisplayInclTaxes($product)
     {
@@ -394,8 +395,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array                      $tierPrices
-     * @param bool                    $includeIndex
+     * @param bool                       $includeIndex
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function processTierPrices($product, &$tierPrices, $includeIndex = true)
     {
@@ -448,8 +450,8 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns all summed weee taxes with all local taxes applied
      *
      * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
-     * @throws Mage_Core_Exception
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getAmountInclTaxes($attributes)
     {
@@ -470,7 +472,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if the configuration for the particular store causes conflicts
      *
-     * @param null|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function validateCatalogPricesAndFptConfiguration($store = null)
@@ -490,9 +492,9 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Set a value to a specific property searching FPT by title for the Item
      *
      * @param Mage_Core_Model_Abstract $item
-     * @param string $title
+     * @param null|string $title
      * @param string $property
-     * @param string $value
+     * @param float|int $value
      */
     public function setWeeeTaxesAppliedProperty($item, $title, $property, $value)
     {

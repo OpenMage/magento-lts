@@ -21,8 +21,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Validate user input for option
      *
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -82,8 +82,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @throws Mage_Core_Exception
      * @return mixed Prepared option value
+     * @throws Mage_Core_Exception
      */
     public function prepareForCart()
     {

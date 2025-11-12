@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Retrieve product
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProduct()
     {
@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Retrieve array of associated products
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAssociatedProducts()
     {
@@ -75,8 +75,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Set preconfigured values to grouped associated products
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setPreconfiguredValue()
     {
@@ -107,8 +107,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Checks whether block is last fieldset in popup
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsLastFieldset()
     {
@@ -125,8 +125,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Returns price converted to current currency rate
      *
      * @param float $price
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrencyPrice($price)
     {

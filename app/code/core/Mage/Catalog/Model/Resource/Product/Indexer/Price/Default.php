@@ -125,9 +125,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve final price temporary index table name
      *
-     * @see _prepareDefaultFinalPriceTable()
-     *
      * @return string
+     * @see _prepareDefaultFinalPriceTable()
      */
     protected function _getDefaultFinalPriceTable()
     {

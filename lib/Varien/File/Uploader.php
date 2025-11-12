@@ -398,11 +398,11 @@ class Varien_File_Uploader
 
     /**
      * Used to set the _allowCreateFolders value
-     * @see _allowCreateFolders
      *
      * @param mixed $flag
      * @access public
      * @return Varien_File_Uploader
+     * @see _allowCreateFolders
      */
     public function setAllowCreateFolders($flag)
     {
@@ -412,11 +412,11 @@ class Varien_File_Uploader
 
     /**
      * Used to set the _allowRenameFiles value
-     * @see _allowRenameFiles
      *
      * @param mixed $flag
      * @access public
      * @return Varien_File_Uploader
+     * @see _allowRenameFiles
      */
     public function setAllowRenameFiles($flag)
     {
@@ -426,11 +426,11 @@ class Varien_File_Uploader
 
     /**
      * Used to set the _enableFilesDispersion value
-     * @see _enableFilesDispersion
      *
      * @param mixed $flag
      * @access public
      * @return Varien_File_Uploader
+     * @see _enableFilesDispersion
      */
     public function setFilesDispersion($flag)
     {
@@ -491,10 +491,9 @@ class Varien_File_Uploader
     }
 
     /**
-     * @deprecated after 1.5.0.0-beta2
-     *
      * @param string $extension
      * @return bool
+     * @deprecated after 1.5.0.0-beta2
      */
     public function chechAllowedExtension($extension)
     {

@@ -247,10 +247,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     {
         if (is_numeric($level)) {
             $pad = str_pad('', $level * 3, ' ', STR_PAD_LEFT);
-            $newLine = "\n";
+            $eol = "\n";
         } else {
             $pad = '';
-            $newLine = '';
+            $eol = '';
         }
 
         $out = $pad . '<' . $this->getName();
@@ -262,18 +262,18 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         if ($this->hasChildren()) {
-            $out .= '>' . $newLine;
+            $out .= '>' . $eol;
             foreach ($this->children() as $child) {
                 $out .= $child->asNiceXml('', is_numeric($level) ? $level + 1 : true);
             }
 
-            $out .= $pad . '</' . $this->getName() . '>' . $newLine;
+            $out .= $pad . '</' . $this->getName() . '>' . $eol;
         } else {
             $value = (string) $this;
             if (strlen($value)) {
-                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $newLine;
+                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $eol;
             } else {
-                $out .= '/>' . $newLine;
+                $out .= '/>' . $eol;
             }
         }
 

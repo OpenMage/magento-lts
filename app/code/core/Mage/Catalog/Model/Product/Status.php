@@ -13,13 +13,12 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Status getResource()
- *
  * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getVisibility()
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
@@ -54,8 +53,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add visible filter to Product Collection
      *
-     * @deprecated remove on new builds
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -65,8 +64,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add saleable filter to Product Collection
      *
-     * @deprecated remove on new builds
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -300,8 +299,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir direction
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product_Status
+     * @throws Mage_Core_Exception
      */
     public function addValueSortToCollection($collection, $dir = 'asc')
     {

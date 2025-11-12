@@ -58,6 +58,8 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
     /**
      * Edit action
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -87,7 +89,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
         Mage::register('permissions_variable', $model);
 
-        if (isset($id)) {
+        if ($id) {
             $breadcrumb = $this->__('Edit Variable');
         } else {
             $breadcrumb = $this->__('New Variable');
@@ -106,6 +108,8 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
      * Save action
      *
      * @return $this|void
+     * @throws Mage_Core_Exception
+     * @throws Zend_Validate_Exception
      */
     public function saveAction()
     {
@@ -143,9 +147,9 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
@@ -171,8 +175,8 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Variable has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return;
             }

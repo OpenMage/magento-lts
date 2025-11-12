@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Product_Type
      * Product type price model factory
      *
      * @param   string $productType
-     * @return  Mage_Catalog_Model_Product_Type_Price
+     * @return  Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public static function priceFactory($productType)
     {

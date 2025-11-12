@@ -884,9 +884,9 @@ class Mage_Paypal_Model_Express_Checkout
      * Compare two shipping options based on their amounts
      *
      * This function is used as a callback comparison function in shipping options sorting process
-     * @see self::_prepareShippingOptions()
      *
      * @return int
+     * @see self::_prepareShippingOptions()
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {

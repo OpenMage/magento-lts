@@ -101,8 +101,8 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      * Fetch transaction details info method does not exists in PaypalUK
      *
      * @param string $transactionId
-     * @throws Mage_Core_Exception
      * @return void
+     * @throws Mage_Core_Exception
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
