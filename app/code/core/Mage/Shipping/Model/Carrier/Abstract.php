@@ -174,7 +174,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Get allowed containers of carrier
      *
-     * @return array|bool
+     * @return array
      */
     protected function _getAllowedContainers(?Varien_Object $params = null)
     {
@@ -338,7 +338,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Retrieve sort order of current carrier
      *
-     * @return mixed
+     * @return false|string
      */
     public function getSortOrder()
     {
@@ -362,9 +362,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $freeRateId = false;
 
         if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i => $item) {
+            foreach ($this->_result->getAllRates() as $itemId => $item) {
                 if ($item->getMethod() == $freeMethod) {
-                    $freeRateId = $i;
+                    $freeRateId = $itemId;
                     break;
                 }
             }
@@ -510,7 +510,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $weight = $this->convertWeightToLbs($weight);
         $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
-            $this->_numBoxes = ceil($weight / $maxPackageWeight);
+            $this->_numBoxes = (int) ceil($weight / $maxPackageWeight);
             $weight /= $this->_numBoxes;
         }
 

@@ -152,7 +152,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Cache frontend adapter instance
      *
-     * @var Zend_Cache_Core
+     * @var Zend_Cache_Backend_Interface
      */
     protected $_cacheAdapter;
 

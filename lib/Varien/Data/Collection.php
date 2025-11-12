@@ -102,7 +102,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Add collection filter
      *
      * @param string $field
-     * @param array|string $value
+     * @param array|int|string $value
      * @param string $type and|or|string
      * @return $this
      */
@@ -207,7 +207,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (0 === $collectionSize) {
             return 1;
         } elseif ($this->_pageSize) {
-            return ceil($collectionSize / $this->_pageSize);
+            return (int) ceil($collectionSize / $this->_pageSize);
         } else {
             return 1;
         }
@@ -344,7 +344,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
-     * @return  $this
+     * @return $this
+     * @throws Exception
      */
     public function addItem(Varien_Object $item)
     {
@@ -440,15 +441,15 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         $results = [];
         $useItemCallback = is_string($callback) && !str_contains($callback, '::');
-        foreach ($this->getItems() as $id => $item) {
+        foreach ($this->getItems() as $itemId => $item) {
             if ($useItemCallback) {
-                $cb = [$item, $callback];
+                $method = [$item, $callback];
             } else {
-                $cb = $callback;
+                $method = $callback;
                 array_unshift($args, $item);
             }
 
-            $results[$id] = call_user_func_array($cb, $args);
+            $results[$itemId] = call_user_func_array($method, $args);
         }
 
         return $results;
@@ -460,8 +461,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function each($obj_method, $args = [])
     {
-        foreach ($args->_items as $k => $item) {
-            $args->_items[$k] = call_user_func($obj_method, $item);
+        foreach ($args->_items as $key => $item) {
+            $args->_items[$key] = call_user_func($obj_method, $item);
         }
     }
 
@@ -475,8 +476,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function setDataToAll($key, $value = null)
     {
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $this->setDataToAll($k, $v);
+            foreach ($key as $arrKey => $arrValue) {
+                $this->setDataToAll($arrKey, $arrValue);
             }
 
             return $this;

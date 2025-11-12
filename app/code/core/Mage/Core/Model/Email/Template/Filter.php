@@ -130,6 +130,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * if $_storeId is null return Design store id
      *
      * @return int
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
@@ -146,6 +147,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function blockDirective($construction)
     {
@@ -170,12 +172,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         if ($block) {
             $block->setBlockParams($blockParameters);
-            foreach ($blockParameters as $k => $v) {
-                if (in_array($k, $skipParams)) {
+            foreach ($blockParameters as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
 
-                $block->setDataUsingMethod($k, $v);
+                $block->setDataUsingMethod($key, $value);
             }
         } else {
             return '';
@@ -220,12 +222,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         /** @var Mage_Core_Block_Abstract $block */
         foreach ($layout->getAllBlocks() as $block) {
-            foreach ($params as $k => $v) {
-                if (in_array($k, $skipParams)) {
+            foreach ($params as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
 
-                $block->setDataUsingMethod($k, $v);
+                $block->setDataUsingMethod($key, $value);
             }
         }
 
@@ -289,6 +291,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function storeDirective($construction)
@@ -298,10 +301,10 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $params['_query'] = [];
         }
 
-        foreach ($params as $k => $v) {
-            if (str_starts_with($k, '_query_')) {
-                $params['_query'][substr($k, 7)] = $v;
-                unset($params[$k]);
+        foreach ($params as $key => $value) {
+            if (str_starts_with($key, '_query_')) {
+                $params['_query'][substr($key, 7)] = $value;
+                unset($params[$key]);
             }
         }
 
@@ -429,6 +432,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function protocolDirective($construction)
@@ -459,6 +463,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function configDirective($construction)
@@ -478,6 +483,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function customvarDirective($construction)

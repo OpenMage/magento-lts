@@ -678,9 +678,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         /** @var Mage_Adminhtml_Helper_Data $helper */
         $helper = $this->helper('adminhtml');
-        $value = $helper->decodeFilter($value);
+        $helper->decodeFilter($value);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
@@ -1060,6 +1063,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getRssUrl($url)
@@ -1078,7 +1082,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @param string $label
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssList($url, $label)
@@ -1106,6 +1111,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve file content from file container array
      *
      * @return string
+     * @throws Exception
      */
     protected function _getFileContainerContent(array $fileData)
     {
@@ -1156,6 +1162,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $callback
      * @param array $args additional arguments for callback method
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function _exportIterateCollection($callback, array $args)
     {

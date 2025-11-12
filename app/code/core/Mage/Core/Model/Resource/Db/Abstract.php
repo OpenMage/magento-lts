@@ -297,7 +297,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Get connection by name or type
      *
      * @param string $connectionName
-     * @return false|Varien_Db_Adapter_Interface
+     * @return false|Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getConnection($connectionName)
     {
@@ -398,7 +398,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param string $field
      * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Varien_Object $object
      * @return Varien_Db_Select
      * @throws Exception
      */

@@ -40,7 +40,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
      *
      * @param string $class
      * @param string $totalCode
-     * @param array $totalConfig
+     * @param Mage_Core_Model_Config_Element $totalConfig
      * @return Mage_Sales_Model_Order_Total_Abstract
      * @throws Mage_Core_Exception
      */

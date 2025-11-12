@@ -128,32 +128,44 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      * Retrieve Batch export model
      *
      * @return Mage_Dataflow_Model_Batch_Export
+     * @throws Mage_Core_Exception
+     * @throws Varien_Exception
      */
     public function getBatchExportModel()
     {
         if (is_null($this->_batchExport)) {
             $object = Mage::getModel('dataflow/batch_export');
             $object->setBatchId($this->getId());
-            $this->_batchExport = Varien_Object_Cache::singleton()->save($object);
+            /** @var Mage_Dataflow_Model_Batch_Export $cache */
+            $cache = Varien_Object_Cache::singleton()->save($object);
+            $this->_batchExport = $cache;
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchExport);
+        /** @var Mage_Dataflow_Model_Batch_Export $cache */
+        $cache = Varien_Object_Cache::singleton()->load($this->_batchExport);
+        return $cache;
     }
 
     /**
      * Retrieve Batch import model
      *
      * @return Mage_Dataflow_Model_Batch_Import
+     * @throws Mage_Core_Exception
+     * @throws Varien_Exception
      */
     public function getBatchImportModel()
     {
         if (is_null($this->_batchImport)) {
             $object = Mage::getModel('dataflow/batch_import');
             $object->setBatchId($this->getId());
-            $this->_batchImport = Varien_Object_Cache::singleton()->save($object);
+            /** @var Mage_Dataflow_Model_Batch_Import $cache */
+            $cache = Varien_Object_Cache::singleton()->save($object);
+            $this->_batchImport = $cache;
         }
 
-        return Varien_Object_Cache::singleton()->load($this->_batchImport);
+        /** @var Mage_Dataflow_Model_Batch_Import $cache */
+        $cache = Varien_Object_Cache::singleton()->load($this->_batchImport);
+        return $cache;
     }
 
     /**

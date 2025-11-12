@@ -30,6 +30,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
     /**
      * Initialize custom resource model
+     *
+     * @throws Zend_Exception
      */
     public function __construct()
     {
@@ -78,7 +80,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Zend_Db_Select
+     * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _makeBoundarySelect($from, $to)
     {
@@ -102,6 +105,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * Init collection select
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelect()
     {
@@ -156,6 +160,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * but before adding unions and calculating totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeLoad()
     {

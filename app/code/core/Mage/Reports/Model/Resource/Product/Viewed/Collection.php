@@ -27,6 +27,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      * @param string $from
      * @param string $to
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _joinFields($from = '', $to = '')
     {
@@ -41,6 +42,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      * @param string $from
      * @param string $to
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setDateRange($from, $to)
     {

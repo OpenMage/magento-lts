@@ -186,6 +186,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $scope
      * @return $this
+     * @throws Mage_Core_Exception
      */
 
     public function setMessagesScope($scope)
@@ -256,6 +257,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $subscriberEmail
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByEmail($subscriberEmail)
     {
@@ -267,6 +269,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Load subscriber info by customer
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function loadByCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -293,17 +297,17 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function randomSequence($length = 32)
     {
-        $id = '';
+        $str = '';
         $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
         $charLen = count($char) - 1;
-        for ($i = 0; $i < $length; $i++) {
+        for ($index = 0; $index < $length; $index++) {
             $disc = mt_rand(0, $charLen);
-            $par[$i] = $char[$disc];
-            $id .= $char[$disc];
+            $par[$index] = $char[$disc];
+            $str .= $char[$disc];
         }
 
-        return $id;
+        return $str;
     }
 
     /**
@@ -312,6 +316,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * @param string $email
      * @return int
      * @throws Exception
+     * @throws Throwable
      */
     public function subscribe($email)
     {
@@ -374,6 +379,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     /**
      * Unsubscribes loaded subscription
+     *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function unsubscribe()
     {
@@ -392,6 +400,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param   Mage_Customer_Model_Customer $customer
      * @return  $this
+     * @throws  Mage_Core_Exception
+     * @throws  Throwable
      */
     public function subscribeCustomer($customer)
     {
@@ -475,6 +485,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $code
      * @return bool
+     * @throws Throwable
      */
     public function confirm($code)
     {
@@ -492,6 +503,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Mark receiving subscriber of queue newsletter
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function received(Mage_Newsletter_Model_Queue $queue)
     {
@@ -503,6 +515,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out confirmation email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendConfirmationRequestEmail()
     {
@@ -540,6 +553,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out confirmation success email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendConfirmationSuccessEmail()
     {
@@ -577,6 +591,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out unsubsciption email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendUnsubscriptionEmail()
     {

@@ -11,5 +11,7 @@
  * Grid widget massaction default block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Adminhtml_Block_Catalog_Product_Grid getParentBlock()
  */
 class Mage_Adminhtml_Block_Widget_Grid_Massaction extends Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract {}

@@ -531,7 +531,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Move quote item to another items list
      *
-     * @param   int|Mage_Sales_Model_Quote_Item $item
+     * @param   int|Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   string $moveTo
      * @param   int $qty
      * @return  Mage_Adminhtml_Model_Sales_Order_Create
