@@ -112,6 +112,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetOldFieldMap(): void
     {
-        self::assertIsArray(self::$subject->getOldFieldMap('ivalid_string'));
+        self::assertIsArray(self::$subject->getOldFieldMap('invalid_string'));
     }
 }

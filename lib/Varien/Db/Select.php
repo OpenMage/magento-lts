@@ -439,7 +439,7 @@ class Varien_Db_Select extends Zend_Db_Select
      *
      * @param  Varien_Db_Select $select
      * @param  string           $joinCondition
-     * @param  bool            $isExists
+     * @param  bool             $isExists
      * @return $this
      */
     public function exists($select, $joinCondition, $isExists = true)
