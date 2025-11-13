@@ -55,7 +55,7 @@ class Mage_Shipping_Model_Shipping
      */
     public function getResult()
     {
-        if (empty($this->_result)) {
+        if (is_null($this->_result)) {
             $this->_result = Mage::getModel('shipping/rate_result');
         }
 

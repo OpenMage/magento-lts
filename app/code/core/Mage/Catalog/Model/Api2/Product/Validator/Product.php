@@ -260,8 +260,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      *
      * @param array $data
      * @param Mage_Eav_Model_Entity_Type $productEntity
-     * @throws Mage_Api2_Exception
      * @return true|void
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributeSet($data, $productEntity)
     {
@@ -639,8 +639,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      *
      * @param string $message
      * @param int $code
-     * @throws Mage_Api2_Exception
      * @return never
+     * @throws Mage_Api2_Exception
      */
     protected function _critical($message, $code)
     {

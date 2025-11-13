@@ -13,11 +13,10 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_Variable _getResource()
- * @method Mage_Admin_Model_Resource_Variable getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
- * @method Mage_Admin_Model_Resource_Variable_Collection getResourceCollection()
- *
  * @method string getIsAllowed()
+ * @method Mage_Admin_Model_Resource_Variable getResource()
+ * @method Mage_Admin_Model_Resource_Variable_Collection getResourceCollection()
  * @method string getVariableName()
  */
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
@@ -31,8 +30,8 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Exception
      * @return array|true
+     * @throws Exception
      */
     public function validate()
     {

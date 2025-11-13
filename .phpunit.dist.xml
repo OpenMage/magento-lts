@@ -55,6 +55,9 @@
         <testsuite name="Mage_Core">
             <directory>tests/unit/Mage/Core</directory>
         </testsuite>
+        <testsuite name="Mage_Csp">
+            <directory>tests/unit/Mage/Csp</directory>
+        </testsuite>
         <testsuite name="Mage_Customer">
             <directory>tests/unit/Mage/Customer</directory>
         </testsuite>

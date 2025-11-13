@@ -706,7 +706,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Round price based on previous rounding operation delta
      *
      * @param float $price
-     * @param string $rate
+     * @param float $rate
      * @param bool $direction
      * @param string $type
      *
@@ -831,9 +831,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Unset item prices/totals with price include tax.
      * Operation is necessary for reset item state in case if configuration was changed
      *
-     * @deprecated after 1.4.1
-     *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.1
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -841,10 +840,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     }
 
     /**
-     * @deprecated after 1.4.0.1
-     *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.0.1
      */
     protected function _processShippingAmount($address)
     {
@@ -855,11 +853,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Recollect item price and row total using after taxes subtract.
      * Declare item price including tax attributes
      *
-     * @deprecated after 1.4.1
-     *
      * @param   Mage_Sales_Model_Quote_Address $address
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @deprecated after 1.4.1
      */
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -937,11 +934,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Check if we need subtract store tax amount from item prices
      *
-     * @deprecated after 1.4.1
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
+     * @deprecated after 1.4.1
      */
     protected function _needSubtractTax($address)
     {
@@ -956,11 +952,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Subtract shipping tax
      *
-     * @deprecated after 1.4.0.1
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return bool
+     * @deprecated after 1.4.0.1
      */
     protected function _needSubtractShippingTax($address)
     {

@@ -30,8 +30,8 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Resource_Website_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCollection()
     {
@@ -46,8 +46,8 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return null|array
+     * @throws Mage_Core_Exception
      */
     public function getCondition()
     {

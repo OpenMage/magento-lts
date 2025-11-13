@@ -19,8 +19,8 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
      * In case invalid data throws exception.
      *
      * @param Varien_Object $object
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @return bool
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function validate($object)
     {

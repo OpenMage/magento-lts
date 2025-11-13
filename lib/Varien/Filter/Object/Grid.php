@@ -11,8 +11,8 @@ class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
     /**
      * @param array|Varien_Object $grid
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function filter($grid)
     {

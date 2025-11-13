@@ -32,8 +32,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Amounts extends Mage_Adminhtml_Block_Da
     /**
      * Prepare chart data
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     protected function _prepareData()
     {

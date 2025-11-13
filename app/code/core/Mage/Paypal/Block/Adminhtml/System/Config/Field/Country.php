@@ -31,8 +31,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     /**
      * Render country field considering request parameter
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {

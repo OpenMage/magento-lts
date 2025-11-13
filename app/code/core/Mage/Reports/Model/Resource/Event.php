@@ -101,8 +101,8 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Obtain all current store ids, depending on configuration
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreIds(?array $predefinedStoreIds = null)
     {

@@ -40,8 +40,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Authenticate user by $username and $password
      *
-     * @throws Zend_Db_Adapter_Exception
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function recordLogin(Mage_Admin_Model_User $user)
     {
@@ -161,9 +161,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Delete user role record with user
      *
      * @param Mage_Admin_Model_User $object
+     * @return $this
      * @throws Exception
      * @throws Throwable
-     * @return $this
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -193,9 +193,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
      * @param Mage_Admin_Model_User $user
+     * @return $this|Mage_Admin_Model_User|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
-     * @return $this|Mage_Admin_Model_User|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -291,9 +291,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Save user roles
      *
      * @param Mage_Admin_Model_User $user
-     * @throws Zend_Db_Adapter_Exception
-     * @throws Zend_Cache_Exception
      * @return $this
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
@@ -418,8 +418,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Admin_Model_User $object
      * @param string $data
-     * @throws Zend_Db_Adapter_Exception
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function saveExtra($object, $data)
     {
@@ -439,9 +439,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Admin_Model_User $object
      * @param int $flag
+     * @return $this
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Adapter_Exception
-     * @return $this
      */
     public function saveReloadAclFlag($object, $flag)
     {

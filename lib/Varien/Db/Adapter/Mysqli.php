@@ -16,8 +16,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Creates a real connection to the database with multi-query capability.
      *
-     * @throws Zend_Db_Adapter_Mysqli_Exception
      * @return void
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

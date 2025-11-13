@@ -57,8 +57,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      * no greater than the max option (when the max option is not null).
      *
      * @param  string $value
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isValid($value)
     {

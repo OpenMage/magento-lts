@@ -295,8 +295,8 @@ class Mage_DB_Mysqli
 
     /**
      * Throw connect exception
-     * @throws Mage_DB_Exception
      * @return never
+     * @throws Mage_DB_Exception
      */
     protected function throwConnectException()
     {
@@ -306,8 +306,8 @@ class Mage_DB_Mysqli
     /**
      * Query - perform with throwing exception on error
      * @param string $sql query
-     * @throws Mage_DB_Exception
      * @return mixed
+     * @throws Mage_DB_Exception
      */
     public function query($sql)
     {

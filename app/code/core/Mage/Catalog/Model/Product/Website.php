@@ -14,7 +14,6 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Website _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Website getResource()
- *
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
  */

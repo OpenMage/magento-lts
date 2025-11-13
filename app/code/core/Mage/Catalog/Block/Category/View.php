@@ -15,8 +15,8 @@
 class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 {
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this|Mage_Core_Block_Template
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
@@ -75,8 +75,8 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRssLink()
     {

@@ -71,8 +71,8 @@ abstract class Mage_Core_Helper_Validate_Abstract implements Mage_Core_Helper_Va
     /**
      * Sets the validation failure message template for a particular key
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setMessage(string $messageString, ?string $messageKey = null)
     {
@@ -97,8 +97,8 @@ abstract class Mage_Core_Helper_Validate_Abstract implements Mage_Core_Helper_Va
      * Sets validation failure message templates given as an array, where the array keys are the message keys,
      * and the array values are the message template strings.
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setMessages(array $messages)
     {
@@ -113,8 +113,8 @@ abstract class Mage_Core_Helper_Validate_Abstract implements Mage_Core_Helper_Va
      * Magic function returns the value of the requested property, if and only if it is the value or a
      * message variable.
      *
-     * @throws Mage_Core_Exception
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function __get(string $property)
     {

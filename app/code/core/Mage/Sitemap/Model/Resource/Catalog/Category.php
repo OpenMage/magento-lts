@@ -61,9 +61,8 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     /**
      * Prepare category
      *
-     * @deprecated after 1.7.0.2
-     *
      * @return Varien_Object
+     * @deprecated after 1.7.0.2
      */
     protected function _prepareCategory(array $categoryRow)
     {

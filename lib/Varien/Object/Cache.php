@@ -126,6 +126,7 @@ class Varien_Object_Cache
      * @param string $idx
      * @param array|string $tags
      * @return false|string
+     * @throws Varien_Exception
      */
     public function save($object, $idx = null, $tags = null)
     {
@@ -165,9 +166,9 @@ class Varien_Object_Cache
             $this->_tags[$tags][$idx] = true;
             $this->_objectTags[$idx][$tags] = true;
         } elseif (is_array($tags)) {
-            foreach ($tags as $t) {
-                $this->_tags[$t][$idx] = true;
-                $this->_objectTags[$idx][$t] = true;
+            foreach ($tags as $tag) {
+                $this->_tags[$tag][$idx] = true;
+                $this->_objectTags[$idx][$tag] = true;
             }
         }
 
@@ -182,6 +183,7 @@ class Varien_Object_Cache
      * @param array|string $refName
      * @param string $idx
      * @return bool
+     * @throws Varien_Exception
      */
     public function reference($refName, $idx)
     {
@@ -232,16 +234,16 @@ class Varien_Object_Cache
         unset($this->_hashes[$this->_objectHashes[$idx]], $this->_objectHashes[$idx]);
 
         if (isset($this->_objectTags[$idx])) {
-            foreach ($this->_objectTags[$idx] as $t => $dummy) {
-                unset($this->_tags[$t][$idx]);
+            foreach ($this->_objectTags[$idx] as $tag => $dummy) {
+                unset($this->_tags[$tag][$idx]);
             }
 
             unset($this->_objectTags[$idx]);
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach (array_keys($this->_references) as $r) {
-                unset($this->_references[$r]);
+            foreach (array_keys($this->_references) as $ref) {
+                unset($this->_references[$ref]);
             }
 
             unset($this->_objectReferences[$idx]);
@@ -277,8 +279,8 @@ class Varien_Object_Cache
             $tags = [$tags];
         }
 
-        foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx => $dummy) {
+        foreach ($tags as $tag) {
+            foreach ($this->_tags[$tag] as $idx => $dummy) {
                 $this->delete($idx);
             }
         }
@@ -344,8 +346,8 @@ class Varien_Object_Cache
         }
 
         $objects = [];
-        foreach ($tags as $t) {
-            foreach ($this->_tags[$t] as $idx => $dummy) {
+        foreach ($tags as $tag) {
+            foreach ($this->_tags[$tag] as $idx => $dummy) {
                 if (isset($objects[$idx])) {
                     continue;
                 }
@@ -376,10 +378,10 @@ class Varien_Object_Cache
 
     public function debug($idx, $object = null)
     {
-        $bt = debug_backtrace();
+        $backtrace = debug_backtrace();
         $debug = [];
-        foreach ($bt as $i => $step) {
-            $debug[$i] = [
+        foreach ($backtrace as $index => $step) {
+            $debug[$index] = [
                 'file'     => $step['file'] ?? null,
                 'line'     => $step['line'] ?? null,
                 'function' => $step['function'],

@@ -324,8 +324,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check response from Payflow gateway.
      *
-     * @throws Mage_Core_Exception in other cases
      * @return false|Mage_Sales_Model_Order in case of validation passed
+     * @throws Mage_Core_Exception in other cases
      */
     protected function _getOrderFromResponse()
     {
@@ -557,18 +557,18 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Add transaction with correct transaction Id
      *
-     * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
      * @param string $txnId
+     * @deprecated since 1.6.2.0
      */
     protected function _addTransaction($payment, $txnId) {}
 
     /**
      * Initialize request
      *
-     * @deprecated since 1.6.2.0
      * @param mixed $amount
      * @return $this
+     * @deprecated since 1.6.2.0
      */
     protected function _initialize(Varien_Object $payment, $amount)
     {
@@ -578,19 +578,19 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check whether order review has enough data to initialize
      *
-     * @deprecated since 1.6.2.0
      * @param string $token
+     * @deprecated since 1.6.2.0
      */
     public function prepareOrderReview($token = null) {}
 
     /**
      * Additional authorization logic for Account Verification
      *
-     * @deprecated since 1.6.2.0
      * @param mixed $amount
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param string $txnId
      * @return $this
+     * @deprecated since 1.6.2.0
      */
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
@@ -607,10 +607,10 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check Transaction
      *
-     * @deprecated since 1.6.2.0
      * @param Mage_Paypal_Model_Payment_Transaction $transaction
      * @param mixed $amount
      * @return $this
+     * @deprecated since 1.6.2.0
      */
     protected function _checkTransaction($transaction, $amount)
     {

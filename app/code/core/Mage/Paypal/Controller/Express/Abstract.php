@@ -444,8 +444,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     /**
      * Instantiate quote and checkout
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Paypal_Model_Express_Checkout
+     * @throws Mage_Core_Exception
      */
     protected function _initCheckout()
     {

@@ -54,8 +54,8 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
 
     /**
      * @param Mage_Downloadable_Model_Link $link
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormattedLinkPrice($link)
     {

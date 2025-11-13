@@ -77,6 +77,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      *
      * @param bool $autoReset
      * @return array
+     * @throws Zend_Db_Select_Exception
      */
     protected function _prepareOrder(Varien_Db_Select $select, $autoReset = false)
     {
@@ -134,6 +135,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      *
      * @param bool $autoReset
      * @return array
+     * @throws Zend_Db_Select_Exception
      */
     protected function _prepareGroup(Varien_Db_Select $select, $autoReset = false)
     {
@@ -158,8 +160,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare and returns having array
      *
      * @param bool $autoReset
-     * @throws Zend_Db_Exception
      * @return array
+     * @throws Zend_Db_Exception
      */
     protected function _prepareHaving(Varien_Db_Select $select, $autoReset = false)
     {
@@ -227,8 +229,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * Prepare select column list
      *
      * @param string $groupByCondition
-     * @throws Zend_Db_Exception
      * @return array
+     * @throws Zend_Db_Exception
      */
     public function prepareColumnsList(Varien_Db_Select $select, $groupByCondition = null)
     {

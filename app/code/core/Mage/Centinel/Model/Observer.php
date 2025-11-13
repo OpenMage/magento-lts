@@ -112,10 +112,10 @@ class Mage_Centinel_Model_Observer extends Varien_Object
 
     /**
      * Reset validation data
-     * @deprecated back compatibility alias for checkoutSubmitAllAfter
      *
      * @param Varien_Object $observer
      * @return $this
+     * @deprecated back compatibility alias for checkoutSubmitAllAfter
      */
     public function salesOrderPaymentPlaceEnd($observer)
     {

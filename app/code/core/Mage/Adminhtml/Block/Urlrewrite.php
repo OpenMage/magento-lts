@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_C
     /**
      * Customize grid row URLs
      *
-     * @see Mage_Adminhtml_Block_Urlrewrite_Selector
      * @return string
+     * @see Mage_Adminhtml_Block_Urlrewrite_Selector
      */
     public function getCreateUrl()
     {

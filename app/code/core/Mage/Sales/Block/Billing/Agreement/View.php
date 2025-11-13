@@ -13,8 +13,8 @@
  * @package    Mage_Sales
  *
  * @method $this setAgreementCreatedAt(string $value)
- * @method $this setAgreementUpdatedAt(string $value)
  * @method $this setAgreementStatus(string $value)
+ * @method $this setAgreementUpdatedAt(string $value)
  * @method $this setBackUrl(string $value)
  * @method $this setCanCancel(bool $value)
  * @method $this setCancelUrl(string $value)

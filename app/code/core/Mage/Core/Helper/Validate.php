@@ -641,8 +641,8 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Constraint[]
+     * @throws Mage_Core_Exception
      */
     public function getContraintsByType(string $type, array $options = []): array
     {

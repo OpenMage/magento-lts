@@ -76,8 +76,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Initialize creditmemo model instance
      *
-     * @throws Mage_Core_Exception
      * @return false|Mage_Sales_Model_Order_Creditmemo
+     * @throws Mage_Core_Exception
      */
     protected function _initCreditmemo($update = false)
     {
@@ -152,8 +152,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Save creditmemo and related order, invoice in one transaction
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _saveCreditmemo($creditmemo)
     {
@@ -413,10 +413,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      * @param Mage_Sales_Model_Order_Item $item
      * @param array $qtys
      * @return bool
+     * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
     protected function _needToAddDummy($item, $qtys)
     {

@@ -13,28 +13,27 @@
  * @package    Mage_Review
  *
  * @method Mage_Review_Model_Resource_Review _getResource()
- * @method Mage_Review_Model_Resource_Review getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
- *
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method array getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method string getDetail()
- * @method $this setEntityId(int $value)
  * @method int getEntityPkValue()
- * @method $this setEntityPkValue(int $value)
  * @method string getNickname()
- * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method Mage_Review_Model_Resource_Review getResource()
+ * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
  * @method int getReviewId()
  * @method int getStatusId()
- * @method $this setStatusId(int $value)
- * @method $this setStoreId(int $value)
  * @method int getStoreId()
  * @method array getStores()
- * @method $this setStores(array $value)
  * @method string getTitle()
+ * @method $this setCreatedAt(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method $this setEntityPkValue(int $value)
+ * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method $this setStatusId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setStores(array $value)
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
@@ -177,8 +176,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Append review summary to product collection
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function appendSummary($collection)
     {
@@ -207,8 +206,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -230,8 +229,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Check if current review available on passed store
      *
      * @param int|Mage_Core_Model_Store $store
-     * @throws Mage_Core_Model_Store_Exception
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isAvailableOnStore($store = null)
     {

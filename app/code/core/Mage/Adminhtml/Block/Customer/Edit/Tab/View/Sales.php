@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     /**
      * Sales entity collection
      *
-     * @var Mage_Sales_Model_Entity_Sale_Collection
+     * @var Mage_Sales_Model_Resource_Sale_Collection
      */
     protected $_collection;
 
@@ -38,15 +38,21 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
         $this->setId('customer_view_sales_grid');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function _beforeToHtml()
     {
         $this->_currency = Mage::getModel('directory/currency')
             ->load(Mage_Directory_Helper_Data::getConfigCurrencyBase());
 
-        $this->_collection = Mage::getResourceModel('sales/sale_collection')
+        /** @var Mage_Sales_Model_Resource_Sale_Collection $model */
+        $model = Mage::getResourceModel('sales/sale_collection')
             ->setCustomerFilter(Mage::registry('current_customer'))
             ->setOrderStateFilter(Mage_Sales_Model_Order::STATE_CANCELED, true)
             ->load();
+        $this->_collection = $model;
 
         $this->_groupedCollection = [];
 
@@ -92,10 +98,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
-     *
      * @param float $price
      * @return string
+     * @deprecated after 1.4.0.0-rc1
      */
     public function getPriceFormatted($price)
     {

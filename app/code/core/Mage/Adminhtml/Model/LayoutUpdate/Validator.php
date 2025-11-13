@@ -81,9 +81,9 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Valid
      * validation failed.
      *
      * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @return bool
      */
     public function isValid($value)
     {

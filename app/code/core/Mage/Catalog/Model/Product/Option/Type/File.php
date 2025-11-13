@@ -85,8 +85,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Returns file info array if we need to get file from already existing file.
      * Or returns null, if we need to get file from uploaded array.
      *
-     * @throws Mage_Core_Exception
      * @return null|array
+     * @throws Mage_Core_Exception
      */
     protected function _getCurrentConfigFileInfo()
     {
@@ -114,8 +114,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Validate user input for option
      *
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -159,8 +159,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Validate uploaded file
      *
-     * @throws Mage_Core_Exception|Zend_File_Transfer_Exception
      * @return $this
+     * @throws Mage_Core_Exception|Zend_File_Transfer_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _validateUploadedFile()
@@ -308,8 +308,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Validate file
      *
      * @param array $optionValue
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _validateFile($optionValue)
     {
@@ -434,8 +434,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Get Error messages for validator Errors
      * @param array $errors Array of validation failure message codes
      * @param array $fileInfo File info
-     * @throws Mage_Core_Exception
      * @return array Array of error messages
+     * @throws Mage_Core_Exception
      */
     protected function _getValidatorErrors($errors, $fileInfo)
     {
@@ -486,8 +486,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @throws Mage_Core_Exception
      * @return null|string Prepared option value
+     * @throws Mage_Core_Exception
      */
     public function prepareForCart()
     {
@@ -564,8 +564,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Format File option html
      *
      * @param array|string $optionValue Serialized string of option data or its data array
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getOptionHtml($optionValue)
     {
@@ -598,8 +598,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Create a value from a storable representation
      *
      * @param mixed $value
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     protected function _unserializeValue($value)
     {
@@ -802,8 +802,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $route
      * @param array $params
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOptionDownloadUrl($route, $params)
     {

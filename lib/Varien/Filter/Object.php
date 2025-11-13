@@ -35,8 +35,8 @@ class Varien_Filter_Object extends Zend_Filter
 
     /**
      * @param Varien_Object $object
-     * @throws Exception
      * @return mixed
+     * @throws Exception
      */
     public function filter($object)
     {

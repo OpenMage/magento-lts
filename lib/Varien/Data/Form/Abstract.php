@@ -13,12 +13,12 @@
  * @method Varien_Data_Form getForm()
  * @method bool getUseContainer()
  * @method $this setAction(string $value)
+ * @method $this setDisabled(bool $value)
  * @method $this setMethod(string $value)
  * @method $this setName(string $value)
- * @method $this setValue(mixed $value)
- * @method $this setUseContainer(bool $value)
- * @method $this setDisabled(bool $value)
  * @method $this setRequired(bool $value)
+ * @method $this setUseContainer(bool $value)
+ * @method $this setValue(mixed $value)
  *
  * @package    Varien_Data
  */
@@ -62,7 +62,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      */
     public function getElements()
     {
-        if (empty($this->_elements)) {
+        if (is_null($this->_elements)) {
             $this->_elements = new Varien_Data_Form_Element_Collection($this);
         }
 

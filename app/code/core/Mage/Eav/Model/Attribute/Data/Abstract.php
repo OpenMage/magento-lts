@@ -80,8 +80,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return Attribute instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute()
     {
@@ -132,6 +132,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Returns entity instance
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
@@ -192,6 +193,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Return Data Form Input/Output Filter
      *
      * @return false|Varien_Data_Form_Filter_Interface
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _getFormFilter()
     {
@@ -215,6 +218,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param null|false|string $format
      * @return $this|string
+     * @throws Zend_Locale_Exception
      */
     protected function _dateFilterFormat($format = null)
     {
@@ -240,6 +244,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param string $value
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _applyOutputFilter($value)
     {
@@ -255,7 +261,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate value by attribute input validation rule
      *
      * @param string $value
-     * @return array|string|true
+     * @return array|true
+     * @throws Mage_Core_Exception
      */
     protected function _validateInputRule($value)
     {
@@ -350,6 +357,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Return Original Attribute value from Request
      *
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     protected function _getRequestValue(Zend_Controller_Request_Http $request)
     {
@@ -388,8 +396,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate data
      *
      * @param array|string $value
+     * @return array|true
      * @throws Mage_Core_Exception
-     * @return bool
      */
     abstract public function validateValue($value);
 
