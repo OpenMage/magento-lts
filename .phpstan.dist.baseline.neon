@@ -2347,12 +2347,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock.php
 
 		-
-			rawMessage: 'Call to function is_array() with '''' will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Event.php
-
-		-
 			rawMessage: 'Parameter #1 $adapter of method Varien_Db_Adapter_Interface::setCacheAdapter() expects Zend_Cache_Backend_Interface, Zend_Cache_Core given.'
 			identifier: argument.type
 			count: 2
