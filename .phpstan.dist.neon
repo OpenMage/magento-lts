@@ -126,7 +126,17 @@ parameters:
                 - app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
                 - app/design/install/default/default/template/page.phtml
         -
+            # update phpstan plugin
+            identifier: method.protected
+            paths:
+                - app/design/*/*/template/*
+        -
             identifier: phpunit.coversMethod
+        -
+            # update phpstan plugin
+            identifier: property.protected
+            paths:
+                - app/design/*/*/template/*
         -
             identifier: variable.undefined
             paths:

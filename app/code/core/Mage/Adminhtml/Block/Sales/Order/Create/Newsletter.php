@@ -41,10 +41,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Newsletter extends Mage_Adminhtml_
      */
     protected function _toHtml()
     {
-        if (!Mage::getSingleton('adminhtml/quote')->getIsOldCustomer()) {
-            return parent::_toHtml();
-        }
-
         return '';
     }
 }
