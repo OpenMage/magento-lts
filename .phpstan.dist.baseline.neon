@@ -2395,12 +2395,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			rawMessage: 'Call to function is_null() with bool will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-
-		-
 			rawMessage: 'Call to function is_null() with Mage_Newsletter_Model_Queue will always evaluate to false.'
 			identifier: function.impossibleType
 			count: 2
