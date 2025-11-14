@@ -1,0 +1,91 @@
+--- /dev/null
++++ ../library/Zend/Cache/Backend.php
+@@ -137,7 +137,7 @@
+      * if $specificLifetime is not false, the given specific life time is used
+      * else, the global lifetime is used
+      *
+-     * @param  int $specificLifetime
++     * @param  false|int $specificLifetime
+      * @return int Cache life time
+      */
+     public function getLifetime($specificLifetime)
+
+--- /dev/null
++++ ../library/Zend/Controller/Response/Abstract.php
+@@ -454,7 +454,7 @@
+      * $spec is a string and matches a named segment, returns the contents of
+      * that segment; otherwise, returns null.
+      *
+-     * @param boolean $spec
++     * @param bool|string $spec
+      * @return string|array|null
+      */
+     public function getBody($spec = false)
+
+--- /dev/null
++++ ../library/Zend/Currency.php
+@@ -138,8 +138,8 @@
+     /**
+      * Returns a localized currency string
+      *
+-     * @param  integer|float $value   OPTIONAL Currency value
+-     * @param  array         $options OPTIONAL options to set temporary
++     * @param  array<int|float|string $value   OPTIONAL Currency value
++     * @param  array                  $options OPTIONAL options to set temporary
+      * @throws Zend_Currency_Exception When the value is not a number
+      * @return string
+      */
+
+--- /dev/null
++++ ../library/Zend/Db/Select.php
+@@ -486,7 +486,7 @@
+      * @param  string $cond Join on this condition.
+      * @param  array|string $cols The columns to select from the joined table.
+      * @param  string $schema The database name to specify, if any.
+-     * @return Zend_Db_Select This Zend_Db_Select object.
++     * @return $this This Zend_Db_Select object.
+      */
+     public function joinStraight($name, $cond, $cols = self::SQL_WILDCARD, $schema = null)
+     {
+
+--- /dev/null
++++ ../library/Zend/Measure/Abstract.php
+@@ -75,7 +75,7 @@
+      * Zend_Measure_Abstract is an abstract class for the different measurement types
+      *
+      * @param  mixed       $value  Value as string, integer, real or float
+-     * @param  int         $type   OPTIONAL a measure type f.e. Zend_Measure_Length::METER
++     * @param  string      $type   OPTIONAL a measure type f.e. Zend_Measure_Length::METER
+      * @param  Zend_Locale $locale OPTIONAL a Zend_Locale Type
+      * @throws Zend_Measure_Exception
+      */
+
+--- /dev/null
++++ ../library/Zend/Cache/Backend/Memcached.php
+@@ -205,10 +205,10 @@
+      * Note : $data is always "string" (serialization is done by the
+      * core not by the backend)
+      *
+-     * @param  string $data             Datas to cache
+-     * @param  string $id               Cache id
+-     * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
+-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
++     * @param  string $data                Datas to cache
++     * @param  string $id                  Cache id
++     * @param  array  $tags                Array of strings, the cache record will be tagged by each string entry
++     * @param  false|int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+      * @return boolean True if no problem
+      */
+     public function save($data, $id, $tags = [], $specificLifetime = false)
+
+--- /dev/null
++++ ../library/Zend/Translate.php
+@@ -63,7 +63,7 @@
+     /**
+      * Generates the standard translation object
+      *
+-     * @param  array|Zend_Config|Zend_Translate_Adapter $options Options to use
++     * @param  array|string|Zend_Config|Zend_Translate_Adapter $options Options to use
+      * @param  string|array [$content] Path to content, or content itself
+      * @param  string|Zend_Locale [$locale]
+      * @throws Zend_Translate_Exception

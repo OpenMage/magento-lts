@@ -9,11 +9,13 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Sales_Block_Order_Totals getParentBlock()
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mage_Adminhtml_Block_Template
 {
     /**
-     * @var Mage_Sales_Model_Order_Creditmemo
+     * @var Mage_Sales_Model_Abstract|Mage_Sales_Model_Order_Creditmemo
      */
     protected $_source;
 
@@ -38,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
     }
 
     /**
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Abstract
      */
     public function getSource()
     {
@@ -47,7 +49,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
 
     /**
      * Get credit memo shipping amount depend on configuration settings
+     *
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getShippingAmount()
     {
@@ -59,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
             $shipping = $source->getBaseShippingAmount();
         }
 
-        return Mage::app()->getStore()->roundPrice($shipping) * 1;
+        return Mage::app()->getStore()->roundPrice($shipping);
     }
 
     /**

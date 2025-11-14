@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
             $skipProducts = [];
             if ($collection = $this->getCreateOrderModel()->getCustomerCompareList()) {
                 $collection = $collection->getItemCollection()
-                    ->useProductItem(true)
+                    ->useProductItem()
                     ->setStoreId($this->getStoreId())
                     ->setCustomerId($this->getCustomerId())
                     ->load();

@@ -12,16 +12,16 @@
  *
  * @package    Mage_Payment
  *
- * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method string getCheckoutRedirectUrl()
  * @method string getInstructions()
  * @method string getOrderPlaceRedirectUrl()
  * @method int getStore()
- * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
- * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $agreement)
+ * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
  * @method $this setStore(int $value)
- * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object

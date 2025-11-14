@@ -283,6 +283,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param Varien_Simplexml_Element $node
      * @param Mage_Core_Model_Layout_Element|Varien_Simplexml_Element $parent
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Json_Exception
      */
     protected function _generateAction($node, $parent)
     {
@@ -503,6 +505,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param string $block
      * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getBlockInstance($block, array $attributes = [])
     {
@@ -598,12 +601,15 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             return $block;
         }
 
-        return $this->createBlock('core/messages', 'messages');
+        /** @var Mage_Core_Block_Messages $block */
+        $block =  $this->createBlock('core/messages', 'messages');
+        return $block;
     }
 
     /**
      * @param string $type
      * @return Mage_Core_Block_Abstract|object
+     * @throws Mage_Core_Exception
      */
     public function getBlockSingleton($type)
     {

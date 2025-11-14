@@ -756,7 +756,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $ySize = imagesy($image);
         $page = new Zend_Pdf_Page($xSize, $ySize);
 
-        imageinterlace($image, 0);
+        imageinterlace($image, false);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
                      . uniqid((string) mt_rand()) . time() . '.png';
         imagepng($image, $tmpFileName);

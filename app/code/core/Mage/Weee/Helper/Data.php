@@ -472,7 +472,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if the configuration for the particular store causes conflicts
      *
-     * @param null|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function validateCatalogPricesAndFptConfiguration($store = null)

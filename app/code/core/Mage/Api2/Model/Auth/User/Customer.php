@@ -43,6 +43,8 @@ class Mage_Api2_Model_Auth_User_Customer extends Mage_Api2_Model_Auth_User_Abstr
      * Retrieve user role
      *
      * @return int
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getRole()
     {

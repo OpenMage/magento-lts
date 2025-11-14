@@ -15,7 +15,7 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
  * @method string getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
- * @method float getRate()
+ * @method string getRate()
  * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
  * @method int getTaxCalculationRateId()
@@ -23,27 +23,27 @@
  * @method string getTaxPostcode()
  * @method int getTaxRegionId()
  * @method array getTitle()
- * @method int getZipFrom()
+ * @method string getZipFrom()
  * @method int getZipIsRange()
- * @method int getZipTo()
+ * @method string getZipTo()
  * @method bool hasTaxPostcode()
  * @method $this setCode(string $value)
- * @method $this setRate(float $value)
+ * @method $this setRate(string $value)
  * @method $this setRegionName(string $value)
  * @method $this setTaxCountryId(string $value)
  * @method $this setTaxPostcode(string $value)
  * @method $this setTaxRegionId(int $value)
  * @method $this setTitle(array $value)
- * @method $this setZipFrom(int $value)
- * @method $this setZipIsRange(int $value)
- * @method $this setZipTo(int $value)
+ * @method $this setZipFrom(null|string $value)
+ * @method $this setZipIsRange(null|int $value)
+ * @method $this setZipTo(null|string $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
     /**
      * List of tax titles
      *
-     * @var null|array
+     * @var null|Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
      */
     protected $_titles = null;
 
@@ -66,6 +66,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * Prepare location settings and tax postcode before save rate
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -164,6 +165,8 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * Saves the tax titles
      *
      * @param null|array $titles
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function saveTitles($titles = null)
     {
@@ -203,7 +206,8 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Returns the list of tax titles
      *
-     * @return array
+     * @return Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection
+     * @throws Mage_Core_Exception
      */
     public function getTitles()
     {
@@ -218,6 +222,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * Deletes all tax rates
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteAllRates()
     {
@@ -231,6 +236,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      *
      * @param  string $code
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByCode($code)
     {
@@ -242,6 +248,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      * Check if rate exists in tax rule
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _isInRule()
     {
