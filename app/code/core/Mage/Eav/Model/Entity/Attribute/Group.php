@@ -41,14 +41,4 @@ class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->itemExists($this);
     }
-
-    /**
-     * Delete groups
-     *
-     * @return $this
-     */
-    public function deleteGroups()
-    {
-        return $this->_getResource()->deleteGroups($this);
-    }
 }
