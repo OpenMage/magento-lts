@@ -56,6 +56,8 @@
  * @method bool getIsChangedWebsites()
  * @method bool getIsCustomOptionChanged()
  * @method bool getIsDefault()
+ * @method bool getSkipImagesOnDuplicate()
+ * @method $this setSkipImagesOnDuplicate(bool $value)
  * @method bool getIsDuplicate()
  * @method bool getIsMassupdate()
  * @method bool getIsRecurring()
@@ -1365,6 +1367,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
+        if($newProduct->getSkipImagesOnDuplicate() == null && $this->_getImageHelper()->skipProductImageOnDuplicate() === -1){
+            $newProduct->setSkipImagesOnDuplicate(false);
+        }else{
+            $newProduct->setSkipImagesOnDuplicate((bool) $this->_getImageHelper()->skipProductImageOnDuplicate());
+        }
+
         Mage::dispatchEvent(
             'catalog_model_product_duplicate',
             ['current_product' => $this, 'new_product' => $newProduct],
@@ -1437,7 +1445,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $newProduct->save();
 
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
-        $this->getResource()->duplicate($this->getId(), $newProduct->getId());
+        $this->getResource()
+            ->setSkipImagesOnDuplicate($newProduct->getSkipImagesOnDuplicate())
+            ->duplicate($this->getId(), $newProduct->getId());
 
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
