@@ -65,8 +65,8 @@ final class DataTest extends OpenMageTest
     {
         try {
             self::assertSame($expectedResult, self::$subject->getMeasureWeightName($key));
-        } catch (UnknownUnitOfMeasure $unitOfMeasure) {
-            self::assertSame($expectedResult, $unitOfMeasure->getMessage());
+        } catch (UnknownUnitOfMeasure $unknownUnitOfMeasure) {
+            self::assertSame($expectedResult, $unknownUnitOfMeasure->getMessage());
         }
     }
 
@@ -78,8 +78,8 @@ final class DataTest extends OpenMageTest
     {
         try {
             self::assertSame($expectedResult, self::$subject->getMeasureDimensionName($key));
-        } catch (UnknownUnitOfMeasure $unitOfMeasure) {
-            self::assertSame($expectedResult, $unitOfMeasure->getMessage());
+        } catch (UnknownUnitOfMeasure $unknownUnitOfMeasure) {
+            self::assertSame($expectedResult, $unknownUnitOfMeasure->getMessage());
         }
     }
 
