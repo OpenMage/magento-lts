@@ -406,7 +406,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getFrontNameByRoute($routeName)
     {
-        return $this->_routes[$routeName] ?? false;
+        return $this->_routes[(string) $routeName] ?? false;
     }
 
     /**
