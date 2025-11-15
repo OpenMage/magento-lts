@@ -427,18 +427,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 '1' => Mage::helper('usa')->__('Specific'),
             ],
             'dimensions_variables'  => [
-                'L'         => Zend_Measure_Weight::POUND,
-                'LB'        => Zend_Measure_Weight::POUND,
-                'POUND'     => Zend_Measure_Weight::POUND,
-                'K'         => Zend_Measure_Weight::KILOGRAM,
-                'KG'        => Zend_Measure_Weight::KILOGRAM,
-                'KILOGRAM'  => Zend_Measure_Weight::KILOGRAM,
-                'I'         => Zend_Measure_Length::INCH,
-                'IN'        => Zend_Measure_Length::INCH,
-                'INCH'      => Zend_Measure_Length::INCH,
-                'C'         => Zend_Measure_Length::CENTIMETER,
-                'CM'        => Zend_Measure_Length::CENTIMETER,
-                'CENTIMETER' => Zend_Measure_Length::CENTIMETER,
+                'L'         => Mage_Core_Helper_Measure_Weight::POUND,
+                'LB'        => Mage_Core_Helper_Measure_Weight::POUND,
+                'POUND'     => Mage_Core_Helper_Measure_Weight::POUND,
+                'K'         => Mage_Core_Helper_Measure_Weight::KILOGRAM,
+                'KG'        => Mage_Core_Helper_Measure_Weight::KILOGRAM,
+                'KILOGRAM'  => Mage_Core_Helper_Measure_Weight::KILOGRAM,
+                'I'         => Mage_Core_Helper_Measure_Length::INCH,
+                'IN'        => Mage_Core_Helper_Measure_Length::INCH,
+                'INCH'      => Mage_Core_Helper_Measure_Length::INCH,
+                'C'         => Mage_Core_Helper_Measure_Length::CENTIMETER,
+                'CM'        => Mage_Core_Helper_Measure_Length::CENTIMETER,
+                'CENTIMETER' => Mage_Core_Helper_Measure_Length::CENTIMETER,
 
             ],
         ];
@@ -537,7 +537,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected function _getWeight($weight, $maxWeight = false, $configWeightUnit = false)
     {
         if ($maxWeight) {
-            $configWeightUnit = Zend_Measure_Weight::KILOGRAM;
+            $configWeightUnit = Mage_Core_Helper_Measure_Weight::KILOGRAM;
         } elseif ($configWeightUnit) {
             $configWeightUnit = $this->getCode('dimensions_variables', $configWeightUnit);
         } else {
@@ -731,10 +731,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $configWeightUnit = $this->getCode('dimensions_variables', $configWeightUnit);
         }
 
-        if ($configWeightUnit == Zend_Measure_Weight::POUND) {
-            $configDimensionUnit = Zend_Measure_Length::INCH;
+        if ($configWeightUnit == Mage_Core_Helper_Measure_Weight::POUND) {
+            $configDimensionUnit = Mage_Core_Helper_Measure_Length::INCH;
         } else {
-            $configDimensionUnit = Zend_Measure_Length::CENTIMETER;
+            $configDimensionUnit = Mage_Core_Helper_Measure_Length::CENTIMETER;
         }
 
         $countryDimensionUnit = $this->getCode('dimensions_variables', $this->_getDimensionUnit());
