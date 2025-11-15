@@ -707,7 +707,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Format Date to internal database date format
      *
-     * @param int|string|Zend_Date $date
+     * @param null|bool|int|string|Zend_Date $date
      * @param bool $includeTime
      * @return string
      */

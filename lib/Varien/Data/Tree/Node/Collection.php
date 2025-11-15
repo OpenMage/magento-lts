@@ -20,7 +20,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     private $_nodes;
 
     /**
-     * @var Varien_Data_Tree
+     * @var Varien_Data_Tree_Node
      */
     private $_container;
 

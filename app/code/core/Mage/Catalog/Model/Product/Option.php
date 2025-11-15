@@ -43,6 +43,8 @@
  * @method $this setSku(string $value)
  * @method $this setSortOrder(int $value)
  * @method $this setType(string $value)
+ *
+ * @property bool $decoratedIsLast
  */
 class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 {
@@ -153,6 +155,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Add value of option to values array
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addValue(Mage_Catalog_Model_Product_Option_Value $value)
     {
@@ -294,6 +297,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param string $type Option type
      * @return Mage_Catalog_Model_Product_Option_Type_Default
+     * @throws Mage_Core_Exception
      */
     public function groupFactory($type)
     {
@@ -311,6 +315,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Save options.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function saveOptions()
     {
@@ -388,6 +394,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * After save
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -428,6 +436,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param int|string $optionId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deletePrices($optionId)
     {
@@ -440,6 +449,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param int|string $optionId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteTitles($optionId)
     {
@@ -451,6 +461,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * get Product Option Collection
      *
      * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductOptionCollection(Mage_Catalog_Model_Product $product)
     {
@@ -486,6 +498,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @param array $optionIds
      * @param int $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     * @throws Mage_Core_Exception
      */
     public function getOptionValuesByOptionId($optionIds, $storeId)
     {
@@ -522,6 +535,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @param int $oldProductId
      * @param int $newProductId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function duplicate($oldProductId, $newProductId)
     {
@@ -536,6 +550,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @param int $productId
      * @param int $storeId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getSearchableData($productId, $storeId)
     {

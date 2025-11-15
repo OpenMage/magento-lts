@@ -220,7 +220,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($stores as $one) {
                     $websites[] = Mage::app()->getStore($one)->getWebsiteId();
                 }
-            } elseif (!is_array($stores)) {
+            } else {
                 Mage::throwException('Invalid stores supplied for indexing');
             }
 

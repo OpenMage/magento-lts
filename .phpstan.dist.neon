@@ -96,37 +96,18 @@ parameters:
                 - app/design/adminhtml/default/default/template/tax/class/page/edit.phtml
                 - app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
                 - app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
-                - app/design/frontend/base/default/template/bundle/catalog/product/list/partof.phtml
-                - app/design/frontend/base/default/template/bundle/catalog/product/view/options/notice.phtml
-                - app/design/frontend/base/default/template/catalog/category/page.phtml
-                - app/design/frontend/base/default/template/catalog/category/widget/link/link_block.phtml
-                - app/design/frontend/base/default/template/catalog/category/widget/link/link_inline.phtml
-                - app/design/frontend/base/default/template/catalog/product/view/price.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/link/link_block.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/link/link_inline.phtml
-                - app/design/frontend/base/default/template/checkout/cart/render/default.phtml
-                - app/design/frontend/base/default/template/checkout/cart/render/simple.phtml
-                - app/design/frontend/base/default/template/cms/widget/link/link_block.phtml
-                - app/design/frontend/base/default/template/cms/widget/link/link_inline.phtml
-                - app/design/frontend/base/default/template/cms/widget/static_block/default.phtml
-                - app/design/frontend/base/default/template/core/messages.phtml
-                - app/design/frontend/base/default/template/customer/address.phtml
-                - app/design/frontend/base/default/template/customer/balance.phtml
-                - app/design/frontend/base/default/template/customer/form/address.phtml
-                - app/design/frontend/base/default/template/customer/form/changepassword.phtml
-                - app/design/frontend/base/default/template/customer/orders.phtml
-                - app/design/frontend/base/default/template/customer/wishlist.phtml
-                - app/design/frontend/base/default/template/directory/currency/switch.phtml
-                - app/design/frontend/base/default/template/page/redirect.phtml
-                - app/design/frontend/base/default/template/paypal/hss/review/button.phtml
-                - app/design/frontend/rwd/default/template/checkout/cart/render/default.phtml
-                - app/design/frontend/rwd/default/template/checkout/cart/render/simple.phtml
-                - app/design/frontend/rwd/default/template/customer/form/address.phtml
-                - app/design/frontend/rwd/default/template/customer/form/changepassword.phtml
-                - app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
-                - app/design/install/default/default/template/page.phtml
+        -
+            # update phpstan plugin
+            identifier: method.protected
+            paths:
+                - app/design/*/*/template/*
         -
             identifier: phpunit.coversMethod
+        -
+            # update phpstan plugin
+            identifier: property.protected
+            paths:
+                - app/design/*/*/template/*
         -
             identifier: variable.undefined
             paths:

@@ -24,6 +24,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
      * Init currency by currency code from request
      *
      * @return Mage_Adminhtml_Controller_Action
+     * @throws Mage_Core_Exception
      */
     protected function _initCurrency()
     {
@@ -37,6 +38,8 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
     /**
      * Currency management main page
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -58,6 +61,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
 
             try {
+                /** @var Mage_Directory_Model_Currency_Import_Abstract $importModel */
                 $importModel = Mage::getModel(
                     Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray(),
                 );
@@ -102,8 +106,8 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
 
                 Mage::getModel('directory/currency')->saveRates($data);
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All valid rates have been saved.'));
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 

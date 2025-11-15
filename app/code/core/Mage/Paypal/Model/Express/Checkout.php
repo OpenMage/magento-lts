@@ -143,6 +143,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set quote and config instances
      * @param array $params
+     * @throws Exception
      */
     public function __construct($params = [])
     {
@@ -183,9 +184,9 @@ class Mage_Paypal_Model_Express_Checkout
                     $this->_api->callGetPalDetails();
                     $pal = $this->_api->getPal();
                     Mage::app()->saveCache($pal, $cacheId, [Mage_Core_Model_Config::CACHE_TAG]);
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     Mage::app()->saveCache(-1, $cacheId, [Mage_Core_Model_Config::CACHE_TAG]);
-                    Mage::logException($e);
+                    Mage::logException($exception);
                 }
             }
         }
@@ -251,6 +252,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param Mage_Customer_Model_Customer $customer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomer($customer)
     {
@@ -266,6 +268,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param  Mage_Sales_Model_Quote_Address $billingAddress
      * @param  Mage_Sales_Model_Quote_Address $shippingAddress
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomerWithAddressChange($customer, $billingAddress = null, $shippingAddress = null)
     {
@@ -281,6 +284,9 @@ class Mage_Paypal_Model_Express_Checkout
      * @param string $cancelUrl
      * @param null|bool $button
      * @return mixed
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function start($returnUrl, $cancelUrl, $button = null)
     {
@@ -398,6 +404,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Check whether system can skip order review page before placing order
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canSkipOrderReviewStep()
     {
@@ -413,6 +420,8 @@ class Mage_Paypal_Model_Express_Checkout
      * export shipping address in case address absence
      *
      * @param string $token
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function returnFromPaypal($token)
     {
@@ -495,6 +504,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $token
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function prepareOrderReview($token = null)
     {
@@ -517,6 +527,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Return callback response with shipping options
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getShippingOptionsCallbackResponse(array $request)
     {
@@ -556,6 +567,8 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set shipping method to quote, if needed
      * @param string $methodCode
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function updateShippingMethod($methodCode)
     {
@@ -574,6 +587,8 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $token
      * @param string $shippingMethodCode
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function place($token, $shippingMethodCode = null)
     {
@@ -605,8 +620,8 @@ class Mage_Paypal_Model_Express_Checkout
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -644,6 +659,8 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Make sure addresses will be saved without validation errors
+     *
+     * @throws Mage_Core_Exception
      */
     private function _ignoreAddressValidation()
     {
@@ -722,7 +739,8 @@ class Mage_Paypal_Model_Express_Checkout
      * Sets address data from exported address
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @param array $exportedAddress
+     * @param Varien_Object $exportedAddress
+     * @throws Mage_Core_Exception
      */
     protected function _setExportedAddressData($address, $exportedAddress)
     {
@@ -761,6 +779,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Set create billing agreement flag to api call
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _setBillingAgreementRequest()
     {
@@ -811,7 +830,7 @@ class Mage_Paypal_Model_Express_Checkout
         $calculateTax = false
     ) {
         $options = [];
-        $i = 0;
+        $index = 0;
         $iMin = false;
         $min = false;
         $userSelectedOption = null;
@@ -827,29 +846,29 @@ class Mage_Paypal_Model_Express_Checkout
                 $amountExclTax = Mage::helper('tax')->getShippingPrice($amount, false, $address);
                 $amountInclTax = Mage::helper('tax')->getShippingPrice($amount, true, $address);
 
-                $options[$i] = new Varien_Object([
+                $options[$index] = new Varien_Object([
                     'is_default' => $isDefault,
                     'name'       => trim("{$rate->getCarrier()} - {$rate->getMethodTitle()}", ' -'),
                     'code'       => $rate->getCode(),
                     'amount'     => $amountExclTax,
                 ]);
                 if ($calculateTax) {
-                    $options[$i]->setTaxAmount(
+                    $options[$index]->setTaxAmount(
                         $amountInclTax - $amountExclTax
                             + $address->getTaxAmount() - $address->getShippingTaxAmount(),
                     );
                 }
 
                 if ($isDefault) {
-                    $userSelectedOption = $options[$i];
+                    $userSelectedOption = $options[$index];
                 }
 
                 if ($min === false || $amountInclTax < $min) {
                     $min = $amountInclTax;
-                    $iMin = $i;
+                    $iMin = $index;
                 }
 
-                $i++;
+                $index++;
             }
         }
 
@@ -861,7 +880,7 @@ class Mage_Paypal_Model_Express_Checkout
                 'amount'     => 0.00,
             ]);
             if ($calculateTax) {
-                $options[$i]->setTaxAmount($address->getTaxAmount());
+                $options[$index]->setTaxAmount($address->getTaxAmount());
             }
         } elseif (is_null($userSelectedOption) && isset($options[$iMin])) {
             $options[$iMin]->setIsDefault(true);
@@ -921,6 +940,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for guest checkout order submit
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareGuestQuote()
     {
@@ -936,6 +956,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Checks if customer with email coming from Express checkout exists
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     protected function _lookupCustomerId()
     {
@@ -950,6 +971,8 @@ class Mage_Paypal_Model_Express_Checkout
      * and restore magento customer data from quote
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -1015,6 +1038,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for customer order submit
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCustomerQuote()
     {
@@ -1056,6 +1080,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Involve new customer to system
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _involveNewCustomer()
     {
@@ -1089,6 +1114,7 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param string $email
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _customerEmailExists($email)
     {

@@ -11,6 +11,8 @@
  * Shipment tracking control form
  *
  * @package    Mage_Adminhtml
+ *
+ * @property Mage_Sales_Model_Order_Shipment_Track $trackingInfo
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info extends Mage_Adminhtml_Block_Template
 {

@@ -104,21 +104,21 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Data
     public function run()
     {
         if (!$this->_actions) {
-            $e = new Mage_Dataflow_Model_Convert_Exception('Could not find any actions for this profile');
-            $e->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
-            $this->addException($e);
-            return;
+            $mageDataflowModelConvertException = new Mage_Dataflow_Model_Convert_Exception('Could not find any actions for this profile');
+            $mageDataflowModelConvertException->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->addException($mageDataflowModelConvertException);
+            return $this;
         }
 
         foreach ($this->_actions as $action) {
             /** @var Mage_Dataflow_Model_Convert_Action $action */
             try {
                 $action->run();
-            } catch (Exception $e) {
-                $dfe = new Mage_Dataflow_Model_Convert_Exception($e->getMessage());
+            } catch (Exception $exception) {
+                $dfe = new Mage_Dataflow_Model_Convert_Exception($exception->getMessage());
                 $dfe->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
                 $this->addException($dfe);
-                return ;
+                return $this;
             }
         }
 

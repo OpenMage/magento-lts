@@ -27,7 +27,7 @@
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
  * @method $this setTemplate(string $value)
- * @method $this setType(string $value)
+ * @method $this setType(string $type)
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -274,6 +274,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve current action object
      *
      * @return Mage_Core_Controller_Varien_Action
+     * @throws Mage_Core_Exception
      */
     public function getAction()
     {
@@ -1111,6 +1112,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param string $type
      * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getHelper($type)
     {
@@ -1611,6 +1613,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Checks is request Url is secure
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isSecure()
     {

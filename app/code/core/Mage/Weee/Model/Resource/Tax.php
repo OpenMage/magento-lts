@@ -67,6 +67,9 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param mixed $productCondition
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _updateDiscountPercents($productCondition = null)
     {

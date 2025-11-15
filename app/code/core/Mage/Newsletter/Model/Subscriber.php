@@ -469,7 +469,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
         $this->save();
         $sendSubscription = $customer->getData('sendSubscription') || $sendInformationEmail;
-        if (is_null($sendSubscription) xor $sendSubscription) {
+        if ($sendSubscription) {
             if ($this->getIsStatusChanged() && $status == self::STATUS_UNSUBSCRIBED) {
                 $this->sendUnsubscriptionEmail();
             } elseif ($this->getIsStatusChanged() && $status == self::STATUS_SUBSCRIBED) {

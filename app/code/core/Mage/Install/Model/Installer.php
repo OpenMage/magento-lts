@@ -22,7 +22,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var null|Mage_Install_Model_Installer_Data
+     * @var null|Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -53,7 +53,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Mage_Install_Model_Installer_Data $model
+     * @param Mage_Install_Model_Installer_Data|Mage_Install_Model_Session $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)
@@ -182,7 +182,9 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param array $data
-     * @return mixed
+     * @return array|Mage_Admin_Model_User
+     * @throws Mage_Core_Exception
+     * @throws Zend_Validate_Exception
      */
     public function validateAndPrepareAdministrator($data)
     {
@@ -209,6 +211,8 @@ class Mage_Install_Model_Installer extends Varien_Object
      *
      * @param mixed $data
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function createAdministrator($data)
     {

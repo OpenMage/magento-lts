@@ -11,6 +11,8 @@
  * DHL shipping implementation
  *
  * @package    Mage_Usa
+ *
+ * @property Varien_Object $_rawTrackRequest
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {

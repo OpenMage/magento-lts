@@ -63,5 +63,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
                 $this->_messages[] = Mage::helper('directory')->__('Cannot retrieve rate from %s.', $url);
             }
         }
+
+        return null;
     }
 }

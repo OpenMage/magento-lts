@@ -382,8 +382,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *  customer_class_id (->getCustomerClassId())
      *  store (->getStore())
      *
-     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address $shippingAddress
-     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address $billingAddress
+     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $shippingAddress
+     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $billingAddress
      * @param   null|int $customerTaxClass
      * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  Varien_Object

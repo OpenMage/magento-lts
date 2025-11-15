@@ -9,6 +9,8 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @property string $_aclResourcePath
  */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
@@ -72,6 +74,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Can we show notification window
      *
      * @return bool
+     * @throws Exception
      */
     public function canShow()
     {
@@ -126,6 +129,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Retrieve severity icons url
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSeverityIconsUrl()
     {
