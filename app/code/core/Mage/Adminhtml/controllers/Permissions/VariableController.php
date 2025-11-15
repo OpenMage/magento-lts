@@ -109,7 +109,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
      *
      * @return $this|void
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function saveAction()
     {

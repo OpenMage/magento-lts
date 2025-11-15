@@ -7,6 +7,8 @@
  * @package    Mage_Customer
  */
 
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+
 /**
  * Customer model
  *
@@ -1061,101 +1063,106 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return array|true
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = [];
-        if (!Zend_Validate::is(trim($this->getFirstname()), 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
-        }
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        if (!Zend_Validate::is(trim($this->getLastname()), 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('The last name cannot be empty.');
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('customer')->__('The first name cannot be empty.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors[] = Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail());
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('customer')->__('The last name cannot be empty.'),
+        ));
 
-        $password = $this->getPassword();
-        if (!$this->getId() && !Zend_Validate::is($password, 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
-        }
+        $email = $this->getEmail();
+        $violations->append($validator->validateEmail(
+            value: $email,
+            message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
+        ));
 
-        $minPasswordLength = $this->getMinPasswordLength();
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
-            $errors[] = Mage::helper('customer')
-                ->__('The minimum password length is %s', $minPasswordLength);
-        }
+        $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
-            $errors[] = Mage::helper('customer')
-                ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
-        }
-
-        $confirmation = $this->getPasswordConfirmation();
-        if ($password != $confirmation) {
-            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
-        }
+        $violations->append($validator->validateIdentical(
+            value: $this->getPasswordConfirmation(),
+            compare: $this->getPassword(),
+            message: Mage::helper('customer')->__('Please make sure your passwords match.'),
+        ));
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
-        if ($attribute->getIsRequired() && trim($this->getDob()) == '') {
-            $errors[] = Mage::helper('customer')->__('The Date of Birth is required.');
+
+        if ($this->shouldValidateDob($entityType)) {
+            $violations->append($validator->validateDate(
+                value: trim($this->getDob()),
+                message: Mage::helper('customer')->__('The Date of Birth is required.'),
+            ));
         }
 
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
-        if ($attribute->getIsRequired() && trim($this->getTaxvat()) == '') {
-            $errors[] = Mage::helper('customer')->__('The TAX/VAT number is required.');
+        if ($this->shouldValidateTaxvat($entityType)) {
+            $violations->append($validator->validateNotEmpty(
+                value: trim($this->getTaxvat()),
+                message: Mage::helper('customer')->__('The TAX/VAT number is required.'),
+            ));
         }
 
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
-        if ($attribute->getIsRequired() && trim($this->getGender()) == '') {
-            $errors[] = Mage::helper('customer')->__('Gender is required.');
+        if ($this->shouldValidateGender($entityType)) {
+            $violations->append($validator->validateNotEmpty(
+                value: trim($this->getGender()),
+                message: Mage::helper('customer')->__('Gender is required.'),
+            ));
         }
 
-        if (empty($errors)) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 
-        return $errors;
+        return (array) $errors;
     }
 
     /**
      * Validate customer password on reset
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validateResetPassword()
     {
-        $errors   = [];
-        $password = $this->getPassword();
-        if (!Zend_Validate::is($password, 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
-        }
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $minPasswordLength = $this->getMinPasswordLength();
-        if (!Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
-            $errors[] = Mage::helper('customer')
-                ->__('The minimum password length is %s', $minPasswordLength);
-        }
+        $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
-        if (!Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
-            $errors[] = Mage::helper('customer')
-                ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
-        }
+        $violations->append($validator->validateIdentical(
+            value: $this->getPasswordConfirmation(),
+            compare: $this->getPassword(),
+            message: Mage::helper('customer')->__('Please make sure your passwords match.'),
+        ));
 
-        $confirmation = $this->getPasswordConfirmation();
-        if ($password != $confirmation) {
-            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
-        }
-
-        if (empty($errors)) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 
-        return $errors;
+        return (array) $errors;
+    }
+
+    public function getPasswordValidator(mixed $value): ConstraintViolationListInterface
+    {
+        $min = $this->getMinPasswordLength();
+        $validator  = $this->getValidationHelper();
+
+        return $validator->validatePassword(
+            value: $value,
+            min: $min,
+            max: self::MAXIMUM_PASSWORD_LENGTH,
+            emptyMessage: Mage::helper('customer')->__('The password cannot be empty.'),
+            minMessage: Mage::helper('customer')->__('The minimum password length is %s', $min),
+            maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
+            regexMessage: Mage::helper('customer')->__('Password must include both numeric and alphabetic characters.'),
+        );
     }
 
     /**
@@ -1719,5 +1726,39 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return max($absoluteMinLength, $minLength);
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateDob($entityType): bool
+    {
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'dob');
+        return $attribute->getIsRequired();
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateGender($entityType): bool
+    {
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'gender');
+        return $attribute->getIsRequired();
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateTaxvat($entityType): bool
+    {
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'taxvat');
+        return $attribute->getIsRequired();
+    }
+
+    public function getCustomerAttributeModel(): Mage_Customer_Model_Attribute
+    {
+        /** @var Mage_Customer_Model_Attribute $model */
+        $model = Mage::getModel('customer/attribute');
+        return $model;
     }
 }
