@@ -21,6 +21,8 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string $sourceWeightMeasure
      * @param  string $toWeightMeasure
      * @return null|int|string
+     * @throws Zend_Locale_Exception
+     * @throws Zend_Measure_Exception
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
@@ -132,7 +134,6 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * Validate ups type value
      *
      * @param string $valueForCheck ups type value for check
-     *
      * @return bool
      */
     public function validateUpsType($valueForCheck)
