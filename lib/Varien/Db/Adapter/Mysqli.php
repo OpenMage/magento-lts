@@ -17,8 +17,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * Creates a real connection to the database with multi-query capability.
      *
      * @return void
-     * @throws Zend_Db_Adapter_Mysqli_Exception
      * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -188,8 +188,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     }
 
     /**
-     * @throws Zend_Db_Adapter_Mysqli_Exception
      * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      */
     public function dropForeignKey($table, $fk)
     {
@@ -202,8 +202,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     }
 
     /**
-     * @throws Zend_Db_Adapter_Mysqli_Exception
      * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      */
     public function dropKey($table, $key)
     {

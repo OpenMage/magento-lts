@@ -626,7 +626,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $subProduct,
                         $processMode,
                     );
-                    if (is_string($_result) && !is_array($_result)) {
+                    if (is_string($_result)) {
                         return $_result;
                     }
 

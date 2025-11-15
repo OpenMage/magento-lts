@@ -193,18 +193,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			rawMessage: 'Parameter #1 $field of method Mage_Adminhtml_Block_System_Config_Form::canUseDefaultValue() expects Varien_Simplexml_Element, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			rawMessage: 'Parameter #1 $field of method Mage_Adminhtml_Block_System_Config_Form::canUseWebsiteValue() expects Varien_Simplexml_Element, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
 			rawMessage: 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.'
 			identifier: arguments.count
 			count: 1
@@ -249,12 +237,6 @@ parameters:
 		-
 			rawMessage: 'Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface::toHtml().'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			rawMessage: 'PHPDoc tag @param references unknown parameter: $tabNId'
-			identifier: parameter.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
@@ -395,12 +377,6 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php
-
-		-
-			rawMessage: 'Cannot call method fetchRates() on Mage_Core_Model_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
 
 		-
 			rawMessage: 'Method Mage_Directory_Model_Country::loadByCode() invoked with 2 parameters, 1 required.'
@@ -695,12 +671,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
 			rawMessage: Left side of && is always true.
@@ -1045,12 +1015,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Status.php
 
 		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			rawMessage: 'Method Mage_Catalog_Model_Product_Type_Configurable::getProductByAttributes() should return Mage_Catalog_Model_Product|null but returns Varien_Object.'
 			identifier: return.type
 			count: 1
@@ -1061,12 +1025,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
 			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
@@ -1165,18 +1123,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface::getIsComposite().'
-			identifier: method.notFound
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			rawMessage: 'Cannot call method setTypeId() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -1225,12 +1171,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Grouped.php
 
 		-
-			rawMessage: 'Call to function is_array() with mixed will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			rawMessage: 'Return type (string) of method Mage_CatalogIndex_Model_Indexer_Eav::_getIndexableAttributeConditions() should be compatible with return type (array) of method Mage_CatalogIndex_Model_Indexer_Abstract::_getIndexableAttributeConditions()'
 			identifier: method.childReturnType
 			count: 1
@@ -1253,12 +1193,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
-
-		-
-			rawMessage: 'Cannot call method setTypeId() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
 			rawMessage: 'Method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection::_initSelect() should return $this(Mage_CatalogInventory_Model_Resource_Stock_Item_Collection) but returns Varien_Db_Select.'
@@ -1721,12 +1655,6 @@ parameters:
 			identifier: variable.undefined
 			count: 3
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			rawMessage: 'Parameter #1 $date of method Mage_Core_Model_Resource_Db_Collection_Abstract::formatDate() expects int|string|Zend_Date, true given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Design/Collection.php
 
 		-
 			rawMessage: 'Parameter #6 $gc of function session_set_save_handler expects callable(string): bool, array{$this(Mage_Core_Model_Resource_Session), ''gc''} given.'
@@ -2485,22 +2413,10 @@ parameters:
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Reports_Model_Grouped_Collection::$_resourceCollection (Mage_Core_Model_Resource_Db_Collection_Abstract) does not accept Varien_Data_Collection_Db.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Grouped/Collection.php
-
-		-
 			rawMessage: 'Method Mage_Reports_Model_Resource_Product_Index_Abstract::clean() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Reports_Model_Report::$_reportModel (Mage_Reports_Model_Report) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Report.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Customer_Model_Customer::remove().'
@@ -2759,12 +2675,6 @@ parameters:
 			identifier: method.notFound
 			count: 3
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			rawMessage: 'Cannot call method updateOnRelatedRecordChanged() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Address.php
 
 		-
 			rawMessage: 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.'
