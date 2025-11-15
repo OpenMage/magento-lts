@@ -15,6 +15,8 @@ use Mage;
 use Mage_Usa_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Helper\DataTrait;
+use PhpUnitsOfMeasure\Exception\NonNumericValue;
+use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 use PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure;
 
 final class DataTest extends OpenMageTest
@@ -33,34 +35,36 @@ final class DataTest extends OpenMageTest
      * @dataProvider provideConvertMeasureWeightData
      * @group Helper
      */
-    public function testConvertMeasureWeight(float $expectedResult, $value, string $sourceWeightMeasure, string $toWeightMeasure): void
+    public function testConvertMeasureWeight(float|string $expectedResult, $value, ?string $sourceWeightMeasure, ?string $toWeightMeasure): void
     {
-        $result = self::$subject->convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure);
-
-        self::assertIsFloat($result);
-        self::assertSame($expectedResult, $result);
+        try {
+            self::assertSame($expectedResult, self::$subject->convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure));
+        } catch (NonNumericValue|NonStringUnitName|UnknownUnitOfMeasure $unitOfMeasure) {
+            self::assertSame($expectedResult, $unitOfMeasure->getMessage());
+        }
     }
 
     /**
      * @dataProvider provideConvertMeasureDimensionData
      * @group Helper
      */
-    public function testConvertMeasureDimension(float $expectedResult, $value, string $sourceWeightMeasure, string $toWeightMeasure): void
+    public function testConvertMeasureDimension(float|string $expectedResult, $value, ?string $sourceWeightMeasure, ?string $toWeightMeasure): void
     {
-        $result = self::$subject->convertMeasureDimension($value, $sourceWeightMeasure, $toWeightMeasure);
-
-        self::assertIsFloat($result);
-        self::assertSame($expectedResult, $result);
+        try {
+            self::assertSame($expectedResult, self::$subject->convertMeasureDimension($value, $sourceWeightMeasure, $toWeightMeasure));
+        } catch (NonNumericValue|NonStringUnitName|UnknownUnitOfMeasure $unitOfMeasure) {
+            self::assertSame($expectedResult, $unitOfMeasure->getMessage());
+        }
     }
 
     /**
      * @dataProvider provideGetMeasureWeightNameData
      * @group Helper
      */
-    public function testGetMeasureWeightName(string $expectedResult, string $eey): void
+    public function testGetMeasureWeightName(string $expectedResult, string $key): void
     {
         try {
-            self::assertSame($expectedResult, self::$subject->getMeasureWeightName($eey));
+            self::assertSame($expectedResult, self::$subject->getMeasureWeightName($key));
         } catch (UnknownUnitOfMeasure $unitOfMeasure) {
             self::assertSame($expectedResult, $unitOfMeasure->getMessage());
         }

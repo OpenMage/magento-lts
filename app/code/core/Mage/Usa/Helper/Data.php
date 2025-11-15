@@ -7,6 +7,8 @@
  * @package    Mage_Usa
  */
 
+use PhpUnitsOfMeasure\Exception\NonNumericValue;
+use PhpUnitsOfMeasure\Exception\NonStringUnitName;
 use PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use PhpUnitsOfMeasure\PhysicalQuantity\Length;
@@ -22,9 +24,11 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * Convert weight in different measure types
      *
      * @param  float $value
-     * @param  string $sourceWeightMeasure
-     * @param  string $toWeightMeasure
+     * @param  Mage_Core_Helper_Measure_Weight::* $sourceWeightMeasure
+     * @param  Mage_Core_Helper_Measure_Weight::* $toWeightMeasure
      * @return null|float
+     * @throws NonNumericValue
+     * @throws NonStringUnitName
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
@@ -40,9 +44,11 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * Convert dimensions in different measure types
      *
      * @param  float $value
-     * @param  string $sourceDimensionMeasure
-     * @param  string $toDimensionMeasure
+     * @param  Mage_Core_Helper_Measure_Length::* $sourceDimensionMeasure
+     * @param  Mage_Core_Helper_Measure_Length::* $toDimensionMeasure
      * @return null|float
+     * @throws NonNumericValue
+     * @throws NonStringUnitName
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {

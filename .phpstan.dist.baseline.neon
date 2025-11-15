@@ -3097,12 +3097,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			rawMessage: 'Parameter #1 $value of method Mage_Usa_Helper_Data::convertMeasureDimension() expects int|string, float given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex::$_defaultGatewayUrl.
 			identifier: property.notFound
 			count: 1
@@ -4139,3 +4133,9 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Simplexml/Element.php
+
+		-
+			rawMessage: Dead catch - PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure is never thrown in the try block.
+			identifier: catch.neverThrown
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php

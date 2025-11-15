@@ -31,6 +31,20 @@ trait DataTrait
             Mage_Core_Helper_Measure_Weight::OUNCE,
             Mage_Core_Helper_Measure_Weight::POUND,
         ];
+
+        yield 'non-numeric value' => [
+            'Value (xyz) must be numeric.',
+            'xyz',
+            Mage_Core_Helper_Measure_Weight::OUNCE,
+            Mage_Core_Helper_Measure_Weight::POUND,
+        ];
+
+        yield 'non-string unit' => [
+            'Unit name or alias () must be a string value.',
+            10,
+            Mage_Core_Helper_Measure_Weight::OUNCE,
+            null,
+        ];
     }
 
     public function provideConvertMeasureDimensionData(): Generator
@@ -39,6 +53,13 @@ trait DataTrait
             1000,
             10,
             Mage_Core_Helper_Measure_Length::STANDARD,
+            Mage_Core_Helper_Measure_Length::CENTIMETER,
+        ];
+
+        yield 'invalid to cm' => [
+            'Unknown unit of measure (xyz).',
+            10,
+            'xyz',
             Mage_Core_Helper_Measure_Length::CENTIMETER,
         ];
     }
