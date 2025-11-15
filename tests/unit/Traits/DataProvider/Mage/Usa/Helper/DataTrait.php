@@ -11,26 +11,35 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Helper;
 
 use Generator;
+use Mage_Core_Helper_Measure_Length;
+use Mage_Core_Helper_Measure_Weight;
 
 trait DataTrait
 {
     public function provideConvertMeasureWeightData(): Generator
     {
         yield 'kg to lbs' => [
-            '22.046',
+            22.046226218487757,
             10,
-            'KILOGRAM',
-            'POUND',
+            Mage_Core_Helper_Measure_Weight::KILOGRAM,
+            Mage_Core_Helper_Measure_Weight::POUND,
+        ];
+
+        yield 'ounce to lbs' => [
+            0.625,
+            10,
+            Mage_Core_Helper_Measure_Weight::OUNCE,
+            Mage_Core_Helper_Measure_Weight::POUND,
         ];
     }
 
     public function provideConvertMeasureDimensionData(): Generator
     {
         yield 'm to cm' => [
-            '1000',
+            1000,
             10,
-            'METER',
-            'CENTIMETER',
+            Mage_Core_Helper_Measure_Length::STANDARD,
+            Mage_Core_Helper_Measure_Length::CENTIMETER,
         ];
     }
 
@@ -38,15 +47,25 @@ trait DataTrait
     {
         yield 'kg' => [
             'kg',
-            'KILOGRAM',
+            Mage_Core_Helper_Measure_Weight::KILOGRAM,
+        ];
+
+        yield 'exception' => [
+            'Unknown unit of measure (xyz).',
+            'xyz',
         ];
     }
 
     public function provideGetMeasureDimensionNameData(): Generator
     {
-        yield 'm to cm' => [
+        yield 'm' => [
             'm',
-            'METER',
+            Mage_Core_Helper_Measure_Length::STANDARD,
+        ];
+
+        yield 'exception' => [
+            'Unknown unit of measure (xyz).',
+            'xyz',
         ];
     }
 
