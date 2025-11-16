@@ -99,7 +99,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             $whereCondition = ['process_id = ?' => $process->getId()];
         } elseif (is_array($process) && !empty($process)) {
             $whereCondition = ['process_id IN (?)' => $process];
-        } elseif (!is_array($whereCondition)) {
+        } elseif (!empty($process)) {
             $whereCondition = ['process_id = ?' => $process];
         }
 
