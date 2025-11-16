@@ -12,6 +12,8 @@
  *
  * @method string getNoticeSeverity()
  * @method $this setNoticeSeverity(string $value)
+ *
+ * @property string $_aclResourcePath
  */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
@@ -132,7 +134,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Retrieve severity icons url
      *
      * @return string
-     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getSeverityIconsUrl()
     {

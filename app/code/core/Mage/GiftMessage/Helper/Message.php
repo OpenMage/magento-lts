@@ -259,6 +259,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * @param Mage_Sales_Model_Quote $quote
      * @param int|Mage_Core_Model_Store $store
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getAvailableForQuoteItems($quote, $store = null)
     {
@@ -294,6 +295,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @param int $messageId
      * @return Mage_GiftMessage_Model_Message
+     * @throws Mage_Core_Exception
      */
     public function getGiftMessage($messageId = null)
     {

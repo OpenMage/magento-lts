@@ -221,16 +221,16 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Declare model object identifier value
      *
-     * @param   mixed $id
+     * @param   mixed $value
      * @return  $this
      * @throws  Mage_Core_Exception
      */
-    public function setId($id)
+    public function setId($value)
     {
         if ($this->getIdFieldName()) {
-            $this->setData($this->getIdFieldName(), $id);
+            $this->setData($this->getIdFieldName(), $value);
         } else {
-            $this->setData('id', $id);
+            $this->setData('id', $value);
         }
 
         return $this;

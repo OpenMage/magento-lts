@@ -10,10 +10,11 @@
 /**
  * Abstract class for form, coumn and fieldset
  *
+ * @method bool getDisabled()
  * @method Varien_Data_Form getForm()
  * @method bool getUseContainer()
  * @method $this setAction(string $value)
- * @method $this setDisabled(bool $value)
+ * @method $this setDisabled(bool $disabled)
  * @method $this setMethod(string $value)
  * @method $this setName(string $value)
  * @method $this setRequired(bool $value)
