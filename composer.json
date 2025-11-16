@@ -26,6 +26,7 @@
         "ext-posix": "*",
         "ext-simplexml": "*",
         "ext-soap": "*",
+        "ext-spl": "*",
         "ext-zlib": "*",
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
