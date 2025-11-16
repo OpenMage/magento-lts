@@ -2767,6 +2767,12 @@ parameters:
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
+			rawMessage: 'Call to an undefined static method Mage_Core_Model_Config_Data::afterSave().'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/code/core/Mage/Tax/Model/Config/Price/Include.php
+
+		-
 			rawMessage: 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.'
 			identifier: identical.alwaysFalse
 			count: 1
