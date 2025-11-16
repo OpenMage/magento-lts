@@ -2779,6 +2779,54 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
 
 		-
+			rawMessage: 'Call to method toUnit() on an unknown class PhpUnitsOfMeasure\PhysicalQuantity\Length.'
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: 'Call to method toUnit() on an unknown class PhpUnitsOfMeasure\PhysicalQuantity\Mass.'
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: 'Call to static method getUnit() on an unknown class PhpUnitsOfMeasure\PhysicalQuantity\Length.'
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: 'Call to static method getUnit() on an unknown class PhpUnitsOfMeasure\PhysicalQuantity\Mass.'
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: Instantiated class PhpUnitsOfMeasure\PhysicalQuantity\Length not found.
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: Instantiated class PhpUnitsOfMeasure\PhysicalQuantity\Mass not found.
+			identifier: class.notFound
+			count: 1
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PhpUnitsOfMeasure\Exception\NonNumericValue|PhpUnitsOfMeasure\Exception\NonStringUnitName is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 2
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 2
+			path: app/code/core/Mage/Usa/Helper/Data.php
+
+		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Dhl::$_result (Mage_Shipping_Model_Rate_Result|null) does not accept Mage_Shipping_Model_Tracking_Result.'
 			identifier: assign.propertyType
 			count: 1
@@ -3481,7 +3529,37 @@ parameters:
 			path: lib/Varien/Simplexml/Element.php
 
 		-
-			rawMessage: Dead catch - PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure is never thrown in the try block.
-			identifier: catch.neverThrown
+			rawMessage: 'Call to method getMessage() on an unknown class PhpUnitsOfMeasure\Exception\NonNumericValue.'
+			identifier: class.notFound
 			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class PhpUnitsOfMeasure\Exception\NonStringUnitName.'
+			identifier: class.notFound
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure.'
+			identifier: class.notFound
+			count: 4
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
+
+		-
+			rawMessage: Caught class PhpUnitsOfMeasure\Exception\NonNumericValue not found.
+			identifier: class.notFound
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
+
+		-
+			rawMessage: Caught class PhpUnitsOfMeasure\Exception\NonStringUnitName not found.
+			identifier: class.notFound
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
+
+		-
+			rawMessage: Caught class PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure not found.
+			identifier: class.notFound
+			count: 4
 			path: tests/unit/Mage/Usa/Helper/DataTest.php
