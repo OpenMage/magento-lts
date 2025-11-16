@@ -163,12 +163,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
 
 		-
-			rawMessage: 'Call to method getIsOldCustomer() on an unknown class Mage_Adminhtml_Model_Quote.'
-			identifier: class.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Shipping_Model_Carrier_Abstract::isGirthAllowed().'
 			identifier: method.notFound
 			count: 1
