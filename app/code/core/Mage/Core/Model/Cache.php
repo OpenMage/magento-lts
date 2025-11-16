@@ -446,7 +446,7 @@ class Mage_Core_Model_Cache
     /**
      * Get adapter for database cache backend model
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Interface
      */
     public function getDbAdapter()
     {

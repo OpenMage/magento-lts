@@ -39,25 +39,27 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
+     * @param Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $role)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ($role->getId() == '') {
-            if ($role->getIdFieldName()) {
-                $role->unsetData($role->getIdFieldName());
+        if ($object->getId() == '') {
+            if ($object->getIdFieldName()) {
+                $object->unsetData($object->getIdFieldName());
             } else {
-                $role->unsetData('id');
+                $object->unsetData('id');
             }
         }
 
-        if ($role->getPid() > 0) {
+        if ($object->getPid() > 0) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), ['tree_level'])
                 ->where("{$this->getIdFieldName()} = :pid");
 
             $binds = [
-                'pid' => (int) $role->getPid(),
+                'pid' => (int) $object->getPid(),
             ];
 
             $treeLevel = $this->_getReadAdapter()->fetchOne($select, $binds);
@@ -65,8 +67,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
             $treeLevel = 0;
         }
 
-        $role->setTreeLevel($treeLevel + 1);
-        $role->setRoleName($role->getName());
+        $object->setTreeLevel($treeLevel + 1);
+        $object->setRoleName($object->getName());
 
         return $this;
     }
@@ -74,11 +76,13 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
+     * @param Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Zend_Cache_Exception
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $role)
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_updateRoleUsersAcl($role);
+        $this->_updateRoleUsersAcl($object);
         Mage::app()->getCache()->clean(
             Zend_Cache::CLEANING_MODE_MATCHING_TAG,
             [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
@@ -89,13 +93,15 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after deleting
      *
+     * @param Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _afterDelete(Mage_Core_Model_Abstract $role)
+    protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $role->getId()]);
-        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $role->getId()]);
+        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $object->getId()]);
+        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $object->getId()]);
         return $this;
     }
 
@@ -103,6 +109,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * Get role users
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers(Mage_Admin_Model_Roles $role)
     {
@@ -119,6 +126,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      * Update role users
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role)
     {

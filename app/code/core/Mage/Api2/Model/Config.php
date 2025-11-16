@@ -72,8 +72,8 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Fetch all routes of the given api type from config files api2.xml
      *
      * @param string $apiType
-     * @throws Mage_Api2_Exception
      * @return array
+     * @throws Mage_Api2_Exception
      */
     public function getRoutes($apiType)
     {
@@ -330,8 +330,8 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Get resource allowed versions sorted in reverse order
      *
      * @param string $node
-     * @throws Exception
      * @return array
+     * @throws Exception
      */
     public function getVersions($node)
     {

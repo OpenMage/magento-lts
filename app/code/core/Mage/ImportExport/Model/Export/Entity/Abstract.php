@@ -351,9 +351,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Export process.
      *
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
-     *
      * @return string
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
     abstract public function export();
 
@@ -368,8 +367,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *     'type'  => 'file'
      * )
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     abstract public function exportFile();
 
@@ -510,8 +509,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Inner writer object getter.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @throws Exception
      */
     public function getWriter()
     {

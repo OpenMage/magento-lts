@@ -62,8 +62,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * Retrieve shipment information
      *
      * @param string $shipmentIncrementId
-     * @throws Mage_Api_Exception
      * @return array
+     * @throws Mage_Api_Exception
      */
     public function info($shipmentIncrementId)
     {
@@ -136,7 +136,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
 
             $shipment->getOrder()->setIsInProcess(true);
             try {
-                $transactionSave = Mage::getModel('core/resource_transaction')
+                Mage::getModel('core/resource_transaction')
                     ->addObject($shipment)
                     ->addObject($shipment->getOrder())
                     ->save();

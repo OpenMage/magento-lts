@@ -254,9 +254,8 @@ class Mage_Reports_Model_Event_Observer
     /**
      * Clean events by old visitors
      *
-     * @see Global Log Clean Settings
-     *
      * @return $this
+     * @see Global Log Clean Settings
      */
     public function eventClean(Varien_Event_Observer $observer)
     {

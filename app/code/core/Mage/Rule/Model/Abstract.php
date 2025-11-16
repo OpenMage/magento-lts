@@ -12,23 +12,23 @@
  *
  * @package    Mage_Rule
  *
- * @method $this unsActions()
- * @method bool hasActionsSerialized()
- * @method $this unsActionsSerialized()
  * @method string getActionsSerialized()
- * @method $this setActionsSerialized(string $value)
- * @method $this unsConditions()
- * @method bool hasConditionsSerialized()
- * @method $this unsConditionsSerialized()
  * @method string getConditionsSerialized()
- * @method $this setConditionsSerialized(string $value)
- * @method bool hasCustomerGroupIds()
  * @method array getCustomerGroupIds()
- * @method $this setCustomerGroupIds(array $value)
- * @method bool hasDiscountAmount()
  * @method float getDiscountAmount()
+ * @method bool hasActionsSerialized()
+ * @method bool hasConditionsSerialized()
+ * @method bool hasCustomerGroupIds()
+ * @method bool hasDiscountAmount()
  * @method bool hasWebsiteIds()
+ * @method $this setActionsSerialized(string $value)
+ * @method $this setConditionsSerialized(string $value)
+ * @method $this setCustomerGroupIds(array $value)
  * @method $this setWebsiteIds(array $value)
+ * @method $this unsActions()
+ * @method $this unsActionsSerialized()
+ * @method $this unsConditions()
+ * @method $this unsConditionsSerialized()
  */
 abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 {
@@ -167,7 +167,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getConditions()
     {
-        if (empty($this->_conditions)) {
+        if (is_null($this->_conditions)) {
             $this->_resetConditions();
         }
 
@@ -454,11 +454,10 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated since 1.7.0.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated since 1.7.0.0
      */
     public function asString($format = '')
     {
@@ -466,9 +465,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated since 1.7.0.0
-     *
      * @return string
+     * @deprecated since 1.7.0.0
      */
     public function asHtml()
     {
@@ -478,9 +476,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns rule as an array for admin interface
      *
-     * @deprecated since 1.7.0.0
-     *
      * @return array
+     * @deprecated since 1.7.0.0
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -490,9 +487,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Combine website ids to string
      *
-     * @deprecated since 1.7.0.0
-     *
      * @return Mage_Rule_Model_Abstract
+     * @deprecated since 1.7.0.0
      */
     protected function _prepareWebsiteIds()
     {

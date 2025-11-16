@@ -18,10 +18,13 @@
 class Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
-     * @var Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @var false|Mage_Api2_Model_Acl_Global_Rule_Tree
      */
     protected $_treeModel = false;
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         parent::__construct();

@@ -58,6 +58,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get Key pieces for caching block content
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheKeyInfo()
     {
@@ -87,6 +88,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get current category key
      *
      * @return int|string
+     * @throws Mage_Core_Exception
      */
     public function getCurrenCategoryKey()
     {
@@ -106,6 +108,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Get categories of current store
      *
      * @return Varien_Data_Tree_Node_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCategories()
     {
@@ -117,6 +120,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * Retrieve child categories of current category
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCurrentChildCategories()
     {
@@ -140,8 +144,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      */
     public function isCategoryActive($category)
     {
-        return $this->getCurrentCategory()
-            ? in_array($category->getId(), $this->getCurrentCategory()->getPathIds()) : false;
+        $currentCategory = $this->getCurrentCategory();
+        return $currentCategory && in_array($category->getId(), $currentCategory->getPathIds());
     }
 
     /**
@@ -196,9 +200,9 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $position = [];
-        for ($i = 0; $i <= $level; $i++) {
-            if (isset($this->_itemLevelPositions[$i])) {
-                $position[] = $this->_itemLevelPositions[$i];
+        for ($index = 0; $index <= $level; $index++) {
+            if (isset($this->_itemLevelPositions[$index])) {
+                $position[] = $this->_itemLevelPositions[$index];
             }
         }
 
@@ -217,6 +221,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param string $childrenWrapClass If specified wraps children list in div with this class
      * @param bool $noEventAttributes Whether ot not to add on* attributes to list item
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _renderCategoryMenuItemHtml(
         $category,
@@ -239,13 +244,9 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $flatHelper = Mage::helper('catalog/category_flat');
         if ($flatHelper->isAvailable() && $flatHelper->isBuilt(true) && !Mage::app()->getStore()->isAdmin()) {
             $children = (array) $category->getChildrenNodes();
-            $childrenCount = count($children);
         } else {
             $children = $category->getChildren();
-            $childrenCount = $children->count();
         }
-
-        $hasChildren = ($children && $childrenCount);
 
         // select active children
         $activeChildren = [];
@@ -343,11 +344,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Render category to html
      *
-     * @deprecated deprecated after 1.4
      * @param Mage_Catalog_Model_Category $category
      * @param int $level Nesting level number
      * @param bool $last Whether ot not this item is last, affects list item class
      * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated deprecated after 1.4
      */
     public function drawItem($category, $level = 0, $last = false)
     {
@@ -381,6 +383,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * @param Mage_Catalog_Model_Category $category
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function drawOpenCategoryItem($category)
     {
@@ -425,6 +428,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param string $outermostItemClass Extra class of outermost list items
      * @param string $childrenWrapClass If specified wraps children list in div with this class
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function renderCategoriesMenuHtml($level = 0, $outermostItemClass = '', $childrenWrapClass = '')
     {

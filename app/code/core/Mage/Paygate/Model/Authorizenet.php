@@ -445,8 +445,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $requestedAmount
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $requestedAmount)
     {
@@ -532,8 +532,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @param self::REQUEST_TYPE_AUTH_* $requestType
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _place($payment, $amount, $requestType)
     {

@@ -19,8 +19,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     /**
      * Retrieve Page instance
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPage()
     {
@@ -111,9 +111,9 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     /**
      * Prepare HTML content
      *
-     * @throws Mage_Core_Model_Store_Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _toHtml()
     {

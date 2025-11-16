@@ -281,7 +281,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Clean non UTF-8 characters
      *
-     * @param string $string
+     * @param null|string $string
      * @return string
      */
     public function cleanString($string)
@@ -533,8 +533,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * UnSerialize string
      * @param null|string $str
-     * @throws Exception
      * @return null|void
+     * @throws Exception
      */
     public function unserialize($str)
     {

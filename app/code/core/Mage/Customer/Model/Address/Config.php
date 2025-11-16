@@ -49,8 +49,8 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 
     /**
      * @param null|bool|int|Mage_Core_Model_Store|string $store
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStore($store)
     {

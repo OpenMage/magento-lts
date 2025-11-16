@@ -11,28 +11,27 @@
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
- * @method Mage_Index_Model_Resource_Process getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getCollection()
- * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
- *
+ * @method string getDescription()
+ * @method string getEndedAt()
+ * @method bool getForcePartialReindex()
  * @method string getIndexCode()
  * @method string getIndexerCode()
- * @method $this setIndexerCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method string getStartedAt()
- * @method $this setStartedAt(string $value)
- * @method string getEndedAt()
- * @method $this setEndedAt(string $value)
  * @method string getMode()
- * @method $this setMode(string $value)
- * @method bool getForcePartialReindex()
- * @method $this setForcePartialReindex(bool $value)
+ * @method string getName()
+ * @method Mage_Index_Model_Resource_Process getResource()
+ * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
+ * @method string getStartedAt()
+ * @method string getStatus()
  * @method int getUpdateRequired()
+ * @method $this setDescription(string $value)
+ * @method $this setEndedAt(string $value)
+ * @method $this setForcePartialReindex(bool $value)
+ * @method $this setIndexerCode(string $value)
+ * @method $this setMode(string $value)
+ * @method $this setName(string $value)
+ * @method $this setStartedAt(string $value)
+ * @method $this setStatus(string $value)
  * @method $this setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
@@ -229,8 +228,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Reindex all data what this process responsible is
      * Check and using depends processes
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function reindexEverything()
     {
@@ -295,8 +294,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Get Indexer strategy object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Index_Model_Indexer_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getIndexer()
     {
@@ -570,9 +569,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {
@@ -583,8 +582,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Disable keys in index table
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function disableIndexerKeys()
     {
@@ -599,8 +598,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Enable keys in index table
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function enableIndexerKeys()
     {

@@ -12,8 +12,8 @@
  *
  * @package    Mage_Core
  *
- * @method $this setQueue(Mage_Core_Model_Abstract $value)
  * @method Mage_Core_Model_Email_Queue getQueue()
+ * @method $this setQueue(Mage_Core_Model_Abstract $value)
  */
 class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 {
@@ -38,9 +38,9 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
 
     /**
      * Send all emails from email list
-     * @see self::$_emailInfos
      *
      * @return $this
+     * @see self::$_emailInfos
      */
     public function send()
     {

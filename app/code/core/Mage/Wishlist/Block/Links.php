@@ -84,9 +84,9 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
 
     /**
      * @return Mage_Wishlist_Block_Links
-     * @see Mage_Wishlist_Block_Links::__construct
      *
      * @deprecated after 1.4.2.0
+     * @see Mage_Wishlist_Block_Links::__construct
      */
     public function addWishlistLink()
     {
@@ -96,8 +96,8 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     /**
      * Retrieve block cache tags
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCacheTags()
     {

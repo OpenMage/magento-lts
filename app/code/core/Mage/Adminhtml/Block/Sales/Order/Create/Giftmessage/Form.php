@@ -114,8 +114,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Prepares form
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function _prepareForm()
     {
@@ -293,8 +293,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Aplies posted data to gift message
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _applyPostData()
     {

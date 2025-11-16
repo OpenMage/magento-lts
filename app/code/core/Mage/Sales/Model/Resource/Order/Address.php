@@ -66,7 +66,9 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
 
             // update grid table after grid update
             foreach ($gridList as $gridResource => $field) {
-                Mage::getResourceModel($gridResource)->updateOnRelatedRecordChanged(
+                /** @var Mage_Sales_Model_Resource_Order_Abstract $model */
+                $model = Mage::getResourceModel($gridResource);
+                $model->updateOnRelatedRecordChanged(
                     $field,
                     $object->getParentId(),
                 );

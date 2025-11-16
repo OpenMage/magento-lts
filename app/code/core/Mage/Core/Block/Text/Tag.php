@@ -13,9 +13,9 @@
  * @package    Mage_Core
  *
  * @method string getTagContents()
- * @method $this setTagContents(string $value)
  * @method getTagName()
  * @method array getTagParams()
+ * @method $this setTagContents(string $value)
  * @method $this setTagParams(array $value)
  */
 class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text

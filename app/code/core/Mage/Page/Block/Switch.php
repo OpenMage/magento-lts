@@ -17,8 +17,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     protected $_storeInUrl;
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentWebsiteId()
     {
@@ -26,8 +26,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentGroupId()
     {
@@ -35,8 +35,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreId()
     {
@@ -44,8 +44,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Store_Group[]
+     * @throws Mage_Core_Exception
      */
     public function getRawGroups()
     {
@@ -64,8 +64,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Store[]
+     * @throws Mage_Core_Exception
      */
     public function getRawStores()
     {
@@ -157,8 +157,8 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreCode()
     {

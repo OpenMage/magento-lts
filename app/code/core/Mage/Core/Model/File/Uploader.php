@@ -95,8 +95,8 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      *
      * @param string $destinationFolder
      * @param null|string $newFileName
-     * @throws Exception
      * @return array|bool
+     * @throws Exception
      */
     public function save($destinationFolder, $newFileName = null)
     {

@@ -13,32 +13,31 @@
  * @package    Mage_CatalogRule
  *
  * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
- * @method Mage_CatalogRule_Model_Resource_Rule getResource()
- * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
- * @method Mage_CatalogRule_Model_Resource_Rule_Collection getResourceCollection()
- *
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
  * @method array getCollectedAttributes()
- * @method $this setCollectedAttributes(array $value)
+ * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
  * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
  * @method string getFromDate()
- * @method $this setFromDate(string $value)
+ * @method int getIsActive()
  * @method string getName()
- * @method $this setName(string $value)
+ * @method Mage_CatalogRule_Model_Resource_Rule getResource()
+ * @method Mage_CatalogRule_Model_Resource_Rule_Collection getResourceCollection()
  * @method int getRuleId()
  * @method string getSimpleAction()
- * @method $this setSimpleAction(string $value)
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method int getStopRulesProcessing()
- * @method $this setStopRulesProcessing(int $value)
+ * @method float getSubDiscountAmount()
  * @method bool getSubIsEnable()
  * @method string getSubSimpleAction()
- * @method float getSubDiscountAmount()
  * @method string getToDate()
+ * @method $this setCollectedAttributes(array $value)
+ * @method $this setDescription(string $value)
+ * @method $this setDiscountAmount(float $value)
+ * @method $this setFromDate(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setName(string $value)
+ * @method $this setSimpleAction(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStopRulesProcessing(int $value)
  * @method $this setToDate(string $value)
  */
 class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
@@ -444,11 +443,10 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * @deprecated after 1.11.2.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated after 1.11.2.0
      */
     public function toString($format = '')
     {
@@ -457,8 +455,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
     /**
      * Returns rule as an array for admin interface
-     *
-     * @deprecated after 1.11.2.0
      *
      * @param array $arrAttributes
      *
@@ -470,6 +466,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
+     * @deprecated after 1.11.2.0
      */
     public function toArray(array $arrAttributes = [])
     {

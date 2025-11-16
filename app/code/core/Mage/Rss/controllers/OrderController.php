@@ -23,8 +23,8 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this|void
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function customerAction()
     {

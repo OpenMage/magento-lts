@@ -13,7 +13,7 @@
  * @package    Mage_Sales
  *
  * @method $this setCode(string $value)
- * @method $this setTotalConfigNode(array $value)
+ * @method $this setTotalConfigNode(Mage_Core_Model_Config_Element $value)
  */
 abstract class Mage_Sales_Model_Order_Total_Abstract extends Varien_Object
 {

@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Product_Type
     public static function factory($product, $singleton = false)
     {
         $types = self::getTypes();
-        $typeId = $product->getTypeId();
+        $typeId = (string) $product->getTypeId();
 
         if (!empty($types[$typeId]['model'])) {
             $typeModelName = $types[$typeId]['model'];
@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Product_Type
      * Product type price model factory
      *
      * @param   string $productType
-     * @return  Mage_Catalog_Model_Product_Type_Price
+     * @return  Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public static function priceFactory($productType)
     {

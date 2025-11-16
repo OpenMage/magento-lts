@@ -15,10 +15,10 @@
  * @package    Mage_SalesRule
  *
  * @method string getCouponCode()
- * @method $this setCouponCode(string $value)
  * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
+ * @method $this setCouponCode(string $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method $this setWebsiteId(int $value)
  */
 class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
@@ -292,8 +292,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Quote item discount calculation process
      *
-     * @throws Mage_Core_Exception
      * @return Mage_SalesRule_Model_Validator
+     * @throws Mage_Core_Exception
      */
     public function process(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -997,8 +997,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Return item original price
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getItemOriginalPrice($item)
     {
@@ -1021,8 +1021,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Return item base original price
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getItemBaseOriginalPrice($item)
     {

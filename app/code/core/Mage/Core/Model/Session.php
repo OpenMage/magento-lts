@@ -13,16 +13,16 @@
  * @package    Mage_Core
  *
  * @method null|bool getCookieShouldBeReceived()
- * @method $this setCookieShouldBeReceived(bool $value)
- * @method $this unsCookieShouldBeReceived()
- * @method $this unsSessionHosts()
  * @method string getCurrencyCode()
+ * @method int getJustVotedPoll()
+ * @method $this setCookieShouldBeReceived(bool $value)
  * @method $this setCurrencyCode(string $value)
  * @method $this setFormData(array $value)
- * @method int getJustVotedPoll()
- * @method $this setOrderIds(array $value)
  * @method $this setJustVotedPoll(int $value)
  * @method $this setLastUrl(string $value)
+ * @method $this setOrderIds(array $value)
+ * @method $this unsCookieShouldBeReceived()
+ * @method $this unsSessionHosts()
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
 {

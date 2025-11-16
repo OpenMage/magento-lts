@@ -541,11 +541,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Process product custom defined options for cart
      *
-     * @deprecated after 1.4.2.0
-     * @see _prepareOptions()
-     *
      * @param Mage_Catalog_Model_Product $product
      * @return array
+     * @deprecated after 1.4.2.0
+     * @see _prepareOptions()
      */
     protected function _prepareOptionsForCart(Varien_Object $buyRequest, $product = null)
     {
@@ -556,8 +555,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
     {

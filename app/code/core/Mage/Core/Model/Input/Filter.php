@@ -195,8 +195,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * @param null|array $filters
      * @param bool $isFilterListSimple
      * @param-out array $filters
-     * @throws Exception    Exception when filter is not found or not instance of defined instances
      * @return array
+     * @throws Exception    Exception when filter is not found or not instance of defined instances
      */
     protected function _filter(array $data, &$filters = null, $isFilterListSimple = false)
     {
@@ -258,8 +258,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Try to create Magento helper for filtration based on $filterData. Return false on failure
      *
      * @param array $filterData
-     * @throws Exception
      * @return Mage_Core_Helper_Abstract
+     * @throws Exception
      */
     protected function _getFiltrationHelper($filterData)
     {
@@ -302,8 +302,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Get Magento filters
      *
      * @param array $filterData
-     * @throws Exception
      * @return Zend_Filter_Interface
+     * @throws Exception
      */
     protected function _createCustomZendFilter($filterData)
     {
@@ -330,8 +330,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Get native Zend_Filter
      *
      * @param array $filterData
-     * @throws Exception
      * @return Zend_Filter_Interface
+     * @throws Exception
      */
     protected function _createNativeZendFilter($filterData)
     {

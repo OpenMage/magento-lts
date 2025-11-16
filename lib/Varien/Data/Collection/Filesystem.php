@@ -461,8 +461,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param string $field
      * @param mixed $cond
      * @param string $type 'and' | 'or'
-     * @see Varien_Data_Collection_Db::addFieldToFilter()
      * @return $this
+     * @see Varien_Data_Collection_Db::addFieldToFilter()
      */
     public function addFieldToFilter($field, $cond, $type = 'and')
     {

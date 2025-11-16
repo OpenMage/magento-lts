@@ -95,8 +95,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get intervals
      *
-     * @throws Zend_Date_Exception
      * @return array
+     * @throws Zend_Date_Exception
      */
     public function getIntervals()
     {

@@ -65,18 +65,21 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
      * Setting currency model
      *
      * @param Mage_Directory_Model_Currency $currency
+     * @return $this
      */
     public function setCurrency($currency)
     {
         $this->_currency = $currency;
+        return $this;
     }
 
     /**
      * Retrieve currency model if not set then return currency model for current store
      *
-     * @throws Mage_Core_Model_Store_Exception
-     * @throws Mage_Core_Exception
      * @return Mage_Directory_Model_Currency
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrency()
     {

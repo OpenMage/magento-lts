@@ -21,8 +21,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Save all seted giftmessages
      *
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     public function saveAllInQuote()
     {
@@ -48,8 +48,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     public function saveAllInOrder()
     {
@@ -71,8 +71,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      *
      * @param int $entityId
      * @param array $giftmessage
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     protected function _saveOne($entityId, $giftmessage)
     {
@@ -119,8 +119,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      *
      * @param Varien_Object $entityModel
      * @param null|Mage_GiftMessage_Model_Message $giftmessageModel
-     * @throws Throwable
      * @return $this
+     * @throws Throwable
      */
     protected function _deleteOne($entityModel, $giftmessageModel = null)
     {

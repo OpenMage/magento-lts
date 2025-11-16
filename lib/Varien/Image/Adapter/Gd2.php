@@ -48,12 +48,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Opens image file.
      *
-     * @param string $filename
+     * @param string $fileName
+     * @throws Exception
      * @throws Varien_Exception
      */
-    public function open($filename)
+    public function open($fileName)
     {
-        $this->_fileName = $filename;
+        $this->_fileName = $fileName;
         $this->getMimeType();
         $this->_getFileAttributes();
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
@@ -62,8 +63,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Checks whether memory limit is reached.
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     protected function _isMemoryLimitReached()
     {
@@ -86,11 +87,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
-     * @deprecated
      * @param string $memoryValue
-     * @throws Varien_Exception
-     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      * @return int
+     * @deprecated
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
     protected function _convertToByte($memoryValue)
     {
@@ -122,10 +122,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         return max($memoryValue, 0);
     }
 
+    /**
+     * @throws Exception
+     */
     public function save($destination = null, $newName = null)
     {
-        $fileName = (!isset($destination)) ? $this->_fileName : $destination;
-
         if (isset($destination) && isset($newName)) {
             $fileName = $destination . '/' . $newName;
         } elseif (isset($destination) && !isset($newName)) {
@@ -144,8 +145,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             try {
                 $io = new Varien_Io_File();
                 $io->mkdir($destination);
-            } catch (Exception $e) {
-                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $e->getCode(), $e);
+            } catch (Exception $exception) {
+                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }
         }
 
@@ -194,7 +195,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($this->_fileType == IMAGETYPE_JPEG) {
             $threshold = (int) Mage::getStoreConfig('catalog/product_image/progressive_threshold');
             if ($threshold && $threshold <= (imagesx($this->_imageHandler) * imagesy($this->_imageHandler) / 1000000)) {
-                imageinterlace($this->_imageHandler, 1);
+                imageinterlace($this->_imageHandler, true);
             }
         }
 
@@ -206,6 +207,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         call_user_func_array($this->_getCallback('output'), $functionParameters);
     }
 
+    /**
+     * @throws Exception
+     */
     public function display()
     {
         header('Content-type: ' . $this->getMimeTypeWithOutFileType());
@@ -217,8 +221,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param string $callbackType
      * @param int $fileType
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
     {
@@ -237,6 +241,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         return self::$_callbacks[$fileType][$callbackType];
     }
 
+    /**
+     * @throws Exception
+     */
     private function _fillBackgroundColor(&$imageResourceTo)
     {
         // try to keep transparency, if any
@@ -267,8 +274,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
-                        [$r, $g, $b]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
+                        [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
                     }
 
                     if (false === $transparentColor) {
@@ -287,10 +294,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
 
-        [$r, $g, $b] = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
+        [$rgbR, $rgbG, $rgbB] = $this->_backgroundColor;
+        $color = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
-            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
+            throw new Exception("Failed to fill image background with color {$rgbR} {$rgbG} {$rgbB}. File: {$this->_fileName}");
         }
 
         return $color;
@@ -334,46 +341,45 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Change the image size
      *
-     * @param int $frameWidth
-     * @param int $frameHeight
+     * @param int $width
+     * @param int $height
+     * @throws Exception
      */
-    public function resize($frameWidth = null, $frameHeight = null)
+    public function resize($width = null, $height = null)
     {
-        if (empty($frameWidth) && empty($frameHeight)) {
+        if (empty($width) && empty($height)) {
             throw new Exception('Invalid image dimensions. File: {$this->_fileName}');
         }
 
         // calculate lacking dimension
         if (!$this->_keepFrame) {
-            if (null === $frameWidth) {
-                $frameWidth = round($frameHeight * ($this->_imageSrcWidth / $this->_imageSrcHeight));
-            } elseif (null === $frameHeight) {
-                $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
+            if (null === $width) {
+                $width = round($height * ($this->_imageSrcWidth / $this->_imageSrcHeight));
+            } elseif (null === $height) {
+                $height = round($width * ($this->_imageSrcHeight / $this->_imageSrcWidth));
             }
-        } elseif (null === $frameWidth) {
-            $frameWidth = $frameHeight;
-        } elseif (null === $frameHeight) {
-            $frameHeight = $frameWidth;
+        } elseif (null === $width) {
+            $width = $height;
+        } elseif (null === $height) {
+            $height = $width;
         }
 
         // define coordinates of image inside new frame
         $srcX = 0;
         $srcY = 0;
-        $dstX = 0;
-        $dstY = 0;
-        $dstWidth  = $frameWidth;
-        $dstHeight = $frameHeight;
+        $dstWidth  = $width;
+        $dstHeight = $height;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
             if ($this->_constrainOnly) {
-                if (($frameWidth >= $this->_imageSrcWidth) && ($frameHeight >= $this->_imageSrcHeight)) {
+                if (($width >= $this->_imageSrcWidth) && ($height >= $this->_imageSrcHeight)) {
                     $dstWidth  = $this->_imageSrcWidth;
                     $dstHeight = $this->_imageSrcHeight;
                 }
             }
 
             // keep aspect ratio
-            if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
+            if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $width / $height) {
                 $dstHeight = round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
             } else {
                 $dstWidth = round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
@@ -381,13 +387,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
 
         // define position in center (TODO: add positions option)
-        $dstY = round(($frameHeight - $dstHeight) / 2);
-        $dstX = round(($frameWidth - $dstWidth) / 2);
+        $dstY = round(($height - $dstHeight) / 2);
+        $dstX = round(($width - $dstWidth) / 2);
 
         // get rid of frame (fallback to zero position coordinates)
         if (!$this->_keepFrame) {
-            $frameWidth  = $dstWidth;
-            $frameHeight = $dstHeight;
+            $width  = $dstWidth;
+            $height = $dstHeight;
             $dstY = 0;
             $dstX = 0;
         }
@@ -397,9 +403,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
         if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($frameWidth, $frameHeight);
+            $newImage = imagecreatetruecolor($width, $height);
         } else {
-            $newImage = imagecreate($frameWidth, $frameHeight);
+            $newImage = imagecreate($width, $height);
         }
 
         // fill new image with required color
@@ -441,6 +447,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
+    /**
+     * @throws Exception
+     */
     public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
         [$watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ] = getimagesize($watermarkImage);
@@ -640,6 +649,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
+    /**
+     * @throws Exception
+     */
     public function checkDependencies()
     {
         foreach ($this->_requiredExtensions as $value) {

@@ -13,9 +13,9 @@
  * @package    Mage_Rule
  *
  * @method array getActions()
+ * @method Mage_Rule_Model_Abstract getRule()
  * @method $this setActions(array $value)
  * @method $this setType(string $value)
- * @method Mage_Rule_Model_Abstract getRule()
  */
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @return $this|Mage_Rule_Model_Action_Abstract
+     * @return $this
      */
     public function loadArray(array $arr)
     {
@@ -59,6 +59,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
                     continue;
                 }
 
+                /** @var Mage_Rule_Model_Action_Abstract $action */
                 $action = Mage::getModel($actArr['type']);
                 $action->loadArray($actArr);
                 $this->addAction($action);

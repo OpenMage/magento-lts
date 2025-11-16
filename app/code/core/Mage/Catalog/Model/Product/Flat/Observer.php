@@ -261,8 +261,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Update category ids in flat
      *
-     * @deprecated 1.3.2.2
      * @return $this
+     * @deprecated 1.3.2.2
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {

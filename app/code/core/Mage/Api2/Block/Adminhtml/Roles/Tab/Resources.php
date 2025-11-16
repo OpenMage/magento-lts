@@ -27,7 +27,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
     /**
      * Tree model
      *
-     * @var Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @var false|Mage_Api2_Model_Acl_Global_Rule_Tree
      */
     protected $_treeModel = false;
 

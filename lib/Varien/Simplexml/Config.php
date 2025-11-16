@@ -72,8 +72,8 @@ class Varien_Simplexml_Config
      *
      * Initializes XML for this configuration
      *
-     * @see self::setXml
      * @param string|Varien_Simplexml_Element $sourceData
+     * @see self::setXml
      */
     public function __construct($sourceData = null)
     {
@@ -106,9 +106,9 @@ class Varien_Simplexml_Config
     /**
      * Returns node found by the $path
      *
-     * @see     Varien_Simplexml_Element::descend
      * @param   string $path
      * @return  false|Varien_Simplexml_Element
+     * @see     Varien_Simplexml_Element::descend
      */
     public function getNode($path = null)
     {

@@ -17,7 +17,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * DB connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     protected $_conn;
 
@@ -69,7 +69,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Database's statement for fetch item one by one
      *
-     * @var Zend_Db_Statement_Pdo
+     * @var Zend_Db_Statement_Interface
      */
     protected $_fetchStmt = null;
 
@@ -80,6 +80,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected $_isOrdersRendered = false;
 
+    /**
+     * @throws Zend_Exception
+     */
     public function __construct($conn = null)
     {
         parent::__construct();
@@ -158,8 +161,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Set database connection adapter
      *
-     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $conn
+     * @param Varien_Db_Adapter_Interface $conn
      * @return $this
+     * @throws Zend_Exception
      */
     public function setConnection($conn)
     {
@@ -197,6 +201,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get collection size
      *
      * @return int
+     * @throws Zend_Db_Select_Exception
      */
     public function getSize()
     {
@@ -212,6 +217,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get SQL for get record count
      *
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     public function getSelectCountSql()
     {
@@ -406,11 +412,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add field filter to collection
      *
-     * @see self::_getConditionSql for $condition
-     *
      * @param   array|string $field
      * @param   null|array|int|string $condition
      * @return  $this
+     * @see self::_getConditionSql for $condition
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -591,8 +596,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param   bool $printQuery
      * @param   bool $logQuery
-     *
      * @return  $this
+     * @throws  Exception
+     * @throws  Zend_Cache_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -633,6 +639,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * and moves the internal data pointer ahead
      *
      * @return  bool|Varien_Object
+     * @throws  Zend_Db_Statement_Exception
      */
     public function fetchItem()
     {
@@ -665,11 +672,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * return items hash
      * array($value => $label)
      *
-     * @see     fetchItem()
-     *
      * @param   string $valueField
      * @param   string $labelField
      * @return  array
+     * @throws  Zend_Db_Statement_Exception
+     * @see     fetchItem()
      */
     protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
     {
@@ -685,6 +692,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get all data array for collection
      *
      * @return array
+     * @throws Zend_Cache_Exception
      */
     public function getData()
     {
@@ -732,6 +740,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param bool $printQuery
      * @param bool $logQuery
      * @return Varien_Data_Collection|Varien_Data_Collection_Db
+     * @throws Zend_Cache_Exception
      */
     public function loadData($printQuery = false, $logQuery = false)
     {
@@ -780,6 +789,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param   string|Zend_Db_Select $select
      * @return  array
+     * @throws  Zend_Cache_Exception
      */
     protected function _fetchAll($select)
     {
@@ -821,6 +831,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param array $data
      * @param Zend_Db_Select $select
      * @return $this
+     * @throws Zend_Cache_Exception
      */
     protected function _saveCache($data, $select)
     {
@@ -847,12 +858,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getSelectCacheId($select)
     {
-        $id = md5((string) $select);
+        $cacheId = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
-            $id = $this->_cacheConf['prefix'] . '_' . $id;
+            $cacheId = $this->_cacheConf['prefix'] . '_' . $cacheId;
         }
 
-        return $id;
+        return $cacheId;
     }
 
     /**

@@ -53,8 +53,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Configure and start session
      *
      * @param string $sessionName
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -271,8 +271,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
     /**
      * Revalidate cookie
-     * @deprecated after 1.4 cookie renew moved to session start method
      * @return $this
+     * @deprecated after 1.4 cookie renew moved to session start method
      */
     public function revalidateCookie()
     {
@@ -484,8 +484,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Validate session
      *
-     * @throws Mage_Core_Model_Session_Exception
      * @return $this
+     * @throws Mage_Core_Model_Session_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function validate()

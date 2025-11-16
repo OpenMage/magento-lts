@@ -14,10 +14,10 @@
  *
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)
+ * @method $this setDisplayMinimalPrice(bool $value)
  * @method $this setFormAction(string $value)
  * @method $this setIdSuffix(string $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
- * @method $this setDisplayMinimalPrice(bool $value)
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
@@ -392,8 +392,8 @@ HTML;
     /**
      * Get is allowed symlinks flag
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     protected function _getAllowSymlinks()
     {
