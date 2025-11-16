@@ -15,6 +15,7 @@ use Mage_Cms_Api_Data_BlockInterface as BlockInterface;
  * @package    Mage_Cms
  *
  * @method int getBlockId()
+ * @method string getText()
  * @method $this setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface

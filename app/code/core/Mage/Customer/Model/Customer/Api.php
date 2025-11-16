@@ -42,6 +42,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param array $customerData
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function create($customerData)
     {
@@ -64,6 +65,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * @param int $customerId
      * @param array $attributes
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function info($customerId, $attributes = null)
     {
@@ -95,6 +97,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param  array|object $filters
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function items($filters)
     {
@@ -137,6 +140,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * @param int $customerId
      * @param array $customerData
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function update($customerId, $customerData)
     {
@@ -163,6 +168,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $customerId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function delete($customerId)
     {
