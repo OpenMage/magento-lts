@@ -146,6 +146,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by catalog product delete process
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
@@ -211,6 +213,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by process in event object
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
@@ -250,6 +254,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Process event
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {

@@ -6,6 +6,13 @@
  * @package     base_default
  */
 ?>
+
+<?php
+/**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
+ */
+?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <?php echo $this->__('Your account balance is: %s', $customer->getStoreBalance()) ?>
 <div class="buttons-set">
