@@ -163,12 +163,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
 
 		-
-			rawMessage: 'Call to method getIsOldCustomer() on an unknown class Mage_Adminhtml_Model_Quote.'
-			identifier: class.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Shipping_Model_Carrier_Abstract::isGirthAllowed().'
 			identifier: method.notFound
 			count: 1
@@ -1003,25 +997,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
-			rawMessage: 'Parameter #1 $height of method Mage_Catalog_Model_Product_Image::setHeight() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
 			rawMessage: 'Parameter #1 $heigth of method Varien_Image::setWatermarkHeigth() expects int, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			rawMessage: 'Parameter #1 $size of method Mage_Catalog_Model_Product_Image::setWatermarkSize() expects array, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
-			rawMessage: 'Parameter #1 $width of method Mage_Catalog_Model_Product_Image::setWidth() expects int, string given.'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Image.php
@@ -2185,12 +2161,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute_Group::deleteGroups().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Group.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract::getStoreId().'
 			identifier: method.notFound
 			count: 1
@@ -2359,12 +2329,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock.php
 
 		-
-			rawMessage: 'Call to function is_array() with '''' will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Event.php
-
-		-
 			rawMessage: 'Parameter #1 $adapter of method Varien_Db_Adapter_Interface::setCacheAdapter() expects Zend_Cache_Backend_Interface, Zend_Cache_Core given.'
 			identifier: argument.type
 			count: 2
@@ -2405,12 +2369,6 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 2
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
-
-		-
-			rawMessage: 'Call to function is_null() with bool will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
 
 		-
 			rawMessage: 'Call to function is_null() with Mage_Newsletter_Model_Queue will always evaluate to false.'
