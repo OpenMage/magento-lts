@@ -37,7 +37,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert dimensions in different measure types
      *
-     * @param  int|string $value
+     * @param  int|float|string $value
      * @param  string $sourceDimensionMeasure
      * @param  string $toDimensionMeasure
      * @return null|int|string
