@@ -145,6 +145,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      *
      * @param string $pageId
      * @return null|string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPageUrl($pageId = null)
@@ -216,6 +217,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
     /**
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public static function getValidateConfigErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
     {
