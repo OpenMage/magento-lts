@@ -148,11 +148,10 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Add field search filter to collection as OR condition
      *
-     * @see self::_getConditionSql for $condition
-     *
      * @param string $field
      * @param null|array|string $condition
      * @return $this
+     * @see self::_getConditionSql for $condition
      */
     public function addFieldToSearchFilter($field, $condition = null)
     {

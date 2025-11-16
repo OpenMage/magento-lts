@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

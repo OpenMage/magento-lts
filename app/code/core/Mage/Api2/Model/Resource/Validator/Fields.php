@@ -72,8 +72,8 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     /**
      * Build validator chain with config data
      *
-     * @throws Exception If validator type is not set
      * @throws Exception If validator is not exist
+     * @throws Exception If validator type is not set
      */
     protected function _buildValidatorsChain(array $validationConfig)
     {
@@ -116,8 +116,8 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @param string $type
      * @param array $options
-     * @throws Exception If validator is not exist
      * @return Zend_Validate_Interface
+     * @throws Exception If validator is not exist
      */
     protected function _getValidatorInstance($type, $options)
     {

@@ -180,7 +180,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          * Change shipping address flag
          */
         if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() && $this->getRequest()->getPost('reset_shipping')) {
-            $this->_getOrderCreateModel()->resetShippingMethod(true);
+            $this->_getOrderCreateModel()->resetShippingMethod();
         }
 
         /**

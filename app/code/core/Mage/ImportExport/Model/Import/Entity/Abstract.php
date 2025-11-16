@@ -498,8 +498,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Source object getter.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @throws Exception
      */
     public function getSource()
     {
@@ -654,8 +654,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @throws Exception
      */
     public function validateData()
     {

@@ -64,9 +64,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      *      )
      * )
      *
-     * @deprecated since 1.7.1.0
-     *
      * @return array
+     * @deprecated since 1.7.1.0
      */
     public function getPathForCheck()
     {

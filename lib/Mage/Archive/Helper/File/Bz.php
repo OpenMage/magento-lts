@@ -53,8 +53,8 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
      * Read data from bz archive
      *
      * @param int $length
-     * @throws Mage_Exception
      * @return string
+     * @throws Mage_Exception
      */
     protected function _read($length)
     {

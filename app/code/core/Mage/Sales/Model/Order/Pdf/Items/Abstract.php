@@ -107,8 +107,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve order object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -122,8 +122,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve source object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
@@ -137,8 +137,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve item object
      *
-     * @throws Mage_Core_Exception
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getItem()
     {
@@ -152,8 +152,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve Pdf model
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getPdf()
     {
@@ -167,8 +167,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve Pdf page object
      *
-     * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
+     * @throws Mage_Core_Exception
      */
     public function getPage()
     {
@@ -189,6 +189,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @param  array|string $value
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _formatOptionValue($value)
     {
@@ -213,9 +214,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     }
 
     /**
-     * @deprecated To be Removed on next release
-     *
      * @return array
+     * @throws Mage_Core_Exception
+     * @deprecated To be Removed on next release
      */
     protected function _parseDescription()
     {
@@ -237,6 +238,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *  )
      * )
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemPricesForDisplay()
     {
@@ -274,6 +276,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      * Retrieve item options
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemOptions()
     {
@@ -300,6 +303,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @param  int $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontRegular($size = 7)
     {
@@ -313,6 +318,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @param  int $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontBold($size = 7)
     {
@@ -326,6 +333,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *
      * @param  int $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontItalic($size = 7)
     {
@@ -337,7 +346,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Return item Sku
      *
-     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item $item
+     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
      * @return string
      */
     public function getSku($item)

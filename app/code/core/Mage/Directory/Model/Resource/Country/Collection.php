@@ -54,13 +54,13 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Loads Item By Id
      *
-     * @param string $countryId
+     * @param string $idValue
      * @return Mage_Directory_Model_Country|Mage_Directory_Model_Resource_Country
      */
-    public function getItemById($countryId)
+    public function getItemById($idValue)
     {
         foreach ($this->_items as $country) {
-            if ($country->getCountryId() == $countryId) {
+            if ($country->getCountryId() == $idValue) {
                 return $country;
             }
         }
@@ -129,7 +129,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Convert collection items to select options array
      *
-     * @param string $emptyLabel
+     * @param false|string $emptyLabel
      * @return array
      */
     public function toOptionArray($emptyLabel = ' ')

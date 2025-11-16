@@ -12,12 +12,12 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getProductId()
- * @method $this setCustomAddToCartUrl(string $value)
- * @method bool hasCustomAddToCartUrl()
- * @method string getCustomAddToCartUrl()
- * @method bool hasCustomAddToCartPostUrl()
  * @method string getCustomAddToCartPostUrl()
+ * @method string getCustomAddToCartUrl()
+ * @method int getProductId()
+ * @method bool hasCustomAddToCartPostUrl()
+ * @method bool hasCustomAddToCartUrl()
+ * @method $this setCustomAddToCartUrl(string $value)
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
@@ -75,8 +75,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve current product model
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -104,8 +104,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $additional
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getAddToCartUrl($product, $additional = [])
     {
@@ -116,8 +116,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Get JSON encoded configuration array which can be used for JS dynamic
      * price calculation depending on product options
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getJsonConfig()
     {
@@ -149,8 +149,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Return true if product has options
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasOptions()
     {
@@ -164,8 +164,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Check if product has required options
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasRequiredOptions()
     {
@@ -178,8 +178,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * presses some button or link. In editing mode we better show these options
      * instantly.
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isStartCustomization()
     {
@@ -191,8 +191,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Also restricts it by minimal qty.
      *
      * @param null|Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getProductDefaultQty($product = null)
     {
@@ -206,8 +206,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve block cache tags
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheTags()
     {
@@ -220,8 +220,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @param Mage_Catalog_Model_Product $product
      * @param array $additional
      * @param bool $addFormKey
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {

@@ -157,8 +157,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role record with user
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -188,6 +188,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
      * @return $this|Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -232,9 +234,12 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception|Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
+            throw $mageCoreException;
+        } catch (Exception $exception) {
+            $adapter->rollBack();
+            throw $exception;
         }
 
         return $this;

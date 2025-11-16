@@ -11,17 +11,16 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Region _getResource()
- * @method Mage_Directory_Model_Resource_Region getResource()
- * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
- * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
- *
  * @method string getCode()
- * @method $this setCode(string $value)
+ * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
  * @method string getCountryId()
- * @method $this setCountryId(string $value)
  * @method string getDefaultName()
- * @method $this setDefaultName(string $value)
  * @method int getRegionId()
+ * @method Mage_Directory_Model_Resource_Region getResource()
+ * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
+ * @method $this setCode(string $value)
+ * @method $this setCountryId(string $value)
+ * @method $this setDefaultName(string $value)
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
 {

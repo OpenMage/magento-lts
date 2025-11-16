@@ -104,6 +104,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     /**
      * @return $this
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -304,6 +305,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this->getCollection()->getPeriods();
     }
 
+    /**
+     * @throws Zend_Locale_Exception
+     */
     public function getDateFormat()
     {
         return $this->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
@@ -324,6 +328,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function getFilter($name)
     {
         if (isset($this->_filters[$name])) {
@@ -363,7 +370,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @param   string $url
      * @param   string $label
-     * @return  Mage_Adminhtml_Block_Widget_Grid
+     * @return  $this
+     * @throws  Exception
      */
     public function addExportType($url, $label)
     {
@@ -382,6 +390,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getReport($from, $to)
     {
         if ($from == '') {
@@ -413,11 +424,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          */
         foreach ($this->getColumns() as $key => $_column) {
             if ($_column->hasTotal() && str_contains($_column->getTotal(), '/')) {
-                [$t1, $t2] = explode('/', $_column->getTotal());
-                if ($this->getGrandTotals()->getData($t2) != 0) {
+                [$total1, $total2] = explode('/', $_column->getTotal());
+                if ($this->getGrandTotals()->getData($total2) != 0) {
                     $this->getGrandTotals()->setData(
                         $key,
-                        (float) $this->getGrandTotals()->getData($t1) / $this->getGrandTotals()->getData($t2),
+                        (float) $this->getGrandTotals()->getData($total1) / $this->getGrandTotals()->getData($total2),
                     );
                 }
             }
@@ -442,6 +453,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Retrieve grid as CSV
      *
      * @return string
+     * @throws Exception
+     * @throws Zend_Date_Exception
      */
     public function getCsv()
     {
@@ -508,6 +521,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Retrieve grid as Excel Xml
      *
      * @return mixed
+     * @throws Exception
+     * @throws Zend_Date_Exception
      */
     public function getExcel($filename = '')
     {
@@ -630,6 +645,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Retrieve correct currency code for select website, store, group
      *
      * @return string
+     * @throws Exception
      */
     public function getCurrentCurrencyCode()
     {
@@ -656,6 +672,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @param Mage_Directory_Model_Currency|string $toCurrency
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)
     {

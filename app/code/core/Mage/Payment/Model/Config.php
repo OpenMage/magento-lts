@@ -79,6 +79,8 @@ class Mage_Payment_Model_Config
         }
 
         $modelName = $config['model'];
+
+        /** @var Mage_Payment_Model_Method_Abstract $method */
         $method = Mage::getModel($modelName);
         if (!$method) {
             return false;
@@ -147,23 +149,23 @@ class Mage_Payment_Model_Config
     /**
      * Statis Method for compare sort order of CC Types
      *
-     * @param array $a
-     * @param array $b
+     * @param array $sortA
+     * @param array $sortB
      * @return int
      */
-    public static function compareCcTypes($a, $b)
+    public static function compareCcTypes($sortA, $sortB)
     {
-        if (!isset($a['order'])) {
-            $a['order'] = 0;
+        if (!isset($sortA['order'])) {
+            $sortA['order'] = 0;
         }
 
-        if (!isset($b['order'])) {
-            $b['order'] = 0;
+        if (!isset($sortB['order'])) {
+            $sortB['order'] = 0;
         }
 
-        if ($a['order'] == $b['order']) {
+        if ($sortA['order'] == $sortB['order']) {
             return 0;
-        } elseif ($a['order'] > $b['order']) {
+        } elseif ($sortA['order'] > $sortB['order']) {
             return 1;
         } else {
             return -1;

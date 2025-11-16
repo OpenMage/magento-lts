@@ -185,8 +185,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return current form code
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFormCode()
     {
@@ -215,8 +215,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return current entity instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {

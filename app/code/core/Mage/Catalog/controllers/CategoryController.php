@@ -17,8 +17,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @throws Mage_Core_Exception
      * @return false|Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      */
     protected function _initCategory()
     {
@@ -59,8 +59,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      * @deprecated use method _initCategory
      */
     protected function _initCatagory()
@@ -72,11 +72,11 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * Recursively apply custom design settings to category if it's option
      * custom_use_parent_settings is set to 1 while parent option is not
      *
-     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      * @param Mage_Catalog_Model_Category $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this
+     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
     protected function _applyCustomDesignSettings($category, $update)
     {

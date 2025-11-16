@@ -170,8 +170,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function uploadAndImport(Varien_Object $object)
@@ -452,10 +452,10 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Parse and validate positive decimal value
      *
-     * @see self::_parseDecimalValue()
-     * @deprecated since 1.4.1.0
      * @param string $value
      * @return bool|float
+     * @deprecated since 1.4.1.0
+     * @see self::_parseDecimalValue()
      */
     protected function _isPositiveDecimalNumber($value)
     {

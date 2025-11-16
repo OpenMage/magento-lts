@@ -185,8 +185,8 @@ class Mage_Core_Model_Cookie
      * Is https secure request
      * Use secure on adminhtml only
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isSecure()
     {
@@ -213,9 +213,9 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -289,9 +289,9 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -327,9 +327,9 @@ class Mage_Core_Model_Cookie
      * @param bool|int $secure
      * @param bool|int $httponly
      * @param string $sameSite
-     * @throws Zend_Controller_Response_Exception
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {

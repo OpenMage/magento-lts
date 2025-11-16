@@ -12,9 +12,9 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setPriceElementIdPrefix(string $value)
- * @method bool hasRealPriceHtml()
  * @method string getRealPriceHtml()
+ * @method bool hasRealPriceHtml()
+ * @method $this setPriceElementIdPrefix(string $value)
  * @method $this setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract

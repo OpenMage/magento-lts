@@ -16,8 +16,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Creates a real connection to the database with multi-query capability.
      *
-     * @throws Zend_Db_Adapter_Mysqli_Exception
      * @return void
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -39,8 +40,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
 
         $conn->init();
-        $conn->options(MYSQLI_OPT_LOCAL_INFILE, true);
-        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, true);
+        $conn->options(MYSQLI_OPT_LOCAL_INFILE, 1);
+        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, 1);
 
         $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
         $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
@@ -75,6 +76,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @param string $sql
      * @return mysqli_result
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
@@ -89,12 +91,12 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 $connection = $this->getConnection();
                 $result = $connection->query($sql);
                 $this->clear_result();
-            } catch (Exception $e) {
-                if ($tries < 10 && $e->getMessage() == $timeoutMessage) {
+            } catch (Exception $exception) {
+                if ($tries < 10 && $exception->getMessage() == $timeoutMessage) {
                     $retry = true;
                     $tries++;
                 } else {
-                    throw $e;
+                    throw $exception;
                 }
             }
         } while ($retry);
@@ -121,6 +123,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+    /**
+     * @throws Exception
+     */
     public function raw_fetchRow($sql, $field = null)
     {
         if (!$result = $this->raw_query($sql)) {
@@ -139,6 +145,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+    /**
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     public function multi_query($sql)
     {
         $this->beginTransaction();
@@ -160,6 +170,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return true;
     }
 
+    /**
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function clear_result()
     {
@@ -174,6 +187,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
     }
 
+    /**
+     * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     public function dropForeignKey($table, $fk)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
@@ -184,6 +201,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return true;
     }
 
+    /**
+     * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     public function dropKey($table, $key)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
@@ -204,6 +225,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @param string $refKeyName
      * @param string $onDelete
      * @param string $onUpdate
+     * @throws Exception
      */
     public function addConstraint(
         $fkName,
@@ -242,6 +264,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function addColumn($tableName, $columnName, $definition)
     {
         if ($this->tableColumnExists($tableName, $columnName)) {
@@ -251,6 +276,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
     }
 
+    /**
+     * @throws Exception
+     */
     public function dropColumn($tableName, $columnName)
     {
         if (!$this->tableColumnExists($tableName, $columnName)) {

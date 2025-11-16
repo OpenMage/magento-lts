@@ -16,8 +16,8 @@ class Mage_Eav_Model_Observer
 {
     /**
      * @param Varien_Event_Observer $event
-     * @throws Mage_Core_Model_Store_Exception
      * @return void
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function onControllerActionPredispatch($event)
     {

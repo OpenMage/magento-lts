@@ -130,9 +130,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve wishlist items availability
      *
-     * @deprecated after 1.6.0.0
-     *
      * @return bool
+     * @deprecated after 1.6.0.0
      */
     public function hasItems()
     {
@@ -168,10 +167,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * alias for getProductCollection
      *
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
-     *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getItemCollection()
     {
@@ -205,10 +203,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve wishlist product items collection
      *
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
-     *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {
@@ -394,9 +391,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve url for adding item to shoping cart with b64 referer
      *
-     * @deprecated
      * @param   Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return  string
+     * @deprecated
      */
     public function getAddToCartUrlBase64($item)
     {

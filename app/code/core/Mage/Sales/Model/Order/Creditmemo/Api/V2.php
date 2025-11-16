@@ -17,9 +17,9 @@ class Mage_Sales_Model_Order_Creditmemo_Api_V2 extends Mage_Sales_Model_Order_Cr
     /**
      * Prepare filters
      *
-     * @deprecated since 1.7.0.1
      * @param null|object $filters
      * @return array
+     * @deprecated since 1.7.0.1
      */
     protected function _prepareListFilter($filters = null)
     {

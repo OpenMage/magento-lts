@@ -18,8 +18,8 @@
 class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
 {
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAgreements()
     {

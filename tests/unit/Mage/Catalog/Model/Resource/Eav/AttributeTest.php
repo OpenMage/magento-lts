@@ -30,7 +30,7 @@ final class AttributeTest extends OpenMageTest
      * @dataProvider provideGetStoreId
      * @group Model
      */
-    public function testGetStoreId(?int $expectedResult, int|string|null $withStoreId): void
+    public function testGetStoreId(?int $expectedResult, null|int|string $withStoreId): void
     {
         if ($withStoreId) {
             self::$subject->setStoreId($withStoreId);

@@ -101,8 +101,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param string $entityType
      * @param bool $deleteOldResults
      *
-     * @throws Exception
      * @return Mage_Rule_Model_Resource_Abstract
+     * @throws Exception
      */
     public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
     {

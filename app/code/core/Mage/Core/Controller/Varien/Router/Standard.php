@@ -300,8 +300,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param string $realModule
      * @param string $controller
-     * @throws Mage_Core_Exception
      * @return false|string
+     * @throws Mage_Core_Exception
      */
     protected function _validateControllerClassName($realModule, $controller)
     {
@@ -326,8 +326,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     /**
      * @param string $controllerFileName
      * @param string $controllerClassName
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      * @deprecated
      * @see _includeControllerClass()
      */
@@ -406,7 +406,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getFrontNameByRoute($routeName)
     {
-        return $this->_routes[$routeName] ?? false;
+        return $this->_routes[(string) $routeName] ?? false;
     }
 
     /**

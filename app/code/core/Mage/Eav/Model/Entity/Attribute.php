@@ -13,17 +13,16 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
- *
  * @method int getAttributeGroupId()
- * @method $this setDefaultValue(int $value)
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
  * @method int getEntityAttributeId()
- * @method $this setEntityAttributeId(int $value)
- * @method $this setIsFilterable(int $value)
  * @method array getFilterOptions()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
+ * @method $this setDefaultValue(int $value)
+ * @method $this setEntityAttributeId(int $value)
  * @method $this setFrontendLabel(string $value)
+ * @method $this setIsFilterable(int $value)
  * @method $this unsIsVisible()
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
@@ -292,8 +291,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Return store label of attribute
      *
      * @param int $storeId
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLabel($storeId = null)
     {

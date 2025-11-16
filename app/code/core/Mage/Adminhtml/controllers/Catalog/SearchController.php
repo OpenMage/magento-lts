@@ -189,7 +189,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('delete', 'massDelete');
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 }

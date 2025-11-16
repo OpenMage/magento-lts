@@ -13,53 +13,52 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_User _getResource()
+ * @method string getCreated()
+ * @method string getEmail()
+ * @method array getExtra()
+ * @method string getFirstname()
+ * @method int getIsActive()
+ * @method string getLastname()
+ * @method string getLogdate()
+ * @method int getLognum()
+ * @method string getModified()
+ * @method string getNewPassword()
+ * @method string getPassword()
+ * @method string getPasswordConfirmation()
+ * @method int getReloadAclFlag()
  * @method Mage_Admin_Model_Resource_User getResource()
  * @method Mage_Admin_Model_Resource_User_Collection getResourceCollection()
- *
- * @method string getFirstname()
- * @method $this setFirstname(string $value)
- * @method string getLastname()
- * @method $this setLastname(string $value)
- * @method string getEmail()
- * @method $this setEmail(string $value)
- * @method string getUsername()
- * @method $this setUsername(string $value)
- * @method string getPassword()
- * @method $this setPassword(string $value)
- * @method string getCreated()
- * @method $this setCreated(string $value)
- * @method string getModified()
- * @method $this setModified(string $value)
- * @method string getLogdate()
- * @method $this setLogdate(string $value)
- * @method int getLognum()
- * @method $this setLognum(int $value)
- * @method int getReloadAclFlag()
- * @method $this setReloadAclFlag(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method array getExtra()
- * @method $this setExtra(string $value)
- * @method int getUserId()
  * @method int getRoleId()
+ * @method array getRoleIds()
+ * @method string getRpToken()
+ * @method string getRpTokenCreatedAt()
+ * @method int getUserId()
+ * @method string getUsername()
  * @method bool hasNewPassword()
- * @method string getNewPassword()
- * @method $this setNewPassword(string $value)
- * @method $this unsNewPassword()
  * @method bool hasPassword()
  * @method bool hasPasswordConfirmation()
- * @method string getPasswordConfirmation()
+ * @method $this setCreated(string $value)
+ * @method $this setEmail(string $value)
+ * @method $this setExtra(string $value)
+ * @method $this setFirstname(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setLastname(string $value)
+ * @method $this setLogdate(string $value)
+ * @method $this setLognum(int $value)
+ * @method $this setModified(string $value)
+ * @method $this setNewPassword(string $value)
+ * @method $this setPassword(string $value)
  * @method $this setPasswordConfirmation(string $value)
- * @method $this unsPasswordConfirmation()
+ * @method $this setReloadAclFlag(int $value)
  * @method $this setRoleId(int $value)
- * @method array getRoleIds()
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
- * @method string getRpToken()
  * @method $this setRpToken(string $value)
- * @method string getRpTokenCreatedAt()
  * @method $this setRpTokenCreatedAt(string $value)
  * @method $this setUserId(int $value)
+ * @method $this setUsername(string $value)
+ * @method $this unsNewPassword()
+ * @method $this unsPasswordConfirmation()
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
@@ -203,8 +202,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -367,8 +366,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
     {
@@ -426,8 +425,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return  $this
+     * @throws Mage_Core_Exception
      */
     public function login($username, $password)
     {
@@ -551,9 +550,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find admin start page url
      *
+     * @return string
      * @deprecated Please use getStartupPageUrl() method instead
      * @see getStartupPageUrl()
-     * @return string
      */
     public function getStatrupPageUrl()
     {
@@ -584,8 +583,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      * Returns TRUE or array of errors.
      *
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
@@ -651,8 +650,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns true or array of errors.
      *
      * @param string $password
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Zend_Validate_Exception
      */
     public function validateCurrentPassword($password)
     {
@@ -677,8 +676,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {

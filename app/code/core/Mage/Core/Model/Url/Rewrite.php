@@ -13,30 +13,29 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
- * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
- * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
- * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
- *
- * @method $this setStoreId(int $value)
  * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method string getIdPath()
- * @method $this setIdPath(string $value)
- * @method string getRequestPath()
- * @method $this setRequestPath(string $value)
- * @method string getTargetPath()
- * @method $this setTargetPath(string $value)
- * @method int getIsSystem()
- * @method $this setIsSystem(int $value)
- * @method string getOptions()
- * @method $this setOptions(string $value)
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
  * @method string getDescription()
- * @method $this setDescription(string $value)
+ * @method string getIdPath()
+ * @method int getIsSystem()
+ * @method string getOptions()
+ * @method int getProductId()
+ * @method string getRequestPath()
+ * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
  * @method array|string getTags()
- * @method $this setTags(array|string $value)
+ * @method string getTargetPath()
  * @method bool hasCategoryId()
+ * @method $this setCategoryId(int $value)
+ * @method $this setDescription(string $value)
+ * @method $this setIdPath(string $value)
+ * @method $this setIsSystem(int $value)
+ * @method $this setOptions(string $value)
+ * @method $this setProductId(int $value)
+ * @method $this setRequestPath(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setTags(array|string $value)
+ * @method $this setTargetPath(string $value)
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
@@ -51,7 +50,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Cache tag for clear cache in after save and after delete
      *
-     * @var array|bool|mixed|string
+     * @var array|bool|string
      */
     protected $_cacheTag = false;
 
@@ -82,6 +81,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @param   mixed $path
      * @return  Mage_Core_Model_Url_Rewrite
+     * @throws  Mage_Core_Exception
      */
     public function loadByRequestPath($path)
     {
@@ -96,6 +96,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * @param string $path
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIdPath($path)
     {
@@ -106,6 +107,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * @param array|string $tags
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByTags($tags)
     {
@@ -114,12 +116,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $loadTags = is_array($tags) ? $tags : explode(',', $tags);
 
         $search = $this->getResourceCollection();
-        foreach ($loadTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($loadTags as $key => $value) {
+            if (!is_numeric($key)) {
+                $value = $key . '=' . $value;
             }
 
-            $search->addTagsFilter($t);
+            $search->addTagsFilter($value);
         }
 
         if (!is_null($this->getStoreId())) {
@@ -159,13 +161,13 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $addTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($addTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($addTags as $key => $value) {
+            if (!is_numeric($key)) {
+                $value = $key . '=' . $value;
             }
 
-            if (!in_array($t, $curTags)) {
-                $curTags[] = $t;
+            if (!in_array($value, $curTags)) {
+                $curTags[] = $value;
             }
         }
 
@@ -184,12 +186,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $removeTags = is_array($tags) ? $tags : explode(',', $tags);
 
-        foreach ($removeTags as $k => $t) {
-            if (!is_numeric($k)) {
-                $t = $k . '=' . $t;
+        foreach ($removeTags as $tagKey => $value) {
+            if (!is_numeric($tagKey)) {
+                $value = $tagKey . '=' . $value;
             }
 
-            if ($key = array_search($t, $curTags)) {
+            if ($key = array_search($value, $curTags)) {
                 unset($curTags[$key]);
             }
         }
@@ -202,8 +204,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Implement logic of custom rewrites
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Controller_Response_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */

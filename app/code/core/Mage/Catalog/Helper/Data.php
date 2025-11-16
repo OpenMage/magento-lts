@@ -83,6 +83,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * and creating array of categories|product paths for breadcrumbs
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getBreadcrumbPath()
     {
@@ -118,8 +119,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is category link
      *
-     * @param int $categoryId
+     * @param int|string $categoryId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isCategoryLink($categoryId)
     {
@@ -158,6 +160,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve Visitor/Customer Last Viewed URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getLastViewedUrl()
     {
@@ -363,9 +366,11 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * in specific visibility
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @param int $visibility Check displaying price in concrete place (by default generally)
+     * @param Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_* $visibility Check displaying price in concrete place (by default generally)
      * @param bool $checkAssociatedItems
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function canApplyMsrp($product, $visibility = null, $checkAssociatedItems = true)
     {
@@ -419,6 +424,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canApplyMsrpToProductType($product)
     {

@@ -14,7 +14,7 @@
  *
  * @method string getCarrier()
  * @method string getCarrierTitle()
- * @method string getMethodTitle()
  * @method string getMethodDescription()
+ * @method string getMethodTitle()
  */
 class Mage_Shipping_Model_Rate_Result_Abstract extends Varien_Object {}

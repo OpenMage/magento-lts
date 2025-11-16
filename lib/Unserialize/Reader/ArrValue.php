@@ -40,8 +40,8 @@ class Unserialize_Reader_ArrValue
     /**
      * @param string $char
      * @param string $prevChar
-     * @throws Exception
      * @return null|mixed
+     * @throws Exception
      */
     public function read($char, $prevChar)
     {

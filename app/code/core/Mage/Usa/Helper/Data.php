@@ -37,10 +37,12 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert dimensions in different measure types
      *
-     * @param  mixed $value
+     * @param  float|int|string $value
      * @param  string $sourceDimensionMeasure
      * @param  string $toDimensionMeasure
      * @return null|int|string
+     * @throws Zend_Locale_Exception
+     * @throws Zend_Measure_Exception
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {
@@ -59,6 +61,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  $key
      * @return string
+     * @throws Zend_Measure_Exception
      */
     public function getMeasureWeightName($key)
     {
@@ -76,6 +79,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  $key
      * @return string
+     * @throws Zend_Measure_Exception
      */
     public function getMeasureDimensionName($key)
     {

@@ -564,10 +564,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage tier price for bundle products
      *
-     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
-     *
      * @param array|int $entityIds
      * @return $this
+     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
      */
     protected function _prepareTierPriceIndex($entityIds = null)
     {
@@ -623,10 +622,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage group price for bundle products
      *
-     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
-     *
      * @param array|int $entityIds
      * @return $this
+     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
     {

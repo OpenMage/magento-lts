@@ -302,8 +302,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Update products which are matched for rule
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function updateRuleProductData(Mage_CatalogRule_Model_Rule $rule)
     {
@@ -522,8 +522,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|Mage_Catalog_Model_Product $product
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function applyAllRules($product = null)
     {
@@ -540,9 +540,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param null|int|string $toDate
      * @param int $productId
      *
-     * @deprecated after 1.7.0.2 use method applyAllRules
-     *
      * @return $this
+     * @deprecated after 1.7.0.2 use method applyAllRules
      */
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
@@ -735,8 +734,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param Mage_Catalog_Model_Product $product
      * @param array $websiteIds
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function applyToProduct($rule, $product, $websiteIds)
     {

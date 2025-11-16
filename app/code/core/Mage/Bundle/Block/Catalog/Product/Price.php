@@ -13,8 +13,8 @@
  * @package    Mage_Bundle
  *
  * @method string getMAPTemplate()
- * @method $this unsWithoutPrice()
  * @method $this setWithoutPrice(bool $value)
+ * @method $this unsWithoutPrice()
  */
 class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product_Price
 {
@@ -40,8 +40,8 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
      * Check if we have display prices including and excluding tax
      * With corrections for Dynamic prices
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function displayBothPrices()
     {

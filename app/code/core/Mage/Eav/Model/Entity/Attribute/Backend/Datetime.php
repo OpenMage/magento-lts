@@ -19,8 +19,8 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      * necessary for farther process, else date string
      *
      * @param Varien_Object $object
-     * @throws Mage_Eav_Exception
      * @return $this
+     * @throws Mage_Eav_Exception
      */
     public function beforeSave($object)
     {
