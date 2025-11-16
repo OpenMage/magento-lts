@@ -187,12 +187,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			rawMessage: 'Parameter #1 $element of method Mage_Adminhtml_Block_System_Config_Form::_prepareGroupComment() expects Mage_Core_Model_Config_Element, Varien_Simplexml_Element given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
 			rawMessage: 'Method Mage_Core_Model_Email_Template::getProcessedTemplate() invoked with 2 parameters, 0-1 required.'
 			identifier: arguments.count
 			count: 1
@@ -3101,6 +3095,12 @@ parameters:
 			identifier: echo.nonString
 			count: 1
 			path: app/design/frontend/base/default/template/review/helper/summary_short.phtml
+
+		-
+			rawMessage: Access to an undefined property Mage_Core_Block_Template::$trackingInfo.
+			identifier: property.notFound
+			count: 1
+			path: app/design/frontend/base/default/template/sales/order/trackinginfo.phtml
 
 		-
 			rawMessage: 'Cannot call method setFilter() on class-string|object.'
