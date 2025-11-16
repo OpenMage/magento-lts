@@ -11,6 +11,9 @@
  * Fedex shipping implementation
  *
  * @package    Mage_Usa
+ *
+ * @property string $_defaultGatewayUrl
+ * @property Varien_Object $_rawTrackingRequest
  */
 class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -976,12 +979,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      */
     protected function setTrackingReqeust()
     {
-        $r = new Varien_Object();
+        $request = new Varien_Object();
 
         $account = $this->getConfigData('account');
-        $r->setAccount($account);
+        $request->setAccount($account);
 
-        $this->_rawTrackingRequest = $r;
+        $this->_rawTrackingRequest = $request;
     }
 
     /**

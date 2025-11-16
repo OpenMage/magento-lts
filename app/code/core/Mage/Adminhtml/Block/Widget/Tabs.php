@@ -83,6 +83,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param   string $tabId new tab Id
      * @param   array|string|Varien_Object $tab
      * @param   string $afterTabId
+     * @throws  Exception
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
     {
@@ -96,6 +97,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param   string $tabId
      * @param   array|string|Varien_Object $tab
      * @return  $this
+     * @throws  Exception
      */
     public function addTab($tabId, $tab)
     {
@@ -181,9 +183,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     protected function _setActiveTab($tabId)
     {
-        foreach ($this->_tabs as $id => $tab) {
+        foreach ($this->_tabs as $key => $tab) {
             if ($this->getTabId($tab) == $tabId) {
-                $this->_activeTab = $id;
+                $this->_activeTab = $key;
                 $tab->setActive(true);
                 return $this;
             }
@@ -194,6 +196,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _beforeToHtml()
     {
@@ -408,7 +411,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      *
      * @param string $tabOneId
      * @param string $tabTwoId
-     * @param string $tabNId...
      */
     public function bindShadowTabs($tabOneId, $tabTwoId)
     {
