@@ -155,6 +155,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                 return $filter;
             }
         }
+
+        return null;
     }
 
     /**

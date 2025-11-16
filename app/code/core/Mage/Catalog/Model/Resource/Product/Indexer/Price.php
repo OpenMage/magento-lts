@@ -63,6 +63,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * If the deleted product was found in a composite product(s) update it
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
     {
@@ -127,6 +129,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * when product was saved and changed attribute(s) has an effect on price.
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     public function catalogProductSave(Mage_Index_Model_Event $event)
     {
@@ -184,6 +189,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Process product mass update action
      *
      * @return $this
+     * @throws Exception
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
     {
@@ -228,6 +234,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      *
      * @param array|int $ids
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function reindexProductIds($ids)
     {
@@ -304,7 +312,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Retrieve Price indexer by Product Type
      *
      * @param string $productTypeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * @throws Mage_Core_Exception
      */
     protected function _getIndexer($productTypeId)
@@ -334,7 +342,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             foreach ($types as $typeId => $typeInfo) {
                 $modelName = $typeInfo['price_indexer'] ?? $this->_defaultPriceIndexer;
                 $isComposite = !empty($typeInfo['composite']);
-                $indexer = Mage::getResourceModel($modelName)
+                /** @var Mage_Catalog_Model_Resource_Product_Indexer_Price_Default $indexer */
+                $indexer = Mage::getResourceModel($modelName);
+                $indexer
                     ->setTypeId($typeId)
                     ->setIsComposite($isComposite);
 
@@ -349,6 +359,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Rebuild all index data
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     public function reindexAll()
     {
@@ -401,6 +413,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      *
      * @param array|int $entityIds the entity ids limitation
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _prepareTierPriceIndex($entityIds = null)
     {
@@ -448,6 +461,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      *
      * @param array|int $entityIds the entity ids limitation
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
     {
@@ -496,6 +510,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * @param array|int $parentIds
      * @param array $excludeIds
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _copyRelationIndexData($parentIds, $excludeIds = null)
     {
@@ -534,6 +550,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Prepare website current dates table
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _prepareWebsiteDateTable()
     {
