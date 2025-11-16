@@ -10,12 +10,17 @@
 /**
  * @package    Mage_Adminhtml
  *
+ * @method string getNoticeSeverity()
+ * @method $this setNoticeSeverity(string $value)
+ *
  * @property string $_aclResourcePath
  */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
     /**
      * XML path of Severity icons url
+     *
+     * @deprecated
      */
     public const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
 
@@ -135,11 +140,10 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     {
         if (is_null($this->_severityIconsUrl)) {
             $this->_severityIconsUrl
-                = (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
-                . sprintf(
-                    Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
-                    Mage::getVersion(),
-                    $this->getNoticeSeverity(),
+                = sprintf(
+                    '%s/%s.gif',
+                    $this->getSkinUrl('images/severity'),
+                    $this->getSeverityText(),
                 )
             ;
         }
