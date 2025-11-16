@@ -79,12 +79,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			rawMessage: Access to an undefined property Mage_Adminhtml_Block_Notification_Window::$_aclResourcePath.
-			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
 			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
 			identifier: equal.invalid
 			count: 1
@@ -169,12 +163,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
 
 		-
-			rawMessage: 'Method Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging::getQtyOrderedItem() should return int|null but empty return statement found.'
-			identifier: return.empty
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
 			rawMessage: 'Parameter #2 $array of function implode expects array<string>, array<int, array<string>|string|null> given.'
 			identifier: argument.type
 			count: 1
@@ -195,24 +183,6 @@ parameters:
 		-
 			rawMessage: 'Parameter #1 $array (array{non-empty-string, non-empty-string}) of array_values is already a list, call has no effect.'
 			identifier: arrayValues.list
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			rawMessage: 'Parameter #1 $element of method Mage_Adminhtml_Block_System_Config_Form::_prepareGroupComment() expects Mage_Core_Model_Config_Element, Varien_Simplexml_Element given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			rawMessage: 'Parameter #1 $field of method Mage_Adminhtml_Block_System_Config_Form::canUseDefaultValue() expects Varien_Simplexml_Element, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			rawMessage: 'Parameter #1 $field of method Mage_Adminhtml_Block_System_Config_Form::canUseWebsiteValue() expects Varien_Simplexml_Element, int given.'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
@@ -261,12 +231,6 @@ parameters:
 		-
 			rawMessage: 'Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface::toHtml().'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			rawMessage: 'PHPDoc tag @param references unknown parameter: $tabNId'
-			identifier: parameter.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
@@ -407,12 +371,6 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php
-
-		-
-			rawMessage: 'Cannot call method fetchRates() on Mage_Core_Model_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
 
 		-
 			rawMessage: 'Method Mage_Directory_Model_Country::loadByCode() invoked with 2 parameters, 1 required.'
@@ -707,12 +665,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
 			rawMessage: Left side of && is always true.
@@ -1039,12 +991,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Status.php
 
 		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			rawMessage: 'Method Mage_Catalog_Model_Product_Type_Configurable::getProductByAttributes() should return Mage_Catalog_Model_Product|null but returns Varien_Object.'
 			identifier: return.type
 			count: 1
@@ -1055,12 +1001,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			rawMessage: 'Call to function is_array() with string will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
 			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
@@ -1159,18 +1099,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface::getIsComposite().'
-			identifier: method.notFound
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			rawMessage: 'Cannot call method setTypeId() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
 			rawMessage: Left side of && is always true.
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
@@ -1219,12 +1147,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Data/Grouped.php
 
 		-
-			rawMessage: 'Call to function is_array() with mixed will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			rawMessage: 'Return type (string) of method Mage_CatalogIndex_Model_Indexer_Eav::_getIndexableAttributeConditions() should be compatible with return type (array) of method Mage_CatalogIndex_Model_Indexer_Abstract::_getIndexableAttributeConditions()'
 			identifier: method.childReturnType
 			count: 1
@@ -1247,12 +1169,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
-
-		-
-			rawMessage: 'Cannot call method setTypeId() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
 			rawMessage: 'Method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection::_initSelect() should return $this(Mage_CatalogInventory_Model_Resource_Stock_Item_Collection) but returns Varien_Db_Select.'
@@ -1717,12 +1633,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
-			rawMessage: 'Parameter #1 $date of method Mage_Core_Model_Resource_Db_Collection_Abstract::formatDate() expects int|string|Zend_Date, true given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Design/Collection.php
-
-		-
 			rawMessage: 'Parameter #6 $gc of function session_set_save_handler expects callable(string): bool, array{$this(Mage_Core_Model_Resource_Session), ''gc''} given.'
 			identifier: argument.type
 			count: 1
@@ -1825,36 +1735,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
 
 		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given.'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Customer/Model/Address/Api.php
-
-		-
-			rawMessage: Cannot access property $is_default_billing on array.
-			identifier: property.nonObject
-			count: 2
-			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
-
-		-
-			rawMessage: Cannot access property $is_default_shipping on array.
-			identifier: property.nonObject
-			count: 2
-			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
-
-		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getResource().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Api/Resource.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Customer_Model_Api2_Customer_Address::_getDefaultAddressesInfo().'
 			identifier: method.notFound
 			count: 1
@@ -1879,12 +1759,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
 
 		-
-			rawMessage: 'Parameter #1 $entity of method Mage_Customer_Model_Api_Resource::getAllowedAttributes() expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Customer given.'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Customer/Model/Customer/Api.php
-
-		-
 			rawMessage: 'Parameter #1 $data (stdClass) of method Mage_Customer_Model_Customer_Api_V2::_prepareData() should be compatible with parameter $data (array) of method Mage_Customer_Model_Customer_Api::_prepareData()'
 			identifier: method.childParameterType
 			count: 1
@@ -1907,18 +1781,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::deleteCollection().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::getIdCollection().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Dataflow_Model_Convert_Action::getData().'
@@ -1975,18 +1837,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
 
 		-
-			rawMessage: 'Method Mage_Dataflow_Model_Convert_Mapper_Column::getBatchImportModel() has invalid return type Mage_Dataflow_Model_Import_Export.'
-			identifier: class.notFound
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			rawMessage: 'Method Mage_Dataflow_Model_Convert_Profile_Abstract::run() should return Mage_Dataflow_Model_Convert_Profile_Abstract but empty return statement found.'
-			identifier: return.empty
-			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
 			rawMessage: 'Undefined variable: $profile'
 			identifier: variable.undefined
 			count: 1
@@ -1997,30 +1847,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			rawMessage: 'Method Mage_Directory_Helper_Data::getCountryCollection() should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Directory_Helper_Data::$_countryCollection (Mage_Directory_Model_Resource_Country_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			rawMessage: 'Method Mage_Directory_Model_Currency_Import_Webservicex::_convert() should return float|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
-			rawMessage: 'Parameter #2 $code of class Exception constructor expects int, string given.'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Downloadable/Model/Link/Api/Uploader.php
 
 		-
 			rawMessage: 'Parameter #2 $resource (object) of method Mage_Downloadable_Model_Link_Api_V2::add() should be compatible with parameter $resource (array) of method Mage_Downloadable_Model_Link_Api::add()'
@@ -2063,12 +1889,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Downloadable/controllers/Product/EditController.php
-
-		-
-			rawMessage: 'Parameter #1 $readonly of method Varien_Data_Form_Abstract::setReadonly() expects bool, int given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Main/Abstract.php
 
 		-
 			rawMessage: 'Parameter #1 $attr of method Mage_ConfigurableSwatches_Helper_Data::attrIsSwatchType() expects int|Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute_Abstract given.'
@@ -2233,36 +2053,6 @@ parameters:
 			path: app/code/core/Mage/GiftMessage/controllers/IndexController.php
 
 		-
-			rawMessage: 'Return type (void) of method Mage_GoogleCheckout_Model_Payment::authorize() should be compatible with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::authorize()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_GoogleCheckout_Model_Payment::cancel() should be compatible with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::cancel()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_GoogleCheckout_Model_Payment::capture() should be compatible with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::capture()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_GoogleCheckout_Model_Payment::refund() should be compatible with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::refund()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
-
-		-
-			rawMessage: 'Return type (void) of method Mage_GoogleCheckout_Model_Payment::void() should be compatible with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::void()'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
-
-		-
 			rawMessage: 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 4
@@ -2341,18 +2131,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
 
 		-
-			rawMessage: 'Method Mage_Install_Model_Installer::getDataModel() should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data|null.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			rawMessage: 'Parameter #1 $model of method Mage_Install_Model_Installer::setDataModel() expects Mage_Install_Model_Installer_Data, Mage_Install_Model_Session given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			rawMessage: 'Parameter #2 $value of method Mage_Core_Model_Resource_Setup::setConfigData() expects string, int given.'
 			identifier: argument.type
 			count: 5
@@ -2407,16 +2185,16 @@ parameters:
 			path: app/code/core/Mage/Paygate/controllers/Authorizenet/PaymentController.php
 
 		-
-			rawMessage: 'Cannot call method setInfo() on object|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Payment/Helper/Data.php
-
-		-
 			rawMessage: 'Loose comparison using != between ''''|''OT'' and ''SS'' will always evaluate to true.'
 			identifier: notEqual.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
+
+		-
+			rawMessage: Dead catch - Mage_Core_Exception is never thrown in the try block.
+			identifier: catch.neverThrown
+			count: 1
+			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
 			rawMessage: 'Method Mage_Payment_Model_Recurring_Profile::exportStartDatetime() should return string|Zend_Date but empty return statement found.'
@@ -2515,18 +2293,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
 		-
-			rawMessage: 'Cannot call method getData() on array.'
-			identifier: method.nonObject
-			count: 2
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			rawMessage: 'Cannot call method getExportedKeys() on array.'
-			identifier: method.nonObject
-			count: 2
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			rawMessage: 'Parameter #1 $message of static method Mage::throwException() expects string, array given.'
 			identifier: argument.type
 			count: 1
@@ -2623,22 +2389,10 @@ parameters:
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Reports_Model_Grouped_Collection::$_resourceCollection (Mage_Core_Model_Resource_Db_Collection_Abstract) does not accept Varien_Data_Collection_Db.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Grouped/Collection.php
-
-		-
 			rawMessage: 'Method Mage_Reports_Model_Resource_Product_Index_Abstract::clean() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
-
-		-
-			rawMessage: 'Property Mage_Reports_Model_Report::$_reportModel (Mage_Reports_Model_Report) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Report.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Customer_Model_Customer::remove().'
@@ -2779,12 +2533,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
 		-
-			rawMessage: 'Method Mage_Sales_Model_Order_Payment_Transaction::getOrderId() should return int|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
-
-		-
 			rawMessage: 'Parameter #1 $order of method Mage_Sales_Model_Order_Payment_Transaction::setOrder() expects bool|Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order given.'
 			identifier: argument.type
 			count: 1
@@ -2905,12 +2653,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			rawMessage: 'Cannot call method updateOnRelatedRecordChanged() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Address.php
-
-		-
 			rawMessage: 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.'
 			identifier: argument.type
 			count: 1
@@ -3007,12 +2749,6 @@ parameters:
 			path: app/code/core/Mage/Tag/Block/Product/List.php
 
 		-
-			rawMessage: Access to an undefined property Mage_Tag_Model_Entity_Customer_Collection::$_read.
-			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Entity/Customer/Collection.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_App::getOrder().'
 			identifier: method.notFound
 			count: 1
@@ -3043,12 +2779,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
 
 		-
-			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl::$_rawTrackRequest.
-			identifier: property.notFound
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			rawMessage: 'Property Mage_Usa_Model_Shipping_Carrier_Dhl::$_result (Mage_Shipping_Model_Rate_Result|null) does not accept Mage_Shipping_Model_Tracking_Result.'
 			identifier: assign.propertyType
 			count: 1
@@ -3073,18 +2803,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex::$_defaultGatewayUrl.
-			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			rawMessage: Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex::$_rawTrackingRequest.
-			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			rawMessage: Binary operation "*" between float and string results in an error.
 			identifier: binaryOp.invalid
 			count: 2
@@ -3103,24 +2821,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Core_Helper_Abstract::priceIncludesTax().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
-			rawMessage: 'Parameter #2 $shipping of method Mage_Weee_Model_Tax::getProductWeeeAttributes() expects Mage_Sales_Model_Quote_Address|null, Varien_Object|false|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
-			rawMessage: 'Parameter #3 $billing of method Mage_Weee_Model_Tax::getProductWeeeAttributes() expects Mage_Sales_Model_Quote_Address|null, Varien_Object|false|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract::isScopeGlobal().'
 			identifier: method.notFound
 			count: 2
@@ -3131,36 +2831,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Resource/Tax.php
-
-		-
-			rawMessage: 'Binary operation "*" between non-falsy-string and int<min, -1>|int<1, max> results in an error.'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			rawMessage: 'Binary operation "-" between non-falsy-string and (float|int) results in an error.'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			rawMessage: 'Method Mage_Core_Model_Abstract::_init() invoked with 2 parameters, 1 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			rawMessage: 'Parameter #2 $shipping of method Mage_Weee_Model_Tax::getProductWeeeAttributes() expects Mage_Sales_Model_Quote_Address|null, Mage_Customer_Model_Address_Abstract|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
-
-		-
-			rawMessage: 'Parameter #3 $billing of method Mage_Weee_Model_Tax::getProductWeeeAttributes() expects Mage_Sales_Model_Quote_Address|null, Mage_Customer_Model_Address_Abstract|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
 			rawMessage: PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee::$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax::$_helper.
@@ -3187,106 +2857,10 @@ parameters:
 			path: app/design/adminhtml/default/default/template/api/role_users_grid_js.phtml
 
 		-
-			rawMessage: 'Call to protected method _getGridHtml() of class Mage_Adminhtml_Block_Api_Tab_Rolesusers.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/api/rolesusers.phtml
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getSelectedRoles().'
 			identifier: method.notFound
 			count: 1
 			path: app/design/adminhtml/default/default/template/api/user_roles_grid_js.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/multi.phtml
-
-		-
-			rawMessage: 'Call to protected method _getDefaultValues() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _showSingle() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _getDefaultValues() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _showSingle() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _getHeader() of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/main.phtml
-
-		-
-			rawMessage: 'Call to protected method _getHeader() of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/add.phtml
-
-		-
-			rawMessage: 'Call to protected method _getHeader() of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/main.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/date.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/file.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/select.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/text.phtml
 
 		-
 			rawMessage: 'Parameter #2 $store of method Mage_Core_Helper_Data::currencyByStore() expects int|Mage_Core_Model_Store|null, true given.'
@@ -3313,12 +2887,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/permissions/role_users_grid_js.phtml
 
 		-
-			rawMessage: 'Call to protected method _getGridHtml() of class Mage_Adminhtml_Block_Permissions_Tab_Rolesusers.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/rolesusers.phtml
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getSelectedRoles().'
 			identifier: method.notFound
 			count: 1
@@ -3335,60 +2903,6 @@ parameters:
 			identifier: arguments.count
 			count: 18
 			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info::$trackingInfo.
-			identifier: property.notFound
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/tracking/info.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty::$_addAfter.
-			identifier: property.protected
-			count: 3
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty::$_addButtonLabel.
-			identifier: property.protected
-			count: 2
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty::$_columns.
-			identifier: property.protected
-			count: 4
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
-
-		-
-			rawMessage: 'Call to protected method _renderCellTemplate() of class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract.'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts::$_addAfter.
-			identifier: property.protected
-			count: 4
-			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts::$_addButtonLabel.
-			identifier: property.protected
-			count: 2
-			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
-
-		-
-			rawMessage: Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts::$_columns.
-			identifier: property.protected
-			count: 5
-			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
-
-		-
-			rawMessage: 'Call to protected method _renderCellTemplate() of class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts.'
-			identifier: method.protected
-			count: 2
-			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
 			rawMessage: Negated boolean expression is always true.
@@ -3415,54 +2929,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/option_tierprices.phtml
 
 		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/multi.phtml
-
-		-
-			rawMessage: 'Call to protected method _getDefaultValues() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _showSingle() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			rawMessage: 'Call to protected method _getDefaultValues() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _showSingle() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
 			rawMessage: 'Parameter #2 $attribute of method Mage_Catalog_Block_Product_Compare_List::getProductAttributeValue() expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute_Abstract given.'
 			identifier: argument.type
 			count: 2
@@ -3479,36 +2945,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/price.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSecure() of class Mage_Core_Block_Abstract.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view/options/type/date.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view/options/type/file.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view/options/type/select.phtml
-
-		-
-			rawMessage: Access to an undefined property Mage_Catalog_Model_Product_Option::$decoratedIsLast.
-			identifier: property.notFound
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view/options/type/text.phtml
 
 		-
 			rawMessage: 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.'
@@ -3625,18 +3061,6 @@ parameters:
 			path: app/design/frontend/base/default/template/giftmessage/inline.phtml
 
 		-
-			rawMessage: 'Call to protected method _getEnhancedEcommerceDataForAnalytics4() of class Mage_GoogleAnalytics_Block_Ga.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/googleanalytics/ga.phtml
-
-		-
-			rawMessage: 'Call to protected method _getPageTrackingCode() of class Mage_GoogleAnalytics_Block_Ga.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/googleanalytics/ga.phtml
-
-		-
 			rawMessage: 'Class Mage_Paypal_Block_Express_Form referenced with incorrect case: Mage_PayPal_Block_Express_Form.'
 			identifier: class.nameCase
 			count: 1
@@ -3685,24 +3109,6 @@ parameters:
 			path: app/design/frontend/base/default/template/sales/order/trackinginfo.phtml
 
 		-
-			rawMessage: 'Call to protected method _getDefaultValues() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSelected() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			rawMessage: 'Call to protected method _showSingle() of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
 			rawMessage: 'Cannot call method setFilter() on class-string|object.'
 			identifier: method.nonObject
 			count: 1
@@ -3731,12 +3137,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
-
-		-
-			rawMessage: 'Call to protected method _isSecure() of class Mage_Core_Block_Abstract.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view.phtml
 
 		-
 			rawMessage: 'Cannot call method setAttributeObj() on class-string|object.'
@@ -3815,12 +3215,6 @@ parameters:
 			identifier: arguments.count
 			count: 12
 			path: app/design/frontend/rwd/default/template/downloadable/checkout/onepage/review/item.phtml
-
-		-
-			rawMessage: 'Call to protected method _getRenderedMenuItemAttributes() of class Mage_Page_Block_Html_Topmenu.'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml
 
 		-
 			rawMessage: 'Cannot call method isEnabled() on Mage_Core_Block_Abstract|false.'
@@ -3937,12 +3331,6 @@ parameters:
 			path: lib/Varien/Data/Collection.php
 
 		-
-			rawMessage: 'Method Varien_Data_Collection::getFilter() should return array|Varien_Object|null but return statement is missing.'
-			identifier: return.missing
-			count: 1
-			path: lib/Varien/Data/Collection.php
-
-		-
 			rawMessage: 'Call to an undefined method Varien_Data_Collection_Db::_initSelect().'
 			identifier: method.notFound
 			count: 1
@@ -3955,12 +3343,6 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			rawMessage: Access to an undefined property Varien_Data_Form_Element_Fieldset::$_sortDirection.
-			identifier: property.notFound
-			count: 1
-			path: lib/Varien/Data/Form/Element/Fieldset.php
-
-		-
 			rawMessage: 'Parameter #1 $index of method Varien_Data_Form_Element_Abstract::getEscapedValue() expects string|null, int<0, max> given.'
 			identifier: argument.type
 			count: 2
@@ -3971,18 +3353,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: lib/Varien/Data/Tree/Node.php
-
-		-
-			rawMessage: 'Parameter #1 $parent of method Varien_Data_Tree_Node::setParent() expects Varien_Data_Tree_Node, Varien_Data_Tree given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Data/Tree/Node/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $value of method mysqli::options() expects int|string, true given.'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
 			rawMessage: Cannot access offset 'Engine' on bool.

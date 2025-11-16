@@ -37,6 +37,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * Reindex all stock status data for default logic product type
      *
      * @return $this
+     * @throws Exception
      */
     public function reindexAll()
     {
@@ -130,6 +131,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param array|int $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
@@ -189,6 +191,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      *
      * @param array|int $entityIds  the product limitation
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _prepareIndexTable($entityIds = null)
     {
@@ -205,6 +209,10 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      *
      * @param array|int $entityIds
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _updateIndex($entityIds)
     {
@@ -212,10 +220,10 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         $select  = $this->_getStockStatusSelect($entityIds, true);
         $query   = $adapter->query($select);
 
-        $i      = 0;
+        $index  = 0;
         $data   = [];
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $i++;
+            $index++;
             $data[] = [
                 'product_id'    => (int) $row['entity_id'],
                 'website_id'    => (int) $row['website_id'],
@@ -223,7 +231,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
                 'qty'           => (float) $row['qty'],
                 'stock_status'  => (int) $row['status'],
             ];
-            if (($i % 1000) == 0) {
+            if (($index % 1000) == 0) {
                 $this->_updateIndexTable($data);
                 $data = [];
             }
@@ -239,6 +247,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      *
      * @param array $data
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _updateIndexTable($data)
     {
