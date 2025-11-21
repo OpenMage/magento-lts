@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_Email_PathValidator
 {
     /**
      * Returns true if and only if $value meets the validation requirements

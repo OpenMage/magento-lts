@@ -115,20 +115,27 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      *
      * @param array $data
      * @param Mage_Eav_Model_Entity_Type $productEntity
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributes($data, $productEntity)
     {
-        if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
+        if (empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
-        if (!isset($data['type_id']) || empty($data['type_id'])) {
+        if (empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
         // Validate weight
-        if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+        if (!empty($data['weight']) && $data['weight'] > 0
+            && $validator->validateRange(
+                value: $data['weight'],
+                min: 0,
+                max: self::MAX_DECIMAL_VALUE,
+            )->count() > 0
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -254,6 +261,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * @param array $data
      * @param Mage_Eav_Model_Entity_Type $productEntity
      * @return true|void
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributeSet($data, $productEntity)
     {
@@ -284,8 +292,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             return true;
         }
 
-        if (!Zend_Validate::is((string) $data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
-            $this->_addError('SKU length should be 64 characters maximum.');
+        $skuMaxLength = Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH;
+
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
+        if ($validator->validateLength(value: $data['sku'], max: $skuMaxLength)->count() > 0) {
+            $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }
     }
 
