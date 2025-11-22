@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Widget to display link to CMS page
  *
@@ -40,6 +42,7 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * or retrieve such using passed page id.
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getHref()
     {
@@ -47,8 +50,8 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
             $this->_href = '';
             if ($this->getData('href')) {
                 $this->_href = $this->getData('href');
-            } elseif ($this->getData('page_id')) {
-                $this->_href = Mage::helper('cms/page')->getPageUrl($this->getData('page_id'));
+            } elseif ($this->getData(PageInterface::DATA_ID)) {
+                $this->_href = Mage::helper('cms/page')->getPageUrl($this->getData(PageInterface::DATA_ID));
             }
         }
 
@@ -60,17 +63,18 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * as parameter or retrieve page title from DB using passed identifier or page id.
      *
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getTitle()
     {
         if (!$this->_title) {
             $this->_title = '';
-            if ($this->getData('title') !== null) {
+            if ($this->getData(PageInterface::DATA_TITLE) !== null) {
                 // compare to null used here bc user can specify blank title
-                $this->_title = $this->getData('title');
-            } elseif ($this->getData('page_id')) {
-                $this->_title = $this->getCmsPageTitleById($this->getData('page_id'));
+                $this->_title = $this->getData(PageInterface::DATA_TITLE);
+            } elseif ($this->getData(PageInterface::DATA_ID)) {
+                $this->_title = $this->getCmsPageTitleById($this->getData(PageInterface::DATA_ID));
             } elseif ($this->getData('href')) {
                 $this->_title = $this->getCmsPageTitleByIdentifier($this->getData('href'));
             }
@@ -85,6 +89,7 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * if title will be blank string, page identifier will be used.
      *
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getAnchorText()
@@ -95,8 +100,8 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
             $this->_anchorText = $this->getTitle();
         } elseif ($this->getData('href')) {
             $this->_anchorText = $this->getCmsPageTitleByIdentifier($this->getData('href'));
-        } elseif ($this->getData('page_id')) {
-            $this->_anchorText = $this->getCmsPageTitleById($this->getData('page_id'));
+        } elseif ($this->getData(PageInterface::DATA_ID)) {
+            $this->_anchorText = $this->getCmsPageTitleById($this->getData(PageInterface::DATA_ID));
         } else {
             $this->_anchorText = $this->getData('href');
         }
@@ -110,6 +115,7 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
     }
 
     /**
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function getCmsPageTitleByIdentifier(int|string $identifier): string

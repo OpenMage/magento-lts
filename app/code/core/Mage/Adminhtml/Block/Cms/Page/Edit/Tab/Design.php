@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * @package    Mage_Adminhtml
  */
@@ -23,6 +25,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareForm()
     {
@@ -47,8 +50,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'disabled'  => $isElementDisabled,
         ]);
 
-        $layoutFieldset->addField('root_template', 'select', [
-            'name'     => 'root_template',
+        $layoutFieldset->addField(PageInterface::DATA_ROOT_TEMPLATE, 'select', [
+            'name'     => PageInterface::DATA_ROOT_TEMPLATE,
             'label'    => Mage::helper('cms')->__('Layout'),
             'required' => true,
             'values'   => Mage::getSingleton('page/source_layout')->toOptionArray(),
@@ -58,8 +61,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             $model->setRootTemplate(Mage::getSingleton('page/source_layout')->getDefaultValue());
         }
 
-        $layoutFieldset->addField('layout_update_xml', 'textarea', [
-            'name'      => 'layout_update_xml',
+        $layoutFieldset->addField(PageInterface::DATA_LAYOUT_UPDATE_XML, 'textarea', [
+            'name'      => PageInterface::DATA_LAYOUT_UPDATE_XML,
             'label'     => Mage::helper('cms')->__('Layout Update XML'),
             'style'     => 'height:24em;',
             'disabled'  => $isElementDisabled,
@@ -75,8 +78,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
         );
 
-        $designFieldset->addField('custom_theme_from', 'date', [
-            'name'      => 'custom_theme_from',
+        $designFieldset->addField(PageInterface::DATA_CUSTOM_THEME_FROM, 'date', [
+            'name'      => PageInterface::DATA_CUSTOM_THEME_FROM,
             'label'     => Mage::helper('cms')->__('Custom Design From'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
@@ -84,8 +87,8 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'class'     => 'validate-date validate-date-range date-range-custom_theme-from',
         ]);
 
-        $designFieldset->addField('custom_theme_to', 'date', [
-            'name'      => 'custom_theme_to',
+        $designFieldset->addField(PageInterface::DATA_CUSTOM_THEME_TO, 'date', [
+            'name'      => PageInterface::DATA_CUSTOM_THEME_TO,
             'label'     => Mage::helper('cms')->__('Custom Design To'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
@@ -93,22 +96,22 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'class'     => 'validate-date validate-date-range date-range-custom_theme-to',
         ]);
 
-        $designFieldset->addField('custom_theme', 'select', [
-            'name'      => 'custom_theme',
+        $designFieldset->addField(PageInterface::DATA_CUSTOM_THEME, 'select', [
+            'name'      => PageInterface::DATA_CUSTOM_THEME,
             'label'     => Mage::helper('cms')->__('Custom Theme'),
             'values'    => Mage::getModel('core/design_source_design')->getAllOptions(),
             'disabled'  => $isElementDisabled,
         ]);
 
-        $designFieldset->addField('custom_root_template', 'select', [
-            'name'      => 'custom_root_template',
+        $designFieldset->addField(PageInterface::DATA_CUSTOM_ROOT_TEMPLATE, 'select', [
+            'name'      => PageInterface::DATA_CUSTOM_ROOT_TEMPLATE,
             'label'     => Mage::helper('cms')->__('Custom Layout'),
             'values'    => Mage::getSingleton('page/source_layout')->toOptionArray(true),
             'disabled'  => $isElementDisabled,
         ]);
 
-        $designFieldset->addField('custom_layout_update_xml', 'textarea', [
-            'name'      => 'custom_layout_update_xml',
+        $designFieldset->addField(PageInterface::DATA_CUSTOM_LAYOUT_UPDATE_XML, 'textarea', [
+            'name'      => PageInterface::DATA_CUSTOM_LAYOUT_UPDATE_XML,
             'label'     => Mage::helper('cms')->__('Custom Layout Update XML'),
             'style'     => 'height:24em;',
             'disabled'  => $isElementDisabled,

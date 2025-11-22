@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Cms Controller Router
  *
@@ -32,6 +34,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      *
      * @return bool
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @throws Mage_Core_Exception
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -75,7 +78,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
         $request->setModuleName('cms')
             ->setControllerName('page')
             ->setActionName('view')
-            ->setParam('page_id', $pageId);
+            ->setParam(PageInterface::DATA_ID, $pageId);
         $request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
             $identifier,
