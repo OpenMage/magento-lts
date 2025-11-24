@@ -49,6 +49,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         if (!Mage::getModel('eav/entity_attribute_set')->load($skeletonSetId)->getId()) {
             $this->_fault('invalid_skeleton_set_id');
         }
+
         // get catalog product entity type id
         $entityTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
         /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
@@ -66,6 +67,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         } catch (Exception $e) {
             $this->_fault('create_attribute_set_error', $e->getMessage());
         }
+
         return (int) $attributeSet->getId();
     }
 
@@ -87,16 +89,19 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
                 $this->_fault('attribute_set_has_related_products');
             }
         }
+
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
         // check if set with requested id exists
         if (!$attributeSet->getId()) {
             $this->_fault('invalid_attribute_set_id');
         }
+
         try {
             $attributeSet->delete();
-        } catch (Exception $e) {
-            $this->_fault('remove_attribute_set_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_attribute_set_error', $exception->getMessage());
         }
+
         return true;
     }
 
@@ -105,7 +110,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
      *
      * @param string $attributeId
      * @param string $attributeSetId
-     * @param string|null $attributeGroupId
+     * @param null|string $attributeGroupId
      * @param string $sortOrder
      * @return bool
      */
@@ -117,12 +122,14 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         if (!$attribute->getId()) {
             $this->_fault('invalid_attribute_id');
         }
+
         // check if attribute set with requested id exists
         /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
         if (!$attributeSet->getId()) {
             $this->_fault('invalid_attribute_set_id');
         }
+
         if (!empty($attributeGroupId)) {
             // check if attribute group with requested id exists
             if (!Mage::getModel('eav/entity_attribute_group')->load($attributeGroupId)->getId()) {
@@ -132,19 +139,22 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
             // define default attribute group id for current attribute set
             $attributeGroupId = $attributeSet->getDefaultGroupId();
         }
+
         $attribute->setAttributeSetId($attributeSet->getId())->loadEntityAttributeIdBySet();
         if ($attribute->getEntityAttributeId()) {
             $this->_fault('attribute_is_already_in_set');
         }
+
         try {
             $attribute->setEntityTypeId($attributeSet->getEntityTypeId())
                     ->setAttributeSetId($attributeSetId)
                     ->setAttributeGroupId($attributeGroupId)
                     ->setSortOrder($sortOrder)
                     ->save();
-        } catch (Exception $e) {
-            $this->_fault('add_attribute_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('add_attribute_error', $exception->getMessage());
         }
+
         return true;
     }
 
@@ -163,23 +173,26 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         if (!$attribute->getId()) {
             $this->_fault('invalid_attribute_id');
         }
+
         // check if attribute set with requested id exists
         /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
         if (!$attributeSet->getId()) {
             $this->_fault('invalid_attribute_set_id');
         }
+
         // check if attribute is in set
         $attribute->setAttributeSetId($attributeSet->getId())->loadEntityAttributeIdBySet();
         if (!$attribute->getEntityAttributeId()) {
             $this->_fault('attribute_is_not_in_set');
         }
+
         try {
             // delete record from eav_entity_attribute
             // using entity_attribute_id loaded by loadEntityAttributeIdBySet()
             $attribute->deleteEntity();
-        } catch (Exception $e) {
-            $this->_fault('remove_attribute_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_attribute_error', $exception->getMessage());
         }
 
         return true;
@@ -188,7 +201,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     /**
      * Create group within existing attribute set
      *
-     * @param  string|int $attributeSetId
+     * @param  int|string $attributeSetId
      * @param  string $groupName
      * @return int
      */
@@ -203,18 +216,20 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         if ($group->itemExists()) {
             $this->_fault('group_already_exists');
         }
+
         try {
             $group->save();
-        } catch (Exception $e) {
-            $this->_fault('group_add_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_add_error', $exception->getMessage());
         }
+
         return (int) $group->getId();
     }
 
     /**
      * Rename existing group
      *
-     * @param string|int $groupId
+     * @param int|string $groupId
      * @param string $groupName
      * @return bool
      */
@@ -231,18 +246,19 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         );
         try {
             $model->save();
-        } catch (Exception $e) {
-            $this->_fault('group_rename_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_rename_error', $exception->getMessage());
         }
+
         return true;
     }
 
     /**
-        * Remove group from existing attribute set
-        *
-        * @param  string|int $attributeGroupId
-        * @return bool
-        */
+     * Remove group from existing attribute set
+     *
+     * @param  int|string $attributeGroupId
+     * @return bool
+     */
     public function groupRemove($attributeGroupId)
     {
         /** @var Mage_Catalog_Model_Product_Attribute_Group $group */
@@ -250,17 +266,21 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         if (!$group->getId()) {
             $this->_fault('invalid_attribute_group_id');
         }
+
         if ($group->hasConfigurableAttributes()) {
             $this->_fault('group_has_configurable_attributes');
         }
+
         if ($group->hasSystemAttributes()) {
             $this->_fault('group_has_system_attributes');
         }
+
         try {
             $group->delete();
-        } catch (Exception $e) {
-            $this->_fault('group_remove_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('group_remove_error', $exception->getMessage());
         }
+
         return true;
     }
 }

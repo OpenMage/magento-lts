@@ -26,7 +26,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 
     /**
      * @param string $href
-     * @param string|null $type
+     * @param null|string $type
      * @return Mage_Core_Block_Text_Tag_Css
      */
     public function setHref($href, $type = null)
@@ -35,6 +35,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         if (empty($type)) {
             $type = 'skin';
         }
+
         $url = Mage::getBaseUrl($type) . $href;
 
         return $this->setTagParam('href', $url);

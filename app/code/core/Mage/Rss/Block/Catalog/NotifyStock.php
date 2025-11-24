@@ -94,6 +94,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
     {
         $product = $args['product'];
         $product->setData($args['row']);
+
         $url = Mage::helper('adminhtml')->getUrl(
             'adminhtml/catalog_product/edit/',
             ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],

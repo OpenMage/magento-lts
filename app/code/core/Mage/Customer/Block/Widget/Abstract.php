@@ -19,7 +19,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
 {
     /**
      * @param string $key
-     * @return string|null
+     * @return null|string
      */
     public function getConfig($key)
     {
@@ -36,6 +36,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
         if (!$this->hasData('field_id_format')) {
             $this->setData('field_id_format', '%s');
         }
+
         return $this->getData('field_id_format');
     }
 
@@ -47,6 +48,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
         if (!$this->hasData('field_name_format')) {
             $this->setData('field_name_format', '%s');
         }
+
         return $this->getData('field_name_format');
     }
 
@@ -72,7 +74,7 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
      * Retrieve customer attribute instance
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Attribute|false
+     * @return false|Mage_Customer_Model_Attribute
      */
     protected function _getAttribute($attributeCode)
     {

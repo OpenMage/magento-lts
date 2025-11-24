@@ -36,6 +36,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         if (is_null($field) && !is_numeric($value)) {
             $field = 'code';
         }
+
         return parent::load($object, $value, $field);
     }
 
@@ -51,6 +52,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         if (!$objectId) {
             return [];
         }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [':type_id' => $objectId];
         $select  = $adapter->select()
@@ -63,9 +65,8 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Save entity types after save form type
      *
-     * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
-     *
      * @param Mage_Eav_Model_Form_Type $object
+     * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -85,11 +86,13 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                     if (empty($entityId)) {
                         continue;
                     }
+
                     $data[] = [
                         'entity_type_id' => (int) $entityId,
                         'type_id'        => $object->getId(),
                     ];
                 }
+
                 if ($data) {
                     $adapter->insertMultiple($this->getTable('eav/form_type_entity'), $data);
                 }
@@ -110,7 +113,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve form type filtered by given attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
+     * @param int|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getFormTypesByAttribute($attribute)
@@ -118,9 +121,11 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         if ($attribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract) {
             $attribute = $attribute->getId();
         }
+
         if (!$attribute) {
             return [];
         }
+
         $bind   = [':attribute_id' => $attribute];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('eav/form_element'))

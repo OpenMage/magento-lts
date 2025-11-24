@@ -10,7 +10,6 @@
 /**
  * Form multiline text elements
  *
- *
  * @method int getLineCount()
  * @method $this setLineCount(int $value)
  */
@@ -36,12 +35,12 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     }
 
     /**
-     * @param int $suffix
+     * @param string $idSuffix
      * @return string
      */
-    public function getLabelHtml($suffix = 0)
+    public function getLabelHtml($idSuffix = '0')
     {
-        return parent::getLabelHtml($suffix);
+        return parent::getLabelHtml($idSuffix);
     }
 
     /**
@@ -60,14 +59,17 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
             } else {
                 $this->setClass('input-text');
             }
+
             $html .= '<div class="multi-input"><input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName()
                 . '[' . $i . ']' . '" value="' . $this->getEscapedValue($i) . '" '
                 . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
             if ($i == 0) {
                 $html .= $this->getAfterElementHtml();
             }
+
             $html .= '</div>';
         }
+
         return $html;
     }
 
@@ -91,13 +93,16 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
                 $this->setClass('input-text');
                 $html .= '<label>&nbsp;</label>' . "\n";
             }
+
             $html .= '<input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName() . '[' . $i . ']'
                 . '" value="' . $this->getEscapedValue($i) . '"' . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
             if ($i == 0) {
                 $html .= $this->getAfterElementHtml();
             }
+
             $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
+
         return $html;
     }
 }

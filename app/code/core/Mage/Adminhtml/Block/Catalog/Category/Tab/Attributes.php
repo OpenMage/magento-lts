@@ -26,7 +26,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
 
     /**
      * Initialize tab
-     *
      */
     public function __construct()
     {
@@ -43,6 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+
         return $this;
     }
 
@@ -119,6 +119,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                     }
                 }
             }
+
             if ($element = $form->getElement('custom_use_parent_settings')) {
                 $element->setData('onchange', 'onCustomUseParentChanged(this)');
             }

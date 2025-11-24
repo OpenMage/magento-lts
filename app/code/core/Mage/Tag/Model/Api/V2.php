@@ -18,7 +18,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * Retrieve list of tags for specified product as array of objects
      *
      * @param int $productId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function items($productId, $store = null)
@@ -27,6 +27,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         foreach ($result as $key => $tag) {
             $result[$key] = Mage::helper('api')->wsiArrayPacker($tag);
         }
+
         return array_values($result);
     }
 
@@ -51,8 +52,8 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * Retrieve tag info as object
      *
      * @param int $tagId
-     * @param string|int $store
-     * @return object|array
+     * @param int|string $store
+     * @return array|object
      */
     public function info($tagId, $store)
     {
@@ -61,6 +62,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         foreach ($result->products as $key => $value) {
             $result->products[$key] = ['key' => $key, 'value' => $value];
         }
+
         return $result;
     }
 

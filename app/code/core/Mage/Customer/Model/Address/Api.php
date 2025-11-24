@@ -28,6 +28,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $customerId
      * @return array
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function items($customerId)
     {
@@ -67,8 +69,10 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
      * Create new address for customer
      *
      * @param int $customerId
-     * @param array $addressData
+     * @param array|Varien_Object $addressData
      * @return int
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function create($customerId, $addressData)
     {
@@ -106,8 +110,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $address->getId();
@@ -118,6 +122,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $addressId
      * @return array
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function info($addressId)
     {
@@ -150,8 +156,10 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
      * Update address data
      *
      * @param int $addressId
-     * @param array $addressData
+     * @param array|Varien_Object $addressData
      * @return bool
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function update($addressId, $addressData)
     {
@@ -183,8 +191,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -195,6 +203,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $addressId
      * @return bool
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function delete($addressId)
     {
@@ -207,8 +217,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $address->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;

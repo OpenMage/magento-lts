@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
 {
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {
@@ -63,6 +62,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             if ($postData = Mage::registry('store_post_data')) {
                 $websiteModel->setData($postData['website']);
             }
+
             $fieldset = $form->addFieldset('website_fieldset', [
                 'legend' => Mage::helper('core')->__('Website Information'),
             ]);
@@ -132,6 +132,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             if ($postData = Mage::registry('store_post_data')) {
                 $groupModel->setData($postData['group']);
             }
+
             $fieldset = $form->addFieldset('group_fieldset', [
                 'legend' => Mage::helper('core')->__('Store Information'),
             ]);
@@ -212,6 +213,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             if ($postData = Mage::registry('store_post_data')) {
                 $storeModel->setData($postData['store']);
             }
+
             $fieldset = $form->addFieldset('store_fieldset', [
                 'legend' => Mage::helper('core')->__('Store View Information'),
             ]);
@@ -229,8 +231,10 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
                             $values[] = ['label' => $group->getName(),'value' => $group->getId()];
                         }
                     }
+
                     $groups[] = ['label' => $this->escapeHtml($website->getName()), 'value' => $values];
                 }
+
                 $fieldset->addField('store_group_id', 'select', [
                     'name'      => 'store[group_id]',
                     'label'     => Mage::helper('core')->__('Store'),

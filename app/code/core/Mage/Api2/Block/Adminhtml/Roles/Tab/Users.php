@@ -102,7 +102,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * Get row URL
      *
      * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @return string|null
+     * @return null|string
      */
     public function getRowUrl($row)
     {
@@ -159,6 +159,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         if (!$this->isHidden()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 
@@ -182,6 +183,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -199,10 +201,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
             if ($users === []) {
                 return '{}';
             }
+
             $jsonUsers = [];
             foreach ($users as $usrId) {
                 $jsonUsers[$usrId] = 0;
             }
+
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $result = $helper->jsonEncode((object) $jsonUsers);

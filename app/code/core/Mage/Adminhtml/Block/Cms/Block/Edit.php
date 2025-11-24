@@ -20,14 +20,17 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         $this->_controller = 'cms_block';
 
         parent::__construct();
+    }
 
-        $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Block'));
-        $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Block'));
-
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
         $this->_addButton('saveandcontinue', [
             'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
-            'class'     => 'save',
+            'class'     => 'save continue',
         ], -100);
 
         $this->_formScripts[] = "
@@ -39,6 +42,8 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
                 editForm.submit($('edit_form').action+'back/edit/');
             }
         ";
+
+        return parent::_prepareLayout();
     }
 
     /**
@@ -51,6 +56,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         if (Mage::registry('cms_block')->getId()) {
             return Mage::helper('cms')->__("Edit Block '%s'", $this->escapeHtml(Mage::registry('cms_block')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Block');
     }
 }

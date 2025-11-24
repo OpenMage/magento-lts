@@ -68,6 +68,7 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
         if (!str_ends_with($baseUrl, '/')) {
             $baseUrl .= '/';
         }
+
         return $baseUrl . 'sdk/js?' . http_build_query($params);
     }
 

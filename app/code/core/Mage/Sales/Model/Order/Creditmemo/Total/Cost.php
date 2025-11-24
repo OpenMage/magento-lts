@@ -25,6 +25,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Cost extends Mage_Sales_Model_Orde
                 $baseRefundTotalCost += $item->getBaseCost() * $item->getQty();
             }
         }
+
         $creditmemo->setBaseCost($baseRefundTotalCost);
         return $this;
     }

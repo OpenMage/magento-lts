@@ -25,7 +25,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
     /**
      * Start output buffering
      *
-     * @param string|null $filter Pattern to filter timers by their identifiers (SQL LIKE syntax)
+     * @param null|string $filter Pattern to filter timers by their identifiers (SQL LIKE syntax)
      */
     public function __construct($filter = null)
     {
@@ -62,6 +62,7 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }
+
             $firebugMessage->addRow($row);
         }
 

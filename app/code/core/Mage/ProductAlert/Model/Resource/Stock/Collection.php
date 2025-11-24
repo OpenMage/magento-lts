@@ -16,7 +16,6 @@ class Mage_ProductAlert_Model_Resource_Stock_Collection extends Mage_Core_Model_
 {
     /**
      * Define stock collection
-     *
      */
     protected function _construct()
     {
@@ -39,6 +38,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Collection extends Mage_Core_Model_
         } else {
             $condition = $adapter->quoteInto('customer_id=?', $customer);
         }
+
         $this->addFilter('customer_id', $condition, 'string');
         return $this;
     }
@@ -55,6 +55,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Collection extends Mage_Core_Model_
         if (is_null($website) || $website == 0) {
             return $this;
         }
+
         if (is_array($website)) {
             $condition = $adapter->quoteInto('website_id IN(?)', $website);
         } elseif ($website instanceof Mage_Core_Model_Website) {
@@ -62,6 +63,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Collection extends Mage_Core_Model_
         } else {
             $condition = $adapter->quoteInto('website_id=?', $website);
         }
+
         $this->addFilter('website_id', $condition, 'string');
         return $this;
     }

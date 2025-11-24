@@ -29,12 +29,14 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
             foreach ($titles as $title) {
                 $this->_titles[$title->getStoreId()] = $title->getValue();
             }
+
             foreach ($this->getStores() as $store) {
                 if (!isset($this->_titles[$store->getId()])) {
                     $this->_titles[$store->getId()] = '';
                 }
             }
         }
+
         return $this->_titles;
     }
 
@@ -48,6 +50,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 }

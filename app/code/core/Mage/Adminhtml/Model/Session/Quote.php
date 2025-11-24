@@ -13,21 +13,21 @@
  * @package    Mage_Adminhtml
  *
  * @method array getAllowQuoteItemsGiftMessage()
- * @method $this setAllowQuoteItemsGiftMessage(array $value)
  * @method string getCurrencyId()
- * @method $this setCurrencyId(string $value)
- * @method bool hasCustomerId()
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method int getCustomerGroupId()
+ * @method int getCustomerId()
  * @method int|string getOrderId()
- * @method $this setOrderId(int|string $value)
  * @method int|string getQuoteId()
+ * @method int getStoreId()
+ * @method bool getUseOldShippingMethod(bool $value)
+ * @method bool hasCustomerId()
+ * @method $this setAllowQuoteItemsGiftMessage(array $value)
+ * @method $this setCurrencyId(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setOrderId(int|string $value)
  * @method $this setQuoteId(int|string $value)
  * @method $this setReordered(int|string $value)
- * @method int getStoreId()
  * @method $this setStoreId(int $value)
- * @method bool getUseOldShippingMethod(bool $value)
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
@@ -36,28 +36,28 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote   = null;
 
     /**
      * Customer mofrl object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer = null;
 
     /**
      * Store model object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store   = null;
 
     /**
      * Order model object
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order   = null;
 
@@ -96,9 +96,11 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                     ->save();
                 $this->setQuoteId($this->_quote->getId());
             }
+
             $this->_quote->setIgnoreOldQty(true);
             $this->_quote->setIsSuperMode(true);
         }
+
         return $this->_quote;
     }
 
@@ -126,13 +128,16 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($useSetStore && $this->getStore()->getId()) {
                 $this->_customer->setStore($this->getStore());
             }
+
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
             }
+
             if ($this->getCustomerIsGuest()) {
                 $this->_customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             }
         }
+
         return $this->_customer;
     }
 
@@ -149,6 +154,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_store->setCurrentCurrencyCode($currencyId);
             }
         }
+
         return $this->_store;
     }
 
@@ -165,6 +171,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_order->load($this->getOrderId());
             }
         }
+
         return $this->_order;
     }
 }

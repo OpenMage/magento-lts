@@ -17,13 +17,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     /**
      * EAV Indexers by type
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_types;
 
     /**
      * Define main index table
-     *
      */
     protected function _construct()
     {
@@ -59,6 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
         if (!isset($indexers[$type])) {
             Mage::throwException(Mage::helper('catalog')->__('Unknown EAV indexer type "%s".', $type));
         }
+
         return $indexers[$type];
     }
 
@@ -175,6 +175,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_eav_indexer_idx');
         }
+
         return $this->getTable('catalog/product_eav_indexer_tmp');
     }
 }

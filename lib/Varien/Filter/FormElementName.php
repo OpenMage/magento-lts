@@ -30,6 +30,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}\[\];_\-' . $whiteSpace . ']/u';
         }
+
         return preg_replace($pattern, '', (string) $value);
     }
 }

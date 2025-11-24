@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
                 'open'      => true,
             ]);
         }
+
         if ($alertStockAllow) {
             $accordion->addItem('stock', [
                 'title'     => Mage::helper('adminhtml')->__('Stock notification was saved.'),

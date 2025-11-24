@@ -22,7 +22,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific quote ID.
      *
-     * @param int $quoteId The quote ID to filter by.
+     * @param int $quoteId the quote ID to filter by
      * @return $this
      */
     public function addQuoteIdFilter(int $quoteId): self
@@ -34,7 +34,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific transaction ID.
      *
-     * @param string $transactionId The transaction ID to filter by.
+     * @param string $transactionId the transaction ID to filter by
      * @return $this
      */
     public function addTransactionIdFilter(string $transactionId): self
@@ -46,7 +46,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific action.
      *
-     * @param string $action The action string to filter by.
+     * @param string $action the action string to filter by
      * @return $this
      */
     public function addActionFilter(string $action): self
@@ -58,8 +58,8 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a date range filter to the collection based on the 'created_at' field.
      *
-     * @param string|null $from The start date of the range.
-     * @param string|null $to The end date of the range.
+     * @param null|string $from the start date of the range
+     * @param null|string $to the end date of the range
      * @return $this
      */
     public function addDateRangeFilter(?string $from, ?string $to): self
@@ -67,9 +67,11 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
         if ($from) {
             $this->addFieldToFilter('created_at', ['gteq' => $from]);
         }
+
         if ($to) {
             $this->addFieldToFilter('created_at', ['lteq' => $to]);
         }
+
         return $this;
     }
 

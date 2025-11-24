@@ -17,7 +17,7 @@ class Mage_Reports_Model_Totals
     /**
      * Retrieve count totals
      *
-     * @param Mage_Adminhtml_Block_Report_Grid $grid
+     * @param Mage_Adminhtml_Block_Report_Product_Grid $grid
      * @param string $from
      * @param string $to
      * @return Varien_Object
@@ -29,6 +29,7 @@ class Mage_Reports_Model_Totals
             if ($col->getTotal() === null) {
                 continue;
             }
+
             $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];
         }
 
@@ -38,6 +39,7 @@ class Mage_Reports_Model_Totals
             if ($grid->getSubReportSize() && $count >= $grid->getSubReportSize()) {
                 continue;
             }
+
             $data = $item->getData();
 
             foreach (array_keys($columns) as $field) {
@@ -45,23 +47,25 @@ class Mage_Reports_Model_Totals
                     $columns[$field]['value'] += $data[$field] ?? 0;
                 }
             }
+
             $count++;
         }
+
         $data = [];
-        foreach ($columns as $field => $a) {
-            if ($a['total'] == 'avg') {
+        foreach ($columns as $field => $arr) {
+            if ($arr['total'] == 'avg') {
                 if ($field !== '') {
                     if ($count != 0) {
-                        $data[$field] = $a['value'] / $count;
+                        $data[$field] = $arr['value'] / $count;
                     } else {
                         $data[$field] = 0;
                     }
                 }
-            } elseif ($a['total'] == 'sum') {
+            } elseif ($arr['total'] == 'sum') {
                 if ($field !== '') {
-                    $data[$field] = $a['value'];
+                    $data[$field] = $arr['value'];
                 }
-            } elseif (str_contains($a['total'], '/')) {
+            } elseif (str_contains($arr['total'], '/')) {
                 if ($field !== '') {
                     $data[$field] = 0;
                 }

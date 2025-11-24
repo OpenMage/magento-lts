@@ -47,6 +47,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
             );
         }
+
         return parent::_prepareLayout();
     }
 
@@ -78,6 +79,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $payment = new Varien_Object($this->getRequest()->getPost('payment'));
             $this->setData('payment', $payment);
         }
+
         return $this->_getData('payment');
     }
 
@@ -99,18 +101,20 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $count = count($this->getShippingAddresses());
             $this->setData('shipping_address_count', $count);
         }
+
         return $count;
     }
 
     /**
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Rate|false
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getShippingAddressRate($address)
     {
         if ($rate = $address->getShippingRateByCode($address->getShippingMethod())) {
             return $rate;
         }
+
         return false;
     }
 
@@ -168,6 +172,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
                 }
             }
         }
+
         return $totals;
     }
 
@@ -259,10 +264,12 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             if ($item->isDeleted()) {
                 continue;
             }
+
             if ($item->getProduct()->getIsVirtual() && !$item->getParentItemId()) {
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -287,7 +294,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
 
     /**
      * @param Mage_Sales_Model_Order_Total $totals
-     * @param int|null $colspan
+     * @param null|int $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)
@@ -297,6 +304,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $helper = $this->helper('tax');
             $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
+
         return $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
     }

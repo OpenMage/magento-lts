@@ -15,13 +15,19 @@
 class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
 {
     public const XML_PATH_ENABLED = 'persistent/options/enabled';
+
     public const XML_PATH_LIFE_TIME = 'persistent/options/lifetime';
+
     public const XML_PATH_LOGOUT_CLEAR = 'persistent/options/logout_clear';
+
     public const XML_PATH_REMEMBER_ME_ENABLED = 'persistent/options/remember_enabled';
+
     public const XML_PATH_REMEMBER_ME_DEFAULT = 'persistent/options/remember_default';
+
     public const XML_PATH_PERSIST_SHOPPING_CART = 'persistent/options/shopping_cart';
 
     public const LOGGED_IN_LAYOUT_HANDLE = 'customer_logged_in_psc_handle';
+
     public const LOGGED_OUT_LAYOUT_HANDLE = 'customer_logged_out_psc_handle';
 
     protected $_moduleName = 'Mage_Persistent';
@@ -36,7 +42,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether Persistence Functionality is enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isEnabled($store = null)
@@ -47,7 +53,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether "Remember Me" enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isRememberMeEnabled($store = null)
@@ -58,7 +64,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is "Remember Me" checked by default
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isRememberMeCheckedDefault($store = null)
@@ -69,7 +75,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is shopping cart persist
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isShoppingCartPersist($store = null)
@@ -80,7 +86,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get Persistence Lifetime
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getLifeTime($store = null)
@@ -143,9 +149,11 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         if ($action instanceof Mage_Core_Controller_Varien_Action) {
             return !$action->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         if ($controllerAction instanceof Mage_Core_Controller_Varien_Action) {
             return !$controllerAction->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         return true;
     }
 
@@ -160,6 +168,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         if (Mage::helper('checkout')->isContextCheckout()) {
             $url = Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
         }
+
         return $url;
     }
 }

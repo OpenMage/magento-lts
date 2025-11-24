@@ -48,6 +48,7 @@ class Mage_Cms_Model_Observer
                 ->setPath('cms/index/noCookies')
                 ->setArguments([]);
         }
+
         return $this;
     }
 }

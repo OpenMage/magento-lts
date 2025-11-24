@@ -19,7 +19,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Log instance
      *
-     * @var Mage_Log_Model_Log|null
+     * @var null|Mage_Log_Model_Log
      */
     protected $_log;
 
@@ -33,6 +33,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
         if (is_null($this->_log)) {
             $this->_log = Mage::getModel('log/log');
         }
+
         return $this->_log;
     }
 
@@ -47,6 +48,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
         if ($number < 1000) {
             return (string) $number;
         }
+
         if ($number < 1000000) {
             return sprintf('%.2fK', $number / 1000);
         }
@@ -83,7 +85,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -92,6 +93,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             if ($days > 0) {
                 Mage::app()->getStore()->setConfig(Mage_Log_Model_Log::XML_LOG_CLEAN_DAYS, $days);
             }
+
             $this->_getLog()->clean();
             echo "Log cleaned\n";
         } elseif ($this->getArg('status')) {
@@ -158,7 +160,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

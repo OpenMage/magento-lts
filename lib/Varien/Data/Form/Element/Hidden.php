@@ -34,6 +34,7 @@ class Varien_Data_Form_Element_Hidden extends Varien_Data_Form_Element_Abstract
         if (is_null($html)) {
             $html = $this->getElementHtml();
         }
+
         return $html;
     }
 }

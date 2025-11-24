@@ -34,13 +34,19 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
     // Error messages
     public const ERROR_INVALID_QUOTE = 'Invalid quote provided';
+
     public const ERROR_EMPTY_ORDER_ID = 'Order ID cannot be empty';
+
     public const ERROR_EMPTY_CAPTURE_ID = 'Capture ID cannot be empty';
+
     public const ERROR_EMPTY_AUTH_ID = 'Authorization ID cannot be empty';
+
     public const ERROR_INVALID_AMOUNT = 'Amount must be greater than 0';
 
     private readonly Mage_Paypal_Model_Helper $helper;
+
     private readonly Mage_Paypal_Model_Config $config;
+
     private ?PaypalServerSdkClient $client = null;
 
     /**
@@ -56,9 +62,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Create a new PayPal order with a pre-built request
      *
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Customer quote or order
      * @param object $orderRequest Pre-built order request object
      * @param string $paypalRequestId PayPal request ID
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Customer quote or order
      * @throws Mage_Paypal_Model_Exception
      */
     public function createOrder(
@@ -78,8 +84,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Create Order', $quote, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Create Order Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Create Order Error', $exception);
         }
     }
 
@@ -105,10 +111,11 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Authorize Order', $quote, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Authorize Order Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Authorize Order Error', $exception);
         }
     }
+
     /**
      * Authorize payment for a PayPal order
      *
@@ -131,8 +138,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Reauthorize Order', $quote, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Reauthorize Order Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Reauthorize Order Error', $exception);
         }
     }
 
@@ -154,8 +161,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
             $response = $this->getClient()->getPaymentsController()->captureAuthorizedPayment($request);
             $this->helper->logDebug('Capture Authorized Payment', $order, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Capture Authorized Order Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Capture Authorized Order Error', $exception);
         }
     }
 
@@ -186,13 +193,14 @@ class Mage_Paypal_Model_Api extends Varien_Object
             $this->helper->logDebug('Capture Order', $quote, $request, $response);
 
             return $response;
-        } catch (Exception $e) {
-            if ($this->_isPhoneNumberMappingError($e)) {
-                $response = $this->_handlePhoneNumberMappingError($id, $quote, $e);
+        } catch (Exception $exception) {
+            if ($this->_isPhoneNumberMappingError($exception)) {
+                $response = $this->_handlePhoneNumberMappingError($id, $quote, $exception);
                 $this->helper->logDebug('Manual Capture Order', $quote, $request, $response);
                 return $response;
             }
-            $this->_logAndThrowError('Capture Order Error', $e);
+
+            $this->_logAndThrowError('Capture Order Error', $exception);
         }
     }
 
@@ -223,8 +231,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Refund Payment', $order, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Refund Payment Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Refund Payment Error', $exception);
         }
     }
 
@@ -247,8 +255,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Void Authorization', $order, $request, $response);
             return $response;
-        } catch (Exception $e) {
-            $this->_logAndThrowError('Void Authorization Error', $e);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Void Authorization Error', $exception);
         }
     }
 
@@ -262,6 +270,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         if (!$this->client instanceof PaypalServerSdkClient) {
             $this->_initializeClient();
         }
+
         return $this->client;
     }
 
@@ -296,8 +305,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
                 )
                 ->environment($environment)
                 ->build();
-        } catch (Exception $e) {
-            throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $e->getMessage(), [], $e);
+        } catch (Exception $exception) {
+            throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $exception->getMessage(), [], $exception);
         }
     }
 
@@ -394,8 +403,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _isPhoneNumberMappingError(Exception $e): bool
     {
-        return str_contains($e->getMessage(), 'PhoneNumberWithCountryCode') &&
-            str_contains($e->getMessage(), 'countryCode');
+        return str_contains($e->getMessage(), 'PhoneNumberWithCountryCode')
+            && str_contains($e->getMessage(), 'countryCode');
     }
 
     /**
@@ -412,8 +421,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             $this->helper->logDebug('Capture Order (Phone Fix)', $quote, ['id' => $orderId], null);
             return $this->_createApiResponseFromProcessedData($processedResponse);
-        } catch (Exception $e) {
-            $this->helper->logError('Failed to handle phone number mapping error', $e);
+        } catch (Exception $exception) {
+            $this->helper->logError('Failed to handle phone number mapping error', $exception);
             throw $originalException;
         }
     }
@@ -490,6 +499,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
                             ->build();
                     }
                 }
+
                 $purchaseUnits[] = PurchaseUnitBuilder::init()
                     ->payments(
                         PaymentCollectionBuilder::init()
@@ -509,6 +519,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
                     ->surname($processedData['payer']['name']['surname'] ?? null)
                     ->build();
             }
+
             $payer = PayerBuilder::init()
                 ->name($payerName)
                 ->emailAddress($processedData['payer']['email_address'] ?? null)

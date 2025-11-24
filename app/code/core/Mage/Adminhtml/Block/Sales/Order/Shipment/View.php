@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         $this->_removeButton('delete');
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/emails')) {
             $this->_updateButton('save', 'label', Mage::helper('sales')->__('Send Tracking Information'));
+            $this->_updateButton('save', 'class', 'save send-email');
             $this->_updateButton(
                 'save',
                 'onclick',
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         if ($this->getShipment()->getId()) {
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save',
+                'class'     => 'save print',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
             ]);
         }
@@ -69,6 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         } else {
             $emailSent = Mage::helper('sales')->__('the shipment email is not sent');
         }
+
         return Mage::helper('sales')->__(
             'Shipment #%1$s | %3$s (%2$s)',
             $this->getShipment()->getIncrementId(),
@@ -134,6 +136,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_shipment/')),
             );
         }
+
         return $this;
     }
 }

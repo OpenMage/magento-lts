@@ -23,7 +23,6 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
 
     /**
      * Init model for collection
-     *
      */
     protected function _construct()
     {
@@ -41,6 +40,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if ($store instanceof Mage_Core_Model_Store) {
             $store = $store->getId();
         }
+
         $this->_storeId = $store;
         return $this;
     }
@@ -48,7 +48,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     /**
      * Retrieve Store ID Filter
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {
@@ -82,13 +82,14 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             $this->getSelect()
                 ->where('store_id = ?', (int) $this->getStoreId());
         }
+
         return $this;
     }
 
     /**
      * Set Popular Search Query Filter
      *
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return $this
      */
     public function setPopularQueryFilter($storeIds = null)
@@ -139,6 +140,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
         return $this;
     }

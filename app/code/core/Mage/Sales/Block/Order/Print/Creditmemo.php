@@ -98,6 +98,7 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
             $totals->setCreditmemo($creditmemo);
             $html = $totals->toHtml();
         }
+
         return $html;
     }
 }

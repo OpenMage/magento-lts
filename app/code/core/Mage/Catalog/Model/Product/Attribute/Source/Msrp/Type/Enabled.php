@@ -52,6 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
                 ],
             ];
         }
+
         return $this->_options;
     }
 
@@ -86,7 +87,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

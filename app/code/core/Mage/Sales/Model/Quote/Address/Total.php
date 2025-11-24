@@ -13,8 +13,8 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
- * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
  * @method string getCode()
+ * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
  * @method $this setTitle(string $value)
  */
 class Mage_Sales_Model_Quote_Address_Total extends Varien_Object
@@ -32,6 +32,7 @@ class Mage_Sales_Model_Quote_Address_Total extends Varien_Object
                 $this->setData($key, $this->_getData($key) + $value);
             }
         }
+
         return $this;
     }
 }

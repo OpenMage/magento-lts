@@ -16,6 +16,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * Option values
      */
     public const VALUE_YES = 1;
+
     public const VALUE_NO = 0;
 
     /**
@@ -37,6 +38,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
                 ],
             ];
         }
+
         return $this->_options;
     }
 
@@ -51,6 +53,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         foreach ($this->getAllOptions() as $option) {
             $_options[$option['value']] = $option['label'];
         }
+
         return $_options;
     }
 
@@ -67,8 +70,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|false
+     * @param int|string $value
+     * @return false|string
      */
     public function getOptionText($value)
     {
@@ -78,6 +81,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
                 return $option['label'];
             }
         }
+
         return false;
     }
 
@@ -130,7 +134,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -141,8 +145,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * Get a text for index option value
      *
-     * @param  string|int $value
-     * @return string|bool
+     * @param  int|string $value
+     * @return bool|string
      */
     public function getIndexOptionText($value)
     {

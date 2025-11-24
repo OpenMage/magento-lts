@@ -40,6 +40,7 @@ class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Pr
                 }
             }
         }
+
         return $this;
     }
 }

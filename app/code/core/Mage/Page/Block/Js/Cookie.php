@@ -21,6 +21,7 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('core/cookie');
     }
+
     /**
      * Get configured cookie domain
      *
@@ -32,6 +33,7 @@ class Mage_Page_Block_Js_Cookie extends Mage_Core_Block_Template
         if (!empty($domain[0]) && ($domain[0] !== '.')) {
             $domain = '.' . $domain;
         }
+
         return $domain;
     }
 

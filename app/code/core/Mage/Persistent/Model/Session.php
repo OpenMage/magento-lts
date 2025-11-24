@@ -12,18 +12,20 @@
  *
  * @package    Mage_Persistent
  *
- * @method Mage_Persistent_Model_Resource_Session getResource()
+ * @method Mage_Persistent_Model_Resource_Session _getResource()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method string getInfo()
- * @method $this setInfo(string $value)
  * @method string getKey()
+ * @method Mage_Persistent_Model_Resource_Session getResource()
+ * @method $this setCustomerId(int $value)
+ * @method $this setInfo(string $value)
  * @method $this setKey(string $value)
- * @method $this setWebsiteId(int|string|null $value)
+ * @method $this setWebsiteId(null|int|string $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
     public const KEY_LENGTH = 50;
+
     public const COOKIE_NAME = 'persistent_shopping_cart';
 
     /**
@@ -73,7 +75,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Get date-time before which persistent session is expired
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getExpiredBefore($store = null)
@@ -101,6 +103,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $info[$index] = $value;
             }
         }
+
         $this->setInfo(Mage::helper('core')->jsonEncode($info));
 
         if ($this->isObjectNew()) {
@@ -128,6 +131,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $this->setData($key, $value);
             }
         }
+
         return $this;
     }
 
@@ -142,6 +146,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if (is_null($key)) {
             $key = Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
         }
+
         if ($key) {
             $this->load($key, 'key');
         }
@@ -172,6 +177,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($clearCookie) {
             $this->removePersistentCookie();
         }
+
         $this->getResource()->deleteByCustomerId($customerId);
         return $this;
     }
@@ -190,7 +196,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete expired persistent sessions for the website
      *
-     * @param int|null $websiteId
+     * @param null|int $websiteId
      * @return $this
      */
     public function deleteExpired($websiteId = null)

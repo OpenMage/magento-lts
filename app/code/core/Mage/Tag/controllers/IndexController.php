@@ -23,6 +23,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         if (!$customerSession->authenticate($this)) {
             return;
         }
+
         $tagName    = (string) $this->getRequest()->getQuery('productTagName');
         $productId  = (int) $this->getRequest()->getParam('product');
 
@@ -60,9 +61,11 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                 ->setStatus($tagModel->getPendingStatus())
                                 ->save();
                         }
+
                         $relationStatus = $tagModel->saveRelation($productId, $customerId, $storeId);
                         $counter[$relationStatus][] = $tagName;
                     }
+
                     $this->_fillMessageBox($counter);
                 } catch (Exception $e) {
                     Mage::logException($e);
@@ -70,6 +73,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                 }
             }
         }
+
         $this->_redirectReferer();
     }
 
@@ -92,12 +96,13 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     protected function _cleanTags(array $tagNamesArr)
     {
         foreach (array_keys($tagNamesArr) as $key) {
-            $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
+            $tagNamesArr[$key] = trim($tagNamesArr[$key], "'");
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {
                 unset($tagNamesArr[$key]);
             }
         }
+
         return $tagNamesArr;
     }
 

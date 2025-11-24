@@ -12,17 +12,21 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
+ * @method Mage_Wishlist_Model_Resource_Item_Option _getResource()
  * @method string getCode()
+ * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
  * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method Mage_Wishlist_Model_Resource_Item_Option getResource()
+ * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getResourceCollection()
  * @method int getWishlistItemId()
- * @method $this setWishlistItemId(int $value)
+ * @method $this setProductId(int $value)
  * @method $this setValue(string $sBuyRequest)
+ * @method $this setWishlistItemId(int $value)
  */
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     protected $_item;
+
     protected $_product;
 
     protected function _construct()
@@ -56,6 +60,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getWishlistItemId() != $item->getId()) {
             $this->setWishlistItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -81,6 +86,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getProductId() != $product->getId()) {
             $this->setProductId($product->getId());
         }
+
         return $this;
     }
 
@@ -114,6 +120,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getItem()) {
             $this->setWishlistItemId($this->getItem()->getId());
         }
+
         return parent::_beforeSave();
     }
 

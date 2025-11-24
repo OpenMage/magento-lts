@@ -86,6 +86,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
             ) {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid parameters'));
             }
+
             $this->_entityModel = $params[0];
             $this->_type        = $params[1];
 
@@ -104,8 +105,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param string $attrSetName Name of attribute set.
-     * @param array $attrParams Refined attribute parameters.
+     * @param string $attrSetName name of attribute set
+     * @param array $attrParams refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
@@ -113,13 +114,14 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         if (!$attrParams['apply_to'] || in_array($this->_type, $attrParams['apply_to'])) {
             $this->_attributes[$attrSetName][$attrParams['code']] = $attrParams;
         }
+
         return $this;
     }
 
     /**
      * Return product attributes for its attribute set specified in row data.
      *
-     * @param array|string $attrSetData Product row data or simply attribute set name.
+     * @param array|string $attrSetData product row data or simply attribute set name
      * @return array
      */
     protected function _getProductAttributes($attrSetData)
@@ -170,10 +172,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                                                       ->getAttributeOptions($attribute, $this->_indexValueAttributes),
                         ];
                     }
+
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
                 }
             }
         }
+
         return $this;
     }
 
@@ -224,7 +228,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      * Validate row attributes. Pass VALID row data ONLY as argument.
      *
      * @param int $rowNum
-     * @param bool $isNewProduct OPTIONAL.
+     * @param bool $isNewProduct OPTIONAL
      * @return bool
      */
     public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
@@ -242,8 +246,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 ) {
                     // For the default scope - if this is a new product or
                     // for an old product, if the imported doc has the column present for the attrCode
-                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
-                            ($isNewProduct || array_key_exists($attrCode, $rowData))
+                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope
+                            && ($isNewProduct || array_key_exists($attrCode, $rowData))
                     ) {
                         $this->_entityModel->addRowError(
                             Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
@@ -255,6 +259,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
 
         return !$error;
@@ -283,8 +288,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
             if (!$attrParams['is_static']) {
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $resultAttrs[$attrCode] =
-                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
+                    $resultAttrs[$attrCode]
+                        = ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
                 } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
@@ -292,6 +297,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         return $resultAttrs;
     }
 

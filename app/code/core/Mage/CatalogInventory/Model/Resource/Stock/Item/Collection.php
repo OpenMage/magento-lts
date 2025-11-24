@@ -32,13 +32,14 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
         } else {
             $this->addFieldToFilter('main_table.stock_id', $stock);
         }
+
         return $this;
     }
 
     /**
      * Add product filter to collection
      *
-     * @param array|Mage_Catalog_Model_Product[] $products
+     * @param array|Mage_Catalog_Model_Resource_Product_Collection $products
      * @return $this
      */
     public function addProductsFilter($products)
@@ -51,10 +52,12 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
                 $productIds[] = $product;
             }
         }
+
         if (empty($productIds)) {
             $productIds[] = false;
             $this->_setIsLoaded(true);
         }
+
         $this->addFieldToFilter('main_table.product_id', ['in' => $productIds]);
         return $this;
     }

@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Attribute_Urlkey extends Mage_A
         if (!$element->getValue()) {
             return parent::getElementHtml();
         }
+
         $element->setOnkeyup("onUrlkeyChanged('" . $element->getHtmlId() . "')");
         $element->setOnchange("onUrlkeyChanged('" . $element->getHtmlId() . "')");
 

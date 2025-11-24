@@ -98,7 +98,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -122,8 +122,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                     $this->_elements = array_merge($newOrderElements, array_slice($this->_elements, $index + 1));
                     return $element;
                 }
+
                 $newOrderElements[] = $currElement;
             }
+
             $this->_elements[] = $element;
         }
 
@@ -155,6 +157,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 unset($this->_elements[$index]);
             }
         }
+
         // Renumber elements for further correct adding and removing other elements
         $this->_elements = array_merge($this->_elements, []);
         return $this;
@@ -172,7 +175,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Find element by ID
      *
      * @param mixed $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function searchById($elementId)
     {
@@ -181,6 +184,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 return $element;
             }
         }
+
         return null;
     }
 }

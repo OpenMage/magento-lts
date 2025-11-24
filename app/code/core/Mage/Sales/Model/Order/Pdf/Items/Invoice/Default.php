@@ -66,6 +66,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
                 ];
                 $i++;
             }
+
             // draw Price
             $lines[$i][] = [
                 'text'  => $priceData['price'],

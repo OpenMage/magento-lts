@@ -71,6 +71,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
         if (is_null($lang)) {
             $lang = Mage::app()->getStore()->getLanguageCode();
         }
+
         return $this->addFieldToFilter('main_table.language_code', $lang);
     }
 

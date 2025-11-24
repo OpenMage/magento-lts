@@ -23,6 +23,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * Particular columns that contains of customer default addresses.
      */
     public const COL_NAME_DEFAULT_BILLING  = '_address_default_billing_';
+
     public const COL_NAME_DEFAULT_SHIPPING = '_address_default_shipping_';
 
     /**
@@ -158,7 +159,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             $attributes = [];
             $defaults   = []; // customer default addresses (billing/shipping) data
 
-            foreach ($bunch as $rowNum => $rowData) {
+            foreach ($bunch as $rowData) {
                 $rowScope = $this->_getRowScope($rowData);
                 if ($rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT) {
                     $customerId = $this->_customer->getCustomerId(
@@ -166,9 +167,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_WEBSITE],
                     );
                 }
+
                 if ($rowScope != Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS) {
                     $multiSelect = [];
                 }
+
                 if (!$customerId) {
                     continue;
                 }
@@ -190,6 +193,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         } else {
                             $value = $rowData[$attrAlias];
                         }
+
                         $addressAttributes[$attrParams['id']] = $value;
                         $addressCollection->addAttributeToFilter($attrParams['code'], $value);
                     }
@@ -215,12 +219,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         'updated_at'     => $now,
                     ];
                     // attribute values
-                    foreach ($this->_attributes as $attrAlias => $attrParams) {
+                    foreach ($this->_attributes as $attrParams) {
                         if (isset($addressAttributes[$attrParams['id']])) {
                             $attributes[$attrParams['table']][$entityId][$attrParams['id']]
                                 = $addressAttributes[$attrParams['id']];
                         }
                     }
+
                     // customer default addresses
                     foreach (self::getDefaultAddressAttrMapping() as $colName => $customerAttrCode) {
                         if (!empty($rowData[$colName])) {
@@ -229,6 +234,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                             $defaults[$backendTable][$customerId][$attribute->getId()] = $entityId;
                         }
                     }
+
                     // let's try to find region ID
                     if (!empty($rowData[$regionColName])) {
                         $countryNormalized = strtolower($rowData[$countryColName]);
@@ -251,15 +257,18 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                             if (isset($multiSelect[$attrParams['id']])) {
                                 $value = implode(',', $multiSelect[$attrParams['id']]);
                             }
+
                             $attributes[$this->_attributes[$attrCode]['table']][$entityId][$attrParams['id']] = $value;
                         }
                     }
                 }
             }
+
             $this->_saveAddressEntity($entityRows)
                 ->_saveAddressAttributes($attributes)
                 ->_saveCustomerDefaults($defaults);
         }
+
         return true;
     }
 
@@ -288,6 +297,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 'options'     => $this->getAttributeOptions($attribute),
             ];
         }
+
         return $this;
     }
 
@@ -306,6 +316,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             $this->_countryRegions[$countryNormalized][$regionName] = $regionRow['region_id'];
             $this->_regions[$regionRow['region_id']] = $regionRow['default_name'];
         }
+
         return $this;
     }
 
@@ -321,6 +332,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 return true;
             }
         }
+
         return false;
     }
 
@@ -344,8 +356,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     ];
                 }
             }
+
             $this->_connection->insertMultiple($tableName, $tableData);
         }
+
         return $this;
     }
 
@@ -364,13 +378,16 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 foreach ($entityRows as $entityData) {
                     $customersToClean[$entityData['parent_id']] = true;
                 }
+
                 $this->_connection->delete(
                     $this->_entityTable,
                     $this->_connection->quoteInto('`parent_id` IN (?)', array_keys($customersToClean)),
                 );
             }
+
             $this->_connection->insertMultiple($this->_entityTable, $entityRows);
         }
+
         return $this;
     }
 
@@ -394,8 +411,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     ];
                 }
             }
+
             $this->_connection->insertOnDuplicate($tableName, $tableData, ['value']);
         }
+
         return $this;
     }
 
@@ -466,6 +485,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     $rowIsValid = false;
                 }
             }
+
             // validate region for countries with known region list
             if ($rowIsValid) {
                 $regionColName  = self::getColNameForAttrCode('region');
@@ -482,6 +502,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 }
             }
         }
+
         return $rowIsValid;
     }
 
@@ -500,6 +521,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         } else {
             $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS;
         }
+
         return $scope;
     }
 }

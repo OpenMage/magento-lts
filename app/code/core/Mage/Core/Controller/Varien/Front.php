@@ -11,8 +11,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
- * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  * @method bool getNoRender()
+ * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
@@ -31,7 +31,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
     /**
      * @param array|string $key
-     * @param string|null $value
+     * @param null|string $value
      * @return $this
      */
     public function setDefault($key, $value = null)
@@ -41,11 +41,12 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         } else {
             $this->_defaults[$key] = $value;
         }
+
         return $this;
     }
 
     /**
-     * @param string|null $key
+     * @param null|string $key
      * @return array|false
      */
     public function getDefault($key = null)
@@ -55,6 +56,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         } elseif (isset($this->_defaults[$key])) {
             return $this->_defaults[$key];
         }
+
         return false;
     }
 
@@ -95,7 +97,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Retrieve router by name
      *
      * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Router_Abstract|false
+     * @return  false|Mage_Core_Controller_Varien_Router_Abstract
      */
     public function getRouter($name)
     {
@@ -128,15 +130,18 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             if (isset($routerInfo['disabled']) && $routerInfo['disabled']) {
                 continue;
             }
+
             if (isset($routerInfo['class'])) {
                 /** @var Mage_Core_Controller_Varien_Router_Standard $router */
                 $router = new $routerInfo['class']();
                 if (isset($routerInfo['area'])) {
                     $router->collectRoutes($routerInfo['area'], $routerCode);
                 }
+
                 $this->addRouter($routerCode, $router);
             }
         }
+
         Varien_Profiler::stop('mage::app::init_front_controller::collect_routers');
 
         Mage::dispatchEvent('controller_front_init_routers', ['front' => $this]);
@@ -176,10 +181,12 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 }
             }
         }
+
         Varien_Profiler::stop('mage::dispatch::routers_match');
         if ($i > 100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
+
         // This event gives possibility to launch something before sending output (allow cookie setting)
         Mage::dispatchEvent('controller_front_send_response_before', ['front' => $this]);
         Varien_Profiler::start('mage::app::dispatch::send_response');
@@ -269,12 +276,14 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         if (!$config) {
             return;
         }
+
         foreach ($config->children() as $rewrite) {
             $from = (string) $rewrite->from;
             $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
+
             $from = $this->_processRewriteUrl($from);
             $to   = $this->_processRewriteUrl($to);
 
@@ -307,6 +316,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 $url = str_replace('{' . $routeName . '}', $fronName, $url);
             }
         }
+
         return $url;
     }
 
@@ -374,6 +384,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             $adminPath = (string) Mage::getConfig()
                 ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME);
         }
+
         $adminFrontNames = [$adminPath];
 
         // Check for other modules that can use admin router (a lot of Magento extensions do that)

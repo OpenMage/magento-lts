@@ -40,15 +40,16 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         if (!$this->getRequest()->isDispatched()) {
             return;
         }
+
         if (!$this->_getSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         return $this;
     }
 
     /**
      * View billing agreement
-     *
      */
     public function viewAction()
     {
@@ -72,6 +73,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         if ($navigationBlock) {
             $navigationBlock->setActive('sales/billing_agreement/');
         }
+
         $this->renderLayout();
     }
 
@@ -100,12 +102,12 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 $this->_getSession()->addError($this->__('Failed to start billing agreement wizard.'));
             }
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Wizard return action
-     *
      */
     public function returnWizardAction()
     {
@@ -130,13 +132,13 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 Mage::logException($e);
                 $this->_getSession()->addError($this->__('Failed to finish billing agreement wizard.'));
             }
+
             $this->_redirect('*/*/index');
         }
     }
 
     /**
      * Wizard cancel action
-     *
      */
     public function cancelWizardAction()
     {
@@ -146,7 +148,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Cancel action
      * Set billing agreement status to 'Canceled'
-     *
      */
     public function cancelAction()
     {
@@ -173,13 +174,14 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
             }
         }
+
         $this->_redirect('*/*/view', ['_current' => true]);
     }
 
     /**
      * Init billing agreement model from request
      *
-     * @return Mage_Sales_Model_Billing_Agreement|false
+     * @return false|Mage_Sales_Model_Billing_Agreement
      */
     protected function _initAgreement()
     {
@@ -187,6 +189,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         $billingAgreement = false;
 
         if ($agreementId) {
+            /** @var Mage_Sales_Model_Billing_Agreement $billingAgreement */
             $billingAgreement = Mage::getModel('sales/billing_agreement')->load($agreementId);
             if (!$billingAgreement->getAgreementId()) {
                 $this->_getSession()->addError($this->__('Wrong billing agreement ID specified.'));
@@ -194,6 +197,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 return false;
             }
         }
+
         Mage::register('current_billing_agreement', $billingAgreement);
         return $billingAgreement;
     }

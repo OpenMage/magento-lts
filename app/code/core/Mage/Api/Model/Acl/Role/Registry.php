@@ -17,8 +17,8 @@ class Mage_Api_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
     /**
      * Add parent to the $role node
      *
-     * @param Zend_Acl_Role_Interface|string $role
-     * @param array|Zend_Acl_Role_Interface|string $parents
+     * @param string|Zend_Acl_Role_Interface $role
+     * @param array|string|Zend_Acl_Role_Interface $parents
      * @return $this
      */
     public function addParent($role, $parents)
@@ -30,13 +30,14 @@ class Mage_Api_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
                 $roleId = $role;
                 $role = $this->get($role);
             }
-        } catch (Zend_Acl_Role_Registry_Exception $e) {
-            throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist", $e->getCode(), $e);
+        } catch (Zend_Acl_Role_Registry_Exception $zendAclRoleRegistryException) {
+            throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist", $zendAclRoleRegistryException->getCode(), $zendAclRoleRegistryException);
         }
 
         if (!is_array($parents)) {
             $parents = [$parents];
         }
+
         foreach ($parents as $parent) {
             try {
                 if ($parent instanceof Zend_Acl_Role_Interface) {
@@ -44,13 +45,16 @@ class Mage_Api_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
                 } else {
                     $roleParentId = $parent;
                 }
+
                 $roleParent = $this->get($roleParentId);
             } catch (Zend_Acl_Role_Registry_Exception $e) {
                 throw new Zend_Acl_Role_Registry_Exception("Parent Role id '$roleParentId' does not exist", $e->getCode(), $e);
             }
+
             $this->_roles[$roleId]['parents'][$roleParentId] = $roleParent;
             $this->_roles[$roleParentId]['children'][$roleId] = $role;
         }
+
         return $this;
     }
 }

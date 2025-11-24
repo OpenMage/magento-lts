@@ -65,6 +65,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
 
             $this->setData('items', $items);
         }
+
         return $items;
     }
 
@@ -93,8 +94,10 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                     $ids[] = $product->getId();
                 }
             }
+
             $this->setData('_cart_product_ids', $ids);
         }
+
         return $ids;
     }
 
@@ -123,7 +126,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     /**
      * Get last product ID that was added to cart and remove this information from session
      *
-     * @return int|string|null
+     * @return null|int|string
      */
     protected function _getLastAddedProductId()
     {

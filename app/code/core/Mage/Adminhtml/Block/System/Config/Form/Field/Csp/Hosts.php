@@ -53,44 +53,38 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         [$area, $directiveName] = $this->_parseNodePath();
 
         $globalPolicy = $this->helper->getGlobalPolicy($directiveName);
-        if ($globalPolicy) {
-            foreach ($globalPolicy as $key => $host) {
-                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $host,
-                    'readonly' => 'readonly="readonly"',
-                    '_id' => $rowId,
-                    'area' => 'global',
-                ]);
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+        foreach ($globalPolicy as $key => $host) {
+            $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $host,
+                'readonly' => 'readonly="readonly"',
+                '_id' => $rowId,
+                'area' => 'global',
+            ]);
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $areaPolicy = $this->helper->getAreaPolicy($area, $directiveName);
-        if ($areaPolicy) {
-            foreach ($areaPolicy as $key => $host) {
-                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $host,
-                    'readonly' => 'readonly="readonly"',
-                    '_id' => $rowId,
-                    'area' => $area,
-                ]);
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+        foreach ($areaPolicy as $key => $host) {
+            $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $host,
+                'readonly' => 'readonly="readonly"',
+                '_id' => $rowId,
+                'area' => $area,
+            ]);
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $configPolicy = $this->helper->getStoreConfigPolicy($area, $directiveName);
-        if ($configPolicy) {
-            foreach ($configPolicy as $key => $value) {
-                $rowId = $directiveName . '_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $this->escapeHtml($value),
-                    '_id' => $rowId,
-                ]);
+        foreach ($configPolicy as $key => $value) {
+            $rowId = $directiveName . '_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $this->escapeHtml($value),
+                '_id' => $rowId,
+            ]);
 
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $this->_arrayRowsCache = $result;
@@ -100,7 +94,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     /**
      * Extract and validate area and directive name from the node path
      *
-     * @return array{Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
+     * @return array{Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
      * @throws Exception If path format is invalid or contains disallowed values
      */
     private function _parseNodePath(): array
@@ -143,10 +137,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         $elementName = $element->getName();
         $inputName   = $elementName . '[#{_id}][' . $columnName . ']';
 
-        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
-            '#{readonly}' .
-            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"' .
-            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
+        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" '
+            . '#{readonly}'
+            . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="'
+            . ($column['class'] ?? 'input-text') . '"'
+            . (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 }

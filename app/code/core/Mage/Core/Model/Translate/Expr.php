@@ -15,6 +15,7 @@
 class Mage_Core_Model_Translate_Expr
 {
     protected $_text;
+
     protected $_module;
 
     /**

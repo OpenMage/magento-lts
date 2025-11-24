@@ -1707,6 +1707,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "warleyelias",
+      "name": "Warley Elias",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5356619?v=4",
+      "profile": "https://www.linkedin.com/in/warley-elias-531a4116/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "vernad",
+      "name": "vernad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51973447?v=4",
+      "profile": "https://github.com/vernad",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"

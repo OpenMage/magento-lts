@@ -84,11 +84,13 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
 
                 $this->_sendTokenStatusChangeNotification($item, $status ? $this->__('revoked') : $this->__('enabled'));
             }
+
             if ($status) {
                 $message = $this->__('Selected entries revoked.');
             } else {
                 $message = $this->__('Selected entries enabled.');
             }
+
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -96,6 +98,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             $this->_getSession()->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -126,6 +129,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
 
                 $this->_sendTokenStatusChangeNotification($item, $this->__('deleted'));
             }
+
             $this->_getSession()->addSuccess($this->__('Selected entries has been deleted.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -133,6 +137,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             $this->_getSession()->addError($this->__('An error occurred on delete action.'));
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -163,6 +168,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             if ($admin->getId() == $adminId) { // skip own tokens
                 return;
             }
+
             $email = $admin->getEmail();
             $name  = $admin->getName(' ');
         } else {
@@ -174,6 +180,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             $email = $customer->getEmail();
             $name  = $customer->getName();
         }
+
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 

@@ -18,6 +18,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
      * @var bool
      */
     protected $_isCheckoutProgressBlockFlag = true;
+
     /**
      * Set block template
      */
@@ -48,6 +49,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
         if ($this->hasCardInfoObject()) {
             return $this->getCardInfoObject();
         }
+
         return parent::getInfo();
     }
 
@@ -82,19 +84,23 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
                     $amount = Mage::helper('core')->currency($cardInfo->getProcessedAmount(), true, false);
                     $data[Mage::helper('paygate')->__('Processed Amount')] = $amount;
                 }
+
                 if ($cardInfo->getBalanceOnCard() && is_numeric($cardInfo->getBalanceOnCard())) {
                     $balance = Mage::helper('core')->currency($cardInfo->getBalanceOnCard(), true, false);
                     $data[Mage::helper('paygate')->__('Remaining Balance')] = $balance;
                 }
+
                 $this->setCardInfoObject($cardInfo);
                 $cards[] = array_merge($this->getSpecificInformation(), $data);
                 $this->unsCardInfoObject();
                 $this->_paymentSpecificInformation = null;
             }
         }
+
         if ($this->getInfo()->getCcType() && $this->_isCheckoutProgressBlockFlag) {
             $cards[] = $this->getSpecificInformation();
         }
+
         return $cards;
     }
 }

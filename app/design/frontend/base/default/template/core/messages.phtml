@@ -6,11 +6,19 @@
  * @package     base_default
  */
 ?>
+
+<?php
+/**
+ * @see Mage_Core_Block_Messages
+ * @var Mage_Core_Block_Messages $this
+ */
+?>
 <?php  foreach ($types as $type) {
             if ( $messages = $this->getMessages($type) ) {
                 if ( !$html ) {
                     $html .= '<ul class="messages">';
                 }
+
                 $html .= '<li class="' . $type . '-msg">';
                 $html .= '<ul>';
 
@@ -19,10 +27,12 @@
                     $html.= $message->getText();
                     $html.= '</li>';
                 }
+
                 $html .= '</ul>';
                 $html .= '</li>';
             }
         }
+
         if ( $html) {
             $html .= '</ul>';
         }

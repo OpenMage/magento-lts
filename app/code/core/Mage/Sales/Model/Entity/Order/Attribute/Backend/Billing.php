@@ -26,6 +26,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
         if (is_null($billingAddressId)) {
             $object->unsetBillingAddressId();
         }
+
         return $this;
     }
 

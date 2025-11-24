@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
                 $total->getValue(),
             );
         }
+
         return $total->getValue();
     }
 
@@ -73,6 +74,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
             }
+
             $this->_totals['discount'] = new Varien_Object([
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),

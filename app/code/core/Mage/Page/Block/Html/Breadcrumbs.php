@@ -47,7 +47,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * @param string $crumbName
      * @param array $crumbInfo
-     * @param string|bool $after
+     * @param bool|string $after
      * @return $this
      */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
@@ -61,6 +61,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
         }
+
         return $this;
     }
 
@@ -122,6 +123,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
             $this->_crumbs[array_key_first($this->_crumbs)]['first'] = true;
             $this->_crumbs[array_key_last($this->_crumbs)]['last'] = true;
         }
+
         $this->assign('crumbs', $this->_crumbs);
         return parent::_toHtml();
     }

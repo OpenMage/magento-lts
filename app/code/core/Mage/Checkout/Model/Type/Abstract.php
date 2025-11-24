@@ -26,6 +26,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $checkout = Mage::getSingleton('checkout/session');
             $this->setData('checkout_session', $checkout);
         }
+
         return $checkout;
     }
 
@@ -61,6 +62,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $customer = Mage::getSingleton('customer/session');
             $this->setData('customer_session', $customer);
         }
+
         return $customer;
     }
 
@@ -77,7 +79,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default shipping address
      *
-     * @return Mage_Customer_Model_Address | false
+     * @return false|Mage_Customer_Model_Address
      */
     public function getCustomerDefaultShippingAddress()
     {
@@ -91,15 +93,17 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_shipping_address', $address);
         }
+
         return $address;
     }
 
     /**
      * Retrieve customer default billing address
      *
-     * @return Mage_Customer_Model_Address|false
+     * @return false|Mage_Customer_Model_Address
      */
     public function getCustomerDefaultBillingAddress()
     {
@@ -113,8 +117,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_billing_address', $address);
         }
+
         return $address;
     }
 
@@ -135,7 +141,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * @param string|array $email
+     * @param array|string $email
      * @param string $name
      * @param Mage_Sales_Model_Order $order
      * @deprecated after 1.4.0.0-rc1

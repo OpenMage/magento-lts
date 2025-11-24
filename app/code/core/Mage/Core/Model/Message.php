@@ -15,8 +15,11 @@
 class Mage_Core_Model_Message
 {
     public const ERROR     = 'error';
+
     public const WARNING   = 'warning';
+
     public const NOTICE    = 'notice';
+
     public const SUCCESS   = 'success';
 
     /**

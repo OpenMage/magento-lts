@@ -24,7 +24,7 @@
         <tbody>
         <?php $printedWebsite = false; ?>
         <?php $printedStoreGroup = false; ?>
-        <?php foreach ($this->getTableData() as $webSiteId => $webSiteData): ?>
+        <?php foreach ($this->getTableData() as $webSiteData): ?>
             <?php if (count($webSiteData['storeGroups']) == 0): ?>
                 <tr>
                     <?php if (!$printedWebsite): ?>
@@ -37,7 +37,7 @@
                 <?php continue ?>
             <?php endif ?>
 
-            <?php foreach ($webSiteData['storeGroups'] as $storeGroupId => $storeGroupData): ?>
+            <?php foreach ($webSiteData['storeGroups'] as $storeGroupData): ?>
                 <?php if (count($storeGroupData['stores']) == 0): ?>
                     <tr>
                         <?php if (!$printedWebsite): ?>
@@ -55,7 +55,7 @@
                     <?php continue ?>
                 <?php endif ?>
 
-                <?php foreach ($storeGroupData['stores'] as $storeId => $storeData): ?>
+                <?php foreach ($storeGroupData['stores'] as $storeData): ?>
                     <tr>
                         <?php if (!$printedWebsite): ?>
                             <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>

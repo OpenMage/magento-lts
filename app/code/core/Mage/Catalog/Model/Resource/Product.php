@@ -53,8 +53,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product website identifiers
      *
-     * @param Mage_Catalog_Model_Product|int $product
+     * @param int|Mage_Catalog_Model_Product $product
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteIds($product)
     {
@@ -90,6 +91,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             if (!isset($productsWebsites[$productId])) {
                 $productsWebsites[$productId] = [];
             }
+
             $productsWebsites[$productId][] = $productInfo['website_id'];
         }
 
@@ -101,6 +103,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCategoryIds($product)
     {
@@ -137,6 +140,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Catalog_Model_Product $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Varien_Object $object)
     {
@@ -163,15 +167,16 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Save data related with product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
-    protected function _afterSave(Varien_Object $product)
+    protected function _afterSave(Varien_Object $object)
     {
-        $this->_saveWebsiteIds($product)
-            ->_saveCategories($product);
+        $this->_saveWebsiteIds($object)
+            ->_saveCategories($object);
 
-        return parent::_afterSave($product);
+        return parent::_afterSave($object);
     }
 
     /**
@@ -179,11 +184,11 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Catalog_Model_Product $product
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _saveWebsiteIds($product)
     {
         $websiteIds = $product->getWebsiteIds();
-        $oldWebsiteIds = [];
 
         $product->setIsChangedWebsites(false);
 
@@ -202,19 +207,18 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'website_id' => (int) $websiteId,
                 ];
             }
+
             $adapter->insertMultiple($this->_productWebsiteTable, $data);
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $websiteId) {
-                $condition = [
-                    'product_id = ?' => (int) $product->getId(),
-                    'website_id = ?' => (int) $websiteId,
-                ];
+        foreach ($delete as $websiteId) {
+            $condition = [
+                'product_id = ?' => (int) $product->getId(),
+                'website_id = ?' => (int) $websiteId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $adapter->delete($this->_productWebsiteTable, $condition);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $adapter->delete($this->_productWebsiteTable, $condition);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -228,6 +232,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Save product category relations
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _saveCategories(Varien_Object $object)
     {
@@ -237,6 +242,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!$object->hasCategoryIds()) {
             return $this;
         }
+
         $categoryIds = $object->getCategoryIds();
         $oldCategoryIds = $this->getCategoryIds($object);
 
@@ -252,27 +258,27 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 if (empty($categoryId)) {
                     continue;
                 }
+
                 $data[] = [
                     'category_id' => (int) $categoryId,
                     'product_id'  => (int) $object->getId(),
                     'position'    => 1,
                 ];
             }
+
             if ($data) {
                 $write->insertMultiple($this->_productCategoryTable, $data);
             }
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $categoryId) {
-                $where = [
-                    'product_id = ?'  => (int) $object->getId(),
-                    'category_id = ?' => (int) $categoryId,
-                ];
+        foreach ($delete as $categoryId) {
+            $where = [
+                'product_id = ?'  => (int) $object->getId(),
+                'category_id = ?' => (int) $categoryId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $write->delete($this->_productCategoryTable, $where);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $write->delete($this->_productCategoryTable, $where);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -288,6 +294,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Catalog_Model_Product $product
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refreshIndex($product)
     {
@@ -353,9 +360,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * if product parameter is null - idex will be refreshed for all products
      *
      * @param Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product|array $product
-     * @throws Mage_Core_Exception
+     * @param array|Mage_Catalog_Model_Product $product
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refreshEnabledIndex($store = null, $product = null)
     {
@@ -405,6 +412,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 $store = Mage::app()->getStore($storeId);
                 $this->refreshEnabledIndex($store, $product);
             }
+
             return $this;
         } else {
             $productId = is_numeric($product) ? $product : $product->getId();
@@ -484,6 +492,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      *
      * @param Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCategoryCollection($product)
     {
@@ -529,8 +538,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Check availability display product in category
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int $categoryId
+     * @param int|string $categoryId
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function canBeShowInCategory($product, $categoryId)
     {
@@ -548,6 +558,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param int $oldId
      * @param int $newId
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function duplicate($oldId, $newId)
     {
@@ -627,7 +639,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product entities info
      *
-     * @param  array|string|null $columns
+     * @param  null|array|string $columns
      * @return array
      */
     public function getProductEntitiesInfo($columns = null)
@@ -635,6 +647,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!empty($columns) && is_string($columns)) {
             $columns = [$columns];
         }
+
         if (empty($columns) || !is_array($columns)) {
             $columns = $this->_getDefaultAttributes();
         }
@@ -650,9 +663,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Return assigned images for specific stores
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return array
-     *
+     * @throws Mage_Core_Exception
      */
     public function getAssignedImages($product, $storeIds)
     {

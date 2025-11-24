@@ -31,10 +31,12 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         if (!$this->getRequest()->isDispatched()) {
             return;
         }
+
         $this->_session = Mage::getSingleton('customer/session');
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         Mage::register('current_customer', $this->_session->getCustomer());
         return $this;
     }
@@ -86,6 +88,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
                     $profile->activate();
                     break;
             }
+
             $this->_session->addSuccess($this->__('The profile state has been updated.'));
         } catch (Mage_Core_Exception $e) {
             $this->_session->addError($e->getMessage());
@@ -93,6 +96,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             $this->_session->addError($this->__('Failed to update the profile.'));
             Mage::logException($e);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -121,6 +125,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             $this->_session->addError($this->__('Failed to update the profile.'));
             Mage::logException($e);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -142,6 +147,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             if ($navigationBlock) {
                 $navigationBlock->setActive('sales/recurring_profile/');
             }
+
             $this->renderLayout();
             return;
         } catch (Mage_Core_Exception $e) {
@@ -149,6 +155,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -165,6 +172,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         if (!$profile->getId() || $this->_session->getCustomerId() != $profile->getCustomerId()) {
             Mage::throwException($this->__('Specified profile does not exist.'));
         }
+
         Mage::register('current_recurring_profile', $profile);
         return $profile;
     }

@@ -15,6 +15,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Protection_Value
         foreach ($carrier->getAdditionalProtectionValueTypes() as $k => $v) {
             $arr[] = ['value' => $k, 'label' => $v];
         }
+
         return $arr;
     }
 }

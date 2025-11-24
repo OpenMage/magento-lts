@@ -108,6 +108,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         if ($position !== false && $position < 1) {
             $path = substr_replace($path, '.', 0, strlen($dir));
         }
+
         return $path;
     }
 }

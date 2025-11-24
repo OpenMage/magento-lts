@@ -1,4 +1,4 @@
-const route = cy.testRoutes.backend.system.config.catalog.configswatches;
+const test = cy.openmage.test.backend.system.config.catalog.configswatches.config;
 const validate = {
     dimension: {
         _input: {
@@ -18,10 +18,11 @@ const validate = {
     }
 }
 
-describe(`Checks admin system "${route.h3}" settings`, () => {
+describe(`Checks admin system "${test.section.title}" settings`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGetConfiguration(route);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.section);
+        cy.openmage.admin.goToSection(test.section);
     });
 
     it(`tests non-digit dimensions`, () => {

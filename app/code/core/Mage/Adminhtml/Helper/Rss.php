@@ -27,6 +27,7 @@ class Mage_Adminhtml_Helper_Rss extends Mage_Core_Helper_Abstract
         if ($session->isAdminLoggedIn()) {
             return;
         }
+
         [$username, $password] = Mage::helper('core/http')->authValidate();
         $adminSession = Mage::getModel('admin/session');
         $user = $adminSession->login($username, $password);

@@ -15,6 +15,7 @@
 class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
     public const ALGORITHM_MERGE       = 'MERGE';
+
     public const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
 
     /**

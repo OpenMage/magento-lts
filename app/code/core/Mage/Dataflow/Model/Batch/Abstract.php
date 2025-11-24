@@ -11,6 +11,8 @@
  * Dataflow Batch abstract model
  *
  * @package    Mage_Dataflow
+ *
+ * @method Mage_Dataflow_Model_Resource_Batch_Abstract getResource()
  */
 abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstract
 {
@@ -51,20 +53,26 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      *
      * @param int $batchId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getIdCollection($batchId = null)
     {
         if (!is_null($batchId)) {
             $this->setBatchId($batchId);
         }
+
         return $this->getResource()->getIdCollection($this);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function deleteCollection($batchId = null)
     {
         if (!is_null($batchId)) {
             $this->setBatchId($batchId);
         }
+
         return $this->getResource()->deleteCollection($this);
     }
 }

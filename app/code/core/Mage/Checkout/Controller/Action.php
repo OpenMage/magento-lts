@@ -33,13 +33,16 @@ abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Fron
                         Mage::getSingleton('customer/session')->addError($error);
                     }
                 }
+
                 if ($redirect) {
                     $this->_redirect('customer/account/edit');
                     $this->setFlag('', self::FLAG_NO_DISPATCH, true);
                 }
+
                 return false;
             }
         }
+
         return true;
     }
 }

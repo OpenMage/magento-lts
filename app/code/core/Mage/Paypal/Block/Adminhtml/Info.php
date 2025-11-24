@@ -53,15 +53,16 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
         $payment = $this->getInfo();
         $info = [];
         if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS)) {
-            $info[Mage::helper('paypal')->__('Status')] =
-                $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS);
+            $info[Mage::helper('paypal')->__('Status')]
+                = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS);
         }
+
         if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
-            $info[Mage::helper('paypal')->__('Authorization ID')] =
-                $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
+            $info[Mage::helper('paypal')->__('Authorization ID')]
+                = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
             if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME)) {
-                $expirationTime =
-                    $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
+                $expirationTime
+                    = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
                 $info[Mage::helper('paypal')->__('Authorization Expires')] = $this->formatExpirationDate($expirationTime);
             }
         }
@@ -72,8 +73,8 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     /**
      * Formats a given UTC expiration timestamp to the store's local timezone.
      *
-     * @param string $expirationTime The expiration timestamp in UTC.
-     * @return string The formatted date and time string.
+     * @param string $expirationTime the expiration timestamp in UTC
+     * @return string the formatted date and time string
      */
     protected function formatExpirationDate(string $expirationTime): string
     {

@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
     /**
      * Perform operation before save
      *
-     * @param Varien_Object|Mage_Sales_Model_Order $object
+     * @param Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -26,13 +26,14 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
         if (is_null($shippingAddressId)) {
             $object->unsetShippingAddressId();
         }
+
         return $this;
     }
 
     /**
      * Perform operation after save
      *
-     * @param Varien_Object|Mage_Sales_Model_Order $object
+     * @param Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
     public function afterSave($object)
@@ -43,10 +44,12 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
                 $shippingAddressId = $address->getId();
             }
         }
+
         if ($shippingAddressId) {
             $object->setShippingAddressId($shippingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+
         return $this;
     }
 }

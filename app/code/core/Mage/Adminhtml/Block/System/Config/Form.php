@@ -15,8 +15,12 @@
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     public const SCOPE_DEFAULT = 'default';
+
     public const SCOPE_WEBSITES = 'websites';
+
     public const SCOPE_STORES   = 'stores';
+
+    public const SCOPE_ENV      = 'env';
 
     /**
      * Config data array
@@ -43,12 +47,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_configFields;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset|false
+     * @var false|Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected $_defaultFieldsetRenderer;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Field|false
+     * @var false|Mage_Adminhtml_Block_System_Config_Form_Field
      */
     protected $_defaultFieldRenderer;
 
@@ -71,11 +75,13 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             self::SCOPE_DEFAULT  => Mage::helper('adminhtml')->__('[GLOBAL]'),
             self::SCOPE_WEBSITES => Mage::helper('adminhtml')->__('[WEBSITE]'),
             self::SCOPE_STORES   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
+            self::SCOPE_ENV      => Mage::helper('adminhtml')->__('[ENV]'),
         ];
     }
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initObjects()
     {
@@ -92,6 +98,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function initForm()
     {
@@ -107,20 +115,23 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if (empty($sections)) {
             $sections = [];
         }
+
         foreach ($sections as $section) {
-            /** @var Varien_Simplexml_Element $section */
+            /** @var Mage_Core_Model_Config_Element $section */
             if (!$this->_canShowField($section)) {
                 continue;
             }
+
             foreach ($section->groups as $groups) {
                 $groups = (array) $groups;
                 usort($groups, [$this, '_sortForm']);
 
                 foreach ($groups as $group) {
-                    /** @var Varien_Simplexml_Element $group */
+                    /** @var Mage_Core_Model_Config_Element $group */
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
+
                     $this->_initGroup($form, $group, $section);
                 }
             }
@@ -134,9 +145,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Init config group
      *
      * @param Varien_Data_Form $form
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
-     * @param Varien_Data_Form_Element_Fieldset|null $parentElement
+     * @param Mage_Core_Model_Config_Element $group
+     * @param Mage_Core_Model_Config_Element $section
+     * @param null|Varien_Data_Form_Element_Fieldset $parentElement
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _initGroup($form, $group, $section, $parentElement = null)
     {
@@ -153,6 +166,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             if (!empty($group->comment)) {
                 $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
             }
+
             if (!empty($group->expanded)) {
                 $fieldsetConfig['expanded'] = (bool) $group->expanded;
             }
@@ -180,6 +194,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 } else {
                     Mage::throwException($this->__('Config form fieldset clone model required to be able to clone fields'));
                 }
+
                 foreach ($cloneModel->getPrefixes() as $prefix) {
                     $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
                 }
@@ -202,6 +217,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'),
             );
         }
+
         return $this->getChild('element_dependense');
     }
 
@@ -209,12 +225,13 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Init fieldset fields
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
+     * @param Mage_Core_Model_Config_Element $group
+     * @param Mage_Core_Model_Config_Element $section
      * @param string $fieldPrefix
      * @param string $labelPrefix
-     * @throw Mage_Core_Exception
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix = '', $labelPrefix = '')
     {
@@ -287,8 +304,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 if ($backendClass) {
                     $model = Mage::getModel($backendClass);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
-                        Mage::throwException('Invalid config field backend model: ' . (string) $element->backend_model);
+                        Mage::throwException('Invalid config field backend model: ' . $element->backend_model);
                     }
+
                     $model->setPath($path)
                         ->setValue($data)
                         ->setWebsite($this->getWebsiteCode())
@@ -328,6 +346,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string) $dependent['separator'], $dependentValue);
                         }
+
                         $dependentFieldName = $fieldPrefix . $dependent->getName();
                         $dependentField     = $dependentFieldGroup->fields->$dependentFieldName;
                         /*
@@ -347,6 +366,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $shouldBeAddedDependence = $dependentValue != $dependentValueInStore;
                             }
                         }
+
                         if ($shouldBeAddedDependence) {
                             $this->_getDependence()
                                 ->addFieldMap($id, $id)
@@ -355,6 +375,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                         }
                     }
                 }
+
                 $sharedClass = '';
                 if ($element->shared && $element->config_path) {
                     $sharedClass = ' shared shared-' . str_replace('/', '-', $element->config_path);
@@ -368,7 +389,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
                 }
 
-                $field = $fieldset->addField($id, $fieldType, [
+                $elementFieldData = [
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
@@ -382,9 +403,17 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
                     'scope_label'           => $this->getScopeLabel($element),
-                    'can_use_default_value' => $this->canUseDefaultValue((int) $element->show_in_default),
-                    'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
-                ]);
+                    'can_use_default_value' => $this->canUseDefaultValue($element->show_in_default),
+                    'can_use_website_value' => $this->canUseWebsiteValue($element->show_in_website),
+                ];
+                if ($this->isOverwrittenByEnvVariable($path)) {
+                    $elementFieldData['scope_label'] = $this->_scopeLabels[self::SCOPE_ENV];
+                    $elementFieldData['disabled'] = 1;
+                    $elementFieldData['can_use_default_value'] = 0;
+                    $elementFieldData['can_use_website_value'] = 0;
+                }
+
+                $field = $fieldset->addField($id, $fieldType, $elementFieldData);
                 $this->_prepareFieldOriginalData($field, $element);
 
                 if (isset($element->validate)) {
@@ -413,6 +442,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     if (!$sourceModel) {
                         Mage::throwException("Source model '{$factoryName}' is not found");
                     }
+
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
@@ -436,6 +466,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 }
             }
         }
+
         return $this;
     }
 
@@ -449,6 +480,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if (empty($this->_configRoot)) {
             $this->_configRoot = Mage::getSingleton('adminhtml/config_data')->getConfigRoot();
         }
+
         return $this->_configRoot;
     }
 
@@ -466,6 +498,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $originalData[$key] = (string) $value;
             }
         }
+
         $field->setOriginalData($originalData);
     }
 
@@ -492,6 +525,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $comment = Mage::helper($helper)->__($commentInfo);
             }
         }
+
         return $comment;
     }
 
@@ -521,19 +555,19 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         } elseif ($element->tooltip_block) {
             return $this->getLayout()->createBlock((string) $element->tooltip_block)->toHtml();
         }
+
         return '';
     }
 
     /**
      * Append dependence block at then end of form block
-     *
-     *
      */
     protected function _afterToHtml($html)
     {
         if ($this->_getDependence()) {
             $html .= $this->_getDependence()->toHtml();
         }
+
         return parent::_afterToHtml($html);
     }
 
@@ -548,37 +582,43 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param Mage_Core_Model_Config_Element $field
      * @return bool
+     * @throws Exception
      */
     public function canUseDefaultValue($field)
     {
         if ($this->getScope() == self::SCOPE_STORES && $field) {
             return true;
         }
+
         if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
             return true;
         }
+
         return false;
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param Mage_Core_Model_Config_Element $field
      * @return bool
+     * @throws Exception
      */
     public function canUseWebsiteValue($field)
     {
         if ($this->getScope() == self::SCOPE_STORES && $field) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Checking field visibility
      *
-     * @param   Varien_Simplexml_Element $field
+     * @param   Mage_Core_Model_Config_Element $field
      * @return  bool
+     * @throws  Exception
      */
     protected function _canShowField($field)
     {
@@ -586,6 +626,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
+
+        $aclResource = trim((string) $field->acl_resource);
+        if ($aclResource && !Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+            return false;
+        }
+
         return match ($this->getScope()) {
             self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
             self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
@@ -598,6 +644,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Retrieve current scope
      *
      * @return string
+     * @throws Exception
      */
     public function getScope()
     {
@@ -610,10 +657,39 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scope = self::SCOPE_DEFAULT;
             }
+
             $this->setScope($scope);
         }
 
         return $scope;
+    }
+
+    /**
+     * Returns true if element was overwritten by ENV variable
+     *
+     * @throws Exception
+     */
+    public function isOverwrittenByEnvVariable(string $path): bool
+    {
+        /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+        $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+
+        $scope      = $this->getScope();
+        $store      = Mage::app()->getRequest()->getParam('store');
+        $website    = Mage::app()->getRequest()->getParam('website');
+
+        if ($store && $website) {
+            $path = "$scope/$store/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+
+        if ($website) {
+            $path = "$scope/$website/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+
+        $path = "$scope/$path";
+        return $environmentConfigLoaderHelper->hasPath($path);
     }
 
     /**
@@ -629,6 +705,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         } elseif ((int) $element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
+
         return $this->_scopeLabels[self::SCOPE_DEFAULT];
     }
 
@@ -636,6 +713,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Get current scope code
      *
      * @return string
+     * @throws Exception
      */
     public function getScopeCode()
     {
@@ -648,6 +726,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scopeCode = '';
             }
+
             $this->setScopeCode($scopeCode);
         }
 
@@ -658,6 +737,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Get current scope code
      *
      * @return int|string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getScopeId()
     {
@@ -670,8 +751,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scopeId = '';
             }
+
             $this->setScopeId($scopeId);
         }
+
         return $scopeId;
     }
 
@@ -687,6 +770,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 ->getBlockClassName('adminhtml/system_config_form_field_select_allowspecific'),
             'image'         => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_image'),
             'file'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_file'),
+            'logo'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_logo'),
         ];
     }
 
@@ -697,6 +781,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getSectionCode()
     {
@@ -706,6 +791,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getWebsiteCode()
     {
@@ -715,6 +801,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getStoreCode()
     {

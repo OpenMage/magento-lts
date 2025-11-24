@@ -63,6 +63,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 

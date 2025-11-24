@@ -23,6 +23,7 @@ class Unserialize_Reader_ArrKey
     protected $_reader;
 
     public const NOT_STARTED = 1;
+
     public const READING_KEY = 2;
 
     /**
@@ -36,7 +37,7 @@ class Unserialize_Reader_ArrKey
     /**
      * @param string $char
      * @param string $prevChar
-     * @return mixed|null
+     * @return null|mixed
      * @throws Exception
      */
     public function read($char, $prevChar)
@@ -62,6 +63,7 @@ class Unserialize_Reader_ArrKey
                 return $key;
             }
         }
+
         return null;
     }
 }

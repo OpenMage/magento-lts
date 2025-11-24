@@ -20,12 +20,13 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      * Cookie params
      */
     protected $_cookieName  = 'guest-view';
+
     protected $_lifeTime    = 600;
 
     /**
      * Try to load valid order by $_POST or $_COOKIE
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function loadValidOrder()
     {
@@ -145,7 +146,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     /**
      * Try to load order by cookie hash
      *
-     * @param string|null $cookie
+     * @param null|string $cookie
      * @return null|Mage_Sales_Model_Order
      */
     protected function _loadOrderByCookie($cookie = null)
@@ -165,6 +166,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
                 }
             }
         }
+
         return null;
     }
 

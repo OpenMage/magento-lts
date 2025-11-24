@@ -85,9 +85,11 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (!$this->getHandler()) {
             throw new Varien_Exception('Crypt module is not initialized.');
         }
+
         if (strlen($data) == 0) {
             return $data;
         }
+
         return mcrypt_generic($this->getHandler(), $data);
     }
 
@@ -102,9 +104,11 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
         if (!$this->getHandler()) {
             throw new Varien_Exception('Crypt module is not initialized.');
         }
+
         if (strlen($data) == 0) {
             return $data;
         }
+
         return mdecrypt_generic($this->getHandler(), $data);
     }
 

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Locale_Currency_All
         if (!$this->_options) {
             $this->_options = Mage::app()->getLocale()->getOptionAllCurrencies();
         }
+
         $options = $this->_options;
         if (!$isMultiselect) {
             array_unshift($options, ['value' => '', 'label' => '']);

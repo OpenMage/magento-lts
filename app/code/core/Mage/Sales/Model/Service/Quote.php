@@ -123,6 +123,7 @@ class Mage_Sales_Model_Service_Quote
         if ($quote->getCustomerId()) {
             $transaction->addObject($quote->getCustomer());
         }
+
         $transaction->addObject($quote);
 
         $quote->reserveOrderId();
@@ -131,16 +132,19 @@ class Mage_Sales_Model_Service_Quote
         } else {
             $order = $this->_convertor->addressToOrder($quote->getShippingAddress());
         }
+
         $order->setBillingAddress($this->_convertor->addressToOrderAddress($quote->getBillingAddress()));
         if ($quote->getBillingAddress()->getCustomerAddress()) {
             $order->getBillingAddress()->setCustomerAddress($quote->getBillingAddress()->getCustomerAddress());
         }
+
         if (!$isVirtual) {
             $order->setShippingAddress($this->_convertor->addressToOrderAddress($quote->getShippingAddress()));
             if ($quote->getShippingAddress()->getCustomerAddress()) {
                 $order->getShippingAddress()->setCustomerAddress($quote->getShippingAddress()->getCustomerAddress());
             }
         }
+
         $order->setPayment($this->_convertor->paymentToOrderPayment($quote->getPayment()));
 
         foreach ($this->_orderData as $key => $value) {
@@ -152,6 +156,7 @@ class Mage_Sales_Model_Service_Quote
             if ($item->getParentItem()) {
                 $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
             }
+
             $order->addItem($orderItem);
         }
 
@@ -171,7 +176,7 @@ class Mage_Sales_Model_Service_Quote
         Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order' => $order, 'quote' => $quote]);
         try {
             $transaction->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -186,8 +191,9 @@ class Mage_Sales_Model_Service_Quote
             }
 
             Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
-            throw $e;
+            throw $exception;
         }
+
         $this->_inactivateQuote();
         Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order' => $order, 'quote' => $quote]);
         Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order' => $order, 'quote' => $quote]);
@@ -197,7 +203,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Submit nominal items
-     *
      */
     public function submitNominalItems()
     {
@@ -219,15 +224,17 @@ class Mage_Sales_Model_Service_Quote
         try {
             $this->submitNominalItems();
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-            throw $e;
+            throw $exception;
         }
+
         // no need to submit the order if there are no normal items remained
         if (!$this->_quote->getAllVisibleItems()) {
             $this->_inactivateQuote();
             return;
         }
+
         $this->submitOrder();
     }
 
@@ -261,6 +268,7 @@ class Mage_Sales_Model_Service_Quote
         if ($this->_shouldInactivateQuote) {
             $this->_quote->setIsActive(false);
         }
+
         return $this;
     }
 
@@ -279,6 +287,7 @@ class Mage_Sales_Model_Service_Quote
                     Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation)),
                 );
             }
+
             $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
@@ -310,8 +319,10 @@ class Mage_Sales_Model_Service_Quote
             if (!$profile->isValid()) {
                 Mage::throwException($profile->getValidationErrors(true, true));
             }
+
             $profile->submit();
         }
+
         $this->_recurringPaymentProfiles = $profiles;
     }
 

@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Js extends Mage_Adminhtml_Block_
         if ($product) {
             return Mage::app()->getStore($product->getStoreId());
         }
+
         return Mage::app()->getStore();
     }
 }

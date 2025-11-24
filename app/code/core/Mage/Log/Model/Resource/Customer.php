@@ -101,6 +101,7 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
                 ->order("{$table}.login_at DESC")
                 ->limit(1);
         }
+
         return $select;
     }
 }

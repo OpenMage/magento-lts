@@ -15,10 +15,15 @@
 abstract class Mage_Core_Model_Message_Abstract
 {
     protected $_type;
+
     protected $_code;
+
     protected $_class;
+
     protected $_method;
+
     protected $_identifier;
+
     protected $_isSticky = false;
 
     /**

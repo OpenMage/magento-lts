@@ -10,7 +10,6 @@
 /**
  * Varien Library
  *
- *
  * @package    Varien_Db
  */
 
@@ -25,10 +24,15 @@ Zend_Loader::loadClass('Varien_Db_Tree_NodeSet');
 class Varien_Db_Tree
 {
     private $_id;
+
     private $_left;
+
     private $_right;
+
     private $_level;
+
     private $_pid;
+
     private $_nodesInfo = [];
 
     /**
@@ -198,7 +202,6 @@ class Varien_Db_Tree
 
     /**
      * Clear table and add root element
-     *
      */
     public function clear($data = [])
     {
@@ -214,9 +217,10 @@ class Varien_Db_Tree
 
         try {
             $this->_db->insert($this->_table, $data);
-        } catch (Zend_Db_Adapter_Exception $e) {
-            echo $e->getMessage();
+        } catch (Zend_Db_Adapter_Exception $zendDbAdapterException) {
+            echo $zendDbAdapterException->getMessage();
         }
+
         return $this->_db->lastInsertId();
     }
 
@@ -230,6 +234,7 @@ class Varien_Db_Tree
         } else {
             $data = $this->_nodesInfo[$ID];
         }
+
         return $data;
     }
 
@@ -268,12 +273,14 @@ class Varien_Db_Tree
                 var_dump($data);
                 exit();
             }
+
             // TODO: change to ZEND LIBRARY
             $res =  $this->_db->fetchOne('select last_insert_id()');
             return $res;
             //return $this->_db->fetchOne('select last_insert_id()');
             //return $this->_db->lastInsertId();
         }
+
         return  false;
     }
 
@@ -378,10 +385,10 @@ class Varien_Db_Tree
             $this->_db->commit();
             echo "alert('node moved');";
             return true;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_db->rollBack();
             echo "alert('node not moved: fatal error');";
-            echo $e->getMessage();
+            echo $exception->getMessage();
             echo "<br>\r\n";
             echo $sql;
             echo "<br>\r\n";
@@ -403,6 +410,7 @@ class Varien_Db_Tree
             $pInfo = $this->getNodeInfo($pId);
             $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         }
+
         if ($aId != 0) {
             $aInfo = $this->getNodeInfo($aId);
         }
@@ -480,8 +488,8 @@ class Varien_Db_Tree
     {
         try {
             $info = $this->getNodeInfo($ID);
-        } catch (Exception $e) {
-            echo $e->getMessage();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
             exit;
         }
 
@@ -508,6 +516,7 @@ class Varien_Db_Tree
         foreach ($data as $node) {
             $nodeSet->addNode(new Varien_Db_Tree_Node($node, $this->getKeys()));
         }
+
         return $nodeSet;
     }
 

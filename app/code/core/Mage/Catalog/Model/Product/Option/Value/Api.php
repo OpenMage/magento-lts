@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Retrieve values from specified option
      *
      * @param string $optionId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return array
      */
     public function items($optionId, $store = null)
@@ -36,6 +36,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
                 'sort_order' => $value->getSortOrder(),
             ];
         }
+
         return $result;
     }
 
@@ -43,7 +44,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Retrieve specified option value info
      *
      * @param string $valueId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return array
      */
     public function info($valueId, $store = null)
@@ -53,6 +54,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (!$productOptionValue->getId()) {
             $this->_fault('value_not_exists');
         }
+
         $storeId = $this->_getStoreId($store);
         $productOptionValues = $productOptionValue
                 ->getValuesByOption(
@@ -69,6 +71,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (empty($result)) {
             $this->_fault('value_not_exists');
         }
+
         // map option_type_id to value_id
         $result['value_id'] = $result['option_type_id'];
         unset($result['option_type_id']);
@@ -80,7 +83,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      *
      * @param string $optionId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool
      */
     public function add($optionId, $data, $store = null)
@@ -94,12 +97,14 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
                 $value = Mage::helper('catalog')->stripTags($value);
             }
         }
+
         $optionValueModel->setValues($data);
         try {
             $optionValueModel->saveValues();
-        } catch (Exception $e) {
-            $this->_fault('add_option_value_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('add_option_value_error', $exception->getMessage());
         }
+
         return true;
     }
 
@@ -108,7 +113,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      *
      * @param string $valueId
      * @param array $data
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return bool
      */
     public function update($valueId, $data, $store = null)
@@ -123,14 +128,17 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         $productOptionValue->setOption($option);
         // Sanitize data
         foreach ($data as $key => $value) {
             $data[$key] = Mage::helper('catalog')->stripTags($value);
         }
+
         if (!isset($data['title']) || empty($data['title'])) {
             $this->_fault('option_value_title_required');
         }
+
         $data['option_type_id'] = $valueId;
         $data['store_id'] = $this->_getStoreId($store);
         $productOptionValue->addValue($data);
@@ -138,8 +146,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
 
         try {
             $productOptionValue->save()->saveValues();
-        } catch (Exception $e) {
-            $this->_fault('update_option_value_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('update_option_value_error', $exception->getMessage());
         }
 
         return true;
@@ -166,8 +174,8 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
 
         try {
             $optionValue->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;
@@ -177,7 +185,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Load option by id and store
      *
      * @param string $optionId
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return Mage_Catalog_Model_Product_Option
      */
     protected function _prepareOption($optionId, $store = null)
@@ -188,16 +196,20 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             $storeId = $this->_getStoreId($store);
             $option->setStoreId($storeId);
         }
+
         $option->load($optionId);
         if (isset($storeId)) {
             $option->setData('store_id', $storeId);
         }
+
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         if ($option->getGroupByType() != Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
             $this->_fault('invalid_option_type');
         }
+
         return $option;
     }
 }

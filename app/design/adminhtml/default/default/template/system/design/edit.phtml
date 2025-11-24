@@ -14,6 +14,7 @@
             <td><h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3></td>
             <td class="form-buttons">
             <?php echo $this->getChildHtml('back_button') ?>
+            <?php echo $this->getChildHtml('reset_button') ?>
             <?php if($this->getDesignChangeId()): ?>
                 <?php echo $this->getChildHtml('delete_button') ?>
             <?php endif ?>

@@ -55,15 +55,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Giftmessage object
      *
      * @deprecated after 1.4.2.0
-     * @var Mage_GiftMessage_Model_Message
+     * @var array|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage = [];
 
     /**
      * Retrieve default value for giftmessage sender
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getDefaultSender()
     {
@@ -81,8 +81,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve default value for giftmessage recipient
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getDefaultRecipient()
     {
@@ -114,9 +114,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve real name for field
      *
-     * @deprecated after 1.4.2.0
      * @param string $name
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getFieldName($name)
     {
@@ -126,21 +126,22 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Initialize gift message for entity
      *
-     * @deprecated after 1.4.2.0
      * @return $this
+     * @deprecated after 1.4.2.0
      */
     protected function _initMessage()
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()]
+            = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
         if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
+
         if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
@@ -151,8 +152,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve gift message for entity
      *
-     * @deprecated after 1.4.2.0
      * @return Mage_GiftMessage_Model_Message
+     * @deprecated after 1.4.2.0
      */
     public function getMessage()
     {
@@ -181,8 +182,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve block html id
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getHtmlId()
     {
@@ -200,6 +201,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(

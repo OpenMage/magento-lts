@@ -7,7 +7,7 @@
  * @package    Mage_Eav
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

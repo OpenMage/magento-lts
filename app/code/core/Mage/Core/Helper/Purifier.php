@@ -24,6 +24,7 @@ class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
     ) {
         $config = HTMLPurifier_Config::createDefault();
         $config->set(self::CACHE_DEFINITION, null);
+
         $this->purifier = $purifier ?? new HTMLPurifier($config);
     }
 

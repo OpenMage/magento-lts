@@ -15,6 +15,7 @@
 class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
 {
     protected $_parentProductIds = [];
+
     protected $_productIdsMassupdate = [];
 
     protected function _construct() {}
@@ -92,6 +93,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
             $this->_productIdsMassupdate = array_merge($this->_productIdsMassupdate, $parentProductIds);
             $productIds = array_merge($productIds, $parentProductIds);
         }
+
         $this->_getAggregator()->clearProductData($productIds);
         return $this;
     }
@@ -111,6 +113,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
             );
             $this->clearPriceAggregation();
         }
+
         return $this;
     }
 
@@ -126,6 +129,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($productCondition) {
             $eventProduct = $productCondition;
         }
+
         $this->_getIndexer()->plainReindex(
             $eventProduct,
             Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE,
@@ -151,6 +155,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($parentProductIds) {
             $this->_getIndexer()->plainReindex($parentProductIds);
         }
+
         return $this;
     }
 
@@ -218,6 +223,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
             $this->_getIndexer()->plainReindex();
             $this->_getAggregator()->clearCacheData();
         }
+
         return $this;
     }
 
@@ -234,6 +240,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if (empty($tagsArray) || in_array($tagName, $tagsArray)) {
             $this->_getAggregator()->clearCacheData();
         }
+
         return $this;
     }
 
@@ -249,6 +256,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($category->getInitialSetupFlag()) {
             return $this;
         }
+
         $tags = [
             Mage_Catalog_Model_Category::CACHE_TAG . ':' . $category->getPath(),
         ];
@@ -292,6 +300,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         $product->loadParentProductIds();
+
         $productIds = [$product->getId()];
         $productIds = array_merge($productIds, $product->getParentProductIds());
         $this->_getAggregator()->clearProductData($productIds);

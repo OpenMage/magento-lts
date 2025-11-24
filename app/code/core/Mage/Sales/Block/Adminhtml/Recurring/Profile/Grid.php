@@ -35,6 +35,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('profile_id', 'desc');
         }
+
         return parent::_prepareCollection();
     }
 
@@ -91,6 +92,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         foreach (Mage::helper('payment')->getRecurringProfileMethods() as $method) {
             $methods[$method->getCode()] = $method->getTitle();
         }
+
         $this->addColumn('method_code', [
             'header'  => $profile->getFieldLabel('method_code'),
             'index'   => 'method_code',

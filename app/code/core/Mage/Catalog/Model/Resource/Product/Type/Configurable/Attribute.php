@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
 
     /**
      * Inititalize connection and define tables
-     *
      */
     protected function _construct()
     {
@@ -51,10 +50,10 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
 
     /**
      * Load attribute labels
-     * @deprecated
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
+     * @deprecated
      */
     public function loadLabel($attribute)
     {
@@ -63,10 +62,10 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
 
     /**
      * Load prices
-     * @deprecated
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
+     * @deprecated
      */
     public function loadPrices($attribute)
     {
@@ -112,6 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 ],
             );
         }
+
         return $this;
     }
 
@@ -166,6 +166,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             if (empty($v['value_index'])) {
                 continue;
             }
+
             $key = implode('-', [$websiteId, $v['value_index']]);
             $new[$key] = [
                 'value_index'   => $v['value_index'],
@@ -185,6 +186,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 $delete[] = $v['value_id'];
             }
         }
+
         foreach ($new as $k => $v) {
             $needInsert = false;
             $needUpdate = false;
@@ -225,12 +227,14 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                     'website_id'                 => $websiteId,
                 ];
             }
+
             if ($needUpdate) {
                 $update[$old[$k]['value_id']] = [
                     'is_percent'    => $v['is_percent'],
                     'pricing_value' => $v['pricing_value'],
                 ];
             }
+
             if ($needDelete) {
                 $delete[] = $old[$k]['value_id'];
             }
@@ -240,12 +244,12 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             $where = $write->quoteInto('value_id IN(?)', $delete);
             $write->delete($this->_priceTable, $where);
         }
-        if (!empty($update)) {
-            foreach ($update as $valueId => $bind) {
-                $where = $write->quoteInto('value_id=?', $valueId);
-                $write->update($this->_priceTable, $bind, $where);
-            }
+
+        foreach ($update as $valueId => $bind) {
+            $where = $write->quoteInto('value_id=?', $valueId);
+            $write->update($this->_priceTable, $bind, $where);
         }
+
         if (!empty($insert)) {
             $write->insertMultiple($this->_priceTable, $insert);
         }

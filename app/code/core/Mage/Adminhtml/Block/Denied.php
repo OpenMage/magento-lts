@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Denied extends Mage_Adminhtml_Block_Template
         if ($user && $user->hasAvailableResources()) {
             return true;
         }
+
         return false;
     }
 }

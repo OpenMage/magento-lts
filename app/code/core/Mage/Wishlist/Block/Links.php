@@ -34,6 +34,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
             $this->_url = $this->getUrl('wishlist');
             return parent::_toHtml();
         }
+
         return '';
     }
 
@@ -83,9 +84,9 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
 
     /**
      * @return Mage_Wishlist_Block_Links
-     * @see Mage_Wishlist_Block_Links::__construct
      *
      * @deprecated after 1.4.2.0
+     * @see Mage_Wishlist_Block_Links::__construct
      */
     public function addWishlistLink()
     {
@@ -107,6 +108,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
         foreach ($wishlist->getItemCollection() as $item) {
             $this->addModelTags($item);
         }
+
         return parent::getCacheTags();
     }
 }

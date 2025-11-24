@@ -36,6 +36,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
                 }
             }
         }
+
         return $itemLinks;
     }
 
@@ -73,6 +74,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
             foreach ($links as $link) {
                 $linksOption['value'][] = $link->getTitle();
             }
+
             $options[] = $linksOption;
         }
 

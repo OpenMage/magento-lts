@@ -22,9 +22,9 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -53,11 +53,11 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return string|null Prepared option value
+     * @return null|string Prepared option value
      */
     public function prepareForCart()
     {
-        if ($this->getIsValid() && strlen($this->getUserValue()) > 0) {
+        if ($this->getIsValid() && $this->getUserValue() !== '') {
             return $this->getUserValue();
         } else {
             return null;

@@ -40,6 +40,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
         if (!is_readable($path)) {
             return $files;
         }
+
         $dir = dir($path);
         while (($entry = $dir->read()) !== false) {
             if ($entry != '.'
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
                 $files[] = $entry;
             }
         }
+
         sort($files);
         $dir->close();
         return $files;

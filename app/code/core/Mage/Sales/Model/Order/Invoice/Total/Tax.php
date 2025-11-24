@@ -74,6 +74,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
             $invoice->setShippingHiddenTaxAmount($order->getShippingHiddenTaxAmount());
             $invoice->setBaseShippingHiddenTaxAmount($order->getBaseShippingHiddenTaxAmount());
         }
+
         $allowedTax     = $order->getTaxAmount() - $order->getTaxInvoiced();
         $allowedBaseTax = $order->getBaseTaxAmount() - $order->getBaseTaxInvoiced();
         $allowedHiddenTax     = $order->getHiddenTaxAmount() + $order->getShippingHiddenTaxAmount()
@@ -120,6 +121,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
                 $includeShippingTax = false;
             }
         }
+
         return $includeShippingTax;
     }
 }

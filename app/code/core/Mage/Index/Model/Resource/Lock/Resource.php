@@ -25,7 +25,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $name
      * @param string $extendConfigWith
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     public function getConnection($name, $extendConfigWith = '')
     {
@@ -36,14 +36,17 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
                 $connection->setCacheAdapter(Mage::app()->getCache());
                 unset($this->_skippedConnections[$index]);
             }
+
             return $connection;
         }
+
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
 
         if (!$connConfig) {
             $this->_connections[$index] = $this->_getDefaultConnection($name, $extendConfigWith);
             return $this->_connections[$index];
         }
+
         if (!$connConfig->is('active', '1')) {
             return false;
         }
@@ -92,13 +95,14 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $requiredConnectionName
      * @param string $extendConfigWith
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getDefaultConnection($requiredConnectionName, $extendConfigWith = '')
     {
         if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE, $extendConfigWith);
         }
+
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE, $extendConfigWith);
     }
 }

@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Accordion extends Mage_Adminhtml_Block_Widget
 {
     protected $_items = [];
+
     public function __construct()
     {
         parent::__construct();

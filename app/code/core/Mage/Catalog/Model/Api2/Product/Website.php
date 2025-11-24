@@ -18,8 +18,8 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      * Load product by id
      *
      * @param int $id
-     * @throws Mage_Api2_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Api2_Exception
      */
     protected function _loadProductById($id)
     {
@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
         if (!$product->getId()) {
             $this->_critical(sprintf('Product #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $product;
     }
 
@@ -35,8 +36,8 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
      * Load website by id
      *
      * @param int $id
-     * @throws Mage_Api2_Exception
      * @return Mage_Core_Model_Website
+     * @throws Mage_Api2_Exception
      */
     protected function _loadWebsiteById($id)
     {
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
         if (!$website->getId()) {
             $this->_critical(sprintf('Website #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $website;
     }
 }

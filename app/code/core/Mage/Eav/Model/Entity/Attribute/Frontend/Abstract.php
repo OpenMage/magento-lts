@@ -89,6 +89,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
                     }
                 }
             }
+
             $value = $valueOption;
         } elseif ($this->getConfigField('input') == 'multiselect') {
             $value = $this->getOption($value);
@@ -138,13 +139,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         } else {
             $out = '';
         }
+
         return $out;
     }
 
     /**
      * Return validate class by attribute input validation rule
      *
-     * @return string|false
+     * @return false|string
      */
     protected function _getInputValidateClass()
     {
@@ -171,6 +173,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
                     break;
             }
         }
+
         return $class;
     }
 
@@ -199,7 +202,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      * Retrieve option by option id
      *
      * @param int $optionId
-     * @return string|bool
+     * @return bool|string
      */
     public function getOption($optionId)
     {
@@ -207,13 +210,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         if ($source) {
             return $source->getOptionText($optionId);
         }
+
         return false;
     }
 
     /**
      * Retrieve Input Renderer Class
      *
-     * @return string|null
+     * @return null|string
      */
     public function getInputRendererClass()
     {
@@ -221,6 +225,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         if ($className) {
             return Mage::getConfig()->getBlockClassName($className);
         }
+
         return null;
     }
 }

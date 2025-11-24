@@ -47,6 +47,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                 } else {
                     $isCompounded = false;
                 }
+
                 if ((float) $itemRowTotal > 0 && $label = $model->getLabel()) {
                     $totalDetails[] = new Varien_Object([
                         'label'  => $label,
@@ -55,6 +56,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                     ]);
                 }
             }
+
             $item->setNominalRowTotal($rowTotal);
             $item->setBaseNominalRowTotal($baseRowTotal);
             $item->setNominalTotalDetails($totalDetails);
@@ -79,6 +81,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                 'area'    => 'footer',
             ]);
         }
+
         return $this;
     }
 }

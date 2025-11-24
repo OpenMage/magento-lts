@@ -23,7 +23,6 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
 
     /**
      * Initialize collection
-     *
      */
     protected function _construct()
     {
@@ -45,12 +44,12 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
                 $item->setStoreId($this->getStoreId());
             }
         }
+
         return $this;
     }
 
     /**
      * Initialize collection select
-     *
      */
     protected function _initSelect()
     {
@@ -106,6 +105,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
         if (!empty($optionIds)) {
             $this->getSelect()->where('selection.option_id IN (?)', $optionIds);
         }
+
         return $this;
     }
 
@@ -120,6 +120,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
         if (!empty($selectionIds)) {
             $this->getSelect()->where('selection.selection_id IN (?)', $selectionIds);
         }
+
         return $this;
     }
 

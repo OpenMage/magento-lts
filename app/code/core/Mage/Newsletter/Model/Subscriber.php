@@ -13,44 +13,56 @@
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
- * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
  * @method string getChangeStatusAt()
- * @method $this setChangeStatusAt(string $value)
- * @method bool hasCheckCode()
  * @method string getCheckCode()
- * @method $this setCheckCode(string $value)
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getCollection()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method setImportMode(bool $value)
- * @method string getName()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getSubscriberConfirmCode()
- * @method $this setSubscriberConfirmCode(string $value)
- * @method string getSubscriberEmail()
- * @method $this setSubscriberEmail(string $value)
- * @method int getSubscriberId()
- * @method $this setSubscriberId(int $value)
- * @method int getSubscriberStatus()
- * @method $this setSubscriberStatus(int $value)
  * @method bool getImportMode()
+ * @method string getName()
+ * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
+ * @method Mage_Newsletter_Model_Resource_Subscriber_Collection getResourceCollection()
+ * @method int getStoreId()
+ * @method string getSubscriberConfirmCode()
+ * @method string getSubscriberEmail()
+ * @method int getSubscriberId()
+ * @method int getSubscriberStatus()
+ * @method bool hasCheckCode()
  * @method bool hasCustomerFirstname()
  * @method bool hasCustomerLastname()
+ * @method $this setChangeStatusAt(string $value)
+ * @method $this setCheckCode(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method setImportMode(bool $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setSubscriberConfirmCode(string $value)
+ * @method $this setSubscriberEmail(string $value)
+ * @method $this setSubscriberId(int $value)
+ * @method $this setSubscriberStatus(int $value)
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
     public const STATUS_SUBSCRIBED     = 1;
+
     public const STATUS_NOT_ACTIVE     = 2;
+
     public const STATUS_UNSUBSCRIBED   = 3;
+
     public const STATUS_UNCONFIRMED    = 4;
 
     public const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'newsletter/subscription/confirm_email_template';
+
     public const XML_PATH_CONFIRM_EMAIL_IDENTITY       = 'newsletter/subscription/confirm_email_identity';
+
     public const XML_PATH_SUCCESS_EMAIL_TEMPLATE       = 'newsletter/subscription/success_email_template';
+
     public const XML_PATH_SUCCESS_EMAIL_IDENTITY       = 'newsletter/subscription/success_email_identity';
+
     public const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
+
     public const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
+
     public const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
+
     public const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
     /**
@@ -174,6 +186,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $scope
      * @return $this
+     * @throws Mage_Core_Exception
      */
 
     public function setMessagesScope($scope)
@@ -244,6 +257,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $subscriberEmail
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByEmail($subscriberEmail)
     {
@@ -255,6 +269,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Load subscriber info by customer
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function loadByCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -266,8 +282,10 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($this->getStatus() == self::STATUS_NOT_ACTIVE) {
                 $this->setStatus($customer->getIsSubscribed() ? self::STATUS_SUBSCRIBED : self::STATUS_UNSUBSCRIBED);
             }
+
             $this->save();
         }
+
         return $this;
     }
 
@@ -279,24 +297,26 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function randomSequence($length = 32)
     {
-        $id = '';
+        $str = '';
         $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
         $charLen = count($char) - 1;
-        for ($i = 0; $i < $length; $i++) {
+        for ($index = 0; $index < $length; $index++) {
             $disc = mt_rand(0, $charLen);
-            $par[$i] = $char[$disc];
-            $id = $id . $char[$disc];
+            $par[$index] = $char[$disc];
+            $str .= $char[$disc];
         }
-        return $id;
+
+        return $str;
     }
 
     /**
      * Subscribes by email
      *
      * @param string $email
-     * @throws Exception
      * @return int
+     * @throws Exception
+     * @throws Throwable
      */
     public function subscribe($email)
     {
@@ -329,6 +349,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             } else {
                 $this->setStatus(self::STATUS_SUBSCRIBED);
             }
+
             $this->setSubscriberEmail($email);
         } elseif ($this->getStatus() == self::STATUS_SUBSCRIBED) {
             Mage::throwException(Mage::helper('newsletter')->__('This email address is already registered.'));
@@ -359,6 +380,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Unsubscribes loaded subscription
      *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function unsubscribe()
     {
@@ -377,6 +400,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param   Mage_Customer_Model_Customer $customer
      * @return  $this
+     * @throws  Mage_Core_Exception
+     * @throws  Throwable
      */
     public function subscribeCustomer($customer)
     {
@@ -433,6 +458,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($customer->getStoreId() == 0) {
                 $storeId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
             }
+
             $this->setStoreId($storeId)
                 ->setCustomerId($customer->getId())
                 ->setEmail($customer->getEmail());
@@ -443,13 +469,14 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
         $this->save();
         $sendSubscription = $customer->getData('sendSubscription') || $sendInformationEmail;
-        if (is_null($sendSubscription) xor $sendSubscription) {
+        if ($sendSubscription) {
             if ($this->getIsStatusChanged() && $status == self::STATUS_UNSUBSCRIBED) {
                 $this->sendUnsubscriptionEmail();
             } elseif ($this->getIsStatusChanged() && $status == self::STATUS_SUBSCRIBED) {
                 $this->sendConfirmationSuccessEmail();
             }
         }
+
         return $this;
     }
 
@@ -458,6 +485,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      *
      * @param string $code
      * @return bool
+     * @throws Throwable
      */
     public function confirm($code)
     {
@@ -475,6 +503,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Mark receiving subscriber of queue newsletter
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function received(Mage_Newsletter_Model_Queue $queue)
     {
@@ -486,6 +515,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out confirmation email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendConfirmationRequestEmail()
     {
@@ -523,6 +553,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out confirmation success email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendConfirmationSuccessEmail()
     {
@@ -560,12 +591,14 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * Sends out unsubsciption email
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendUnsubscriptionEmail()
     {
         if ($this->getImportMode()) {
             return $this;
         }
+
         if (!Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE)
             || !Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY)
         ) {
@@ -595,7 +628,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Retrieve Subscribers Full Name if it was set
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSubscriberFullName()
     {
@@ -603,6 +636,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         if ($this->hasCustomerFirstname() || $this->hasCustomerLastname()) {
             $name = Mage::helper('customer')->getFullCustomerName($this);
         }
+
         return $name;
     }
 }

@@ -29,7 +29,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Retrieve credit memos list. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -45,18 +45,19 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             foreach ($creditMemoCollection as $creditmemo) {
                 $creditmemos[] = $this->_getAttributes($creditmemo, 'creditmemo');
             }
-        } catch (Exception $e) {
-            $this->_fault('invalid_filter', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('invalid_filter', $exception->getMessage());
         }
+
         return $creditmemos;
     }
 
     /**
      * Make filter of appropriate format for list method
      *
+     * @param null|array $filter
+     * @return null|array
      * @deprecated since 1.7.0.1
-     * @param array|null $filter
-     * @return array|null
      */
     protected function _prepareListFilter($filter = null)
     {
@@ -69,6 +70,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 }
             }
         }
+
         return $filter;
     }
 
@@ -89,6 +91,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         foreach ($creditmemo->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'creditmemo_item');
         }
+
         // credit memo comments
         $result['comments'] = [];
         foreach ($creditmemo->getCommentsCollection() as $comment) {
@@ -104,7 +107,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * @param string $orderIncrementId
      * @param array $creditmemoData array('qtys' => array('sku1' => qty1, ... , 'skuN' => qtyN),
      *      'shipping_amount' => value, 'adjustment_positive' => value, 'adjustment_negative' => value)
-     * @param string|null $comment
+     * @param null|string $comment
      * @param bool $notifyCustomer
      * @param bool $includeComment
      * @param string $refundToStoreCreditAmount
@@ -123,9 +126,11 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
+
         if (!$order->canCreditmemo()) {
             $this->_fault('cannot_create_creditmemo');
         }
+
         $creditmemoData = $this->_prepareCreateData($creditmemoData);
 
         /** @var Mage_Sales_Model_Service_Order $service */
@@ -138,6 +143,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             if ($order->getCustomerIsGuest()) {
                 $this->_fault('cannot_refund_to_storecredit');
             }
+
             $refundToStoreCreditAmount = max(
                 0,
                 min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount),
@@ -154,11 +160,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $creditmemo->setCustomerBalanceRefundFlag(true);
             }
         }
+
         $creditmemo->setPaymentRefundDisallowed(true)->register();
         // add comment to creditmemo
         if (!empty($comment)) {
             $creditmemo->addComment($comment, $notifyCustomer);
         }
+
         try {
             Mage::getModel('core/resource_transaction')
                 ->addObject($creditmemo)
@@ -166,9 +174,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 ->save();
             // send email notification
             $creditmemo->sendEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
+
         return $creditmemo->getIncrementId();
     }
 
@@ -188,8 +197,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             $creditmemo->addComment($comment, $notifyCustomer);
             $creditmemo->getCommentsCollection()->save();
             $creditmemo->sendUpdateEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -208,9 +217,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->canCancel()) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo cannot be canceled.'));
         }
+
         try {
             $creditmemo->cancel()->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo canceling problem.'));
         }
 
@@ -220,7 +230,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Hook method, could be replaced in derived classes
      *
-     * @param  array|null $data
+     * @param  null|array $data
      * @return array
      */
     protected function _prepareCreateData($data)
@@ -239,8 +249,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                     $qtysArray[$qKey] = $qVal;
                 }
             }
+
             $data['qtys'] = $qtysArray;
         }
+
         return $data;
     }
 
@@ -257,6 +269,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->getId()) {
             $this->_fault('not_exists');
         }
+
         return $creditmemo;
     }
 }

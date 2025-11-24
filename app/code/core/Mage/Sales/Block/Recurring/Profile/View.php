@@ -219,10 +219,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 $this->getParentBlock()->unsetChild('sales.recurring.profile.view.shipping');
                 return;
             }
+
             $key = 'shipping_address_info';
         } else {
             $key = 'billing_address_info';
         }
+
         $this->setIsAddress(true);
         $address = Mage::getModel('sales/order_address', $this->_profile->getData($key));
         $this->_addInfo([
@@ -295,6 +297,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'increment_id_link_url' => $this->getUrl('sales/order/view/', ['order_id' => $order->getId()]),
             ]);
         }
+
         if ($orders) {
             $this->setGridElements($orders);
         }
@@ -311,12 +314,15 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         if ($value === null) {
             return '';
         }
+
         if (is_array($value)) {
             $value = implode("\n", $value);
         }
+
         if (!$row->getSkipHtmlEscaping()) {
             $value = $this->escapeHtml($value);
         }
+
         return nl2br($value);
     }
 

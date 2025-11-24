@@ -28,12 +28,14 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Discount extend
             if (strlen($couponCode)) {
                 $title .= sprintf(' (%s)', $couponCode);
             }
+
             $address->addTotal([
                 'code'  => 'discount',
                 'title' => $title,
                 'value' => -$amount,
             ]);
         }
+
         return $this;
     }
 }

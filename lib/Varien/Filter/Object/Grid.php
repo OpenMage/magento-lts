@@ -10,7 +10,7 @@
 class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
     /**
-     * @param Varien_Object|array $grid
+     * @param array|Varien_Object $grid
      * @return array
      * @throws Exception
      */
@@ -22,6 +22,7 @@ class Varien_Filter_Object_Grid extends Varien_Filter_Object
                 $out[$i] = parent::filter($array);
             }
         }
+
         return $out;
     }
 }

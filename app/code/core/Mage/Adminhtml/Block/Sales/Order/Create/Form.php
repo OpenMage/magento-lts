@@ -47,6 +47,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         if (is_null($customerId)) {
             return 'block';
         }
+
         return 'none';
     }
 
@@ -60,6 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         if (!is_null($customerId) && !$storeId) {
             return 'block';
         }
+
         return 'none';
     }
 
@@ -73,6 +75,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
         if (!is_null($customerId) && $storeId) {
             return 'block';
         }
+
         return 'none';
     }
 
@@ -92,6 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
                     ->outputData(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON);
             }
         }
+
         if (!is_null($this->getStoreId())) {
             $data['store_id'] = $this->getStoreId();
             $currency = Mage::app()->getLocale()->currency($this->getStore()->getCurrentCurrencyCode());
@@ -100,6 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
             $data['shipping_method_reseted'] = !(bool) $this->getQuote()->getShippingAddress()->getShippingMethod();
             $data['payment_method'] = $this->getQuote()->getPayment()->getMethod();
         }
+
         return Mage::helper('core')->jsonEncode($data);
     }
 }

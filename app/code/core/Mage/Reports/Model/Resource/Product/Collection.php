@@ -11,6 +11,8 @@
  * Products Report collection
  *
  * @package    Mage_Reports
+ *
+ * @method Mage_Reports_Model_Report getEntity()
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -46,7 +48,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Init main class options
-     *
      */
     public function __construct()
     {
@@ -57,6 +58,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         parent::__construct();
     }
+
     /**
      * Set Type for COUNT SQL Select
      *
@@ -407,6 +409,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         if (!is_array($websiteIds)) {
             $websiteIds = [$websiteIds];
         }

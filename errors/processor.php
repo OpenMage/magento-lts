@@ -8,15 +8,18 @@
  */
 
 /**
-* Error processor
-*
-*/
+ * Error processor
+ */
 class Error_Processor
 {
     public const MAGE_ERRORS_LOCAL_XML = 'local.xml';
+
     public const MAGE_ERRORS_DESIGN_XML = 'design.xml';
+
     public const DEFAULT_SKIN = 'default';
+
     public const DEFAULT_TRASH_MODE = 'leave';
+
     public const ERROR_DIR = 'errors';
 
     /** @var string */
@@ -50,7 +53,7 @@ class Error_Processor
      * Show message after sending email
      *
      * @var bool
-    */
+     */
     public $showSentMsg;
 
     /** @var bool */
@@ -60,7 +63,7 @@ class Error_Processor
      * Server script name
      *
      * @var string
-    */
+     */
     protected $_scriptName;
 
     /** @var bool */
@@ -79,7 +82,7 @@ class Error_Processor
      * Internal config object
      *
      * @var stdClass
-    */
+     */
     protected $_config;
 
     public function __construct()
@@ -111,7 +114,7 @@ class Error_Processor
 
     /**
      * Process 404 error
-    */
+     */
     public function process404()
     {
         $this->pageTitle = 'Error 404: Not Found';
@@ -121,7 +124,7 @@ class Error_Processor
 
     /**
      * Process 503 error
-    */
+     */
     public function process503()
     {
         $this->pageTitle = 'Error 503: Service Unavailable';
@@ -131,7 +134,7 @@ class Error_Processor
 
     /**
      * Process report
-    */
+     */
     public function processReport()
     {
         $this->pageTitle = 'There has been an error processing your request';
@@ -147,6 +150,7 @@ class Error_Processor
             $this->showSendForm = true;
             $this->sendReport();
         }
+
         $this->_renderPage('report.phtml');
     }
 
@@ -212,6 +216,7 @@ class Error_Processor
         if (!empty($_SERVER['DOCUMENT_ROOT'])) {
             $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
         }
+
         return dirname($documentRoot . $this->_scriptName) . '/';
     }
 
@@ -235,23 +240,29 @@ class Error_Processor
         if ($design !== null && ($skin = (string) $design->skin)) {
             $this->_setSkin($skin, $config);
         }
+
         if ($local !== null) {
             if ($action = (string) $local->report->action) {
                 $config->action = $action;
             }
+
             if ($subject = (string) $local->report->subject) {
                 $config->subject = $subject;
             }
+
             if ($emailAddress = (string) $local->report->email_address) {
                 $config->email_address = $emailAddress;
             }
+
             if ($trash = (string) $local->report->trash) {
                 $config->trash = $trash;
             }
+
             if ($localSkin = (string) $local->skin) {
                 $this->_setSkin($localSkin, $config);
             }
         }
+
         if ($config->email_address === '' && $config->action === 'email') {
             $config->action = '';
         }
@@ -263,7 +274,7 @@ class Error_Processor
      * Load xml file
      *
      * @param string $xmlFile file name
-     * @return SimpleXMLElement|null
+     * @return null|SimpleXMLElement
      */
     protected function _loadXml(string $xmlFile)
     {
@@ -300,8 +311,8 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param array|null $directories
-     * @return string|null
+     * @param null|array $directories
+     * @return null|string
      */
     protected function _getFilePath(string $file, $directories = null)
     {
@@ -311,6 +322,7 @@ class Error_Processor
             if (!$this->_root) {
                 $directories[] = $this->_indexDir . self::ERROR_DIR . '/';
             }
+
             $directories[] = $this->_errorDir;
         }
 
@@ -319,13 +331,14 @@ class Error_Processor
                 return $directory . $file;
             }
         }
+
         return null;
     }
 
     /**
      * Find template path
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getTemplatePath(string $template)
     {
@@ -378,13 +391,14 @@ class Error_Processor
             @mkdir($this->_reportDir, 0750, true);
         }
 
-        $reportData = array_map('strip_tags', $reportData);
+        $reportData = array_map(strip_tags(...), $reportData);
         @file_put_contents($this->_reportFile, serialize($reportData));
         @chmod($this->_reportFile, 0640);
 
         if (isset($reportData['skin']) && self::DEFAULT_SKIN !== $reportData['skin']) {
             $this->_setSkin($reportData['skin']);
         }
+
         $this->_setReportUrl();
 
         if (headers_sent()) {
@@ -396,7 +410,7 @@ class Error_Processor
     }
 
     /**
-     * @return void|no-return
+     * @return no-return|void
      */
     public function loadReport(int $reportId)
     {
@@ -413,6 +427,7 @@ class Error_Processor
         if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent)) {
             $reportData = unserialize($reportContent, ['allowed_classes' => false]);
         }
+
         if (is_array($reportData)) {
             $this->_setReportData($reportData);
         }
@@ -442,6 +457,7 @@ class Error_Processor
                 if ($this->postData['telephone']) {
                     $msg .= "Telephone: {$this->postData['telephone']}\n";
                 }
+
                 if ($this->postData['comment']) {
                     $msg .= "Comment: {$this->postData['comment']}\n";
                 }
@@ -489,12 +505,11 @@ class Error_Processor
      */
     protected function _setSkin(string $value, ?stdClass $config = null)
     {
-        if (preg_match('/^[a-z0-9_]+$/i', $value)
-            && is_dir($this->_indexDir . self::ERROR_DIR . '/' . $value)
-        ) {
+        if (preg_match('/^[a-z0-9_]+$/i', $value) && is_dir($this->_errorDir . $value)) {
             if (!$config && $this->_config) {
                 $config = $this->_config;
             }
+
             if ($config) {
                 $config->skin = $value;
             }

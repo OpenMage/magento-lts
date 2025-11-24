@@ -39,9 +39,9 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
      * Logs debug information for a PayPal API request if debugging is enabled.
      *
      * @param string $action Action being performed (e.g., 'Create Order').
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object.
-     * @param array $request Request object or data sent to the API.
-     * @param ApiResponse|null $response API response, if available.
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote quote or order object
+     * @param array $request request object or data sent to the API
+     * @param null|ApiResponse $response API response, if available
      */
     public function logDebug(
         string $action,
@@ -71,6 +71,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                         ->setResponseBody(json_encode($response->getResult()));
                 }
             }
+
             $debug->save();
         }
     }
@@ -78,8 +79,8 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Logs an error message and exception details if debugging is enabled.
      *
-     * @param string $message The error message.
-     * @param Exception $exception The exception object.
+     * @param string $message the error message
+     * @param Exception $exception the exception object
      */
     public function logError(string $message, Exception $exception): void
     {
@@ -141,15 +142,18 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 return $errorMessage;
             }
         }
+
         if (is_object($result)) {
             $errorMessage = $this->_extractFromObjectResponse($result, $defaultMessage);
             if ($errorMessage !== $defaultMessage) {
                 return $errorMessage;
             }
         }
+
         if (is_string($result) && !empty($result)) {
             return $result;
         }
+
         return $defaultMessage;
     }
 
@@ -187,6 +191,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $properties = ['message', 'error_message', 'description'];
         foreach ($properties as $property) {
             if (property_exists($result, $property) && !empty($result->$property)) {
@@ -213,6 +218,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 } elseif (is_object($detail)) {
                     $issue = $detail->issue ?? '';
                 }
+
                 if (!empty($issue)) {
                     $errorMessages[] = $this->_getReadableErrorMessage($issue);
                 }
@@ -222,6 +228,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         if (empty($errorMessages) && isset($result['message'])) {
             $errorMessages[] = $result['message'];
         }
+
         return implode('; ', $errorMessages);
     }
 
@@ -233,7 +240,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     private function _getReadableErrorMessage(string $errorCode): string
     {
         $errorMessages = [
-            'INSTRUMENT_DECLINED' => $this->_helper->__('The instrument presented was either declined by the processor or bank, or it can\'t be used for this payment.'),
+            'INSTRUMENT_DECLINED' => $this->_helper->__("The instrument presented was either declined by the processor or bank, or it can't be used for this payment."),
         ];
 
         return $errorMessages[$errorCode] ?? $errorCode;
@@ -247,9 +254,9 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function extractCaptureId(mixed $result): ?string
     {
         if (
-            !method_exists($result, 'getPurchaseUnits') ||
-            !is_array($result->getPurchaseUnits()) ||
-            empty($result->getPurchaseUnits())
+            !method_exists($result, 'getPurchaseUnits')
+            || !is_array($result->getPurchaseUnits())
+            || empty($result->getPurchaseUnits())
         ) {
             return null;
         }
@@ -258,9 +265,9 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         $payments = $purchaseUnit->getPayments();
 
         if (
-            !method_exists($payments, 'getCaptures') ||
-            !is_array($payments->getCaptures()) ||
-            empty($payments->getCaptures())
+            !method_exists($payments, 'getCaptures')
+            || !is_array($payments->getCaptures())
+            || empty($payments->getCaptures())
         ) {
             return null;
         }
@@ -280,6 +287,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         if (isset($decoded['links'])) {
             unset($decoded['links']);
         }
+
         return array_map(
             fn($v) => is_array($v) ? json_encode($v) : $v,
             $decoded ?? [],
@@ -290,10 +298,10 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
      * Add order status comment
      *
      * @param string $action Action performed (captured, authorized, etc.)
-     * @param string|null $transactionId Transaction ID
+     * @param null|string $transactionId Transaction ID
      */
     public function addOrderComment(
-        Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote,
+        Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
         string $action,
         ?string $transactionId
     ): void {
@@ -317,8 +325,8 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function handleMultishippingNotification(?Mage_Sales_Model_Quote $quote): void
     {
         if (
-            $quote?->getIsMultiShipping() &&
-            Mage::getSingleton('paypal/config')->getPaymentAction() === strtolower(CheckoutPaymentIntent::AUTHORIZE)
+            $quote?->getIsMultiShipping()
+            && Mage::getSingleton('paypal/config')->getPaymentAction() === strtolower(CheckoutPaymentIntent::AUTHORIZE)
         ) {
             Mage::getSingleton('core/session')->addNotice(
                 Mage::helper('paypal')->__(
@@ -371,6 +379,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         if ($payment && $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID)) {
             return $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID);
         }
+
         return null;
     }
 }

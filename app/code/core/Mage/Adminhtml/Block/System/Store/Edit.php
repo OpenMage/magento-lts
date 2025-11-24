@@ -17,8 +17,8 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
 {
     public function __construct()
     {
-        $backupAvailable =
-            Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
+        $backupAvailable
+            = Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
             && $this->isModuleEnabled('Mage_Backup')
             && !Mage::getStoreConfigFlag('advanced/modules_disable_output/Mage_Backup');
 
@@ -46,6 +46,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
                 $deleteUrl   = $this->_getDeleteUrl(Mage::registry('store_type'), $backupAvailable);
                 break;
         }
+
         $this->_controller = 'system_store';
 
         parent::__construct();
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
         if (!Mage::registry('store_data')->isCanDelete()) {
             $this->_removeButton('delete');
         }
+
         if (Mage::registry('store_data')->isReadOnly()) {
             $this->_removeButton('save')->_removeButton('reset');
         }

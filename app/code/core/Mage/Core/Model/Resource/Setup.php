@@ -15,15 +15,23 @@
 class Mage_Core_Model_Resource_Setup
 {
     public const DEFAULT_SETUP_CONNECTION  = 'core_setup';
+
     public const VERSION_COMPARE_EQUAL     = 0;
+
     public const VERSION_COMPARE_LOWER     = -1;
+
     public const VERSION_COMPARE_GREATER   = 1;
 
     public const TYPE_DB_INSTALL           = 'install';
+
     public const TYPE_DB_UPGRADE           = 'upgrade';
+
     public const TYPE_DB_ROLLBACK          = 'rollback';
+
     public const TYPE_DB_UNINSTALL         = 'uninstall';
+
     public const TYPE_DATA_INSTALL         = 'data-install';
+
     public const TYPE_DATA_UPGRADE         = 'data-upgrade';
 
     /**
@@ -66,12 +74,14 @@ class Mage_Core_Model_Resource_Setup
      * @var Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
      */
     protected $_conn;
+
     /**
      * Tables cache array
      *
      * @var array
      */
     protected $_tables = [];
+
     /**
      * Tables data cache array
      *
@@ -126,6 +136,7 @@ class Mage_Core_Model_Resource_Setup
         if (!$connection) {
             $connection = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
         }
+
         $this->_conn = $connection;
     }
 
@@ -155,7 +166,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get table name (validated by db adapter) by table placeholder
      *
-     * @param string|array $tableName
+     * @param array|string $tableName
      * @return string
      */
     public function getTable($tableName)
@@ -164,13 +175,14 @@ class Mage_Core_Model_Resource_Setup
         if (!isset($this->_tables[$cacheKey])) {
             $this->_tables[$cacheKey] = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
+
         return $this->_tables[$cacheKey];
     }
 
     /**
      * Retrieve table name for cache
      *
-     * @param string|array $tableName
+     * @param array|string $tableName
      * @return string
      */
     protected function _getTableCacheName($tableName)
@@ -178,6 +190,7 @@ class Mage_Core_Model_Resource_Setup
         if (is_array($tableName)) {
             return implode('_', $tableName);
         }
+
         return $tableName;
     }
 
@@ -207,10 +220,12 @@ class Mage_Core_Model_Resource_Setup
             if (!$resource->setup) {
                 continue;
             }
+
             $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
@@ -230,22 +245,24 @@ class Mage_Core_Model_Resource_Setup
 
     /**
      * Apply database data updates whenever needed
-     *
      */
     public static function applyAllDataUpdates()
     {
         if (!self::$_schemaUpdatesChecked) {
             return;
         }
+
         $resources = Mage::getConfig()->getNode('global/resources')->children();
         foreach ($resources as $resName => $resource) {
             if (!$resource->setup) {
                 continue;
             }
+
             $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyDataUpdates();
@@ -269,6 +286,7 @@ class Mage_Core_Model_Resource_Setup
         } elseif ($configVer) {
             $this->_installData($configVer);
         }
+
         return $this;
     }
 
@@ -338,9 +356,11 @@ class Mage_Core_Model_Resource_Setup
         if (!$this->_queriesHooked) {
             return $this;
         }
+
         /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
+
         $this->_queriesHooked = false;
         return $this;
     }
@@ -476,6 +496,7 @@ class Mage_Core_Model_Resource_Setup
                 $typeFiles[$matches[1]] = $filesDir . DS . $file;
             }
         }
+
         $handlerDir->close();
 
         if (empty($typeFiles) && empty($dbFiles)) {
@@ -512,6 +533,7 @@ class Mage_Core_Model_Resource_Setup
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
             }
+
             $handlerDir->close();
         }
 
@@ -527,6 +549,7 @@ class Mage_Core_Model_Resource_Setup
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
             }
+
             $handlerDir->close();
         }
 
@@ -561,7 +584,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $actionType self::TYPE_*
      * @param string $fromVersion
      * @param string $toVersion
-     * @return string|false
+     * @return false|string
      * @throws Mage_Core_Exception
      */
 
@@ -595,6 +618,7 @@ class Mage_Core_Model_Resource_Setup
                         } else {
                             $result = true;
                         }
+
                         break;
                     default:
                         $result = false;
@@ -607,9 +631,11 @@ class Mage_Core_Model_Resource_Setup
             } catch (Exception $e) {
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $e->getMessage()));
             }
+
             $version = $file['toVersion'];
             $this->getConnection()->allowDdlCache();
         }
+
         self::$_hadUpdates = true;
         return $version;
     }
@@ -629,7 +655,7 @@ class Mage_Core_Model_Resource_Setup
         switch ($actionType) {
             case self::TYPE_DB_INSTALL:
             case self::TYPE_DATA_INSTALL:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[0] = [
@@ -638,11 +664,12 @@ class Mage_Core_Model_Resource_Setup
                         ];
                     }
                 }
+
                 break;
 
             case self::TYPE_DB_UPGRADE:
             case self::TYPE_DATA_UPGRADE:
-                uksort($arrFiles, 'version_compare');
+                uksort($arrFiles, version_compare(...));
                 foreach ($arrFiles as $version => $file) {
                     $versionInfo = explode('-', $version);
 
@@ -650,6 +677,7 @@ class Mage_Core_Model_Resource_Setup
                     if (count($versionInfo) != 2) {
                         continue;
                     }
+
                     $infoFrom = $versionInfo[0];
                     $infoTo   = $versionInfo[1];
                     if (version_compare($infoFrom, $fromVersion) !== self::VERSION_COMPARE_LOWER
@@ -661,6 +689,7 @@ class Mage_Core_Model_Resource_Setup
                         ];
                     }
                 }
+
                 break;
 
             case self::TYPE_DB_ROLLBACK:
@@ -669,6 +698,7 @@ class Mage_Core_Model_Resource_Setup
             case self::TYPE_DB_UNINSTALL:
                 break;
         }
+
         return $arrRes;
     }
 
@@ -679,11 +709,11 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
+     * @param int|string $id
      * @param string $field
      * @param string $parentField
-     * @param string|int $parentId
-     * @return mixed|bool
+     * @param int|string $parentId
+     * @return bool|mixed
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
@@ -701,25 +731,27 @@ class Mage_Core_Model_Resource_Setup
                 $select->where($adapter->quoteIdentifier($parentField) . '= :parent_id');
                 $bind['parent_id'] = $parentId;
             }
+
             $this->_setupCache[$table][$parentId][$id] = $adapter->fetchRow($select, $bind);
         }
 
         if (is_null($field)) {
             return $this->_setupCache[$table][$parentId][$id];
         }
+
         return $this->_setupCache[$table][$parentId][$id][$field] ?? false;
     }
 
     /**
-    * Delete table row
-    *
-    * @param string $table
-    * @param string $idField
-    * @param int|string $id
-    * @param null|string $parentField
-    * @param int|string $parentId
-    * @return $this
-    */
+     * Delete table row
+     *
+     * @param string $table
+     * @param string $idField
+     * @param int|string $id
+     * @param null|string $parentField
+     * @param int|string $parentId
+     * @return $this
+     */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
         if (str_contains($table, '/')) {
@@ -746,11 +778,11 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
-     * @param string|array $field
-     * @param mixed|null $value
+     * @param int|string $id
+     * @param array|string $field
+     * @param null|mixed $value
      * @param string $parentField
-     * @param string|int $parentId
+     * @param int|string $parentId
      * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
@@ -771,8 +803,8 @@ class Mage_Core_Model_Resource_Setup
 
         if (isset($this->_setupCache[$table][$parentId][$id])) {
             if (is_array($field)) {
-                $this->_setupCache[$table][$parentId][$id] =
-                    array_merge($this->_setupCache[$table][$parentId][$id], $field);
+                $this->_setupCache[$table][$parentId][$id]
+                    = array_merge($this->_setupCache[$table][$parentId][$id], $field);
             } else {
                 $this->_setupCache[$table][$parentId][$id][$field] = $value;
             }
@@ -796,6 +828,7 @@ class Mage_Core_Model_Resource_Setup
         if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
+
         $query = sprintf(
             'UPDATE %s SET %s WHERE %s',
             $this->getConnection()->quoteIdentifier($table),
@@ -877,6 +910,7 @@ class Mage_Core_Model_Resource_Setup
         if (!is_null($scope)) {
             $where['scope = ?'] = $scope;
         }
+
         $this->getConnection()->delete($this->getTable('core/config_data'), $where);
         return $this;
     }

@@ -39,7 +39,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * @deprecated
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]|null
+     * @var null|Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     protected $_editableAttributes;
 
@@ -79,13 +79,14 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected $_fileQueue       = [];
 
     public const CALCULATE_CHILD = 0;
+
     public const CALCULATE_PARENT = 1;
 
     /**
      * values for shipment type (invoice etc)
-     *
      */
     public const SHIPMENT_SEPARATELY = 1;
+
     public const SHIPMENT_TOGETHER = 0;
 
     /**
@@ -143,6 +144,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (is_object($product)) {
             return $product;
         }
+
         return $this->_product;
     }
 
@@ -174,7 +176,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve parent ids array by required child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -235,8 +237,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $editableAttributes[$attributeCode] = $attribute;
                 }
             }
+
             $this->getProduct($product)->setData($cacheKey, $editableAttributes);
         }
+
         return $this->getProduct($product)->getData($cacheKey);
     }
 
@@ -245,7 +249,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param int|string $attributeId
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract|null
+     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttributeById($attributeId, $product = null)
     {
@@ -254,6 +258,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 return $attribute;
             }
         }
+
         return null;
     }
 
@@ -272,7 +277,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is product available for sale
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool|null
+     * @return null|bool
      */
     public function isSalable($product = null)
     {
@@ -301,13 +306,14 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         // try to add custom options
         try {
             $options = $this->_prepareOptions($buyRequest, $product, $processMode);
-        } catch (Mage_Core_Exception $e) {
-            return $e->getMessage();
+        } catch (Mage_Core_Exception $mageCoreException) {
+            return $mageCoreException->getMessage();
         }
 
         if (is_string($options)) {
             return $options;
         }
+
         // try to found super product configuration
         // (if product was buying within grouped product)
         $superProductConfig = $buyRequest->getSuperProductConfig();
@@ -320,6 +326,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $superProduct = Mage::getModel('catalog/product')->load($superProductId);
                     Mage::register('used_super_product_' . $superProductId, $superProduct);
                 }
+
                 if ($superProduct->getId()) {
                     $assocProductIds = $superProduct->getTypeInstance(true)->getAssociatedProductIds($superProduct);
                     if (in_array($product->getId(), $assocProductIds)) {
@@ -351,6 +358,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->_isStrictProcessMode($processMode)) {
             $product->setCartQty($buyRequest->getQty());
         }
+
         $product->setQty($buyRequest->getQty());
 
         return [$product];
@@ -388,6 +396,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (!$processMode) {
             $processMode = self::PROCESS_MODE_FULL;
         }
+
         $_products = $this->_prepareProduct($buyRequest, $product, $processMode);
         $this->processFileQueue();
         return $_products;
@@ -438,8 +447,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                             if (isset($queueOptions['option'])) {
                                 $queueOptions['option']->setIsValid(false);
                             }
+
                             Mage::throwException(Mage::helper('catalog')->__('File upload failed'));
                         }
+
                         Mage::helper('core/file_storage_database')->saveFile($dst);
                         break;
                     case 'move_uploaded_file':
@@ -452,6 +463,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         break;
                 }
             }
+
             $queueOptions = null;
         }
 
@@ -488,7 +500,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function getSpecifyOptionMessage()
     {
-        return Mage::helper('catalog')->__('Please specify the product\'s required option(s).');
+        return Mage::helper('catalog')->__("Please specify the product's required option(s).");
     }
 
     /**
@@ -529,11 +541,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Process product custom defined options for cart
      *
-     * @deprecated after 1.4.2.0
-     * @see _prepareOptions()
-     *
      * @param Mage_Catalog_Model_Product $product
      * @return array
+     * @deprecated after 1.4.2.0
+     * @see _prepareOptions()
      */
     protected function _prepareOptionsForCart(Varien_Object $buyRequest, $product = null)
     {
@@ -640,7 +651,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         foreach ($eavConfig->getEntityAttributeCodes($entityType, $product) as $attributeCode) {
             $attribute = $eavConfig->getAttribute($entityType, $attributeCode);
             $applyTo   = $attribute->getApplyTo();
-            if (is_array($applyTo) && count($applyTo) > 0 && !in_array($product->getTypeId(), $applyTo)) {
+            if (is_array($applyTo) && $applyTo !== [] && !in_array($product->getTypeId(), $applyTo)) {
                 $product->unsetData($attribute->getAttributeCode());
             }
         }
@@ -703,6 +714,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
             $sku = $this->getOptionSku($product, $sku);
         }
+
         return $sku;
     }
 
@@ -719,6 +731,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (empty($sku)) {
             $sku = $this->getProduct($product)->getData('sku');
         }
+
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
@@ -741,8 +754,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 }
             }
         }
+
         return $sku;
     }
+
     /**
      * Default action to get weight of product
      *
@@ -765,9 +780,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getHasOptions()) {
             return true;
         }
+
         if ($this->getProduct($product)->isRecurring()) {
             return true;
         }
+
         return false;
     }
 
@@ -798,14 +815,15 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getRequiredOptions()) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Retrieve store filter for associated products
      *
-     * @param Mage_Catalog_Model_Product|null $product
-     * @return Mage_Core_Model_Store|int|null
+     * @param null|Mage_Catalog_Model_Product $product
+     * @return null|int|Mage_Core_Model_Store
      */
     public function getStoreFilter($product = null)
     {
@@ -817,7 +835,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param int|Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setStoreFilter($store = null, $product = null)
@@ -831,7 +849,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -843,7 +861,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare Quote Item Quantity
      *
      * @param mixed $qty
-     * @param Mage_Catalog_Model_Product|null $product
+     * @param null|Mage_Catalog_Model_Product $product
      * @return float
      */
     public function prepareQuoteItemQty($qty, $product = null)
@@ -917,6 +935,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->isComposite($product)) {
             return [];
         }
+
         return [[$product]];
     }
 

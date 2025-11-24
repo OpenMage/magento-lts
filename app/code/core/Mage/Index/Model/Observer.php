@@ -13,6 +13,7 @@
 class Mage_Index_Model_Observer
 {
     public const OLD_INDEX_EVENT_THRESHOLD_SECONDS = 24 * 60 * 60;
+
     public const OLD_INDEX_EVENT_DELETE_COUNT = 1000;
 
     /**

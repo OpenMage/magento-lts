@@ -256,6 +256,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         if (!$data) {
             return $this;
         }
+
         $adapter = $this->_getWriteAdapter();
         $adapter->insertArray($this->getIdxTable(), ['entity_id', 'attribute_id', 'store_id', 'value'], $data);
         return $this;
@@ -272,6 +273,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_eav_indexer_idx');
         }
+
         return $this->getTable('catalog/product_eav_indexer_tmp');
     }
 }

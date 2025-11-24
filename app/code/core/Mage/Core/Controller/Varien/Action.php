@@ -17,17 +17,27 @@
 abstract class Mage_Core_Controller_Varien_Action
 {
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
+
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
+
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
+
     public const FLAG_NO_POST_DISPATCH         = 'no-postDispatch';
+
     public const FLAG_NO_START_SESSION         = 'no-startSession';
+
     public const FLAG_NO_DISPATCH_BLOCK_EVENT  = 'no-beforeGenerateLayoutBlocksDispatch';
+
     public const FLAG_NO_COOKIES_REDIRECT      = 'no-cookies-redirect';
 
     public const PARAM_NAME_SUCCESS_URL        = 'success_url';
+
     public const PARAM_NAME_ERROR_URL          = 'error_url';
+
     public const PARAM_NAME_REFERER_URL        = 'referer_url';
+
     public const PARAM_NAME_BASE64_URL         = 'r64';
+
     public const PARAM_NAME_URL_ENCODED        = 'uenc';
 
     public const PROFILER_KEY                  = 'mage::dispatch::controller::action';
@@ -108,8 +118,14 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected $_removeDefaultTitle = false;
 
-    public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = [])
-    {
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function __construct(
+        Zend_Controller_Request_Abstract $request,
+        Zend_Controller_Response_Abstract $response,
+        array $invokeArgs = [] // @phpstan-ignore constructor.unusedParameter
+    ) {
         $this->_request = $request;
         $this->_response = $response;
 
@@ -164,6 +180,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         if ($flag === '') {
             return $this->_flags;
         } elseif (isset($this->_flags[$action][$flag])) {
@@ -178,7 +195,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $action
      * @param   string $flag
-     * @param   string|int|bool $value
+     * @param   bool|int|string $value
      * @return  $this
      */
     public function setFlag($action, $flag, $value)
@@ -186,6 +203,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         $this->_flags[$action][$flag] = $value;
         return $this;
     }
@@ -199,9 +217,9 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function getFullActionName($delimiter = '_')
     {
-        return $this->getRequest()->getRequestedRouteName() . $delimiter .
-            $this->getRequest()->getRequestedControllerName() . $delimiter .
-            $this->getRequest()->getRequestedActionName();
+        return $this->getRequest()->getRequestedRouteName() . $delimiter
+            . $this->getRequest()->getRequestedControllerName() . $delimiter
+            . $this->getRequest()->getRequestedActionName();
     }
 
     /**
@@ -217,10 +235,12 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   array|string|null|bool $handles
+     * @param   null|array|bool|string $handles
      * @param   bool $generateBlocks
      * @param   bool $generateXml
      * @return  $this
+     * @throws  Mage_Core_Exception
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
     {
@@ -237,11 +257,13 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!$generateXml) {
             return $this;
         }
+
         $this->generateLayoutXml();
 
         if (!$generateBlocks) {
             return $this;
         }
+
         $this->generateLayoutBlocks();
         $this->_isLayoutLoaded = true;
 
@@ -250,6 +272,7 @@ abstract class Mage_Core_Controller_Varien_Action
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addActionLayoutHandles()
@@ -349,6 +372,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $output
      * @return  $this|void
+     * @throws  Mage_Core_Exception
      */
     public function renderLayout($output = '')
     {
@@ -415,14 +439,15 @@ abstract class Mage_Core_Controller_Varien_Action
                     Varien_Profiler::stop(self::PROFILER_KEY . '::postdispatch');
                 }
             }
-        } catch (Mage_Core_Controller_Varien_Exception $e) {
+        } catch (Mage_Core_Controller_Varien_Exception $mageCoreControllerVarienException) {
             // set prepared flags
-            foreach ($e->getResultFlags() as $flagData) {
+            foreach ($mageCoreControllerVarienException->getResultFlags() as $flagData) {
                 [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
+
             // call forward, redirect or an action
-            [$method, $parameters] = $e->getResultCallback();
+            [$method, $parameters] = $mageCoreControllerVarienException->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
                     [$path, $arguments] = $parameters;
@@ -457,6 +482,8 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @return void
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function preDispatch()
     {
@@ -546,7 +573,8 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @param mixed|null $coreRoute
+     * @param null|mixed $coreRoute
+     * @throws Mage_Core_Exception
      */
     public function norouteAction($coreRoute = null)
     {
@@ -572,6 +600,10 @@ abstract class Mage_Core_Controller_Varien_Action
         }
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function noCookiesAction()
     {
         $redirect = new Varien_Object();
@@ -596,8 +628,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Throw control to different action (control and module if was specified).
      *
      * @param string $action
-     * @param string|null $controller
-     * @param string|null $module
+     * @param null|string $controller
+     * @param null|string $module
      */
     protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
@@ -625,14 +657,16 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param array|string $messagesStorage
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initLayoutMessages($messagesStorage)
     {
         if (!is_array($messagesStorage)) {
             $messagesStorage = [$messagesStorage];
         }
+
         foreach ($messagesStorage as $storageName) {
             $storage = Mage::getSingleton($storageName);
             if ($storage) {
@@ -646,14 +680,16 @@ abstract class Mage_Core_Controller_Varien_Action
                 );
             }
         }
+
         return $this;
     }
 
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param array|string $messagesStorage
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function initLayoutMessages($messagesStorage)
     {
@@ -702,6 +738,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $session->getSessionIdQueryParam() => $session->getSessionId(),
             ]];
         }
+
         $this->getResponse()->setRedirect(Mage::getUrl($path, $arguments));
         return $this;
     }
@@ -711,6 +748,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param string $defaultUrl
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _redirectSuccess($defaultUrl)
     {
@@ -718,9 +756,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($successUrl)) {
             $successUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($successUrl)) {
             $successUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($successUrl);
         return $this;
     }
@@ -729,7 +769,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Redirect to error page
      *
      * @param string $defaultUrl
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _redirectError($defaultUrl)
     {
@@ -737,9 +778,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($errorUrl)) {
             $errorUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($errorUrl)) {
             $errorUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($errorUrl);
         return $this;
     }
@@ -749,6 +792,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $defaultUrl
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     protected function _redirectReferer($defaultUrl = null)
     {
@@ -765,6 +809,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Identify referer url via all accepted methods (HTTP_REFERER, regular or base64-encoded request param)
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getRefererUrl()
     {
@@ -772,15 +817,19 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_REFERER_URL)) {
             $refererUrl = $url;
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_BASE64_URL)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         return $refererUrl;
     }
 
@@ -789,6 +838,7 @@ abstract class Mage_Core_Controller_Varien_Action
      *
      * @param   string $url
      * @return  bool
+     * @throws  Mage_Core_Exception
      */
     protected function _isUrlInternal($url)
     {
@@ -802,6 +852,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 return true;
             }
         }
+
         return false;
     }
 
@@ -820,6 +871,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller')),
             );
         }
+
         return $this->_realModuleName;
     }
 
@@ -861,22 +913,23 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (!($rewrite->actions && $rewrite->actions->$action) || $rewrite->is('override_actions')) {
-            $t = explode('/', (string) $rewrite->to);
-            if (count($t) !== 2 || empty($t[0]) || empty($t[1])) {
+            $acm = explode('/', (string) $rewrite->to);
+            if (count($acm) !== 2 || empty($acm[0]) || empty($acm[1])) {
                 return false;
             }
-            $t[2] = $action;
+
+            $acm[2] = $action;
         } else {
-            $t = explode('/', (string) $rewrite->actions->$action->to);
-            if (count($t) !== 3 || empty($t[0]) || empty($t[1]) || empty($t[2])) {
+            $acm = explode('/', (string) $rewrite->actions->$action->to);
+            if (count($acm) !== 3 || empty($acm[0]) || empty($acm[1]) || empty($acm[2])) {
                 return false;
             }
         }
 
         $this->_forward(
-            $t[2] === '*' ? $action : $t[2],
-            $t[1] === '*' ? $controller : $t[1],
-            $t[0] === '*' ? $route : $t[0],
+            $acm[2] === '*' ? $action : $acm[2],
+            $acm[1] === '*' ? $controller : $acm[1],
+            $acm[0] === '*' ? $route : $acm[0],
         );
 
         return true;
@@ -894,6 +947,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -910,10 +964,10 @@ abstract class Mage_Core_Controller_Varien_Action
      * $this->_title('foo')->_title(false)->_title('bar');
      * bar / <default title>
      *
-     * @see self::_renderTitles()
-     * @param string|false|int|null $text
+     * @param null|false|int|string $text
      * @param bool $resetIfExists
      * @return $this
+     * @see self::_renderTitles()
      */
     protected function _title($text = null, $resetIfExists = true)
     {
@@ -934,6 +988,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->_titles = [];
             }
         }
+
         return $this;
     }
 
@@ -956,6 +1011,7 @@ abstract class Mage_Core_Controller_Varien_Action
                         array_unshift($this->_titles, $title);
                     }
                 }
+
                 $titleBlock->setTitle(implode(' / ', array_reverse($this->_titles)));
             }
         }
@@ -967,6 +1023,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param   array $array
      * @param   array $dateFields
      * @return  array
+     * @throws  Zend_Locale_Exception
      */
     protected function _filterDates($array, $dateFields)
     {
@@ -990,6 +1047,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param   array $array
      * @param   array $dateFields
      * @return  array
+     * @throws  Zend_Locale_Exception
      */
     protected function _filterDateTime($array, $dateFields)
     {
@@ -1011,12 +1069,14 @@ abstract class Mage_Core_Controller_Varien_Action
      * Declare headers and content file in response for file download
      *
      * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
+     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
      *                              that case
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @throws Exception
+     * @throws Zend_Controller_Response_Exception
      */
     protected function _prepareDownloadResponse(
         $fileName,
@@ -1036,6 +1096,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 clearstatcache();
                 $isFile         = true;
@@ -1064,6 +1125,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
@@ -1074,6 +1136,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->getResponse()->setBody($content);
             }
         }
+
         return $this;
     }
 }

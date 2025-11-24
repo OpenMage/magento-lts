@@ -14,13 +14,15 @@
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getCollection()
+ * @method Mage_Reports_Model_Resource_Product_Index_Abstract getResource()
+ * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getResourceCollection()
  * @method bool hasAddedAt()
- * @method $this setAddedAt(string $value)
  * @method bool hasCustomerId()
- * @method $this setCustomerId(int $value)
  * @method bool hasStoreId()
- * @method $this setStoreId(int $value)
  * @method bool hasVisitorId()
+ * @method $this setAddedAt(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setVisitorId(int $value)
  */
 abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model_Abstract
@@ -35,20 +37,23 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     /**
      * Save object data
      *
-     * @see Mage_Core_Model_Abstract::save()
      * @return Mage_Reports_Model_Product_Index_Abstract
+     * @see Mage_Core_Model_Abstract::save()
      */
     public function save()
     {
         if (!$this->hasVisitorId()) {
             $this->setVisitorId($this->getVisitorId());
         }
+
         if (!$this->hasCustomerId()) {
             $this->setCustomerId($this->getCustomerId());
         }
+
         if (!$this->hasStoreId()) {
             $this->setStoreId($this->getStoreId());
         }
+
         if (!$this->hasAddedAt()) {
             $this->setAddedAt(Varien_Date::now());
         }
@@ -83,6 +88,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('visitor_id')) {
             return $this->getData('visitor_id');
         }
+
         return Mage::getSingleton('log/visitor')->getId();
     }
 
@@ -98,6 +104,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('customer_id')) {
             return $this->getData('customer_id');
         }
+
         return Mage::getSingleton('customer/session')->getCustomerId();
     }
 
@@ -113,6 +120,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         if ($this->hasData('store_id')) {
             return (int) $this->getData('store_id');
         }
+
         return Mage::app()->getStore()->getId();
     }
 
@@ -223,6 +231,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
                 Mage::logException($exception);
             }
         }
+
         $this->_getSession()->unsData($this->_countCacheKey);
         return $this;
     }

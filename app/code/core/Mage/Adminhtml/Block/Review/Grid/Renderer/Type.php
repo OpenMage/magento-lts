@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Bloc
             if ($row->getStoreId() == Mage_Core_Model_App::ADMIN_STORE_ID) {
                 return Mage::helper('review')->__('Administrator');
             }
+
             return Mage::helper('review')->__('Guest');
         }
 

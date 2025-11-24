@@ -26,7 +26,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sales amount expression
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_salesAmountExpression;
 
@@ -206,6 +206,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         if (empty($statuses)) {
             $statuses = [0];
         }
+
         $this->addFieldToFilter('main_table.order_status', ['nin' => $statuses]);
 
         return $this;
@@ -275,6 +276,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         if ($tzTo == null) {
             $tzTo = Mage::app()->getLocale()->storeDate()->toString(Zend_Date::GMT_DIFF_SEP);
         }
+
         $adapter = $this->getConnection();
         $expression = $this->_getRangeExpression($range);
         $attribute  = $adapter->quoteIdentifier($attribute);
@@ -329,6 +331,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 } elseif ($range === Mage_Reports_Helper_Data::PERIOD_6_MONTHS) {
                     $dateStart->subMonth(5);
                 }
+
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
@@ -346,6 +349,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 if ($range == '2y') {
                     $dateStart->subYear(1);
                 }
+
                 break;
         }
 
@@ -373,7 +377,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate totals report
      *
-     * @param int|bool $isFilter
+     * @param bool|int $isFilter
      * @return $this
      */
     public function calculateTotals($isFilter = 0)
@@ -482,6 +486,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         if (empty($statuses)) {
             $statuses = [0];
         }
+
         $adapter = $this->getConnection();
 
         if (Mage::getStoreConfig('sales/dashboard/use_aggregated_data')) {
@@ -503,6 +508,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                     ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()],
                 );
             }
+
             $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
         } else {
             $this->setMainTable('sales/order');
@@ -524,6 +530,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                     Mage_Sales_Model_Order::STATE_NEW,
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT]);
         }
+
         return $this;
     }
 
@@ -784,7 +791,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     public function addCreateAtPeriodFilter($period)
     {
-        [$from, $to] = $this->getDateRange($period, 0, 0, true);
+        [$from, $to] = $this->getDateRange($period, '0', '0', true);
 
         $this->checkIsLive($period);
 

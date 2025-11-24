@@ -12,8 +12,8 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  * @method array getAdditionalCacheKeyInfo()
+ * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
@@ -28,7 +28,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
     /**
      * Initialize template and cache settings
-     *
      */
     protected function _construct()
     {
@@ -66,6 +65,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
             $cacheKeyInfo = array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
         }
+
         return $cacheKeyInfo;
     }
 
@@ -150,6 +150,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
+
             $parentArr[$childName] = $menuArr;
 
             $sortOrder++;
@@ -214,9 +215,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         try {
             $res =  Mage::getSingleton('admin/session')->isAllowed($resource);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
+
         return $res;
     }
 
@@ -257,6 +259,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
                 continue; // for example hide System/Tools when empty
             }
+
             $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
                 . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
@@ -272,6 +275,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if (!empty($item['children'])) {
                 $html .= $this->getMenuLevel($item['children'], $level + 1);
             }
+
             $html .= '</li>' . PHP_EOL;
         }
 

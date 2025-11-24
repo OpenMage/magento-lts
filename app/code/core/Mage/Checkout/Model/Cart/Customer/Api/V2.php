@@ -25,6 +25,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
         if (($_data = get_object_vars($data)) !== null) {
             return parent::_prepareCustomerData($_data);
         }
+
         return [];
     }
 
@@ -32,7 +33,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
      * Prepare customer entered data for implementing
      *
      * @param  object $data
-     * @return array|null
+     * @return null|array
      */
     protected function _prepareCustomerAddressData($data)
     {
@@ -43,6 +44,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
                     $dataAddresses[] = $_addressItem;
                 }
             }
+
             return parent::_prepareCustomerAddressData($dataAddresses);
         }
 

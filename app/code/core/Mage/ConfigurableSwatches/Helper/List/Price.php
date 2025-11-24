@@ -76,6 +76,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                     ];
                 }
             }
+
             $product->setSwatchPrices($result);
         }
     }

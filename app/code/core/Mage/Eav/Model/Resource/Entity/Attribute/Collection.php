@@ -12,11 +12,10 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
- *
+ * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
  * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
  * @method Mage_Eav_Model_Entity_Attribute[] getItems()
- * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -36,7 +35,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
 
     /**
      * Resource model initialization
-     *
      */
     protected function _construct()
     {
@@ -79,7 +77,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify attribute entity type filter
      *
-     * @param  Mage_Eav_Model_Entity_Type | int $type
+     * @param  int|Mage_Eav_Model_Entity_Type $type
      * @return $this
      */
     public function setEntityTypeFilter($type)
@@ -91,6 +89,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             $additionalTable = $this->getResource()->getAdditionalAttributeTable($type);
             $id = $type;
         }
+
         $this->addFieldToFilter('main_table.entity_type_id', $id);
         if ($additionalTable) {
             $this->join(
@@ -165,6 +164,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             if (!$setId) {
                 continue;
             }
+
             $alias         = sprintf('entity_attribute_%d', $setId);
             $joinCondition = $this->getConnection()
                 ->quoteInto("{$alias}.attribute_id = main_table.attribute_id AND {$alias}.attribute_set_id =?", $setId);
@@ -322,10 +322,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             foreach ($this->_data as &$dataItem) {
                 $attributeIds[] = $dataItem['attribute_id'];
             }
+
             $attributeToSetInfo = [];
 
             $adapter = $this->getConnection();
-            if (count($attributeIds) > 0) {
+            if ($attributeIds !== []) {
                 $select = $adapter->select()
                     ->from(
                         ['entity' => $this->getTable('eav/entity_attribute')],
@@ -357,6 +358,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             unset($attributeToSetInfo);
             unset($attributeIds);
         }
+
         return $this;
     }
 
@@ -374,9 +376,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
 
     /**
      * Load is used in configurable products flag
-     * @deprecated
      *
      * @return $this
+     * @deprecated
      */
     public function checkConfigurableProducts()
     {
@@ -386,7 +388,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string | array $code
+     * @param array|string $code
      * @return $this
      */
     public function setCodeFilter($code)
@@ -394,6 +396,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         if (empty($code)) {
             return $this;
         }
+
         if (!is_array($code)) {
             $code = [$code];
         }

@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
                 $this->_creditmemo = $this->getParentBlock()->getCreditmemo();
             }
         }
+
         return $this->_creditmemo;
     }
 

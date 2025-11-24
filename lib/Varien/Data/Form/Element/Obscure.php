@@ -31,6 +31,7 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
         if (!empty($value)) {
             return $this->_obscuredValue;
         }
+
         return $value;
     }
 

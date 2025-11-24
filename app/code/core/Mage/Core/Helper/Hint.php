@@ -40,8 +40,10 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
                     }
                 }
             }
+
             $this->_availableHints = $hints;
         }
+
         return $this->_availableHints;
     }
 
@@ -58,6 +60,7 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
         if (array_key_exists($code, $hints)) {
             $hint = $hints[$code];
         }
+
         return $hint;
     }
 }

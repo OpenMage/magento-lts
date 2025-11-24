@@ -15,6 +15,7 @@
 class Mage_Dataflow_Model_Batch_Io
 {
     public const TMP_DIR = '/var/tmp/';
+
     public const TMP_NAME = 'batch_%d.tmp';
 
     /**
@@ -27,21 +28,21 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Full path to tmp dir
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_path;
 
     /**
      * Filename
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_filename;
 
     /**
      * Varien IO File class
      *
-     * @var Varien_Io_File|null
+     * @var null|Varien_Io_File
      */
     protected $_ioFile;
 
@@ -74,6 +75,7 @@ class Mage_Dataflow_Model_Batch_Io
             $this->_path = $this->getIoAdapter()->getCleanPath(Mage::getBaseDir('tmp'));
             $this->getIoAdapter()->checkAndCreateFolder($this->_path);
         }
+
         return $this->_path;
     }
 
@@ -87,9 +89,11 @@ class Mage_Dataflow_Model_Batch_Io
         if (is_null($this->_filename)) {
             $this->_filename = sprintf(self::TMP_NAME, $this->_batchModel->getId());
         }
+
         if ($withPath) {
             return $this->getPath() . $this->_filename;
         }
+
         return $this->_filename;
     }
 
@@ -103,6 +107,7 @@ class Mage_Dataflow_Model_Batch_Io
         if (is_null($this->_ioFile)) {
             $this->_ioFile = new Varien_Io_File();
         }
+
         return $this->_ioFile;
     }
 
@@ -144,7 +149,7 @@ class Mage_Dataflow_Model_Batch_Io
      * # length  bytes have been read
      * # EOF (end of file) is reached
      *
-     * @return array|false|null|string
+     * @return null|array|false|string
      */
     public function read($csv = false, $delimiter = ',', $enclosure = '"')
     {
@@ -154,6 +159,7 @@ class Mage_Dataflow_Model_Batch_Io
             $content = $this->getIoAdapter()->streamRead(1024);
             $this->_fileSize += strlen($content);
         }
+
         return $content;
     }
 

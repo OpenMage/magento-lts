@@ -18,6 +18,9 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
         $this->setTemplate('permissions/userinfo.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -25,8 +28,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class' => 'back',
+                    'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
+                    'class'     => 'back',
                 ]),
         );
 
@@ -36,6 +39,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
                     'onclick'   => 'window.location.reload()',
+                    'class'     => 'reset',
                 ]),
         );
 
@@ -45,7 +49,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
                     'onclick'   => 'roleForm.submit();return false;',
-                    'class' => 'save',
+                    'class'     => 'save',
                 ]),
         );
 
@@ -54,35 +58,49 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                    'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
+                    'onclick'   => "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
                         Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
-                    ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
-                    'class' => 'delete',
+                    ) . "')) roleForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;",
+                    'class'     => 'delete',
                 ]),
         );
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('backButton');
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         return $this->getChildHtml('resetButton');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('saveButton');
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getDeleteButtonHtml()
     {
         if ((int) $this->getRequest()->getParam('rid') == 0) {
-            return;
+            return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 

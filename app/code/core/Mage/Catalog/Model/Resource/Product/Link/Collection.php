@@ -51,6 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
         if ($linkModel->hasLinkTypeId()) {
             $this->_linkTypeId = $linkModel->getLinkTypeId();
         }
+
         return $this;
     }
 
@@ -95,6 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
         if ($this->_linkTypeId) {
             $this->addFieldToFilter('link_type_id', ['eq' => $this->_linkTypeId]);
         }
+
         return $this;
     }
 
@@ -108,6 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
         if ($this->getProduct() && $this->getProduct()->getId()) {
             $this->addFieldToFilter('product_id', ['eq' => $this->getProduct()->getId()]);
         }
+
         return $this;
     }
 
@@ -121,6 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
         if (!$this->getLinkModel()) {
             return $this;
         }
+
         $attributes = $this->getLinkModel()->getAttributes();
         $adapter = $this->getConnection();
         foreach ($attributes as $attribute) {

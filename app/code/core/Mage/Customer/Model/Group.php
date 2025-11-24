@@ -13,11 +13,10 @@
  * @package    Mage_Customer
  *
  * @method Mage_Customer_Model_Resource_Group _getResource()
- * @method Mage_Customer_Model_Resource_Group getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
+ * @method null|string getCustomerGroupCode()
+ * @method Mage_Customer_Model_Resource_Group getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
- *
- * @method string getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
  * @method $this setTaxClassId(int $value)
  */
@@ -29,6 +28,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     public const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
 
     public const NOT_LOGGED_IN_ID          = 0;
+
     public const CUST_GROUP_ALL            = 32000;
 
     public const ENTITY                    = 'customer_group';
@@ -76,11 +76,11 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      */
     public function getCode()
     {
-        return $this->getCustomerGroupCode();
+        return (string) $this->getCustomerGroupCode();
     }
 
     /**
-     * @param int|null $groupId
+     * @param null|int $groupId
      * @return int
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -91,8 +91,10 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
                 $this->load($groupId);
                 self::$_taxClassIds[$groupId] = $this->getData('tax_class_id');
             }
+
             $this->setData('tax_class_id', self::$_taxClassIds[$groupId]);
         }
+
         return $this->getData('tax_class_id');
     }
 
@@ -105,6 +107,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         if (in_array($this->getId(), $data)) {
             return true;
         }
+
         return false;
     }
 

@@ -11,6 +11,9 @@
  * Fedex shipping implementation
  *
  * @package    Mage_Usa
+ *
+ * @property string $_defaultGatewayUrl
+ * @property Varien_Object $_rawTrackingRequest
  */
 class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -45,21 +48,21 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
@@ -152,13 +155,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
         if (!$this->getConfigFlag($this->_activeFlag)) {
             return false;
         }
+
         $this->setRequest($request);
 
         $this->_getQuotes();
@@ -188,6 +192,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         } else {
             $account = $this->getConfigData('account');
         }
+
         $r->setAccount($account);
 
         if ($request->getFedexDropoff()) {
@@ -195,6 +200,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         } else {
             $dropoff = $this->getConfigData('dropoff');
         }
+
         $r->setDropoffType($dropoff);
 
         if ($request->getFedexPackaging()) {
@@ -202,6 +208,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         } else {
             $packaging = $this->getConfigData('packaging');
         }
+
         $r->setPackaging($packaging);
 
         if ($request->getOrigCountry()) {
@@ -212,6 +219,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $request->getStoreId(),
             );
         }
+
         $r->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
 
         if ($request->getOrigPostcode()) {
@@ -228,6 +236,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         } else {
             $destCountry = self::USA_COUNTRY_ID;
         }
+
         $r->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
 
         if ($request->getDestPostcode()) {
@@ -259,7 +268,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -393,6 +402,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $response = unserialize($response);
             $debugData['result'] = $response;
         }
+
         $this->_debug($debugData);
         return $response;
     }
@@ -400,7 +410,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Do remote request for and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool
+     * @return bool|Mage_Shipping_Model_Rate_Result
      */
     protected function _getQuotes()
     {
@@ -411,11 +421,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $preparedSmartpost = $this->_prepareRateResponse($response);
             $this->_result->append($preparedSmartpost);
         }
+
         $response = $this->_doRatesRequest(self::RATE_REQUEST_GENERAL);
         $preparedGeneral = $this->_prepareRateResponse($response);
         if ($this->_result->getError() && $preparedGeneral->getError()) {
             return $this->_result->getError();
         }
+
         $this->_result->append($preparedGeneral);
         $this->_removeErrorsIfRateExist();
 
@@ -481,6 +493,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                             $priceArr[$serviceName] = $this->getMethodPrice($amount, $serviceName);
                         }
                     }
+
                     asort($priceArr);
                 } else {
                     $rate = $response->RateReplyDetails;
@@ -514,6 +527,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $result->append($rate);
             }
         }
+
         return $result;
     }
 
@@ -578,8 +592,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Get xml quotes
      *
-     * @deprecated
      * @return Mage_Shipping_Model_Rate_Result
+     * @deprecated
      */
     protected function _getXmlQuotes()
     {
@@ -599,6 +613,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         if ($r->hasService()) {
             $xml->addChild('Service', $r->getService());
         }
+
         $xml->addChild('Packaging', $r->getPackaging());
         $xml->addChild('WeightUnits', 'LBS');
         $xml->addChild('Weight', $r->getWeight());
@@ -635,10 +650,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 if (!$url) {
                     $url = $this->_defaultGatewayUrl;
                 }
+
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
                 $responseBody = curl_exec($ch);
@@ -650,8 +666,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
                 $responseBody = '';
             }
+
             $this->_debug($debugData);
         }
+
         return $this->_parseXmlResponse($responseBody);
     }
 
@@ -666,7 +684,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $costArr = [];
         $priceArr = [];
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string) $xml->Error->Message;
@@ -680,8 +698,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
                 foreach ($xml->Entry as $entry) {
                     if (in_array((string) $entry->Service, $allowedMethods)) {
-                        $costArr[(string) $entry->Service] =
-                           (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
+                        $costArr[(string) $entry->Service]
+                           = (string) $entry->EstimatedCharges->DiscountedCharges->NetCharge;
                         $priceArr[(string) $entry->Service] = $this->getMethodPrice(
                             (float) $entry->EstimatedCharges->DiscountedCharges->NetCharge,
                             (string) $entry->Service,
@@ -716,6 +734,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $result->append($rate);
             }
         }
+
         return $result;
     }
 
@@ -723,7 +742,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Parse XML string and return XML document object or false
      *
      * @param string $xmlContent
-     * @return SimpleXMLElement|bool
+     * @return bool|SimpleXMLElement
      */
     protected function _parseXml($xmlContent)
     {
@@ -733,8 +752,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             } catch (Exception $e) {
                 throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent), $e->getCode(), $e);
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             return false;
         }
     }
@@ -938,7 +957,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
     {
@@ -960,12 +979,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      */
     protected function setTrackingReqeust()
     {
-        $r = new Varien_Object();
+        $request = new Varien_Object();
 
         $account = $this->getConfigData('account');
-        $r->setAccount($account);
+        $request->setAccount($account);
 
-        $this->_rawTrackingRequest = $r;
+        $this->_rawTrackingRequest = $request;
     }
 
     /**
@@ -1019,6 +1038,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $response = unserialize($response);
             $debugData['result'] = $response;
         }
+
         $this->_debug($debugData);
 
         $this->_parseTrackingResponse($tracking, $response);
@@ -1053,12 +1073,15 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 if (isset($deliveryLocation->City)) {
                     $deliveryLocationArray[] = (string) $deliveryLocation->City;
                 }
+
                 if (isset($deliveryLocation->StateOrProvinceCode)) {
                     $deliveryLocationArray[] = (string) $deliveryLocation->StateOrProvinceCode;
                 }
+
                 if (isset($deliveryLocation->CountryCode)) {
                     $deliveryLocationArray[] = (string) $deliveryLocation->CountryCode;
                 }
+
                 if ($deliveryLocationArray) {
                     $resultArray['deliverylocation'] = implode(', ', $deliveryLocationArray);
                 }
@@ -1077,6 +1100,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     if (isset($events->Address)) {
                         $events = [$events];
                     }
+
                     foreach ($events as $event) {
                         $tempArray = [];
                         $tempArray['activity'] = (string) $event->EventDescription;
@@ -1085,22 +1109,27 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                             $tempArray['deliverydate'] = date('Y-m-d', $timestamp);
                             $tempArray['deliverytime'] = date('H:i:s', $timestamp);
                         }
+
                         if (isset($event->Address)) {
                             $addressArray = [];
                             $address = $event->Address;
                             if (isset($address->City)) {
                                 $addressArray[] = (string) $address->City;
                             }
+
                             if (isset($address->StateOrProvinceCode)) {
                                 $addressArray[] = (string) $address->StateOrProvinceCode;
                             }
+
                             if (isset($address->CountryCode)) {
                                 $addressArray[] = (string) $address->CountryCode;
                             }
+
                             if ($addressArray) {
                                 $tempArray['deliverylocation'] = implode(', ', $addressArray);
                             }
                         }
+
                         $packageProgress[] = $tempArray;
                     }
                 }
@@ -1133,14 +1162,14 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Parse xml tracking response
      *
-     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
+     * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
         $resultArr = [];
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string) $xml->Error->Message;
@@ -1171,15 +1200,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                             if (isset($event->Address->City)) {
                                 $addArr[] = (string) $event->Address->City;
                             }
+
                             if (isset($event->Address->StateProvinceCode)) {
                                 $addArr[] = (string) $event->Address->StateProvinceCode;
                             }
+
                             if (isset($event->Address->CountryCode)) {
                                 $addArr[] = (string) $event->Address->CountryCode;
                             }
+
                             if ($addArr) {
                                 $tempArr['deliverylocation'] = implode(', ', $addArr);
                             }
+
                             $packageProgress[] = $tempArr;
                         }
                     }
@@ -1235,9 +1268,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 }
             }
         }
+
         if (empty($statuses)) {
             $statuses = Mage::helper('usa')->__('Empty response');
         }
+
         return $statuses;
     }
 
@@ -1253,6 +1288,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         foreach ($allowed as $k) {
             $arr[$k] = $this->getCode('method', $k);
         }
+
         return $arr;
     }
 
@@ -1301,6 +1337,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                              . ' P'
                              . $request->getPackageId();
         }
+
         $packageParams = $request->getPackageParams();
         $customsValue = $packageParams->getCustomsValue();
         $height = $packageParams->getHeight();
@@ -1413,10 +1450,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         // for international shipping
         if ($request->getShipperAddressCountryCode() != $request->getRecipientAddressCountryCode()) {
-            $requestClient['RequestedShipment']['CustomsClearanceDetail'] =
-                [
-                    'CustomsValue' =>
-                    [
+            $requestClient['RequestedShipment']['CustomsClearanceDetail']
+                = [
+                    'CustomsValue'
+                    => [
                         'Currency' => $request->getBaseCurrencyCode(),
                         'Amount' => $customsValue,
                     ],
@@ -1507,9 +1544,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $debugData['result']['code'] = $response->Notifications->Code . ' ';
                 $debugData['result']['error'] = $response->Notifications->Message . ' ';
             }
+
             $this->_debug($debugData);
             $result->setErrors($debugData['result']['error']);
         }
+
         $result->setGatewayResponse($client->__getLastResponse());
 
         return $result;
@@ -1531,6 +1570,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $client = $this->_createShipSoapClient();
             $client->deleteShipment($requestData);
         }
+
         return true;
     }
 
@@ -1544,6 +1584,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         if ($params == null) {
             return $this->_getAllowedContainers($params);
         }
+
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();

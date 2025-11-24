@@ -7,7 +7,7 @@
  * @package    Mage_Catalog
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -3811,7 +3811,6 @@ $installer->getConnection()->createTable($table);
 
 /**
  * Modify core/url_rewrite table
- *
  */
 $installer->getConnection()->addColumn($installer->getTable('core/url_rewrite'), 'category_id', [
     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,

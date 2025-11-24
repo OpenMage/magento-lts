@@ -16,7 +16,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 {
     /**
      * Initialize block
-     *
      */
     public function __construct()
     {
@@ -65,8 +64,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function isAttributesPricesReadonly()
     {
-        return $this->_getProduct()->getAttributesConfigurationReadonly() ||
-            (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
+        return $this->_getProduct()->getAttributesConfigurationReadonly()
+            || (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
     }
 
     /**
@@ -151,12 +150,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
                             $attributeValue['pricing_value'] = '';
                             $attributeValue['is_percent'] = 0;
                         }
+
                         $attributeValue['can_edit_price'] = $this->getCanEditPrice();
                         $attributeValue['can_read_price'] = $this->getCanReadPrice();
                     }
                 }
             }
         }
+
         return Mage::helper('core')->jsonEncode($attributes);
     }
 
@@ -173,10 +174,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         if (!$products) {
             return '{}';
         }
+
         $data = [];
         foreach ($products as $product) {
             $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
+
         return Mage::helper('core')->jsonEncode($data);
     }
 

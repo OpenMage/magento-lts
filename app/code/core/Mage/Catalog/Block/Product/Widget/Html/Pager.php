@@ -54,6 +54,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
                 $this->_collectionSize = $this->getTotalLimit();
             }
         }
+
         return $this->_collectionSize;
     }
 
@@ -76,6 +77,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
                 $this->_currentPage = 1;
             }
         }
+
         return $this->_currentPage;
     }
 
@@ -89,11 +91,13 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
         if ($this->_limit > 0) {
             return $this->_limit;
         }
+
         $limit  = $this->getRequest()->getParam($this->getLimitVarName());
         $limits = $this->getAvailableLimit();
         if ($limit && isset($limits[$limit])) {
             return $limit;
         }
+
         $limits = array_keys($limits);
         return current($limits);
     }
@@ -165,6 +169,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
                 $this->_lastPage = 1;
             }
         }
+
         return $this->_lastPage;
     }
 
@@ -211,8 +216,10 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
                 $finish = $this->getLastPageNum();
                 $start  = $finish - $this->_displayPages + 1;
             }
+
             $pages = range($start, $finish);
         }
+
         return $pages;
     }
 
@@ -273,6 +280,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
                     $start  = $end - $this->getFrameLength() + 1;
                 }
             }
+
             $this->_frameStart = $start;
             $this->_frameEnd = $end;
             $this->_setFrameInitialized(true);

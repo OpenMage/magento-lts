@@ -26,9 +26,8 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
     /**
      * Get attribute filter block name
      *
-     * @deprecated after 1.4.1.0
-     *
      * @return string
+     * @deprecated after 1.4.1.0
      */
     protected function _getAttributeFilterBlockName()
     {
@@ -66,6 +65,7 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
         if (!$_isLNAllowedByEngine) {
             return false;
         }
+
         $availableResCount = (int) Mage::app()->getStore()
             ->getConfig(Mage_CatalogSearch_Model_Layer::XML_PATH_DISPLAY_LAYER_COUNT);
 
@@ -74,6 +74,7 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
         ) {
             return parent::canShowBlock();
         }
+
         return false;
     }
 }

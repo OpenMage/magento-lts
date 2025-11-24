@@ -15,7 +15,9 @@
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
     public const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
+
     public const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
+
     public const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
 
     public const DEFAULT_QTY                           = 1;
@@ -43,8 +45,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product view page url
      *
-     * @param   Mage_Catalog_Model_Product|string|int $product
-     * @return  string|false
+     * @param   int|Mage_Catalog_Model_Product|string $product
+     * @return  false|string
+     * @throws  Mage_Core_Exception
      */
     public function getProductUrl($product)
     {
@@ -53,15 +56,17 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif (is_numeric($product)) {
             return Mage::getModel('catalog/product')->load($product)->getProductUrl();
         }
+
         return false;
     }
 
     /**
      * Retrieve product view page url including provided category Id
      *
-     * @param   int $productId
-     * @param   int $categoryId
+     * @param   int|string $productId
+     * @param   int|string $categoryId
      * @return  string
+     * @throws  Mage_Core_Exception
      */
     public function getFullProductUrl($productId, $categoryId = null)
     {
@@ -70,6 +75,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $category = Mage::getModel('catalog/category')->load($categoryId);
             $product->setCategory($category);
         }
+
         return $product->getProductUrl();
     }
 
@@ -100,6 +106,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
      */
     public function getImageUrl($product)
     {
@@ -109,6 +116,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
@@ -117,6 +125,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getSmallImageUrl($product)
     {
@@ -126,6 +136,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('small_image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
@@ -134,6 +145,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getThumbnailUrl($product)
     {
@@ -143,12 +156,14 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('thumbnail')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
     /**
      * @param Mage_Catalog_Model_Product $product
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getEmailToFriendUrl($product)
     {
@@ -156,6 +171,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($category = Mage::registry('current_category')) {
             $categoryId = $category->getId();
         }
+
         return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
             'cat_id' => $categoryId,
@@ -177,9 +193,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if a product can be shown
      *
-     * @param Mage_Catalog_Model_Product|int $product
+     * @param int|Mage_Catalog_Model_Product $product
      * @param string $where
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShow($product, $where = 'catalog')
     {
@@ -188,7 +205,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         /** @var Mage_Catalog_Model_Product $product */
-
         if (!$product->getId()) {
             return false;
         }
@@ -201,6 +217,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductUrlSuffix($storeId = null)
     {
@@ -211,13 +228,14 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!isset($this->_productUrlSuffix[$storeId])) {
             $this->_productUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_PRODUCT_URL_SUFFIX, $storeId);
         }
+
         return $this->_productUrlSuffix[$storeId];
     }
 
     /**
      * Check if <link rel="canonical"> can be used for product
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)
@@ -236,8 +254,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getAttributeInputTypes($inputType = null)
     {
         /**
-        * @todo specify there all relations for properties depending on input type
-        */
+         * @todo specify there all relations for properties depending on input type
+         */
         $inputTypes = [
             'multiselect'   => [
                 'backend_model'     => 'eav/entity_attribute_backend_array',
@@ -252,6 +270,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif (isset($inputTypes[$inputType])) {
             return $inputTypes[$inputType];
         }
+
         return [];
     }
 
@@ -259,7 +278,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return default attribute backend model by input type
      *
      * @param string $inputType
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeBackendModelByInputType($inputType)
     {
@@ -267,6 +286,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!empty($inputTypes[$inputType]['backend_model'])) {
             return $inputTypes[$inputType]['backend_model'];
         }
+
         return null;
     }
 
@@ -274,7 +294,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return default attribute source model by input type
      *
      * @param string $inputType
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeSourceModelByInputType($inputType)
     {
@@ -282,6 +302,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!empty($inputTypes[$inputType]['source_model'])) {
             return $inputTypes[$inputType]['source_model'];
         }
+
         return null;
     }
 
@@ -296,6 +317,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param Varien_Object $params
      *
      * @return false|Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function initProduct($productId, $controller, $params = null)
     {
@@ -322,6 +345,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!$this->canShow($product)) {
             return false;
         }
+
         if (!in_array(Mage::app()->getStore()->getWebsiteId(), $product->getWebsiteIds())) {
             return false;
         }
@@ -356,8 +380,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
                     'controller_action' => $controller,
                 ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -376,6 +400,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     {
         $optionValues = $product->processBuyRequest($buyRequest);
         $optionValues->setQty($buyRequest->getQty());
+
         $product->setPreconfiguredValues($optionValues);
 
         return $this;
@@ -391,8 +416,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file inputs,
      *   so they won't intersect with other submitted options
      *
-     * @param Varien_Object|array $buyRequest
-     * @param Varien_Object|array $params
+     * @param array|Varien_Object $buyRequest
+     * @param array|Varien_Object $params
      * @return Varien_Object
      */
     public function addParamsToBuyRequest($buyRequest, $params)
@@ -400,6 +425,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (is_array($buyRequest)) {
             $buyRequest = new Varien_Object($buyRequest);
         }
+
         if (is_array($params)) {
             $params = new Varien_Object($params);
         }
@@ -423,6 +449,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $processingParams = new Varien_Object();
             $buyRequest->setData('_processing_params', $processingParams);
         }
+
         $processingParams->addData($params->getData());
 
         return $buyRequest;
@@ -432,9 +459,11 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return loaded product instance
      *
      * @param  int|string $productId (SKU or ID)
-     * @param  int|null $store
+     * @param  null|int $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProduct($productId, $store, $identifierType = null)
     {
@@ -493,7 +522,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float|null
+     * @return null|float
      */
     public function getMinimalQty($product)
     {
@@ -501,6 +530,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($stockItem && $stockItem->getMinSaleQty()) {
             return $stockItem->getMinSaleQty() * 1;
         }
+
         return null;
     }
 
@@ -509,7 +539,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Also restricts it by minimal qty.
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|float
+     * @return float|int
      */
     public function getDefaultQty($product)
     {
@@ -543,6 +573,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         ) {
             return $fieldData['inventory'];
         }
+
         return self::DEFAULT_QTY;
     }
 
@@ -552,7 +583,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param null|string $field
      * @param string $fieldset
      * @param string $area
-     * @return array|null
+     * @return null|array
      */
     public function getFieldset($field = null, $fieldset = 'catalog_product_dataflow', $area = 'admin')
     {
@@ -560,6 +591,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($fieldsetData) {
             return $fieldsetData ? $fieldsetData->$field : $fieldsetData;
         }
+
         return $fieldsetData;
     }
 }

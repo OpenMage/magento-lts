@@ -23,7 +23,9 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
 {
     // Payment information transport keys
     public const PAYPAL_PAYMENT_STATUS = 'paypal_payment_status';
+
     public const PAYPAL_PAYMENT_AUTHORIZATION_ID = 'paypal_payment_authorization_id';
+
     public const PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME = 'paypal_payment_authorization_expires_time';
 
     /**
@@ -117,7 +119,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
      * @param string $captureId Capture ID
      */
     public function updatePaymentAfterCapture(
-        Mage_Sales_Model_Quote_Payment|Mage_Sales_Model_Order_Payment $payment,
+        Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $payment,
         ApiResponse $response,
         string $captureId
     ): void {

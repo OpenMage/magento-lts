@@ -13,12 +13,12 @@
  * @package    Mage_Catalog
  *
  * @method int getCount()
- * @method $this setCount(int $value)
  * @method string getLabel()
- * @method $this setLabel(string $value)
  * @method string getValue()
- * @method $this setValue(string $value)
+ * @method $this setCount(int $value)
  * @method $this setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
+ * @method $this setLabel(string $value)
+ * @method $this setValue(string $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
 {
@@ -35,6 +35,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
                 Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),
             );
         }
+
         return $filter;
     }
 
@@ -109,6 +110,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
         if (is_array($value)) {
             return implode(',', $value);
         }
+
         return $value;
     }
 }

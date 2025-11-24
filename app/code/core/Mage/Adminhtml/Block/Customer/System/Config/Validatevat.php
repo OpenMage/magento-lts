@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
         if (!$this->getTemplate()) {
             $this->setTemplate('customer/system/config/validatevat.phtml');
         }
+
         return $this;
     }
 

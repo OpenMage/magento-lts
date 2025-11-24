@@ -46,8 +46,10 @@ class Mage_Install_Block_Db_Type extends Mage_Core_Block_Template
             } else {
                 $data = new Varien_Object($data);
             }
+
             $this->setFormData($data);
         }
+
         return $data;
     }
 }

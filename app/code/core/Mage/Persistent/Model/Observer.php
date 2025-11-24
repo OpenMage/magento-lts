@@ -34,6 +34,7 @@ class Mage_Persistent_Model_Observer
         ) {
             return $this;
         }
+
         Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(Mage::helper('persistent')->getPersistentConfigFilePath())
             ->fire();
@@ -75,6 +76,7 @@ class Mage_Persistent_Model_Observer
 
         return $this;
     }
+
     /**
      * Emulate welcome message with persistent data
      *
@@ -88,6 +90,7 @@ class Mage_Persistent_Model_Observer
         );
         return $this;
     }
+
     /**
      * Emulate 'welcome' block with persistent data
      *
@@ -475,6 +478,7 @@ class Mage_Persistent_Model_Observer
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
     }
+
     /**
      * Active Persistent Sessions
      */
@@ -571,6 +575,7 @@ class Mage_Persistent_Model_Observer
                 ->setCustomerId($customer->getId())
                 ->setCustomerGroupId($customer->getGroupId());
         }
+
         return $this;
     }
 }

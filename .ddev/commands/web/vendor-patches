@@ -4,4 +4,4 @@
 ## Usage: vendor-patches
 ## Example: ddev vendor-patches
 
-php vendor/bin/vendor-patches generate
+php vendor/bin/vendor-patches generate --patches-folder=.vendor-patches "$@"

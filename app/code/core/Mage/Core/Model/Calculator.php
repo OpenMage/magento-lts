@@ -24,20 +24,21 @@ class Mage_Core_Model_Calculator
     /**
      * Store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
     /**
      * Initialize calculator
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      */
     public function __construct($store)
     {
         if (!($store instanceof Mage_Core_Model_Store)) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
     }
 
@@ -55,6 +56,7 @@ class Mage_Core_Model_Calculator
             if ($negative) {
                 $this->_delta = -$this->_delta;
             }
+
             $price  += $this->_delta;
             $roundedPrice = $this->_store->roundPrice($price);
             $this->_delta = $price - $roundedPrice;
@@ -62,6 +64,7 @@ class Mage_Core_Model_Calculator
                 $this->_delta = -$this->_delta;
             }
         }
+
         return $roundedPrice;
     }
 }

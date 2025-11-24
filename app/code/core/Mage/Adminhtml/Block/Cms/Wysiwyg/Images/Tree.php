@@ -32,6 +32,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
                 'cls'   => 'folder',
             ];
         }
+
         return Zend_Json::encode($jsonArray);
     }
 
@@ -74,6 +75,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
                 }
             }
         }
+
         return $treePath;
     }
 }

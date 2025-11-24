@@ -17,7 +17,9 @@
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
     public const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
+
     public const DEFAULT_HTTP_PORT = 80;
+
     public const DEFAULT_HTTPS_PORT = 443;
 
     /**
@@ -25,7 +27,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var string
      */
     protected $_originalPathInfo = '';
+
     protected $_storeCode       = null;
+
     protected $_requestString   = '';
 
     /**
@@ -34,19 +38,22 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var null|array
      */
     protected $_rewritedPathInfo = null;
+
     protected $_requestedRouteName = null;
+
     protected $_routingInfo = [];
 
     protected $_route;
 
     protected $_directFrontNames = null;
+
     protected $_controllerModule = null;
 
     /**
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 
@@ -76,11 +83,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (empty($this->_originalPathInfo)) {
             $this->setPathInfo();
         }
+
         return $this->_originalPathInfo;
     }
 
     /**
-     * @return string|null
+     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCodeFromPath()
@@ -105,6 +113,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 $this->_storeCode = Mage::app()->getStore()->getCode();
             }
         }
+
         return $this->_storeCode;
     }
 
@@ -112,7 +121,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param string|null $pathInfo
+     * @param null|string $pathInfo
      * @return Zend_Controller_Request_Http
      */
     public function setPathInfo($pathInfo = null)
@@ -177,6 +186,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (($pathInfo != $this->getPathInfo()) && ($this->_rewritedPathInfo === null)) {
             $this->_rewritedPathInfo = explode('/', trim($this->getPathInfo(), '/'));
         }
+
         $this->setPathInfo($pathInfo);
         return $this;
     }
@@ -219,6 +229,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return [];
             }
         }
+
         return $this->_directFrontNames;
     }
 
@@ -251,6 +262,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         } else {
             $path = str_replace('\\', '/', $path);
         }
+
         return $path;
     }
 
@@ -275,10 +287,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$router) {
             return $this;
         }
+
         $module = $router->getFrontNameByRoute($route);
         if ($module) {
             $this->setModuleName($module);
         }
+
         return $this;
     }
 
@@ -299,9 +313,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
-            self::SCHEME_HTTPS :
-            self::SCHEME_HTTP;
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure())
+            ? self::SCHEME_HTTPS
+            : self::SCHEME_HTTP;
     }
 
     /**
@@ -318,6 +332,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!isset($_SERVER['HTTP_HOST'])) {
             return false;
         }
+
         $host = $_SERVER['HTTP_HOST'];
         if ($trimPort) {
             $hostParts = explode(':', $_SERVER['HTTP_HOST']);
@@ -336,7 +351,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Set a member of the $_POST superglobal
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
@@ -348,6 +363,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         } else {
             $_POST[$key] = $value;
         }
+
         return $this;
     }
 
@@ -382,6 +398,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_module;
     }
+
     /**
      * Retrieve the controller name
      *
@@ -391,6 +408,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_controller;
     }
+
     /**
      * Retrieve the action name
      *
@@ -407,7 +425,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Retrieve the actual key represented by the alias $name.
      *
      * @param string $name
-     * @return string|null Returns null when no alias exists
+     * @return null|string Returns null when no alias exists
      */
     public function getAlias($name)
     {
@@ -435,6 +453,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_route'])) {
             return $this->_routingInfo['requested_route'];
         }
+
         if ($this->_requestedRouteName === null) {
             if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
                 $fronName = $this->_rewritedPathInfo[0];
@@ -445,6 +464,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return $this->getRouteName();
             }
         }
+
         return $this->_requestedRouteName;
     }
 
@@ -458,9 +478,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_controller'])) {
             return $this->_routingInfo['requested_controller'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[1])) {
             return $this->_rewritedPathInfo[1];
         }
+
         return $this->getControllerName();
     }
 
@@ -474,9 +496,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_action'])) {
             return $this->_routingInfo['requested_action'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[2])) {
             return $this->_rewritedPathInfo[2];
         }
+
         return $this->getActionName();
     }
 
@@ -491,6 +515,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (is_array($data)) {
             $this->_routingInfo = $data;
         }
+
         return $this;
     }
 
@@ -520,7 +545,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * If passed name will be null whole state array will be returned.
      *
      * @param string $name
-     * @return array|string|null
+     * @return null|array|string
      */
     public function getBeforeForwardInfo($name = null)
     {
@@ -544,6 +569,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($flag !== null) {
             $this->_isStraight = $flag;
         }
+
         return $this->_isStraight;
     }
 
@@ -557,9 +583,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($this->isXmlHttpRequest()) {
             return true;
         }
+
         if ($this->getParam('ajax') || $this->getParam('isAjax')) {
             return true;
         }
+
         return false;
     }
 

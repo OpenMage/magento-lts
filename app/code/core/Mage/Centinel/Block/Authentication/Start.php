@@ -25,6 +25,7 @@ class Mage_Centinel_Block_Authentication_Start extends Mage_Core_Block_Template
             $this->addData($validator->getAuthenticateStartData());
             return parent::_toHtml();
         }
+
         return '';
     }
 }

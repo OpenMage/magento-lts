@@ -24,14 +24,14 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * List of countries
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_countries = null;
 
     /**
      * List of websites
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites = null;
 
@@ -56,7 +56,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Renders html of block
      *
-     *
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -68,7 +67,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
 
     /**
      * Sets internal reference to element
-     *
      *
      * @return $this
      */
@@ -102,6 +100,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
             usort($data, [$this, '_sortWeeeTaxes']);
             $values = $data;
         }
+
         return $values;
     }
 
@@ -118,9 +117,11 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         if ($a['website_id'] != $b['website_id']) {
             return $a['website_id'] < $b['website_id'] ? -1 : 1;
         }
+
         if ($a['country'] != $b['country']) {
             return $a['country'] < $b['country'] ? -1 : 1;
         }
+
         return 0;
     }
 
@@ -169,6 +170,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         if (!is_null($this->_websites)) {
             return $this->_websites;
         }
+
         $websites = [];
         $websites[0] = [
             'name' => $this->__('All Websites'),
@@ -187,6 +189,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                     if (!in_array($website->getId(), $this->getProduct()->getWebsiteIds())) {
                         continue;
                     }
+
                     $websites[$website->getId()] = [
                         'name' => $website->getName(),
                         'currency' => $website->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
@@ -194,6 +197,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                 }
             }
         }
+
         $this->_websites = $websites;
         return $this->_websites;
     }

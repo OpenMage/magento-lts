@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action extends Mage_Adminhtml_
                 ],
             );
         }
+
         return '<a href="' . $href . '" target="_blank">' . $this->__('Preview') . '</a>';
     }
 }

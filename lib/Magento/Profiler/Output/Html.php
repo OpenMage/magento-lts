@@ -23,14 +23,17 @@ class Magento_Profiler_Output_Html extends Magento_Profiler_OutputAbstract
         foreach (array_keys($this->_getColumns()) as $columnLabel) {
             $out .= '<th>' . $columnLabel . '</th>';
         }
+
         $out .= '</tr>';
         foreach ($this->_getTimers() as $timerId) {
             $out .= '<tr>';
             foreach ($this->_getColumns() as $columnId) {
                 $out .= '<td title="' . $timerId . '">' . $this->_renderColumnValue($timerId, $columnId) . '</td>';
             }
+
             $out .= '</tr>';
         }
+
         $out .= '</table>';
 
         echo $out;

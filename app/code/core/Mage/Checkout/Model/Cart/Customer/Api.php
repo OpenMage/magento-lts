@@ -63,6 +63,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($isCustomerValid !== true && is_array($isCustomerValid)) {
                     $this->_fault('customer_data_invalid', implode(PHP_EOL, $isCustomerValid));
                 }
+
                 break;
         }
 
@@ -72,8 +73,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 ->setCheckoutMethod($customer->getMode())
                 ->setPasswordHash($customer->encryptPassword($customer->getPassword()))
                 ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('customer_not_set', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('customer_not_set', $mageCoreException->getMessage());
         }
 
         return true;
@@ -105,6 +106,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
                     $this->_fault('address_not_belong_customer');
                 }
+
                 $address->importCustomerAddress($customerAddress);
             } else {
                 $address->setData($addressItem);
@@ -142,6 +144,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                                 break;
                         }
                     }
+
                     $quote->setBillingAddress($address);
                     break;
 
@@ -157,8 +160,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             $quote
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault('address_is_not_set', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('address_is_not_set', $exception->getMessage());
         }
 
         return true;
@@ -178,6 +181,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 unset($data[$attributeAlias]);
             }
         }
+
         return $data;
     }
 
@@ -185,7 +189,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
      * Prepare customer entered data for implementing
      *
      * @param  array $data
-     * @return array|null
+     * @return null|array
      */
     protected function _prepareCustomerAddressData($data)
     {
@@ -201,8 +205,10 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                     unset($addressItem[$attributeAlias]);
                 }
             }
+
             $dataAddresses[] = $addressItem;
         }
+
         return $dataAddresses;
     }
 }

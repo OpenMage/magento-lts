@@ -39,10 +39,8 @@ class Mage_Reports_Model_Test extends Varien_Object
         for ($i = 0; $i < $rows -> length; $i++) {
             for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
                 ) {
                     $childsToRemove[] = $rows -> item($i);
                 }
@@ -119,13 +117,15 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
-        $dom -> loadXML('<' . '?xml version="1.0" encoding="UTF-8"?' . ">\n<dataSource></dataSource>");
+        $dom -> loadXML('<?xml version="1.0" encoding="UTF-8"?' . ">\n<dataSource></dataSource>");
+
         $root = $dom ->documentElement;
         if ($reset) {
             $resetItem = $dom -> createElement('reset');
             $resetItem -> nodeValue = $reset;
             $root->appendChild($resetItem);
         }
+
         foreach ($array as $item) {
             $row = $dom->createElement('row');
             foreach ($item as $key => $val) {

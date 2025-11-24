@@ -27,6 +27,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Unitofmeas
         foreach ($unitArr as $key => $val) {
             $returnArr[] = ['value' => $key, 'label' => $val];
         }
+
         return $returnArr;
     }
 }

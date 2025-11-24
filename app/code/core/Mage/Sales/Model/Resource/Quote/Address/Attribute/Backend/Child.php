@@ -26,6 +26,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Child extends Ma
             $object->setParentId($object->getAddress()->getId())
                 ->setStoreId($object->getAddress()->getStoreId());
         }
+
         parent::beforeSave($object);
         return $this;
     }

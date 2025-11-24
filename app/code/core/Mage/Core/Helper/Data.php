@@ -15,27 +15,42 @@
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
+
     public const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
+
     public const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
+
     public const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
+
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
+
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
+
     public const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
 
     public const CHARS_LOWERS                          = 'abcdefghijklmnopqrstuvwxyz';
+
     public const CHARS_UPPERS                          = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
     public const CHARS_DIGITS                          = '0123456789';
+
     public const CHARS_SPECIALS                        = '!$*+-.=?@^_|~';
+
     public const CHARS_PASSWORD_LOWERS                 = 'abcdefghjkmnpqrstuvwxyz';
+
     public const CHARS_PASSWORD_UPPERS                 = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+
     public const CHARS_PASSWORD_DIGITS                 = '23456789';
+
     public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
      * Config paths to merchant country code and merchant VAT number
      */
     public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
+
     public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
+
     public const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
 
     /**
@@ -72,6 +87,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
             $this->_encryptor->setHelper($this);
         }
+
         return $this->_encryptor;
     }
 
@@ -105,8 +121,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
-        } catch (Exception $e) {
-            $value = $e->getMessage();
+        } catch (Exception $exception) {
+            $value = $exception->getMessage();
         }
 
         return $value;
@@ -139,7 +155,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|int|Zend_Date|null   $date If empty, return current datetime.
+     * @param   null|int|string|Zend_Date   $date if empty, return current datetime
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @return  string
@@ -152,7 +168,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|int|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   null|int|string|Zend_Date   $date if empty, return current locale datetime
      * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                        $showTime Whether to include time
      * @param   bool                        $useTimezone Convert to local datetime?
@@ -187,7 +203,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format time using current locale options
      *
-     * @param   string|Zend_Date|null $time
+     * @param   null|string|Zend_Date $time
      * @param   string              $format
      * @param   bool                $showDate
      * @return  string
@@ -227,6 +243,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
+
         return $this->getEncryptor()->encrypt($data);
     }
 
@@ -241,6 +258,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
+
         return $this->getEncryptor()->decrypt($data);
     }
 
@@ -255,7 +273,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param int $len
-     * @param string|null $chars
+     * @param null|string $chars
      * @return string
      */
     public function getRandomString($len, $chars = null)
@@ -263,9 +281,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($chars)) {
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
+
         for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[random_int(0, $lc)];
         }
+
         return $str;
     }
 
@@ -273,7 +293,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate salted hash from password
      *
      * @param string $password
-     * @param string|int|bool $salt
+     * @param bool|int|string $salt
      * @return string
      */
     public function getHash($password, $salt = false)
@@ -295,6 +315,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if ($latestVersionHash == $encryptionModel::HASH_VERSION_SHA512) {
             return $this->getEncryptor()->getHashPassword($password, $salt);
         }
+
         return $this->getEncryptor()->getHashPassword($password, Mage_Admin_Model_User::HASH_SALT_EMPTY);
     }
 
@@ -317,14 +338,14 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {
         return function_exists('password_hash')
-            ? $encryptionModel::HASH_VERSION_LATEST
-            : $encryptionModel::HASH_VERSION_SHA512;
+            ? Mage_Core_Model_Encryption::HASH_VERSION_LATEST
+            : Mage_Core_Model_Encryption::HASH_VERSION_SHA512;
     }
 
     /**
      * Retrieve store identifier
      *
-     * @param   bool|int|Mage_Core_Model_Store|null|string $store
+     * @param   null|bool|int|Mage_Core_Model_Store|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -394,7 +415,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
+     * @param null|bool|int|Mage_Core_Model_Store|string $storeId
      * @return bool
      */
     public function isDevAllowed($storeId = null)
@@ -427,6 +448,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($config->children() as $type => $node) {
             $types[$type] = (string) $node->label;
         }
+
         return $types;
     }
 
@@ -444,6 +466,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $types[$type] = (string) $node->label;
             }
         }
+
         return $types;
     }
 
@@ -468,6 +491,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         ) {
             return false;
         }
+
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);
         if (!$fields) {
             return false;
@@ -557,12 +581,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 if ($forceSetAll || ($i === 0)) {
                     $array[$key][$keyIsFirst] = ($i === 0);
                 }
+
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
                 }
+
                 if ($forceSetAll || $isEven) {
                     $array[$key][$keyIsEven] = $isEven;
                 }
+
                 $isEven = !$isEven;
                 $i++;
                 if ($forceSetAll || ($i === $count)) {
@@ -616,6 +643,7 @@ XML;
                 throw new Exception('Array root keys must not be numeric.');
             }
         }
+
         return self::_assocToXml($array, $rootName, $xml);
     }
 
@@ -637,6 +665,7 @@ XML;
                     if ($key === $rootName) {
                         throw new Exception('Associative key must not be the same as its parent associative key.');
                     }
+
                     $hasStringKey = true;
                     $xml->$key = $value;
                 } elseif (is_int($key)) {
@@ -647,9 +676,11 @@ XML;
                 self::_assocToXml($value, $key, $xml->$key);
             }
         }
+
         if ($hasNumericKey && $hasStringKey) {
             throw new Exception('Associative and numeric keys must not be mixed at one level.');
         }
+
         return $xml;
     }
 
@@ -678,6 +709,7 @@ XML;
                 }
             }
         }
+
         return $array;
     }
 
@@ -758,7 +790,7 @@ XML;
      * May filter files by specified extension(s)
      * Returns false on error
      *
-     * @param string|false $targetFile - file path to be written
+     * @param false|string $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
@@ -804,15 +836,15 @@ XML;
                     if (!is_array($extensionsFilter)) {
                         $extensionsFilter = [$extensionsFilter];
                     }
-                    if (!empty($srcFiles)) {
-                        foreach ($srcFiles as $key => $file) {
-                            $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                            if (!in_array($fileExt, $extensionsFilter)) {
-                                unset($srcFiles[$key]);
-                            }
+
+                    foreach ($srcFiles as $key => $file) {
+                        $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                        if (!in_array($fileExt, $extensionsFilter)) {
+                            unset($srcFiles[$key]);
                         }
                     }
                 }
+
                 if (empty($srcFiles)) {
                     // no translation intentionally
                     throw new Exception('No files to compile.');
@@ -823,17 +855,21 @@ XML;
                     if (!file_exists($file)) {
                         continue;
                     }
+
                     $contents = file_get_contents($file) . "\n";
                     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
+
                     $data .= $contents;
                 }
+
                 if (!$data) {
                     // no translation intentionally
                     throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
+
                 if ($targetFile) {
                     file_put_contents($targetFile, $data, LOCK_EX);
                 } else {
@@ -842,16 +878,17 @@ XML;
             }
 
             return true; // no need in merger or merged into file successfully
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         return false;
     }
 
     /**
      * Return default country code
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getDefaultCountry($store = null)
@@ -862,7 +899,7 @@ XML;
     /**
      * Return list with protected file extensions
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getProtectedFileExtensions($store = null)
@@ -883,15 +920,16 @@ XML;
     /**
      * Check LFI protection
      *
-     * @throws Mage_Core_Exception
      * @param string $name
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
+
         return true;
     }
 
@@ -911,7 +949,7 @@ XML;
     /**
      * Retrieve merchant country code
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getMerchantCountryCode($store = null)
@@ -922,7 +960,7 @@ XML;
     /**
      * Retrieve merchant VAT number
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getMerchantVatNumber($store = null)
@@ -966,9 +1004,9 @@ XML;
      * Escaping CSV-data
      *
      * Security enhancement for CSV data processing by Excel-like applications.
-     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
      * @return array
+     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      */
     public function getEscapedCSVData(array $data)
     {
@@ -982,6 +1020,7 @@ XML;
                 }
             }
         }
+
         return $data;
     }
 
@@ -1002,6 +1041,7 @@ XML;
                 }
             }
         }
+
         return $data;
     }
 
@@ -1020,6 +1060,7 @@ XML;
                     $errorMessage = $this->__('Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.');
                     Mage::getSingleton('core/session')->addError($errorMessage);
                 }
+
                 return true;
             }
 

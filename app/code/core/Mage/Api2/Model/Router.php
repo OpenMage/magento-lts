@@ -62,15 +62,18 @@ class Mage_Api2_Model_Router
                 break;
             }
         }
+
         if (!$isMatched) {
             throw new Mage_Api2_Exception('Request does not match any route.', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         if (!$request->getResourceType() || !$request->getModel()) {
             throw new Mage_Api2_Exception(
                 'Matched resource is not properly set.',
                 Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
             );
         }
+
         return $request;
     }
 
@@ -89,12 +92,14 @@ class Mage_Api2_Model_Router
         if (!($apiTypeMatch = $apiTypeRoute->match($request, true))) {
             throw new Mage_Api2_Exception('Request does not match type route.', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         // Trim matched URI path for next routes
         if ($trimApiTypePath) {
             $matchedPathLength = strlen('/' . ltrim($apiTypeRoute->getMatchedPath(), '/'));
 
             $request->setPathInfo(substr($request->getPathInfo(), $matchedPathLength));
         }
+
         $request->setParam('api_type', $apiTypeMatch['api_type']);
 
         return $this;

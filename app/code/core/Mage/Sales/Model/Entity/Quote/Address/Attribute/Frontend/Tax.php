@@ -25,6 +25,7 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax extends Mage_
                 'value' => $amount,
             ]);
         }
+
         return $this;
     }
 }

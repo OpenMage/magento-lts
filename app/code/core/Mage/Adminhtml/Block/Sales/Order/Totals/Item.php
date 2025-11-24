@@ -11,6 +11,8 @@
  * Totals item block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Sales_Block_Order_Totals getParentBlock()
  */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
@@ -48,6 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         } else {
             $this->getParentBlock()->addTotal($total, $this->getAfterCondition());
         }
+
         return $this;
     }
 
@@ -83,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Source order getter
      *
-     * @return Mage_Sales_Model_Order
+     * @return Mage_Sales_Model_Abstract
      */
     public function getSource()
     {

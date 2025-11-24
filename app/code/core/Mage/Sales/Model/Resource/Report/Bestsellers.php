@@ -15,7 +15,9 @@
 class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Resource_Report_Abstract
 {
     public const AGGREGATION_DAILY   = 'daily';
+
     public const AGGREGATION_MONTHLY = 'monthly';
+
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
@@ -211,9 +213,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $this->_updateRatingPos(self::AGGREGATION_YEARLY);
 
             $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //$this->_getWriteAdapter()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         //$this->_getWriteAdapter()->commit();
@@ -223,7 +225,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data for default store
      *
-     * @param Varien_Db_Select|null $subSelect
+     * @param null|Varien_Db_Select $subSelect
      * @return $this
      */
     protected function _aggregateDefault($subSelect = null)
@@ -266,6 +268,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId()),
         ];
         $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
+
         $select->joinLeft(
             ['product_default_price' => $attr->getBackend()->getTable()],
             $joinExprProductDefPrice,

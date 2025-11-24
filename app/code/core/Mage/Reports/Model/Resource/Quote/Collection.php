@@ -57,7 +57,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
      * Prepare for abandoned report
      *
      * @param array $storeIds
-     * @param string $filter
+     * @param array $filter
      * @return $this
      */
     public function prepareForAbandonedReport($storeIds, $filter = null)
@@ -151,7 +151,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add customer data
      *
-     * @param array|null $filter
+     * @param null|array $filter
      * @return $this
      */
     public function addCustomerData($filter = null)
@@ -216,6 +216,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 $likeExpr = '%' . $filter['customer_name'] . '%';
                 $this->getSelect()->where($this->_joinedFields['customer_name'] . ' LIKE ?', $likeExpr);
             }
+
             if (isset($filter['email'])) {
                 $likeExpr = '%' . $filter['email'] . '%';
                 $this->getSelect()->where($this->_joinedFields['email'] . ' LIKE ?', $likeExpr);
@@ -238,8 +239,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             $this->getSelect()->columns([
                 'subtotal' => '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)',
             ]);
-            $this->_joinedFields['subtotal'] =
-                '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
+            $this->_joinedFields['subtotal']
+                = '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
         } else {
             $this->getSelect()->columns(['subtotal' => 'main_table.base_subtotal_with_discount']);
             $this->_joinedFields['subtotal'] = 'main_table.base_subtotal_with_discount';
@@ -253,6 +254,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                     Zend_Db::FLOAT_TYPE,
                 );
             }
+
             if (isset($filter['subtotal']['to'])) {
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' <= ?',

@@ -22,8 +22,8 @@ class Mage_Catalog_Model_Api2_Product_Image_Validator_Image extends Mage_Api2_Mo
      */
     public function isValidData(array $data)
     {
-        if (!isset($data['file_content']) || !isset($data['file_mime_type']) || empty($data['file_content']) ||
-            empty($data['file_mime_type'])
+        if (!isset($data['file_content']) || !isset($data['file_mime_type']) || empty($data['file_content'])
+            || empty($data['file_mime_type'])
         ) {
             $this->_addError('The image is not specified');
         }

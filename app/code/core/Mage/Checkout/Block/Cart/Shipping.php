@@ -42,6 +42,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
             $groups = $this->getAddress()->getGroupedAllShippingRates();
             $this->_rates = $groups;
         }
+
         return $this->_rates;
     }
 
@@ -55,6 +56,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         if (is_null($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 
@@ -69,6 +71,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -203,6 +206,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 }
             }
         }
+
         return $this->_carriers;
     }
 
@@ -218,6 +222,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -233,6 +238,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -248,6 +254,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 

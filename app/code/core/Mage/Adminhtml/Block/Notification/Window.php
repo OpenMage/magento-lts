@@ -9,25 +9,32 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method string getNoticeSeverity()
+ * @method $this setNoticeSeverity(string $value)
+ *
+ * @property string $_aclResourcePath
  */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
     /**
      * XML path of Severity icons url
+     *
+     * @deprecated
      */
     public const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
 
     /**
      * Severity icons url
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_severityIconsUrl;
 
     /**
      * Is available flag
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_available = null;
 
@@ -72,6 +79,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Can we show notification window
      *
      * @return bool
+     * @throws Exception
      */
     public function canShow()
     {
@@ -97,6 +105,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         if (is_null($this->_available)) {
             $this->_available = $this->isShow();
         }
+
         return $this->_available;
     }
 
@@ -125,19 +134,20 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Retrieve severity icons url
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSeverityIconsUrl()
     {
         if (is_null($this->_severityIconsUrl)) {
-            $this->_severityIconsUrl =
-                (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
-                . sprintf(
-                    Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
-                    Mage::getVersion(),
-                    $this->getNoticeSeverity(),
+            $this->_severityIconsUrl
+                = sprintf(
+                    '%s/%s.gif',
+                    $this->getSkinUrl('images/severity'),
+                    $this->getSeverityText(),
                 )
             ;
         }
+
         return $this->_severityIconsUrl;
     }
 

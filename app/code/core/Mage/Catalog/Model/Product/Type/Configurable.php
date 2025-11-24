@@ -114,7 +114,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve parent ids array by required child
      *
-     * @param  int|array $childId
+     * @param  array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -141,6 +141,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 }
             }
         }
+
         return $this->_editableAttributes;
     }
 
@@ -175,6 +176,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             $configurableAttributes[] = Mage::getModel('catalog/product_type_configurable_attribute')
                 ->setProductAttribute($this->getAttributeById($attributeId));
         }
+
         $this->getProduct($product)->setData($this->_usedProductAttributes, $usedProductAttributes);
         $this->getProduct($product)->setData($this->_usedProductAttributeIds, $ids);
         $this->getProduct($product)->setData($this->_configurableAttributes, $configurableAttributes);
@@ -195,8 +197,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             foreach ($this->getUsedProductAttributes($product) as $attribute) {
                 $usedProductAttributeIds[] = $attribute->getId();
             }
+
             $this->getProduct($product)->setData($this->_usedProductAttributeIds, $usedProductAttributeIds);
         }
+
         return $this->getProduct($product)->getData($this->_usedProductAttributeIds);
     }
 
@@ -218,9 +222,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $usedAttributes[$id]        = $attribute;
                 }
             }
+
             $this->getProduct($product)->setData($this->_usedAttributes, $usedAttributes);
             $this->getProduct($product)->setData($this->_usedProductAttributes, $usedProductAttributes);
         }
+
         return $this->getProduct($product)->getData($this->_usedProductAttributes);
     }
 
@@ -239,6 +245,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 ->load();
             $this->getProduct($product)->setData($this->_configurableAttributes, $configurableAttributes);
         }
+
         Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $this->getProduct($product)->getData($this->_configurableAttributes);
     }
@@ -265,6 +272,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 'store_label'    => $attribute->getProductAttribute()->getStoreLabel(),
             ];
         }
+
         return $res;
     }
 
@@ -293,15 +301,17 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             foreach ($this->getUsedProducts(null, $product) as $product) {
                 $usedProductIds[] = $product->getId();
             }
+
             $this->getProduct($product)->setData($this->_usedProductIds, $usedProductIds);
         }
+
         return $this->getProduct($product)->getData($this->_usedProductIds);
     }
 
     /**
      * Retrieve array of "subproducts"
      *
-     * @param  array|null $requiredAttributeIds
+     * @param  null|array $requiredAttributeIds
      * @param  Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Product[]
      */
@@ -349,6 +359,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
             $this->getProduct($product)->setData($this->_usedProducts, $usedProducts);
         }
+
         Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $this->getProduct($product)->getData($this->_usedProducts);
     }
@@ -397,6 +408,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 }
             }
         }
+
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
             $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode(), null);
         }
@@ -438,6 +450,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             Mage::getResourceModel('catalog/product_type_configurable')
                 ->saveProducts($this->getProduct($product), $productIds);
         }
+
         return $this;
     }
 
@@ -456,6 +469,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             if (!is_null($product)) {
                 $this->setStoreFilter($product->getStoreId(), $product);
             }
+
             foreach ($this->getUsedProducts(null, $product) as $child) {
                 if ($child->isSalable()) {
                     $salable = true;
@@ -487,7 +501,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param  array $attributesInfo
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProductByAttributes($attributesInfo, $product = null)
     {
@@ -496,6 +510,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             foreach ($attributesInfo as $attributeId => $attributeValue) {
                 $productCollection->addAttributeToFilter($attributeId, $attributeValue);
             }
+
             $productObject = $productCollection->getFirstItem();
             if ($productObject->getId()) {
                 return $productObject;
@@ -509,11 +524,13 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $checkRes = false;
                     }
                 }
+
                 if ($checkRes) {
                     return $productObject;
                 }
             }
         }
+
         return null;
     }
 
@@ -549,6 +566,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 }
             }
         }
+
         Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $attributes;
     }
@@ -593,6 +611,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         }
                     }
                 }
+
                 if ($subProduct) {
                     $subProduct = $this->getProductByAttributes($attributes, $product);
                 }
@@ -607,7 +626,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $subProduct,
                         $processMode,
                     );
-                    if (is_string($_result) && !is_array($_result)) {
+                    if (is_string($_result)) {
                         return $_result;
                     }
 
@@ -635,6 +654,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     if ($this->_isStrictProcessMode($processMode)) {
                         $_result[0]->setCartQty(1);
                     }
+
                     $result[] = $_result[0];
                     return $result;
                 } elseif (!$this->_isStrictProcessMode($processMode)) {
@@ -668,10 +688,12 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     }
                 }
             }
+
             if (empty($attributes)) {
                 Mage::throwException($this->getSpecifyOptionMessage());
             }
         }
+
         return $this;
     }
 
@@ -682,7 +704,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getSpecifyOptionMessage()
     {
-        return Mage::helper('catalog')->__('Please specify the product\'s option(s).');
+        return Mage::helper('catalog')->__("Please specify the product's option(s).");
     }
 
     /**
@@ -696,7 +718,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         $options = parent::getOrderOptions($product);
         $options['attributes_info'] = $this->getSelectedAttributesInfo($product);
-        /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleOption */
+        /** @var Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option $simpleOption */
         $simpleOption = $this->getProduct($product)->getCustomOption('simple_product');
         if ($simpleOption) {
             $options['simple_name'] = $simpleOption->getProduct()->getName();
@@ -722,6 +744,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 return $optionProduct->isVirtual();
             }
         }
+
         return parent::isVirtual($product);
     }
 
@@ -758,10 +781,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getWeight($product = null)
     {
-        if ($this->getProduct($product)->hasCustomOptions() &&
-            ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
+        if ($this->getProduct($product)->hasCustomOptions()
+            && ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
         ) {
-            /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleProductOption */
+            /** @var Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option $simpleProductOption */
             $simpleProduct = $simpleProductOption->getProduct();
             if ($simpleProduct) {
                 return $simpleProduct->getWeight();
@@ -775,9 +798,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Implementation of product specify logic of which product needs to be assigned to option.
      * For example if product which was added to option already removed from catalog.
      *
-     * @param  Mage_Catalog_Model_Product|null $optionProduct
+     * @param  null|Mage_Catalog_Model_Product $optionProduct
      * @param  Mage_Sales_Model_Quote_Item_Option $option
-     * @param  Mage_Catalog_Model_Product|null $product
+     * @param  null|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function assignProductToOption($optionProduct, $option, $product = null)
@@ -787,6 +810,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         } else {
             $option->getItem()->setHasConfigurationUnavailableError(true);
         }
+
         return $this;
     }
 
@@ -819,6 +843,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             if ($optionProduct) {
                 $simpleSku =  $simpleOption->getProduct()->getSku();
             }
+
             $sku = parent::getOptionSku($product, $simpleSku);
         } else {
             $sku = parent::getSku($product);
@@ -837,7 +862,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function processBuyRequest($product, $buyRequest)
     {
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, '\intval') : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
 
         return ['super_attribute' => $superAttribute];
     }
@@ -847,7 +872,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool|null
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

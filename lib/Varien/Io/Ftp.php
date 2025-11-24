@@ -15,11 +15,17 @@
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
     public const ERROR_EMPTY_HOST = 1;
+
     public const ERROR_INVALID_CONNECTION = 2;
+
     public const ERROR_INVALID_LOGIN = 3;
+
     public const ERROR_INVALID_PATH = 4;
+
     public const ERROR_INVALID_MODE = 5;
+
     public const ERROR_INVALID_DESTINATION = 6;
+
     public const ERROR_INVALID_SOURCE = 7;
 
     /**
@@ -32,7 +38,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * An FTP connection
      *
-     * @var FTP\Connection|false
+     * @var false|FTP\Connection
      */
     protected $_conn;
 
@@ -97,6 +103,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             $this->_conn = @ftp_ssl_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         }
+
         if (!$this->_conn) {
             $this->_error = self::ERROR_INVALID_CONNECTION;
             throw new Varien_Io_Exception('Could not establish FTP connection, invalid host or port');
@@ -197,7 +204,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Read a file to result, file or stream
      *
      * @param string $filename
-     * @param string|resource|null $dest destination file name, stream, or if null will return file contents
+     * @param null|resource|string $dest destination file name, stream, or if null will return file contents
      * @return bool|string
      */
     public function read($filename, $dest = null)
@@ -220,9 +227,11 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 fseek($stream, 0);
                 $result = '';
                 for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+
                 fclose($stream);
             }
         }
+
         return $result;
     }
 
@@ -230,8 +239,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Write a file from string, file or stream
      *
      * @param string $filename
-     * @param string|resource $src filename, string data or source stream
-     * @return int|bool
+     * @param resource|string $src filename, string data or source stream
+     * @return bool|int
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -255,6 +264,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_string($src)) {
                 fclose($stream);
             }
+
             return $result;
         }
     }
@@ -323,6 +333,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         if ($new || !$this->_tmpFilename) {
             $this->_tmpFilename = tempnam(md5(uniqid((string) random_int(0, mt_getrandmax()), true)), '');
         }
+
         return $this->_tmpFilename;
     }
 }

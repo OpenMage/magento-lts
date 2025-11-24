@@ -61,9 +61,11 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             } else {
                 $product = false;
             }
+
             if ($this->_quote) {
                 $item->setQuote($this->_quote);
             }
+
             if (!$product) {
                 $item->isDeleted(true);
                 $recollectQuote = true;
@@ -91,9 +93,11 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             $item->checkData();
             Varien_Profiler::stop('TEST2: ' . __METHOD__);
         }
+
         if ($recollectQuote && $this->_quote) {
             $this->_quote->collectTotals();
         }
+
         return $this;
     }
 
@@ -110,6 +114,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
             if ($item->getSuperProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getSuperProductId();
             }
+
             if ($item->getParentProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getParentProductId();
             }

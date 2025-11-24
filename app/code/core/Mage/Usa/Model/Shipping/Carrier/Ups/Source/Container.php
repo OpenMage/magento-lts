@@ -19,6 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Container
         foreach ($ups->getCode('container_description') as $k => $v) {
             $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v)];
         }
+
         return $arr;
     }
 }

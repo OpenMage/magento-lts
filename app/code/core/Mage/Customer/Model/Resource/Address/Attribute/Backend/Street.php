@@ -26,6 +26,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Street extends Mage
         if ($street) {
             $object->implodeStreetAddress();
         }
+
         return $this;
     }
 }

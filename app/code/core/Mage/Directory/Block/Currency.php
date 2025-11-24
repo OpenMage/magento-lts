@@ -54,6 +54,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
 
             $this->setData('currencies', $currencies);
         }
+
         return $currencies;
     }
 

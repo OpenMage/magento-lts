@@ -17,7 +17,9 @@
 class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 {
     protected $_entity = null;
+
     protected $_type   = null;
+
     protected $_giftMessage = null;
 
     protected function _construct()
@@ -84,6 +86,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * Init message
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initMessage()
     {
@@ -126,6 +129,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      *
      * @param mixed $entity
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMessage($entity = null)
     {
@@ -139,6 +143,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 $helper = $this->helper('giftmessage/message');
                 $entity->setGiftMessage($helper->getGiftMessage($entity->getGiftMessageId()));
             }
+
             return $entity->getGiftMessage();
         }
 
@@ -162,12 +167,15 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($this->isItemMessagesAvailable($item) || $item->getIsGiftOptionsAvailable()) {
                     $items[] = $item;
                 }
             }
+
             $this->setData('items', $items);
         }
+
         return $this->getData('items');
     }
 
@@ -213,6 +221,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 return true;
             }
         }
+
         return false;
     }
 
@@ -238,19 +247,20 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
         if ($value === null || strlen($value) == 0) {
             return $defaultValue;
         }
+
         return $this->escapeHtml(trim($value));
     }
 
     /**
      * Check availability of giftmessages for specified entity
      *
-     * @return bool|int
+     * @return bool
      */
     public function isMessagesAvailable()
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->isMessagesAvailable($helper::TYPE_CONFIG, $this->getEntity());
+        return $helper->isMessagesAvailable(Mage_GiftMessage_Helper_Message::TYPE_CONFIG, $this->getEntity());
     }
 
     /**

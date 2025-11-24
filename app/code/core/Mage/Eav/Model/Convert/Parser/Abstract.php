@@ -13,11 +13,13 @@
 abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
     protected $_storesById;
+
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     /**
-     * @param array $stores
+     * @param string $stores
      * @return array|false
      */
     public function getStoreIds($stores)
@@ -34,10 +36,12 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                     if (!$storeNode) {
                         return false;
                     }
+
                     $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
+
         return $storeIds;
     }
 
@@ -48,7 +52,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
      */
     public function getStoreCode($storeId)
     {
-        return Mage::app()->getStore($storeId ? $storeId : 0)->getCode();
+        return Mage::app()->getStore($storeId ?: 0)->getCode();
     }
 
     /**
@@ -63,14 +67,15 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         $this->_attributeSetsById = [];
         $this->_attributeSetsByName = [];
         /**
-         * @var int $id
+         * @var int $setId
          * @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet
          */
-        foreach ($attributeSetCollection as $id => $attributeSet) {
+        foreach ($attributeSetCollection as $setId => $attributeSet) {
             $name = $attributeSet->getAttributeSetName();
-            $this->_attributeSetsById[$id] = $name;
-            $this->_attributeSetsByName[$name] = $id;
+            $this->_attributeSetsById[$setId] = $name;
+            $this->_attributeSetsByName[$name] = $setId;
         }
+
         return $this;
     }
 
@@ -84,6 +89,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsById[$id] ?? false;
     }
 
@@ -97,12 +103,13 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsByName[$name] ?? false;
     }
 
     /**
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
@@ -111,6 +118,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                 return $option['value'];
             }
         }
+
         return null;
     }
 }

@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Product type code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_typeId;
 
@@ -31,7 +31,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
     /**
      * Define main price index table
-     *
      */
     protected function _construct()
     {
@@ -60,6 +59,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if (is_null($this->_typeId)) {
             Mage::throwException(Mage::helper('catalog')->__('A product type is not defined for the indexer.'));
         }
+
         return $this->_typeId;
     }
 
@@ -99,17 +99,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             $this->_applyCustomOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -124,15 +125,15 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve final price temporary index table name
      *
-     * @see _prepareDefaultFinalPriceTable()
-     *
      * @return string
+     * @see _prepareDefaultFinalPriceTable()
      */
     protected function _getDefaultFinalPriceTable()
     {
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_final_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_final_tmp');
     }
 
@@ -160,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Prepare products default final price in temporary index table
      *
-     * @param int|array $entityIds  the entity ids limitation
+     * @param array|int $entityIds  the entity ids limitation
      * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)
@@ -222,6 +223,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         } else {
             $taxClassId = new Zend_Db_Expr('0');
         }
+
         $select->columns(['tax_class_id' => $taxClassId]);
 
         $price          = $this->_addAttributeToSelect($select, 'price', 'e.entity_id', 'cs.store_id');
@@ -302,6 +304,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_aggregate_tmp');
     }
 
@@ -315,6 +318,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_tmp');
     }
 
@@ -601,6 +605,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

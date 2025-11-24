@@ -78,8 +78,10 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
                     }
                 }
             }
+
             $this->_resourcesPermissions = $rulesPairs;
         }
+
         return $this->_resourcesPermissions;
     }
 

@@ -16,12 +16,15 @@ use PaypalServerSdkLib\Models\ItemCategory;
 class Mage_Paypal_Model_Cart
 {
     public const TOTAL_SUBTOTAL = 'subtotal';
+
     public const TOTAL_DISCOUNT = 'discount';
+
     public const TOTAL_TAX = 'tax';
+
     public const TOTAL_SHIPPING = 'shipping';
 
     /**
-     * @var Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Order|Mage_Sales_Model_Quote
      */
     protected $_quote;
 
@@ -36,7 +39,7 @@ class Mage_Paypal_Model_Cart
     protected $_items = [];
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $_currency;
 
@@ -57,6 +60,7 @@ class Mage_Paypal_Model_Cart
         } else {
             throw new Exception('Invalid sales entity provided.');
         }
+
         $this->_validateCurrency();
     }
 
@@ -74,6 +78,7 @@ class Mage_Paypal_Model_Cart
                 Mage::helper('paypal')->__('Selected currency code (%s) is not supported by PayPal', $currentCurrency),
             );
         }
+
         $this->_currency = $currentCurrency;
         return $this;
     }
@@ -86,6 +91,7 @@ class Mage_Paypal_Model_Cart
         if (empty($this->_items)) {
             $this->_prepareItems();
         }
+
         return $this->_items;
     }
 
@@ -97,6 +103,7 @@ class Mage_Paypal_Model_Cart
         if (empty($this->_totals)) {
             $this->_prepareTotals();
         }
+
         return $this->_totals;
     }
 
@@ -124,10 +131,12 @@ class Mage_Paypal_Model_Cart
             if ($taxMoneyBuilder) {
                 $itemBuilder->tax($taxMoneyBuilder->build());
             }
+
             $description = $item->getDescription();
             if ($description) {
                 $itemBuilder->description(substr((string) $description, 0, 127));
             }
+
             $this->_items[] = $itemBuilder->build();
         }
 

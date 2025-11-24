@@ -25,6 +25,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Child extends M
         if ($object->getShipment()) {
             $object->setParentId($object->getShipment()->getId());
         }
+
         return parent::beforeSave($object);
     }
 }

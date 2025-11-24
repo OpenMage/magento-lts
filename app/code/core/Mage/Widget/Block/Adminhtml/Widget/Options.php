@@ -13,9 +13,9 @@
  * @package    Mage_Widget
  *
  * @method string getMainFieldsetHtmlId()
- * @method $this setMainFieldsetHtmlId(string $value)
  * @method string getWidgetType()
  * @method array getWidgetValues()
+ * @method $this setMainFieldsetHtmlId(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -56,6 +56,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if ($this->_form instanceof Varien_Data_Form) {
             return $this->_form;
         }
+
         $form = new Varien_Data_Form();
         $this->setForm($form);
         return $form;
@@ -71,6 +72,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if ($this->_getData('main_fieldset') instanceof Varien_Data_Form_Element_Fieldset) {
             return $this->_getData('main_fieldset');
         }
+
         $mainFieldsetHtmlId = 'options_fieldset' . md5($this->getWidgetType());
         $this->setMainFieldsetHtmlId($mainFieldsetHtmlId);
         $fieldset = $this->getForm()->addFieldset($mainFieldsetHtmlId, [
@@ -97,10 +99,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if (!$this->getWidgetType()) {
             Mage::throwException($this->__('Widget Type is not specified'));
         }
+
         $config = Mage::getSingleton('widget/widget')->getConfigAsObject($this->getWidgetType());
         if (!$config->getParameters()) {
             return $this;
         }
+
         $module = $config->getModule();
         $this->_translationHelper = Mage::helper($module ? $module : 'widget');
         foreach ($config->getParameters() as $parameter) {

@@ -28,6 +28,7 @@ class Mage_ImportExport_Model_Source_Import_Entity
         foreach ($comboOptions as $option) {
             $options[] = $option;
         }
+
         return $options;
     }
 }

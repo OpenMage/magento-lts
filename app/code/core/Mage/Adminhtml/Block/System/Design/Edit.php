@@ -54,6 +54,17 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                     'class'     => 'delete',
                 ]),
         );
+
+        $this->setChild(
+            'reset_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Reset'),
+                    'onclick'   => 'document.location.reload()',
+                    'class'     => 'reset',
+                ]),
+        );
+
         return parent::_prepareLayout();
     }
 
@@ -97,6 +108,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         if (Mage::registry('design')->getId()) {
             return Mage::helper('core')->__('Edit Design Change');
         }
+
         return Mage::helper('core')->__('New Design Change');
     }
 }

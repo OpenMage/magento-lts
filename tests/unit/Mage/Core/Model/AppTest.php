@@ -32,13 +32,13 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetStore
      * @group Model
      */
-    public function testGetStore(Mage_Core_Model_Store|int|string|bool|null $id): void
+    public function testGetStore(null|bool|int|Mage_Core_Model_Store|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
-        } catch (Mage_Core_Model_Store_Exception $e) {
-            self::assertNotEmpty($e->getMessage());
-            self::assertSame('Invalid store code requested.', $e->getMessage());
+        } catch (Mage_Core_Model_Store_Exception $mageCoreModelStoreException) {
+            self::assertNotEmpty($mageCoreModelStoreException->getMessage());
+            self::assertSame('Invalid store code requested.', $mageCoreModelStoreException->getMessage());
         }
     }
 
@@ -47,13 +47,13 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetWebsite
      * @group Model
      */
-    public function testGetWebsite(Mage_Core_Model_Website|int|string|bool|null $id): void
+    public function testGetWebsite(null|bool|int|Mage_Core_Model_Website|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
-        } catch (Mage_Core_Exception $exception) {
-            self::assertNotEmpty($exception->getMessage());
-            self::assertSame('Invalid website id requested.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertNotEmpty($mageCoreException->getMessage());
+            self::assertSame('Invalid website id requested.', $mageCoreException->getMessage());
         }
     }
 
@@ -62,13 +62,13 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetGroup
      * @group Model
      */
-    public function testGetGroup(Mage_Core_Model_Store_Group|int|string|bool|null $id): void
+    public function testGetGroup(null|bool|int|Mage_Core_Model_Store_Group|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
-        } catch (Mage_Core_Exception $e) {
-            self::assertNotEmpty($e->getMessage());
-            self::assertSame('Invalid store group id requested.', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertNotEmpty($mageCoreException->getMessage());
+            self::assertSame('Invalid store group id requested.', $mageCoreException->getMessage());
         }
     }
 }

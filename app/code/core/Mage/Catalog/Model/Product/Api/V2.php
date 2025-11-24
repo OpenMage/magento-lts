@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * Retrieve product info
      *
      * @param int|string $productId
-     * @param string|int $store
+     * @param int|string $store
      * @param stdClass   $attributes
      * @param string     $identifierType
      * @return array
@@ -127,14 +127,16 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $product->getId();
@@ -145,8 +147,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      * @param int|string $productId
      * @param array|stdClass $productData
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param int|string $store
+     * @param null|string $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -170,14 +172,16 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                     } else {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -188,7 +192,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      * @param array      $productIds
      * @param array      $productData
-     * @param string|int $store
+     * @param int|string $store
      * @param string     $identifierType
      * @return true|void
      */
@@ -229,6 +233,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (!is_object($productData)) {
             $this->_fault('data_invalid');
         }
+
         if (property_exists($productData, 'website_ids') && is_array($productData->website_ids)) {
             $product->setWebsiteIds($productData->website_ids);
         }
@@ -241,6 +246,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                     $productData->$attributeCode = $_attribute->value;
                 }
             }
+
             if (property_exists($productData->additional_attributes, 'multi_data')) {
                 foreach ($productData->additional_attributes->multi_data as $_attribute) {
                     /** @var string $attributeCode */
@@ -248,6 +254,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                     $productData->$attributeCode = $_attribute->value;
                 }
             }
+
             unset($productData->additional_attributes);
         }
 
@@ -281,10 +288,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                 if (is_string($website)) {
                     try {
                         $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
             }
+
             $product->setWebsiteIds($productData->websites);
         }
 
@@ -297,6 +305,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             foreach ($productData->stock_data as $key => $value) {
                 $_stockData[$key] = $value;
             }
+
             $product->setStockData($_stockData);
         }
 
@@ -314,7 +323,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param float $specialPrice
      * @param string $fromDate
      * @param string $toDate
-     * @param string|int $store
+     * @param int|string $store
      * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
      *                                        otherwise - try to determine identifier type automatically
      * @return bool

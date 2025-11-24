@@ -17,7 +17,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     public const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
-     * @return Varien_Io_Abstract|false
+     * @return false|Varien_Io_Abstract
      */
     public function getResource($forWrite = false)
     {
@@ -43,8 +43,8 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path'))
+                        || preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
                     ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
@@ -70,6 +70,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                             $ioConfig['path'] = rtrim($realPath, DS);
                         }
                     }
+
                     break;
                 default:
                     $ioConfig['path'] = rtrim($this->getVar('path'), '/');
@@ -79,6 +80,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($isError) {
                 return false;
             }
+
             try {
                 $this->_resource->open($ioConfig);
             } catch (Exception $e) {
@@ -86,6 +88,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                 Mage::throwException($message);
             }
         }
+
         return $this->_resource;
     }
 
@@ -144,8 +147,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($this->getVar('link')) {
                 $message .= Mage::helper('dataflow')->__('<a href="%s" target="_blank">Link</a>', $this->getVar('link'));
             }
+
             $this->addException($message);
         }
+
         return $this;
     }
 }

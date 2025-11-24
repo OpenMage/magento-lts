@@ -29,8 +29,10 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout extends Mage_
                     'label' => (string) $layoutConfig->label,
                 ];
             }
+
             array_unshift($this->_options, ['value' => '', 'label' => Mage::helper('catalog')->__('No layout updates')]);
         }
+
         return $this->_options;
     }
 }

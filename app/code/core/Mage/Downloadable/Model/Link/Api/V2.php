@@ -24,7 +24,7 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
     {
         if (is_object($var)) {
             $var = get_object_vars($var);
-            foreach ($var as $key => &$value) {
+            foreach ($var as &$value) {
                 $this->_prepareData($value);
             }
         }
@@ -36,7 +36,7 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
      * @param int|string $productId
      * @param object $resource
      * @param string $resourceType
-     * @param string|int $store
+     * @param int|string $store
      * @param string $identifierType ('sku'|'id')
      * @return bool
      */

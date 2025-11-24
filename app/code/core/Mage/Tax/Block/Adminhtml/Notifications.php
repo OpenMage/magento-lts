@@ -43,7 +43,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      * Return list of store names which have not compatible tax calculation type and price display settings.
      * Return true if settings are wrong for default store.
      *
-     * @return bool|array
+     * @return array|bool
      */
     public function getStoresWithWrongDisplaySettings()
     {
@@ -54,6 +54,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDisplaySettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -62,6 +63,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -84,6 +86,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -119,7 +122,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      * Return list of store names where tax discount settings are compatible.
      * Return true if settings are wrong for default store.
      *
-     * @return bool|array
+     * @return array|bool
      */
     public function getWebsitesWithWrongDiscountSettings()
     {
@@ -131,6 +134,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDiscountSettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -139,6 +143,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -186,6 +191,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if ($model->isAllowed('system/config/tax')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

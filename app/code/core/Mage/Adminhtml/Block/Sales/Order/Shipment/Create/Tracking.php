@@ -60,6 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
                 $carriers[$code] = $carrier->getConfigData('title');
             }
         }
+
         return $carriers;
     }
 }

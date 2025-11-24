@@ -23,7 +23,9 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * Default message types
      */
     public const MESSAGE_TYPE_SUCCESS = 'success';
+
     public const MESSAGE_TYPE_ERROR   = 'error';
+
     public const MESSAGE_TYPE_WARNING = 'warning';
 
     /**

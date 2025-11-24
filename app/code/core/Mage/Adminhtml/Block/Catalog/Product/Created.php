@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_Widget
 {
     protected $_configurableProduct;
+
     protected $_product;
 
     public function __construct()
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                 if (!$attribute) {
                     continue;
                 }
+
                 $attributes[] = $attribute;
             }
         }
@@ -114,6 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                 ->setStore(0)
                 ->load($this->getRequest()->getParam('product'));
         }
+
         return $this->_configurableProduct;
     }
 
@@ -129,6 +132,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                 ->setStore(0)
                 ->load($this->getRequest()->getParam('id'));
         }
+
         return $this->_product;
     }
 }

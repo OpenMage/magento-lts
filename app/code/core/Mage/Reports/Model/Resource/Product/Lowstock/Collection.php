@@ -45,6 +45,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         if ($this->_inventoryItemResource === null) {
             $this->_inventoryItemResource = Mage::getResourceSingleton('cataloginventory/stock_item');
         }
+
         return $this->_inventoryItemResource;
     }
 
@@ -149,6 +150,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
             if (!is_string($alias)) {
                 $alias = null;
             }
+
             $this->_addInventoryItemFieldToSelect($field, $alias);
         }
 
@@ -168,6 +170,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
                 Mage::helper('catalog')->__('Wrong product type filter specified'),
             );
         }
+
         $this->addAttributeToFilter('type_id', $typeFilter);
         return $this;
     }
@@ -189,7 +192,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Use Manage Stock Condition to collection
      *
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function useManageStockFilter($storeId = null)

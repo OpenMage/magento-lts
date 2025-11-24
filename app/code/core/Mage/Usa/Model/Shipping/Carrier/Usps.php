@@ -19,15 +19,20 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * USPS containers
      */
     public const CONTAINER_VARIABLE           = 'VARIABLE';
+
     public const CONTAINER_FLAT_RATE_BOX      = 'FLAT RATE BOX';
+
     public const CONTAINER_FLAT_RATE_ENVELOPE = 'FLAT RATE ENVELOPE';
+
     public const CONTAINER_RECTANGULAR        = 'RECTANGULAR';
+
     public const CONTAINER_NONRECTANGULAR     = 'NONRECTANGULAR';
 
     /**
      * USPS size
      */
     public const SIZE_REGULAR = 'REGULAR';
+
     public const SIZE_LARGE   = 'LARGE';
 
     /**
@@ -67,14 +72,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
@@ -82,14 +87,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Raw rate tracking request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawTrackRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
@@ -110,7 +115,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -149,6 +154,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $userId = $this->getConfigData('userid');
         }
+
         $r->setUserId($userId);
 
         if ($request->getUspsContainer()) {
@@ -156,6 +162,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $container = $this->getConfigData('container');
         }
+
         $r->setContainer($container);
 
         if ($request->getUspsSize()) {
@@ -163,6 +170,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $size = $this->getConfigData('size');
         }
+
         $r->setSize($size);
 
         if ($request->getGirth()) {
@@ -170,6 +178,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $girth = $this->getConfigData('girth');
         }
+
         $r->setGirth($girth);
 
         if ($request->getHeight()) {
@@ -177,6 +186,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $height = $this->getConfigData('height');
         }
+
         $r->setHeight($height);
 
         if ($request->getLength()) {
@@ -184,6 +194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $length = $this->getConfigData('length');
         }
+
         $r->setLength($length);
 
         if ($request->getWidth()) {
@@ -191,6 +202,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $width = $this->getConfigData('width');
         }
+
         $r->setWidth($width);
 
         if ($request->getUspsMachinable()) {
@@ -198,6 +210,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $machinable = $this->getConfigData('machinable');
         }
+
         $r->setMachinable($machinable);
 
         if ($request->getOrigPostcode()) {
@@ -254,7 +267,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -262,7 +275,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * Starting from 23.02.2018 USPS doesn't allow to create free shipping labels via their API.
      */
     public function isShippingLabelsAvailable()
@@ -323,15 +336,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if (!$service) {
                 $service = $r->getService();
             }
+
             if ($r->getContainer() == 'FLAT RATE BOX' || $r->getContainer() == 'FLAT RATE ENVELOPE') {
                 $service = 'Priority';
             }
+
             $package->addChild('Service', $service);
 
             // no matter Letter, Flat or Parcel, use Parcel
             if ($r->getService() == 'FIRST CLASS' || $r->getService() == 'FIRST CLASS HFP COMMERCIAL') {
                 $package->addChild('FirstClassMailType', 'PARCEL');
             }
+
             if ($r->getService() == 'FIRST CLASS COMMERCIAL') {
                 $package->addChild('FirstClassMailType', 'PACKAGE SERVICE');
             }
@@ -352,6 +368,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                     $package->addChild('Girth', $r->getGirth());
                 }
             }
+
             $package->addChild('Machinable', $r->getMachinable());
 
             $api = 'RateV4';
@@ -379,6 +396,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                     $girth = $r->getGirth();
                 }
             }
+
             $package->addChild('Width', $width);
             $package->addChild('Length', $length);
             $package->addChild('Height', $height);
@@ -388,8 +406,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 //only 5 chars available
                 $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
             }
+
             $api = 'IntlRateV2';
         }
+
         $request = $xml->asXML();
 
         $responseBody = $this->_getCachedQuotes($request);
@@ -400,6 +420,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if (!$url) {
                     $url = $this->_defaultGatewayUrl;
                 }
+
                 $client = new Zend_Http_Client();
                 $client->setUri($url);
                 $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
@@ -414,8 +435,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
                 $responseBody = '';
             }
+
             $this->_debug($debugData);
         }
+
         return $this->_parseXmlResponse($responseBody);
     }
 
@@ -431,7 +454,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $r = $this->_rawRequest;
         $costArr = [];
         $priceArr = [];
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 if (str_contains($response, '<?xml version="1.0"?>')) {
                     $response = str_replace(
@@ -440,6 +463,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                         $response,
                     );
                 }
+
                 $xml = simplexml_load_string($response);
 
                 if (is_object($xml)) {
@@ -463,6 +487,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                                     );
                                 }
                             }
+
                             asort($priceArr);
                         }
                     } elseif (is_object($xml->Package) && is_object($xml->Package->Service)) {
@@ -472,8 +497,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             if ($service->ServiceErrors->count()) {
                                 continue;
                             }
+
                             $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                            $serviceCode = 'INT_' . (string) $service->attributes()->ID;
+                            $serviceCode = 'INT_' . $service->attributes()->ID;
                             $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
                             if (in_array($serviceCode, $allowedMethods)) {
                                 $costArr[$serviceCode] = (string) $service->Postage;
@@ -483,6 +509,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                                 );
                             }
                         }
+
                         asort($priceArr);
                     }
                 }
@@ -879,11 +906,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         return $codes[$type][$code] ?? false;
     }
+
     /**
      * Get tracking
      *
      * @param mixed $trackingData
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackingData)
     {
@@ -938,6 +966,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 if (!$url) {
                     $url = $this->_defaultGatewayUrl;
                 }
+
                 $client = new Zend_Http_Client();
                 $client->setUri($url);
                 $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
@@ -955,6 +984,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $this->_parseXmlTrackingResponse($tracking, $responseBody);
         }
     }
+
     /**
      * Parse xml tracking response
      *
@@ -966,7 +996,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
@@ -1031,9 +1061,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 }
             }
         }
+
         if (empty($statuses)) {
             $statuses = Mage::helper('usa')->__('Empty response');
         }
+
         return $statuses;
     }
 
@@ -1049,6 +1081,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         foreach ($allowed as $k) {
             $arr[$k] = $this->getCode('method', $k);
         }
+
         return $arr;
     }
 
@@ -1057,7 +1090,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Return false for unknown countries
      *
      * @param string $countryId
-     * @return string|false
+     * @return false|string
      */
     protected function _getCountryName($countryId)
     {
@@ -1170,7 +1203,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'KI' => 'Kiribati',
             'KM' => 'Comoros',
             'KN' => 'Saint Kitts (Saint Christopher and Nevis)',
-            'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
+            'KP' => "North Korea (Korea, Democratic People's Republic of)",
             'KR' => 'South Korea (Korea, Republic of)',
             'KW' => 'Kuwait',
             'KY' => 'Cayman Islands',
@@ -1312,7 +1345,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated This method should not be used anymore.
+     * @deprecated this method should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
      */
     protected function _formUsExpressShipmentRequest(Varien_Object $request)
@@ -1376,8 +1409,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param string $serviceType
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
     {
@@ -1407,6 +1440,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         } else {
             $rootNode = 'SigConfirmCertifyV3.0Request';
         }
+
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
         $xml = $xmlWrap->addChild($rootNode);
@@ -1456,7 +1490,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated Should not be used anymore.
+     * @deprecated should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
      */
     protected function _formIntlShipmentRequest(Varien_Object $request)
@@ -1474,6 +1508,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 Zend_Measure_Weight::POUND,
             );
         }
+
         if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
             $length = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getLength(),
@@ -1491,6 +1526,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 Zend_Measure_Length::INCH,
             ));
         }
+
         if ($packageParams->getGirthDimensionUnits() != Zend_Measure_Length::INCH) {
             $girth = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getGirth(),
@@ -1552,8 +1588,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                                  . ' P'
                                  . $request->getPackageId();
             }
+
             $xml->addChild('FromCustomsReference', 'Order #' . $referenceData);
         }
+
         $xml->addChild('ToFirstName', $request->getRecipientContactPersonFirstName());
         $xml->addChild('ToLastName', $request->getRecipientContactPersonLastName());
         $xml->addChild('ToFirm', $request->getRecipientContactCompanyName());
@@ -1570,6 +1608,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($method != 'FirstClass') {
             $xml->addChild('NonDeliveryOption', 'Return');
         }
+
         if ($method == 'FirstClass') {
             if (stripos($shippingMethod, 'Letter') !== false) {
                 $xml->addChild('FirstClassMailType', 'LETTER');
@@ -1579,9 +1618,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $xml->addChild('FirstClassMailType', 'PARCEL');
             }
         }
+
         if ($method != 'FirstClass') {
             $xml->addChild('Container', $container);
         }
+
         $shippingContents = $xml->addChild('ShippingContents');
         $packageItems = $request->getPackageItems();
         // get countries of manufacture
@@ -1593,6 +1634,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
             $productIds[] = $item->getProductId();
         }
+
         $productCollection = Mage::getResourceModel('catalog/product_collection')
             ->addStoreFilter($request->getStoreId())
             ->addFieldToFilter('entity_id', ['in' => $productIds])
@@ -1615,6 +1657,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                     Zend_Measure_Weight::POUND,
                 );
             }
+
             if (!empty($countriesOfManufacture[$item->getProductId()])) {
                 $countryOfManufacture = $this->_getCountryName(
                     $countriesOfManufacture[$item->getProductId()],
@@ -1622,12 +1665,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             } else {
                 $countryOfManufacture = '';
             }
+
             $itemDetail = $shippingContents->addChild('ItemDetail');
             $itemDetail->addChild('Description', $item->getName());
             $ceiledQty = ceil($item->getQty());
             if ($ceiledQty < 1) {
                 $ceiledQty = 1;
             }
+
             $individualItemWeight = $itemWeight / $ceiledQty;
             $itemDetail->addChild('Quantity', (string) $ceiledQty);
             $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
@@ -1641,6 +1686,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $packagePoundsWeight += $itemPoundsWeight;
             $packageOuncesWeight += $itemOuncesWeight;
         }
+
         $additionalPackagePoundsWeight = floor($packageOuncesWeight / self::OUNCES_POUND);
         $packagePoundsWeight += $additionalPackagePoundsWeight;
         $packageOuncesWeight -= $additionalPackagePoundsWeight * self::OUNCES_POUND;
@@ -1663,10 +1709,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($method == 'FirstClass') {
             $xml->addChild('Container', $container);
         }
+
         // set size
         if ($packageParams->getSize()) {
             $xml->addChild('Size', $packageParams->getSize());
         }
+
         // set dimensions
         $xml->addChild('Length', $length);
         $xml->addChild('Width', $width);
@@ -1674,6 +1722,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($girth) {
             $xml->addChild('Girth', $girth);
         }
+
         return $xmlWrap->{$rootNode}->asXML();
     }
 
@@ -1717,11 +1766,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if (!$url) {
             $url = $this->_defaultGatewayUrl;
         }
+
         $client = new Zend_Http_Client();
         $client->setUri($url);
         $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
         $client->setParameterGet('API', $api);
         $client->setParameterGet('XML', $requestXml);
+
         $response = $client->request()->getBody();
 
         $response = simplexml_load_string($response);
@@ -1744,6 +1795,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $labelContent = base64_decode((string) $response->LabelImage);
                 $trackingNumber = (string) $response->BarcodeNumber;
             }
+
             $result->setShippingLabelContent($labelContent);
             $result->setTrackingNumber($trackingNumber);
         }
@@ -1764,6 +1816,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if (is_null($params)) {
             return $this->_getAllowedContainers();
         }
+
         return $this->_isUSCountry($params->getCountryRecipient()) ? [] : $this->_getAllowedContainers($params);
     }
 
@@ -1797,6 +1850,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($params == null) {
             return [];
         }
+
         $countryRecipient = $params->getCountryRecipient();
         if ($this->_isUSCountry($countryRecipient)) {
             return $this->getCode('delivery_confirmation_types');
@@ -1838,6 +1892,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'OTHER' => Mage::helper('usa')->__('Other'),
             ];
         }
+
         return [];
     }
 
@@ -1856,6 +1911,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if (preg_match('/[\\d\\w]{5}\\-[\\d\\w]{4}/', $zipString) != 0) {
             $zip = explode('-', $zipString);
         }
+
         $zipCount = count($zip);
         for ($i = 0; $i < $zipCount; ++$i) {
             if (strlen($zip[$i]) == 5) {
@@ -1864,6 +1920,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $zip4 = $zip[$i];
             }
         }
+
         if (empty($zip5) && empty($zip4) && $returnFull) {
             $zip5 = $zipString;
         }
@@ -1897,8 +1954,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-      * @deprecated
-      */
+     * @deprecated
+     */
     protected function setTrackingReqeust()
     {
         $this->setTrackingRequest();

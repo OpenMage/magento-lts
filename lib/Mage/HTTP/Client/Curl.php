@@ -82,7 +82,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var false|resource
+     * @var CurlHandle
      */
     protected $_ch;
 
@@ -129,8 +129,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -248,6 +248,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
@@ -255,12 +256,15 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
+
             $out[$key] = $val;
         }
+
         return $out;
     }
 
@@ -274,6 +278,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
@@ -281,21 +286,25 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
+
             $out[$key] = ['value' => $val];
             array_shift($values);
             $c--;
             if (!$c) {
                 continue;
             }
+
             for ($i = 0; $i < $c; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
+
         return $out;
     }
 
@@ -332,6 +341,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             foreach ($this->_headers as $k => $v) {
                 $heads[] = $k . ': ' . $v;
             }
+
             $this->curlOption(CURLOPT_HTTPHEADER, $heads);
         }
 
@@ -340,6 +350,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             foreach ($this->_cookies as $k => $v) {
                 $cookies[] = "$k=$v";
             }
+
             $this->curlOption(CURLOPT_COOKIE, implode(';', $cookies));
         }
 
@@ -351,7 +362,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->curlOption(CURLOPT_PORT, $this->_port);
         }
 
-        //$this->curlOption(CURLOPT_HEADER, 1);
+        //$this->curlOption(CURLOPT_HEADER, true);
         $this->curlOption(CURLOPT_RETURNTRANSFER, 1);
         $this->curlOption(CURLOPT_HEADERFUNCTION, [$this,'parseHeaders']);
 
@@ -368,14 +379,15 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if ($err) {
             $this->doError(curl_error($this->_ch));
         }
+
         curl_close($this->_ch);
     }
 
     /**
      * Throw error exception
      * @param $string
-     * @throws Exception
      * @return never
+     * @throws Exception
      */
     public function doError($string)
     {
@@ -408,12 +420,14 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
+
                     $this->_responseHeaders[$name][] = $value;
                 } else {
                     $this->_responseHeaders[$name] = $value;
                 }
             }
         }
+
         $this->_headerCount++;
 
         return strlen($data);
@@ -431,6 +445,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
             return;
         }
+
         $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
     }
 
@@ -438,7 +453,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Set curl option directly
      *
      * @param int $name
-     * @param int|array|string $value
+     * @param array|int|string $value
      */
     protected function curlOption($name, $value)
     {
@@ -465,8 +480,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option
      */
-    public function setOption($name, $value)
+    public function setOption($key, $value)
     {
-        $this->_curlUserOptions[$name] = $value;
+        $this->_curlUserOptions[$key] = $value;
     }
 }

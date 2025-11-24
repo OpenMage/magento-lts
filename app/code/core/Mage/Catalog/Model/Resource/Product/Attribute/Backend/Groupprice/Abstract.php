@@ -120,6 +120,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
         } else {
             $adapter->insert($this->getMainTable(), $data);
         }
+
         return $this;
     }
 }

@@ -50,6 +50,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$this->_rate) {
             $this->_rate = 1;
         }
+
         return $this->_rate;
     }
 
@@ -121,6 +122,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $select->join(['price_table' => $this->getMainTable()], 'price_table.entity_id=e.entity_id', []);
+
         $response = new Varien_Object();
         $response->setAdditionalCalculations([]);
 
@@ -247,6 +249,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$ids) {
             return [];
         }
+
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],

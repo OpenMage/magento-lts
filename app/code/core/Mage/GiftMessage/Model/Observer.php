@@ -48,6 +48,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             $observer->getEvent()->getOrder()
                 ->setGiftMessageId($observer->getEvent()->getAddress()->getGiftMessageId());
         }
+
         return $this;
     }
 
@@ -66,15 +67,16 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Geter for available gift messages value from product
      *
+     * @param int|Mage_Catalog_Model_Product $product
+     * @return null|int
      * @deprecated after 1.5.0.0
-     * @param Mage_Catalog_Model_Product|int $product
-     * @return int|null
      */
     protected function _getAvailable($product)
     {
         if (is_object($product)) {
             return $product->getGiftMessageAvailable();
         }
+
         return Mage::getModel('catalog/product')->load($product)->getGiftMessageAvailable();
     }
 
@@ -110,9 +112,10 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                             $giftMessage->delete();
                             $entity->setGiftMessageId(0)
                                 ->save();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                         }
                     }
+
                     continue;
                 }
 
@@ -124,10 +127,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
                     $entity->setGiftMessageId($giftMessage->getId())
                         ->save();
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }
+
         return $this;
     }
 
@@ -135,8 +139,8 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * Set giftmessage available default value to product
      * on catalog products collection load
      *
-     * @deprecated after 1.4.2.0-beta1
      * @return $this
+     * @deprecated after 1.4.2.0-beta1
      */
     public function catalogEventProductCollectionAfterLoad(Varien_Event_Observer $observer)
     {
@@ -160,6 +164,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())) {
             return $this;
         }
+
         $giftMessageId = $order->getGiftMessageId();
         if ($giftMessageId) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
@@ -203,6 +208,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 ->save();
             $quoteItem->setGiftMessageId($giftMessage->getId());
         }
+
         return $this;
     }
 }

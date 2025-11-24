@@ -40,6 +40,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         if (!is_string($body)) {
             throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
+
         $body = str_contains($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
         set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
@@ -71,6 +72,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                     if (!is_array($config[$key])) {
                         $config[$key] = [$config[$key]];
                     }
+
                     $config[$key][] = $value;
                 } else {
                     $config[$key] = $value;
@@ -93,10 +95,12 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                 } else {
                     $value = (string) $value;
                 }
+
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key]) || !array_key_exists(0, $config[$key])) {
                         $config[$key] = [$config[$key]];
                     }
+
                     $config[$key][] = $value;
                 } elseif (self::ARRAY_NON_ASSOC_ITEM_NAME != $key) {
                     $config[$key] = $value;

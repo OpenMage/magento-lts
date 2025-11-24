@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 ->addCss('lib/prototype/windows/themes/magento.css')
                 ->addItem('js', 'mage/adminhtml/variables.js');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -52,11 +53,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
             $fieldset->addField('used_currently_for', 'label', [
                 'label' => Mage::helper('adminhtml')->__('Used Currently For'),
                 'container_id' => 'used_currently_for',
-                'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
-                        ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
-                    '</script>',
+                'after_element_html'
+                    => '<script type="text/javascript">'
+                    . (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
+                        ? '$(\'used_currently_for\').hide(); ' : '')
+                    . '</script>',
             ]);
         }
 
@@ -64,11 +65,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
             $fieldset->addField('used_default_for', 'label', [
                 'label' => Mage::helper('adminhtml')->__('Used as Default For'),
                 'container_id' => 'used_default_for',
-                'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!(bool) $this->getEmailTemplate()->getOrigTemplateCode()
-                        ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
-                    '</script>',
+                'after_element_html'
+                    => '<script type="text/javascript">'
+                    . (!(bool) $this->getEmailTemplate()->getOrigTemplateCode()
+                        ? '$(\'used_default_for\').hide(); ' : '')
+                    . '</script>',
             ]);
         }
 
@@ -163,11 +164,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         if ($customVariables) {
             $variables[] = $customVariables;
         }
+
         /** @var Mage_Core_Model_Email_Template $template */
         $template = Mage::registry('current_email_template');
         if ($template->getId() && $templateVariables = $template->getVariablesOptionArray(true)) {
             $variables[] = $templateVariables;
         }
+
         return $variables;
     }
 }

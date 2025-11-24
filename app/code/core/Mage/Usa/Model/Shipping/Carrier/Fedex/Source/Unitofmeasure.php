@@ -26,6 +26,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Unitofmeasure
         foreach ($measureUnits as $key => $val) {
             $result[] = ['value' => $key,'label' => $val];
         }
+
         return $result;
     }
 }

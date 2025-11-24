@@ -13,8 +13,8 @@
  * @package    Mage_Bundle
  *
  * @method bool getCanEditPrice()
- * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
@@ -95,6 +95,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         if ($this->getCanEditPrice() === false) {
             $select->setExtraParams('disabled="disabled"');
         }
+
         return $select->getHtml();
     }
 
@@ -154,6 +155,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
                 . '"' . $disabled . ' value="1" />';
             $checkboxHtml .= '<label class="normal" for="' . $id . '">' . $label . '</label>';
         }
+
         return $checkboxHtml;
     }
 }

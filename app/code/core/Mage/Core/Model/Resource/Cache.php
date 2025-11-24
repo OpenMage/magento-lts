@@ -22,7 +22,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Get all cache options
      *
-     * @return array | false
+     * @return array|false
      */
     public function getAllOptions()
     {
@@ -37,6 +37,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
                 return $adapter->fetchPairs($select);
             }
         }
+
         return false;
     }
 
@@ -65,10 +66,11 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
             if ($data) {
                 $this->_getWriteAdapter()->insertArray($this->getMainTable(), ['code', 'value'], $data);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

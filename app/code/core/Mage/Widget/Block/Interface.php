@@ -36,7 +36,7 @@ interface Mage_Widget_Block_Interface
      * If $key is string, the attribute value will be overwritten by $value.
      * If $key is an array, it will overwrite all the data in the widget.
      *
-     * @param string|array $key
+     * @param array|string $key
      * @param mixed $value
      * @return Varien_Object
      */

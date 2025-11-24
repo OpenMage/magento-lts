@@ -25,6 +25,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         }
+
         if ($attrCode == 'attribute_set_id') {
             return $this->validateAttribute($object->getData($attrCode));
         }
@@ -98,8 +99,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             if (!$value) {
                 return null;
             }
+
             $value = strtotime($value);
         }
+
         return $value;
     }
 
@@ -116,6 +119,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
             $value = strlen($value) ? explode(',', $value) : [];
         }
+
         return $value;
     }
 }

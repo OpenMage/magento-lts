@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
                 'label' => '',
             ]);
         }
+
         return sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
             . $this->_drawOptions($options)
             . '</select>';
@@ -46,6 +47,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
             $options = Mage::getModel('core/design_source_design')
                 ->setIsFullLabel(true)->getAllOptions(false);
         }
+
         return $options;
     }
 
@@ -68,6 +70,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
             if (!isset($option['value']) || !isset($option['label'])) {
                 continue;
             }
+
             if (is_array($option['value'])) {
                 $html .= '<optgroup label="' . $option['label'] . '">'
                     . $this->_drawOptions($option['value'])
@@ -91,10 +94,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         if (is_null($this->getValue())) {
             return null;
         }
+
         $value = $this->getValue();
         if ($value == 'all') {
             $value = '';
         }
+
         return ['eq' => $value];
     }
 }

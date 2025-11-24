@@ -42,6 +42,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
             if ($sum < .0010 && $count < 10 && $emalloc < 10000) {
                 continue;
             }
+
             $out .= '<tr>'
                 . '<td align="left">' . $name . '</td>'
                 . '<td>' . number_format($sum, 4) . '</td>'
@@ -51,6 +52,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
                 . '</tr>'
             ;
         }
+
         $out .= '</table>';
         $out .= '<pre>';
         $out .= print_r(Varien_Profiler::getSqlProfiler(Mage::getSingleton('core/resource')->getConnection('core_write')), true);

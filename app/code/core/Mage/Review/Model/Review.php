@@ -13,27 +13,27 @@
  * @package    Mage_Review
  *
  * @method Mage_Review_Model_Resource_Review _getResource()
- * @method Mage_Review_Model_Resource_Review getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- *
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
  * @method array getCustomerId()
- * @method $this setCustomerId(int $value)
  * @method string getDetail()
- * @method $this setEntityId(int $value)
  * @method int getEntityPkValue()
- * @method $this setEntityPkValue(int $value)
  * @method string getNickname()
- * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method Mage_Review_Model_Resource_Review getResource()
+ * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
  * @method int getReviewId()
  * @method int getStatusId()
- * @method $this setStatusId(int $value)
- * @method $this setStoreId(int $value)
  * @method int getStoreId()
  * @method array getStores()
- * @method $this setStores(array $value)
  * @method string getTitle()
+ * @method $this setCreatedAt(string $value)
+ * @method $this setCustomerId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method $this setEntityPkValue(int $value)
+ * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method $this setStatusId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setStores(array $value)
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
@@ -46,20 +46,22 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated after 1.3.2.4
-     *
      */
     public const ENTITY_PRODUCT = 1;
 
     /**
      * Review entity codes
-     *
      */
     public const ENTITY_PRODUCT_CODE   = 'product';
+
     public const ENTITY_CUSTOMER_CODE  = 'customer';
+
     public const ENTITY_CATEGORY_CODE  = 'category';
 
     public const STATUS_APPROVED       = 1;
+
     public const STATUS_PENDING        = 2;
+
     public const STATUS_NOT_APPROVED   = 3;
 
     protected function _construct()
@@ -137,20 +139,21 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         $errors = [];
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Review summary can't be empty");
         }
 
         if (!Zend_Validate::is($this->getNickname(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Nickname can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Nickname can't be empty");
         }
 
         if (!Zend_Validate::is($this->getDetail(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review can\'t be empty');
+            $errors[] = Mage::helper('review')->__("Review can't be empty");
         }
 
         if (empty($errors)) {
             return true;
         }
+
         return $errors;
     }
 
@@ -178,7 +181,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             $entityIds[] = $item->getId();
         }
 
-        if (!count($entityIds)) {
+        if ($entityIds === []) {
             return $this;
         }
 
@@ -237,7 +240,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * Get review entity type id by code
      *
      * @param string $entityCode
-     * @return int|bool
+     * @return bool|int
      */
     public function getEntityIdByCode($entityCode)
     {

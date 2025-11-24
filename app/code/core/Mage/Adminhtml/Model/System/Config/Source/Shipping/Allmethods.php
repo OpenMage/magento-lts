@@ -27,10 +27,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
             if (!$carrierModel->isActive() && (bool) $isActiveOnlyFlag === true) {
                 continue;
             }
+
             $carrierMethods = $carrierModel->getAllowedMethods();
             if (!$carrierMethods) {
                 continue;
             }
+
             $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
             $methods[$carrierCode] = [
                 'label'   => $carrierTitle,

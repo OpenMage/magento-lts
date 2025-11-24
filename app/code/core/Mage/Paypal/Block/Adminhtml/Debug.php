@@ -32,9 +32,9 @@ class Mage_Paypal_Block_Adminhtml_Debug extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->_addButton('delete_all', [
             'label'   => Mage::helper('paypal')->__('Delete All Logs'),
-            'onclick' => 'deleteConfirm(\'' .
-                Mage::helper('paypal')->__('Are you sure you want to delete all debug logs?') .
-                '\', \'' . $this->getUrl('*/*/deleteAll') . '\')',
+            'onclick' => "deleteConfirm('"
+                . Mage::helper('paypal')->__('Are you sure you want to delete all debug logs?')
+                . "', '" . $this->getUrl('*/*/deleteAll') . "')",
             'class'   => 'delete',
         ]);
     }

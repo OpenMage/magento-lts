@@ -16,7 +16,6 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
 {
     /**
      * Initialize connection
-     *
      */
     protected function _construct()
     {
@@ -64,14 +63,15 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                         $this->_processAttributeValues();
                     }
                 }
+
                 $this->_processAttributeValues();
             }
 
             $this->_updateUpdatedAt($entityIds);
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getWriteAdapter()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

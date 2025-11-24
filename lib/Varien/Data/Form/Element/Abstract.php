@@ -12,18 +12,18 @@
  *
  * @package    Varien_Data
  *
- * @method $this setAfterElementHtml(string $value)
  * @method string getClass()
- * @method $this setClass(string $value)
- * @method $this setContainer(Varien_Data_Form $value)
- * @method $this setExtType(string $value)
  * @method string getLabel()
- * @method $this setLabel(string $value)
  * @method bool getNoSpan()
- * @method $this setName(string $value)
  * @method bool getRequired()
  * @method string getValue()
  * @method array getValues()
+ * @method $this setAfterElementHtml(string $value)
+ * @method $this setClass(string $value)
+ * @method $this setContainer(Varien_Data_Form $value)
+ * @method $this setExtType(string $value)
+ * @method $this setLabel(string $value)
+ * @method $this setName(string $value)
  * @method $this setValues(array|int|string $value)
  * @method $this unsCanUseDefaultValue()
  * @method $this unsCanUseWebsiteValue()
@@ -32,8 +32,11 @@
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {
     protected $_id;
+
     protected $_type;
+
     protected $_form;
+
     protected $_elements;
 
     /**
@@ -54,7 +57,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return  $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -120,6 +123,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($suffix = $this->getForm()->getFieldNameSuffix()) {
             $name = $this->getForm()->addSuffixToName($name, $suffix);
         }
+
         return $name;
     }
 
@@ -184,6 +188,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if (false !== ($key = array_search($class, $classes))) {
             unset($classes[$key]);
         }
+
         $this->setClass(implode(' ', $classes));
         return $this;
     }
@@ -198,7 +203,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string|null $index
+     * @param null|string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -208,6 +213,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($filter = $this->getValueFilter()) {
             $value = $filter->filter($value);
         }
+
         return $this->_escape((string) $value);
     }
 
@@ -260,6 +266,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         } else {
             $html = '';
         }
+
         return $html;
     }
 
@@ -275,6 +282,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
             $html .= $this->getElementHtml();
             $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
+
         return $html;
     }
 
@@ -286,11 +294,13 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($this->getRequired()) {
             $this->addClass('required-entry');
         }
+
         if ($this->_renderer) {
             $html = $this->_renderer->render($this);
         } else {
             $html = $this->getDefaultHtml();
         }
+
         return $html;
     }
 
@@ -312,11 +322,13 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         } else {
             unset($this->_data['disabled']);
         }
+
         if (in_array('checked', $attributes) && !empty($this->_data['checked'])) {
             $this->_data['checked'] = 'checked';
         } else {
             unset($this->_data['checked']);
         }
+
         return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
     }
 
@@ -342,13 +354,14 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         } elseif ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {
             return $idPrefix . $this->getId();
         }
+
         return '';
     }
 
     /**
      * Add specified values to element values
      *
-     * @param string|int|array $values
+     * @param array|int|string $values
      * @param bool $overwrite
      * @return $this
      */
@@ -357,10 +370,12 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if (empty($values) || (is_string($values) && trim($values) == '')) {
             return $this;
         }
+
         if (!is_array($values)) {
             $values = Mage::helper('core')->escapeHtml(trim($values));
             $values = [$values => $values];
         }
+
         $elementValues = $this->getValues();
         if (!empty($elementValues)) {
             foreach ($values as $key => $value) {
@@ -368,8 +383,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
                     $elementValues[$key] = Mage::helper('core')->escapeHtml($value);
                 }
             }
+
             $values = $elementValues;
         }
+
         $this->setValues($values);
 
         return $this;

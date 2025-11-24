@@ -19,21 +19,21 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Instance of Session Model
      *
-     * @var Mage_Persistent_Model_Session|null
+     * @var null|Mage_Persistent_Model_Session
      */
     protected $_sessionModel;
 
     /**
      * Persistent customer
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
     /**
      * Is "Remember Me" checked
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isRememberMeChecked;
 
@@ -48,14 +48,15 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $this->_sessionModel = Mage::getModel('persistent/session');
             $this->_sessionModel->loadByCookieKey();
         }
+
         return $this->_sessionModel;
     }
 
     /**
      * Force setting session model
      *
-     * @param Mage_Persistent_Model_Session|null $sessionModel null to unset session
-     * @return Mage_Persistent_Model_Session|null
+     * @param null|Mage_Persistent_Model_Session $sessionModel null to unset session
+     * @return null|Mage_Persistent_Model_Session
      */
     public function setSession($sessionModel)
     {
@@ -118,6 +119,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $customerId = $this->getSession()->getCustomerId();
             $this->_customer = Mage::getModel('customer/customer')->load($customerId);
         }
+
         return $this->_customer;
     }
 }

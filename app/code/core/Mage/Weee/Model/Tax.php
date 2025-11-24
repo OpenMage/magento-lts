@@ -21,14 +21,17 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Including FPT only
      */
     public const DISPLAY_INCL              = 0;
+
     /**
      * Including FPT and FPT description
      */
     public const DISPLAY_INCL_DESCR        = 1;
+
     /**
      * Excluding FPT, FPT description, final price
      */
     public const DISPLAY_EXCL_DESCR_INCL   = 2;
+
     /**
      * Excluding FPT
      */
@@ -37,7 +40,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     /**
      * All weee attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allAttributes = null;
 
@@ -60,7 +63,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      */
     protected function _construct()
     {
-        $this->_init('weee/tax', 'weee/tax');
+        $this->_init('weee/tax');
     }
 
     /**
@@ -82,6 +85,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getWeeeAmount(
         $product,
@@ -103,6 +107,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         foreach ($attributes as $attribute) {
             $amount += $attribute->getAmount();
         }
+
         return $amount;
     }
 
@@ -132,6 +137,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         if (is_null($this->_allAttributes)) {
             $this->_allAttributes = Mage::getModel('eav/entity_attribute')->getAttributeCodesByFrontendType('weee');
         }
+
         return $this->_allAttributes;
     }
 
@@ -139,12 +145,13 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Get Weee amounts associated with a product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Sales_Model_Quote_Address $shipping
-     * @param Mage_Sales_Model_Quote_Address $billing
-     * @param int|Mage_Core_Model_Website|null|string|true $website
+     * @param Mage_Sales_Model_Quote_Address|Varien_Object $shipping
+     * @param Mage_Sales_Model_Quote_Address|Varien_Object $billing
+     * @param null|int|Mage_Core_Model_Website|string|true $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductWeeeAttributes(
         $product,
@@ -175,6 +182,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         if ($customer) {
             $calculator->setCustomer($customer);
         }
+
         $rateRequest = $calculator->getRateRequest($shipping, $billing, $customerTaxClass, $store);
 
         $currentPercent = $product->getTaxPercent();
@@ -206,7 +214,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
                 $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];
                 $attributeSelect->order($order);
-                $value = $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
+                $value = (float) $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
 
                 if ($value) {
                     if ($discountPercent) {
@@ -228,7 +236,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                         if (Mage::helper('weee')->isTaxIncluded($store)) {
                             $taxAmount = Mage::app()->getStore()
                                     ->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
-                            $amount =  $amount - $taxAmount;
+                            $amount -= $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
                             // phpcs:ignore Ecg.Performance.Loop.ArraySize
@@ -254,6 +262,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $result;
     }
 
@@ -262,6 +271,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return int
+     * @throws Mage_Core_Exception
      */
     protected function _getDiscountPercentForProduct($product)
     {
@@ -272,6 +282,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
             $this->_productDiscounts[$key] = (int) $this->getResource()
                 ->getProductDiscountPercent($product->getId(), $website, $group);
         }
+
         $value = $this->_productDiscounts[$key];
         if ($value) {
             return 100 - min(100, max(0, $value));
@@ -284,6 +295,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Update discounts for FPT amounts of all products
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateDiscountPercents()
     {
@@ -296,6 +308,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      *
      * @param  mixed $products
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateProductsDiscountPercent($products)
     {

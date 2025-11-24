@@ -13,11 +13,11 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Admin_Model_Resource_Block _getResource()
- * @method Mage_Admin_Model_Resource_Block getResource()
- * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
- *
  * @method string getBlockName()
+ * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
  * @method string getIsAllowed()
+ * @method Mage_Admin_Model_Resource_Block getResource()
+ * @method Mage_Admin_Model_Resource_Block_Collection getResourceCollection()
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
@@ -41,10 +41,12 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         if (!Zend_Validate::is($this->getBlockName(), 'NotEmpty')) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
         }
+
         $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
         }
+
         if (!Zend_Validate::is($this->getBlockName(), 'Regex', ['/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/'])) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
         }
@@ -56,6 +58,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         if (empty($errors)) {
             return true;
         }
+
         return $errors;
     }
 

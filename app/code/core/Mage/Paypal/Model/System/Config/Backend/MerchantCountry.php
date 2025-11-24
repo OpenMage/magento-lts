@@ -8,6 +8,11 @@ declare(strict_types=1);
  * @package    Mage_Paypal
  */
 
+/**
+ * Backend model for merchant country. Default country used instead of empty value.
+ *
+ * @package    Mage_Paypal
+ */
 class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_Model_Config_Data
 {
     protected function _beforeSave(): Mage_Core_Model_Config_Data
@@ -16,6 +21,7 @@ class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_
         if (!$value) {
             $this->setValue(Mage::getStoreConfig('general/country/default'));
         }
+
         return parent::_beforeSave();
     }
 }

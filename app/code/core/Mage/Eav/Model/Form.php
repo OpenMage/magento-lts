@@ -31,21 +31,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Current entity type instance
      *
-     * @var Mage_Eav_Model_Entity_Type|null
+     * @var null|Mage_Eav_Model_Entity_Type
      */
     protected $_entityType;
 
     /**
      * Current entity instance
      *
-     * @var Mage_Core_Model_Abstract|null
+     * @var null|Mage_Core_Model_Abstract
      */
     protected $_entity;
 
@@ -59,21 +59,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Array of form attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
     /**
      * Array of form system attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_systemAttributes;
 
     /**
      * Array of form user defined attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_userAttributes;
 
@@ -101,6 +101,7 @@ abstract class Mage_Eav_Model_Form
         if (empty($this->_moduleName)) {
             Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
         }
+
         if (empty($this->_entityTypeCode)) {
             Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
         }
@@ -119,7 +120,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set current store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -139,13 +140,14 @@ abstract class Mage_Eav_Model_Form
         if ($entity->getEntityTypeId()) {
             $this->setEntityType($entity->getEntityTypeId());
         }
+
         return $this;
     }
 
     /**
      * Set entity type instance
      *
-     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
+     * @param int|Mage_Eav_Model_Entity_Type|string $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -176,20 +178,22 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
     /**
      * Return current form code
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFormCode()
     {
         if (empty($this->_formCode)) {
             Mage::throwException(Mage::helper('eav')->__('Form code is not defined'));
         }
+
         return $this->_formCode;
     }
 
@@ -204,20 +208,22 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_entityType)) {
             $this->setEntityType($this->_entityTypeCode);
         }
+
         return $this->_entityType;
     }
 
     /**
      * Return current entity instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
         if (is_null($this->_entity)) {
             Mage::throwException(Mage::helper('eav')->__('Entity instance is not defined'));
         }
+
         return $this->_entity;
     }
 
@@ -249,6 +255,7 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this->_attributes;
     }
 
@@ -256,7 +263,7 @@ abstract class Mage_Eav_Model_Form
      * Return attribute instance by code or false
      *
      * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute|false
+     * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($attributeCode)
     {
@@ -275,6 +282,7 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_userAttributes;
     }
 
@@ -289,6 +297,7 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_systemAttributes;
     }
 
@@ -334,18 +343,20 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setRequestScope($scope);
             $dataModel->setRequestScopeOnly($scopeOnly);
             $data[$attribute->getAttributeCode()] = $dataModel->extractValue($request);
         }
+
         return $data;
     }
 
     /**
      * Validate data array and return true or array of errors
      *
-     * @return bool|array
+     * @return array|bool
      */
     public function validateData(array $data)
     {
@@ -354,11 +365,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = null;
             }
+
             $result = $dataModel->validateValue($data[$attribute->getAttributeCode()]);
             if ($result !== true) {
                 $errors = array_merge($errors, $result);
@@ -383,11 +396,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->compactValue($data[$attribute->getAttributeCode()]);
         }
 
@@ -405,13 +420,16 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->restoreValue($data[$attribute->getAttributeCode()]);
         }
+
         return $this;
     }
 
@@ -428,10 +446,12 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             $data[$attribute->getAttributeCode()] = $dataModel->outputValue($format);
         }
+
         return $data;
     }
 
@@ -446,9 +466,11 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $value = $this->getEntity()->getOrigData($attribute->getAttributeCode());
             $this->getEntity()->setData($attribute->getAttributeCode(), $value);
         }
+
         return $this;
     }
 
@@ -489,6 +511,7 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this;
     }
 
@@ -496,7 +519,7 @@ abstract class Mage_Eav_Model_Form
      * Combined getter/setter whether to omit invisible attributes during rendering/validation
      *
      * @param mixed $setValue
-     * @return bool|$this
+     * @return $this|bool
      */
     public function ignoreInvisible($setValue = null)
     {
@@ -504,6 +527,7 @@ abstract class Mage_Eav_Model_Form
             $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
+
         return $this->_ignoreInvisible;
     }
 
@@ -518,6 +542,7 @@ abstract class Mage_Eav_Model_Form
         if ($this->_ignoreInvisible && !$attribute->getIsVisible()) {
             return true;
         }
+
         return false;
     }
 }

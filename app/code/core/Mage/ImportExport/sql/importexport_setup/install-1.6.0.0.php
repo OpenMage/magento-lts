@@ -7,7 +7,7 @@
  * @package    Mage_ImportExport
  */
 
-/** @var Mage_ImportExport_Model_Resource_Setup $installer */
+/** @var Mage_ImportExport_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

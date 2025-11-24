@@ -29,17 +29,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             $this->_applyConfigurableOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -62,6 +63,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_tmp');
     }
 
@@ -75,6 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_tmp');
     }
 

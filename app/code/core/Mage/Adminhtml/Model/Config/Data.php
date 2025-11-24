@@ -13,37 +13,39 @@
  * @package    Mage_Adminhtml
  *
  * @method array getGroups()
- * @method $this setGroups(array $value)
  * @method string getScope()
- * @method $this setScope(string $value)
  * @method string getScopeCode()
- * @method $this setScopeCode(string $value)
  * @method int getScopeId()
- * @method $this setScopeId(int $value)
  * @method string getSection()
- * @method $this setSection(string $value)
  * @method string getStore()
- * @method $this setStore(string $value)
  * @method string getWebsite()
+ * @method $this setGroups(array $value)
+ * @method $this setScope(string $value)
+ * @method $this setScopeCode(string $value)
+ * @method $this setScopeId(int $value)
+ * @method $this setSection(string $value)
+ * @method $this setStore(string $value)
  * @method $this setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
     public const SCOPE_DEFAULT  = 'default';
+
     public const SCOPE_WEBSITES = 'websites';
+
     public const SCOPE_STORES   = 'stores';
 
     /**
      * Config data for sections
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_configData;
 
     /**
      * Root config node
      *
-     * @var Mage_Core_Model_Config_Element|null
+     * @var null|Mage_Core_Model_Config_Element
      */
     protected $_configRoot;
 
@@ -96,17 +98,19 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 } else {
                     Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
+
                 $mappedFields = [];
                 $fieldsConfig = $sections->descend($section . '/groups/' . $group . '/fields');
 
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'] . (string) $field] = (string) $field;
+                            $mappedFields[$prefix['field'] . $field] = (string) $field;
                         }
                     }
                 }
             }
+
             // set value for group field entry by fieldname
             // use extra memory
             $fieldsetData = [];
@@ -123,6 +127,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
                         . $mappedFields[$field]);
                 }
+
                 if (!$fieldConfig) {
                     $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
@@ -169,12 +174,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         if (!$this->_isSectionAllowed($parts[0])) {
                             Mage::throwException('Access denied.');
                         }
+
                         // Extend old data with specified section group
                         $groupPath = substr($configPath, 0, strrpos($configPath, '/'));
                         if (!isset($oldConfigAdditionalGroups[$groupPath])) {
                             $oldConfig = $this->extendConfig($groupPath, true, $oldConfig);
                             $oldConfigAdditionalGroups[$groupPath] = true;
                         }
+
                         $path = $configPath;
                     }
                 }
@@ -220,6 +227,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             $this->_getScope();
             $this->_configData = $this->_getConfig(false);
         }
+
         return $this->_configData;
     }
 
@@ -237,6 +245,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (is_array($oldConfig) && !empty($oldConfig)) {
             return $oldConfig + $extended;
         }
+
         return $extended;
     }
 
@@ -258,24 +267,26 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $session->getData('acl')->get($resourceLookup)->getResourceId(),
                 );
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
+
         return false;
     }
 
     /**
      * Validate isset required parametrs
-     *
      */
     protected function _validate()
     {
         if (is_null($this->getSection())) {
             $this->setSection('');
         }
+
         if (is_null($this->getWebsite())) {
             $this->setWebsite('');
         }
+
         if (is_null($this->getStore())) {
             $this->setStore('');
         }
@@ -283,7 +294,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Get scope name and scopeId
-     *
      */
     protected function _getScope()
     {
@@ -300,6 +310,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             $scopeId = 0;
             $scopeCode = '';
         }
+
         $this->setScope($scope);
         $this->setScopeId($scopeId);
         $this->setScopeCode($scopeCode);
@@ -341,6 +352,15 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 $config[$data->getPath()] = $data->getValue();
             }
         }
+
+        if (!$full) {
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $store = $this->getStore();
+            $envConfig = $environmentConfigLoaderHelper->getAsArray($store);
+            $config = array_merge($config, $envConfig);
+        }
+
         return $config;
     }
 
@@ -359,6 +379,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (is_null($configData)) {
             $configData = $this->_configData;
         }
+
         if (array_key_exists($path, $configData)) {
             $data = $configData[$path];
             $inherit = false;
@@ -381,6 +402,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             $this->load();
             $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
         }
+
         return $this->_configRoot;
     }
 
@@ -412,12 +434,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                             $this->__('Config form fieldset clone model required to be able to clone fields'),
                         );
                     }
+
                     foreach ($cloneModel->getPrefixes() as $prefix) {
                         if (str_starts_with($field, $prefix['field'])) {
                             $field = substr($field, strlen($prefix['field']));
                         }
                     }
                 }
+
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig) {
                     $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
@@ -425,10 +449,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         $fieldConfig = $node[0];
                     }
                 }
+
                 if (($groupConfig ? !$groupConfig->dynamic_group : true) && !$this->_isValidField($fieldConfig)) {
                     $message = Mage::helper('adminhtml')->__('Wrong field specified.') . ' ' . Mage::helper('adminhtml')->__('(%s/%s/%s)', $section, $group, $field);
                     Mage::throwException($message);
                 }
+
                 $groupsSecure[$group]['fields'][$fieldName] = $fieldData;
             }
         }
@@ -449,6 +475,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (!$field) {
             return false;
         }
+
         return match ($this->getScope()) {
             self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
             self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,

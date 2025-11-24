@@ -28,9 +28,10 @@ class Mage_Core_Helper_UnserializeArray
             if ($result === false && $str !== serialize(false)) {
                 throw new Exception('Error unserializing data.');
             }
+
             return $result;
-        } catch (Error $e) {
-            throw new Exception('Error unserializing data: ' . $e->getMessage(), 0, $e);
+        } catch (Error $error) {
+            throw new Exception('Error unserializing data: ' . $error->getMessage(), 0, $error);
         }
     }
 }

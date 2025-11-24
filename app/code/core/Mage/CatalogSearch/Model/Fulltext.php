@@ -13,22 +13,26 @@
  * @package    Mage_CatalogSearch
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
- * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
- *
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getDataIndex()
+ * @method int getProductId()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
+ * @method int getStoreId()
  * @method $this setDataIndex(string $value)
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {
     public const SEARCH_TYPE_LIKE              = 1;
+
     public const SEARCH_TYPE_FULLTEXT          = 2;
+
     public const SEARCH_TYPE_COMBINE           = 3;
+
     public const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
+
     public const XML_PATH_CATALOG_SEARCH_SEPARATOR  = 'catalog/search/search_separator';
 
     /**
@@ -53,8 +57,8 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * (1, 2)       => Regenerate index for product Id=2 and its store view Id=1
      * (null, 2)    => Regenerate index for all store views of product Id=2
      *
-     * @param int|null $storeId Store View Id
-     * @param int|array|null $productIds Product Entity Id
+     * @param null|int $storeId Store View Id
+     * @param null|array|int $productIds Product Entity Id
      *
      * @return $this
      */
@@ -113,10 +117,12 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
         if (!$query instanceof Mage_CatalogSearch_Model_Query) {
             $query = Mage::helper('catalogsearch')->getQuery();
         }
+
         $queryText = Mage::helper('catalogsearch')->getQueryText();
         if ($query->getSynonymFor()) {
             $queryText = $query->getSynonymFor();
         }
+
         $this->getResource()->prepareResult($this, $queryText, $query);
         return $this;
     }
@@ -137,10 +143,9 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
-     *
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {
@@ -151,12 +156,11 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Update category products indexes
      *
-     * @deprecated after 1.6.2.0
-     *
      * @param array $productIds
      * @param array $categoryIds
      *
      * @return $this
+     * @deprecated after 1.6.2.0
      */
     public function updateCategoryIndex($productIds, $categoryIds)
     {

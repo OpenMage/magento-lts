@@ -18,12 +18,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths for using throughout the code
      */
     public const XML_PATH_ACTIVE        = 'google/analytics/active';
+
     public const XML_PATH_TYPE          = 'google/analytics/type';
+
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
+
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
+
     public const XML_PATH_USERID        = 'google/analytics/user_id';
 
     public const XML_PATH_GTM_ACTIVE    = 'google/gtm/active';
+
     public const XML_PATH_GTM_CONTAINER_ID   = 'google/gtm/container_id';
 
     /**
@@ -63,7 +68,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store $store
      * @return bool
      * @deprecated
      */
@@ -131,7 +136,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param null $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -153,7 +158,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)
@@ -181,7 +186,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param int|float|string $price
+     * @param float|int|string $price
      */
     public function formatPrice($price): string
     {

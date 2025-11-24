@@ -37,11 +37,12 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                     throw new Exception();
                 }
             }
+
             $this->_prepareDownloadResponse($info['title'], [
                 'value' => $filePath,
                 'type'  => 'filename',
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
     }
@@ -120,20 +121,23 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 $this->_forward('noRoute');
                 return;
             }
+
             // Check if the product exists
             $product = Mage::getModel('catalog/product')->load($request['product']);
             if (!$product || !$product->getId()) {
                 $this->_forward('noRoute');
                 return;
             }
+
             // Try to load the option
             $option = $product->getOptionById($optionId);
             if (!$option || !$option->getId() || $option->getType() != 'file') {
                 $this->_forward('noRoute');
                 return;
             }
+
             $this->_downloadFileAction($request['options'][$this->getRequest()->getParam('option_id')]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
     }
@@ -161,11 +165,13 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 $optionId = null;
             }
         }
+
         $productOption = null;
         if ($optionId) {
             /** @var Mage_Catalog_Model_Product_Option $productOption */
             $productOption = Mage::getModel('catalog/product_option')->load($optionId);
         }
+
         if (!$productOption || !$productOption->getId()
             || $productOption->getProductId() != $option->getProductId() || $productOption->getType() != 'file'
         ) {
@@ -176,9 +182,10 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         try {
             $info = Mage::helper('core/unserializeArray')->unserialize($option->getValue());
             $this->_downloadFileAction($info);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
+
         exit(0);
     }
 }

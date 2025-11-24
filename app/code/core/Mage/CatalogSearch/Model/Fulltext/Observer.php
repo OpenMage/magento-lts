@@ -73,6 +73,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
         }
+
         $delete = $observer->getEventName() == 'eav_entity_attribute_delete_after';
 
         if (!$delete && !$attribute->dataHasChangedFor('is_searchable')) {

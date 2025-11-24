@@ -29,7 +29,7 @@ $numColumns = count($this->getColumns());
     <?php endif ?>
     <tbody>
     <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
-    <?php foreach ($this->getCollection() as $_index=>$_item): ?>
+    <?php foreach ($this->getCollection() as $_item): ?>
         <tr title="<?php echo $this->getRowId($_item) ?>">
         <?php $i=0;foreach ($this->getColumns() as $_column): ?>
             <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>

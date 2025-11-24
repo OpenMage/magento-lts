@@ -100,6 +100,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
             $this->_symbolsData =  Mage::getModel('currencysymbol/system_currencysymbol')
                 ->getCurrencySymbolsData();
         }
+
         return $this->_symbolsData;
     }
 

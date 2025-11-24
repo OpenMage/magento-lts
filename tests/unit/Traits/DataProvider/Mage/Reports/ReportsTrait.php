@@ -16,7 +16,9 @@ use Mage_Reports_Helper_Data;
 trait ReportsTrait
 {
     public static string $dateFirstDay  = '2025-01-01';
+
     public static string $dateNextDay   = '2025-01-02';
+
     public static string $dateLastDay   = '2025-12-31';
 
     public function provideReportsDateIntervals(): Generator
@@ -30,14 +32,14 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no from' => [
-            'No date part in \'\' found.',
+            "No date part in '' found.",
             '',
             self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
 
         yield $prefix . 'no to' => [
-            'No date part in \'\' found.',
+            "No date part in '' found.",
             self::$dateFirstDay,
             '',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,

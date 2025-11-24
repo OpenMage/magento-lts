@@ -15,12 +15,12 @@
 class Mage_Core_Model_Design_Fallback
 {
     /**
-     * @var Mage_Core_Model_Design_Config
+     * @var null|Mage_Core_Model_Design_Config
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Store
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
@@ -47,6 +47,7 @@ class Mage_Core_Model_Design_Fallback
      * Retrieve store
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -54,14 +55,16 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param string|int|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStore($store)
     {
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
         $this->_cachedSchemes = [];
         return $this;
@@ -74,6 +77,7 @@ class Mage_Core_Model_Design_Fallback
      * @param string $package
      * @param string $theme
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFallbackScheme($area, $package, $theme)
     {
@@ -126,6 +130,7 @@ class Mage_Core_Model_Design_Fallback
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
+
             [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
@@ -149,6 +154,7 @@ class Mage_Core_Model_Design_Fallback
                 'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
+
         $this->_visited[] = $path;
     }
 
@@ -156,6 +162,7 @@ class Mage_Core_Model_Design_Fallback
      * Get fallback scheme when inheritance is not defined (backward compatibility)
      *
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getLegacyFallbackScheme()
     {
@@ -168,7 +175,9 @@ class Mage_Core_Model_Design_Fallback
 
     /**
      * Default theme getter
+     *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getFallbackTheme()
     {

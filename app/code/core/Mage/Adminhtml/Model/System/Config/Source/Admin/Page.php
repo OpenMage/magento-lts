@@ -60,6 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         if (is_null($this->_url)) {
             $this->_url = Mage::getModel('adminhtml/url');
         }
+
         return $this->_url;
     }
 
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
+
             $parentArr[$childName] = $menuArr;
 
             $sortOrder++;

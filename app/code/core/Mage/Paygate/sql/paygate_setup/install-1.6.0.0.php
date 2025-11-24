@@ -7,5 +7,5 @@
  * @package    Mage_Paygate
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;

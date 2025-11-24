@@ -29,6 +29,7 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
         if (!$object->getCreatedAt()) {
             $object->setCreatedAt($this->formatDate(time()));
         }
+
         $object->setUpdatedAt($this->formatDate(time()));
         return parent::_beforeSave($object);
     }
@@ -51,6 +52,7 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
             $select->where("{$this->getIdFieldName()} != :id");
             $bind['id'] = $id;
         }
+
         return $this->_getReadAdapter()->fetchOne($select, $bind) ? true : false;
     }
 }

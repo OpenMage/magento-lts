@@ -50,7 +50,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve list of orders. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -106,12 +106,14 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $orderCollection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
+
         foreach ($orderCollection as $order) {
             $orders[] = $this->_getAttributes($order, 'order');
         }
+
         return $orders;
     }
 
@@ -188,8 +190,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -208,8 +210,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         try {
             $order->hold();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -228,8 +230,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         try {
             $order->unhold();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
 
         return true;
@@ -248,15 +250,18 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         if (Mage_Sales_Model_Order::STATE_CANCELED == $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         try {
             $order->cancel();
             $order->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('status_not_changed', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('status_not_changed', $mageCoreException->getMessage());
         }
+
         if (Mage_Sales_Model_Order::STATE_CANCELED != $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         return true;
     }
 }

@@ -34,6 +34,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
 
             Mage::register('config_system_email_template', $collection);
         }
+
         $options = $collection->toOptionArray();
         $templateName = Mage::helper('adminhtml')->__('Default Template from Locale');
         $nodeName = str_replace('/', '_', $this->getPath());
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
             $templateName = Mage::helper('adminhtml')->__((string) $templateLabelNode);
             $templateName = Mage::helper('adminhtml')->__('%s (Default Template from Locale)', $templateName);
         }
+
         array_unshift(
             $options,
             [

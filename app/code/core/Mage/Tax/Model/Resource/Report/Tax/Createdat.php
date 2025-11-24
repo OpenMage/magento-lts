@@ -34,11 +34,11 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
     /**
      * Aggregate Tax data by orders
      *
-     * @throws Exception
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
      * @return $this
+     * @throws Exception
      */
     protected function _aggregateByOrder($aggregationField, $from, $to)
     {
@@ -127,9 +127,9 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

@@ -17,13 +17,14 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
     protected $_product = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = Mage::registry('product');
         }
+
         return $this->_product;
     }
 
@@ -32,6 +33,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
      * exclude them from additional data array
      *
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAdditionalData(array $excludeAttr = [])
     {
@@ -47,7 +49,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 } elseif (is_null($value) || $value === false || $value === '') {
                     $value = Mage::helper('catalog')->__('No');
                 } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
-                    $value = Mage::app()->getStore()->convertPrice($value, true);
+                    $value = Mage::app()->getStore()->convertPrice((float) $value, true);
                 }
 
                 if (is_string($value) && strlen($value)) {
@@ -59,6 +61,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 }
             }
         }
+
         return $data;
     }
 }

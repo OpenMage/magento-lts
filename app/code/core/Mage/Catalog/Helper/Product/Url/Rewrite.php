@@ -66,12 +66,12 @@ class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Pro
     {
         $select->joinLeft(
             ['url_rewrite' => $this->_resource->getTableName('core/url_rewrite')],
-            'url_rewrite.product_id = main_table.entity_id AND url_rewrite.is_system = 1 AND ' .
-                $this->_connection->quoteInto(
+            'url_rewrite.product_id = main_table.entity_id AND url_rewrite.is_system = 1 AND '
+                . $this->_connection->quoteInto(
                     'url_rewrite.category_id IS NULL AND url_rewrite.store_id = ? AND ',
                     (int) $storeId,
-                ) .
-                $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['like' => 'product/%']),
+                )
+                . $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['like' => 'product/%']),
             ['request_path' => 'url_rewrite.request_path'],
         );
         return $this;

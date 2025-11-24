@@ -13,18 +13,19 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Form_Type _getResource()
- * @method Mage_Eav_Model_Resource_Form_Type getResource()
- * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
  * @method string getCode()
- * @method $this setCode(string $value)
- * @method string getLabel()
- * @method $this setLabel(string $value)
+ * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
  * @method int getIsSystem()
- * @method $this setIsSystem(int $value)
- * @method string getTheme()
- * @method $this setTheme(string $value)
+ * @method string getLabel()
+ * @method Mage_Eav_Model_Resource_Form_Type getResource()
+ * @method Mage_Eav_Model_Resource_Form_Type_Collection getResourceCollection()
  * @method int getStoreId()
+ * @method string getTheme()
+ * @method $this setCode(string $value)
+ * @method $this setIsSystem(int $value)
+ * @method $this setLabel(string $value)
  * @method $this setStoreId(int $value)
+ * @method $this setTheme(string $value)
  */
 class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 {
@@ -53,6 +54,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
         if (!$this->hasData('entity_types')) {
             $this->setData('entity_types', $this->_getResource()->getEntityTypes($this));
         }
+
         return $this->_getData('entity_types');
     }
 
@@ -80,6 +82,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             $entityTypes[] = $entityTypeId;
             $this->setEntityTypes($entityTypes);
         }
+
         return $this;
     }
 
@@ -118,6 +121,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             if ($skeletonElement->getFieldsetId()) {
                 $fieldsetId = $fieldsetMap[$skeletonElement->getFieldsetId()];
             }
+
             $element->setTypeId($this->getId())
                 ->setFieldsetId($fieldsetId)
                 ->setAttributeId($skeletonElement->getAttributeId())

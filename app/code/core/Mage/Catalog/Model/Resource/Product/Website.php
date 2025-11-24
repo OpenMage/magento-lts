@@ -56,9 +56,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         try {
             $adapter->delete($this->getMainTable(), $whereCond);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -91,6 +91,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
                     if (!$productId) {
                         continue;
                     }
+
                     $this->_getWriteAdapter()->insert($this->getMainTable(), [
                         'product_id' => (int) $productId,
                         'website_id' => (int) $websiteId,
@@ -106,10 +107,11 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
             }
 
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getWriteAdapter()->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 

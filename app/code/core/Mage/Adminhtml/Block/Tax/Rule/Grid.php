@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 ->addProductTaxClassesToResult()
                 ->addRatesToResult();
         }
+
         return $this;
     }
 
@@ -68,6 +69,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                     break;
             }
         }
+
         return parent::_addColumnFilterToCollection($column);
     }
 

@@ -65,6 +65,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
             $element->setId($id);
             $form->addElement($element);
         }
+
         return $form->toHtml() . "<script type=\"text/javascript\">
             dateTimeChoose_{$idSuffix} = function() {
                 $('{$this->_targetElementId}').value = $('from_{$idSuffix}').value + '{$this->_rangeDelimiter}' + $('to_{$idSuffix}').value;

@@ -39,6 +39,7 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
         if (!is_array($filters)) {
             Mage::throwException(Mage::helper('catalog')->__('The filters must be an array.'));
         }
+
         $this->setData('filters', $filters);
         return $this;
     }
@@ -55,6 +56,7 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
             $filters = [];
             $this->setData('filters', $filters);
         }
+
         return $filters;
     }
 }

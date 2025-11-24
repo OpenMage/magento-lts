@@ -25,6 +25,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
         if (is_array($applyTo)) {
             $object->setApplyTo(implode(',', $applyTo));
         }
+
         return parent::_beforeSave($object);
     }
 
@@ -32,6 +33,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Perform actions after object save
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -44,6 +46,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      *
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _clearUselessAttributeValues(Mage_Core_Model_Abstract $object)
     {
@@ -71,6 +74,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Delete entity
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {
@@ -90,6 +94,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             if ($this->isUsedBySuperProducts($attribute, $result['attribute_set_id'])) {
                 Mage::throwException(Mage::helper('eav')->__("Attribute '%s' used in configurable products", $attribute->getAttributeCode()));
             }
+
             $backendTable = $attribute->getBackend()->getTable();
             if ($backendTable) {
                 $select = $this->_getWriteAdapter()->select()
@@ -115,7 +120,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Defines is Attribute used by super products
      *
      * @param int $attributeSet
-     * @return false|string|null
+     * @return null|false|string
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)
     {

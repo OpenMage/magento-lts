@@ -31,7 +31,7 @@ final class ObjectTest extends TestCase
      * @param mixed $expectedResult
      * @param string $setKey
      * @param mixed $setValue
-     * @param string|int|null $index
+     * @param null|int|string $index
      *
      * @group Varien_Object
      */
@@ -241,8 +241,8 @@ final class ObjectTest extends TestCase
             /** @phpstan-ignore-next-line */
             $this->subject->notData();
             self::fail('Invalid __call');
-        } catch (Varien_Exception $exception) {
-            self::assertStringStartsWith('Invalid method', $exception->getMessage());
+        } catch (Varien_Exception $varienException) {
+            self::assertStringStartsWith('Invalid method', $varienException->getMessage());
         }
     }
 

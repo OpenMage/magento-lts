@@ -33,8 +33,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
         if ($baseShippingAmount) {
             $baseShippingDiscount = $baseShippingAmount * $order->getBaseShippingDiscountAmount() / $order->getBaseShippingAmount();
             $shippingDiscount = $order->getShippingAmount() * $baseShippingDiscount / $order->getBaseShippingAmount();
-            $totalDiscountAmount = $totalDiscountAmount + $shippingDiscount;
-            $baseTotalDiscountAmount = $baseTotalDiscountAmount + $baseShippingDiscount;
+            $totalDiscountAmount += $shippingDiscount;
+            $baseTotalDiscountAmount += $baseShippingDiscount;
         }
 
         /** @var Mage_Sales_Model_Order_Invoice_Item $item */

@@ -17,7 +17,7 @@ class Varien_Simplexml_Config
     /**
      * Configuration xml
      *
-     * @var Varien_Simplexml_Element|SimpleXMLElement
+     * @var SimpleXMLElement|Varien_Simplexml_Element
      */
     protected $_xml = null;
 
@@ -37,7 +37,7 @@ class Varien_Simplexml_Config
     protected $_cacheLifetime = null;
 
     /**
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_cacheChecksum = false;
 
@@ -72,14 +72,15 @@ class Varien_Simplexml_Config
      *
      * Initializes XML for this configuration
      *
-     * @see self::setXml
      * @param string|Varien_Simplexml_Element $sourceData
+     * @see self::setXml
      */
     public function __construct($sourceData = null)
     {
         if (is_null($sourceData)) {
             return;
         }
+
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
         } elseif (is_string($sourceData) && !empty($sourceData)) {
@@ -105,9 +106,9 @@ class Varien_Simplexml_Config
     /**
      * Returns node found by the $path
      *
-     * @see     Varien_Simplexml_Element::descend
      * @param   string $path
-     * @return  Varien_Simplexml_Element|false
+     * @return  false|Varien_Simplexml_Element
+     * @see     Varien_Simplexml_Element::descend
      */
     public function getNode($path = null)
     {
@@ -124,7 +125,7 @@ class Varien_Simplexml_Config
      * Returns nodes found by xpath expression
      *
      * @param string $xpath
-     * @return Varien_Simplexml_Element[]|false
+     * @return false|Varien_Simplexml_Element[]
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -232,7 +233,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string|null $data
+     * @param null|string $data
      * @return $this
      */
     public function setCacheChecksum($data)
@@ -244,11 +245,12 @@ class Varien_Simplexml_Config
         } else {
             $this->_cacheChecksum = md5($data);
         }
+
         return $this;
     }
 
     /**
-     * @param string|false $data
+     * @param false|string $data
      * @return $this
      */
     public function updateCacheChecksum($data)
@@ -256,16 +258,18 @@ class Varien_Simplexml_Config
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
+
         if (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
             $this->setCacheChecksum($this->getCacheChecksum() . ':' . $data);
         }
+
         return $this;
     }
 
     /**
-     * @return string|false|null
+     * @return null|false|string
      */
     public function getCacheChecksum()
     {
@@ -297,9 +301,11 @@ class Varien_Simplexml_Config
         if (false === $newChecksum) {
             return false;
         }
+
         if (is_null($newChecksum)) {
             return true;
         }
+
         $cachedChecksum = $this->getCache()->load($this->getCacheChecksumId());
         return $newChecksum === false && $cachedChecksum === false || $newChecksum === $cachedChecksum;
     }
@@ -335,6 +341,7 @@ class Varien_Simplexml_Config
         if ($this->getCacheSaved()) {
             return $this;
         }
+
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
@@ -388,7 +395,7 @@ class Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|bool $lifetime
+     * @param bool|int $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -421,11 +428,13 @@ class Varien_Simplexml_Config
 
         $fileData = file_get_contents($filePath);
         $fileData = $this->processFileData($fileData);
+
         $success = $this->loadString($fileData, $this->_elementClass);
 
         if ($success === false) {
             Mage::throwException('Cannot parse XML file at ' . $filePath);
         }
+
         return $success;
     }
 
@@ -447,6 +456,7 @@ class Varien_Simplexml_Config
         } else {
             Mage::logException(new InvalidArgumentException('"$string" parameter for simplexml_load_string is not a string'));
         }
+
         return false;
     }
 
@@ -502,6 +512,7 @@ class Varien_Simplexml_Config
                 }
             }
         }
+
         return $this;
     }
 

@@ -13,12 +13,12 @@
  * @package    Mage_Customer
  *
  * @method Mage_Customer_Model_Resource_Customer _getResource()
- * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- *
- * @method bool hasEmail()
  * @method string getEmail()
  * @method int getPostIndex()
+ * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
+ * @method bool hasEmail()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
@@ -55,17 +55,19 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Retrieve address customer
      *
-     * @return Mage_Customer_Model_Customer|false
+     * @return false|Mage_Customer_Model_Customer
      */
     public function getCustomer()
     {
         if (!$this->getCustomerId()) {
             return false;
         }
+
         if (empty($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer')
                 ->load($this->getCustomerId());
         }
+
         return $this->_customer;
     }
 
@@ -80,6 +82,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         if ($this->getCustomerId() != $customer->getId()) {
             $this->setCustomerId($customer->getId());
         }
+
         return $this;
     }
 
@@ -109,6 +112,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
                 ->getSortedAttributes();
             $this->setData('attributes', $attributes);
         }
+
         return $attributes;
     }
 
@@ -139,6 +143,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
         }
+
         return $entityTypeId;
     }
 

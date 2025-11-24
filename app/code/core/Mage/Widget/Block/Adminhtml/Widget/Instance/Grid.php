@@ -16,7 +16,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
 {
     /**
      * Internal constructor
-     *
      */
     protected function _construct()
     {
@@ -96,6 +95,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
         foreach ($widgetsOptionsArr as $widget) {
             $widgets[$widget['value']] = $widget['label'];
         }
+
         return $widgets;
     }
 
@@ -118,6 +118,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
                 $packageThemeArray[$item['value']] = $item['label'];
             }
         }
+
         return $packageThemeArray;
     }
 

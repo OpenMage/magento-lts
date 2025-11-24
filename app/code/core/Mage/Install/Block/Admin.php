@@ -32,6 +32,7 @@ class Mage_Install_Block_Admin extends Mage_Install_Block_Abstract
             $data = new Varien_Object(Mage::getSingleton('install/session')->getAdminData(true));
             $this->setData('form_data', $data);
         }
+
         return $data;
     }
 

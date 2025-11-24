@@ -44,6 +44,7 @@ class Mage_Dataflow_Model_Convert_Container_Collection
         if (!isset($this->_items[$name])) {
             $this->addItem($name, new $this->_defaultClass());
         }
+
         return $this->_items[$name];
     }
 

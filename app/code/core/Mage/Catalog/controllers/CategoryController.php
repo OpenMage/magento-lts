@@ -17,7 +17,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      * @throws Mage_Core_Exception
      */
     protected function _initCategory()
@@ -35,6 +35,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
         }
+
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
@@ -47,8 +48,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                     'controller_action' => $this,
                 ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -61,7 +62,6 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * @return Mage_Catalog_Model_Category
      * @throws Mage_Core_Exception
      * @deprecated use method _initCategory
-     *
      */
     protected function _initCatagory()
     {
@@ -72,11 +72,11 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * Recursively apply custom design settings to category if it's option
      * custom_use_parent_settings is set to 1 while parent option is not
      *
-     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      * @param Mage_Catalog_Model_Category $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this
+     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
     protected function _applyCustomDesignSettings($category, $update)
     {
@@ -89,14 +89,15 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
         $validityDate = $category->getCustomDesignDate();
 
-        if (array_key_exists('from', $validityDate) &&
-            array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+        if (array_key_exists('from', $validityDate)
+            && array_key_exists('to', $validityDate)
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
         ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')
                     ->applyHandle($category->getPageLayout());
             }
+
             $update->addUpdate($category->getCustomLayoutUpdate());
         }
 

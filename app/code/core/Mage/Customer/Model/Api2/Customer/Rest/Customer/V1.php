@@ -18,22 +18,23 @@ class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_M
      * Is customer has rights to retrieve/update customer item
      *
      * @param int $customerId
-     * @throws Mage_Api2_Exception
      * @return bool
+     * @throws Mage_Api2_Exception
      */
     protected function _isOwner($customerId)
     {
         if ($this->getApiUser()->getUserId() !== $customerId) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return true;
     }
 
     /**
      * Retrieve information about customer
      *
-     * @throws Mage_Api2_Exception
      * @return array|void
+     * @throws Mage_Api2_Exception
      */
     protected function _retrieve()
     {

@@ -131,6 +131,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
                 $this->_getWriteAdapter()->update($this->getTable('core/store_group'), $bind, $where);
             }
         }
+
         return $this;
     }
 

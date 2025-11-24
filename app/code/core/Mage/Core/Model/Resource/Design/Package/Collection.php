@@ -42,6 +42,7 @@ class Mage_Core_Model_Resource_Design_Package_Collection extends Varien_Object
         foreach ($packages as $package) {
             $options[] = ['value' => $package, 'label' => $package];
         }
+
         array_unshift($options, ['value' => '', 'label' => '']);
 
         return $options;

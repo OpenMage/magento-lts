@@ -31,6 +31,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Initialize custom resource model
      *
+     * @throws Zend_Exception
      */
     public function __construct()
     {
@@ -70,6 +71,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 }
             }
         }
+
         return $this->_selectedColumns;
     }
 
@@ -78,7 +80,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Zend_Db_Select
+     * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _makeBoundarySelect($from, $to)
     {
@@ -103,6 +106,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * Add selected data
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelect()
     {
@@ -142,9 +146,11 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $mainTable = $this->getTable('sales/bestsellers_aggregated_daily');
             $select->from($mainTable, $this->_getSelectedColumns());
         }
+
         if (!$this->isTotals()) {
             $select->group(['period', 'product_id']);
         }
+
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
         return $this;
@@ -155,6 +161,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * but before adding unions and calculating totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeLoad()
     {
@@ -293,6 +302,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     $query = $helper->getQueryUsingAnalyticFunction($union);
                     $unionParts[] = '(' . $query . ')';
                 }
+
                 $this->getSelect()->reset()->union($unionParts, Zend_Db_Select::SQL_UNION_ALL);
             }
 

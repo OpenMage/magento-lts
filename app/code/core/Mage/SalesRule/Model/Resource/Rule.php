@@ -43,7 +43,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Add customer group ids and website ids to rule data after load
      *
-     *
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -58,7 +57,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Prepare sales rule's discount quantity
      *
-     *
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -72,8 +70,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         $dateTo = $object->getToDate();
 
         # fix when from and to day are the same
-        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date) &&
-            ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
+        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date)
+            && ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
         ) {
             $dateTo->setHour(23)->setMinute(59)->setSecond(59);
         }
@@ -101,6 +99,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             if (!is_array($websiteIds)) {
                 $websiteIds = explode(',', (string) $websiteIds);
             }
+
             $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
         }
 
@@ -109,6 +108,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             if (!is_array($customerGroupIds)) {
                 $customerGroupIds = explode(',', (string) $customerGroupIds);
             }
+
             $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
         }
 
@@ -117,7 +117,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             $this->getProductAttributes(serialize($object->getConditions()->asArray())),
             $this->getProductAttributes(serialize($object->getActions()->asArray())),
         );
-        if (count($ruleProductAttributes)) {
+        if ($ruleProductAttributes !== []) {
             $this->setActualProductAttributes($object, $ruleProductAttributes);
         }
 
@@ -125,6 +125,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         if ($object->getUseAutoGeneration() && $object->hasDataChanges()) {
             Mage::getResourceModel('salesrule/coupon')->updateSpecificCoupons($object);
         }
+
         return parent::_afterSave($object);
     }
 
@@ -184,10 +185,11 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
                     'store_id IN (?)' => $deleteByStoreIds,
                 ]);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -279,6 +281,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
                     }
                 }
             }
+
             $write->insertMultiple($this->getTable('salesrule/product_attribute'), $data);
         }
 
@@ -296,7 +299,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     {
         $result = [];
         if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s', $serializedString, $matches)) {
-            foreach ($matches[1] as $offset => $attributeCode) {
+            foreach ($matches[1] as $attributeCode) {
                 $result[] = $attributeCode;
             }
         }

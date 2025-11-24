@@ -45,8 +45,10 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
             } else {
                 $data = new Varien_Object($data);
             }
+
             $this->setFormData($data);
         }
+
         return $data;
     }
 

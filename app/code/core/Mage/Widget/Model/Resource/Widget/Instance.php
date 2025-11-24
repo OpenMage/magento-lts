@@ -56,7 +56,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $removePageIds = array_diff($pageIds, $object->getData('page_group_ids'));
 
-        if (is_array($pageIds) && count($pageIds) > 0) {
+        if (is_array($pageIds) && $pageIds !== []) {
             $inCond = $readAdapter->prepareSqlCondition('page_id', ['in' => $pageIds]);
 
             $select = $readAdapter->select()
@@ -93,6 +93,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 );
                 $pageId = $writeAdapter->lastInsertId($pageTable);
             }
+
             foreach ($pageLayoutUpdateIds as $layoutUpdateId) {
                 $writeAdapter->insert($pageLayoutTable, [
                     'page_id' => $pageId,
@@ -145,8 +146,10 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                     'theme'            => $widgetInstance->getTheme(),
                     'layout_update_id' => $layoutUpdateId];
             }
+
             $writeAdapter->insertMultiple($layoutUpdateLinkTable, $data);
         }
+
         return $pageLayoutUpdateIds;
     }
 
@@ -162,6 +165,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         if (in_array('0', $storeIds)) {
             $storeIds = [0];
         }
+
         return $storeIds;
     }
 
@@ -217,6 +221,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 $inCond,
             );
         }
+
         return $this;
     }
 
@@ -238,6 +243,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                 $inCond,
             );
         }
+
         return $this;
     }
 

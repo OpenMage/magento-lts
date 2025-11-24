@@ -16,16 +16,22 @@ abstract class Varien_Image_Adapter_Abstract
     public $fileName = null;
 
     /**
-     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     * @var int Color used to fill space when rotating image, do not confuse it with
      */
     public $imageBackgroundColor = 0;
 
     public const POSITION_TOP_LEFT = 'top-left';
+
     public const POSITION_TOP_RIGHT = 'top-right';
+
     public const POSITION_BOTTOM_LEFT = 'bottom-left';
+
     public const POSITION_BOTTOM_RIGHT = 'bottom-right';
+
     public const POSITION_STRETCH = 'stretch';
+
     public const POSITION_TILE = 'tile';
+
     public const POSITION_CENTER = 'center';
 
     /**
@@ -70,7 +76,7 @@ abstract class Varien_Image_Adapter_Abstract
      * original image, but after resize() it's already a scaled version.
      *
      * @see Varien_Image_Adapter_Gd2::open()
-     * @var resource|GdImage
+     * @var GdImage|resource
      */
     protected $_imageHandler = null;
 
@@ -78,7 +84,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Width of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcWidth = null;
 
@@ -86,17 +92,24 @@ abstract class Varien_Image_Adapter_Abstract
      * Height of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcHeight = null;
+
     protected $_requiredExtensions = null;
+
     protected $_watermarkPosition = null;
+
     protected $_watermarkWidth = null;
+
     protected $_watermarkHeigth = null;
+
     protected $_watermarkImageOpacity = null;
+
     protected $_quality = null;
 
     protected $_keepAspectRatio;
+
     protected $_keepFrame;
 
     /**
@@ -142,10 +155,12 @@ abstract class Varien_Image_Adapter_Abstract
         if ($this->_fileMimeType) {
             return $this->_fileMimeType;
         }
+
         $imageInfo = @getimagesize($this->_fileName);
         if ($imageInfo === false) {
             throw new RuntimeException('Failed to read image at ' . $this->_fileName);
         }
+
         $this->_imageSrcWidth = $imageInfo[0];
         $this->_imageSrcHeight = $imageInfo[1];
         $this->_fileType = $imageInfo[2];
@@ -156,7 +171,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -167,7 +182,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {
@@ -230,6 +245,7 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepAspectRatio = (bool) $value;
         }
+
         return $this->_keepAspectRatio;
     }
 
@@ -244,6 +260,7 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepFrame = (bool) $value;
         }
+
         return $this->_keepFrame;
     }
 
@@ -258,6 +275,7 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepTransparency = (bool) $value;
         }
+
         return $this->_keepTransparency;
     }
 
@@ -272,6 +290,7 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_constrainOnly = (bool) $value;
         }
+
         return $this->_constrainOnly;
     }
 
@@ -279,13 +298,14 @@ abstract class Varien_Image_Adapter_Abstract
      * Get/set quality, values in percentage from 0 to 100
      *
      * @param int $value
-     * @return int|null
+     * @return null|int
      */
     public function quality($value = null)
     {
         if (null !== $value) {
             $this->_quality = (int) $value;
         }
+
         return $this->_quality;
     }
 
@@ -301,11 +321,13 @@ abstract class Varien_Image_Adapter_Abstract
             if ((!is_array($value)) || (3 !== count($value))) {
                 return;
             }
+
             foreach ($value as $color) {
                 if ((!is_int($color)) || ($color < 0) || ($color > 255)) {
                     return;
                 }
             }
+
             $this->_backgroundColor = $value;
         }
 

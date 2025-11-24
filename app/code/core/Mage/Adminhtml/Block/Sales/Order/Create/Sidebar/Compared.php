@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
         if (is_null($collection)) {
             if ($collection = $this->getCreateOrderModel()->getCustomerCompareList()) {
                 $collection = $collection->getItemCollection()
-                    ->useProductItem(true)
+                    ->useProductItem()
                     ->setStoreId($this->getQuote()->getStoreId())
                     ->addStoreFilter($this->getQuote()->getStoreId())
                     ->setCustomerId($this->getCustomerId())
@@ -50,8 +50,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
                     ->addAttributeToSelect('status')
                     ->load();
             }
+
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 

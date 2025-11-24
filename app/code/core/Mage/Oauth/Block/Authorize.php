@@ -31,6 +31,7 @@ class Mage_Oauth_Block_Authorize extends Mage_Oauth_Block_AuthorizeBaseAbstract
                 $url = rtrim($url, '/') . '/simple/1';
             }
         }
+
         return $url;
     }
 

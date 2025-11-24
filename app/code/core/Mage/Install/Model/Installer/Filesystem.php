@@ -28,13 +28,13 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
 
     /**
      * Check and prepare file system
-     *
      */
     public function install()
     {
         if (!$this->_checkFilesystem()) {
             throw new Exception();
         }
+
         return $this;
     }
 
@@ -56,18 +56,19 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
                 $res = $res && $checkRes;
             }
         }
+
         return $res;
     }
 
     /**
      * Check file system path
      *
-     * @deprecated since 1.7.1.0
      * @param   string $path
      * @param   bool $recursive
      * @param   bool $existence
      * @param   string $mode
      * @return  bool
+     * @deprecated since 1.7.1.0
      */
     protected function _checkPath($path, $recursive, $existence, $mode)
     {
@@ -104,6 +105,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
                 }
             }
         }
+
         return $res;
     }
 }

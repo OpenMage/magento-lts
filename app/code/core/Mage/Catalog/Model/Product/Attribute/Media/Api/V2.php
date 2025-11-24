@@ -25,10 +25,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
         if (!is_object($data)) {
             return parent::_prepareImageData($data);
         }
+
         $_imageData = get_object_vars($data);
         if (isset($data->file) && is_object($data->file)) {
             $_imageData['file'] = get_object_vars($data->file);
         }
+
         return parent::_prepareImageData($_imageData);
     }
 }

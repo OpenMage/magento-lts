@@ -46,10 +46,12 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
                     }
                 }
             }
+
             $row = [];
             foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
+
             /*
             if ($i <= 100)
             {
@@ -68,6 +70,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             $import->save();
             //unset($import);
         }
+
         fclose($fp);
         unset($sessionId);
         //$this->setData($data);
@@ -96,9 +99,11 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             foreach ($fields as $f) {
                 $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $f) . $fEnc;
             }
+
             $lines[] = implode($fDel, $line);
         }
-        foreach ($data as $i => $row) {
+
+        foreach ($data as $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*
@@ -111,8 +116,10 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
                 $line[] = $fEnc . $v . $fEnc;
             }
+
             $lines[] = implode($fDel, $line);
         }
+
         $result = implode($lDel, $lines);
         $this->setData($result);
 

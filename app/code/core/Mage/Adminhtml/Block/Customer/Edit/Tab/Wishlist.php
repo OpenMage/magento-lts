@@ -38,7 +38,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
 
     /**
      * Initialize Grid
-     *
      */
     public function __construct()
     {
@@ -184,6 +183,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
                 default => $collection->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition()),
             };
         }
+
         return $this;
     }
 
@@ -202,6 +202,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
                 default => parent::_setCollectionOrder($column),
             };
         }
+
         return $this;
     }
 

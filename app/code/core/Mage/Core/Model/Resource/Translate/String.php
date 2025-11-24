@@ -132,6 +132,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
                 }
             }
         }
+
         return parent::_afterSave($object);
     }
 
@@ -140,7 +141,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      *
      * @param string $string
      * @param string $locale
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function deleteTranslate($string, $locale = null, $storeId = null)
@@ -171,7 +172,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * @param String $string
      * @param String $translate
      * @param String $locale
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function saveTranslate($string, $translate, $locale = null, $storeId = null)
@@ -205,6 +206,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
             if (str_contains($original, '::')) {
                 [$scope, $original] = explode('::', $original);
             }
+
             if ($original == $translate) {
                 $write->delete($table, ['key_id=?' => $row['key_id']]);
             } elseif ($row['translate'] != $translate) {

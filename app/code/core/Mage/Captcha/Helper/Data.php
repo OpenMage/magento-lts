@@ -63,6 +63,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
             $type = $this->getConfigNode('type');
             $this->_captcha[$formId] = Mage::getModel('captcha/' . $type, ['formId' => $formId]);
         }
+
         return $this->_captcha[$formId];
     }
 
@@ -98,6 +99,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
                 ];
             }
         }
+
         return $fonts;
     }
 

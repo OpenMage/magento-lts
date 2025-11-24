@@ -65,7 +65,7 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
     /**
      * Getter for details row amount
      *
-     * @return string
+     * @return float
      */
     public function getItemDetailsRowAmount(Varien_Object $row)
     {
@@ -106,8 +106,10 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
             foreach ($total->getData() as $key => $value) {
                 $this->setData("total_{$key}", $value);
             }
+
             return parent::_toHtml();
         }
+
         return '';
     }
 }

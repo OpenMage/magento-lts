@@ -44,6 +44,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 ],
             );
         }
+
         return $this;
     }
 
@@ -82,6 +83,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             if (!is_array($skipIds)) {
                 $skipIds = [(int) $skipIds];
             }
+
             $derivedSelect->where('object_id NOT IN(?)', $skipIds);
         }
 
@@ -125,6 +127,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 $stores[] = $store->getId();
             }
         }
+
         foreach ($stores as $key => $store) {
             $stores[$key] = (int) $store;
         }
@@ -158,6 +161,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
 
             $this->_getWriteAdapter()->delete($this->getMainTable(), ['event_id IN(?)' => $eventIds]);
         }
+
         return $this;
     }
 }

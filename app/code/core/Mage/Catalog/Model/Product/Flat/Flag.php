@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData = [];
             $this->setFlagData($flagData);
         }
+
         return $flagData;
     }
 
@@ -50,6 +51,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData[$key] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData[$key];
     }
 
@@ -81,6 +83,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData['is_built'] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData['is_built'];
     }
 
@@ -102,11 +105,10 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     /**
      * Set Catalog Product Flat Data is built flag
      *
-     * @deprecated after 1.7.0.0 use Mage_Catalog_Model_Product_Flat_Flag::setIsBuilt() instead
-     *
      * @param bool $flag
      *
      * @return $this
+     * @deprecated after 1.7.0.0 use Mage_Catalog_Model_Product_Flat_Flag::setIsBuilt() instead
      */
     public function setIsBuild($flag)
     {

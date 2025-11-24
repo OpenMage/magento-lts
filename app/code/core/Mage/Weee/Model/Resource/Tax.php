@@ -22,7 +22,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Fetch one
      *
-     * @param Varien_Db_Select|string $select
+     * @param string|Varien_Db_Select $select
      * @return string
      */
     public function fetchOne($select)
@@ -33,7 +33,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Fetch column
      *
-     * @param Varien_Db_Select|string $select
+     * @param string|Varien_Db_Select $select
      * @return array
      */
     public function fetchCol($select)
@@ -67,6 +67,9 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param mixed $productCondition
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _updateDiscountPercents($productCondition = null)
     {
@@ -93,6 +96,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
             $select->where('(from_time <= ? OR from_time = 0)', $now)
                    ->where('(to_time >= ? OR to_time = 0)', $now);
         }
+
         $adapter->delete($this->getTable('weee/discount'), $deleteCondition);
 
         $select->order(['data.website_id', 'data.customer_group_id', 'data.product_id', 'data.sort_order']);
@@ -112,8 +116,10 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
                 foreach ($productData as $product) {
                     $adapter->insert($this->getTable('weee/discount'), $product);
                 }
+
                 $productData = [];
             }
+
             if ($row['action_operator'] == 'by_percent') {
                 if (isset($productData[$key])) {
                     $productData[$key]['value'] -= $productData[$key]['value'] / 100 * $row['action_amount'];
@@ -130,8 +136,10 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
             if ($row['action_stop']) {
                 $stops[$key] = true;
             }
+
             $prevKey = $key;
         }
+
         foreach ($productData as $product) {
             $adapter->insert($this->getTable('weee/discount'), $product);
         }

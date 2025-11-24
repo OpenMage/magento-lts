@@ -44,7 +44,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      * Retrieve database block by type
      *
      * @param  string $type database model type
-     * @return bool | Mage_Core_Block_Template
+     * @return bool|Mage_Core_Block_Template
      */
     public function getDatabaseBlock($type)
     {
@@ -59,6 +59,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
                 $this->_databases[$type]['instance'] = $block;
             }
         }
+
         return $block;
     }
 
@@ -73,6 +74,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
         foreach (array_keys($this->_databases) as $type) {
             $databases[] = $this->getDatabaseBlock($type);
         }
+
         return $databases;
     }
 
@@ -91,8 +93,10 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
             } else {
                 $data = new Varien_Object($data);
             }
+
             $this->setFormData($data);
         }
+
         return $data;
     }
 }

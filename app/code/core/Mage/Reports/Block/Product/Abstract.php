@@ -20,21 +20,21 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Product Index model name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_indexName;
 
     /**
      * Product Index model instance
      *
-     * @var Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract|null
+     * @var null|Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     protected $_indexModel;
 
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract|null
+     * @var null|Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     protected $_collection;
 
@@ -62,6 +62,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if ($this->hasData('page_size')) {
             return $this->getData('page_size');
         }
+
         return 5;
     }
 
@@ -135,6 +136,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             } else {
                 $this->_collection->addFilterByIds($ids);
             }
+
             $this->_collection->setAddedAtOrder();
             if ($this-> _useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
@@ -169,6 +171,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if (!$this->_getModel()->getCount()) {
             return 0;
         }
+
         return $this->getItemsCollection()->count();
     }
 

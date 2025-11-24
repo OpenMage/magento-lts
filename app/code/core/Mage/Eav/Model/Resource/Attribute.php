@@ -20,7 +20,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -29,7 +29,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * Get table, where dependency between form name and attribute ids are stored
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getFormAttributeTable();
 
@@ -44,6 +44,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         if (is_array($validateRules)) {
             $object->setData('validate_rules', serialize($validateRules));
         }
+
         return parent::_beforeSave($object);
     }
 
@@ -68,6 +69,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
             foreach (array_keys($describe) as $columnName) {
                 $columns['scope_' . $columnName] = $columnName;
             }
+
             $conditionSql = $adapter->quoteInto(
                 $this->getMainTable() . '.attribute_id = scope_table.attribute_id AND scope_table.website_id =?',
                 $websiteId,

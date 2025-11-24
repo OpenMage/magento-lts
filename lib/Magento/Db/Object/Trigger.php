@@ -80,8 +80,10 @@ class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_
             if (null !== $row['created']) {
                 $row['created'] = new DateTime($row['created']);
             }
+
             $data[$row['trigger_name']] = $row;
         }
+
         $this->_data['triggers'][$schema] = $data;
 
         return $data;

@@ -21,6 +21,7 @@ class Mage_Adminhtml_Model_Observer
                 $locale->setLocaleCode($choosedLocale);
             }
         }
+
         return $this;
     }
 
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Model_Observer
             $value = is_array($request->getPost($key)) ? $request->getPost($key) : explode(',', $request->getPost($key));
             $request->setPost($key, $value ? $value : null);
         }
+
         return $this;
     }
 

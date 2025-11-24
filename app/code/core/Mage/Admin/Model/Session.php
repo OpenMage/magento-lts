@@ -13,29 +13,29 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Acl getAcl()
- * @method $this setAcl(Mage_Admin_Model_Acl $acl)
  * @method int getActiveTabId()
- * @method $this setActiveTabId(int $value)
- * @method $this unsActiveTabId()
- * @method $this setAttributeData(array|false $data)
  * @method string getDeletedPath()
- * @method $this setDeletedPath(string $value)
  * @method bool getIndirectLogin()
+ * @method bool getIsTreeWasExpanded()
+ * @method int getLastEditedCategory()
+ * @method string getLastViewedStore()
+ * @method bool getSyncProcessStopWatch()
+ * @method Mage_Admin_Model_User getUser()
+ * @method bool getUserPasswordChanged()
+ * @method bool hasSyncProcessStopWatch()
+ * @method $this setAcl(Mage_Admin_Model_Acl $acl)
+ * @method $this setActiveTabId(int $value)
+ * @method $this setAttributeData(array|false $data)
+ * @method $this setDeletedPath(string $value)
  * @method $this setIndirectLogin(bool $value)
  * @method $this setIsFirstVisit(bool $value)
- * @method bool getIsTreeWasExpanded()
  * @method $this setIsTreeWasExpanded(bool $value)
- * @method int getLastEditedCategory()
  * @method $this setLastEditedCategory(int $value)
- * @method string getLastViewedStore()
  * @method $this setLastViewedStore(string $value)
- * @method bool getUserPasswordChanged()
- * @method $this setUserPasswordChanged(bool $value)
- * @method bool hasSyncProcessStopWatch()
- * @method bool getSyncProcessStopWatch()
  * @method $this setSyncProcessStopWatch(bool $value)
- * @method Mage_Admin_Model_User getUser()
  * @method $this setUser(Mage_Admin_Model_User $user)
+ * @method $this setUserPasswordChanged(bool $value)
+ * @method $this unsActiveTabId()
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Whether it is the first page after successful login
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isFirstPageAfterLogin;
 
@@ -74,14 +74,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function __construct($parameters = [])
     {
-        $this->_urlPolicy = (!empty($parameters['redirectPolicy'])) ?
-            $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
+        $this->_urlPolicy = (!empty($parameters['redirectPolicy']))
+            ? $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
 
-        $this->_response = (!empty($parameters['response'])) ?
-            $parameters['response'] : new Mage_Core_Controller_Response_Http();
+        $this->_response = (!empty($parameters['response']))
+            ? $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        $this->_factory = (!empty($parameters['factory'])) ?
-            $parameters['factory'] : Mage::getModel('core/factory');
+        $this->_factory = (!empty($parameters['factory']))
+            ? $parameters['factory'] : Mage::getModel('core/factory');
 
         $this->init('admin');
         $this->logoutIndirect();
@@ -132,7 +132,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  string $username
      * @param  string $password
      * @param  Mage_Core_Controller_Request_Http $request
-     * @return Mage_Admin_Model_User|null
+     * @return null|Mage_Admin_Model_User
      */
     public function login($username, $password, $request = null)
     {
@@ -153,6 +153,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 }
+
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
@@ -195,15 +196,19 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->getResource()->saveReloadAclFlag($user, 0);
         }
+
         return $this;
     }
 
@@ -229,15 +234,16 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 try {
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }
+
         return false;
     }
 
@@ -261,6 +267,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_isFirstPageAfterLogin)) {
             $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
         }
+
         return $this->_isFirstPageAfterLogin;
     }
 
@@ -280,7 +287,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Custom REQUEST_URI logic
      *
      * @param Mage_Core_Controller_Request_Http $request
-     * @return string|null
+     * @return null|string
      */
     protected function _getRequestUri($request = null)
     {
@@ -297,9 +304,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Login failed process
      *
      * @param Exception $e
+     * @param null|Mage_Core_Controller_Request_Http $request
      * @param string $username
      * @param string $message
-     * @param Mage_Core_Controller_Request_Http|null $request
      */
     protected function _loginFailed($e, $request, $username, $message)
     {
@@ -308,7 +315,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 'user_name' => $username,
                 'exception' => $e,
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         if ($request && !$request->getParam('messageSent')) {

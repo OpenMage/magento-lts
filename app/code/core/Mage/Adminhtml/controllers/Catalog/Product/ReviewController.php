@@ -157,6 +157,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
 
             return $this->getResponse()->setRedirect($this->getUrl($this->getRequest()->getParam('ret') == 'pending' ? '*/*/pending' : '*/*/'));
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -176,6 +177,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             } else {
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             }
+
             return;
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
@@ -199,6 +201,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $model = Mage::getModel('review/review')->load($reviewId);
                     $model->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) have been deleted.', count($reviewsIds)),
                 );
@@ -229,6 +232,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                         ->save()
                         ->aggregate();
                 }
+
                 $session->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds)),
                 );
@@ -259,6 +263,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $model->setSelectStores($stores);
                     $model->save();
                 }
+
                 $session->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds)),
                 );
@@ -297,6 +302,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             $response->setError(1);
             $response->setMessage(Mage::helper('catalog')->__('Unable to get the product ID.'));
         }
+
         $this->getResponse()->setBody($response->toJson());
     }
 
@@ -349,6 +355,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving review.'));
             }
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 

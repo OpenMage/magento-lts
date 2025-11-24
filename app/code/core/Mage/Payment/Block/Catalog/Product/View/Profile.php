@@ -19,7 +19,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
     /**
      * Recurring profile instance
      *
-     * @var Mage_Payment_Model_Recurring_Profile
+     * @var false|Mage_Payment_Model_Recurring_Profile
      */
     protected $_profile = false;
 
@@ -37,6 +37,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         foreach ($this->_profile->exportScheduleInfo() as $info) {
             $scheduleInfo[$info->getTitle()] = $info->getSchedule();
         }
+
         return $scheduleInfo;
     }
 
@@ -44,6 +45,8 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
      * Render date input element
      *
      * @return string
+     * @throws Exception
+     * @throws Zend_Locale_Exception
      */
     public function getDateHtml()
     {
@@ -60,6 +63,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
                 ->setTime(true);
             return $calendar->getHtml();
         }
+
         return '';
     }
 
@@ -74,6 +78,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         if ($product) {
             $this->_profile = Mage::getModel('payment/recurring_profile')->importProduct($product);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -87,6 +92,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         if (!$this->_profile) {
             $this->_template = '';
         }
+
         return parent::_toHtml();
     }
 }

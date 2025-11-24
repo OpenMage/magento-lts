@@ -15,20 +15,22 @@
 class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 {
     public const XML_USE_HTTPS_PATH    = 'system/adminnotification/use_https';
+
     public const XML_FEED_URL_PATH     = 'system/adminnotification/feed_url';
+
     public const XML_FREQUENCY_PATH    = 'system/adminnotification/frequency';
+
     public const XML_LAST_UPDATE_PATH  = 'system/adminnotification/last_update';
 
     /**
      * Feed url
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_feedUrl;
 
     /**
      * Init model
-     *
      */
     protected function _construct() {}
 
@@ -42,6 +44,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         if (is_null($this->_feedUrl)) {
             $this->_feedUrl = 'https://' . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
         }
+
         return $this->_feedUrl;
     }
 
@@ -75,6 +78,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
                 Mage::getModel('adminnotification/inbox')->parse(array_reverse($feedData));
             }
         }
+
         $this->setLastUpdate();
 
         return $this;
@@ -104,7 +108,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve Last update time
      *
-     * @return string|false
+     * @return false|string
      */
     public function getLastUpdate()
     {
@@ -125,7 +129,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve feed data as XML element
      *
-     * @return SimpleXMLElement|false
+     * @return false|SimpleXMLElement
      */
     public function getFeedData()
     {
@@ -134,17 +138,20 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             'timeout'   => 2,
         ]);
         $curl->write(Zend_Http_Client::GET, $this->getFeedUrl(), '1.0');
+
         $data = $curl->read();
         if ($data === false) {
             return false;
         }
+
         $data = preg_split('/^\r?$/m', $data, 2);
         $data = trim($data[1]);
+
         $curl->close();
 
         try {
             $xml  = new SimpleXMLElement($data);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 
@@ -159,7 +166,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         try {
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><feed />');
         }
 

@@ -41,6 +41,7 @@ class Mage_Bundle_Model_Observer
                 foreach (array_keys($customOptions) as $key) {
                     $customOptions[$key]['is_delete'] = 1;
                 }
+
                 $product->setProductOptions($customOptions);
             }
         }
@@ -106,6 +107,7 @@ class Mage_Bundle_Model_Observer
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
+
         $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
@@ -118,6 +120,7 @@ class Mage_Bundle_Model_Observer
             foreach ($bundleCollection as $item) {
                 $items[$item->getEntityId()] = $item;
             }
+
             $collection->setItems($items);
         }
 
@@ -185,6 +188,7 @@ class Mage_Bundle_Model_Observer
         $productType = $product->getTypeInstance(true);
 
         $productType->setStoreFilter($product->getStoreId(), $product);
+
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
@@ -216,6 +220,7 @@ class Mage_Bundle_Model_Observer
                     'delete' => '',
                 ];
             }
+
             $i++;
         }
 
@@ -238,6 +243,7 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+
         return $this;
     }
 
@@ -257,9 +263,8 @@ class Mage_Bundle_Model_Observer
     /**
      * Add price index to bundle product after load
      *
-     * @deprecated since 1.4.0.0
-     *
      * @return $this
+     * @deprecated since 1.4.0.0
      */
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
@@ -276,10 +281,9 @@ class Mage_Bundle_Model_Observer
     /**
      * CatalogIndex Indexer after plain reindex process
      *
+     * @return $this
      * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
-     *
-     * @return $this
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {

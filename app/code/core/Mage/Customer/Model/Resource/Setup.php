@@ -72,9 +72,11 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 } else {
                     $usedInForms[] = 'adminhtml_customer';
                 }
+
                 if (!empty($attribute['admin_checkout'])) {
                     $usedInForms[] = 'adminhtml_checkout';
                 }
+
                 foreach ($usedInForms as $formCode) {
                     $data[] = [
                         'form_code'     => $formCode,

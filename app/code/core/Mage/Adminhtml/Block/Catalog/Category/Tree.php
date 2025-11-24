@@ -87,6 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
             $this->setData('category_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -123,6 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         ) {
             $params['expand_all'] = true;
         }
+
         return $this->getUrl('*/*/categoriesJson', $params);
     }
 
@@ -179,9 +181,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if (empty($categories)) {
             return '';
         }
+
         foreach ($categories as $key => $category) {
             $categories[$key] = $this->_getNodeJson($category);
         }
+
         return
             '<script type="text/javascript">'
             . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
@@ -194,7 +198,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
+     * @param array|Varien_Data_Tree_Node $node
      * @param int $level
      * @return array
      */
@@ -258,6 +262,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if ($this->_withProductCount) {
             $result .= ' (' . $node->getProductCount() . ')';
         }
+
         return $result;
     }
 

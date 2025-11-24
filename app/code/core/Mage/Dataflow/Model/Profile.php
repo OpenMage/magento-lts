@@ -13,31 +13,34 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
- * @method Mage_Dataflow_Model_Resource_Profile getResource()
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getActionsXml()
- * @method $this setActionsXml(string $value)
- * @method array|string getGuiData()
- * @method $this setGuiData(array|string $value)
- * @method string getDirection()
- * @method $this setDirection(string $value)
- * @method string getEntityType()
- * @method $this setEntityType(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDataTransfer()
- * @method $this setDataTransfer(string $value)
  * @method int getAdminUserId()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
+ * @method string getCreatedAt()
+ * @method string getDataTransfer()
+ * @method string getDirection()
+ * @method string getEntityType()
+ * @method array|string getGuiData()
+ * @method string getName()
+ * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
+ * @method int getStoreId()
+ * @method string getUpdatedAt()
+ * @method $this setActionsXml(string $value)
  * @method $this setAdminUserId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setDataTransfer(string $value)
+ * @method $this setDirection(string $value)
+ * @method $this setEntityType(string $value)
+ * @method $this setGuiData(array|string $value)
+ * @method $this setName(string $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
     public const DEFAULT_EXPORT_PATH = 'var/export';
+
     public const DEFAULT_EXPORT_FILENAME = 'export_';
 
     /**
@@ -70,6 +73,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 Mage::logException($e);
             }
         }
+
         $this->setGuiData($guiData);
 
         return parent::_afterLoad();
@@ -83,8 +87,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
         // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
-            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        if ($actionsXML !== null && strlen($actionsXML) < 0
+            && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
         }
@@ -100,6 +104,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
                 }
+
                 if (empty($guiData['file']['filename'])) {
                     $guiData['file']['filename'] = self::DEFAULT_EXPORT_FILENAME . $data['entity_type']
                         . '.' . ($guiData['parse']['type'] == 'csv' ? $guiData['parse']['type'] : 'xml');
@@ -121,6 +126,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
                 $this->setGuiData($guiData);
             }
+
             $this->_parseGuiData();
 
             $this->setGuiData(serialize($this->getGuiData()));
@@ -129,6 +135,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
             Mage::throwException(Mage::helper('dataflow')->__('Profile with the same name already exists.'));
         }
+
         return $this;
     }
 
@@ -163,6 +170,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($delimiter) {
             $csvParser->setDelimiter($delimiter);
         }
+
         $xmlParser = new DOMDocument();
         $newUploadedFilenames = [];
 
@@ -192,10 +200,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             foreach ($cells as $cell) {
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
-                        } catch (Exception $e) {
-                            foreach ($newUploadedFilenames as $k => $v) {
+                        } catch (Exception) {
+                            foreach ($newUploadedFilenames as $v) {
                                 unlink($path . $v);
                             }
+
                             unlink($path . $uploadFile);
                             Mage::throwException(
                                 Mage::helper('Dataflow')->__(
@@ -211,11 +220,13 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     } else {
                         $attributes = $this->_productTablePermanentAttributes;
                     }
+
                     $colsAbsent = array_diff($attributes, $fileData);
                     if ($colsAbsent) {
                         foreach ($newUploadedFilenames as $v) {
                             unlink($path . $v);
                         }
+
                         unlink($path . $uploadFile);
                         Mage::throwException(
                             Mage::helper('Dataflow')->__(
@@ -225,12 +236,14 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             ),
                         );
                     }
+
                     if ($uploadFile) {
                         $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }
                 }
+
                 //BOM deleting for UTF files
                 if (isset($path, $newFilename) && $newFilename) {
                     $contents = file_get_contents($path . $newFilename);
@@ -238,10 +251,12 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         $contents = substr($contents, 3);
                         file_put_contents($path . $newFilename, $contents);
                     }
+
                     unset($contents);
                 }
             }
         }
+
         parent::_afterSave();
         return $this;
     }
@@ -281,8 +296,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        } catch (Exception $e) {
-            echo $e;
+        } catch (Exception $exception) {
+            echo $exception;
         }
 
         $this->setExceptions($profile->getExceptions());
@@ -315,24 +330,30 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 if (isset($hostArr[1])) {
                     $fileXml .= '    <var name="port"><![CDATA[' . $hostArr[1] . ']]></var>' . $nl;
                 }
+
                 if (!empty($p['file']['passive'])) {
                     $fileXml .= '    <var name="passive">true</var>' . $nl;
                 }
+
                 if ((!empty($p['file']['file_mode']))
                         && ($p['file']['file_mode'] == FTP_ASCII || $p['file']['file_mode'] == FTP_BINARY)
                 ) {
                     $fileXml .= '    <var name="file_mode">' . $p['file']['file_mode'] . '</var>' . $nl;
                 }
+
                 if (!empty($p['file']['user'])) {
                     $fileXml .= '    <var name="user"><![CDATA[' . $p['file']['user'] . ']]></var>' . $nl;
                 }
+
                 if (!empty($p['file']['password'])) {
                     $fileXml .= '    <var name="password"><![CDATA[' . $p['file']['password'] . ']]></var>' . $nl;
                 }
             }
+
             if ($import) {
                 $fileXml .= '    <var name="format"><![CDATA[' . $p['parse']['type'] . ']]></var>' . $nl;
             }
+
             $fileXml .= '</action>' . $nl . $nl;
         }
 
@@ -355,6 +376,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     . $p['parse']['enclose'] . ']]></var>' . $nl;
                 break;
         }
+
         $parseFileXml .= '    <var name="fieldnames">' . $p['parse']['fieldnames'] . '</var>' . $nl;
         $parseFileXmlInter = $parseFileXml;
         $parseFileXml .= '</action>' . $nl . $nl;
@@ -366,6 +388,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 if (!is_array($fields)) {
                     continue;
                 }
+
                 foreach ($fields['db'] as $i => $k) {
                     if ($k == '' || $k == '0') {
                         unset($p['map'][$side]['db'][$i]);
@@ -374,6 +397,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $nl;
         $map = $p['map'][$this->getEntityType()];
         if (count($map['db'])) {
@@ -385,14 +409,17 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
                 $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
             }
+
             $mapXml .= '    </var>' . $nl;
             $parseFileXmlInter .= '    </var>' . $nl;
         }
+
         if ($p['map']['only_specified']) {
             $mapXml .= '    <var name="_only_specified">' . $p['map']['only_specified'] . '</var>' . $nl;
             //$mapXml .= '    <var name="map">' . $nl;
             $parseFileXmlInter .= '    <var name="_only_specified">' . $p['map']['only_specified'] . '</var>' . $nl;
         }
+
         $mapXml .= '</action>' . $nl . $nl;
 
         $parsers = [
@@ -409,6 +436,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $parseDataXml .= '    <var name="url_field"><![CDATA['
                     . $p['export']['add_url_field'] . ']]></var>' . $nl;
             }
+
             $parseDataXml .= '</action>' . $nl . $nl;
         }
 
@@ -428,6 +456,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 if (empty($v)) {
                     continue;
                 }
+
                 if (is_scalar($v)) {
                     $entityXml .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                     $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
@@ -436,6 +465,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         if (strlen($b) == 0) {
                             continue;
                         }
+
                         $entityXml .= '    <var name="filter/' . $f . '/' . $a
                             . '"><![CDATA[' . $b . ']]></var>' . $nl;
                         $parseFileXmlInter .= '    <var name="filter/' . $f . '/'
@@ -443,6 +473,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
                 }
             }
+
             $entityXml .= '</action>' . $nl . $nl;
         }
 
@@ -491,6 +522,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($xmlObject != null) {
             return $xmlObject->getElementsByTagName($nodeName);
         }
+
         Mage::throwException(Mage::helper('Dataflow')->__('Invalid node.'));
     }
 }

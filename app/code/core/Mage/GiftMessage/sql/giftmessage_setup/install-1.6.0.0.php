@@ -7,7 +7,7 @@
  * @package    Mage_GiftMessage
  */
 
-/** @var Mage_GiftMessage_Model_Resource_Setup $installer */
+/** @var Mage_GiftMessage_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -61,6 +61,7 @@ foreach ($entities as $entity) {
  * Add 'gift_message_available' attributes for entities
  */
 $installer->addAttribute('order_item', 'gift_message_available', $options);
+// @phpstan-ignore argument.type
 Mage::getResourceModel('catalog/setup', 'catalog_setup')->addAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'gift_message_available',

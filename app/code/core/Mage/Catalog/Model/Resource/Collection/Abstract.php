@@ -18,14 +18,14 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Current scope (store Id)
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId;
 
     /**
      * Set store scope
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Set store scope
      *
-     * @param int|string|Mage_Core_Model_Store $storeId
+     * @param int|Mage_Core_Model_Store|string $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -45,6 +45,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if ($storeId instanceof Mage_Core_Model_Store) {
             $storeId = $storeId->getId();
         }
+
         $this->_storeId = (int) $storeId;
         return $this;
     }
@@ -59,6 +60,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if (is_null($this->_storeId)) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
+
         return $this->_storeId;
     }
 
@@ -85,6 +87,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if (empty($attributeIds)) {
             $attributeIds = $this->_selectAttributes;
         }
+
         $storeId = $this->getStoreId();
 
         if ($storeId) {
@@ -141,6 +144,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         } else {
             $select = parent::_addLoadAttributesSelectValues($select, $table, $type);
         }
+
         return $select;
     }
 
@@ -195,6 +199,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         } else {
             $storeId = $this->getDefaultStoreId();
         }
+
         $condition[] = $adapter->quoteInto(
             $adapter->quoteColumnAs("$tableAlias.store_id", null) . ' = ?',
             $storeId,

@@ -17,7 +17,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Sales Quote Billing Address instance
      *
-     * @var Mage_Sales_Model_Quote_Address|null
+     * @var null|Mage_Sales_Model_Quote_Address
      */
     protected $_address;
 
@@ -30,7 +30,6 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
 
     /**
      * Initialize billing address step
-     *
      */
     protected function _construct()
     {
@@ -42,6 +41,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if ($this->isCustomerLoggedIn()) {
             $this->getCheckout()->setStepData('billing', 'allow', true);
         }
+
         parent::_construct();
     }
 
@@ -55,6 +55,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -91,9 +92,11 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
                 if (!$this->_address->getFirstname()) {
                     $this->_address->setFirstname($this->getQuote()->getCustomer()->getFirstname());
                 }
+
                 if (!$this->_address->getMiddlename()) {
                     $this->_address->setMiddlename($this->getQuote()->getCustomer()->getMiddlename());
                 }
+
                 if (!$this->_address->getLastname()) {
                     $this->_address->setLastname($this->getQuote()->getCustomer()->getLastname());
                 }
@@ -117,6 +120,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($firstname) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getFirstname();
         }
+
         return $firstname;
     }
 
@@ -132,6 +136,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($lastname) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getLastname();
         }
+
         return $lastname;
     }
 
@@ -139,7 +144,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      * Return Customer Address Middle Name
      * If Sales Quote Address Middle Name is not defined - return Customer Middle Name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMiddlename()
     {
@@ -147,6 +152,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($middlename) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getMiddlename();
         }
+
         return $middlename;
     }
 

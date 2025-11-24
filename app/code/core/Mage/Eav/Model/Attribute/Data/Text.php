@@ -29,8 +29,8 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      * Validate data
      * Return true or array of errors
      *
-     * @param string|bool|null $value
-     * @return bool|array
+     * @param null|bool|string $value
+     * @return array|bool
      */
     public function validateValue($value)
     {
@@ -59,6 +59,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
             $v = $validateRules['min_text_length'];
             $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $v);
         }
+
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
             $v = $validateRules['max_text_length'];
             $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $v);
@@ -68,6 +69,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
         if ($result !== true) {
             $errors = array_merge($errors, $result);
         }
+
         if (count($errors) == 0) {
             return true;
         }
@@ -86,6 +88,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
         if ($value !== false) {
             $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
         }
+
         return $this;
     }
 
@@ -104,7 +107,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

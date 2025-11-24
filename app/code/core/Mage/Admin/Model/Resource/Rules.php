@@ -52,7 +52,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
 
                     $adapter->insert($this->getMainTable(), $insertData);
                 } else {
-                    foreach (Mage::getModel('admin/roles')->getResourcesList2D() as $index => $resName) {
+                    foreach (Mage::getModel('admin/roles')->getResourcesList2D() as $resName) {
                         $row['permission']  = (in_array($resName, $postedResources) ? 'allow' : 'deny');
                         $row['resource_id'] = trim($resName, '/');
 
@@ -74,9 +74,9 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Set resource ID as ID field name
-     * @see Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid::_prepareCollection()
      *
      * @return $this
+     * @see Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid::_prepareCollection()
      */
     public function setResourceIdAsIdFieldName()
     {

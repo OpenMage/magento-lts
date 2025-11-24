@@ -24,10 +24,12 @@ class Mage_Install_Model_Installer_Db_Mysql4 extends Mage_Install_Model_Installe
         $version  = $this->_getConnection()
             ->fetchOne('SELECT VERSION()');
         $version    = $version ? $version : 'undefined';
+
         $match = [];
         if (preg_match("#^([0-9\.]+)#", $version, $match)) {
             $version = $match[0];
         }
+
         return $version;
     }
 

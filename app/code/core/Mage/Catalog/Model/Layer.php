@@ -44,6 +44,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Get layer state key
      *
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStateKey()
     {
@@ -59,7 +61,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get default tags for current layer state
      *
-     * @return  array
+     * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStateTags(array $additionalTags = [])
     {
@@ -72,6 +75,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Retrieve current layer product collection
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Exception
      */
     public function getProductCollection()
     {
@@ -91,6 +95,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareProductCollection($collection)
     {
@@ -119,6 +124,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             $stateSuffix .= '_' . $filterItem->getFilter()->getRequestVar()
                 . '_' . $filterItem->getValueString();
         }
+
         if (!empty($stateSuffix)) {
             $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
@@ -131,6 +137,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * If no category found in registry, the root will be taken
      *
      * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentCategory()
     {
@@ -152,15 +160,18 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      *
      * @param mixed $category
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCurrentCategory($category)
     {
         if (is_numeric($category)) {
             $category = Mage::getModel('catalog/category')->load($category);
         }
+
         if (!$category instanceof Mage_Catalog_Model_Category) {
             Mage::throwException(Mage::helper('catalog')->__('Category must be an instance of Mage_Catalog_Model_Category.'));
         }
+
         if (!$category->getId()) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category.'));
         }
@@ -176,6 +187,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Retrieve current store model
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStore()
     {
@@ -186,6 +198,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Get collection of all filterable attributes for layer products set
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
+     * @throws Mage_Core_Exception
      */
     public function getFilterableAttributes()
     {
@@ -205,12 +218,14 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                     if (!$this->_filterFilterableAttributes($attribute)) {
                         continue;
                     }
+
                     if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
                 }
             }
         }
+
         uasort($attributes, function ($a, $b) {
             return $a->getPosition() - $b->getPosition();
         });
@@ -244,7 +259,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
 
     /**
      * Filter which attributes are included in getFilterableAttributes
-     *
      */
     protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute $attribute): bool
     {
@@ -273,6 +287,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * Get attribute sets identifiers of current product set
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getSetIds()
     {

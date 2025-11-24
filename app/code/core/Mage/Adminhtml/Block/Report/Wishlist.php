@@ -16,10 +16,15 @@
 class Mage_Adminhtml_Block_Report_Wishlist extends Mage_Adminhtml_Block_Template
 {
     public $wishlists_count;
+
     public $items_bought;
+
     public $shared_count;
+
     public $referrals_count;
+
     public $conversions_count;
+
     public $customer_with_wishlist;
 
     public function __construct()

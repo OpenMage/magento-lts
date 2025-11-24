@@ -14,17 +14,21 @@
  *
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)
+ * @method $this setDisplayMinimalPrice(bool $value)
  * @method $this setFormAction(string $value)
  * @method $this setIdSuffix(string $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
- * @method $this setDisplayMinimalPrice(bool $value)
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
+
     public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
+
     public const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
 
     /**
@@ -46,8 +50,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected $_jsUrl;
 
     protected static $_showTemplateHintsAdmin;
+
     protected static $_showTemplateHintsBlocksAdmin;
+
     protected static $_showTemplateHints;
+
     protected static $_showTemplateHintsBlocks;
 
     /**
@@ -111,6 +118,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($area) {
             $params['_area'] = $area;
         }
+
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
@@ -126,7 +134,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Assign variable
      *
-     * @param   string|array $key
+     * @param   array|string $key
      * @param   mixed $value
      * @return  $this
      */
@@ -139,6 +147,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         } else {
             $this->_viewVars[$key] = $value;
         }
+
         return $this;
     }
 
@@ -155,6 +164,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
         }
+
         return $this;
     }
 
@@ -168,6 +178,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($this->getLayout()) {
             return $this->getLayout()->getDirectOutput();
         }
+
         return false;
     }
 
@@ -182,6 +193,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             self::$_showTemplateHintsBlocksAdmin = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN)
                 && Mage::helper('core')->isDevAllowed();
         }
+
         return self::$_showTemplateHintsAdmin;
     }
 
@@ -196,6 +208,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             self::$_showTemplateHintsBlocks = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS)
                 && Mage::helper('core')->isDevAllowed();
         }
+
         return self::$_showTemplateHints;
     }
 
@@ -213,9 +226,11 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
                 if (!is_null($currentParentBlock->getCacheLifetime())) {
                     return 'orange'; // not cached, but within cached
                 }
+
                 $currentParentBlock = $currentParentBlock->getParentBlock();
             }
         }
+
         return 'red';
     }
 
@@ -239,6 +254,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if (!$do) {
             ob_start();
         }
+
         if ($hints) {
             $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
@@ -259,23 +275,24 @@ HTML;
 
         try {
             if (!str_contains($this->_viewDir . DS . $fileName, '..')
-                &&
-                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
+                && ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = static::class;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if (!$do) {
                 ob_get_clean();
                 $do = true;
             }
+
             if (Mage::getIsDeveloperMode()) {
-                throw $e;
+                throw $throwable;
             }
-            Mage::logException($e);
+
+            Mage::logException($throwable);
         }
 
         if ($hints) {
@@ -287,6 +304,7 @@ HTML;
         } else {
             $html = '';
         }
+
         Varien_Profiler::stop($fileName);
         return $html;
     }
@@ -312,6 +330,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
+
         return $this->renderView();
     }
 
@@ -325,6 +344,7 @@ HTML;
         if (!$this->_baseUrl) {
             $this->_baseUrl = Mage::getBaseUrl();
         }
+
         return $this->_baseUrl;
     }
 
@@ -341,6 +361,7 @@ HTML;
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
+
         return $this->_jsUrl . $fileName;
     }
 
@@ -371,8 +392,8 @@ HTML;
     /**
      * Get is allowed symlinks flag
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     protected function _getAllowSymlinks()
     {

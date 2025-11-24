@@ -147,6 +147,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
         if ($attributeCode === 'days_in_wishlist') {
             return $this->_joinFields[$attributeCode]['field'];
         }
+
         return parent::_getAttributeFieldName($attributeCode);
     }
 

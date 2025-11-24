@@ -13,7 +13,7 @@
 class Unserialize_Reader_Str
 {
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_status = null;
 
@@ -28,7 +28,9 @@ class Unserialize_Reader_Str
     protected $_value;
 
     public const READING_LENGTH = 1;
+
     public const FINISHED_LENGTH = 2;
+
     public const READING_VALUE = 3;
 
     /**
@@ -74,6 +76,7 @@ class Unserialize_Reader_Str
                 }
             }
         }
+
         return null;
     }
 }

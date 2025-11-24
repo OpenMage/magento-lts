@@ -43,6 +43,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
             if ($row['url'] == Mage_Cms_Model_Page::NOROUTE_PAGE_ID) {
                 continue;
             }
+
             $page = $this->_prepareObject($row);
             $pages[$page->getId()] = $page;
         }

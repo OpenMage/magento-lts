@@ -15,8 +15,11 @@
 class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_Product_Abstract
 {
     protected $_columnCount = 4;
+
     protected $_items;
+
     protected $_itemCollection;
+
     protected $_product = null;
 
     /**
@@ -75,6 +78,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         if (is_null($this->_items)) {
             $this->_items = $this->getItemCollection()->getItems();
         }
+
         return $this->_items;
     }
 
@@ -95,6 +99,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         if ((int) $columns > 0) {
             $this->_columnCount = (int) $columns;
         }
+
         return $this;
     }
 
@@ -132,6 +137,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         if (!$this->_product) {
             $this->_product = Mage::registry('product');
         }
+
         return $this->_product;
     }
 }

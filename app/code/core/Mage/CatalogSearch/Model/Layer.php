@@ -28,6 +28,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             $this->prepareProductCollection($collection);
             $this->_productCollections[$this->getCurrentCategory()->getId()] = $collection;
         }
+
         return $collection;
     }
 
@@ -63,6 +64,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
             $this->_stateKey = 'Q_' . Mage::helper('catalogsearch')->getQuery()->getId()
                 . '_' . parent::getStateKey();
         }
+
         return $this->_stateKey;
     }
 
@@ -93,7 +95,6 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
 
     /**
      * Filter which attributes are included in getFilterableAttributes
-     *
      */
     protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute  $attribute): bool
     {

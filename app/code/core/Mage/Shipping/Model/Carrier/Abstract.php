@@ -12,11 +12,11 @@
  *
  * @package    Mage_Shipping
  *
- * @method $this setActiveFlag(bool $value)
  * @method array getAllowedMethods()
  * @method array getContainerTypesAll()
  * @method array getContainerTypesFilter()
  * @method Mage_Core_Model_Store getStore()
+ * @method $this setActiveFlag(bool $value)
  * @method $this setStore(Mage_Core_Model_Store $value)
  */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
@@ -24,14 +24,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Carrier's code
      *
-     * @var string
+     * @var null|string
      */
     protected $_code;
 
     /**
      * Rates result
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_rates;
 
@@ -64,13 +64,17 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     protected $_customizableContainerTypes = [];
 
     public const USA_COUNTRY_ID = 'US';
+
     public const CANADA_COUNTRY_ID = 'CA';
+
     public const MEXICO_COUNTRY_ID = 'MX';
 
     public const HANDLING_TYPE_PERCENT = 'P';
+
     public const HANDLING_TYPE_FIXED = 'F';
 
     public const HANDLING_ACTION_PERPACKAGE = 'P';
+
     public const HANDLING_ACTION_PERORDER = 'O';
 
     /**
@@ -83,14 +87,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result;
 
@@ -98,13 +102,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Retrieve information from carrier configuration
      *
      * @param   string $field
-     * @return  string|false
+     * @return  false|string
      */
     public function getConfigData($field)
     {
         if (empty($this->_code)) {
             return false;
         }
+
         $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfig($path, $this->getStore());
     }
@@ -120,6 +125,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($this->_code)) {
             return false;
         }
+
         $path = 'carriers/' . $this->_code . '/' . $field;
         return Mage::getStoreConfigFlag($path, $this->getStore());
     }
@@ -128,7 +134,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Collect and get rates
      *
      * @abstract
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     abstract public function collectRates(Mage_Shipping_Model_Rate_Request $request);
 
@@ -168,7 +174,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Get allowed containers of carrier
      *
-     * @return array|bool
+     * @return array
      */
     protected function _getAllowedContainers(?Varien_Object $params = null)
     {
@@ -176,9 +182,11 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($containersAll)) {
             return [];
         }
+
         if (!$params instanceof Varien_Object) {
             return $containersAll;
         }
+
         $containersFilter   = $this->getContainerTypesFilter();
         $containersFiltered = [];
         $method             = $params->getMethod();
@@ -188,6 +196,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($containersFilter)) {
             return $containersAll;
         }
+
         if (!$params || !$method || !$countryShipper || !$countryRecipient) {
             return $containersAll;
         }
@@ -252,6 +261,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             if ($this->getConfigData('specificcountry')) {
                 $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             }
+
             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
                 return $this;
             } elseif ($showMethod && (!$availableCountries || ($availableCountries
@@ -270,6 +280,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                 return false;
             }
         }
+
         return $this;
     }
 
@@ -327,7 +338,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Retrieve sort order of current carrier
      *
-     * @return mixed
+     * @return false|string
      */
     public function getSortOrder()
     {
@@ -347,12 +358,13 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (!$freeMethod) {
             return;
         }
+
         $freeRateId = false;
 
         if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i => $item) {
+            foreach ($this->_result->getAllRates() as $itemId => $item) {
                 if ($item->getMethod() == $freeMethod) {
-                    $freeRateId = $i;
+                    $freeRateId = $itemId;
                     break;
                 }
             }
@@ -361,6 +373,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if ($freeRateId === false) {
             return;
         }
+
         $price = null;
         if ($request->getFreeMethodWeight() > 0) {
             $this->_setFreeMethodRequest($freeMethod);
@@ -370,6 +383,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                 if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
                     $price = $rates[0]->getPrice();
                 }
+
                 if (count($rates) > 1) {
                     foreach ($rates as $rate) {
                         if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method
@@ -425,6 +439,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
         }
+
         $handlingAction = $this->getConfigData('handling_action');
         if (!$handlingAction) {
             $handlingAction = self::HANDLING_ACTION_PERORDER;
@@ -495,9 +510,10 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $weight = $this->convertWeightToLbs($weight);
         $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
-            $this->_numBoxes = ceil($weight / $maxPackageWeight);
-            $weight = $weight / $this->_numBoxes;
+            $this->_numBoxes = (int) ceil($weight / $maxPackageWeight);
+            $weight /= $this->_numBoxes;
         }
+
         return $weight;
     }
 
@@ -524,7 +540,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Determine whether zip-code is required for the country of destination
      *
-     * @param string|null $countryId
+     * @param null|string $countryId
      * @return false
      */
     public function isZipCodeRequired($countryId = null)

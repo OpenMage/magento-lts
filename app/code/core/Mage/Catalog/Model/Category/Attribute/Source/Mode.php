@@ -35,6 +35,7 @@ class Mage_Catalog_Model_Category_Attribute_Source_Mode extends Mage_Eav_Model_E
                 ],
             ];
         }
+
         return $this->_options;
     }
 }

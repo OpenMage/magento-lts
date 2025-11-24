@@ -45,6 +45,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
         if ($shipment->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
@@ -78,10 +79,11 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
         } else {
             $packaging = Mage::getBlockSingleton('adminhtml/sales_order_shipment_packaging');
         }
+
         $packages = $packaging->getPackages();
 
         $packageNum = 1;
-        foreach ($packages as $packageId => $package) {
+        foreach ($packages as $package) {
             $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
             $page->drawRectangle(25, $this->y + 15, 190, $this->y - 35);
             $page->drawRectangle(190, $this->y + 15, 350, $this->y - 35);
@@ -108,6 +110,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             } else {
                 $lengthText = '--';
             }
+
             $lengthText = Mage::helper('sales')->__('Length') . ' : ' . $lengthText;
             $page->drawText($lengthText, 200, $this->y, 'UTF-8');
 
@@ -118,7 +121,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $page->drawText($confirmationText, 355, $this->y, 'UTF-8');
             }
 
-            $this->y = $this->y - 10;
+            $this->y -= 10;
 
             if ($packaging->displayCustomsValue() != null) {
                 $customsValueText = Mage::helper('sales')->__('Customs Value')
@@ -126,11 +129,13 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     . $packaging->displayPrice($params->getCustomsValue());
                 $page->drawText($customsValueText, 35, $this->y, 'UTF-8');
             }
+
             if ($params->getWidth() != null) {
                 $widthText = $params->getWidth() . ' ' . $dimensionUnits;
             } else {
                 $widthText = '--';
             }
+
             $widthText = Mage::helper('sales')->__('Width') . ' : ' . $widthText;
             $page->drawText($widthText, 200, $this->y, 'UTF-8');
 
@@ -140,13 +145,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 } else {
                     $contentsValue = $packaging->getContentTypeByCode($params->getContentType());
                 }
+
                 $contentsText = Mage::helper('sales')->__('Contents')
                     . ' : '
                     . $contentsValue;
                 $page->drawText($contentsText, 355, $this->y, 'UTF-8');
             }
 
-            $this->y = $this->y - 10;
+            $this->y -= 10;
 
             $weightText = Mage::helper('sales')->__('Total Weight') . ' : ' . $params->getWeight() . ' '
                 . Mage::helper('usa')->getMeasureWeightName($params->getWeightUnits());
@@ -157,15 +163,17 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             } else {
                 $heightText = '--';
             }
+
             $heightText = Mage::helper('sales')->__('Height') . ' : ' . $heightText;
             $page->drawText($heightText, 200, $this->y, 'UTF-8');
 
-            $this->y = $this->y - 10;
+            $this->y -= 10;
 
             if ($params->getSize()) {
                 $sizeText = Mage::helper('sales')->__('Size') . ' : ' . ucfirst(strtolower($params->getSize()));
                 $page->drawText($sizeText, 35, $this->y, 'UTF-8');
             }
+
             if ($params->getGirth() != null) {
                 $dimensionGirthUnits = Mage::helper('usa')->getMeasureDimensionName($params->getGirthDimensionUnits());
                 $girthText = Mage::helper('sales')->__('Girth')
@@ -173,11 +181,11 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $page->drawText($girthText, 200, $this->y, 'UTF-8');
             }
 
-            $this->y = $this->y - 5;
+            $this->y -= 5;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
             $page->drawRectangle(25, $this->y, 570, $this->y - 30 - (count($package->getItems()) * 12));
 
-            $this->y = $this->y - 10;
+            $this->y -= 10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
             $page->drawText(Mage::helper('sales')->__('Items in the Package'), 30, $this->y, 'UTF-8');
 
@@ -200,7 +208,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             $page->drawRectangle($itemCollsX[$i], $this->y - 5, $itemCollsX[++$i], $this->y - 15);
             $page->drawRectangle($itemCollsX[$i], $this->y - 5, $itemCollsXEnd, $this->y - 15);
 
-            $this->y = $this->y - 12;
+            $this->y -= 12;
             $i = 0;
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
@@ -214,6 +222,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     'UTF-8',
                 );
             }
+
             $page->drawText(
                 Mage::helper('sales')->__('Qty Ordered'),
                 $itemCollsX[++$i] + $txtIndent,
@@ -223,7 +232,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             $page->drawText(Mage::helper('sales')->__('Qty'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
 
             $i = 0;
-            foreach ($package->getItems() as $itemId => $item) {
+            foreach ($package->getItems() as $item) {
                 $item = new Varien_Object($item);
                 $i = 0;
 
@@ -234,7 +243,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $page->drawRectangle($itemCollsX[$i], $this->y - 3, $itemCollsX[++$i], $this->y - 15);
                 $page->drawRectangle($itemCollsX[$i], $this->y - 3, $itemCollsXEnd, $this->y - 15);
 
-                $this->y = $this->y - 12;
+                $this->y -= 12;
                 $i = 0;
                 $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
                 $page->drawText($item->getName(), $itemCollsX[$i] + $txtIndent, $this->y, 'UTF-8');
@@ -247,6 +256,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                         'UTF-8',
                     );
                 }
+
                 $page->drawText(
                     $packaging->getQtyOrderedItem($item->getOrderItemId()),
                     $itemCollsX[++$i] + $txtIndent,
@@ -255,8 +265,10 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 );
                 $page->drawText($item->getQty() * 1, $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
             }
-            $this->y = $this->y - 30;
+
+            $this->y -= 30;
         }
+
         return $this;
     }
 }

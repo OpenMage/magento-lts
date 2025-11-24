@@ -38,6 +38,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tabs extends Mage_Adminhtml_Block_Widget_T
         } else {
             $this->setActiveTab('api2_role_section_info');
         }
+
         return parent::_beforeToHtml();
     }
 }

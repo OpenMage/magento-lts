@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency
         if (!$this->_options) {
             $this->_options = Mage::app()->getLocale()->getOptionCurrencies();
         }
+
         return $this->_options;
     }
 }

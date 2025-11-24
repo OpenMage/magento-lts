@@ -24,7 +24,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_rootPath;
 
@@ -58,7 +58,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Initialize application and parse input parameters
-     *
      */
     public function __construct()
     {
@@ -66,6 +65,7 @@ abstract class Mage_Shell_Abstract
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
         }
+
         $this->_factory = new Mage_Core_Model_Factory();
 
         $this->_applyPhpVariables();
@@ -85,12 +85,12 @@ abstract class Mage_Shell_Abstract
         if (is_null($this->_rootPath)) {
             $this->_rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
         }
+
         return $this->_rootPath;
     }
 
     /**
      * Parse .htaccess file and apply php settings to shell script
-     *
      */
     protected function _applyPhpVariables()
     {
@@ -100,16 +100,13 @@ abstract class Mage_Shell_Abstract
             $data = file_get_contents($htaccess);
             $matches = [];
             preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
+
             preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
         }
     }
@@ -137,6 +134,7 @@ abstract class Mage_Shell_Abstract
                 $this->_args[$match[1]] = true;
             }
         }
+
         return $this;
     }
 
@@ -152,7 +150,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Validate arguments
-     *
      */
     protected function _validate()
     {
@@ -163,13 +160,11 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     abstract public function run();
 
     /**
      * Check is show usage help
-     *
      */
     protected function _showHelp()
     {
@@ -180,7 +175,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

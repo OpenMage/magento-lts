@@ -38,6 +38,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         if (empty($taxes)) {
             return $this;
         }
+
         $dup = [];
 
         foreach ($taxes as $tax) {
@@ -53,8 +54,10 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                     Mage::helper('catalog')->__('Duplicate website, country and state tax found.'),
                 );
             }
+
             $dup[$key1] = 1;
         }
+
         return $this;
     }
 
@@ -80,6 +83,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                 $data[$i]['website_value'] = $data[$i]['value'];
             }
         }
+
         $object->setData($this->getAttribute()->getName(), $data);
         return $this;
     }

@@ -145,12 +145,12 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 Mage::helper('adminhtml')->__('The email template has been saved.'),
             );
             $this->_redirect('*/*');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->setData(
                 'email_template_form_data',
                 $this->getRequest()->getParams(),
             );
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             $this->_forward('new');
         }
     }
@@ -180,6 +180,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.'),
         );
@@ -239,12 +240,15 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         if ($id) {
             $model->load($id);
         }
+
         if (!Mage::registry('email_template')) {
             Mage::register('email_template', $model);
         }
+
         if (!Mage::registry('current_email_template')) {
             Mage::register('current_email_template', $model);
         }
+
         return $model;
     }
 }

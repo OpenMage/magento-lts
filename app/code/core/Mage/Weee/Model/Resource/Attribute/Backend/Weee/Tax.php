@@ -16,7 +16,6 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
 {
     /**
      * Defines main resource table and table identifier field
-     *
      */
     protected function _construct()
     {
@@ -29,6 +28,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function loadProductData($product, $attribute)
     {
@@ -49,15 +49,18 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
                 $select->where('website_id IN (?)', [0, Mage::app()->getStore($storeId)->getWebsiteId()]);
             }
         }
+
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
     /**
      * Delete product data
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function deleteProductData($product, $attribute)
     {
@@ -73,6 +76,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
                 $where['website_id IN(?)'] =  [0, Mage::app()->getStore($storeId)->getWebsiteId()];
             }
         }
+
         $adapter->delete($this->getMainTable(), $where);
         return $this;
     }
@@ -83,6 +87,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function insertProductData($product, $data)
     {

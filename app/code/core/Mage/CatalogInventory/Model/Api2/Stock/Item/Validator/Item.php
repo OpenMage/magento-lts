@@ -37,6 +37,7 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item extends Mage_Ap
                 parent::isValidData($data);
             }
         }
+
         return !count($this->getErrors());
     }
 }

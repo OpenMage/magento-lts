@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
         } else {
             $type = Mage::helper('sales')->__('Billing');
         }
+
         return Mage::helper('sales')->__('Edit Order %s %s Address', $orderId, $type);
     }
 

@@ -17,17 +17,17 @@ use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @var Mage_Sales_Model_Quote|false
+     * @var false|Mage_Sales_Model_Quote
      */
     protected $_quote = false;
 
     /**
-     * @var Mage_Customer_Model_Session|null
+     * @var null|Mage_Customer_Model_Session
      */
     protected $_customerSession = null;
 
     /**
-     * @var Mage_Paypal_Model_Paypal|null
+     * @var null|Mage_Paypal_Model_Paypal
      */
     protected $_paypal = null;
 
@@ -84,13 +84,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode($result));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'message' => $e->getMessage(),
+                    'message' => $exception->getMessage(),
                 ]));
         }
     }
@@ -107,12 +107,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             if (!$this->_validateFormKey()) {
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
+
             $orderId = $this->getRequest()->getParam('order_id');
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
 
             if (!$orderId) {
                 Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required'));
             }
+
             if ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE)) {
                 $this->_getPaypal()->authorizePayment($orderId, $this->_getQuote());
             } else {
@@ -123,13 +125,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
                     'success' => true,
                 ]));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
 
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'message' => $e->getMessage(),
+                    'message' => $exception->getMessage(),
                 ]));
         }
     }
@@ -145,6 +147,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             if (!$this->_validateFormKey()) {
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
+
             $isNewCustomer = false;
             switch (Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod()) {
                 case Mage_Checkout_Model_Type_Onepage::METHOD_GUEST:
@@ -158,6 +161,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     $this->_prepareCustomerQuote();
                     break;
             }
+
             $this->_ignoreAddressValidation();
             $this->_getQuote()->collectTotals();
             $session = $this->_getCheckoutSession();
@@ -186,6 +190,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             foreach ($quotePayment->getAdditionalInformation() as $key => $value) {
                 $orderPayment->setAdditionalInformation($key, $value);
             }
+
             $orderPayment->save();
 
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
@@ -194,6 +199,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             foreach ($orderPayment->getAdditionalInformation() as $key => $value) {
                 $transaction->setAdditionalInformation($key, $value);
             }
+
             if ($isAuthorize) {
                 $transaction->setOrderPaymentObject($orderPayment)
                     ->setTxnId($orderPayment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID))
@@ -224,6 +230,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     false,
                 );
             }
+
             $transaction->save();
 
             if (!$isAuthorize && $order->canInvoice()) {
@@ -245,17 +252,16 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
             $this->_redirect('checkout/onepage/success');
             return;
-        } catch (Exception $e) {
-            Mage::logException($e);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $e->getMessage());
-            $this->_getCheckoutSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $exception->getMessage());
+            $this->_getCheckoutSession()->addError($exception->getMessage());
             $this->_redirect('checkout/cart');
         }
     }
 
     /**
      * Cancel Payment
-     *
      */
     public function cancelAction(): void
     {
@@ -263,23 +269,25 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             if (!$this->_validateFormKey()) {
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
+
             $payment = $this->_getQuote()->getPayment();
             $additionalInfo = $payment->getAdditionalInformation();
             foreach ($additionalInfo as $key => $value) {
                 $payment->unsAdditionalInformation($key);
             }
+
             $payment->setPaypalCorrelationId('')->save();
             $this->_getQuote()->setReservedOrderId(null)->save();
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode(['success' => true]));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'message' => $e->getMessage(),
+                    'message' => $exception->getMessage(),
                 ]));
         }
     }
@@ -300,6 +308,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         if (!$this->_quote) {
             $this->_quote = $this->_getCheckoutSession()->getQuote();
         }
+
         return $this->_quote;
     }
 
@@ -311,6 +320,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         if (!$this->_paypal) {
             $this->_paypal = Mage::getModel('paypal/paypal');
         }
+
         return $this->_paypal;
     }
 
@@ -377,6 +387,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $customer->setPasswordCreatedAt(time());
         $customer->save();
+
         $quote->setCustomer($customer);
         $quote->setPasswordHash('');
 
@@ -398,6 +409,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $customer->addAddress($customerBilling);
             $billing->setCustomerAddress($customerBilling);
         }
+
         if (
             $shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
                 || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))
@@ -410,11 +422,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         if (isset($customerBilling) && !$customer->getDefaultBilling()) {
             $customerBilling->setIsDefaultBilling(true);
         }
+
         if ($shipping && isset($customerBilling) && !$customer->getDefaultShipping() && $shipping->getSameAsBilling()) {
             $customerBilling->setIsDefaultShipping(true);
         } elseif ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
         }
+
         $quote->setCustomer($customer);
 
         return $this;
@@ -428,13 +442,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         if (is_null($this->_customerSession)) {
             $this->_customerSession = Mage::getSingleton('customer/session');
         }
+
         return $this->_customerSession;
     }
 
     /**
      * Checks if a customer with the given email address already exists for the current website.
      *
-     * @param string $email The customer email to check.
+     * @param string $email the customer email to check
      */
     protected function _customerEmailExists(string $email): bool
     {
@@ -444,6 +459,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         if (!is_null($websiteId)) {
             $customer->setWebsiteId($websiteId);
         }
+
         $customer->loadByEmail($email);
         if (!is_null($customer->getId())) {
             $result = true;
@@ -455,7 +471,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     /**
      * Looks up a customer ID by the email address stored in the quote.
      *
-     * @return int|null The customer ID if found, otherwise null.
+     * @return null|int the customer ID if found, otherwise null
      */
     protected function _lookupCustomerId(): ?int
     {
@@ -475,6 +491,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $this->_getQuote()->getShippingAddress()->setShouldIgnoreValidation(true);
         }
     }
+
     /**
      * Redirects the user to the customer login page.
      */
@@ -505,6 +522,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $customer->sendNewAccountEmail('registered', '', $this->_getQuote()->getStoreId());
             $this->_getCustomerSession()->loginById($customer->getId());
         }
+
         return $this;
     }
 }

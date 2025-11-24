@@ -78,6 +78,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                 $block->setTemplate($template);
             }
         }
+
         return $this;
     }
 
@@ -104,15 +105,17 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                     $methods[] = $method;
                 }
             }
+
             $this->setData('methods', $methods);
         }
+
         return $methods;
     }
 
     /**
      * Retrieve code of current payment method
      *
-     * @return string|false
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {
@@ -121,6 +124,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             reset($methods);
             return current($methods)->getCode();
         }
+
         return false;
     }
 }

@@ -83,9 +83,11 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         if (!$this->_urlLoggingCondition->isLogEnabled()) {
             return $this;
         }
+
         if (!$visitor->getIsNewVisitor()) {
             $this->_saveUrlInfo($visitor);
         }
+
         return $this;
     }
 
@@ -99,6 +101,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         if ($this->_urlLoggingCondition->isLogDisabled()) {
             return $this;
         }
+
         if ($visitor->getIsNewVisitor()) {
             if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
                 $this->_saveVisitorInfo($visitor);
@@ -111,12 +114,14 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
                     $this->_saveCustomerInfo($visitor);
                 }
             }
+
             if ($this->_urlLoggingCondition->isVisitorLogEnabled()) {
                 if ($visitor->getDoQuoteCreate() || $visitor->getDoQuoteDestroy()) {
                     $this->_saveQuoteInfo($visitor);
                 }
             }
         }
+
         return $this;
     }
 
@@ -131,6 +136,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         if ($this->_urlLoggingCondition->isLogDisabled()) {
             return $this;
         }
+
         // Add information about quote to visitor
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()->from($this->getTable('log/quote_table'), 'quote_id')
@@ -139,6 +145,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         if (isset($result['quote_id'])) {
             $object->setQuoteId((int) $result['quote_id']);
         }
+
         return $this;
     }
 
@@ -155,10 +162,13 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
 
         $referer    = $stringHelper->cleanString($visitor->getHttpReferer());
         $referer    = $stringHelper->substr($referer, 0, 255);
+
         $userAgent  = $stringHelper->cleanString($visitor->getHttpUserAgent());
         $userAgent  = $stringHelper->substr($userAgent, 0, 255);
+
         $charset    = $stringHelper->cleanString($visitor->getHttpAcceptCharset());
         $charset    = $stringHelper->substr($charset, 0, 255);
+
         $language   = $stringHelper->cleanString($visitor->getHttpAcceptLanguage());
         $language   = $stringHelper->substr($language, 0, 255);
 
@@ -280,6 +290,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
             $visitor->setDoQuoteDestroy(false);
             $visitor->setQuoteId(null);
         }
+
         return $this;
     }
 }

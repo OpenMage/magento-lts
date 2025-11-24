@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
              . '-checkbox" ' . $nameAttributeHtml . ' onclick="toogleFieldEditMode(this, \'' . $element->getId()
              . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
              . '</label></span>
-                <script type="text/javascript">initDisableFields(\'' . $element->getId() . '\')</script>';
+                <script type="text/javascript">initDisableFields(\'' . $element->getId() . "')</script>";
     }
 
     /**

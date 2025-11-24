@@ -26,12 +26,12 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
             $this->_redirect('noroute');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
     /**
      * Display categories listing
-     *
      */
     public function categoryAction()
     {
@@ -41,6 +41,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
         if (Mage::helper('catalog/map')->getIsUseCategoryTreeMode()) {
             $update->addHandle(strtolower($this->getFullActionName()) . '_tree');
         }
+
         $this->loadLayoutUpdates();
         $this->generateLayoutXml()->generateLayoutBlocks();
         $this->renderLayout();
@@ -48,7 +49,6 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
 
     /**
      * Display products listing
-     *
      */
     public function productAction()
     {

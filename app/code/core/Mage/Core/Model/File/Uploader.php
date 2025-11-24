@@ -65,6 +65,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
         if (is_null($flag)) {
             return $this->_skipDbProcessing;
         }
+
         $this->_skipDbProcessing = (bool) $flag;
         return $this;
     }
@@ -93,7 +94,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      * Added file name length validation.
      *
      * @param string $destinationFolder
-     * @param string|null $newFileName
+     * @param null|string $newFileName
      * @return array|bool
      * @throws Exception
      */
@@ -105,6 +106,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
                 Mage::helper('core')->__('File name is too long. Maximum length is %s.', $this->_fileNameMaxLength),
             );
         }
+
         return parent::save($destinationFolder, $newFileName);
     }
 }

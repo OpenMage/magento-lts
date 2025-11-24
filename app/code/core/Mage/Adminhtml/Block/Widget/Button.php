@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
         if (!$this->getData('on_click')) {
             return $this->getData('onclick');
         }
+
         return $this->getData('on_click');
     }
 

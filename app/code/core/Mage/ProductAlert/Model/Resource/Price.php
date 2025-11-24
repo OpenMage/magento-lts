@@ -36,12 +36,15 @@ class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Res
                 if ($price) {
                     $object->setPrice($price);
                 }
+
                 $object->setStatus(0);
             }
         }
+
         if (is_null($object->getAddDate())) {
             $object->setAddDate(Mage::getModel('core/date')->gmtDate());
         }
+
         return parent::_beforeSave($object);
     }
 }

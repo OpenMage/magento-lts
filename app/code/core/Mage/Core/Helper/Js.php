@@ -36,7 +36,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config|null
+     * @var null|Varien_Simplexml_Config
      */
     protected $_config = null;
 
@@ -142,6 +142,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_translateData;
     }
 
@@ -170,15 +171,17 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     );
                 }
             }
+
             $this->_config = $xmlConfig;
         }
+
         return $this->_config;
     }
 
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
@@ -188,13 +191,13 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
         }
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
-        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+        return "deleteConfirm('" . $message . "', '" . $url . "')";
     }
 
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
@@ -212,7 +215,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSetLocationJs(string $url): string
     {
-        return 'setLocation(\'' . $url . '\')';
+        return "setLocation('" . $url . "')";
     }
 
     /**
@@ -220,6 +223,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSaveAndContinueEditJs(string $url): string
     {
-        return 'saveAndContinueEdit(\'' . $url . '\')';
+        return "saveAndContinueEdit('" . $url . "')";
     }
 }

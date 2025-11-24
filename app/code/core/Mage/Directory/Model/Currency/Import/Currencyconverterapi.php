@@ -54,7 +54,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _convert($currencyFrom, $currencyTo)
     {
@@ -115,7 +115,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             @set_time_limit($timeLimitCalculated);
             try {
                 $response = $this->_getServiceResponse($url);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 ini_restore('max_execution_time');
             }
 
@@ -123,7 +123,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
             } elseif (empty($response)) {
                 $this->_messages[] = Mage::helper('directory')
-                    ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
+                    ->__("We can't retrieve a rate from %s for %s.", $url, $currencyTo);
                 $data[$currencyFrom][$currencyTo] = null;
             } else {
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response[$currenciesCombined]);
@@ -151,7 +151,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
                 ->getBody();
 
             $response = json_decode($jsonResponse, true);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($retry === 0) {
                 $response = $this->_getServiceResponse($url, 1);
             }

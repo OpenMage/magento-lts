@@ -30,6 +30,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
         if ($selectionQty) {
             return $selectionQty->getValue();
         }
+
         return 0;
     }
 

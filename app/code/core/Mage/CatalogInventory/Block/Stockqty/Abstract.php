@@ -38,8 +38,10 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
             if ($stockItem = $this->_getProduct()->getStockItem()) {
                 $qty = (float) $stockItem->getStockQty();
             }
+
             $this->setData('product_stock_qty', $qty);
         }
+
         return $this->getData('product_stock_qty');
     }
 
@@ -54,6 +56,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
             $qty = Mage::getStoreConfigAsFloat(self::XML_PATH_STOCK_THRESHOLD_QTY);
             $this->setData('threshold_qty', $qty);
         }
+
         return $this->getData('threshold_qty');
     }
 

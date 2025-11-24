@@ -13,24 +13,24 @@
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
- * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
  * @method int getActive()
- * @method $this setActive(int $value)
  * @method array getAddedProductIds()
+ * @method int getCustomerId()
+ * @method int getProductId()
+ * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
+ * @method string getStatusFilter()
+ * @method int getStoreId()
+ * @method int getTagId()
+ * @method bool hasStoreId()
+ * @method $this setActive(int $value)
  * @method $this setAddedProductIds(array $value)
  * @method $this setCreatedAt(string $value)
- * @method int getCustomerId()
  * @method $this setCustomerId(int $value)
- * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method $this setProductIds(array $value)
  * @method $this setRelatedTagIds(array $value)
- * @method string getStatusFilter()
  * @method $this setStatusFilter(string $value)
- * @method bool hasStoreId()
- * @method int getStoreId()
  * @method $this setStoreId(int $value)
- * @method int getTagId()
  * @method $this setTagId(int $value)
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
@@ -39,6 +39,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * Relation statuses
      */
     public const STATUS_ACTIVE     = 1;
+
     public const STATUS_NOT_ACTIVE = 0;
 
     /**
@@ -71,10 +72,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Load relation by Product (optional), tag, customer and store
      *
-     * @param int|null $productId
+     * @param null|int $productId
      * @param int $tagId
      * @param int $customerId
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function loadByTagCustomer($productId, $tagId, $customerId, $storeId = null)
@@ -85,6 +86,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         if (!is_null($storeId)) {
             $this->setStoreId($storeId);
         }
+
         $this->_getResource()->loadByTagCustomer($this);
         return $this;
     }
@@ -101,6 +103,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
             $ids = $this->_getResource()->getProductIds($this);
             $this->setProductIds($ids);
         }
+
         return $ids;
     }
 
@@ -114,6 +117,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         if (is_null($this->getData('related_tag_ids'))) {
             $this->setRelatedTagIds($this->_getResource()->getRelatedTagIds($this));
         }
+
         return $this->getData('related_tag_ids');
     }
 

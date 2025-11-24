@@ -13,8 +13,9 @@
  * @category    Mage
  * @package     Mage_Paypal
  */
+
+/** @var Mage_Paypal_Model_Resource_Setup $this */
 $installer = $this;
-/* @var $installer Mage_Paypal_Model_Resource_Setup */
 
 $installer->startSetup();
 $debugTableName = 'paypal/debug';

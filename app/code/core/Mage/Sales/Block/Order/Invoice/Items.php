@@ -56,6 +56,7 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
             $totals->setInvoice($invoice);
             $html = $totals->toHtml();
         }
+
         return $html;
     }
 
@@ -74,6 +75,7 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
                 ->setTitle(Mage::helper('sales')->__('About Your Invoice'));
             $html = $comments->toHtml();
         }
+
         return $html;
     }
 }

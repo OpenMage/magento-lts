@@ -61,6 +61,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
                 foreach ($debugIds as $debugId) {
                     Mage::getModel('paypal/debug')->load($debugId)->delete();
                 }
+
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($debugIds)),
                 );
@@ -68,6 +69,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
                 $this->_getSession()->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -81,10 +83,12 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
             foreach ($collection as $item) {
                 $item->delete();
             }
+
             $this->_getSession()->addSuccess($this->__('All debug logs have been deleted.'));
-        } catch (Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addError($exception->getMessage());
         }
+
         $this->_redirect('*/*/index');
     }
 

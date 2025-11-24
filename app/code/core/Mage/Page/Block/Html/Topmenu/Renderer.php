@@ -12,8 +12,8 @@
  *
  * @package    Mage_Page
  *
- * @method Varien_Data_Tree_Node getMenuTree()
  * @method string getChildrenWrapClass()
+ * @method Varien_Data_Tree_Node getMenuTree()
  */
 class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 {
@@ -39,6 +39,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);
         }
+
         return $this->render($menuTree, $childrenWrapClass);
     }
 

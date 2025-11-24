@@ -77,11 +77,13 @@ class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
         if ($storeId) {
             $rewrite->setStoreId($storeId);
         }
+
         $idPath = 'category/' . $category->getId();
         $rewrite->loadByIdPath($idPath);
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
+
         return false;
     }
 }

@@ -25,12 +25,15 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         if ($this->hasOrder()) {
             return $this->getData('order');
         }
+
         if (Mage::registry('current_order')) {
             return Mage::registry('current_order');
         }
+
         if (Mage::registry('order')) {
             return Mage::registry('order');
         }
+
         Mage::throwException(Mage::helper('sales')->__('Cannot get order instance'));
     }
 
@@ -40,6 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
         if (is_null($obj)) {
             return $this->getOrder();
         }
+
         return $obj;
     }
 
@@ -105,6 +109,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
             $shipping       = $order->getShippingAmount() + $order->getShippingTaxAmount();
             $baseShipping   = $order->getBaseShippingAmount() + $order->getBaseShippingTaxAmount();
         }
+
         return $this->displayPrices($baseShipping, $shipping, false, ' ');
     }
 }

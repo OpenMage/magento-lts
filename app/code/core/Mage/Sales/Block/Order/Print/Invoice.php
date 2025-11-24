@@ -98,6 +98,7 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
             $totals->setInvoice($invoice);
             $html = $totals->toHtml();
         }
+
         return $html;
     }
 }

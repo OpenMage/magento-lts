@@ -12,13 +12,21 @@ declare(strict_types=1);
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
+
     public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
+
     public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
+
     public const XML_CSP_SPLIT_HEADERS = 'csp/%s/split_headers';
+
     public const XML_CSP_MERGE_META = 'csp/%s/merge_meta';
+
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
+
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
+
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_URI = 'Reporting-Endpoints';
+
     public const CSP_DIRECTIVES = [
         'default-src',
         'script-src',
@@ -37,7 +45,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Check if CSP is enabled
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function isEnabled(string $area): bool
     {
@@ -46,7 +54,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Check if report only mode is enabled
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function getReportOnly(string $area): bool
     {
@@ -55,7 +63,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get report uri
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function getReportUri(string $area): string
     {
@@ -65,7 +73,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Check if CSP headers should be split into multiple headers for each directive
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function shouldSplitHeaders(string $area): bool
     {
@@ -74,7 +82,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Check if CSP meta tags should be merged into a single header
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function shouldMergeMeta(string $area): bool
     {
@@ -83,7 +91,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get the appropriate CSP header based on the area and report only mode
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      */
     public function getReportOnlyHeader(string $area): string
     {
@@ -92,7 +100,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get CSP policies for a specific area
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      * @return array<string, array<string>>
      */
     public function getPolicies(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
@@ -100,6 +108,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->isEnabled($area)) {
             return [];
         }
+
         $policy = [];
         foreach (self::CSP_DIRECTIVES as $directiveName) {
             $policy[$directiveName] = [];
@@ -134,13 +143,14 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $result = $globalNode->asArray();
             return $result;
         }
+
         return [];
     }
 
     /**
      * Get area policy for a specific directive
      * (adminhtml|frontend)/csp/<directiveName>
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      * @param value-of<self::CSP_DIRECTIVES> $directiveName
      * @return array<string>
      */
@@ -157,6 +167,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $result = $areaNode->asArray();
             return $result;
         }
+
         return [];
     }
 
@@ -164,13 +175,13 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get system policy for a specific directive
      * csp/(adminhtml|frontend)/<directiveName>
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      * @param value-of<self::CSP_DIRECTIVES> $directiveName
      * @return array<string>
      */
     public function getStoreConfigPolicy(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND, string $directiveName = 'default-src'): array
     {
-        /** @var array<string>|null $systemNode */
+        /** @var null|array<string> $systemNode */
         $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
             if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
@@ -180,8 +191,10 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
                     $systemNode = array_column($unserializedData, 'host');
                 }
             }
+
             return $systemNode;
         }
+
         return [];
     }
 }

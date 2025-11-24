@@ -31,6 +31,7 @@ class Mage_Catalog_Block_Product_List_Random extends Mage_Catalog_Block_Product_
 
             $this->_productCollection = $collection;
         }
+
         return $this->_productCollection;
     }
 }

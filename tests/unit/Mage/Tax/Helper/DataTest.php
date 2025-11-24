@@ -25,6 +25,7 @@ final class DataTest extends OpenMageTest
     private static Subject $subject;
 
     public const SKIP_INCOMPLETE = 'incomplete';
+
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     public static function setUpBeforeClass(): void
@@ -139,6 +140,7 @@ final class DataTest extends OpenMageTest
         if (defined('DATA_MAY_CHANGED')) {
             self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
+
         self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
     }
 
@@ -150,6 +152,7 @@ final class DataTest extends OpenMageTest
         if (defined('DATA_MAY_CHANGED')) {
             self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
+
         self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
     }
 

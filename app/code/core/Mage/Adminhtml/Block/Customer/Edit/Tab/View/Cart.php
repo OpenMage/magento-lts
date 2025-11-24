@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
-        $this->setEmptyText(Mage::helper('customer')->__('There are no items in customer\'s shopping cart at the moment'));
+        $this->setEmptyText(Mage::helper('customer')->__("There are no items in customer's shopping cart at the moment"));
     }
 
     /**
@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         if ($this->getWebsiteId()) {
             $quote->setWebsite(Mage::app()->getWebsite($this->getWebsiteId()));
         }
+
         $quote->loadByCustomer(Mage::registry('current_customer'));
 
         $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();

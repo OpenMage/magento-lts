@@ -109,6 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
                 if (!$this->hasWebsite($_website->getId())) {
                     continue;
                 }
+
                 $optGroupLabel = $this->escapeHtml($_website->getName());
                 $this->_storeFromHtml .= '<optgroup label="' . $optGroupLabel . '"></optgroup>';
                 foreach ($this->getGroupCollection($_website) as $_group) {
@@ -119,10 +120,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
                         $this->_storeFromHtml .= $this->escapeHtml($_store->getName()) . '</option>';
                     }
                 }
+
                 $this->_storeFromHtml .= '</optgroup>';
             }
+
             $this->_storeFromHtml .= '</select>';
         }
+
         return str_replace('__store_identifier__', (string) $storeTo->getId(), $this->_storeFromHtml);
     }
 }

@@ -20,6 +20,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      * @var string
      */
     protected $_idFieldName    = 'link_id';
+
     /**
      * Add downloads summary grouping by product
      *
@@ -71,11 +72,12 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'purchases' || $attribute == 'downloads' || $attribute == 'link_title') {
+        if (in_array($attribute, ['purchases', 'downloads', 'link_title'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -94,6 +96,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 }

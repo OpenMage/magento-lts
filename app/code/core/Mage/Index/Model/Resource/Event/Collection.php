@@ -16,7 +16,6 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
 {
     /**
      * Initialize resource
-     *
      */
     protected function _construct()
     {
@@ -26,7 +25,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by entity
      *
-     * @param string | array $entity
+     * @param array|string $entity
      * @return $this
      */
     public function addEntityFilter($entity)
@@ -36,13 +35,14 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         } else {
             $this->addFieldToFilter('entity', $entity);
         }
+
         return $this;
     }
 
     /**
      * Add filter by type
      *
-     * @param string | array $type
+     * @param array|string $type
      * @return $this
      */
     public function addTypeFilter($type)
@@ -52,13 +52,14 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         } else {
             $this->addFieldToFilter('type', $type);
         }
+
         return $this;
     }
 
     /**
      * Add filter by process and status to events collection
      *
-     * @param int|array|Mage_Index_Model_Process $process
+     * @param array|int|Mage_Index_Model_Process $process
      * @param string $status
      * @return $this
      */
@@ -80,6 +81,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
                 $this->addFieldToFilter('process_event.status', $status);
             }
         }
+
         return $this;
     }
 
@@ -98,6 +100,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
             );
             $this->setFlag('process_event_table_joined', true);
         }
+
         return $this;
     }
 

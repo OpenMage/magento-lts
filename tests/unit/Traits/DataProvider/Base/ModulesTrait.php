@@ -91,6 +91,7 @@ trait ModulesTrait
                 unset($modules[$idx]);
             }
         }
+
         return $modules;
     }
 }

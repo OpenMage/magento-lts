@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * Retrieve category data
      *
      * @param int $categoryId
-     * @param string|int $store
+     * @param int|string $store
      * @param array $attributes
      * @return array
      */
@@ -39,6 +39,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 $result[$attribute->getAttributeCode()] = $category->getDataUsingMethod($attribute->getAttributeCode());
             }
         }
+
         $result['parent_id']   = $category->getParentId();
         $result['children']           = $category->getChildren();
         $result['all_children']       = $category->getAllChildren();
@@ -51,11 +52,11 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      *
      * @param int $parentId
      * @param array $categoryData
-     * @param int|string|null $store
+     * @param null|int|string $store
      * @return int
      * @throws Mage_Api_Exception
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function create($parentId, $categoryData, $store = null)
     {
@@ -80,6 +81,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 );
             }
         }
+
         $category->setParentId($parentCategory->getId());
         try {
             $validate = $category->validate();
@@ -94,8 +96,8 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
             }
 
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $category->getId();
@@ -106,7 +108,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      *
      * @param int $categoryId
      * @param array $categoryData
-     * @param string|int $store
+     * @param int|string $store
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -137,6 +139,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                     }
                 }
             }
+
             $category->save();
         } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());

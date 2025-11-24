@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Retrieves store id from store code, if no store id specified,
      * it uses set session or admin store
      *
-     * @param string|int $store
+     * @param int|string $store
      * @return int
      */
     protected function _getStoreId($store = null)
@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         try {
             $storeId = Mage::app()->getStore($store)->getId();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             $this->_fault('store_not_exists');
         }
 
@@ -103,13 +103,14 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         if (is_null($product->getId())) {
             $this->_fault('product_not_exists');
         }
+
         return $product;
     }
 
     /**
      * Set current store for catalog.
      *
-     * @param string|int $store
+     * @param int|string $store
      * @return int
      */
     public function currentStore($store = null)
@@ -117,7 +118,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         if (!is_null($store)) {
             try {
                 $storeId = Mage::app()->getStore($store)->getId();
-            } catch (Mage_Core_Model_Store_Exception $e) {
+            } catch (Mage_Core_Model_Store_Exception) {
                 $this->_fault('store_not_exists');
             }
 

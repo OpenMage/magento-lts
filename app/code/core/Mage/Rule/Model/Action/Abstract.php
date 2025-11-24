@@ -12,19 +12,19 @@
  *
  * @package    Mage_Rule
  *
- * @method array getAttributeOption()
- * @method $this setAttributeOption(array $value)
- * @method array getOperatorOption()
- * @method $this setOperatorOption(array $value)
- * @method array getValueOption()
- * @method $this setValueOption(array $value)
  * @method string getAttribute()
- * @method $this setAttribute(string $value)
+ * @method array getAttributeOption()
  * @method string getOperator()
- * @method $this setOperator(string $value)
+ * @method array getOperatorOption()
+ * @method Mage_Rule_Model_Abstract getRule()
  * @method string getType()
  * @method string getValue()
- * @method Mage_Rule_Model_Abstract getRule()
+ * @method array getValueOption()
+ * @method $this setAttribute(string $value)
+ * @method $this setAttributeOption(array $value)
+ * @method $this setOperator(string $value)
+ * @method $this setOperatorOption(array $value)
+ * @method $this setValueOption(array $value)
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {
@@ -49,6 +49,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
             $this->setAttribute($attr);
             break;
         }
+
         foreach (array_keys($this->getOperatorOption()) as $operator) {
             $this->setOperator($operator);
             break;
@@ -122,6 +123,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getAttributeOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -154,6 +156,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getOperatorOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -183,6 +186,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getValueOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 

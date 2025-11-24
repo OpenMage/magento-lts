@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
         if (!$this->hasData('lang')) {
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
+
         return $this->getData('lang');
     }
 

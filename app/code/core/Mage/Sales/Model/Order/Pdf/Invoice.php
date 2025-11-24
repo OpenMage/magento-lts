@@ -77,7 +77,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
     /**
      * Return PDF document
      *
-     * @param  Mage_Sales_Model_Order_Invoice[] $invoices
+     * @param  array|Mage_Sales_Model_Resource_Order_Invoice_Collection $invoices
      * @return Zend_Pdf
      */
     public function getPdf($invoices = [])
@@ -95,6 +95,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                 Mage::app()->getLocale()->emulate($invoice->getStoreId());
                 Mage::app()->setCurrentStore($invoice->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $invoice->getOrder();
             /* Add image */
@@ -119,16 +120,19 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
+
             /* Add totals */
             $this->insertTotals($page, $invoice);
             if ($invoice->getStoreId()) {
                 Mage::app()->getLocale()->revert();
             }
         }
+
         $this->_afterGetPdf();
         return $pdf;
     }
@@ -147,6 +151,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

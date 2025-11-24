@@ -18,10 +18,11 @@
 class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     protected $_code = 'flatrate';
+
     protected $_isFixed = true;
 
     /**
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -47,6 +48,7 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
                 }
             }
         }
+
         $this->setFreeBoxes($freeBoxes);
 
         $result = Mage::getModel('shipping/rate_result');

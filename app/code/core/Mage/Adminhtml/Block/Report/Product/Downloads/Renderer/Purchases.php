@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Renderer_Purchases extends M
         if (($value = $row->getData($this->getColumn()->getIndex())) > 0) {
             return $value;
         }
+
         return $this->__('Unlimited');
     }
 }

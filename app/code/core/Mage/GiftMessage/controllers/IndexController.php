@@ -19,6 +19,7 @@ class Mage_GiftMessage_IndexController extends Mage_Core_Controller_Front_Action
         if ($this->getRequest()->getParam('message')) {
             $giftMessage->load($this->getRequest()->getParam('message'));
         }
+
         try {
             $entity = $giftMessage->getEntityModelByType($this->_getMappedType($this->getRequest()->getParam('type')));
 
@@ -33,7 +34,7 @@ class Mage_GiftMessage_IndexController extends Mage_Core_Controller_Front_Action
 
             $this->getRequest()->setParam('message', $giftMessage->getId());
             $this->getRequest()->setParam('entity', $entity);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         $this->loadLayout();

@@ -14,7 +14,6 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
 {
     /**
      * Initialize email queue resource model
-     *
      */
     protected function _construct()
     {
@@ -45,6 +44,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         if ($object->isObjectNew()) {
             $object->setCreatedAt($this->formatDate(true));
         }
+
         $object->setMessageBodyHash(md5($object->getMessageBody()));
         $object->setMessageParameters(serialize($object->getMessageParameters()));
 
@@ -53,7 +53,6 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
 
     /**
      * Check if email was added to queue for requested recipients
-     *
      *
      * @return bool
      */
@@ -81,20 +80,24 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
                     $recipient['recipient_email'], $recipient['recipient_name'], $recipient['email_type'],
                 ];
             }
+
             unset($recipient);
             foreach ($newRecipients as $recipient) {
                 [$email, $name, $type] = $recipient;
                 $newEmails[$email] = [$email, $name, $type];
             }
+
             $diff = array_diff_key($newEmails, $oldEmails);
-            if (count($diff)) {
+            if ($diff !== []) {
                 $queue->clearRecipients();
                 foreach ($diff as $recipient) {
                     [$email, $name, $type] = $recipient;
                     $queue->addRecipients($email, $name, $type);
                 }
+
                 return false;
             }
+
             return true;
         }
 
@@ -135,8 +138,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param int $messageId
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function saveRecipients($messageId, array $recipients)
     {
@@ -158,10 +161,11 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
                     ['recipient_name'],
                 );
             }
+
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

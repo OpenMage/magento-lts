@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         if ($asJSON) {
             return Mage::helper('core')->jsonEncode($this->_inputsToSerialize);
         }
+
         return $this->_inputsToSerialize;
     }
 
@@ -74,6 +75,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         } elseif (!empty($this->_inputsToSerialize)) {
             return '{}';
         }
+
         return Mage::helper('core')->jsonEncode($result);
     }
 
@@ -84,8 +86,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
      * Get serialize data to manage it (called specified method, that return data to manage)
      * Also use reload param name for saving grid checked boxes states
      *
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid | string $grid grid object or grid block name
+     * @param Mage_Adminhtml_Block_Widget_Grid|string $grid grid object or grid block name
      * @param string $callback block method  to retrieve data to serialize
      * @param string $hiddenInputName hidden input name where serialized data will be store
      * @param string $reloadParamName name of request parameter that will be used to save set data while reload grid
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         if (is_string($grid)) {
             $grid = $this->getLayout()->getBlock($grid);
         }
+
         if ($grid instanceof Mage_Adminhtml_Block_Widget_Grid) {
             $this->setGridBlock($grid)
                  ->setInputElementName($hiddenInputName)

@@ -12,15 +12,15 @@
  *
  * @package    Mage_Bundle
  *
- * @method Mage_Bundle_Model_Option[] getItems()
  * @method Mage_Bundle_Model_Option getItemById($idValue)
+ * @method Mage_Bundle_Model_Option[] getItems()
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * All item ids cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_itemIds;
 
@@ -33,7 +33,6 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
 
     /**
      * Init model and resource model
-     *
      */
     protected function _construct()
     {
@@ -73,6 +72,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     [],
                 );
         }
+
         return $this;
     }
 
@@ -127,6 +127,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     }
                 }
             }
+
             $this->_selectionsAppended = true;
         }
 
@@ -143,6 +144,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         foreach ($this->getItems() as $option) {
             $option->setSelections([]);
         }
+
         $this->_selectionsAppended = false;
         return $this;
     }
@@ -160,6 +162,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }
+
         return $this;
     }
 
@@ -184,6 +187,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         if (is_null($this->_itemIds)) {
             $this->_itemIds = parent::getAllIds();
         }
+
         return $this->_itemIds;
     }
 }

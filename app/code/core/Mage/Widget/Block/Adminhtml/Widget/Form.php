@@ -53,6 +53,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         foreach ($this->_getAvailableWidgets(true) as $data) {
             $options[$data['type']] = $data['name'];
         }
+
         return $options;
     }
 
@@ -69,6 +70,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             $html .= sprintf('<div id="widget-description-%s" class="no-display">%s</div>', $i, $data['description']);
             $i++;
         }
+
         return $html;
     }
 
@@ -88,8 +90,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                 if (is_array($skipped) && in_array($widget['type'], $skipped)) {
                     continue;
                 }
+
                 $result[] = $widget;
             }
+
             if ($withEmptyElement) {
                 array_unshift($result, [
                     'type'        => '',
@@ -97,6 +101,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                     'description' => '',
                 ]);
             }
+
             $this->setData('available_widgets', $result);
         }
 

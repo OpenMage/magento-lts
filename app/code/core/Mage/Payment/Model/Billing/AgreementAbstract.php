@@ -21,7 +21,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
     /**
      * Payment method instance
      *
-     * @var Mage_Payment_Model_Method_Abstract|null
+     * @var null|Mage_Payment_Model_Method_Abstract
      */
     protected $_paymentMethodInstance = null;
 
@@ -34,41 +34,39 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
 
     /**
      * Init billing agreement
-     *
      */
     abstract public function initToken();
 
     /**
      * Verify billing agreement details
-     *
      */
     abstract public function verifyToken();
 
     /**
      * Create billing agreement
-     *
      */
     abstract public function place();
 
     /**
      * Cancel billing agreement
-     *
      */
     abstract public function cancel();
 
     /**
      * Retrieve payment method instance
      *
-     * @return Mage_Payment_Model_Method_Abstract|null
+     * @return null|Mage_Payment_Model_Method_Abstract
      */
     public function getPaymentMethodInstance()
     {
         if (is_null($this->_paymentMethodInstance)) {
             $this->_paymentMethodInstance = Mage::helper('payment')->getMethodInstance($this->getMethodCode());
         }
+
         if ($this->_paymentMethodInstance) {
             $this->_paymentMethodInstance->setStore($this->getStoreId());
         }
+
         return $this->_paymentMethodInstance;
     }
 
@@ -83,23 +81,26 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
         if (is_null($this->getPaymentMethodInstance()) || !$this->getPaymentMethodInstance()->getCode()) {
             $this->_errors[] = Mage::helper('payment')->__('Payment method code is not set.');
         }
+
         if (!$this->getReferenceId()) {
             $this->_errors[] = Mage::helper('payment')->__('Reference ID is not set.');
         }
+
         return empty($this->_errors);
     }
 
     /**
      * Before save, it's overridden just to make data validation on before save event
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
         if ($this->isValid()) {
             return parent::_beforeSave();
         }
+
         array_unshift($this->_errors, Mage::helper('payment')->__('Unable to save Billing Agreement:'));
         throw new Mage_Core_Exception(implode(' ', $this->_errors));
     }

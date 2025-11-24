@@ -19,6 +19,7 @@ class Varien_Convert
         if (is_string($class)) {
             $class = new $class();
         }
+
         $action = new Varien_Convert_Action();
         $action->setParam('method', $method)->setParam('class', $class);
 

@@ -21,6 +21,7 @@ class Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Item extends Mage_
         if ($object->getOrderItem()) {
             $object->getOrderItem()->save();
         }
+
         return parent::beforeSave($object);
     }
 }

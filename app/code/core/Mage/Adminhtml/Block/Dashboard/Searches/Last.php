@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
         if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
             return parent::_prepareCollection();
         }
+
         $this->_collection = Mage::getModel('catalogsearch/query')
             ->getResourceCollection();
         $this->_collection->setRecentQueryFilter();

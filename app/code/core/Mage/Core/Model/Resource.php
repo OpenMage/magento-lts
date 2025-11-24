@@ -15,12 +15,17 @@
 class Mage_Core_Model_Resource
 {
     public const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
+
     public const AUTO_UPDATE_ONCE       = 0;
+
     public const AUTO_UPDATE_NEVER      = -1;
+
     public const AUTO_UPDATE_ALWAYS     = 1;
 
     public const DEFAULT_READ_RESOURCE  = 'core_read';
+
     public const DEFAULT_WRITE_RESOURCE = 'core_write';
+
     public const DEFAULT_SETUP_RESOURCE = 'core_setup';
 
     /**
@@ -33,7 +38,7 @@ class Mage_Core_Model_Resource
     /**
      * Instances of actual connections
      *
-     * @var Varien_Db_Adapter_Interface[]|false
+     * @var false|Varien_Db_Adapter_Interface[]
      */
     protected $_connections        = [];
 
@@ -62,7 +67,7 @@ class Mage_Core_Model_Resource
      * Creates a connection to resource whenever needed
      *
      * @param string $name
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     public function getConnection($name)
     {
@@ -72,8 +77,10 @@ class Mage_Core_Model_Resource
                 $connection->setCacheAdapter(Mage::app()->getCache());
                 unset($this->_skippedConnections[$name]);
             }
+
             return $connection;
         }
+
         /** @var Mage_Core_Model_Config_Element $connConfig */
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
 
@@ -81,6 +88,7 @@ class Mage_Core_Model_Resource
             $this->_connections[$name] = $this->_getDefaultConnection($name);
             return $this->_connections[$name];
         }
+
         if (!$connConfig->is('active', 1)) {
             return false;
         }
@@ -111,7 +119,7 @@ class Mage_Core_Model_Resource
     /**
      * Get Instances of actual connections
      *
-     * @return Varien_Db_Adapter_Interface[]|false
+     * @return false|Varien_Db_Adapter_Interface[]
      */
     public function getConnections()
     {
@@ -122,7 +130,7 @@ class Mage_Core_Model_Resource
      * Retrieve connection adapter class name by connection type
      *
      * @param string $type  the connection type
-     * @return string|false
+     * @return false|string
      */
     protected function _getConnectionAdapterClassName($type)
     {
@@ -130,6 +138,7 @@ class Mage_Core_Model_Resource
         if (!empty($config->adapter)) {
             return (string) $config->adapter;
         }
+
         return false;
     }
 
@@ -137,14 +146,15 @@ class Mage_Core_Model_Resource
      * Create new connection adapter instance by connection type and config
      *
      * @param string $type the connection type
-     * @param Mage_Core_Model_Config_Element|array $config the connection configuration
-     * @return Varien_Db_Adapter_Interface|false
+     * @param array|Mage_Core_Model_Config_Element $config the connection configuration
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _newConnection($type, $config)
     {
         if ($config instanceof Mage_Core_Model_Config_Element) {
             $config = $config->asArray();
         }
+
         if (!is_array($config)) {
             return false;
         }
@@ -183,13 +193,14 @@ class Mage_Core_Model_Resource
      * Retrieve default connection name by required connection name
      *
      * @param string $requiredConnectionName
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
         if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE);
         }
+
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
     }
 
@@ -208,6 +219,7 @@ class Mage_Core_Model_Resource
             $typeClass = $config->getClassName();
             $this->_connectionTypes[$type] = new $typeClass();
         }
+
         return $this->_connectionTypes[$type];
     }
 
@@ -241,7 +253,7 @@ class Mage_Core_Model_Resource
     /**
      * Get resource table name, validated by db adapter
      *
-     * @param   string|array $modelEntity
+     * @param   array|string $modelEntity
      * @return  string
      */
     public function getTableName($modelEntity)
@@ -263,7 +275,7 @@ class Mage_Core_Model_Resource
             if ($entityConfig && !empty($entityConfig->table)) {
                 $tableName = (string) $entityConfig->table;
             } else {
-                Mage::throwException(Mage::helper('core')->__('Can\'t retrieve entity config: %s', $modelEntity));
+                Mage::throwException(Mage::helper('core')->__("Can't retrieve entity config: %s", $modelEntity));
             }
         } else {
             $tableName = $modelEntity;
@@ -287,6 +299,7 @@ class Mage_Core_Model_Resource
         if (!is_null($tableSuffix)) {
             $tableName .= '_' . $tableSuffix;
         }
+
         return $this->getConnection(self::DEFAULT_READ_RESOURCE)->getTableName($tableName);
     }
 
@@ -324,12 +337,13 @@ class Mage_Core_Model_Resource
     {
         $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
-            foreach ($row as $key => &$value) {
+            foreach ($row as &$value) {
                 if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
             }
         }
+
         return $this;
     }
 
@@ -348,6 +362,7 @@ class Mage_Core_Model_Resource
 
             $this->_connections[$name] = $connection;
         }
+
         return $this->_connections[$name];
     }
 
@@ -376,6 +391,7 @@ class Mage_Core_Model_Resource
         #Mage::app()->saveCache($value, self::AUTO_UPDATE_CACHE_KEY);
         return $this;
     }
+
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *

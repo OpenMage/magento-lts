@@ -33,8 +33,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
             if ($isShared) {
                 $block->setCartHeader($this->__('Shopping Cart from %s', Mage::app()->getWebsite($websiteId)->getName()));
             }
+
             $this->setChild($blockName, $block);
         }
+
         return parent::_prepareLayout();
     }
 

@@ -27,6 +27,7 @@ class Mage_Core_Model_Variable_Observer
             $settings = Mage::getModel('core/variable_config')->getWysiwygPluginSettings($config);
             $config->addData($settings);
         }
+
         return $this;
     }
 }

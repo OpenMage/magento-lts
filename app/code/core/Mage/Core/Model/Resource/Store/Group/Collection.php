@@ -27,7 +27,6 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
 
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -85,6 +84,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
         if (!$this->getLoadDefault()) {
             $this->setWithoutDefaultFilter();
         }
+
         $this->addOrder('main_table.name', self::SORT_ORDER_ASC);
         return parent::_beforeLoad();
     }
@@ -102,7 +102,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by website to collection
      *
-     * @param int|array $website
+     * @param array|int $website
      *
      * @return $this
      */

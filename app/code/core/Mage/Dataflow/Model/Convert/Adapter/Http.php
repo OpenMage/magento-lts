@@ -26,9 +26,11 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
             echo '</form>';
             exit;
         }
+
         if (!empty($_FILES['io_file']['tmp_name'])) {
             $this->setData(file_get_contents($_FILES['io_file']['tmp_name']));
         }
+
         return $this;
     }
 
@@ -39,6 +41,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
                 header($key . ': ' . $value);
             }
         }
+
         echo $this->getData();
         return $this;
     }
@@ -57,6 +60,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
             echo '</form>';
             exit;
         }
+
         if (!empty($_FILES['io_file']['tmp_name'])) {
             $uploader = Mage::getModel('core/file_uploader', 'io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
@@ -77,6 +81,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
                 Mage::register('current_dataflow_session_id', $sessionId);
             }
         }
+
         return $this;
     }
 }

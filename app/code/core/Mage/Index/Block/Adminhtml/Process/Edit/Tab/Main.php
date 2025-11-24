@@ -20,6 +20,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
         $model = Mage::registry('current_index_process');
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('index_process_');
+
         $fieldset = $form->addFieldset(
             'base_fieldset',
             ['legend' => Mage::helper('index')->__('General'), 'class' => 'fieldset-wide'],

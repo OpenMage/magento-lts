@@ -16,7 +16,6 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
 {
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -93,6 +92,7 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
              */
             $this->_useAnalyticFunction = true;
         }
+
         parent::_renderFiltersBefore();
     }
 }

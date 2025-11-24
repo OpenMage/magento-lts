@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities converted from EAV to flat data structure
      *
-     * @var array $_flatEntityTables
+     * @var array
      */
     protected $_flatEntityTables     = [
         'quote'             => 'sales/quote',
@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities used with separate grid table
      *
-     * @var array $_flatEntitiesGrid
+     * @var array
      */
     protected $_flatEntitiesGrid     = [
         'order',
@@ -64,7 +64,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _flatTableExist($table)
     {
         $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map('strtoupper', $tablesList));
+        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList));
     }
 
     /**
@@ -76,14 +76,15 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
-        if (isset($this->_flatEntityTables[$entityTypeId]) &&
-            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])
+        if (isset($this->_flatEntityTables[$entityTypeId])
+            && $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])
         ) {
             $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
             $this->_addGridAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr, $entityTypeId);
         } else {
             parent::addAttribute($entityTypeId, $code, $attr);
         }
+
         return $this;
     }
 
@@ -101,6 +102,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         if (isset($tableInfo[$attribute])) {
             return $this;
         }
+
         $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
         $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
         return $this;
@@ -121,6 +123,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }
+
         return $this;
     }
 
@@ -161,6 +164,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $length = 255;
                 break;
         }
+
         if ($type !== null) {
             $data['type'] = $type;
             $data['length'] = $length;

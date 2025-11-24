@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
                 $this->_product = Mage::getSingleton('catalog/product');
             }
         }
+
         return $this->_product;
     }
 

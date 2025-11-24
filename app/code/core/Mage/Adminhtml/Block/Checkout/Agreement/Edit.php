@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit extends Mage_Adminhtml_Block_
         if (Mage::registry('checkout_agreement')->getId()) {
             return Mage::helper('checkout')->__('Edit Terms and Conditions');
         }
+
         return Mage::helper('checkout')->__('New Terms and Conditions');
     }
 }

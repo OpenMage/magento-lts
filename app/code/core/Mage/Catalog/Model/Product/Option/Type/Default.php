@@ -12,13 +12,13 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setConfigurationItemOption(Varien_Object $value)
  * @method bool getIsValid()
- * @method $this setIsValid(bool $value)
  * @method string getProcessMode()
+ * @method array|int getUserValue()
+ * @method $this setConfigurationItemOption(Varien_Object $value)
+ * @method $this setIsValid(bool $value)
  * @method $this setProcessMode(string $value)
  * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
- * @method array|int getUserValue()
  * @method $this setRequest(Varien_Object $value)
  * @method $this setUserValue(array|int $value)
  */
@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     protected $_productOptions = [];
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $_formattedOptionValue = null;
 
@@ -71,6 +71,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_option instanceof Mage_Catalog_Model_Product_Option) {
             return $this->_option;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong option instance type in options group.'));
     }
 
@@ -89,14 +90,15 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Product Instance getter
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
         if ($this->_product instanceof Mage_Catalog_Model_Product) {
             return $this->_product;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong product instance type in options group.'));
     }
 
@@ -172,6 +174,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_getData('request') instanceof Varien_Object) {
             return $this->_getData('request');
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong BuyRequest instance in options group.'));
     }
 
@@ -189,9 +192,9 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     /**
      * Validate user input for option
      *
-     * @throws Mage_Core_Exception
      * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validateUserValue($values)
     {
@@ -206,6 +209,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
             $this->setUserValue($values[$option->getId()]);
             $this->setIsValid(true);
         }
+
         return $this;
     }
 
@@ -216,21 +220,22 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getSkipCheckRequiredOption()
     {
-        return $this->getProduct()->getSkipCheckRequiredOption() ||
-            $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
+        return $this->getProduct()->getSkipCheckRequiredOption()
+            || $this->getProcessMode() == Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_LITE;
     }
 
     /**
      * Prepare option value for cart
      *
-     * @throws Mage_Core_Exception
      * @return mixed Prepared option value
+     * @throws Mage_Core_Exception
      */
     public function prepareForCart()
     {
         if ($this->getIsValid()) {
             return $this->getUserValue();
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Option validation failed to add product to cart.'));
     }
 
@@ -259,7 +264,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * Return option html
      *
      * @param array $optionInfo
-     * @return string|array
+     * @return array|string
      */
     public function getCustomizedView($optionInfo)
     {
@@ -294,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      *
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @return null|string
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -357,12 +362,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                     foreach ($option->getValues() as $value) {
                         $optionValues[$value->getTitle()] = $value->getId();
                     }
+
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = [];
                 }
             }
         }
+
         return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 

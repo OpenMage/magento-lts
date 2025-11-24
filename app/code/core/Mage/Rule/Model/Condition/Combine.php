@@ -10,13 +10,13 @@
 /**
  * @package    Mage_Rule
  *
- * @method $this setActions(array $value)
  * @method string getAggregator()
- * @method $this setAggregator(string $value)
  * @method string getAggregatorOption()
  * @method array getAggregatorOptions()
- * @method $this setAggregatorOption(array $value)
  * @method string getPrefix()
+ * @method $this setActions(array $value)
+ * @method $this setAggregator(string $value)
+ * @method $this setAggregatorOption(array $value)
  * @method $this setValueOption(array $value)
  */
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract
@@ -37,13 +37,13 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
-            /** @var Mage_Rule_Model_Condition_Abstract $condition */
             $wheres[] = '(' . $condition->prepareConditionSql() . ')';
         }
 
         if (empty($wheres)) {
             return '';
         }
+
         $delimiter = $this->getAggregator() == 'all' ? ' AND ' : ' OR ';
         return ' (' . implode($delimiter, $wheres) . ') ';
     }
@@ -55,7 +55,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
      *
      * @param  string $modelClass
-     * @return Mage_Rule_Model_Condition_Abstract|bool
+     * @return bool|Mage_Rule_Model_Condition_Abstract
      */
     protected function _getNewConditionModelInstance($modelClass)
     {
@@ -94,6 +94,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
     }
+
     /* start aggregator methods */
     /**
      * @return $this
@@ -113,9 +114,10 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAggregatorOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAggregatorOption() as $key => $value) {
+            $opt[] = ['value' => $key, 'label' => $value];
         }
+
         return $opt;
     }
 
@@ -133,8 +135,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorElement()
     {
         if (is_null($this->getAggregator())) {
-            foreach ($this->getAggregatorOption() as $k => $v) {
-                $this->setAggregator($k);
+            foreach ($this->getAggregatorOption() as $key => $value) {
+                $this->setAggregator($key);
                 break;
             }
         }
@@ -153,6 +155,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         return $element;
     }
+
     /* end aggregator methods */
 
     /**
@@ -238,11 +241,12 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
         }
+
         return $xml . "</$containerKey>";
     }
 
     /**
-     * @param array $arr
+     * @param array|Mage_Rule_Model_Condition_Abstract $arr
      * @param string $key
      * @return $this
      */
@@ -259,16 +263,17 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                         $this->addCondition($cond);
                         $cond->loadArray($condArr, $key);
                     }
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
         }
+
         return $this;
     }
 
     /**
-     * @param string|SimpleXMLElement $xml
+     * @param SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)
@@ -276,29 +281,34 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (is_string($xml)) {
             $xml = simplexml_load_string($xml);
         }
+
         $arr = parent::loadXml($xml);
         foreach ($xml->conditions->children() as $condition) {
             $arr['conditions'] = parent::loadXml($condition);
         }
+
         $this->loadArray($arr);
         return $this;
     }
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml() .
-               Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
+        $html = $this->getTypeElement()->getHtml()
+               . Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorElement()->getHtml(), $this->getValueElement()->getHtml());
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
     /**
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Exception
      */
     public function getNewChildElement()
     {
@@ -318,6 +328,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtmlRecursive()
     {
@@ -325,6 +336,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
+
         return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
@@ -347,6 +359,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $str .= "\n" . $cond->asStringRecursive($level + 1);
         }
+
         return $str;
     }
 
@@ -371,6 +384,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                 return true;
             }
         }
+
         return $all ? true : false;
     }
 
@@ -384,13 +398,14 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $condition->setJsFormObject($form);
         }
+
         return $this;
     }
 
     /**
      * Get conditions, if current prefix is undefined use 'conditions' key
      *
-     * @return array
+     * @return Mage_Rule_Model_Condition_Product_Abstract[]
      */
     public function getConditions()
     {
@@ -401,7 +416,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
-     * @param array $conditions
+     * @param Mage_Rule_Model_Condition_Product_Abstract[] $conditions
      * @return $this
      */
     public function setConditions($conditions)

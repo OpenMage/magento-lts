@@ -13,33 +13,38 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Event _getResource()
- * @method Mage_Reports_Model_Resource_Event getResource()
  * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
- * @method string getLoggedAt()
- * @method $this setLoggedAt(string $value)
  * @method int getEventTypeId()
- * @method $this setEventTypeId(int $value)
+ * @method string getLoggedAt()
  * @method int getObjectId()
- * @method $this setObjectId(int $value)
- * @method int getSubjectId()
- * @method $this setSubjectId(int $value)
- * @method int getSubtype()
- * @method $this setSubtype(int $value)
+ * @method Mage_Reports_Model_Resource_Event getResource()
+ * @method Mage_Reports_Model_Resource_Event_Collection getResourceCollection()
  * @method int getStoreId()
+ * @method int getSubjectId()
+ * @method int getSubtype()
+ * @method $this setEventTypeId(int $value)
+ * @method $this setLoggedAt(string $value)
+ * @method $this setObjectId(int $value)
  * @method $this setStoreId(int $value)
+ * @method $this setSubjectId(int $value)
+ * @method $this setSubtype(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {
     public const EVENT_PRODUCT_VIEW    = 1;
+
     public const EVENT_PRODUCT_SEND    = 2;
+
     public const EVENT_PRODUCT_COMPARE = 3;
+
     public const EVENT_PRODUCT_TO_CART = 4;
+
     public const EVENT_PRODUCT_TO_WISHLIST = 5;
+
     public const EVENT_WISHLIST_SHARE  = 6;
 
     /**
      * Initialize resource
-     *
      */
     protected function _construct()
     {
@@ -75,6 +80,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $this->getResource()->updateCustomerType($this, $visitorId, $customerId, $types);
         return $this;
     }

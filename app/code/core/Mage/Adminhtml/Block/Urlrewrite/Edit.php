@@ -51,11 +51,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'label'    => Mage::helper('adminhtml')->__('Product:'),
                 ]));
         }
+
         if ($this->getCategoryId()) {
             $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*') . 'category';
             if ($this->getProductId()) {
                 $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*', ['product' => $this->getProductId()]) . 'category';
             }
+
             $this->setChild('category_link', $this->getLayout()->createBlock('adminhtml/urlrewrite_link')
                 ->setData([
                     'item_url' => $itemUrl,
@@ -85,9 +87,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'skip_categories',
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
-                        'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
+                        'onclick' => "window.location = '" . Mage::helper('adminhtml')->getUrl('*/*/*', [
                             'product' => $this->getProductId(),
-                        ]) . '\'',
+                        ]) . "'",
                         'class'   => 'save',
                         'level'   => -1,
                     ]),
@@ -130,22 +132,23 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             $this->_addButton('reset', [
                 'label'   => Mage::helper('adminhtml')->__('Reset'),
                 'onclick' => '$(\'edit_form\').reset()',
-                'class'   => 'scalable',
+                'class'   => 'scalable reset',
                 'level'   => -1,
             ]);
             $this->_addButton('delete', [
                 'label'   => Mage::helper('adminhtml')->__('Delete'),
-                'onclick' => 'deleteConfirm(\''
+                'onclick' => "deleteConfirm('"
                     . Mage::helper('core')->jsQuoteEscape(
                         Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
                     )
-                    . '\', \''
+                    . "', '"
                     . Mage::helper('adminhtml')->getUrl('*/*/delete', ['id' => $this->getUrlrewriteId()])
-                    . '\')',
+                    . "')",
                 'class'   => 'scalable delete',
                 'level'   => -1,
             ]);
         }
+
         $this->_addButton('save', [
             'label'   => Mage::helper('adminhtml')->__('Save'),
             'onclick' => 'editForm.submit()',
@@ -166,6 +169,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 $suffix = 'category';
             }
         }
+
         $this->_updateButton(
             'back',
             'onclick',
@@ -193,6 +197,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 }
             }
         }
+
         return $this->_buttonsHtml;
     }
 
@@ -259,6 +264,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         } elseif ($mode === 'category') { // categories tree
             $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
         }
+
         return $this;
     }
 

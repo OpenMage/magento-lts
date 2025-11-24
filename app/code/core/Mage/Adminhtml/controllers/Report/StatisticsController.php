@@ -27,6 +27,10 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      */
     protected $_adminSession = null;
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
@@ -40,6 +44,9 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         return $this;
     }
 
+    /**
+     * @throws Zend_Locale_Exception
+     */
     public function _initReportAction($blocks)
     {
         if (!is_array($blocks)) {
@@ -71,6 +78,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      * Retrieve array of collection names by code specified in request
      *
      * @return array
+     * @throws Exception
      * @deprecated after 1.4.0.1
      */
     protected function _getCollectionNames()
@@ -100,6 +108,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         foreach ($codes as $code) {
             $out[] = $aliases[$code];
         }
+
         return $out;
     }
 
@@ -117,12 +126,13 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             foreach ($collectionsNames as $collectionName) {
                 Mage::getResourceModel($collectionName)->aggregate($date);
             }
+
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Recent statistics have been updated.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh recent statistics.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($this->_getSession()->isFirstPageAfterLogin()) {
@@ -130,6 +140,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         } else {
             $this->_redirectReferer('*/*');
         }
+
         return $this;
     }
 
@@ -145,12 +156,13 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             foreach ($collectionsNames as $collectionName) {
                 Mage::getResourceModel($collectionName)->aggregate();
             }
+
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Lifetime statistics have been updated.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to refresh lifetime statistics.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($this->_getSession()->isFirstPageAfterLogin()) {
@@ -162,6 +174,10 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function indexAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Sales'))->_title($this->__('Refresh Statistics'));
@@ -182,6 +198,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         if (is_null($this->_adminSession)) {
             $this->_adminSession = Mage::getSingleton('admin/session');
         }
+
         return $this->_adminSession;
     }
 }

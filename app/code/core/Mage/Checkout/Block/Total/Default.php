@@ -49,6 +49,7 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
         if ($total->getAddress()) {
             $this->_store = $total->getAddress()->getQuote()->getStore();
         }
+
         return $this;
     }
 

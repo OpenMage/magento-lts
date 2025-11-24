@@ -107,6 +107,7 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
         if (!$searchData = $adapter->fetchCol($select, $bind)) {
             $searchData = [];
         }
+
         return $searchData;
     }
 }

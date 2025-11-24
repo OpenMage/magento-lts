@@ -34,6 +34,7 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return '';
         }
+
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         return trim($customer->getName());
     }
@@ -46,6 +47,7 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return '';
         }
+
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         return $customer->getEmail();
     }

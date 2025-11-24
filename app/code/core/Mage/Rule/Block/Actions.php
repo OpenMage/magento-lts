@@ -20,6 +20,7 @@ class Mage_Rule_Block_Actions implements Varien_Data_Form_Element_Renderer_Inter
         if ($element->getRule() && $element->getRule()->getActions()) {
             return $element->getRule()->getActions()->asHtmlRecursive();
         }
+
         return '';
     }
 }

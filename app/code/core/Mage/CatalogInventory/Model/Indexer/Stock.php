@@ -13,17 +13,17 @@
  * @package    Mage_CatalogInventory
  *
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
- * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
  * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getStockId()
- * @method $this setStockId(int $value)
  * @method float getQty()
- * @method $this setQty(float $value)
+ * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
+ * @method int getStockId()
  * @method int getStockStatus()
+ * @method int getWebsiteId()
+ * @method $this setProductId(int $value)
+ * @method $this setQty(float $value)
+ * @method $this setStockId(int $value)
  * @method $this setStockStatus(int $value)
+ * @method $this setWebsiteId(int $value)
  */
 class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer_Abstract
 {
@@ -174,6 +174,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                             ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                     }
                 }
+
                 break;
         }
     }
@@ -190,6 +191,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                 if ($product && $product->getStockData()) {
                     $product->setForceReindexRequired(true);
                 }
+
                 break;
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
                 $this->_registerCatalogProductMassActionEvent($event);
@@ -304,6 +306,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         if (!empty($data['cataloginventory_stock_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['cataloginventory_stock_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

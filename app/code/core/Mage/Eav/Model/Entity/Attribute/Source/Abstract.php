@@ -24,7 +24,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Options array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options = null;
 
@@ -53,8 +53,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for option value
      *
-     * @param  string|int $value
-     * @return string|bool
+     * @param  int|string $value
+     * @return bool|string
      */
     public function getOptionText($value)
     {
@@ -67,12 +67,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
                 }
             } // End
         }
+
         return $options[$value] ?? false;
     }
 
     /**
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function getOptionId($value)
     {
@@ -81,16 +82,19 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
             if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
+
             if ($option['value'] == $value) {
                 $bcWarning = true;
             }
         }
+
         if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
                 Zend_Log::WARN,
             );
         }
+
         return null;
     }
 
@@ -130,7 +134,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -140,8 +144,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for index option value
      *
-     * @param string|int $value
-     * @return string|bool
+     * @param int|string $value
+     * @return bool|string
      */
     public function getIndexOptionText($value)
     {

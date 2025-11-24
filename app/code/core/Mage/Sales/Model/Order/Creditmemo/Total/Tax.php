@@ -37,6 +37,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
             if ($orderItem->isDummy()) {
                 continue;
             }
+
             $orderItemTax     = $orderItem->getTaxInvoiced();
             $baseOrderItemTax = $orderItem->getBaseTaxInvoiced();
             $orderItemHiddenTax = $orderItem->getHiddenTaxInvoiced();
@@ -127,6 +128,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseShippingHiddenTaxAmount = $order->getBaseShippingHiddenTaxAmount()
                         - $order->getBaseShippingHiddenTaxRefunded();
             }
+
             $totalTax           += $shippingTaxAmount;
             $baseTotalTax       += $baseShippingTaxAmount;
             $totalHiddenTax     += $shippingHiddenTaxAmount;

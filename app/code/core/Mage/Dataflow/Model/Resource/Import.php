@@ -46,6 +46,7 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
         if (!is_numeric($min) || !is_numeric($max)) {
             return [];
         }
+
         $bind = [
             'status'     => 0,
             'session_id' => $sessionId,

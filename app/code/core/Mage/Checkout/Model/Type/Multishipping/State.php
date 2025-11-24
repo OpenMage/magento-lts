@@ -15,9 +15,13 @@
 class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 {
     public const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
+
     public const STEP_SHIPPING         = 'multishipping_shipping';
+
     public const STEP_BILLING          = 'multishipping_billing';
+
     public const STEP_OVERVIEW         = 'multishipping_overview';
+
     public const STEP_SUCCESS          = 'multishipping_success';
 
     /**
@@ -36,7 +40,6 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     /**
      * Init model, steps
-     *
      */
     public function __construct()
     {
@@ -98,6 +101,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         if (isset($this->_steps[$step])) {
             return $step;
         }
+
         return self::STEP_SELECT_ADDRESSES;
     }
 
@@ -118,8 +122,10 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
             foreach ($this->getSteps() as $stepObject) {
                 $stepObject->unsIsActive();
             }
+
             $this->_steps[$step]->setIsActive(true);
         }
+
         return $this;
     }
 
@@ -134,6 +140,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         if (isset($this->_steps[$step])) {
             $this->getCheckoutSession()->setStepData($step, 'is_complete', true);
         }
+
         return $this;
     }
 
@@ -148,6 +155,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         if (isset($this->_steps[$step])) {
             return $this->getCheckoutSession()->getStepData($step, 'is_complete');
         }
+
         return false;
     }
 
@@ -162,6 +170,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         if (isset($this->_steps[$step])) {
             $this->getCheckoutSession()->setStepData($step, 'is_complete', false);
         }
+
         return $this;
     }
 

@@ -48,6 +48,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
                 $this->addProduct($productId);
             }
         }
+
         return $this;
     }
 

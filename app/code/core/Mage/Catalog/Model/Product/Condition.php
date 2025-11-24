@@ -12,10 +12,10 @@
  *
  * @package    Mage_Catalog
  *
- * @method string getTable()
- * @method $this setTable(string $tableName)
  * @method string getPkFieldName()
+ * @method string getTable()
  * @method $this setPkFieldName(string $fieldName)
+ * @method $this setTable(string $tableName)
  */
 class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage_Catalog_Model_Product_Condition_Interface
 {
@@ -32,6 +32,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
                 ['affected_product_id' => $this->getPkFieldName()],
             );
         }
+
         return $this;
     }
 
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
             return $dbAdapter->select()
                 ->from($this->getTable(), $this->getPkFieldName());
         }
+
         return '';
     }
 }

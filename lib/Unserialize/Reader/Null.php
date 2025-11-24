@@ -29,7 +29,7 @@ class Unserialize_Reader_Null
     /**
      * @param string $char
      * @param string $prevChar
-     * @return string|null
+     * @return null|string
      */
     public function read($char, $prevChar)
     {
@@ -42,6 +42,7 @@ class Unserialize_Reader_Null
         if ($this->_status == self::READING_VALUE && $char == Unserialize_Parser::SYMBOL_SEMICOLON) {
             return $this->_value;
         }
+
         return null;
     }
 }

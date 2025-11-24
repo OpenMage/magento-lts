@@ -24,8 +24,11 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
 {
     // Payment information transport keys
     public const PAYPAL_REQUEST_ID = 'paypal_request_id';
+
     public const PAYPAL_PAYMENT_SOURCE = 'paypal_payment_source';
+
     public const PAYPAL_PAYMENT_AUTHORIZATION_ID = 'paypal_payment_authorization_id';
+
     public const PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED = 'paypal_payment_authorization_reauthorized';
 
     // Error messages
@@ -37,7 +40,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      * @param string $orderId PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
-    public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
+    public function captureOrder(string $orderId, Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote): void
     {
         $api = $this->getHelper()->getApi();
         $requestId = $this->getHelper()->getPaypalRequestId($quote);
@@ -46,6 +49,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
         if ($response->isError()) {
             $this->getHelper()->handleApiError($response, 'Capture order failed');
         }
+
         $this->getTransactionManager()->updatePaymentAfterCapture($quote->getPayment(), $response, $captureId);
         $quote->collectTotals()->save();
     }
@@ -117,6 +121,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             if (is_string($amount)) {
                 $amount = (float) $amount;
             }
+
             $response = $this->getHelper()->getApi()->refundCapturedPayment(
                 $payment->getParentTransactionId(),
                 $amount,
@@ -131,9 +136,9 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             $result = $response->getResult();
             $this->getTransactionManager()->updatePaymentAfterRefund($payment, $result);
             $this->getTransactionManager()->createRefundTransaction($payment, $response);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Refund error: %s', $e->getMessage()), [], $e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Refund error: %s', $exception->getMessage()), [], $exception);
         }
 
         return $this;
@@ -200,9 +205,9 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
                 Mage::helper('paypal')->__('PayPal payment voided successfully. Transaction ID: %s', $transactionId),
                 false,
             )->save();
-        } catch (Exception $e) {
-            Mage::logException($e);
-            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Void error: %s', $e->getMessage()), [], $e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Void error: %s', $exception->getMessage()), [], $exception);
         }
 
         return $this;
@@ -219,6 +224,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
         if ($payment->getIsTransactionClosed() && $payment->getShouldCloseParentTransaction()) {
             return $this;
         }
+
         $this->processVoid($payment);
         return $this;
     }

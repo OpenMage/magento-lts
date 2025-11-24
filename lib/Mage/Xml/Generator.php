@@ -9,17 +9,19 @@
 class Mage_Xml_Generator
 {
     protected $_dom = null;
+
     protected $_currentDom;
 
     public function __construct()
     {
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
+
         $this->_currentDom = $this->_dom;
     }
 
     /**
-     * @return DOMDocument|null
+     * @return null|DOMDocument
      */
     public function getDom()
     {
@@ -45,22 +47,24 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array|array[] $content
-    */
+     * @param array|array[] $content
+     */
     public function arrayToXml($content)
     {
         $parentNode = $this->_getCurrentDom();
         if (!$content || !count($content)) {
             return $this;
         }
+
         foreach ($content as $key => $item) {
             try {
                 $node = $this->getDom()->createElement($key);
-            } catch (DOMException $e) {
+            } catch (DOMException) {
                 //  echo $e->getMessage();
                 var_dump($item);
                 die;
             }
+
             $parentNode->appendChild($node);
             if (is_array($item) && isset($item['_attribute'])) {
                 if (is_array($item['_value'])) {
@@ -75,6 +79,7 @@ class Mage_Xml_Generator
                     $child = $this->getDom()->createTextNode($item['_value']);
                     $node->appendChild($child);
                 }
+
                 foreach ($item['_attribute'] as $_attributeKey => $_attributeValue) {
                     $node->setAttribute($_attributeKey, $_attributeValue);
                 }
@@ -84,11 +89,12 @@ class Mage_Xml_Generator
             } elseif (is_array($item) && !isset($item[0])) {
                 $this->_setCurrentDom($node)->arrayToXml($item);
             } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $k => $v) {
+                foreach ($item as $v) {
                     $this->_setCurrentDom($node)->arrayToXml($v);
                 }
             }
         }
+
         return $this;
     }
 

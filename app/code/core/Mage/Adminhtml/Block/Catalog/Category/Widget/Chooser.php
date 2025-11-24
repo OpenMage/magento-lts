@@ -77,6 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             if (isset($value[0]) && isset($value[1]) && $value[0] == 'category') {
                 $categoryId = $value[1];
             }
+
             if ($categoryId) {
                 $label = $this->_getModelAttributeByEntityId('catalog/category', 'name', $categoryId);
                 $chooser->setLabel($label);
@@ -106,8 +107,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if ($model) {
             $result = $model->getData($attributeName);
         }
+
         return $result;
     }
+
     /**
      * Category Tree node onClick listener js function
      *
@@ -118,6 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if ($this->getData('node_click_listener')) {
             return $this->getData('node_click_listener');
         }
+
         if ($this->getUseMassaction()) {
             $js = '
                 function (node, e) {
@@ -136,13 +140,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
                 }
             ';
         }
+
         return $js;
     }
 
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
+     * @param array|Varien_Data_Tree_Node $node
      * @param int $level
      * @return array
      */
@@ -152,6 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if (in_array($node->getId(), $this->getSelectedCategories())) {
             $item['checked'] = true;
         }
+
         $item['is_anchor'] = (int) $node->getIsAnchor();
         $item['url_key'] = $node->getData('url_key');
         return $item;

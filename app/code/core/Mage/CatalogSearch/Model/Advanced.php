@@ -12,24 +12,24 @@
  *
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
- * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
- *
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
+ * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method int getEntityTypeId()
+ * @method int getHasOptions()
+ * @method int getRequiredOptions()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getResourceCollection()
+ * @method string getSku()
+ * @method string getTypeId()
  * @method string getUpdatedAt()
+ * @method $this setAttributeSetId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setEntityTypeId(int $value)
+ * @method $this setHasOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
+ * @method $this setSku(string $value)
+ * @method $this setTypeId(string $value)
  * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
@@ -44,14 +44,14 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Current search engine
      *
-     * @var object|Mage_CatalogSearch_Model_Resource_Fulltext_Engine
+     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Engine|object
      */
     protected $_engine;
 
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
+     * @var null|Mage_CatalogSearch_Model_Resource_Advanced_Collection
      */
     protected $_productCollection;
 
@@ -84,6 +84,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         if ($resourceName) {
             $this->_resourceName = $resourceName;
         }
+
         return parent::_getResource();
     }
 
@@ -107,19 +108,20 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());
             }
+
             $this->setData('attributes', $attributes);
         }
+
         return $attributes;
     }
 
     /**
      * Prepare search condition for attribute
      *
-     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
-     *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param array|string $value
      * @return mixed
+     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
      */
     protected function _prepareCondition($attribute, $value)
     {
@@ -143,6 +145,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!isset($values[$attribute->getAttributeCode()])) {
                 continue;
             }
+
             $value = $values[$attribute->getAttributeCode()];
             if (!is_array($value)) {
                 $value = trim($value);
@@ -157,6 +160,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
+
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
                             $this->getProductCollection(),
@@ -196,9 +200,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 } else {
                     $attributeId = $attribute->getId();
                 }
+
                 $allConditions[$table][$attributeId] = $condition;
             }
         }
+
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } elseif (!$hasConditions) {
@@ -230,16 +236,16 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $currencyModel = null;
                     }
 
-                    if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
+                    if ((string) $value['from'] !== '' && (string) $value['to'] !== '') {
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
                             ($currencyModel ? $to : $value['to']),
                         );
-                    } elseif (strlen($value['from']) > 0) {
+                    } elseif ((string) $value['from'] !== '') {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
-                    } elseif (strlen($value['to']) > 0) {
+                    } elseif ((string) $value['to'] !== '') {
                         // to
                         $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
                     }
@@ -259,6 +265,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     $value[$key] = $value[$key]['label'];
                 }
             }
+
             $value = implode(', ', $value);
         } elseif ($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect') {
             $value = $attribute->getSource()->getOptionText($value);
@@ -298,6 +305,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!$collection) {
                 return $collection;
             }
+
             $this->_productCollection = $collection;
         }
 

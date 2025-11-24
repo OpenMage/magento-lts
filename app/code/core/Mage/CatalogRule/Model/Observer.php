@@ -62,6 +62,7 @@ class Mage_CatalogRule_Model_Observer
         if (!$product instanceof Mage_Catalog_Model_Product) {
             return $this;
         }
+
         Mage::getModel('catalogrule/rule')->loadProductRules($product);
         return $this;
     }
@@ -88,7 +89,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Preload all price rules for all items in quote
-     *
      *
      * @return  $this
      */
@@ -160,10 +160,12 @@ class Mage_CatalogRule_Model_Observer
                 ->getRulePrice($date, $wId, $gId, $pId);
             $this->_rulePrices[$key] = $rulePrice;
         }
+
         if ($this->_rulePrices[$key] !== false) {
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
+
         return $this;
     }
 
@@ -201,6 +203,7 @@ class Mage_CatalogRule_Model_Observer
                     ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;
             }
+
             if ($this->_rulePrices[$key] !== false) {
                 $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
@@ -212,7 +215,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Calculate price using catalog price rules of configurable product
-     *
      *
      * @return $this
      */
@@ -297,6 +299,7 @@ class Mage_CatalogRule_Model_Observer
      * @param string $attributeCode
      *
      * @return $this
+     * @throws Throwable
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
@@ -305,10 +308,9 @@ class Mage_CatalogRule_Model_Observer
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
+        /** @var Mage_CatalogRule_Model_Rule $rule */
         foreach ($collection as $rule) {
-            /** @var Mage_CatalogRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $rule->save();
 
@@ -339,18 +341,19 @@ class Mage_CatalogRule_Model_Observer
             if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
+
             if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
                 if ($condition->getAttribute() == $attributeCode) {
                     unset($conditions[$conditionId]);
                 }
             }
         }
+
         $combine->setConditions($conditions);
     }
 
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
-     *
      *
      * @return $this
      */
@@ -402,6 +405,7 @@ class Mage_CatalogRule_Model_Observer
                 $groupId = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
             }
         }
+
         if ($observer->getEvent()->hasDate()) {
             $date = $observer->getEvent()->getDate();
         } else {

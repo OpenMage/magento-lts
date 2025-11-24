@@ -51,6 +51,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
         if (is_null($storeId)) {
             $storeId = Mage::app()->getStore()->getId();
         }
+
         $adapter = $this->getConnection();
 
         $joinCondition = $adapter->quoteInto('tsv.option_id = main_table.option_id AND tsv.store_id = ?', $storeId);
@@ -89,7 +90,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Add option id(s) frilter to collection
      *
-     * @param int|array $optionId
+     * @param array|int $optionId
      * @return $this
      */
     public function setIdFilter($optionId)

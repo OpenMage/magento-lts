@@ -31,6 +31,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var bool
      */
     protected $_canAddAmountToAddress = true;
+
     protected $_canSetAddressAmount   = true;
 
     /**
@@ -123,6 +124,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
                 Mage::helper('sales')->__('Address model is not defined.'),
             );
         }
+
         return $this->_address;
     }
 
@@ -137,6 +139,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
@@ -151,6 +154,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
@@ -165,6 +169,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
@@ -179,6 +184,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
@@ -202,6 +208,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod($this->_itemRowTotalKey);
     }
 
@@ -215,6 +222,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
     }
 
@@ -228,6 +236,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
             return false;
         }
+
         return true;
     }
 

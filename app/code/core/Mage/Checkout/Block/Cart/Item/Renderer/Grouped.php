@@ -17,6 +17,7 @@
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {
     public const GROUPED_PRODUCT_IMAGE = 'checkout/cart/grouped_product_image';
+
     public const USE_PARENT_IMAGE      = 'parent';
 
     /**
@@ -30,6 +31,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         if ($option) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -66,6 +68,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
+
         $rendererHtml = $renderer->toHtml();
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;

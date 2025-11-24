@@ -15,7 +15,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
     protected $_creditmemo = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getCreditmemo()
     {
@@ -28,6 +28,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
                 $this->_creditmemo = $this->getParentBlock()->getCreditmemo();
             }
         }
+
         return $this->_creditmemo;
     }
 
@@ -68,6 +69,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         if ((float) $this->getSource()->getAdjustmentNegative()) {
             $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
@@ -76,6 +78,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         /**
         <?php if ($this->getCanDisplayTotalPaid()): ?>
         <tr>

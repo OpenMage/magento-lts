@@ -15,6 +15,7 @@
 class Varien_Convert_Container_Collection
 {
     protected $_items = [];
+
     protected $_defaultClass = 'Varien_Convert_Container_Generic';
 
     public function setDefaultClass($className)
@@ -43,6 +44,7 @@ class Varien_Convert_Container_Collection
         if (!isset($this->_items[$name])) {
             $this->addItem($name, new $this->_defaultClass());
         }
+
         return $this->_items[$name];
     }
 

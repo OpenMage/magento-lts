@@ -61,11 +61,13 @@ class Mage_Adminhtml_Model_Sales_Order
                 $hasBadItems = true;
             }
         }
+
         if ($hasBadItems) {
             $this->_getSession()->addError(
                 Mage::helper('adminhtml')->__('Some of the ordered items do not exist in the catalog anymore and will be removed if you try to edit the order.'),
             );
         }
+
         return $this;
     }
 }

@@ -16,7 +16,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
 {
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {
@@ -106,6 +105,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         if (!is_null($storeId)) {
             $where[] = $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId);
         }
+
         if (!is_null($entityId)) {
             $where[] = $this->_getWriteAdapter()->quoteInto('product_id IN (?)', $entityId);
         }
@@ -129,8 +129,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
 
     /**
      * Stub method for compatibility with other search engines
-     *
-     * @return null
      */
     public function getResourceName()
     {

@@ -147,6 +147,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         foreach ($optionsArray as $option) {
             $options[$option['value']] = $option['label'];
         }
+
         return $options;
     }
 

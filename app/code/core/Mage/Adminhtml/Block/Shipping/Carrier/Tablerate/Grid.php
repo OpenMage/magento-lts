@@ -18,7 +18,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Website filter
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_websiteId;
 
@@ -61,6 +61,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
         if (is_null($this->_websiteId)) {
             $this->_websiteId = Mage::app()->getWebsite()->getId();
         }
+
         return $this->_websiteId;
     }
 

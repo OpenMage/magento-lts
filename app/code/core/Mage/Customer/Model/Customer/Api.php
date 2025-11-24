@@ -17,6 +17,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     protected $_mapAttributes = [
         'customer_id' => 'entity_id',
     ];
+
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -32,6 +33,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
                 unset($data[$attributeAlias]);
             }
         }
+
         return $data;
     }
 
@@ -40,6 +42,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param array $customerData
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function create($customerData)
     {
@@ -49,9 +52,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $customer
                 ->setData($customerData)
                 ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
+
         return $customer->getId();
     }
 
@@ -61,6 +65,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * @param int $customerId
      * @param array $attributes
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function info($customerId, $attributes = null)
     {
@@ -90,8 +95,9 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customers data
      *
-     * @param  object|array $filters
+     * @param  array|object $filters
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function items($filters)
     {
@@ -103,9 +109,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
+
         $result = [];
         /** @var Mage_Customer_Model_Customer $customer */
         foreach ($collection as $customer) {
@@ -114,11 +121,13 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
+
             foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
                     $row[$attributeCode] = $data[$attributeCode];
                 }
             }
+
             $result[] = $row;
         }
 
@@ -131,6 +140,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * @param int $customerId
      * @param array $customerData
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function update($customerId, $customerData)
     {
@@ -157,6 +168,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      *
      * @param int $customerId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function delete($customerId)
     {
@@ -168,8 +180,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         try {
             $customer->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;

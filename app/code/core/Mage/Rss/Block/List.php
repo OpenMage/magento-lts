@@ -34,6 +34,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
             }
         }
+
         return parent::_prepareLayout();
     }
 

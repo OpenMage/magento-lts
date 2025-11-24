@@ -33,6 +33,7 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
         if (!$exceptToken->getId() || !$exceptToken->getAuthorized()) {
             Mage::throwException('Invalid token to except');
         }
+
         $adapter = $this->_getWriteAdapter();
         $where   = $adapter->quoteInto(
             'authorized = 1 AND consumer_id = ?',
@@ -48,6 +49,7 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             Mage::throwException('Invalid token to except');
         }
+
         return $adapter->delete($this->getMainTable(), $where);
     }
 

@@ -30,7 +30,6 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
 
     /**
      * Initializes collection
-     *
      */
     protected function _construct()
     {
@@ -41,9 +40,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Joines templates information
      *
-     * @deprecated since 1.4.0.1
-     *
      * @return $this
+     * @deprecated since 1.4.0.1
      */
     public function addTemplateInfo()
     {
@@ -91,6 +89,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
         if ($this->_addSubscribersFlag && !$this->isLoaded()) {
             $this->_addSubscriberInfoToSelect();
         }
+
         return parent::load($printQuery, $logQuery);
     }
 
@@ -225,6 +224,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
             ->group('main_table.queue_id');
             $this->_isStoreFilter = true;
         }
+
         return $this;
     }
 }

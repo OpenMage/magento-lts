@@ -29,17 +29,18 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             $this->_applyDownloadableLink();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -55,15 +56,15 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Retrieve downloadable links price temporary index table name
      *
-     * @see _prepareDefaultFinalPriceTable()
-     *
      * @return string
+     * @see _prepareDefaultFinalPriceTable()
      */
     protected function _getDownloadableLinkPriceTable()
     {
         if ($this->useIdxTable()) {
             return $this->getTable('downloadable/product_price_indexer_idx');
         }
+
         return $this->getTable('downloadable/product_price_indexer_tmp');
     }
 

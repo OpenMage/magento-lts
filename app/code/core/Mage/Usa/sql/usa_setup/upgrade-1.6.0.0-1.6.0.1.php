@@ -48,7 +48,7 @@ $codes = [
     ],
 ];
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $configDataTable = $installer->getTable('core/config_data');
 $conn = $installer->getConnection();
@@ -81,6 +81,7 @@ foreach ($mapsOld as $mapOld) {
                 $mapNew[] = $shippingMethod;
             }
         }
+
         $mapNew = implode(',', $mapNew);
     } else {
         continue;

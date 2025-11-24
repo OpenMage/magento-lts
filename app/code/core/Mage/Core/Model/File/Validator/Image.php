@@ -65,7 +65,6 @@ class Mage_Core_Model_File_Validator_Image
      * Destroy malicious code in image by reprocessing
      *
      * @param  string $filePath Path to temporary uploaded file
-     * @return null
      * @throws Mage_Core_Exception
      */
     public function validate($filePath)
@@ -75,6 +74,7 @@ class Mage_Core_Model_File_Validator_Image
             if ($fileType === IMAGETYPE_ICO) {
                 return null;
             }
+
             if ($this->isImageType($fileType)) {
                 // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
                 $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
@@ -86,9 +86,11 @@ class Mage_Core_Model_File_Validator_Image
                         ? 85
                         : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
                 }
+
                 if ($imageQuality === 0) {
                     return null;
                 }
+
                 //replace tmp image with re-sampled copy to exclude images with malicious data
                 $image = imagecreatefromstring(file_get_contents($filePath));
                 if ($image !== false) {
@@ -110,9 +112,11 @@ class Mage_Core_Model_File_Validator_Image
                                     }
                                 }
                             }
+
                             if (!imageistruecolor($image)) {
                                 imagetruecolortopalette($img, false, imagecolorstotal($image));
                             }
+
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
@@ -136,6 +140,7 @@ class Mage_Core_Model_File_Validator_Image
                 }
             }
         }
+
         throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid MIME type.'));
     }
 

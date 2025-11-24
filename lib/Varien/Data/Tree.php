@@ -60,6 +60,7 @@ class Varien_Data_Tree
         } elseif ($data instanceof Varien_Data_Tree_Node) {
             $node = $this->addNode($data, $parentNode);
         }
+
         return $node;
     }
 
@@ -75,6 +76,7 @@ class Varien_Data_Tree
         if (!is_null($parent) && ($parent instanceof Varien_Data_Tree_Node)) {
             $parent->addChild($node);
         }
+
         return $node;
     }
 
@@ -102,6 +104,7 @@ class Varien_Data_Tree
         if ($node->getParent()) {
             $node->getParent()->removeChild($node);
         }
+
         unset($node);
         return $this;
     }
@@ -151,6 +154,7 @@ class Varien_Data_Tree
                 return $_node->getPath();
             }
         }
+
         return [];
     }
 }

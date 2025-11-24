@@ -41,6 +41,7 @@ class Mage_Paypal_Model_Cron
         foreach ($transactions as $transaction) {
             $this->_processTransaction($transaction);
         }
+
         if (!empty($this->_emailAlerts)) {
             $this->_sendEmailAlerts();
         }
@@ -130,9 +131,11 @@ class Mage_Paypal_Model_Cron
             $expiryTimestamp = $createdTimestamp + (29 * 24 * 3600);
             return ($expiryTimestamp - time()) / 3600;
         }
+
         $storeTimezone = Mage::app()->getStore($storeId)->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
         $expiryDateTime = new DateTime($authExpiry, new DateTimeZone('UTC'));
         $expiryDateTime->setTimezone(new DateTimeZone($storeTimezone));
+
         $nowDateTime = new DateTime('now', new DateTimeZone($storeTimezone));
 
         return ($expiryDateTime->getTimestamp() - $nowDateTime->getTimestamp()) / 3600;
@@ -174,8 +177,8 @@ class Mage_Paypal_Model_Cron
                 'message' => 'Auto-reauthorization successful',
                 'response' => $response,
             ], Zend_Log::INFO, 'paypal_auto_reauth.log');
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $order->addStatusHistoryComment(
                 'PayPal auto-reauthorization failed due to system error. Please check log and go to PayPal site to reauthorize manually.',
                 false,
@@ -232,8 +235,8 @@ class Mage_Paypal_Model_Cron
                 'order_id' => $order->getIncrementId(),
                 'message' => 'Authorization expired and closed',
             ], Zend_Log::WARN, 'paypal_expired_auth.log');
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
@@ -258,8 +261,8 @@ class Mage_Paypal_Model_Cron
 
         try {
             $mail->send();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
@@ -292,6 +295,7 @@ class Mage_Paypal_Model_Cron
             $body .= 'Expires in: ' . $daysRemaining . " days\n";
             $body .= "Action: CAPTURE PAYMENT IMMEDIATELY\n\n";
         }
+
         $body .= str_repeat('=', 50) . "\n";
         $body .= "Note: Authorizations expire after 29 days and cannot be recovered.\n";
         $body .= "Capture payments as soon as possible to avoid losing the transaction.\n\n";

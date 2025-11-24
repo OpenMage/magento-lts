@@ -103,7 +103,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -169,6 +169,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             return $weight;
         }
     }
@@ -191,10 +192,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $virtualCount++;
                 }
             }
+
             if ($virtualCount == count($selections)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -243,6 +246,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         return $this;
     }
 
@@ -287,7 +291,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selections = $product->getBundleSelectionsData();
             if ($selections) {
                 foreach ($selections as $index => $group) {
-                    foreach ($group as $key => $selection) {
+                    foreach ($group as $selection) {
                         if (isset($selection['selection_id']) && $selection['selection_id'] == '') {
                             unset($selection['selection_id']);
                         }
@@ -369,6 +373,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $optionsCollection->joinValues($storeId);
             $this->getProduct($product)->setData($this->_keyOptionsCollection, $optionsCollection);
         }
+
         return $this->getProduct($product)->getData($this->_keyOptionsCollection);
     }
 
@@ -403,6 +408,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $this->getProduct($product)->setData($key, $selectionsCollection);
         }
+
         return $this->getProduct($product)->getData($key);
     }
 
@@ -487,6 +493,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         if (!count($selectionCollection->getItems())) {
             return false;
         }
+
         $salableSelectionCount = 0;
         /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selectionCollection as $selection) {
@@ -524,13 +531,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, '\intval');
+            $options = array_filter($options, \intval(...));
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
                     unset($options[$_optionId]);
                 }
             }
+
             $optionIds = array_keys($options);
 
             if (empty($optionIds) && $isStrictProcessMode) {
@@ -546,9 +554,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             $selectionIds = [];
 
-            foreach ($options as $optionId => $selectionId) {
+            foreach ($options as $selectionId) {
                 if (!is_array($selectionId)) {
                     if ($selectionId != '') {
                         $selectionIds[] = (int) $selectionId;
@@ -561,6 +570,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             // If product has not been configured yet then $selections array should be empty
             if (!empty($selectionIds)) {
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
@@ -574,6 +584,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                         } else {
                             $moreSelections = false;
                         }
+
                         if ($selectedOption->getRequired()
                             && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
                         ) {
@@ -615,6 +626,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         if (count($selections) > 0 || !$isStrictProcessMode) {
             $uniqueKey = [$product->getId()];
             $selectionIds = [];
@@ -628,6 +640,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 } else {
                     $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
                 }
+
                 $qty = (float) $qty;
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
@@ -647,7 +660,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 ];
 
                 $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
-                if (is_string($_result) && !is_array($_result)) {
+                if (is_string($_result)) {
                     return $_result;
                 }
 
@@ -656,7 +669,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
 
                 $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
+                    ->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
 
                 if ($isStrictProcessMode) {
@@ -673,7 +686,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             foreach ($result as $item) {
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
+
+            $product->addCustomOption('bundle_option_ids', serialize(array_map(\intval(...), $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -722,9 +736,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
                 $usedSelections->joinPrices($websiteId);
             }
+
             $this->getProduct($product)->setData($this->_keyUsedSelections, $usedSelections);
             $this->getProduct($product)->setData($this->_keyUsedSelectionsIds, $selectionIds);
         }
+
         return $usedSelections;
     }
 
@@ -751,6 +767,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $this->getProduct($product)->setData($this->_keyUsedOptions, $usedOptions);
             $this->getProduct($product)->setData($this->_keyUsedOptionsIds, $optionIds);
         }
+
         return $usedOptions;
     }
 
@@ -832,19 +849,17 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function shakeSelections($a, $b)
     {
-        $aPosition = [
+        return [
             $a->getOption()->getPosition(),
             $a->getOptionId(),
             $a->getPosition(),
             $a->getSelectionId(),
-        ];
-        $bPosition = [
+        ] <=> [
             $b->getOption()->getPosition(),
             $b->getOptionId(),
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        return $aPosition <=> $bPosition;
     }
 
     /**
@@ -914,8 +929,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $productSelections  = $this->getSelectionsCollection($productOptionIds, $product);
         $selectionIds       = $product->getCustomOption('bundle_selection_ids');
         $selectionIds       = (array) unserialize($selectionIds->getValue(), ['allowed_classes' => false]);
+
         $buyRequest         = $product->getCustomOption('info_buyRequest');
         $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue(), ['allowed_classes' => false]));
+
         $bundleOption       = $buyRequest->getBundleOption();
 
         if (empty($bundleOption) && empty($selectionIds)) {
@@ -965,14 +982,17 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $groupProducts[] = $childProduct;
                 $allProducts[] = $childProduct;
             }
+
             if ($option->getRequired()) {
                 $groups[] = $groupProducts;
                 $hasRequiredOptions = true;
             }
         }
+
         if (!$hasRequiredOptions) {
             $groups = [$allProducts];
         }
+
         return $groups;
     }
 
@@ -988,8 +1008,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $option     = $buyRequest->getBundleOption();
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, '\intval') : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : [];
+        $option     = (is_array($option)) ? array_filter($option, \intval(...)) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, \intval(...)) : [];
 
         return [
             'bundle_option'     => $option,
@@ -1015,7 +1035,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool|null
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

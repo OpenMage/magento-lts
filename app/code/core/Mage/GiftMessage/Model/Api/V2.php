@@ -17,7 +17,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
     /**
      * Return an Array of Object attributes.
      *
-     * @param object|array $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareData($data)
@@ -35,13 +35,16 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                         }
                     }
                 }
+
                 if (!empty($assocArr)) {
                     $arr[$key] = $assocArr;
                 }
             }
+
             $arr = $this->_prepareData($arr);
             return parent::_prepareData($arr);
         }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 if (is_object($value) || is_array($value)) {
@@ -50,8 +53,10 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                     $data[$key] = $value;
                 }
             }
+
             return parent::_prepareData($data);
         }
+
         return $data;
     }
 
@@ -77,10 +82,11 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
             Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', ['request' => $request, 'quote' => $quote]);
             $response->result = true;
             $response->error = '';
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $response->result = false;
-            $response->error = $e->getMessage();
+            $response->error = $exception->getMessage();
         }
+
         return $response;
     }
 }

@@ -36,6 +36,7 @@ class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object implements
             $index = random_int(0, $indexMax);
             $result .= $alphabet[$index];
         }
+
         return $result;
     }
 

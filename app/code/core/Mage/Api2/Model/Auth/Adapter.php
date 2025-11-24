@@ -38,11 +38,14 @@ class Mage_Api2_Model_Auth_Adapter
             if (!$adapterModel instanceof Mage_Api2_Model_Auth_Adapter_Abstract) {
                 throw new Exception('Authentication adapter must to extend Mage_Api2_Model_Auth_Adapter_Abstract');
             }
+
             $this->_adapters[$adapterKey] = $adapterModel;
         }
+
         if (!$this->_adapters) {
             throw new Exception('No active authentication adapters found');
         }
+
         return $this;
     }
 
@@ -65,9 +68,11 @@ class Mage_Api2_Model_Auth_Adapter
                 if ($userParams->type !== null) {
                     return $userParams;
                 }
+
                 throw new Mage_Api2_Exception('Can not determine user type', Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);
             }
         }
+
         return (object) ['type' => Mage_Api2_Model_Auth::DEFAULT_USER_TYPE, 'id' => null];
     }
 }

@@ -23,6 +23,7 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Qtyincrements extends Ma
         if (floor($value) != $value) {
             throw new Mage_Core_Exception('Decimal qty increments is not allowed.');
         }
+
         return $this;
     }
 }

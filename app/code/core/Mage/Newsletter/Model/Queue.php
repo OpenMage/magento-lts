@@ -13,42 +13,42 @@
  * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Queue _getResource()
- * @method Mage_Newsletter_Model_Resource_Queue getResource()
  * @method Mage_Newsletter_Model_Resource_Queue_Collection getCollection()
- *
- * @method int getTemplateId()
- * @method $this setTemplateId(int $value)
- * @method int getNewsletterType()
- * @method $this setNewsletterType(int $value)
- * @method string getNewsletterText()
- * @method $this setNewsletterText(string $value)
- * @method string getNewsletterStyles()
- * @method $this setNewsletterStyles(string $value)
- * @method string getNewsletterSubject()
- * @method $this setNewsletterSubject(string $value)
- * @method string getNewsletterSenderName()
- * @method $this setNewsletterSenderName(string $value)
  * @method string getNewsletterSenderEmail()
- * @method $this setNewsletterSenderEmail(string $value)
- * @method int getQueueStatus()
- * @method $this setQueueStatus(int $value)
- * @method string getQueueStartAt()
- * @method $this setQueueStartAt(string $value)
+ * @method string getNewsletterSenderName()
+ * @method string getNewsletterStyles()
+ * @method string getNewsletterSubject()
+ * @method string getNewsletterText()
+ * @method int getNewsletterType()
  * @method string getQueueFinishAt()
+ * @method string getQueueStartAt()
+ * @method int getQueueStatus()
+ * @method Mage_Newsletter_Model_Resource_Queue getResource()
+ * @method Mage_Newsletter_Model_Resource_Queue_Collection getResourceCollection()
+ * @method int getTemplateId()
+ * @method $this setNewsletterSenderEmail(string $value)
+ * @method $this setNewsletterSenderName(string $value)
+ * @method $this setNewsletterStyles(string $value)
+ * @method $this setNewsletterSubject(string $value)
+ * @method $this setNewsletterText(string $value)
+ * @method $this setNewsletterType(int $value)
  * @method $this setQueueFinishAt(string $value)
+ * @method $this setQueueStartAt(string $value)
+ * @method $this setQueueStatus(int $value)
+ * @method $this setTemplateId(int $value)
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
     /**
      * Newsletter Template object
      *
-     * @var Mage_Newsletter_Model_Template|null
+     * @var null|Mage_Newsletter_Model_Template
      */
     protected $_template;
 
     /**
      * Subscribers collection
-     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection|null
+     * @var null|Mage_Newsletter_Model_Resource_Subscriber_Collection
      */
     protected $_subscribersCollection = null;
 
@@ -75,9 +75,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     protected $_stores = [];
 
     public const STATUS_NEVER = 0;
+
     public const STATUS_SENDING = 1;
+
     public const STATUS_CANCEL = 2;
+
     public const STATUS_SENT = 3;
+
     public const STATUS_PAUSE = 4;
 
     protected function _construct()
@@ -130,7 +134,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Set $_data['queue_start'] based on string from backend, which based on locale.
      *
-     * @param string|null $startAt start date of the mailing queue
+     * @param null|string $startAt start date of the mailing queue
      * @return $this
      */
     public function setQueueStartAtByString($startAt)
@@ -143,6 +147,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $time = $locale->date($startAt, $format)->getTimestamp();
             $this->setQueueStartAt(Mage::getModel('core/date')->gmtDate(null, $time));
         }
+
         return $this;
     }
 
@@ -206,6 +211,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
         if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
+
         return $this;
     }
 
@@ -332,6 +338,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $this->_template = Mage::getModel('newsletter/template')
                 ->load($this->getTemplateId());
         }
+
         return $this->_template;
     }
 

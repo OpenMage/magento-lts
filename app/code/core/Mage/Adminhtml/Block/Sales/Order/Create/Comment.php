@@ -49,6 +49,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Comment extends Mage_Adminhtml_Blo
         if (is_null($notify) || $notify) {
             return true;
         }
+
         return false;
     }
 }

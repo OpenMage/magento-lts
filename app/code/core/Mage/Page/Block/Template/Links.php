@@ -30,7 +30,6 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
 
     /**
      * Set default template
-     *
      */
     protected function _construct()
     {
@@ -56,8 +55,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param bool $prepare
      * @param array $urlParams
      * @param int $position
-     * @param string|array $liParams
-     * @param string|array $aParams
+     * @param array|string $liParams
+     * @param array|string $aParams
      * @param string $beforeText
      * @param string $afterText
      * @return $this
@@ -78,6 +77,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         if (is_null($label) || $label === false) {
             return $this;
         }
+
         $link = new Varien_Object([
             'label'         => $label,
             'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : [])) : $url),
@@ -124,6 +124,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $position = (int) $block->getPosition();
             $this->_addIntoPosition($block, $position);
         }
+
         return $this;
     }
 
@@ -140,6 +141,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                 unset($this->_links[$key]);
             }
         }
+
         return $this;
     }
 
@@ -170,13 +172,12 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         if (is_null($this->_cacheKeyInfo)) {
             $links = [];
-            if (!empty($this->_links)) {
-                foreach ($this->_links as $position => $link) {
-                    if ($link instanceof Varien_Object) {
-                        $links[$position] = $link->getData();
-                    }
+            foreach ($this->_links as $position => $link) {
+                if ($link instanceof Varien_Object) {
+                    $links[$position] = $link->getData();
                 }
             }
+
             $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
                 'name' => $this->getNameInLayout(),
@@ -189,7 +190,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param string|array $params
+     * @param array|string $params
      * @return string
      */
     protected function _prepareParams($params)
@@ -201,8 +202,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 
@@ -217,6 +220,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $this->_links[array_key_first($this->_links)]->setIsFirst(true);
             $this->_links[array_key_last($this->_links)]->setIsLast(true);
         }
+
         return parent::_beforeToHtml();
     }
 
@@ -237,8 +241,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             foreach (array_keys($this->_links) as $k) {
                 $position = $k;
             }
+
             $position += 10;
         }
+
         return $position;
     }
 

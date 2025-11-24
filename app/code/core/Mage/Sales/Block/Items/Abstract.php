@@ -70,6 +70,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
                 ->setTemplate($this->_itemRenders[$type]['template'])
                 ->setRenderedBlock($this);
         }
+
         return $this->_itemRenders[$type]['renderer'];
     }
 
@@ -97,6 +98,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
         } else {
             $type = $item->getProductType();
         }
+
         return $type;
     }
 

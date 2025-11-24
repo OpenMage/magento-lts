@@ -26,6 +26,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
         if (Mage::getStoreConfig('rss/order/status_notified')) {
             return true;
         }
+
         return false;
     }
 
@@ -63,7 +64,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      * Retrieve order instance by specified status url key
      *
      * @param string $key
-     * @return Mage_Sales_Model_Order|null
+     * @return null|Mage_Sales_Model_Order
      */
     public function getOrderByStatusUrlKey($key)
     {

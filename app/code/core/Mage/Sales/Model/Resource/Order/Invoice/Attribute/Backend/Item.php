@@ -25,6 +25,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Item extends Mag
         if ($object->getOrderItem()) {
             $object->getOrderItem()->save();
         }
+
         return parent::beforeSave($object);
     }
 }

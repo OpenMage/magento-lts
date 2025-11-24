@@ -71,30 +71,34 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     } else {
                         $isOpenBracket--;
                     }
+
                     $words[] = $word;
                 } elseif ($isBool) {
                     $words[] = $word;
                 }
             }
         }
+
         if ($isOpenBracket > 0) {
             $words[] = sprintf("%')" . $isOpenBracket . 's', '');
         } elseif ($isOpenBracket < 0) {
             $words[0] = sprintf("%'(" . $isOpenBracket . 's', '');
         }
+
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
+
         return [$words, $terms];
     }
 
     /**
      * Use sql compatible with Full Text indexes
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of column-value pairs.
+     * @param mixed $table the table to insert data into
+     * @param array $data column-value pairs or array of column-value pairs
      * @param array $fields update fields pairs or values
-     * @return int The number of affected rows.
+     * @return int the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {

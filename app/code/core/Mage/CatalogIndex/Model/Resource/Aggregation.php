@@ -30,7 +30,6 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
     /**
      * Initialize resource tables
-     *
      */
     protected function _construct()
     {
@@ -58,6 +57,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         } else {
             $data = [];
         }
+
         return $data;
     }
 
@@ -116,7 +116,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Clear data in cache
      *
      * @param   array $tags
-     * @param   int|null|string $storeId
+     * @param   null|int|string $storeId
      * @return $this
      */
     public function clearCacheData($tags, $storeId)
@@ -125,6 +125,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         if (!$write = $this->_getWriteAdapter()) {
             return $this;
         }
+
         if (!empty($tags)) {
             $tagIds = $this->_getTagIds($tags);
             $select = $write->select()
@@ -155,6 +156,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         foreach ($tags as $tagId) {
             $data[] = $aggregationId . ',' . $tagId;
         }
+
         $query .= '(' . implode('),(', $data) . ')';
         $this->_getWriteAdapter()->query($query);
         return $this;
@@ -190,13 +192,14 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             $newTags = $this->_getReadAdapter()->fetchPairs($select);
             $tagIds = array_merge($tagIds, $newTags);
         }
+
         return $tagIds;
     }
 
     /**
      * Insert tags to tag table
      *
-     * @param string | array $tags
+     * @param array|string $tags
      * @return $this
      */
     protected function _addTags($tags)
@@ -206,6 +209,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
+
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ')';
             $this->_getWriteAdapter()->query($query);
         } else {
@@ -213,6 +217,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
                 'tag_code' => $tags,
             ]);
         }
+
         return $this;
     }
 

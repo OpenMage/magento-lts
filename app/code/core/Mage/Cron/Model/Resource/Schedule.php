@@ -16,7 +16,6 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
 {
     /**
      * Initialize resource
-     *
      */
     public function _construct()
     {
@@ -44,6 +43,7 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
         if ($result == 1) {
             return true;
         }
+
         return false;
     }
 }

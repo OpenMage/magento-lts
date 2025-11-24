@@ -35,8 +35,10 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
                     $minPasswordLength,
                 ));
             }
+
             $object->setPasswordHash($object->hashPassword($password));
         }
+
         return $this;
     }
 
@@ -44,8 +46,8 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
      * Validate object
      *
      * @param Mage_Customer_Model_Customer $object
-     * @throws Mage_Eav_Exception
      * @return bool
+     * @throws Mage_Eav_Exception
      */
     public function validate($object)
     {

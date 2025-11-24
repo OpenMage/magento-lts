@@ -15,6 +15,7 @@
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_PAYMENT_METHODS = 'payment';
+
     public const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
 
     protected $_moduleName = 'Mage_Payment';
@@ -23,7 +24,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve the class name of the payment method's model
      *
      * @param $code
-     * @return string|null
+     * @return null|string
      */
     public function getMethodModelClassName($code)
     {
@@ -35,7 +36,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve method model object
      *
      * @param   string $code
-     * @return  Mage_Payment_Model_Method_Abstract|false
+     * @return  false|Mage_Payment_Model_Method_Abstract
      */
     public function getMethodInstance($code)
     {
@@ -44,6 +45,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::logException(new Exception(sprintf('Unknown payment method with code "%s"', $code)));
             return false;
         }
+
         return Mage::getModel($class);
     }
 
@@ -53,7 +55,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @param Mage_Sales_Model_Quote $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
@@ -65,16 +67,19 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
                 continue;
             }
-            /** @var Mage_Payment_Model_Method_Abstract|false $methodInstance */
+
+            /** @var false|Mage_Payment_Model_Method_Abstract $methodInstance */
             $methodInstance = Mage::getModel($model);
             if (!$methodInstance) {
                 continue;
             }
+
             $methodInstance->setStore($store);
             if (!$methodInstance->isAvailable($quote)) {
                 /* if the payment method cannot be used at this time */
                 continue;
             }
+
             $sortOrder = (int) $methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $res[] = $methodInstance;
@@ -94,13 +99,14 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_object($a)) {
             return (int) $a->sort_order <=> (int) $b->sort_order;
         }
+
         return 0;
     }
 
     /**
      * Retrieve payment method form html
      *
-     * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
+     * @return  Mage_Core_Block_Abstract|Mage_Payment_Block_Form
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -110,13 +116,15 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = $this->getLayout()->createBlock($blockType);
             $block->setMethod($method);
         }
+
         return $block;
     }
 
     /**
      * Retrieve payment information block
      *
-     * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)
     {
@@ -127,6 +135,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className();
         }
+
+        /** @var Mage_Core_Block_Abstract $block */
         $block->setInfo($info);
         return $block;
     }
@@ -146,6 +156,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 $result[] = $method;
             }
         }
+
         return $result;
     }
 
@@ -170,13 +181,14 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 $result[] = $method;
             }
         }
+
         return $result;
     }
 
     /**
      * Retrieve all payment methods
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getPaymentMethods($store = null)
@@ -203,7 +215,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $sorted
      * @param bool $asLabelValue
      * @param bool $withGroups
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)
@@ -221,24 +233,29 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $methods[$code] = Mage::getModel($paymentMethodModelClassName)->getConfigData('title', $store);
                 }
             }
+
             if ($asLabelValue && $withGroups && isset($data['group'])) {
                 $groupRelations[$code] = $data['group'];
             }
         }
+
         if ($asLabelValue && $withGroups) {
             $groups = Mage::app()->getConfig()->getNode(self::XML_PATH_PAYMENT_GROUPS)->asCanonicalArray();
             foreach ($groups as $code => $title) {
                 $methods[$code] = $title; // for sorting, see below
             }
         }
+
         if ($sorted) {
             asort($methods);
         }
+
         if ($asLabelValue) {
             $labelValues = [];
             foreach (array_keys($methods) as $code) {
                 $labelValues[$code] = [];
             }
+
             foreach ($methods as $code => $title) {
                 if (isset($groups[$code])) {
                     $labelValues[$code]['label'] = $title;
@@ -249,6 +266,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $labelValues[$code] = ['value' => $code, 'label' => $title . ' (' . $code . ')'];
                 }
             }
+
             return $labelValues;
         }
 
@@ -268,11 +286,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if (!isset($data['model'])) {
                 continue;
             }
+
             $method = Mage::app()->getConfig()->getModelClassName($data['model']);
             if (in_array($interface, class_implements($method))) {
                 $result[$code] = $data['title'];
             }
         }
+
         return $result;
     }
 

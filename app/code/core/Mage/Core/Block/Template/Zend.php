@@ -30,7 +30,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
 
     /**
      * @param array|string $key
-     * @param array|string|null $value
+     * @param null|array|string $value
      * @return $this|Mage_Core_Block_Template
      * @throws Zend_View_Exception
      */
@@ -43,6 +43,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
         } elseif (!is_null($value)) {
             $this->_view->assign($key, $value);
         }
+
         return $this;
     }
 

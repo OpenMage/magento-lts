@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      *
      * @param string $fieldName
      * @param string $fieldNameFrom
-     * @param string|array $refValues
+     * @param array|string $refValues
      * @return $this
      */
     public function addFieldDependence($fieldName, $fieldNameFrom, $refValues)
@@ -89,6 +89,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
         if (!$this->_depends) {
             return '';
         }
+
         return '<script type="text/javascript"> new FormElementDependenceController('
             . $this->_getDependsJson()
             . ($this->_configOptions ? ', ' . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
@@ -107,6 +108,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
                 $result[$this->_fields[$to]][$this->_fields[$from]] = $value;
             }
         }
+
         return Mage::helper('core')->jsonEncode($result);
     }
 }

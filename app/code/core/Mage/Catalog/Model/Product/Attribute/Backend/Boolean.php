@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Boolean extends Mage_Eav_Mode
         if ($object->getData('use_config_' . $attributeCode)) {
             $object->setData($attributeCode, '');
         }
+
         return $this;
     }
 }

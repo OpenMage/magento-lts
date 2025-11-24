@@ -47,7 +47,6 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
 
     /**
      * Send request to authorize.net
-     *
      */
     public function placeAction()
     {
@@ -103,6 +102,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                             $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect'),
                         );
                     }
+
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
                 }
 
@@ -113,6 +113,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                 if (!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
+
                 $isError = true;
             } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
@@ -136,7 +137,6 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
 
     /**
      * Retrieve params and put javascript into iframe
-     *
      */
     public function redirectAction()
     {
@@ -160,6 +160,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                     $this->_getOrderCreateModel()->getSession()->unsOrderId();
                 }
             }
+
             //clear sessions
             $this->_getSession()->clear();
             $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($redirectParams['x_invoice_num']);
@@ -180,7 +181,6 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
 
     /**
      * Return order quote by ajax
-     *
      */
     public function returnQuoteAction()
     {
@@ -197,8 +197,8 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
     protected function _returnQuote($cancelOrder = false, $errorMsg = '')
     {
         $incrementId = $this->_getDirectPostSession()->getLastOrderIncrementId();
-        if ($incrementId &&
-            $this->_getDirectPostSession()
+        if ($incrementId
+            && $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
             /** @var Mage_Sales_Model_Order $order */

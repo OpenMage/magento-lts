@@ -76,6 +76,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     if (!$resourceUserPrivileges) { // skip user without any privileges for resource
                         continue;
                     }
+
                     $operations = $operationSource::toArray();
 
                     if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_CREATE])
@@ -83,12 +84,15 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     ) {
                         unset($operations[Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE]);
                     }
+
                     if (empty($resourceUserPrivileges[Mage_Api2_Model_Resource::OPERATION_RETRIEVE])) {
                         unset($operations[Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ]);
                     }
+
                     if (!$operations) { // skip resource without any operations allowed
                         continue;
                     }
+
                     try {
                         /** @var Mage_Api2_Model_Resource $resourceModel */
                         $resourceModel = Mage::getModel($config->getResourceModel($resource));
@@ -102,6 +106,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                 ) {
                                     $this->_hasEntityOnlyAttributes = true;
                                 }
+
                                 $availableAttributes = $resourceModel->getAvailableAttributes(
                                     $this->_userType,
                                     $operation,
@@ -126,8 +131,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     }
                 }
             }
+
             $this->_resourcesPermissions = $rulesPairs;
         }
+
         return $this->_resourcesPermissions;
     }
 
@@ -144,6 +151,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
         if (!array_key_exists($userType, Mage_Api2_Model_Auth_User::getUserTypes())) {
             throw new Exception('Unknown user type.');
         }
+
         $this->_userType = $userType;
         return $this;
     }

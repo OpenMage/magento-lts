@@ -25,6 +25,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
         if ($values !== false && !is_array($values)) {
             $values = [$values];
         }
+
         return $values;
     }
 
@@ -38,6 +39,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
         if (is_array($value)) {
             $value = implode(',', $value);
         }
+
         return parent::compactValue($value);
     }
 
@@ -45,7 +47,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
@@ -66,8 +68,10 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
                     if (!$value) {
                         continue;
                     }
+
                     $output[] = $this->getAttribute()->getSource()->getOptionText($value);
                 }
+
                 $output = implode(', ', $output);
                 break;
         }

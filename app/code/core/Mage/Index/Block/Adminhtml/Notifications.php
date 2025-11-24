@@ -29,6 +29,7 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
                 $res[] = $process->getIndexer()->getName();
             }
         }
+
         return $res;
     }
 
@@ -52,6 +53,7 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
         if (Mage::getSingleton('admin/session')->isAllowed('system/index')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

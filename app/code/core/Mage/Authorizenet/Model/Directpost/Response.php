@@ -122,6 +122,7 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
                 ->setXFax((string) $billing->getFax())
                 ->setXEmail((string) $order->getCustomerEmail());
         }
+
         $shipping = $order->getShippingAddress();
         if (!empty($shipping)) {
             $this->setXShipToFirstName((string) $shipping->getFirstname())

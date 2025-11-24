@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Image extends Varien_Data_For
         if ($this->getValue()) {
             $url = Mage::getBaseUrl('media') . 'catalog/category/' . $this->getValue();
         }
+
         return $url;
     }
 }

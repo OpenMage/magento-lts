@@ -16,9 +16,13 @@
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pager
 {
     protected $_showPerPage     = false;
+
     protected $_lastPageNumber  = 1;
+
     protected $_totalNum        = 0;
+
     protected $_firstNum        = 0;
+
     protected $_lastNum         = 1;
 
     /**
@@ -32,8 +36,10 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
             if ($page > $this->getLastPageNum()) {
                 return $this->getLastPageNum();
             }
+
             return $page;
         }
+
         return 1;
     }
 
@@ -174,6 +180,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
                 $finish = $this->getLastPageNum();
                 $start  = $finish - $this->_displayPages + 1;
             }
+
             $pages = range($start, $finish);
         }
 

@@ -13,6 +13,5 @@
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/GiftMessage/Model/Observer.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/GiftMessage/controllers/IndexController.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/ImportExport/Model/Resource/Helper/Mysql4.php"/>
-  <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Paypal/Model/Report/Settlement.php"/>
   <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php"/>
 </phpmd-baseline>

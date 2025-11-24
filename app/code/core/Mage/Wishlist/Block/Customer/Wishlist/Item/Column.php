@@ -34,6 +34,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column extends Mage_Wishlist_Bl
         if ($this->isEnabled()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 
@@ -59,6 +60,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column extends Mage_Wishlist_Bl
         foreach ($this->getSortedChildBlocks() as $child) {
             $js .= $child->getJs();
         }
+
         return $js;
     }
 }

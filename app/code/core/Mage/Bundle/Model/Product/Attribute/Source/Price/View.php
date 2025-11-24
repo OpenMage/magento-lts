@@ -33,14 +33,15 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
                 ],
             ];
         }
+
         return $this->_options;
     }
 
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|false
+     * @param int|string $value
+     * @return false|string
      */
     public function getOptionText($value)
     {
@@ -50,6 +51,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
                 return $option['label'];
             }
         }
+
         return false;
     }
 
@@ -83,7 +85,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
      * Retrieve Select for update Attribute value in flat table
      *
      * @param   int $store
-     * @return  Varien_Db_Select|null
+     * @return  null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

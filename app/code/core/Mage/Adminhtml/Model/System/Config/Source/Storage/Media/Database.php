@@ -63,6 +63,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
 
             $mediaStorages[] = ['value' => $connectionName, 'label' => $connectionName];
         }
+
         sort($mediaStorages);
         reset($mediaStorages);
 

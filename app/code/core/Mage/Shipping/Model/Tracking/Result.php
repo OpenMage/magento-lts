@@ -13,6 +13,7 @@
 class Mage_Shipping_Model_Tracking_Result
 {
     protected $_trackings = [];
+
     protected $_error = null;
 
     /**
@@ -43,7 +44,7 @@ class Mage_Shipping_Model_Tracking_Result
 
     /**
      * Add a tracking to the result
-     * @param Mage_Shipping_Model_Tracking_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result_Abstract $result
      * @return $this
      */
     public function append($result)
@@ -56,6 +57,7 @@ class Mage_Shipping_Model_Tracking_Result
                 $this->append($track);
             }
         }
+
         return $this;
     }
 

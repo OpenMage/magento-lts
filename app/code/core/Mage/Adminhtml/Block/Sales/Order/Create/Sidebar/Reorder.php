@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     /**
      * Retrieve last order on current website
      *
-     * @return Mage_Sales_Model_Order|false
+     * @return false|Mage_Sales_Model_Order
      */
     public function getLastOrder()
     {
@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
 
         return false;
     }
+
     /**
      * Retrieve item collection
      *
@@ -70,8 +71,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
                     $items[] = $item;
                 }
             }
+
             return $items;
         }
+
         return false;
     }
 

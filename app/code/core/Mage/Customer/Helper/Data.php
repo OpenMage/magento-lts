@@ -33,8 +33,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths to VAT related customer groups
      */
     public const XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP = 'customer/create_account/viv_intra_union_group';
+
     public const XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP = 'customer/create_account/viv_domestic_group';
+
     public const XML_PATH_CUSTOMER_VIV_INVALID_GROUP = 'customer/create_account/viv_invalid_group';
+
     public const XML_PATH_CUSTOMER_VIV_ERROR_GROUP = 'customer/create_account/viv_error_group';
 
     /**
@@ -49,7 +52,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * WSDL of VAT validation service
-     *
      */
     public const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
@@ -69,15 +71,20 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Configuration path to password forgotten flow change
      */
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE = 'admin/security/forgot_password_flow_secure';
+
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES = 'admin/security/forgot_password_email_times';
+
     public const XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES    = 'admin/security/forgot_password_ip_times';
 
     /**
      * VAT class constants
      */
     public const VAT_CLASS_DOMESTIC    = 'domestic';
+
     public const VAT_CLASS_INTRA_UNION = 'intra_union';
+
     public const VAT_CLASS_INVALID     = 'invalid';
+
     public const VAT_CLASS_ERROR       = 'error';
 
     protected $_moduleName = 'Mage_Customer';
@@ -90,7 +97,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Customer groups collection
      *
-     * @var Mage_Customer_Model_Entity_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_groups;
 
@@ -111,24 +118,26 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomer()
     {
-        if (empty($this->_customer)) {
+        if (is_null($this->_customer)) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
+
         return $this->_customer;
     }
 
     /**
      * Retrieve customer groups collection
      *
-     * @return Mage_Customer_Model_Entity_Group_Collection
+     * @return Mage_Customer_Model_Resource_Group_Collection
      */
     public function getGroups()
     {
-        if (empty($this->_groups)) {
+        if (is_null($this->_groups)) {
             $this->_groups = Mage::getModel('customer/group')->getResourceCollection()
                 ->setRealGroupsFilter()
                 ->load();
         }
+
         return $this->_groups;
     }
 
@@ -178,6 +187,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
             }
         }
+
         return $name;
     }
 
@@ -253,6 +263,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                 self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME),
             ];
         }
+
         return $this->_getUrl('customer/account/loginPost', $params);
     }
 
@@ -372,7 +383,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -385,7 +396,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -407,12 +418,14 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($options)) {
             return false;
         }
+
         $result = [];
         $options = explode(';', $options);
         foreach ($options as $value) {
             $value = $this->escapeHtml(trim($value));
             $result[$value] = $value;
         }
+
         return $result;
     }
 
@@ -460,7 +473,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default customer group id
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getDefaultCustomerGroupId($store = null)
@@ -503,7 +516,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
@@ -577,7 +590,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $gatewayResponse->setIsValid(false);
             $gatewayResponse->setRequestDate('');
             $gatewayResponse->setRequestIdentifier('');
@@ -624,7 +637,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return null|string
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)

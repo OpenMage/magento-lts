@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_addButton('flush_magento', [
             'label'     => Mage::helper('core')->__('Flush & Apply Updates'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getFlushSystemUrl()),
-            'class'     => 'delete',
+            'class'     => 'delete cache',
         ]);
 
         $this->_addButton('flush_system', [
@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
                 $this->getFlushStorageUrl(),
                 Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?'),
             ),
-            'class'     => 'delete',
+            'class'     => 'delete flush',
         ]);
     }
 

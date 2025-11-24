@@ -25,7 +25,6 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
 
     /**
      * Initialize main table and the primary key field name
-     *
      */
     protected function _construct()
     {
@@ -51,6 +50,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+
             $object->setData($field, $unserializedValue);
         }
     }
@@ -75,6 +75,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             if (!$verificationRow) {
                 return;
             }
+
             [$paymentId, $orderId] = array_values($verificationRow);
 
             // inject
@@ -151,6 +152,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
                     Mage::helper('sales')->__('Not enough valid data to save the parent transaction ID.'),
                 );
             }
+
             $parentId = (int) $this->_lookupByTxnId($orderId, $paymentId, $parentTxnId, $idFieldName);
             if ($parentId) {
                 $transaction->setData('parent_id', $parentId);
@@ -174,7 +176,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param array|string|object $columns
+     * @param array|object|string $columns
      * @param bool $isRow
      * @param string $txnType
      * @return array|string
@@ -185,9 +187,11 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
         if ($txnType) {
             $select->where('txn_type = ?', $txnType);
         }
+
         if ($isRow) {
             return $this->_getWriteAdapter()->fetchRow($select);
         }
+
         return $this->_getWriteAdapter()->fetchOne($select);
     }
 
@@ -197,7 +201,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param string|array|Zend_Db_Expr $columns
+     * @param array|string|Zend_Db_Expr $columns
      * @return Varien_Db_Select
      */
     private function _getLoadByUniqueKeySelect($orderId, $paymentId, $txnId, $columns = '*')

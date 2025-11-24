@@ -12,9 +12,9 @@
  *
  * @package    Mage_Widget
  *
+ * @method string getSelected()
  * @method $this setArea(string $value)
  * @method $this setPackage(string $value)
- * @method string getSelected()
  * @method $this setSelected(string $value)
  * @method $this setTheme(string $value)
  */
@@ -76,7 +76,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      * Setter
      * If string given exlopde to array by ',' delimiter
      *
-     * @param string|array $layoutHandle
+     * @param array|string $layoutHandle
      * @return $this
      */
     public function setLayoutHandle($layoutHandle)
@@ -84,6 +84,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (is_string($layoutHandle)) {
             $layoutHandle = explode(',', $layoutHandle);
         }
+
         $this->_layoutHandle = array_merge(['default'], (array) $layoutHandle);
         return $this;
     }
@@ -108,6 +109,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -121,6 +123,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->_getData('package')) {
             return Mage_Core_Model_Design_Package::DEFAULT_PACKAGE;
         }
+
         return $this->_getData('package');
     }
 
@@ -134,6 +137,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->_getData('theme')) {
             return Mage_Core_Model_Design_Package::DEFAULT_THEME;
         }
+
         return $this->_getData('theme');
     }
 
@@ -175,6 +179,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
                 'label' => Mage::helper('widget')->__('-- Please Select --'),
             ]);
         }
+
         return $this->_blocks;
     }
 
@@ -186,7 +191,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         foreach ($this->getLayoutHandle() as $handle) {
             $this->_mergeLayoutHandles($handle);
         }
-        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
+
+        $updatesStr = '<?xml version="1.0"?><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
         $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 
@@ -203,6 +209,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
                     $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }
+
             $this->_layoutHandleUpdates[] = $updateXml->asNiceXml();
         }
     }
@@ -221,6 +228,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
                 }
             }
         }
+
         asort($this->_blocks, SORT_STRING);
     }
 
@@ -235,9 +243,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->getAllowedBlocks()) {
             return true;
         }
+
         if (in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks())) {
             return true;
         }
+
         return false;
     }
 }

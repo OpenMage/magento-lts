@@ -18,16 +18,22 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * Storage systems ids
      */
     public const STORAGE_MEDIA_FILE_SYSTEM         = 0;
+
     public const STORAGE_MEDIA_DATABASE            = 1;
 
     /**
      * Config paths for storing storage configuration
      */
     public const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
+
     public const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
+
     public const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
+
     public const XML_PATH_MEDIA_RESOURCE_IGNORED   = 'default/system/media_storage_configuration/ignored_resources';
+
     public const XML_PATH_MEDIA_LOADED_MODULES     = 'default/system/media_storage_configuration/loaded_modules';
+
     public const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
 
     /**
@@ -46,10 +52,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         Mage_Core_Model_Abstract $sourceModel,
         Mage_Core_Model_Abstract $destinationModel
     ) {
-        if (!$sourceModel || !$destinationModel) {
-            return true;
-        }
-
         return $sourceModel->hasErrors() || $destinationModel->hasErrors();
     }
 
@@ -72,9 +74,9 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *  init        => bool     - force initialization process for storage model
      * )
      *
-     * @param  int|null $storage
+     * @param  null|int $storage
      * @param  array $params
-     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database|false
+     * @return false|Mage_Core_Model_File_Storage_Database|Mage_Core_Model_File_Storage_File
      */
     public function getStorageModel($storage = null, $params = [])
     {
@@ -166,6 +168,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 $destinationModel->importDirectories($dirs);
                 $offset += count($dirs);
             }
+
             unset($dirs);
 
             $offset = 0;
@@ -184,6 +187,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 $destinationModel->importFiles($files);
                 $offset += count($files);
             }
+
             unset($files);
         }
 
@@ -201,12 +205,12 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         $config['media_directory'] = Mage::getBaseDir('media');
 
         $loadedModules = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_LOADED_MODULES);
-        foreach ($loadedModules as $key => $loadedModule) {
+        foreach ($loadedModules as $loadedModule) {
             $config['loaded_modules'][] = $loadedModule->getName();
         }
 
         $allowedResources = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_RESOURCE_WHITELIST);
-        foreach ($allowedResources as $key => $allowedResource) {
+        foreach ($allowedResources as $allowedResource) {
             $config['allowed_resources'][] = $allowedResource;
         }
 

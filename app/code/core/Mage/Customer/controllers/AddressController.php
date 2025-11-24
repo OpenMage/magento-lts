@@ -33,6 +33,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         return $this;
     }
 
@@ -50,6 +51,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             if ($block) {
                 $block->setRefererUrl($this->_getRefererUrl());
             }
+
             $this->renderLayout();
         } else {
             $this->getResponse()->setRedirect(Mage::getUrl('*/*/new'));
@@ -77,6 +79,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock) {
             $navigationBlock->setActive('customer/address');
         }
+
         $this->renderLayout();
     }
 
@@ -88,6 +91,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*/');
         }
+
         // Save data
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
@@ -159,6 +163,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*/');
         }
+
         $addressId = $this->getRequest()->getParam('id', false);
 
         if ($addressId) {
@@ -178,6 +183,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
             }
         }
+
         $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));
     }
 }

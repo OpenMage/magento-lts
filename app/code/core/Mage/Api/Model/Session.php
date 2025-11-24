@@ -12,18 +12,19 @@
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_User getUser()
- * @method $this setUser(Mage_Api_Model_User $user)
  * @method Mage_Api_Model_Acl getAcl()
+ * @method Mage_Api_Model_User getUser()
  * @method $this setAcl(Mage_Api_Model_Acl $loadAcl)
+ * @method $this setUser(Mage_Api_Model_User $user)
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     public $sessionIds = [];
+
     protected $_currentSessId = null;
 
     /**
-     * @param string|null $sessionName
+     * @param null|string $sessionName
      * @return $this
      */
     public function start($sessionName = null)
@@ -35,7 +36,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * @param string $namespace
-     * @param string|null $sessionName
+     * @param null|string $sessionName
      * @return $this
      */
     public function init($namespace, $sessionName = null)
@@ -43,6 +44,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_currentSessId)) {
             $this->start();
         }
+
         return $this;
     }
 
@@ -55,7 +57,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string|null $sessId
+     * @param null|string $sessId
      * @return $this
      */
     public function setSessionId($sessId = null)
@@ -63,6 +65,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!is_null($sessId)) {
             $this->_currentSessId = $sessId;
         }
+
         return $this;
     }
 
@@ -82,10 +85,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($sessId = $this->getSessionId()) {
             try {
                 Mage::getModel('api/user')->logoutBySessId($sessId);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -145,7 +149,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param Mage_Api_Model_User|null $user
+     * @param null|Mage_Api_Model_User $user
      * @return $this
      */
     public function refreshAcl($user = null)
@@ -153,22 +157,25 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->unsetData('api_key');
             $user->setReloadAclFlag('0')->save();
         }
+
         return $this;
     }
 
     /**
      * Check current user permission on resource and privilege
-     *
      *
      * @param   string $resource
      * @param   string $privilege
@@ -190,10 +197,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return false;
     }
 
@@ -208,12 +216,13 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$user->getId()) {
             return true;
         }
+
         $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 
     /**
-     * @param string|false $sessId
+     * @param false|string $sessId
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -228,6 +237,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($userExists) {
             Mage::register('isSecureArea', true, true);
         }
+
         return $userExists;
     }
 
@@ -253,6 +263,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             return true;
         }
+
         return false;
     }
 }

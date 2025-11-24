@@ -82,6 +82,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
                 'pricing_value' => $option->getPrice($option->getPriceType() === 'percent'),
             ]);
         }
+
         return '';
     }
 
@@ -147,6 +148,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         } else {
             $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
         }
+
         return $price;
     }
 

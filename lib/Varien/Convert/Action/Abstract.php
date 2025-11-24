@@ -51,6 +51,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         if (!isset($this->_params[$key])) {
             return $default;
         }
+
         return $this->_params[$key];
     }
 
@@ -68,6 +69,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         } else {
             $this->_params[$key] = $value;
         }
+
         return $this;
     }
 
@@ -143,6 +145,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
             $class = $this->getParam('class');
             $this->setContainer(new $class());
         }
+
         return $this->_container;
     }
 
@@ -172,6 +175,7 @@ abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_I
         } else {
             $this->addException('No method specified', Varien_Convert_Exception::FATAL);
         }
+
         return $this;
     }
 }

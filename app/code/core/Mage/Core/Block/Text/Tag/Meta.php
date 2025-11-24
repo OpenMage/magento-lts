@@ -11,11 +11,11 @@
  * @package    Mage_Core
  *
  * @method string getContentType()
- * @method $this setContentType(string $value)
- * @method string getTitle()
  * @method string getDescription()
  * @method string getKeywords()
  * @method string getRobots()
+ * @method string getTitle()
+ * @method $this setContentType(string $value)
  */
 class Mage_Core_Block_Text_Tag_Meta extends Mage_Core_Block_Text
 {
@@ -27,6 +27,7 @@ class Mage_Core_Block_Text_Tag_Meta extends Mage_Core_Block_Text
         if (!$this->getContentType()) {
             $this->setContentType('text/html; charset=utf-8');
         }
+
         $this->addText('<meta http-equiv="Content-Type" content="' . $this->getContentType() . '"/>' . "\n");
         $this->addText('<title>' . $this->getTitle() . '</title>' . "\n");
         $this->addText('<meta name="title" content="' . $this->getTitle() . '"/>' . "\n");

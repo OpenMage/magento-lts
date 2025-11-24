@@ -13,16 +13,25 @@
 class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const REPORT_PERIOD_TYPE_DAY    = 'day';
+
     public const REPORT_PERIOD_TYPE_MONTH  = 'month';
+
     public const REPORT_PERIOD_TYPE_YEAR   = 'year';
 
     public const PERIOD_CUSTOM      = 'custom';
+
     public const PERIOD_24_HOURS    = '24h';
+
     public const PERIOD_7_DAYS      = '7d';
+
     public const PERIOD_1_MONTH     = '1m';
+
     public const PERIOD_3_MONTHS    = '3m';
+
     public const PERIOD_6_MONTHS    = '6m';
+
     public const PERIOD_1_YEAR      = '1y';
+
     public const PERIOD_2_YEARS     = '2y';
 
     public const XML_PATH_REPORTS_ENABLED  = 'reports/general/enabled';
@@ -94,8 +103,10 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
                     $dateStart->addYear(1);
                     break;
             }
+
             $intervals[] = $time;
         }
+
         return  $intervals;
     }
 

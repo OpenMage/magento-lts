@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         if ($this->getData('id') === null) {
             $this->setData('id', Mage::helper('core')->uniqHash('id_'));
         }
+
         return $this->getData('id');
     }
 
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         if (!isset($params['_current'])) {
             $params['_current'] = true;
         }
+
         return $this->getUrl('*/*/*', $params);
     }
 

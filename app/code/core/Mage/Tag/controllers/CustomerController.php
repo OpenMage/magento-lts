@@ -15,7 +15,7 @@
 class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @return int|false
+     * @return false|int
      * @throws Mage_Core_Exception
      */
     protected function _getTagId()
@@ -28,6 +28,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             Mage::register('tagModel', $model);
             return $model->getTagId();
         }
+
         return false;
     }
 
@@ -85,7 +86,6 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     /**
      * @deprecated after 1.3.2.3
      * This functionality was removed
-     *
      */
     public function editAction()
     {
@@ -110,7 +110,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/')),
                 ]));
                 return;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
         } else {
@@ -121,7 +121,6 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     /**
      * @deprecated after 1.3.2.3
      * This functionality was removed
-     *
      */
     public function saveAction()
     {

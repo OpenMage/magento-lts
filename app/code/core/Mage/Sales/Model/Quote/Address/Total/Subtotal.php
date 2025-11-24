@@ -69,6 +69,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         } else {
             $quoteItem = $item;
         }
+
         $product = $quoteItem->getProduct();
         $product->setCustomerGroupId($quoteItem->getQuote()->getCustomerGroupId());
 

@@ -15,7 +15,7 @@
 class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
     /**
-     * @var IteratorIterator|null
+     * @var null|IteratorIterator
      */
     protected $_iterator = null;
 
@@ -63,8 +63,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Return behavior from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getBehavior()
     {
@@ -76,14 +76,15 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         if (count($behaviors) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
         }
+
         return $behaviors[0];
     }
 
     /**
      * Return entity type code from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getEntityTypeCode()
     {
@@ -95,13 +96,14 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         if (count($entityCodes) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
         }
+
         return $entityCodes[0];
     }
 
     /**
      * Get next bunch of validated rows.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getNextBunch()
     {
@@ -109,6 +111,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $this->_iterator = $this->getIterator();
             $this->_iterator->rewind();
         }
+
         if ($this->_iterator->valid()) {
             $dataRow = $this->_iterator->current();
             $dataRow = Mage::helper('core')->jsonDecode($dataRow[0]);
@@ -117,6 +120,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $this->_iterator = null;
             $dataRow = null;
         }
+
         return $dataRow;
     }
 

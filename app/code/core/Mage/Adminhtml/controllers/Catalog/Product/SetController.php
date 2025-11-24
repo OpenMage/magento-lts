@@ -92,7 +92,6 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * [POST] Create attribute set from another set and redirect to edit page
      * [AJAX] Save attribute set data
-     *
      */
     public function saveAction()
     {
@@ -117,9 +116,11 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 if ($attributeSetId) {
                     $model->load($attributeSetId);
                 }
+
                 if (!$model->getId()) {
                     Mage::throwException(Mage::helper('catalog')->__('This attribute set no longer exists.'));
                 }
+
                 $data = Mage::helper('core')->jsonDecode($this->getRequest()->getPost('data'));
 
                 //filter html tags
@@ -133,6 +134,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $model->save();
                 $model->initFromSkeleton($this->getRequest()->getParam('skeleton_set'));
             }
+
             $model->save();
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
         } catch (Mage_Core_Exception $e) {
@@ -162,6 +164,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $response['error']   = 0;
                 $response['url']     = $this->getUrl('*/*/');
             }
+
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
         }
     }
@@ -193,7 +196,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
             $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }
@@ -212,7 +215,6 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
     /**
      * Define in register catalog_product entity type code as entityType
-     *
      */
     protected function _setTypeId()
     {
@@ -232,6 +234,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         if (is_null(Mage::registry('entityType'))) {
             $this->_setTypeId();
         }
+
         return Mage::registry('entityType');
     }
 }

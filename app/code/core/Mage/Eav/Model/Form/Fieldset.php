@@ -13,17 +13,18 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
- * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
- * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
- * @method int getTypeId()
- * @method $this setTypeId(int $value)
  * @method string getCode()
- * @method $this setCode(string $value)
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
  * @method string getLabel()
- * @method bool hasLabels()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getResourceCollection()
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
+ * @method int getTypeId()
+ * @method bool hasLabels()
  * @method bool hasStoreId()
+ * @method $this setCode(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setTypeId(int $value)
  */
 class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
 {
@@ -50,6 +51,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->getTypeId()) {
             Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
         }
+
         if (!$this->getStoreId() && $this->getLabel()) {
             $this->setStoreLabel($this->getStoreId(), $this->getLabel());
         }
@@ -67,6 +69,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasData('labels')) {
             $this->setData('labels', $this->_getResource()->getLabels($this));
         }
+
         return $this->_getData('labels');
     }
 
@@ -106,6 +109,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             $this->setData('store_id', Mage::app()->getStore()->getId());
         }
+
         return $this->_getData('store_id');
     }
 }

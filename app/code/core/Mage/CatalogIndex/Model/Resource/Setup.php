@@ -13,7 +13,7 @@
 class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $_storeToWebsite   = null;
 
@@ -27,6 +27,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
         foreach ($assignment as $website => $stores) {
             $this->_setWebsiteInfo($table, $website, $stores);
         }
+
         return $this;
     }
 

@@ -46,6 +46,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
         if (count($indexes)) {
             $this->addFieldToFilter('main_table.customer_group_id', ['nin' => $indexes]);
         }
+
         return $this;
     }
 

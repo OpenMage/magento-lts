@@ -49,7 +49,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * @param int $websiteId
      * @param int $customerGroupId
      * @param string $couponCode
-     * @param string|null $now
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteGroupDateFilter()
      *
      * @return $this
@@ -102,6 +102,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
+
             $this->setOrder('sort_order', self::SORT_ORDER_ASC);
             $this->setFlag('validation_filter', true);
         }
@@ -116,7 +117,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      *
      * @param int $websiteId
      * @param int $customerGroupId
-     * @param string|null $now
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteFilter()
      *
      * @return $this

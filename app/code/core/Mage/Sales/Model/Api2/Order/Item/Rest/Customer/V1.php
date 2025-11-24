@@ -18,8 +18,8 @@ class Mage_Sales_Model_Api2_Order_Item_Rest_Customer_V1 extends Mage_Sales_Model
      * Load order by id
      *
      * @param int $id
-     * @throws Mage_Api2_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Api2_Exception
      */
     protected function _loadOrderById($id)
     {
@@ -28,10 +28,12 @@ class Mage_Sales_Model_Api2_Order_Item_Rest_Customer_V1 extends Mage_Sales_Model
         if (!$order->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         // check order owner
         if ($this->getApiUser()->getUserId() != $order->getCustomerId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $order;
     }
 }

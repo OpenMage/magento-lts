@@ -33,6 +33,7 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
         if (!$orderIncIds) {
             $orderIncIds = [];
         }
+
         $orderIncIds[$orderIncrementId] = 1;
         $this->setDirectPostOrderIncrementIds($orderIncIds);
     }
@@ -53,6 +54,7 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
         if (isset($orderIncIds[$orderIncrementId])) {
             unset($orderIncIds[$orderIncrementId]);
         }
+
         $this->setDirectPostOrderIncrementIds($orderIncIds);
     }
 
@@ -68,6 +70,7 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
         if (is_array($orderIncIds) && isset($orderIncIds[$orderIncrementId])) {
             return true;
         }
+
         return false;
     }
 }

@@ -31,7 +31,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
 
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -98,6 +97,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         } else {
             $this->addFieldToFilter('website_id', $ids);
         }
+
         return $this;
     }
 
@@ -109,6 +109,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         if (!$this->getLoadDefault()) {
             $this->getSelect()->where('main_table.website_id > ?', 0);
         }
+
         $this->unshiftOrder('main_table.name', Varien_Db_Select::SQL_ASC)       // website name SECOND
              ->unshiftOrder('main_table.sort_order', Varien_Db_Select::SQL_ASC); // website sort order FIRST
 
@@ -144,6 +145,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             ;
             $this->setFlag('groups_and_stores_joined', true);
         }
+
         return $this;
     }
 
@@ -151,7 +153,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      * Adding filter by group id or array of ids but only if
      * tables with appropriate information were joined before.
      *
-     * @param int|array $groupIds
+     * @param array|int $groupIds
      * @return $this
      */
     public function addFilterByGroupIds($groupIds)
@@ -159,6 +161,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         if ($this->getFlag('groups_and_stores_joined')) {
             $this->addFieldToFilter('group_table.group_id', $groupIds);
         }
+
         return $this;
     }
 }

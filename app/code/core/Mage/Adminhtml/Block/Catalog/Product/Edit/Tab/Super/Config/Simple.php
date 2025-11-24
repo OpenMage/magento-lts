@@ -68,6 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 if (!in_array($inputType, $availableTypes)) {
                     continue;
                 }
+
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
@@ -107,7 +108,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 'values' => $attribute->getSource()->getAllOptions(true, true),
                 'required' => true,
                 'class'    => 'validate-configurable',
-                'onchange' => 'superProduct.showPricing(this, \'' . $attributeCode . '\')',
+                'onchange' => "superProduct.showPricing(this, '" . $attributeCode . "')",
             ]);
 
             $fieldset->addField('simple_product_' . $attributeCode . '_pricing_value', 'hidden', [
@@ -177,6 +178,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
         if (!$this->_product) {
             $this->_product = Mage::registry('current_product');
         }
+
         return $this->_product;
     }
 }

@@ -29,7 +29,7 @@ final class LayoutTest extends OpenMageTest
      * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
      * @group Helper
      */
-    public function testApplyTemplate(): void
+    public function testIsModuleEnabled(): void
     {
         self::assertTrue(self::$subject->isModuleEnabled());
     }

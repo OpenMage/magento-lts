@@ -11,6 +11,8 @@
  * Customers collection
  *
  * @package    Mage_Tag
+ *
+ * @property Magento_Db_Adapter_Pdo_Mysql $_read
  */
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
@@ -54,6 +56,8 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
      * @param bool $printQuery
      * @param bool $logQuery
      * @return $this|Mage_Eav_Model_Entity_Collection_Abstract
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -66,16 +70,19 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
      * @param bool $printQuery
      * @param bool $logQuery
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _loadTags($printQuery = false, $logQuery = false)
     {
         if (empty($this->_items)) {
             return $this;
         }
+
         $customerIds = [];
         foreach ($this->getItems() as $item) {
             $customerIds[] = $item->getId();
         }
+
         $this->getSelect()->reset()
             ->from(['tr' => $this->_tagRelTable], ['*','total_used' => 'count(tr.tag_relation_id)'])
             ->joinLeft(['t' => $this->_tagTable], 't.tag_id=tr.tag_id')
@@ -90,13 +97,16 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
             if (!isset($tags[ $row['customer_id'] ])) {
                 $tags[ $row['customer_id'] ] = [];
             }
+
             $tags[ $row['customer_id'] ][] = $row;
         }
+
         foreach ($this->getItems() as $item) {
             if (isset($tags[$item->getId()])) {
                 $item->setData('tags', $tags[$item->getId()]);
             }
         }
+
         return $this;
     }
 }

@@ -115,7 +115,7 @@ $numColumns = count($this->getColumns());
             <?php $rows=count($report) ?>
             <?php if ($rows > 0 ): ?>
             <td rowspan="<?php echo $rows + ($this->getCountTotals() && $this->getSubtotalVisibility()?1:0) ?>"><?php echo $_index ?></td>
-                <?php $i=0;foreach ($report as $_subIndex=>$_subItem): ?>
+                <?php $i=0;foreach ($report as $_subItem): ?>
                     <?php if($i>0): ?>
                     <tr>
                     <?php endif ?>

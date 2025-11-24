@@ -37,7 +37,7 @@ final class InboxTest extends OpenMageTest
      * @dataProvider provideGetSeverities
      * @group Model
      */
-    public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
+    public function testGetSeverities(null|array|string $expectedResult, ?int $severity): void
     {
         self::assertSame($expectedResult, self::$subject->getSeverities($severity));
     }
@@ -76,8 +76,8 @@ final class InboxTest extends OpenMageTest
     {
         try {
             self::$subject->add(0, self::TITLE, __METHOD__);
-        } catch (Mage_Core_Exception $e) {
-            self::assertSame('Wrong message type', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Wrong message type', $mageCoreException->getMessage());
         }
     }
 

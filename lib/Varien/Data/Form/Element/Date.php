@@ -12,17 +12,17 @@
  *
  * @package    Varien_Data
  *
+ * @method bool getDisabled()
  * @method string getFormat()
+ * @method string getImage()
  * @method string getInputFormat()
  * @method string getLocale()
- * @method string getImage()
  * @method string getTime()
- * @method bool getDisabled()
  */
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
     /**
-     * @var Zend_Date|string
+     * @var string|Zend_Date
      */
     protected $_value;
 
@@ -73,15 +73,18 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             $this->_value = '';
             return $this;
         }
+
         if ($value instanceof Zend_Date) {
             $this->_value = $value;
             return $this;
         }
+
         if (preg_match('/^\d+$/', $value)) {
             $this->_value = new Zend_Date($this->_toTimestamp($value));
             //$this->_value = new Zend_Date((int)value);
             return $this;
         }
+
         // last check, if input format was set
         if (null === $format) {
             $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
@@ -89,17 +92,20 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                 $format = $this->getInputFormat();
             }
         }
+
         // last check, if locale was set
         if (null === $locale) {
             if (!$locale = $this->getLocale()) {
                 $locale = null;
             }
         }
+
         try {
             $this->_value = new Zend_Date($value, $format, $locale);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_value = '';
         }
+
         return $this;
     }
 
@@ -115,22 +121,25 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($this->_value)) {
             return '';
         }
+
         if (null === $format) {
             $format = $this->getFormat();
         }
+
         return $this->_value->toString($format);
     }
 
     /**
      * Get value instance, if any
      *
-     * @return Zend_Date|string|null
+     * @return null|string|Zend_Date
      */
     public function getValueInstance()
     {
         if (empty($this->_value)) {
             return null;
         }
+
         return $this->_value;
     }
 
@@ -162,6 +171,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($outputFormat)) {
             throw new Exception('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().');
         }
+
         $displayFormat = Varien_Date::convertZendToStrftime($outputFormat, true, (bool) $this->getTime());
 
         $html .= sprintf(

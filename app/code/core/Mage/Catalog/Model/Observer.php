@@ -30,8 +30,10 @@ class Mage_Catalog_Model_Observer
             if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
                 Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
             }
+
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
+
         return $this;
     }
 
@@ -51,6 +53,7 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
         }
+
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
@@ -74,6 +77,7 @@ class Mage_Catalog_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -90,6 +94,7 @@ class Mage_Catalog_Model_Observer
             $store = $observer->getEvent()->getStore();
             Mage::getResourceModel('catalog/category_flat')->deleteStores($store->getId());
         }
+
         return $this;
     }
 
@@ -108,6 +113,7 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->move($categoryId, $prevParentId, $parentId);
         }
+
         return $this;
     }
 
@@ -147,6 +153,7 @@ class Mage_Catalog_Model_Observer
             $category = $observer->getEvent()->getCategory();
             Mage::getResourceModel('catalog/category_flat')->synchronize($category);
         }
+
         return $this;
     }
 
@@ -188,7 +195,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Recursively adds categories to top menu
      *
-     * @param Varien_Data_Tree_Node_Collection|array $categories
+     * @param array|Varien_Data_Tree_Node_Collection $categories
      * @param Varien_Data_Tree_Node $parentCategoryNode
      * @param Mage_Page_Block_Html_Topmenu $menuBlock
      * @param bool $addTags
@@ -263,11 +270,12 @@ class Mage_Catalog_Model_Observer
         if (!is_object($attribute)) {
             return;
         }
+
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {
             throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode()),
+                Mage::helper('catalog')->__("The attribute code '%s' is reserved by system. Please try another attribute code", $attribute->getAttributeCode()),
             );
         }
     }

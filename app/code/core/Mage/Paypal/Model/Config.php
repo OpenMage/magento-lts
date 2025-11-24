@@ -12,23 +12,35 @@ declare(strict_types=1);
 class Mage_Paypal_Model_Config extends Varien_Object
 {
     public const BUTTON_SHAPE_RECT = 'rect';
+
     public const BUTTON_SHAPE_PILL = 'pill';
+
     public const BUTTON_SHAPE_SHARP = 'sharp';
 
     public const BUTTON_COLOR_GOLD = 'gold';
+
     public const BUTTON_COLOR_BLUE = 'blue';
+
     public const BUTTON_COLOR_SILVER = 'silver';
+
     public const BUTTON_COLOR_WHITE = 'white';
+
     public const BUTTON_COLOR_BLACK = 'black';
 
     public const BUTTON_LAYOUT_VERTICAL = 'vertical';
+
     public const BUTTON_LAYOUT_HORIZONTAL = 'horizontal';
 
     public const BUTTON_LABEL_PAYPAL = 'paypal';
+
     public const BUTTON_LABEL_CHECKOUT = 'checkout';
+
     public const BUTTON_LABEL_BUYNOW = 'buynow';
+
     public const BUTTON_LABEL_PAY = 'pay';
+
     public const BUTTON_LABEL_INSTALLMENT = 'installment';
+
     protected $_cachedCredentials = null;
 
     /**
@@ -77,6 +89,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
                 'client_secret' => Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
             ];
         }
+
         return $this->_cachedCredentials;
     }
 
@@ -115,7 +128,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
     /**
      * Retrieves an array of configuration settings for the PayPal button.
      *
-     * @return array<string, string|bool>
+     * @return array<string, bool|string>
      */
     public function getButtonConfiguration(): array
     {
@@ -129,10 +142,11 @@ class Mage_Paypal_Model_Config extends Varien_Object
     }
 
 
+
     /**
      * Checks if the PayPal payment method is active for the given store.
      *
-     * @param mixed|null $store The store ID or object to check for.
+     * @param null|mixed $store the store ID or object to check for
      */
     public function isActive(mixed $store = null): bool
     {
@@ -152,8 +166,8 @@ class Mage_Paypal_Model_Config extends Varien_Object
     /**
      * Retrieves a specific configuration value from the store config.
      *
-     * @param string $field The configuration field to retrieve.
-     * @param mixed|null $store The store ID or object.
+     * @param string $field the configuration field to retrieve
+     * @param null|mixed $store the store ID or object
      */
     protected function getConfigData(string $field, mixed $store = null): mixed
     {

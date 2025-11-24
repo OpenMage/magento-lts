@@ -199,7 +199,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
      * @param string $frontModule
      * @param string $controllerName
      * @param string $actionName
-     * @return string|bool
+     * @return bool|string
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
@@ -208,6 +208,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
         } else {
             $targetToFind = $controllerName . '/' . $actionName;
         }
+
         if (isset($this->_moduleMappings[$frontModule])
             && isset($this->_moduleMappings[$frontModule][$targetToFind])
         ) {
@@ -220,7 +221,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Determine which version of docs should target onto
      *
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @return false|Mage_Core_Model_Config_Element|Varien_Simplexml_Element
      */
     protected function getHelpTargetVersion()
     {

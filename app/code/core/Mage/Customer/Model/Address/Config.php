@@ -15,7 +15,9 @@
 class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 {
     public const DEFAULT_ADDRESS_RENDERER  = 'customer/address_renderer_default';
+
     public const XML_PATH_ADDRESS_TEMPLATE = 'customer/address_templates/';
+
     public const DEFAULT_ADDRESS_FORMAT    = 'oneline';
 
     /**
@@ -28,7 +30,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store           = null;
 
@@ -46,7 +48,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     private $_defaultType       = [];
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -66,12 +68,12 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
     /**
      * Define node
-     *
      */
     public function __construct()
     {
@@ -93,7 +95,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower((string) $typeConfig->htmlEscape);
-                $htmlEscape = !($htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
+                $htmlEscape = !(in_array($htmlEscape, ['false', '0', 'no'])
                     || !strlen($htmlEscape));
                 $type->setCode($typeCode)
                     ->setTitle((string) $typeConfig->title)
@@ -137,6 +139,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                     ->getRenderer(self::DEFAULT_ADDRESS_RENDERER)->setType($this->_defaultType[$storeId]),
             );
         }
+
         return $this->_defaultType[$storeId];
     }
 
@@ -153,6 +156,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 return $type;
             }
         }
+
         return $this->_getDefaultFormat();
     }
 }

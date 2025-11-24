@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 55;
+
     protected $_values;
 
     /**
@@ -27,8 +28,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
         if (is_null($this->_values)) {
             $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
         }
+
         return $this->_values;
     }
+
     /**
      * Renders grid column
      *
@@ -43,6 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
         } else {
             $checked = ($value === $this->getColumn()->getValue()) ? ' checked="checked"' : '';
         }
+
         $html = '<input type="radio" name="' . $this->getColumn()->getHtmlName() . '" ';
         return $html . ('value="' . $row->getId() . '" class="radio"' . $checked . '/>');
     }

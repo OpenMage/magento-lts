@@ -29,6 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Sender extends Mage_Core_
         if (strlen($value) > 255) {
             Mage::throwException(Mage::helper('adminhtml')->__('Maximum sender name length is 255. Please correct your settings.'));
         }
+
         return $this;
     }
 }

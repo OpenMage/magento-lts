@@ -12,21 +12,21 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
- * @method int|null getOptionId()
- * @method $this setOptionId(int|null $value)
- * @method int|null getOptionTypeId()
- * @method $this setOptionTypeId(int|null $value)
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
+ * @method null|int getOptionId()
+ * @method null|int getOptionTypeId()
  * @method string getPriceType()
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
  * @method string getSku()
- * @method $this setSku(string $value)
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
  * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
+ * @method $this setOptionId(null|int $value)
+ * @method $this setOptionTypeId(null|int $value)
+ * @method $this setSku(string $value)
+ * @method $this setSortOrder(int $value)
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
@@ -122,6 +122,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         if (is_null($this->_product)) {
             $this->_product = $this->getOption()->getProduct();
         }
+
         return $this->_product;
     }
 
@@ -152,7 +153,9 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
-        }//eof foreach()
+        }
+
+        //eof foreach()
         return $this;
     }
 
@@ -169,6 +172,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
             return $basePrice * ($this->_getData('price') / 100);
         }
+
         return $this->_getData('price');
     }
 

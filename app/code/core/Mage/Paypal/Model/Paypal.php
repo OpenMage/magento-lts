@@ -20,23 +20,34 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 {
     // Payment method configuration
     protected $_code = 'paypal';
+
     protected $_formBlockType = 'paypal/form';
+
     protected $_infoBlockType = 'paypal/adminhtml_info';
+
     protected $_canAuthorize = true;
+
     protected $_canCapture = true;
+
     protected $_canRefund = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid = true;
+
     protected $_canUseForMultishipping = false;
+
     protected $_canUseInternal = false;
+
     protected $_isGateway = true;
+
     protected $_canUseCheckout = true;
 
     /**
      * Create PayPal order via API
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
-     * @param string|null $fundingSource Funding source for the order, e.g., 'mybank'
+     * @param null|string $fundingSource Funding source for the order, e.g., 'mybank'
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
@@ -51,7 +62,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * @param string $orderId PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
-    public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
+    public function captureOrder(string $orderId, Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote): void
     {
         $this->getPaymentProcessor()->captureOrder($orderId, $quote);
     }
@@ -140,7 +151,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Check if payment method is available
      *
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param null|Mage_Sales_Model_Quote $quote
      */
     public function isAvailable($quote = null): bool
     {

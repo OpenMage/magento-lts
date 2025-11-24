@@ -41,6 +41,7 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
         } elseif (is_string($params)) {
             $this->addText(' ' . $params);
         }
+
         $this->addText('>' . $this->getInnerText() . '</li>' . "\r\n");
 
         return parent::_toHtml();

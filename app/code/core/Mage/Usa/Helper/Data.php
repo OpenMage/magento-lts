@@ -20,7 +20,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  mixed $value
      * @param  string $sourceWeightMeasure
      * @param  string $toWeightMeasure
-     * @return int|null|string
+     * @return null|int|string
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
@@ -30,16 +30,19 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             $unitWeight->setType($toWeightMeasure);
             return $unitWeight->getValue();
         }
+
         return null;
     }
 
     /**
      * Convert dimensions in different measure types
      *
-     * @param  mixed $value
+     * @param  float|int|string $value
      * @param  string $sourceDimensionMeasure
      * @param  string $toDimensionMeasure
-     * @return int|null|string
+     * @return null|int|string
+     * @throws Zend_Locale_Exception
+     * @throws Zend_Measure_Exception
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {
@@ -49,6 +52,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             $unitDimension->setType($toDimensionMeasure);
             return $unitDimension->getValue();
         }
+
         return null;
     }
 
@@ -57,6 +61,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  $key
      * @return string
+     * @throws Zend_Measure_Exception
      */
     public function getMeasureWeightName($key)
     {
@@ -65,6 +70,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
             return $conversionList[$key][1];
         }
+
         return '';
     }
 
@@ -73,6 +79,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  $key
      * @return string
+     * @throws Zend_Measure_Exception
      */
     public function getMeasureDimensionName($key)
     {
@@ -81,6 +88,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
             return $conversionList[$key][1];
         }
+
         return '';
     }
 
@@ -137,6 +145,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
             }
         }
+
         return $result;
     }
 }

@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminht
                 $value = $this->escapeHtml($row->getData($matches[1][$matchIndex]));
                 $formattedString = str_replace($match, $value, $formattedString);
             }
+
             return $formattedString;
         } else {
             return $this->escapeHtml($format);

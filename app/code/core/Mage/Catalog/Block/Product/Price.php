@@ -12,9 +12,9 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setPriceElementIdPrefix(string $value)
- * @method bool hasRealPriceHtml()
  * @method string getRealPriceHtml()
+ * @method bool hasRealPriceHtml()
+ * @method $this setPriceElementIdPrefix(string $value)
  * @method $this setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
@@ -44,6 +44,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$product) {
             $product = Mage::registry('product');
         }
+
         return $product;
     }
 
@@ -91,6 +92,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (is_null($product)) {
             $product = $this->getProduct();
         }
+
         $prices = $product->getFormatedTierPrice();
 
         // if our parent is a bundle, then we need to further adjust our tier prices
@@ -102,7 +104,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $productPrice = $product->getPrice();
                 if ($product->getPrice() != $product->getFinalPrice()) {
@@ -178,6 +180,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
@@ -208,8 +211,8 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * If attribute is not found false is returned
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
+     * @param int|Mage_Core_Model_Config_Element|string $attribute
+     * @return false|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attribute)
     {
@@ -232,6 +235,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

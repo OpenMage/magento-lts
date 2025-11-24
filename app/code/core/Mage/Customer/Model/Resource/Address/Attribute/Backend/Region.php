@@ -17,7 +17,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage
     /**
      * Prepare object for save
      *
-     * @param Varien_Object|Mage_Customer_Model_Address $object
+     * @param Mage_Customer_Model_Address|Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -30,6 +30,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage
                     ->setRegion($regionModel->getName());
             }
         }
+
         return $this;
     }
 }

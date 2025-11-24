@@ -23,6 +23,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
             if ($this->getData('product')->getProductId()) {
                 $productId = $this->getData('product')->getProductId();
             }
+
             if ($productId) {
                 $product = Mage::getModel('catalog/product')->load($productId);
                 if ($product) {
@@ -30,6 +31,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $this->getData('product');
     }
 
@@ -49,6 +51,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
         if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
             $this->_finalPrice[$this->getProduct()->getId()] = $this->getProduct()->getFinalPrice();
         }
+
         return $this->_finalPrice[$this->getProduct()->getId()];
     }
 

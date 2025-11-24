@@ -22,7 +22,6 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process validate payment data action
-     *
      */
     public function validatePaymentDataAction()
     {
@@ -33,6 +32,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             if (!$validator) {
                 throw new Exception('This payment method does not have centinel validation.');
             }
+
             $validator->reset();
             $this->_getPayment()->importData($paymentData);
             $result['authenticationUrl'] = $validator->getAuthenticationStartUrl();
@@ -42,24 +42,24 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             Mage::logException($e);
             $result['message'] = Mage::helper('centinel')->__('Validation failed.');
         }
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     /**
      * Process authentication start action
-     *
      */
     public function authenticationStartAction()
     {
         if ($validator = $this->_getValidator()) {
             Mage::register('current_centinel_validator', $validator);
         }
+
         $this->loadLayout()->renderLayout();
     }
 
     /**
      * Process authentication complete action
-     *
      */
     public function authenticationCompleteAction()
     {
@@ -74,9 +74,10 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
                 $validator->authenticate($data);
                 Mage::register('current_centinel_validator', $validator);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register('current_centinel_validator', false);
         }
+
         $this->loadLayout()->renderLayout();
     }
 
@@ -94,13 +95,14 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service|false
+     * @return false|Mage_Centinel_Model_Service
      */
     private function _getValidator()
     {
         if ($this->_getPayment()->getMethodInstance()->getIsCentinelValidationEnabled()) {
             return $this->_getPayment()->getMethodInstance()->getCentinelValidator();
         }
+
         return false;
     }
 }

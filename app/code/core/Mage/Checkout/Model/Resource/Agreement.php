@@ -32,9 +32,11 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         if (!$height) {
             $height = '';
         }
+
         if ($height && preg_match('/\d$/', $height)) {
             $height .= 'px';
         }
+
         $object->setContentHeight($height);
         return parent::_beforeSave($object);
     }
@@ -82,7 +84,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
      *
      * @param string $field
      * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Checkout_Model_Agreement $object
+     * @param Mage_Checkout_Model_Agreement|Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -98,6 +100,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
             ->order('store_id DESC')
             ->limit(1);
         }
+
         return $select;
     }
 }

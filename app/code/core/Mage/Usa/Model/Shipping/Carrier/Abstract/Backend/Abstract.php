@@ -52,8 +52,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
     /**
      * Check for presence in array with allow value.
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -61,6 +61,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
         if (!method_exists($sourceModel, 'toOptionArray')) {
             Mage::throwException(Mage::helper('usa')->__('Method toOptionArray not found in source model.'));
         }
+
         $value = $this->getValue();
         foreach ($sourceModel->toOptionArray() as $allowedValue) {
             if (isset($allowedValue['value']) && $allowedValue['value'] == $value) {

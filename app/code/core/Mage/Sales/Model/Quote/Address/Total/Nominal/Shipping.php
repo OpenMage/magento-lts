@@ -19,6 +19,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
      * @var bool
      */
     protected $_canAddAmountToAddress = false;
+
     protected $_canSetAddressAmount   = false;
 
     /**
@@ -88,6 +89,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping extends Mage_Sales_M
         if ($this->_shouldGetAllItems) {
             return $address->getAllItems();
         }
+
         return $address->getAllNominalItems();
     }
 }

@@ -15,8 +15,11 @@
 class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 {
     public const VISIBILITY_NOT_VISIBLE    = 1;
+
     public const VISIBILITY_IN_CATALOG     = 2;
+
     public const VISIBILITY_IN_SEARCH      = 3;
+
     public const VISIBILITY_BOTH           = 4;
 
     /**
@@ -28,7 +31,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 
     /**
      * Initialize object
-     *
      */
     public function __construct()
     {
@@ -39,30 +41,32 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add visible in catalog filter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInCatalogIds());
         return $this;
     }
+
     /**
      * Add visibility in searchfilter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility($this->getVisibleInSearchIds());
         return $this;
     }
+
     /**
      * Add visibility in site filter to collection
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -126,10 +130,10 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     }
 
     /**
-    * Retrieve all options
-    *
-    * @return array
-    */
+     * Retrieve all options
+     *
+     * @return array
+     */
     public static function getAllOption()
     {
         $options = self::getOptionArray();
@@ -152,6 +156,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 
@@ -207,7 +212,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

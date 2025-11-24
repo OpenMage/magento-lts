@@ -14,7 +14,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
     /**
      * Common method to add CSP headers for a specific area
      *
-     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      * @throws Zend_Controller_Response_Exception
      */
     protected function addCspHeaders(Varien_Event_Observer $observer, string $area): void
@@ -66,6 +66,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
             $headerValue = implode('; ', $cspDirectives);
             $cspDirectives = [$headerValue];
         }
+
         // Set the CSP headers
         $headerName = $helper->getReportOnly($area)
             ? Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
@@ -75,6 +76,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
                 $headerValue .= '; report-uri ' . $reportUriEndpoint;
                 $headerValue .= '; report-to csp-endpoint';
             }
+
             $response->setHeader($headerName, $headerValue);
         }
     }
@@ -92,6 +94,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
                 $cspParts[$directive] = $directive . ' ' . implode(' ', $values);
             }
         }
+
         return $cspParts;
     }
 }

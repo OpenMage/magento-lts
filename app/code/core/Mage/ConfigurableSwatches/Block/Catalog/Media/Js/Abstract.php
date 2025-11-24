@@ -52,7 +52,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
-     * @param bool|null $keepFrame
+     * @param null|bool $keepFrame
      * @return array
      */
     public function getProductImageFallbacks($keepFrame = null)
@@ -97,6 +97,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
                 break;
             }
         }
+
         return $keepFrame;
     }
 
@@ -121,6 +122,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return ''; // do not render block
         }
+
         return parent::_toHtml();
     }
 }

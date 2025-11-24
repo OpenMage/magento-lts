@@ -76,6 +76,7 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
                 'onclick'     => 'order.validateVat(' . $optionsVarName . ')',
             ]);
         }
+
         return $this->_validateButton;
     }
 }

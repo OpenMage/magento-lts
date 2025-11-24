@@ -25,8 +25,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function _loadEntities($printQuery = false, $logQuery = false)
     {
@@ -39,14 +39,13 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
         try {
             /**
              * Prepare select query
-             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
-        } catch (Exception $e) {
-            Mage::printException($e, $query);
+        } catch (Exception $exception) {
+            Mage::printException($exception, $query);
             $this->printLogQuery(true, true, $query);
-            throw $e;
+            throw $exception;
         }
 
         foreach ($rows as $v) {

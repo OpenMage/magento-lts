@@ -154,6 +154,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 'label' => $this->helper('core')->jsQuoteEscape($type['label']),
             ];
         }
+
         array_unshift($productsOptions, [
             'value' => 'all_products',
             'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types')),
@@ -220,6 +221,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 'product_type_id' => $typeId,
             ];
         }
+
         return $container;
     }
 
@@ -293,6 +295,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 ];
             }
         }
+
         return $pageGroups;
     }
 }

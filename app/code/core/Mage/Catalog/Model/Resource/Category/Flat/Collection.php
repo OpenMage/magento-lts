@@ -27,7 +27,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Store id of application
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId        = null;
 
@@ -51,7 +51,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
 
     /**
      *  Collection initialization
-     *
      */
     protected function _construct()
     {
@@ -95,6 +94,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 $condition = ['in' => $ids];
             }
         }
+
         if (isset($condition)) {
             $this->addFieldToFilter('entity_id', $condition);
         }
@@ -125,6 +125,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (is_null($this->_storeId)) {
             return Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
@@ -164,6 +165,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         } else {
             $this->addOrder('name', self::SORT_ORDER_ASC);
         }
+
         return $this;
     }
 
@@ -218,6 +220,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 } else {
                     $expression = $column[2];
                 }
+
                 $this->getSelect()->columns($expression, $column[0]);
             }
 
@@ -245,6 +248,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (!is_string($attribute)) {
             return $this;
         }
+
         $this->setOrder($attribute, $dir);
         return $this;
     }
@@ -308,14 +312,17 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         if (!is_array($paths)) {
             $paths = [$paths];
         }
+
         $select = $this->getSelect();
         $cond   = [];
         foreach ($paths as $path) {
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
         }
+
         if ($cond) {
             $select->where(implode(' OR ', $cond));
         }
+
         return $this;
     }
 

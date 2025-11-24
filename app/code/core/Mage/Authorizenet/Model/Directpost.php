@@ -15,23 +15,36 @@
 class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 {
     protected $_code  = 'authorizenet_directpost';
+
     protected $_formBlockType = 'directpost/form';
+
     protected $_infoBlockType = 'payment/info';
 
     /**
      * Availability options
      */
     protected $_canAuthorize            = true;
+
     protected $_canCapture              = true;
+
     protected $_canCapturePartial       = false;
+
     protected $_canRefund               = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid                 = true;
+
     protected $_canUseInternal          = true;
+
     protected $_canUseCheckout          = true;
+
     protected $_canUseForMultishipping  = false;
+
     protected $_canSaveCc               = false;
+
     protected $_isInitializeNeeded      = true;
+
     protected $_canFetchTransactionInfo = false;
 
     /**
@@ -85,16 +98,18 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
-                    if (!$payment->getParentTransactionId() ||
-                        $result->getTransactionId() != $payment->getParentTransactionId()
+                    if (!$payment->getParentTransactionId()
+                        || $result->getTransactionId() != $payment->getParentTransactionId()
                     ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $payment
                         ->setIsTransactionClosed(0)
                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -150,12 +165,14 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $payment
                         ->setIsTransactionClosed(1)
                         ->setShouldCloseParentTransaction(1)
                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -203,10 +220,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         $payment->setCcLast4($payment->decrypt($last4));
         try {
             $this->_refund($payment, $amount);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $payment->setCcLast4($last4);
-            throw $e;
+            throw $exception;
         }
+
         $payment->setCcLast4($last4);
         return $this;
     }
@@ -242,6 +260,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $shouldCloseCaptureTransaction = $payment->getOrder()->canCreditmemo() ? 0 : 1;
                     $payment
                          ->setIsTransactionClosed(1)
@@ -249,6 +268,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                          ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -282,9 +302,10 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         if ($storeId == null && $this->getStore()) {
             $storeId = $this->getStore();
         }
+
         return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
-            'authorizenet/directpost_payment/response';
+            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)
+            . 'authorizenet/directpost_payment/response';
     }
 
     /**
@@ -341,7 +362,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Sales_Model_Order $order Quote or order object.
+     * @param Mage_Sales_Model_Order $order quote or order object
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)
@@ -370,7 +391,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Validate response data. Needed in controllers.
      *
-     * @return bool true in case of validation success.
+     * @return bool true in case of validation success
      * @throws Mage_Core_Exception in case of validation error
      */
     public function validateResponse()
@@ -387,6 +408,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.'),
             );
         }
+
         return true;
     }
 
@@ -424,6 +446,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
                 );
             }
+
             if ($order->getId() &&  $order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
                 //operate with order
                 $this->_authOrder($order);
@@ -436,9 +459,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
         if ($isError) {
             Mage::throwException(
-                ($responseText && !$response->isApproved()) ?
-                $responseText :
-                Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
+                ($responseText && !$response->isApproved())
+                ? $responseText
+                : Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
             );
         }
     }
@@ -484,7 +507,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Check transaction id came from Authorize.net
      *
      * @return true in case of right transaction id
-     * @throws Mage_Core_Exception in case of bad transaction id.
+     * @throws Mage_Core_Exception in case of bad transaction id
      */
     public function checkTransId()
     {
@@ -493,6 +516,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.'),
             );
         }
+
         return true;
     }
 
@@ -511,7 +535,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
      *
-     *
      * @throws Exception
      */
     protected function _authOrder(Mage_Sales_Model_Order $order)
@@ -519,11 +542,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         try {
             $this->checkResponseCode();
             $this->checkTransId();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //decline the order (in case of wrong response code) but don't return money to customer.
-            $message = $e->getMessage();
+            $message = $exception->getMessage();
             $this->_declineOrder($order, $message, false);
-            throw $e;
+            throw $exception;
         }
 
         $response = $this->getResponse();
@@ -549,7 +572,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         //match amounts. should be equals for authorization.
         //decline the order if amount does not match.
         if (!$this->_matchAmount($payment->getBaseAmountAuthorized())) {
-            $message = Mage::helper('authorizenet')->__('Payment error. Paid amount doesn\'t match the order amount.');
+            $message = Mage::helper('authorizenet')->__("Payment error. Paid amount doesn't match the order amount.");
             $this->_declineOrder($order, $message, true);
             Mage::throwException($message);
         }
@@ -566,8 +589,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
-            Mage::logException($e); // do not cancel order if we couldn't send email
+        } catch (Exception $exception) {
+            Mage::logException($exception); // do not cancel order if we couldn't send email
         }
     }
 
@@ -581,20 +604,21 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     {
         try {
             $response = $this->getResponse();
-            if ($voidPayment &&
-                $response->getXTransId() &&
-                strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
+            if ($voidPayment
+                && $response->getXTransId()
+                && strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
             ) {
                 $order->getPayment()
                     ->setTransactionId(null)
                     ->setParentTransactionId($response->getXTransId())
                     ->void();
             }
+
             $order->registerCancellation($message)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //quiet decline
-            Mage::logException($e);
+            Mage::logException($exception);
         }
     }
 
@@ -617,6 +641,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                         $orderStatus = $order->getConfig()
                                 ->getStateDefaultStatus(Mage_Sales_Model_Order::STATE_PROCESSING);
                     }
+
                     if ($orderStatus) {
                         $order->setStatus($orderStatus);
                     }

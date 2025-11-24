@@ -22,8 +22,10 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
             $this->_redirect('noroute');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
+
     public function popularAction()
     {
         $this->loadLayout();

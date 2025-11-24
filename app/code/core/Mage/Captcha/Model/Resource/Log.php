@@ -32,7 +32,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save or Update count Attempts
      *
-     * @param string|null $login
+     * @param null|string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -47,6 +47,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
+
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
@@ -58,6 +59,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
+
         return $this;
     }
 
@@ -75,6 +77,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
                 ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login],
             );
         }
+
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
@@ -89,7 +92,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by ip
      *
-     * @return string|int
+     * @return int|string
      */
     public function countAttemptsByRemoteAddress()
     {
@@ -97,6 +100,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if (!$ip) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
             ->where('value = ?', $ip);
@@ -107,13 +111,14 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Get count attempts by user login
      *
      * @param string $login
-     * @return string|int
+     * @return int|string
      */
     public function countAttemptsByUserLogin($login)
     {
         if (!$login) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_LOGIN)
             ->where('value = ?', $login);

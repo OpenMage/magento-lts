@@ -19,8 +19,8 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      * necessary for farther process, else date string
      *
      * @param Varien_Object $object
-     * @throws Mage_Eav_Exception
      * @return $this
+     * @throws Mage_Eav_Exception
      */
     public function beforeSave($object)
     {
@@ -29,7 +29,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         if (!$_formated && $object->hasData($attributeName)) {
             try {
                 $value = $this->formatDate($object->getData($attributeName));
-            } catch (Exception $e) {
+            } catch (Exception) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid date'));
             }
 
@@ -50,14 +50,15 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      * string format used from input fields (all date input fields need apply locale settings)
      * int value can be declared in code (this meen whot we use valid date)
      *
-     * @param   string|int $date
-     * @return  string|null
+     * @param   int|string $date
+     * @return  null|string
      */
     public function formatDate($date)
     {
         if (empty($date)) {
             return null;
         }
+
         // unix timestamp given - simply instantiate date object
         if (preg_match('/^\d+$/', $date)) {
             $date = new Zend_Date((int) $date);
@@ -74,6 +75,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                 false,
             );
         }
+
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
 }

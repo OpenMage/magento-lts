@@ -76,12 +76,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             if ($item->getParentItemId()) {
                 continue;
             }
+
             $this->_resetItemData($item);
             if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                 foreach ($item->getChildren() as $child) {
                     $this->_resetItemData($child);
                     $this->_process($address, $child);
                 }
+
                 $this->_recalculateParent($item);
             } else {
                 $this->_process($address, $item);
@@ -255,17 +257,18 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Check if discount should be applied to weee and add weee to discounted price
      *
-     * @deprecated since 1.8
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   float $value
      * @param   float $baseValue
      * @return  $this
+     * @deprecated since 1.8
      */
     protected function _processDiscountSettings($item, $value, $baseValue)
     {
         if ($this->_helper->isDiscounted($this->_store)) {
             Mage::helper('salesrule')->addItemDiscountPrices($item, $baseValue, $value);
         }
+
         return $this;
     }
 
@@ -288,6 +291,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 ->unsPriceInclTax()
                 ->unsBasePriceInclTax();
         }
+
         if ($this->_helper->isTaxable($this->_store)
             && !$this->_helper->isTaxIncluded($this->_store) && $rowValue
         ) {
@@ -298,6 +302,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     ->setBaseExtraRowTaxableAmount($baseRowValue);
             }
         }
+
         return $this;
     }
 
@@ -319,6 +324,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $address->setExtraTaxAmount($address->getExtraTaxAmount() + $rowValue);
             $address->setBaseExtraTaxAmount($address->getBaseExtraTaxAmount() + $baseRowValue);
         }
+
         return $this;
     }
 
@@ -380,10 +386,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     /**
      * Process item fixed taxes
      *
-     * @deprecated since 1.3.2.3
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   bool $updateParent
      * @return  $this
+     * @deprecated since 1.3.2.3
      */
     protected function _processItem(Mage_Sales_Model_Quote_Address $address, $item, $updateParent = false)
     {
@@ -391,6 +397,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         if (!$this->_helper->isEnabled($store)) {
             return $this;
         }
+
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');

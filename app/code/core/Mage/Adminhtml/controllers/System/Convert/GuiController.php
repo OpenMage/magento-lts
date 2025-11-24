@@ -35,6 +35,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
             $this->_forward('grid');
             return;
         }
+
         $this->loadLayout();
 
         /**
@@ -114,6 +115,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         if (!$filename || str_contains($filename, '..') || $filename[0] === '.') {
             return;
         }
+
         $this->_initProfile();
         $profile = Mage::registry('current_convert_profile');
     }

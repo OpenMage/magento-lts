@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     protected $_totals = [];
+
     protected $_currentCurrencyCode = null;
 
     /**
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         if (!$isQuantity) {
             $value = $this->format($value);
         }
+
         $decimals = '';
         $this->_totals[] = [
             'label' => $label,
@@ -63,18 +65,21 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
      * Setting currency model
      *
      * @param Mage_Directory_Model_Currency $currency
+     * @return $this
      */
     public function setCurrency($currency)
     {
         $this->_currency = $currency;
+        return $this;
     }
 
     /**
      * Retrieve currency model if not set then return currency model for current store
      *
      * @return Mage_Directory_Model_Currency
-     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrency()
     {

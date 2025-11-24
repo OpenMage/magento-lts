@@ -41,6 +41,7 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
             $eavExc->setAttributeCode($attributeName);
             throw $eavExc;
         }
+
         return true;
     }
 }

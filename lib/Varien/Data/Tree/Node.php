@@ -10,14 +10,14 @@
 /**
  * Data tree node
  *
- * @method int getLevel()
  * @method string getClass()
- * @method string getPositionClass()
- * @method string getOutermostClass()
- * @method $this setOutermostClass(string $class)
- * @method $this setChildrenWrapClass(string $class)
  * @method bool getIsFirst()
  * @method bool getIsLast()
+ * @method int getLevel()
+ * @method string getOutermostClass()
+ * @method string getPositionClass()
+ * @method $this setChildrenWrapClass(string $class)
+ * @method $this setOutermostClass(string $class)
  *
  * @package    Varien_Data
  */
@@ -211,6 +211,7 @@ class Varien_Data_Tree_Node extends Varien_Object
             $nodes[$node->getId()] = $node;
             $node->getAllChildNodes($nodes);
         }
+
         return $nodes;
     }
 
@@ -235,7 +236,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function appendChild($prevNode = null)
@@ -246,7 +247,7 @@ class Varien_Data_Tree_Node extends Varien_Object
 
     /**
      * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function moveTo($parentNode, $prevNode = null)
@@ -257,7 +258,7 @@ class Varien_Data_Tree_Node extends Varien_Object
 
     /**
      * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param null|Varien_Data_Tree_Node $prevNode
      * @return $this
      */
     public function copyTo($parentNode, $prevNode = null)
@@ -286,6 +287,7 @@ class Varien_Data_Tree_Node extends Varien_Object
             $prevNodes[] = $this;
             $this->_parent->getPath($prevNodes);
         }
+
         return $prevNodes;
     }
 

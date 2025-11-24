@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         if (!$this->_category) {
             $this->_category = Mage::registry('category');
         }
+
         return $this->_category;
     }
 
@@ -44,6 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
             if (!$parentId) {
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             }
+
             $fieldset->addField('path', 'hidden', [
                 'name'  => 'path',
                 'value' => $parentId,
@@ -101,6 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
                 $this->_getParentCategoryOptions($child, $options);
             }
         }
+
         return $options;
     }
 }

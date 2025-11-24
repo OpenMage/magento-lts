@@ -125,9 +125,9 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Get GROUP BY date format
      *
-     * @deprecated since 1.5.0.0
      * @param string $type
      * @return string
+     * @deprecated since 1.5.0.0
      */
     protected function _getGroupByDateFormat($type)
     {
@@ -140,15 +140,16 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
                 $format = '%Y-%m-%d %H';
                 break;
         }
+
         return $format;
     }
 
     /**
      * Get range by type
      *
-     * @deprecated since 1.5.0.0
      * @param string $typeCode
      * @return string
+     * @deprecated since 1.5.0.0
      */
     protected function _getRangeByType($typeCode)
     {
@@ -174,6 +175,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
                 $condition = ['moreq' => 1];
             }
         }
+
         return parent::addFieldToFilter($this->_getFieldMap($fieldName), $condition);
     }
 
@@ -200,6 +202,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         if ($this->isLoaded()) {
             return $this;
         }
+
         Mage::dispatchEvent('log_visitor_collection_load_before', ['collection' => $this]);
         return parent::load($printQuery, $logQuery);
     }

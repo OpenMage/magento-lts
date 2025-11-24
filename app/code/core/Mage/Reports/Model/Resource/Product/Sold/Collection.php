@@ -16,7 +16,6 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
 {
     /**
      * Initialize resources
-     *
      */
     protected function _construct()
     {
@@ -25,11 +24,12 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
         // skip adding stock information to collection for performance reasons
         $this->setFlag('no_stock_data', true);
     }
+
     /**
      * Set Date range to collection
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -51,6 +51,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
         if ($storeIds) {
             $this->getSelect()->where('order_items.store_id IN (?)', (array) $storeIds);
         }
+
         return $this;
     }
 

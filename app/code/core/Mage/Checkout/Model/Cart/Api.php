@@ -40,9 +40,10 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                     ->setIsActive(false)
                     ->setIsMultiShipping(false)
                     ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('create_quote_fault', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('create_quote_fault', $mageCoreException->getMessage());
         }
+
         return (int) $quote->getId();
     }
 
@@ -85,7 +86,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
     /**
      * @param int $quoteId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function totals($quoteId, $store = null)
@@ -101,6 +102,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                 'amount' => $total->getValue(),
             ];
         }
+
         return $totalsResult;
     }
 
@@ -126,6 +128,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         if ($quote->getIsMultiShipping()) {
             $this->_fault('invalid_checkout_type');
         }
+
         if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
                 && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())
         ) {
@@ -168,8 +171,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                 'checkout_submit_all_after',
                 ['order' => $order, 'quote' => $quote],
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('create_order_fault', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('create_order_fault', $mageCoreException->getMessage());
         }
 
         return $order->getIncrementId();

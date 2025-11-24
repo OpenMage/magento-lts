@@ -16,7 +16,6 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
 {
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {

@@ -41,6 +41,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         if ($image == 'no_selection') {
             $image = null;
         }
+
         return $image;
     }
 
@@ -143,7 +144,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Returns checked store_id value
      *
-     * @param int|null $id
+     * @param null|int $id
      * @return int
      */
     protected function _getStoreId($id = null)
@@ -157,7 +158,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * @param Mage_Catalog_Model_Product $product
      * @param array $params
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCategoryIdForUrl($product, $params)
     {
@@ -183,12 +184,14 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         if (!empty($requestPath)) {
             return $this->getUrlInstance()->getDirectUrl($requestPath, $routeParams);
         }
+
         $routeParams['id'] = $product->getId();
         $routeParams['s'] = $product->getUrlKey();
         $categoryId = $this->_getCategoryIdForUrl($product, $routeParams);
         if ($categoryId) {
             $routeParams['category'] = $categoryId;
         }
+
         return $this->getUrlInstance()->getUrl('catalog/product/view', $routeParams);
     }
 
@@ -205,12 +208,14 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         if ($categoryId) {
             $idPath = sprintf('%s/%d', $idPath, $categoryId);
         }
+
         $rewrite = $this->getUrlRewrite();
         $rewrite->setStoreId($product->getStoreId())
             ->loadByIdPath($idPath);
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
+
         return false;
     }
 }

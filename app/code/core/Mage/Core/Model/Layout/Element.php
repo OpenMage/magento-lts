@@ -47,10 +47,12 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
                 $this->prepareActionArgument($args);
                 break;
         }
+
         $children = $this->children();
         foreach ($this as $child) {
             $child->prepare($args);
         }
+
         return $this;
     }
 
@@ -63,6 +65,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
         if ($tagName !== 'block' && $tagName !== 'reference' || empty($this['name'])) {
             return false;
         }
+
         return (string) $this['name'];
     }
 

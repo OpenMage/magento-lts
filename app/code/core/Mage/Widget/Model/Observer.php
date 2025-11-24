@@ -27,6 +27,7 @@ class Mage_Widget_Model_Observer
             $settings = Mage::getModel('widget/widget_config')->getPluginSettings($config);
             $config->addData($settings);
         }
+
         return $this;
     }
 }

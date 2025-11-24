@@ -12,8 +12,8 @@
  *
  * @package    Mage_Log
  *
- * @method Mage_Log_Model_Resource_Aggregation getResource()
  * @method Mage_Log_Model_Resource_Aggregation _getResource()
+ * @method Mage_Log_Model_Resource_Aggregation getResource()
  */
 class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 {
@@ -73,6 +73,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             $lastDateRecord = $date;
             $date = $to;
         }
+
         return $lastDateRecord;
     }
 
@@ -134,7 +135,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string|int $in
+     * @param int|string $in
      * @param null $offset deprecated
      * @return string
      */
@@ -144,11 +145,12 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         if (is_numeric($in)) {
             $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
+
         return $out;
     }
 
     /**
-     * @param string|int $in
+     * @param int|string $in
      * @param null $offset deprecated
      * @return false|int
      */
@@ -158,11 +160,12 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         if (!is_numeric($in)) {
             $out = strtotime($in);
         }
+
         return $out;
     }
 
     /**
-     * @param  string|int $in
+     * @param  int|string $in
      * @return string
      */
     private function _round($in)

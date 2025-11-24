@@ -25,6 +25,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Attribute_Backend_Child extends
         if ($object->getCreditmemo()) {
             $object->setParentId($object->getCreditmemo()->getId());
         }
+
         return parent::beforeSave($object);
     }
 }

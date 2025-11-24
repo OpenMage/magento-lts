@@ -24,6 +24,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Mo
         if (is_null($defaultBilling)) {
             $object->unsetDefaultBilling();
         }
+
         return $this;
     }
 
@@ -44,12 +45,14 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Mo
                     $addressId = $address->getId();
                 }
             }
+
             if ($addressId) {
                 $object->setDefaultBilling($addressId);
                 $this->getAttribute()->getEntity()
                     ->saveAttribute($object, $this->getAttribute()->getAttributeCode());
             }
         }
+
         return $this;
     }
 }

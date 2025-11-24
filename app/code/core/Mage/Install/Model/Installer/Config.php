@@ -15,6 +15,7 @@
 class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_Abstract
 {
     public const TMP_INSTALL_DATE_VALUE = 'd-d-d-d-d';
+
     public const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
 
     /**
@@ -36,6 +37,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         if (is_array($data)) {
             $this->_configData = $data;
         }
+
         return $this;
     }
 
@@ -58,10 +60,12 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             if (!str_starts_with($data['unsecure_base_url'], 'http')) {
                 $data['unsecure_base_url'] = 'http://' . $data['unsecure_base_url'];
             }
+
             if (!$this->_getInstaller()->getDataModel()->getSkipBaseUrlValidation()) {
                 $this->_checkUrl($data['unsecure_base_url']);
             }
         }
+
         if (isset($data['secure_base_url'])) {
             $data['secure_base_url'] .= !str_ends_with($data['secure_base_url'], '/') ? '/' : '';
             if (!str_starts_with($data['secure_base_url'], 'http')) {
@@ -87,6 +91,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         foreach ($data as $index => $value) {
             $template = str_replace('{{' . $index . '}}', '<![CDATA[' . $value . ']]>', $template);
         }
+
         file_put_contents($this->_localConfigFile, $template);
         chmod($this->_localConfigFile, 0777);
     }
@@ -145,17 +150,18 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
             $body = $response->getBody();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
-            throw $e;
+            throw $exception;
         }
 
         if ($body != Mage_Install_Model_Installer::INSTALLER_HOST_RESPONSE) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is invalid.', $url));
-            Mage::throwException(Mage::helper('install')->__('Response from server isn\'t valid.'));
+            Mage::throwException(Mage::helper('install')->__("Response from server isn't valid."));
         }
+
         return $this;
     }
 
@@ -170,7 +176,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     }
 
     /**
-     * @param string|null $key
+     * @param null|string $key
      * @return $this
      */
     public function replaceTmpEncryptKey($key = null)
@@ -178,6 +184,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         if (!$key) {
             $key = md5(Mage::helper('core')->getRandomString(10));
         }
+
         $localXml = file_get_contents($this->_localConfigFile);
         $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);
         file_put_contents($this->_localConfigFile, $localXml);

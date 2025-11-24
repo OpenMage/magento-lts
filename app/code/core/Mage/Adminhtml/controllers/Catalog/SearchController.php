@@ -83,7 +83,6 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
     /**
      * Save search query
-     *
      */
     public function saveAction()
     {
@@ -155,6 +154,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Unable to find a search term to delete.'));
         $this->_redirect('*/*/');
     }
@@ -170,6 +170,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                     $model = Mage::getModel('catalogsearch/query')->load($searchId);
                     $model->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($searchIds)),
                 );
@@ -188,7 +189,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('delete', 'massDelete');
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 }

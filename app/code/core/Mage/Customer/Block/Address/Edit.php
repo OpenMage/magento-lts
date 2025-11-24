@@ -20,7 +20,9 @@
 class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 {
     protected $_address;
+
     protected $_countryCollection;
+
     protected $_regionCollection;
 
     /**
@@ -54,6 +56,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($postedData = Mage::getSingleton('customer/session')->getAddressFormData(true)) {
             $this->_address->addData($postedData);
         }
+
         return $this;
     }
 
@@ -79,11 +82,13 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($title = $this->getData('title')) {
             return $title;
         }
+
         if ($this->getAddress()->getId()) {
             $title = Mage::helper('customer')->__('Edit Address');
         } else {
             $title = Mage::helper('customer')->__('Add New Address');
         }
+
         return $title;
     }
 
@@ -127,6 +132,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($countryId = $this->getAddress()->getCountryId()) {
             return $countryId;
         }
+
         return parent::getCountryId();
     }
 
@@ -154,6 +160,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
+
         return !$this->isDefaultBilling();
     }
 
@@ -165,6 +172,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
+
         return !$this->isDefaultShipping();
     }
 

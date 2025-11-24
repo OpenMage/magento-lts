@@ -125,9 +125,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
         if (!isset($item['created_at'])) {
             return '';
         }
+
         if ($dateType === 'date') {
             return $this->formatDate($item['created_at'], $format);
         }
+
         return $this->formatTime($item['created_at'], $format);
     }
 
@@ -152,6 +154,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
         if ($isSimpleCheck) {
             return !empty($item['notified']);
         }
+
         return isset($item['notified']) && $item['notified'] !== false;
     }
 
@@ -169,6 +172,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $salesHelper = Mage::helper('adminhtml/sales');
             $strItemComment = $salesHelper->escapeHtmlWithLinks($item['comment'], $allowedTags);
         }
+
         return $strItemComment;
     }
 

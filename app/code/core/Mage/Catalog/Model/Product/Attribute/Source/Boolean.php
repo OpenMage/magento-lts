@@ -37,6 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Boolean extends Mage_Eav_Model
                 ],
             ];
         }
+
         return $this->_options;
     }
 }

@@ -79,11 +79,11 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      * Prepare file download response
      *
      * @todo remove in 1.3
-     * @deprecated please use $this->_prepareDownloadResponse()
-     * @see Mage_Adminhtml_Controller_Action::_prepareDownloadResponse()
      * @param string $fileName
      * @param string $content
      * @param string $contentType
+     * @deprecated please use $this->_prepareDownloadResponse()
+     * @see Mage_Adminhtml_Controller_Action::_prepareDownloadResponse()
      */
     protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
     {
@@ -101,6 +101,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->unsubscribe();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds)),
                 );
@@ -123,6 +124,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds)),
                 );

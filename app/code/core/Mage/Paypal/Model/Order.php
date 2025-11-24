@@ -44,7 +44,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      * Create PayPal order via API
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
-     * @param string|null $fundingSource Funding source for the order, e.g., 'mybank'
+     * @param null|string $fundingSource Funding source for the order, e.g., 'mybank'
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
@@ -69,11 +69,11 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 'success' => true,
                 'id' => $result->getId(),
             ];
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             return [
                 'success' => false,
-                'error' => $e->getMessage(),
+                'error' => $exception->getMessage(),
             ];
         }
     }
@@ -81,8 +81,8 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Build a complete PayPal order request using SDK builders
      *
-     * @param string|null $referenceId Optional reference ID
-     * @param string|null $fundingSource Optional funding source for the order
+     * @param null|string $referenceId Optional reference ID
+     * @param null|string $fundingSource Optional funding source for the order
      * @return object The built order request object
      */
     public function buildOrderRequest(Mage_Sales_Model_Quote $quote, ?string $referenceId = null, ?string $fundingSource = null): object
@@ -100,12 +100,14 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         if ($payer !== null) {
             $orderRequestBuilder->payer($payer);
         }
+
         if ($fundingSource) {
             $paymentSource = $this->_buildPaymentSource($fundingSource, $payer);
             if ($paymentSource !== null) {
                 $orderRequestBuilder->paymentSource($paymentSource);
             }
         }
+
         return $orderRequestBuilder->build();
     }
 
@@ -114,7 +116,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      *
      * @param string $fundingSource The funding source type
      * @param object $payer The payer object containing customer information
-     * @return object|null The built payment source object, or null for default payment methods
+     * @return null|object The built payment source object, or null for default payment methods
      */
     private function _buildPaymentSource(string $fundingSource, object $payer): ?object
     {
@@ -223,8 +225,8 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         }
 
         if (
-            isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]) &&
-            $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue() > 0
+            isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])
+            && $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue() > 0
         ) {
             $breakdownBuilder->discount($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]);
         }

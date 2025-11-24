@@ -58,16 +58,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
             if (isset($value[0], $value[1]) && $value[0] === 'product') {
                 $productId = $value[1];
             }
+
             $categoryId = $value[2] ?? false;
             $label = '';
             if ($categoryId) {
                 $label = Mage::getResourceSingleton('catalog/category')
                     ->getAttributeRawValue($categoryId, 'name', Mage::app()->getStore()) . '/';
             }
+
             if ($productId) {
                 $label .= Mage::getResourceSingleton('catalog/product')
                     ->getAttributeRawValue($productId, 'name', Mage::app()->getStore());
             }
+
             $chooser->setLabel($label);
         }
 
@@ -87,6 +90,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 $(grid.containerId).fire('product:changed', {element: element});
             }";
         }
+
         return '';
     }
 
@@ -118,6 +122,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 }
             ';
         }
+
         return '';
     }
 
@@ -157,6 +162,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -181,6 +187,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 if (empty($productIds)) {
                     $productIds = 0;
                 }
+
                 $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
             }
         }
@@ -271,6 +278,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($selectedProducts = $this->getRequest()->getParam('selected_products', null)) {
             $this->setSelectedProducts($selectedProducts);
         }
+
         return $this->_selectedProducts;
     }
 }

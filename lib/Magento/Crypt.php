@@ -41,7 +41,7 @@ class Magento_Crypt
      *                                 It's unsafe to store encryption key in memory, so no getter for key exists.
      * @param  string      $cipher     Cipher algorithm (one of the MCRYPT_ciphername constants)
      * @param  string      $mode       Mode of cipher algorithm (MCRYPT_MODE_modeabbr constants)
-     * @param  string|bool $initVector Initial vector to fill algorithm blocks.
+     * @param  bool|string $initVector Initial vector to fill algorithm blocks.
      *                                 TRUE generates a random initial vector.
      *                                 FALSE fills initial vector with zero bytes to not use it.
      * @throws Magento_Exception
@@ -56,6 +56,7 @@ class Magento_Crypt
             if (strlen($key) > $maxKeySize) {
                 throw new Magento_Exception('Key must not exceed ' . $maxKeySize . ' bytes.');
             }
+
             $initVectorSize = mcrypt_enc_get_iv_size($this->_handle);
             if (true === $initVector) {
                 /* Generate a random vector from human-readable characters */
@@ -70,11 +71,13 @@ class Magento_Crypt
             } elseif (!is_string($initVector) || strlen($initVector) != $initVectorSize) {
                 throw new Magento_Exception('Init vector must be a string of ' . $initVectorSize . ' bytes.');
             }
+
             $this->_initVector = $initVector;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             mcrypt_module_close($this->_handle);
-            throw $e;
+            throw $exception;
         }
+
         mcrypt_generic_init($this->_handle, $key, $initVector);
     }
 
@@ -128,6 +131,7 @@ class Magento_Crypt
         if (strlen($data) == 0) {
             return $data;
         }
+
         return mcrypt_generic($this->_handle, $data);
     }
 
@@ -142,6 +146,7 @@ class Magento_Crypt
         if (strlen($data) == 0) {
             return $data;
         }
+
         $data = mdecrypt_generic($this->_handle, $data);
         /*
          * Returned string can in fact be longer than the unencrypted string due to the padding of the data

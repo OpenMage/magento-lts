@@ -15,7 +15,9 @@
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
     public const LOCALE_CACHE_LIFETIME = 7200;
+
     public const LOCALE_CACHE_KEY      = 'footer_locale';
+
     public const LOCALE_CACHE_TAG      = 'adminhtml';
 
     protected function _construct()

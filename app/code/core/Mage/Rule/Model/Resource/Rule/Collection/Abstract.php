@@ -66,7 +66,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Init flag for adding rule website ids to collection result
      *
-     * @param bool|null $flag
+     * @param null|bool $flag
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
@@ -80,7 +80,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Limit rules collection by specific websites
      *
-     * @param int|array|Mage_Core_Model_Website $websiteId
+     * @param array|int|Mage_Core_Model_Website $websiteId
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */
@@ -101,6 +101,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
                 'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field'],
             );
         }
+
         return $this;
     }
 
@@ -135,6 +136,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             $this->addFieldToFilter('is_active', (int) $isActive ? 1 : 0);
             $this->setFlag('is_active_filter', true);
         }
+
         return $this;
     }
 
@@ -163,7 +165,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return $this
      * @deprecated after 1.6.2.0
-     *
      */
     public function setEnv(?Mage_Rule_Model_Environment $env = null)
     {
@@ -176,7 +177,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @return Mage_Rule_Model_Environment
      * @deprecated after 1.6.2.0
-     *
      */
     public function getEnv()
     {
@@ -186,9 +186,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Set filter for the collection based on the environment
      *
-     * @deprecated after 1.6.2.0
-     *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @deprecated after 1.6.2.0
      */
     public function setActiveFilter()
     {
@@ -198,9 +197,8 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Process the quote with all the rules in collection
      *
-     * @deprecated after 1.6.2.0
-     *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     * @deprecated after 1.6.2.0
      */
     public function process()
     {

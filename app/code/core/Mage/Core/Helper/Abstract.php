@@ -47,6 +47,7 @@ abstract class Mage_Core_Helper_Abstract
         if (!$this->_request) {
             $this->_request = Mage::app()->getRequest();
         }
+
         return $this->_request;
     }
 
@@ -111,6 +112,7 @@ abstract class Mage_Core_Helper_Abstract
             $class = static::class;
             $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
+
         return $this->_moduleName;
     }
 
@@ -157,6 +159,7 @@ abstract class Mage_Core_Helper_Abstract
         if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
             return $this->modulesDisabled[$moduleName] = false;
         }
+
         return $this->modulesDisabled[$moduleName] = true;
     }
 
@@ -177,11 +180,11 @@ abstract class Mage_Core_Helper_Abstract
 
     /**
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      *
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -192,7 +195,7 @@ abstract class Mage_Core_Helper_Abstract
      * Escape html entities
      *
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -215,6 +218,7 @@ abstract class Mage_Core_Helper_Abstract
         } else {
             $result = $data;
         }
+
         return $result;
     }
 
@@ -250,6 +254,7 @@ abstract class Mage_Core_Helper_Abstract
         if ($data === null) {
             return '';
         }
+
         $result = strip_tags($data, $allowableTags);
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
     }
@@ -321,15 +326,17 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return string|string[]
      */
-    public function jsQuoteEscape($data, $quote = '\'')
+    public function jsQuoteEscape($data, $quote = "'")
     {
         if (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
                 $result[] = str_replace($quote, '\\' . $quote, $item);
             }
+
             return $result;
         }
+
         return str_replace($quote, '\\' . $quote, $data);
     }
 
@@ -346,9 +353,11 @@ abstract class Mage_Core_Helper_Abstract
         if (!$data) {
             return $data;
         }
+
         if ($addSlashes === true) {
             $data = addslashes($data);
         }
+
         return htmlspecialchars($data, ENT_QUOTES, null, false);
     }
 
@@ -418,7 +427,7 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = ['\'', '"'];
+        $quote = ["'", '"'];
         $replace = ['%27', '%22'];
         return str_replace($quote, $replace, $url);
     }
@@ -437,15 +446,17 @@ abstract class Mage_Core_Helper_Abstract
             } elseif ($k === 'label') {
                 $v = self::__($v);
             }
+
             $arr[$k] = $v;
         }
+
         return $arr;
     }
 
     /**
      * Check for tags in multidimensional arrays
      *
-     * @param string|array $data
+     * @param array|string $data
      * @param array $arrayKeys keys of the array being checked that are excluded and included in the check
      * @param bool $skipTags skip transferred array keys, if false then check only them
      * @return bool
@@ -457,6 +468,7 @@ abstract class Mage_Core_Helper_Abstract
                 if ($skipTags && in_array($key, $arrayKeys)) {
                     continue;
                 }
+
                 if (is_array($item)) {
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
@@ -467,15 +479,18 @@ abstract class Mage_Core_Helper_Abstract
                     if (!$skipTags && !in_array($key, $arrayKeys)) {
                         continue;
                     }
+
                     return true;
                 }
             }
+
             return false;
         } elseif (is_string($data)) {
             if ((bool) strcmp($data, $this->removeTags($data))) {
                 return true;
             }
         }
+
         return false;
     }
 }

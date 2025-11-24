@@ -49,6 +49,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         if (!$this->hasNow()) {
             $this->setNow(time());
         }
+
         return $this->getData('now');
     }
 
@@ -71,6 +72,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -80,6 +82,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             if (count($e) !== 2) {
                 return false;
             }
+
             $expr = $e[0];
             $mod = $e[1];
             if (!is_numeric($mod)) {
@@ -109,8 +112,8 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     }
 
     /**
-     * @param string|int $value
-     * @return string|int|false
+     * @param int|string $value
+     * @return false|int|string
      */
     public function getNumeric($value)
     {

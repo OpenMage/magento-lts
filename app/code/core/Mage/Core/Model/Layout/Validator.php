@@ -17,10 +17,15 @@
 class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
+
     public const XML_INVALID                             = 'invalidXml';
+
     public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
+
     public const INVALID_BLOCK_NAME                      = 'invalidBlockName';
+
     public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
+
     public const INVALID_XML_OBJECT_EXCEPTION            = 'invalidXmlObject';
 
     /**
@@ -38,7 +43,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     protected $_disallowedXPathExpressions = [
         '*//template',
         '*//@template',
-        '//*[@method=\'setTemplate\']',
+        "//*[@method='setTemplate']",
         '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
         \'ABCDEFGHIJKLMNOPQRSTUVWXYZ\', \'abcdefghijklmnopqrstuvwxyz\'), \'template\')]/../*',
     ];
@@ -79,17 +84,18 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
-                    Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
+                    => Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('core')->__(
                     'Invalid template path used in layout update.',
                 ),
                 self::INVALID_BLOCK_NAME => Mage::helper('core')->__('Disallowed block name for frontend.'),
-                self::INVALID_XML_OBJECT_EXCEPTION =>
-                    Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
+                self::INVALID_XML_OBJECT_EXCEPTION
+                    => Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
             ];
         }
+
         return $this;
     }
 
@@ -106,6 +112,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 }
             }
         }
+
         return $this->_disallowedBlock;
     }
 
@@ -124,10 +131,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
+     * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @param Varien_Simplexml_Element|string $value
-     * @return bool
      */
     public function isValid($value)
     {
@@ -135,26 +142,29 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             $value = trim($value);
             try {
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::XML_INVALID);
                 return false;
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
             throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
         }
+
         if ($value->xpath($this->getXpathBlockValidationExpression())) {
             $this->_error(self::INVALID_BLOCK_NAME);
             return false;
         }
+
         // if layout update declare custom templates then validate their paths
         if ($templatePaths = $value->xpath($this->getXpathValidationExpression())) {
             try {
                 $this->validateTemplatePath($templatePaths);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::INVALID_TEMPLATE_PATH);
                 return false;
             }
         }
+
         $this->_setValue($value);
 
         foreach ($this->_protectedExpressions as $key => $xpr) {
@@ -163,6 +173,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -203,13 +214,14 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             if (count($this->_disallowedBlock)) {
                 foreach ($this->_disallowedBlock as $key => $value) {
                     $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
-                    $this->_xpathBlockValidationExpression .=
-                        "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
-                    $this->_xpathBlockValidationExpression .=
-                        "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
+                    $this->_xpathBlockValidationExpression
+                        .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                    $this->_xpathBlockValidationExpression
+                        .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
                 }
             }
         }
+
         return $this->_xpathBlockValidationExpression;
     }
 

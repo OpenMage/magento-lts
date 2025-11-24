@@ -26,7 +26,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param   Varien_Object|Mage_Sales_Model_Quote $object
+     * @param   Mage_Sales_Model_Quote|Varien_Object $object
      * @param   int $rowId
      * @return  Zend_Db_Select
      */
@@ -36,6 +36,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
         if ($object->getSharedStoreIds()) {
             $select->where('store_id IN (?)', $object->getSharedStoreIds());
         }
+
         return $select;
     }
 
@@ -67,6 +68,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 
@@ -92,6 +94,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 

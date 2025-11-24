@@ -79,6 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -123,6 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
 
@@ -149,6 +151,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             $productType = $this->_getProduct()->getTypeInstance(true);
             $products = $productType->getUsedProductIds($this->_getProduct());
         }
+
         return $products;
     }
 
@@ -162,6 +165,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         if ($this->hasData('is_readonly')) {
             return $this->getData('is_readonly');
         }
+
         return $this->_getProduct()->getCompositeReadonly();
     }
 
@@ -328,8 +332,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 $productAttribute = $attribute->getProductAttribute();
                 $attributeCodes[] = $productAttribute->getAttributeCode();
             }
+
             $this->_configAttributeCodes = $attributeCodes;
         }
+
         return $this->_configAttributeCodes;
     }
 
@@ -347,6 +353,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 $attributeValues[$attributeCode] = $data;
             }
         }
+
         return $attributeValues;
     }
 
@@ -374,12 +381,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 if (in_array($item2->getId(), $ids)) {
                     continue;
                 }
+
                 $attributeValues = $this->_retrieveRowData($item2);
                 $disableMultiSelect = ($needleAttributeValues == $attributeValues);
                 if ($disableMultiSelect) {
                     break;
                 }
             }
+
             if ($disableMultiSelect) {
                 break;
             }

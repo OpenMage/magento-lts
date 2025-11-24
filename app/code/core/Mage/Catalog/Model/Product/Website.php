@@ -38,11 +38,12 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->removeProducts($websiteIds, $productIds);
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while removing products from websites.'),
             );
         }
+
         return $this;
     }
 
@@ -57,11 +58,12 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->addProducts($websiteIds, $productIds);
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while adding products to websites.'),
             );
         }
+
         return $this;
     }
 
@@ -69,7 +71,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      * Retrieve product websites
      * Return array with key as product ID and value array of websites
      *
-     * @param int|array $productIds
+     * @param array|int $productIds
      * @return array
      */
     public function getWebsites($productIds)

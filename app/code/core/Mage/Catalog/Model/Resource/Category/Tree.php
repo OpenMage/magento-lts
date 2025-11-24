@@ -15,21 +15,24 @@
 class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 {
     public const ID_FIELD    = 'id';
+
     public const PATH_FIELD  = 'path';
+
     public const ORDER_FIELD = 'order';
+
     public const LEVEL_FIELD = 'level';
 
     /**
      * Categories resource collection
      *
-     * @var Mage_Catalog_Model_Resource_Category_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Category_Collection
      */
     protected $_collection;
 
     /**
      * Id of 'is_active' category attribute
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_isActiveAttributeId              = null;
 
@@ -61,6 +64,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * Initialize tree
+     *
+     * @throws Exception
      */
     public function __construct()
     {
@@ -94,22 +99,26 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Return store id
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
         if ($this->_storeId === null) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
     /**
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
      * @param bool $sorted
-     * @param array $exclude
+     * @param array|int|string $exclude
      * @param bool $toLoad
      * @param bool $onlyActive
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addCollectionData(
         $collection = null,
@@ -134,12 +143,14 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 $nodeIds[] = $id;
             }
         }
+
         $collection->addIdFilter($nodeIds);
         if ($onlyActive) {
             $disabledIds = $this->_getDisabledIds($collection);
             if ($disabledIds) {
                 $collection->addFieldToFilter('entity_id', ['nin' => $disabledIds]);
             }
+
             $collection->addAttributeToFilter('is_active', 1);
             $collection->addAttributeToFilter('include_in_menu', 1);
         }
@@ -180,6 +191,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (!is_array($this->_inactiveCategoryIds)) {
             $this->_initInactiveCategoryIds();
         }
+
         $this->_inactiveCategoryIds = array_merge($ids, $this->_inactiveCategoryIds);
         return $this;
     }
@@ -215,6 +227,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getDisabledIds($collection)
     {
@@ -239,6 +252,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 }
             }
         }
+
         return $disabledIds;
     }
 
@@ -263,6 +277,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
             $this->_isActiveAttributeId = $this->_conn->fetchOne($select, $bind);
         }
+
         return $this->_isActiveAttributeId;
     }
 
@@ -313,6 +328,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (!in_array($id, $this->_inactiveItems)) {
             return true;
         }
+
         return false;
     }
 
@@ -321,12 +337,14 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      *
      * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCollection($sorted = false)
     {
         if (is_null($this->_collection)) {
             $this->_collection = $this->_getDefaultCollection($sorted);
         }
+
         return $this->_collection;
     }
 
@@ -339,6 +357,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (!is_null($this->_collection)) {
             destruct($this->_collection);
         }
+
         $this->_collection = $collection;
         return $this;
     }
@@ -346,6 +365,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * @param bool $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _getDefaultCollection($sorted = false)
     {
@@ -358,6 +378,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $attributes = $attributes->asArray();
             $attributes = array_keys($attributes);
         }
+
         $collection->addAttributeToSelect($attributes);
 
         if ($sorted) {
@@ -394,17 +415,19 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Executing parents move method and cleaning cache after it
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category $node
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
-    public function move($category, $newParent, $prevNode = null)
+    public function move($node, $newParent, $prevNode = null)
     {
-        $this->_beforeMove($category, $newParent, $prevNode);
-        Mage::getResourceSingleton('catalog/category')->move($category->getId(), $newParent->getId());
-        parent::move($category, $newParent, $prevNode);
+        $this->_beforeMove($node, $newParent, $prevNode);
+        Mage::getResourceSingleton('catalog/category')->move($node->getId(), $newParent->getId());
+        parent::move($node, $newParent, $prevNode);
 
-        $this->_afterMove($category, $newParent, $prevNode);
+        $this->_afterMove($node, $newParent, $prevNode);
     }
 
     /**
@@ -447,9 +470,11 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 ->where($levelField . ' <= 2');
             $ids = $this->_conn->fetchCol($select);
         }
+
         if (!is_array($ids)) {
             $ids = [$ids];
         }
+
         foreach ($ids as $key => $id) {
             $ids[$key] = (int) $id;
         }
@@ -464,6 +489,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             if (!preg_match("#^[0-9\/]+$#", $item['path'])) {
                 $item['path'] = '';
             }
+
             $pathIds  = explode('/', $item['path']);
             $level = (int) $item['level'];
             while ($level > 0) {
@@ -475,6 +501,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 $level--;
             }
         }
+
         $where = array_keys($where);
 
         // get all required records
@@ -484,6 +511,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $select = clone $this->_select;
             $select->order($this->_orderField . ' ' . Varien_Db_Select::SQL_ASC);
         }
+
         $select->where(implode(' OR ', $where));
 
         // get array of records and add them as nodes to the tree
@@ -491,16 +519,19 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (!$arrNodes) {
             return false;
         }
+
         if ($updateAnchorProductCount) {
             $this->_updateAnchorProductCount($arrNodes);
         }
+
         $childrenItems = [];
-        foreach ($arrNodes as $key => $nodeInfo) {
+        foreach ($arrNodes as $nodeInfo) {
             $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
             array_pop($pathToParent);
             $pathToParent = implode('/', $pathToParent);
             $childrenItems[$pathToParent][] = $nodeInfo;
         }
+
         $this->addChildNodes($childrenItems, '', null);
         return $this;
     }
@@ -519,6 +550,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (!$withRootNode) {
             array_shift($pathIds);
         }
+
         $result = [];
         if (!empty($pathIds)) {
             if ($addCollectionData) {
@@ -526,12 +558,14 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             } else {
                 $select = clone $this->_select;
             }
+
             $select
                 ->where('e.entity_id IN(?)', $pathIds)
                 ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);
             $result = $this->_conn->fetchAll($select);
             $this->_updateAnchorProductCount($result);
         }
+
         return $result;
     }
 
@@ -558,6 +592,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param bool $sorted
      * @param array $optionalAttributes
      * @return Zend_Db_Select
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _createCollectionDataSelect($sorted = true, $optionalAttributes = [])
     {
@@ -568,6 +604,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if ($optionalAttributes) {
             $attributes = array_unique(array_merge($attributes, $optionalAttributes));
         }
+
         foreach ($attributes as $attributeCode) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
@@ -640,9 +677,11 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         if (empty($ids)) {
             return [];
         }
+
         if (!is_array($ids)) {
             $ids = [$ids];
         }
+
         $select = $this->_conn->select()
             ->from($this->_table, ['entity_id'])
             ->where('entity_id IN (?)', $ids);

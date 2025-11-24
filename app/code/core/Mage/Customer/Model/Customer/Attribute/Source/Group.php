@@ -30,6 +30,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Group extends Mage_Eav_Model
                 ->toOptionArray()
             ;
         }
+
         return $this->_options;
     }
 }

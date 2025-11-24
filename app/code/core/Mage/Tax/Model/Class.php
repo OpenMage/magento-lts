@@ -13,17 +13,18 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Class _getResource()
- * @method Mage_Tax_Model_Resource_Class getResource()
- * @method Mage_Tax_Model_Resource_Class_Collection getCollection()
- *
  * @method string getClassName()
- * @method $this setClassName(string $value)
  * @method string getClassType()
+ * @method Mage_Tax_Model_Resource_Class_Collection getCollection()
+ * @method Mage_Tax_Model_Resource_Class getResource()
+ * @method Mage_Tax_Model_Resource_Class_Collection getResourceCollection()
+ * @method $this setClassName(string $value)
  * @method $this setClassType(string $value)
  */
 class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
 {
     public const TAX_CLASS_TYPE_CUSTOMER   = 'CUSTOMER';
+
     public const TAX_CLASS_TYPE_PRODUCT    = 'PRODUCT';
 
     public function _construct()

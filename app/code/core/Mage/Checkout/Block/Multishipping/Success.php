@@ -23,6 +23,7 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
         if ($ids && is_array($ids)) {
             return $ids;
         }
+
         return false;
     }
 

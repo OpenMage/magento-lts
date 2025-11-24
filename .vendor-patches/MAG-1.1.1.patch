@@ -1,0 +1,11 @@
+--- /dev/null
++++ ../library/Zend/Mime.php
+@@ -38,7 +38,7 @@
+     public const ENCODING_BASE64          = 'base64';
+     public const DISPOSITION_ATTACHMENT   = 'attachment';
+     public const DISPOSITION_INLINE       = 'inline';
+-    public const LINELENGTH               = 72;
++    public const LINELENGTH               = 200;
+     public const LINEEND                  = "\n";
+     public const MULTIPART_ALTERNATIVE    = 'multipart/alternative';
+     public const MULTIPART_MIXED          = 'multipart/mixed';

@@ -15,7 +15,7 @@
 class Varien_Image
 {
     /**
-     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
+     * @var null|Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
      */
     protected $_adapter;
 
@@ -29,8 +29,8 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param string $adapter Default value is GD2
      * @param string $fileName
+     * @param string $adapter Default value is GD2
      * @return void
      */
     public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
@@ -187,6 +187,7 @@ class Varien_Image
         if (!file_exists($watermarkImage)) {
             throw new Exception("Required file '{$watermarkImage}' does not exists.");
         }
+
         $this->_getAdapter()->watermark($watermarkImage, $positionX, $positionY, $watermarkImageOpacity, $repeat);
     }
 
@@ -288,13 +289,14 @@ class Varien_Image
         if (!isset($this->_adapter)) {
             $this->_adapter = Varien_Image_Adapter::factory($adapter);
         }
+
         return $this->_adapter;
     }
 
     /**
      * Retrieve original image width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -304,7 +306,7 @@ class Varien_Image
     /**
      * Retrieve original image height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {

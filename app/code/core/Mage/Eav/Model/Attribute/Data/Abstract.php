@@ -60,7 +60,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Mage_Core_Model_Locale FORMAT
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_dateFilterFormat;
 
@@ -78,14 +78,15 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return Attribute instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Eav_Model_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute()
     {
         if (!$this->_attribite) {
             Mage::throwException(Mage::helper('eav')->__('Attribute object is undefined'));
         }
+
         return $this->_attribite;
     }
 
@@ -129,12 +130,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Returns entity instance
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
         if (!$this->_entity) {
             Mage::throwException(Mage::helper('eav')->__('Entity object is undefined'));
         }
+
         return $this->_entity;
     }
 
@@ -160,6 +163,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!is_null($index)) {
             return $this->_extractedData[$index] ?? null;
         }
+
         return $this->_extractedData;
     }
 
@@ -186,7 +190,9 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return Data Form Input/Output Filter
      *
-     * @return Varien_Data_Form_Filter_Interface|false
+     * @return false|Varien_Data_Form_Filter_Interface
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _getFormFilter()
     {
@@ -198,16 +204,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             } else {
                 $filter = new $filterClass();
             }
+
             return $filter;
         }
+
         return false;
     }
 
     /**
      * Get/Set/Reset date filter format
      *
-     * @param string|null|false $format
+     * @param null|false|string $format
      * @return $this|string
+     * @throws Zend_Locale_Exception
      */
     protected function _dateFilterFormat($format = null)
     {
@@ -216,6 +225,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             if (is_null($this->_dateFilterFormat)) {
                 $this->_dateFilterFormat = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT;
             }
+
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
         } elseif ($format === false) {
             // reset value
@@ -232,6 +242,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param string $value
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _applyOutputFilter($value)
     {
@@ -247,7 +259,9 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate value by attribute input validation rule
      *
      * @param string $value
-     * @return string|array|true
+     * @return array|true
+     * @throws Mage_Core_Exception
+     * @throws Zend_Validate_Exception
      */
     protected function _validateInputRule($value)
     {
@@ -278,6 +292,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'numeric':
                     $validator = new Zend_Validate_Digits();
@@ -296,6 +311,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'alpha':
                     $validator = new Zend_Validate_Alpha(true);
@@ -314,6 +330,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'email':
                     /**
@@ -328,7 +345,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     $this->__("'%value%' appears to be a local network name but local network names are not allowed")
                     $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
                     $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
-                    */
+                     */
                     $validator = new Zend_Validate_EmailAddress();
                     $validator->setMessage(
                         Mage::helper('eav')->__('"%s" invalid type entered.', $label),
@@ -401,16 +418,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return array_unique($validator->getMessages());
                     }
+
                     break;
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     break;
                 case 'date':
                     $validator = new Zend_Validate_Date(Varien_Date::DATE_INTERNAL_FORMAT);
@@ -433,6 +453,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     break;
             }
         }
+
         return true;
     }
 
@@ -462,6 +483,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Return Original Attribute value from Request
      *
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     protected function _getRequestValue(Zend_Controller_Request_Http $request)
     {
@@ -485,6 +507,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         } else {
             $value = $request->getParam($attrCode, false);
         }
+
         return $value;
     }
 
@@ -499,8 +522,8 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate data
      *
      * @param array|string $value
+     * @return array|true
      * @throws Mage_Core_Exception
-     * @return bool
      */
     abstract public function validateValue($value);
 
@@ -524,7 +547,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Return formatted attribute value from entity model
      *
      * @param string $format
-     * @return string|array
+     * @return array|string
      */
     abstract public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT);
 }

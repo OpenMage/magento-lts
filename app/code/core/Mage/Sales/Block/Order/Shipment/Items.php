@@ -57,6 +57,7 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
                 ->setTitle(Mage::helper('sales')->__('About Your Shipment'));
             $html = $comments->toHtml();
         }
+
         return $html;
     }
 }

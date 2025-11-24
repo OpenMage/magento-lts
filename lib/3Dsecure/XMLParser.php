@@ -15,8 +15,11 @@
 class XMLParser
 {
     public $xml_parser;
+
     public $deseralizedResponse;
+
     public $elementName;
+
     public $elementValue;
 
     /////////////////////////////////////////////////////////////////////////////////////////////

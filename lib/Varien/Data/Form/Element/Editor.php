@@ -12,10 +12,10 @@
  *
  * @package    Varien_Data
  *
- * @method string getTitle()
  * @method string getForceLoad()
- * @method $this setConfig(Varien_Object $value)
+ * @method string getTitle()
  * @method bool getWysiwyg()
+ * @method $this setConfig(Varien_Object $value)
  */
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {
@@ -120,6 +120,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 return $this->_wrapIntoContainer($html);
             }
+
             return parent::getElementHtml();
         }
     }
@@ -194,13 +195,13 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if ($this->getConfig('add_images')) {
             $buttonsHtml .= $this->_getButtonHtml([
                 'title'     => $this->translate('Insert Image...'),
-                'onclick'   => "MediabrowserUtility.openDialog('" .
-                                   $this->getConfig('files_browser_window_url') .
-                                   'target_element_id/' . $this->getHtmlId() . '/' .
-                                   ((null !== $this->getConfig('store_id'))
+                'onclick'   => "MediabrowserUtility.openDialog('"
+                                   . $this->getConfig('files_browser_window_url')
+                                   . 'target_element_id/' . $this->getHtmlId() . '/'
+                                   . ((null !== $this->getConfig('store_id'))
                                        ? ('store/' . $this->getConfig('store_id') . '/')
-                                       : '') .
-                               "')",
+                                       : '')
+                               . "')",
                 'class'     => 'add-image plugin',
                 'style'     => $visible ? '' : 'display:none',
             ]);
@@ -214,8 +215,10 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                     if (isset($buttonOptions['style'])) {
                         $configStyle = $buttonOptions['style'];
                     }
+
                     $buttonOptions = array_merge($buttonOptions, ['style' => 'display:none;' . $configStyle]);
                 }
+
                 $buttonsHtml .= $this->_getButtonHtml($buttonOptions);
             }
         }
@@ -236,6 +239,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         foreach ($options as $name => $value) {
             $buttonOptions[$name] = $value;
         }
+
         return $this->_prepareOptions($buttonOptions);
     }
 
@@ -250,6 +254,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if (!isset($pluginOptions['title'])) {
             return false;
         }
+
         return true;
     }
 
@@ -269,11 +274,13 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 foreach ($value['search'] as $part) {
                     $subject = str_replace('{{' . $part . '}}', $this->getDataUsingMethod($part), $subject);
                 }
+
                 $preparedOptions[$name] = $subject;
             } else {
                 $preparedOptions[$name] = $value;
             }
         }
+
         return $preparedOptions;
     }
 
@@ -329,9 +336,11 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $config = new Varien_Object();
             $this->setConfig($config);
         }
+
         if ($key !== null) {
             return $this->_getData('config')->getData($key);
         }
+
         return $this->_getData('config');
     }
 
@@ -364,6 +373,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if ($this->hasData('wysiwyg')) {
             return $this->getWysiwyg();
         }
+
         return $this->getConfig('enabled');
     }
 

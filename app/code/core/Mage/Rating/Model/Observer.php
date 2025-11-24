@@ -26,6 +26,7 @@ class Mage_Rating_Model_Observer
         if ($eventProduct && $eventProduct->getId()) {
             Mage::getResourceSingleton('rating/rating')->deleteAggregatedRatingsByProductId($eventProduct->getId());
         }
+
         return $this;
     }
 }

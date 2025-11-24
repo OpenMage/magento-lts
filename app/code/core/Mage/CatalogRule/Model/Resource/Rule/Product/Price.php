@@ -50,6 +50,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
                 } else {
                     $indexAlias = $v;
                 }
+
                 break;
             }
         } else {

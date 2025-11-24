@@ -46,7 +46,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Index action
-     *
      */
     public function indexAction()
     {
@@ -228,7 +227,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save fieldset state through AJAX
-     *
      */
     public function stateAction()
     {
@@ -247,8 +245,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function exportTableratesAction()
     {
@@ -261,6 +259,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         } else {
             $conditionName = $website->getConfig('carriers/tablerate/condition_name');
         }
+
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
@@ -284,17 +283,19 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 if (!$session->isAllowed($resourceId)) {
                     throw new Exception('');
                 }
+
                 return true;
             }
-        } catch (Zend_Acl_Exception $e) {
+        } catch (Zend_Acl_Exception) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->deniedAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+
         return false;
     }
 
@@ -312,12 +313,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!is_array($extra)) {
                 $extra = [];
             }
+
             if (!isset($extra['configState'])) {
                 $extra['configState'] = [];
             }
+
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;
             }
+
             $adminUser->saveExtra($extra);
         }
 

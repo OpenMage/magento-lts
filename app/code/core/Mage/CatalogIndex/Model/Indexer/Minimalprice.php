@@ -13,17 +13,17 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
- * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
- * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
  * @method float getQty()
- * @method $this setQty(float $value)
- * @method float getValue()
- * @method $this setValue(float $value)
+ * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
  * @method int getTaxClassId()
- * @method $this setTaxClassId(int $value)
+ * @method float getValue()
  * @method int getWebsiteId()
+ * @method $this setCustomerGroupId(int $value)
+ * @method $this setEntityId(int $value)
+ * @method $this setQty(float $value)
+ * @method $this setTaxClassId(int $value)
+ * @method $this setValue(float $value)
  * @method $this setWebsiteId(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
@@ -39,6 +39,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     protected $_customerGroups;
 
     protected $_runOnce = true;
+
     protected $_processChildren = false;
 
     protected function _construct()
@@ -61,6 +62,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
             $this->setData('tier_price_attribute', $data);
         }
+
         return $data;
     }
 
@@ -75,6 +77,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
             $this->setData('price_attribute', $data);
         }
+
         return $data;
     }
 
@@ -119,6 +122,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
             if (is_null($value)) {
                 continue;
             }
+
             $data['value'] = $value;
             $result[] = $data;
         }

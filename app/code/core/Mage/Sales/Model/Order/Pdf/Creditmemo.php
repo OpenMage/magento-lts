@@ -86,7 +86,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
     /**
      * Return PDF document
      *
-     * @param  Mage_Sales_Model_Order_Creditmemo[] $creditmemos
+     * @param  array|Mage_Sales_Model_Resource_Order_Creditmemo_Collection $creditmemos
      * @return Zend_Pdf
      */
     public function getPdf($creditmemos = [])
@@ -104,6 +104,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                 Mage::app()->getLocale()->emulate($creditmemo->getStoreId());
                 Mage::app()->setCurrentStore($creditmemo->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $creditmemo->getOrder();
             /* Add image */
@@ -128,17 +129,21 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
+
             /* Add totals */
             $this->insertTotals($page, $creditmemo);
         }
+
         $this->_afterGetPdf();
         if (isset($creditmemo) && $creditmemo->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
@@ -153,6 +158,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

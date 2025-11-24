@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage
 
     /**
      * @param Varien_Object $object
-     * @return string|null
+     * @return null|string
      */
     public function getUrl($object)
     {
@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage
         if ($image = $object->getData($this->getAttribute()->getAttributeCode())) {
             $url = Mage::getBaseUrl('media') . self::IMAGE_PATH_SEGMENT . $image;
         }
+
         return $url;
     }
 }

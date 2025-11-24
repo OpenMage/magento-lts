@@ -18,7 +18,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
      * Executes statement with binding values to it.
      * Allows transferring specific options to DB driver.
      *
-     * @param array $params Array of values to bind to parameter placeholders.
+     * @param array $params array of values to bind to parameter placeholders
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
@@ -49,6 +49,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
                     $length = $param->getLength();
                     $driverOptions = $param->getDriverOptions();
                 }
+
                 $bindValues[$name] = $param->getValue();
             } else {
                 $bindValues[$name] = $param;
@@ -60,15 +61,15 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 
         try {
             return $statement->execute();
-        } catch (PDOException $e) {
-            throw new Zend_Db_Statement_Exception($e->getMessage(), (int) $e->getCode(), $e);
+        } catch (PDOException $pdoException) {
+            throw new Zend_Db_Statement_Exception($pdoException->getMessage(), (int) $pdoException->getCode(), $pdoException);
         }
     }
 
     /**
      * Executes a prepared statement.
      *
-     * @param array $params OPTIONAL Values to bind to parameter placeholders.
+     * @param array $params OPTIONAL Values to bind to parameter placeholders
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */

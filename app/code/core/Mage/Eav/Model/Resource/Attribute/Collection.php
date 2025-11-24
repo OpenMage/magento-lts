@@ -46,7 +46,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -60,13 +60,14 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         if ($this->_entityType === null) {
             $this->_entityType = Mage::getSingleton('eav/config')->getEntityType($this->_getEntityTypeCode());
         }
+
         return $this->_entityType;
     }
 
     /**
      * Set Website scope
      *
-     * @param Mage_Core_Model_Website|int $website
+     * @param int|Mage_Core_Model_Website $website
      * @return $this
      */
     public function setWebsite($website)
@@ -86,6 +87,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         if ($this->_website === null) {
             $this->_website = Mage::app()->getStore()->getWebsite();
         }
+
         return $this->_website;
     }
 
@@ -116,6 +118,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
             if (isset($mainColumns[$columnName])) {
                 continue;
             }
+
             $extraColumns[$columnName] = $columnName;
         }
 

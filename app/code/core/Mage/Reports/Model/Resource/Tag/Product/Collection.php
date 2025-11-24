@@ -22,6 +22,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
          */
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Add unique target count to result
      *
@@ -115,7 +116,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'utaged' || $attribute == 'taged' || $attribute == 'tag_name') {
+        if (in_array($attribute, ['utaged', 'taged', 'tag_name'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

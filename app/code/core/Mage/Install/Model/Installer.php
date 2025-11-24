@@ -16,14 +16,13 @@ class Mage_Install_Model_Installer extends Varien_Object
 {
     /**
      * Installer host response used to check urls
-     *
      */
     public const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
 
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Mage_Install_Model_Installer_Data|null
+     * @var null|Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -47,13 +46,14 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_null($this->_dataModel)) {
             $this->setDataModel(Mage::getSingleton('install/session'));
         }
+
         return $this->_dataModel;
     }
 
     /**
      * Set data model to store data between installation steps
      *
-     * @param Mage_Install_Model_Installer_Data $model
+     * @param Mage_Install_Model_Installer_Data|Mage_Install_Model_Session $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)
@@ -74,9 +74,10 @@ class Mage_Install_Model_Installer extends Varien_Object
 
             Mage::getModel('install/installer_env')->install();
             $result = true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $result = false;
         }
+
         $this->setData('server_check_status', $result);
         return $result;
     }
@@ -92,6 +93,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_null($status)) {
             $status = $this->checkServer();
         }
+
         return $status;
     }
 
@@ -161,9 +163,11 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (!empty($locale['locale'])) {
             $setupModel->setConfigData(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $locale['locale']);
         }
+
         if (!empty($locale['timezone'])) {
             $setupModel->setConfigData(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE, $locale['timezone']);
         }
+
         if (!empty($locale['currency'])) {
             $setupModel->setConfigData(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, $locale['currency']);
             $setupModel->setConfigData(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT, $locale['currency']);
@@ -178,7 +182,9 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param array $data
-     * @return mixed
+     * @return array|Mage_Admin_Model_User
+     * @throws Mage_Core_Exception
+     * @throws Zend_Validate_Exception
      */
     public function validateAndPrepareAdministrator($data)
     {
@@ -191,8 +197,10 @@ class Mage_Install_Model_Installer extends Varien_Object
             foreach ($result as $error) {
                 $this->getDataModel()->addError($error);
             }
+
             return $result;
         }
+
         return $user;
     }
 
@@ -203,6 +211,8 @@ class Mage_Install_Model_Installer extends Varien_Object
      *
      * @param mixed $data
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function createAdministrator($data)
     {
@@ -243,9 +253,9 @@ class Mage_Install_Model_Installer extends Varien_Object
             if ($key) {
                 Mage::helper('core')->validateKey($key);
             }
-        } catch (Exception $e) {
-            $errors[] = $e->getMessage();
-            $this->getDataModel()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $errors[] = $exception->getMessage();
+            $this->getDataModel()->addError($exception->getMessage());
         }
 
         if (!empty($errors)) {
@@ -266,6 +276,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if ($key) {
             Mage::helper('core')->validateKey($key);
         }
+
         Mage::getSingleton('install/installer_config')->replaceTmpEncryptKey($key);
         return $this;
     }
@@ -279,6 +290,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }
+
         Mage::app()->saveUseCache($cacheData);
         return $this;
     }

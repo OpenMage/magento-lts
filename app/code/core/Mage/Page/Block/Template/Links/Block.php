@@ -85,7 +85,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
 
     /**
      * Set default template
-     *
      */
     protected function _construct()
     {
@@ -181,7 +180,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param string|array $params
+     * @param array|string $params
      * @return string
      */
     protected function _prepareParams($params)
@@ -193,26 +192,28 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 
     /**
-    * Return Li Params
-    *
-    * @return string
-    */
+     * Return Li Params
+     *
+     * @return string
+     */
     public function getLiParams()
     {
         return $this->_prepareParams($this->_liParams);
     }
 
     /**
-    * Return Link Tag Params
-    *
-    * @return string
-    */
+     * Return Link Tag Params
+     *
+     * @return string
+     */
     public function getAParams()
     {
         return $this->_prepareParams($this->_aParams);

@@ -32,8 +32,10 @@ class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
                     ->addFieldToFilter('is_active', 1)
                     ->setOrder('position', Varien_Data_Collection::SORT_ORDER_ASC);
             }
+
             $this->setAgreements($agreements);
         }
+
         return $this->getData('agreements');
     }
 }

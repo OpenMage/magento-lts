@@ -57,17 +57,17 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     protected $_ratingStoreTable;
 
     /**
-    * Option data
-    *
-    * @var array
-    */
+     * Option data
+     *
+     * @var array
+     */
     protected $_optionData;
 
     /**
-    * Option id
-    *
-    * @var int
-    */
+     * Option id
+     *
+     * @var int
+     */
     protected $_optionId;
 
     protected function _construct()
@@ -121,11 +121,13 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 $option->setVoteId($adapter->lastInsertId($this->_ratingVoteTable));
                 $this->aggregate($option);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
         }
+
         return $this;
     }
 

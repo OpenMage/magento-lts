@@ -17,7 +17,7 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
      *
      * Expiration date and full number will show up only in secure mode (only for admin, not in emails or pdfs)
      *
-     * @param Varien_Object|array $transport
+     * @param array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)
@@ -25,6 +25,7 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
         if ($this->_paymentSpecificInformation !== null) {
             return $this->_paymentSpecificInformation;
         }
+
         $info = $this->getInfo();
         $transport = new Varien_Object([Mage::helper('payment')->__('Name on the Card') => $info->getCcOwner(),]);
         $transport = parent::_prepareSpecificInformation($transport);
@@ -37,6 +38,7 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
                 Mage::helper('payment')->__('Credit Card Number') => $info->getCcNumber(),
             ]);
         }
+
         return $transport;
     }
 }

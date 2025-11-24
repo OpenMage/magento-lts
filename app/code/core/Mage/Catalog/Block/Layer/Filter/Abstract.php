@@ -38,7 +38,6 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
 
     /**
      * Initialize filter template
-     *
      */
     public function __construct()
     {
@@ -67,6 +66,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
         if (!$this->_filterModelName) {
             Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared.'));
         }
+
         $this->_filter = Mage::getModel($this->_filterModelName)
             ->setLayer($this->getLayer());
         $this->_prepareFilter();
@@ -124,6 +124,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
         if ($this->_displayProductCount === null) {
             $this->_displayProductCount = Mage::helper('catalog')->shouldDisplayProductCountOnLayer();
         }
+
         return $this->_displayProductCount;
     }
 

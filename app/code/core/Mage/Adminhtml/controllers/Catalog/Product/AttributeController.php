@@ -23,8 +23,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     public const ADMIN_RESOURCE = 'catalog/attributes/attributes';
 
     /**
-         * List of tags from setting
-         */
+     * List of tags from setting
+     */
     public const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
 
     /**
@@ -63,6 +63,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 )
             ;
         }
+
         return $this;
     }
 
@@ -179,6 +180,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 }
             }
         }
+
         return $data;
     }
 
@@ -217,6 +219,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                     foreach ($validatorInputType->getMessages() as $message) {
                         $session->addError($message);
                     }
+
                     $this->_redirect('*/*/edit', ['attribute_id' => $id, '_current' => true]);
                     return;
                 }
@@ -249,8 +252,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $data['frontend_input'] = $model->getFrontendInput();
             } else {
                 /**
-                * @todo add to helper and specify all relations for properties
-                */
+                 * @todo add to helper and specify all relations for properties
+                 */
                 $data['source_model'] = $helper->getAttributeSourceModelByInputType($data['frontend_input']);
                 $data['backend_model'] = $helper->getAttributeBackendModelByInputType($data['frontend_input']);
             }
@@ -258,9 +261,11 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             if (!isset($data['is_configurable'])) {
                 $data['is_configurable'] = 0;
             }
+
             if (!isset($data['is_filterable'])) {
                 $data['is_filterable'] = 0;
             }
+
             if (!isset($data['is_filterable_in_search'])) {
                 $data['is_filterable_in_search'] = 0;
             }
@@ -320,6 +325,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 } else {
                     $this->_redirect('*/*/', []);
                 }
+
                 return;
             } catch (Exception $e) {
                 $session->addError($e->getMessage());
@@ -328,6 +334,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -359,6 +366,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('catalog')->__('Unable to find an attribute to delete.'),
         );

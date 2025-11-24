@@ -45,7 +45,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -170,15 +170,16 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     }
 
     /**
-    * Initialize website values.
-    *
-    * @return $this
-    */
+     * Initialize website values.
+     *
+     * @return $this
+     */
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
+
         return $this;
     }
 
@@ -193,6 +194,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
             $this->_storeIdToCode[$store->getId()]      = $store->getCode();
             $this->_storeIdToWebsiteId[$store->getId()] = $store->getWebsiteId();
         }
+
         ksort($this->_storeIdToCode); // to ensure that 'admin' store (ID is zero) goes first
         sort($this->_storeIdToWebsiteId);
 
@@ -214,6 +216,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
             } else {
                 $skipAttr = [];
             }
+
             $attrCodes = [];
 
             foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
@@ -223,8 +226,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                     $attrCodes[] = $attribute->getAttributeCode();
                 }
             }
+
             self::$attrCodes = $attrCodes;
         }
+
         return self::$attrCodes;
     }
 
@@ -238,6 +243,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
         foreach ($this->getAttributeCollection() as $attribute) {
             $this->_attributeValues[$attribute->getAttributeCode()] = $this->getAttributeOptions($attribute);
         }
+
         return $this;
     }
 
@@ -255,6 +261,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
         } else {
             $exportFilter = $this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP];
         }
+
         $exportAttrCodes = $this->_getExportAttrCodes();
 
         foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
@@ -281,6 +288,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                             $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['from' => $date, 'date' => true]);
                         }
+
                         if (is_scalar($to) && !empty($to)) {
                             $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['to' => $date, 'date' => true]);
@@ -294,16 +302,19 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         if (is_numeric($from)) {
                             $collection->addAttributeToFilter($attrCode, ['from' => $from]);
                         }
+
                         if (is_numeric($to)) {
                             $collection->addAttributeToFilter($attrCode, ['to' => $to]);
                         }
                     }
                 }
             }
+
             if (in_array($attrCode, $exportAttrCodes)) {
                 $collection->addAttributeToSelect($attrCode);
             }
         }
+
         return $collection;
     }
 
@@ -311,7 +322,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
+     * @param int $errorRowNum row number
      * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
@@ -340,9 +351,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Export process.
      *
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
-     *
      * @return string
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
     abstract public function export();
 
@@ -357,8 +367,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *     'type'  => 'file'
      * )
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     abstract public function exportFile();
 
@@ -376,6 +386,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                 $collection->removeItemByKey($attribute->getId());
             }
         }
+
         return $collection;
     }
 
@@ -411,10 +422,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // ignore exceptions connected with source models
             }
         }
+
         return $options;
     }
 
@@ -429,7 +441,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {
@@ -450,6 +462,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                 : Mage::helper('importexport')->__("Invalid value for '%s' column", $errorCode);
             $messages[$message] = $errorRows;
         }
+
         return $messages;
     }
 
@@ -496,14 +509,15 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Inner writer object getter.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @throws Exception
      */
     public function getWriter()
     {
         if (!$this->_writer) {
             Mage::throwException(Mage::helper('importexport')->__('No writer specified'));
         }
+
         return $this->_writer;
     }
 
