@@ -2197,14 +2197,14 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
-			rawMessage: Dead catch - Mage_Core_Exception is never thrown in the try block.
-			identifier: catch.neverThrown
+			rawMessage: 'Method Mage_Payment_Model_Recurring_Profile::exportStartDatetime() should return string|Zend_Date but empty return statement found.'
+			identifier: return.empty
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
-			rawMessage: 'Method Mage_Payment_Model_Recurring_Profile::exportStartDatetime() should return string|Zend_Date but empty return statement found.'
-			identifier: return.empty
+			rawMessage: 'Parameter #1 $message of static method Mage::throwException() expects string, array given.'
+			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
