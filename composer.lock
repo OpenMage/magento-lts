@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e315d71b276ddf7480ec9021303416ac",
+    "content-hash": "6c393788a14beddbb155672de6ba6d63",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -10051,20 +10051,20 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.5.0",
+            "version": "12.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "04941b69734a93ef2736eac1db6d94b6eeee4d19"
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/04941b69734a93ef2736eac1db6d94b6eeee4d19",
-                "reference": "04941b69734a93ef2736eac1db6d94b6eeee4d19",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
+                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
                 "shasum": ""
             },
             "require": {
-                "cweagans/composer-patches": "^1.7",
+                "cweagans/composer-patches": "^1.7 || ^2.0",
                 "php": ">=7.2"
             },
             "bin": [
@@ -10078,7 +10078,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/11.5.0"
+                "source": "https://github.com/symplify/vendor-patches/tree/12.0.1"
             },
             "funding": [
                 {
@@ -10090,7 +10090,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-10T10:13:07+00:00"
+            "time": "2025-11-19T09:19:07+00:00"
         },
         {
             "name": "theseer/tokenizer",
