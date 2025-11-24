@@ -20,6 +20,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
     public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
 
+    public const XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION = 'catalog/product_image/images_on_duplicate_action';
+
     protected $_moduleName = 'Mage_Catalog';
 
     /**
@@ -649,5 +651,13 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         unset($_processor);
 
         return $mimeType !== null;
+    }
+
+    /**
+     * @return int
+     */
+    public function skipProductImageOnDuplicate()
+    {
+        return Mage::getStoreConfigAsInt(self::XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION);
     }
 }
