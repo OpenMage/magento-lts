@@ -1167,16 +1167,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "25.11.3",
+            "version": "25.11.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "9007dec536d60c6457d38406ecad58932c47a8c6"
+                "reference": "a667275880c1a2b047e848d1a484495c240c2750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/9007dec536d60c6457d38406ecad58932c47a8c6",
-                "reference": "9007dec536d60c6457d38406ecad58932c47a8c6",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/a667275880c1a2b047e848d1a484495c240c2750",
+                "reference": "a667275880c1a2b047e848d1a484495c240c2750",
                 "shasum": ""
             },
             "type": "library",
@@ -1198,9 +1198,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.11.3"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.11.17"
             },
-            "time": "2025-11-03T10:29:31+00:00"
+            "time": "2025-11-17T10:34:56+00:00"
         },
         {
             "name": "nesbot/carbon",
