@@ -155,6 +155,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                 return $filter;
             }
         }
+
+        return null;
     }
 
     /**
@@ -739,6 +741,11 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function getItemById($idValue)
     {
         $this->load();
+
+        if ($idValue === null) {
+            $idValue = '';
+        }
+
         return $this->_items[$idValue] ?? null;
     }
 
