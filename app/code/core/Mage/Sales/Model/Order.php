@@ -22,8 +22,8 @@
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method float getAdjustmentNegative()
  * @method float getAdjustmentPositive()
- * @method null|string getAppliedRuleIds()
  *
+ * @method null|string getAppliedRuleIds()
  * @method array getAppliedTaxes()
  * @method bool getAppliedTaxIsSaved()
  * @method string getBackUrl()
@@ -121,7 +121,6 @@
  * @method string getOriginalIncrementId()
  * @method float getPaymentAuthorizationAmount()
  * @method int getPaymentAuthorizationExpiration()
- * @method int getPaypalIpnCustomerNotified()
  * @method string getProtectCode()
  * @method float getQuantity()
  * @method Mage_Sales_Model_Quote getQuote()

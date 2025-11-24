@@ -56,7 +56,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'Mage_Tax' => 38,
         'Mage_Wishlist' => 39,
         'Mage_Media' => 40,
-        'Mage_PaypalUk' => 41,
         'Mage_Contacts' => 42,
         'Mage_GiftMessage' => 43,
         'Mage_Sendfriend' => 44,

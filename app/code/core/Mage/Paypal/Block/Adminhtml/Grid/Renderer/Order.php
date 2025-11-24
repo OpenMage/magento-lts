@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+{
+    /**
+     * Render order link
+     */
+    public function render(Varien_Object $row): string
+    {
+        $incrementId = $row->getData($this->getColumn()->getIndex());
+
+        if (empty($incrementId)) {
+            return '';
+        }
+
+        $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
+
+        if (!$order->getId()) {
+            return $this->escapeHtml($incrementId);
+        }
+
+        return sprintf(
+            '<a href="%s">%s</a>',
+            $this->getUrl('*/sales_order/view', ['order_id' => $order->getId()]),
+            $this->escapeHtml($incrementId),
+        );
+    }
+}

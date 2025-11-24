@@ -1,0 +1,25 @@
+.paypal-payment-method {
+    margin: 10px 0;
+}
+
+.paypal-button-container {
+    min-height: 35px;
+    margin: 10px 0;
+}
+
+.paypal-button-container[data-loading="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.paypal-error {
+    color: #df280a;
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.paypal-message {
+    margin: 10px 0;
+    font-size: 13px;
+    color: #666;
+} 

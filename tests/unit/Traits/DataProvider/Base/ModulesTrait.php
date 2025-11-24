@@ -60,7 +60,6 @@ trait ModulesTrait
             'Mage_Paygate',
             'Mage_Payment',
             'Mage_Paypal',
-            'Mage_PaypalUk',
             'Mage_Persistent',
             'Mage_ProductAlert',
             'Mage_Rating',
