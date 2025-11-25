@@ -18,6 +18,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Renders CMS Home page
      *
      * @param string $coreRoute
+     * @throws Mage_Core_Exception
      */
     public function indexAction($coreRoute = null)
     {
@@ -30,6 +31,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Default index action (with 404 Not Found headers)
      * Used if default page don't configure or available
+     *
+     * @throws Mage_Core_Exception
      */
     public function defaultIndexAction()
     {
@@ -44,6 +47,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Render CMS 404 Not found page
      *
      * @param string $coreRoute
+     * @throws Mage_Core_Exception
      */
     public function noRouteAction($coreRoute = null)
     {
@@ -59,6 +63,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Default no route page action
      * Used if no route page don't configure or available
+     *
+     * @throws Mage_Core_Exception
      */
     public function defaultNoRouteAction()
     {
@@ -71,6 +77,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Render Disable cookies page
+     *
+     * @throws Mage_Core_Exception
      */
     public function noCookiesAction()
     {
@@ -83,6 +91,8 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Default no cookies page action
      * Used if no cookies page don't configure or available
+     *
+     * @throws Mage_Core_Exception
      */
     public function defaultNoCookiesAction()
     {
