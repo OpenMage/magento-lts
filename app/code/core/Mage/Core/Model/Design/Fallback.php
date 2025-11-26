@@ -93,11 +93,13 @@ class Mage_Core_Model_Design_Fallback
                 $theme = (string) Mage::getConfig()->getNode('stores/admin/design/theme/default');
                 $fallback = true;
             }
+
             if ($this->_isInheritanceDefined($area, $package, $theme)) {
                 $scheme = $this->_getFallbackScheme($area, $package, $theme);
             } else {
                 $scheme = $this->_getLegacyFallbackScheme();
             }
+
             if ($fallback) {
                 $first = array_shift($scheme);
                 $scheme = array_merge([$first], [['_package' => $package, '_theme' => $theme]], $scheme);
