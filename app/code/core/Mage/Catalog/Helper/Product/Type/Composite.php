@@ -178,7 +178,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
         $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
             // Skip tier prices >= final price
-            if ((float)$tierPrice['website_price'] >= $_finalPrice) {
+            if ((float) $tierPrice['website_price'] >= $_finalPrice) {
                 continue;
             }
             $_tierPrices[] = Mage::helper('core')->currency(
