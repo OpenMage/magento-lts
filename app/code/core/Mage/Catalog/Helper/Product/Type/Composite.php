@@ -183,6 +183,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             if ($groupPrice !== null && $groupPrice < $comparePrice) {
                 $comparePrice = $groupPrice;
             }
+
             if ((float) $tierPrice['website_price'] >= $comparePrice) {
                 continue;
             }
