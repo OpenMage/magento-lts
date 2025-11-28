@@ -191,6 +191,10 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         $totals = $adjustedCartData['totals'];
         $items  = $adjustedCartData['items'];
 
+        $fixedCartData = $this->fixPaypalAmountMismatch($cart, $currency);
+        $totals = $fixedCartData['totals'];
+        $items  = $fixedCartData['items'];
+
         $breakdown = $this->buildAmountBreakdown($totals);
         $amount    = $this->buildAmountWithBreakdown($currency, $quote->getGrandTotal(), $breakdown);
 
@@ -342,6 +346,61 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $currency,
                 number_format($discountAmount, 2, '.', ''),
             )->build();
+        }
+
+        return ['totals' => $totals, 'items' => $items];
+    }
+
+    /**
+     * Fix amount mismatch edge cases for PayPal API by adding rounding adjustments
+     *
+     * @return array{totals: array, items: array}
+     */
+    public function fixPaypalAmountMismatch(Mage_Paypal_Model_Cart $cart, string $currency): array
+    {
+        $totals = $cart->getAmounts();
+        $items  = $cart->getAllItems();
+
+        $itemTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL]->getValue()
+            : 0.00;
+
+        $taxTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->getValue()
+            : 0.00;
+
+        $shippingTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_SHIPPING])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_SHIPPING]->getValue()
+            : 0.00;
+
+        $discountTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue()
+            : 0.00;
+
+        $expectedTotal = round($itemTotal + $taxTotal + $shippingTotal - $discountTotal, 2);
+        $grandTotal = (float) $cart->getQuote()->getGrandTotal();
+        $difference = round($expectedTotal - $grandTotal, 2);
+
+        if (abs($difference) > 0) {
+            if ($difference < 0) {
+                $newDiscountTotal = round($discountTotal + abs($difference), 2);
+                $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT] = MoneyBuilder::init(
+                    $currency,
+                    number_format($newDiscountTotal, 2, '.', ''),
+                )->build();
+            } else {
+                $moneyBuilder = MoneyBuilder::init($currency, number_format($difference, 2, '.', ''))->build();
+                $roundingItem = ItemBuilder::init(
+                    Mage::helper('paypal')->__('Rounding Adjustment'),
+                    $moneyBuilder,
+                    quantity: '1',
+                )
+                    ->sku(Mage::helper('paypal')->__('rounding_fix'))
+                    ->category(ItemCategory::DIGITAL_GOODS)
+                    ->build();
+
+                $items[] = $roundingItem;
+            }
         }
 
         return ['totals' => $totals, 'items' => $items];
