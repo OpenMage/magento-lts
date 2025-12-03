@@ -30,7 +30,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_LOG_FILE                 = 'dev/log/file';
 
-    public const XML_PATH_DEV_LOG_EXCEPTION_FIE        = 'dev/log/exception_file';
+    public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = 'dev/log/exception_file';
 
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
 

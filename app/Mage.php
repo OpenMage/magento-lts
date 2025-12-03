@@ -870,7 +870,7 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param Level::* $level
+     * @param null|int|Level::* $level
      * @param null|string $file
      * @param bool $forceLog
      */
@@ -951,7 +951,8 @@ final class Mage
 
                 $writer->setFormatter($formatter);
                 $logger = new Logger('OpenMage');
-                $loggers[$file] = $logger->pushHandler($writer);
+                $logger->pushHandler($writer);
+                $loggers[$file] = $logger;
             }
 
             if (is_array($message) || is_object($message)) {
@@ -973,7 +974,7 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FIE);
+        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
         self::log("\n" . $e->__toString(), Level::Error, $file);
     }
 

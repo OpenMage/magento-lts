@@ -23,6 +23,7 @@ class Mage_Core_Model_Logger
      * @param Level::* $level
      * @param string $file
      * @param bool $forceLog
+     * @param array $context Additional context for the log entry.
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
