@@ -941,7 +941,7 @@ final class Mage
                 }
 
                 $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
-                $formatter = new LineFormatter($format, null, true, true ,true);
+                $formatter = new LineFormatter($format, null, true, true, true);
                 $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
                     $writer = new StreamHandler($logFile);
