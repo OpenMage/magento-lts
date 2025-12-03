@@ -7,6 +7,11 @@
  * @package    Mage
  */
 
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
 defined('PS') || define('PS', PATH_SEPARATOR);
 
@@ -865,20 +870,20 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param int $level
+     * @param Level::* $level
      * @param null|string $file
      * @param bool $forceLog
      */
-    public static function log($message, $level = null, $file = '', $forceLog = false)
+    public static function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
         if (!self::getConfig()) {
             return;
         }
 
         try {
-            $logActive = self::getStoreConfig('dev/log/active');
+            $logActive = self::getStoreConfigFlag(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ENABLED);
             if (empty($file)) {
-                $file = self::getStoreConfig('dev/log/file');
+                $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE);
             }
         } catch (Exception) {
             $logActive = true;
@@ -891,26 +896,32 @@ final class Mage
         static $loggers = [];
 
         try {
-            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+            $maxLogLevel = (int) self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
         } catch (Throwable) {
-            $maxLogLevel = Zend_Log::DEBUG;
+            $maxLogLevel = Level::Debug;
         }
 
-        $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+        $level  = is_null($level) ? Level::Debug : $level;
 
         if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
             return;
         }
 
         $file = empty($file)
-            ? (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+            ? (string) self::getConfig()->getNode(
+                Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE,
+                Mage_Core_Model_Store::DEFAULT_CODE,
+            ) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
                 $_allowedFileExtensions = explode(
                     ',',
-                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE),
+                    (string) self::getConfig()->getNode(
+                        Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
+                        Mage_Core_Model_Store::DEFAULT_CODE,
+                    ),
                 );
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
@@ -929,17 +940,18 @@ final class Mage
                     chmod($logFile, 0640);
                 }
 
-                $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
-                $formatter = new Zend_Log_Formatter_Simple($format);
+                $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
+                $formatter = new LineFormatter($format, null, true, true ,true);
                 $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
-                    $writer = new Zend_Log_Writer_Stream($logFile);
+                    $writer = new StreamHandler($logFile);
                 } else {
                     $writer = new $writerModel($logFile);
                 }
 
                 $writer->setFormatter($formatter);
-                $loggers[$file] = new Zend_Log($writer);
+                $logger = new Logger('OpenMage');
+                $loggers[$file] = $logger->pushHandler($writer);
             }
 
             if (is_array($message) || is_object($message)) {
@@ -947,7 +959,7 @@ final class Mage
             }
 
             $message = addcslashes($message, '<?');
-            $loggers[$file]->log($message, $level);
+            $loggers[$file]->log($level, $message, $context);
         } catch (Exception) {
         }
     }
@@ -961,8 +973,8 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig('dev/log/exception_file');
-        self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
+        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FIE);
+        self::log("\n" . $e->__toString(), Level::Error, $file);
     }
 
     /**

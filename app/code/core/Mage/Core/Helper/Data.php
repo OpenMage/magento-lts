@@ -24,6 +24,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
 
+    public const XML_PATH_DEV_LOG_ENABLED              = 'dev/log/active';
+
+    public const XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS   = 'dev/log/allowedFileExtensions';
+
+    public const XML_PATH_DEV_LOG_FILE                 = 'dev/log/file';
+
+    public const XML_PATH_DEV_LOG_EXCEPTION_FIE        = 'dev/log/exception_file';
+
+    public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
+
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
 
     public const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
