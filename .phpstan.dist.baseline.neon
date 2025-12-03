@@ -3479,3 +3479,9 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Simplexml/Element.php
+
+		-
+			rawMessage: Dead catch - PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure is never thrown in the try block.
+			identifier: catch.neverThrown
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php
