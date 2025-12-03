@@ -896,14 +896,21 @@ final class Mage
         static $loggers = [];
 
         try {
-            $maxLogLevel = (int) self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
+            $maxLogLevel = self::getStoreConfigAsInt(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
         } catch (Throwable) {
-            $maxLogLevel = Level::Debug;
+            $maxLogLevel = Level::Debug->value;
         }
 
-        $level  = is_null($level) ? Level::Debug : $level;
+        // Normalize both $level and $maxLogLevel to integers for comparison
+        if ($level instanceof Level) {
+            $levelValue = $level->value;
+        } elseif (is_null($level)) {
+            $levelValue = Level::Debug->value;
+        } else {
+            $levelValue = (int) $level;
+        }
 
-        if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
+        if (!self::$_isDeveloperMode && $levelValue > $maxLogLevel && !$forceLog) {
             return;
         }
 
