@@ -22,6 +22,8 @@ use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
+use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
+use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
@@ -42,6 +44,13 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+        ])
+        ->withConfiguredRule(RenameClassConstFetchRector::class, [
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
         ])
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,

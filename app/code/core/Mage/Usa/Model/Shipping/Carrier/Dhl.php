@@ -290,29 +290,29 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         if ($request->getAction() == 'GenerateLabel') {
             $packageParams = $request->getPackageParams();
             $shippingWeight = $request->getPackageWeight();
-            if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
+            if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::POUND) {
                 $shippingWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                     $request->getPackageWeight(),
                     $packageParams->getWeightUnits(),
-                    Zend_Measure_Weight::POUND,
+                    Mage_Core_Helper_Measure_Weight::POUND,
                 ));
             }
 
-            if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
+            if ($packageParams->getDimensionUnits() != Mage_Core_Helper_Measure_Length::INCH) {
                 $packageParams->setLength(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getLength(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
                 $packageParams->setWidth(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getWidth(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
                 $packageParams->setHeight(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getHeight(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
             }
 

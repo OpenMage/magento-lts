@@ -109,6 +109,9 @@
         <testsuite name="Mage_Uploader">
             <directory>tests/unit/Mage/Uploader</directory>
         </testsuite>
+        <testsuite name="Mage_Usa">
+            <directory>tests/unit/Mage/Usa</directory>
+        </testsuite>
         <testsuite name="Mage_Wishlist">
             <directory>tests/unit/Mage/Wishlist</directory>
         </testsuite>
