@@ -951,9 +951,9 @@ final class Mage
                 $formatter = new LineFormatter($format, null, true, true, true);
                 $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
-                    $writer = new StreamHandler($logFile, $levelValue);
+                    $writer = new StreamHandler($logFile, Level::Debug);
                 } else {
-                    $writer = new $writerModel($logFile, $levelValue);
+                    $writer = new $writerModel($logFile, Level::Debug);
                 }
 
                 $writer->setFormatter($formatter);
