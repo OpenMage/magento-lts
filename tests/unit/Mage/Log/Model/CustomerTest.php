@@ -26,7 +26,7 @@ final class CustomerTest extends OpenMageTest
      * @dataProvider loadByCustomerDataProvider
      * @group Model
      */
-    public function testLoadByCustomer($input, $expectedCustomerId): void
+    public function testLoadByCustomer($input, int $expectedCustomerId): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->onlyMethods(['load'])
