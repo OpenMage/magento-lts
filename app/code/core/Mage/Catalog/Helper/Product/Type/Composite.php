@@ -177,6 +177,17 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
         $_tierPrices = [];
         $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
+            // Skip tier prices >= lower of final price or group price
+            $comparePrice = $_finalPrice;
+            $groupPrice = $product->getGroupPrice();
+            if ($groupPrice !== null && $groupPrice < $comparePrice) {
+                $comparePrice = $groupPrice;
+            }
+
+            if ((float) $tierPrice['website_price'] >= $comparePrice) {
+                continue;
+            }
+
             $_tierPrices[] = Mage::helper('core')->currency(
                 Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], false) - $_priceExclTax,
                 false,
