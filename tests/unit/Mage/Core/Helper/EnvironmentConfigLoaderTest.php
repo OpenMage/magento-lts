@@ -289,7 +289,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      * @dataProvider envHasPathDataProvider
      * @group Helper
      *
-     * @param array<string, string|bool> $config
+     * @param array<string, bool|string> $config
      */
     public function testHasPath(array $config): void
     {
