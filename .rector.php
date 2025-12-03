@@ -46,6 +46,14 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withConfiguredRule(RenameClassConstFetchRector::class, [
+            new RenameClassAndConstFetch('Zend_Log', 'EMERG', 'Monolog\Level', 'Emergency'),
+            new RenameClassAndConstFetch('Zend_Log', 'ALERT', 'Monolog\Level', 'Alert'),
+            new RenameClassAndConstFetch('Zend_Log', 'CRIT', 'Monolog\Level', 'Critical'),
+            new RenameClassAndConstFetch('Zend_Log', 'ERR', 'Monolog\Level', 'Error'),
+            new RenameClassAndConstFetch('Zend_Log', 'WARN', 'Monolog\Level', 'Warning'),
+            new RenameClassAndConstFetch('Zend_Log', 'NOTICE', 'Monolog\Level', 'Notice'),
+            new RenameClassAndConstFetch('Zend_Log', 'INFO', 'Monolog\Level', 'Info'),
+            new RenameClassAndConstFetch('Zend_Log', 'DEBUG', 'Monolog\Level', 'Debug'),
             new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
             new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),

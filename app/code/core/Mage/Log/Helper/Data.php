@@ -25,6 +25,8 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Allowed extensions that can be used to create a log file
+     *
+     * @var array
      */
     private $_allowedFileExtensions = ['log', 'txt', 'html', 'csv'];
 
