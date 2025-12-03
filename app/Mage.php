@@ -967,7 +967,7 @@ final class Mage
             }
 
             $message = addcslashes($message, '<?');
-            $loggers[$file]->log($level, $message, $context);
+            $loggers[$file]->log($levelValue, $message, $context);
         } catch (Exception) {
         }
     }
