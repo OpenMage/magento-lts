@@ -46,8 +46,8 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withConfiguredRule(RenameClassConstFetchRector::class, [
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Weight', 'CENTIMETER'),
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Weight', 'INCH'),
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
