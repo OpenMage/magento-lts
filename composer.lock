@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc7486070da3615d9c80249334d836e3",
+    "content-hash": "e1cdedd0b0abe19a9af9e069e9d346a5",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
