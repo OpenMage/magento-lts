@@ -125,7 +125,6 @@
     "extra": {
         "patches": {
             "shardj/zf1-future": {
-                "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.0.patch",
                 "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.7.patch",
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-918.patch",
