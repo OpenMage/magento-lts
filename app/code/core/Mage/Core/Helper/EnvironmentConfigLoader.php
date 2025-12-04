@@ -302,6 +302,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     /**
      * @return array<string, int|string>
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getEnv(): array
     {
