@@ -307,6 +307,9 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
+            // Use $_ENV instead of getenv() because phpdotenv populates $_ENV with both system environment variables
+            // and variables from the .env file. This ensures that configuration overrides from .env are respected.
+            // getenv() would only return system environment variables, not those loaded from .env.
             $env = array_filter($_ENV, function ($key) {
                 return str_starts_with($key, self::ENV_STARTS_WITH);
             }, ARRAY_FILTER_USE_KEY);
