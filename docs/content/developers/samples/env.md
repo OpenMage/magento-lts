@@ -22,7 +22,7 @@ Load environment variables from a .env file in the project root.
 - These variables can be set in the .env file, or via environment variables (`$_SERVER`/`$_ENV`).
 - `.env` values are loaded first, but can be overridden by actual environment variables.
 
-```ini title=".env example"
+```ini
 MAGE_IS_DEVELOPER_MODE=1
 OPENMAGE_CONFIG_OVERRIDE_ALLOWED=1
 OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME="My OpenMage Store"
