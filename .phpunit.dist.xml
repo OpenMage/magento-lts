@@ -82,6 +82,9 @@
         <testsuite name="Mage_Newsletter">
             <directory>tests/unit/Mage/Newsletter</directory>
         </testsuite>
+        <testsuite name="Mage_Oauth">
+            <directory>tests/unit/Mage/Oauth</directory>
+        </testsuite>
         <testsuite name="Mage_Page">
             <directory>tests/unit/Mage/Page</directory>
         </testsuite>
@@ -106,6 +109,9 @@
         <testsuite name="Mage_Uploader">
             <directory>tests/unit/Mage/Uploader</directory>
         </testsuite>
+        <testsuite name="Mage_Usa">
+            <directory>tests/unit/Mage/Usa</directory>
+        </testsuite>
         <testsuite name="Mage_Wishlist">
             <directory>tests/unit/Mage/Wishlist</directory>
         </testsuite>
@@ -119,13 +125,12 @@
         processUncoveredFiles="false"
     >
         <include>
+            <file>Mage.php</file>
             <directory suffix=".php">app/code</directory>
             <directory suffix=".php">lib</directory>
         </include>
         <exclude>
             <file>app/bootstrap.php</file>
-            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
-            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
             <directory>app/code/community</directory>
             <directory>app/code/local/</directory>
             <directory>app/code/core/Mage/*/data</directory>
