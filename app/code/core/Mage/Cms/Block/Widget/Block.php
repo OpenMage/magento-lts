@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_BlockInterface as BlockInterface;
+
 /**
  * Cms Static Block Widget
  *
@@ -43,11 +45,13 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      * Prevent blocks recursion if needed
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
-        $blockId = $this->getData('block_id');
+        $blockId = $this->getData(BlockInterface::DATA_ID);
         $blockHash = static::class . $blockId;
 
         if (isset(self::$_widgetUsageMap[$blockHash])) {
@@ -99,6 +103,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      * Check is request goes from admin area
      *
      * @return bool
+     * @throws Exception
      */
     public function isRequestFromAdminArea()
     {
