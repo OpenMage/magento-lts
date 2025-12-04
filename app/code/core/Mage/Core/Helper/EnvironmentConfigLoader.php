@@ -306,8 +306,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
-            $env = getenv();
-            $env = array_filter($env, function ($key) {
+            $env = array_filter($_ENV, function ($key) {
                 return str_starts_with($key, self::ENV_STARTS_WITH);
             }, ARRAY_FILTER_USE_KEY);
             $this->envStore = $env;

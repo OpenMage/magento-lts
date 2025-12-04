@@ -50,7 +50,8 @@
         "symfony/polyfill-php85": "^1.33",
         "symfony/string": "^6.4",
         "symfony/translation-contracts": "^3.5",
-        "tinymce/tinymce": "^8.0"
+        "tinymce/tinymce": "^8.0",
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "ext-xmlreader": "*",

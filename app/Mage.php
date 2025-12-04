@@ -54,6 +54,10 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
     include_once $path;
 }
 
+$dotenv = Dotenv\Dotenv::createImmutable(BP);
+$dotenv->safeLoad();
+$dotenv->ifPresent(['MAGE_IS_DEVELOPER_MODE', 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED'])->isInteger();
+
 /**
  * Main Mage hub class
  */
