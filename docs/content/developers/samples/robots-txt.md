@@ -5,7 +5,7 @@ hide:
 
 # `robots.txt`
 
-```text
+```text title="robots.txt example"
 ############################################
 ## For more information about the robots.txt standard visit
 ## http://www.robotstxt.org/orig.html

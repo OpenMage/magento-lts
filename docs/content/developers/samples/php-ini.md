@@ -5,7 +5,7 @@ hide:
 
 # `php.ini`
 
-```ini
+```ini title="php.ini example"
 ; This file is for CGI/FastCGI installations
 ; Try copying it to php7.ini or php8 if it doesn't work
 
