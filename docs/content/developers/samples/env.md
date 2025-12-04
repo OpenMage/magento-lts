@@ -5,7 +5,7 @@ hide:
 
 # `.env`
 
-Load environment variables from a .env file in the project root.
+Load environment variables from a `.env` file in the project root.
 
 ### Supported variables:
 
@@ -19,7 +19,7 @@ Load environment variables from a .env file in the project root.
 
 ### Integration:
 
-- These variables can be set in the .env file, or via environment variables (`$_SERVER`/`$_ENV`).
+- These variables can be set in the `.env` file, or via environment variables (`$_SERVER`/`$_ENV`).
 - `.env` values are loaded first, but can be overridden by actual environment variables.
 
 ```ini
