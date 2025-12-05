@@ -658,12 +658,13 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
             }
 
             $orderValidPeriod = abs((int) $this->getConfigData('order_valid_period'));
+            if ($orderValidPeriod == 0) {
+                return false;
+            }
 
-            $dateCompass = new DateTime($orderTransaction->getCreatedAt());
-            $dateCompass->modify('+' . $orderValidPeriod . ' days');
+            $dateCompass = Carbon::parse($orderTransaction->getCreatedAt())->addDays($orderValidPeriod);
             $currentDate = Carbon::now();
-
-            if ($currentDate > $dateCompass || $orderValidPeriod == 0) {
+            if ($currentDate > $dateCompass) {
                 return false;
             }
         }
