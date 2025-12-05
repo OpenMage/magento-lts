@@ -209,7 +209,7 @@ class Mage_Cron_Model_Observer
     {
         // check if history cleanup is needed
         $lastCleanup = Mage::app()->loadCache(self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT);
-        if ($lastCleanup > Carbon::now()->subMinutes(1)->getTimestamp()) {
+        if ($lastCleanup > Carbon::now()->subMinutes(Mage::getStoreConfigAsInt(self::XML_PATH_HISTORY_CLEANUP_EVERY))->getTimestamp()) {
             return $this;
         }
 
