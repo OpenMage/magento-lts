@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Monolog\Level;
+
 /**
  * Logger model
  *
@@ -18,13 +20,14 @@ class Mage_Core_Model_Logger
      * Log wrapper
      *
      * @param string $message
-     * @param int $level
+     * @param Level::* $level
      * @param string $file
      * @param bool $forceLog
+     * @param array $context additional context for the log entry
      */
-    public function log($message, $level = null, $file = '', $forceLog = false)
+    public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
-        Mage::log($message, $level, $file, $forceLog);
+        Mage::log($message, $level, $file, $forceLog, $context);
     }
 
     /**

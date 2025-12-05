@@ -1379,8 +1379,8 @@ XMLAuth;
         $height = $packageParams->getHeight();
         $width = $packageParams->getWidth();
         $length = $packageParams->getLength();
-        $weightUnits = $packageParams->getWeightUnits() == Zend_Measure_Weight::POUND ? 'LBS' : 'KGS';
-        $dimensionsUnits = $packageParams->getDimensionUnits() == Zend_Measure_Length::INCH ? 'IN' : 'CM';
+        $weightUnits = $packageParams->getWeightUnits() == Mage_Core_Helper_Measure_Weight::POUND ? 'LBS' : 'KGS';
+        $dimensionsUnits = $packageParams->getDimensionUnits() == Mage_Core_Helper_Measure_Length::INCH ? 'IN' : 'CM';
 
         $xmlRequest = new SimpleXMLElement('<?xml version = "1.0" ?><ShipmentConfirmRequest xml:lang="en-US"/>');
         $requestPart = $xmlRequest->addChild('Request');
@@ -1742,7 +1742,7 @@ XMLAuth;
         } else {
             Mage::log(
                 'Unexpected response shape from UPS REST API /shipments endpoint for .ShipmentResults.PackageResults',
-                Zend_Log::WARN,
+                \Monolog\Level::Warning,
             );
             $result->setErrors(Mage::helper('usa')->__('Error reading response from UPS'));
             $this->_debug($debugData);
@@ -1797,8 +1797,8 @@ XMLAuth;
         $width = $packageParams->getWidth();
         $length = $packageParams->getLength();
         $weight = $packageParams->getWeight();
-        $weightUnits = $packageParams->getWeightUnits() == Zend_Measure_Weight::POUND ? 'LBS' : 'KGS';
-        $dimensionsUnits = $packageParams->getDimensionUnits() == Zend_Measure_Length::INCH ? 'IN' : 'CM';
+        $weightUnits = $packageParams->getWeightUnits() == Mage_Core_Helper_Measure_Weight::POUND ? 'LBS' : 'KGS';
+        $dimensionsUnits = $packageParams->getDimensionUnits() == Mage_Core_Helper_Measure_Length::INCH ? 'IN' : 'CM';
 
         /**  Shipment API Payload */
         $shipParams = [
