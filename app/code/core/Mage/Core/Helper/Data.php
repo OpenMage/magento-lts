@@ -204,7 +204,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$date instanceof Zend_Date) {
             try {
                 $time = Carbon::parse($date)->getTimestamp();
-                $date = $locale->date($time, null, null, $useTimezone);                
+                $date = $locale->date($time, null, null, $useTimezone);
             } catch (InvalidFormatException) {
                 return '';
             }

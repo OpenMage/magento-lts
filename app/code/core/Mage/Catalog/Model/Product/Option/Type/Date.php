@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Catalog product option date type
@@ -199,7 +200,12 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $timestamp = Carbon::parse($optionValue)->getTimestamp();
+        try {
+            $timestamp = Carbon::parse($optionValue)->getTimestamp();
+        } catch (InvalidFormatException) {
+            $timestamp = false;
+        }
+
         if ($timestamp === false || $timestamp == -1) {
             return null;
         }

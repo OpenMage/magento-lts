@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Converter of date formats
@@ -108,7 +109,7 @@ class Varien_Date
      * Returns current UNIX timestamp if date is true
      *
      * @param string|true|Zend_Date $date
-     * @return int
+     * @return false|int
      */
     public static function toTimestamp($date)
     {
@@ -120,7 +121,11 @@ class Varien_Date
             return Carbon::now()->getTimestamp();
         }
 
-        return Carbon::parse($date)->getTimestamp();
+        try {
+            return Carbon::parse($date)->getTimestamp();
+        } catch (InvalidFormatException) {
+            return false;
+        }
     }
 
     /**
