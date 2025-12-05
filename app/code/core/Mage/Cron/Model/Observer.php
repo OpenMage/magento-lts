@@ -43,8 +43,8 @@ class Mage_Cron_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
-     * @throws Zend_Cache_Exception
      * @throws Throwable
+     * @throws Zend_Cache_Exception
      */
     public function dispatch($observer)
     {
@@ -116,8 +116,8 @@ class Mage_Cron_Model_Observer
      *
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Cache_Exception
      * @throws Throwable
+     * @throws Zend_Cache_Exception
      */
     public function generate()
     {
