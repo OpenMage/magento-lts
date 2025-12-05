@@ -115,7 +115,7 @@ class Mage_Cron_Model_Observer
          * check if schedule generation is needed
          */
         $lastRun = Mage::app()->loadCache(self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT);
-        if ($lastRun > Carbon::now()->subMinutes(1)->getTimestamp()) {
+        if ($lastRun > Carbon::now()->subMinutes(Mage::getStoreConfigAsInt(self::XML_PATH_SCHEDULE_GENERATE_EVERY))->getTimestamp()) {
             return $this;
         }
 
