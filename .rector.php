@@ -152,7 +152,7 @@ try {
             instanceOf: true,
             earlyReturn: true,
             strictBooleans: false,
-            carbon: false,
+            carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
             doctrineCodeQuality: false,

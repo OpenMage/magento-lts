@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Create random order
  *
@@ -148,7 +150,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getRandomDate()
     {
         $timestamp = mktime(random_int(0, 23), random_int(0, 59), 0, random_int(1, 11), random_int(1, 28), random_int(2006, 2007));
-        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
+        return Carbon::createFromTimestamp($timestamp)->format(Varien_Date::DATETIME_PHP_FORMAT);
     }
 
     public function save()

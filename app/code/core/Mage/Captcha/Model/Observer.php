@@ -7,6 +7,8 @@
  * @package    Mage_Captcha
  */
 
+use Carbon\Carbon;
+
 /**
  * Captcha Observer
  *
@@ -238,7 +240,7 @@ class Mage_Captcha_Model_Observer
     public function deleteExpiredImages()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
-            $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore()) * 60;
+            $expire = Carbon::now()->subMinutes(1)->getTimestamp();
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
                 if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png') {
