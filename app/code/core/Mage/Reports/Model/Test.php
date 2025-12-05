@@ -70,17 +70,17 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getAllLinearExample()
     {
         $session = Mage::getModel('review/session');
-
         $startPoint = Carbon::now()->subDays(1)->getTimestamp();
+        $format = 'Y-m-d H:i';
 
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format('Y-m-d H:i'), 'value' => random_int(1, 100)];
+            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format('Y-m-d H:i')];
+        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -93,17 +93,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getNewLinearData()
     {
         $session = Mage::getModel('review/session');
-
         $startPoint = $session->getData('startPoint');
-
         $reset = 12;
+        $format = 'Y-m-d H:i';
 
         $newData  = [
-            ['time' => Carbon::createFromTimestamp($startPoint)->format('Y-m-d H:i'), 'value' => random_int(1, 100)],
+            ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;
-        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format('Y-m-d H:i')];
+        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session->setData('startPoint', $startPoint);
 
