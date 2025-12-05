@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Core data helper
@@ -201,9 +202,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (is_int($date)) {
             $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
-            if (($time = Carbon::parse($date)->getTimestamp()) !== false) {
-                $date = $locale->date($time, null, null, $useTimezone);
-            } else {
+            try {
+                $time = Carbon::parse($date)->getTimestamp();
+                $date = $locale->date($time, null, null, $useTimezone);                
+            } catch (InvalidFormatException) {
                 return '';
             }
         }
