@@ -87,6 +87,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      *
      * @return mixed Prepared option value
      * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function prepareForCart()
     {
@@ -143,6 +145,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      *
      * @param string $optionValue Prepared for cart option value
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function getFormattedOptionValue($optionValue)
     {
@@ -197,6 +202,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
      * @return null|string
+     * @throws Zend_Date_Exception
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -259,7 +265,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Year range start
      *
-     * @return mixed
+     * @return string
      */
     public function getYearStart()
     {
@@ -274,7 +280,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Year range end
      *
-     * @return mixed
+     * @return string
      */
     public function getYearEnd()
     {
@@ -307,6 +313,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have date?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _dateExists()
     {
@@ -320,6 +327,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have time?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _timeExists()
     {

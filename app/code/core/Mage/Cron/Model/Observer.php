@@ -42,6 +42,9 @@ class Mage_Cron_Model_Observer
      * Cleanup tasks schedule
      *
      * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Throwable
      */
     public function dispatch($observer)
     {
@@ -71,6 +74,8 @@ class Mage_Cron_Model_Observer
      * Process cron queue for tasks marked as always
      *
      * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function dispatchAlways($observer)
     {
@@ -91,6 +96,8 @@ class Mage_Cron_Model_Observer
 
     /**
      * @return Mage_Cron_Model_Resource_Schedule_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getPendingSchedules()
     {
@@ -108,6 +115,9 @@ class Mage_Cron_Model_Observer
      * Generate cron schedule
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Throwable
      */
     public function generate()
     {
@@ -155,6 +165,8 @@ class Mage_Cron_Model_Observer
      * @param   SimpleXMLElement $jobs
      * @param   array $exists
      * @return  $this
+     * @throws  Mage_Core_Exception
+     * @throws  Throwable
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -182,8 +194,8 @@ class Mage_Cron_Model_Observer
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $ts = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
-                if (!empty($exists[$jobCode . '/' . $ts])) {
+                $timstamp = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
+                if (!empty($exists[$jobCode . '/' . $timstamp])) {
                     // already scheduled
                     continue;
                 }
@@ -204,6 +216,8 @@ class Mage_Cron_Model_Observer
      * Clean up the history of tasks
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function cleanup()
     {
@@ -248,6 +262,8 @@ class Mage_Cron_Model_Observer
      * @param string $jobCode
      * @param SimpleXMLElement $jobConfig
      * @return $this|void
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
@@ -275,6 +291,7 @@ class Mage_Cron_Model_Observer
      * @param SimpleXMLElement $jobConfig
      * @param bool $isAlways
      * @return $this|void
+     * @throws Throwable
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
     {
@@ -356,16 +373,18 @@ class Mage_Cron_Model_Observer
      *
      * @param string $jobCode
      * @return Mage_Cron_Model_Schedule
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _getAlwaysJobSchedule($jobCode)
     {
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $ts = Carbon::now()->format('Y-m-d H:i:00');
+            $timestamp = Carbon::now()->format('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
-                ->setCreatedAt($ts)
-                ->setScheduledAt($ts);
+                ->setCreatedAt($timestamp)
+                ->setScheduledAt($timestamp);
         }
 
         $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();
