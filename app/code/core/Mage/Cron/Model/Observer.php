@@ -194,8 +194,8 @@ class Mage_Cron_Model_Observer
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $timstamp = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
-                if (!empty($exists[$jobCode . '/' . $timstamp])) {
+                $timestamp = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
+                if (!empty($exists[$jobCode . '/' . $timestamp])) {
                     // already scheduled
                     continue;
                 }
