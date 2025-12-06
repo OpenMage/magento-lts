@@ -7,6 +7,8 @@
  * @package    Mage_Captcha
  */
 
+use Carbon\Carbon;
+
 /**
  * Captcha Observer
  *
@@ -141,6 +143,7 @@ class Mage_Captcha_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function checkUserLoginBackend($observer)
     {
@@ -234,11 +237,13 @@ class Mage_Captcha_Model_Observer
      * Delete Expired Captcha Images
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteExpiredImages()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
-            $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore()) * 60;
+            $timeout = (int) Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore());
+            $expire = Carbon::now()->subMinutes($timeout)->getTimestamp();
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
                 if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png') {
@@ -320,13 +325,13 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
-                $id = (int) $request->getParam('id');
+                $sendId = (int) $request->getParam('id');
                 $catId = $request->getParam('cat_id');
                 if ($catId !== null) {
-                    $id .= '/cat_id/' . (int) $catId;
+                    $sendId .= '/cat_id/' . (int) $catId;
                 }
 
-                $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
+                $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $sendId));
             }
         }
 

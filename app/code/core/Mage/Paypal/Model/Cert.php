@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+use Carbon\Carbon;
+
 /**
  * PayPal specific model for certificate based authentication
  *
@@ -49,7 +51,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('paypal')->__('PayPal certificate does not exist.'));
         }
 
-        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), strtotime($this->getUpdatedAt()));
+        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), Carbon::parse($this->getUpdatedAt())->getTimestamp());
         $certFile = $this->_getBaseDir() . DS . $certFileName;
 
         if (!file_exists($certFile)) {

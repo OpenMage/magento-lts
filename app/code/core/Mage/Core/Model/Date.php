@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Date conversion model
  *
@@ -58,7 +60,7 @@ class Mage_Core_Model_Date
         }
 
         if ($result === true) {
-            $offset = (int) date('Z');
+            $offset = (int) Carbon::now()->format('Z');
         }
 
         if (!is_null($timezone)) {
@@ -87,7 +89,7 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        return date($format, (int) $date);
+        return Carbon::createFromTimestamp((int) $date)->format($format);
     }
 
     /**
@@ -104,7 +106,7 @@ class Mage_Core_Model_Date
             $format = Varien_Date::DATETIME_PHP_FORMAT;
         }
 
-        return date($format, $this->timestamp($input));
+        return Carbon::createFromTimestamp($this->timestamp($input))->format($format);
     }
 
     /**
@@ -120,7 +122,7 @@ class Mage_Core_Model_Date
         } elseif (is_numeric($input)) {
             $result = $input;
         } else {
-            $result = strtotime($input);
+            $result = Carbon::parse($input)->getTimestamp();
         }
 
         if ($result === false) {
@@ -149,7 +151,7 @@ class Mage_Core_Model_Date
         } elseif (is_numeric($input)) {
             $result = $input;
         } else {
-            $result = strtotime($input);
+            $result = Carbon::parse($input)->getTimestamp();
         }
 
         $date      = Mage::app()->getLocale()->date($result);

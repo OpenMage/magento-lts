@@ -7,6 +7,9 @@
  * @package    Mage_Catalog
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Catalog product option date type
  *
@@ -84,6 +87,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      *
      * @return mixed Prepared option value
      * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function prepareForCart()
     {
@@ -106,7 +111,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     $timestamp += mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
                 }
             } else {
-                $timestamp += mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                $timestamp += mktime(0, 0, 0, Carbon::now()->format('m'), Carbon::now()->format('d'), Carbon::now()->format('Y'));
             }
 
             if ($this->_timeExists()) {
@@ -140,6 +145,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      *
      * @param string $optionValue Prepared for cart option value
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function getFormattedOptionValue($optionValue)
     {
@@ -155,7 +163,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     ->date($optionValue, Varien_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
             } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
                 $date = new Zend_Date($optionValue);
-                $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
+                $result = Carbon::createFromTimestamp($date->getTimestamp())->format($this->is24hTimeFormat() ? 'H:i' : 'h:i a');
             } else {
                 $result = $optionValue;
             }
@@ -194,10 +202,16 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
      * @return null|string
+     * @throws Zend_Date_Exception
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $timestamp = strtotime($optionValue);
+        try {
+            $timestamp = Carbon::parse($optionValue)->getTimestamp();
+        } catch (InvalidFormatException) {
+            $timestamp = false;
+        }
+
         if ($timestamp === false || $timestamp == -1) {
             return null;
         }
@@ -251,7 +265,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Year range start
      *
-     * @return mixed
+     * @return string
      */
     public function getYearStart()
     {
@@ -259,14 +273,14 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if (isset($_range[0]) && !empty($_range[0])) {
             return $_range[0];
         } else {
-            return date('Y');
+            return Carbon::now()->format('Y');
         }
     }
 
     /**
      * Year range end
      *
-     * @return mixed
+     * @return string
      */
     public function getYearEnd()
     {
@@ -274,7 +288,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if (isset($_range[1]) && !empty($_range[1])) {
             return $_range[1];
         } else {
-            return date('Y');
+            return Carbon::now()->format('Y');
         }
     }
 
@@ -299,6 +313,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have date?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _dateExists()
     {
@@ -312,6 +327,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have time?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _timeExists()
     {

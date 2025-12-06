@@ -7,6 +7,8 @@
  * @package    Mage_Payment
  */
 
+use Carbon\Carbon;
+
 /**
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
@@ -314,8 +316,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     {
         // TODO: implement proper logic with invoking payment method instance
         $date = $minAllowed;
-        if (!$date || $date->getTimestamp() < time()) {
-            $date = new Zend_Date(time());
+        if (!$date || $date->getTimestamp() < Carbon::now()->getTimestamp()) {
+            $date = new Zend_Date(Carbon::now()->getTimestamp());
         }
 
         $this->setStartDatetime($date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
@@ -335,7 +337,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             return;
         }
 
-        $date = $this->_locale->storeDate($this->_store, strtotime($datetime), true);
+        $date = $this->_locale->storeDate($this->_store, Carbon::parse($datetime)->getTimestamp(), true);
         if ($asString) {
             return $date->toString($this->_locale->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         }

@@ -7,6 +7,8 @@
  * @package    Varien_Io
  */
 
+use Carbon\Carbon;
+
 /**
  * Filesystem client
  *
@@ -846,7 +848,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                 }
 
                 $listItem['text'] = $entry;
-                $listItem['mod_date'] = date(Varien_Date::DATETIME_PHP_FORMAT, filectime($fullpath));
+                $listItem['mod_date'] = Carbon::createFromTimestamp(filectime($fullpath))->format(Varien_Date::DATETIME_PHP_FORMAT);
                 $listItem['permissions'] = $this->_parsePermissions(fileperms($fullpath));
                 $listItem['owner'] = $this->_getFileOwner($fullpath);
 

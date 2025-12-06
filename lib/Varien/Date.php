@@ -7,6 +7,9 @@
  * @package    Varien_Date
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Converter of date formats
  * Internal dates
@@ -106,7 +109,7 @@ class Varien_Date
      * Returns current UNIX timestamp if date is true
      *
      * @param string|true|Zend_Date $date
-     * @return int
+     * @return false|int
      */
     public static function toTimestamp($date)
     {
@@ -115,10 +118,14 @@ class Varien_Date
         }
 
         if ($date === true) {
-            return time();
+            return Carbon::now()->getTimestamp();
         }
 
-        return strtotime($date);
+        try {
+            return Carbon::parse($date)->getTimestamp();
+        } catch (InvalidFormatException) {
+            return false;
+        }
     }
 
     /**
@@ -163,6 +170,6 @@ class Varien_Date
         }
 
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
-        return date($format, $date);
+        return Carbon::createFromTimestamp($date)->format($format);
     }
 }
