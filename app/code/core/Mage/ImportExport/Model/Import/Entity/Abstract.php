@@ -575,7 +575,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $valid = false;
                 }
 
-                $valid !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                $valid = $valid !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
