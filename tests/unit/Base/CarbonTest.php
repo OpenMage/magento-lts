@@ -25,7 +25,7 @@ final class CarbonTest extends TestCase
         $timestamp = mktime(0, 0, 0, 1, 2, random_int(2006, 2007));
         self::assertSame(
             date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp),
-            Carbon::createFromTimestamp($timestamp)->format(Varien_Date::DATETIME_PHP_FORMAT)
+            Carbon::createFromTimestamp($timestamp)->format(Varien_Date::DATETIME_PHP_FORMAT),
         );
     }
 
