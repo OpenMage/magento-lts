@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
@@ -61,6 +62,12 @@ try {
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
         ])
         ->withSkip([
+            Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
+                __DIR__ . '/tessts/unit/Base/CarbonTest.php',
+            ],
+           Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
+                __DIR__ . '/tessts/unit/Base/CarbonTest.php',
+            ],
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
