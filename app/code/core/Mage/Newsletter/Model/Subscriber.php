@@ -352,7 +352,12 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
             $this->setSubscriberEmail($email);
         } elseif ($this->getStatus() == self::STATUS_SUBSCRIBED) {
-            Mage::throwException(Mage::helper('newsletter')->__('This email address is already registered.'));
+            // Allow resubscription if user is subscribing their own email
+            if (!$isSubscribeOwnEmail) {
+                Mage::throwException(Mage::helper('newsletter')->__('This email address is already registered.'));
+            }
+            // If user is resubscribing their own email that's already subscribed, just return success
+            return $this->getStatus();
         }
 
         if ($isSubscribeOwnEmail) {
