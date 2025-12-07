@@ -138,6 +138,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             }
 
             if ($listSwatchValues !== []) {
+                // Preserve the sort order from $optionLabelsOriginal while maintaining the option IDs as keys.
+                // array_intersect_key returns entries from the first array that have matching keys in the second,
+                // which ensures we get the original (non-normalized) labels in the correct sort order.
                 $listSwatchValues = array_replace(
                     array_intersect_key($optionLabelsOriginal, $listSwatchValues),
                     $listSwatchValues,

@@ -124,20 +124,11 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
 
         $resultSet = $this->getConnection()->query($select);
         $labels = [];
-        $sortOrder = [];
         while ($option = $resultSet->fetch()) {
-            $optionId = $option['option_id'];
-            $labels[$optionId][$option['store_id']] = $option['label'];
-            // Track the order in which we see each option_id (already sorted by sort_order)
-            if (!isset($sortOrder[$optionId])) {
-                $sortOrder[$optionId] = count($sortOrder);
-            }
+            // PHP arrays maintain insertion order, so as we iterate through the sorted query results,
+            // the option IDs will be added in the correct sort_order
+            $labels[$option['option_id']][$option['store_id']] = $option['label'];
         }
-
-        // Sort the labels array by the order we encountered the option_ids
-        uksort($labels, function ($a, $b) use ($sortOrder) {
-            return ($sortOrder[$a] ?? PHP_INT_MAX) <=> ($sortOrder[$b] ?? PHP_INT_MAX);
-        });
 
         return $labels;
     }
