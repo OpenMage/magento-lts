@@ -22,10 +22,10 @@ describe('Check catalog product page', () => {
         cy.get(options).eq(2).contains('M').should('exist');
         cy.get(options).eq(3).contains('L').should('exist');
         cy.get(options).eq(4).contains('XL').should('exist');
-        cy.get(options).eq(0).invoke('attr', 'title').should('eq', 'XS')
-        cy.get(options).eq(1).invoke('attr', 'title').should('eq', 'S')
-        cy.get(options).eq(2).invoke('attr', 'title').should('eq', 'M')
-        cy.get(options).eq(3).invoke('attr', 'title').should('eq', 'L')
-        cy.get(options).eq(4).invoke('attr', 'title').should('eq', 'XL')
+        cy.get(options).eq(0).invoke('attr', 'title').should('eq', 'XS');
+        cy.get(options).eq(1).invoke('attr', 'title').should('eq', 'S');
+        cy.get(options).eq(2).invoke('attr', 'title').should('eq', 'M');
+        cy.get(options).eq(3).invoke('attr', 'title').should('eq', 'L');
+        cy.get(options).eq(4).invoke('attr', 'title').should('eq', 'XL');
     });
 })
