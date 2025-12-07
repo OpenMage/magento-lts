@@ -27,7 +27,8 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_configAttributeIds = null;
 
     /**
-     * Is the extension enabled?
+     * Is the extension enabled for product listing?
+     * Requires both general enabled flag and listing attribute to be set.
      *
      * @return bool
      */
@@ -41,6 +42,17 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $this->_enabled;
+    }
+
+    /**
+     * Is the extension enabled for product detail page?
+     * Only requires general enabled flag, independent of listing configuration.
+     *
+     * @return bool
+     */
+    public function isEnabledForProductDetail()
+    {
+        return Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED);
     }
 
     /**
@@ -126,7 +138,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::registry('current_product');
-        if ($this->isEnabled() && $product) {
+        if ($this->isEnabledForProductDetail() && $product) {
             $configAttrs = $this->getSwatchAttributeIds();
             /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
             $productType = $product->getTypeInstance(true);

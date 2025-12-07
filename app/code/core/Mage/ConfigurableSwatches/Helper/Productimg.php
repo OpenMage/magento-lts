@@ -377,7 +377,10 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      */
     public function filterImageInGallery($product, $image)
     {
-        if (!Mage::helper('configurableswatches')->isEnabled()) {
+        // Check if swatches are enabled for either listing or product detail
+        if (!Mage::helper('configurableswatches')->isEnabled()
+            && !Mage::helper('configurableswatches')->isEnabledForProductDetail()
+        ) {
             return true;
         }
 
