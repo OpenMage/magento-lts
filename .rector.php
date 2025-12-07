@@ -63,10 +63,10 @@ try {
         ])
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
-                __DIR__ . '/tessts/unit/Base/CarbonTest.php',
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
            Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
-                __DIR__ . '/tessts/unit/Base/CarbonTest.php',
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
