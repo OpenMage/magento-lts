@@ -74,6 +74,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $optionLabels += $attribute->getOptionLabels();
         }
 
+        // Reverse the option labels array to ensure correct sort order for swatch rendering.
+        // This is necessary because option labels are collected in ascending order,
+        // but the frontend expects them in descending order for proper display.
+        // See PR description for details on the sort order issue.
         $optionLabels = array_reverse($optionLabels, true);
 
         foreach ($parentProducts as $parentProduct) {
