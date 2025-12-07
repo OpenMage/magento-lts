@@ -1,6 +1,6 @@
 const test = cy.openmage.test.frontend.catalog.category.config;
 
-describe('Check cataog category page', () => {
+describe('Check catalog category page', () => {
     beforeEach('Go to page', () => {
         cy.visit(test.url);
     });
