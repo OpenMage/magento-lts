@@ -912,7 +912,7 @@ final class Mage
         } else {
             $levelValue = (int) $level;
             // change RFC_5424 Log Level into Monolog.
-            if ($levelValue < 100) {
+            if ($levelValue >= 0 && $levelValue <= 7) {
                 $levelValue = (match ($levelValue) {
                     7 => Level::Debug,
                     6 => Level::Info,
