@@ -19,8 +19,8 @@ class Mage_Core_Model_PsrLogger extends Mage_Core_Model_Abstract implements Logg
 {
     use LoggerTrait;
 
-    public function log($level, \Stringable|string $message, array $context = []): void
+    public function log($level, string|\Stringable $message, array $context = []): void
     {
-        Mage::log((string)$message, $level, null, false, $context);
+        Mage::log((string) $message, $level, null, false, $context);
     }
 }

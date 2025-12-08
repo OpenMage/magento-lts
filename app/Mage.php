@@ -870,7 +870,7 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param null|string|int|Level::* $level
+     * @param null|int|Level::*|string $level
      * @param null|string $file
      * @param bool $forceLog
      */
@@ -906,7 +906,7 @@ final class Mage
             $levelValue = $level->value;
         } elseif (is_null($level)) {
             $levelValue = Level::Debug->value;
-        } else if (is_string($level) && !is_numeric($level)) {
+        } elseif (is_string($level) && !is_numeric($level)) {
             // PSR 3 Log level
             $levelValue = Level::fromName($level)->value;
         } else {
