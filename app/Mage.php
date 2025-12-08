@@ -870,7 +870,7 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param null|int|Level::* $level
+     * @param null|string|int|Level::* $level
      * @param null|string $file
      * @param bool $forceLog
      */
@@ -906,8 +906,24 @@ final class Mage
             $levelValue = $level->value;
         } elseif (is_null($level)) {
             $levelValue = Level::Debug->value;
+        } else if (is_string($level) && !is_numeric($level)) {
+            // PSR 3 Log level
+            $levelValue = Level::fromName($level)->value;
         } else {
             $levelValue = (int) $level;
+            // change RFC_5424 Log Level into Monolog.
+            if ($levelValue < 100) {
+                $levelValue = (match ($levelValue) {
+                    7 => Level::Debug,
+                    6 => Level::Info,
+                    5 => Level::Notice,
+                    4 => Level::Warning,
+                    3 => Level::Error,
+                    2 => Level::Critical,
+                    1 => Level::Alert,
+                    0 => Level::Emergency,
+                })->value;
+            }
         }
 
         if (!self::$_isDeveloperMode && $levelValue > $maxLogLevel && !$forceLog) {
