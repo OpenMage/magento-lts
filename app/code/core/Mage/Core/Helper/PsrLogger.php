@@ -15,7 +15,7 @@ use Psr\Log\LoggerTrait;
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_PsrLogger extends Mage_Core_Model_Abstract implements LoggerInterface
+class Mage_Core_Helper_PsrLogger extends Mage_Core_Helper_Abstract implements LoggerInterface
 {
     use LoggerTrait;
 
