@@ -1085,20 +1085,26 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
         ));
 
-        $violations->append($this->getPasswordValidator(value: $this->getPassword()));
+        if ($this->getIsChangePassword()) {
+            $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
-        $violations->append($validator->validateIdentical(
-            value: $this->getPasswordConfirmation(),
-            compare: $this->getPassword(),
-            message: Mage::helper('customer')->__('Please make sure your passwords match.'),
-        ));
+            $violations->append($validator->validateIdentical(
+                value: $this->getPasswordConfirmation(),
+                compare: $this->getPassword(),
+                message: Mage::helper('customer')->__('Please make sure your passwords match.'),
+            ));
+        }
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
 
-        if ($this->shouldValidateDob($entityType)) {
+        $shouldValidateDob = $this->shouldValidateDob($entityType);
+        if ($shouldValidateDob) {
+            $message = Mage::helper('customer')->__('The Date of Birth is required.');
             $violations->append($validator->validateDate(
                 value: trim($this->getDob()),
-                message: Mage::helper('customer')->__('The Date of Birth is required.'),
+                message: $message,
+                empty: false,
+                emptymessage: $message,
             ));
         }
 
