@@ -33,9 +33,7 @@ $_swatchArray = $_config->attributes->$_id;
 </dt>
 <dd class="clearfix swatch-attr<?php if ($_attribute->decoratedIsLast) echo ' last'; ?>">
     <div class="input-box">
-        <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]"
-                id="attribute<?php echo $_attribute->getAttributeId() ?>"
-                class="required-entry super-attribute-select no-display swatch-select">
+        <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select no-display swatch-select">
             <option><?php echo $this->__('Choose an Option...') ?></option>
         </select>
         <ul id="configurable_swatch_<?php echo $_attrCode ?>" class="configurable-swatch-list clearfix">
