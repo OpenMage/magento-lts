@@ -9,7 +9,7 @@ describe('Check catalog category page', () => {
         const options = 'ul.configurable-swatch-color';
         const swatchLink = 'li a.swatch-link';
         const colors = ['Charcoal', 'Khaki', 'Red', 'Royal Blue'];
-        const images = ['msj006t_5', 'msj006c-khaki', 'msj006c-red', 'msj006c-royal-blue'];
+        const images = ['msj006t', 'msj006c-khaki', 'msj006c-red', 'msj006c-royal-blue'];
 
         cy.get(options).eq(0).find(swatchLink).should('have.length', 4);
 
