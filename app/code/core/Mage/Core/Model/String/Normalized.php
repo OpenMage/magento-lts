@@ -6,13 +6,13 @@ declare(strict_types=1);
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    Mage_ConfigurableSwatches
+ * @package    Mage_Core
  */
 
 /**
  * Wrapper to modify a string value with a method to get the original string value
  *
- * @package    Mage_ConfigurableSwatches
+ * @package    Mage_Core
  */
 class Mage_Core_Model_String_Normalized implements Stringable
 {
@@ -40,7 +40,7 @@ class Mage_Core_Model_String_Normalized implements Stringable
     }
 
     /**
-     * Get non-nomalized original value
+     * Get non-normalized original value
      */
     public function getOriginalValue(): ?string
     {
