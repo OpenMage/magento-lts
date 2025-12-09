@@ -65,7 +65,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                         ['product' => $product],
                     );
                     $configurablePrice = $product->getConfigurablePrice();
-                    $result[(string) Mage_ConfigurableSwatches_Helper_Data::normalizeKey($attributePrice['store_label'])] = [
+                    $result[Mage_ConfigurableSwatches_Helper_Data::normalizeKey($attributePrice['store_label'])] = [
                         'price' => $configurablePrice,
                         'oldPrice' => $this->_getHelper()->prepareOldPrice(
                             $product,

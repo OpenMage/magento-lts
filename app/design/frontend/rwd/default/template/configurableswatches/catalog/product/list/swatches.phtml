@@ -11,7 +11,7 @@
 /** @var Mage_Catalog_Model_Product $_product */
 $_product = $this->getProduct();
 
-/** @var Mage_Core_Model_String_Normalized[] $_attrValues */
+/** @var Mage_ConfigurableSwatches_Model_String_Normalized[] $_attrValues */
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
     && ($_attrValues = $_product->getListSwatchAttrValues()) && count($_attrValues) > 0):
     $_attrStockValues = $_product->getListSwatchAttrStockValues();

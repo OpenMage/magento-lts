@@ -62,8 +62,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
         //Get the product's image array and prepare the text
         $images = $this->_productImagesByLabel[$product->getId()];
-        $textObject = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($text);
-        $text = (string) $textObject;
+        $text = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($text);
 
         $resultImages = [
             'standard' => $images[$text] ?? null,
@@ -128,8 +127,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 return Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value['label']);
             }, $mediaGallery['images']);
 
-            foreach ($searchValues as $labelObject) {
-                $label = (string) $labelObject;
+            foreach ($searchValues as $label) {
                 $imageKeys = [];
                 $swatchLabel = $label . self::SWATCH_LABEL_SUFFIX;
 
@@ -232,8 +230,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         // normalize to all lower case so that value can be used as array key below
-        $valueObject = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value);
-        $value = (string) $valueObject;
+        $value = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value);
         $defaultValue = $value; // default to no fallback value
         if ($object instanceof Mage_Catalog_Model_Layer_Filter_Item) { // fallback for swatches loaded for nav filters
             $source = $object->getFilter()->getAttributeModel()->getFrontend()->getAttribute()->getSource();
