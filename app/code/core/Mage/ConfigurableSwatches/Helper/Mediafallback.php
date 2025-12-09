@@ -24,6 +24,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have children products attached
      *
      * @param int $storeId
+     * @throws Mage_Core_Exception
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      */
     public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
@@ -36,8 +37,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
+     * @param Mage_Catalog_Model_Product[] $parentProducts
      * @param int $storeId
      * @param bool $onlyListAttributes
+     * @throws Mage_Core_Exception
      */
     public function attachProductChildrenAttributeMapping(array $parentProducts, $storeId, $onlyListAttributes = false)
     {
@@ -57,7 +60,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         $parentProductIds = [];
-        /** @var Mage_Catalog_Model_Product $parentProduct */
         foreach ($parentProducts as $parentProduct) {
             $parentProductIds[] = $parentProduct->getId();
         }
@@ -84,7 +86,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
             /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
             foreach ($configAttributes as $attribute) {
-                /** @var Mage_Catalog_Model_Product $childProduct */
                 if (!is_array($parentProduct->getChildrenProducts())) {
                     continue;
                 }
@@ -156,6 +157,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param array $imageTypes - image types to select for child products
      * @param bool $keepFrame
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getConfigurableImagesFallbackArray(
         Mage_Catalog_Model_Product $product,
@@ -294,6 +296,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
     /**
      * Groups media gallery images by local images and child images
+     * @throws Mage_Core_Exception
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
     {
@@ -325,6 +328,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * For given product set, attach media_gallery attribute values.
      *
      * @param int $storeId
+     * @throws Mage_Core_Exception
      */
     public function attachGallerySetToCollection(array $products, $storeId)
     {
@@ -414,6 +418,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * ->setChildrenProducts()
      *
      * @param int $storeId
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function attachChildrenProducts(array $products, $storeId)
     {

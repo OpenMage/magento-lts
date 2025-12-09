@@ -8,6 +8,7 @@
 
 /** @var Mage_Core_Block_Template $this */
 
+/** @var Mage_Catalog_Model_Product $_product */
 $_product = $this->getProduct();
 
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
