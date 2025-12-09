@@ -35,6 +35,7 @@ class Mage_Core_Helper_PsrLogger extends Mage_Core_Helper_Abstract implements Lo
         if (!in_array($level, $reflectionClass->getConstants())) {
             throw new InvalidArgumentException('Level "' . $level . '" is not defined, use one of: ' . implode(', ', $reflectionClass->getConstants()));
         }
+
         Mage::log((string) $message, $level, null, false, $context);
     }
 }
