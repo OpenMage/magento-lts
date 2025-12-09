@@ -11,6 +11,7 @@
 /** @var Mage_Catalog_Model_Product $_product */
 $_product = $this->getProduct();
 
+/** @var Mage_Core_Model_String_Normalized[] $_attrValues */
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
     && ($_attrValues = $_product->getListSwatchAttrValues()) && count($_attrValues) > 0):
     $_attrStockValues = $_product->getListSwatchAttrStockValues();
@@ -52,7 +53,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
         <a href="javascript:void(0)"
            name="<?php echo $_optionCode; ?>"
            class="<?php echo $_aClass ?>"
-           title="<?php echo $_optionLabel; ?>"
+           title="<?php echo $_optionLabel->getOriginalValue(); ?>"
            style="height: <?php echo $_swatchOuterHeight ?>px;
            <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
             <span class="swatch-label"
@@ -60,11 +61,11 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
                   <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
             <?php if ($_hasImage): ?>
                 <img src="<?php echo $_swatchUrl; ?>"
-                     alt="<?php echo $_optionLabel; ?>"
+                     alt="<?php echo $_optionLabel->getOriginalValue(); ?>"
                      width="<?php echo $_swatchInnerWidth ?>"
                      height="<?php echo $_swatchInnerHeight ?>" />
             <?php else: ?>
-                <?php echo $_optionLabel; ?>
+                <?php echo $_optionLabel->getOriginalValue(); ?>
             <?php endif ?>
             </span>
             <?php if (isset($_attrStockValues[$_optionValue]) && !$_attrStockValues[$_optionValue]): ?>

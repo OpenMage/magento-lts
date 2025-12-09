@@ -69,19 +69,11 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      * multi-byte compatible way if the mbstring module is available.
      *
      * @param string $key
-     * @return string
+     * @return Mage_Core_Model_String_Normalized
      */
     public static function normalizeKey($key)
     {
-        if ($key === null || $key === '') {
-            return '';
-        }
-
-        if (function_exists('mb_strtolower')) {
-            return trim(mb_strtolower($key, 'UTF-8'));
-        }
-
-        return trim(strtolower($key));
+        return new Mage_Core_Model_String_Normalized($key);
     }
 
     /**
