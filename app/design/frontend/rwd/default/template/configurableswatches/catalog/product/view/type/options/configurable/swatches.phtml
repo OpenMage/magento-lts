@@ -39,10 +39,11 @@ $_swatchArray = $_config->attributes->$_id;
         <ul id="configurable_swatch_<?php echo $_attrCode ?>" class="configurable-swatch-list clearfix">
             <?php foreach ($_swatchArray->options as $_option): ?>
                 <?php
-                $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_option->label);
+                $_optionLabel = $this->escapeHtml($_option->label);
+                $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_optionLabel);
                 $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl(
                     $_product,
-                    $_option->label,
+                    $_optionLabel,
                     $_swatchInnerWidth,
                     $_swatchInnerHeight,
                     $_swatchType
@@ -53,7 +54,7 @@ $_swatchArray = $_config->attributes->$_id;
                 if ($_hasImage) {
                     $_liClass .= $_swatchType == 'media' ? ' is-media' : '';
                     $_aClass .= ' has-image';
-                } elseif (strlen($_option->label) > 3) {
+                } elseif (strlen($_optionLabel) > 3) {
                     $_liClass .= ' wide-swatch';
                 }
                 ?>
@@ -63,7 +64,7 @@ $_swatchArray = $_config->attributes->$_id;
                        name="<?php echo $_optionCode; ?>"
                        id="swatch<?php echo $_option->id; ?>"
                        class="<?php echo $_aClass ?>"
-                       title="<?php echo $_option->label; ?>"
+                       title="<?php echo $_optionLabel; ?>"
                        style="height: <?php echo $_swatchOuterHeight ?>px;
                        <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
                 <span class="swatch-label"
@@ -71,11 +72,11 @@ $_swatchArray = $_config->attributes->$_id;
                       <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
                 <?php if ($_hasImage): ?>
                     <img src="<?php echo $_swatchUrl; ?>"
-                         alt="<?php echo $_option->label; ?>"
+                         alt="<?php echo $_optionLabel; ?>"
                          width="<?php echo $_swatchInnerWidth ?>"
                          height="<?php echo $_swatchInnerHeight ?>" />
                 <?php else: ?>
-                    <?php echo $_option->label; ?>
+                    <?php echo $_optionLabel; ?>
                 <?php endif ?>
                  </span>
                         <span class="x">X</span>

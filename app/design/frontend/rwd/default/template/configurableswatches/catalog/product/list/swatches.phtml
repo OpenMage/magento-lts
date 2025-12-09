@@ -26,6 +26,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
 <ul class="configurable-swatch-list configurable-swatch-<?php echo $_swatchAttribute->getAttributeCode() ?> clearfix">
     <?php foreach ($_attrValues as $_optionValue => $_optionLabel): ?>
         <?php
+        $_optionLabel = $this->escapeHtml($_optionLabel);
         $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_optionLabel);
         $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl(
             $_product,
