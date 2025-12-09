@@ -1112,16 +1112,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
 
-        $shouldValidateDob = $this->shouldValidateDob($entityType);
-        if ($shouldValidateDob) {
-            $message = Mage::helper('customer')->__('The Date of Birth is required.');
-            $violations->append($validator->validateDate(
-                value: trim($this->getDob()),
-                message: $message,
-                empty: false,
-                emptymessage: $message,
-            ));
-        }
+        $message = Mage::helper('customer')->__('The Date of Birth is required.');
+        $violations->append($validator->validateDate(
+            value: trim($this->getDob()),
+            message: $message,
+            empty: !$this->shouldValidateDob($entityType),
+            emptymessage: $message,
+        ));
 
         if ($this->shouldValidateTaxvat($entityType)) {
             $violations->append($validator->validateNotEmpty(
