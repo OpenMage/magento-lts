@@ -258,6 +258,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param  string $login
      * @param  string $password
      * @return true
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function authenticate($login, $password)
@@ -304,6 +305,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Processing object before save data
      *
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _beforeSave()
@@ -324,6 +326,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param   string $newPassword
      * @return  $this
+     * @throws  Exception
+     * @throws  Mage_Core_Exception
      */
     public function changePassword($newPassword)
     {
@@ -351,6 +355,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Get full customer name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getName()
     {
@@ -377,6 +382,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Add address to address collection
      *
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function addAddress(Mage_Customer_Model_Address $address)
@@ -392,6 +398,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param   null|int $addressId
      * @return  Mage_Customer_Model_Address
+     * @throws  Mage_Core_Exception
      */
     public function getAddressById($addressId)
     {
@@ -720,6 +727,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Check if address is primary
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
     {
@@ -774,6 +782,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Check if accounts confirmation is required in config
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isConfirmationRequired()
     {
@@ -855,6 +864,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param null|int $storeId
      * @param null|string $customerEmail
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
     {
@@ -902,8 +912,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Send email with link to set password
      *
-     * @bool $isNew Send welcome email?
+     * @param bool $isNew Send welcome email?
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendPasswordLinkEmail(bool $isNew = false)
     {
@@ -937,6 +948,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Retrieve customer group identifier
      *
      * @return int
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getGroupId()
@@ -954,6 +966,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Retrieve customer tax class identifier
      *
      * @return int
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getTaxClassId()
@@ -1024,6 +1037,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Retrieve shared website ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getSharedWebsiteIds()
     {
@@ -1048,6 +1062,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Set store to customer
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
@@ -1175,8 +1190,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Import customer data from text array
      *
      * @return null|$this
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     public function importFromTextArray(array $row)
     {
@@ -1447,6 +1464,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validateAddress(array $data, $type = 'billing')
     {
@@ -1461,7 +1479,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 }
 
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
+                    && in_array(strtolower($data[$prefix . $field]), $usca)
                 ) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
@@ -1485,6 +1503,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Prepare customer for delete
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -1569,6 +1589,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Check whether confirmation may be skipped when registering using certain email address
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canSkipConfirmation()
     {
@@ -1578,6 +1599,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Clone current object
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {
@@ -1643,6 +1666,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $newResetPasswordLinkToken
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
@@ -1666,6 +1690,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $newResetPasswordLinkCustomerId
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId)
