@@ -18,6 +18,6 @@ describe('Check catalog category page', () => {
             cy.wrap(swatch).click();
             cy.get('img.product-collection-image-404').should('have.attr', 'src').should('include', images[index]);
             cy.wait(500);
-        });111
+        });
     });
 })
