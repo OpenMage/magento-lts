@@ -908,10 +908,14 @@ final class Mage
             $levelValue = Level::Debug->value;
         } elseif (is_string($level) && !is_numeric($level)) {
             // PSR 3 Log level
-            $levelValue = Level::fromName($level)->value;
+            try {
+                $levelValue = Level::fromName($level)->value;
+            } catch (ValueError) {
+                $levelValue = Level::Debug->value; // fallback to debug level
+            }
         } else {
             $levelValue = (int) $level;
-            // change RFC_5424 Log Level into Monolog.
+            // change RFC 5424 Log Level into Monolog.
             if ($levelValue >= 0 && $levelValue <= 7) {
                 $levelValue = (match ($levelValue) {
                     7 => Level::Debug,
@@ -923,6 +927,9 @@ final class Mage
                     1 => Level::Alert,
                     0 => Level::Emergency,
                 })->value;
+            } elseif ($levelValue < 100) {
+                // unknown levels are treated as debug
+                $levelValue = Level::Debug->value; // fallback to debug level
             }
         }
 
