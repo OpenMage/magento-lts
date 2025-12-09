@@ -219,6 +219,7 @@
  * @method $this setTypeHasOptions(bool $value)
  * @method $this setTypeHasRequiredOptions(bool $value)
  * @method $this setTypeId(int $value)
+ * @method $this setSwatchPrices(array $value)
  * @method $this setUpSellLinkData(array $value)
  * @method $this setUpSellProductIds(array $value)
  * @method $this setUpSellProducts(array $value)
