@@ -76,8 +76,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $optionLabels += $attribute->getOptionLabels();
         }
 
-        // Reverse the option labels array to ensure correct sort order for swatch rendering.
-        $optionLabels = array_reverse($optionLabels, true);
+        // normalize to all lower case before we start using them
+        $optionLabels = array_map(function ($value) {
+            return array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKey(...), $value);
+        }, $optionLabels);
 
         foreach ($parentProducts as $parentProduct) {
             $mapping = [];
