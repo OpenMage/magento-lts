@@ -120,7 +120,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
                 'labels.store_id IN (?)',
                 [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()],
             )
-            ->order('options.sort_order ASC');
+            ->order('options.sort_order ASC')
+            ->order('labels.value ASC');
 
         $resultSet = $this->getConnection()->query($select);
         $labels = [];
