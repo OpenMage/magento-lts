@@ -6,26 +6,31 @@ describe('Check catalog product page', () => {
     });
 
     it('tests swatch: color', () => {
-        const options = 'ul#configurable_swatch_color li a.swatch-link';
-        cy.get(options).should('have.length', 4);
-        cy.get(options).eq(0).invoke('attr', 'title').should('eq', 'Charcoal');
-        cy.get(options).eq(1).invoke('attr', 'title').should('eq', 'Khaki');
-        cy.get(options).eq(2).invoke('attr', 'title').should('eq', 'Red');
-        cy.get(options).eq(3).invoke('attr', 'title').should('eq', 'Royal Blue');
+        const options = 'ul#configurable_swatch_color';
+        const swatchLink = 'li a.swatch-link';
+        const colors = ['Charcoal', 'Khaki', 'Red', 'Royal Blue'];
+        const images = ['msj006t_4', 'msj006c-khaki', 'msj006c-red', 'msj006c-royal-blue'];
+
+        cy.get(options).eq(0).find(swatchLink).should('have.length', 4);
+
+        cy.get(options).eq(0).find(swatchLink).each((swatch, index) => {
+            cy.wrap(swatch).invoke('attr', 'title').should('eq', colors[index]);
+            cy.wrap(swatch).click();
+            cy.get('img.gallery-image.visible').should('have.attr', 'src').should('include', images[index]);
+            cy.wait(500);
+        });
     });
 
     it('tests swatch: size', () => {
-        const options = 'ul#configurable_swatch_size li a.swatch-link';
-        cy.get(options).should('have.length', 5);
-        cy.get(options).eq(0).contains('XS').should('exist');
-        cy.get(options).eq(1).contains('S').should('exist');
-        cy.get(options).eq(2).contains('M').should('exist');
-        cy.get(options).eq(3).contains('L').should('exist');
-        cy.get(options).eq(4).contains('XL').should('exist');
-        cy.get(options).eq(0).invoke('attr', 'title').should('eq', 'XS');
-        cy.get(options).eq(1).invoke('attr', 'title').should('eq', 'S');
-        cy.get(options).eq(2).invoke('attr', 'title').should('eq', 'M');
-        cy.get(options).eq(3).invoke('attr', 'title').should('eq', 'L');
-        cy.get(options).eq(4).invoke('attr', 'title').should('eq', 'XL');
+        const options = 'ul#configurable_swatch_size';
+        const swatchLink = 'li a.swatch-link';
+        const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+        cy.get(options).eq(0).find(swatchLink).should('have.length', 5);
+
+        cy.get(options).eq(0).find(swatchLink).each((swatch, index) => {
+            cy.get(options).eq(0).contains(sizes[index]).should('exist');
+            cy.wrap(swatch).invoke('attr', 'title').should('eq', sizes[index]);
+        });
     });
 })
