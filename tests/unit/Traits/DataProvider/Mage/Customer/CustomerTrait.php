@@ -28,6 +28,7 @@ trait CustomerTrait
             'shouldValidateDob' => false,
             'shouldValidateTaxvat' => false,
             'shouldValidateGender' => false,
+            'getIsChangePassword' => true,
         ];
 
         yield 'valid data' => [
