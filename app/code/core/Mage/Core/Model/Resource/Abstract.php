@@ -32,10 +32,16 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected static $_commitCallbacks = [];
 
+    /**
+     * Resource initialization
+     *
+     * @return void
+     */
     abstract protected function _construct();
 
     /**
      * Retrieve connection for read data
+     *
      * @return Varien_Db_Adapter_Interface
      */
     abstract protected function _getReadAdapter();

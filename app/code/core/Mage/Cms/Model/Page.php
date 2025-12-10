@@ -82,6 +82,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('cms/page');
     }
 
@@ -101,6 +102,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Load No-Route Page
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function noRoutePage()
     {
@@ -114,6 +116,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * @param string $identifier
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function checkIdentifier($identifier, $storeId)
     {
@@ -122,6 +125,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     /**
      * Retrieves cms page title from DB by passed identifier.
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageTitleByIdentifier(string $identifier): string
     {
@@ -132,6 +136,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page title from DB by passed id.
      *
      * @param int|string $id
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageTitleById($id): string
     {
@@ -142,6 +147,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page identifier from DB by passed id.
      *
      * @param int|string $id
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageIdentifierById($id): string
     {
@@ -166,11 +172,17 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         return $statuses->getData();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function getUsedInStoreConfigCollection(?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
     {
         return $this->_getResource()->getUsedInStoreConfigCollection($this, $paths);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function isUsedInStoreConfig(?array $paths = []): bool
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);

@@ -30,7 +30,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      * Processes localized qty (entered by user at frontend) into internal php format
      *
      * @param string $qty
-     * @return null|float|int
+     * @return null|float
      * @deprecated
      */
     protected function _processLocalizedQty($qty)
@@ -52,6 +52,11 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
     /**
      * Add all items from wishlist to shopping cart
+     *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function allcartAction()
     {
@@ -101,21 +106,21 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
                 }
-            } catch (Mage_Core_Exception $e) {
-                if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                if ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                     $notSalable[] = $item;
-                } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
+                } elseif ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                     $hasOptions[] = $item;
                 } else {
-                    $messages[] = $this->__('%s for "%s".', trim($e->getMessage(), '.'), $item->getProduct()->getName());
+                    $messages[] = $this->__('%s for "%s".', trim($mageCoreException->getMessage(), '.'), $item->getProduct()->getName());
                 }
 
                 $cartItem = $cart->getQuote()->getItemByProduct($item->getProduct());
                 if ($cartItem) {
                     $cart->getQuote()->deleteItem($cartItem);
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $messages[] = Mage::helper('wishlist')->__('Cannot add the item to shopping cart.');
             }
         }

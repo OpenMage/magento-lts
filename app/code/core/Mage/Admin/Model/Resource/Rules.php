@@ -21,6 +21,9 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Save ACL resources
+     *
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function saveRel(Mage_Admin_Model_Rules $rule)
     {
@@ -63,12 +66,12 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
-        } catch (Exception $e) {
+            throw $mageCoreException;
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            Mage::logException($e);
+            Mage::logException($exception);
         }
     }
 

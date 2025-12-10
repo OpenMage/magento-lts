@@ -30,6 +30,8 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
 
     /**
      * Set main entity table name and primary key field name
+     *
+     * @inheritDoc
      */
     protected function _construct()
     {

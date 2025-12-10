@@ -28,6 +28,9 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $_ruleTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/role', 'role_id');
@@ -78,7 +81,9 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {

@@ -58,7 +58,7 @@
  * @method $this setRedirectUrl(string $value)
  * @method $this setRememberMeChecked(bool $value)
  * @method $this setSharedWishlist(string $value)
- * @method $this setSingleWishlistId(int $value)
+ * @method $this setSingleWishlistId(null|int $value)
  * @method $this setSteps(array $value)
  * @method $this setUpdateSection(string $value)
  * @method $this setUseNotice(bool $value)
@@ -159,6 +159,9 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Get checkout quote instance by current session
      *
      * @return Mage_Sales_Model_Quote
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function getQuote()
     {
@@ -230,6 +233,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getQuoteIdKey()
@@ -239,6 +243,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * @param null|int $quoteId
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setQuoteId($quoteId)
     {
@@ -247,6 +253,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * @return int
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getQuoteId()
     {
@@ -257,6 +265,9 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Load data for customer quote and merge with current quote
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function loadCustomerQuote()
     {
@@ -491,6 +502,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * @param Mage_Sales_Model_Quote $quote
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function replaceQuote($quote)
     {
