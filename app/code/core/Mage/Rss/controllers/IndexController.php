@@ -30,6 +30,9 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 
     /**
      * Index action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -47,6 +50,9 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 
     /**
      * Display feed not found message
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function nofeedAction()
     {
@@ -61,6 +67,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
      * Show all public wishlists and private wishlists that belong to current user
      *
      * @return void
+     * @throws Mage_Core_Exception
      */
     public function wishlistAction()
     {
@@ -91,6 +98,9 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 
     /**
      * Show wishlist rss
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     protected function _showWishlistRss()
     {
@@ -103,6 +113,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
      * Retrieve Wishlist model
      *
      * @return null|Mage_Wishlist_Model_Wishlist
+     * @throws Mage_Core_Exception
      */
     protected function _getWishlist()
     {
@@ -123,6 +134,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
      * Retrieve Customer instance
      *
      * @return Mage_Customer_Model_Customer
+     * @throws Mage_Core_Exception
      */
     protected function _getCustomer()
     {
