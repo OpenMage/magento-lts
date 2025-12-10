@@ -16,6 +16,9 @@ declare(strict_types=1);
  */
 class Mage_ConfigurableSwatches_Model_String_Normalized implements Stringable
 {
+    /**
+     * The original, non-normalized string value.
+     */
     protected ?string $originalValue;
 
     public function __construct(?string $originalValue)

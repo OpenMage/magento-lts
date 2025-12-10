@@ -63,7 +63,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
                   <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
             <?php if ($_hasImage): ?>
                 <img src="<?php echo $_swatchUrl ?>"
-                     alt="<?php echo $_label; ?>"
+                     alt="<?php echo $_label ?>"
                      width="<?php echo $_swatchInnerWidth ?>"
                      height="<?php echo $_swatchInnerHeight ?>" />
             <?php else: ?>
