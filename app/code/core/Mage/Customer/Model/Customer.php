@@ -1117,7 +1117,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             value: trim($this->getDob()),
             message: $message,
             empty: !$this->shouldValidateDob($entityType),
-            emptymessage: $message,
+            emptyMessage: $message,
         ));
 
         if ($this->shouldValidateTaxvat($entityType)) {

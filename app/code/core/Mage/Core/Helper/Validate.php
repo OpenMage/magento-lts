@@ -148,7 +148,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ?array  $groups = null,
         mixed   $payload = null,
         ?bool   $empty = true,
-        ?string $emptymessage = null,
+        ?string $emptyMessage = null,
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
 
@@ -162,7 +162,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 
         if (!$empty) {
             $constraints[] = new Constraints\NotBlank(
-                message: $emptymessage,
+                message: $emptyMessage,
             );
         }
 
@@ -176,7 +176,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
         ?array            $groups = null,
         mixed             $payload = null,
         ?bool             $empty = true,
-        ?string           $emptymessage = null,
+        ?string           $emptyMessage = null,
         array             $options = []
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
@@ -192,7 +192,7 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 
         if (!$empty) {
             $constraints[] = new Constraints\NotBlank(
-                message: $emptymessage,
+                message: $emptyMessage,
             );
         }
 
