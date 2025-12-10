@@ -22,8 +22,18 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
+    /**
+     * Is the extension enabled
+     *
+     * @var null|bool
+     */
     protected $_enabled = null;
 
+    /**
+     * Swatch attribute IDs from config
+     *
+     * @var null|string[]
+     */
     protected $_configAttributeIds = null;
 
     /**
@@ -47,7 +57,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      * Return the formatted hyphenated string
      *
      * @param string $str
-     * @return string
+     * @return null|string
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getHyphenatedString($str)
@@ -87,7 +97,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get list of attributes that should use swatches
      *
-     * @return array
+     * @return string[]
      */
     public function getSwatchAttributeIds()
     {
@@ -106,6 +116,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param int|Mage_Eav_Model_Attribute $attr
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function attrIsSwatchType($attr)
     {
