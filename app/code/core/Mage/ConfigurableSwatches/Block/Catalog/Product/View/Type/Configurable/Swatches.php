@@ -12,6 +12,13 @@
  *
  * @package    Mage_ConfigurableSwatches
  *
+ * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getAttributeObj()
+ * @method string getJsonConfig()
+ * @method Mage_Catalog_Model_Product getProduct()
+ * @method int getSwatchInnerHeight()
+ * @method int getSwatchInnerWidth()
+ * @method int getSwatchOuterHeight()
+ * @method int getSwatchOuterWidth()
  * @method $this setJsonConfig(string $value)
  * @method $this setSwatchInnerHeight(int $value)
  * @method $this setSwatchInnerWidth(int $value)

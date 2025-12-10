@@ -14,13 +14,13 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
 {
     /**
      * Stored price block instances
-     * @var array
+     * @var Mage_Core_Block_Abstract[]
      */
     protected $_priceBlock = [];
 
     /**
      * Stored price blocks info
-     * @var array
+     * @var array<string, array{block: string, template: string}>
      */
     protected $_priceBlockTypes = [];
 
@@ -30,6 +30,10 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      */
     protected $_priceBlockDefaultTemplate = 'catalog/rss/product/price.phtml';
 
+    /**
+     * Default price block type
+     * @var string
+     */
     protected $_priceBlockDefaultType = 'catalog/product_price';
 
     /**
@@ -114,6 +118,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * @param string $type Catalog Product Type
      * @param string $block Block Type
      * @param string $template Template
+     * @return void
      */
     public function addPriceBlockType($type, $block = '', $template = '')
     {
