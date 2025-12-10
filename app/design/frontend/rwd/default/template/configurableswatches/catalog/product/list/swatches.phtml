@@ -42,7 +42,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
         if ($_hasImage) {
             $_liClass .= $_swatchType == 'media' ? ' is-media' : '';
             $_aClass .= ' has-image';
-        } elseif (strlen($_optionLabel) > 3) {
+        } elseif (strlen($_label) > 3) {
             $_liClass .= ' wide-swatch';
         }
         if (Mage::helper('configurableswatches/productlist')->swatchMatchesFilter($_optionValue)) {
