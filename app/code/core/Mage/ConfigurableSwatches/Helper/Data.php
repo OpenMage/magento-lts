@@ -84,7 +84,10 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         return trim(strtolower($key));
     }
 
-    public static function normalizeKeyToObject($key): Mage_ConfigurableSwatches_Model_String_Normalized
+    /**
+     * Wraps a key in a Normalized object that normalizes to lowercase but preserves original value
+     */
+    public static function normalizeKeyToObject(?string $key): Mage_ConfigurableSwatches_Model_String_Normalized
     {
         return new Mage_ConfigurableSwatches_Model_String_Normalized($key);
     }
