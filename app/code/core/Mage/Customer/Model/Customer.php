@@ -23,7 +23,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method null|int getDefaultBilling()
  * @method null|int getDefaultShipping()
  * @method int getDisableAutoGroupChange()
- * @method string getDob()
+ * @method null|string getDob()
  * @method string getEmail()
  * @method string getFirstname()
  * @method bool getForceConfirmed()
@@ -54,6 +54,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method int getTagId()
  * @method string getTaxvat()
  * @method int getWebsiteId()
+ * @method bool hasIsChangePassword()
  * @method bool hasIsSubscribed()
  * @method bool hasSkipConfirmationIfEmail()
  * @method bool hasStoreId()
@@ -1100,7 +1101,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
         ));
 
-        if ($this->getIsChangePassword()) {
+        if (!$this->hasIsChangePassword() || $this->getIsChangePassword()) {
             $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
             $violations->append($validator->validateIdentical(
@@ -1114,7 +1115,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $message = Mage::helper('customer')->__('The Date of Birth is required.');
         $violations->append($validator->validateDate(
-            value: trim($this->getDob()),
+            value: trim((string) $this->getDob()),
             message: $message,
             empty: !$this->shouldValidateDob($entityType),
             emptyMessage: $message,
