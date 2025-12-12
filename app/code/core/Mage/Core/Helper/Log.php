@@ -89,10 +89,8 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
 
     /**
      * Normalize log level to Monolog Level integer value
-     *
-     * @param null|int|Level::*|string $level
      */
-    public static function getLogLevel($level): int
+    public static function getLogLevel(null|int|Level|string $level): int
     {
         if (is_numeric($level)) {
             $level = (int) $level;
