@@ -87,8 +87,8 @@ document.observe("dom:loaded", function() {
                             <td><input type="text" class="input-text validate-greater-than-zero" name="container_girth" /></td>
                             <td>
                                 <select name="container_girth_dimension_units" class="options-units-dimensions measures" onchange="packaging.changeMeasures(this);">
-                                    <option value="<?php echo Zend_Measure_Length::INCH ?>" selected="selected" ><?php echo Mage::helper('sales')->__('in') ?></option>
-                                    <option value="<?php echo Zend_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
+                                    <option value="<?php echo Mage_Core_Helper_Measure_Length::INCH ?>" selected="selected" ><?php echo Mage::helper('sales')->__('in') ?></option>
+                                    <option value="<?php echo Mage_Core_Helper_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
                                 </select>
                             </td>
                         <?php endif ?>
@@ -108,8 +108,8 @@ document.observe("dom:loaded", function() {
                         <td>
                             <input type="text" class="options-weight input-text required-entry validate-greater-than-zero" name="container_weight" />
                             <select name="container_weight_units" class="options-units-weight measures" onchange="packaging.changeMeasures(this);">
-                                <option value="<?php echo Zend_Measure_Weight::POUND ?>" selected="selected"  ><?php echo Mage::helper('sales')->__('lb') ?></option>
-                                <option value="<?php echo Zend_Measure_Weight::KILOGRAM ?>" ><?php echo Mage::helper('sales')->__('kg') ?></option>
+                                <option value="<?php echo Mage_Core_Helper_Measure_Weight::POUND ?>" selected="selected"  ><?php echo Mage::helper('sales')->__('lb') ?></option>
+                                <option value="<?php echo Mage_Core_Helper_Measure_Weight::KILOGRAM ?>" ><?php echo Mage::helper('sales')->__('kg') ?></option>
                             </select>
                         </td>
                         <td>
@@ -123,8 +123,8 @@ document.observe("dom:loaded", function() {
                         </td>
                         <td>
                             <select name="container_dimension_units" class="options-units-dimensions measures" onchange="packaging.changeMeasures(this);">
-                                <option value="<?php echo Zend_Measure_Length::INCH ?>" selected="selected" ><?php echo Mage::helper('sales')->__('in') ?></option>
-                                <option value="<?php echo Zend_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
+                                <option value="<?php echo Mage_Core_Helper_Measure_Length::INCH ?>" selected="selected" ><?php echo Mage::helper('sales')->__('in') ?></option>
+                                <option value="<?php echo Mage_Core_Helper_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
                             </select>
                         </td>
                         <?php if ($this->getDeliveryConfirmationTypes()): ?>

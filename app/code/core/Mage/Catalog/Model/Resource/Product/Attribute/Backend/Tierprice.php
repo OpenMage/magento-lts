@@ -47,11 +47,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
     /**
      * Load product tier prices
      *
-     * @deprecated since 1.3.2.3
-     *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return array
+     * @deprecated since 1.3.2.3
      */
     public function loadProductPrices($product, $attribute)
     {
@@ -68,11 +67,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
     /**
      * Delete product tier price data from storage
      *
-     * @deprecated since 1.3.2.3
-     *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
+     * @deprecated since 1.3.2.3
      */
     public function deleteProductPrices($product, $attribute)
     {
@@ -92,11 +90,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
     /**
      * Insert product Tier Price to storage
      *
-     * @deprecated since 1.3.2.3
-     *
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @return $this
+     * @deprecated since 1.3.2.3
      */
     public function insertProductPrice($product, $data)
     {

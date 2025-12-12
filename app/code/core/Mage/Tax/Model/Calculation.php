@@ -13,19 +13,18 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation _getResource()
- * @method Mage_Tax_Model_Resource_Calculation getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
- * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
- *
- * @method $this setCalculationProcess(array $value)
  * @method array getCalculationProcess()
- * @method $this unsCalculationProcess()
- * @method $this unsEventModuleId()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
  * @method string getRateId()
  * @method string getRateTitle()
- * @method bool hasRateValue()
  * @method string getRateValue()
+ * @method Mage_Tax_Model_Resource_Calculation getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getResourceCollection()
+ * @method bool hasRateValue()
+ * @method $this setCalculationProcess(array $value)
  * @method $this setRateValue(string $value)
+ * @method $this unsCalculationProcess()
+ * @method $this unsEventModuleId()
  * @method $this unsRateValue()
  */
 class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
@@ -183,8 +182,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Delete calculation settings by rule id
      *
      * @param   int $ruleId
-     * @throws  Mage_Core_Exception
      * @return  Mage_Tax_Model_Calculation
+     * @throws  Mage_Core_Exception
      */
     public function deleteByRuleId($ruleId)
     {
@@ -196,8 +195,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get calculation rates by rule id
      *
      * @param   int $ruleId
-     * @throws  Mage_Core_Exception
      * @return  array
+     * @throws  Mage_Core_Exception
      */
     public function getRates($ruleId)
     {
@@ -212,8 +211,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get allowed customer tax classes by rule id
      *
      * @param   int $ruleId
-     * @throws  Mage_Core_Exception
      * @return  array
+     * @throws  Mage_Core_Exception
      */
     public function getCustomerTaxClasses($ruleId)
     {
@@ -228,8 +227,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Get allowed product tax classes by rule id
      *
      * @param   int $ruleId
-     * @throws  Mage_Core_Exception
      * @return  array
+     * @throws  Mage_Core_Exception
      */
     public function getProductTaxClasses($ruleId)
     {
@@ -383,13 +382,13 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *  customer_class_id (->getCustomerClassId())
      *  store (->getStore())
      *
-     * @param   null|false|Mage_Sales_Model_Quote_Address $shippingAddress
-     * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
+     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $shippingAddress
+     * @param   null|false|Mage_Customer_Model_Address|Mage_Sales_Model_Quote_Address|Varien_Object $billingAddress
      * @param   null|int $customerTaxClass
      * @param   null|bool|int|Mage_Core_Model_Store|string $store
-     * @throws  Mage_Core_Model_Store_Exception
-     * @throws  Mage_Core_Exception
      * @return  Varien_Object
+     * @throws  Mage_Core_Exception
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function getRateRequest(
         $shippingAddress = null,
@@ -538,8 +537,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param Varien_Object $request
      * @param string $fieldName
      * @param string $type
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getRates($request, $fieldName, $type)
     {
@@ -560,8 +559,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Gets rates for all the product tax classes
      *
      * @param Varien_Object $request
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRatesForAllProductTaxClasses($request)
     {
@@ -572,8 +571,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Gets rates for all the customer tax classes
      *
      * @param Varien_Object $request
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRatesForAllCustomerTaxClasses($request)
     {
@@ -653,8 +652,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   float $taxRate
      * @param   bool $priceIncludeTax
      * @param   bool $round
-     * @throws  Mage_Core_Model_Store_Exception
      * @return  float
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function calcTaxAmount($price, $taxRate, $priceIncludeTax = false, $round = true)
     {
@@ -690,8 +689,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Round tax amount
      *
      * @param   float $price
-     * @throws  Mage_Core_Model_Store_Exception
      * @return  float
+     * @throws  Mage_Core_Model_Store_Exception
      */
     public function round($price)
     {

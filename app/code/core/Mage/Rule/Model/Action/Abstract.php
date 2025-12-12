@@ -12,19 +12,19 @@
  *
  * @package    Mage_Rule
  *
- * @method array getAttributeOption()
- * @method $this setAttributeOption(array $value)
- * @method array getOperatorOption()
- * @method $this setOperatorOption(array $value)
- * @method array getValueOption()
- * @method $this setValueOption(array $value)
  * @method string getAttribute()
- * @method $this setAttribute(string $value)
+ * @method array getAttributeOption()
  * @method string getOperator()
- * @method $this setOperator(string $value)
+ * @method array getOperatorOption()
+ * @method Mage_Rule_Model_Abstract getRule()
  * @method string getType()
  * @method string getValue()
- * @method Mage_Rule_Model_Abstract getRule()
+ * @method array getValueOption()
+ * @method $this setAttribute(string $value)
+ * @method $this setAttributeOption(array $value)
+ * @method $this setOperator(string $value)
+ * @method $this setOperatorOption(array $value)
+ * @method $this setValueOption(array $value)
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {

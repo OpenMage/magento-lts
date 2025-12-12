@@ -71,8 +71,8 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormatedPrice()
     {
@@ -91,8 +91,8 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      *
      * @param array $value
      * @param bool $flag
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _formatPrice($value, $flag = true)
     {
@@ -138,8 +138,8 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
      *
      * @param float $price
      * @param bool $includingTax
-     * @throws Mage_Core_Model_Store_Exception
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPrice($price, $includingTax = null)
     {

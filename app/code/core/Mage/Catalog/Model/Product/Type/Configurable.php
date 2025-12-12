@@ -626,7 +626,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $subProduct,
                         $processMode,
                     );
-                    if (is_string($_result) && !is_array($_result)) {
+                    if (is_string($_result)) {
                         return $_result;
                     }
 
@@ -670,8 +670,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
     {

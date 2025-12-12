@@ -25,8 +25,8 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {

@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     {
         $collection = Mage::getModel('wishlist/item')->getCollection()
             ->addCustomerIdFilter(Mage::registry('current_customer')->getId())
-            ->addDaysInWishlist(true)
+            ->addDaysInWishlist()
             ->addStoreData()
             ->setInStockFilter(true);
 

@@ -517,8 +517,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *   - CLI: throws exception
      *   - Other: 503 error
      *
-     * @throws Exception
      * @return void
+     * @throws Exception
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
@@ -539,7 +539,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             } elseif (PHP_SAPI === 'cli') {
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
-                Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Zend_Log::NOTICE);
+                Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
                 require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
             }
@@ -1233,11 +1233,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * If $moduleName is specified retrieves specific value for the module.
      *
-     * @deprecated in favor of Mage_Core_Model_Config_Options
      * @todo get global dir config
      * @param string $type
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated in favor of Mage_Core_Model_Config_Options
      */
     public function getBaseDir($type = 'base')
     {

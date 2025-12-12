@@ -14,6 +14,11 @@
  */
 class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
 {
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function newAction()
     {
         if ($this->checkFeedEnable('order/new')) {
@@ -23,8 +28,9 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this|void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function customerAction()
     {
@@ -40,6 +46,9 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
 
     /**
      * Order status action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function statusAction()
     {

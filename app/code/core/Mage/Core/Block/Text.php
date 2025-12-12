@@ -12,14 +12,14 @@
  *
  * @package    Mage_Core
  *
- * @method array getLiParams()
- * @method $this setLiParams(array $value)
- * @method array getAParams()
- * @method $this setAParams(array $value)
- * @method string getInnerText()
- * @method $this setInnerText(string $value)
  * @method string getAfterText()
+ * @method array getAParams()
+ * @method string getInnerText()
+ * @method array getLiParams()
  * @method $this setAfterText(string $value)
+ * @method $this setAParams(array $value)
+ * @method $this setInnerText(string $value)
+ * @method $this setLiParams(array $value)
  */
 class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 {

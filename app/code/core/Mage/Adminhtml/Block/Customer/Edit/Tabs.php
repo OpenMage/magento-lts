@@ -23,8 +23,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @throws Exception
      * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @throws Exception
      */
     protected function _beforeToHtml()
     {

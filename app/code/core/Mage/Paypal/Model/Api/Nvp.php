@@ -942,8 +942,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Do the API call
      *
      * @param string $methodName
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function call($methodName, array $request)
     {
@@ -1307,9 +1307,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Prepare request data basing on provided address
      *
-     * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
-     *
      * @return array
+     * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      */
     protected function _importAddress(Varien_Object $address, array $to)
     {

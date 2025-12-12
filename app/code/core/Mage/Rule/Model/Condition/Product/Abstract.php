@@ -12,8 +12,8 @@
  *
  * @package    Mage_Rule
  *
- * @method $this setAttributeOption(array $value)
  * @method string getJsFormObject()
+ * @method $this setAttributeOption(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Model_Condition_Abstract
 {

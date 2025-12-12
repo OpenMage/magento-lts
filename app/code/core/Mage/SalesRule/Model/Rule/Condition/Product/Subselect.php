@@ -25,7 +25,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     }
 
     /**
-     * @param array $arr
+     * @param array|Mage_Rule_Model_Condition_Abstract $arr
      * @param string $key
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
@@ -97,6 +97,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtml()
     {

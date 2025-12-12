@@ -389,8 +389,8 @@ class Mage_Oauth_Model_Server
      * Extract parameters from sources (GET, FormBody, Authorization header), decode them and validate
      *
      * @param string $requestType Request type - one of REQUEST_... class constant
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _processRequest($requestType)
     {
@@ -476,8 +476,11 @@ class Mage_Oauth_Model_Server
             return;
         }
 
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
-            && !Zend_Uri::check($this->_protocolParams['oauth_callback'])
+            && $validator->validateUrl($this->_protocolParams['oauth_callback'])->count() > 0
         ) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }
@@ -709,8 +712,8 @@ class Mage_Oauth_Model_Server
      * Create response string for problem during request and set HTTP error code
      *
      * @param null|Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
-     * @throws Zend_Controller_Response_Exception
      * @return string
+     * @throws Zend_Controller_Response_Exception
      */
     public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
     {

@@ -39,7 +39,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add product filter to collection
      *
-     * @param array|Mage_Catalog_Model_Product[] $products
+     * @param array|Mage_Catalog_Model_Resource_Product_Collection $products
      * @return $this
      */
     public function addProductsFilter($products)

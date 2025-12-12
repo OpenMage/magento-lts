@@ -1531,8 +1531,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Transactional rebuild flat data from eav
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function reindexAll()
     {
@@ -1564,9 +1564,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Check if Catalog Category Flat Data has been initialized
      *
-     * @deprecated use Mage_Catalog_Model_Resource_Category_Flat::isBuilt() instead
-     *
      * @return bool
+     * @deprecated use Mage_Catalog_Model_Resource_Category_Flat::isBuilt() instead
      */
     public function isRebuilt()
     {

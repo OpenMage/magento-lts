@@ -324,8 +324,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Success Registration
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer)
     {
@@ -523,12 +523,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
-     * Get model by path
-     *
      * @param string $path
      * @param null|array $arguments
      * @return false|Mage_Core_Model_Abstract
+     * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
+     * Get model by path
      */
     public function _getModel($path, $arguments = [])
     {
@@ -551,9 +550,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Returns success URL
      *
      * @param bool $isJustConfirmed
-     * @throws Mage_Core_Model_Store_Exception
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)
     {
@@ -730,13 +729,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Forgot customer password action
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function forgotPasswordPostAction()
     {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateEmail($email)->count() > 0) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');
@@ -788,11 +790,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $this->_getHelper('customer')->escapeHtml($email),
                 ));
             $this->_redirect('*/*/');
-            return;
         } else {
             $this->_getSession()->addError($this->__('Please enter your email.'));
             $this->_redirect('*/*/forgotpassword');
-            return;
         }
     }
 

@@ -14,7 +14,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Helper_Validate_Abstract
 {
     public const XML_INVALID                             = 'invalidXml';
 
@@ -81,9 +81,9 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      * validation failed.
      *
      * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @return bool
      */
     public function isValid($value)
     {

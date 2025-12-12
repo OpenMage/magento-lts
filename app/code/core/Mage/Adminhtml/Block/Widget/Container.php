@@ -162,8 +162,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     protected function _prepareLayout()
     {
         foreach ($this->_buttons as $buttons) {
-            foreach ($buttons as $id => $data) {
-                $childId = $this->_prepareButtonBlockId($id);
+            foreach ($buttons as $buttonId => $data) {
+                $childId = $this->_prepareButtonBlockId($buttonId);
                 $this->_addButtonChildBlock($childId);
             }
         }
@@ -190,6 +190,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _addButtonChildBlock($childId)
     {
+        /** @var Mage_Adminhtml_Block_Widget_Button $block */
         $block = $this->getLayout()->createBlock('adminhtml/widget_button');
         $this->setChild($childId, $block);
         return $block;
@@ -206,20 +207,20 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         $out = '';
         foreach ($this->_buttons as $cachedButtons) {
             $buttons = [];
-            foreach ($cachedButtons as $id => $data) {
-                $buttons[$data['sort_order']]['id'] = $id;
+            foreach ($cachedButtons as $buttonId => $data) {
+                $buttons[$data['sort_order']]['buttonId'] = $buttonId;
                 $buttons[$data['sort_order']]['data'] = $data;
             }
 
             ksort($buttons);
             foreach ($buttons as $button) {
-                $id = $button['id'];
+                $buttonId = $button['buttonId'];
                 $data = $button['data'];
                 if ($area && isset($data['area']) && ($area != $data['area'])) {
                     continue;
                 }
 
-                $childId = $this->_prepareButtonBlockId($id);
+                $childId = $this->_prepareButtonBlockId($buttonId);
                 $child = $this->getChild($childId);
 
                 if (!$child) {

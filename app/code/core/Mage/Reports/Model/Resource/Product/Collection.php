@@ -11,6 +11,8 @@
  * Products Report collection
  *
  * @package    Mage_Reports
+ *
+ * @method Mage_Reports_Model_Report getEntity()
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {

@@ -17,8 +17,10 @@
 class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
 {
     /**
+     * @return null|int
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
-     * @return int
      */
     protected function _getStoreId()
     {
@@ -32,8 +34,8 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return int
+     * @throws Exception
      */
     protected function _getCustomerGroupId()
     {

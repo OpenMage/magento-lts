@@ -21,8 +21,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add Link elements to head
      *
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
@@ -55,8 +55,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @param string $label
      * @param array $param
      * @param bool $customerGroup
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssFeed($url, $label, $param = [], $customerGroup = false)
     {
@@ -80,8 +80,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreId()
     {
@@ -111,8 +111,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return array|false
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRssMiscFeeds()
     {

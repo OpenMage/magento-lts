@@ -13,8 +13,8 @@
  * @package    Mage_Core
  *
  * @method array getLanguages()
- * @method $this setLanguages(array $value)
  * @method array getStores()
+ * @method $this setLanguages(array $value)
  * @method $this setStores(array $value)
  */
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
@@ -34,8 +34,8 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _loadData()
     {
@@ -101,8 +101,8 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getLanguageCount()
     {
@@ -117,8 +117,8 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreId()
     {
@@ -126,8 +126,8 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreCode()
     {

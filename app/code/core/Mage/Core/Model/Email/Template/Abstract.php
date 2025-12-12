@@ -13,10 +13,10 @@
  * @package    Mage_Core
  *
  * @method string getInlineCssFile()
- * @method $this setTemplateType(int $value)
+ * @method string getTemplateStyles()
  * @method getTemplateText()
  * @method $this setTemplateText(string $value)
- * @method string getTemplateStyles()
+ * @method $this setTemplateType(int $value)
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
@@ -231,14 +231,26 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_theme' => $theme,
             ],
         );
-        $validator = new Zend_Validate_File_Extension('css');
 
-        if ($validator->isValid($filePath) && is_readable($filePath)) {
+        if ($this->validateFileExension($filePath, 'css') && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
         // If file can't be found, return empty string
         return '';
+    }
+
+    public function validateFileExension(string $filePath, string $extension): bool
+    {
+        if ($extension === 'css') {
+            $extension = ['css' => ['text/css', 'text/plain']];
+        }
+
+        $validator = $this->getValidationHelper();
+        return $validator->validateFile(
+            value: $filePath,
+            extensions: $extension,
+        )->count() === 0;
     }
 
     /**

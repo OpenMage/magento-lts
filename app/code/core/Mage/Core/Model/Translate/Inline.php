@@ -549,8 +549,8 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Check is a Request contain Json flag
      *
-     * @deprecated 1.3.2.2
      * @return bool
+     * @deprecated 1.3.2.2
      */
     public function getIsAjaxRequest()
     {
@@ -561,8 +561,8 @@ class Mage_Core_Model_Translate_Inline
      * Set is a Request contain Json flag
      *
      * @param bool $flag
-     * @deprecated 1.3.2.2
      * @return $this
+     * @deprecated 1.3.2.2
      */
     public function setIsAjaxRequest($flag)
     {

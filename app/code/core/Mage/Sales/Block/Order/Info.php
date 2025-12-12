@@ -120,9 +120,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Get url for reorder action
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
      * @param Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getReorderUrl($order)
     {
@@ -136,9 +136,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Get url for printing order
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
      * @param Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getPrintUrl($order)
     {

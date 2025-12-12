@@ -13,10 +13,10 @@
  * @package    Mage_Reports
  *
  * @method int getPageSize()
- * @method $this setPageSize(int $value)
  * @method array getStoreIds()
- * @method $this setStoreIds( $value)
  * @method $this setDateRange(string $from, string $to)
+ * @method $this setPageSize(int $value)
+ * @method $this setStoreIds( $value)
  */
 class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
 {
@@ -31,7 +31,9 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
      */
     public function initCollection($modelClass)
     {
-        $this->_reportModel = Mage::getResourceModel($modelClass);
+        /** @var Mage_Reports_Model_Report $model */
+        $model = Mage::getResourceModel($modelClass);
+        $this->_reportModel = $model;
 
         return $this;
     }

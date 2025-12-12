@@ -13,12 +13,12 @@
  * @package    Mage_Core
  *
  * @method string getExtraParams()
- * @method $this setExtraParams(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getValue()
- * @method $this setValue(string $value)
  * @method bool getIsRenderToJsTemplate()
+ * @method string getName()
+ * @method string getValue()
+ * @method $this setExtraParams(string $value)
+ * @method $this setName(string $value)
+ * @method $this setValue(string $value)
  */
 class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 {

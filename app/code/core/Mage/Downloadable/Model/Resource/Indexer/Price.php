@@ -56,9 +56,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Retrieve downloadable links price temporary index table name
      *
-     * @see _prepareDefaultFinalPriceTable()
-     *
      * @return string
+     * @see _prepareDefaultFinalPriceTable()
      */
     protected function _getDownloadableLinkPriceTable()
     {

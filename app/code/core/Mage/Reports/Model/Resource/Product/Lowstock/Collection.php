@@ -120,8 +120,8 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Join catalog inventory stock item table for further stock_item values filters
      *
      * @param array|string $fields
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinInventoryItem($fields = [])
     {

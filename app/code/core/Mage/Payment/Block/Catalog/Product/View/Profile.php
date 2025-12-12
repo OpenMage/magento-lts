@@ -19,7 +19,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
     /**
      * Recurring profile instance
      *
-     * @var Mage_Payment_Model_Recurring_Profile
+     * @var false|Mage_Payment_Model_Recurring_Profile
      */
     protected $_profile = false;
 
@@ -45,6 +45,8 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
      * Render date input element
      *
      * @return string
+     * @throws Exception
+     * @throws Zend_Locale_Exception
      */
     public function getDateHtml()
     {

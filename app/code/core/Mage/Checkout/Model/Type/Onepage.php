@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Type_Onepage
     protected $_checkoutSession;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote = null;
 
@@ -195,8 +195,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Get quote checkout method
      *
-     * @deprecated since 1.4.0.1
      * @return string
+     * @deprecated since 1.4.0.1
      */
     public function getCheckoutMehod()
     {
@@ -243,8 +243,8 @@ class Mage_Checkout_Model_Type_Onepage
      *
      * @param array $data
      * @param int $customerAddressId
-     * @throws Mage_Core_Exception
      * @return array|true
+     * @throws Mage_Core_Exception
      */
     public function saveBilling($data, $customerAddressId)
     {
@@ -455,8 +455,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate customer data and set some its data for further usage in quote
      * Will return either true or array with error messages
      *
-     * @deprecated since 1.4.0.1
      * @return array|true
+     * @deprecated since 1.4.0.1
      */
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
@@ -510,7 +510,9 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),

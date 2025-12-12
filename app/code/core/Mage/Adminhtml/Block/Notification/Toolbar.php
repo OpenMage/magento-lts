@@ -32,8 +32,8 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
     /**
      * Check is show toolbar
      *
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function isShow()
     {

@@ -14,7 +14,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
 
@@ -132,9 +132,9 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * validation failed.
      *
      * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @return bool
      */
     public function isValid($value)
     {

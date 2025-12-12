@@ -7,6 +7,12 @@
  * @package    Mage_Usa
  */
 
+use PhpUnitsOfMeasure\Exception\NonNumericValue;
+use PhpUnitsOfMeasure\Exception\NonStringUnitName;
+use PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure;
+use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
+use PhpUnitsOfMeasure\PhysicalQuantity\Length;
+
 /**
  * @package    Mage_Usa
  */
@@ -17,18 +23,18 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert weight in different measure types
      *
-     * @param  mixed $value
-     * @param  string $sourceWeightMeasure
-     * @param  string $toWeightMeasure
-     * @return null|int|string
+     * @param  float $value
+     * @param  Mage_Core_Helper_Measure_Weight::* $sourceWeightMeasure
+     * @param  Mage_Core_Helper_Measure_Weight::* $toWeightMeasure
+     * @return null|float
+     * @throws NonNumericValue
+     * @throws NonStringUnitName
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
         if ($value) {
-            $locale = Mage::app()->getLocale()->getLocale();
-            $unitWeight = new Zend_Measure_Weight($value, $sourceWeightMeasure, $locale);
-            $unitWeight->setType($toWeightMeasure);
-            return $unitWeight->getValue();
+            $unitWeight = new Mass($value, $sourceWeightMeasure);
+            return $unitWeight->toUnit($toWeightMeasure);
         }
 
         return null;
@@ -37,18 +43,18 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert dimensions in different measure types
      *
-     * @param  mixed $value
-     * @param  string $sourceDimensionMeasure
-     * @param  string $toDimensionMeasure
-     * @return null|int|string
+     * @param  float $value
+     * @param  Mage_Core_Helper_Measure_Length::* $sourceDimensionMeasure
+     * @param  Mage_Core_Helper_Measure_Length::* $toDimensionMeasure
+     * @return null|float
+     * @throws NonNumericValue
+     * @throws NonStringUnitName
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {
         if ($value) {
-            $locale = Mage::app()->getLocale()->getLocale();
-            $unitDimension = new Zend_Measure_Length($value, $sourceDimensionMeasure, $locale);
-            $unitDimension->setType($toDimensionMeasure);
-            return $unitDimension->getValue();
+            $unitDimension = new Length($value, $sourceDimensionMeasure);
+            return $unitDimension->toUnit($toDimensionMeasure);
         }
 
         return null;
@@ -57,35 +63,27 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get name of measure by its type
      *
-     * @param  $key
+     * @param  string $key
      * @return string
+     * @throws UnknownUnitOfMeasure
      */
     public function getMeasureWeightName($key)
     {
-        $weight = new Zend_Measure_Weight(0);
-        $conversionList = $weight->getConversionList();
-        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
-            return $conversionList[$key][1];
-        }
-
-        return '';
+        $unit = Mass::getUnit($key);
+        return $unit->getName();
     }
 
     /**
      * Get name of measure by its type
      *
-     * @param  $key
+     * @param  string $key
      * @return string
+     * @throws UnknownUnitOfMeasure
      */
     public function getMeasureDimensionName($key)
     {
-        $weight = new Zend_Measure_Length(0);
-        $conversionList = $weight->getConversionList();
-        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
-            return $conversionList[$key][1];
-        }
-
-        return '';
+        $unit = Length::getUnit($key);
+        return $unit->getName();
     }
 
     /**
@@ -128,7 +126,6 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      * Validate ups type value
      *
      * @param string $valueForCheck ups type value for check
-     *
      * @return bool
      */
     public function validateUpsType($valueForCheck)

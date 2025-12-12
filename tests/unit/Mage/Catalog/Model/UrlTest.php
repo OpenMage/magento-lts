@@ -23,7 +23,9 @@ use Varien_Object;
 final class UrlTest extends OpenMageTest
 {
     use CatalogTrait;
+
     use IntOrNullTrait;
+
     use UrlTrait;
 
     private static Subject $subject;

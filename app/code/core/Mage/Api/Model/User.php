@@ -13,43 +13,42 @@
  * @package    Mage_Api
  *
  * @method Mage_Api_Model_Resource_User _getResource()
- * @method Mage_Api_Model_Resource_User getResource()
- * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
- *
- * @method string getFirstname()
- * @method $this setFirstname(string $value)
- * @method string getLastname()
- * @method $this setLastname(string $value)
- * @method string getEmail()
- * @method $this setEmail(string $value)
- * @method string getUsername()
- * @method $this setUsername(string $value)
- * @method bool hasApiKey()
  * @method string getApiKey()
- * @method $this setApiKey(string $value)
- * @method bool hasApiKeyConfirmation()
  * @method string getApiKeyConfirmation()
  * @method string getCreated()
- * @method $this setCreated(string $value)
- * @method string getModified()
- * @method $this setModified(string $value)
- * @method int getLognum()
- * @method $this setLognum(int $value)
- * @method int getReloadAclFlag()
- * @method $this setReloadAclFlag(int $value)
+ * @method string getEmail()
+ * @method string getFirstname()
  * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method string getSessid()
- * @method $this setSessid($sessId)
- * @method bool hasNewApiKey()
- * @method string getNewApiKey()
- * @method string getUserId()
+ * @method string getLastname()
  * @method string getLogdate()
+ * @method int getLognum()
+ * @method string getModified()
+ * @method string getNewApiKey()
+ * @method int getReloadAclFlag()
+ * @method Mage_Api_Model_Resource_User getResource()
+ * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
  * @method int getRoleId()
  * @method array getRoleIds()
+ * @method string getSessid()
+ * @method string getUserId()
+ * @method string getUsername()
+ * @method bool hasApiKey()
+ * @method bool hasApiKeyConfirmation()
+ * @method bool hasNewApiKey()
+ * @method $this setApiKey(string $value)
+ * @method $this setCreated(string $value)
+ * @method $this setEmail(string $value)
+ * @method $this setFirstname(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setLastname(string $value)
  * @method $this setLogdate(string $value)
+ * @method $this setLognum(int $value)
+ * @method $this setModified(string $value)
+ * @method $this setReloadAclFlag(int $value)
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
+ * @method $this setSessid($sessId)
+ * @method $this setUsername(string $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -105,8 +104,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Delete user
      *
-     * @throws Mage_Core_Exception
      * @return $this|Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function delete()
     {
@@ -119,8 +118,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save relations for users
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -228,8 +227,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function authenticate($username, $apiKey)
     {
@@ -252,8 +251,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $apiKey
-     * @throws Exception
      * @return Mage_Api_Model_User
+     * @throws Exception
      */
     public function login($username, $apiKey)
     {
@@ -358,28 +357,33 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Validate user attribute values.
      *
-     * @throws Zend_Validate_Exception
      * @return array|true
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('User Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('api')->__('User Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('First Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('api')->__('First Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('api')->__('Last Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
-        }
+        $violations->append($validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ));
 
         if ($this->hasNewApiKey()) {
             $apiKey = $this->getNewApiKey();
@@ -389,18 +393,39 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
-            if (strlen($apiKey) < $minCustomerPasswordLength) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength));
-            }
+            $violations->append($validator->validateLength(
+                value: $apiKey,
+                min: $minCustomerPasswordLength,
+                minMessage: $this->_getHelper('api')
+                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
+            ));
 
-            if (!preg_match('/[a-z]/iu', $apiKey) || !preg_match('/[0-9]/u', $apiKey)) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must include both numeric and alphabetic characters.'));
-            }
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[a-z]/iu',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
 
-            if ($this->hasApiKeyConfirmation() && $apiKey != $this->getApiKeyConfirmation()) {
-                $errors->append($this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'));
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[0-9]/u',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
+
+            if ($this->hasApiKeyConfirmation()) {
+                $violations->append($validator->validateIdentical(
+                    value: $apiKey,
+                    compare: $this->getApiKeyConfirmation(),
+                    message: $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
+                ));
+            }
+        }
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
             }
         }
 

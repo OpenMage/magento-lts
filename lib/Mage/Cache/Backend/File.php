@@ -478,8 +478,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $mode Clean mode
      * @param array  $tags
      *
-     * @throws Zend_Cache_Exception
      * @return bool In case of success returns true
+     * @throws Zend_Cache_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -562,8 +562,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      *
-     * @throws Zend_Cache_Exception
      * @return bool In case of success returns true
+     * @throws Zend_Cache_Exception
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {

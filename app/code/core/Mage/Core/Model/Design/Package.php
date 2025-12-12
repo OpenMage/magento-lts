@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Monolog\Level;
+
 /**
  * @package    Mage_Core
  */
@@ -34,7 +36,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var int|Mage_Core_Model_Store|string
+     * @var null|int|Mage_Core_Model_Store|string
      */
     protected $_store = null;
 
@@ -385,9 +387,9 @@ class Mage_Core_Model_Design_Package
      * - _theme: if not set = default
      * - _file: path relative to theme root
      *
-     * @see Mage_Core_Model_Config::getBaseDir
      * @param string $file
      * @return false|string
+     * @see Mage_Core_Model_Config::getBaseDir
      */
     public function validateFile($file, array $params)
     {
@@ -450,8 +452,8 @@ class Mage_Core_Model_Design_Package
      * $params['_type'] is required
      *
      * @param string $file
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getFilename($file, array $params)
     {
@@ -459,7 +461,7 @@ class Mage_Core_Model_Design_Package
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
         if (str_contains($file, '..')) {
-            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Level::Error);
             throw new Exception('Invalid path requested.');
         }
 
@@ -511,8 +513,8 @@ class Mage_Core_Model_Design_Package
      * Get skin file url
      *
      * @param null|string $file
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getSkinUrl($file = null, array $params = [])
     {
@@ -520,7 +522,7 @@ class Mage_Core_Model_Design_Package
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
         if (str_contains((string) $file, '..')) {
-            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Level::Error);
             throw new Exception('Invalid path requested.');
         }
 
@@ -767,12 +769,12 @@ class Mage_Core_Model_Design_Package
     /**
      * Merges files into one and saves it into DB (if DB file storage is on)
      *
-     * @see Mage_Core_Helper_Data::mergeFiles()
      * @param bool|string $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
+     * @see Mage_Core_Helper_Data::mergeFiles()
      */
     protected function _mergeFiles(
         array $srcFiles,

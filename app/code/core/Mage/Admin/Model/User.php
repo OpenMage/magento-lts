@@ -7,59 +7,60 @@
  * @package    Mage_Admin
  */
 
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+
 /**
  * Admin user model
  *
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_User _getResource()
+ * @method string getCreated()
+ * @method string getEmail()
+ * @method array getExtra()
+ * @method string getFirstname()
+ * @method int getIsActive()
+ * @method string getLastname()
+ * @method string getLogdate()
+ * @method int getLognum()
+ * @method string getModified()
+ * @method string getNewPassword()
+ * @method string getPassword()
+ * @method string getPasswordConfirmation()
+ * @method int getReloadAclFlag()
  * @method Mage_Admin_Model_Resource_User getResource()
  * @method Mage_Admin_Model_Resource_User_Collection getResourceCollection()
- *
- * @method string getFirstname()
- * @method $this setFirstname(string $value)
- * @method string getLastname()
- * @method $this setLastname(string $value)
- * @method string getEmail()
- * @method $this setEmail(string $value)
- * @method string getUsername()
- * @method $this setUsername(string $value)
- * @method string getPassword()
- * @method $this setPassword(string $value)
- * @method string getCreated()
- * @method $this setCreated(string $value)
- * @method string getModified()
- * @method $this setModified(string $value)
- * @method string getLogdate()
- * @method $this setLogdate(string $value)
- * @method int getLognum()
- * @method $this setLognum(int $value)
- * @method int getReloadAclFlag()
- * @method $this setReloadAclFlag(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method array getExtra()
- * @method $this setExtra(string $value)
- * @method int getUserId()
  * @method int getRoleId()
+ * @method array getRoleIds()
+ * @method string getRpToken()
+ * @method string getRpTokenCreatedAt()
+ * @method int getUserId()
+ * @method string getUsername()
  * @method bool hasNewPassword()
- * @method string getNewPassword()
- * @method $this setNewPassword(string $value)
- * @method $this unsNewPassword()
  * @method bool hasPassword()
  * @method bool hasPasswordConfirmation()
- * @method string getPasswordConfirmation()
+ * @method $this setCreated(string $value)
+ * @method $this setEmail(string $value)
+ * @method $this setExtra(string $value)
+ * @method $this setFirstname(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setLastname(string $value)
+ * @method $this setLogdate(string $value)
+ * @method $this setLognum(int $value)
+ * @method $this setModified(string $value)
+ * @method $this setNewPassword(string $value)
+ * @method $this setPassword(string $value)
  * @method $this setPasswordConfirmation(string $value)
- * @method $this unsPasswordConfirmation()
+ * @method $this setReloadAclFlag(int $value)
  * @method $this setRoleId(int $value)
- * @method array getRoleIds()
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
- * @method string getRpToken()
  * @method $this setRpToken(string $value)
- * @method string getRpTokenCreatedAt()
  * @method $this setRpTokenCreatedAt(string $value)
  * @method $this setUserId(int $value)
+ * @method $this setUsername(string $value)
+ * @method $this unsNewPassword()
+ * @method $this unsPasswordConfirmation()
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
@@ -203,8 +204,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save user roles
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function saveRelations()
     {
@@ -345,7 +346,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve user identifier
      *
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -367,8 +368,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function authenticate($username, $password)
     {
@@ -416,6 +417,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     public function validatePasswordHash(string $string1, string $string2): bool
     {
         return Mage::helper('core')->validateHash($string1, $string2);
@@ -426,8 +430,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $username
      * @param string $password
-     * @throws Mage_Core_Exception
      * @return  $this
+     * @throws Mage_Core_Exception
      */
     public function login($username, $password)
     {
@@ -529,7 +533,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                     return (string) $child->action;
                 } elseif ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string) $child->action;
+                    return $action ?: (string) $child->action;
                 }
             }
         }
@@ -551,9 +555,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find admin start page url
      *
+     * @return string
      * @deprecated Please use getStartupPageUrl() method instead
      * @see getStartupPageUrl()
-     * @return string
+     * @codeCoverageIgnore
      */
     public function getStatrupPageUrl()
     {
@@ -584,27 +589,38 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      * Returns TRUE or array of errors.
      *
-     * @throws Zend_Validate_Exception
      * @return array|true
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('User Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('adminhtml')->__('User Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('First Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('adminhtml')->__('First Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append(Mage::helper('adminhtml')->__('Last Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('adminhtml')->__('Last Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append(Mage::helper('adminhtml')->__('Please enter a valid email.'));
+        $violations->append($validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ));
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         if ($this->hasNewPassword()) {
@@ -614,19 +630,21 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if (isset($password)) {
-            $minAdminPasswordLength = $this->getMinAdminPasswordLength();
-            if (Mage::helper('core/string')->strlen($password) < $minAdminPasswordLength) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must be at least of %d characters.', $minAdminPasswordLength));
+            $violations = new ArrayObject();
+            $violations->append($this->getPasswordValidator(value: $password));
+
+            if ($this->hasPasswordConfirmation()) {
+                $violations->append($validator->validateIdentical(
+                    value: $this->getPasswordConfirmation(),
+                    compare: $password,
+                    message: Mage::helper('adminhtml')->__('Password confirmation must be same as password.'),
+                ));
             }
 
-            if (!preg_match('/[a-z]/iu', $password) || !preg_match('/[0-9]/u', $password)) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must include both numeric and alphabetic characters.'));
-            }
-
-            if ($this->hasPasswordConfirmation() && $password != $this->getPasswordConfirmation()) {
-                $errors->append(Mage::helper('adminhtml')->__('Password confirmation must be same as password.'));
+            foreach ($violations as $violation) {
+                foreach ($violation as $error) {
+                    $errors->append($error->getMessage());
+                }
             }
 
             Mage::dispatchEvent('admin_user_validate', [
@@ -646,19 +664,33 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return (array) $errors;
     }
 
+    public function getPasswordValidator(mixed $value): ConstraintViolationListInterface
+    {
+        $min = $this->getMinAdminPasswordLength();
+        $validator  = $this->getValidationHelper();
+
+        return $validator->validatePassword(
+            value: $value,
+            min: $min,
+            minMessage: Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $min),
+            regexMessage: Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
+        );
+    }
+
     /**
      * Validate password against current user password
-     * Returns true or array of errors.
+     * Returns TRUE or array of errors.
      *
      * @param string $password
-     * @throws Zend_Validate_Exception
      * @return array|true
+     * @throws Exception
      */
     public function validateCurrentPassword($password)
     {
-        $result = [];
+        $validator  = $this->getValidationHelper();
+        $result     = [];
 
-        if (!Zend_Validate::is($password, 'NotEmpty')) {
+        if ($validator->validateNotEmpty($password)->count() > 0) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
         } elseif (is_null($this->getId()) || !Mage::helper('core')->validateHash($password, $this->getPassword())) {
             $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');
@@ -677,8 +709,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Stores new reset password link token and its creation time
      *
      * @param string $newResetPasswordLinkToken
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {

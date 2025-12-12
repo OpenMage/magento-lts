@@ -526,8 +526,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Get Order by quoteId
      *
-     * @throws Mage_Payment_Model_Info_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Payment_Model_Info_Exception
      */
     protected function _getOrder()
     {
@@ -544,9 +544,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Create invoice
      *
+     * @return Mage_Sales_Model_Order_Invoice
      * @throws Mage_Core_Exception
      * @throws Mage_Payment_Model_Info_Exception
-     * @return Mage_Sales_Model_Service_Order
      */
     protected function _initInvoice()
     {
@@ -555,7 +555,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $items[$item->getId()] = $item->getQtyOrdered();
         }
 
-        /** @var Mage_Sales_Model_Service_Order $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
         $invoice->setEmailSent(true)->register();
 

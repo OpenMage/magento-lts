@@ -174,8 +174,8 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @param array $data
      * @param Varien_Data_Tree_Node $parentNode
      * @param null|Varien_Data_Tree_Node $prevNode
-     * @throws Zend_Db_Adapter_Exception
      * @return Varien_Data_Tree_Node
+     * @throws Zend_Db_Adapter_Exception
      */
     public function appendChild($data, $parentNode, $prevNode = null)
     {
@@ -249,8 +249,8 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * @param int $parentId
      * @param int $parentLevel
-     * @throws Zend_Db_Adapter_Exception
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _updateChildLevels($parentId, $parentLevel)
     {
@@ -295,8 +295,8 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
 
     /**
      * @param Varien_Data_Tree_Node $node
-     * @throws Exception
      * @return $this|Varien_Data_Tree
+     * @throws Exception
      */
     public function removeNode($node)
     {

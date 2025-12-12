@@ -25,8 +25,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getSaveUrl()
     {
@@ -41,8 +41,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getEditUrl()
     {
@@ -55,8 +55,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getButtonUrl()
     {
@@ -69,8 +69,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getRemoveUrl()
     {
@@ -84,8 +84,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     protected function _initMessage()
     {
@@ -96,8 +96,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return Mage_GiftMessage_Model_Message
+     * @throws Exception
      */
     public function getMessage()
     {
@@ -127,8 +127,8 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getUniqueId()
     {

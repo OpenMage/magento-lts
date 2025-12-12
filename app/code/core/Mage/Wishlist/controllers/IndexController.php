@@ -12,8 +12,8 @@
  *
  * @package    Mage_Wishlist
  *
- * @method float getQty()
  * @method int getProductId()
+ * @method float getQty()
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 {
@@ -171,8 +171,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @throws Throwable
      * @return void
+     * @throws Throwable
      */
     protected function _addItemToWishList()
     {
@@ -666,25 +666,37 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
-        $error   = false;
-        if (empty($emails)) {
-            $error = $this->__("Email address can't be empty.");
-        } elseif (count($emails) > 5) {
-            $error = $this->__('Please enter no more than 5 email addresses.');
-        } else {
-            foreach ($emails as $index => $email) {
-                $email = trim($email);
-                if (!Zend_Validate::is($email, 'EmailAddress')) {
-                    $error = $this->__('Please input a valid email address.');
-                    break;
-                }
 
+        $violations = new ArrayObject();
+
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+
+        $violations->append($validator->validateCount(
+            value: $emails,
+            min: 1,
+            max: 5,
+            minMessage: $this->__("Email address can't be empty."),
+            maxMessage: $this->__('Please enter no more than 5 email addresses.'),
+        ));
+
+        foreach ($emails as $index => $email) {
+            $email = trim($email);
+            $violation = $validator->validateEmail(
+                value: $email,
+                message: $this->__('Please input a valid email address.'),
+            );
+
+            if ($violation->count() === 0) {
                 $emails[$index] = $email;
             }
+
+            $violations->append($violation);
         }
 
-        if ($error) {
-            Mage::getSingleton('wishlist/session')->addError($error);
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
+            Mage::getSingleton('wishlist/session')->addError(implode('<br>', array_unique(iterator_to_array($errors))));
             Mage::getSingleton('wishlist/session')->setSharingForm($this->getRequest()->getPost());
             $this->_redirect('*/*/share');
             return;

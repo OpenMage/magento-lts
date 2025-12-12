@@ -25,8 +25,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Sku extends Mage_Eav_Model_En
      * Validate SKU
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate($object)
     {
