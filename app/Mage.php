@@ -20,13 +20,6 @@ define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
 
-if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
-    Mage::setIsDeveloperMode(true);
-    ini_set('display_errors', '1');
-    ini_set('error_prepend_string', '<pre>');
-    ini_set('error_append_string', '</pre>');
-}
-
 /**
  * Set include path
  */
@@ -58,6 +51,17 @@ require_once $autoloaderPath . DS . 'autoload.php';
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
+}
+
+$dotenv = Dotenv\Dotenv::createImmutable(BP);
+$dotenv->safeLoad();
+$dotenv->ifPresent(['MAGE_IS_DEVELOPER_MODE', 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED'])->isInteger();
+
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', '1');
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
 }
 
 /**
