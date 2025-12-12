@@ -36,8 +36,8 @@ cy.openmage.validation = {
             }
         });
     },
-    removeClasses: (path, log = 'Removing validation classes from fields') =>{
-        cy.log(log);
+    removeClasses: (path) =>{
+        cy.log('Removing validation classes from fields');
         Object.keys(path.__fields).forEach(field => {
             const selector = path.__fields[field]._;
             cy
@@ -47,30 +47,27 @@ cy.openmage.validation = {
     },
     removeClassesFromInput: () =>{
         cy.log('Removing validation classes from all input fields');
-
         const input = '.form-list .value input';
         cy.get(input).invoke('removeClass');
     },
     removeClassesFromSelect: () =>{
         cy.log('Removing validation classes from all select fields');
-
         const select = '.form-list .value select';
         cy.get(select).invoke('removeClass');
     },
     removeClassesFromTextarea: () =>{
         cy.log('Removing validation classes from all fields');
-
         const textarea = '.form-list .value textarea';
         cy.get(textarea).invoke('removeClass');
     },
     removeClassesAll: () =>{
         cy.log('Removing validation classes from all fields');
-
         cy.openmage.validation.removeClassesFromInput();
         cy.openmage.validation.removeClassesFromSelect();
         cy.openmage.validation.removeClassesFromTextarea();
     },
     pageElements: (config, path) => {
+        cy.log('Verifying page elements');
         cy.openmage.check.buttons(config, path);
         cy.openmage.check.fields(config, path);
         cy.openmage.check.grid(config, path);
