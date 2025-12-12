@@ -4,7 +4,7 @@ const test = cy.openmage.test.backend.system.config.catalog.sitemap;
  * Section "Google Sitemap"
  * @type {{_: string, title: string, url: string}}
  */
-test.section = {
+test.config.section = {
     _: '#section-sitemap',
     title: 'Google Sitemap',
     url: 'system_config/edit/section/sitemap',
@@ -18,7 +18,7 @@ test.section = {
  * Category settings
  * @type {{__fields: {priority: {_: string}}}}
  */
-test.section.category = {
+test.config.section.category = {
     __fields: {
         priority: {
             _: '#sitemap_category_priority',
@@ -30,7 +30,7 @@ test.section.category = {
  * Product settings
  * @type {{__fields: {priority: {_: string}}}}
  */
-test.section.product = {
+test.config.section.product = {
     __fields: {
         priority: {
             _: '#sitemap_product_priority',
@@ -42,7 +42,7 @@ test.section.product = {
  * Page settings
  * @type {{__fields: {priority: {_: string}}}}
  */
-test.section.page = {
+test.config.section.page = {
     __fields: {
         priority: {
             _: '#sitemap_page_priority',
@@ -55,16 +55,16 @@ test.section.page = {
  * @type {{__fields: {product: {_: string}, page: {_: string}, category: {_: string}}}}
  * @private
  */
-test.section.__groupPriority = {
+test.config.section.__groupPriority = {
     __fields: {
         category: {
-            _: test.section.category.__fields.priority._
+            _: test.config.section.category.__fields.priority._
         },
         page: {
-            _: test.section.page.__fields.priority._
+            _: test.config.section.page.__fields.priority._
         },
         product: {
-            _: test.section.product.__fields.priority._
+            _: test.config.section.product.__fields.priority._
         },
     }
 }
