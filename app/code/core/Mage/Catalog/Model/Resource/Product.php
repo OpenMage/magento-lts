@@ -30,10 +30,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
     /**
      * Used when duplicating product
-     *
-     * @var string
      */
-    protected $_skipImagesOnDuplicate = false;
+    protected bool $skipImagesOnDuplicate = false;
 
     /**
      * Initialize resource
