@@ -43,7 +43,7 @@ trait LogTrait
         ];
         yield 'int to 7' => [
             600,
-            0
+            0,
         ];
         yield 'int to 100' => [
             100,

@@ -13,6 +13,8 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
 use Mage_Core_Helper_Log as Subject;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\LogTrait;
@@ -20,8 +22,6 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\LogTrait;
 final class LogTest extends OpenMageTest
 {
     use LogTrait;
-
-    public const TEST_URL = 'foo';
 
     // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
@@ -58,6 +58,24 @@ final class LogTest extends OpenMageTest
     public function testGetLogFile(): void
     {
         self::assertIsString(Subject::getLogFile());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Log::getHandler()
+     * @group Helper
+     */
+    public function testGetHandler(): void
+    {
+        self::assertInstanceOf(StreamHandler::class, Subject::getHandler(null, 'somefile.log'));
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Log::getLineFormatter()
+     * @group Helper
+     */
+    public function testGetLineFormatter(): void
+    {
+        self::assertInstanceOf(LineFormatter::class, Subject::getLineFormatter());
     }
 
     /**
