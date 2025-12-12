@@ -108,7 +108,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 $levelValue = Level::Debug; // fallback to debug level
             }
         } else {
-            // change RFC 5424 Log Level into Monolog.
+            // change Monolog into RFC 5424 Log Level
             $levelValue = (match ($level) {
                 7, 100 => Level::Debug,
                 6, 200 => Level::Info,
@@ -122,7 +122,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
             });
         }
 
-        return $levelValue->value;
+        return $levelValue->toRFC5424Level();
     }
 
     /**

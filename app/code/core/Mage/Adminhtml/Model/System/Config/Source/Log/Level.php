@@ -21,14 +21,14 @@ class Mage_Adminhtml_Model_System_Config_Source_Log_Level
         $helper = Mage::helper('adminhtml');
 
         return [
-            Level::Emergency->value => $helper->__('Emergency'),
-            Level::Alert->value     => $helper->__('Alert'),
-            Level::Critical->value  => $helper->__('Critical'),
-            Level::Error->value     => $helper->__('Error'),
-            Level::Warning->value   => $helper->__('Warning'),
-            Level::Notice->value    => $helper->__('Notice'),
-            Level::Info->value      => $helper->__('Informational'),
-            Level::Debug->value     => $helper->__('Debug'),
+            Level::Emergency->toRFC5424Level() => $helper->__('Emergency'),
+            Level::Alert->toRFC5424Level()     => $helper->__('Alert'),
+            Level::Critical->toRFC5424Level()  => $helper->__('Critical'),
+            Level::Error->toRFC5424Level()     => $helper->__('Error'),
+            Level::Warning->toRFC5424Level()   => $helper->__('Warning'),
+            Level::Notice->toRFC5424Level()    => $helper->__('Notice'),
+            Level::Info->toRFC5424Level()      => $helper->__('Informational'),
+            Level::Debug->toRFC5424Level()     => $helper->__('Debug'),
         ];
     }
 }
