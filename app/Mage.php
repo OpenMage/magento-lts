@@ -7,8 +7,7 @@
  * @package    Mage
  */
 
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Level;
 use Monolog\Logger;
 
@@ -929,18 +928,20 @@ final class Mage
                     chmod($logFile, 0640);
                 }
 
-                $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
-                $formatter = new LineFormatter($format, null, true, true, true);
-                $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
-                if (!self::$_app || !$writerModel) {
-                    $writer = new StreamHandler($logFile, Level::Debug);
-                } else {
-                    $writer = new $writerModel($logFile, Level::Debug);
+                $handler = Mage_Core_Helper_Log::getHandler(self::$_app, $logFile);
+
+                if ($handler instanceof FormattableHandlerInterface) {
+                    $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
+                    $handler->setFormatter(Mage_Core_Helper_Log::getLineFormatter(
+                        format: $format,
+                        allowInlineLineBreaks: true,
+                        ignoreEmptyContextAndExtra: true,
+                        includeStacktraces: true,
+                    ));
                 }
 
-                $writer->setFormatter($formatter);
                 $logger = new Logger('OpenMage');
-                $logger->pushHandler($writer);
+                $logger->pushHandler($handler);
                 $loggers[$file] = $logger;
             }
 

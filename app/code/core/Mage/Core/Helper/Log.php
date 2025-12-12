@@ -10,6 +10,10 @@ declare(strict_types=1);
  */
 
 use Monolog\Level;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\StreamHandler;
 
 /**
  * Core data helper
@@ -29,6 +33,60 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
 
     protected $_moduleName = 'Mage_Core';
+
+    /**
+     * Retrieve allowed file extensions for log files
+     *
+     * @return string[]
+     */
+    public static function getAlowedFileExtensions(): array
+    {
+        return explode(
+            ',',
+            (string) Mage::getConfig()->getNode(
+                self::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
+                Mage_Core_Model_Store::DEFAULT_CODE,
+            ),
+        );
+    }
+
+    /**
+     * Retrieve log handler instance
+     */
+    public static function getHandler(null|Mage_Core_Model_App $app, string $logFile, Level $logLevel = Level::Debug): HandlerInterface
+    {
+        $writerModel = (string) Mage::getConfig()->getNode('global/log/core/writer_model');
+        if (!$app || !$writerModel) {
+            return new StreamHandler($logFile, $logLevel);
+        } else {
+            return new $writerModel($logFile, $logLevel);
+        }
+    }
+
+    /**
+     * Retrieve line formatter instance
+     */
+    public static function getLineFormatter(
+        ?string $format = null,
+        ?string $dateFormat = null,
+        bool $allowInlineLineBreaks = false,
+        bool $ignoreEmptyContextAndExtra = false,
+        bool $includeStacktraces = false,
+    ): FormatterInterface
+    {
+        return new LineFormatter($format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra, $includeStacktraces);
+    }
+
+    /**
+     * Retrieve log file name from configuration
+     */
+    public static function getLogFile(): string
+    {
+        return (string) Mage::getConfig()->getNode(
+            self::XML_PATH_DEV_LOG_FILE,
+            Mage_Core_Model_Store::DEFAULT_CODE,
+        );
+    }
 
     /**
      * Normalize log level to Monolog Level integer value
@@ -69,30 +127,6 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
         }
 
         return $levelValue->value;
-    }
-
-    /**
-     * Retrieve allowed file extensions for log files
-     *
-     * @return string[]
-     */
-    public static function getAlowedFileExtensions(): array
-    {
-        return explode(
-            ',',
-            (string) Mage::getConfig()->getNode(
-                self::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
-                Mage_Core_Model_Store::DEFAULT_CODE,
-            ),
-        );
-    }
-
-    public static function getLogFile(): string
-    {
-        return (string) Mage::getConfig()->getNode(
-            self::XML_PATH_DEV_LOG_FILE,
-            Mage_Core_Model_Store::DEFAULT_CODE,
-        );
     }
 
     /**
