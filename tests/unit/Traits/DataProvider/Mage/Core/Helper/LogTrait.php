@@ -18,51 +18,51 @@ trait LogTrait
     public function provideGetLogLevelData(): Generator
     {
         yield 'null' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             null,
         ];
         yield 'empty string' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             '',
         ];
         yield 'invalid string' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             'abc',
         ];
         yield 'string psr3' => [
-            200,
+            Level::Info->toRFC5424Level(),
             'info',
         ];
         yield 'numeric string 0' => [
-            600,
+            Level::Emergency->toRFC5424Level(),
             '0',
         ];
         yield 'numeric string 200' => [
-            200,
+            Level::Info->toRFC5424Level(),
             '200',
         ];
         yield 'numeric string 999' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             '999',
         ];
         yield 'int 0' => [
-            600,
+            Level::Emergency->toRFC5424Level(),
             0,
         ];
         yield 'int 66' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             66,
         ];
         yield 'int 200' => [
-            200,
+            Level::Info->toRFC5424Level(),
             200,
         ];
         yield 'int 999' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             999,
         ];
         yield 'monolog level' => [
-            100,
+            Level::Debug->toRFC5424Level(),
             Level::Debug,
         ];
     }
