@@ -72,8 +72,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
         bool $allowInlineLineBreaks = false,
         bool $ignoreEmptyContextAndExtra = false,
         bool $includeStacktraces = false,
-    ): FormatterInterface
-    {
+    ): FormatterInterface {
         return new LineFormatter($format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra, $includeStacktraces);
     }
 
