@@ -33,7 +33,7 @@ trait LogTrait
             200,
             'info',
         ];
-        yield 'numeric string 7' => [
+        yield 'numeric string 0' => [
             600,
             '0',
         ];
