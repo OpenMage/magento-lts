@@ -53,8 +53,14 @@ test.config.section.page = {
  */
 test.config.section.__groupPriority = {
     __fields: {
-        category: test.config.section.category.__fields.priority._,
-        page: test.config.section.page.__fields.priority._,
-        product: test.config.section.product.__fields.priority._,
+        category: {
+            _: test.config.section.category.__fields.priority._
+        },
+        page: {
+            _: test.config.section.page.__fields.priority._
+        },
+        product: {
+            _: test.config.section.product.__fields.priority._
+        },
     }
 }
