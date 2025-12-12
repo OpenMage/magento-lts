@@ -25,7 +25,7 @@ trait LogTrait
             100,
             '',
         ];
-        yield 'string' => [
+        yield 'invalid string' => [
             100,
             'abc',
         ];
@@ -33,23 +33,31 @@ trait LogTrait
             200,
             'info',
         ];
-        yield 'numeric string' => [
+        yield 'numeric string 7' => [
             600,
             '0',
         ];
-        yield 'numeric invalid string' => [
+        yield 'numeric string 200' => [
+            200,
+            '200',
+        ];
+        yield 'numeric string 999' => [
             100,
             '999',
         ];
-        yield 'int to 7' => [
+        yield 'int 0' => [
             600,
             0,
         ];
-        yield 'int to 100' => [
+        yield 'int 66' => [
             100,
             66,
         ];
-        yield 'int invalid' => [
+        yield 'int 200' => [
+            200,
+            200,
+        ];
+        yield 'int 999' => [
             100,
             999,
         ];

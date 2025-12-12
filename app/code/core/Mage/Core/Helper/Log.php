@@ -94,11 +94,15 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
      */
     public static function getLogLevel($level): int
     {
+        if (is_numeric($level)) {
+            $level = (int) $level;
+        }
+
         if ($level instanceof Level) {
             $levelValue = $level;
         } elseif (is_null($level)) {
             $levelValue = Level::Debug;
-        } elseif (is_string($level) && !is_numeric($level)) {
+        } elseif (is_string($level)) {
             // PSR 3 Log level
             try {
                 $levelValue = Level::fromName($level);
@@ -106,23 +110,18 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 $levelValue = Level::Debug; // fallback to debug level
             }
         } else {
-            $levelValue = (int) $level;
             // change RFC 5424 Log Level into Monolog.
-            if ($levelValue >= 0 && $levelValue <= 7) {
-                $levelValue = (match ($levelValue) {
-                    7 => Level::Debug,
-                    6 => Level::Info,
-                    5 => Level::Notice,
-                    4 => Level::Warning,
-                    3 => Level::Error,
-                    2 => Level::Critical,
-                    1 => Level::Alert,
-                    0 => Level::Emergency,
-                });
-            } else {
-                // unknown levels are treated as debug
-                $levelValue = Level::Debug; // fallback to debug level
-            }
+            $levelValue = (match ($level) {
+                7, 100 => Level::Debug,
+                6, 200 => Level::Info,
+                5, 250 => Level::Notice,
+                4, 300 => Level::Warning,
+                3, 400 => Level::Error,
+                2, 500 => Level::Critical,
+                1, 550 => Level::Alert,
+                0, 600 => Level::Emergency,
+                default => Level::Debug,
+            });
         }
 
         return $levelValue->value;
