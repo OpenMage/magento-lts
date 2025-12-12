@@ -142,49 +142,61 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
      * Validates that a value is a valid date.
      */
     public function validateDate(
-        mixed $value,
-        ?array $options = null,
+        mixed   $value,
+        ?array  $options = null,
         ?string $message = null,
-        ?array $groups = null,
-        mixed $payload = null
+        ?array  $groups = null,
+        mixed   $payload = null,
+        ?bool   $empty = true,
+        ?string $emptyMessage = null,
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
 
-        return $validator->validate($value, [
-            new Constraints\NotBlank(
-                message: $message,
-            ),
-            new Constraints\Date(
-                options: $options,
-                message: $message,
-                groups: $groups,
-                payload: $payload,
-            ),
-        ]);
+        $constraints = [];
+        $constraints[] = new Constraints\Date(
+            options: $options,
+            message: $message,
+            groups: $groups,
+            payload: $payload,
+        );
+
+        if (!$empty) {
+            $constraints[] = new Constraints\NotBlank(
+                message: $emptyMessage,
+            );
+        }
+
+        return $validator->validate($value, $constraints);
     }
 
     public function validateDateTime(
-        mixed $value,
+        mixed             $value,
         null|array|string $format = null,
-        ?string $message = null,
-        ?array $groups = null,
-        mixed $payload = null,
-        array $options = []
+        ?string           $message = null,
+        ?array            $groups = null,
+        mixed             $payload = null,
+        ?bool             $empty = true,
+        ?string           $emptyMessage = null,
+        array             $options = []
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
 
-        return $validator->validate($value, [
-            new Constraints\NotBlank(
-                message: $message,
-            ),
-            new Constraints\DateTime(
-                format: $format,
-                message: $message,
-                groups: $groups,
-                payload: $payload,
-                options: $options,
-            ),
-        ]);
+        $constraints = [];
+        $constraints[] = new Constraints\DateTime(
+            format: $format,
+            message: $message,
+            groups: $groups,
+            payload: $payload,
+            options: $options,
+        );
+
+        if (!$empty) {
+            $constraints[] = new Constraints\NotBlank(
+                message: $emptyMessage,
+            );
+        }
+
+        return $validator->validate($value, $constraints);
     }
 
     /**
