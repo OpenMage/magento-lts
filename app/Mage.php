@@ -910,7 +910,7 @@ final class Mage
         try {
             if (!isset($loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-                $_allowedFileExtensions = Mage_Core_Helper_Log::getAlowedFileExtensions();
+                $_allowedFileExtensions = Mage_Core_Helper_Log::getAllowedFileExtensions();
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }

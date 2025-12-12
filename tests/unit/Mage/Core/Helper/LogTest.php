@@ -44,12 +44,12 @@ final class LogTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Core_Helper_Log::getAlowedFileExtensions()
+     * @covers Mage_Core_Helper_Log::getAllowedFileExtensions()
      * @group Helper
      */
     public function testGetAlowedFileExtensions(): void
     {
-        self::assertIsArray(Subject::getAlowedFileExtensions());
+        self::assertIsArray(Subject::getAllowedFileExtensions());
     }
 
     /**

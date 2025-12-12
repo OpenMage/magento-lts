@@ -39,7 +39,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
      *
      * @return string[]
      */
-    public static function getAlowedFileExtensions(): array
+    public static function getAllowedFileExtensions(): array
     {
         return explode(
             ',',
