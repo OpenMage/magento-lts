@@ -1367,10 +1367,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
-        if($newProduct->getSkipImagesOnDuplicate() == null && $this->_getImageHelper()->skipProductImageOnDuplicate() === -1){
+        if (is_null($newProduct->getSkipImagesOnDuplicate()) && $this->_getImageHelper()->skipProductImageOnDuplicate() === -1) { # todo: use constant
             $newProduct->setSkipImagesOnDuplicate(false);
-        }else{
-            $newProduct->setSkipImagesOnDuplicate((bool) $this->_getImageHelper()->skipProductImageOnDuplicate());
+        } else {
+            $newProduct->setSkipImagesOnDuplicate($this->_getImageHelper()->skipProductImageOnDuplicate());
         }
 
         Mage::dispatchEvent(
