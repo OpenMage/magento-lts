@@ -7,6 +7,8 @@
  * @package    Mage_Shipping
  */
 
+use Carbon\Carbon;
+
 /**
  * Class Mage_Shipping_Block_Tracking_Popup
  *
@@ -219,7 +221,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     {
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-        return $locale->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
+        return $locale->date(Carbon::parse($date)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
             ->toString($format);
     }
 
@@ -239,7 +241,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         $locale = Mage::app()->getLocale();
 
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-        return $locale->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
+        return $locale->date(Carbon::parse($time)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
             ->toString($format);
     }
 

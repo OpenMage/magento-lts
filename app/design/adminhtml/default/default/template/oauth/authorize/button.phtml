@@ -35,7 +35,7 @@
                 </form>
             <?php endif ?>
         </div>
-        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
+        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', \Carbon\Carbon::now()->format('Y')) ?></p>
         <div class="bottom"></div>
     </div>
 </div>

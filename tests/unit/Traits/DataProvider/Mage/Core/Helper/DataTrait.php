@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper;
 
+use Carbon\Carbon;
 use Generator;
 
 trait DataTrait
@@ -18,9 +19,9 @@ trait DataTrait
     {
         /** @phpstan-ignore method.nonObject */
         $date           = date_create()->getTimestamp();
-        $dateShort      = date('n/j/Y', $date);
-        $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('n/j/Y g:i A', $date);
+        $dateShort      = Carbon::createFromTimestamp($date)->format('n/j/Y');
+        $dateLong       = Carbon::createFromTimestamp($date)->format('F j, Y');
+        $dateShortTime  = Carbon::createFromTimestamp($date)->format('n/j/Y g:i A');
 
         yield 'null' => [
             $dateShort,

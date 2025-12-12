@@ -7,6 +7,9 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Import entity product model
  *
@@ -424,6 +427,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected $_urlKeyAttributeId;
 
+    /**
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -441,6 +448,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Delete products.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _deleteProducts()
     {
@@ -496,6 +505,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize attribute sets code-to-id pairs.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initAttributeSets()
     {
@@ -524,8 +534,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $pathSize  = count($structure);
             if ($pathSize > 1) {
                 $path = [];
-                for ($i = 1; $i < $pathSize; $i++) {
-                    $path[] = $collection->getItemById($structure[$i])->getName();
+                for ($pathIndex = 1; $pathIndex < $pathSize; $pathIndex++) {
+                    $path[] = $collection->getItemById($structure[$pathIndex])->getName();
                 }
 
                 $rootCategoryName = array_shift($path);
@@ -562,6 +572,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize existent product SKUs.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initSkus()
     {
@@ -584,6 +595,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize stores hash.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initStores()
     {
@@ -636,6 +648,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Initialize website values.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initWebsites()
     {
@@ -829,6 +842,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Custom options save.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveCustomOptions()
     {
@@ -1173,6 +1188,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Must be called after ALL products saving done.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _saveLinks()
     {
@@ -1287,6 +1304,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product attributes.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductAttributes(array $attributesData)
     {
@@ -1336,6 +1354,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product categories.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductCategories(array $categoriesData)
     {
@@ -1379,6 +1398,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @param array $entityRowsIn Row for insert
      * @param array $entityRowsUp Row for update
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
     {
@@ -1414,6 +1435,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Gather and save information about product entities.
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _saveProducts()
     {
@@ -1567,8 +1590,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 );
                 try {
                     $attributes = $this->_prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     continue;
                 }
             }
@@ -1601,6 +1624,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $code
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getAttribute($code)
     {
@@ -1624,6 +1648,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * @param null|string $rowSku
      * @param int $rowStore
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore)
     {
@@ -1643,8 +1669,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = [0];
 
-            if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
+            try {
+                $timestamp = Carbon::parse($attrValue)->getTimestamp();
+            } catch (InvalidFormatException) {
+                $timestamp = false;
+            }
+
+            if ($attribute->getBackendType() === 'datetime' && $timestamp) {
+                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
@@ -1692,6 +1724,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product tier prices.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductTierPrices(array $tierPriceData)
     {
@@ -1735,6 +1768,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product group prices.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductGroupPrices(array $groupPriceData)
     {
@@ -1778,6 +1812,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Returns an object for upload a media files
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @throws Mage_Core_Exception
      */
     protected function _getUploader()
     {
@@ -1825,6 +1860,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product media gallery.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
@@ -1906,6 +1942,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Save product websites.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveProductWebsites(array $websiteData)
     {
@@ -1983,6 +2020,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Stock item saving.
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _saveStockItem()
     {

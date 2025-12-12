@@ -12,7 +12,7 @@
  */
 ?>
 
-<?php $_divId = 'tree-div_' . time() ?>
+<?php $_divId = 'tree-div_' . \Carbon\Carbon::now()->getTimestamp() ?>
 <div id="<?php echo $_divId ?>" class="tree"></div>
 
 <script type="text/javascript">

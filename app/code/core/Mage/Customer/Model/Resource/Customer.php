@@ -7,6 +7,8 @@
  * @package    Mage_Customer
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer entity resource model
  *
@@ -229,7 +231,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
-        $customer->setPassword($newPassword)->setPasswordCreatedAt(time());
+        $customer->setPassword($newPassword)->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $this->saveAttribute($customer, 'password_hash');
         $this->saveAttribute($customer, 'password_created_at');
         return $this;
