@@ -653,10 +653,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         return $mimeType !== null;
     }
 
-    /**
-     * @return int
-     */
-    public function skipProductImageOnDuplicate()
+    public function skipProductImageOnDuplicate(): int
     {
         return Mage::getStoreConfigAsInt(self::XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION);
     }
