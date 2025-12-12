@@ -240,7 +240,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     /**
      * @return string
      */
-    public function getDuplicateUrl($skipImages = false)
+    public function getDuplicateUrl(bool $skipImages = false)
     {
         return $this->getUrl('*/*/duplicate', ['_current' => true, 'skipImages' => $skipImages ? 1 : 0]);
     }
