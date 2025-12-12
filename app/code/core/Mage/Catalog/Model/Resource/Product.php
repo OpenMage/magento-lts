@@ -743,11 +743,11 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     }
 
     /**
-     * @param bool $newProductSkipImages
      * @return $this
      */
-    public function setSkipImagesOnDuplicate(bool $newProductSkipImages){
-        $this->_skipImagesOnDuplicate = $newProductSkipImages;
+    public function setSkipImagesOnDuplicate(bool $newProductSkipImages)
+    {
+        $this->skipImagesOnDuplicate = $newProductSkipImages;
         return $this;
     }
 
