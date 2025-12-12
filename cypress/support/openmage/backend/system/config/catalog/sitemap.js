@@ -8,6 +8,10 @@ test.config.section = {
     _: '#section-sitemap',
     title: 'Google Sitemap',
     url: 'system_config/edit/section/sitemap',
+    category: {},
+    page: {},
+    product: {},
+    __groupPriority: {},
 }
 
 /**
