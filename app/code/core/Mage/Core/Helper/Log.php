@@ -16,7 +16,7 @@ use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 
 /**
- * Core data helper
+ * Core logging helper
  *
  * @package    Mage_Core
  */
