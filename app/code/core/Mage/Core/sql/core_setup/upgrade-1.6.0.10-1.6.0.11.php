@@ -18,7 +18,7 @@ $table = $installer->getTable('core/config_data');
 
 $select = $connection->select()
     ->from($table)
-    ->where('path = ?', Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
+    ->where('path = ?', Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL);
 
 $logConfig = $connection->fetchAll($select);
 
@@ -40,7 +40,7 @@ foreach ($logConfig as $config) {
         [
             'scope'     => $config['scope'],
             'scope_id'  => $config['scope_id'],
-            'path'      => Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL,
+            'path'      => Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL,
             'value'     => $monologValue,
         ],
         ['value'],

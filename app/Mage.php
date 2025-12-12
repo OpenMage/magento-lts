@@ -885,9 +885,9 @@ final class Mage
         }
 
         try {
-            $logActive = self::getStoreConfigFlag(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ENABLED);
+            $logActive = self::getStoreConfigFlag(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED);
             if (empty($file)) {
-                $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE);
+                $file = self::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE);
             }
         } catch (Exception) {
             $logActive = true;
@@ -899,41 +899,19 @@ final class Mage
 
         static $loggers = [];
 
-        try {
-            $maxLogLevel = self::getStoreConfigAsInt(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
-        } catch (Throwable) {
-            $maxLogLevel = Level::Debug->value;
-        }
-
-        // Normalize both $level and $maxLogLevel to integers for comparison
-        if ($level instanceof Level) {
-            $levelValue = $level->value;
-        } elseif (is_null($level)) {
-            $levelValue = Level::Debug->value;
-        } else {
-            $levelValue = (int) $level;
-        }
+        $maxLogLevel = Mage_Core_Helper_Log::getLogLevelMax();
+        $levelValue = Mage_Core_Helper_Log::getLogLevel($level);
 
         if (!self::$_isDeveloperMode && $levelValue > $maxLogLevel && !$forceLog) {
             return;
         }
 
-        $file = empty($file)
-            ? (string) self::getConfig()->getNode(
-                Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE,
-                Mage_Core_Model_Store::DEFAULT_CODE,
-            ) : basename($file);
+        $file = empty($file) ? Mage_Core_Helper_Log::getLogFile() : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-                $_allowedFileExtensions = explode(
-                    ',',
-                    (string) self::getConfig()->getNode(
-                        Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
-                        Mage_Core_Model_Store::DEFAULT_CODE,
-                    ),
-                );
+                $_allowedFileExtensions = Mage_Core_Helper_Log::getAlowedFileExtensions();
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
@@ -985,7 +963,7 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
+        $file = self::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE);
         self::log("\n" . $e->__toString(), Level::Error, $file);
     }
 

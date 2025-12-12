@@ -46,6 +46,11 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withConfiguredRule(RenameClassConstFetchRector::class, [
+            new RenameClassAndConstFetch('Mage_Core_Helper_Data', 'XML_PATH_DEV_LOG_ENABLED', 'Mage_Core_Helper_Log', 'XML_PATH_DEV_LOG_ENABLED'),
+            new RenameClassAndConstFetch('Mage_Core_Helper_Data', 'XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS', 'Mage_Core_Helper_Log', 'XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS'),
+            new RenameClassAndConstFetch('Mage_Core_Helper_Data', 'XML_PATH_DEV_LOG_FILE', 'Mage_Core_Helper_Log', 'XML_PATH_DEV_LOG_FILE'),
+            new RenameClassAndConstFetch('Mage_Core_Helper_Data', 'XML_PATH_DEV_LOG_EXCEPTION_FILE', 'Mage_Core_Helper_Log', 'XML_PATH_DEV_LOG_EXCEPTION_FILE'),
+            new RenameClassAndConstFetch('Mage_Core_Helper_Data', 'XML_PATH_DEV_LOG_MAX_LEVEL', 'Mage_Core_Helper_Log', 'XML_PATH_DEV_LOG_MAX_LEVEL'),
             new RenameClassAndConstFetch('Zend_Log', 'EMERG', 'Monolog\Level', 'Emergency'),
             new RenameClassAndConstFetch('Zend_Log', 'ALERT', 'Monolog\Level', 'Alert'),
             new RenameClassAndConstFetch('Zend_Log', 'CRIT', 'Monolog\Level', 'Critical'),
