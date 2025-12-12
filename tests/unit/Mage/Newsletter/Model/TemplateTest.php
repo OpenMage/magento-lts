@@ -58,12 +58,12 @@ final class TemplateTest extends OpenMageTest
     public function validateTemplateDataProvider(): Generator
     {
         $validData = [
-            'setTemplateCode' => 'Valid Code',
-            'setTemplateSenderEmail' => 'test@example.com',
-            'setTemplateSenderName' => 'Sender Name',
-            'setTemplateSubject' => 'Valid Subject',
-            'setTemplateText' => 'Valid Template Text',
-            'setTemplateType' => 1,
+            'setTemplateCode'           => 'Valid Code',
+            'setTemplateSenderEmail'    => 'test@example.com',
+            'setTemplateSenderName'     => 'Sender Name',
+            'setTemplateSubject'        => 'Valid Subject',
+            'setTemplateText'           => 'Valid Template Text',
+            'setTemplateType'           => 1,
         ];
 
         yield 'valid data' => [
@@ -88,7 +88,7 @@ final class TemplateTest extends OpenMageTest
         $data = $validData;
         $data['setTemplateSenderEmail'] = 'invalid-email';
         yield 'invalid sender email' => [
-            "'invalid-email' is not a valid email address in the basic format local-part@hostname",
+            "You must give a non-empty value for field 'template_sender_email'",
             $data,
         ];
 

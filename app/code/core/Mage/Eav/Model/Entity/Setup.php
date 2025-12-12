@@ -658,14 +658,19 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @return true
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
-     * @throws Zend_Validate_Exception
      */
     protected function _validateAttributeData($data)
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
+
         if (isset($data['attribute_code'])
-            && !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+            && $validator->validateLength(
+                value: $data['attribute_code'],
+                max: $attributeCodeMaxLength,
+            )->count() > 0
         ) {
             throw Mage::exception(
                 'Mage_Eav',
@@ -685,7 +690,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param string $code
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
@@ -753,7 +757,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param array $option
      * @throws Mage_Core_Exception
-     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttributeOption($option)
     {
@@ -849,7 +852,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param int $sortOrder
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Cache_Exception
      */
     protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
     {
@@ -903,7 +905,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $value
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Cache_Exception
      */
     protected function _updateAttributeAdditionalData($entityTypeId, $id, $field, $value = null)
     {
@@ -1115,7 +1116,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param int $sortOrder
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttributeToSet($entityTypeId, $setId, $groupId, $attributeId, $sortOrder = null)
     {
@@ -1166,7 +1166,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param int $sortOrder
      * @return $this
      * @throws Mage_Core_Exception
-     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttributeToGroup($entityType, $setId, $groupId, $attributeId, $sortOrder = null)
     {
@@ -1283,6 +1282,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
+     * Create entity tables
+     *
      * @param string $baseTableName
      * @param array $options
      * - no-main
@@ -1292,8 +1293,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
-     *
-     * Create entity tables
      */
     public function createEntityTables($baseTableName, array $options = [])
     {

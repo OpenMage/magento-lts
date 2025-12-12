@@ -14,7 +14,7 @@ use Generator;
 
 trait ConfigTrait
 {
-    public static $backendModel = [
+    public static array $backendModel = [
         'color' => 'adminhtml/system_config_backend_color',
     ];
 
