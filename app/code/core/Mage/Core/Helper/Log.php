@@ -136,7 +136,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
         try {
             $maxLogLevel = Mage::getStoreConfigAsInt(self::XML_PATH_DEV_LOG_MAX_LEVEL);
         } catch (Throwable) {
-            $maxLogLevel = Level::Debug->value;
+            $maxLogLevel = Level::Debug;
         }
 
         return self::getLogLevel($maxLogLevel);
