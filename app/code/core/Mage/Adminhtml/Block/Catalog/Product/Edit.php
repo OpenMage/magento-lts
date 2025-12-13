@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     $skipImgOnDuplicate = $this->helper('catalog/image')->skipProductImageOnDuplicate();
                     $onClickAction = "openDuplicateDialog('" . $this->getDuplicateUrl(false) . "','" . $this->getDuplicateUrl(true) . "'); return false;";
 
-                    if ($skipImgOnDuplicate !== -1) {
+                    if ($skipImgOnDuplicate !== Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
                         $onClickAction = Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl((bool) $skipImgOnDuplicate));
                     }
                 }
@@ -242,7 +242,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getDuplicateUrl(bool $skipImages = false)
     {
-        return $this->getUrl('*/*/duplicate', ['_current' => true, 'skipImages' => $skipImages ? 1 : 0]);
+        return $this->getUrl('*/*/duplicate', ['_current' => true, 'skipImages' => $skipImages ? Mage_Catalog_Model_Product_Image::ON_DUPLICATE_SKIP : Mage_Catalog_Model_Product_Image::ON_DUPLICATE_COPY]);
     }
 
     /**

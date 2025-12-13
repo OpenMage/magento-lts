@@ -573,14 +573,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $mediaImageAttributeSkipIds = [];
         $adapter = $this->_getWriteAdapter();
 
-        if($this->getSkipImagesOnDuplicate()){
+        if ($this->getSkipImagesOnDuplicate()) {
 
             /**
              * @var int $attributeId
              * @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute
              */
-            foreach($this->getAttributesById() as $attributeId => $attribute){
-                if($attribute->getFrontendInput() == 'media_image'){
+            foreach ($this->getAttributesById() as $attributeId => $attribute) {
+                if ($attribute->getFrontendInput() == 'media_image') {
                     $mediaImageAttributeSkipIds[$attribute->getBackendType()][] = $attributeId;
                 }
             }
@@ -601,7 +601,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ->where('entity_id = ?', $oldId)
                 ->where('store_id > ?', 0);
 
-            if(isset($mediaImageAttributeSkipIds[$suffix])){
+            if (isset($mediaImageAttributeSkipIds[$suffix])) {
                 $select->where('attribute_id NOT IN (?)', $mediaImageAttributeSkipIds[$suffix]);
             }
 

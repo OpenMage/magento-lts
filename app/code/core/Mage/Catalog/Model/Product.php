@@ -56,8 +56,6 @@
  * @method bool getIsChangedWebsites()
  * @method bool getIsCustomOptionChanged()
  * @method bool getIsDefault()
- * @method bool getSkipImagesOnDuplicate()
- * @method $this setSkipImagesOnDuplicate(bool $value)
  * @method bool getIsDuplicate()
  * @method bool getIsMassupdate()
  * @method bool getIsRecurring()
@@ -104,6 +102,7 @@
  * @method string getShipmentType()
  * @method string getShortDescription()
  * @method bool getSkipCheckRequiredOption()
+ * @method bool getSkipImagesOnDuplicate()
  * @method string getSmallImage()
  * @method bool getStickWithinParent()
  * @method array getStockData()
@@ -211,6 +210,7 @@
  * @method $this setRequiredOptions(bool $value)
  * @method $this setShortDescription(string $value)
  * @method $this setSkipCheckRequiredOption(bool $value)
+ * @method $this setSkipImagesOnDuplicate(bool $value)
  * @method $this setSku(string $value)
  * @method $this setStatus(int $store)
  * @method $this setStockData(array $value)
@@ -1374,7 +1374,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
-        if (is_null($newProduct->getSkipImagesOnDuplicate()) && $this->_getImageHelper()->skipProductImageOnDuplicate() === -1) { # todo: use constant
+        if (is_null($newProduct->getSkipImagesOnDuplicate()) && $this->_getImageHelper()->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
             $newProduct->setSkipImagesOnDuplicate(false);
         } else {
             $newProduct->setSkipImagesOnDuplicate($this->_getImageHelper()->skipProductImageOnDuplicate());
