@@ -65,7 +65,10 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function productLoadAfter(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
+        // Check if swatches are enabled for either listing or product detail
+        if (!Mage::helper('configurableswatches')->isEnabled()
+            && !Mage::helper('configurableswatches')->isEnabledForProductDetail()
+        ) {
             return; // exit without loading swatch functionality
         }
 
@@ -91,7 +94,10 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
+        // Check if swatches are enabled for either listing or product detail
+        if (!Mage::helper('configurableswatches')->isEnabled()
+            && !Mage::helper('configurableswatches')->isEnabledForProductDetail()
+        ) {
             return; // exit without loading swatch functionality
         }
 

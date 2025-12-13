@@ -119,7 +119,10 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      */
     protected function _toHtml()
     {
-        if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
+        // Check if swatches are enabled for either listing or product detail
+        if (!Mage::helper('configurableswatches')->isEnabled()
+            && !Mage::helper('configurableswatches')->isEnabledForProductDetail()
+        ) {
             return ''; // do not render block
         }
 
