@@ -56,6 +56,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - Update comments to reflect changes in code.
 - Update tests to cover new functionality and changes in code.
 - Update copyright notices in new files.
+- Do not add return types in docblocks if type hints are used.
 
 ## UI guidelines
 
