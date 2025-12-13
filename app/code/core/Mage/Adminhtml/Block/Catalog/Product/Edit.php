@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 );
             }
 
-            if ($this->getProduct()->isDuplicable()) {
+            if ($this->getProduct()->isDuplicable() && $this->getProduct()->getId()) {
                 if ($this->getProduct()->getMediaGalleryImages()->count() === 0) {
                     $onClickAction = Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl(true));
                 } else {
