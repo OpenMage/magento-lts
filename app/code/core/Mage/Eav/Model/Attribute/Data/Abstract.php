@@ -271,12 +271,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             return true;
         }
 
-        $label         = $this->getAttribute()->getStoreLabel();
-        $validateRules = $this->getAttribute()->getValidateRules();
+        $attribute     = $this->getAttribute();
+        $label         = $attribute->getStoreLabel();
+        $validateRules = $attribute->getValidateRules();
+        $isRequired    = (bool) $attribute->getIsRequired();
 
         if (!empty($validateRules['input_validation'])) {
             /** @var Mage_Core_Helper_Validate $validator */
             $validator = Mage::helper('core/validate');
+
+            if ($validateRules['input_validation'] === 'date' && str_contains($value, ' ')) {
+                // if date validation is specified but value contains time part
+                $validateRules['input_validation'] = 'datetime';
+            }
 
             switch ($validateRules['input_validation']) {
                 case 'alphanumeric':
@@ -320,7 +327,13 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
 
                     break;
                 case 'date':
-                    if ($validator->validateDate(value: $value)->count() > 0) {
+                    if ($validator->validateDate(value: $value, empty: !$isRequired)->count() > 0) {
+                        return [Mage::helper('eav')->__('"%s" is not a valid date.', $label)];
+                    }
+
+                    break;
+                case 'datetime':
+                    if ($validator->validateDateTime(value: $value, empty: !$isRequired)->count() > 0) {
                         return [Mage::helper('eav')->__('"%s" is not a valid date.', $label)];
                     }
 
