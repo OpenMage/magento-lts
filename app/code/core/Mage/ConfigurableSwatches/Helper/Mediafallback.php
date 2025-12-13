@@ -71,15 +71,15 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             ->setStoreId($storeId)
         ;
 
-        $optionLabels = [];
+        $optionLabelsOriginal = [];
         foreach ($configAttributes as $attribute) {
-            $optionLabels += $attribute->getOptionLabels();
+            $optionLabelsOriginal += $attribute->getOptionLabels();
         }
 
-        // normalize to all lower case before we start using them
+        // normalize to all lower case before we start using them for image matching
         $optionLabels = array_map(function ($value) {
             return array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKey(...), $value);
-        }, $optionLabels);
+        }, $optionLabelsOriginal);
 
         foreach ($parentProducts as $parentProduct) {
             $mapping = [];
@@ -108,8 +108,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                         continue;
                     }
 
-                    // using default value as key unless store-specific label is present
+                    // using default value as key unless store-specific label is present (normalized for image matching)
                     $optionLabel = $optionLabels[$optionId][$storeId] ?? $optionLabels[$optionId][0];
+                    // Get the original (non-normalized) label for display
+                    $optionLabelOriginal = $optionLabelsOriginal[$optionId][$storeId] ?? $optionLabelsOriginal[$optionId][0];
 
                     // initialize arrays if not present
                     if (!isset($mapping[$optionLabel])) {
@@ -124,9 +126,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     $mapping[$optionLabel]['labels'] = $optionLabels[$optionId];
 
                     if ($attribute->getAttributeId() == $listSwatchAttr->getAttributeId()
-                        && !in_array($mapping[$optionLabel]['label'], $listSwatchValues)
+                        && !in_array($optionLabelOriginal, $listSwatchValues)
                     ) {
-                        $listSwatchValues[$optionId]      = $mapping[$optionLabel]['label'];
+                        $listSwatchValues[$optionId]      = $optionLabelOriginal;
                         $listSwatchStockValues[$optionId] = $isInStock;
                     }
                 } // end looping child products
@@ -137,8 +139,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             }
 
             if ($listSwatchValues !== []) {
+                // Preserve the sort order from $optionLabelsOriginal while maintaining the option IDs as keys.
+                // array_intersect_key returns entries from the first array that have matching keys in the second,
+                // which ensures we get the original (non-normalized) labels in the correct sort order.
                 $listSwatchValues = array_replace(
-                    array_intersect_key($optionLabels, $listSwatchValues),
+                    array_intersect_key($optionLabelsOriginal, $listSwatchValues),
                     $listSwatchValues,
                 );
             }

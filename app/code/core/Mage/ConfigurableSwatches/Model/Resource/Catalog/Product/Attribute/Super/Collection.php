@@ -119,11 +119,14 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
             ->where(
                 'labels.store_id IN (?)',
                 [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()],
-            );
+            )
+            ->order('options.sort_order ASC');
 
         $resultSet = $this->getConnection()->query($select);
         $labels = [];
         while ($option = $resultSet->fetch()) {
+            // PHP arrays maintain insertion order, so as we iterate through the sorted query results,
+            // the option IDs will be added in the correct sort_order
             $labels[$option['option_id']][$option['store_id']] = $option['label'];
         }
 
