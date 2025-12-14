@@ -13,12 +13,6 @@ parameters:
 			path: app/Mage.php
 
 		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
 			rawMessage: 'Cannot call method getClassName() on SimpleXMLElement|false.'
 			identifier: method.nonObject
 			count: 1
@@ -65,12 +59,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Page/Menu.php
 
 		-
 			rawMessage: 'Call to method getCollection() on an unknown class Mage_Permissions_Model_Users.'
@@ -275,12 +263,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
 
 		-
 			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'

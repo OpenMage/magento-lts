@@ -73,7 +73,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (($child->disabled == 1)
+            if (((string) $child->disabled === '1')
                 || ($child->depends && !$this->_checkDepends($child->depends))
             ) {
                 continue;
@@ -139,8 +139,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         if (isset($childAttributes['module'])) {
             $helperName     = (string) $childAttributes['module'];
         }
-
-        $titleNodeName = 'title';
 
         return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }
