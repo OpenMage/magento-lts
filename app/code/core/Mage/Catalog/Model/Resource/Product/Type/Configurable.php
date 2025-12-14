@@ -15,7 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource
+     * @inheritDoc
      */
     protected function _construct()
     {

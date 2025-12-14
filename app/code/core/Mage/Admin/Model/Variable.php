@@ -22,7 +22,7 @@
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize variable model
+     * @inheritDoc
      */
     protected function _construct()
     {

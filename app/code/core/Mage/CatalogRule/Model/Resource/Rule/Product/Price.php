@@ -14,6 +14,9 @@
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogrule/rule_product_price', 'rule_product_price_id');

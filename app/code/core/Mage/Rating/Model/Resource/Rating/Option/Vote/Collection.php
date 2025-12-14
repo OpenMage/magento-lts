@@ -17,7 +17,7 @@
 class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define model
+     * @inheritDoc
      */
     protected function _construct()
     {

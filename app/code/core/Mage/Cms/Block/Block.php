@@ -18,7 +18,7 @@
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
     /**
-     * Initialize cache
+     * @inheritDoc
      */
     protected function _construct()
     {

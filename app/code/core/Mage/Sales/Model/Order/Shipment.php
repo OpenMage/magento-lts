@@ -106,7 +106,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'shipment';
 
     /**
-     * Initialize shipment resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

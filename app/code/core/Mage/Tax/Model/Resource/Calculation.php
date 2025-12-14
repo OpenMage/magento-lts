@@ -28,6 +28,9 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      */
     protected $_isPkAutoIncrement = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setMainTable('tax/tax_calculation');

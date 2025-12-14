@@ -22,7 +22,7 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
     protected $_reviewStatusTable;
 
     /**
-     * Collection model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

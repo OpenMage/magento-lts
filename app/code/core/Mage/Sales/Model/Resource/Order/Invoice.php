@@ -40,6 +40,9 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
      */
     protected $_entityTypeForIncrementId     = 'invoice';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/invoice', 'entity_id');

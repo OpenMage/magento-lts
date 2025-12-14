@@ -19,6 +19,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      */
     public const MIN_POSSIBLE_PRICE = .01;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_price', 'entity_id');

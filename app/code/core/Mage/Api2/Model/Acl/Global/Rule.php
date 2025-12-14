@@ -34,6 +34,9 @@ class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
      */
     public const RESOURCE_ALL = 'all';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api2/acl_global_rule');

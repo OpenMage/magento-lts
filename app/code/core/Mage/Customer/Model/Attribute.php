@@ -43,7 +43,7 @@ class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute
     protected $_eventObject = 'attribute';
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -20,7 +20,7 @@
 class Mage_Uploader_Model_Config_Misc extends Mage_Uploader_Model_Config_Abstract
 {
     /**
-     * Prepare misc params
+     * @inheritDoc
      */
     protected function _construct()
     {

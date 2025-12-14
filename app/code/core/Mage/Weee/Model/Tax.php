@@ -59,7 +59,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     protected $_taxHelper;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -14,6 +14,9 @@
  */
 class Mage_SalesRule_Model_Resource_Report_Rule_Updatedat extends Mage_SalesRule_Model_Resource_Report_Rule_Createdat
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon_aggregated_updated', 'id');

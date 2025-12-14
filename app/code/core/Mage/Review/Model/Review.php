@@ -64,6 +64,9 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     public const STATUS_NOT_APPROVED   = 3;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('review/review');

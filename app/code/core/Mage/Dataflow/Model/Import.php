@@ -27,6 +27,9 @@
  */
 class Mage_Dataflow_Model_Import extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/import');

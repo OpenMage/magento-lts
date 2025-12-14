@@ -50,7 +50,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     protected $_decimalFilterBlockName;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

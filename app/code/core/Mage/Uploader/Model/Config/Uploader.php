@@ -83,7 +83,7 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
     public const PROGRESS_CALLBACK_INTERVAL = 0;
 
     /**
-     * Set default values for uploader
+     * @inheritDoc
      */
     protected function _construct()
     {

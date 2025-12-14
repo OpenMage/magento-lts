@@ -17,7 +17,7 @@
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -26,7 +26,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
     ];
 
     /**
-     * Set resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

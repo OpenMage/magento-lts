@@ -39,7 +39,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     protected $_subscriber = null;
 
     /**
-     * Initialize Newsletter Problem Model
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Initialize main table and column
+     * @inheritDoc
      */
     protected function _construct()
     {
