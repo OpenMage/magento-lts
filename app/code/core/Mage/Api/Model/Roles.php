@@ -39,6 +39,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_filters;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/roles');

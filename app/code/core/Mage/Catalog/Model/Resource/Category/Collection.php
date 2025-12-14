@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     }
 
     /**
-     * Init collection and determine table names
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -24,7 +24,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     public const BLOCK_NAME_REGEX = '/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/';
 
     /**
-     * Initialize variable model
+     * @inheritDoc
      */
     protected function _construct()
     {

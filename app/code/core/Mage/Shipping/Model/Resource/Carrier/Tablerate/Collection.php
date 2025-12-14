@@ -37,7 +37,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     protected $_regionTable;
 
     /**
-     * Define resource model and item
+     * @inheritDoc
      */
     protected function _construct()
     {

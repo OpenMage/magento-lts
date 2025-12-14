@@ -34,7 +34,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     protected $_problemGrouped             = false;
 
     /**
-     * Define resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {

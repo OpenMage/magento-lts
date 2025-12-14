@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model for collection
+     * @inheritDoc
      */
     protected function _construct()
     {

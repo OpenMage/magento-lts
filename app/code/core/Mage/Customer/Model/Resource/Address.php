@@ -14,6 +14,9 @@
  */
 class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $resource = Mage::getSingleton('core/resource');

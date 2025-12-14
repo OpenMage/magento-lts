@@ -205,7 +205,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Initialize invoice resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

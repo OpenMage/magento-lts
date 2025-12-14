@@ -71,7 +71,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     protected $_orderField             = 'order_id';
 
     /**
-     * Initialize collection items factory class
+     * @inheritDoc
      */
     protected function _construct()
     {

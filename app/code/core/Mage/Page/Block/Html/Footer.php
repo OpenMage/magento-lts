@@ -19,6 +19,9 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      */
     protected $_copyright;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->addData(['cache_lifetime' => false]);

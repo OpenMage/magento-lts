@@ -29,7 +29,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     protected $_cacheKeyInfo = null;
 
     /**
-     * Set default template
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     protected $_attributeCollection = null;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

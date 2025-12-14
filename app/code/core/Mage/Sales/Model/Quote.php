@@ -210,7 +210,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected $_preventSaving = false;
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

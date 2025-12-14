@@ -15,7 +15,7 @@
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -15,7 +15,7 @@
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Defines resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {

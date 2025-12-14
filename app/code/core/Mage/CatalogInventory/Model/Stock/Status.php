@@ -46,7 +46,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     protected $_websites;
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

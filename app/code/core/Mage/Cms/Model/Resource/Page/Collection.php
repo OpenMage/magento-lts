@@ -22,7 +22,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     protected $_previewFlag;
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

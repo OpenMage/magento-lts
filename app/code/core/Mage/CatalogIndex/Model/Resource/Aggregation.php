@@ -29,7 +29,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected $_toTagTable;
 
     /**
-     * Initialize resource tables
+     * @inheritDoc
      */
     protected function _construct()
     {

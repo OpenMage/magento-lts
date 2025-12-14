@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
      */
     protected $_eventObject    = 'quote_address_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_address');

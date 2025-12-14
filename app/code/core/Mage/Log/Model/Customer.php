@@ -28,7 +28,7 @@
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

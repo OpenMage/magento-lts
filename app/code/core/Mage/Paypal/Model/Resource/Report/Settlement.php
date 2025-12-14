@@ -22,7 +22,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     protected $_rowsTable;
 
     /**
-     * Init main table
+     * @inheritDoc
      */
     protected function _construct()
     {
