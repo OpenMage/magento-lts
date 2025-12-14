@@ -25,18 +25,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Roles::update().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Roles.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Roles.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Rules::update().'
 			identifier: method.notFound
 			count: 1
