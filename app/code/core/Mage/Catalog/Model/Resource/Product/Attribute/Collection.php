@@ -15,7 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
-     * Resource model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

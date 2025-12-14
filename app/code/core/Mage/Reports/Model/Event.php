@@ -44,7 +44,7 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     public const EVENT_WISHLIST_SHARE  = 6;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

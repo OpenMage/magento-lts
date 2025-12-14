@@ -69,7 +69,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     protected $_calculationModel    = null;
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

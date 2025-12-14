@@ -16,6 +16,9 @@ use Carbon\Carbon;
  */
 class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('index/process', 'process_id');

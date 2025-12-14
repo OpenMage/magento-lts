@@ -55,7 +55,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     protected $_relatedOrders = [];
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {

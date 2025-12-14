@@ -15,7 +15,7 @@
 class Mage_Reports_Block_Product_Widget_Compared extends Mage_Reports_Block_Product_Compared implements Mage_Widget_Block_Interface
 {
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

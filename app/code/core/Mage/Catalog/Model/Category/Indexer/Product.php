@@ -62,7 +62,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     ];
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

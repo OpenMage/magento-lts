@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

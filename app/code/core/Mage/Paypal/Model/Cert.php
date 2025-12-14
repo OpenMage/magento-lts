@@ -21,6 +21,9 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      */
     public const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/cert');

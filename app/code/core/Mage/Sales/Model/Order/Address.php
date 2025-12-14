@@ -70,7 +70,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     protected $_eventObject = 'address';
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

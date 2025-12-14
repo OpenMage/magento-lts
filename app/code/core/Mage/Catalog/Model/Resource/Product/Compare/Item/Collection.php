@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
+     * @inheritDoc
      */
     protected function _construct()
     {

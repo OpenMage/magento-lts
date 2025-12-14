@@ -30,7 +30,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     protected $_storeIdFieldName;
 
     /**
-     * should be defined because abstract
+     * @inheritDoc
      */
     protected function _construct() {}
 

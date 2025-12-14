@@ -18,7 +18,7 @@
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

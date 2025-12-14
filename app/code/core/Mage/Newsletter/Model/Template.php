@@ -58,7 +58,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

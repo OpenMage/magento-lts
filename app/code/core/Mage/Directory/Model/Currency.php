@@ -48,7 +48,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     protected $_rates;
 
     /**
-     * Class constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

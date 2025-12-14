@@ -61,7 +61,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     protected $_process = null;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

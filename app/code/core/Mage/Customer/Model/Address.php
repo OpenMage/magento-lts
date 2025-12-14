@@ -24,6 +24,9 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
     protected $_customer;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/address');

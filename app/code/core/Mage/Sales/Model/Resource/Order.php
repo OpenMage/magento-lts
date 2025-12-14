@@ -43,6 +43,9 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      */
     protected $_entityCodeForIncrementId     = 'order';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order', 'entity_id');

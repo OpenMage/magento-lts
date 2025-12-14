@@ -65,6 +65,9 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected $_storeIds;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**

@@ -16,6 +16,9 @@ use Carbon\Carbon;
  */
 class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('log/visitor_online', 'visitor_id');

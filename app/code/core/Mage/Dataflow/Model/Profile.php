@@ -59,6 +59,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      */
     protected $_customerTablePermanentAttributes = ['email', 'website'];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/profile');

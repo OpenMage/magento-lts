@@ -131,7 +131,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * Init resource model and id field
+     * @inheritDoc
      */
     protected function _construct()
     {

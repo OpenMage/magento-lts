@@ -84,7 +84,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_position = 0;
 
     /**
-     * Set default template
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -22,6 +22,9 @@
  */
 class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/flowpassword');

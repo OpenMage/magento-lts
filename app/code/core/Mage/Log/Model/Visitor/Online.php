@@ -37,6 +37,9 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 
     public const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('log/visitor_online');

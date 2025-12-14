@@ -32,6 +32,9 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      */
     protected $_useAnalyticFunction         = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('reports/event');

@@ -15,7 +15,7 @@
 class Mage_Rating_Model_Resource_Rating_Entity extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Rating entity resource initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

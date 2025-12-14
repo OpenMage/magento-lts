@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected $_indexers;
 
     /**
-     * Define main index table
+     * @inheritDoc
      */
     protected function _construct()
     {

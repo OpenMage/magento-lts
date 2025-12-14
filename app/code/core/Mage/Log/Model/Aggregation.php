@@ -27,7 +27,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     protected $_lastRecord;
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {

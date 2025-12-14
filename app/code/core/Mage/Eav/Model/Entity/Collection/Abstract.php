@@ -112,7 +112,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize collection
+     * @inheritDoc
      */
     protected function _construct() {}
 
