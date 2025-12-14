@@ -26,8 +26,8 @@ final class RolesTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Admin_Model_Roles::getRoleUsers()
      * @covers Mage_Admin_Model_Resource_Roles::getRoleUsers()
+     * @covers Mage_Admin_Model_Roles::getRoleUsers()
      * @group Model
      */
     public function testGetRoleUsers(): void
