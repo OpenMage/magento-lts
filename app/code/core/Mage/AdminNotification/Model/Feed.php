@@ -30,7 +30,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     protected $_feedUrl;
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct() {}
 

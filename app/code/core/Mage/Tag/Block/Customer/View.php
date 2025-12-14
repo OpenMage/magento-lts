@@ -32,7 +32,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     protected $_tagInfo;
 
     /**
-     * Initialize block
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -31,6 +31,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Collection extends Mage_Sales_Mode
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice');

@@ -13,7 +13,7 @@
 class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize email queue resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -50,6 +50,9 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/indexer_summary');

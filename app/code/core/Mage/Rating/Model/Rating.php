@@ -52,7 +52,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public const ENTITY_REVIEW_CODE            = 'review';
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -32,6 +32,11 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected static $_commitCallbacks = [];
 
+    /**
+     * Internal constructor not depended on params. Can be used for object initialization
+     *
+     * @return void
+     */
     abstract protected function _construct();
 
     /**

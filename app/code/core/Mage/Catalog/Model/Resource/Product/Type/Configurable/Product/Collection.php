@@ -22,7 +22,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     protected $_linkTable;
 
     /**
-     * Assign link table name
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -43,7 +43,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     protected $_storesIds           = [];
 
     /**
-     * Define module
+     * @inheritDoc
      */
     protected function _construct()
     {

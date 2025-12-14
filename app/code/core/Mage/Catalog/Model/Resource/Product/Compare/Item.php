@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/compare_item', 'catalog_compare_item_id');

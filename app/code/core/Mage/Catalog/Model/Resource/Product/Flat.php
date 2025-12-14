@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     protected $_isBuilt                  = [];
 
     /**
-     * Init connection and resource table
+     * @inheritDoc
      */
     protected function _construct()
     {

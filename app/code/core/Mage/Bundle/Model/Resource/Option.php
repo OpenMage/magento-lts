@@ -14,6 +14,9 @@
  */
 class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('bundle/option', 'option_id');

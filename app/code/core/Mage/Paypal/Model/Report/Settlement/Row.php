@@ -65,6 +65,9 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     protected $_castedAmounts = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement_row');

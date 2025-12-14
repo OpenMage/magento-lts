@@ -43,7 +43,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     protected $_loadExpired = false;
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

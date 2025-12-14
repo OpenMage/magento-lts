@@ -14,6 +14,9 @@
  */
 class Mage_Paygate_Model_Resource_Authorizenet_Debug extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paygate/authorizenet_debug', 'debug_id');

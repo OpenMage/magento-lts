@@ -28,6 +28,9 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     protected static $_dataVersions    = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/resource', 'store_id');

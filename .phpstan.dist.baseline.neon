@@ -1363,12 +1363,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/CartController.php
 
 		-
-			rawMessage: 'Call to an undefined method Mage_Sales_Model_Service_Order::register().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
 			rawMessage: 'Parameter #1 $attr of method Mage_ConfigurableSwatches_Helper_Data::attrIsSwatchType() expects int|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given.'
 			identifier: argument.type
 			count: 1

@@ -18,6 +18,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
 
     protected $_productIdsMassupdate = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**

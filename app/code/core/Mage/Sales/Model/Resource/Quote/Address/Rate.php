@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address_Rate extends Mage_Sales_Model_Resource_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_address_shipping_rate', 'rate_id');
