@@ -92,7 +92,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     ];
 
     /**
-     * Collection resource initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

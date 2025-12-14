@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Model_Entity_Quote_Address_Rate_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_address_rate');

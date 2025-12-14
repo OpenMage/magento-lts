@@ -15,7 +15,7 @@
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

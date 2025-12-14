@@ -35,6 +35,9 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_form_fieldset';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/form_fieldset');

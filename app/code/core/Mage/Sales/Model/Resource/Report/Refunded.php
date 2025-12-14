@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resource_Report_Abstract
 {
     /**
-     * Model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

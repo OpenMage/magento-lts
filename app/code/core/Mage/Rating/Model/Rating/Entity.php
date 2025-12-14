@@ -19,6 +19,9 @@
  */
 class Mage_Rating_Model_Rating_Entity extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('rating/rating_entity');

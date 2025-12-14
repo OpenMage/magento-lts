@@ -63,6 +63,9 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected $_frameEnd;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

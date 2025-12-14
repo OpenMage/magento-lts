@@ -15,7 +15,7 @@
 class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Core Design resource collection
+     * @inheritDoc
      */
     protected function _construct()
     {

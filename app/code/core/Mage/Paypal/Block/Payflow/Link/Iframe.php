@@ -15,7 +15,7 @@
 class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
 {
     /**
-     * Set payment method code
+     * @inheritDoc
      */
     protected function _construct()
     {

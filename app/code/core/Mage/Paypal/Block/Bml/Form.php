@@ -21,7 +21,7 @@ class Mage_Paypal_Block_Bml_Form extends Mage_Paypal_Block_Express_Form
     protected $_methodCode = Mage_Paypal_Model_Config::METHOD_BML;
 
     /**
-     * Set template and redirect message
+     * @inheritDoc
      */
     protected function _construct()
     {

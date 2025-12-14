@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
+     * @inheritDoc
      */
     protected function _construct()
     {

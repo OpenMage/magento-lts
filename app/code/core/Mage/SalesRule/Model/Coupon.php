@@ -42,6 +42,9 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
      */
     protected $_rule;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

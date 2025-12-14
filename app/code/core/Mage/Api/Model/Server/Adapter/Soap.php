@@ -29,7 +29,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     protected $_soap = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

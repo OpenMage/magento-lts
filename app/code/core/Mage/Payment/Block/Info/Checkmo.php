@@ -16,6 +16,9 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
 
     protected $_mailingAddress;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

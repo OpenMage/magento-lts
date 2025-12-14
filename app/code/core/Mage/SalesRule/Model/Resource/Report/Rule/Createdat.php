@@ -15,7 +15,7 @@
 class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
     /**
-     * Resource Report Rule constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

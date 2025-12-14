@@ -62,7 +62,7 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     protected $_eventObject = 'config_data';
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -15,7 +15,7 @@
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
-     * Initialize resources
+     * @inheritDoc
      */
     protected function _construct()
     {
