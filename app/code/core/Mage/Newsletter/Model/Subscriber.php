@@ -93,6 +93,9 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     protected $_isStatusChanged = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/subscriber');

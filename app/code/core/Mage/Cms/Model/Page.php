@@ -80,6 +80,9 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'cms_page';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cms/page');

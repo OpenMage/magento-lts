@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     public const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
 
     /**
-     * Standard model resource initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

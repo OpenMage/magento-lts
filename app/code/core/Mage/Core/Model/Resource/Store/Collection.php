@@ -26,7 +26,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     protected $_loadDefault    = false;
 
     /**
-     *  Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

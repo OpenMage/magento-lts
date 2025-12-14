@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected $_url;
 
     /**
-     * Initialize template and cache settings
+     * @inheritDoc
      */
     protected function _construct()
     {

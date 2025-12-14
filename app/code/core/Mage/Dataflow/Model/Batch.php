@@ -61,7 +61,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     protected $_batchImport;
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {

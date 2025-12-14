@@ -17,6 +17,9 @@
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_action');

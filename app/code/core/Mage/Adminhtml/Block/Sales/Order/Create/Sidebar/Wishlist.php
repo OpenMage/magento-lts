@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      */
     protected $_sidebarStorageAction = 'add_wishlist_item';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

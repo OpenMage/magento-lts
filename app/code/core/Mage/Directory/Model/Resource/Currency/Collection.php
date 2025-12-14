@@ -30,7 +30,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     protected $_currencyRateTable;
 
     /**
-     * Define resource model and tables
+     * @inheritDoc
      */
     protected function _construct()
     {

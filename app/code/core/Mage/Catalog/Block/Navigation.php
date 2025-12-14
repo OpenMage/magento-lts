@@ -43,7 +43,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     protected $_currentChildCategories;
 
     /**
-     * Set cache data
+     * @inheritDoc
      */
     protected function _construct()
     {

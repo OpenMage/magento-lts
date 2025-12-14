@@ -72,7 +72,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     protected $_productTypePriority = null;
 
     /**
-     * Initialize all indexers and resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

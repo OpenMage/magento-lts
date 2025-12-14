@@ -55,6 +55,9 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     protected $_productCollection;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_getEngine();

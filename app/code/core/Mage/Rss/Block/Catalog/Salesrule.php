@@ -14,6 +14,9 @@
  */
 class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         /*

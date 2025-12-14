@@ -34,7 +34,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     protected $_addedStoreLabelsFlag = false;
 
     /**
-     * Resource model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

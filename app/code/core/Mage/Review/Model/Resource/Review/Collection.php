@@ -58,7 +58,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     protected $_addStoreDataFlag   = false;
 
     /**
-     * Define module
+     * @inheritDoc
      */
     protected function _construct()
     {

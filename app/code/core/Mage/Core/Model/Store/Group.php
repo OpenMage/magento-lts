@@ -95,7 +95,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * init model
+     * @inheritDoc
      */
     protected function _construct()
     {

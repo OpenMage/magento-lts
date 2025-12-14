@@ -22,7 +22,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
     public const CACHE_TAG = 'block_html_rss_catalog_review';
 
     /**
-     * Initialize cache
+     * @inheritDoc
      */
     protected function _construct()
     {

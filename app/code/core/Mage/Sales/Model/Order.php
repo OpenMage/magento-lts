@@ -506,6 +506,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_historyEntityName = self::HISTORY_ENTITY_NAME;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order');

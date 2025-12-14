@@ -24,7 +24,7 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
     ];
 
     /**
-     * Main table and field initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

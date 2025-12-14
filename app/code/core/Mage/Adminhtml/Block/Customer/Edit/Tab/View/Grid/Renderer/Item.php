@@ -15,15 +15,12 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
-     * Constructor to set default template
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('customer/edit/tab/view/grid/item.phtml');
-        return $this;
     }
 
     /**

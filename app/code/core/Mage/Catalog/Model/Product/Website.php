@@ -20,7 +20,7 @@
 class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

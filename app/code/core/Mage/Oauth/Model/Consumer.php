@@ -43,6 +43,9 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public const SECRET_LENGTH = 32;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('oauth/consumer');

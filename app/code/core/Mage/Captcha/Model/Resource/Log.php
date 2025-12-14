@@ -24,6 +24,9 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public const TYPE_LOGIN = 2;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setMainTable('captcha/log');

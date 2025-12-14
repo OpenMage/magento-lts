@@ -29,6 +29,9 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
      */
     protected $_customerModeFlag = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

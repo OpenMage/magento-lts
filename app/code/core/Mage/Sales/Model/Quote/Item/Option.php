@@ -35,6 +35,9 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
 
     protected $_product;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_item_option');

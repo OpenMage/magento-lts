@@ -91,7 +91,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Object initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

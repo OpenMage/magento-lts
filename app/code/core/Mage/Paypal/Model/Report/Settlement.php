@@ -145,6 +145,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement');

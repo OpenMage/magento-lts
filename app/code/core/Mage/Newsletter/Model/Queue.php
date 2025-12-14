@@ -84,6 +84,9 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 
     public const STATUS_PAUSE = 4;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/queue');

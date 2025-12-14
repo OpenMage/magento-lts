@@ -15,12 +15,9 @@
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 {
     /**
-     * @return $this
+     * @inheritDoc
      */
-    protected function _construct()
-    {
-        return $this;
-    }
+    protected function _construct() {}
 
     /**
      * @return false|Varien_Db_Adapter_Interface

@@ -42,6 +42,9 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
      */
     public const RULE_PERMISSION_DENIED = 'deny';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/rules');

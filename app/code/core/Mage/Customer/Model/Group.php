@@ -53,6 +53,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 
     protected static $_taxClassIds = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/group');
