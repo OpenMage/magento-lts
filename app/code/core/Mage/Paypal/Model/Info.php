@@ -221,7 +221,7 @@ class Mage_Paypal_Model_Info
             $from = [$from, 'getDataUsingMethod'];
         }
 
-        Varien_Object_Mapper::accumulateByMap($from, [$payment, 'setAdditionalInformation'], $fullMap);
+        Varien_Object_Mapper::accumulateByMap($from, $payment->setAdditionalInformation(...), $fullMap);
     }
 
     /**
@@ -234,7 +234,7 @@ class Mage_Paypal_Model_Info
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
         Varien_Object_Mapper::accumulateByMap(
-            [$payment, 'getAdditionalInformation'],
+            $payment->getAdditionalInformation(...),
             $to,
             $map ? $map : array_flip($fullMap),
         );

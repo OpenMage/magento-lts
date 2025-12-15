@@ -122,7 +122,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         $data = [];
         $filterString = base64_decode($filterString);
         parse_str($filterString, $data);
-        array_walk_recursive($data, [$this, 'decodeFilter']);
+        array_walk_recursive($data, $this->decodeFilter(...));
         return $data;
     }
 
