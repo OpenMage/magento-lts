@@ -53,7 +53,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -91,7 +91,7 @@ jobs:
           --skip_url_validation 'yes'
 
       - name: Restore result cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: .phpunit.result.cache
           key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
@@ -102,7 +102,7 @@ jobs:
         run: php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien
 
       - name: Save result cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: always()
         with:
           path: .phpunit.result.cache
