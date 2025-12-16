@@ -73,7 +73,7 @@
         "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.6",
-        "rector/rector": "^2.1.7",
+        "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^12.0"
     },
