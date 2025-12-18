@@ -21,7 +21,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     public const ADMIN_RESOURCE = 'sales/creditmemo';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

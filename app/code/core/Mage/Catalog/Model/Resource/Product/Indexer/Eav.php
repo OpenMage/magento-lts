@@ -22,7 +22,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     protected $_types;
 
     /**
-     * Define main index table
+     * @inheritDoc
      */
     protected function _construct()
     {

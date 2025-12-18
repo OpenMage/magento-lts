@@ -11,6 +11,8 @@
  * Customer Form Model
  *
  * @package    Mage_Customer
+ *
+ * @method Mage_Customer_Model_Attribute[] getSystemAttributes()
  */
 class Mage_Customer_Model_Form extends Mage_Eav_Model_Form
 {

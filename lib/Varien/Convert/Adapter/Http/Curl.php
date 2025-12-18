@@ -7,6 +7,9 @@
  * @package    Varien_Convert
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Convert CURL HTTP adapter
  *
@@ -21,7 +24,13 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
         $uri = $this->getVar('uri');
 
         // validate input parameter
-        if (!Zend_Uri::check($uri)) {
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($uri, [
+            new Assert\NotBlank(),
+            new Assert\Url(),
+        ]);
+
+        if ($violations->count() > 0) {
             $this->addException("Expecting a valid 'uri' parameter");
         }
 

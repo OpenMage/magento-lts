@@ -13,28 +13,10 @@ parameters:
 			path: app/Mage.php
 
 		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Config.php
-
-		-
 			rawMessage: 'Cannot call method getClassName() on SimpleXMLElement|false.'
 			identifier: method.nonObject
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Roles::update().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Roles.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Roles.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Admin_Model_Resource_Rules::update().'
@@ -77,12 +59,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Page/Menu.php
 
 		-
 			rawMessage: 'Call to method getCollection() on an unknown class Mage_Permissions_Model_Users.'
@@ -287,12 +263,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			rawMessage: 'Comparison operation "==" between (Varien_Simplexml_Element|null) and 1 results in an error.'
-			identifier: equal.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
 
 		-
 			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
@@ -569,12 +539,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			rawMessage: 'Call to an undefined method Zend_Validate_Interface::setMessage().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Fields.php
 
 		-
 			rawMessage: 'Parameter #1 $request (Mage_Api2_Model_Request) of method Mage_Api2_Model_Route_Abstract::match() should be compatible with parameter $path (string) of method Zend_Controller_Router_Route::match()'
@@ -1367,12 +1331,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/CartController.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Sales_Model_Service_Order::register().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			rawMessage: 'Parameter #1 $attr of method Mage_ConfigurableSwatches_Helper_Data::attrIsSwatchType() expects int|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given.'
@@ -3479,3 +3437,9 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Simplexml/Element.php
+
+		-
+			rawMessage: Dead catch - PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure is never thrown in the try block.
+			identifier: catch.neverThrown
+			count: 2
+			path: tests/unit/Mage/Usa/Helper/DataTest.php

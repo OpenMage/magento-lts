@@ -22,7 +22,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     protected $_collection;
 
     /**
-     * Prepare collection
+     * @inheritDoc
      */
     protected function _construct()
     {

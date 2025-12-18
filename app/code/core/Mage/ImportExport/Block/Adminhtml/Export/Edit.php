@@ -24,7 +24,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
     }
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

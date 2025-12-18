@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('system/currency/rates.phtml');

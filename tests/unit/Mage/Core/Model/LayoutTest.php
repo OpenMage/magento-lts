@@ -23,6 +23,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 final class LayoutTest extends OpenMageTest
 {
     use BlocksTrait;
+
     use LayoutTrait;
 
     private static Subject $subject;

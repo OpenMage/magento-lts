@@ -34,7 +34,7 @@
 class Mage_Api_Model_Role extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -16,6 +16,9 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset extends Mage_Adminhtml_
 {
     protected $_element;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('widget/form/renderer/fieldset.phtml');

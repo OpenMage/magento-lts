@@ -25,7 +25,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     protected $_itemRenders = [];
 
     /**
-     * Initialize default item renderer
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -38,6 +38,9 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 
     protected $_cacheTag = 'cms_block';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cms/block');

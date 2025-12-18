@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     protected $_priceTable;
 
     /**
-     * Inititalize connection and define tables
+     * @inheritDoc
      */
     protected function _construct()
     {

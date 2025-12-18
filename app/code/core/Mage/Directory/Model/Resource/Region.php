@@ -22,7 +22,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     protected $_regionNameTable;
 
     /**
-     * Define main and locale region name tables
+     * @inheritDoc
      */
     protected function _construct()
     {

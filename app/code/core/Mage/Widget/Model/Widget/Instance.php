@@ -64,7 +64,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'widget_widget_instance';
 
     /**
-     * Internal Constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -177,7 +177,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return bool|string
+     * @return string|true
      */
     public function validate()
     {

@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/design_change', 'design_change_id');
@@ -22,14 +25,18 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * @param Mage_Core_Model_Design $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $dateFrom = $object->getDateFrom();
         $dateTo = $object->getDateTo();
         if (!empty($dateFrom) && !empty($dateTo)) {
-            $validator = new Zend_Validate_Date();
-            if (!$validator->isValid($dateFrom) || !$validator->isValid($dateTo)) {
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateDateTime(value: $dateFrom)->count() > 0
+                || $validator->validateDateTime(value: $dateTo)->count() > 0
+            ) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }
 

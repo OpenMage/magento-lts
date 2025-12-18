@@ -32,7 +32,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     protected $_source;
 
     /**
-     * Initialize configuration object
+     * @inheritDoc
      */
     protected function _construct()
     {

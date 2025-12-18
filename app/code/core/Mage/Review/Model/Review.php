@@ -64,6 +64,9 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     public const STATUS_NOT_APPROVED   = 3;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('review/review');
@@ -131,30 +134,34 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
-     * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__("Review summary can't be empty");
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getTitle(),
+            message: Mage::helper('review')->__("Review summary can't be empty"),
+        ));
 
-        if (!Zend_Validate::is($this->getNickname(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__("Nickname can't be empty");
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getNickname(),
+            message: Mage::helper('review')->__("Nickname can't be empty"),
+        ));
 
-        if (!Zend_Validate::is($this->getDetail(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__("Review can't be empty");
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDetail(),
+            message: Mage::helper('review')->__("Review can't be empty"),
+        ));
 
-        if (empty($errors)) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 
-        return $errors;
+        return (array) $errors;
     }
 
     /**
@@ -173,6 +180,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function appendSummary($collection)
     {
@@ -225,6 +233,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param int|Mage_Core_Model_Store $store
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isAvailableOnStore($store = null)
     {

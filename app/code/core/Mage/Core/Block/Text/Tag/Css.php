@@ -17,6 +17,9 @@
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

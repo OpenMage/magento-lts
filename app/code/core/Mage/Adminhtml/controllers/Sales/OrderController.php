@@ -22,7 +22,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     protected $_publicActions = ['view', 'index'];
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

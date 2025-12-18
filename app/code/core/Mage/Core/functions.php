@@ -152,7 +152,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     if (Mage::getIsDeveloperMode()) {
         throw new Exception($errorMessage);
     } else {
-        Mage::log($errorMessage, Zend_Log::ERR);
+        Mage::log($errorMessage, \Monolog\Level::Error);
         return null;
     }
 }

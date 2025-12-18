@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.10</version>
+            <version>1.6.0.11</version>
         </Mage_Core>
     </modules>
     <global>
@@ -142,7 +142,7 @@
         </request>
         <log>
             <core>
-                <writer_model>Zend_Log_Writer_Stream</writer_model>
+                <writer_model>Monolog\Handler\StreamHandler</writer_model>
             </core>
         </log>
         <url_rewrite>
@@ -296,7 +296,7 @@
             </translate_inline>
             <log>
                 <active>0</active>
-                <max_level>7</max_level>
+                <max_level>600</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>

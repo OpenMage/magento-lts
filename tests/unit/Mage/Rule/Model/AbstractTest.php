@@ -26,6 +26,7 @@ use Varien_Object;
 final class AbstractTest extends OpenMageTest
 {
     use BoolTrait;
+
     use RuleTrait;
 
     public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';

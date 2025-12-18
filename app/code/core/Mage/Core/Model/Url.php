@@ -142,7 +142,7 @@ class Mage_Core_Model_Url extends Varien_Object
     protected $_useSession;
 
     /**
-     * Initialize object
+     * @inheritDoc
      */
     protected function _construct()
     {

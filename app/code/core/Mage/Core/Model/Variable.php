@@ -33,7 +33,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     protected $_storeId = 0;
 
     /**
-     * Internal Constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -103,7 +103,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Validation of object data. Checking for unique variable code
      *
-     * @return bool|string
+     * @return string|true
      */
     public function validate()
     {

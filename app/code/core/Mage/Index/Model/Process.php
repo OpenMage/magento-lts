@@ -91,7 +91,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected $_allowTableChanges = true;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

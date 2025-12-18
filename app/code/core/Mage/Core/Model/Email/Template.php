@@ -88,7 +88,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected static $_defaultTemplates;
 
     /**
-     * Initialize email template model
+     * @inheritDoc
      */
     protected function _construct()
     {

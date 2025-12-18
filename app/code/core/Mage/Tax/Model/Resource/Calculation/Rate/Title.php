@@ -14,6 +14,9 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_calculation_rate_title', 'tax_calculation_rate_title_id');
