@@ -86,6 +86,7 @@ namespace PHPSTORM_META {
             'configurableswatches/swatchdimensions' => \Mage_ConfigurableSwatches_Helper_Swatchdimensions::class,
             'core/abstract' => \Mage_Core_Helper_Abstract::class,
             'core/array' => \Mage_Core_Helper_Array::class,
+            'core/clock' => \Mage_Core_Helper_Clock::class,
             'core/cookie' => \Mage_Core_Helper_Cookie::class,
             'core' => \Mage_Core_Helper_Data::class,
             'core/data' => \Mage_Core_Helper_Data::class,
