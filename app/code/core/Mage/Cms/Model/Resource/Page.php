@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Cms page mysql resource
  *
@@ -26,12 +28,14 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _construct()
     {
-        $this->_init('cms/page', 'page_id');
+        $this->_init('cms/page', PageInterface::DATA_ID);
     }
 
     /**
      * @inheritDoc
+     * @param Mage_Cms_Model_Page $object
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -51,7 +55,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         $condition = [
-            'page_id = ?' => (int) $object->getId(),
+            PageInterface::DATA_ID . ' = ?' => (int) $object->getId(),
         ];
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/page_store'), $condition);
@@ -63,6 +67,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param Mage_Cms_Model_Page $object
      * @inheritDoc
      * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -72,7 +77,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
          * If they are empty we need to convert them into DB
          * type NULL so in DB they will be empty and not some default value
          */
-        foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
+        foreach ([PageInterface::DATA_CUSTOM_THEME_FROM, PageInterface::DATA_CUSTOM_THEME_TO] as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
         }
@@ -116,6 +121,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @param Mage_Cms_Model_Page $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -132,8 +138,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
         if ($delete) {
             $where = [
-                'page_id = ?' => (int) $object->getId(),
-                'store_id IN (?)' => $delete,
+                PageInterface::DATA_ID . ' = ?' => (int) $object->getId(),
+                PageInterface::DATA_STORE_ID . ' IN (?)' => $delete,
             ];
 
             $this->_getWriteAdapter()->delete($table, $where);
@@ -144,8 +150,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
             foreach ($insert as $storeId) {
                 $data[] = [
-                    'page_id'  => (int) $object->getId(),
-                    'store_id' => (int) $storeId,
+                    PageInterface::DATA_ID => (int) $object->getId(),
+                    PageInterface::DATA_STORE_ID => (int) $storeId,
                 ];
             }
 
@@ -164,7 +170,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (!is_numeric($value) && is_null($field)) {
-            $field = 'identifier';
+            $field = PageInterface::DATA_IDENTIFIER;
         }
 
         return parent::load($object, $value, $field);
@@ -172,6 +178,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -220,6 +227,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param array|int $store
      * @param int $isActive
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadByIdentifierSelect($identifier, $store, $isActive = null)
     {
@@ -245,6 +253,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param Mage_Cms_Model_Page $object
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
     {
@@ -317,6 +326,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * @param string $identifier
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function checkIdentifier($identifier, $storeId)
     {
@@ -335,6 +345,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param int|string $identifier
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCmsPageTitleByIdentifier($identifier)
@@ -358,17 +369,18 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param int|string $id
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageTitleById($id)
     {
         $adapter = $this->_getReadAdapter();
 
         $select  = $adapter->select()
-            ->from($this->getMainTable(), 'title')
+            ->from($this->getMainTable(), PageInterface::DATA_TITLE)
             ->where('page_id = :page_id');
 
         $binds = [
-            'page_id' => (int) $id,
+            PageInterface::DATA_ID => (int) $id,
         ];
 
         return $adapter->fetchOne($select, $binds);
@@ -379,17 +391,18 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param string $id
      * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageIdentifierById($id)
     {
         $adapter = $this->_getReadAdapter();
 
         $select  = $adapter->select()
-            ->from($this->getMainTable(), 'identifier')
+            ->from($this->getMainTable(), PageInterface::DATA_IDENTIFIER)
             ->where('page_id = :page_id');
 
         $binds = [
-            'page_id' => (int) $id,
+            PageInterface::DATA_ID => (int) $id,
         ];
 
         return $adapter->fetchOne($select, $binds);
@@ -406,8 +419,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         $adapter = $this->_getReadAdapter();
 
         $select  = $adapter->select()
-            ->from($this->getTable('cms/page_store'), 'store_id')
-            ->where('page_id = ?', (int) $pageId);
+            ->from($this->getTable('cms/page_store'), PageInterface::DATA_STORE_ID)
+            ->where(PageInterface::DATA_ID . ' = ?', (int) $pageId);
 
         return $adapter->fetchCol($select);
     }
@@ -428,6 +441,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieve store model
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()

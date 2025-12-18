@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Cms_Api_Data_PageInterface as PageInterface;
+
 /**
  * Cms page content block
  *
@@ -20,6 +22,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * Retrieve Page instance
      *
      * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPage()
@@ -28,7 +31,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             if ($this->getPageId()) {
                 $page = Mage::getModel('cms/page')
                     ->setStoreId(Mage::app()->getStore()->getId())
-                    ->load($this->getPageId(), 'identifier');
+                    ->load($this->getPageId(), PageInterface::DATA_IDENTIFIER);
             } else {
                 $page = Mage::getSingleton('cms/page');
             }
@@ -42,19 +45,19 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
         $page = $this->getPage();
         $breadcrumbsArray = [];
-        $breadcrumbs = null;
 
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))
+            && ($page->getIdentifier() !== Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE))
+            && ($page->getIdentifier() !== Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE))
         ) {
             $breadcrumbsArray[] = [
                 'crumbName' => 'home',
@@ -126,6 +129,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * Get canonical URL for CMS page
+     *
+     * @throws Mage_Core_Exception
      */
     protected function getCanonicalUrl(Mage_Cms_Model_Page $page): ?string
     {
@@ -142,9 +147,9 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $identifier = $page->getIdentifier();
 
         // Handle special pages differently
-        $homePageId = Mage::getStoreConfig('web/default/cms_home_page');
-        $noRoutePageId = Mage::getStoreConfig('web/default/cms_no_route');
-        $noCookiesPageId = Mage::getStoreConfig('web/default/cms_no_cookies');
+        $homePageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE);
+        $noRoutePageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
+        $noCookiesPageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
 
         // For homepage, use base URL
         if ($identifier === $homePageId) {

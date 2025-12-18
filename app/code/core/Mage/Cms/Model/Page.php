@@ -14,51 +14,12 @@
  *
  * @method Mage_Cms_Model_Resource_Page _getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
- * @method string getContent()
- * @method string getContentHeading()
- * @method string getCreationTime()
- * @method string getCustomLayoutUpdateXml()
- * @method string getCustomRootTemplate()
- * @method string getCustomTheme()
- * @method string getCustomThemeFrom()
- * @method string getCustomThemeTo()
- * @method string getIdentifier()
- * @method int getIsActive()
- * @method string getLayoutUpdateXml()
- * @method string getMetaDescription()
- * @method string getMetaKeywords()
  * @method string getPreviewUrl()
  * @method Mage_Cms_Model_Resource_Page getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
- * @method string getRootTemplate()
- * @method int getSortOrder()
- * @method string getStoreCode()
- * @method string getStoreId()
- * @method array getStores()
- * @method string getTitle()
- * @method string getUpdateTime()
- * @method bool hasCreationTime()
  * @method bool hasStores()
- * @method $this setContent(string $value)
- * @method $this setContentHeading(string $value)
- * @method $this setCreationTime(string $value)
- * @method $this setCustomLayoutUpdateXml(string $value)
- * @method $this setCustomRootTemplate(string $value)
- * @method $this setCustomTheme(string $value)
- * @method $this setCustomThemeFrom(string $value)
- * @method $this setCustomThemeTo(string $value)
- * @method $this setIdentifier(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setLayoutUpdateXml(string $value)
- * @method $this setMetaDescription(string $value)
- * @method $this setMetaKeywords(string $value)
- * @method $this setRootTemplate(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setTitle(string $value)
- * @method $this setUpdateTime(string $value)
  */
-class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
+class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_Api_Data_PageInterface
 {
     public const NOROUTE_PAGE_ID = 'no-route';
 
@@ -104,6 +65,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Load No-Route Page
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function noRoutePage()
     {
@@ -117,6 +79,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * @param string $identifier
      * @param int $storeId
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function checkIdentifier($identifier, $storeId)
     {
@@ -125,6 +88,9 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     /**
      * Retrieves cms page title from DB by passed identifier.
+     *
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCmsPageTitleByIdentifier(string $identifier): string
     {
@@ -135,6 +101,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page title from DB by passed id.
      *
      * @param int|string $id
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageTitleById($id): string
     {
@@ -145,6 +112,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page identifier from DB by passed id.
      *
      * @param int|string $id
+     * @throws Mage_Core_Exception
      */
     public function getCmsPageIdentifierById($id): string
     {
@@ -169,13 +137,344 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         return $statuses->getData();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function getUsedInStoreConfigCollection(?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
     {
         return $this->_getResource()->getUsedInStoreConfigCollection($this, $paths);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function isUsedInStoreConfig(?array $paths = []): bool
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
+    }
+
+    public function hasCreationTime(): bool
+    {
+        return $this->hasData(self::DATA_CREATION_TIME);
+    }
+
+    /**
+     * @api
+     */
+    public function getPageId(): ?int
+    {
+        $pageId = $this->getDataByKey(self::DATA_ID);
+        return is_null($pageId) ? null : (int) $pageId;
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setPageId(?int $pageId)
+    {
+        return $this->setData(self::DATA_ID, $pageId);
+    }
+
+    /**
+     * @api
+     */
+    public function getContent(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CONTENT);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setContent(?string $content)
+    {
+        return $this->setData(self::DATA_CONTENT, $content);
+    }
+
+    /**
+     * @api
+     */
+    public function getContentHeading(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CONTENT_HEADING);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setContentHeading(?string $heading)
+    {
+        return $this->setData(self::DATA_CONTENT_HEADING, $heading);
+    }
+
+    /**
+     * @api
+     */
+    public function getCreationTime(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CREATION_TIME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCreationTime(?string $value)
+    {
+        return $this->setData(self::DATA_CREATION_TIME, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomLayoutUpdateXml(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_LAYOUT_UPDATE_XML);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomLayoutUpdateXml(?string $xml)
+    {
+        return $this->setData(self::DATA_CUSTOM_LAYOUT_UPDATE_XML, $xml);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomRootTemplate(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_ROOT_TEMPLATE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomRootTemplate(?string $template)
+    {
+        return $this->setData(self::DATA_CUSTOM_ROOT_TEMPLATE, $template);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomTheme(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomTheme(?string $from)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME, $from);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomThemeFrom(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME_FROM);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomThemeFrom(?string $from)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME_FROM, $from);
+    }
+
+    /**
+     * @api
+     */
+    public function getCustomThemeTo(): ?string
+    {
+        return $this->getDataByKey(self::DATA_CUSTOM_THEME_TO);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCustomThemeTo(?string $to)
+    {
+        return $this->setData(self::DATA_CUSTOM_THEME_TO, $to);
+    }
+
+    /**
+     * @api
+     */
+    public function getIdentifier(): ?string
+    {
+        return $this->getDataByKey(self::DATA_IDENTIFIER);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setIdentifier(?string $identifier)
+    {
+        return $this->setData(self::DATA_IDENTIFIER, $identifier);
+    }
+
+    /**
+     * @api
+     */
+    public function getIsActive(): int
+    {
+        return (int) $this->getDataByKey(self::DATA_IS_ACTIVE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setIsActive(int $value)
+    {
+        return $this->setData(self::DATA_IS_ACTIVE, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getLayoutUpdateXml(): ?string
+    {
+        return $this->getDataByKey(self::DATA_LAYOUT_UPDATE_XML);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setLayoutUpdateXml(?string $xml)
+    {
+        return $this->setData(self::DATA_LAYOUT_UPDATE_XML, $xml);
+    }
+
+    /**
+     * @api
+     */
+    public function getMetaDescription(): ?string
+    {
+        return $this->getDataByKey(self::DATA_META_DESCRIPTION);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setMetaDescription(?string $description)
+    {
+        return $this->setData(self::DATA_META_DESCRIPTION, $description);
+    }
+
+    /**
+     * @api
+     */
+    public function getMetaKeywords(): ?string
+    {
+        return $this->getDataByKey(self::DATA_META_KEYWORDS);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setMetaKeywords(?string $keywords)
+    {
+        return $this->setData(self::DATA_META_KEYWORDS, $keywords);
+    }
+
+    /**
+     * @api
+     */
+    public function getRootTemplate(): ?string
+    {
+        return $this->getDataByKey(self::DATA_ROOT_TEMPLATE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setRootTemplate(?string $template)
+    {
+        return $this->setData(self::DATA_ROOT_TEMPLATE, $template);
+    }
+
+    /**
+     * @api
+     */
+    public function getSortOrder(): int
+    {
+        return (int) $this->getDataByKey(self::DATA_SORT_ORDER);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setSortOrder(int $position)
+    {
+        return $this->setData(self::DATA_SORT_ORDER, $position);
+    }
+
+    /**
+     * @api
+     */
+    public function getStoreId(): ?int
+    {
+        return (int) $this->getDataByKey(self::DATA_STORE_ID);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setStoreId(int $storeId)
+    {
+        return $this->setData(self::DATA_STORE_ID, $storeId);
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->getDataByKey(self::DATA_TITLE);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTitle(?string $title)
+    {
+        return $this->setData(self::DATA_TITLE, $title);
+    }
+
+    /**
+     * @api
+     */
+    public function getUpdateTime(): ?string
+    {
+        return $this->getDataByKey(self::DATA_UPDATE_TIME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setUpdateTime(?string $time)
+    {
+        return $this->setData(self::DATA_UPDATE_TIME, $time);
     }
 }
