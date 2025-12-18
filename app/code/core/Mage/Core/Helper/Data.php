@@ -1099,7 +1099,7 @@ XML;
 
     public function now(): \DateTimeImmutable
     {
-        static $clock = new FactoryImmutable;
+        static $clock = new FactoryImmutable();
         return $clock->now();
     }
 }
