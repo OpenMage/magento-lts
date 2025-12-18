@@ -25,7 +25,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Replacing popularity by sum of popularity and base_popularity
      *
-     * @param int $storeId
+     * @param  int                      $storeId
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
@@ -51,7 +51,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by specified tag status
      *
-     * @param int $statusCode
+     * @param  int                      $statusCode
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
@@ -64,8 +64,8 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -81,7 +81,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Sets limit
      *
-     * @param int $limit
+     * @param  int                      $limit
      * @return $this
      * @throws Zend_Db_Select_Exception
      */

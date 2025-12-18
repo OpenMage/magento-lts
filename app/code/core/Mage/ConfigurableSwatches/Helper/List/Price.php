@@ -26,7 +26,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
      * Depends on following product data:
      * - product must have children products attached and be configurable by type
      *
-     * @param int $storeId
+     * @param  int                             $storeId
      * @throws Mage_Core_Model_Store_Exception
      */
     public function attachConfigurableProductChildrenPricesMapping(array $products, $storeId = null)

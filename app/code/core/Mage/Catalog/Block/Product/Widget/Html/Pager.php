@@ -105,8 +105,8 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     /**
      * Connect collection to paging
      *
-     * @param   Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @return  Mage_Catalog_Block_Product_Widget_Html_Pager
+     * @param  Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @return Mage_Catalog_Block_Product_Widget_Html_Pager
      */
     public function setCollection($collection)
     {

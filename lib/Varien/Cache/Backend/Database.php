@@ -118,8 +118,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
      *
-     * @param  string  $id                     Cache id
-     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  string       $id                     Cache id
+     * @param  bool         $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return false|string cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -142,7 +142,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Test if a cache is available or not (for the given id)
      *
-     * @param  string $id cache id
+     * @param  string      $id cache id
      * @return false|mixed (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id)
@@ -164,11 +164,11 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Note : $data is always "string" (serialization is done by the
      * core not by the backend)
      *
-     * @param  string $data Data to cache
-     * @param  string $id Cache id
-     * @param  array $tags Array of strings, the cache record will be tagged by each string entry
-     * @param  null|bool|int $specificLifetime If != false, set a specific lifetime for this cache record
-     *                                    (null => infinite lifetime)
+     * @param string        $data             Data to cache
+     * @param string        $id               Cache id
+     * @param array         $tags             Array of strings, the cache record will be tagged by each string entry
+     * @param null|bool|int $specificLifetime If != false, set a specific lifetime for this cache record
+     *                                        (null => infinite lifetime)
      *
      * @return bool true if no problem
      */
@@ -207,7 +207,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return bool True if no problem
+     * @return bool   True if no problem
      */
     public function remove($id)
     {
@@ -223,7 +223,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Delete cache rows from Data table
      *
-     * @param $cacheIdsToRemove
+     * @param      $cacheIdsToRemove
      * @return int
      */
     protected function _deleteCachesFromDataTable($cacheIdsToRemove)
@@ -234,7 +234,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Delete cache rows from Tags table
      *
-     * @param $cacheIdsToRemove
+     * @param      $cacheIdsToRemove
      * @return int
      */
     protected function _deleteCachesFromTagsTable($cacheIdsToRemove)
@@ -257,7 +257,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return bool true if no problem
+     * @return bool   true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -368,7 +368,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * In case of multiple tags, a logical AND is made between tags
      *
-     * @param array $tags array of tags
+     * @param  array $tags array of tags
      * @return array array of matching cache ids (string)
      */
     public function getIdsMatchingTags($tags = [])
@@ -387,7 +387,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param array $tags array of tags
+     * @param  array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
     public function getIdsNotMatchingTags($tags = [])
@@ -400,7 +400,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * In case of multiple tags, a logical AND is made between tags
      *
-     * @param array $tags array of tags
+     * @param  array $tags array of tags
      * @return array array of any matching cache ids (string)
      */
     public function getIdsMatchingAnyTags($tags = [])
@@ -430,8 +430,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * - tags : a string array of tags
      * - mtime : timestamp of last modification time
      *
-     * @param string $id cache id
-     * @return array array of metadatas (false if the cache id is not found)
+     * @param  string $id cache id
+     * @return array  array of metadatas (false if the cache id is not found)
      */
     public function getMetadatas($id)
     {
@@ -459,8 +459,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Give (if possible) an extra lifetime to the given cache id
      *
-     * @param string $id cache id
-     * @param int $extraLifetime
+     * @param  string   $id            cache id
+     * @param  int      $extraLifetime
      * @return int|true if ok
      */
     public function touch($id, $extraLifetime)
@@ -505,8 +505,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Save tags related to specific id
      *
-     * @param string $id
-     * @param array $tags
+     * @param  string $id
+     * @param  array  $tags
      * @return bool
      */
     protected function _saveTags($id, $tags)
@@ -549,8 +549,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     /**
      * Remove cache data by tags with specified mode
      *
-     * @param string $mode
-     * @param array $tags
+     * @param  string $mode
+     * @param  array  $tags
      * @return bool
      */
     protected function _cleanByTags($mode, $tags)

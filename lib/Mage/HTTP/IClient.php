@@ -79,8 +79,8 @@ interface Mage_HTTP_IClient
 
     /**
      * Make POST request
-     * @param string $uri full uri
-     * @param array $params POST fields array
+     * @param string $uri    full uri
+     * @param array  $params POST fields array
      */
     public function post($uri, $params);
 

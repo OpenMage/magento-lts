@@ -20,125 +20,125 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
- * @method float getBaseDiscountAmount()
- * @method float getBaseDiscountCalculationPrice()
- * @method float getBaseOriginalDiscountAmount()
- * @method float getBaseRowTax()
- * @method float getBaseRowTotal()
- * @method float getBaseRowTotalInclTax()
- * @method float getBaseRowTotalWithDiscount()
- * @method float getBaseShippingAmount()
- * @method float getBaseTaxableAmount()
- * @method float getBaseTaxBeforeDiscount()
- * @method float getBaseWeeeDiscount()
- * @method float getBaseWeeeTaxAppliedAmount()
- * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method int getBaseWeeeTaxDisposition()
- * @method int getBaseWeeeTaxRowDisposition()
- * @method float getCustomPrice()
- * @method float getDiscountAmount()
- * @method float getDiscountCalculationPrice()
- * @method float getDiscountPercent()
- * @method float getDiscountTaxCompensation()
- * @method int getFreeShipping()
- * @method bool getHasChildren()
- * @method bool getHasConfigurationUnavailableError()
- * @method bool getIsPriceInclTax()
- * @method string getName()
- * @method bool getNoDiscount()
- * @method float getNominalRowTotal()
- * @method array getNominalTotalDetails()
- * @method float getOriginalCustomPrice()
- * @method float getOriginalDiscountAmount()
- * @method int getParentItemId()
- * @method int getProductId()
- * @method array getProductOrderOptions()
- * @method string getProductType()
- * @method float getRowTax()
- * @method float getRowTotal()
- * @method float getRowTotalInclTax()
- * @method float getRowTotalWithDiscount()
- * @method float getRowWeight()
- * @method int getStoreId()
- * @method float getTaxableAmount()
- * @method float getTaxBeforeDiscount()
- * @method float getTaxPercent()
- * @method float getWeeeDiscount()
- * @method string getWeeeTaxApplied()
- * @method float getWeeeTaxAppliedAmount()
- * @method float getWeeeTaxAppliedRowAmount()
- * @method int getWeeeTaxDisposition()
- * @method int getWeeeTaxRowDisposition()
- * @method bool hasBaseCalculationPrice()
- * @method bool hasCustomPrice()
- * @method bool hasOriginalCustomPrice()
- * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
- * @method $this setAppliedRuleIds(string $value)
- * @method $this setBaseCalculationPrice(null|float $value)
- * @method $this setBaseCustomPrice(float $value)
- * @method $this setBaseDiscountAmount(float $value)
- * @method $this setBaseDiscountCalculationPrice(float $value)
- * @method $this setBaseExtraRowTaxableAmount(float $value)
- * @method $this setBaseExtraTaxableAmount(float $value)
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float setBaseOriginalDiscountAmount(float $value)
- * @method $this setBaseOriginalPrice(float $value)
- * @method $this setBasePrice(float $value)
- * @method $this setBasePriceInclTax(float $value)
- * @method $this setBaseRowTax(float $value)
- * @method $this setBaseRowTotal(float $value)
- * @method $this setBaseRowTotalInclTax(float $value)
- * @method $this setBaseRowTotalWithDiscount(float $value)
- * @method $this setBaseShippingAmount(float $value)
- * @method $this setBaseTaxableAmount(float $value)
- * @method $this setBaseTaxAmount(float $value)
- * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method $this setBaseTaxCalcPrice(float $value)
- * @method $this setBaseTaxCalcRowTotal(float $value)
- * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method $this setBaseWeeeTaxDisposition(int $value)
- * @method $this setBaseWeeeTaxRowDisposition(int $value)
- * @method $this setCalculationPrice(null|float $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setDiscountCalculationPrice(float $value)
- * @method $this setDiscountPercent(float $value)
- * @method $this setDiscountTaxCompensation(float $value)
- * @method $this setExtraRowTaxableAmount(float $value)
- * @method $this setExtraTaxableAmount(float $value)
- * @method $this setFreeShipping(int $value)
- * @method $this setHasChildren(bool $value)
- * @method $this setHasError(bool $value)
- * @method $this setHiddenTaxAmount(float $value)
- * @method $this setIsPriceInclTax(bool $value)
- * @method $this setOriginalDiscountAmount(float $value)
- * @method $this setParentItemId(int $value)
- * @method $this setPriceInclTax(float $value)
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
- * @method $this setQty(float $value)
- * @method $this setRowTax(int $rowTax)
- * @method $this setRowTotal(float $value)
- * @method $this setRowTotalExcTax(float $value)
- * @method $this setRowTotalInclTax(float $value)
- * @method $this setRowTotalWithDiscount(float $value)
- * @method $this setTaxableAmount(float $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setTaxBeforeDiscount(float $value)
- * @method $this setTaxCalcPrice(float $value)
- * @method $this setTaxCalcRowTotal(float $value)
- * @method $this setTaxPercent(float $value)
- * @method $this setTaxRates(array $value)
- * @method $this setWeeeTaxApplied(string $value)
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method $this setWeeeTaxDisposition(int $value)
- * @method $this setWeeeTaxRowDisposition(int $value)
- * @method $this unsBasePriceInclTax()
- * @method $this unsBaseRowTotalInclTax()
- * @method $this unsHasConfigurationUnavailableError()
- * @method $this unsMessage()
- * @method $this unsPriceInclTax()
- * @method $this unsRowTotalInclTax()
+ * @method float                          getBaseDiscountAmount()
+ * @method float                          getBaseDiscountCalculationPrice()
+ * @method float                          getBaseOriginalDiscountAmount()
+ * @method float                          getBaseRowTax()
+ * @method float                          getBaseRowTotal()
+ * @method float                          getBaseRowTotalInclTax()
+ * @method float                          getBaseRowTotalWithDiscount()
+ * @method float                          getBaseShippingAmount()
+ * @method float                          getBaseTaxableAmount()
+ * @method float                          getBaseTaxBeforeDiscount()
+ * @method float                          getBaseWeeeDiscount()
+ * @method float                          getBaseWeeeTaxAppliedAmount()
+ * @method float                          getBaseWeeeTaxAppliedRowAmount()
+ * @method int                            getBaseWeeeTaxDisposition()
+ * @method int                            getBaseWeeeTaxRowDisposition()
+ * @method float                          getCustomPrice()
+ * @method float                          getDiscountAmount()
+ * @method float                          getDiscountCalculationPrice()
+ * @method float                          getDiscountPercent()
+ * @method float                          getDiscountTaxCompensation()
+ * @method int                            getFreeShipping()
+ * @method bool                           getHasChildren()
+ * @method bool                           getHasConfigurationUnavailableError()
+ * @method bool                           getIsPriceInclTax()
+ * @method string                         getName()
+ * @method bool                           getNoDiscount()
+ * @method float                          getNominalRowTotal()
+ * @method array                          getNominalTotalDetails()
+ * @method float                          getOriginalCustomPrice()
+ * @method float                          getOriginalDiscountAmount()
+ * @method int                            getParentItemId()
+ * @method int                            getProductId()
+ * @method array                          getProductOrderOptions()
+ * @method string                         getProductType()
+ * @method float                          getRowTax()
+ * @method float                          getRowTotal()
+ * @method float                          getRowTotalInclTax()
+ * @method float                          getRowTotalWithDiscount()
+ * @method float                          getRowWeight()
+ * @method int                            getStoreId()
+ * @method float                          getTaxableAmount()
+ * @method float                          getTaxBeforeDiscount()
+ * @method float                          getTaxPercent()
+ * @method float                          getWeeeDiscount()
+ * @method string                         getWeeeTaxApplied()
+ * @method float                          getWeeeTaxAppliedAmount()
+ * @method float                          getWeeeTaxAppliedRowAmount()
+ * @method int                            getWeeeTaxDisposition()
+ * @method int                            getWeeeTaxRowDisposition()
+ * @method bool                           hasBaseCalculationPrice()
+ * @method bool                           hasCustomPrice()
+ * @method bool                           hasOriginalCustomPrice()
+ * @method $this                          setAddress(Mage_Sales_Model_Quote_Address $value)
+ * @method $this                          setAppliedRuleIds(string $value)
+ * @method $this                          setBaseCalculationPrice(null|float $value)
+ * @method $this                          setBaseCustomPrice(float $value)
+ * @method $this                          setBaseDiscountAmount(float $value)
+ * @method $this                          setBaseDiscountCalculationPrice(float $value)
+ * @method $this                          setBaseExtraRowTaxableAmount(float $value)
+ * @method $this                          setBaseExtraTaxableAmount(float $value)
+ * @method $this                          setBaseHiddenTaxAmount(float $value)
+ * @method float                          setBaseOriginalDiscountAmount(float $value)
+ * @method $this                          setBaseOriginalPrice(float $value)
+ * @method $this                          setBasePrice(float $value)
+ * @method $this                          setBasePriceInclTax(float $value)
+ * @method $this                          setBaseRowTax(float $value)
+ * @method $this                          setBaseRowTotal(float $value)
+ * @method $this                          setBaseRowTotalInclTax(float $value)
+ * @method $this                          setBaseRowTotalWithDiscount(float $value)
+ * @method $this                          setBaseShippingAmount(float $value)
+ * @method $this                          setBaseTaxableAmount(float $value)
+ * @method $this                          setBaseTaxAmount(float $value)
+ * @method $this                          setBaseTaxBeforeDiscount(float $value)
+ * @method $this                          setBaseTaxCalcPrice(float $value)
+ * @method $this                          setBaseTaxCalcRowTotal(float $value)
+ * @method $this                          setBaseWeeeTaxAppliedAmount(float $value)
+ * @method $this                          setBaseWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                          setBaseWeeeTaxDisposition(int $value)
+ * @method $this                          setBaseWeeeTaxRowDisposition(int $value)
+ * @method $this                          setCalculationPrice(null|float $value)
+ * @method $this                          setDiscountAmount(float $value)
+ * @method $this                          setDiscountCalculationPrice(float $value)
+ * @method $this                          setDiscountPercent(float $value)
+ * @method $this                          setDiscountTaxCompensation(float $value)
+ * @method $this                          setExtraRowTaxableAmount(float $value)
+ * @method $this                          setExtraTaxableAmount(float $value)
+ * @method $this                          setFreeShipping(int $value)
+ * @method $this                          setHasChildren(bool $value)
+ * @method $this                          setHasError(bool $value)
+ * @method $this                          setHiddenTaxAmount(float $value)
+ * @method $this                          setIsPriceInclTax(bool $value)
+ * @method $this                          setOriginalDiscountAmount(float $value)
+ * @method $this                          setParentItemId(int $value)
+ * @method $this                          setPriceInclTax(float $value)
+ * @method $this                          setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this                          setQty(float $value)
+ * @method $this                          setRowTax(int $rowTax)
+ * @method $this                          setRowTotal(float $value)
+ * @method $this                          setRowTotalExcTax(float $value)
+ * @method $this                          setRowTotalInclTax(float $value)
+ * @method $this                          setRowTotalWithDiscount(float $value)
+ * @method $this                          setTaxableAmount(float $value)
+ * @method $this                          setTaxAmount(float $value)
+ * @method $this                          setTaxBeforeDiscount(float $value)
+ * @method $this                          setTaxCalcPrice(float $value)
+ * @method $this                          setTaxCalcRowTotal(float $value)
+ * @method $this                          setTaxPercent(float $value)
+ * @method $this                          setTaxRates(array $value)
+ * @method $this                          setWeeeTaxApplied(string $value)
+ * @method $this                          setWeeeTaxAppliedAmount(float $value)
+ * @method $this                          setWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                          setWeeeTaxDisposition(int $value)
+ * @method $this                          setWeeeTaxRowDisposition(int $value)
+ * @method $this                          unsBasePriceInclTax()
+ * @method $this                          unsBaseRowTotalInclTax()
+ * @method $this                          unsHasConfigurationUnavailableError()
+ * @method $this                          unsMessage()
+ * @method $this                          unsPriceInclTax()
+ * @method $this                          unsRowTotalInclTax()
  */
 abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
@@ -214,7 +214,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Specify parent item id before saving data
      *
-     * @return  $this
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -303,8 +303,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Add message of quote item to array of messages
      *
-     * @param   string $message
-     * @return  $this
+     * @param  string $message
+     * @return $this
      */
     public function addMessage($message)
     {
@@ -315,8 +315,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get messages array of quote item
      *
-     * @param   bool $string flag for converting messages to string
-     * @return  array|string
+     * @param  bool         $string flag for converting messages to string
+     * @return array|string
      */
     public function getMessage($string = true)
     {
@@ -330,7 +330,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Removes message by text
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function removeMessageByText($text)
@@ -423,7 +423,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get original (not related with parent item) item quantity
      *
-     * @return  float|int
+     * @return float|int
      */
     public function getQty()
     {
@@ -433,7 +433,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get total item quantity (include parent item relation)
      *
-     * @return  float|int
+     * @return float|int
      */
     public function getTotalQty()
     {
@@ -599,8 +599,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Set original price to item (calculation price will be refreshed too)
      *
-     * @param   float $price
-     * @return  $this
+     * @param  float $price
+     * @return $this
      */
     public function setOriginalPrice($price)
     {
@@ -620,8 +620,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Specify custom item price (used in case when we have applied not product price to item)
      *
-     * @param   float $value
-     * @return  $this
+     * @param  float $value
+     * @return $this
      */
     public function setCustomPrice($value)
     {
@@ -643,8 +643,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Specify item price (base calculation price and converted price will be refreshed too)
      *
-     * @param   float $value
-     * @return  $this
+     * @param  float $value
+     * @return $this
      */
     public function setPrice($value)
     {
@@ -670,7 +670,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Set new value for converted price
-     * @param null|float $value
+     * @param  null|float $value
      * @return $this
      */
     public function setConvertedPrice($value)
@@ -738,7 +738,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Calculate item tax amount
      *
-     * @return  $this
+     * @return $this
      * @deprecated logic moved to tax totals calculation model
      */
     public function calcTaxAmount()
@@ -792,7 +792,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item tax amount
      *
-     * @return  float
+     * @return float
      * @deprecated
      */
     public function getTaxAmount()
@@ -814,8 +814,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Get item price (item price always exclude price)
      *
-     * @param float $value
-     * @param bool $saveTaxes
+     * @param  float                           $value
+     * @param  bool                            $saveTaxes
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      * @deprecated

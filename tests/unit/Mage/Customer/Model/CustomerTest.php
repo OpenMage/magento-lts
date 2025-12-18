@@ -21,7 +21,7 @@ final class CustomerTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateCustomerData
-     * @param array|true $expectedResult
+     * @param  array|true          $expectedResult
      * @throws Mage_Core_Exception
      */
     public function testValidate($expectedResult, array $methods): void

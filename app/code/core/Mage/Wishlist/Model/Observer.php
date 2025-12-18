@@ -17,8 +17,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Get customer wishlist model instance
      *
-     * @param   int $customerId
-     * @return  false|Mage_Wishlist_Model_Wishlist
+     * @param  int                                $customerId
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($customerId)
     {
@@ -32,8 +32,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Check move quote item to wishlist request
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Wishlist_Model_Observer
+     * @param  Varien_Event_Observer        $observer
+     * @return Mage_Wishlist_Model_Observer
      */
     public function processCartUpdateBefore($observer)
     {

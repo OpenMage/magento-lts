@@ -31,7 +31,7 @@ class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
     /**
      * Purify Html Content
      *
-     * @param array|string $content
+     * @param  array|string $content
      * @return array|string
      */
     public function purify($content)

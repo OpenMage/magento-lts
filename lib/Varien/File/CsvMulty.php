@@ -18,10 +18,10 @@ class Varien_File_Csv_Multy extends Varien_File_Csv
     /**
      * Retrieve CSV file data as pairs with duplicates
      *
-     * @param   string $file
-     * @param   int $keyIndex
-     * @param   int $valueIndex
-     * @return  array
+     * @param  string $file
+     * @param  int    $keyIndex
+     * @param  int    $valueIndex
+     * @return array
      */
     public function getDataPairs($file, $keyIndex = 0, $valueIndex = 1)
     {

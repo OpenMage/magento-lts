@@ -12,33 +12,33 @@
  *
  * @package    Mage_CatalogRule
  *
- * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
- * @method array getCollectedAttributes()
+ * @method Mage_CatalogRule_Model_Resource_Rule            _getResource()
+ * @method array                                           getCollectedAttributes()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
- * @method string getDescription()
- * @method string getFromDate()
- * @method int getIsActive()
- * @method string getName()
- * @method Mage_CatalogRule_Model_Resource_Rule getResource()
+ * @method string                                          getDescription()
+ * @method string                                          getFromDate()
+ * @method int                                             getIsActive()
+ * @method string                                          getName()
+ * @method Mage_CatalogRule_Model_Resource_Rule            getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getResourceCollection()
- * @method int getRuleId()
- * @method string getSimpleAction()
- * @method int getSortOrder()
- * @method int getStopRulesProcessing()
- * @method float getSubDiscountAmount()
- * @method bool getSubIsEnable()
- * @method string getSubSimpleAction()
- * @method string getToDate()
- * @method $this setCollectedAttributes(array $value)
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setFromDate(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setName(string $value)
- * @method $this setSimpleAction(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setStopRulesProcessing(int $value)
- * @method $this setToDate(string $value)
+ * @method int                                             getRuleId()
+ * @method string                                          getSimpleAction()
+ * @method int                                             getSortOrder()
+ * @method int                                             getStopRulesProcessing()
+ * @method float                                           getSubDiscountAmount()
+ * @method bool                                            getSubIsEnable()
+ * @method string                                          getSubSimpleAction()
+ * @method string                                          getToDate()
+ * @method $this                                           setCollectedAttributes(array $value)
+ * @method $this                                           setDescription(string $value)
+ * @method $this                                           setDiscountAmount(float $value)
+ * @method $this                                           setFromDate(string $value)
+ * @method $this                                           setIsActive(int $value)
+ * @method $this                                           setName(string $value)
+ * @method $this                                           setSimpleAction(string $value)
+ * @method $this                                           setSortOrder(int $value)
+ * @method $this                                           setStopRulesProcessing(int $value)
+ * @method $this                                           setToDate(string $value)
  */
 class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -271,7 +271,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Apply rule to product
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @param null|array $websiteIds
+     * @param null|array                     $websiteIds
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -347,7 +347,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Calculate price using catalog price rule of product
      *
-     * @param float $price
+     * @param  float      $price
      * @return null|float
      */
     public function calcProductPriceRule(Mage_Catalog_Model_Product $product, $price)
@@ -409,7 +409,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Filtering products that must be checked for matching with rule
      *
-     * @param  array|int $productIds
+     * @param array|int $productIds
      */
     public function setProductsFilter($productIds)
     {

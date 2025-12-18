@@ -18,7 +18,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image extends Mage_
 
     /**
      * Retrieve image url
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return false|string
      */
     public function getUrl($object)

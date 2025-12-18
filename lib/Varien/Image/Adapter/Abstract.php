@@ -114,7 +114,7 @@ abstract class Varien_Image_Adapter_Abstract
 
     /**
      * @var bool If set to true and image format supports transparency (e.g. PNG),
-     * transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
+     *           transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
      */
     protected $_keepTransparency;
 
@@ -237,7 +237,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set keepAspectRatio
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepAspectRatio($value = null)
@@ -252,7 +252,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set keepFrame
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepFrame($value = null)
@@ -267,7 +267,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set keepTransparency
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepTransparency($value = null)
@@ -282,7 +282,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set constrainOnly
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function constrainOnly($value = null)
@@ -297,7 +297,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set quality, values in percentage from 0 to 100
      *
-     * @param int $value
+     * @param  int      $value
      * @return null|int
      */
     public function quality($value = null)
@@ -312,7 +312,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set keepBackgroundColor
      *
-     * @param array $value
+     * @param  array      $value
      * @return array|void
      */
     public function backgroundColor($value = null)

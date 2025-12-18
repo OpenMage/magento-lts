@@ -12,24 +12,24 @@
  *
  * @package    Mage_AdminNotification
  *
- * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
+ * @method Mage_AdminNotification_Model_Resource_Inbox            _getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
- * @method string getDateAdded()
- * @method string getDescription()
- * @method int getIsRead()
- * @method int getIsRemove()
- * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
+ * @method string                                                 getDateAdded()
+ * @method string                                                 getDescription()
+ * @method int                                                    getIsRead()
+ * @method int                                                    getIsRemove()
+ * @method Mage_AdminNotification_Model_Resource_Inbox            getResource()
  * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getResourceCollection()
- * @method int getSeverity()
- * @method string getTitle()
- * @method string getUrl()
- * @method $this setDateAdded(string $value)
- * @method $this setDescription(string $value)
- * @method $this setIsRead(int $value)
- * @method $this setIsRemove(int $value)
- * @method $this setSeverity(int $value)
- * @method $this setTitle(string $value)
- * @method $this setUrl(string $value)
+ * @method int                                                    getSeverity()
+ * @method string                                                 getTitle()
+ * @method string                                                 getUrl()
+ * @method $this                                                  setDateAdded(string $value)
+ * @method $this                                                  setDescription(string $value)
+ * @method $this                                                  setIsRead(int $value)
+ * @method $this                                                  setIsRemove(int $value)
+ * @method $this                                                  setSeverity(int $value)
+ * @method $this                                                  setTitle(string $value)
+ * @method $this                                                  setUrl(string $value)
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
@@ -52,7 +52,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Retrieve Severity collection array
      *
-     * @param null|int $severity
+     * @param  null|int          $severity
      * @return null|array|string
      */
     public function getSeverities($severity = null)
@@ -106,11 +106,11 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add new message
      *
-     * @param int $severity
-     * @param string $title
-     * @param array|string $description
-     * @param string $url
-     * @param bool $isInternal
+     * @param  int          $severity
+     * @param  string       $title
+     * @param  array|string $description
+     * @param  string       $url
+     * @param  bool         $isInternal
      * @return $this
      */
     public function add($severity, $title, $description, $url = '', $isInternal = true)
@@ -138,10 +138,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add critical severity message
      *
-     * @param string $title
-     * @param array|string $description
-     * @param string $url
-     * @param bool $isInternal
+     * @param  string       $title
+     * @param  array|string $description
+     * @param  string       $url
+     * @param  bool         $isInternal
      * @return $this
      */
     public function addCritical($title, $description, $url = '', $isInternal = true)
@@ -153,10 +153,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add major severity message
      *
-     * @param string $title
-     * @param array|string $description
-     * @param string $url
-     * @param bool $isInternal
+     * @param  string       $title
+     * @param  array|string $description
+     * @param  string       $url
+     * @param  bool         $isInternal
      * @return $this
      */
     public function addMajor($title, $description, $url = '', $isInternal = true)
@@ -168,10 +168,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add minor severity message
      *
-     * @param string $title
-     * @param array|string $description
-     * @param string $url
-     * @param bool $isInternal
+     * @param  string       $title
+     * @param  array|string $description
+     * @param  string       $url
+     * @param  bool         $isInternal
      * @return $this
      */
     public function addMinor($title, $description, $url = '', $isInternal = true)
@@ -183,10 +183,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add notice
      *
-     * @param string $title
-     * @param array|string $description
-     * @param string $url
-     * @param bool $isInternal
+     * @param  string       $title
+     * @param  array|string $description
+     * @param  string       $url
+     * @param  bool         $isInternal
      * @return $this
      */
     public function addNotice($title, $description, $url = '', $isInternal = true)

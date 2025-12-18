@@ -40,7 +40,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if quantity defined for specified product type
      *
-     * @param string $productTypeId
+     * @param  string $productTypeId
      * @return bool
      */
     public function isQty($productTypeId)
@@ -52,7 +52,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get all registered product type ids and if quantity is defined for them
      *
-     * @param bool $filter
+     * @param  bool  $filter
      * @return array
      */
     public function getIsQtyTypeIds($filter = null)

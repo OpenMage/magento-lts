@@ -23,8 +23,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     /**
      * Load unique entities records into items
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool      $printQuery
+     * @param  bool      $logQuery
      * @return $this
      * @throws Exception
      */

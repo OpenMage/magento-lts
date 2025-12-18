@@ -71,7 +71,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Add filter by stores
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -82,8 +82,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Set filter by order state
      *
-     * @param array|string $state
-     * @param bool $exclude
+     * @param  array|string $state
+     * @param  bool         $exclude
      * @return $this
      */
     public function setOrderStateFilter($state, $exclude = false)
@@ -139,9 +139,9 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Load data
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return  Varien_Data_Collection_Db
+     * @param  bool                            $printQuery
+     * @param  bool                            $logQuery
+     * @return Varien_Data_Collection_Db
      * @throws Mage_Core_Model_Store_Exception
      */
     public function load($printQuery = false, $logQuery = false)

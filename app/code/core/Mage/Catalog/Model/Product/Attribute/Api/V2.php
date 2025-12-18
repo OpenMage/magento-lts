@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Create new product attribute
      *
-     * @param array $data input data
+     * @param  array $data input data
      * @return int
      */
     public function create($data)
@@ -31,8 +31,8 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Update product attribute
      *
-     * @param int|string $attribute attribute code or ID
-     * @param array $data
+     * @param  int|string $attribute attribute code or ID
+     * @param  array      $data
      * @return bool
      */
     public function update($attribute, $data)
@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
      * Add option to select or multiselect attribute
      *
      * @param  int|string $attribute attribute ID or code
-     * @param  array $data
+     * @param  array      $data
      * @return bool
      */
     public function addOption($attribute, $data)
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
     /**
      * Get full information about attribute with list of options
      *
-     * @param int|string $attribute attribute ID or code
+     * @param  int|string $attribute attribute ID or code
      * @return array
      */
     public function info($attribute)

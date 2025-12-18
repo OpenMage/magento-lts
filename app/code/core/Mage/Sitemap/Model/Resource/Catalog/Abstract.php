@@ -47,7 +47,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Retrieve catalog collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     abstract public function getCollection($storeId);
@@ -55,10 +55,10 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Add attribute to filter
      *
-     * @param int $storeId
-     * @param string $attributeCode
-     * @param mixed $value
-     * @param string $type
+     * @param  int                  $storeId
+     * @param  string               $attributeCode
+     * @param  mixed                $value
+     * @param  string               $type
      * @return false|Zend_Db_Select
      */
     protected function _addFilter($storeId, $attributeCode, $value, $type = '=')
@@ -156,8 +156,8 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     abstract protected function _getEntityUrl($row, $entity);
@@ -165,7 +165,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Loads attribute by given attribute_code
      *
-     * @param string $attributeCode
+     * @param  string                                       $attributeCode
      * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
      */
     abstract protected function _loadAttribute($attributeCode);

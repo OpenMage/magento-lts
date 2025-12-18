@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     /**
      * Retrieve curency name by code
      *
-     * @param   string $code
-     * @return  string
+     * @param  string $code
+     * @return string
      */
     public function getCurrencyName($code)
     {
@@ -52,8 +52,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     /**
      * Retrieve curency name by code
      *
-     * @param   string $code
-     * @return  string
+     * @param  string $code
+     * @return string
      */
     public function getCurrencySymbol($code)
     {

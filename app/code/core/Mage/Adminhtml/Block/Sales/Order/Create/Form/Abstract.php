@@ -110,7 +110,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add rendering EAV attributes to Form element
      *
-     * @param array|Varien_Data_Collection $attributes
+     * @param  array|Varien_Data_Collection                          $attributes
      * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _addAttributesToForm($attributes, Varien_Data_Form_Abstract $form)

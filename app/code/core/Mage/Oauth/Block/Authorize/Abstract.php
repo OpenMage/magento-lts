@@ -12,14 +12,14 @@
  *
  * @package    Mage_Oauth
  *
- * @method bool getHasException()
- * @method bool getIsLogged()
- * @method bool getIsSimple()
- * @method string getToken()
- * @method null|string getVerifier()
+ * @method bool                                   getHasException()
+ * @method bool                                   getIsLogged()
+ * @method bool                                   getIsSimple()
+ * @method string                                 getToken()
+ * @method null|string                            getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
+ * @method Mage_Oauth_Block_Authorize_Button      setIsSimple(bool $flag)
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  */

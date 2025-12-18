@@ -63,7 +63,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get Carrier Name
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return mixed
      */
     public function getCarrierName($carrierCode)
@@ -161,7 +161,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     public function formatPrice($price)
@@ -172,8 +172,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get Shipping Price
      *
-     * @param float $price
-     * @param bool $flag
+     * @param  float $price
+     * @param  bool  $flag
      * @return float
      */
     public function getShippingPrice($price, $flag)

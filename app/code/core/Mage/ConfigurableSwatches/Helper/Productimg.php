@@ -51,9 +51,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Determine if the passed text matches the label of any of the passed product's images
      *
-     * @param string $text
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $type
+     * @param  string                     $text
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $type
      * @return null|Varien_Object
      */
     public function getProductImgByLabel($text, $product, $type = null)
@@ -82,7 +82,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * Create the separated index of product images
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param null|array $preValues
+     * @param null|array                 $preValues
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -159,12 +159,12 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Return the appropriate swatch URL for the given value (matches against product's image labels)
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $value
-     * @param int $width
-     * @param int $height
-     * @param string $swatchType
-     * @param string $fallbackFileExt
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $value
+     * @param  int                        $width
+     * @param  int                        $height
+     * @param  string                     $swatchType
+     * @param  string                     $fallbackFileExt
      * @return string
      */
     public function getSwatchUrl(
@@ -210,11 +210,11 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Return URL for a matching swatch image from the global directory
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Item|Mage_Catalog_Model_Product $object
-     * @param string $value
-     * @param int $width
-     * @param int $height
-     * @param string $fileExt
+     * @param  Mage_Catalog_Model_Layer_Filter_Item|Mage_Catalog_Model_Product $object
+     * @param  string                                                          $value
+     * @param  int                                                             $width
+     * @param  int                                                             $height
+     * @param  string                                                          $fileExt
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -269,10 +269,10 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Create a swatch image for the given filename
      *
-     * @param string $value
-     * @param int $width
-     * @param int $height
-     * @return false|string $destPath
+     * @param  string              $value
+     * @param  int                 $width
+     * @param  int                 $height
+     * @return false|string        $destPath
      * @throws Mage_Core_Exception
      */
     public function createSwatchImage($value, $width, $height)
@@ -313,10 +313,10 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * Performs the resize operation on the given swatch image file and returns a
      * relative path to the resulting image file
      *
-     * @param string $filename
-     * @param string $tag
-     * @param int $width
-     * @param int $height
+     * @param  string       $filename
+     * @param  string       $tag
+     * @param  int          $width
+     * @param  int          $height
      * @return false|string
      */
     protected function _resizeSwatchImage($filename, $tag, $width, $height)
@@ -371,8 +371,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     /**
      * Determine whether to show an image in the product media gallery
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Varien_Object $image
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Varien_Object              $image
      * @return bool
      */
     public function filterImageInGallery($product, $image)

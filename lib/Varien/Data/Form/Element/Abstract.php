@@ -14,20 +14,20 @@
  *
  * @method string getClass()
  * @method string getLabel()
- * @method bool getNoSpan()
- * @method bool getRequired()
+ * @method bool   getNoSpan()
+ * @method bool   getRequired()
  * @method string getValue()
- * @method array getValues()
- * @method $this setAfterElementHtml(string $value)
- * @method $this setClass(string $value)
- * @method $this setContainer(Varien_Data_Form $value)
- * @method $this setExtType(string $value)
- * @method $this setLabel(string $value)
- * @method $this setName(string $value)
- * @method $this setValues(array|int|string $value)
- * @method $this unsCanUseDefaultValue()
- * @method $this unsCanUseWebsiteValue()
- * @method $this unsScope()
+ * @method array  getValues()
+ * @method $this  setAfterElementHtml(string $value)
+ * @method $this  setClass(string $value)
+ * @method $this  setContainer(Varien_Data_Form $value)
+ * @method $this  setExtType(string $value)
+ * @method $this  setLabel(string $value)
+ * @method $this  setName(string $value)
+ * @method $this  setValues(array|int|string $value)
+ * @method $this  unsCanUseDefaultValue()
+ * @method $this  unsCanUseWebsiteValue()
+ * @method $this  unsScope()
  */
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {
@@ -57,8 +57,8 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param false|string $after
-     * @return  $this
+     * @param  false|string $after
+     * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
@@ -96,7 +96,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function setId($id)
@@ -128,7 +128,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -139,7 +139,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form_Abstract $form
+     * @param  Varien_Data_Form_Abstract $form
      * @return $this
      */
     public function setForm($form)
@@ -166,7 +166,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $class
+     * @param  string $class
      * @return $this
      */
     public function addClass($class)
@@ -179,7 +179,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Remove CSS class
      *
-     * @param string $class
+     * @param  string $class
      * @return $this
      */
     public function removeClass($class)
@@ -194,7 +194,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _escape($string)
@@ -203,7 +203,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param null|string $index
+     * @param  null|string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -255,7 +255,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Render HTML for element's label
      *
-     * @param string $idSuffix
+     * @param  string $idSuffix
      * @return string
      */
     public function getLabelHtml($idSuffix = '')
@@ -361,8 +361,8 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add specified values to element values
      *
-     * @param array|int|string $values
-     * @param bool $overwrite
+     * @param  array|int|string $values
+     * @param  bool             $overwrite
      * @return $this
      */
     public function addElementValues($values, $overwrite = false)

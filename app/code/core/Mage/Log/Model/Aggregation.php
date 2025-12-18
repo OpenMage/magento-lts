@@ -46,7 +46,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Process
      *
-     * @param  int $store
+     * @param  int   $store
      * @return mixed
      */
     private function _process($store)
@@ -80,9 +80,9 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * Save log data
      *
-     * @param  array $data
-     * @param  string $from
-     * @param  string $to
+     * @param array  $data
+     * @param string $from
+     * @param string $to
      */
     private function _save($data, $from, $to)
     {
@@ -95,7 +95,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 
     /**
      * @param string $id
-     * @param array $data
+     * @param array  $data
      */
     private function _update($id, $data)
     {
@@ -111,9 +111,9 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $from
-     * @param string $to
-     * @param int $store
+     * @param  string $from
+     * @param  string $to
+     * @param  int    $store
      * @return array
      */
     private function _getCounts($from, $to, $store)
@@ -135,8 +135,8 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int|string $in
-     * @param null $offset deprecated
+     * @param  int|string $in
+     * @param  null       $offset deprecated
      * @return string
      */
     private function _date($in, $offset = null)
@@ -150,8 +150,8 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int|string $in
-     * @param null $offset deprecated
+     * @param  int|string $in
+     * @param  null       $offset deprecated
      * @return false|int
      */
     private function _timestamp($in, $offset = null)

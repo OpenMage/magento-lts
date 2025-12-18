@@ -25,9 +25,9 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update process/event association row status
      *
-     * @param int $processId
-     * @param int $eventId
-     * @param string $status
+     * @param  int    $processId
+     * @param  int    $eventId
+     * @param  string $status
      * @return $this
      */
     public function updateEventStatus($processId, $eventId, $status)
@@ -89,8 +89,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update process status field
      *
-     * @param Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  Mage_Index_Model_Process $process
+     * @param  string                   $status
      * @return $this
      */
     public function updateStatus($process, $status)
@@ -102,8 +102,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Updates process data
-     * @param int $processId
-     * @param array $data
+     * @param  int   $processId
+     * @param  array $data
      * @return $this
      */
     protected function _updateProcessData($processId, $data)

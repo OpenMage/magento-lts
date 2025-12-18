@@ -37,7 +37,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return one-level child directories for specified path
      *
-     * @param string $path Parent directory path
+     * @param  string                            $path Parent directory path
      * @return Varien_Data_Collection_Filesystem
      */
     public function getDirsCollection($path)
@@ -86,8 +86,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return files
      *
-     * @param string $path Parent directory path
-     * @param string $type Type of storage, e.g. image, media etc.
+     * @param  string                            $path Parent directory path
+     * @param  string                            $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -151,7 +151,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Storage collection
      *
-     * @param string $path Path to the directory
+     * @param  string                            $path Path to the directory
      * @return Varien_Data_Collection_Filesystem
      */
     public function getCollection($path = null)
@@ -167,9 +167,9 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Create new directory in storage
      *
-     * @param string $name New directory name
-     * @param string $path Parent directory path
-     * @return array New directory info
+     * @param  string              $name New directory name
+     * @param  string              $path Parent directory path
+     * @return array               New directory info
      * @throws Mage_Core_Exception
      */
     public function createDirectory($name, $path)
@@ -248,7 +248,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Delete file (and its thumbnail if exists) from storage
      *
-     * @param string $target File path to be deleted
+     * @param  string $target File path to be deleted
      * @return $this
      */
     public function deleteFile($target)
@@ -269,8 +269,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Upload and resize new file
      *
-     * @param string $targetPath Target directory
-     * @param string $type Type of storage, e.g. image, media etc.
+     * @param  string              $targetPath Target directory
+     * @param  string              $type       Type of storage, e.g. image, media etc.
      * @return array|bool|void
      * @throws Mage_Core_Exception
      */
@@ -316,8 +316,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Thumbnail path getter
      *
-     * @param  string $filePath original file path
-     * @param bool $checkFile OPTIONAL is it necessary to check file availability
+     * @param  string       $filePath  original file path
+     * @param  bool         $checkFile OPTIONAL is it necessary to check file availability
      * @return false|string
      */
     public function getThumbnailPath($filePath, $checkFile = false)
@@ -338,8 +338,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Thumbnail URL getter
      *
-     * @param  string $filePath original file path
-     * @param bool $checkFile OPTIONAL is it necessary to check file availability
+     * @param  string       $filePath  original file path
+     * @param  bool         $checkFile OPTIONAL is it necessary to check file availability
      * @return false|string
      */
     public function getThumbnailUrl($filePath, $checkFile = false)
@@ -361,8 +361,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Create thumbnail for image and save it to thumbnails directory
      *
-     * @param string $source Image path to be resized
-     * @param bool $keepRation Keep aspect ratio or not
+     * @param  string      $source     Image path to be resized
+     * @param  bool        $keepRation Keep aspect ratio or not
      * @return bool|string Resized filepath or false if errors were occurred
      */
     public function resizeFile($source, $keepRation = true)
@@ -408,7 +408,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Resize images on the fly in controller action
      *
-     * @param string $filename File basename
+     * @param  string       $filename File basename
      * @return false|string Thumbnail path or false for errors
      */
     public function resizeOnTheFly($filename)
@@ -424,7 +424,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return thumbnails directory path for file/current directory
      *
-     * @param false|string $filePath Path to the file
+     * @param  false|string $filePath Path to the file
      * @return string
      */
     public function getThumbsPath($filePath = false)
@@ -489,8 +489,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Wysiwyg Config reader
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function getConfigData($key, $default = false)
@@ -504,8 +504,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Prepare allowed_extensions config settings
      *
-     * @param string $type Type of storage, e.g. image, media etc.
-     * @return array Array of allowed file extensions
+     * @param  string $type Type of storage, e.g. image, media etc.
+     * @return array  Array of allowed file extensions
      */
     public function getAllowedExtensions($type = null)
     {
@@ -533,7 +533,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Simple way to check whether file is image or not based on extension
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     public function isImage($filename)

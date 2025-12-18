@@ -138,7 +138,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     /**
      * Convert OptionsValue array to Options array
      *
-     * @param array $optionsArray
+     * @param  array $optionsArray
      * @return array
      */
     protected function _getOptions($optionsArray)

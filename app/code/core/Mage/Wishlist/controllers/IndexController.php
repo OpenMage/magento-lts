@@ -12,7 +12,7 @@
  *
  * @package    Mage_Wishlist
  *
- * @method int getProductId()
+ * @method int   getProductId()
  * @method float getQty()
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
@@ -70,7 +70,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Retrieve wishlist object
-     * @param int $wishlistId
+     * @param  int                                $wishlistId
      * @return false|Mage_Wishlist_Model_Wishlist
      */
     protected function _getWishlist($wishlistId = null)
@@ -454,7 +454,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Remove item
      *
-     *  @return Mage_Core_Controller_Varien_Action|void
+     * @return Mage_Core_Controller_Varien_Action|void
      */
     public function removeAction()
     {

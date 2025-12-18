@@ -13,7 +13,7 @@
  * @package    Mage_Rule
  *
  * @method string getJsFormObject()
- * @method $this setAttributeOption(array $value)
+ * @method $this  setAttributeOption(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Model_Condition_Abstract
 {
@@ -71,7 +71,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Prepare bind array of ids from string or array
      *
-     * @param array|int|string $value
+     * @param  array|int|string $value
      * @return array
      */
     public function bindArrayOfIds($value)
@@ -254,7 +254,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Retrieve value by option
      *
-     * @param mixed $option
+     * @param  mixed  $option
      * @return string
      */
     public function getValueOption($option = null)
@@ -316,7 +316,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Collect validated attributes
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -561,8 +561,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      * Correct '==' and '!=' operators
      * Categories can't be equal because product is included categories selected by administrator and in their parents
      *
-     * @param string $operator
-     * @param string $inputType
+     * @param  string $operator
+     * @param  string $inputType
      * @return string
      */
     public function correctOperator($operator, $inputType)

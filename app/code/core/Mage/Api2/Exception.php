@@ -23,8 +23,8 @@ class Mage_Api2_Exception extends Exception
      * Exception constructor
      *
      * @param string $message
-     * @param int $code
-     * @param bool $shouldLog
+     * @param int    $code
+     * @param bool   $shouldLog
      */
     public function __construct($message, $code, $shouldLog = true)
     {

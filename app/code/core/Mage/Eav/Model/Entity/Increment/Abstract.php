@@ -42,7 +42,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
     }
 
     /**
-     * @param int|string $id
+     * @param  int|string $id
      * @return string
      */
     public function format($id)
@@ -52,7 +52,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
     }
 
     /**
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function frontendFormat($id)
