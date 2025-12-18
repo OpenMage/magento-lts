@@ -9,7 +9,7 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
         cy.openmage.admin.goToSection(test.section);
     });
 
-    const fields = test.section.__groupPriority;
+    const fields = test.section.priority;
 
     it(`tests save empty values, no js`, () => {
         validation.fillFields(fields, validation.requiredEntry);
