@@ -39,7 +39,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resource open handle
      *
-     * @var resource|Varien_Io_File|null
+     * @var null|resource|Varien_Io_File
      */
     protected $_handle          = null;
 
@@ -67,7 +67,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Resource file handle (socket, file pointer etc)
      *
-     * @return resource
+     * @return resource|Varien_Io_File
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getHandle()
     {
@@ -82,7 +84,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  */
                 $urlProp = parse_url($this->_resourceFile);
                 if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')
+                    || strtolower($urlProp['scheme']) != 'http' && strtolower($urlProp['scheme']) != 'https'
                 ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
@@ -116,8 +118,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
                 try {
                     $this->_handle = fsockopen($hostname, $port, $errno, $errstr);
-                } catch (Exception $e) {
-                    throw $e;
+                } catch (Exception $exception) {
+                    throw $exception;
                 }
 
                 if ($this->_handle === false) {
@@ -139,11 +141,11 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
                     $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
-                        $k = strtolower($match[1]);
-                        if ($k == 'set-cookie') {
+                        $key = strtolower($match[1]);
+                        if ($key == 'set-cookie') {
                             continue;
                         } else {
-                            $this->_urlHeaders[$k] = trim($match[2]);
+                            $this->_urlHeaders[$key] = trim($match[2]);
                         }
                     } elseif (preg_match('#^HTTP/[0-9\.]+ (\d+) (.*)\s$#', $str, $match)) {
                         $this->_urlHeaders['code'] = $match[1];
@@ -176,6 +178,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve file size in bytes
+     *
+     * @throws Mage_Core_Exception
      */
     public function getFilesize()
     {
@@ -197,7 +201,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      */
     public function getContentType()
     {
-        $handle = $this->_getHandle();
+        $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             if (function_exists('mime_content_type') && ($contentType = mime_content_type($this->_resourceFile))) {
                 return $contentType;
@@ -215,13 +219,13 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return bool|mixed|string
-     * @throws Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @return array|string
+     * @throws Exception
      */
     public function getFilename()
     {
-        $handle = $this->_getHandle();
+        $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             return pathinfo($this->_resourceFile, PATHINFO_BASENAME);
         } elseif ($this->_linkType == self::LINK_TYPE_URL) {
@@ -246,6 +250,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      * @param string $resourceFile
      * @param string $linkType
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setResource($resourceFile, $linkType = self::LINK_TYPE_FILE)
     {
@@ -282,6 +287,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         return Mage::app()->getFrontController()->getResponse();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function output()
     {
         $handle = $this->_getHandle();

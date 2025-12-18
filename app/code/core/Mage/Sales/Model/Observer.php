@@ -78,8 +78,8 @@ class Mage_Sales_Model_Observer
     /**
      * When deleting product, subtract it from all quotes quantities
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function substractQtyFromQuotes(Varien_Event_Observer $observer)
     {
@@ -367,8 +367,8 @@ class Mage_Sales_Model_Observer
      * Retrieve sales address (order or quote) on which tax calculation must be based
      *
      * @param Mage_Core_Model_Abstract $salesModel
-     * @param Mage_Core_Model_Store|string|int|null $store
-     * @return Mage_Customer_Model_Address_Abstract|null
+     * @param null|int|Mage_Core_Model_Store|string $store
+     * @return null|Mage_Customer_Model_Address_Abstract
      */
     protected function _getVatRequiredSalesAddress($salesModel, $store = null)
     {
@@ -382,7 +382,7 @@ class Mage_Sales_Model_Observer
     /**
      * Retrieve customer address (default billing or default shipping) ID on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return int|string
      */
     protected function _getVatRequiredCustomerAddress(Mage_Customer_Model_Customer $customer, $store = null)

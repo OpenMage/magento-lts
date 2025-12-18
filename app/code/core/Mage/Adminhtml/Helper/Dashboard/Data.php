@@ -42,8 +42,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Retrieve stores configured in system.
      *
      * @return Mage_Core_Model_Resource_Store_Collection
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStores()
     {

@@ -17,13 +17,12 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Store scope ID
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId;
 
     /**
      * Initialize collection model
-     *
      */
     protected function _construct()
     {
@@ -33,7 +32,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Add Form Type filter to collection
      *
-     * @param Mage_Eav_Model_Form_Type|int $type
+     * @param int|Mage_Eav_Model_Form_Type $type
      * @return $this
      */
     public function addTypeFilter($type)
@@ -59,7 +58,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Retrieve label store scope
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {

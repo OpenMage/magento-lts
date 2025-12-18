@@ -59,6 +59,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * Edit action
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -88,7 +90,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
         Mage::register('permissions_block', $model);
 
-        if (isset($id)) {
+        if ($id) {
             $breadcrumb = $this->__('Edit Block');
         } else {
             $breadcrumb = $this->__('New Block');
@@ -107,6 +109,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
      * Save action
      *
      * @return $this|void
+     * @throws Mage_Core_Exception
+     * @throws Zend_Validate_Exception
      */
     public function saveAction()
     {
@@ -144,9 +148,9 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
@@ -172,8 +176,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Block has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }

@@ -12,12 +12,12 @@
  *
  * @package    Mage_Review
  *
- * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false getRatingCollection()
- * @method $this setRatingCollection(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false $value)
+ * @method false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getRatingCollection()
  * @method array getRatingSummaryCache()
- * @method setRatingSummaryCache(array $value)
  * @method int getReviewId()
  * @method int getTotalReviewsCache()
+ * @method $this setRatingCollection(false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
+ * @method setRatingSummaryCache(array $value)
  * @method $this setTotalReviewsCache(int $entityPkValue, bool $approvedOnly, int $storeId)
  */
 class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract

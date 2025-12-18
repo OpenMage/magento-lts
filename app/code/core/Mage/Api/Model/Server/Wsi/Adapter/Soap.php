@@ -87,8 +87,10 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                     ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                     ->setHeader('Content-Length', strlen($content), true)
                     ->setBody($content);
-            } catch (Zend_Soap_Server_Exception|Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Zend_Soap_Server_Exception $zendSoapServerException) {
+                $this->fault($zendSoapServerException->getCode(), $zendSoapServerException->getMessage());
+            } catch (Exception $exception) {
+                $this->fault($exception->getCode(), $exception->getMessage());
             }
         }
 

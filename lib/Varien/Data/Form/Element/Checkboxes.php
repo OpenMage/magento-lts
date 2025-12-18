@@ -130,7 +130,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
 
     /**
      * @param string $value
-     * @return string|void
+     * @return string
      */
     public function getDisabled($value)
     {
@@ -148,7 +148,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
             }
         }
 
-        return;
+        return '';
     }
 
     /**

@@ -52,7 +52,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * WSDL of VAT validation service
-     *
      */
     public const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
@@ -98,7 +97,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Customer groups collection
      *
-     * @var Mage_Customer_Model_Entity_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_groups;
 
@@ -119,7 +118,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomer()
     {
-        if (empty($this->_customer)) {
+        if (is_null($this->_customer)) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
 
@@ -129,11 +128,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer groups collection
      *
-     * @return Mage_Customer_Model_Entity_Group_Collection
+     * @return Mage_Customer_Model_Resource_Group_Collection
      */
     public function getGroups()
     {
-        if (empty($this->_groups)) {
+        if (is_null($this->_groups)) {
             $this->_groups = Mage::getModel('customer/group')->getResourceCollection()
                 ->setRealGroupsFilter()
                 ->load();
@@ -384,7 +383,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -397,7 +396,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -474,7 +473,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default customer group id
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getDefaultCustomerGroupId($store = null)
@@ -517,7 +516,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
@@ -638,7 +637,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $customerCountryCode
      * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param null|int|Mage_Core_Model_Store|string $store
      * @return null|string
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)

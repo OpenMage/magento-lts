@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var Varien_Data_Collection_Db|null
+     * @var null|Varien_Data_Collection_Db
      */
     protected $_collection = null;
 
@@ -87,14 +87,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Empty grid text
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_emptyText;
 
     /**
      * Empty grid text CSS class
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_emptyTextCss    = 'a-center';
 
@@ -192,10 +192,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_massactionBlockName = 'adminhtml/widget_grid_massaction';
 
     /**
-    * RSS list
-    *
-    * @var array
-    */
+     * RSS list
+     *
+     * @var array
+     */
     protected $_rssLists = [];
 
     /**
@@ -356,9 +356,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $config = $this->getConfigDefaultColumnSettings();
         $columnHasIndex = array_key_exists('index', $column);
-        if ($columnHasIndex &&
-            !is_array($column['index']) &&
-            array_key_exists($column['index'], $config['index'])
+        if ($columnHasIndex
+            && !is_array($column['index'])
+            && array_key_exists($column['index'], $config['index'])
         ) {
             $column += $config['index'][$column['index']];
         }
@@ -517,7 +517,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid column by column id
      *
      * @param   string $columnId
-     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|false
+     * @return  false|Mage_Adminhtml_Block_Widget_Grid_Column
      */
     public function getColumn($columnId)
     {
@@ -577,7 +577,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                     $filtered = array_map(static function ($value) {
                         return is_object($value) ? $value->__toString() : $value;
                     }, is_array($cond) ? array_values($cond) : [$cond]);
-                    if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
+                    if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
                         $this->getCollection()->addFieldToFilter($field, ['null' => true]);
                     } else {
                         $this->getCollection()->addFieldToFilter($field, $cond);
@@ -678,9 +678,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         /** @var Mage_Adminhtml_Helper_Data $helper */
         $helper = $this->helper('adminhtml');
-        $value = $helper->decodeFilter($value);
+        $helper->decodeFilter($value);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
@@ -967,7 +970,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param int $limit
+     * @param null|int $limit
      * @return $this
      */
     public function setDefaultLimit($limit)
@@ -1045,10 +1048,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-    * Retrieve rss lists types
-    *
-    * @return array|false
-    */
+     * Retrieve rss lists types
+     *
+     * @return array|false
+     */
     public function getRssLists()
     {
         return empty($this->_rssLists) ? false : $this->_rssLists;
@@ -1060,6 +1063,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getRssUrl($url)
@@ -1078,7 +1082,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @param string $label
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssList($url, $label)
@@ -1106,6 +1111,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve file content from file container array
      *
      * @return string
+     * @throws Exception
      */
     protected function _getFileContainerContent(array $fileData)
     {
@@ -1156,6 +1162,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $callback
      * @param array $args additional arguments for callback method
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function _exportIterateCollection($callback, array $args)
     {
@@ -1482,8 +1490,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Grid url getter
      *
-     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
      * @return string current grid url
+     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
      */
     public function getGridUrl()
     {
@@ -1569,7 +1577,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param Varien_Object $row
      * @return string
      * @deprecated since 1.1.7
-     *
      */
     public function getRowId($row)
     {
@@ -1779,7 +1786,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve subtotal item
      *
      * @param Varien_Object $item
-     * @return Varien_Object|string
+     * @return string|Varien_Object
      */
     public function getSubTotalItem($item)
     {
@@ -1830,7 +1837,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param Varien_Object $item
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return int|bool
+     * @return bool|int
      */
     public function getRowspan($item, $column)
     {
@@ -1842,9 +1849,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param string|object $column
-     * @param string|bool $value
-     * @return bool|$this
+     * @param object|string $column
+     * @param bool|string $value
+     * @return $this|bool
      */
     public function isColumnGrouped($column, $value = null)
     {

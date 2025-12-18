@@ -177,7 +177,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
      *
      * @param string $date
      * @param string $locale
-     * @return Zend_Date|null
+     * @return null|Zend_Date
      */
     protected function _convertDate($date, $locale)
     {

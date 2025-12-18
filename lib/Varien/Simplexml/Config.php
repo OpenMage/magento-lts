@@ -17,7 +17,7 @@ class Varien_Simplexml_Config
     /**
      * Configuration xml
      *
-     * @var Varien_Simplexml_Element|SimpleXMLElement
+     * @var SimpleXMLElement|Varien_Simplexml_Element
      */
     protected $_xml = null;
 
@@ -37,7 +37,7 @@ class Varien_Simplexml_Config
     protected $_cacheLifetime = null;
 
     /**
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_cacheChecksum = false;
 
@@ -72,8 +72,8 @@ class Varien_Simplexml_Config
      *
      * Initializes XML for this configuration
      *
-     * @see self::setXml
      * @param string|Varien_Simplexml_Element $sourceData
+     * @see self::setXml
      */
     public function __construct($sourceData = null)
     {
@@ -106,9 +106,9 @@ class Varien_Simplexml_Config
     /**
      * Returns node found by the $path
      *
-     * @see     Varien_Simplexml_Element::descend
      * @param   string $path
-     * @return  Varien_Simplexml_Element|false
+     * @return  false|Varien_Simplexml_Element
+     * @see     Varien_Simplexml_Element::descend
      */
     public function getNode($path = null)
     {
@@ -125,7 +125,7 @@ class Varien_Simplexml_Config
      * Returns nodes found by xpath expression
      *
      * @param string $xpath
-     * @return Varien_Simplexml_Element[]|false
+     * @return false|Varien_Simplexml_Element[]
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -233,7 +233,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string|null $data
+     * @param null|string $data
      * @return $this
      */
     public function setCacheChecksum($data)
@@ -250,7 +250,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string|false $data
+     * @param false|string $data
      * @return $this
      */
     public function updateCacheChecksum($data)
@@ -269,7 +269,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @return string|false|null
+     * @return null|false|string
      */
     public function getCacheChecksum()
     {
@@ -395,7 +395,7 @@ class Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|bool $lifetime
+     * @param bool|int $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)

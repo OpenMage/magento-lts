@@ -98,8 +98,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
-                    if (!$payment->getParentTransactionId() ||
-                        $result->getTransactionId() != $payment->getParentTransactionId()
+                    if (!$payment->getParentTransactionId()
+                        || $result->getTransactionId() != $payment->getParentTransactionId()
                     ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
@@ -304,8 +304,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         }
 
         return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
-            'authorizenet/directpost_payment/response';
+            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)
+            . 'authorizenet/directpost_payment/response';
     }
 
     /**
@@ -362,7 +362,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Sales_Model_Order $order Quote or order object.
+     * @param Mage_Sales_Model_Order $order quote or order object
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)
@@ -391,7 +391,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Validate response data. Needed in controllers.
      *
-     * @return bool true in case of validation success.
+     * @return bool true in case of validation success
      * @throws Mage_Core_Exception in case of validation error
      */
     public function validateResponse()
@@ -459,9 +459,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
         if ($isError) {
             Mage::throwException(
-                ($responseText && !$response->isApproved()) ?
-                $responseText :
-                Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
+                ($responseText && !$response->isApproved())
+                ? $responseText
+                : Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
             );
         }
     }
@@ -507,7 +507,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Check transaction id came from Authorize.net
      *
      * @return true in case of right transaction id
-     * @throws Mage_Core_Exception in case of bad transaction id.
+     * @throws Mage_Core_Exception in case of bad transaction id
      */
     public function checkTransId()
     {
@@ -534,7 +534,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
-     *
      *
      * @throws Exception
      */
@@ -573,7 +572,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         //match amounts. should be equals for authorization.
         //decline the order if amount does not match.
         if (!$this->_matchAmount($payment->getBaseAmountAuthorized())) {
-            $message = Mage::helper('authorizenet')->__('Payment error. Paid amount doesn\'t match the order amount.');
+            $message = Mage::helper('authorizenet')->__("Payment error. Paid amount doesn't match the order amount.");
             $this->_declineOrder($order, $message, true);
             Mage::throwException($message);
         }
@@ -605,9 +604,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     {
         try {
             $response = $this->getResponse();
-            if ($voidPayment &&
-                $response->getXTransId() &&
-                strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
+            if ($voidPayment
+                && $response->getXTransId()
+                && strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
             ) {
                 $order->getPayment()
                     ->setTransactionId(null)

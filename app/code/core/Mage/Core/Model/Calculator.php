@@ -24,14 +24,14 @@ class Mage_Core_Model_Calculator
     /**
      * Store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
     /**
      * Initialize calculator
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      */
     public function __construct($store)
     {

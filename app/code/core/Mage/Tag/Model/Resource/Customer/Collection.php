@@ -52,10 +52,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -67,10 +66,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return bool
+     * @deprecated after 1.3.2.3
      */
     public function getJoinFlag($table)
     {
@@ -81,10 +79,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -121,7 +118,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Apply filter by store id(s).
      *
-     * @param int|array $storeId
+     * @param array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -214,7 +211,6 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
     /**
      * Joins tables to select
-     *
      */
     protected function _joinFields()
     {

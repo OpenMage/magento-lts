@@ -46,7 +46,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get array of last added items
      *
-     * @param int|null $count
+     * @param null|int $count
      * @return array
      */
     public function getRecentItems($count = null)

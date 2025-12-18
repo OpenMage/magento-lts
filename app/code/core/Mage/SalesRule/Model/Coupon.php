@@ -13,25 +13,25 @@
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
- * @method Mage_SalesRule_Model_Resource_Coupon getResource()
- * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
- *
- * @method int getRuleId()
- * @method $this setRuleId(int $value)
  * @method string getCode()
- * @method $this setCode(string $value)
- * @method int getUsageLimit()
- * @method $this setUsageLimit(int $value)
- * @method int getUsagePerCustomer()
- * @method $this setUsagePerCustomer(int $value)
- * @method int getTimesUsed()
- * @method $this setTimesUsed(int $value)
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
  * @method Zend_Date getExpirationDate()
- * @method $this setExpirationDate(Zend_Date $value)
  * @method int getIsPrimary()
- * @method $this setIsPrimary(int $value)
+ * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
+ * @method int getRuleId()
+ * @method int getTimesUsed()
  * @method int getType()
+ * @method int getUsageLimit()
+ * @method int getUsagePerCustomer()
+ * @method $this setCode(string $value)
+ * @method $this setExpirationDate(Zend_Date $value)
+ * @method $this setIsPrimary(int $value)
+ * @method $this setRuleId(int $value)
+ * @method $this setTimesUsed(int $value)
  * @method $this setType(int $value)
+ * @method $this setUsageLimit(int $value)
+ * @method $this setUsagePerCustomer(int $value)
  */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
@@ -76,7 +76,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Load primary coupon for specified rule
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param int|Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function loadPrimaryByRule($rule)

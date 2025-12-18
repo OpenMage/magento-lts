@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+                    'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
                     'class'     => 'back',
                 ]),
         );

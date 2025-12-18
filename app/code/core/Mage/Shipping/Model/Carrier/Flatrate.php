@@ -22,7 +22,7 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
     protected $_isFixed = true;
 
     /**
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {

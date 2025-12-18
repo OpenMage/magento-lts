@@ -12,38 +12,38 @@
  *
  * @package    Mage_Eav
  *
- * @method bool hasAttributeSetInfo()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
  * @method array getAttributeSetInfo()
- * @method $this setAttributeSetInfo(array $value)
- * @method $this setAttributeGroupId(int $value)
  * @method bool getFlatAddChildData()
  * @method array getFlatAddFilterableAttributes()
  * @method string getFrontendClass()
  * @method string getFrontendInput()
  * @method string getFrontendLabel()
  * @method string getFrontendModel()
- * @method $this setFrontendModel(string $value)
  * @method bool getIsConfigurable()
  * @method bool getIsFilterable()
  * @method bool getIsFilterableInSearch()
- * @method $this setIsGlobal(int $value)
  * @method bool getIsRequired()
  * @method bool getIsSearchable()
  * @method bool getIsUnique()
  * @method bool getIsUserDefined()
- * @method bool hasIsVisible()
  * @method bool getIsVisible()
  * @method bool getIsVisibleInAdvancedSearch()
- * @method string getSourceModel()
- * @method $this setSourceModel(string $value)
  * @method string getSortOrder()
- * @method $this setSortOrder(string $value)
+ * @method string getSourceModel()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getStoreLabel()
  * @method string getUsedForSortBy()
  * @method array getValidateRules()
- * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
+ * @method bool hasAttributeSetInfo()
+ * @method bool hasIsVisible()
+ * @method $this setAttributeGroupId(int $value)
+ * @method $this setAttributeSetInfo(array $value)
+ * @method $this setFrontendModel(string $value)
+ * @method $this setIsGlobal(int $value)
+ * @method $this setSortOrder(string $value)
+ * @method $this setSourceModel(string $value)
+ * @method $this setStoreId(int $value)
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
@@ -116,6 +116,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @param   mixed $entityType
      * @param   string $code
      * @return  $this
+     * @throws  Mage_Core_Exception
      */
     public function loadByCode($entityType, $code)
     {
@@ -191,7 +192,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute identifier
      *
-     * @return int|null
+     * @return null|int
      */
     public function getAttributeId()
     {
@@ -340,8 +341,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Return is attribute global
      *
-     * @deprecated moved to catalog attribute model
      * @return int
+     * @deprecated moved to catalog attribute model
      */
     public function getIsGlobal()
     {
@@ -353,6 +354,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity exclude this entity
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getAlias($entity = null)
     {
@@ -379,6 +381,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity type
      *
      * @return Mage_Eav_Model_Entity_Type
+     * @throws Mage_Core_Exception
      */
     public function getEntityType()
     {
@@ -401,6 +404,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity instance
      *
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
@@ -415,6 +419,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve entity type
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getEntityIdField()
     {
@@ -425,10 +430,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve backend instance
      *
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getBackend()
     {
-        if (empty($this->_backend)) {
+        if (is_null($this->_backend)) {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel($this->_getDefaultBackendModel());
             }
@@ -451,7 +457,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getFrontend()
     {
-        if (empty($this->_frontend)) {
+        if (is_null($this->_frontend)) {
             if (!$this->getFrontendModel()) {
                 $this->setFrontendModel($this->_getDefaultFrontendModel());
             }
@@ -467,10 +473,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve source instance
      *
      * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
-        if (empty($this->_source)) {
+        if (is_null($this->_source)) {
             if (!$this->getSourceModel()) {
                 $this->setSourceModel($this->_getDefaultSourceModel());
             }
@@ -520,6 +527,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getDefaultSourceModel()
     {
@@ -553,7 +561,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute in specified set
      *
-     * @param int|array $setId
+     * @param array|int $setId
      * @return bool
      */
     public function isInSet($setId)
@@ -600,15 +608,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * @param string $entityType
      * @param string $code
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getIdByCode($entityType, $code)
     {
-        $k = "{$entityType}|{$code}";
-        if (!isset($this->_attributeIdCache[$k])) {
-            $this->_attributeIdCache[$k] = $this->getResource()->getIdByCode($entityType, $code);
+        $key = "{$entityType}|{$code}";
+        if (!isset($this->_attributeIdCache[$key])) {
+            $this->_attributeIdCache[$key] = $this->getResource()->getIdByCode($entityType, $code);
         }
 
-        return $this->_attributeIdCache[$k];
+        return $this->_attributeIdCache[$key];
     }
 
     /**
@@ -625,6 +634,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Get attribute backend table name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBackendTable()
     {
@@ -649,6 +659,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve flat columns definition
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFlatColumns()
     {
@@ -668,6 +679,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve flat columns DDL definition
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function _getFlatColumnsDdlDefinition()
     {
@@ -752,6 +764,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Used in database compatible mode
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getFlatColumnsOldDefinition()
     {
@@ -833,6 +846,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve index data for flat table
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFlatIndexes()
     {
@@ -914,7 +928,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return $this|Varien_Db_Select|null
+     * @return null|$this|Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     public function getFlatUpdateSelect($store = null)
     {

@@ -31,7 +31,7 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     /**
      * FreeShipping Rates Collector
      *
-     * @return Mage_Shipping_Model_Rate_Result|false
+     * @return false|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -44,8 +44,8 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
         $this->_updateFreeMethodQuote($request);
 
         if (($request->getFreeShipping())
-            || ($request->getBaseSubtotalInclTax() >=
-                $this->getConfigData('free_shipping_subtotal'))
+            || ($request->getBaseSubtotalInclTax()
+                >= $this->getConfigData('free_shipping_subtotal'))
         ) {
             $method = Mage::getModel('shipping/rate_result_method');
 

@@ -15,23 +15,23 @@
  *
  * @method float getBillingAmount()
  * @method string getCurrencyCode()
- * @method bool getStartDateIsEditable()
- * @method $this setImportedStartDatetime(string $value)
  * @method int getInternalReferenceId()
  * @method string getMethodCode()
- * @method $this setMethodCode(string $value)
- * @method int getPeriodUnit()
  * @method int getPeriodFrequency()
- * @method bool hasScheduleDescription()
+ * @method int getPeriodUnit()
  * @method string getScheduleDescription()
- * @method string setScheduleDescription(string $value)
+ * @method bool getStartDateIsEditable()
  * @method string getStartDatetime()
- * @method $this setStartDatetime(string $value)
  * @method int getStoreId()
  * @method float getTrialBillingAmount()
  * @method int getTrialPeriodFrequency()
  * @method int getTrialPeriodMaxCycles()
  * @method int getTrialPeriodUnit()
+ * @method bool hasScheduleDescription()
+ * @method $this setImportedStartDatetime(string $value)
+ * @method $this setMethodCode(string $value)
+ * @method string setScheduleDescription(string $value)
+ * @method $this setStartDatetime(string $value)
  */
 class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 {
@@ -67,7 +67,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     protected $_errors = [];
 
     /**
-     *
      * @var Mage_Payment_Model_Method_Abstract
      */
     protected $_methodInstance = null;
@@ -327,7 +326,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Convert the start datetime (if set) to proper locale/timezone and return
      *
      * @param bool $asString
-     * @return Zend_Date|string
+     * @return string|Zend_Date
      */
     public function exportStartDatetime($asString = true)
     {
@@ -416,7 +415,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Getter for field label
      *
      * @param string $field
-     * @return string|null
+     * @return null|string
      */
     public function getFieldLabel($field)
     {
@@ -450,7 +449,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Getter for field comments
      *
      * @param string $field
-     * @return string|null
+     * @return null|string
      */
     public function getFieldComment($field)
     {

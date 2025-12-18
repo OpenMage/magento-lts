@@ -70,13 +70,13 @@ function updateProgress(sessionId, idx, time, memory) {
     } else {
         if (eta_hours) {
             eta_str += eta_hours+" "+(eta_hours>1 ? \''
-            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . '\' : \''
+            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . "' : '"
             . Mage::helper('core')->jsQuoteEscape($this->__('hour')) . '\'");
         }
         if (eta_minutes) {
             eta_str += eta_minutes+" "+(eta_minutes>1 ? \''
             . Mage::helper('core')->jsQuoteEscape($this->__('minutes'))
-            . '\' : \'' . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
+            . "' : '" . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
         }
     }
 

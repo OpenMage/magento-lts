@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setUseAjax(false);
-        if (isset($this->_columnGroupBy)) {
+        if (!is_null($this->_columnGroupBy)) {
             $this->isColumnGrouped($this->_columnGroupBy, true);
         }
 
@@ -112,8 +112,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldValue = $v;
                 }
 
-                if (!$filterData->hasData($filterFieldId) ||
-                    $filterData->getData($filterFieldId) != $filterFieldValue
+                if (!$filterData->hasData($filterFieldId)
+                    || $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
                     return $this;  // don't add column
                 }
@@ -293,8 +293,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return double
+     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @return float
      */
     public function getRate($toCurrency)
     {

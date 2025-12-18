@@ -17,7 +17,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Prefix of model events names
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_mediaBaseDirectory = null;
 
@@ -28,7 +28,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     protected $_ignoredFiles;
 
     /**
-     * @var resource|null
+     * @var null|resource
      */
     protected $filePointer;
 

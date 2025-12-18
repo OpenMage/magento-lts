@@ -30,7 +30,6 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
 
     /**
      * Define resource model for collection
-     *
      */
     protected function _construct()
     {
@@ -69,8 +68,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Apply quote item(s) filter to collection
      *
-     * @param int | array $item
+     * @param array|int|Mage_Sales_Model_Quote_Item $item
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addItemFilter($item)
     {
@@ -103,8 +103,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param mixed $item
+     * @param int|Mage_Sales_Model_Quote_Item|string $item
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getOptionsByItem($item)
     {
@@ -129,8 +130,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param int | Mage_Catalog_Model_Product $product
+     * @param int|Mage_Catalog_Model_Product $product
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getOptionsByProduct($product)
     {

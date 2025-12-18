@@ -41,7 +41,6 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
     /**
      * Define resource model and model
-     *
      */
     protected function _construct()
     {
@@ -73,10 +72,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -88,10 +86,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return bool
+     * @deprecated after 1.3.2.3
      */
     public function getJoinFlag($table)
     {
@@ -102,10 +99,9 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -245,7 +241,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Adds field to filter
      *
      * @param string $field
-     * @param array $condition
+     * @param null|array|int|string $condition
      * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
@@ -285,7 +281,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Add filter by store
      *
-     * @param array | int $storeId
+     * @param array|int $storeId
      * @param bool $allFilter
      * @return $this
      */

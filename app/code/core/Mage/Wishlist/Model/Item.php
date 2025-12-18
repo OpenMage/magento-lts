@@ -13,25 +13,25 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
- * @method Mage_Wishlist_Model_Resource_Item getResource()
- * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
- *
  * @method string getAddedAt()
- * @method $this setAddedAt(string $value)
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  * @method string getDescription()
- * @method $this setDescription(string $value)
  * @method bool getHasError()
  * @method string getMessage()
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method $this unsProduct()
  * @method float getQty()
+ * @method Mage_Wishlist_Model_Resource_Item getResource()
+ * @method Mage_Wishlist_Model_Resource_Item_Collection getResourceCollection()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method int getWishlistId()
- * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
+ * @method $this setAddedAt(string $value)
+ * @method $this setDescription(string $value)
+ * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method $this setProductId(int $value)
+ * @method $this setStoreId(int $value)
  * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
+ * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
+ * @method $this unsProduct()
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
@@ -94,7 +94,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
     /**
      * Flag stating that options were successfully saved
-     *
      */
     protected $_flagOptionsSaved = null;
 
@@ -227,8 +226,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Validate wish list item data
      *
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate()
     {
@@ -271,8 +270,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve wishlist item data as array
      *
-     * @deprecated since 1.4.0.0
      * @return array
+     * @deprecated since 1.4.0.0
      */
     public function getDataForSave()
     {
@@ -305,8 +304,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Retrieve item product instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -340,9 +339,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Return true if product was successful added or exception with code
      * Return false for disabled or unvisible products
      *
-     * @throws Mage_Core_Exception
      * @param bool $delete  delete the item after successful add to cart
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function addToCart(Mage_Checkout_Model_Cart $cart, $delete = false)
     {
@@ -383,6 +382,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * If product has required options add special key to URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getProductUrl()
     {
@@ -510,6 +510,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @param   Mage_Catalog_Model_Product $product
      * @return  bool
+     * @throws  Mage_Core_Exception
      */
     public function representProduct($product)
     {
@@ -647,7 +648,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Wishlist_Model_Item_Option|null
+     * @return  null|Mage_Wishlist_Model_Item_Option
      */
     public function getOptionByCode($code)
     {
@@ -662,6 +663,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Returns whether Qty field is valid for this item
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canHaveQty()
     {
@@ -679,11 +681,14 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
     /**
      * Sets custom option download url
+     *
      * @param string $url
+     * @return $this
      */
     public function setCustomDownloadUrl($url)
     {
         $this->_customOptionDownloadUrl = $url;
+        return $this;
     }
 
     /**
@@ -707,7 +712,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * can be provided in $optionsFilter.
      *
      * @param int $id
-     * @param null|string|array $optionsFilter
+     * @param null|array|string $optionsFilter
      *
      * @return $this
      */

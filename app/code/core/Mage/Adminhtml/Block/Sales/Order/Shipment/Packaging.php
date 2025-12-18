@@ -29,6 +29,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
      * Configuration for popup window for packaging
      *
      * @return string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getConfigDataJson()
     {
@@ -205,6 +207,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
      * @param int $itemId
      * @param string $itemsOf
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getShipmentItem($itemId, $itemsOf)
     {
@@ -263,6 +266,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
      * Print button for creating pdf
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getPrintButton()
     {
@@ -353,14 +357,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
      * Get ordered qty of item
      *
      * @param int $itemId
-     * @return int|null
+     * @return null|int
      */
     public function getQtyOrderedItem($itemId)
     {
         if ($itemId) {
             return $this->getShipment()->getOrder()->getItemById($itemId)->getQtyOrdered() * 1;
         } else {
-            return;
+            return null;
         }
     }
 }

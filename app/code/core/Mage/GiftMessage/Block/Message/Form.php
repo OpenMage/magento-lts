@@ -14,7 +14,7 @@
 class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_GiftMessage_Model_Message|null
+     * @var null|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage = null;
 

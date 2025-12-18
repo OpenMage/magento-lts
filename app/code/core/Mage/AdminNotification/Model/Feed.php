@@ -25,13 +25,12 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Feed url
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_feedUrl;
 
     /**
      * Init model
-     *
      */
     protected function _construct() {}
 
@@ -109,7 +108,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve Last update time
      *
-     * @return string|false
+     * @return false|string
      */
     public function getLastUpdate()
     {
@@ -130,7 +129,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve feed data as XML element
      *
-     * @return SimpleXMLElement|false
+     * @return false|SimpleXMLElement
      */
     public function getFeedData()
     {

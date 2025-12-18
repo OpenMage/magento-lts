@@ -12,17 +12,17 @@
  *
  * @package    Varien_Data
  *
+ * @method bool getDisabled()
  * @method string getFormat()
+ * @method string getImage()
  * @method string getInputFormat()
  * @method string getLocale()
- * @method string getImage()
  * @method string getTime()
- * @method bool getDisabled()
  */
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
     /**
-     * @var Zend_Date|string
+     * @var string|Zend_Date
      */
     protected $_value;
 
@@ -132,7 +132,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     /**
      * Get value instance, if any
      *
-     * @return Zend_Date|string|null
+     * @return null|string|Zend_Date
      */
     public function getValueInstance()
     {

@@ -37,7 +37,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
     /**
      * Import constants
-     *
      */
     public const DEFAULT_SIZE      = 50;
 
@@ -67,8 +66,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Create instance of entity adapter and returns it.
      *
-     * @throws Mage_Core_Exception
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getEntityAdapter()
     {
@@ -175,8 +174,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     public static function getAttributeType(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         if ($attribute->usesSource()) {
-            return $attribute->getFrontendInput() == 'multiselect' ?
-                'multiselect' : 'select';
+            return $attribute->getFrontendInput() == 'multiselect'
+                ? 'multiselect' : 'select';
         } elseif ($attribute->isStatic()) {
             return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
         } else {
@@ -385,8 +384,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Move uploaded file and create source adapter instance.
      *
-     * @throws Mage_Core_Exception
      * @return string Source file path
+     * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function uploadSource()

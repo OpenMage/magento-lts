@@ -55,6 +55,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available extends Vari
             . Mage::helper('adminhtml')->__('Use All Available Attributes') . '</label>';
 
         return $html . ('<script type="text/javascript">toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
-            . '\').parentNode);</script>');
+            . "').parentNode);</script>");
     }
 }

@@ -102,7 +102,7 @@ class Mage_Persistent_Model_Persistent_Config
      * Run one method by given method info
      *
      * @param array $info
-     * @param Mage_Core_Block_Abstract|false $instance
+     * @param false|Mage_Core_Block_Abstract $instance
      * @return $this
      * @throws Mage_Core_Exception
      */

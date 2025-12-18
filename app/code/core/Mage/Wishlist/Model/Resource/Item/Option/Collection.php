@@ -68,7 +68,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     /**
      * Apply quote item(s) filter to collection
      *
-     * @param  int|array|Mage_Wishlist_Model_Item $item
+     * @param  array|int|Mage_Wishlist_Model_Item $item
      * @return $this
      */
     public function addItemFilter($item)

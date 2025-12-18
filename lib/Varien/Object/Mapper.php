@@ -33,8 +33,8 @@ class Varien_Object_Mapper
      *     <Varien_Object> => $from->setData($key, <from>)
      *     array(<Varien_Object>, <method>) => $from->$method($key, <from>)
      *
-     * @param array|Varien_Object|callback $from
-     * @param array|Varien_Object|callback $to
+     * @param array|callable|Varien_Object $from
+     * @param array|callable|Varien_Object $to
      * @return array|Varien_Object
      */
     public static function &accumulateByMap($from, $to, array $map, array $defaults = [])

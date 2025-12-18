@@ -136,8 +136,8 @@ class Mage_Api2_Model_Server
     /**
      * Authenticate user
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
+     * @throws Exception
      */
     protected function _authenticate(Mage_Api2_Model_Request $request)
     {
@@ -162,8 +162,8 @@ class Mage_Api2_Model_Server
     /**
      * Retrieve existing auth user
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
+     * @throws Exception
      */
     protected function _getAuthUser()
     {

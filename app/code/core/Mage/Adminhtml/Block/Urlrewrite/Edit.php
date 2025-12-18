@@ -87,9 +87,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'skip_categories',
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
-                        'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
+                        'onclick' => "window.location = '" . Mage::helper('adminhtml')->getUrl('*/*/*', [
                             'product' => $this->getProductId(),
-                        ]) . '\'',
+                        ]) . "'",
                         'class'   => 'save',
                         'level'   => -1,
                     ]),
@@ -137,13 +137,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             ]);
             $this->_addButton('delete', [
                 'label'   => Mage::helper('adminhtml')->__('Delete'),
-                'onclick' => 'deleteConfirm(\''
+                'onclick' => "deleteConfirm('"
                     . Mage::helper('core')->jsQuoteEscape(
                         Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
                     )
-                    . '\', \''
+                    . "', '"
                     . Mage::helper('adminhtml')->getUrl('*/*/delete', ['id' => $this->getUrlrewriteId()])
-                    . '\')',
+                    . "')",
                 'class'   => 'scalable delete',
                 'level'   => -1,
             ]);

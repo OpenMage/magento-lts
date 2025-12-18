@@ -14,7 +14,6 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
 {
     /**
      * Initialize email queue resource model
-     *
      */
     protected function _construct()
     {
@@ -54,7 +53,6 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
 
     /**
      * Check if email was added to queue for requested recipients
-     *
      *
      * @return bool
      */
@@ -140,8 +138,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param int $messageId
      *
-     * @throws Exception
      * @return $this
+     * @throws Exception
      */
     public function saveRecipients($messageId, array $recipients)
     {

@@ -16,7 +16,9 @@ class Mage_Catalog_Model_Index
 {
     /**
      * Rebuild indexes
+     *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function rebuild()
     {

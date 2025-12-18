@@ -23,7 +23,6 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
 
     /**
      * Init model for collection
-     *
      */
     protected function _construct()
     {
@@ -49,7 +48,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     /**
      * Retrieve Store ID Filter
      *
-     * @return int|null
+     * @return null|int
      */
     public function getStoreId()
     {
@@ -90,7 +89,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     /**
      * Set Popular Search Query Filter
      *
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return $this
      */
     public function setPopularQueryFilter($storeIds = null)

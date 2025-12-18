@@ -22,6 +22,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param string $function
      * @param array $args
      * @return stdClass
+     * @throws Mage_Api_Exception
+     * @throws ReflectionException
      */
     public function __call($function, $args)
     {
@@ -70,7 +72,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      * Login user and Retrieve session id
      *
      * @param string $username
-     * @param string|null $apiKey
+     * @param null|string $apiKey
      * @return stdClass
      */
     public function login($username, $apiKey = null)
@@ -123,6 +125,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param String $modelName
      * @param String $methodName
      * @return array of ReflectionParameter
+     * @throws ReflectionException
      */
     public function getMethodParams($modelName, $methodName)
     {
@@ -137,6 +140,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      * @param array $params
      * @param array $args
      * @return array
+     * @throws ReflectionException
      */
     public function prepareArgs($params, $args)
     {

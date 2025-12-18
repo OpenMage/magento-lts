@@ -15,7 +15,6 @@
 class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
-     *
      * Request parameters names
      */
     public const REQUEST_PARAM_COUNTRY = 'country';
@@ -25,7 +24,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     /**
      * Country of default scope
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_defaultCountry;
 
@@ -105,7 +104,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
-        return parent::_getElementHtml($element) .
-            $helper->getScript('document.observe("dom:loaded", function() {' . $jsString . '});');
+        return parent::_getElementHtml($element)
+            . $helper->getScript('document.observe("dom:loaded", function() {' . $jsString . '});');
     }
 }

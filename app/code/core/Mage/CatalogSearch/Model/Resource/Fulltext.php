@@ -17,7 +17,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Searchable attributes cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_searchableAttributes     = null;
 
@@ -64,7 +64,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
     /**
      * Init resource model
-     *
      */
     protected function _construct()
     {
@@ -85,8 +84,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Regenerate search index for store(s)
      *
-     * @param  int|null $storeId
-     * @param  int|array|null $productIds
+     * @param  null|int $storeId
+     * @param  null|array|int $productIds
      * @return $this
      */
     public function rebuildIndex($storeId = null, $productIds = null)
@@ -107,7 +106,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Regenerate search index for specific store
      *
      * @param int $storeId Store View Id
-     * @param int|array $productIds Product Entity Id
+     * @param array|int $productIds Product Entity Id
      * @return $this
      */
     protected function _rebuildStoreIndex($storeId, $productIds = null)
@@ -520,9 +519,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                     ->joinLeft(
                         ['t_store' => $tableName],
                         $adapter->quoteInto(
-                            't_default.entity_id=t_store.entity_id' .
-                                ' AND t_default.attribute_id=t_store.attribute_id' .
-                                ' AND t_store.store_id=?',
+                            't_default.entity_id=t_store.entity_id'
+                                . ' AND t_default.attribute_id=t_store.attribute_id'
+                                . ' AND t_store.store_id=?',
                             $storeId,
                         ),
                         ['value' => $this->_unifyField($ifStoreValue, $backendType)],
@@ -581,7 +580,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param int $productId
      * @param int $typeId
      * @param null|int $websiteId
-     * @return array|null
+     * @return null|array
      */
     protected function _getProductChildrenIds($productId, $typeId, $websiteId = null)
     {
@@ -618,7 +617,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $productId Product Entity Id
      * @param string $typeId Super Product Link Type
-     * @return array|null
+     * @return null|array
      */
     protected function _getProductChildIds($productId, $typeId)
     {
@@ -800,7 +799,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId
      * @param string $date
-     * @return string|null
+     * @return null|string
      */
     protected function _getStoreDate($storeId, $date = null)
     {
@@ -829,9 +828,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {
@@ -842,11 +841,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     /**
      * Update category products indexes
      *
-     * @deprecated after 1.6.2.0
-     *
      * @param array $productIds
      * @param array $categoryIds
      * @return $this
+     * @deprecated after 1.6.2.0
      */
     public function updateCategoryIndex($productIds, $categoryIds)
     {

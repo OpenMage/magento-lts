@@ -382,7 +382,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Add session error method
      *
-     * @param string|array $errors
+     * @param array|string $errors
      */
     protected function _addSessionError($errors)
     {
@@ -523,12 +523,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * @param string $path
+     * @param null|array $arguments
+     * @return false|Mage_Core_Model_Abstract
      * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
      * Get model by path
-     *
-     * @param string $path
-     * @param array|null $arguments
-     * @return false|Mage_Core_Model_Abstract
      */
     public function _getModel($path, $arguments = [])
     {
@@ -552,8 +551,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      *
      * @param bool $isJustConfirmed
      * @return string
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _welcomeCustomer(Mage_Customer_Model_Customer $customer, $isJustConfirmed = false)
     {
@@ -798,7 +797,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Display reset forgotten password form
-     *
      */
     public function changeForgottenAction()
     {
@@ -817,7 +815,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Checks reset forgotten password token
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email.
-     *
      */
     public function resetPasswordAction()
     {
@@ -905,7 +902,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return string|false
+     * @return false|string
      */
     protected function getCustomerId()
     {
@@ -1102,7 +1099,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     protected function _isVatValidationEnabled($store = null)

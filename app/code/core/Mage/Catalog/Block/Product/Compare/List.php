@@ -17,14 +17,14 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Product Compare items collection
      *
-     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_items;
 
     /**
      * Compare Products comparable attributes cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
@@ -86,7 +86,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             Mage::helper('catalog/product_compare')->setAllowUsedFlat(false);
 
             $this->_items = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
+                ->useProductItem()
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {

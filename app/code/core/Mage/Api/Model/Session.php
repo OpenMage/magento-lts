@@ -12,10 +12,10 @@
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_User getUser()
- * @method $this setUser(Mage_Api_Model_User $user)
  * @method Mage_Api_Model_Acl getAcl()
+ * @method Mage_Api_Model_User getUser()
  * @method $this setAcl(Mage_Api_Model_Acl $loadAcl)
+ * @method $this setUser(Mage_Api_Model_User $user)
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -24,7 +24,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     protected $_currentSessId = null;
 
     /**
-     * @param string|null $sessionName
+     * @param null|string $sessionName
      * @return $this
      */
     public function start($sessionName = null)
@@ -36,7 +36,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * @param string $namespace
-     * @param string|null $sessionName
+     * @param null|string $sessionName
      * @return $this
      */
     public function init($namespace, $sessionName = null)
@@ -57,7 +57,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string|null $sessId
+     * @param null|string $sessId
      * @return $this
      */
     public function setSessionId($sessId = null)
@@ -149,7 +149,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param Mage_Api_Model_User|null $user
+     * @param null|Mage_Api_Model_User $user
      * @return $this
      */
     public function refreshAcl($user = null)
@@ -176,7 +176,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * Check current user permission on resource and privilege
-     *
      *
      * @param   string $resource
      * @param   string $privilege
@@ -223,7 +222,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string|false $sessId
+     * @param false|string $sessId
      * @return bool
      * @throws Mage_Core_Exception
      */

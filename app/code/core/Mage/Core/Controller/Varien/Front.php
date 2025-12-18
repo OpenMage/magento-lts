@@ -11,8 +11,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
- * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  * @method bool getNoRender()
+ * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
@@ -31,7 +31,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
     /**
      * @param array|string $key
-     * @param string|null $value
+     * @param null|string $value
      * @return $this
      */
     public function setDefault($key, $value = null)
@@ -46,7 +46,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @param string|null $key
+     * @param null|string $key
      * @return array|false
      */
     public function getDefault($key = null)
@@ -97,7 +97,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Retrieve router by name
      *
      * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Router_Abstract|false
+     * @return  false|Mage_Core_Controller_Varien_Router_Abstract
      */
     public function getRouter($name)
     {

@@ -33,11 +33,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Apply design from catalog object
      *
-     * @deprecated after 1.4.2.0-beta1
-     *
      * @param array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param int $calledFrom
      * @return $this
+     * @deprecated after 1.4.2.0-beta1
      */
     public function applyDesign($object, $calledFrom = 0)
     {
@@ -72,7 +71,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply custom design
      *
      * @param string $design
-     * @return void|false
+     * @return false|void
      */
     public function applyCustomDesign($design)
     {
@@ -89,12 +88,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Check is allow apply for
      *
-     * @deprecated after 1.4.1.0
-     *
      * @param int $applyForObject
      * @param int $applyTo
      * @param int $pass
      * @return bool
+     * @deprecated after 1.4.1.0
      */
     protected function _isApplyFor($applyForObject, $applyTo, $pass = 0)
     {
@@ -154,7 +152,6 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param string $design
      * @return bool
      * @deprecated after 1.4.2.0-beta1
-     *
      */
     protected function _isApplyDesign($design, array $date)
     {
@@ -183,12 +180,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Recursively apply design
      *
-     * @deprecated after 1.4.2.0-beta1
-     *
      * @param Varien_Object $object
      * @param int $calledFrom
      *
      * @return $this
+     * @deprecated after 1.4.2.0-beta1
      */
     protected function _inheritDesign($object, $calledFrom = 0)
     {
@@ -204,10 +200,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
             $useParentSettings = $object->getCustomUseParentSettings();
             if ($useParentSettings) {
-                if ($category &&
-                    $category->getId() &&
-                    $category->getLevel() > 1 &&
-                    $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
+                if ($category
+                    && $category->getId()
+                    && $category->getLevel() > 1
+                    && $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
                 ) {
                     return $this->_inheritDesign($category, $calledFrom);
                 }
@@ -233,13 +229,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Apply design recursively (if using EAV)
      *
-     * @deprecated after 1.4.1.0
-     *
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param int $calledFrom
      * @param int $pass
      *
      * @return $this
+     * @deprecated after 1.4.1.0
      */
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {

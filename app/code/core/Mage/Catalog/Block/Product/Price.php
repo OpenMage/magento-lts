@@ -12,9 +12,9 @@
  *
  * @package    Mage_Catalog
  *
- * @method $this setPriceElementIdPrefix(string $value)
- * @method bool hasRealPriceHtml()
  * @method string getRealPriceHtml()
+ * @method bool hasRealPriceHtml()
+ * @method $this setPriceElementIdPrefix(string $value)
  * @method $this setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
@@ -211,8 +211,8 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * If attribute is not found false is returned
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
+     * @param int|Mage_Core_Model_Config_Element|string $attribute
+     * @return false|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attribute)
     {

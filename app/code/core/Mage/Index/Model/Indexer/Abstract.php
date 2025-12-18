@@ -110,6 +110,10 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      */
     public function matchEntityAndType($entity, $type)
     {
+        if ($entity === null) {
+            $entity = '';
+        }
+
         if (isset($this->_matchedEntities[$entity])) {
             if (in_array($type, $this->_matchedEntities[$entity])) {
                 return true;
@@ -152,9 +156,9 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return Mage_Index_Model_Indexer_Abstract
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {

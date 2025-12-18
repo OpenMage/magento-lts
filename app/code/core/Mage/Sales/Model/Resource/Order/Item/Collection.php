@@ -133,7 +133,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter by customerId
      *
-     * @param int|array $customerId
+     * @param array|int $customerId
      * @return $this
      */
     public function addFilterByCustomerId($customerId)

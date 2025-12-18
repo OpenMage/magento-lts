@@ -12,11 +12,11 @@
  *
  * @package    Mage_Adminhtml
  *
+ * @method string getQuery()
  * @method bool hasLimit()
  * @method bool hasQuery()
- * @method string getQuery()
- * @method bool setResults(array $value)
  * @method bool hasStart()
+ * @method bool setResults(array $value)
  */
 class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
 {

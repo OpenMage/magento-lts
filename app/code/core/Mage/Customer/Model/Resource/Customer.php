@@ -41,31 +41,31 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Check customer scope, email and confirmation key before saving
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param Mage_Customer_Model_Customer $object
      * @return $this
      * @throws Mage_Core_Exception
      */
-    protected function _beforeSave(Varien_Object $customer)
+    protected function _beforeSave(Varien_Object $object)
     {
-        parent::_beforeSave($customer);
+        parent::_beforeSave($object);
 
-        if (!$customer->getEmail()) {
+        if (!$object->getEmail()) {
             throw Mage::exception('Mage_Customer', Mage::helper('customer')->__('Customer email is required'));
         }
 
         $adapter = $this->_getWriteAdapter();
-        $bind    = ['email' => $customer->getEmail()];
+        $bind    = ['email' => $object->getEmail()];
 
         $select = $adapter->select()
             ->from($this->getEntityTable(), [$this->getEntityIdField()])
             ->where('email = :email');
-        if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $bind['website_id'] = (int) $customer->getWebsiteId();
+        if ($object->getSharingConfig()->isWebsiteScope()) {
+            $bind['website_id'] = (int) $object->getWebsiteId();
             $select->where('website_id = :website_id');
         }
 
-        if ($customer->getId()) {
-            $bind['entity_id'] = (int) $customer->getId();
+        if ($object->getId()) {
+            $bind['entity_id'] = (int) $object->getId();
             $select->where('entity_id != :entity_id');
         }
 
@@ -79,15 +79,15 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
 
         // set confirmation key logic
-        if ($customer->getForceConfirmed()) {
-            $customer->setConfirmation(null);
-        } elseif (!$customer->getId() && $customer->isConfirmationRequired()) {
-            $customer->setConfirmation($customer->getRandomConfirmationKey());
+        if ($object->getForceConfirmed()) {
+            $object->setConfirmation(null);
+        } elseif (!$object->getId() && $object->isConfirmationRequired()) {
+            $object->setConfirmation($object->getRandomConfirmationKey());
         }
 
         // remove customer confirmation key from database, if empty
-        if (!$customer->getConfirmation()) {
-            $customer->setConfirmation(null);
+        if (!$object->getConfirmation()) {
+            $object->setConfirmation(null);
         }
 
         return $this;
@@ -96,18 +96,22 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Save customer addresses and set default addresses in attributes backend
      *
+     * @param Mage_Customer_Model_Customer $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
-    protected function _afterSave(Varien_Object $customer)
+    protected function _afterSave(Varien_Object $object)
     {
-        $this->_saveAddresses($customer);
-        return parent::_afterSave($customer);
+        $this->_saveAddresses($object);
+        return parent::_afterSave($object);
     }
 
     /**
      * Save/delete customer address
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
@@ -183,13 +187,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Load customer by email
      *
-     * @throws Mage_Core_Exception
-     *
      * @param string $email
-     * @param bool $testOnly
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
+    public function loadByEmail(Mage_Customer_Model_Customer $customer, $email)
     {
         $adapter = $this->_getReadAdapter();
         $bind    = ['customer_email' => $email];
@@ -223,6 +225,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param string $newPassword
      * @return $this
+     * @throws Exception
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
@@ -314,6 +317,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param string $newResetPasswordLinkToken
      * @return $this
+     * @throws Exception
      */
     public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
     {
@@ -354,7 +358,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * If attribute password_created_at is empty, return created_at timestamp
      *
      * @param int $customerId
-     * @return int|false
+     * @return false|int
      */
     public function getPasswordTimestamp($customerId)
     {
@@ -386,7 +390,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Get email by customer ID.
      *
      * @param int $customerId
-     * @return string|false
+     * @return false|string
      */
     public function getEmail($customerId)
     {

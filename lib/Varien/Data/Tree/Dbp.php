@@ -28,7 +28,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     /**
      * DB connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface
      */
     protected $_conn;
 
@@ -71,9 +71,10 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      *      Varien_Data_Tree_Dbp::LEVEL_FIELD    => string
      * )
      *
-     * @param Zend_Db_Adapter_Abstract $connection
+     * @param Varien_Db_Adapter_Interface $connection
      * @param string $table
      * @param array $fields
+     * @throws Exception
      */
     public function __construct($connection, $table, $fields)
     {
@@ -99,7 +100,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $this->_orderField  = $fields[self::ORDER_FIELD];
         $this->_levelField  = $fields[self::LEVEL_FIELD];
 
-        /** @var Varien_Db_Select $select */
         $select = $this->_conn->select();
         $this->_select = $select;
         $this->_select->from($this->_table);
@@ -189,9 +189,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
-     * @param Varien_Data_Tree_Node|null $parentNode
+     * @param null|Varien_Data_Tree_Node $parentNode
      * @param int $level
      */
     public function addChildNodes($children, $path, $parentNode, $level = 0)
@@ -276,15 +276,14 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     /**
      * Move tree node
      *
-     * @todo Use adapter for generate conditions
      * @param Varien_Data_Tree_Node|Varien_Object $node
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
+     * @throws Exception
+     * @todo Use adapter for generate conditions
      */
     public function move($node, $newParent, $prevNode = null)
     {
-        $position = 1;
-
         $oldPath = $node->getData($this->_pathField);
         $newPath = $newParent->getData($this->_pathField);
 
@@ -371,7 +370,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node|array $children
+     * @param array|Varien_Data_Tree_Node $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param bool $withChildren

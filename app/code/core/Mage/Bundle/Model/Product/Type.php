@@ -103,7 +103,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -660,7 +660,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 ];
 
                 $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
-                if (is_string($_result) && !is_array($_result)) {
+                if (is_string($_result)) {
                     return $_result;
                 }
 
@@ -1035,7 +1035,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool|null
+     * @return null|bool
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

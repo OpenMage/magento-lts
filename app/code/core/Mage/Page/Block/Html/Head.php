@@ -13,15 +13,14 @@
  * @package    Mage_Page
  *
  * @method $this setCanLoadCalendarJs(bool $value)
+ * @method $this setCanLoadTinyMce(bool $value)
  * @method $this setDescription(string $value)
  * @method $this setKeywords(string $value)
- * @method $this setCanLoadTinyMce(bool $value)
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
     /**
      * Initialize template
-     *
      */
     protected function _construct()
     {
@@ -117,7 +116,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $if
      * @param string $cond
      * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
-     * @param string|bool $before If true insert before the $referenceName instead of after
+     * @param bool|string $before If true insert before the $referenceName instead of after
      * @return $this
      */
     public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = '*', $before = false)
@@ -302,13 +301,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Classify HTML head item and queue it into "lines" array
      *
-     * @see self::getCssJsHtml()
      * @param array $lines
      * @param string $itemIf
      * @param string $itemType
      * @param string $itemParams
      * @param string $itemName
      * @param array $itemThe
+     * @see self::getCssJsHtml()
      */
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {
@@ -331,9 +330,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Render arbitrary HTML head items
      *
-     * @see self::getCssJsHtml()
      * @param array $items
      * @return string
+     * @see self::getCssJsHtml()
      */
     protected function _prepareOtherHtmlHeadElements($items)
     {
@@ -552,7 +551,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
     /**
      * @param string $referenceName
-     * @param string|bool $before
+     * @param bool|string $before
      * @param string $type
      */
     protected function _sortItems($referenceName, $before, $type)

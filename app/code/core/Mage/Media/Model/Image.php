@@ -25,13 +25,13 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Image resource
-     * @var resource|null
+     * @var null|resource
      */
     protected $_image;
 
     /**
      * Tmp image resource
-     * @var resource|null
+     * @var null|resource
      */
     protected $_tmpImage;
 
@@ -199,7 +199,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * @param string $param
-     * @return string|null
+     * @return null|string
      */
     public function getParam($param)
     {

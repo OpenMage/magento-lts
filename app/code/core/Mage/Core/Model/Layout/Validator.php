@@ -43,7 +43,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     protected $_disallowedXPathExpressions = [
         '*//template',
         '*//@template',
-        '//*[@method=\'setTemplate\']',
+        "//*[@method='setTemplate']",
         '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
         \'ABCDEFGHIJKLMNOPQRSTUVWXYZ\', \'abcdefghijklmnopqrstuvwxyz\'), \'template\')]/../*',
     ];
@@ -84,15 +84,15 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
-                    Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
+                    => Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('core')->__(
                     'Invalid template path used in layout update.',
                 ),
                 self::INVALID_BLOCK_NAME => Mage::helper('core')->__('Disallowed block name for frontend.'),
-                self::INVALID_XML_OBJECT_EXCEPTION =>
-                    Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
+                self::INVALID_XML_OBJECT_EXCEPTION
+                    => Mage::helper('core')->__('XML object is not instance of "Varien_Simplexml_Element".'),
             ];
         }
 
@@ -131,10 +131,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
+     * @param string|Varien_Simplexml_Element $value
+     * @return bool
      * @throws Exception            Throw exception when xml object is not
      *                              instance of Varien_Simplexml_Element
-     * @param Varien_Simplexml_Element|string $value
-     * @return bool
      */
     public function isValid($value)
     {
@@ -214,10 +214,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             if (count($this->_disallowedBlock)) {
                 foreach ($this->_disallowedBlock as $key => $value) {
                     $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
-                    $this->_xpathBlockValidationExpression .=
-                        "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
-                    $this->_xpathBlockValidationExpression .=
-                        "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
+                    $this->_xpathBlockValidationExpression
+                        .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                    $this->_xpathBlockValidationExpression
+                        .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
                 }
             }
         }

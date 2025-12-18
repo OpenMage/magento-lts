@@ -34,7 +34,7 @@ class Mage_Paypal_Model_Pro
     /**
      * API instance
      *
-     * @var Mage_Paypal_Model_Api_Nvp|false|null
+     * @var null|false|Mage_Paypal_Model_Api_Nvp
      */
     protected $_api = null;
 
@@ -63,7 +63,7 @@ class Mage_Paypal_Model_Pro
      * Payment method code setter. Also instantiates/updates config
      *
      * @param string $code
-     * @param int|null $storeId
+     * @param null|int $storeId
      * @return $this
      */
     public function setMethod($code, $storeId = null)
@@ -189,6 +189,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Void transaction
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -205,8 +208,9 @@ class Mage_Paypal_Model_Pro
      * Attempt to capture payment
      * Will return false if the payment is not supposed to be captured
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return false|null
+     * @return false|void
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -231,7 +235,9 @@ class Mage_Paypal_Model_Pro
     /**
      * Refund a capture transaction
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -258,6 +264,9 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Cancel payment
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @throws Mage_Core_Exception
      */
     public function cancel(Varien_Object $payment)
     {
@@ -267,7 +276,6 @@ class Mage_Paypal_Model_Pro
     }
 
     /**
-     *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */

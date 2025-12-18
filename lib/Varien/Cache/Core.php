@@ -12,7 +12,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Specific slab size = 1Mb minus overhead
      *
-     * @var array $_specificOptions
+     * @var array
      */
     protected $_specificOptions = ['slab_size' => 0];
 
@@ -24,8 +24,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Constructor
      *
-     * @throws Varien_Exception
      * @param array|Zend_Config $options Associative array of options or Zend_Config instance
+     * @throws Varien_Exception
      */
     public function __construct($options = [])
     {
@@ -133,9 +133,9 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * Load data from cached, glue from several chunks if it was split upon save.
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
-     * @return mixed|false Cached data
+     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
+     * @return false|mixed Cached data
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
     {
@@ -186,8 +186,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * @param  string       $mode
      * @param  array|string $tags
-     * @throws Zend_Cache_Exception
      * @return bool True if ok
+     * @throws Zend_Cache_Exception
      */
     public function clean($mode = 'all', $tags = [])
     {

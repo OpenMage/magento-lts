@@ -44,24 +44,24 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected $_skipRoot;
 
     /**
-    * Tarball data writer
-    *
-    * @var Mage_Archive_Helper_File|null
-    */
+     * Tarball data writer
+     *
+     * @var null|Mage_Archive_Helper_File
+     */
     protected $_writer;
 
     /**
-    * Tarball data reader
-    *
-    * @var Mage_Archive_Helper_File|null
-    */
+     * Tarball data reader
+     *
+     * @var null|Mage_Archive_Helper_File
+     */
     protected $_reader;
 
     /**
-    * Path to file where tarball should be placed
-    *
-    * @var string
-    */
+     * Path to file where tarball should be placed
+     *
+     * @var string
+     */
     protected $_destinationFilePath;
 
     /**
@@ -184,11 +184,11 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     }
 
     /**
-    * Set path to file where tarball should be placed
-    *
-    * @param string $destinationFilePath
-    * @return Mage_Archive_Tar
-    */
+     * Set path to file where tarball should be placed
+     *
+     * @param string $destinationFilePath
+     * @return Mage_Archive_Tar
+     */
     protected function _setDestinationFilePath($destinationFilePath)
     {
         $this->_destinationFilePath = $destinationFilePath;
@@ -236,9 +236,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Walk through directory and add to tar file or directory.
      * Result is packed string on TAR format.
      *
-     * @deprecated after 1.7.0.0
      * @param bool $skipRoot
      * @return string
+     * @deprecated after 1.7.0.0
      */
     protected function _packToTar($skipRoot = false)
     {
@@ -255,7 +255,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         if (is_dir($file)) {
             $treeDir = scandir($file);
             if (empty($treeDir)) {
-                throw new Mage_Exception('Can\'t scan dir: ' . $file);
+                throw new Mage_Exception("Can't scan dir: " . $file);
             }
 
             array_shift($treeDir); /* remove  './'*/
@@ -288,7 +288,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $dirFiles = scandir($file);
 
             if (false === $dirFiles) {
-                throw new Mage_Exception('Can\'t scan dir: ' . $file);
+                throw new Mage_Exception("Can't scan dir: " . $file);
             }
 
             array_shift($dirFiles); /* remove  './'*/
@@ -455,9 +455,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Get header from TAR string and unpacked it by format.
      *
-     * @deprecated after 1.7.0.0
      * @param resource $pointer
      * @return array|false
+     * @deprecated after 1.7.0.0
      */
     protected function _parseHeader(&$pointer)
     {

@@ -34,14 +34,14 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var string|int|Mage_Core_Model_Store
+     * @var null|int|Mage_Core_Model_Store|string
      */
     protected $_store = null;
 
     /**
      * Package area
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_area;
 
@@ -74,12 +74,12 @@ class Mage_Core_Model_Design_Package
     protected $_callbackFileDir;
 
     /**
-     * @var Mage_Core_Model_Design_Config|null
+     * @var null|Mage_Core_Model_Design_Config
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Design_Fallback|null
+     * @var null|Mage_Core_Model_Design_Fallback
      */
     protected $_fallback = null;
 
@@ -106,7 +106,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Set store
      *
-     * @param  string|int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -122,7 +122,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Retrieve store
      *
-     * @return string|int|Mage_Core_Model_Store
+     * @return int|Mage_Core_Model_Store|string
      */
     public function getStore()
     {
@@ -336,8 +336,8 @@ class Mage_Core_Model_Design_Package
     public function getBaseDir(array $params)
     {
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . $params['_type'];
+        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . $params['_type'];
     }
 
     /**
@@ -347,8 +347,8 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('skin') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'];
+        return (empty($params['_relative']) ? Mage::getBaseDir('skin') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'];
     }
 
     /**
@@ -358,9 +358,9 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
-        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '') .
-            $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . 'locale' . DS .
-            Mage::app()->getLocale()->getLocaleCode();
+        return (empty($params['_relative']) ? Mage::getBaseDir('design') . DS : '')
+            . $params['_area'] . DS . $params['_package'] . DS . $params['_theme'] . DS . 'locale' . DS
+            . Mage::app()->getLocale()->getLocaleCode();
     }
 
     /**
@@ -385,9 +385,9 @@ class Mage_Core_Model_Design_Package
      * - _theme: if not set = default
      * - _file: path relative to theme root
      *
-     * @see Mage_Core_Model_Config::getBaseDir
      * @param string $file
-     * @return string|false
+     * @return false|string
+     * @see Mage_Core_Model_Config::getBaseDir
      */
     public function validateFile($file, array $params)
     {
@@ -510,7 +510,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Get skin file url
      *
-     * @param string|null $file
+     * @param null|string $file
      * @return string
      * @throws Exception
      */
@@ -586,7 +586,7 @@ class Mage_Core_Model_Design_Package
      * Directories lister utility method
      *
      * @param string $path
-     * @param string|bool $fullPath
+     * @param bool|string $fullPath
      * @return array
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
@@ -767,12 +767,12 @@ class Mage_Core_Model_Design_Package
     /**
      * Merges files into one and saves it into DB (if DB file storage is on)
      *
-     * @see Mage_Core_Helper_Data::mergeFiles()
-     * @param string|bool $targetFile - file path to be written
+     * @param bool|string $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
+     * @see Mage_Core_Helper_Data::mergeFiles()
      */
     protected function _mergeFiles(
         array $srcFiles,

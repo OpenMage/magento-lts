@@ -40,12 +40,11 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking url with params
      *
-     * @deprecated the non-model usage
-     *
      * @param  string $key
      * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string $method - option
      * @return string
+     * @deprecated the non-model usage
      */
     protected function _getTrackingUrl($key, $model, $method = 'getId')
     {
@@ -65,11 +64,12 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $order
-     * @return string
-     * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by order id or object
      *
+     * @param string $order
+     * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated after 1.4.0.0-alpha3
      */
     public function getTrackingPopUpUrlByOrderId($order = '')
     {
@@ -81,11 +81,12 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $track
-     * @return string
-     * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by track id or object
      *
+     * @param string $track
+     * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated after 1.4.0.0-alpha3
      */
     public function getTrackingPopUpUrlByTrackId($track = '')
     {
@@ -97,11 +98,12 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $ship
-     * @return string
-     * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking pop up url by ship id or object
      *
+     * @param string $ship
+     * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated after 1.4.0.0-alpha3
      */
     public function getTrackingPopUpUrlByShipId($ship = '')
     {

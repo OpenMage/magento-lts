@@ -13,18 +13,18 @@
  * @package    Mage_Adminhtml
  *
  * @method array getGroups()
- * @method $this setGroups(array $value)
  * @method string getScope()
- * @method $this setScope(string $value)
  * @method string getScopeCode()
- * @method $this setScopeCode(string $value)
  * @method int getScopeId()
- * @method $this setScopeId(int $value)
  * @method string getSection()
- * @method $this setSection(string $value)
  * @method string getStore()
- * @method $this setStore(string $value)
  * @method string getWebsite()
+ * @method $this setGroups(array $value)
+ * @method $this setScope(string $value)
+ * @method $this setScopeCode(string $value)
+ * @method $this setScopeId(int $value)
+ * @method $this setSection(string $value)
+ * @method $this setStore(string $value)
  * @method $this setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
@@ -38,14 +38,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Config data for sections
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_configData;
 
     /**
      * Root config node
      *
-     * @var Mage_Core_Model_Config_Element|null
+     * @var null|Mage_Core_Model_Config_Element
      */
     protected $_configRoot;
 
@@ -276,7 +276,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Validate isset required parametrs
-     *
      */
     protected function _validate()
     {
@@ -295,7 +294,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
     /**
      * Get scope name and scopeId
-     *
      */
     protected function _getScope()
     {
@@ -353,6 +351,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             } else {
                 $config[$data->getPath()] = $data->getValue();
             }
+        }
+
+        if (!$full) {
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $store = $this->getStore();
+            $envConfig = $environmentConfigLoaderHelper->getAsArray($store);
+            $config = array_merge($config, $envConfig);
         }
 
         return $config;

@@ -13,55 +13,55 @@
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
- * @method Mage_SalesRule_Model_Resource_Rule getResource()
- * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- *
- * @method string getCouponCode()
- * @method $this setCouponCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method string getFromDate()
- * @method $this setFromDate(string $value)
- * @method string getToDate()
- * @method $this setToDate(string $value)
- * @method int getUsesPerCustomer()
- * @method $this setUsesPerCustomer(int $value)
- * @method int getUsesPerCoupon()
- * @method $this setUsesPerCoupon(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getStopRulesProcessing()
- * @method $this setStopRulesProcessing(int $value)
- * @method int getIsAdvanced()
- * @method $this setIsAdvanced(int $value)
- * @method string getProductIds()
- * @method $this setProductIds(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method string getSimpleAction()
- * @method $this setSimpleAction(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method float getDiscountQty()
- * @method $this setDiscountQty(float $value)
- * @method int getDiscountStep()
- * @method $this setDiscountStep(int $value)
- * @method int getSimpleFreeShipping()
- * @method $this setSimpleFreeShipping(int $value)
  * @method int getApplyToShipping()
- * @method $this setApplyToShipping(int $value)
- * @method int getTimesUsed()
- * @method $this setTimesUsed(int $value)
- * @method int getIsRss()
- * @method $this setIsRss(int $value)
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
+ * @method string getCouponCode()
  * @method int getCouponType()
- * @method $this setCouponType(int $value)
- * @method int getUseAutoGeneration()
- * @method $this setUseAutoGeneration(int $value)
+ * @method string getDescription()
+ * @method float getDiscountQty()
+ * @method int getDiscountStep()
+ * @method string getFromDate()
+ * @method int getIsActive()
+ * @method int getIsAdvanced()
+ * @method int getIsRss()
+ * @method string getName()
+ * @method string getProductIds()
+ * @method Mage_SalesRule_Model_Resource_Rule getResource()
+ * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
  * @method int getRuleId()
+ * @method string getSimpleAction()
+ * @method int getSimpleFreeShipping()
+ * @method int getSortOrder()
+ * @method int getStopRulesProcessing()
+ * @method int getTimesUsed()
+ * @method string getToDate()
+ * @method int getUseAutoGeneration()
+ * @method int getUsesPerCoupon()
+ * @method int getUsesPerCustomer()
  * @method bool hasStoreLabels()
+ * @method $this setApplyToShipping(int $value)
+ * @method $this setCouponCode(string $value)
+ * @method $this setCouponType(int $value)
+ * @method $this setDescription(string $value)
+ * @method $this setDiscountAmount(float $value)
+ * @method $this setDiscountQty(float $value)
+ * @method $this setDiscountStep(int $value)
+ * @method $this setFromDate(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setIsAdvanced(int $value)
+ * @method $this setIsRss(int $value)
+ * @method $this setName(string $value)
+ * @method $this setProductIds(string $value)
+ * @method $this setSimpleAction(string $value)
+ * @method $this setSimpleFreeShipping(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStopRulesProcessing(int $value)
  * @method $this setStoreLabels(array $value)
+ * @method $this setTimesUsed(int $value)
+ * @method $this setToDate(string $value)
+ * @method $this setUseAutoGeneration(int $value)
+ * @method $this setUsesPerCoupon(int $value)
+ * @method $this setUsesPerCustomer(int $value)
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -224,7 +224,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Initialize rule model data from array.
      * Set store labels if applicable.
      *
-     *
      * @return $this
      */
     public function loadPost(array $data)
@@ -314,9 +313,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Get Rule label by specified store
      *
-     * @param Mage_Core_Model_Store|int|bool|null $store
+     * @param null|bool|int|Mage_Core_Model_Store $store
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getStoreLabel($store = null)
     {
@@ -395,7 +394,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param bool $saveNewlyCreated Whether or not to save newly created coupon
      * @param int $saveAttemptCount Number of attempts to save newly created coupon
      *
-     * @return Mage_SalesRule_Model_Coupon|null
+     * @return null|Mage_SalesRule_Model_Coupon
      */
     public function acquireCoupon($saveNewlyCreated = true, $saveAttemptCount = 10)
     {
@@ -430,9 +429,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     }
 
                     $coupon->setCode(
-                        $couponCode .
-                        self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', random_int(0, 9999)),
+                        $couponCode
+                        . self::getCouponCodeGenerator()->getDelimiter()
+                        . sprintf('%04u', random_int(0, 9999)),
                     );
                     continue;
                 }
@@ -443,7 +442,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         }
 
         if (!$ok) {
-            Mage::throwException(Mage::helper('salesrule')->__('Can\'t acquire coupon.'));
+            Mage::throwException(Mage::helper('salesrule')->__("Can't acquire coupon."));
         }
 
         return $coupon;
@@ -505,11 +504,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Collect all product attributes used in serialized rule's action or condition
      *
-     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
-     *
      * @param string $serializedString
      *
      * @return array
+     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
      */
     protected function _getUsedAttributes($serializedString)
     {
@@ -517,11 +515,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * @deprecated after 1.6.2.0
-     *
      * @param string $format
      *
      * @return string
+     * @deprecated after 1.6.2.0
      */
     public function toString($format = '')
     {
@@ -530,8 +527,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 
     /**
      * Returns rule as an array for admin interface
-     *
-     * @deprecated after 1.6.2.0
      *
      * @param array $arrAttributes
      *
@@ -543,6 +538,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
+     * @deprecated after 1.6.2.0
      */
     public function toArray(array $arrAttributes = [])
     {

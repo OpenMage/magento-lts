@@ -12,7 +12,10 @@
  *
  * @package    Mage_Customer
  *
+ * @method Mage_Customer_Model_Resource_Flowpassword _getResource()
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
+ * @method Mage_Customer_Model_Resource_Flowpassword getResource()
+ * @method Mage_Customer_Model_Resource_Flowpassword_Collection getResourceCollection()
  * @method $this setEmail(string $value)
  * @method $this setIp(string $value)
  * @method $this setRequestedDate(string $value)

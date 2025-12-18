@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
     /**
      * Form condition from element's value
      *
-     * @return array|null
+     * @return null|array
      */
     public function getCondition()
     {

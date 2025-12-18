@@ -11,6 +11,8 @@
  * DHL shipping implementation
  *
  * @package    Mage_Usa
+ *
+ * @property Varien_Object $_rawTrackRequest
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -31,21 +33,21 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
@@ -100,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @return bool|Mage_Shipping_Model_Rate_Result|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -164,6 +166,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
+     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -388,7 +391,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -425,7 +428,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get xml quotes
      *
-     * @return Mage_Shipping_Model_Rate_Result|Varien_Object|null
+     * @return null|Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _getXmlQuotes()
     {
@@ -972,7 +975,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
     {
@@ -1312,6 +1315,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Map request to shipment
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
@@ -1349,6 +1354,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
+     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)

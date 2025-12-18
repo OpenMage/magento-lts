@@ -77,12 +77,12 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_PATH =>
-                    Mage::helper('core')->__('Path "%value%" is protected and cannot be used.'),
-                self::NOT_AVAILABLE_PATH =>
-                    Mage::helper('core')->__('Path "%value%" is not available and cannot be used.'),
-                self::PROTECTED_LFI =>
-                    Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
+                self::PROTECTED_PATH
+                    => Mage::helper('core')->__('Path "%value%" is protected and cannot be used.'),
+                self::NOT_AVAILABLE_PATH
+                    => Mage::helper('core')->__('Path "%value%" is not available and cannot be used.'),
+                self::PROTECTED_LFI
+                    => Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
             ];
         }
 
@@ -123,7 +123,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Add protected paths masks
      *
-     * @param string|array $path
+     * @param array|string $path
      * @return $this
      */
     public function addProtectedPath($path)
@@ -161,7 +161,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Add available paths mask
      *
-     * @param string|array $path
+     * @param array|string $path
      * @return $this
      */
     public function addAvailablePath($path)
@@ -192,9 +192,9 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @throws Exception        Throw exception on empty both paths masks types
      * @param string $value     File/dir path
      * @return bool
+     * @throws Exception        Throw exception on empty both paths masks types
      */
     public function isValid($value)
     {

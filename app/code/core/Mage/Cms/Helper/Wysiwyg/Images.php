@@ -18,7 +18,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Current directory path
-     * @var string|false
+     * @var false|string
      */
     protected $_currentPath;
 
@@ -37,7 +37,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string|false
+     * @var false|string
      */
     protected $_storageRoot;
 
@@ -197,8 +197,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Return path of the current selected directory or root directory for startup
      * Try to create target directory if it doesn't exist
      *
+     * @return false|string
      * @throws Mage_Core_Exception
-     * @return string|false
      */
     public function getCurrentPath()
     {
@@ -238,8 +238,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $mediaPath = realpath(Mage::getConfig()->getOptions()->getMediaDir());
             $path = str_replace($mediaPath, '', $this->getCurrentPath());
             $path = trim($path, DS);
-            $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
-                                 $this->convertPathToUrl($path) . '/';
+            $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media')
+                                 . $this->convertPathToUrl($path) . '/';
         }
 
         return $this->_currentUrl;
@@ -270,7 +270,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Revert operation to idEncode
      *
      * @param string $string
-     * @return string|false
+     * @return false|string
      */
     public function idDecode($string)
     {

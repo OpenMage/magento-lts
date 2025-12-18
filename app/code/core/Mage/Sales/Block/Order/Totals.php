@@ -74,7 +74,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Get totals source object
      *
-     * @return Mage_Sales_Model_Order
+     * @return Mage_Sales_Model_Abstract
      */
     public function getSource()
     {
@@ -154,7 +154,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Add new total to totals array after specific total or before last total by default
      *
      * @param   null|string $after accepted values: 'first', 'last'
-     * @return  Mage_Sales_Block_Order_Totals
+     * @return  $this
      */
     public function addTotal(Varien_Object $total, $after = null)
     {
@@ -194,7 +194,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Add new total to totals array before specific total or after first total by default
      *
      * @param null|array|string $before
-     * @return  Mage_Sales_Block_Order_Totals
+     * @return  $this
      */
     public function addTotalBefore(Varien_Object $total, $before = null)
     {
@@ -236,7 +236,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Get Total object by code
      *
      * @param string $code
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getTotal($code)
     {
@@ -247,7 +247,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * Delete total by specific
      *
      * @param   string $code
-     * @return  Mage_Sales_Block_Order_Totals
+     * @return  $this
      */
     public function removeTotal($code)
     {
@@ -262,9 +262,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      *  $totalCode => $totalSortOrder
      * )
      *
-     *
      * @param   array $order
-     * @return  Mage_Sales_Block_Order_Totals
+     * @return  $this
      */
     public function applySortOrder($order)
     {

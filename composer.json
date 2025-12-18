@@ -20,10 +20,13 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
+        "ext-mysqli": "*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
+        "ext-posix": "*",
         "ext-simplexml": "*",
         "ext-soap": "*",
+        "ext-spl": "*",
         "ext-zlib": "*",
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
@@ -57,7 +60,7 @@
         "macopedia/phpstan-magento1": "^1.1",
         "magento-ecg/coding-standard": "^4.5",
         "n98/magerun": "dev-develop",
-        "openmage/dev-meta-package": "^1.0.5",
+        "openmage/dev-meta-package": "^1.1.0",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",
@@ -117,12 +120,6 @@
     },
     "extra": {
         "patches": {
-            "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": ".vendor-patches/OM-4891.patch"
-            },
             "shardj/zf1-future": {
                 "MAG-1.1.1": ".vendor-patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": ".vendor-patches/MAG-1.9.3.0.patch",
@@ -131,7 +128,14 @@
                 "OM-1081 - Not detecting HTTPS behind a proxy": ".vendor-patches/OM-1081.patch",
                 "OM-2047 - Pass delimiter char to preg_quote": ".vendor-patches/OM-2047.patch",
                 "OM-2050 - Prevent checking known date codes": ".vendor-patches/OM-2050.patch",
-                "OM-4297 - PHP 8.4 compability": ".vendor-patches/OM-4297.patch"
+                "OM-4297 - PHP 8.4 compability": ".vendor-patches/OM-4297.patch",
+                "PHPSTAN-ZF1F - temporary fixes": ".vendor-patches/PHPSTAN-ZF1F.patch"
+            },
+            "magento-ecg/coding-standard": {
+                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
+            },
+            "phpseclib/mcrypt_compat": {
+                "OM-4891 - PHP 8.5 compability": ".vendor-patches/OM-4891.patch"
             }
         },
         "magento-root-dir": ".",

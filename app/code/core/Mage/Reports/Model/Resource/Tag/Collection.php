@@ -17,9 +17,8 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
     /**
      * Add group by tag
      *
-     * @deprecated after 1.4.0.1
-     *
      * @return $this
+     * @deprecated after 1.4.0.1
      */
     public function addGroupByTag()
     {
@@ -29,7 +28,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
     /**
      * Add tag popularity to select by specified store ids
      *
-     * @param int|array $storeIds
+     * @param array|int $storeIds
      * @return $this
      */
     public function addPopularity($storeIds)

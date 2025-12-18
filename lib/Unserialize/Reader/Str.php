@@ -13,7 +13,7 @@
 class Unserialize_Reader_Str
 {
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_status = null;
 

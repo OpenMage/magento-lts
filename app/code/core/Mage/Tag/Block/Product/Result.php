@@ -17,7 +17,7 @@
 class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @var Mage_Tag_Model_Resource_Product_Collection|null
+     * @var null|Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_productCollection;
 

@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * PayPal Direct Module
  *
  * @package    Mage_Paypal
@@ -58,7 +57,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Website Payments Pro instance type
      *
-     * @var string $_proType
+     * @var string
      */
     protected $_proType = 'paypal/pro';
 
@@ -80,7 +79,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Store setter
      * Also updates store ID in config object
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -108,8 +107,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Payment action getter compatible with payment model
      *
-     * @see Mage_Sales_Model_Payment::place()
      * @return string
+     * @see Mage_Sales_Model_Payment::place()
      */
     public function getConfigPaymentAction()
     {
@@ -137,7 +136,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -356,8 +355,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Format credit card expiration date based on month and year values
      * Format: mmyyyy
      *
-     * @param string|int $month
-     * @param string|int $year
+     * @param int|string $month
+     * @param int|string $year
      * @return string
      */
     protected function _getFormattedCcExpirationDate($month, $year)

@@ -57,13 +57,13 @@
  *
  * @package    Mage_Core
  *
- * @method $this setType(string $value)
+ * @method string getHost()
+ * @method string getPath()
+ * @method string getPort()
+ * @method string getScheme()
  * @method $this setSecure(bool $value)
  * @method $this setSecureIsForced(bool $value)
- * @method string getScheme()
- * @method string getHost()
- * @method string getPort()
- * @method string getPath()
+ * @method $this setType(string $value)
  */
 class Mage_Core_Model_Url extends Varien_Object
 {
@@ -112,7 +112,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Encrypted session identifier
      *
-     * @var string|null
+     * @var null|string
      */
     protected static $_encryptedSessionId;
 
@@ -137,7 +137,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Use Session ID for generate URL
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_useSession;
 
@@ -251,7 +251,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Retrieve configuration data
      *
      * @param string $key
-     * @param string|null $prefix
+     * @param null|string $prefix
      * @return string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -565,7 +565,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve route name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getRouteName()
     {
@@ -593,7 +593,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve controller name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getControllerName()
     {
@@ -620,7 +620,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve action name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getActionName()
     {
@@ -978,7 +978,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve URL fragment
      *
-     * @return string|null
+     * @return null|string
      */
     public function getFragment()
     {
@@ -988,8 +988,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Build url by requested path and parameters
      *
-     * @param string|null $routePath
-     * @param array|null $routeParams
+     * @param null|string $routePath
+     * @param null|array $routeParams
      * @return string
      */
     public function getUrl($routePath = null, $routeParams = null)

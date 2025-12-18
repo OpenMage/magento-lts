@@ -12,8 +12,8 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  * @method array getAdditionalCacheKeyInfo()
+ * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
@@ -28,7 +28,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
     /**
      * Initialize template and cache settings
-     *
      */
     protected function _construct()
     {

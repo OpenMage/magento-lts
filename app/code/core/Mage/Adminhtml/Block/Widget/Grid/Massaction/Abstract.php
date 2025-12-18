@@ -14,9 +14,9 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @package    Mage_Adminhtml
  *
+ * @method bool getHideFormElement()
  * @method $this setFormFieldName(string $value)
  * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
- * @method bool getHideFormElement()
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -139,7 +139,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item|null
+     * @return null|Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
      */
     public function getItem($itemId)
     {

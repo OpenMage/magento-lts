@@ -13,49 +13,49 @@
  * @package    Mage_Cms
  *
  * @method Mage_Cms_Model_Resource_Page _getResource()
- * @method Mage_Cms_Model_Resource_Page getResource()
  * @method Mage_Cms_Model_Resource_Page_Collection getCollection()
- *
- * @method string getContentHeading()
- * @method $this setContentHeading(string $value)
  * @method string getContent()
- * @method $this setContent(string $value)
+ * @method string getContentHeading()
  * @method string getCreationTime()
- * @method $this setCreationTime(string $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method string getLayoutUpdateXml()
- * @method $this setLayoutUpdateXml(string $value)
- * @method bool hasCreationTime()
- * @method string getCustomTheme()
- * @method $this setCustomTheme(string $value)
- * @method string getCustomRootTemplate()
- * @method $this setCustomRootTemplate(string $value)
  * @method string getCustomLayoutUpdateXml()
- * @method $this setCustomLayoutUpdateXml(string $value)
+ * @method string getCustomRootTemplate()
+ * @method string getCustomTheme()
  * @method string getCustomThemeFrom()
- * @method $this setCustomThemeFrom(string $value)
  * @method string getCustomThemeTo()
- * @method $this setCustomThemeTo(string $value)
  * @method string getIdentifier()
- * @method $this setIdentifier(string $value)
+ * @method int getIsActive()
+ * @method string getLayoutUpdateXml()
  * @method string getMetaDescription()
- * @method $this setMetaDescription(string $value)
  * @method string getMetaKeywords()
- * @method $this setMetaKeywords(string $value)
  * @method string getPreviewUrl()
+ * @method Mage_Cms_Model_Resource_Page getResource()
+ * @method Mage_Cms_Model_Resource_Page_Collection getResourceCollection()
  * @method string getRootTemplate()
- * @method $this setRootTemplate(string $value)
- * @method $this setStoreId(int $value)
  * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method bool hasStores()
- * @method array getStores()
  * @method string getStoreCode()
  * @method string getStoreId()
+ * @method array getStores()
  * @method string getTitle()
- * @method $this setTitle(string $value)
  * @method string getUpdateTime()
+ * @method bool hasCreationTime()
+ * @method bool hasStores()
+ * @method $this setContent(string $value)
+ * @method $this setContentHeading(string $value)
+ * @method $this setCreationTime(string $value)
+ * @method $this setCustomLayoutUpdateXml(string $value)
+ * @method $this setCustomRootTemplate(string $value)
+ * @method $this setCustomTheme(string $value)
+ * @method $this setCustomThemeFrom(string $value)
+ * @method $this setCustomThemeTo(string $value)
+ * @method $this setIdentifier(string $value)
+ * @method $this setIsActive(int $value)
+ * @method $this setLayoutUpdateXml(string $value)
+ * @method $this setMetaDescription(string $value)
+ * @method $this setMetaKeywords(string $value)
+ * @method $this setRootTemplate(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStoreId(int $value)
+ * @method $this setTitle(string $value)
  * @method $this setUpdateTime(string $value)
  */
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
@@ -131,7 +131,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      */
     public function getCmsPageTitleById($id): string
     {
@@ -141,7 +141,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page identifier from DB by passed id.
      *
-     * @param string|int $id
+     * @param int|string $id
      */
     public function getCmsPageIdentifierById($id): string
     {

@@ -35,7 +35,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * If product out of stock, its item will be removed after load
      *
      * @var bool
-      */
+     */
     protected $_productInStock = false;
 
     /**
@@ -62,7 +62,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Sum of items collection qty
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_itemsQty;
 
@@ -278,12 +278,11 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add wishlist sort order
      *
-     * @deprecated after 1.6.0.0-rc2
-     * @see Varien_Data_Collection_Db::setOrder() is used instead
-     *
      * @param string $attribute
      * @param string $dir
      * @return $this
+     * @deprecated after 1.6.0.0-rc2
+     * @see Varien_Data_Collection_Db::setOrder() is used instead
      */
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
     {
@@ -348,8 +347,8 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *   wishlist product collection
      * - this method is useless because we can calculate days in php, and don't use MySQL for it
      *
-     * @deprecated after 1.4.2.0
      * @return $this
+     * @deprecated after 1.4.2.0
      */
     public function addDaysInWishlist()
     {
@@ -428,10 +427,10 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             $this->getSelect()
                 ->join(
                     ['product_name_table' => $attribute->getBackendTable()],
-                    'product_name_table.entity_id=main_table.product_id' .
-                        ' AND product_name_table.store_id=' . $storeId .
-                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
-                        ' AND product_name_table.entity_type_id=' . $entityTypeId,
+                    'product_name_table.entity_id=main_table.product_id'
+                        . ' AND product_name_table.store_id=' . $storeId
+                        . ' AND product_name_table.attribute_id=' . $attribute->getId()
+                        . ' AND product_name_table.entity_type_id=' . $entityTypeId,
                     [],
                 );
 

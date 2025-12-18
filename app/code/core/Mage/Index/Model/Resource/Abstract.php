@@ -107,9 +107,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Create temporary table for index data pregeneration
      *
-     * @deprecated since 1.5.0.0
      * @param bool $asOriginal
      * @return Mage_Index_Model_Resource_Abstract
+     * @deprecated since 1.5.0.0
      */
     public function cloneIndexTable($asOriginal = false)
     {
@@ -218,7 +218,6 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
 
     /**
      * Clean up temporary index table
-     *
      */
     public function clearTemporaryIndexTable()
     {
@@ -228,9 +227,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set whether table changes are allowed
      *
-     * @deprecated after 1.6.1.0
      * @param bool $value
      * @return Mage_Index_Model_Resource_Abstract
+     * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
     {

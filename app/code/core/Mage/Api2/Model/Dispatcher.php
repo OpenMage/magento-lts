@@ -118,7 +118,7 @@ class Mage_Api2_Model_Dispatcher
      * Get correct version of the resource model
      *
      * @param string $resourceType
-     * @param string|bool $requestedVersion
+     * @param bool|string $requestedVersion
      * @return int
      * @throws Mage_Api2_Exception
      */

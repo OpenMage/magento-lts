@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Type_Onepage
     protected $_checkoutSession;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote = null;
 
@@ -195,8 +195,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Get quote checkout method
      *
-     * @deprecated since 1.4.0.1
      * @return string
+     * @deprecated since 1.4.0.1
      */
     public function getCheckoutMehod()
     {
@@ -379,7 +379,7 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate customer data and set some its data for further usage in quote
      * Will return either true or array with error messages
      *
-     * @return true|array
+     * @return array|true
      */
     protected function _validateCustomerData(array $data)
     {
@@ -455,8 +455,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate customer data and set some its data for further usage in quote
      * Will return either true or array with error messages
      *
+     * @return array|true
      * @deprecated since 1.4.0.1
-     * @return true|array
      */
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
     {
@@ -747,8 +747,8 @@ class Mage_Checkout_Model_Type_Onepage
             $billing->setCustomerAddress($customerBilling);
         }
 
-        if ($shipping && !$shipping->getSameAsBilling() &&
-            (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())
+        if ($shipping && !$shipping->getSameAsBilling()
+            && (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())
         ) {
             $customerShipping = $shipping->exportCustomerAddress();
             $customer->addAddress($customerShipping);

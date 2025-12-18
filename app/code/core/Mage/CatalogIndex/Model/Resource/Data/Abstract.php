@@ -24,14 +24,14 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Link select object
      *
-     * @var Zend_Db_Select
+     * @var Varien_Db_Select
      */
     protected $_linkSelect           = null;
 
     /**
      * Set link select
      *
-     * @param Zend_Db_Select $select
+     * @param Varien_Db_Select $select
      * @return $this
      */
     protected function _setLinkSelect($select)
@@ -43,7 +43,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Get link select
      *
-     * @return Zend_Db_Select $select
+     * @return Varien_Db_Select $select
      */
     protected function _getLinkSelect()
     {
@@ -52,7 +52,6 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
 
     /**
      * Init resource
-     *
      */
     protected function _construct()
     {
@@ -109,9 +108,10 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int|array $id
+     * @param array|int $id
      * @param array $additionalWheres
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function fetchLinkInformation($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
@@ -169,7 +169,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param array $products
      * @param array $priceAttributes
      * @param int $store
-     * @return mixed
+     * @return array
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
@@ -190,7 +190,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      *
      * @param array $products
      * @param int $website
-     * @return mixed
+     * @return array
      */
     public function getTierPrices($products, $website)
     {
@@ -226,14 +226,16 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $table the main table name or alias
      * @param string $field entity_id field name
      * @param int $store
-     * @param int|string|array $value the filter value
+     * @param array|int|string $value the filter value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _addAttributeFilter(Varien_Db_Select $select, $attributeCode, $table, $field, $store, $value)
     {
         $adapter = $this->_getReadAdapter();
         $attribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attributeTable = $attribute->getBackend()->getTable();
         if ($attribute->getBackendType() == 'static') {

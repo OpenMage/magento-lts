@@ -12,16 +12,16 @@
  *
  * @package    Mage_Api2
  *
- * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
  * @method string getCreatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
  * @method string getRoleName()
+ * @method string getUpdatedAt()
+ * @method $this setCreatedAt() setCreatedAt(string $createdAt)
  * @method $this setRoleName() setRoleName(string $roleName)
+ * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
@@ -73,7 +73,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
+                Mage::helper('api2')->__("%s role is a special one and can't be changed.", $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -93,7 +93,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
+                Mage::helper('api2')->__("%s role is a special one and can't be deleted.", $helper->escapeHtml($this->getRoleName())),
             );
         }
 

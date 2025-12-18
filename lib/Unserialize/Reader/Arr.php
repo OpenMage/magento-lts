@@ -18,12 +18,12 @@ class Unserialize_Reader_Arr
     protected $_result = null;
 
     /**
-     * @var string|int
+     * @var int|string
      */
     protected $_length = '';
 
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $_status = null;
 
@@ -45,7 +45,7 @@ class Unserialize_Reader_Arr
     /**
      * @param $char
      * @param $prevChar
-     * @return array|null
+     * @return null|array
      * @throws Exception
      */
     public function read($char, $prevChar)
@@ -89,8 +89,8 @@ class Unserialize_Reader_Arr
         if ($this->_status == self::READING_VALUE) {
             $value = $this->_reader->read($char, $prevChar);
             if (!is_null($value)) {
-                $this->_result[$this->_reader->key] =
-                    ($value == Unserialize_Reader_Null::NULL_VALUE && $prevChar == Unserialize_Parser::TYPE_NULL)
+                $this->_result[$this->_reader->key]
+                    = ($value == Unserialize_Reader_Null::NULL_VALUE && $prevChar == Unserialize_Parser::TYPE_NULL)
                         ? null
                         : $value;
                 if (count($this->_result) < $this->_length) {

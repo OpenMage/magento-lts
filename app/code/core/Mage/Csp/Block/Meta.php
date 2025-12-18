@@ -24,7 +24,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
 
     /**
      * CSP meta tag area
-     * @var Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML
+     * @var Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND
      */
     protected string $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
 

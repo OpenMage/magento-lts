@@ -13,6 +13,8 @@
  * @package    Varien_Data
  *
  * @method string getLegend()
+ *
+ * @property int $_sortDirection
  */
 class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstract
 {
@@ -98,7 +100,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param string $elementId
      * @param string $type
      * @param array $config
-     * @param string|false $after
+     * @param false|string $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after = false)
@@ -137,13 +139,13 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
         if ($this->_sortChildrenByKey) {
             $sortKey = $this->_sortChildrenByKey;
             $uniqueIncrement = 0; // in case if there are elements with same values
-            foreach ($this->getElements() as $e) {
+            foreach ($this->getElements() as $element) {
                 $key = '_' . $uniqueIncrement;
-                if ($e->hasData($sortKey)) {
-                    $key = $e->getDataUsingMethod($sortKey) . $key;
+                if ($element->hasData($sortKey)) {
+                    $key = $element->getDataUsingMethod($sortKey) . $key;
                 }
 
-                $elements[$key] = $e;
+                $elements[$key] = $element;
                 $uniqueIncrement++;
             }
 

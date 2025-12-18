@@ -61,10 +61,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -76,10 +75,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return bool
+     * @deprecated after 1.3.2.3
      */
     public function getJoinFlag($table)
     {
@@ -90,10 +88,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
      * @param string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -164,7 +161,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Store ID filter
      *
-     * @param int|array $store
+     * @param array|int $store
      * @return $this
      */
     public function addStoreFilter($store = null)
@@ -182,7 +179,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * then condition with IS NULL or IS NOT NULL will be added.
      * Otherwise condition with IN() will be added
      *
-     * @param int|array $customerId
+     * @param array|int $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)

@@ -20,7 +20,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Website currency codes and rates
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_rates;
 
@@ -35,7 +35,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
-     * @param int|null $websiteId
+     * @param null|int $websiteId
      * @return array
      */
     protected function _getWebsiteCurrencyRates($websiteId = null)
@@ -103,8 +103,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      * Validate group price data
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate($object)
     {

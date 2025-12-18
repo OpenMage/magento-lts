@@ -34,8 +34,8 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $requestType
      * @param string $lastTransactionId
      * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
+     * @param false|float $amount
+     * @param false|string $exception
      * @return bool|string
      */
     public function getTransactionMessage(
@@ -61,11 +61,11 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Payment_Model_Info $payment
      * @param string $requestType
-     * @param string|null $lastTransactionId
+     * @param null|string $lastTransactionId
      * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
-     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
+     * @param false|float $amount
+     * @param false|string $exception
+     * @param false|string $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
     public function getExtendedTransactionMessage(
@@ -111,7 +111,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
         $pattern .= ' %s';
         $texts[] = $exception;
 
-        return call_user_func_array([$this, '__'], array_merge([$pattern], $texts));
+        return $this->__(...array_merge([$pattern], $texts));
     }
 
     /**

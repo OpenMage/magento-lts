@@ -28,7 +28,7 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
      * @param string $userType
      * @param string $resourceId
      * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
-     * @return string|bool|null
+     * @return null|bool|string
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
     {

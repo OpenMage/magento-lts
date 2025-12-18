@@ -13,24 +13,23 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Bundle_Model_Resource_Option _getResource()
- * @method Mage_Bundle_Model_Resource_Option getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
- * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
- *
  * @method string getDefaultTitle()
  * @method int getOptionId()
  * @method int getParentId()
- * @method $this setParentId(int $value)
  * @method int getPosition()
- * @method $this setPosition(int $value)
  * @method int getRequired()
- * @method $this setRequired(int $value)
+ * @method Mage_Bundle_Model_Resource_Option getResource()
+ * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
  * @method Mage_Catalog_Model_Product[] getSelections()
- * @method $this setSelections(array $value)
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method string getTitle()
  * @method string getType()
+ * @method $this setParentId(int $value)
+ * @method $this setPosition(int $value)
+ * @method $this setRequired(int $value)
+ * @method $this setSelections(array $value)
+ * @method $this setStoreId(int $value)
  * @method $this setType(string $value)
  */
 class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
@@ -107,22 +106,6 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         }
 
         return $this->_defaultSelection;
-        /**
-         *         if (!$this->_defaultSelection && $this->getSelections()) {
-            $_selections = array();
-            foreach ($this->getSelections() as $selection) {
-                if ($selection->getIsDefault()) {
-                    $_selections[] = $selection;
-                }
-            }
-            if (!empty($_selections)) {
-                $this->_defaultSelection = $_selections;
-            } else {
-                return null;
-            }
-        }
-        return $this->_defaultSelection;
-         */
     }
 
     /**
@@ -156,7 +139,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      * Return selection by it's id
      *
      * @param int $selectionId
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     public function getSelectionById($selectionId)
     {

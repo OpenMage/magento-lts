@@ -43,7 +43,6 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Internal constructor
      * Set info template for payment step
-     *
      */
     protected function _construct()
     {
@@ -121,9 +120,9 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      */
     protected function _beforeToHtml()
     {
-        if ($this->_getOrder()->getId() &&
-            $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId() &&
-            $this->_paymentMethodCode
+        if ($this->_getOrder()->getId()
+            && $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId()
+            && $this->_paymentMethodCode
         ) {
             $this->_shouldRender = true;
         }
@@ -164,10 +163,10 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     protected function _isAfterPaymentSave()
     {
         $quote = $this->_getCheckout()->getQuote();
-        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
-            $quote->getIsActive() &&
-            $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment'
+        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode
+            && $quote->getIsActive()
+            && $this->getTemplate()
+            && $this->getRequest()->getActionName() == 'savePayment'
         ) {
             return true;
         }

@@ -137,12 +137,16 @@ class Mage_Core_Model_Encryption
      * Validate hash by specified version
      *
      * @param string $password
-     * @param string $hash
+     * @param null|string $hash
      * @param int $version
      * @return bool
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_MD5)
     {
+        if ($hash === null) {
+            $hash = '';
+        }
+
         if ($version == self::HASH_VERSION_LATEST && $version == $this->_helper->getVersionHash($this)) {
             return password_verify($password, $hash);
         }

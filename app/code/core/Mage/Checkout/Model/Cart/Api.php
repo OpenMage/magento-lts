@@ -86,7 +86,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
     /**
      * @param int $quoteId
-     * @param string|int $store
+     * @param int|string $store
      * @return array
      */
     public function totals($quoteId, $store = null)

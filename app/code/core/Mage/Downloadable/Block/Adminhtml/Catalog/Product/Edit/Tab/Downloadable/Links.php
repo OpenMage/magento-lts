@@ -12,8 +12,8 @@
  *
  * @package    Mage_Downloadable
  *
- * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Uploader_Block_Single
@@ -21,7 +21,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Purchased Separately Attribute cache
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute|null
+     * @var null|Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected $_purchasedSeparatelyAttribute = null;
 
@@ -123,8 +123,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return true if price in website scope
      *
-     * @deprecated since 1.14.2.0
      * @return bool
+     * @deprecated since 1.14.2.0
      */
     public function getIsPriceWebsiteScope()
     {
@@ -243,7 +243,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
 
     /**
      * Prepare block Layout
-     *
      */
     protected function _prepareLayout()
     {
@@ -254,7 +253,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'id'      => '',
                 'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                 'type'    => 'button',
-                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')',
+                'onclick' => "Downloadable.massUploadByType('links');Downloadable.massUploadByType('linkssample')",
             ]),
         );
         $this->_addElementIdsMapping([
@@ -326,8 +325,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrieve config object
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function getConfig()
     {

@@ -21,7 +21,7 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @return DOMDocument|null
+     * @return null|DOMDocument
      */
     public function getDom()
     {
@@ -47,8 +47,8 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array|array[] $content
-    */
+     * @param array|array[] $content
+     */
     public function arrayToXml($content)
     {
         $parentNode = $this->_getCurrentDom();

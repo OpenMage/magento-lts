@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'class'     => 'update-button',
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
+                'label'     => Mage::helper('sales')->__("Update Qty's"),
                 'onclick'   => $onclick,
             ]),
         );

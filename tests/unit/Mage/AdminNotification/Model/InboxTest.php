@@ -37,7 +37,7 @@ final class InboxTest extends OpenMageTest
      * @dataProvider provideGetSeverities
      * @group Model
      */
-    public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
+    public function testGetSeverities(null|array|string $expectedResult, ?int $severity): void
     {
         self::assertSame($expectedResult, self::$subject->getSeverities($severity));
     }

@@ -13,10 +13,10 @@
  * @package    Mage_Checkout
  *
  * @method string getCartTemplate()
- * @method string getEmptyTemplate()
- * @method $this setIsWishlistActive(bool $value)
- * @method int getItemsCount()
  * @method Mage_Sales_Model_Quote_Item[] getCustomItems()
+ * @method string getEmptyTemplate()
+ * @method int getItemsCount()
+ * @method $this setIsWishlistActive(bool $value)
  */
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {

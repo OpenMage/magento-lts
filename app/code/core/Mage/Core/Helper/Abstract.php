@@ -180,11 +180,11 @@ abstract class Mage_Core_Helper_Abstract
 
     /**
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      *
-     * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
+     * @see self::escapeHtml()
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -195,7 +195,7 @@ abstract class Mage_Core_Helper_Abstract
      * Escape html entities
      *
      * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param null|array $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -326,7 +326,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return string|string[]
      */
-    public function jsQuoteEscape($data, $quote = '\'')
+    public function jsQuoteEscape($data, $quote = "'")
     {
         if (is_array($data)) {
             $result = [];
@@ -427,7 +427,7 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = ['\'', '"'];
+        $quote = ["'", '"'];
         $replace = ['%27', '%22'];
         return str_replace($quote, $replace, $url);
     }
@@ -456,7 +456,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Check for tags in multidimensional arrays
      *
-     * @param string|array $data
+     * @param array|string $data
      * @param array $arrayKeys keys of the array being checked that are excluded and included in the check
      * @param bool $skipTags skip transferred array keys, if false then check only them
      * @return bool

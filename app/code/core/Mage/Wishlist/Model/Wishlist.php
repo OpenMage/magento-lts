@@ -13,16 +13,15 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
- * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
- *
+ * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
  * @method int getShared()
- * @method $this setShared(int $value)
  * @method string getSharingCode()
- * @method $this setSharingCode(string $value)
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
  * @method string getVisibility()
+ * @method $this setShared(int $value)
+ * @method $this setSharingCode(string $value)
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -36,21 +35,21 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
+     * @var null|Mage_Wishlist_Model_Resource_Item_Collection
      */
     protected $_itemCollection = null;
 
     /**
      * Store filter for wishlist
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store = null;
 
     /**
      * Shared store ids (website stores)
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storeIds = null;
 
@@ -248,7 +247,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist item collection
      *
      * @param int $itemId
-     * @return Mage_Wishlist_Model_Item|false
+     * @return false|Mage_Wishlist_Model_Item
      */
     public function getItem($itemId)
     {
@@ -262,10 +261,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product collection
      *
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
-     *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {

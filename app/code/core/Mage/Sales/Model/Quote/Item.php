@@ -13,144 +13,126 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Item _getResource()
- * @method Mage_Sales_Model_Resource_Quote_Item getResource()
- * @method Mage_Sales_Model_Resource_Quote_Item_Collection getCollection()
- *
  * @method string getAdditionalData()
- * @method $this setAdditionalData(string $value)
- * @method string|null getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
- *
- * @method $this setBackorders(float $value)
+ * @method null|string getAppliedRuleIds()
  * @method float getBaseCost()
- * @method $this setBaseCost(float $value)
  * @method float getBaseDiscountAmount()
- * @method $this setBaseDiscountAmount(float $value)
  * @method float getBaseHiddenTaxAmount()
- * @method $this setBaseHiddenTaxAmount(float $value)
  * @method float getBasePrice()
- * @method $this setBasePrice(float $value)
  * @method float getBasePriceInclTax()
- * @method $this setBasePriceInclTax(float $value)
  * @method float getBaseRowTotal()
- * @method $this setBaseRowTotal(float $value)
  * @method float getBaseRowTotalInclTax()
+ * @method float getBaseTaxBeforeDiscount()
+ * @method float getBaseWeeeTaxAppliedAmount()
+ * @method float getBaseWeeeTaxAppliedRowAmount()
+ * @method float getBaseWeeeTaxDisposition()
+ * @method float getBaseWeeeTaxRowDisposition()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Collection getCollection()
+ * @method float getCost()
+ * @method string getCreatedAt()
+ * @method float getCustomPrice()
+ * @method string getDescription()
+ * @method float getDiscountAmount()
+ * @method float getDiscountPercent()
+ * @method int getFreeShipping()
+ * @method int getGiftMessageId()
+ * @method bool getHasConfigurationUnavailableError()
+ * @method bool getHasError()
+ * @method float getHiddenTaxAmount()
+ * @method int getIsQtyDecimal()
+ * @method int getIsVirtual()
+ * @method int getItemId()
+ * @method int getMultishippingQty()
+ * @method string getName()
+ * @method int getNoDiscount()
+ * @method float getOriginalCustomPrice()
+ * @method int getParentItemId()
+ * @method float getPriceInclTax()
+ * @method int getProductId()
+ * @method float getQtyToAdd()
+ * @method int getQuoteId()
+ * @method string getRedirectUrl()
+ * @method Mage_Sales_Model_Resource_Quote_Item getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Item_Collection getResourceCollection()
+ * @method float getRowTotal()
+ * @method float getRowTotalInclTax()
+ * @method float getRowTotalWithDiscount()
+ * @method float getRowWeight()
+ * @method string getSku()
+ * @method int getStoreId()
+ * @method float getTaxBeforeDiscount()
+ * @method float getTaxPercent()
+ * @method string getUpdatedAt()
+ * @method bool getUseOldQty()
+ * @method string getWeeeTaxApplied()
+ * @method float getWeeeTaxAppliedAmount()
+ * @method float getWeeeTaxAppliedRowAmount()
+ * @method float getWeeeTaxDisposition()
+ * @method float getWeeeTaxRowDisposition()
+ * @method float getWeight()
+ * @method $this setAdditionalData(string $value)
+ * @method $this setAppliedRuleIds(string $value)
+ * @method $this setBackorders(float $value)
+ * @method $this setBaseCost(float $value)
+ * @method $this setBaseDiscountAmount(float $value)
+ * @method $this setBaseHiddenTaxAmount(float $value)
+ * @method $this setBasePrice(float $value)
+ * @method $this setBasePriceInclTax(float $value)
+ * @method $this setBaseRowTotal(float $value)
  * @method $this setBaseRowTotalInclTax(float $value)
  * @method $this setBaseRowTotalWithDiscount(float $value)
  * @method $this setBaseTaxAmount(float $value)
- * @method float getBaseTaxBeforeDiscount()
  * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method float getBaseWeeeTaxAppliedAmount()
  * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method float getBaseWeeeTaxAppliedRowAmount()
  * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method float getBaseWeeeTaxDisposition()
  * @method $this setBaseWeeeTaxDisposition(float $value)
- * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
- *
- * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method float getCost()
- * @method float getCustomPrice()
- *
- * @method string getDescription()
  * @method $this setDescription(string $value)
- * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- * @method float getDiscountPercent()
  * @method $this setDiscountPercent(float $value)
- *
- * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
- *
  * @method $this setGiftMessage(string $value)
- * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
- *
- * @method bool getHasConfigurationUnavailableError()
  * @method $this setHasConfigurationUnavailableError(bool $value)
- * @method $this unsHasConfigurationUnavailableError()
- * @method bool getHasError()
- * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
- *
- * @method int getIsQtyDecimal()
  * @method $this setIsQtyDecimal(int $value)
  * @method $this setIsRecurring(int $value)
- * @method int getItemId()
- *
- * @method int getMultishippingQty()
+ * @method $this setIsVirtual(int $value)
  * @method $this setMultishippingQty(int $value)
- *
- * @method string getName()
  * @method $this setName(string $value)
- * @method int getNoDiscount()
  * @method $this setNoDiscount(int $value)
- *
- * @method float getOriginalCustomPrice()
  * @method $this setOriginalCustomPrice(float $value)
- *
- * @method int getParentItemId()
  * @method $this setParentItemId(int $value)
  * @method $this setParentProductId(int $value)
- * @method int getProductId()
+ * @method $this setPriceInclTax(float $value)
  * @method $this setProductId(int $value)
  * @method $this setProductOrderOptions(array $value)
  * @method $this setProductType(string $value)
- * @method float getPriceInclTax()
- * @method $this setPriceInclTax(float $value)
- *
- * @method int getQuoteId()
+ * @method $this setQtyToAdd(float $value)
  * @method $this setQuoteId(int $value)
  * @method $this setQuoteItemId(int $value)
  * @method $this setQuoteMessage(string $value)
  * @method $this setQuoteMessageIndex(string $value)
- * @method float getQtyToAdd()
- * @method $this setQtyToAdd(float $value)
- *
- * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
- * @method float getRowTotal()
  * @method $this setRowTotal(float $value)
- * @method float getRowTotalInclTax()
  * @method $this setRowTotalInclTax(float $value)
- * @method float getRowTotalWithDiscount()
  * @method $this setRowTotalWithDiscount(float $value)
- * @method float getRowWeight()
  * @method $this setRowWeight(float $value)
- *
- * @method string getSku()
  * @method $this setSku(string $value)
- * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method $this setTaxAmount(float $value)
- * @method float getTaxBeforeDiscount()
  * @method $this setTaxBeforeDiscount(float $value)
  * @method $this setTaxClassId(int $value)
- * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
- *
- * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- * @method bool getUseOldQty()
- *
- * @method int getIsVirtual()
- * @method $this setIsVirtual(int $value)
- *
- * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)
- * @method float getWeeeTaxAppliedAmount()
  * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method float getWeeeTaxAppliedRowAmount()
  * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method float getWeeeTaxDisposition()
  * @method $this setWeeeTaxDisposition(float $value)
- * @method float getWeeeTaxRowDisposition()
  * @method $this setWeeeTaxRowDisposition(float $value)
- * @method float getWeight()
  * @method $this setWeight(float $value)
+ * @method $this unsHasConfigurationUnavailableError()
  */
 class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
@@ -173,7 +155,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote;
 
@@ -200,7 +182,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Flag stating that options were successfully saved
-     *
      */
     protected $_flagOptionsSaved = null;
 
@@ -277,7 +258,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Prepare quantity
      *
      * @param float|int $qty
-     * @return int|float
+     * @return float|int
      */
     protected function _prepareQty($qty)
     {
@@ -636,7 +617,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Add option to item
      *
-     * @param Mage_Sales_Model_Quote_Item_Option|Varien_Object|array $option
+     * @param array|Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -670,7 +651,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
-     * @param int|float|null $value
+     * @param null|float|int $value
      * @return $this
      */
     public function updateQtyOption(Varien_Object $option, $value)
@@ -725,7 +706,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Get item option by code
      *
      * @param   string $code
-     * @return  Mage_Sales_Model_Quote_Item_Option|null
+     * @return  null|Mage_Sales_Model_Quote_Item_Option
      */
     public function getOptionByCode($code)
     {
@@ -886,10 +867,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Adds error information to the quote item.
      * Automatically sets error flag.
      *
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param null|string $origin Usually a name of module, that embeds error
+     * @param null|int $code Error code, unique for origin, that sets it
+     * @param null|string $message Error message
+     * @param null|Varien_Object $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($origin = null, $code = null, $message = null, $additionalData = null)

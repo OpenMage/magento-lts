@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                         if (!empty($qty) && is_numeric($qty)) {
                             $_result = $subProduct->getTypeInstance(true)
                                 ->_prepareProduct($buyRequest, $subProduct, $processMode);
-                            if (is_string($_result) && !is_array($_result)) {
+                            if (is_string($_result)) {
                                 return $_result;
                             }
 

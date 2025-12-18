@@ -54,10 +54,10 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
 
     /**
      * Return customer id
-     * @deprecated
      *
      * @param Mage_Customer_Model_Address $object
      * @return int
+     * @deprecated
      */
     public function getCustomerId($object)
     {
@@ -66,11 +66,11 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
 
     /**
      * Set customer id
-     * @deprecated
      *
      * @param Mage_Customer_Model_Address $object
      * @param int $id
      * @return $this
+     * @deprecated
      */
     public function setCustomerId($object, $id)
     {

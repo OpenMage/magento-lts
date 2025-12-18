@@ -13,25 +13,24 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
- * @method Mage_Core_Model_Resource_Website getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
- * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
- *
- * @method $this setCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method $this setDefaultGroupId(int $value)
- * @method int getIsDefault()
- * @method $this setIsDefault(int $value)
  * @method int getGroupId()
+ * @method int getIsDefault()
+ * @method string getName()
+ * @method Mage_Core_Model_Resource_Website getResource()
+ * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
+ * @method int getSortOrder()
  * @method int getStoreId()
- * @method $this setStoreId(int $value)
  * @method array getStoresIds()
- * @method bool hasWebsiteId()
  * @method int getWebsiteId()
  * @method bool hasDefaultGroupId()
+ * @method bool hasWebsiteId()
+ * @method $this setCode(string $value)
+ * @method $this setDefaultGroupId(int $value)
+ * @method $this setIsDefault(int $value)
+ * @method $this setName(string $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
@@ -61,7 +60,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Group Coleection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_groups;
 
@@ -82,7 +81,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Store collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_stores;
 
@@ -124,7 +123,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * is can delete website
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isCanDelete;
 
@@ -136,7 +135,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * init model
-     *
      */
     protected function _construct()
     {
@@ -220,7 +218,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load group collection and set internal data
-     *
      */
     protected function _loadGroups()
     {
@@ -319,7 +316,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group model
      *
-     * @return Mage_Core_Model_Store_Group|false
+     * @return false|Mage_Core_Model_Store_Group
      */
     public function getDefaultGroup()
     {
@@ -336,7 +333,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * Load store collection and set internal data
-     *
      */
     protected function _loadStores()
     {

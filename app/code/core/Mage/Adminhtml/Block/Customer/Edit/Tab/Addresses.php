@@ -265,7 +265,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Add specified values to name prefix element values
      *
-     * @param string|int|array $values
+     * @param array|int|string $values
      * @return $this
      */
     public function addValuesToNamePrefixElement($values)
@@ -280,7 +280,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Add specified values to name suffix element values
      *
-     * @param string|int|array $values
+     * @param array|int|string $values
      * @return $this
      */
     public function addValuesToNameSuffixElement($values)

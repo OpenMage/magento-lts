@@ -17,7 +17,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
@@ -82,15 +82,15 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _getTitle()
     {
-        return Mage::helper('rss')->__('%s\'s Wishlist', $this->_getCustomer()->getName());
+        return Mage::helper('rss')->__("%s's Wishlist", $this->_getCustomer()->getName());
     }
 
     /**
      * Render block HTML
      *
      * @return string
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _toHtml()
     {

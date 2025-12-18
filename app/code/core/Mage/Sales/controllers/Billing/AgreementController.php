@@ -50,7 +50,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * View billing agreement
-     *
      */
     public function viewAction()
     {
@@ -109,7 +108,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * Wizard return action
-     *
      */
     public function returnWizardAction()
     {
@@ -141,7 +139,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
 
     /**
      * Wizard cancel action
-     *
      */
     public function cancelWizardAction()
     {
@@ -151,7 +148,6 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Cancel action
      * Set billing agreement status to 'Canceled'
-     *
      */
     public function cancelAction()
     {
@@ -185,7 +181,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Init billing agreement model from request
      *
-     * @return Mage_Sales_Model_Billing_Agreement|false
+     * @return false|Mage_Sales_Model_Billing_Agreement
      */
     protected function _initAgreement()
     {
@@ -193,6 +189,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         $billingAgreement = false;
 
         if ($agreementId) {
+            /** @var Mage_Sales_Model_Billing_Agreement $billingAgreement */
             $billingAgreement = Mage::getModel('sales/billing_agreement')->load($agreementId);
             if (!$billingAgreement->getAgreementId()) {
                 $this->_getSession()->addError($this->__('Wrong billing agreement ID specified.'));

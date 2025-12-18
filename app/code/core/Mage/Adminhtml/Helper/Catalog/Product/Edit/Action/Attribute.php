@@ -17,14 +17,14 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Selected products for mass-update
      *
-     * @var Mage_Catalog_Model_Resource_Product_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Product_Collection
      */
     protected $_products;
 
     /**
      * Array of same attributes for selected products
      *
-     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
+     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return array of selected product ids from post or session
      *
-     * @return array|string|null
+     * @return null|array|string
      */
     public function getProductIds()
     {
@@ -134,8 +134,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return product ids that not available for selected store
      *
-     * @deprecated since 1.4.1
      * @return array
+     * @deprecated since 1.4.1
      */
     public function getProductsNotInStoreIds()
     {

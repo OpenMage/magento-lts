@@ -12,18 +12,18 @@
  *
  * @package    Varien_Data
  *
- * @method $this setAfterElementHtml(string $value)
  * @method string getClass()
- * @method $this setClass(string $value)
- * @method $this setContainer(Varien_Data_Form $value)
- * @method $this setExtType(string $value)
  * @method string getLabel()
- * @method $this setLabel(string $value)
  * @method bool getNoSpan()
- * @method $this setName(string $value)
  * @method bool getRequired()
  * @method string getValue()
  * @method array getValues()
+ * @method $this setAfterElementHtml(string $value)
+ * @method $this setClass(string $value)
+ * @method $this setContainer(Varien_Data_Form $value)
+ * @method $this setExtType(string $value)
+ * @method $this setLabel(string $value)
+ * @method $this setName(string $value)
  * @method $this setValues(array|int|string $value)
  * @method $this unsCanUseDefaultValue()
  * @method $this unsCanUseWebsiteValue()
@@ -57,7 +57,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param false|string $after
      * @return  $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -203,7 +203,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string|null $index
+     * @param null|string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -361,7 +361,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add specified values to element values
      *
-     * @param string|int|array $values
+     * @param array|int|string $values
      * @param bool $overwrite
      * @return $this
      */

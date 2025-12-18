@@ -103,7 +103,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     protected function _getConnection()
     {
-        if (!isset($this->_connection)) {
+        if (is_null($this->_connection)) {
             $resource   = Mage::getSingleton('core/resource');
             $connection = $resource->createConnection('install', $this->getType(), $this->getConnectionData());
             $this->_connection = $connection;
@@ -114,8 +114,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
 
     /**
      * Return pdo type
-     *
-     * @return null
      */
     public function getPdoType()
     {

@@ -59,13 +59,13 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $collection->load();
 
         foreach ($collection as $sr) {
-            $description = '<table><tr>' .
-            '<td style="text-decoration:none;">' . $sr->getDescription() .
-            '<br/>Discount Start Date: ' . $this->formatDate($sr->getFromDate(), 'medium') .
-            ($sr->getToDate() ? ('<br/>Discount End Date: ' . $this->formatDate($sr->getToDate(), 'medium')) : '') .
-            ($sr->getCouponCode() ? '<br/> Coupon Code: ' . $this->escapeHtml($sr->getCouponCode()) . '' : '') .
-            '</td>' .
-            '</tr></table>';
+            $description = '<table><tr>'
+            . '<td style="text-decoration:none;">' . $sr->getDescription()
+            . '<br/>Discount Start Date: ' . $this->formatDate($sr->getFromDate(), 'medium')
+            . ($sr->getToDate() ? ('<br/>Discount End Date: ' . $this->formatDate($sr->getToDate(), 'medium')) : '')
+            . ($sr->getCouponCode() ? '<br/> Coupon Code: ' . $this->escapeHtml($sr->getCouponCode()) . '' : '')
+            . '</td>'
+            . '</tr></table>';
             $data = [
                 'title'       => $sr->getName(),
                 'description' => $description,

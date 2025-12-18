@@ -29,8 +29,8 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Controller_Front_Action $controller
      *
      * @return $this
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function initProductLayout($product, $controller)
     {

@@ -131,7 +131,7 @@ class Magento_Db_Sql_Trigger
      * Set trigger part
      *
      * @param $part
-     * @return string|array
+     * @return array|string
      * @throws Exception
      */
     protected function _getPart($part)
@@ -140,7 +140,7 @@ class Magento_Db_Sql_Trigger
             return $this->_parts[$part];
         }
 
-        throw new Exception('Part [' . $part . '] does\'t exists');
+        throw new Exception('Part [' . $part . "] does't exists");
     }
 
     /**
@@ -175,7 +175,7 @@ class Magento_Db_Sql_Trigger
             return $this->_parts[self::BODY][$part];
         }
 
-        throw new Exception('Part [' . $part . '] does\'t exists');
+        throw new Exception('Part [' . $part . "] does't exists");
     }
 
     /**

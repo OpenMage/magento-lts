@@ -7,6 +7,8 @@
  * @package    Mage_Cms
  */
 
+use Mage_Adminhtml_Block_System_Config_Form as Form;
+
 /**
  * CMS Page Helper
  *
@@ -29,6 +31,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      *
      * @param string $pageId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
     {
@@ -41,8 +44,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
-    protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
+    protected function _renderPage(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
@@ -129,6 +133,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
@@ -139,7 +144,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Retrieve page direct URL
      *
      * @param string $pageId
-     * @return string|null
+     * @return null|string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPageUrl($pageId = null)
     {
@@ -175,5 +181,69 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         return $searchPaths;
+    }
+
+    /**
+     * @param self::XML_PATH_* $path
+     */
+    public static function getConfigLabelFromConfigPath(string $path): string
+    {
+        return match ($path) {
+            self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
+            self::XML_PATH_NO_COOKIES_PAGE => Mage::helper('cms')->__('No Cookies Page'),
+            self::XML_PATH_HOME_PAGE => Mage::helper('cms')->__('Home Page'),
+            default => $path,
+        };
+    }
+
+    /**
+     * @param Form::SCOPE_* $scope
+     * @throws Mage_Core_Exception
+     */
+    public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
+    {
+        return match ($scope) {
+            Form::SCOPE_ENV => Mage::helper('cms')->__('Environment Config'),
+            Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
+            Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
+            Form::SCOPE_STORES => sprintf(
+                '%s - %s',
+                Mage::app()->getStore($scopeId)->getGroup()->getName(),
+                Mage::app()->getStore($scopeId)->getName(),
+            ),
+        };
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public static function getValidateConfigErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
+    {
+        $messages = [];
+
+        $data = $isUsedInConfig->getData();
+        foreach ($data as $key => $item) {
+            $path = $item['path'];
+            unset($item['config_id'], $item['path'], $item['updated_at'], $item['value']);
+            $data[$path][] = $item;
+            unset($data[$key], $key, $path);
+        }
+
+        foreach ($data as $path => $items) {
+            $scopes = [];
+            foreach ($items as $item) {
+                $scopes[] = self::getScopeInfoFromConfigScope($item['scope'], $item['scope_id']);
+            }
+
+            $messages[] = sprintf(
+                '%s (%s)',
+                self::getConfigLabelFromConfigPath($path),
+                implode(', ', $scopes),
+            );
+        }
+
+        unset($data, $path, $items, $item, $scopes);
+
+        return implode(', ', $messages);
     }
 }
