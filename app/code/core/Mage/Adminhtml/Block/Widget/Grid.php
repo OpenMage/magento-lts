@@ -317,7 +317,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         Mage::dispatchEvent('adminhtml_grid_set_collection', [
             'grid' => $this,
-            'collection' => $collection
+            'collection' => $collection,
         ]);
 
         $this->_collection = $collection;
@@ -802,7 +802,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         Mage::dispatchEvent('adminhtml_grid_after_load_collection', [
             'grid' => $this,
-            'collection' => $this->getCollection()
+            'collection' => $this->getCollection(),
         ]);
 
         return $this;
@@ -815,7 +815,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         Mage::dispatchEvent('adminhtml_grid_before_load_collection', [
             'grid' => $this,
-            'collection' => $this->getCollection()
+            'collection' => $this->getCollection(),
         ]);
 
         return $this;
