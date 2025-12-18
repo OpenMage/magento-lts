@@ -15,7 +15,7 @@
 class Mage_Dataflow_Model_Resource_Profile_History_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {

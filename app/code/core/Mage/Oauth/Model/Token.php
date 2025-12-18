@@ -66,7 +66,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     public const USER_TYPE_CUSTOMER = 'customer';
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

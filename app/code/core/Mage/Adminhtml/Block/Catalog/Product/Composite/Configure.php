@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Configure extends Mage_Admi
     protected $_product;
 
     /**
-     * Set template
+     * @inheritDoc
      */
     protected function _construct()
     {

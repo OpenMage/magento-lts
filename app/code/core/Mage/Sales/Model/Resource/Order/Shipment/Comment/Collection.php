@@ -27,6 +27,9 @@ class Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection extends Mage_S
      */
     protected $_eventObject    = 'order_shipment_comment_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_shipment_comment');

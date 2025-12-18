@@ -36,6 +36,9 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 
     public const DEFAULT_STOCK_ID          = 1;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock');

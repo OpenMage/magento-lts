@@ -46,7 +46,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     protected $_generatedCount = 0;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

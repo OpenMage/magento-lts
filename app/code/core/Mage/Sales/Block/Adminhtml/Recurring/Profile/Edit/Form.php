@@ -64,7 +64,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     }
 
     /**
-     * Instantiate a recurring payment profile to use it as a helper
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

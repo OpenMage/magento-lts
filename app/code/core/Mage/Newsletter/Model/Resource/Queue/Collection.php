@@ -29,7 +29,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     protected $_isStoreFilter        = false;
 
     /**
-     * Initializes collection
+     * @inheritDoc
      */
     protected function _construct()
     {

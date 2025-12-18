@@ -197,7 +197,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'creditmemo';
 
     /**
-     * Initialize creditmemo resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

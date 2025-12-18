@@ -17,7 +17,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public const ACL_ALL_RULES = 'all';
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

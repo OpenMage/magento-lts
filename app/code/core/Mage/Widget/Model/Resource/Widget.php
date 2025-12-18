@@ -14,6 +14,9 @@
  */
 class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('widget/widget', 'widget_id');

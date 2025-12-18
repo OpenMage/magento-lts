@@ -29,7 +29,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     protected $_dirExists = [];
 
     /**
-     * Initialize default values of the options
+     * @inheritDoc
      */
     protected function _construct()
     {

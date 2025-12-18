@@ -151,6 +151,7 @@ class Mage_Eav_Model_Config
 
         if ($this->_isCacheEnabled() && $this->_loadFromCache($storeId)) {
             $this->_storeInitialized[$storeId] = true;
+            Varien_Profiler::stop('EAV: ' . __METHOD__);
             return;
         }
 

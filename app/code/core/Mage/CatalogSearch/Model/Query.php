@@ -57,7 +57,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

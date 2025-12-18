@@ -21,7 +21,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
-     * Model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

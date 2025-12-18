@@ -63,7 +63,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     protected $_foundData = [];
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

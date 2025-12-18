@@ -22,7 +22,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     protected $_itemsCollection = null;
 
     /**
-     * Initialize block
+     * @inheritDoc
      */
     protected function _construct()
     {

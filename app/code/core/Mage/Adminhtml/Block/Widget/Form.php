@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected $_form;
 
     /**
-     * Class constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -22,7 +22,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     protected $_storeId;
 
     /**
-     * Init model for collection
+     * @inheritDoc
      */
     protected function _construct()
     {
