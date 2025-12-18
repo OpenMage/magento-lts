@@ -315,6 +315,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function setCollection($collection)
     {
+        Mage::dispatchEvent('adminhtml_grid_set_collection', [
+            'grid' => $this,
+            'collection' => $collection
+        ]);
+
         $this->_collection = $collection;
     }
 
@@ -697,6 +702,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
+        Mage::dispatchEvent('adminhtml_grid_prepare_columns_after', ['grid' => $this]);
         $this->sortColumnsByOrder();
         return $this;
     }
@@ -766,6 +772,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareGrid()
     {
+        Mage::dispatchEvent('adminhtml_grid_prepare_columns_before', ['grid' => $this]);
         $this->_prepareColumns();
         $this->_prepareMassactionBlock();
         $this->_prepareCollection();
@@ -793,6 +800,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _afterLoadCollection()
     {
+        Mage::dispatchEvent('adminhtml_grid_after_load_collection', [
+            'grid' => $this,
+            'collection' => $this->getCollection()
+        ]);
+
         return $this;
     }
 
@@ -801,6 +813,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _beforeLoadCollection()
     {
+        Mage::dispatchEvent('adminhtml_grid_before_load_collection', [
+            'grid' => $this,
+            'collection' => $this->getCollection()
+        ]);
+
         return $this;
     }
 
