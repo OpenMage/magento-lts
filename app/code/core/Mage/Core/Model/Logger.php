@@ -73,7 +73,7 @@ class Mage_Core_Model_Logger
                     }
                 }
 
-                $handler = HelperLog::getHandler(Mage::app(), $logFile);
+                $handler = HelperLog::getHandler($logFile);
 
                 $logger = new Logger('OpenMage');
                 $logger->pushHandler($handler);

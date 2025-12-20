@@ -71,10 +71,10 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     /**
      * Retrieve log handler instance
      */
-    public static function getHandler(null|Mage_Core_Model_App $app, string $logFile, Level $logLevel = Level::Debug): HandlerInterface
+    public static function getHandler(string $logFile, Level $logLevel = Level::Debug): HandlerInterface
     {
         $writerModel = (string) Mage::getConfig()->getNode('global/log/core/writer_model');
-        if (!$app || !$writerModel) {
+        if (!Mage::app() || !$writerModel) {
             $handler = new StreamHandler($logFile, $logLevel);
         } else {
             $handler = new $writerModel($logFile, $logLevel);
