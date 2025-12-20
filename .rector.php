@@ -83,7 +83,6 @@ try {
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
-            CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
@@ -93,7 +92,6 @@ try {
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
-            CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP
             CodingStyle\Assign\SplitDoubleAssignRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
