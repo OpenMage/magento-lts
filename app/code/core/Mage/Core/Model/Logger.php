@@ -17,6 +17,12 @@ use Monolog\Logger;
  */
 class Mage_Core_Model_Logger
 {
+    /** Loggers storage
+     *
+     * @var Logger[]
+     */
+    private static array $loggers = [];
+
     /**
      * Log wrapper
      *
@@ -33,15 +39,13 @@ class Mage_Core_Model_Logger
             if (empty($file)) {
                 $file = Mage::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE);
             }
-        } catch (Exception) {
+        } catch (Throwable) {
             $logActive = true;
         }
 
         if (!Mage::getIsDeveloperMode() && !$logActive && !$forceLog) {
             return;
         }
-
-        static $loggers = [];
 
         $maxLogLevel = Mage_Core_Helper_Log::getLogLevelMax();
         $levelValue = Mage_Core_Helper_Log::getLogLevel($level);
@@ -53,7 +57,7 @@ class Mage_Core_Model_Logger
         $file = empty($file) ? Mage_Core_Helper_Log::getLogFile() : basename($file);
 
         try {
-            if (!isset($loggers[$file])) {
+            if (!isset(self::$loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
                 $_allowedFileExtensions = Mage_Core_Helper_Log::getAllowedFileExtensions();
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
@@ -77,7 +81,7 @@ class Mage_Core_Model_Logger
 
                 $logger = new Logger('OpenMage');
                 $logger->pushHandler($handler);
-                $loggers[$file] = $logger;
+                self::$loggers[$file] = $logger;
             }
 
             if (is_array($message) || is_object($message)) {
@@ -85,7 +89,7 @@ class Mage_Core_Model_Logger
             }
 
             $message = addcslashes($message, '<?');
-            $loggers[$file]->log($levelValue, $message, $context);
+            self::$loggers[$file]->log($levelValue, $message, $context);
         } catch (Exception) {
         }
     }
@@ -93,8 +97,8 @@ class Mage_Core_Model_Logger
     /**
      * Log exception wrapper
      */
-    public function logException(Exception $e)
+    public function logException(Exception $exception)
     {
-        Mage::logException($e);
+        Mage::logException($exception);
     }
 }
