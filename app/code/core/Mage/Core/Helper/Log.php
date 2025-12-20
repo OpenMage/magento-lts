@@ -164,7 +164,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 default => Level::Debug,
             });
         }
-   }
+    }
 
     /**
      * Retrieve maximum log level from configuration
