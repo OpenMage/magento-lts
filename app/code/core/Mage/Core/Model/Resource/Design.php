@@ -27,7 +27,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $dateFrom = $object->getDateFrom();
         $dateTo = $object->getDateTo();

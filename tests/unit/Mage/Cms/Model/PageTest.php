@@ -21,7 +21,7 @@ final class PageTest extends OpenMageTest
 
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = Mage::getModel('cms/page');
     }

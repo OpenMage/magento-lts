@@ -341,7 +341,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      *
      * @return string
      */
-    public function _getDefaultSourceModel()
+    protected function _getDefaultSourceModel()
     {
         return 'eav/entity_attribute_source_table';
     }

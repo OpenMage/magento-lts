@@ -50,7 +50,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     public const STATUS_ERROR = 'error';
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('cron/schedule');
     }

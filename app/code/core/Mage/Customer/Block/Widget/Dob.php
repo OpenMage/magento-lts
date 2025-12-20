@@ -22,7 +22,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     protected $_dateInputs = [];
 
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
 

@@ -22,7 +22,7 @@ final class StoreTest extends OpenMageTest
 
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = Mage::getModel('core/store');
     }

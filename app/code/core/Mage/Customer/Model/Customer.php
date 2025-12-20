@@ -238,7 +238,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Initialize customer model
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('customer/customer');
     }

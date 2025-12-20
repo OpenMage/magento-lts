@@ -19,7 +19,7 @@ final class VisitorTest extends OpenMageTest
 {
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = Mage::getModel('log/visitor');
     }

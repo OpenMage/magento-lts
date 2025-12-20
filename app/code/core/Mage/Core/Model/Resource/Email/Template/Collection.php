@@ -24,7 +24,7 @@ class Mage_Core_Model_Resource_Email_Template_Collection extends Mage_Core_Model
     /**
      * Define resource table
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('core/email_template');
         $this->_templateTable = $this->getMainTable();
