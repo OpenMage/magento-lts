@@ -3067,18 +3067,6 @@ parameters:
 			path: app/design/frontend/base/default/template/sales/order/trackinginfo.phtml
 
 		-
-			rawMessage: 'Cannot call method setFilter() on class-string|object.'
-			identifier: method.nonObject
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
-
-		-
-			rawMessage: 'Cannot call method toHtml() on class-string|object.'
-			identifier: method.nonObject
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
-
-		-
 			rawMessage: 'Parameter #2 $attribute of method Mage_Catalog_Block_Product_Compare_List::getProductAttributeValue() expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute_Abstract given.'
 			identifier: argument.type
 			count: 2
@@ -3095,24 +3083,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
-
-		-
-			rawMessage: 'Cannot call method setAttributeObj() on class-string|object.'
-			identifier: method.nonObject
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
-
-		-
-			rawMessage: 'Cannot call method setProduct() on class-string|object.'
-			identifier: method.nonObject
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
-
-		-
-			rawMessage: 'Cannot call method toHtml() on class-string|object.'
-			identifier: method.nonObject
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
 
 		-
 			rawMessage: 'Method Mage_Checkout_Helper_Data::formatPrice() invoked with 3 parameters, 1 required.'
