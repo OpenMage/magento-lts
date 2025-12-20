@@ -27,7 +27,7 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Delete old entries
      *
-     * @param  int $minutes Delete entries older than
+     * @param  int                 $minutes Delete entries older than
      * @return int
      * @throws Mage_Core_Exception
      */

@@ -111,11 +111,11 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add new message
      *
-     * @param  int          $severity
-     * @param  string       $title
-     * @param  array|string $description
-     * @param  string       $url
-     * @param  bool         $isInternal
+     * @param  int                       $severity
+     * @param  string                    $title
+     * @param  array|string              $description
+     * @param  string                    $url
+     * @param  bool                      $isInternal
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -145,10 +145,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add critical severity message
      *
-     * @param  string       $title
-     * @param  array|string $description
-     * @param  string       $url
-     * @param  bool         $isInternal
+     * @param  string                    $title
+     * @param  array|string              $description
+     * @param  string                    $url
+     * @param  bool                      $isInternal
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -162,10 +162,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add major severity message
      *
-     * @param  string       $title
-     * @param  array|string $description
-     * @param  string       $url
-     * @param  bool         $isInternal
+     * @param  string                    $title
+     * @param  array|string              $description
+     * @param  string                    $url
+     * @param  bool                      $isInternal
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -179,10 +179,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add minor severity message
      *
-     * @param  string       $title
-     * @param  array|string $description
-     * @param  string       $url
-     * @param  bool         $isInternal
+     * @param  string                    $title
+     * @param  array|string              $description
+     * @param  string                    $url
+     * @param  bool                      $isInternal
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -196,10 +196,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Add notice
      *
-     * @param  string       $title
-     * @param  array|string $description
-     * @param  string       $url
-     * @param  bool         $isInternal
+     * @param  string                    $title
+     * @param  array|string              $description
+     * @param  string                    $url
+     * @param  bool                      $isInternal
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception

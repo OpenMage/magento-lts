@@ -40,7 +40,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * Convert a catalog layer block with the right templates
      *
-     * @param string $blockName
+     * @param  string              $blockName
      * @return void
      * @throws Mage_Core_Exception
      */

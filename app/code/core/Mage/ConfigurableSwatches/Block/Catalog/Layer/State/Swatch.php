@@ -57,7 +57,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
     /**
      * Set one-time data on the renderer
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Item $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Item $filter
      * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable

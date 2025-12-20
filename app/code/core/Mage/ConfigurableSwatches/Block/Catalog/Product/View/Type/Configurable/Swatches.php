@@ -57,7 +57,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
     /**
      * Set one-time data on the renderer
      *
-     * @param string $jsonConfig
+     * @param  string $jsonConfig
      * @return void
      */
     protected function _init($jsonConfig)

@@ -116,8 +116,8 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Check if page identifier exist for specific store
      * return page id if page exists
      *
-     * @param  string $identifier
-     * @param  int    $storeId
+     * @param  string              $identifier
+     * @param  int                 $storeId
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -138,7 +138,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param int|string $id
+     * @param  int|string          $id
      * @throws Mage_Core_Exception
      */
     public function getCmsPageTitleById($id): string
@@ -149,7 +149,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Retrieves cms page identifier from DB by passed id.
      *
-     * @param int|string $id
+     * @param  int|string          $id
      * @throws Mage_Core_Exception
      */
     public function getCmsPageIdentifierById($id): string

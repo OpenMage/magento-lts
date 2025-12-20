@@ -1395,8 +1395,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update and insert data in entity table.
      *
-     * @param  array $entityRowsIn Row for insert
-     * @param  array $entityRowsUp Row for update
+     * @param  array               $entityRowsIn Row for insert
+     * @param  array               $entityRowsUp Row for update
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -1642,11 +1642,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare attributes data
      *
-     * @param  array       $rowData
-     * @param  int         $rowScope
-     * @param  array       $attributes
-     * @param  null|string $rowSku
-     * @param  int         $rowStore
+     * @param  array                           $rowData
+     * @param  int                             $rowScope
+     * @param  array                           $attributes
+     * @param  null|string                     $rowSku
+     * @param  int                             $rowStore
      * @return array
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception

@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return mixed               Prepared option value
+     * @return mixed                 Prepared option value
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
@@ -143,7 +143,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Return formatted option value for quote option
      *
-     * @param  string $optionValue Prepared for cart option value
+     * @param  string                $optionValue Prepared for cart option value
      * @return string
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
@@ -199,8 +199,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Parse user input value and return cart prepared value
      *
-     * @param  string      $optionValue
-     * @param  array       $productOptionValues Values for product option
+     * @param  string              $optionValue
+     * @param  array               $productOptionValues Values for product option
      * @return null|string
      * @throws Zend_Date_Exception
      */

@@ -56,7 +56,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return the formatted hyphenated string
      *
-     * @param string $str
+     * @param  string      $str
      * @return null|string
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -78,7 +78,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      * Trims and lower-cases strings used as array indexes in json and for string matching in a
      * multi-byte compatible way if the mbstring module is available.
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public static function normalizeKey($key)
@@ -114,7 +114,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Determine if an attribute should be a swatch
      *
-     * @param int|Mage_Eav_Model_Attribute $attr
+     * @param  int|Mage_Eav_Model_Attribute $attr
      * @return bool
      * @throws Mage_Core_Exception
      */
