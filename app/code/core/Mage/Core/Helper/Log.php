@@ -103,7 +103,13 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
         bool $ignoreEmptyContextAndExtra = false,
         bool $includeStacktraces = false,
     ): FormatterInterface {
-        return new LineFormatter($format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra, $includeStacktraces);
+        return new LineFormatter(
+            format: $format,
+            dateFormat: $dateFormat,
+            allowInlineLineBreaks: $allowInlineLineBreaks,
+            ignoreEmptyContextAndExtra: $ignoreEmptyContextAndExtra,
+            includeStacktraces: $includeStacktraces,
+        );
     }
 
     /**
