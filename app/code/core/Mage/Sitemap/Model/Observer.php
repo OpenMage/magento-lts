@@ -43,6 +43,8 @@ class Mage_Sitemap_Model_Observer
      * Generate sitemaps
      *
      * @param Mage_Cron_Model_Schedule $schedule
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function scheduledGenerateSitemaps($schedule)
     {
@@ -60,8 +62,8 @@ class Mage_Sitemap_Model_Observer
 
             try {
                 $sitemap->generateXml();
-            } catch (Throwable $e) {
-                $errors[] = $e->getMessage();
+            } catch (Throwable $throwable) {
+                $errors[] = $throwable->getMessage();
             }
         }
 

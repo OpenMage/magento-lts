@@ -15,7 +15,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
     /**
      * Return array of single product -- current product
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     public function getProducts()
     {
@@ -47,7 +47,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
     /**
      * instruct image image type to be loaded
      *
-     * @return array
+     * @return string[]
      */
     protected function _getImageSizes()
     {

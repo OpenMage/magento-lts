@@ -49,7 +49,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Shared store ids (website stores)
      *
-     * @var null|array
+     * @var null|array<null|int>
      */
     protected $_storeIds = null;
 
@@ -74,6 +74,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $customer
      * @param bool $create Create wishlist if don't exists
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function loadByCustomer($customer, $create = false)
     {
@@ -124,6 +127,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param string $code
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function loadByCode($code)
     {
@@ -149,6 +154,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Set date of last update for wishlist
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -161,6 +167,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Save related items
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterSave()
     {
@@ -176,9 +184,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Add catalog product object data to wishlist
      *
-     * @param   int $qty
-     * @param   bool $forciblySetQty
-     * @return  Mage_Wishlist_Model_Item
+     * @param  int $qty
+     * @param  bool $forciblySetQty
+     * @return Mage_Wishlist_Model_Item
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
@@ -222,6 +233,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist item collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getItemCollection()
@@ -248,6 +260,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param int $itemId
      * @return false|Mage_Wishlist_Model_Item
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getItem($itemId)
     {
@@ -279,7 +293,10 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Adding item to wishlist
      *
-     * @return  $this
+     * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addItem(Mage_Wishlist_Model_Item $item)
     {
@@ -300,6 +317,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $buyRequest
      * @param bool $forciblySetQty
      * @return Mage_Wishlist_Model_Item|string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {
@@ -384,6 +403,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param int $customerId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomerId($customerId)
     {
@@ -394,6 +414,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve customer id
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getCustomerId()
     {
@@ -403,7 +424,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve data for save
      *
-     * @return array
+     * @return non-empty-array<string, int|string>
+     * @throws Mage_Core_Exception
      */
     public function getDataForSave()
     {
@@ -418,7 +440,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve shared store ids for current website or all stores if $current is false
      *
      * @param bool $current Use current website or not
-     * @return array
+     * @return array<null|int>
+     * @throws Mage_Core_Exception
      */
     public function getSharedStoreIds($current = true)
     {
@@ -455,6 +478,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist store object
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()
     {
@@ -481,6 +506,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist items count
      *
      * @return int
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getItemsCount()
     {
@@ -491,6 +519,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve wishlist has salable item(s)
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isSalable()
     {
@@ -508,6 +538,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param int $customerId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isOwner($customerId)
     {
@@ -532,7 +563,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param Varien_Object $buyRequest
      * @param null|array|Varien_Object $params
      * @return $this
-     *
+     * @throws Mage_Core_Exception
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
     public function updateItem($itemId, $buyRequest, $params = null)

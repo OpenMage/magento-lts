@@ -24,19 +24,21 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Attribute cache
      *
-     * @var array
+     * @var array{string: array{attribute_id: int, backend_type: string, is_global: bool, table: string}}|array{}
      */
     protected $_attributesCache = [];
 
     /**
      * Catalog factory instance
      *
-     * @var Mage_Catalog_Model_Factory
+     * @var Mage_Catalog_Model_Factory|string
      */
     protected $_factory;
 
     /**
      * Initialize factory instance
+     *
+     * @param array{factory: string}|array{} $args
      */
     public function __construct(array $args = [])
     {

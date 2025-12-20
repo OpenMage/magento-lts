@@ -546,7 +546,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block by name
      *
      * @param  string $name
-     * @return mixed
+     * @return false|Mage_Core_Block_Abstract|Mage_Core_Block_Abstract[]
      */
     public function getChild($name = '')
     {
@@ -665,6 +665,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   string $name
      * @return  string
+     * @throws  Mage_Core_Exception
      */
     public function getBlockHtml($name)
     {
