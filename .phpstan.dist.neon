@@ -65,6 +65,9 @@ parameters:
         - lib/Varien/Image/Adapter.php
     ignoreErrors:
         -
+            message: '#^Cannot call method [a-zA-Z0-9\\_]+\(\) on Mage_Core_Model_Store\|null\.$#'
+            reportUnmatched: false
+        -
             # @todo remove unused classes/template
             # @todo add classes to widgets
             message: '#^Variable \$this might not be defined\.$#'

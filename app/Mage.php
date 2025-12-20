@@ -943,7 +943,7 @@ final class Mage
             print '</pre>';
         } else {
             $reportData = [
-                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
+                (empty($extra) ? '' : $extra . "\n\n") . $e->getMessage(),
                 $e->getTraceAsString(),
             ];
 

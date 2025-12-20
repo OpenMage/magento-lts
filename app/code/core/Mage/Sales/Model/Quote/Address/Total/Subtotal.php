@@ -23,8 +23,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     {
         parent::collect($address);
         $address->setTotalQty(0);
-
-        $baseVirtualAmount = $virtualAmount = 0;
+        $baseVirtualAmount = 0;
+        $virtualAmount = 0;
 
         /**
          * Process address items

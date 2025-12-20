@@ -217,7 +217,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
              */
             $finalPrice = $product->getFinalPrice();
             if ($isPriceFixedType) {
-                $minimalPrice = $maximalPrice = $taxHelper->getPrice(
+                $minimalPrice = $taxHelper->getPrice(
                     $product,
                     $finalPrice,
                     $includeTax,
@@ -228,8 +228,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     null,
                     false,
                 );
-            } else { // PRICE_TYPE_DYNAMIC
-                $minimalPrice = $maximalPrice = 0;
+                $maximalPrice = $minimalPrice;
+            } else {
+                $minimalPrice = 0;
+                $maximalPrice = 0;
             }
 
             $minimalPrice += $this->_getMinimalBundleOptionsPrice($product, $includeTax, $takeTierPrice);

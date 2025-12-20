@@ -55,6 +55,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param Mage_Catalog_Model_Product $product
      * @param string $type
      * @return null|Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getProductImgByLabel($text, $product, $type = null)
     {
@@ -72,7 +73,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         if (!is_null($type) && array_key_exists($type, $resultImages)) {
             $image = $resultImages[$type];
         } else {
-            $image = (!is_null($resultImages['swatch'])) ? $resultImages['swatch'] : $resultImages['standard'];
+            $image = (is_null($resultImages['swatch'])) ? $resultImages['standard'] : $resultImages['swatch'];
         }
 
         return $image;
@@ -83,6 +84,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param null|array $preValues
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -166,6 +169,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $swatchType
      * @param string $fallbackFileExt
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function getSwatchUrl(
         $product,
@@ -217,6 +222,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $fileExt
      * @return string
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function getGlobalSwatchUrl(
         $object,
@@ -318,6 +324,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param int $width
      * @param int $height
      * @return false|string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     protected function _resizeSwatchImage($filename, $tag, $width, $height)
     {
@@ -358,6 +367,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
     /**
      * Cleans out the swatch image cache dir
+     *
+     * @return void
      */
     public function clearSwatchesCache()
     {
@@ -374,6 +385,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param Mage_Catalog_Model_Product $product
      * @param Varien_Object $image
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function filterImageInGallery($product, $image)
     {

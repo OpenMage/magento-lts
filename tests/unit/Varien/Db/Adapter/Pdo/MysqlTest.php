@@ -47,7 +47,7 @@ final class MysqlTest extends TestCase
     public function testGetHostInfoWithUnixSocket(): void
     {
         $fakeSocket = '/var/run/mysqld/mysqld.sock';
-        $hostInfo = $hostInfo = $this->getHostInfo($fakeSocket);
+        $hostInfo = $this->getHostInfo($fakeSocket);
 
         self::assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_UNIX_SOCKET, $hostInfo->getAddressType());
         self::assertSame($fakeSocket, $hostInfo->getUnixSocket());

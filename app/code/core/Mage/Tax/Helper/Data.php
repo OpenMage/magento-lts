@@ -107,7 +107,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function __construct(array $args = [])
     {
         $this->_config = Mage::getSingleton('tax/config');
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
     }
 
     /**
@@ -830,8 +830,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $currentTaxes = Mage::getSingleton('tax/calculation')->getRatesForAllProductTaxClasses($request);
-
-        $defaultTaxString = $currentTaxString = '';
+        $defaultTaxString = '';
+        $currentTaxString = '';
 
         $rateToVariable = [
             'defaultTaxString' => 'defaultTaxes',

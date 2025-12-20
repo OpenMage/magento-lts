@@ -23,7 +23,7 @@
                 <td class="value">
                     <input type="text" class="input-text" name="product[samples_title]" value="<?php echo $_product->getId()?$_product->getSamplesTitle():$this->getSamplesTitle() ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
                 </td>
-                <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
+                <td class="scope-label"><?php echo Mage::app()->isSingleStoreMode() ? '' : Mage::helper('adminhtml')->__('[STORE VIEW]'); ?></td>
                 <td class="value use-default">
                 <?php if($_product->getStoreId()): ?>
                     <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />

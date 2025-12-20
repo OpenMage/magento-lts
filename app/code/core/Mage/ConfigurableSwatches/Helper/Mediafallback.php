@@ -23,7 +23,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
+     * @param Mage_Catalog_Model_Product[] $parentProducts
      * @param int $storeId
+     * @return void
      * @throws Mage_Core_Exception
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      */
@@ -40,6 +42,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param Mage_Catalog_Model_Product[] $parentProducts
      * @param int $storeId
      * @param bool $onlyListAttributes
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function attachProductChildrenAttributeMapping(array $parentProducts, $storeId, $onlyListAttributes = false)
@@ -156,9 +159,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have media gallery attached which attaches and differentiates local images and child images
      * - product must have child products attached
      *
-     * @param array $imageTypes - image types to select for child products
+     * @param string[] $imageTypes - image types to select for child products
      * @param bool $keepFrame
-     * @return array
+     * @return array{option_labels: string[], small_image: string[], image: string[]}|array{}
      * @throws Mage_Core_Exception
      */
     public function getConfigurableImagesFallbackArray(
@@ -298,6 +301,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
     /**
      * Groups media gallery images by local images and child images
+     *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
@@ -329,13 +334,14 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     /**
      * For given product set, attach media_gallery attribute values.
      *
+     * @param Mage_Catalog_Model_Product[] $products
      * @param int $storeId
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function attachGallerySetToCollection(array $products, $storeId)
     {
         $productIds = [];
-        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
             if (!is_array($product->getChildrenProducts())) {
@@ -402,7 +408,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Determines which product attributes should be selected
      * when children products are attached to parent products
      *
-     * @return array
+     * @return string[]
+     * @throws Mage_Core_Exception
      */
     protected function _getChildrenProductsAttributes()
     {
@@ -419,14 +426,15 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Attaches children product to each product via
      * ->setChildrenProducts()
      *
+     * @param Mage_Catalog_Model_Product[] $products
      * @param int $storeId
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
      */
     public function attachChildrenProducts(array $products, $storeId)
     {
         $productIds = [];
-        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
         }

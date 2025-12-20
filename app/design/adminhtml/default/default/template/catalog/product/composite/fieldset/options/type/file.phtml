@@ -9,7 +9,7 @@
 <?php /** @var Mage_Catalog_Block_Product_View_Options_Type_File $this */ ?>
 <?php $_option = $this->getOption(); ?>
 <?php $_fileInfo = $this->getFileInfo(); ?>
-<?php $_fileExists = $_fileInfo->hasData() ? true : false; ?>
+<?php $_fileExists = $_fileInfo->hasData(); ?>
 <?php $_fileName = 'options_' . $_option->getId() . '_file'; ?>
 <?php $_fieldNameAction = $_fileName . '_action'; ?>
 <?php $_fieldValueAction = $_fileExists ? 'save_old' : 'save_new'; ?>
