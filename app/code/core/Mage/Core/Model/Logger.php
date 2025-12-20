@@ -7,6 +7,7 @@
  * @package    Mage_Core
  */
 
+use Mage_Core_Helper_Log as HelperLog;
 use Monolog\Level;
 use Monolog\Logger;
 
@@ -35,9 +36,9 @@ class Mage_Core_Model_Logger
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
         try {
-            $logActive = Mage::getStoreConfigFlag(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED);
+            $logActive = Mage::getStoreConfigFlag(HelperLog::XML_PATH_DEV_LOG_ENABLED);
             if (empty($file)) {
-                $file = Mage::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE);
+                $file = Mage::getStoreConfig(HelperLog::XML_PATH_DEV_LOG_FILE);
             }
         } catch (Throwable) {
             $logActive = true;
@@ -47,19 +48,18 @@ class Mage_Core_Model_Logger
             return;
         }
 
-        $maxLogLevel = Mage_Core_Helper_Log::getLogLevelMax();
-        $levelValue = Mage_Core_Helper_Log::getLogLevel($level);
+        $levelValue = HelperLog::getLogLevel($level);
 
-        if (!Mage::getIsDeveloperMode() && $levelValue > $maxLogLevel && !$forceLog) {
+        if (!Mage::getIsDeveloperMode() && $levelValue > HelperLog::getLogLevelMax() && !$forceLog) {
             return;
         }
 
-        $file = empty($file) ? Mage_Core_Helper_Log::getLogFile() : basename($file);
+        $file = empty($file) ? HelperLog::getLogFile() : basename($file);
 
         try {
             if (!isset(self::$loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-                $_allowedFileExtensions = Mage_Core_Helper_Log::getAllowedFileExtensions();
+                $_allowedFileExtensions = HelperLog::getAllowedFileExtensions();
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
@@ -77,7 +77,7 @@ class Mage_Core_Model_Logger
                     chmod($logFile, 0640);
                 }
 
-                $handler = Mage_Core_Helper_Log::getHandler(Mage::app(), $logFile);
+                $handler = HelperLog::getHandler(Mage::app(), $logFile);
 
                 $logger = new Logger('OpenMage');
                 $logger->pushHandler($handler);
