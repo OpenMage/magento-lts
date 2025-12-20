@@ -35,6 +35,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+use Carbon\Carbon;
+
 /**
  * Optimized file cache backend
  *
@@ -131,7 +133,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         [$metadatas, $data] = $cache;
-        if (!$doNotTestCacheValidity && time() > $metadatas['expire']) {
+        if (!$doNotTestCacheValidity && Carbon::now()->getTimestamp() > $metadatas['expire']) {
             // ?? $this->remove($id);
             return false;
         }
@@ -188,7 +190,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
 
         $metadatas = [
             'hash'   => $hash,
-            'mtime'  => time(),
+            'mtime'  => Carbon::now()->getTimestamp(),
             'expire' => $this->_expireTime($this->getLifetime($specificLifetime)),
             'tags'   => implode(',', $tags),
         ];
@@ -346,13 +348,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         [$metadatas, $data] = $cache;
-        if (time() > $metadatas['expire']) {
+        if (Carbon::now()->getTimestamp() > $metadatas['expire']) {
             return false;
         }
 
         $newMetadatas = [
             'hash'   => $metadatas['hash'],
-            'mtime'  => time(),
+            'mtime'  => Carbon::now()->getTimestamp(),
             'expire' => $metadatas['expire'] + $extraLifetime,
             'tags'   => $metadatas['tags'],
         ];
@@ -516,7 +518,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
 
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
-                    if (time() > $metadatas['expire']) {
+                    if (Carbon::now()->getTimestamp() > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
                         $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
                     }

@@ -7,6 +7,8 @@
  * @package    Mage_Sales
  */
 
+use Carbon\Carbon;
+
 /**
  * Sales observer
  *
@@ -39,7 +41,7 @@ class Mage_Sales_Model_Observer
             /** @var Mage_Sales_Model_Resource_Quote_Collection $quotes */
             $quotes = Mage::getResourceModel('sales/quote_collection');
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', ['to' => date('Y-m-d', time() - $lifetime)]);
+            $quotes->addFieldToFilter('updated_at', ['to' => Carbon::createFromTimestamp(Carbon::now()->getTimestamp() - $lifetime)->format('Y-m-d')]);
             if ($day == 0) {
                 $quotes->addFieldToFilter('is_active', 0);
             }

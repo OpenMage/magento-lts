@@ -7,6 +7,8 @@
  * @package    Mage_Usa
  */
 
+use Carbon\Carbon;
+
 /**
  * Fedex shipping implementation
  *
@@ -313,7 +315,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             'Version' => $this->getVersionInfo(),
             'RequestedShipment' => [
                 'DropoffType'   => $r->getDropoffType(),
-                'ShipTimestamp' => date('c'),
+                'ShipTimestamp' => Carbon::now()->format('c'),
                 'PackagingType' => $r->getPackaging(),
                 'TotalInsuredValue' => [
                     'Amount'  => $r->getValue(),
@@ -608,7 +610,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestHeader->addChild('AccountNumber', $r->getAccount());
         $requestHeader->addChild('MeterNumber', '0');
 
-        $xml->addChild('ShipDate', date('Y-m-d'));
+        $xml->addChild('ShipDate', Carbon::now()->format('Y-m-d'));
         $xml->addChild('DropoffType', $r->getDropoffType());
         if ($r->hasService()) {
             $xml->addChild('Service', $r->getService());
@@ -1062,10 +1064,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $resultArray['status'] = (string) $trackInfo->StatusDescription;
                 $resultArray['service'] = (string) $trackInfo->ServiceInfo;
                 $timestamp = $trackInfo->EstimatedDeliveryTimestamp ?? $trackInfo->ActualDeliveryTimestamp;
-                $timestamp = strtotime((string) $timestamp);
+                $timestamp = Carbon::parse((string) $timestamp)->getTimestamp();
                 if ($timestamp) {
-                    $resultArray['deliverydate'] = date('Y-m-d', $timestamp);
-                    $resultArray['deliverytime'] = date('H:i:s', $timestamp);
+                    $resultArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
+                    $resultArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');
                 }
 
                 $deliveryLocation = $trackInfo->EstimatedDeliveryAddress ?? $trackInfo->ActualDeliveryAddress;
@@ -1087,7 +1089,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 }
 
                 $resultArray['signedby'] = (string) $trackInfo->DeliverySignatureName;
-                $resultArray['shippeddate'] = date('Y-m-d', (int) $trackInfo->ShipTimestamp);
+                $resultArray['shippeddate'] = Carbon::createFromTimestamp((int) $trackInfo->ShipTimestamp)->format('Y-m-d');
                 if (isset($trackInfo->PackageWeight) && isset($trackInfo->Units)) {
                     $weight = (string) $trackInfo->PackageWeight;
                     $unit = (string) $trackInfo->Units;
@@ -1104,10 +1106,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     foreach ($events as $event) {
                         $tempArray = [];
                         $tempArray['activity'] = (string) $event->EventDescription;
-                        $timestamp = strtotime((string) $event->Timestamp);
+                        $timestamp = Carbon::parse((string) $event->Timestamp)->getTimestamp();
                         if ($timestamp) {
-                            $tempArray['deliverydate'] = date('Y-m-d', $timestamp);
-                            $tempArray['deliverytime'] = date('H:i:s', $timestamp);
+                            $tempArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
+                            $tempArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');
                         }
 
                         if (isset($event->Address)) {
@@ -1374,7 +1376,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
         $requestClient = [
             'RequestedShipment' => [
-                'ShipTimestamp' => time(),
+                'ShipTimestamp' => Carbon::now()->getTimestamp(),
                 'DropoffType'   => $this->getConfigData('dropoff'),
                 'PackagingType' => $request->getPackagingType(),
                 'ServiceType' => $request->getShippingMethod(),
