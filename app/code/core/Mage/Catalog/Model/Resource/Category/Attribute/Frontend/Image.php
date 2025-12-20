@@ -22,11 +22,10 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage
      */
     public function getUrl($object)
     {
-        $url = false;
         if ($image = $object->getData($this->getAttribute()->getAttributeCode())) {
             return Mage::getBaseUrl('media') . self::IMAGE_PATH_SEGMENT . $image;
         }
 
-        return $url;
+        return null ;
     }
 }

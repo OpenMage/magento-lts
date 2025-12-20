@@ -16,6 +16,9 @@ use Carbon\Carbon;
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $this->setType('customer');
@@ -46,6 +49,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param Mage_Customer_Model_Customer $object
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     protected function _beforeSave(Varien_Object $object)
     {
@@ -100,6 +104,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $object
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     protected function _afterSave(Varien_Object $object)
     {
@@ -175,6 +180,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param Mage_Customer_Model_Customer $object
      * @param mixed $rowId
      * @return Zend_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
@@ -302,6 +308,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Custom setter of increment ID if its needed
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setNewIncrementId(Varien_Object $object)
     {
@@ -360,7 +367,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * If attribute password_created_at is empty, return created_at timestamp
      *
      * @param int $customerId
-     * @return false|int
+     * @return false|int|string
+     * @throws Mage_Core_Exception
      */
     public function getPasswordTimestamp($customerId)
     {
@@ -393,6 +401,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param int $customerId
      * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getEmail($customerId)
     {

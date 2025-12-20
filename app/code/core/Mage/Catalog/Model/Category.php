@@ -551,16 +551,15 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve image URL
      *
-     * @return string
+     * @return null|string
      */
     public function getImageUrl()
     {
-        $url = false;
         if ($image = $this->getImage()) {
             return Mage::getBaseUrl('media') . 'catalog/category/' . $image;
         }
 
-        return $url;
+        return null;
     }
 
     /**
