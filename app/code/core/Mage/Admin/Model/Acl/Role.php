@@ -31,6 +31,9 @@
  */
 class Mage_Admin_Model_Acl_Role extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

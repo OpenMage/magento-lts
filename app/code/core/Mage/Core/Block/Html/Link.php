@@ -14,6 +14,9 @@
  */
 class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('core/link.phtml');

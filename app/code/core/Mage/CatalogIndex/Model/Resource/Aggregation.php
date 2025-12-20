@@ -7,6 +7,8 @@
  * @package    Mage_CatalogIndex
  */
 
+use Carbon\Carbon;
+
 /**
  * Resource Model CatalogIndex Aggregation
  *
@@ -29,7 +31,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected $_toTagTable;
 
     /**
-     * Initialize resource tables
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -101,7 +103,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
             'store_id'  => $storeId,
-            'created_at' => $this->formatDate(time()),
+            'created_at' => $this->formatDate(Carbon::now()->getTimestamp()),
             'key'       => $key,
             'data'      => $data,
         ], ['created_at', 'data']);

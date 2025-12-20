@@ -55,7 +55,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected $_titleModel = null;
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

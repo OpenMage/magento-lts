@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog rules resource model
  *
@@ -70,7 +72,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     }
 
     /**
-     * Initialize main table and table id field
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -178,11 +180,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getFromDate()));
-        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getToDate()));
+        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getFromDate())->getTimestamp());
+        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = time();
+        $timestamp = Carbon::now()->getTimestamp();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {
@@ -691,7 +693,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     {
         $adapter = $this->_getReadAdapter();
         if (is_string($date)) {
-            $date = strtotime($date);
+            $date = Carbon::parse($date)->getTimestamp();
         }
 
         $select = $adapter->select()

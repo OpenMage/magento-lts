@@ -23,7 +23,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     protected $_element = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

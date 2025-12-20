@@ -16,6 +16,9 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setSaveParametersInSession(true);

@@ -34,6 +34,9 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     protected $_attribute;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_status');

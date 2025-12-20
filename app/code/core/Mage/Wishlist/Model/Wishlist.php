@@ -61,7 +61,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     protected $_cacheTag = 'wishlist';
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

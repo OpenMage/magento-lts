@@ -7,6 +7,8 @@
  * @package    Mage_Dataflow
  */
 
+use Carbon\Carbon;
+
 /**
  * Convert profile
  *
@@ -57,6 +59,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      */
     protected $_customerTablePermanentAttributes = ['email', 'website'];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/profile');
@@ -238,7 +243,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }

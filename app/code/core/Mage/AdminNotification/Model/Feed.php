@@ -7,6 +7,8 @@
  * @package    Mage_AdminNotification
  */
 
+use Carbon\Carbon;
+
 /**
  * AdminNotification Feed model
  *
@@ -50,7 +52,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function checkUpdate()
     {
-        if (($this->getFrequency() + $this->getLastUpdate()) > time()) {
+        if (($this->getFrequency() + $this->getLastUpdate()) > Carbon::now()->getTimestamp()) {
             return $this;
         }
 
@@ -87,7 +89,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function getDate($rssDate)
     {
-        return gmdate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($rssDate));
+        return gmdate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, Carbon::parse($rssDate)->getTimestamp());
     }
 
     /**
@@ -117,7 +119,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function setLastUpdate()
     {
-        Mage::app()->saveCache(time(), 'admin_notifications_lastcheck');
+        Mage::app()->saveCache(Carbon::now()->getTimestamp(), 'admin_notifications_lastcheck');
         return $this;
     }
 

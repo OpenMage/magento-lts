@@ -50,7 +50,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     protected $_rootChildrenIds             = [];
 
     /**
-     * Load core Url rewrite model
+     * @inheritDoc
      */
     protected function _construct()
     {

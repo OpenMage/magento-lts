@@ -151,6 +151,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected $_processIndexEvents = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item');

@@ -33,7 +33,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     protected $_storeId = 0;
 
     /**
-     * Internal Constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

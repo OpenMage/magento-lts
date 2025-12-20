@@ -22,7 +22,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     protected $_fields   = [];
 
     /**
-     * Initialize collection model
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -7,6 +7,8 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Index
  *
@@ -59,7 +61,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     protected $_process = null;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -333,7 +335,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         $newData = $this->getNewData(false);
         $this->setNewData(serialize($newData));
         if (!$this->hasCreatedAt()) {
-            $this->setCreatedAt($this->_getResource()->formatDate(time(), true));
+            $this->setCreatedAt($this->_getResource()->formatDate(Carbon::now()->getTimestamp(), true));
         }
 
         return parent::_beforeSave();

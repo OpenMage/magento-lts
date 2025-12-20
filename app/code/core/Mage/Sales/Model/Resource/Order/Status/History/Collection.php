@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
      */
     protected $_eventObject    = 'order_status_history_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');

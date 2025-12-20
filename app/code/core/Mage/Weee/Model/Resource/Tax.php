@@ -14,6 +14,9 @@
  */
 class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('weee/tax', 'value_id');

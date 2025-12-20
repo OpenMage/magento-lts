@@ -7,6 +7,8 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * Application model
  *
@@ -43,6 +45,9 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public const SECRET_LENGTH = 32;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('oauth/consumer');
@@ -56,7 +61,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if (!$this->getId()) {
-            $this->setUpdatedAt(time());
+            $this->setUpdatedAt(Carbon::now()->getTimestamp());
         }
 
         $this->setCallbackUrl(trim($this->getCallbackUrl()));

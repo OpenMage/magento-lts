@@ -15,9 +15,7 @@
 class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource model
-     *
-     * @return void
+     * @inheritDoc
      */
     protected function _construct()
     {

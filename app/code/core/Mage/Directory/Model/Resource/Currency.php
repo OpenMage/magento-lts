@@ -29,7 +29,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     protected static $_rateCache;
 
     /**
-     * Define main and currency rate tables
+     * @inheritDoc
      */
     protected function _construct()
     {

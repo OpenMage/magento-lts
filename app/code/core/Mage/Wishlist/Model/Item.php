@@ -97,6 +97,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     protected $_flagOptionsSaved = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_cacheTag = 'wishlist_item';

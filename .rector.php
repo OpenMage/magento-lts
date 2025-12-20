@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
@@ -61,6 +62,12 @@ try {
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
         ])
         ->withSkip([
+            Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
+            ],
+           Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
+            ],
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
@@ -130,7 +137,7 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
-            Php81\Array_\FirstClassCallableRector::class, # todo: TMP
+            Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
@@ -152,7 +159,7 @@ try {
             instanceOf: true,
             earlyReturn: true,
             strictBooleans: false,
-            carbon: false,
+            carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
             doctrineCodeQuality: false,

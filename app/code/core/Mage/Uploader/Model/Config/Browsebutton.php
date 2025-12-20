@@ -24,7 +24,7 @@
 class Mage_Uploader_Model_Config_Browsebutton extends Mage_Uploader_Model_Config_Abstract
 {
     /**
-     * Set params for browse button
+     * @inheritDoc
      */
     protected function _construct()
     {

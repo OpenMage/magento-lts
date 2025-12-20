@@ -34,6 +34,9 @@ class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection extends Mage_Sal
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_shipment_track');
