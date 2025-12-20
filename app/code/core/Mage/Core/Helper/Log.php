@@ -131,24 +131,28 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
      */
     public static function getLogLevel(null|int|Level|string $level): Level
     {
+        if (is_null($level)) {
+            return Level::Debug;
+        }
+
+        if ($level instanceof Level) {
+            return $level;
+        }
+
         if (is_numeric($level)) {
             $level = (int) $level;
         }
 
-        if ($level instanceof Level) {
-            $levelValue = $level;
-        } elseif (is_null($level)) {
-            $levelValue = Level::Debug;
-        } elseif (is_string($level)) {
+        if (is_string($level)) {
             // PSR 3 Log level
             try {
-                $levelValue = Level::fromName($level);
+                return Level::fromName($level);
             } catch (UnhandledMatchError) {
-                $levelValue = Level::Debug; // fallback to debug level
+                return Level::Debug; // fallback to debug level
             }
         } else {
             // change Monolog into RFC 5424 Log Level
-            $levelValue = (match ($level) {
+            return (match ($level) {
                 7, 100 => Level::Debug,
                 6, 200 => Level::Info,
                 5, 250 => Level::Notice,
@@ -160,9 +164,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 default => Level::Debug,
             });
         }
-
-        return $levelValue;
-    }
+   }
 
     /**
      * Retrieve maximum log level from configuration
