@@ -2147,7 +2147,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         // prepare ON DUPLICATE KEY conditions
         foreach ($fields as $k => $v) {
-            $field = $value = null;
+            $field = null;
+            $value = null;
             if (!is_numeric($k)) {
                 $field = $this->quoteIdentifier($k);
                 if ($v instanceof Zend_Db_Expr) {
@@ -3719,7 +3720,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
             $update = [];
             foreach ($fields as $key => $fieldValue) {
-                $field = $value = null;
+                $field = null;
+                $value = null;
                 if (!is_numeric($key)) {
                     $field = $this->quoteIdentifier($key);
                     if ($fieldValue instanceof Zend_Db_Expr) {

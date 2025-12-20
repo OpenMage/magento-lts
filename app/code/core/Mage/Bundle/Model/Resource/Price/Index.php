@@ -740,7 +740,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $website,
         $group
     ) {
-        $minPrice = $maxPrice = $basePrice;
+        $minPrice = $basePrice;
+        $maxPrice = $basePrice;
         $optPrice = 0;
 
         foreach ($options as $option) {

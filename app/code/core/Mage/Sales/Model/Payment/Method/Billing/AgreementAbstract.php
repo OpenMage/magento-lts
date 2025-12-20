@@ -46,7 +46,9 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
                     $quote->getCustomer()->getId(),
                 );
                 $isAvailableBA = count($availableBA) > 0;
-                $this->_canUseForMultishipping = $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;
+                $this->_canUseForMultishipping = $isAvailableBA;
+                $this->_canUseCheckout = $isAvailableBA;
+                $this->_canUseInternal = $isAvailableBA;
             }
 
             $this->_isAvailable = parent::isAvailable($quote) && $this->_isAvailable($quote);
