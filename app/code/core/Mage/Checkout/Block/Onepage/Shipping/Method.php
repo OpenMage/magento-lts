@@ -14,6 +14,9 @@
  */
 class Mage_Checkout_Block_Onepage_Shipping_Method extends Mage_Checkout_Block_Onepage_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->getCheckout()->setStepData('shipping_method', [

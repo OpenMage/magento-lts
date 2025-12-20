@@ -38,20 +38,12 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'admin_roles';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/roles');
-    }
-
-    /**
-     * Update object into database
-     *
-     * @return $this
-     */
-    public function update()
-    {
-        $this->getResource()->update($this);
-        return $this;
     }
 
     /**
@@ -97,7 +89,8 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return users for role
      *
-     * @return array|false
+     * @return string[]
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers()
     {
@@ -154,7 +147,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if ($child->disabled == 1) {
+            if ((string) $child->disabled === '1') {
                 $resource->{$key} = null;
                 continue;
             }

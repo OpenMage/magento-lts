@@ -23,6 +23,9 @@
  */
 class Mage_Reports_Model_Event_Type extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('reports/event_type');

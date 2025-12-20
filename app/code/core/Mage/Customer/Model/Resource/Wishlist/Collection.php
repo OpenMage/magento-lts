@@ -15,7 +15,7 @@
 class Mage_Customer_Model_Resource_Wishlist_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
-     * Set entity
+     * @inheritDoc
      */
     protected function _construct()
     {

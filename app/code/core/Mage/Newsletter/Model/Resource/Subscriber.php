@@ -43,7 +43,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     protected $_messagesScope          = 'newsletter/session';
 
     /**
-     * Get tablename from config
+     * @inheritDoc
      */
     protected function _construct()
     {

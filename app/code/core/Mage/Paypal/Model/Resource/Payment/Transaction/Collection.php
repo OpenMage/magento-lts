@@ -23,7 +23,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
     protected $_createdBefore          = '';
 
     /**
-     * Initialize collection items factory class
+     * @inheritDoc
      */
     protected function _construct()
     {

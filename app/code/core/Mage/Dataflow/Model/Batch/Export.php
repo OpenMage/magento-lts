@@ -21,6 +21,9 @@
  */
 class Mage_Dataflow_Model_Batch_Export extends Mage_Dataflow_Model_Batch_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/batch_export');

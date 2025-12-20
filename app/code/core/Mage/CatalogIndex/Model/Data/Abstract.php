@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     public const LINK_GET_PARENTS = 1;
 
     /**
-     * Initialize abstract resource model
+     * @inheritDoc
      */
     protected function _construct()
     {

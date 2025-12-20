@@ -33,7 +33,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     ];
 
     /**
-     * Set resource model and determine field mapping
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/store', 'store_id');

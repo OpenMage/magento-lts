@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
 
+use Carbon\Carbon;
+
 /**
  * Database cache backend
  */
@@ -130,7 +132,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->where('id=:cache_id');
 
             if (!$doNotTestCacheValidity) {
-                $select->where('expire_time=0 OR expire_time>?', time());
+                $select->where('expire_time=0 OR expire_time>?', Carbon::now()->getTimestamp());
             }
 
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
@@ -151,7 +153,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $select = $this->_getAdapter()->select()
                 ->from($this->_getDataTable(), 'update_time')
                 ->where('id=:cache_id')
-                ->where('expire_time=0 OR expire_time>?', time());
+                ->where('expire_time=0 OR expire_time>?', Carbon::now()->getTimestamp());
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
             return false;
@@ -179,7 +181,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $dataTable  = $this->_getDataTable();
 
             $lifetime = $this->getLifetime($specificLifetime);
-            $time     = time();
+            $time     = Carbon::now()->getTimestamp();
             $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time + $lifetime;
 
             $dataCol    = $adapter->quoteIdentifier('data');
@@ -298,7 +300,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      */
     protected function _cleanOldCache()
     {
-        $time    = time();
+        $time    = Carbon::now()->getTimestamp();
         $counter = 0;
         $result  = true;
         $adapter = $this->_getAdapter();
@@ -469,7 +471,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             return $this->_getAdapter()->update(
                 $this->_getDataTable(),
                 ['expire_time' => new Zend_Db_Expr('expire_time+' . $extraLifetime)],
-                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()],
+                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => Carbon::now()->getTimestamp()],
             );
         } else {
             return true;

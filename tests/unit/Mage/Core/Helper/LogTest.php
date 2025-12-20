@@ -34,8 +34,8 @@ final class LogTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetLogLevelData
-     * @covers Mage_Core_Helper_Log::getLogLevelValue()
      * @covers Mage_Core_Helper_Log::getLogLevelMaxValue()
+     * @covers Mage_Core_Helper_Log::getLogLevelValue()
      * @group Helper
      */
     public function testGetLogLevelValue(int $expectedResult, null|int|Level|string $level): void

@@ -38,7 +38,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     protected $_filePath;
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {

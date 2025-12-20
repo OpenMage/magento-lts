@@ -15,7 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Resource_Abstract
 {
     /**
-     * Initialize connection
+     * @inheritDoc
      */
     protected function _construct()
     {

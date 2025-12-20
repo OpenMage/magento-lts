@@ -15,7 +15,7 @@
 class Mage_ProductAlert_Model_Resource_Stock_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define stock collection
+     * @inheritDoc
      */
     protected function _construct()
     {

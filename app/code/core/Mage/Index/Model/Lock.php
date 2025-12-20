@@ -7,6 +7,8 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * Lock model
  *
@@ -298,7 +300,7 @@ class Mage_Index_Model_Lock
                 throw new Exception(sprintf("Unable to open lock file '%s': %s", $file, error_get_last()));
             }
 
-            fwrite(self::$_lockFileResource[$lockName], date('r'));
+            fwrite(self::$_lockFileResource[$lockName], Carbon::now()->format('r'));
         }
 
         return self::$_lockFileResource[$lockName];

@@ -30,7 +30,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     protected $_ratingVoteTable;
 
     /**
-     * Define model
+     * @inheritDoc
      */
     protected function _construct()
     {

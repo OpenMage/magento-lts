@@ -26,7 +26,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     protected $_isStoreFilterWithAdmin   = true;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

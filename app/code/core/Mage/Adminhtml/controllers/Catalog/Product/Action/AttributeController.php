@@ -20,6 +20,9 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      */
     public const ADMIN_RESOURCE = 'catalog/update_attributes';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         // Define module dependent translate

@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection extends Mage_Sa
      */
     protected $_eventObject    = 'order_creditmemo_grid_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Report Reviews collection
  *
@@ -63,6 +65,9 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected $_storeIds;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**
@@ -128,7 +133,7 @@ class Mage_Reports_Model_Resource_Report_Collection
 
                         $time['end'] = ($lastInterval) ? $dateStart->setDay($dateEnd->getDay())
                             ->toString('yyyy-MM-dd 23:59:59')
-                            : $dateStart->toString('yyyy-MM-' . date('t', $dateStart->getTimestamp()) . ' 23:59:59');
+                            : $dateStart->toString('yyyy-MM-' . Carbon::createFromTimestamp($dateStart->getTimestamp())->format('t') . ' 23:59:59');
 
                         $dateStart->addMonth(1);
 

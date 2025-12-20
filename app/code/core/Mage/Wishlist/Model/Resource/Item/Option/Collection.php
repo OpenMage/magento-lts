@@ -29,7 +29,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     protected $_optionsByProduct = [];
 
     /**
-     * Define resource model for collection
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Resource_Quote_Address_Item extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Main table and field initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

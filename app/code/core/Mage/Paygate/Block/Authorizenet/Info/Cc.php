@@ -20,7 +20,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
     protected $_isCheckoutProgressBlockFlag = true;
 
     /**
-     * Set block template
+     * @inheritDoc
      */
     protected function _construct()
     {

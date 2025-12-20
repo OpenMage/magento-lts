@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected $_isComposite    = false;
 
     /**
-     * Define main price index table
+     * @inheritDoc
      */
     protected function _construct()
     {

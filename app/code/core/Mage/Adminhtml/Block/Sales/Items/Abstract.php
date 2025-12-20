@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     protected $_canEditQty = null;
 
     /**
-     * Init block
+     * @inheritDoc
      */
     protected function _construct()
     {

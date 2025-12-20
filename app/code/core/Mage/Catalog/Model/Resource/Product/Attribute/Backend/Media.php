@@ -23,6 +23,9 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init(self::GALLERY_TABLE, 'value_id');

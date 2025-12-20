@@ -24,6 +24,9 @@
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/attribute');

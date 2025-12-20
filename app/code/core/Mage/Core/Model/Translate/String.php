@@ -25,6 +25,9 @@
  */
 class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/translate_string');
