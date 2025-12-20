@@ -101,7 +101,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         $websites = $this->_websites;
         if (!is_null($websiteId) && isset($this->_websites[$websiteId])) {
-            $websites = [$websiteId => $this->_websites[$websiteId]];
+            return [$websiteId => $this->_websites[$websiteId]];
         }
 
         return $websites;

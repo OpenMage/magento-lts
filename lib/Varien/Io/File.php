@@ -7,6 +7,8 @@
  * @package    Varien_Io
  */
 
+use Carbon\Carbon;
+
 /**
  * Filesystem client
  *
@@ -318,7 +320,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         $this->_iwd = getcwd();
-        $this->cd(!empty($args['path']) ? $args['path'] : $this->_iwd);
+        $this->cd(empty($args['path']) ? $this->_iwd : $args['path']);
         return true;
     }
 
@@ -596,7 +598,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         $result = false;
         if (is_string($src) && @is_readable($src) && is_file($src)) {
-            $result = true;
+            return true;
         }
 
         return $result;
@@ -846,7 +848,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                 }
 
                 $listItem['text'] = $entry;
-                $listItem['mod_date'] = date(Varien_Date::DATETIME_PHP_FORMAT, filectime($fullpath));
+                $listItem['mod_date'] = Carbon::createFromTimestamp(filectime($fullpath))->format(Varien_Date::DATETIME_PHP_FORMAT);
                 $listItem['permissions'] = $this->_parsePermissions(fileperms($fullpath));
                 $listItem['owner'] = $this->_getFileOwner($fullpath);
 

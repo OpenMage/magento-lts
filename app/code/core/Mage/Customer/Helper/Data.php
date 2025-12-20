@@ -244,7 +244,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($referer) {
-            $params = [self::REFERER_QUERY_PARAM_NAME => $referer];
+            return [self::REFERER_QUERY_PARAM_NAME => $referer];
         }
 
         return $params;
@@ -533,7 +533,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
-            $groupId = Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
+            return Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
         }
 
         return $groupId;
@@ -626,7 +626,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             || (!empty($requesterCountryCode) && empty($requesterVatNumber))
             || (!empty($requesterCountryCode) && !$coreHelper->isCountryInEU($requesterCountryCode))
         ) {
-            $result = false;
+            return false;
         }
 
         return $result;
@@ -659,7 +659,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if (!$vatValidationResult->getRequestSuccess()) {
-            $vatClass = self::VAT_CLASS_ERROR;
+            return self::VAT_CLASS_ERROR;
         }
 
         return $vatClass;

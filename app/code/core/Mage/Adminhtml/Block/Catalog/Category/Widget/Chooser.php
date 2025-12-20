@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             ->addAttributeToFilter('entity_id', $entityId)
             ->getFirstItem();
         if ($model) {
-            $result = $model->getData($attributeName);
+            return $model->getData($attributeName);
         }
 
         return $result;

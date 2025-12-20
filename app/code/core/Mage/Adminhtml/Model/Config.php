@@ -235,7 +235,8 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $sectionName = trim($sectionName, '/');
         $path = '//sections/' . $sectionName;
-        $groupNode = $fieldNode = null;
+        $groupNode = null;
+        $fieldNode = null;
         $sectionNode = $this->_sections->xpath($path);
         if (!empty($groupName)) {
             $path .= '/groups/' . trim($groupName, '/');

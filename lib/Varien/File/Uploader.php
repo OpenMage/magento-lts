@@ -337,7 +337,7 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
-            $fileName = 'file.' . $fileInfo['extension'];
+            return 'file.' . $fileInfo['extension'];
         }
 
         return $fileName;

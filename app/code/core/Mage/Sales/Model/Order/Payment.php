@@ -1515,7 +1515,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected function _formatAmount($amount, $asFloat = false)
     {
         $amount = Mage::app()->getStore()->roundPrice($amount);
-        return !$asFloat ? (string) $amount : $amount;
+        return $asFloat ? $amount : (string) $amount;
     }
 
     /**
@@ -1605,7 +1605,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         if (!$txn) {
-            $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+            return $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
         }
 
         return $txn;

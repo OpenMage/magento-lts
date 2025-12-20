@@ -177,7 +177,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         if (is_null($paths)) {
-            $searchPaths = [];
+            return [];
         }
 
         return $searchPaths;

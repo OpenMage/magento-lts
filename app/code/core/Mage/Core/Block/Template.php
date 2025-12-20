@@ -12,6 +12,7 @@
  *
  * @package    Mage_Core
  *
+ * @method string getImageType()
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)
  * @method $this setDisplayMinimalPrice(bool $value)

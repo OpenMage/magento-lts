@@ -81,7 +81,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     {
         $method = $this->_method;
         if (!$method) {
-            $method = parent::getMethod();
+            return parent::getMethod();
         }
 
         return $method;

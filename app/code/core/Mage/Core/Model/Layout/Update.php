@@ -239,7 +239,7 @@ class Mage_Core_Model_Layout_Update
 
         // Only save actual XML to cache if it doesn't already exist
         if (!Mage::app()->testCache(self::XML_KEY_PREFIX . $hash)) {
-            $returnValue = Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
+            return Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
         }
 
         return $returnValue;

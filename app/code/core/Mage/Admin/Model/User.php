@@ -697,7 +697,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if (empty($result)) {
-            $result = true;
+            return true;
         }
 
         return $result;

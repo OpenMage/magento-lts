@@ -91,7 +91,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     {
         $status = $this->getData('server_check_status');
         if (is_null($status)) {
-            $status = $this->checkServer();
+            return $this->checkServer();
         }
 
         return $status;

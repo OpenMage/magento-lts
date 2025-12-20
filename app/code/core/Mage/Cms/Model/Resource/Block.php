@@ -24,6 +24,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -58,6 +59,8 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -107,6 +110,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -126,6 +130,8 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * @param  mixed                $value
      * @param  Mage_Cms_Model_Block $object
      * @return Zend_Db_Select
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -154,6 +160,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * Check for unique of identifier of block to selected store(s).
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
     {

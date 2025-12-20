@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
         }
 
         if ($html == '') {
-            $html = '&nbsp;';
+            return '&nbsp;';
         }
 
         return $html;

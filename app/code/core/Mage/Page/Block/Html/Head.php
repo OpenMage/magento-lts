@@ -184,8 +184,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 continue;
             }
 
-            $if     = !empty($item['if']) ? $item['if'] : '';
-            $params = !empty($item['params']) ? $item['params'] : '';
+            $if     = empty($item['if']) ? '' : $item['if'];
+            $params = empty($item['params']) ? '' : $item['params'];
             switch ($item['type']) {
                 case 'js':        // js/*.js
                 case 'skin_js':   // skin/*/*.js

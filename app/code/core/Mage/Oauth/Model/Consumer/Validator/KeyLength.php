@@ -42,7 +42,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
     public function __construct($options = [])
     {
         if (isset($options['length'])) {
-            $this->min = $this->max = $options['length'];
+            $this->min = $options['length'];
+            $this->max = $options['length'];
         }
 
         if (isset($options['name'])) {

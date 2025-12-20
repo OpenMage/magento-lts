@@ -40,7 +40,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
         if (Mage::helper('configurableswatches/productlist')->swatchMatchesFilter($_optionValue)) {
             $_liClasses[] = 'filter-match';
         }
-        $_liClass = (!empty($_liClasses)) ? ' ' . implode(' ', $_liClasses) : '';
+        $_liClass = (empty($_liClasses)) ? '' : ' ' . implode(' ', $_liClasses);
         ?>
     <li class="option-<?php echo $_optionCode; ?><?php echo $_liClass; ?>" data-product-id="<?php echo $_product->getId() ?>" data-option-label="<?php echo $_optionLabel ?>">
         <a href="javascript:void(0)" name="<?php echo $_optionCode; ?>" class="<?php echo $_aClass ?>" title="<?php echo $_optionLabel; ?>"

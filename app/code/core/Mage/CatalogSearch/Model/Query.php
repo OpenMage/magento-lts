@@ -164,7 +164,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public function getStoreId()
     {
         if (!$storeId = $this->getData('store_id')) {
-            $storeId = Mage::app()->getStore()->getId();
+            return Mage::app()->getStore()->getId();
         }
 
         return $storeId;

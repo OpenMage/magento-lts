@@ -482,7 +482,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
-            $searchData = array_merge($searchData, $titles);
+            return array_merge($searchData, $titles);
         }
 
         return $searchData;

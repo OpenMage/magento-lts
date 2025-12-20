@@ -165,7 +165,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         $result = $adapter->fetchRow($select, $bind);
 
         if (!$result) {
-            $result = [];
+            return [];
         }
 
         return $result;

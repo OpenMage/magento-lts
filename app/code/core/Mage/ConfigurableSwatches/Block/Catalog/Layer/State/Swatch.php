@@ -24,6 +24,11 @@
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Core_Block_Template
 {
+    /**
+     * Flag to indicate one-time init has been done
+     *
+     * @var bool
+     */
     protected $_initDone = false;
 
     /**
@@ -31,6 +36,8 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
      *
      * @param  Mage_Catalog_Model_Layer_Filter_Item $filter
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function shouldRender($filter)
     {
@@ -51,6 +58,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
      * Set one-time data on the renderer
      *
      * @param Mage_Catalog_Model_Layer_Filter_Item $filter
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _init($filter)
     {

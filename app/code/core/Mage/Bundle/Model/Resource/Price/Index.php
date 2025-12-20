@@ -521,7 +521,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             ->getRulePrice($storeTimeStamp, $website->getId(), $customerGroup->getId(), $productId);
 
         if ($rulePrice !== null && $rulePrice !== false) {
-            $finalPrice = min($finalPrice, $rulePrice);
+            return min($finalPrice, $rulePrice);
         }
 
         return $finalPrice;
@@ -740,7 +740,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $website,
         $group
     ) {
-        $minPrice = $maxPrice = $basePrice;
+        $minPrice = $basePrice;
+        $maxPrice = $basePrice;
         $optPrice = 0;
 
         foreach ($options as $option) {

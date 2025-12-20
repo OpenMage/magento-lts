@@ -169,7 +169,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::throwException('Token is not authorized');
         }
 
-        $callbackUrl .= (!str_contains($callbackUrl, '?') ? '?' : '&');
+        $callbackUrl .= (str_contains($callbackUrl, '?') ? '&' : '?');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
 
         return $callbackUrl . ($rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier());
@@ -253,7 +253,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (stristr($this->_getRequest()->getActionName(), 'simple')
             || !is_null($this->_getRequest()->getParam('simple', null))
         ) {
-            $simple = true;
+            return true;
         }
 
         return $simple;

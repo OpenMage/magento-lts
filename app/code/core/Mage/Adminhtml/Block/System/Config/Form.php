@@ -218,7 +218,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             );
         }
 
-        return $this->getChild('element_dependense');
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $child */
+        $child = $this->getChild('element_dependense');
+        return $child;
     }
 
     /**

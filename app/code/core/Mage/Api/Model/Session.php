@@ -7,6 +7,8 @@
  * @package    Mage_Api
  */
 
+use Carbon\Carbon;
+
 /**
  * Webservice api session
  *
@@ -29,7 +31,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function start($sessionName = null)
     {
-        $this->_currentSessId = md5(time() . uniqid('', true) . $sessionName);
+        $this->_currentSessId = md5(Carbon::now()->getTimestamp() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
     }
@@ -217,7 +219,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             return true;
         }
 
-        $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
+        $timeout = Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($user->getLogdate())->getTimestamp();
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 

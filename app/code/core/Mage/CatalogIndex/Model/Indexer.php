@@ -7,6 +7,8 @@
  * @package    Mage_CatalogIndex
  */
 
+use Carbon\Carbon;
+
 /**
  * CatalogIndex Index operation model
  *
@@ -205,7 +207,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              * Collect initialization data
              */
             $websites = [];
-            $attributeCodes = $priceAttributeCodes = [];
+            $attributeCodes = [];
+            $priceAttributeCodes = [];
 
             /**
              * Prepare stores and websites information
@@ -721,7 +724,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                 if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
                                     if ($values[$code]['from']) {
                                         if (!is_numeric($values[$code]['from'])) {
-                                            $_date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['from']));
+                                            $_date = Carbon::parse($values[$code]['from'])->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
                                             $values[$code]['from'] = $_date;
                                         }
 
@@ -730,7 +733,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                     if ($values[$code]['to']) {
                                         if (!is_numeric($values[$code]['to'])) {
-                                            $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
+                                            $values[$code]['to'] = Carbon::parse($values[$code]['to'])->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
                                         }
 
                                         $filter[$code]->where('value <= ?', $values[$code]['to']);

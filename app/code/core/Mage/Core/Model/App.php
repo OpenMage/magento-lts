@@ -1700,7 +1700,7 @@ class Mage_Core_Model_App
     protected function _getCacheId($cacheId = null)
     {
         if ($cacheId) {
-            $cacheId = $this->prepareCacheId($cacheId);
+            return $this->prepareCacheId($cacheId);
         }
 
         return $cacheId;

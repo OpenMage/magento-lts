@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog rules resource model
  *
@@ -63,8 +65,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
 
         parent::__construct();
     }
@@ -178,11 +180,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getFromDate()));
-        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getToDate()));
+        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getFromDate())->getTimestamp());
+        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = time();
+        $timestamp = Carbon::now()->getTimestamp();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {
@@ -691,7 +693,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     {
         $adapter = $this->_getReadAdapter();
         if (is_string($date)) {
-            $date = strtotime($date);
+            $date = Carbon::parse($date)->getTimestamp();
         }
 
         $select = $adapter->select()

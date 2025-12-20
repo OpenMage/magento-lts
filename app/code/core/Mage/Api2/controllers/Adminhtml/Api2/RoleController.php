@@ -324,7 +324,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $users = $resource->getRoleUsers($role);
 
         if (!count($users)) {
-            $users = [];
+            return [];
         }
 
         return $users;

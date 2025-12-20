@@ -27,6 +27,11 @@
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swatches extends Mage_Core_Block_Template
 {
+    /**
+     * Flag to indicate one-time init has been done
+     *
+     * @var bool
+     */
     protected $_initDone = false;
 
     /**
@@ -35,6 +40,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
      * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
      * @param  string                                                 $jsonConfig
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function shouldRender($attribute, $jsonConfig)
     {
@@ -52,6 +58,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
      * Set one-time data on the renderer
      *
      * @param string $jsonConfig
+     * @return void
      */
     protected function _init($jsonConfig)
     {

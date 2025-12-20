@@ -7,6 +7,7 @@
  * @package    Mage
  */
 
+use Carbon\Carbon;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
@@ -861,7 +862,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime((string) $date)) {
+                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
                     self::$_isInstalled = true;
                 }
             }
@@ -1028,7 +1029,7 @@ final class Mage
             print '</pre>';
         } else {
             $reportData = [
-                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
+                (empty($extra) ? '' : $extra . "\n\n") . $e->getMessage(),
                 $e->getTraceAsString(),
             ];
 

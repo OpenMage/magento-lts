@@ -551,7 +551,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         if (is_null($qty)) {
-            $qty = self::DEFAULT_QTY;
+            return self::DEFAULT_QTY;
         }
 
         return $qty;

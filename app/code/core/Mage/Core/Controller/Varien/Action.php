@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -827,7 +829,7 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
-            $refererUrl = Mage::app()->getStore()->getBaseUrl();
+            return Mage::app()->getStore()->getBaseUrl();
         }
 
         return $refererUrl;
@@ -1112,7 +1114,7 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', date('r'), true);
+            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

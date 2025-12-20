@@ -46,6 +46,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      */
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('adminnotification/inbox');
     }
 
@@ -75,6 +76,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Retrieve Latest Notice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadLatestNotice()
     {
@@ -87,6 +89,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * Retrieve notice statuses
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getNoticeStatus()
     {
@@ -96,11 +99,13 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Parse and save new data
      *
-     * @return $this
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function parse(array $data)
     {
-        return $this->getResource()->parse($this, $data);
+        $this->getResource()->parse($this, $data);
     }
 
     /**
@@ -112,6 +117,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param  string       $url
      * @param  bool         $isInternal
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function add($severity, $title, $description, $url = '', $isInternal = true)
     {
@@ -143,6 +150,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param  string       $url
      * @param  bool         $isInternal
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addCritical($title, $description, $url = '', $isInternal = true)
     {
@@ -158,6 +167,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param  string       $url
      * @param  bool         $isInternal
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addMajor($title, $description, $url = '', $isInternal = true)
     {
@@ -173,6 +184,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param  string       $url
      * @param  bool         $isInternal
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addMinor($title, $description, $url = '', $isInternal = true)
     {
@@ -188,6 +201,8 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      * @param  string       $url
      * @param  bool         $isInternal
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addNotice($title, $description, $url = '', $isInternal = true)
     {

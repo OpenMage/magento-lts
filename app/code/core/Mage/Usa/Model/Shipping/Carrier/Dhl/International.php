@@ -7,6 +7,8 @@
  * @package    Mage_Usa
  */
 
+use Carbon\Carbon;
+
 /**
  * DHL International (API v1.4)
  *
@@ -156,7 +158,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected function _getDefaultValue($origValue, $pathToValue)
     {
         if (!$origValue) {
-            $origValue = Mage::getStoreConfig(
+            return Mage::getStoreConfig(
                 $pathToValue,
                 $this->getStore(),
             );
@@ -785,7 +787,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $debugPoint = &$debugData['try-' . $offset];
 
                 $requestXml = $this->_buildQuotesRequestXml();
-                $date = date(self::REQUEST_DATE_FORMAT, strtotime($this->_getShipDate() . " +$offset days"));
+                $date = Carbon::parse($this->_getShipDate() . " +$offset days")->format(self::REQUEST_DATE_FORMAT);
                 $this->_setQuotesRequestXmlDate($requestXml, $date);
 
                 $request = $requestXml->asXML();
@@ -1716,13 +1718,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         }
 
         if (!empty($this->_errors) || empty($resultArr)) {
-            $resultArr = !empty($this->_errors) ? $this->_errors : $trackings;
+            $resultArr = empty($this->_errors) ? $trackings : $this->_errors;
             foreach ($resultArr as $trackNum => $err) {
                 $error = Mage::getModel('shipping/tracking_result_error');
                 $error->setCarrier($this->_code);
                 $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setTracking(!empty($this->_errors) ? $trackNum : $err);
-                $error->setErrorMessage(!empty($this->_errors) ? $err : $errorTitle);
+                $error->setTracking(empty($this->_errors) ? $err : $trackNum);
+                $error->setErrorMessage(empty($this->_errors) ? $errorTitle : $err);
                 $result->append($error);
             }
         }

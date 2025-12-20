@@ -245,7 +245,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     {
         $storeId = $this->_getData('store_id');
         if (is_null($storeId)) {
-            $storeId = Mage::app()->getStore()->getId();
+            return Mage::app()->getStore()->getId();
         }
 
         return $storeId;
@@ -271,7 +271,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     {
         $websiteId = $this->_getData('website_id');
         if (is_null($websiteId)) {
-            $websiteId = Mage::app()->getStore()->getWebsiteId();
+            return Mage::app()->getStore()->getWebsiteId();
         }
 
         return $websiteId;

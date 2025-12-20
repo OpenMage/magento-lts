@@ -1656,7 +1656,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getMassactionBlock()
     {
-        return $this->getChild('massaction');
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract $child */
+        $child = $this->getChild('massaction');
+        return $child;
     }
 
     /**

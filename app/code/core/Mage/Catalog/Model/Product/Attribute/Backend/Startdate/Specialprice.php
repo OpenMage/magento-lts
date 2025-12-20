@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
         }
 
         if ($startDate == '' && $object->getSpecialPrice()) {
-            $startDate = Mage::app()->getLocale()->date();
+            return Mage::app()->getLocale()->date();
         }
 
         return $startDate;

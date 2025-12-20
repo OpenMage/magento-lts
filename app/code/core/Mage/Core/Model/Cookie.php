@@ -7,6 +7,7 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
 use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSameSite;
 
 /**
@@ -90,7 +91,7 @@ class Mage_Core_Model_Cookie
     {
         $domain = $this->getConfigDomain();
         if (empty($domain)) {
-            $domain = $this->_getRequest()->getHttpHost();
+            return $this->_getRequest()->getHttpHost();
         }
 
         return $domain;
@@ -115,7 +116,7 @@ class Mage_Core_Model_Cookie
     {
         $path = Mage::getStoreConfig(self::XML_PATH_COOKIE_PATH, $this->getStore());
         if (empty($path)) {
-            $path = $this->_getRequest()->getBasePath();
+            return $this->_getRequest()->getBasePath();
         }
 
         return $path;
@@ -135,7 +136,7 @@ class Mage_Core_Model_Cookie
         }
 
         if (!is_numeric($lifetime)) {
-            $lifetime = 3600;
+            return 3600;
         }
 
         return $lifetime;
@@ -235,7 +236,7 @@ class Mage_Core_Model_Cookie
         if ($period == 0) {
             $expire = 0;
         } else {
-            $expire = time() + $period;
+            $expire = Carbon::now()->getTimestamp() + $period;
         }
 
         if (is_null($path)) {

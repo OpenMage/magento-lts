@@ -191,6 +191,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         }
 
         // dependencies from other fields
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $dependenceBlock */
         $dependenceBlock = $this->getChild('form_after');
         $dependenceBlock->addFieldMap($field->getId(), $fieldName);
         if ($parameter->getDepends()) {

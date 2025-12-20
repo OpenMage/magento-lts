@@ -7,6 +7,8 @@
  * @package    Mage_Install
  */
 
+use Carbon\Carbon;
+
 /**
  * Config installer
  *
@@ -56,7 +58,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         }
 
         if (isset($data['unsecure_base_url'])) {
-            $data['unsecure_base_url'] .= !str_ends_with($data['unsecure_base_url'], '/') ? '/' : '';
+            $data['unsecure_base_url'] .= str_ends_with($data['unsecure_base_url'], '/') ? '' : '/';
             if (!str_starts_with($data['unsecure_base_url'], 'http')) {
                 $data['unsecure_base_url'] = 'http://' . $data['unsecure_base_url'];
             }
@@ -67,7 +69,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         }
 
         if (isset($data['secure_base_url'])) {
-            $data['secure_base_url'] .= !str_ends_with($data['secure_base_url'], '/') ? '/' : '';
+            $data['secure_base_url'] .= str_ends_with($data['secure_base_url'], '/') ? '' : '/';
             if (!str_starts_with($data['secure_base_url'], 'http')) {
                 $data['secure_base_url'] = 'https://' . $data['secure_base_url'];
             }
@@ -167,9 +169,9 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
     public function replaceTmpInstallDate($date = null)
     {
-        $stamp    = strtotime((string) $date);
+        $stamp    = Carbon::parse((string) $date)->getTimestamp();
         $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
+        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, Carbon::createFromTimestamp($stamp ? $stamp : Carbon::now()->getTimestamp())->format('r'), $localXml);
         file_put_contents($this->_localConfigFile, $localXml);
 
         return $this;

@@ -216,7 +216,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     {
         $products = $this->getProductsRelated();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedRelatedProducts());
+            return array_keys($this->getSelectedRelatedProducts());
         }
 
         return $products;

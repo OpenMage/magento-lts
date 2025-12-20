@@ -153,7 +153,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
 
         // append to request shipping address data
         if ($shippingAddress = $order->getShippingAddress()) {
-            $request = array_merge($request, $this->_getShippingAddress($shippingAddress));
+            return array_merge($request, $this->_getShippingAddress($shippingAddress));
         }
 
         return $request;

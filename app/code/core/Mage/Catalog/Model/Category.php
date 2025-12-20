@@ -551,16 +551,15 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve image URL
      *
-     * @return string
+     * @return null|string
      */
     public function getImageUrl()
     {
-        $url = false;
         if ($image = $this->getImage()) {
-            $url = Mage::getBaseUrl('media') . 'catalog/category/' . $image;
+            return Mage::getBaseUrl('media') . 'catalog/category/' . $image;
         }
 
-        return $url;
+        return null;
     }
 
     /**
@@ -963,7 +962,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         }
 
         if (!is_array($available)) {
-            $available = explode(',', $available);
+            return explode(',', $available);
         }
 
         return $available;
@@ -989,7 +988,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         }
 
         if (!$availableSortBy) {
-            $availableSortBy = $defaultSortBy;
+            return $defaultSortBy;
         }
 
         return $availableSortBy;

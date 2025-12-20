@@ -7,6 +7,9 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Import entity abstract model
  *
@@ -176,6 +179,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_uniqueAttributes = [];
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $entityType             = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
@@ -191,6 +197,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Inner source object getter.
      *
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getSource()
     {
@@ -244,6 +251,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Validate data rows and save bunches to DB.
      *
      * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
+     * @throws Mage_Core_Exception
      */
     protected function _saveValidatedBunches()
     {
@@ -561,8 +569,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val) !== false
-                    || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                try {
+                    $valid = Carbon::parse($val)->getTimestamp();
+                } catch (InvalidFormatException) {
+                    $valid = false;
+                }
+
+                $valid = $valid !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
@@ -591,6 +604,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Is all of data valid?
      *
      * @return bool
+     * @throws Exception
      */
     public function isDataValid()
     {

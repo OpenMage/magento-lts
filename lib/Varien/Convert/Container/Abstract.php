@@ -137,7 +137,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     public function addException($error, $level = null)
     {
         $e = new Varien_Convert_Exception($error);
-        $e->setLevel(!is_null($level) ? $level : Varien_Convert_Exception::NOTICE);
+        $e->setLevel(is_null($level) ? Varien_Convert_Exception::NOTICE : $level);
         $e->setContainer($this);
         $e->setPosition($this->getPosition());
 

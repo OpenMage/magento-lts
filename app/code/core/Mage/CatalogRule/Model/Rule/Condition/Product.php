@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog Rule Product Condition data model
  *
@@ -100,7 +102,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
                 return null;
             }
 
-            $value = strtotime($value);
+            $value = Carbon::parse($value)->getTimestamp();
         }
 
         return $value;
@@ -117,7 +119,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     {
         $attribute = $object->getResource()->getAttribute($this->getAttribute());
         if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
-            $value = strlen($value) ? explode(',', $value) : [];
+            return strlen($value) ? explode(',', $value) : [];
         }
 
         return $value;

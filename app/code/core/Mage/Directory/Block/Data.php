@@ -133,7 +133,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     {
         $countryId = $this->getData('country_id');
         if (is_null($countryId)) {
-            $countryId = Mage::helper('core')->getDefaultCountry();
+            return Mage::helper('core')->getDefaultCountry();
         }
 
         return $countryId;
@@ -183,7 +183,8 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     private function sortCountryOptions(array $countryOptions): array
     {
         $topCountryCodes = $this->helper('directory')->getTopCountryCodes();
-        $headOptions = $tailOptions = [];
+        $headOptions = [];
+        $tailOptions = [];
 
         foreach ($countryOptions as $countryOption) {
             if (in_array($countryOption['value'], $topCountryCodes)) {

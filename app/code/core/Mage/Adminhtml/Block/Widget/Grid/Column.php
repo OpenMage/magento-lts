@@ -176,7 +176,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         }
 
         if ($this->getCopyable() && $text = $this->getRenderer()->getCopyableText($row)) {
-            $renderedValue = '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
+            return '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
         }
 
         return $renderedValue;
@@ -200,7 +200,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          */
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
-            $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, true);
+            return call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
         return $renderedValue;

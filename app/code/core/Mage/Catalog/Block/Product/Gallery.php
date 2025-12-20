@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         }
 
         if (!$image) {
-            $image = $this->getGalleryCollection()->getFirstItem();
+            return $this->getGalleryCollection()->getFirstItem();
         }
 
         return $image;

@@ -278,7 +278,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         $info = $track->getNumberDetail();
 
         if (is_object($info)) {
-            $info = $info->toArray();
+            return $info->toArray();
         }
 
         return $info;

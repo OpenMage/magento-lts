@@ -385,7 +385,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
 
-        return $all ? true : false;
+        return $all;
     }
 
     /**

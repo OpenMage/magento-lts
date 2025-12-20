@@ -479,7 +479,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 
         $label = $product->getData($mediaAttributeCode . '_label');
         if (empty($label)) {
-            $label = $product->getName();
+            return $product->getName();
         }
 
         return $label;

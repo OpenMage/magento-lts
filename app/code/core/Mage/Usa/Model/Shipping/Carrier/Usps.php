@@ -387,7 +387,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $package->addChild('Country', $r->getDestCountryName());
             $package->addChild('Container', $r->getContainer());
             $package->addChild('Size', $r->getSize());
-            $width = $length = $height = $girth = '';
+            $width = '';
+            $length = '';
+            $height = '';
+            $girth = '';
             if ($r->getSize() == 'LARGE') {
                 $width = $r->getWidth();
                 $length = $r->getLength();
@@ -1063,7 +1066,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1643,7 +1646,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $countriesOfManufacture[$product->getId()] = $product->getCountryOfManufacture();
         }
 
-        $packagePoundsWeight = $packageOuncesWeight = 0;
+        $packagePoundsWeight = 0;
+        $packageOuncesWeight = 0;
         // for ItemDetail
         foreach ($packageItems as $itemShipment) {
             $item = new Varien_Object();
@@ -1867,7 +1871,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     public function isGirthAllowed($countyDest = null)
     {
-        return $this->_isUSCountry($countyDest) ? false : true;
+        return !$this->_isUSCountry($countyDest);
     }
 
     /**

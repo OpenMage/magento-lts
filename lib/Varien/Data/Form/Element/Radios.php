@@ -31,7 +31,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
     {
         $separator = $this->getData('separator');
         if (is_null($separator)) {
-            $separator = '&nbsp;';
+            return '&nbsp;';
         }
 
         return $separator;

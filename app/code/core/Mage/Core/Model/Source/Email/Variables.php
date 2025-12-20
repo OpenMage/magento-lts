@@ -96,7 +96,7 @@ class Mage_Core_Model_Source_Email_Variables
         }
 
         if ($withGroup && $optionArray) {
-            $optionArray = [
+            return [
                 'label' => Mage::helper('core')->__('Store Contact Information'),
                 'value' => $optionArray,
             ];

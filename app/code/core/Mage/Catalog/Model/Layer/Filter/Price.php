@@ -443,7 +443,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $customerGroupId = $this->_getData('customer_group_id');
         if (is_null($customerGroupId)) {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            return Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
 
         return $customerGroupId;
@@ -474,7 +474,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         }
 
         if (!$rate) {
-            $rate = 1;
+            return 1;
         }
 
         return $rate;
@@ -563,7 +563,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPrices($this, $limit, $offset, $lowerPrice, $upperPrice);
         if ($prices) {
-            $prices = array_map(\floatval(...), $prices);
+            return array_map(\floatval(...), $prices);
         }
 
         return $prices;
@@ -581,7 +581,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPreviousPrices($this, $price, $index, $lowerPrice);
         if ($prices) {
-            $prices = array_map(\floatval(...), $prices);
+            return array_map(\floatval(...), $prices);
         }
 
         return $prices;
@@ -599,7 +599,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadNextPrices($this, $price, $rightIndex, $upperPrice);
         if ($prices) {
-            $prices = array_map(\floatval(...), $prices);
+            return array_map(\floatval(...), $prices);
         }
 
         return $prices;

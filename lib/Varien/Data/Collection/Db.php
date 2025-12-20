@@ -819,7 +819,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $data = false;
         $object = $this->_getCacheInstance();
         if ($object) {
-            $data = $object->load($this->_getSelectCacheId($select));
+            return $object->load($this->_getSelectCacheId($select));
         }
 
         return $data;
@@ -860,7 +860,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $cacheId = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
-            $cacheId = $this->_cacheConf['prefix'] . '_' . $cacheId;
+            return $this->_cacheConf['prefix'] . '_' . $cacheId;
         }
 
         return $cacheId;

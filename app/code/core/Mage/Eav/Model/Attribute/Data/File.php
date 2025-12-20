@@ -143,8 +143,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
-        $toDelete   = !empty($value['delete']) ? true : false;
-        $toUpload   = !empty($value['tmp_name']) ? true : false;
+        $toDelete   = !empty($value['delete']);
+        $toUpload   = !empty($value['tmp_name']);
 
         if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
             return true;
@@ -256,7 +256,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $output = '';
         $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
         if ($value && $format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
-            $output = [
+            return [
                 'value'     => $value,
                 'url_key'   => Mage::helper('core')->urlEncode($value),
             ];

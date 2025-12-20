@@ -408,8 +408,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->validateHttpVersion($line);
             $this->_responseStatus = (int) $line[1];
         } else {
-            //var_dump($data);
-            $name = $value = '';
+            $name = '';
+            $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
                 [$name, $value] = $out;

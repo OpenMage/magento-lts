@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     {
         $name = $attribute->getAttributeCode();
         if ($suffix = $this->getForm()->getFieldNameSuffix()) {
-            $name = $this->getForm()->addSuffixToName($name, $suffix);
+            return $this->getForm()->addSuffixToName($name, $suffix);
         }
 
         return $name;

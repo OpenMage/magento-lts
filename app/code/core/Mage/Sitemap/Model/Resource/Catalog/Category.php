@@ -27,6 +27,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      *
      * @param  int         $storeId
      * @return array|false
+     * @throws Mage_Core_Exception
      */
     public function getCollection($storeId)
     {
@@ -62,6 +63,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      * Prepare category
      *
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      * @deprecated after 1.7.0.2
      */
     protected function _prepareCategory(array $categoryRow)
@@ -78,7 +80,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      */
     protected function _getEntityUrl($row, $entity)
     {
-        return !empty($row['request_path']) ? $row['request_path'] : 'catalog/category/view/id/' . $entity->getId();
+        return empty($row['request_path']) ? 'catalog/category/view/id/' . $entity->getId() : $row['request_path'];
     }
 
     /**
@@ -86,6 +88,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      *
      * @param  string $attributeCode
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _loadAttribute($attributeCode)
     {

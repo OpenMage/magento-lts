@@ -72,10 +72,11 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
 
         $worksheet = $this->getVar('single_sheet', '');
-
-        $xmlString = $xmlRowString = '';
+        $xmlString = '';
+        $xmlRowString = '';
         $countRows = 0;
-        $isWorksheet = $isRow = false;
+        $isWorksheet = false;
+        $isRow = false;
         while (($xmlOriginalString = $batchIoAdapter->read()) !== false) {
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {
@@ -269,7 +270,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io->write($xml);
 
         $wsName = htmlspecialchars($this->getVar('single_sheet'));
-        $wsName = !empty($wsName) ? $wsName : Mage::helper('dataflow')->__('Sheet 1');
+        $wsName = empty($wsName) ? Mage::helper('dataflow')->__('Sheet 1') : $wsName;
 
         $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
         $io->write($xml);
