@@ -1046,7 +1046,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery($escapeQuery);
         if ($query) {
-            $mark = (str_contains($url, '?')) ? ($escapeQuery ? '&amp;' : '&') : ('?');
+            $mark = (str_contains($url, '?')) ? ($escapeQuery ? '&amp;' : '&') : '?';
             $url .= $mark . $query;
         }
 
