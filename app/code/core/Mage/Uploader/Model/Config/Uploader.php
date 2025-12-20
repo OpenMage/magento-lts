@@ -12,10 +12,8 @@
  *
  * @package    Mage_Uploader
  *
- * @method $this setInitFileFn(string $function)
- *                                                                                 Optional function to initialize the fileObject (js).
- * @method $this setAllowDuplicateUploads(bool $allowDuplicateUploads)             Once a file is uploaded, allow reupload of the same file. By default, if a file is already uploaded,
- *                                                                                 it will be skipped unless the file is removed from the existing Flow object.
+ * @method $this setInitFileFn(string $function)                                   Optional function to initialize the fileObject (js).
+ * @method $this setAllowDuplicateUploads(bool $allowDuplicateUploads)             Once a file is uploaded, allow reupload of the same file. By default, if a file is already uploaded, it will be skipped unless the file is removed from the existing Flow object.
  * @method $this setChunkRetryInterval(int $chunkRetryInterval)                    Defaults to "undefined"
  * @method $this setChunkSize(int $chunkSize)                                      The size in bytes of each uploaded chunk of data.
  * @method $this setFileParameterName(string $fileUploadParam)
@@ -31,19 +29,14 @@
  * @method $this setQuery(array $additionalQuery)
  * @method $this setReadFileFn(string $function)                                   Optional function wrapping reading operation from the original file.
  * @method $this setSimultaneousUploads(int $amountOfSimultaneousUploads)
- * @method $this setSingleFile(bool $isSingleFile)                                 Enable single file upload.
- *                                                                                 Once one file is uploaded, second file will overtake existing one, first one will be canceled.
- * @method $this setSpeedSmoothingFactor(int $speedSmoothingFactor)                Used for calculating average upload speed. Number from 1 to 0.
- *                                                                                 Set to 1 and average upload speed will be equal to current upload speed.
- *                                                                                 For longer file uploads it is better set this number to 0.02,
- *                                                                                 because time remaining estimation will be more accurate.
+ * @method $this setSingleFile(bool $isSingleFile)                                 Enable single file upload. Once one file is uploaded, second file will overtake existing one, first one will be canceled.
+ * @method $this setSpeedSmoothingFactor(int $speedSmoothingFactor)                Used for calculating average upload speed. Number from 1 to 0. Set to 1 and average upload speed will be equal to current upload speed. For longer file uploads it is better set this number to 0.02, because time remaining estimation will be more accurate.
  * @method $this setSuccessStatuses(array $successStatuses)                        Response is success if response status is in this list
  * @method $this setTarget(string $url)                                            The target URL for the multipart POST request.
  * @method $this setTestChunks(bool $prioritizeFirstAndLastChunk)                  Make a GET request to the server for each chunks to see if it already exists.
  * @method $this setTestMethod(string $testMethod)                                 Defaults to "GET"
  * @method $this setUploadMethod(string $uploadMethod)                             Defaults to "POST"
- * @method $this setWithCredentials(bool $isCORS)                                  Standard CORS requests do not send or set any cookies by default.
- *                                                                                 In order to include cookies as part of the request, you need to set the withCredentials property to true.
+ * @method $this setWithCredentials(bool $isCORS)                                  Standard CORS requests do not send or set any cookies by default. In order to include cookies as part of the request, you need to set the withCredentials property to true.
  */
 class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abstract
 {

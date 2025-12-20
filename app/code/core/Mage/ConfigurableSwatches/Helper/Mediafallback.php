@@ -81,7 +81,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         // normalize to all lower case before we start using them
         $optionLabels = array_map(function ($value) {
-            return array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKey(...), $value);
+            return array_map(Mage_ConfigurableSwatches_Helper_Data::normalizeKeyToObject(...), $value);
         }, $optionLabels);
 
         foreach ($parentProducts as $parentProduct) {
@@ -112,7 +112,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     }
 
                     // using default value as key unless store-specific label is present
-                    $optionLabel = $optionLabels[$optionId][$storeId] ?? $optionLabels[$optionId][0];
+                    $optionLabelObject = $optionLabels[$optionId][$storeId] ?? $optionLabels[$optionId][0];
+                    $optionLabel = (string) $optionLabelObject;
 
                     // initialize arrays if not present
                     if (!isset($mapping[$optionLabel])) {
@@ -122,7 +123,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     }
 
                     $mapping[$optionLabel]['product_ids'][] = $childProduct->getId();
-                    $mapping[$optionLabel]['label'] = $optionLabel;
+                    $mapping[$optionLabel]['label'] = $optionLabelObject;
                     $mapping[$optionLabel]['default_label'] = $optionLabels[$optionId][0];
                     $mapping[$optionLabel]['labels'] = $optionLabels[$optionId];
 
@@ -187,10 +188,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             // load images from the configurable product for swapping
             if (is_array($mapping)) {
                 foreach ($mapping as $map) {
+                    $mapLabel = (string) $map['label'];
                     $imagePath = null;
 
                     //search by store-specific label and then default label if nothing is found
-                    $imageKey = array_search($map['label'], $imageHaystack);
+                    $imageKey = array_search($mapLabel, $imageHaystack);
                     if ($imageKey === false) {
                         $imageKey = array_search($map['default_label'], $imageHaystack);
                     }
@@ -200,7 +202,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                         $imagePath = $mediaGallery['images'][$imageKey]['file'];
                     }
 
-                    $imagesByLabel[$map['label']] = [
+                    $imagesByLabel[$mapLabel] = [
                         'configurable_product' => [
                             Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL => null,
                             Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE => null,
@@ -209,11 +211,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     ];
 
                     if ($imagePath) {
-                        $imagesByLabel[$map['label']]['configurable_product']
+                        $imagesByLabel[$mapLabel]['configurable_product']
                             [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL]
                                 = $this->_resizeProductImage($product, 'small_image', $keepFrame, $imagePath);
 
-                        $imagesByLabel[$map['label']]['configurable_product']
+                        $imagesByLabel[$mapLabel]['configurable_product']
                             [Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE]
                                 = $this->_resizeProductImage($product, 'image', $keepFrame, $imagePath);
                     }
