@@ -703,7 +703,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
                     'length'    => $size,
-                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
+                    'unsigned'  => (bool) $prop['UNSIGNED'],
                     'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null,
@@ -789,7 +789,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
-                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
+                    'unsigned'  => (bool) $prop['UNSIGNED'],
                     'is_null'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null,
