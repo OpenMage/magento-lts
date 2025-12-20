@@ -35,6 +35,10 @@ class Mage_Core_Model_Logger
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
+        if ((bool) $forceLog !== true) {
+            $forceLog = Mage::getIsDeveloperMode();
+        }
+
         try {
             $logActive = Mage::getStoreConfigFlag(HelperLog::XML_PATH_DEV_LOG_ENABLED);
             if (empty($file)) {
@@ -44,13 +48,13 @@ class Mage_Core_Model_Logger
             $logActive = true;
         }
 
-        if (!Mage::getIsDeveloperMode() && !$logActive && !$forceLog) {
+        if (!$logActive && !$forceLog) {
             return;
         }
 
         $levelValue = HelperLog::getLogLevel($level);
 
-        if (!Mage::getIsDeveloperMode() && $levelValue > HelperLog::getLogLevelMax() && !$forceLog) {
+        if ($levelValue > HelperLog::getLogLevelMax() && !$forceLog) {
             return;
         }
 
