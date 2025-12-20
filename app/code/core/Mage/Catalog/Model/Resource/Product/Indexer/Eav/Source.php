@@ -25,7 +25,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Retrieve indexable eav attribute ids
      *
-     * @param bool $multiSelect
+     * @param  bool  $multiSelect
      * @return array
      */
     protected function _getIndexableAttributes($multiSelect)
@@ -53,8 +53,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
@@ -68,8 +68,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable select attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareSelectIndex($entityIds = null, $attributeId = null)
@@ -149,8 +149,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Prepare data index for indexable multiply select attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareMultiselectIndex($entityIds = null, $attributeId = null)
@@ -268,7 +268,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
     /**
      * Retrieve temporary source index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

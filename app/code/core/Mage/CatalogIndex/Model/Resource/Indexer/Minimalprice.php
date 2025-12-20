@@ -26,7 +26,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     }
 
     /**
-     * @param array $conditions
+     * @param  array  $conditions
      * @return string
      */
     public function getMinimalValue($conditions)

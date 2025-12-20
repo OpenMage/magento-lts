@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Set store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -111,11 +111,11 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @param bool $sorted
-     * @param array|int|string $exclude
-     * @param bool $toLoad
-     * @param bool $onlyActive
+     * @param  Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @param  bool                                            $sorted
+     * @param  array|int|string                                $exclude
+     * @param  bool                                            $toLoad
+     * @param  bool                                            $onlyActive
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Add inactive categories ids
      *
-     * @param array $ids
+     * @param  array $ids
      * @return $this
      */
     public function addInactiveCategoryIds($ids)
@@ -225,7 +225,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return disable category ids
      *
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Category_Collection $collection
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -284,8 +284,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Retrieve inactive category item ids
      *
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @param  int                                             $storeId
      * @return array
      */
     protected function _getInactiveItemIds($collection, $storeId)
@@ -320,7 +320,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Check is category items active
      *
-     * @param int $id
+     * @param  int  $id
      * @return bool
      */
     protected function _getItemIsActive($id)
@@ -335,7 +335,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Get categories collection
      *
-     * @param bool $sorted
+     * @param  bool                                            $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      * @throws Mage_Core_Exception
      */
@@ -349,7 +349,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Category_Collection $collection
      * @return $this
      */
     public function setCollection($collection)
@@ -363,7 +363,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param bool $sorted
+     * @param  bool                                            $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      * @throws Mage_Core_Exception
      */
@@ -396,9 +396,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Move tree before
      *
-     * @param Mage_Catalog_Model_Category $category
-     * @param Varien_Data_Tree_Node $newParent
-     * @param Varien_Data_Tree_Node $prevNode
+     * @param  Mage_Catalog_Model_Category $category
+     * @param  Varien_Data_Tree_Node       $newParent
+     * @param  Varien_Data_Tree_Node       $prevNode
      * @return $this
      */
     protected function _beforeMove($category, $newParent, $prevNode)
@@ -415,9 +415,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Executing parents move method and cleaning cache after it
      *
-     * @param Mage_Catalog_Model_Category $node
-     * @param Varien_Data_Tree_Node $newParent
-     * @param Varien_Data_Tree_Node $prevNode
+     * @param  Mage_Catalog_Model_Category $node
+     * @param  Varien_Data_Tree_Node       $newParent
+     * @param  Varien_Data_Tree_Node       $prevNode
      * @throws Exception
      * @throws Mage_Core_Exception
      */
@@ -433,9 +433,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Move tree after
      *
-     * @param Mage_Catalog_Model_Category $category
-     * @param Varien_Data_Tree_Node $newParent
-     * @param Varien_Data_Tree_Node $prevNode
+     * @param  Mage_Catalog_Model_Category $category
+     * @param  Varien_Data_Tree_Node       $newParent
+     * @param  Varien_Data_Tree_Node       $prevNode
      * @return $this
      */
     protected function _afterMove($category, $newParent, $prevNode)
@@ -454,9 +454,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Load whole category tree, that will include specified categories ids.
      *
-     * @param array $ids
-     * @param bool $addCollectionData
-     * @param bool $updateAnchorProductCount
+     * @param  array       $ids
+     * @param  bool        $addCollectionData
+     * @param  bool        $updateAnchorProductCount
      * @return $this|false
      */
     public function loadByIds($ids, $addCollectionData = true, $updateAnchorProductCount = true)
@@ -539,9 +539,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Load array of category parents
      *
-     * @param string $path
-     * @param bool $addCollectionData
-     * @param bool $withRootNode
+     * @param  string $path
+     * @param  bool   $addCollectionData
+     * @param  bool   $withRootNode
      * @return array
      */
     public function loadBreadcrumbsArray($path, $addCollectionData = true, $withRootNode = false)
@@ -589,8 +589,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * + name, is_active and is_anchor
      * Also the correct product_count is selected, depending on is the category anchor or not.
      *
-     * @param bool $sorted
-     * @param array $optionalAttributes
+     * @param  bool                            $sorted
+     * @param  array                           $optionalAttributes
      * @return Zend_Db_Select
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -669,7 +669,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Get real existing category ids by specified ids
      *
-     * @param array $ids
+     * @param  array $ids
      * @return array
      */
     public function getExistingCategoryIdsBySpecifiedIds($ids)

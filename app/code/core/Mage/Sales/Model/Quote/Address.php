@@ -12,181 +12,181 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
- * @method string getAddressType()
- * @method array getAppliedRuleIds()
- * @method bool getAppliedTaxesReset()
- * @method float getBaseCustbalanceAmount()
- * @method float getBaseDiscountAmount()
- * @method float getBaseExtraTaxAmount()
- * @method float getBaseGrandTotal()
- * @method float getBaseHiddenTaxAmount()
- * @method float getBaseRowTotal()
- * @method float getBaseShippingAmount()
- * @method float getBaseShippingAmountForDiscount()
- * @method float getBaseShippingDiscountAmount()
- * @method float getBaseShippingHiddenTaxAmount()
- * @method float getBaseShippingInclTax()
- * @method float getBaseShippingTaxable()
- * @method float getBaseShippingTaxAmount()
- * @method float getBaseSubtotal()
- * @method float getBaseSubtotalInclTax()
- * @method float getBaseSubtotalTotalInclTax()
- * @method float getBaseTaxAmount()
- * @method float getBaseVirtualAmount()
- * @method float getBaseWeeeDiscount()
- * @method array getCartFixedRules()
- * @method Mage_Sales_Model_Quote_Address[] getChildren()
- * @method string getCity()
+ * @method Mage_Sales_Model_Resource_Quote_Address            _getResource()
+ * @method string                                             getAddressType()
+ * @method array                                              getAppliedRuleIds()
+ * @method bool                                               getAppliedTaxesReset()
+ * @method float                                              getBaseCustbalanceAmount()
+ * @method float                                              getBaseDiscountAmount()
+ * @method float                                              getBaseExtraTaxAmount()
+ * @method float                                              getBaseGrandTotal()
+ * @method float                                              getBaseHiddenTaxAmount()
+ * @method float                                              getBaseRowTotal()
+ * @method float                                              getBaseShippingAmount()
+ * @method float                                              getBaseShippingAmountForDiscount()
+ * @method float                                              getBaseShippingDiscountAmount()
+ * @method float                                              getBaseShippingHiddenTaxAmount()
+ * @method float                                              getBaseShippingInclTax()
+ * @method float                                              getBaseShippingTaxable()
+ * @method float                                              getBaseShippingTaxAmount()
+ * @method float                                              getBaseSubtotal()
+ * @method float                                              getBaseSubtotalInclTax()
+ * @method float                                              getBaseSubtotalTotalInclTax()
+ * @method float                                              getBaseTaxAmount()
+ * @method float                                              getBaseVirtualAmount()
+ * @method float                                              getBaseWeeeDiscount()
+ * @method array                                              getCartFixedRules()
+ * @method Mage_Sales_Model_Quote_Address[]                   getChildren()
+ * @method string                                             getCity()
  * @method Mage_Sales_Model_Resource_Quote_Address_Collection getCollection()()
- * @method int getCollectShippingRates()
- * @method string getCompany()
- * @method string getCountryId()
- * @method string getCreatedAt()
- * @method float getCustbalanceAmount()
- * @method Mage_Customer_Model_Address getCustomerAddress()
- * @method int getCustomerAddressId()
- * @method int getCustomerId()
- * @method string getCustomerNotes()
- * @method string getCustomerPassword()
- * @method float getDiscountAmount()
- * @method string getDiscountDescription()
- * @method null|array getDiscountDescriptionArray()
- * @method float getDiscountTaxCompensation()
- * @method string getDob()
- * @method string getEmail()
- * @method float getExtraTaxAmount()
- * @method string getFax()
- * @method string getFirstname()
- * @method float getFreeMethodWeight()
- * @method int getFreeShipping()
- * @method string getGender()
- * @method int getGiftMessageId()
- * @method float getGrandTotal()
- * @method bool getHasChildren()
- * @method float getHiddenTaxAmount()
- * @method bool getIsShippingInclTax()
- * @method string getLastname()
- * @method string getLimitCarrier()
- * @method string getMiddlename()
- * @method Mage_Sales_Model_Quote_Address getParentItem()
- * @method int getParentItemId()
- * @method string getPostcode()
- * @method string getPrefix()
- * @method Mage_Catalog_Model_Product getProduct()
- * @method float getQty()
- * @method int getQuoteId()
- * @method Mage_Sales_Model_Resource_Quote_Address getResource()
- * @method array getRoundingDeltas()
- * @method float getRowTotal()
- * @method int getSameAsBilling()
- * @method int getSaveInAddressBook()
- * @method float getShippingAmount()
- * @method float getShippingAmountForDiscount()
- * @method string getShippingDescription()
- * @method float getShippingDiscountAmount()
- * @method float getShippingDiscountPercent()
- * @method float getShippingHiddenTaxAmount()
- * @method float getShippingInclTax()
- * @method string getShippingMethod()
- * @method float getShippingTaxable()
- * @method float getShippingTaxAmount()
- * @method int getStoreId()
- * @method float getSubtotal()
- * @method float getSubtotalInclTax()
- * @method string getSuffix()
- * @method float getTaxAmount()
- * @method string getTaxvat()
- * @method string getTelephone()
- * @method float getTotalQty()
- * @method string getUpdatedAt()
- * @method float getWeeeDiscount()
- * @method float getWeight()
- * @method bool hasCouponCode()
- * @method bool hasPaymentMethod()
- * @method $this setAddressType(string $value)
- * @method $this setAppliedRuleIds(string $value)
- * @method $this setAppliedTaxesReset(bool $value)
- * @method $this setBaseCustbalanceAmount(float $float)
- * @method $this setBaseDiscountAmount(float $float)
- * @method $this setBaseExtraTaxAmount(float $float)
- * @method $this setBaseGrandTotal(float $float)
- * @method $this setBaseHiddenTaxAmount(float $float)
- * @method $this setBaseShippingAmountForDiscount(float $float)
- * @method $this setBaseShippingDiscountAmount(float $float)
- * @method $this setBaseShippingHiddenTaxAmount(float $float)
- * @method $this setBaseShippingInclTax(float $float)
- * @method $this setBaseShippingTaxable(float $float)
- * @method $this setBaseShippingTaxAmount(float $float)
- * @method $this setBaseSubtotal(float $float)
- * @method $this setBaseSubtotalInclTax(float $float)
- * @method $this setBaseSubtotalTotalInclTax(float $float)
- * @method $this setBaseSubtotalWithDiscount(float $float)
- * @method $this setBaseTaxAmount(float $value)
- * @method $this setBaseVirtualAmount(float $value)
- * @method $this setBaseWeeeDiscount(float $value)
- * @method $this setCartFixedRules(array $value)
- * @method $this setCity(string $value)
- * @method $this setCollectShippingRates(int $value)
- * @method $this setCompany(string $value)
- * @method $this setCountryId(string $value)
- * @method $this setCouponCode(string $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setCustbalanceAmount(float $int)
- * @method $this setCustomerAddress(Mage_Customer_Model_Address $value)
- * @method $this setCustomerAddressId(int $value)
- * @method $this setCustomerId(int $value)
- * @method $this setCustomerNotes(string $value)
- * @method $this setDeleteImmediately(bool $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setDiscountDescription(string $value)
- * @method $this setDiscountDescriptionArray(array $value)
- * @method $this setEmail(string $value)
- * @method $this setExtraTaxAmount(float $value)
- * @method $this setFax(string $value)
- * @method $this setFirstname(string $value)
- * @method $this setFreeMethodWeight(int $value)
- * @method $this setFreeShipping(int $value)
- * @method $this setGiftMessageId(int $value)
- * @method $this setGrandTotal(float $value)
- * @method $this setHiddenTaxAmount(float $value)
- * @method $this setIsShippingInclTax(bool $value)
- * @method $this setItemQty(float $value)
- * @method $this setLastname(string $string)
- * @method $this setMiddlename(string $string)
- * @method $this setPaymentMethod(null|string $value)
- * @method $this setPostcode(string $string)
- * @method $this setPrefix(string $string)
- * @method $this setPrevQuoteCustomerGroupId(int $groupId)
- * @method $this setQuoteId(int $value)
- * @method $this setRegion(string $value)
- * @method $this setRegionId(int $value)
- * @method $this setRoundingDeltas(array $value)
- * @method $this setRowWeight(float $value)
- * @method $this setSameAsBilling(int $value)
- * @method $this setSaveInAddressBook(int $value)
- * @method $this setShippingAmountForDiscount(float|int $value)
- * @method $this setShippingDescription(string $value)
- * @method $this setShippingDiscountAmount(float $value)
- * @method $this setShippingDiscountPercent(float $value)
- * @method $this setShippingHiddenTaxAmount(float $value)
- * @method $this setShippingInclTax(float $value)
- * @method $this setShippingMethod(string $value)
- * @method $this setShippingTaxable(float $value)
- * @method $this setShippingTaxAmount(float $value)
- * @method $this setSubtotal(float $value)
- * @method $this setSubtotalInclTax(float $value)
- * @method $this setSubtotalWithDiscount(float $value)
- * @method $this setSuffix(string $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setTelephone(string $value)
- * @method $this setTotalQty(float $int)
- * @method $this setUpdatedAt(string $value)
- * @method $this setVirtualAmount(float $value)
- * @method $this setWeeeDiscount(float $value)
- * @method $this setWeight(float $value)
- * @method $this unsAddressId()
- * @method $this unsAddressType()
+ * @method int                                                getCollectShippingRates()
+ * @method string                                             getCompany()
+ * @method string                                             getCountryId()
+ * @method string                                             getCreatedAt()
+ * @method float                                              getCustbalanceAmount()
+ * @method Mage_Customer_Model_Address                        getCustomerAddress()
+ * @method int                                                getCustomerAddressId()
+ * @method int                                                getCustomerId()
+ * @method string                                             getCustomerNotes()
+ * @method string                                             getCustomerPassword()
+ * @method float                                              getDiscountAmount()
+ * @method string                                             getDiscountDescription()
+ * @method null|array                                         getDiscountDescriptionArray()
+ * @method float                                              getDiscountTaxCompensation()
+ * @method string                                             getDob()
+ * @method string                                             getEmail()
+ * @method float                                              getExtraTaxAmount()
+ * @method string                                             getFax()
+ * @method string                                             getFirstname()
+ * @method float                                              getFreeMethodWeight()
+ * @method int                                                getFreeShipping()
+ * @method string                                             getGender()
+ * @method int                                                getGiftMessageId()
+ * @method float                                              getGrandTotal()
+ * @method bool                                               getHasChildren()
+ * @method float                                              getHiddenTaxAmount()
+ * @method bool                                               getIsShippingInclTax()
+ * @method string                                             getLastname()
+ * @method string                                             getLimitCarrier()
+ * @method string                                             getMiddlename()
+ * @method Mage_Sales_Model_Quote_Address                     getParentItem()
+ * @method int                                                getParentItemId()
+ * @method string                                             getPostcode()
+ * @method string                                             getPrefix()
+ * @method Mage_Catalog_Model_Product                         getProduct()
+ * @method float                                              getQty()
+ * @method int                                                getQuoteId()
+ * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
+ * @method array                                              getRoundingDeltas()
+ * @method float                                              getRowTotal()
+ * @method int                                                getSameAsBilling()
+ * @method int                                                getSaveInAddressBook()
+ * @method float                                              getShippingAmount()
+ * @method float                                              getShippingAmountForDiscount()
+ * @method string                                             getShippingDescription()
+ * @method float                                              getShippingDiscountAmount()
+ * @method float                                              getShippingDiscountPercent()
+ * @method float                                              getShippingHiddenTaxAmount()
+ * @method float                                              getShippingInclTax()
+ * @method string                                             getShippingMethod()
+ * @method float                                              getShippingTaxable()
+ * @method float                                              getShippingTaxAmount()
+ * @method int                                                getStoreId()
+ * @method float                                              getSubtotal()
+ * @method float                                              getSubtotalInclTax()
+ * @method string                                             getSuffix()
+ * @method float                                              getTaxAmount()
+ * @method string                                             getTaxvat()
+ * @method string                                             getTelephone()
+ * @method float                                              getTotalQty()
+ * @method string                                             getUpdatedAt()
+ * @method float                                              getWeeeDiscount()
+ * @method float                                              getWeight()
+ * @method bool                                               hasCouponCode()
+ * @method bool                                               hasPaymentMethod()
+ * @method $this                                              setAddressType(string $value)
+ * @method $this                                              setAppliedRuleIds(string $value)
+ * @method $this                                              setAppliedTaxesReset(bool $value)
+ * @method $this                                              setBaseCustbalanceAmount(float $float)
+ * @method $this                                              setBaseDiscountAmount(float $float)
+ * @method $this                                              setBaseExtraTaxAmount(float $float)
+ * @method $this                                              setBaseGrandTotal(float $float)
+ * @method $this                                              setBaseHiddenTaxAmount(float $float)
+ * @method $this                                              setBaseShippingAmountForDiscount(float $float)
+ * @method $this                                              setBaseShippingDiscountAmount(float $float)
+ * @method $this                                              setBaseShippingHiddenTaxAmount(float $float)
+ * @method $this                                              setBaseShippingInclTax(float $float)
+ * @method $this                                              setBaseShippingTaxable(float $float)
+ * @method $this                                              setBaseShippingTaxAmount(float $float)
+ * @method $this                                              setBaseSubtotal(float $float)
+ * @method $this                                              setBaseSubtotalInclTax(float $float)
+ * @method $this                                              setBaseSubtotalTotalInclTax(float $float)
+ * @method $this                                              setBaseSubtotalWithDiscount(float $float)
+ * @method $this                                              setBaseTaxAmount(float $value)
+ * @method $this                                              setBaseVirtualAmount(float $value)
+ * @method $this                                              setBaseWeeeDiscount(float $value)
+ * @method $this                                              setCartFixedRules(array $value)
+ * @method $this                                              setCity(string $value)
+ * @method $this                                              setCollectShippingRates(int $value)
+ * @method $this                                              setCompany(string $value)
+ * @method $this                                              setCountryId(string $value)
+ * @method $this                                              setCouponCode(string $value)
+ * @method $this                                              setCreatedAt(string $value)
+ * @method $this                                              setCustbalanceAmount(float $int)
+ * @method $this                                              setCustomerAddress(Mage_Customer_Model_Address $value)
+ * @method $this                                              setCustomerAddressId(int $value)
+ * @method $this                                              setCustomerId(int $value)
+ * @method $this                                              setCustomerNotes(string $value)
+ * @method $this                                              setDeleteImmediately(bool $value)
+ * @method $this                                              setDiscountAmount(float $value)
+ * @method $this                                              setDiscountDescription(string $value)
+ * @method $this                                              setDiscountDescriptionArray(array $value)
+ * @method $this                                              setEmail(string $value)
+ * @method $this                                              setExtraTaxAmount(float $value)
+ * @method $this                                              setFax(string $value)
+ * @method $this                                              setFirstname(string $value)
+ * @method $this                                              setFreeMethodWeight(int $value)
+ * @method $this                                              setFreeShipping(int $value)
+ * @method $this                                              setGiftMessageId(int $value)
+ * @method $this                                              setGrandTotal(float $value)
+ * @method $this                                              setHiddenTaxAmount(float $value)
+ * @method $this                                              setIsShippingInclTax(bool $value)
+ * @method $this                                              setItemQty(float $value)
+ * @method $this                                              setLastname(string $string)
+ * @method $this                                              setMiddlename(string $string)
+ * @method $this                                              setPaymentMethod(null|string $value)
+ * @method $this                                              setPostcode(string $string)
+ * @method $this                                              setPrefix(string $string)
+ * @method $this                                              setPrevQuoteCustomerGroupId(int $groupId)
+ * @method $this                                              setQuoteId(int $value)
+ * @method $this                                              setRegion(string $value)
+ * @method $this                                              setRegionId(int $value)
+ * @method $this                                              setRoundingDeltas(array $value)
+ * @method $this                                              setRowWeight(float $value)
+ * @method $this                                              setSameAsBilling(int $value)
+ * @method $this                                              setSaveInAddressBook(int $value)
+ * @method $this                                              setShippingAmountForDiscount(float|int $value)
+ * @method $this                                              setShippingDescription(string $value)
+ * @method $this                                              setShippingDiscountAmount(float $value)
+ * @method $this                                              setShippingDiscountPercent(float $value)
+ * @method $this                                              setShippingHiddenTaxAmount(float $value)
+ * @method $this                                              setShippingInclTax(float $value)
+ * @method $this                                              setShippingMethod(string $value)
+ * @method $this                                              setShippingTaxable(float $value)
+ * @method $this                                              setShippingTaxAmount(float $value)
+ * @method $this                                              setSubtotal(float $value)
+ * @method $this                                              setSubtotalInclTax(float $value)
+ * @method $this                                              setSubtotalWithDiscount(float $value)
+ * @method $this                                              setSuffix(string $value)
+ * @method $this                                              setTaxAmount(float $value)
+ * @method $this                                              setTelephone(string $value)
+ * @method $this                                              setTotalQty(float $int)
+ * @method $this                                              setUpdatedAt(string $value)
+ * @method $this                                              setVirtualAmount(float $value)
+ * @method $this                                              setWeeeDiscount(float $value)
+ * @method $this                                              setWeight(float $value)
+ * @method $this                                              unsAddressId()
+ * @method $this                                              unsAddressType()
  *
  * @method $this unsBaseSubtotalInclTax()
  * @method $this unsSubtotalInclTax()
@@ -423,7 +423,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Import quote address data from customer address object
      *
-     * @return  $this
+     * @return $this
      */
     public function importCustomerAddress(Mage_Customer_Model_Address $address)
     {
@@ -457,7 +457,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Import address data from order address
      *
-     * @return  $this
+     * @return $this
      */
     public function importOrderAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -626,7 +626,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * false: get non-nominals only
      * null: get all
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  Mage_Sales_Model_Quote_Item_Abstract       $item
      * @return false|Mage_Sales_Model_Quote_Item_Abstract
      */
     protected function _filterNominal($item)
@@ -658,7 +658,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Retrieve item quantity by id
      *
-     * @param int $itemId
+     * @param  int                 $itemId
      * @return float|int
      * @throws Mage_Core_Exception
      */
@@ -697,7 +697,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get address item object by id without
      *
-     * @param int $itemId
+     * @param  int                                       $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
      * @throws Mage_Core_Exception
      */
@@ -715,7 +715,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get prepared not deleted item
      *
-     * @param int $itemId
+     * @param  int                                       $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
      * @throws Mage_Core_Exception
      */
@@ -733,7 +733,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Retrieve item object by quote item Id
      *
-     * @param int $itemId
+     * @param  int                                       $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
      * @throws Mage_Core_Exception
      */
@@ -751,7 +751,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Remove item from collection
      *
-     * @param int $itemId
+     * @param  int                 $itemId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -768,10 +768,10 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add item to address
      *
-     * @param   int $qty
-     * @return  $this
-     * @throws  Exception
-     * @throws  Mage_Core_Exception
+     * @param  int                 $qty
+     * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addItem(Mage_Sales_Model_Quote_Item_Abstract $item, $qty = null)
     {
@@ -879,8 +879,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Sort rates recursive callback
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortRates($a, $b)
@@ -897,9 +897,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Retrieve shipping rate by identifier
      *
-     * @param   int $rateId
-     * @return  false|Mage_Sales_Model_Quote_Address_Rate
-     * @throws  Mage_Core_Exception
+     * @param  int                                       $rateId
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws Mage_Core_Exception
      */
     public function getShippingRateById($rateId)
     {
@@ -915,9 +915,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Retrieve shipping rate by code
      *
-     * @param   string $code
-     * @return  false|Mage_Sales_Model_Quote_Address_Rate
-     * @throws  Mage_Core_Exception
+     * @param  string                                    $code
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws Mage_Core_Exception
      */
     public function getShippingRateByCode($code)
     {
@@ -1150,7 +1150,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add total data or model
      *
-     * @param array|Mage_Sales_Model_Quote_Address_Total $total
+     * @param  array|Mage_Sales_Model_Quote_Address_Total $total
      * @return $this
      */
     public function addTotal($total)
@@ -1231,7 +1231,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set applied taxes
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setAppliedTaxes($data)
@@ -1242,8 +1242,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set shipping amount
      *
-     * @param float $value
-     * @param bool $alreadyExclTax
+     * @param  float $value
+     * @param  bool  $alreadyExclTax
      * @return $this
      */
     public function setShippingAmount($value, $alreadyExclTax = false)
@@ -1254,8 +1254,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set base shipping amount
      *
-     * @param float $value
-     * @param bool $alreadyExclTax
+     * @param  float $value
+     * @param  bool  $alreadyExclTax
      * @return $this
      */
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
@@ -1266,9 +1266,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set total amount value
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function setTotalAmount($code, $amount)
     {
@@ -1284,9 +1284,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Set total amount value in base store currency
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function setBaseTotalAmount($code, $amount)
     {
@@ -1302,9 +1302,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add amount total amount value
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function addTotalAmount($code, $amount)
     {
@@ -1316,9 +1316,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add amount total amount value in base store currency
      *
-     * @param   string $code
-     * @param   float $amount
-     * @return  $this
+     * @param  string $code
+     * @param  float  $amount
+     * @return $this
      */
     public function addBaseTotalAmount($code, $amount)
     {
@@ -1330,8 +1330,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get total amount value by code
      *
-     * @param   string $code
-     * @return  float
+     * @param  string $code
+     * @return float
      */
     public function getTotalAmount($code)
     {
@@ -1341,8 +1341,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get total amount value by code in base store curncy
      *
-     * @param   string $code
-     * @return  float
+     * @param  string $code
+     * @return float
      */
     public function getBaseTotalAmount($code)
     {

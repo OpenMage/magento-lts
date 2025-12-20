@@ -25,7 +25,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Set store scope
      *
-     * @param int|Mage_Core_Model_Store|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Set store scope
      *
-     * @param int|Mage_Core_Model_Store|string $storeId
+     * @param  int|Mage_Core_Model_Store|string $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -77,8 +77,8 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Retrieve attributes load select
      *
-     * @param string $table
-     * @param array|int $attributeIds
+     * @param  string                          $table
+     * @param  array|int                       $attributeIds
      * @return Varien_Db_Select|Zend_Db_Select
      * @throws Mage_Core_Exception
      */
@@ -118,9 +118,9 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     }
 
     /**
-     * @param Varien_Db_Select $select
-     * @param string $table
-     * @param string $type
+     * @param  Varien_Db_Select $select
+     * @param  string           $table
+     * @param  string           $type
      * @return Varien_Db_Select
      */
     protected function _addLoadAttributesSelectValues($select, $table, $type)
@@ -151,12 +151,12 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     /**
      * Adding join statement to collection select instance
      *
-     * @param string $method
-     * @param object $attribute
-     * @param string $tableAlias
-     * @param array $condition
-     * @param string $fieldCode
-     * @param string $fieldAlias
+     * @param  string                                    $method
+     * @param  object                                    $attribute
+     * @param  string                                    $tableAlias
+     * @param  array                                     $condition
+     * @param  string                                    $fieldCode
+     * @param  string                                    $fieldAlias
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _joinAttributeToSelect($method, $attribute, $tableAlias, $condition, $fieldCode, $fieldAlias)

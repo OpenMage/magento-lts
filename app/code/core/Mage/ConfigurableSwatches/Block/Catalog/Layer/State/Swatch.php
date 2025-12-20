@@ -12,15 +12,15 @@
  *
  * @package    Mage_ConfigurableSwatches
  *
- * @method int getSwatchInnerHeight()
- * @method int getSwatchInnerWidth()
+ * @method int    getSwatchInnerHeight()
+ * @method int    getSwatchInnerWidth()
  * @method string getSwatchUrl()
- * @method $this setJsonConfig(string $value)
- * @method $this setSwatchInnerHeight(int $value)
- * @method $this setSwatchInnerWidth(int $value)
- * @method $this setSwatchOuterHeight(int $value)
- * @method $this setSwatchOuterWidth(int $value)
- * @method $this setSwatchUrl(string $value)
+ * @method $this  setJsonConfig(string $value)
+ * @method $this  setSwatchInnerHeight(int $value)
+ * @method $this  setSwatchInnerWidth(int $value)
+ * @method $this  setSwatchOuterHeight(int $value)
+ * @method $this  setSwatchOuterWidth(int $value)
+ * @method $this  setSwatchUrl(string $value)
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Core_Block_Template
 {
@@ -34,7 +34,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
     /**
      * Determine if we should use this block to render a state filter
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Item $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Item $filter
      * @return bool
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -57,7 +57,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
     /**
      * Set one-time data on the renderer
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Item $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Item $filter
      * @return void
      * @throws Mage_Core_Exception
      * @throws Throwable

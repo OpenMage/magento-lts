@@ -10,7 +10,7 @@
 /**
  * Cms block content block
  *
- * @method int getBlockId()
+ * @method int   getBlockId()
  * @method $this setBlockId(int $int)
  *
  * @package    Mage_Cms

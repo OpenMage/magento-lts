@@ -10,17 +10,17 @@
 /**
  * @package    Mage_Directory
  *
- * @method Mage_Directory_Model_Resource_Region _getResource()
- * @method string getCode()
+ * @method Mage_Directory_Model_Resource_Region            _getResource()
+ * @method string                                          getCode()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
- * @method string getCountryId()
- * @method string getDefaultName()
- * @method int getRegionId()
- * @method Mage_Directory_Model_Resource_Region getResource()
+ * @method string                                          getCountryId()
+ * @method string                                          getDefaultName()
+ * @method int                                             getRegionId()
+ * @method Mage_Directory_Model_Resource_Region            getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
- * @method $this setCode(string $value)
- * @method $this setCountryId(string $value)
- * @method $this setDefaultName(string $value)
+ * @method $this                                           setCode(string $value)
+ * @method $this                                           setCountryId(string $value)
+ * @method $this                                           setDefaultName(string $value)
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
 {
@@ -50,8 +50,8 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $code
-     * @param string $countryId
+     * @param  string $code
+     * @param  string $countryId
      * @return $this
      */
     public function loadByCode($code, $countryId)
@@ -64,8 +64,8 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $name
-     * @param string $countryId
+     * @param  string $name
+     * @param  string $countryId
      * @return $this
      */
     public function loadByName($name, $countryId)

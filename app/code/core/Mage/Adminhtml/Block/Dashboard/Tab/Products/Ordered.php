@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * Returns row url to show in admin dashboard
      * $row is bestseller row wrapped in Product model
      *
-     * @param Mage_Catalog_Model_Product $row
+     * @param  Mage_Catalog_Model_Product $row
      * @return string
      * @throws Exception
      */

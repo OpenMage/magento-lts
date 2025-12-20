@@ -35,7 +35,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Set type for COUNT SQL select
      *
-     * @param int $type
+     * @param  int   $type
      * @return $this
      */
     public function setSelectCountSqlType($type)
@@ -56,8 +56,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Prepare for abandoned report
      *
-     * @param array $storeIds
-     * @param array $filter
+     * @param  array $storeIds
+     * @param  array $filter
      * @return $this
      */
     public function prepareForAbandonedReport($storeIds, $filter = null)
@@ -139,7 +139,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add store ids to filter
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -151,7 +151,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add customer data
      *
-     * @param null|array $filter
+     * @param  null|array $filter
      * @return $this
      */
     public function addCustomerData($filter = null)
@@ -229,8 +229,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Add subtotals
      *
-     * @param array|string $storeIds
-     * @param array $filter
+     * @param  array|string $storeIds
+     * @param  array        $filter
      * @return $this
      */
     public function addSubtotal($storeIds = '', $filter = null)

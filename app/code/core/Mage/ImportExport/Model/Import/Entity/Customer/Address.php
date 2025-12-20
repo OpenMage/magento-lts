@@ -368,7 +368,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Update and insert data in entity table.
      *
-     * @param array $entityRows Rows for insert
+     * @param  array $entityRows Rows for insert
      * @return $this
      */
     protected function _saveAddressEntity(array $entityRows)
@@ -424,7 +424,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * Get column name which holds value for attribute with specified code.
      *
      * @static
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return string
      */
     public static function getColNameForAttrCode($attrCode)
@@ -456,7 +456,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Is attribute contains particular data (not plain entity attribute).
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     public function isAttributeParticular($attrCode)
@@ -467,7 +467,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Validate data row.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
@@ -511,7 +511,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Get current scope
      *
-     * @param array $rowData
+     * @param  array $rowData
      * @return int
      */
     protected function _getRowScope($rowData)

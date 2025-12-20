@@ -12,22 +12,22 @@ use Carbon\Carbon;
 /**
  * @package    Mage_Index
  *
- * @method Mage_Index_Model_Resource_Event _getResource()
+ * @method Mage_Index_Model_Resource_Event            _getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getCollection()
- * @method string getCreatedAt()
- * @method Varien_Object getDataObject()
- * @method int getEntityPk()
- * @method Mage_Index_Model_Resource_Event getResource()
+ * @method string                                     getCreatedAt()
+ * @method Varien_Object                              getDataObject()
+ * @method int                                        getEntityPk()
+ * @method Mage_Index_Model_Resource_Event            getResource()
  * @method Mage_Index_Model_Resource_Event_Collection getResourceCollection()
- * @method bool hasCreatedAt()
- * @method bool hasEntityPk()
- * @method $this setCreatedAt(string $value)
- * @method $this setDataObject(Varien_Object $value)
- * @method $this setEntity(string $value)
- * @method $this setEntityPk(int $value)
- * @method $this setNewData(array|string $value)
- * @method $this setOldData(array|string $value)
- * @method $this setType(string $value)
+ * @method bool                                       hasCreatedAt()
+ * @method bool                                       hasEntityPk()
+ * @method $this                                      setCreatedAt(string $value)
+ * @method $this                                      setDataObject(Varien_Object $value)
+ * @method $this                                      setEntity(string $value)
+ * @method $this                                      setEntityPk(int $value)
+ * @method $this                                      setNewData(array|string $value)
+ * @method $this                                      setOldData(array|string $value)
+ * @method $this                                      setType(string $value)
  */
 class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -71,7 +71,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param null|Mage_Index_Model_Process $process
+     * @param  null|Mage_Index_Model_Process $process
      * @return $this
      */
     public function setProcess($process)
@@ -92,7 +92,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
-     * @param null|string $namespace
+     * @param  null|string $namespace
      * @return $this
      */
     public function setDataNamespace($namespace)
@@ -122,8 +122,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add process id to event object
      *
-     * @param int $processId
-     * @param Mage_Index_Model_Process::EVENT_STATUS_* $status
+     * @param  int                                      $processId
+     * @param  Mage_Index_Model_Process::EVENT_STATUS_* $status
      * @return $this
      */
     public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
@@ -145,8 +145,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Merge new data
      *
-     * @param array $previous
-     * @param mixed $current
+     * @param  array $previous
+     * @param  mixed $current
      * @return array
      */
     protected function _mergeNewDataRecursive($previous, $current)
@@ -178,7 +178,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Merge previous event data to object.
      * Used for events duplicated protection
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function mergePreviousData($data)
@@ -231,7 +231,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get event old data array
      *
-     * @param bool $useNamespace
+     * @param  bool  $useNamespace
      * @return array
      * @deprecated since 1.6.2.0
      */
@@ -243,7 +243,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get event new data array
      *
-     * @param bool $useNamespace
+     * @param  bool  $useNamespace
      * @return array
      */
     public function getNewData($useNamespace = true)
@@ -265,8 +265,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to old data array (overwrite if value with same key exist)
      *
-     * @param array|string $key
-     * @param null|mixed $value
+     * @param  array|string $key
+     * @param  null|mixed   $value
      * @return $this
      * @deprecated since 1.6.2.0
      */
@@ -278,8 +278,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to new data array (overwrite if value with same key exist)
      *
-     * @param array|string $key
-     * @param null|mixed $value
+     * @param  array|string $key
+     * @param  null|mixed   $value
      * @return $this
      */
     public function addNewData($key, $value = null)

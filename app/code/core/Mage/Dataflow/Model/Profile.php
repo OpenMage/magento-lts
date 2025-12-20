@@ -14,30 +14,30 @@ use Carbon\Carbon;
  *
  * @package    Mage_Dataflow
  *
- * @method Mage_Dataflow_Model_Resource_Profile _getResource()
- * @method string getActionsXml()
- * @method int getAdminUserId()
+ * @method Mage_Dataflow_Model_Resource_Profile            _getResource()
+ * @method string                                          getActionsXml()
+ * @method int                                             getAdminUserId()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getCollection()
- * @method string getCreatedAt()
- * @method string getDataTransfer()
- * @method string getDirection()
- * @method string getEntityType()
- * @method array|string getGuiData()
- * @method string getName()
- * @method Mage_Dataflow_Model_Resource_Profile getResource()
+ * @method string                                          getCreatedAt()
+ * @method string                                          getDataTransfer()
+ * @method string                                          getDirection()
+ * @method string                                          getEntityType()
+ * @method array|string                                    getGuiData()
+ * @method string                                          getName()
+ * @method Mage_Dataflow_Model_Resource_Profile            getResource()
  * @method Mage_Dataflow_Model_Resource_Profile_Collection getResourceCollection()
- * @method int getStoreId()
- * @method string getUpdatedAt()
- * @method $this setActionsXml(string $value)
- * @method $this setAdminUserId(int $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setDataTransfer(string $value)
- * @method $this setDirection(string $value)
- * @method $this setEntityType(string $value)
- * @method $this setGuiData(array|string $value)
- * @method $this setName(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setUpdatedAt(string $value)
+ * @method int                                             getStoreId()
+ * @method string                                          getUpdatedAt()
+ * @method $this                                           setActionsXml(string $value)
+ * @method $this                                           setAdminUserId(int $value)
+ * @method $this                                           setCreatedAt(string $value)
+ * @method $this                                           setDataTransfer(string $value)
+ * @method $this                                           setDirection(string $value)
+ * @method $this                                           setEntityType(string $value)
+ * @method $this                                           setGuiData(array|string $value)
+ * @method $this                                           setName(string $value)
+ * @method $this                                           setStoreId(int $value)
+ * @method $this                                           setUpdatedAt(string $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
@@ -517,8 +517,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * Get node from xml object
      *
-     * @param object $xmlObject
-     * @param string $nodeName
+     * @param  object    $xmlObject
+     * @param  string    $nodeName
      * @return object
      * @throws Exception
      */

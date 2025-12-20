@@ -26,7 +26,7 @@ interface Mage_Eav_Model_Entity_Attribute_Source_Interface
     /**
      * Retrieve Option value text
      *
-     * @param string $value
+     * @param  string $value
      * @return mixed
      */
     public function getOptionText($value);

@@ -36,7 +36,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     protected $_ship_id;
 
     /**
-     * @param int $oid
+     * @param  int                                $oid
      * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
@@ -54,7 +54,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @param int $oid
+     * @param  int                                $oid
      * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
@@ -72,7 +72,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $tid
+     * @param  string                             $tid
      * @return Mage_Shipping_Block_Tracking_Popup
      * @deprecated after 1.3.2.3
      */
@@ -202,8 +202,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * Format given date and time in current locale without changing timezone
      *
-     * @param string $date
-     * @param string $time
+     * @param  string $date
+     * @param  string $time
      * @return string
      */
     public function formatDeliveryDateTime($date, $time)
@@ -214,7 +214,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * Format given date in current locale without changing timezone
      *
-     * @param string $date
+     * @param  string $date
      * @return string
      */
     public function formatDeliveryDate($date)
@@ -228,8 +228,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * Format given time [+ date] in current locale without changing timezone
      *
-     * @param string $time
-     * @param string $date
+     * @param  string $time
+     * @param  string $date
      * @return string
      */
     public function formatDeliveryTime($time, $date = null)

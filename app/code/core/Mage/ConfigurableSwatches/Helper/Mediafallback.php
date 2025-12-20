@@ -23,8 +23,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param Mage_Catalog_Model_Product[] $parentProducts
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Product[] $parentProducts
+     * @param  int                          $storeId
      * @return void
      * @throws Mage_Core_Exception
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
@@ -39,9 +39,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param Mage_Catalog_Model_Product[] $parentProducts
-     * @param int $storeId
-     * @param bool $onlyListAttributes
+     * @param  Mage_Catalog_Model_Product[] $parentProducts
+     * @param  int                          $storeId
+     * @param  bool                         $onlyListAttributes
      * @return void
      * @throws Mage_Core_Exception
      */
@@ -159,8 +159,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have media gallery attached which attaches and differentiates local images and child images
      * - product must have child products attached
      *
-     * @param string[] $imageTypes - image types to select for child products
-     * @param bool $keepFrame
+     * @param  string[]                                                                       $imageTypes - image types to select for child products
+     * @param  bool                                                                           $keepFrame
      * @return array{option_labels: string[], small_image: string[], image: string[]}|array{}
      * @throws Mage_Core_Exception
      */
@@ -264,11 +264,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Resize specified type of image on the product for use in the fallback and returns the image URL
      * or returns the image URL for the specified image path if present
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $type
-     * @param bool $keepFrame
-     * @param string $image
-     * @param bool $placeholder
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $type
+     * @param  bool                       $keepFrame
+     * @param  string                     $image
+     * @param  bool                       $placeholder
      * @return bool|string
      */
     protected function _resizeProductImage($product, $type, $keepFrame, $image = null, $placeholder = false)
@@ -334,8 +334,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     /**
      * For given product set, attach media_gallery attribute values.
      *
-     * @param Mage_Catalog_Model_Product[] $products
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Product[] $products
+     * @param  int                          $storeId
      * @return void
      * @throws Mage_Core_Exception
      */
@@ -426,8 +426,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Attaches children product to each product via
      * ->setChildrenProducts()
      *
-     * @param Mage_Catalog_Model_Product[] $products
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Product[] $products
+     * @param  int                          $storeId
      * @return void
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception

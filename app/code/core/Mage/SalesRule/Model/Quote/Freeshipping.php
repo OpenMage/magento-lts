@@ -30,7 +30,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
     /**
      * Collect information about free shipping for all address items
      *
-     * @return  $this
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {

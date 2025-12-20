@@ -53,7 +53,7 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
     }
 
     /**
-     * @param int $id
+     * @param  int    $id
      * @return string
      */
     public function getReviewUrl($id)

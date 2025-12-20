@@ -17,7 +17,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Collect address subtotal
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Subtotal
+     * @return Mage_Sales_Model_Quote_Address_Total_Subtotal
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -58,8 +58,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Address item initialization
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param Mage_Sales_Model_Quote_Address_Item|Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Address                                  $address
+     * @param  Mage_Sales_Model_Quote_Address_Item|Mage_Sales_Model_Quote_Item $item
      * @return bool
      */
     protected function _initItem($address, $item)
@@ -111,7 +111,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
      * Remove item
      *
      * @param  Mage_Sales_Model_Quote_Address $address
-     * @param  Mage_Core_Model_Abstract $item
+     * @param  Mage_Core_Model_Abstract       $item
      * @return $this
      */
     protected function _removeItem($address, $item)
@@ -134,7 +134,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Assign subtotal amount and label to address object
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Subtotal
+     * @return Mage_Sales_Model_Quote_Address_Total_Subtotal
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

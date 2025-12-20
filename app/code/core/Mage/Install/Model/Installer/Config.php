@@ -121,7 +121,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     }
 
     /**
-     * @param array $data
+     * @param  array                      $data
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -139,8 +139,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     }
 
     /**
-     * @param string $url
-     * @param bool $secure
+     * @param  string                     $url
+     * @param  bool                       $secure
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -178,7 +178,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     }
 
     /**
-     * @param null|string $key
+     * @param  null|string $key
      * @return $this
      */
     public function replaceTmpEncryptKey($key = null)

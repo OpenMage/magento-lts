@@ -78,8 +78,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Make select object for date boundary
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed               $from
+     * @param  mixed               $to
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */

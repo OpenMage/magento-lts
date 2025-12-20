@@ -34,7 +34,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
     /**
      * Get config by key
      *
-     * @param string $key
+     * @param  string                                     $key
      * @return array|false|string|Varien_Simplexml_Config
      */
     public function getConfig($key = '')

@@ -37,8 +37,8 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve model object
      *
-     * @param string $modelClass
-     * @param array|object $arguments
+     * @param  string                        $modelClass
+     * @param  array|object                  $arguments
      * @return bool|Mage_Core_Model_Abstract
      */
     public function getModel($modelClass = '', $arguments = [])
@@ -49,7 +49,7 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve model object singleton
      *
-     * @param string $modelClass
+     * @param  string                   $modelClass
      * @return Mage_Core_Model_Abstract
      */
     public function getSingleton($modelClass = '', array $arguments = [])
@@ -60,8 +60,8 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve object of resource model
      *
-     * @param string $modelClass
-     * @param array $arguments
+     * @param  string $modelClass
+     * @param  array  $arguments
      * @return Object
      */
     public function getResourceModel($modelClass, $arguments = [])
@@ -72,7 +72,7 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve helper instance
      *
-     * @param string $helperClass
+     * @param  string                    $helperClass
      * @return Mage_Core_Helper_Abstract
      */
     public function getHelper($helperClass)

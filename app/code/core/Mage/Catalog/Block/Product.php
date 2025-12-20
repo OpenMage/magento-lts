@@ -56,7 +56,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getPriceHtml($product)

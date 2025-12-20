@@ -134,7 +134,7 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Write string
      *
-     * @param string $string
+     * @param  string $string
      * @return bool
      */
     public function write($string)

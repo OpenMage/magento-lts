@@ -17,7 +17,7 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
     /**
      * Collect grand total address amount
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Grand
+     * @return Mage_Sales_Model_Quote_Address_Total_Grand
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -39,7 +39,7 @@ class Mage_Sales_Model_Quote_Address_Total_Grand extends Mage_Sales_Model_Quote_
     /**
      * Add grand total information to address
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Grand
+     * @return Mage_Sales_Model_Quote_Address_Total_Grand
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

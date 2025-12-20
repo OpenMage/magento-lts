@@ -12,23 +12,23 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Set _getResource()
- * @method int getAttributeSetId(string $value)
- * @method string getAttributeSetName()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set            _getResource()
+ * @method int                                                     getAttributeSetId(string $value)
+ * @method string                                                  getAttributeSetName()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
- * @method int getEntityTypeId()
- * @method Mage_Eav_Model_Entity_Attribute_Group[] getGroups()
- * @method Mage_Eav_Model_Entity_Attribute[] getRemoveAttributes()
- * @method Mage_Eav_Model_Entity_Attribute_Group[] getRemoveGroups()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Set getResource()
+ * @method int                                                     getEntityTypeId()
+ * @method Mage_Eav_Model_Entity_Attribute_Group[]                 getGroups()
+ * @method Mage_Eav_Model_Entity_Attribute[]                       getRemoveAttributes()
+ * @method Mage_Eav_Model_Entity_Attribute_Group[]                 getRemoveGroups()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
- * @method int getSortOrder()
- * @method $this setAttributeSetName(string $value)
- * @method $this setEntityTypeId(int $value)
- * @method $this setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
- * @method $this setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
- * @method $this setRemoveGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
- * @method $this setSortOrder(int $value)
+ * @method int                                                     getSortOrder()
+ * @method $this                                                   setAttributeSetName(string $value)
+ * @method $this                                                   setEntityTypeId(int $value)
+ * @method $this                                                   setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
+ * @method $this                                                   setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
+ * @method $this                                                   setRemoveGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
+ * @method $this                                                   setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Init attribute set from skeleton (another attribute set)
      *
-     * @param int $skeletonId
+     * @param  int   $skeletonId
      * @return $this
      */
     public function initFromSkeleton($skeletonId)
@@ -96,7 +96,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Collect data for save
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function organizeData($data)
@@ -196,8 +196,8 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Add set info to attributes
      *
-     * @param Mage_Eav_Model_Entity_Type|string $entityType
-     * @param int $setId
+     * @param  Mage_Eav_Model_Entity_Type|string $entityType
+     * @param  int                               $setId
      * @return $this
      */
     public function addSetInfo($entityType, array $attributes, $setId = null)
@@ -257,7 +257,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
     /**
      * Return default Group Id for current or defined Attribute Set
      *
-     * @param int $setId
+     * @param  int         $setId
      * @return null|string
      */
     public function getDefaultGroupId($setId = null)
