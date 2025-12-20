@@ -270,7 +270,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io->write($xml);
 
         $wsName = htmlspecialchars($this->getVar('single_sheet'));
-        $wsName = !empty($wsName) ? $wsName : Mage::helper('dataflow')->__('Sheet 1');
+        $wsName = empty($wsName) ? Mage::helper('dataflow')->__('Sheet 1') : $wsName;
 
         $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
         $io->write($xml);
