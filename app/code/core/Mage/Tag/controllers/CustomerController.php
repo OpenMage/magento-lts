@@ -94,10 +94,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @deprecated after 1.3.2.3
-     * This functionality was removed
-     *
      * @return void
+     * @deprecated after 1.3.2.3 This functionality was removed
      */
     public function editAction()
     {
