@@ -91,7 +91,6 @@ try {
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP
             CodingStyle\Assign\SplitDoubleAssignRector::class, # todo: TMP

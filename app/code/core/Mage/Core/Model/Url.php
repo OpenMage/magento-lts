@@ -1046,7 +1046,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery($escapeQuery);
         if ($query) {
-            $mark = (!str_contains($url, '?')) ? '?' : ($escapeQuery ? '&amp;' : '&');
+            $mark = (str_contains($url, '?')) ? ($escapeQuery ? '&amp;' : '&') : ('?');
             $url .= $mark . $query;
         }
 
@@ -1282,7 +1282,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery(false);
         if ($query) {
-            $url .= (!str_contains($url, '?') ? '?' : '&') . $query;
+            $url .= (str_contains($url, '?') ? '&' : '?') . $query;
         }
 
         return $url;

@@ -132,7 +132,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             $taxHelper = Mage::helper('tax');
             foreach ($bundleOption->getSelections() as $bundleSelection) {
                 $selectionId = $bundleSelection->getSelectionId();
-                $_qty = !($bundleSelection->getSelectionQty() * 1) ? '1' : $bundleSelection->getSelectionQty() * 1;
+                $_qty = $bundleSelection->getSelectionQty() * 1 ? $bundleSelection->getSelectionQty() * 1 : '1';
                 // recalculate currency
                 $tierPrices = $bundleSelection->getTierPrice();
                 foreach ($tierPrices as &$tierPriceInfo) {

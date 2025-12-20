@@ -95,7 +95,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (!str_contains($url, '?')) ? '?' : '&';
+        $startDelimiter = (str_contains($url, '?')) ? '&' : '?';
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {
