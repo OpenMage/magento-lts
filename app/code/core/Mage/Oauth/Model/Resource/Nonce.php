@@ -7,6 +7,8 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * oAuth nonce resource model
  *
@@ -27,6 +29,7 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $minutes Delete entries older than
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function deleteOldEntries($minutes)
     {
@@ -35,7 +38,7 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
 
             return $adapter->delete(
                 $this->getMainTable(),
-                $adapter->quoteInto('timestamp <= ?', time() - $minutes * 60, Zend_Db::INT_TYPE),
+                $adapter->quoteInto('timestamp <= ?', Carbon::now()->subMinutes($minutes)->getTimestamp(), Zend_Db::INT_TYPE),
             );
         } else {
             return 0;

@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Carbon\FactoryImmutable;
 use Psr\Clock\ClockInterface;
 
@@ -202,9 +204,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract implements ClockIn
         } elseif (is_int($date)) {
             $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
-            if (($time = strtotime($date)) !== false) {
+            try {
+                $time = Carbon::parse($date)->getTimestamp();
                 $date = $locale->date($time, null, null, $useTimezone);
-            } else {
+            } catch (InvalidFormatException) {
                 return '';
             }
         }
@@ -233,7 +236,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract implements ClockIn
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
-            $date = $locale->date(strtotime($time));
+            $date = $locale->date(Carbon::parse($time)->getTimestamp());
         }
 
         if ($showDate) {

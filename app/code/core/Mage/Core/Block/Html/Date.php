@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * HTML select element block
  *
@@ -77,7 +79,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     public function getEscapedValue($index = null)
     {
         if ($this->getFormat() && $this->getValue()) {
-            return date($this->getFormat(), strtotime($this->getValue()));
+            return Carbon::parse($this->getValue())->format($this->getFormat());
         }
 
         return htmlspecialchars($this->getValue());
