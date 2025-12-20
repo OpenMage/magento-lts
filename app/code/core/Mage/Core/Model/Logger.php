@@ -52,18 +52,18 @@ class Mage_Core_Model_Logger
             return;
         }
 
-        $levelValue = HelperLog::getLogLevel($level);
+        $levelValue = HelperLog::getLogLevelValue($level);
 
-        if ($levelValue > HelperLog::getLogLevelMax() && !$forceLog) {
+        if ($levelValue > HelperLog::getLogLevelMaxValue() && !$forceLog) {
             return;
         }
 
-        $file = empty($file) ? HelperLog::getLogFile() : basename($file);
+        $file = empty($file) ? HelperLog::getConfigLogFile() : basename($file);
 
         try {
             if (!isset(self::$loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-                $_allowedFileExtensions = HelperLog::getAllowedFileExtensions();
+                $_allowedFileExtensions = HelperLog::getConfigAllowedFileExtensions();
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }

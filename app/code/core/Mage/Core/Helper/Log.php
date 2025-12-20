@@ -33,6 +33,12 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
 
+    public const LOG_FORMAT_MONOLOG                    = 1;
+
+    public const LOG_FORMAT_RFC5424                    = 2;
+
+    public const LOG_FORMAT_PSR_3                      = 3;
+
     protected $_moduleName = 'Mage_Core';
 
     /**
@@ -40,7 +46,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
      *
      * @return string[]
      */
-    public static function getAllowedFileExtensions(): array
+    public static function getConfigAllowedFileExtensions(): array
     {
         return explode(
             ',',
@@ -48,6 +54,17 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 self::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
                 Mage_Core_Model_Store::DEFAULT_CODE,
             ),
+        );
+    }
+
+    /**
+     * Retrieve log file name from configuration
+     */
+    public static function getConfigLogFile(): string
+    {
+        return (string) Mage::getConfig()->getNode(
+            self::XML_PATH_DEV_LOG_FILE,
+            Mage_Core_Model_Store::DEFAULT_CODE,
         );
     }
 
@@ -90,20 +107,23 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve log file name from configuration
+     * Retrieve log level value
+     *
+     * @param self::LOG_FORMAT_* $format
      */
-    public static function getLogFile(): string
+    public static function getLogLevelValue(null|int|Level|string $level, int $format = self::LOG_FORMAT_RFC5424): int|string
     {
-        return (string) Mage::getConfig()->getNode(
-            self::XML_PATH_DEV_LOG_FILE,
-            Mage_Core_Model_Store::DEFAULT_CODE,
-        );
+        return match ($format) {
+            self::LOG_FORMAT_MONOLOG => self::getLogLevel($level)->value,
+            self::LOG_FORMAT_PSR_3 => self::getLogLevel($level)->toPsrLogLevel(),
+            self::LOG_FORMAT_RFC5424 => self::getLogLevel($level)->toRFC5424Level(),
+        };
     }
 
     /**
      * Normalize log level to Monolog Level integer value
      */
-    public static function getLogLevel(null|int|Level|string $level): int
+    public static function getLogLevel(null|int|Level|string $level): Level
     {
         if (is_numeric($level)) {
             $level = (int) $level;
@@ -135,13 +155,13 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
             });
         }
 
-        return $levelValue->toRFC5424Level();
+        return $levelValue;
     }
 
     /**
      * Retrieve maximum log level from configuration
      */
-    public static function getLogLevelMax(): int
+    public static function getLogLevelMaxValue(): int
     {
         try {
             $maxLogLevel = Mage::getStoreConfigAsInt(self::XML_PATH_DEV_LOG_MAX_LEVEL);
@@ -149,6 +169,6 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
             $maxLogLevel = Level::Debug;
         }
 
-        return self::getLogLevel($maxLogLevel);
+        return self::getLogLevelValue($maxLogLevel);
     }
 }
