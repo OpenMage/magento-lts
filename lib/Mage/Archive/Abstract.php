@@ -65,7 +65,7 @@ class Mage_Archive_Abstract
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {
-            $file = substr($file, 0, strrpos($file, '.'));
+            return substr($file, 0, strrpos($file, '.'));
         }
 
         return $file;

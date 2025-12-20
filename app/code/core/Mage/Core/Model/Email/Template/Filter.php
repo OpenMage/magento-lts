@@ -472,7 +472,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         $storeId = $this->getStoreId();
         if (isset($params['path']) && $this->_permissionVariable->isPathAllowed($params['path'])) {
-            $configValue = Mage::getStoreConfig($params['path'], $storeId);
+            return Mage::getStoreConfig($params['path'], $storeId);
         }
 
         return $configValue;

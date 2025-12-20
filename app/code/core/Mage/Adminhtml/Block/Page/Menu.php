@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
         if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
-            $cacheKeyInfo = array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
+            return array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
         }
 
         return $cacheKeyInfo;

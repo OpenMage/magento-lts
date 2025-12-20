@@ -180,7 +180,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     {
         $value = $this->_unserializeValue($value);
         if (!$this->_isEncodedArrayFieldValue($value)) {
-            $value = $this->_encodeArrayFieldValue($value);
+            return $this->_encodeArrayFieldValue($value);
         }
 
         return $value;

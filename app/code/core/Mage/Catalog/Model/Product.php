@@ -41,6 +41,7 @@
  * @method string getCustomLayoutUpdate()
  * @method string getDescription()
  * @method bool getDisableAddToCart()
+ * @method bool getDoNotUseCategoryId()
  * @method array getDownloadableData()
  * @method Mage_Downloadable_Model_Link[] getDownloadableLinks()
  * @method bool getDownloadableReadonly()
@@ -161,6 +162,7 @@
  * @method $this setCrossSellProducts(array $value)
  * @method $this setCustomerGroupId(int $value)
  * @method $this setDisableAddToCart(bool $value)
+ * @method $this setDoNotUseCategoryId(bool $value)
  * @method $this setDownloadableData(array $value)
  * @method $this setDownloadableLinks(Mage_Downloadable_Model_Link[] $value)
  * @method $this setDownloadableSamples(Mage_Downloadable_Model_Resource_Sample_Collection $value)
@@ -206,6 +208,7 @@
  * @method $this setRelatedLinkData(array $value)
  * @method $this setRelatedProductIds(array $value)
  * @method $this setRelatedProducts(array $value)
+ * @method $this setRequestPath(string $value)
  * @method $this setRequiredOptions(bool $value)
  * @method $this setShortDescription(string $value)
  * @method $this setSkipCheckRequiredOption(bool $value)
@@ -1756,6 +1759,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @param Mage_Catalog_Model_Category $category
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getUrlPath($category = null)
     {
@@ -2303,7 +2307,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $preconfiguredValues = $this->getData('preconfigured_values');
         if (!$preconfiguredValues) {
-            $preconfiguredValues = new Varien_Object();
+            return new Varien_Object();
         }
 
         return $preconfiguredValues;
@@ -2444,7 +2448,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $event = parent::getEvent();
         if (is_string($event)) {
-            $event = false;
+            return false;
         }
 
         return $event;

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_C
     {
         $qty = $this->getProduct()->getPreconfiguredValues()->getQty();
         if (!$qty) {
-            $qty = 1;
+            return 1;
         }
 
         return $qty;

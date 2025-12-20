@@ -2049,7 +2049,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $id = $this->getData('real_order_id');
         if (is_null($id)) {
-            $id = $this->getIncrementId();
+            return $this->getIncrementId();
         }
 
         return $id;
@@ -2308,7 +2308,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $result = false;
         $shipmentsCollection = $this->getShipmentsCollection();
         if ($shipmentsCollection) {
-            $result = (bool) $shipmentsCollection->count();
+            return (bool) $shipmentsCollection->count();
         }
 
         return $result;
@@ -2324,7 +2324,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $result = false;
         $creditmemosCollection = $this->getCreditmemosCollection();
         if ($creditmemosCollection) {
-            $result = (bool) $creditmemosCollection->count();
+            return (bool) $creditmemosCollection->count();
         }
 
         return $result;

@@ -1253,7 +1253,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;

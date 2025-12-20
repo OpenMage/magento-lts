@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
 
         $taxClassAmount = [];
         if ($source instanceof Mage_Sales_Model_Order) {
-            $taxClassAmount = $this->_getTaxHelper()->getCalculatedTaxes($source);
+            return $this->_getTaxHelper()->getCalculatedTaxes($source);
         }
 
         return $taxClassAmount;

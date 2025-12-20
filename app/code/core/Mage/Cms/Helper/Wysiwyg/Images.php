@@ -118,7 +118,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $path = $this->idDecode($id);
         $storageRoot = realpath($this->getStorageRoot());
         if (!strstr($path, (string) $storageRoot)) {
-            $path = $storageRoot . DS . $path;
+            return $storageRoot . DS . $path;
         }
 
         return $path;
@@ -135,7 +135,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         $path = strtr($path, "\\\/", DS . DS);
         if ($trim) {
-            $path = trim($path, DS);
+            return trim($path, DS);
         }
 
         return $path;

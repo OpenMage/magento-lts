@@ -598,7 +598,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         $result = false;
         if (is_string($src) && @is_readable($src) && is_file($src)) {
-            $result = true;
+            return true;
         }
 
         return $result;

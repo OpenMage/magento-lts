@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $fileInfo = [];
             $currentConfig = $processingParams->getCurrentConfig();
             if ($currentConfig) {
-                $fileInfo = $currentConfig->getData('options/' . $optionId);
+                return $currentConfig->getData('options/' . $optionId);
             }
 
             return $fileInfo;

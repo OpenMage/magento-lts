@@ -267,9 +267,9 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->where($adapter->quoteIdentifier('path') . ' LIKE :c_path')
             ->where($adapter->quoteIdentifier('level') . ' = :c_level');
 
-        $position = $adapter->fetchOne($select, $bind);
+        $position = (int) $adapter->fetchOne($select, $bind);
         if (!$position) {
-            $position = 0;
+            return 0;
         }
 
         return $position;

@@ -253,7 +253,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (stristr($this->_getRequest()->getActionName(), 'simple')
             || !is_null($this->_getRequest()->getParam('simple', null))
         ) {
-            $simple = true;
+            return true;
         }
 
         return $simple;

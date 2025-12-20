@@ -1272,7 +1272,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;

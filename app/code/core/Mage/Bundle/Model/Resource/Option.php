@@ -108,7 +108,7 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
             )
             ->where('opt.parent_id=:product_id');
         if (!$searchData = $adapter->fetchCol($select, $bind)) {
-            $searchData = [];
+            return [];
         }
 
         return $searchData;

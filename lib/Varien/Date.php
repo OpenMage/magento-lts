@@ -82,7 +82,7 @@ class Varien_Date
         }
 
         if ($convertDate) {
-            $value = self::_convert($value, self::$_convertZendToStrftimeDate);
+            return self::_convert($value, self::$_convertZendToStrftimeDate);
         }
 
         return $value;

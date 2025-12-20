@@ -78,7 +78,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
     {
         $value = $this->getRequest()->getQuery($attribute->getAttributeCode());
         if ($part && $value) {
-            $value = $value[$part] ?? '';
+            return $value[$part] ?? '';
         }
 
         return $value;

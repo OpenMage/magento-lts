@@ -243,7 +243,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     {
         $products = $this->getRequest()->getPost('assigned_products', null);
         if (!is_array($products)) {
-            $products = $this->getRelatedProducts();
+            return $this->getRelatedProducts();
         }
 
         return $products;

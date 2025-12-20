@@ -105,7 +105,7 @@
  * @method bool hasCouponCode()
  * @method bool hasPaymentMethod()
  * @method $this setAddressType(string $value)
- * @method $this setAppliedRuleIds(array $value)
+ * @method $this setAppliedRuleIds(string $value)
  * @method $this setAppliedTaxesReset(bool $value)
  * @method $this setBaseCustbalanceAmount(float $float)
  * @method $this setBaseDiscountAmount(float $float)
@@ -290,6 +290,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Initialize Quote identifier before save
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -300,6 +301,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Set the required fields
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _populateBeforeSaveData()
     {
@@ -333,6 +336,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Returns true if the billing address is same as the shipping
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isSameAsBilling()
     {
@@ -344,6 +348,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Checks if the user is a registered customer
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isNotRegisteredCustomer()
     {
@@ -354,6 +359,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Returns true if the def billing address is same as customer address
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isDefaultShippingNullOrSameAsBillingAddress()
     {
@@ -367,6 +373,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Save child collections
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -385,7 +392,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Declare address quote model object
      *
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -401,6 +409,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve quote object
      *
      * @return Mage_Sales_Model_Quote
+     * @throws Mage_Core_Exception
      */
     public function getQuote()
     {
@@ -465,15 +474,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Convert object to array
      *
-     * @return  array
+     * @return array
+     * @throws Mage_Core_Exception
      */
     public function toArray(array $arrAttributes = [])
     {
         $arr = parent::toArray($arrAttributes);
         $arr['rates'] = $this->getShippingRatesCollection()->toArray($arrAttributes);
         $arr['items'] = $this->getItemsCollection()->toArray($arrAttributes);
-        foreach ($this->getTotals() as $k => $total) {
-            $arr['totals'][$k] = $total->toArray();
+        foreach ($this->getTotals() as $key => $total) {
+            $arr['totals'][$key] = $total->toArray();
         }
 
         return $arr;
@@ -483,6 +493,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve address items collection
      *
      * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection()
     {
@@ -504,6 +515,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get all available address items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -583,6 +595,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Getter for all non-nominal items
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllNonNominalItems()
     {
@@ -596,6 +609,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Getter for all nominal items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllNominalItems()
     {
@@ -627,6 +641,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all visible items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllVisibleItems()
     {
@@ -645,6 +660,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param int $itemId
      * @return float|int
+     * @throws Mage_Core_Exception
      */
     public function getItemQty($itemId = 0)
     {
@@ -671,6 +687,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Check Quote address has Items
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasItems()
     {
@@ -682,6 +699,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param int $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
@@ -699,6 +717,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param int $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getValidItemById($itemId)
     {
@@ -716,6 +735,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param int $itemId
      * @return false|Mage_Sales_Model_Quote_Address_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemByQuoteItemId($itemId)
     {
@@ -733,6 +753,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param int $itemId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)
     {
@@ -749,6 +770,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param   int $qty
      * @return  $this
+     * @throws  Exception
+     * @throws  Mage_Core_Exception
      */
     public function addItem(Mage_Sales_Model_Quote_Item_Abstract $item, $qty = null)
     {
@@ -790,6 +813,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve collection of quote shipping rates
      *
      * @return Mage_Sales_Model_Resource_Quote_Address_Rate_Collection
+     * @throws Mage_Core_Exception
      */
     public function getShippingRatesCollection()
     {
@@ -814,6 +838,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all address shipping rates
      *
      * @return Mage_Sales_Model_Quote_Address_Rate[]
+     * @throws Mage_Core_Exception
      */
     public function getAllShippingRates()
     {
@@ -831,6 +856,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve all grouped shipping rates
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getGroupedAllShippingRates()
     {
@@ -873,6 +899,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param   int $rateId
      * @return  false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws  Mage_Core_Exception
      */
     public function getShippingRateById($rateId)
     {
@@ -890,6 +917,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @param   string $code
      * @return  false|Mage_Sales_Model_Quote_Address_Rate
+     * @throws  Mage_Core_Exception
      */
     public function getShippingRateByCode($code)
     {
@@ -906,6 +934,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Mark all shipping rates as deleted
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAllShippingRates()
     {
@@ -920,6 +949,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Add shipping rate
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addShippingRate(Mage_Sales_Model_Quote_Address_Rate $rate)
     {
@@ -932,6 +963,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Collecting shipping rates by address
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function collectShippingRates()
     {
@@ -963,6 +996,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Returns true if current selected shipping method code corresponds to one of the found rates
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function requestShippingRates(?Mage_Sales_Model_Quote_Item_Abstract $item = null)
     {
@@ -1054,6 +1089,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get totals collector model
      *
      * @return Mage_Sales_Model_Quote_Address_Total_Collector
+     * @throws Mage_Core_Exception
      */
     public function getTotalCollector()
     {
@@ -1071,6 +1107,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Retrieve total models
      *
      * @return array
+     * @throws Mage_Core_Exception
      * @deprecated
      */
     public function getTotalModels()
@@ -1082,6 +1119,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Collect address totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function collectTotals()
     {
@@ -1098,6 +1136,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Get address totals as array
      *
      * @return Mage_Sales_Model_Quote_Address_Total[]
+     * @throws Mage_Core_Exception
      */
     public function getTotals()
     {
@@ -1133,6 +1172,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Rewrite clone method
+     *
+     * @throws Mage_Core_Exception
      */
     public function __clone()
     {
@@ -1143,6 +1184,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Validate minimum amount
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validateMinimumAmount()
     {

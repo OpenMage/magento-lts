@@ -34,12 +34,12 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * 'no_selection' shouldn't be a valid image attribute value
      *
      * @param string $image
-     * @return string
+     * @return null|string
      */
     protected function _validImage($image)
     {
         if ($image == 'no_selection') {
-            $image = null;
+            return null;
         }
 
         return $image;
@@ -50,6 +50,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      *
      * @param array $params the URL route params
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getUrlInStore(Mage_Catalog_Model_Product $product, $params = [])
     {
@@ -63,6 +65,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * @param  Mage_Catalog_Model_Product $product
      * @param  bool $useSid forced SID mode
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductUrl($product, $useSid = null)
     {
@@ -83,8 +87,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Category $category
-     *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getUrlPath($product, $category = null)
     {
@@ -106,6 +110,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      *
      * @param array $params
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getUrl(Mage_Catalog_Model_Product $product, $params = [])
     {
@@ -176,8 +182,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * @param Mage_Catalog_Model_Product $product
      * @param string $requestPath
      * @param array $routeParams
-     *
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getProductUrl($product, $requestPath, $routeParams)
     {
@@ -201,6 +207,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * @param Mage_Catalog_Model_Product $product
      * @param int $categoryId
      * @return bool|string
+     * @throws Mage_Core_Exception
      */
     protected function _getRequestPath($product, $categoryId)
     {
