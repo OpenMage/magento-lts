@@ -7,7 +7,6 @@
  * @package    Mage
  */
 
-use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Level;
 use Monolog\Logger;
 
@@ -929,16 +928,6 @@ final class Mage
                 }
 
                 $handler = Mage_Core_Helper_Log::getHandler(self::$_app, $logFile);
-
-                if ($handler instanceof FormattableHandlerInterface) {
-                    $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
-                    $handler->setFormatter(Mage_Core_Helper_Log::getLineFormatter(
-                        format: $format,
-                        allowInlineLineBreaks: true,
-                        ignoreEmptyContextAndExtra: true,
-                        includeStacktraces: true,
-                    ));
-                }
 
                 $logger = new Logger('OpenMage');
                 $logger->pushHandler($handler);

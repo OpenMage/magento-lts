@@ -12,6 +12,7 @@ declare(strict_types=1);
 use Monolog\Level;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 
@@ -57,10 +58,22 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     {
         $writerModel = (string) Mage::getConfig()->getNode('global/log/core/writer_model');
         if (!$app || !$writerModel) {
-            return new StreamHandler($logFile, $logLevel);
+            $handler = new StreamHandler($logFile, $logLevel);
         } else {
-            return new $writerModel($logFile, $logLevel);
+            $handler = new $writerModel($logFile, $logLevel);
         }
+
+        if ($handler instanceof FormattableHandlerInterface) {
+            $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
+            $handler->setFormatter(Mage_Core_Helper_Log::getLineFormatter(
+                format: $format,
+                allowInlineLineBreaks: true,
+                ignoreEmptyContextAndExtra: true,
+                includeStacktraces: true,
+            ));
+        }
+
+        return $handler;
     }
 
     /**
