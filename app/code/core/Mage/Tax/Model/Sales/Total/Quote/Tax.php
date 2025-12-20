@@ -566,6 +566,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $baseWeeeTaxBeforeDiscount = $this->_calculateWeeeTax(0, $item, $rate);
                     $baseUnitTaxBeforeDiscount += $baseWeeeTaxBeforeDiscount;
                 }
+
                 $unitTaxBeforeDiscount = $this->_calculator->round($unitTaxBeforeDiscount);
                 $unitTax = $unitTaxBeforeDiscount;
                 $baseUnitTaxBeforeDiscount = $this->_calculator->round($baseUnitTaxBeforeDiscount);
@@ -848,6 +849,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $baseWeeeRowTaxBeforeDiscount = $this->_calculateRowWeeeTax(0, $item, $rate);
                     $baseRowTaxBeforeDiscount += $baseWeeeRowTaxBeforeDiscount;
                 }
+
                 $rowTaxBeforeDiscount = $this->_calculator->round($rowTaxBeforeDiscount);
                 $rowTax = $rowTaxBeforeDiscount;
                 $baseRowTaxBeforeDiscount = $this->_calculator->round($baseRowTaxBeforeDiscount);
@@ -1162,6 +1164,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                         $inclTax,
                     );
                 }
+
                 $taxBeforeDiscountRounded = $this->_deltaRound($rowTaxBeforeDiscount, $rateKey, $inclTax);
                 $rowTax = $taxBeforeDiscountRounded;
                 $baseTaxBeforeDiscountRounded = $this->_deltaRound(

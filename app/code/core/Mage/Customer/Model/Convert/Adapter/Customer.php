@@ -553,6 +553,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
         if (isset($importData['is_subscribed'])) {
             $customer->setData('is_subscribed', $importData['is_subscribed']);
         }
+
         $importBillingAddress = true;
         $importShippingAddress = true;
         $savedBillingAddress = false;

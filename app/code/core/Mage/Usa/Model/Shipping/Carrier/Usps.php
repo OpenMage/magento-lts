@@ -1645,6 +1645,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         foreach ($productCollection as $product) {
             $countriesOfManufacture[$product->getId()] = $product->getCountryOfManufacture();
         }
+
         $packagePoundsWeight = 0;
         $packageOuncesWeight = 0;
         // for ItemDetail

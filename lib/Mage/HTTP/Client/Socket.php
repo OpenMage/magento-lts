@@ -352,6 +352,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if ($line === $crlf) {
                 return;
             }
+
             $name = '';
             $value = '';
             $out = explode(': ', trim($line), 2);
