@@ -127,7 +127,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Normalize log level to Monolog Level integer value
+     * Retrieve log level instance
      */
     public static function getLogLevel(null|int|Level|string $level): Level
     {
