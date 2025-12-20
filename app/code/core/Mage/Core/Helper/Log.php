@@ -82,7 +82,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
 
         if ($handler instanceof FormattableHandlerInterface) {
             $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
-            $handler->setFormatter(Mage_Core_Helper_Log::getLineFormatter(
+            $handler->setFormatter(self::getLineFormatter(
                 format: $format,
                 allowInlineLineBreaks: true,
                 ignoreEmptyContextAndExtra: true,
