@@ -24,6 +24,8 @@ return $config
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         // PHPDoc annotation descriptions should not be a sentence.
         'phpdoc_annotation_without_dot' => true,
+        // All items of the given PHPDoc tags must be either left-aligned or (by default) aligned vertically.
+        'phpdoc_align' => true,
         // Docblocks should have the same indentation as the documented subject.
         'phpdoc_indent' => true,
         // Annotations in PHPDoc should be ordered in defined sequence.

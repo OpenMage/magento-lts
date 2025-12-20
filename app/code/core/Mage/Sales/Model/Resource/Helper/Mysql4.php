@@ -17,10 +17,10 @@ class Mage_Sales_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
     /**
      * Update rating position
      *
-     * @param string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
-     * @param array $aggregationAliases
-     * @param string $mainTable
-     * @param string $aggregationTable
+     * @param  string                                  $aggregation        One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
+     * @param  array                                   $aggregationAliases
+     * @param  string                                  $mainTable
+     * @param  string                                  $aggregationTable
      * @return Mage_Sales_Model_Resource_Helper_Mysql4
      */
     public function getBestsellersReportUpdateRatingPos(

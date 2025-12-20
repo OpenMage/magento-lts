@@ -26,7 +26,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customer addresses list
      *
-     * @param int $customerId
+     * @param  int                 $customerId
      * @return array
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception
@@ -68,8 +68,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Create new address for customer
      *
-     * @param int $customerId
-     * @param array|Varien_Object $addressData
+     * @param  int                 $customerId
+     * @param  array|Varien_Object $addressData
      * @return int
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception
@@ -120,7 +120,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve address data
      *
-     * @param int $addressId
+     * @param  int                 $addressId
      * @return array
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception
@@ -155,8 +155,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Update address data
      *
-     * @param int $addressId
-     * @param array|Varien_Object $addressData
+     * @param  int                 $addressId
+     * @param  array|Varien_Object $addressData
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception
@@ -201,7 +201,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Delete address
      *
-     * @param int $addressId
+     * @param  int                 $addressId
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception

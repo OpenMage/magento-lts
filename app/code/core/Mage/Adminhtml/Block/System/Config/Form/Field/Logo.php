@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_For
 
     /**
      * Allow deletion of logo file in media directory only
+     *
      * @throws Mage_Core_Exception
      */
     protected function _getDeleteCheckbox(): string

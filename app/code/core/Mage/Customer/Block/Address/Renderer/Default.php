@@ -64,7 +64,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     /**
      * Render address
      *
-     * @param null|string $format
+     * @param  null|string $format
      * @return string
      * @throws Exception
      */
@@ -114,14 +114,14 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         }
 
         $formater->setVariables($data);
-        $format = !is_null($format) ? $format : $this->_prepareAddressTemplateData($this->getFormat($address));
+        $format = is_null($format) ? $this->_prepareAddressTemplateData($this->getFormat($address)) : $format;
 
         return $formater->filter($format);
     }
 
     /**
      * Get address template data without url and js code
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     protected function _prepareAddressTemplateData($data)

@@ -29,8 +29,8 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param string $fileName
-     * @param string $adapter Default value is GD2
+     * @param  string $fileName
+     * @param  string $adapter  Default value is GD2
      * @return void
      */
     public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
@@ -110,9 +110,9 @@ class Varien_Image
     /**
      * Crop an image.
      *
-     * @param int $top. Default value is 0
-     * @param int $left. Default value is 0
-     * @param int $right. Default value is 0
+     * @param int $top.    Default value is 0
+     * @param int $left.   Default value is 0
+     * @param int $right.  Default value is 0
      * @param int $bottom. Default value is 0
      * @access public
      * @return void
@@ -163,7 +163,7 @@ class Varien_Image
     /**
      * Get/set quality, values in percentage from 0 to 100
      *
-     * @param int $value
+     * @param  int $value
      * @return int
      */
     public function quality($value)
@@ -174,11 +174,11 @@ class Varien_Image
     /**
      * Adds watermark to our image.
      *
-     * @param string $watermarkImage. Absolute path to watermark image.
-     * @param int $positionX. Watermark X position.
-     * @param int $positionY. Watermark Y position.
-     * @param int $watermarkImageOpacity. Watermark image opacity.
-     * @param bool $repeat. Enable or disable watermark brick.
+     * @param string $watermarkImage.        Absolute path to watermark image.
+     * @param int    $positionX.             Watermark X position.
+     * @param int    $positionY.             Watermark Y position.
+     * @param int    $watermarkImageOpacity. Watermark image opacity.
+     * @param bool   $repeat.                Enable or disable watermark brick.
      * @access public
      * @return void
      */
@@ -233,7 +233,7 @@ class Varien_Image
     /**
      * Set watermark position
      *
-     * @param string $position
+     * @param  string       $position
      * @return Varien_Image
      */
     public function setWatermarkPosition($position)
@@ -245,7 +245,7 @@ class Varien_Image
     /**
      * Set watermark image opacity
      *
-     * @param int $imageOpacity
+     * @param  int          $imageOpacity
      * @return Varien_Image
      */
     public function setWatermarkImageOpacity($imageOpacity)
@@ -257,7 +257,7 @@ class Varien_Image
     /**
      * Set watermark width
      *
-     * @param int $width
+     * @param  int          $width
      * @return Varien_Image
      */
     public function setWatermarkWidth($width)
@@ -269,7 +269,7 @@ class Varien_Image
     /**
      * Set watermark height
      *
-     * @param int $heigth
+     * @param  int          $heigth
      * @return Varien_Image
      */
     public function setWatermarkHeigth($heigth)
@@ -281,7 +281,7 @@ class Varien_Image
     /**
      * Retrieve image adapter object
      *
-     * @param string $adapter
+     * @param  string                        $adapter
      * @return Varien_Image_Adapter_Abstract
      */
     protected function _getAdapter($adapter = null)

@@ -7,6 +7,9 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+
 /**
  * Import entity abstract model
  *
@@ -176,6 +179,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_uniqueAttributes = [];
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $entityType             = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
@@ -191,6 +197,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Inner source object getter.
      *
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getSource()
     {
@@ -244,6 +251,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Validate data rows and save bunches to DB.
      *
      * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
+     * @throws Mage_Core_Exception
      */
     protected function _saveValidatedBunches()
     {
@@ -308,9 +316,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum row number
-     * @param string $colName OPTIONAL Column name
+     * @param  string                                         $errorCode   Error code or simply column name
+     * @param  int                                            $errorRowNum row number
+     * @param  string                                         $colName     OPTIONAL Column name
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
@@ -325,8 +333,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Add message template for specific error code from outside.
      *
-     * @param string $errorCode Error code
-     * @param string $message Message template
+     * @param  string                                         $errorCode Error code
+     * @param  string                                         $message   Message template
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function addMessageTemplate($errorCode, $message)
@@ -339,7 +347,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values
+     * @param  array $indexValAttrs OPTIONAL Additional attributes' codes with index values
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = [])
@@ -523,7 +531,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Is attribute contains particular data (not plain entity attribute).
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     public function isAttributeParticular($attrCode)
@@ -534,10 +542,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Check one attribute. Can be overridden in child.
      *
-     * @param string $attrCode Attribute code
-     * @param array $attrParams Attribute params
-     * @param array $rowData Row data
-     * @param int $rowNum
+     * @param  string $attrCode   Attribute code
+     * @param  array  $attrParams Attribute params
+     * @param  array  $rowData    Row data
+     * @param  int    $rowNum
      * @return bool
      */
     public function isAttributeValid($attrCode, array $attrParams, array $rowData, $rowNum)
@@ -561,8 +569,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val) !== false
-                    || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                try {
+                    $valid = Carbon::parse($val)->getTimestamp();
+                } catch (InvalidFormatException) {
+                    $valid = false;
+                }
+
+                $valid = $valid !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
@@ -591,6 +604,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Is all of data valid?
      *
      * @return bool
+     * @throws Exception
      */
     public function isDataValid()
     {
@@ -611,7 +625,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns TRUE if row is valid and not in skipped rows array.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     public function isRowAllowedToImport(array $rowData, $rowNum)
@@ -622,7 +636,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data row.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     abstract public function validateRow(array $rowData, $rowNum);

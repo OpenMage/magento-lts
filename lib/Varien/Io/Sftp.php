@@ -29,7 +29,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Open a SFTP connection to a remote site.
      *
-     * @param array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
+     * @param  array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
      * @throws Exception
      */
     public function open(array $args = [])
@@ -62,7 +62,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Create a directory
      *
-     * @param int $mode Ignored here; uses logged-in user's umask
+     * @param int  $mode      Ignored here; uses logged-in user's umask
      * @param bool $recursive Analogous to mkdir -p
      *
      * Note: if $recursive is true and an error occurs mid-execution,
@@ -208,7 +208,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Write a file
      * @param  string $filename remote filename
-     * @param  string $src local filename
+     * @param  string $src      local filename
      * @return bool
      */
     public function writeFile($filename, $src)

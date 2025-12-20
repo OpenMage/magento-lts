@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
 
     /**
      * Encoding to JSON
-     * @param string $source
+     * @param  string $source
      * @return string JSON
      */
     public function jsonEncode($source)

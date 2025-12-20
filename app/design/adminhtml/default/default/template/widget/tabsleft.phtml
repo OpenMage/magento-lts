@@ -11,7 +11,7 @@
     <dt id="dt-<?php echo $id ?>-<?php echo $sectionId ?>">
         <strong><?php echo $section['title'] ?></strong>
     </dt>
-    <dd id="dd-<?php echo $id ?>-<?php echo $section['id'] ?>" class="section-menu <?php echo !empty($section['active'])?'open':'' ?>">
+    <dd id="dd-<?php echo $id ?>-<?php echo $section['id'] ?>" class="section-menu <?php echo empty($section['active'])?'':'open' ?>">
         <ul>
         <?php foreach ($section['children'] as $menuId=>$menuItem): ?>
             <li id="li-<?php echo $id ?>-<?php echo $sectionId ?>-<?php echo $menuId ?>">

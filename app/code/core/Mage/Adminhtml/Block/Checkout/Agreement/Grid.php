@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
 
     /**
      * @param Mage_Checkout_Model_Resource_Agreement_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column           $column
      */
     protected function _filterStoreCondition($collection, $column)
     {
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @param Mage_Checkout_Model_Agreement $row
+     * @param  Mage_Checkout_Model_Agreement $row
      * @return string
      */
     public function getRowUrl($row)

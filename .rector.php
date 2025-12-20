@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
@@ -61,6 +62,12 @@ try {
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
         ])
         ->withSkip([
+            Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
+            ],
+           Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
+                __DIR__ . '/tests/unit/Base/CarbonTest.php',
+            ],
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
@@ -76,7 +83,6 @@ try {
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
-            CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
@@ -84,10 +90,7 @@ try {
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
-            CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP
-            CodingStyle\Assign\SplitDoubleAssignRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
@@ -116,7 +119,6 @@ try {
             EarlyReturn\If_\RemoveAlwaysElseRector::class, # todo: TMP
             EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP
             EarlyReturn\Return_\PreparedValueToEarlyReturnRector::class, # todo: TMP
-            EarlyReturn\StmtsAwareInterface\ReturnEarlyIfVariableRector::class, # todo: TMP
             # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
@@ -152,7 +154,7 @@ try {
             instanceOf: true,
             earlyReturn: true,
             strictBooleans: false,
-            carbon: false,
+            carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
             doctrineCodeQuality: false,

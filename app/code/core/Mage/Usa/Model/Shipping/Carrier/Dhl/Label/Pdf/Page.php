@@ -28,9 +28,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Dhl International Label Creation Class Pdf Page constructor
      * Create/Make a copy of pdf page
      *
-     * @param Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page|string $param1
-     * @param mixed $param2
-     * @param mixed $param3
+     * @param  Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page|string $param1
+     * @param  mixed                                                     $param2
+     * @param  mixed                                                     $param3
      * @throws Zend_Pdf_Exception
      */
     public function __construct($param1, $param2 = null, $param3 = null)
@@ -57,8 +57,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     /**
      * Calculate the width of given text in points taking into account current font and font-size
      *
-     * @param string $text
-     * @param float $fontSize
+     * @param  string             $text
+     * @param  float              $fontSize
      * @return float
      * @throws Zend_Pdf_Exception
      */
@@ -78,12 +78,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     /**
      * Draw a line of text at the specified position.
      *
-     * @param string $text
-     * @param float $x
-     * @param float $y
-     * @param string $charEncoding (optional) Character encoding of source text.
-     *   Defaults to current locale.
-     * @param $align
+     * @param  string                    $text
+     * @param  float                     $x
+     * @param  float                     $y
+     * @param  string                    $charEncoding (optional) Character encoding of source text.
+     *                                                 Defaults to current locale.
+     * @param                            $align
      * @return Zend_Pdf_Canvas_Interface
      * @throws Zend_Pdf_Exception
      */
@@ -113,11 +113,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Draw a text paragraph taking into account the maximum number of symbols in a row.
      * If line is longer - spit it.
      *
-     * @param array|SimpleXMLElement $lines
-     * @param int $xAxis
-     * @param int $yAxis
-     * @param int $maxWidth - number of symbols
-     * @param string $align
+     * @param  array|SimpleXMLElement $lines
+     * @param  int                    $xAxis
+     * @param  int                    $yAxis
+     * @param  int                    $maxWidth - number of symbols
+     * @param  string                 $align
      * @return float
      * @throws Zend_Pdf_Exception
      */

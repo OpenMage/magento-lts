@@ -662,7 +662,7 @@ class Mage_Paypal_Model_Config
     /**
      * Method code setter
      *
-     * @param Mage_Payment_Model_Method_Abstract|string $method
+     * @param  Mage_Payment_Model_Method_Abstract|string $method
      * @return $this
      */
     public function setMethod($method)
@@ -689,7 +689,7 @@ class Mage_Paypal_Model_Config
     /**
      * Store ID setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -701,7 +701,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether method active in configuration and supported for merchant country or not
      *
-     * @param string $method Method code
+     * @param  string $method Method code
      * @return bool
      */
     public function isMethodActive($method)
@@ -719,7 +719,7 @@ class Mage_Paypal_Model_Config
      * Check whether method available for checkout or not
      * Logic based on merchant country, methods dependence
      *
-     * @param null|string $methodCode Method code
+     * @param  null|string $methodCode Method code
      * @return bool
      */
     public function isMethodAvailable($methodCode = null)
@@ -800,7 +800,7 @@ class Mage_Paypal_Model_Config
      * Tries to map specified value according to set payment method code, into the configuration value
      * Sets the values into public class parameters, to avoid redundant calls of this method
      *
-     * @param string $key
+     * @param  string      $key
      * @return null|string
      */
     public function __get($key)
@@ -824,8 +824,8 @@ class Mage_Paypal_Model_Config
     /**
      * Perform additional config value preparation and return new value if needed
      *
-     * @param string $key Underscored key
-     * @param string $value Old value
+     * @param  string $key   Underscored key
+     * @param  string $value Old value
      * @return string Modified value or old value
      */
     protected function _prepareValue($key, $value)
@@ -871,7 +871,7 @@ class Mage_Paypal_Model_Config
     {
         $countryCode = Mage::getStoreConfig($this->_mapGeneralFieldset('merchant_country'), $this->_storeId);
         if (!$countryCode) {
-            $countryCode = Mage::helper('core')->getDefaultCountry($this->_storeId);
+            return Mage::helper('core')->getDefaultCountry($this->_storeId);
         }
 
         return $countryCode;
@@ -904,7 +904,7 @@ class Mage_Paypal_Model_Config
     /**
      * Return list of allowed methods for specified country iso code
      *
-     * @param string $countryCode 2-letters iso code
+     * @param  string $countryCode 2-letters iso code
      * @return array
      */
     public function getCountryMethods($countryCode = null)
@@ -998,7 +998,7 @@ class Mage_Paypal_Model_Config
     /**
      * Return start url for PayPal Basic
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getPayPalBasicStartUrl($token)
@@ -1028,7 +1028,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url for dispatching customer to express checkout start
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutStartUrl($token)
@@ -1042,7 +1042,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url for dispatching customer to checkout retrial
      *
-     * @param string $orderId
+     * @param  string $orderId
      * @return string
      */
     public function getExpressCheckoutOrderUrl($orderId)
@@ -1056,7 +1056,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url that allows to edit checkout details on paypal side
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutEditUrl($token)
@@ -1072,7 +1072,7 @@ class Mage_Paypal_Model_Config
      * Get url for additional actions that PayPal may require customer to do after placing the order.
      * For instance, redirecting customer to bank for payment confirmation.
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getExpressCheckoutCompleteUrl($token)
@@ -1086,7 +1086,7 @@ class Mage_Paypal_Model_Config
     /**
      * Retrieve url for initialization of billing agreement
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     public function getStartBillingAgreementUrl($token)
@@ -1135,9 +1135,9 @@ class Mage_Paypal_Model_Config
      * Express checkout shortcut pic URL getter
      * PayPal will ignore "pal", if there is no total amount specified
      *
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal encrypted summary about merchant
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal        encrypted summary about merchant
      * @return string
      * @see Paypal_Model_Api_Nvp::callGetPalDetails()
      */
@@ -1169,10 +1169,10 @@ class Mage_Paypal_Model_Config
      * Supposed to be used on payment methods selection
      * $staticSize is applicable for static images only
      *
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal
-     * @param string $staticSize
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal
+     * @param  string $staticSize
      * @return string
      */
     public function getPaymentMarkImageUrl($localeCode, $orderTotal = null, $pal = null, $staticSize = null)
@@ -1237,9 +1237,9 @@ class Mage_Paypal_Model_Config
     /**
      * Getter for Solution banner images
      *
-     * @param string $localeCode
-     * @param bool $isVertical
-     * @param bool $isEcheck
+     * @param  string $localeCode
+     * @param  bool   $isVertical
+     * @param  bool   $isEcheck
      * @return string
      */
     public function getSolutionImageUrl($localeCode, $isVertical = false, $isEcheck = false)
@@ -1255,7 +1255,7 @@ class Mage_Paypal_Model_Config
     /**
      * Getter for Payment form logo images
      *
-     * @param string $localeCode
+     * @param  string $localeCode
      * @return string
      */
     public function getPaymentFormLogoUrl($localeCode)
@@ -1318,9 +1318,9 @@ class Mage_Paypal_Model_Config
     /**
      * Return PayPal logo URL with additional options
      *
-     * @param string $localeCode Supported locale code
-     * @param false|string $type One of supported logo types
-     * @return bool|string Logo Image URL or false if logo disabled in configuration
+     * @param  string       $localeCode Supported locale code
+     * @param  false|string $type       One of supported logo types
+     * @return bool|string  Logo Image URL or false if logo disabled in configuration
      */
     public function getAdditionalOptionsLogoUrl($localeCode, $type = false)
     {
@@ -1540,7 +1540,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether the specified payment method is a CC-based one
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public static function getIsCreditCardMethod($code)
@@ -1554,7 +1554,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether specified currency code is supported
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function isCurrencyCodeSupported($code)
@@ -1590,10 +1590,10 @@ class Mage_Paypal_Model_Config
      * Dynamic PayPal image URL getter
      * Also can render dynamic Acceptance Mark
      *
-     * @param string $type
-     * @param string $localeCode
-     * @param float $orderTotal
-     * @param string $pal
+     * @param  string $type
+     * @param  string $localeCode
+     * @param  float  $orderTotal
+     * @param  string $pal
      * @return string
      */
     protected function _getDynamicImageUrl($type, $localeCode, $orderTotal, $pal)
@@ -1620,7 +1620,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check whether specified locale code is supported. Fallback to en_US
      *
-     * @param string $localeCode
+     * @param  string $localeCode
      * @return string
      */
     protected function _getSupportedLocaleCode($localeCode = null)
@@ -1635,7 +1635,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map any supported payment method into a config path by specified field name
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _getSpecificConfigPath($fieldName)
@@ -1688,7 +1688,7 @@ class Mage_Paypal_Model_Config
         }
 
         if ($path === null) {
-            $path = $this->_mapGenericStyleFieldset($fieldName);
+            return $this->_mapGenericStyleFieldset($fieldName);
         }
 
         return $path;
@@ -1697,7 +1697,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Standard config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapStandardFieldset($fieldName)
@@ -1711,7 +1711,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapExpressFieldset($fieldName)
@@ -1725,7 +1725,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express Bill Me Later config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapBmlFieldset($fieldName)
@@ -1739,7 +1739,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Express Bill Me Later config fields (Payflow Edition)
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapBmlUkFieldset($fieldName)
@@ -1753,7 +1753,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Direct config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapDirectFieldset($fieldName)
@@ -1767,7 +1767,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Website Payments Pro common config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapWppFieldset($fieldName)
@@ -1781,7 +1781,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal Website Payments Pro common config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapWpukFieldset($fieldName)
@@ -1807,7 +1807,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal common style config fields
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapGenericStyleFieldset($fieldName)
@@ -1821,7 +1821,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal General Settings
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapGeneralFieldset($fieldName)
@@ -1835,7 +1835,7 @@ class Mage_Paypal_Model_Config
     /**
      * Map PayPal General Settings
      *
-     * @param string $fieldName
+     * @param  string      $fieldName
      * @return null|string
      */
     protected function _mapMethodFieldset($fieldName)

@@ -61,7 +61,7 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
     /**
      * Return if order incrementId is in session.
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function isCheckoutOrderIncrementIdExist($orderIncrementId)

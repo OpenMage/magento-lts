@@ -21,7 +21,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve subsription confirmation url
      *
-     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @param  Mage_Newsletter_Model_Subscriber $subscriber
      * @return string
      */
     public function getConfirmationUrl($subscriber)
@@ -38,7 +38,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve unsubsription url
      *
-     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @param  Mage_Newsletter_Model_Subscriber $subscriber
      * @return string
      */
     public function getUnsubscribeUrl($subscriber)

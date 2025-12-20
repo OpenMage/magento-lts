@@ -21,8 +21,8 @@ class Mage_Payment_Model_Method_Purchaseorder extends Mage_Payment_Model_Method_
     /**
      * Assign data to info model instance
      *
-     * @param   mixed $data
-     * @return  Mage_Payment_Model_Method_Purchaseorder
+     * @param  mixed                                   $data
+     * @return Mage_Payment_Model_Method_Purchaseorder
      */
     public function assignData($data)
     {

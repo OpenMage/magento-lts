@@ -31,7 +31,7 @@ class Mage_Checkout_Block_Multishipping_Payment_Info extends Mage_Payment_Block_
     {
         $html = '';
         if ($block = $this->getChild($this->_getInfoBlockName())) {
-            $html = $block->toHtml();
+            return $block->toHtml();
         }
 
         return $html;

@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $entityType
+     * @param  string         $entityType
      * @return array|string[]
      */
     public function getAttributes($entityType)
@@ -78,9 +78,9 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $key
-     * @param string $default
-     * @param null|string $defaultNew
+     * @param  string      $key
+     * @param  string      $default
+     * @param  null|string $defaultNew
      * @return string
      */
     public function getValue($key, $default = '', $defaultNew = null)
@@ -96,8 +96,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $key
-     * @param bool|int|string $value
+     * @param  string          $key
+     * @param  bool|int|string $value
      * @return string
      *
      * @todo check remove int from param value
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $entityType
+     * @param  string $entityType
      * @return array
      */
     public function getMappings($entityType)

@@ -98,8 +98,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve url for add product to cart
      * Will return product view page URL if product has required options
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getAddToCartUrl($product, $additional = [])
@@ -110,8 +110,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Return model instance
      *
-     * @param string $className
-     * @param array $arguments
+     * @param  string                   $className
+     * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
     protected function _getSingletonModel($className, $arguments = [])
@@ -124,8 +124,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * some objects can use setSubmitRouteData() to set route and params for form submitting,
      * otherwise default url will be used
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getSubmitUrl($product, $additional = [])
@@ -136,7 +136,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Return link to Add to Wishlist
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToWishlistUrl($product)
@@ -147,7 +147,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Retrieve Add Product to Compare Products List URL
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToCompareUrl($product)
@@ -158,7 +158,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Gets minimal sales quantity
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return null|float
      */
     public function getMinimalQty($product)
@@ -169,7 +169,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Return price block
      *
-     * @param string $productTypeId
+     * @param  string $productTypeId
      * @return mixed
      */
     protected function _getPriceBlock($productTypeId)
@@ -191,7 +191,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Return Block template
      *
-     * @param string $productTypeId
+     * @param  string $productTypeId
      * @return string
      */
     protected function _getPriceBlockTemplate($productTypeId)
@@ -208,7 +208,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Prepares and returns block to render some product type
      *
-     * @param string $productType
+     * @param  string                   $productType
      * @return Mage_Core_Block_Template
      */
     public function _preparePriceRenderer($productType)
@@ -221,9 +221,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Returns product price block html
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $displayMinimalPrice
-     * @param string $idSuffix
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $displayMinimalPrice
+     * @param  string                     $idSuffix
      * @return string
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
@@ -267,8 +267,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get product reviews summary
      *
-     * @param false|string $templateType
-     * @param bool $displayIfNoReviews
+     * @param  false|string                    $templateType
+     * @param  bool                            $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -287,8 +287,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Add/replace reviews summary template by type
      *
-     * @param string $type
-     * @param string $template
+     * @param  string $type
+     * @param  string $template
      * @return string
      */
     public function addReviewSummaryTemplate($type, $template)
@@ -351,8 +351,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Returns product tier price block html
      *
-     * @param null|Mage_Catalog_Model_Product $product
-     * @param null|Mage_Catalog_Model_Product $parent
+     * @param  null|Mage_Catalog_Model_Product $product
+     * @param  null|Mage_Catalog_Model_Product $parent
      * @return string
      */
     public function getTierPriceHtml($product = null, $parent = null)
@@ -385,7 +385,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get tier prices (formatted)
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product      $product
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -467,7 +467,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve given media attribute label or product name if no label
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param string $mediaAttributeCode
+     * @param string                     $mediaAttributeCode
      *
      * @return string
      */
@@ -479,7 +479,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 
         $label = $product->getData($mediaAttributeCode . '_label');
         if (empty($label)) {
-            $label = $product->getName();
+            return $product->getName();
         }
 
         return $label;
@@ -488,8 +488,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Retrieve Product URL using UrlDataObject
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional the route params
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional the route params
      * @return string
      */
     public function getProductUrl($product, $additional = [])
@@ -508,7 +508,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Check Product has URL
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function hasProductUrl($product)
@@ -545,8 +545,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Add row size depends on page layout
      *
-     * @param string $pageLayout
-     * @param int $columnCount
+     * @param  string $pageLayout
+     * @param  int    $columnCount
      * @return $this
      */
     public function addColumnCountLayoutDepend($pageLayout, $columnCount)
@@ -558,7 +558,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Remove row size depends on page layout
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function removeColumnCountLayoutDepend($pageLayout)
@@ -573,7 +573,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Retrieve row size depends on page layout
      *
-     * @param string $pageLayout
+     * @param  string   $pageLayout
      * @return bool|int
      */
     public function getColumnCountLayoutDepend($pageLayout)
@@ -596,7 +596,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Check whether the price can be shown for the specified product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function getCanShowProductPrice($product)
@@ -619,8 +619,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Return link to Add to Wishlist with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
@@ -638,8 +638,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Retrieve Add Product to Compare Products List URL with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToCompareUrlCustom($product, $addFormKey = true)
@@ -678,9 +678,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Retrieve url for add product to cart with or without Form Key
      * Will return product view page URL if product has required options
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
@@ -720,9 +720,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * some objects can use setSubmitRouteData() to set route and params for form submitting,
      * otherwise default url will be used with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getSubmitUrlCustom($product, $additional = [], $addFormKey = true)

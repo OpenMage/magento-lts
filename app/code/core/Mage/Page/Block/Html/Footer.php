@@ -49,7 +49,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $copyright
+     * @param  string $copyright
      * @return $this
      */
     public function setCopyright($copyright)
@@ -73,10 +73,10 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     /**
      * Retrieve child block HTML, sorted by default
      *
-     * @param string $name
-     * @param bool $useCache
-     * @param bool $sorted
-     * @return  string
+     * @param  string $name
+     * @param  bool   $useCache
+     * @param  bool   $sorted
+     * @return string
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = true)
     {

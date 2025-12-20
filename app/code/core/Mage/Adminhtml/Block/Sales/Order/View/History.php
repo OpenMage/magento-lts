@@ -72,8 +72,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     /**
      * Replace links in string
      *
-     * @param string|string[] $data
-     * @param null|array $allowedTags
+     * @param  string|string[]      $data
+     * @param  null|array           $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)

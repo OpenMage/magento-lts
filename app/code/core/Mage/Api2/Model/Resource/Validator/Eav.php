@@ -53,7 +53,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      * Required parameteres for options:
      * - resource
      *
-     * @param array $options
+     * @param  array     $options
      * @throws Exception If config parameter 'entity' is wrong
      * @throws Exception If config parameter 'formCode' is empty
      * @throws Exception If config parameter 'formPath' is empty
@@ -113,7 +113,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Validate attribute value for attributes with source models
      *
-     * @param mixed $attrValue
+     * @param  mixed               $attrValue
      * @return array|bool
      * @throws Mage_Core_Exception
      */
@@ -172,7 +172,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param bool $partial
+     * @param  bool                $partial
      * @return bool
      * @throws Mage_Core_Exception
      */

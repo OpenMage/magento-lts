@@ -68,7 +68,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
      * Add a column to array-grid
      *
      * @param string $name
-     * @param array $params
+     * @param array  $params
      */
     public function addColumn($name, $params)
     {
@@ -140,7 +140,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     /**
      * Render array cell for prototypeJS template
      *
-     * @param string $columnName
+     * @param  string $columnName
      * @return string
      */
     protected function _renderCellTemplate($columnName)

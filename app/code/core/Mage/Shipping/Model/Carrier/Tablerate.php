@@ -189,7 +189,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get Model
      *
-     * @param string $modelName
+     * @param  string                   $modelName
      * @return Mage_Core_Model_Abstract
      */
     protected function _getModel($modelName)
@@ -210,8 +210,8 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get code
      *
-     * @param string $type
-     * @param string $code
+     * @param  string       $type
+     * @param  string       $code
      * @return array|string
      */
     public function getCode($type, $code = '')
