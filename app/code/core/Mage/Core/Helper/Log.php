@@ -148,7 +148,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
             try {
                 return Level::fromName($level);
             } catch (UnhandledMatchError) {
-                return Level::Debug; // fallback to debug level
+                return Level::Debug;
             }
         } else {
             // change Monolog into RFC 5424 Log Level
