@@ -44,7 +44,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     /**
      * @throws Mage_Core_Exception
      */
-    protected function setup(): void
+    protected function setUp(): void
     {
         Mage::setRoot();
         $this->testXml = $this->getTestXml();
