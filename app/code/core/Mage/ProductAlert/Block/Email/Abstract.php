@@ -124,7 +124,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     {
         $shortDescription = $product->getShortDescription();
         if ($shortDescription) {
-            $shortDescription = Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
+            return Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
         }
 
         return $shortDescription;

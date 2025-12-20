@@ -143,7 +143,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     {
         $tracks = [];
         if (!empty($this->_tracks[$shipment->getId()])) {
-            $tracks = $this->_tracks[$shipment->getId()];
+            return $this->_tracks[$shipment->getId()];
         }
 
         return $tracks;

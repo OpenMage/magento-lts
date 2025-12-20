@@ -43,7 +43,7 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     {
         $name = $this->getData('name');
         if (is_null($name)) {
-            $name = $this->getData('default_name');
+            return $this->getData('default_name');
         }
 
         return $name;

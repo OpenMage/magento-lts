@@ -127,7 +127,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         }
 
         if ($flag) {
-            $priceStr = '<span class="price-notice">' . $priceStr . '</span>';
+            return '<span class="price-notice">' . $priceStr . '</span>';
         }
 
         return $priceStr;

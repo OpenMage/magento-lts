@@ -3905,7 +3905,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // render WHERE
         $wherePart = $select->getPart(Zend_Db_Select::WHERE);
         if ($wherePart) {
-            $query = sprintf("%s\nWHERE %s", $query, implode(' ', $wherePart));
+            return sprintf("%s\nWHERE %s", $query, implode(' ', $wherePart));
         }
 
         return $query;
@@ -4184,7 +4184,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _getForeignKeyName($fkName)
     {
         if (!str_starts_with($fkName, 'FK_')) {
-            $fkName = 'FK_' . $fkName;
+            return 'FK_' . $fkName;
         }
 
         return $fkName;

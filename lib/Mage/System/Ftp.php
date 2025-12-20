@@ -216,7 +216,7 @@ class Mage_System_Ftp
 
         $out = trim($data[1], '"');
         if ($out !== '/') {
-            $out = rtrim($out, '/');
+            return rtrim($out, '/');
         }
 
         return $out;

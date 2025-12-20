@@ -441,7 +441,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         }
 
         if (!empty($valueArr)) {
-            $value = implode(', ', $valueArr);
+            return implode(', ', $valueArr);
         }
 
         return $value;
@@ -685,7 +685,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $url = $this->getValueElementChooserUrl();
         $html = '';
         if ($url) {
-            $html = '<div class="rule-chooser" url="' . $url . '"></div>';
+            return '<div class="rule-chooser" url="' . $url . '"></div>';
         }
 
         return $html;
@@ -827,7 +827,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         }
 
         if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'])) {
-            $result = !$result;
+            return !$result;
         }
 
         return $result;

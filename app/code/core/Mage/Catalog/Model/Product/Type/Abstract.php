@@ -712,7 +712,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $sku = $this->getProduct($product)->getData('sku');
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
-            $sku = $this->getOptionSku($product, $sku);
+            return $this->getOptionSku($product, $sku);
         }
 
         return $sku;
@@ -915,7 +915,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         $product    = $this->getProduct($product);
         $searchData = [];
         if ($product->getHasOptions()) {
-            $searchData = Mage::getSingleton('catalog/product_option')
+            return Mage::getSingleton('catalog/product_option')
                 ->getSearchableData($product->getId(), $product->getStoreId());
         }
 

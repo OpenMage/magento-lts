@@ -224,7 +224,7 @@ class Mage_Core_Model_Cache
 
         $backendOptions = ['type' => $backendType, 'options' => $options];
         if ($enable2levels) {
-            $backendOptions = $this->_getTwoLevelsBackendOptions($backendOptions, $cacheOptions);
+            return $this->_getTwoLevelsBackendOptions($backendOptions, $cacheOptions);
         }
 
         return $backendOptions;
@@ -331,7 +331,7 @@ class Mage_Core_Model_Cache
     protected function _id($id)
     {
         if ($id) {
-            $id = strtoupper($id);
+            return strtoupper($id);
         }
 
         return $id;

@@ -183,7 +183,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
 
         $filter = $this->_getFormFilter();
         if ($filter) {
-            $value = $filter->inputFilter($value);
+            return $filter->inputFilter($value);
         }
 
         return $value;
@@ -251,7 +251,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     {
         $filter = $this->_getFormFilter();
         if ($filter) {
-            $value = $filter->outputFilter($value);
+            return $filter->outputFilter($value);
         }
 
         return $value;

@@ -908,7 +908,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $optionSearchData = Mage::getSingleton('bundle/option')
             ->getSearchableData($product->getId(), $product->getStoreId());
         if ($optionSearchData) {
-            $searchData = array_merge($searchData, $optionSearchData);
+            return array_merge($searchData, $optionSearchData);
         }
 
         return $searchData;
@@ -990,7 +990,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         }
 
         if (!$hasRequiredOptions) {
-            $groups = [$allProducts];
+            return [$allProducts];
         }
 
         return $groups;

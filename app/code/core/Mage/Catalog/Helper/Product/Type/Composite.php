@@ -82,7 +82,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
         $price = $this->getCurrentStore($storeId)->convertPrice($price);
         if ($round) {
-            $price = $this->getCurrentStore($storeId)->roundPrice($price);
+            return $this->getCurrentStore($storeId)->roundPrice($price);
         }
 
         return $price;

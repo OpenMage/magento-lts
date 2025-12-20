@@ -1129,7 +1129,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         $customer->loadByEmail($email);
         if (!is_null($customer->getId())) {
-            $result = true;
+            return true;
         }
 
         return $result;

@@ -119,7 +119,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $len = (int) $this->_postCodeSubStringLength;
         if ($len <= 0) {
-            $len = 10;
+            return 10;
         }
 
         return $len;
@@ -251,7 +251,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($res === false) {
-            $res = $this->displayTaxColumn($store);
+            return $this->displayTaxColumn($store);
         }
 
         return $res;
