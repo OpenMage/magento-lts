@@ -567,8 +567,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $baseUnitTaxBeforeDiscount += $baseWeeeTaxBeforeDiscount;
                 }
 
-                $unitTaxBeforeDiscount = $unitTax = $this->_calculator->round($unitTaxBeforeDiscount);
-                $baseUnitTaxBeforeDiscount = $baseUnitTax = $this->_calculator->round($baseUnitTaxBeforeDiscount);
+                $unitTaxBeforeDiscount = $this->_calculator->round($unitTaxBeforeDiscount);
+                $unitTax = $unitTaxBeforeDiscount;
+                $baseUnitTaxBeforeDiscount = $this->_calculator->round($baseUnitTaxBeforeDiscount);
+                $baseUnitTax = $baseUnitTaxBeforeDiscount;
                 break;
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_EXCL:
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_INCL:
@@ -817,8 +819,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $recalculateRowTotalInclTax = false
     ) {
         $inclTax = $item->getIsPriceInclTax();
-        $subtotal = $taxSubtotal = $item->getTaxableAmount();
-        $baseSubtotal = $baseTaxSubtotal = $item->getBaseTaxableAmount();
+        $subtotal = $item->getTaxableAmount();
+        $taxSubtotal = $subtotal;
+        $baseSubtotal = $item->getBaseTaxableAmount();
+        $baseTaxSubtotal = $baseSubtotal;
         $rateKey = ($taxId == null) ? (string) $rate : $taxId;
 
         $isWeeeEnabled = $this->_weeeHelper->isEnabled();
@@ -846,8 +850,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $baseRowTaxBeforeDiscount += $baseWeeeRowTaxBeforeDiscount;
                 }
 
-                $rowTaxBeforeDiscount = $rowTax = $this->_calculator->round($rowTaxBeforeDiscount);
-                $baseRowTaxBeforeDiscount = $baseRowTax = $this->_calculator->round($baseRowTaxBeforeDiscount);
+                $rowTaxBeforeDiscount = $this->_calculator->round($rowTaxBeforeDiscount);
+                $rowTax = $rowTaxBeforeDiscount;
+                $baseRowTaxBeforeDiscount = $this->_calculator->round($baseRowTaxBeforeDiscount);
+                $baseRowTax = $baseRowTaxBeforeDiscount;
                 break;
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_EXCL:
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_INCL:
@@ -1114,8 +1120,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     ) {
         $inclTax = $item->getIsPriceInclTax();
         $rateKey = ($taxId == null) ? (string) $rate : $taxId;
-        $taxSubtotal = $subtotal = $item->getTaxableAmount();
-        $baseTaxSubtotal = $baseSubtotal = $item->getBaseTaxableAmount();
+        $taxSubtotal = $item->getTaxableAmount();
+        $subtotal = $taxSubtotal;
+        $baseTaxSubtotal = $item->getBaseTaxableAmount();
+        $baseSubtotal = $baseTaxSubtotal;
 
         $isWeeeEnabled = $this->_weeeHelper->isEnabled();
         $isWeeeTaxable = $this->_weeeHelper->isTaxable();
@@ -1157,13 +1165,15 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     );
                 }
 
-                $taxBeforeDiscountRounded = $rowTax = $this->_deltaRound($rowTaxBeforeDiscount, $rateKey, $inclTax);
-                $baseTaxBeforeDiscountRounded = $baseRowTax = $this->_deltaRound(
+                $taxBeforeDiscountRounded = $this->_deltaRound($rowTaxBeforeDiscount, $rateKey, $inclTax);
+                $rowTax = $taxBeforeDiscountRounded;
+                $baseTaxBeforeDiscountRounded = $this->_deltaRound(
                     $baseRowTaxBeforeDiscount,
                     $rateKey,
                     $inclTax,
                     'base',
                 );
+                $baseRowTax = $baseTaxBeforeDiscountRounded;
                 $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
                 $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
                 break;

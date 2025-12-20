@@ -327,7 +327,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getValueSelectOptions()
     {
-        $valueOption = $opt = [];
+        $valueOption = [];
+        $opt = [];
         if ($this->hasValueOption()) {
             $valueOption = (array) $this->getValueOption();
         }

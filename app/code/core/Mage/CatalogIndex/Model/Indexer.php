@@ -207,7 +207,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              * Collect initialization data
              */
             $websites = [];
-            $attributeCodes = $priceAttributeCodes = [];
+            $attributeCodes = [];
+            $priceAttributeCodes = [];
 
             /**
              * Prepare stores and websites information
