@@ -7,7 +7,7 @@ return $config
     ->setRiskyAllowed(true)
     ->setRules([
         // see https://cs.symfony.com/doc/ruleSets/PER-CS2.0.html
-        '@PER-CS2.0' => true,
+        '@PER-CS2x0' => true,
         // RISKY: Use && and || logical operators instead of and and or.
         'logical_operators' => true,
         // RISKY: Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operator.
