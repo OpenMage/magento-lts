@@ -151,7 +151,6 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 return Level::Debug;
             }
         } else {
-            // change Monolog into RFC 5424 Log Level
             return (match ($level) {
                 7, 100 => Level::Debug,
                 6, 200 => Level::Info,
