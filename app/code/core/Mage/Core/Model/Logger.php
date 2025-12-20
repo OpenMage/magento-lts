@@ -32,6 +32,7 @@ class Mage_Core_Model_Logger
      * @param string $file
      * @param bool $forceLog
      * @param array $context additional context for the log entry
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
@@ -87,6 +88,7 @@ class Mage_Core_Model_Logger
             $message = addcslashes($message, '<?');
             self::$loggers[$file]->log($levelValue, $message, $context);
         } catch (Exception) {
+            // Silent catch
         }
     }
 
