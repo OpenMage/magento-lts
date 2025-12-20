@@ -359,7 +359,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     public function validateData(Varien_Object $object)
     {
         $result   = [];
-        $fromDate = $toDate = null;
+        $fromDate = null;
+        $toDate = null;
 
         if ($object->hasFromDate() && $object->hasToDate()) {
             $fromDate = $object->getFromDate();

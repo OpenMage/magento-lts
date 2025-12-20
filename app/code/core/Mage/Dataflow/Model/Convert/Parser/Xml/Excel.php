@@ -72,10 +72,11 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
 
         $worksheet = $this->getVar('single_sheet', '');
-
-        $xmlString = $xmlRowString = '';
+        $xmlString = '';
+        $xmlRowString = '';
         $countRows = 0;
-        $isWorksheet = $isRow = false;
+        $isWorksheet = false;
+        $isRow = false;
         while (($xmlOriginalString = $batchIoAdapter->read()) !== false) {
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {

@@ -352,8 +352,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if ($line === $crlf) {
                 return;
             }
-
-            $name = $value = '';
+            $name = '';
+            $value = '';
             $out = explode(': ', trim($line), 2);
             if (count($out) == 2) {
                 $name = $out[0];
@@ -436,7 +436,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     protected function makeRequest($method, $uri, $params = [])
     {
-        $errno = $errstr = '';
+        $errno = '';
+        $errstr = '';
         $this->_sock = @fsockopen($this->_host, $this->_port, $errno, $errstr, $this->_timeout);
         if (!$this->_sock) {
             return $this->doError(sprintf('[errno: %d] %s', $errno, $errstr));
