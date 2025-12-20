@@ -34,31 +34,31 @@ final class LogTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetLogLevelData
-     * @covers Mage_Core_Helper_Log::getLogLevel()
-     * @covers Mage_Core_Helper_Log::getLogLevelMax()
+     * @covers Mage_Core_Helper_Log::getLogLevelValue()
+     * @covers Mage_Core_Helper_Log::getLogLevelMaxValue()
      * @group Helper
      */
-    public function testGetLogLevel(int $expectedResult, null|int|Level|string $level): void
+    public function testGetLogLevelValue(int $expectedResult, null|int|Level|string $level): void
     {
-        self::assertSame($expectedResult, Subject::getLogLevel($level));
+        self::assertSame($expectedResult, Subject::getLogLevelValue($level));
     }
 
     /**
-     * @covers Mage_Core_Helper_Log::getAllowedFileExtensions()
+     * @covers Mage_Core_Helper_Log::getConfigAllowedFileExtensions()
      * @group Helper
      */
-    public function testGetAlowedFileExtensions(): void
+    public function testGetConfigAlowedFileExtensions(): void
     {
-        self::assertIsArray(Subject::getAllowedFileExtensions());
+        self::assertIsArray(Subject::getConfigAllowedFileExtensions());
     }
 
     /**
-     * @covers Mage_Core_Helper_Log::getLogFile()
+     * @covers Mage_Core_Helper_Log::getConfigLogFile()
      * @group Helper
      */
-    public function testGetLogFile(): void
+    public function testGetConfigLogFile(): void
     {
-        self::assertIsString(Subject::getLogFile());
+        self::assertIsString(Subject::getConfigLogFile());
     }
 
     /**
@@ -67,7 +67,7 @@ final class LogTest extends OpenMageTest
      */
     public function testGetHandler(): void
     {
-        self::assertInstanceOf(StreamHandler::class, Subject::getHandler(null, 'somefile.log'));
+        self::assertInstanceOf(StreamHandler::class, Subject::getHandler('somefile.log'));
     }
 
     /**
@@ -83,8 +83,8 @@ final class LogTest extends OpenMageTest
      * @covers Mage_Core_Helper_Log::getLogLevelMax()
      * @group Helper
      */
-    public function testGetLogLevelMax(): void
+    public function testGetLogLevelMaxValue(): void
     {
-        self::assertIsInt(Subject::getLogLevelMax());
+        self::assertIsInt(Subject::getLogLevelMaxValue());
     }
 }
