@@ -96,7 +96,7 @@ class Mage_Catalog_Model_Product_Type_Price
     {
         $groupPrice = $product->getGroupPrice();
         if (is_numeric($groupPrice)) {
-            $finalPrice = min($finalPrice, $groupPrice);
+            return min($finalPrice, $groupPrice);
         }
 
         return $finalPrice;
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Product_Type_Price
 
         $tierPrice  = $product->getTierPrice($qty);
         if (is_numeric($tierPrice)) {
-            $finalPrice = min($finalPrice, $tierPrice);
+            return min($finalPrice, $tierPrice);
         }
 
         return $finalPrice;

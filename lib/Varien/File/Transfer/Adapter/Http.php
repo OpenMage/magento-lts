@@ -117,7 +117,7 @@ class Varien_File_Transfer_Adapter_Http
         }
 
         if (empty($result)) {
-            $result = 'application/octet-stream';
+            return 'application/octet-stream';
         }
 
         return $result;

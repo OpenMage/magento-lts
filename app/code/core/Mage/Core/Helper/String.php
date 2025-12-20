@@ -272,7 +272,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         if ($maxWordLength && count($result) > $maxWordLength) {
-            $result = array_slice($result, 0, $maxWordLength);
+            return array_slice($result, 0, $maxWordLength);
         }
 
         return $result;

@@ -313,7 +313,7 @@ abstract class Mage_Core_Helper_Abstract
         $preFilteredData = $this->escapeSpecial($data);
         $filteredData = preg_replace($scripIdentifiersFiltrationPattern, ':', $preFilteredData) ?: '';
         if (preg_match($scripIdentifiersFiltrationPattern, $filteredData)) {
-            $filteredData = $this->escapeScriptIdentifiers($filteredData);
+            return $this->escapeScriptIdentifiers($filteredData);
         }
 
         return $filteredData;

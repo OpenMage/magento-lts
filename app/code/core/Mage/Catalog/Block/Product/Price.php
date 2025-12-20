@@ -42,7 +42,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     {
         $product = $this->_getData('product');
         if (!$product) {
-            $product = Mage::registry('product');
+            return Mage::registry('product');
         }
 
         return $product;

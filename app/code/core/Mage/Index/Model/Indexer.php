@@ -471,7 +471,7 @@ class Mage_Index_Model_Indexer
         $eventName = $entityType . '_' . $eventType;
         $eventName = trim($eventName, '_');
         if (!empty($eventName)) {
-            $eventName = '_' . $eventName;
+            return '_' . $eventName;
         }
 
         return $eventName;

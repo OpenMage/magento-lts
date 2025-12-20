@@ -145,7 +145,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             ->where('queue_id = :queue_id');
 
         if (!($result = $adapter->fetchCol($select, ['queue_id' => $queue->getId()]))) {
-            $result = [];
+            return [];
         }
 
         return $result;

@@ -51,7 +51,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     {
         $value = (int) $value;
         if ($value > 3155760000) {
-            $value = 0;
+            return 0;
         }
 
         return $value;

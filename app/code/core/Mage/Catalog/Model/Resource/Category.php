@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
 
         $position = $adapter->fetchOne($select, $bind);
         if (!$position) {
-            $position = 0;
+            return 0;
         }
 
         return $position;

@@ -132,7 +132,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         $key = str_replace(array_keys($this->_replacementInTagName), array_values($this->_replacementInTagName), $key);
         $key = trim($key, '_');
         if (preg_match($this->_protectedTagNamePattern, $key)) {
-            $key = self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
+            return self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
         }
 
         return $key;

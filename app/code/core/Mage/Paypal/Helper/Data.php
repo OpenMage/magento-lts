@@ -92,7 +92,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if (empty($countryCode)) {
-            $countryCode = Mage::helper('core')->getDefaultCountry();
+            return Mage::helper('core')->getDefaultCountry();
         }
 
         return $countryCode;

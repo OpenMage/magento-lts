@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             ? $priceExpression
             : "({$priceExpression} {$additionalPriceExpression})";
         if ($replaceAlias) {
-            $result = $this->_replaceTableAlias($result);
+            return $this->_replaceTableAlias($result);
         }
 
         return $result;

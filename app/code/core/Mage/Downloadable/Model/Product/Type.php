@@ -447,7 +447,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         $sampleSearchData = Mage::getSingleton('downloadable/sample')
             ->getSearchableData($product->getId(), $product->getStoreId());
         if ($sampleSearchData) {
-            $searchData = array_merge($searchData, $sampleSearchData);
+            return array_merge($searchData, $sampleSearchData);
         }
 
         return $searchData;

@@ -382,7 +382,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
 
         $value = $this->_getReadAdapter()->fetchOne($select);
         if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
-            $value = Varien_Date::toTimestamp($value);
+            return Varien_Date::toTimestamp($value);
         }
 
         return $value;

@@ -1516,7 +1516,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $session = Mage::getSingleton('core/session');
         $cacheData = $this->_getApp()->loadCache($cacheKey);
         if ($cacheData) {
-            $cacheData = str_replace(
+            return str_replace(
                 $this->_getSidPlaceholder($cacheKey),
                 $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
                 $cacheData,

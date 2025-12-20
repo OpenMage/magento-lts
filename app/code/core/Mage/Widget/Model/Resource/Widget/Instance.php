@@ -166,7 +166,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     protected function _prepareStoreIds($storeIds)
     {
         if (in_array('0', $storeIds)) {
-            $storeIds = [0];
+            return [0];
         }
 
         return $storeIds;

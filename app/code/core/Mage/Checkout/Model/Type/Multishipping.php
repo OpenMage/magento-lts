@@ -598,7 +598,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     {
         $descr = Mage::getStoreConfig('sales/minimum_order/multi_address_description');
         if (empty($descr)) {
-            $descr = Mage::getStoreConfig('sales/minimum_order/description');
+            return Mage::getStoreConfig('sales/minimum_order/description');
         }
 
         return $descr;
@@ -611,7 +611,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     {
         $error = Mage::getStoreConfig('sales/minimum_order/multi_address_error_message');
         if (empty($error)) {
-            $error = Mage::getStoreConfig('sales/minimum_order/error_message');
+            return Mage::getStoreConfig('sales/minimum_order/error_message');
         }
 
         return $error;

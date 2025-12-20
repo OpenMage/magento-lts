@@ -2303,7 +2303,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $preconfiguredValues = $this->getData('preconfigured_values');
         if (!$preconfiguredValues) {
-            $preconfiguredValues = new Varien_Object();
+            return new Varien_Object();
         }
 
         return $preconfiguredValues;
@@ -2444,7 +2444,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $event = parent::getEvent();
         if (is_string($event)) {
-            $event = false;
+            return false;
         }
 
         return $event;

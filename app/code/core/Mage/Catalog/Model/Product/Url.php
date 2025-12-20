@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     protected function _validImage($image)
     {
         if ($image == 'no_selection') {
-            $image = null;
+            return null;
         }
 
         return $image;

@@ -1341,7 +1341,7 @@ XMLAuth;
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1783,7 +1783,7 @@ XMLAuth;
 
         // For UPS, Las Palmas and Santa Cruz de Tenerife will be represented by Canary Islands country
         if ($countryCode === 'ES' && ($regionCode === 'Las Palmas' || $regionCode === 'Santa Cruz de Tenerife')) {
-            $countryCode = 'IC';
+            return 'IC';
         }
 
         return $countryCode;

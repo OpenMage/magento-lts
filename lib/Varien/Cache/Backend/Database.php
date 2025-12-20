@@ -448,7 +448,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $data = $this->_getAdapter()->fetchRow($select);
         $res = false;
         if ($data) {
-            $res = [
+            return [
                 'expire' => $data['expire_time'],
                 'mtime' => $data['update_time'],
                 'tags'  => $tags,

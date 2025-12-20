@@ -158,7 +158,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected function _getDefaultValue($origValue, $pathToValue)
     {
         if (!$origValue) {
-            $origValue = Mage::getStoreConfig(
+            return Mage::getStoreConfig(
                 $pathToValue,
                 $this->getStore(),
             );

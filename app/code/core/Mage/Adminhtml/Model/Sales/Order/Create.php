@@ -524,7 +524,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         $groupId = $this->getQuote()->getCustomerGroupId();
         if (!$groupId) {
-            $groupId = $this->getSession()->getCustomerGroupId();
+            return $this->getSession()->getCustomerGroupId();
         }
 
         return $groupId;

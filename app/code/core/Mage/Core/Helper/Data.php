@@ -1008,7 +1008,7 @@ XML;
 
         $remainder = fmod($dividend, $divisor);
         if (abs($remainder - $divisor) < $epsilon || abs($remainder) < $epsilon) {
-            $remainder = 0;
+            return 0;
         }
 
         return $remainder;

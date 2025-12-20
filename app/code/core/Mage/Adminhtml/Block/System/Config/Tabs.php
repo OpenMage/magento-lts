@@ -316,7 +316,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $showTab = false;
         if ($permissions->isAllowed('system/config/' . $code)) {
-            $showTab = true;
+            return true;
         }
 
         return $showTab;

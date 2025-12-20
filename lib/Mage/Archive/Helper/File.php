@@ -130,7 +130,7 @@ class Mage_Archive_Helper_File
         $data = false;
         $this->_checkFileOpened();
         if ($length > 0) {
-            $data = $this->_read($length);
+            return $this->_read($length);
         }
 
         return $data;

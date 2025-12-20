@@ -855,7 +855,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $a = array_unique(array_merge($a1, $a2));
         if ($asString) {
-            $a = implode(',', $a);
+            return implode(',', $a);
         }
 
         return $a;
@@ -1106,7 +1106,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         }
 
         if (!empty($itemsSorted)) {
-            $items = array_merge($itemsSorted, $items);
+            return array_merge($itemsSorted, $items);
         }
 
         return $items;

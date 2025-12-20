@@ -517,7 +517,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $addressErrors = $address->validate();
         if (is_array($addressErrors)) {
-            $errors = array_merge($errors, $addressErrors);
+            return array_merge($errors, $addressErrors);
         }
 
         return $errors;
@@ -587,7 +587,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $successUrl = $this->_getUrl('*/*/index', ['_secure' => true]);
         if ($this->_getSession()->getBeforeAuthUrl()) {
-            $successUrl = $this->_getSession()->getBeforeAuthUrl(true);
+            return $this->_getSession()->getBeforeAuthUrl(true);
         }
 
         return $successUrl;
