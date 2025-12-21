@@ -394,7 +394,11 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array(array_merge_recursive(...), array_values($product->getChildAttributeLabelMapping()));
+            $mappingData = $product->getChildAttributeLabelMapping() ?? [];
+            $mapping = [];
+            if (!empty($mappingData)) {
+                $mapping = call_user_func_array(array_merge_recursive(...), array_values($mappingData));
+            }
             $filters = isset($mapping['labels']) ? array_unique($mapping['labels']) : [];
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
