@@ -22,8 +22,18 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
+    /**
+     * Cached result for isEnabled() check
+     *
+     * @var bool|null
+     */
     protected $_enabled = null;
 
+    /**
+     * Cached result for isEnabledForProductDetail() check
+     *
+     * @var bool|null
+     */
     protected $_enabledForProductDetail = null;
 
     protected $_configAttributeIds = null;
