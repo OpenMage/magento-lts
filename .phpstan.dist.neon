@@ -25,6 +25,9 @@ parameters:
         - lib/Varien
         - shell
         - tests/unit
+    strictRules:
+        allRules: false
+        disallowedEmpty: true
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
@@ -100,10 +103,23 @@ parameters:
                 - app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
                 - app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
         -
+             # tmp strict rule
+            identifier: empty.notAllowed
+            paths:
+                - lib/Varien/*
+        -
             # update phpstan plugin
             identifier: method.protected
             paths:
                 - app/design/*/*/template/*
+        -
+            # tmp strict rule
+            identifier: method.childParameterType
+            reportUnmatched: false
+        -
+            # tmp strict rule
+            identifier: method.childReturnType
+            reportUnmatched: false
         -
             identifier: phpunit.coversMethod
         -
