@@ -26,7 +26,7 @@
  * @method bool                                               getCanSaveCustomOptions()
  * @method bool                                               getCanShowPrice()
  * @method bool                                               getCategoriesReadonly()
- * @method array                                              getChildAttributeLabelMapping()
+ * @method array|null                                        getChildAttributeLabelMapping()
  * @method null|Mage_Catalog_Model_Product[]                  getChildrenProducts()
  * @method Mage_Catalog_Model_Resource_Product_Collection     getCollection()
  * @method bool                                               getCompositeReadonly()

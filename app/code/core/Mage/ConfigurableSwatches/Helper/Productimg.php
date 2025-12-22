@@ -394,9 +394,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mappingData = $product->getChildAttributeLabelMapping() ?? [];
+            $mappingData = $product->getChildAttributeLabelMapping();
             $mapping = [];
-            if (!empty($mappingData)) {
+            if (is_array($mappingData)) {
                 $mapping = call_user_func_array(array_merge_recursive(...), array_values($mappingData));
             }
 
