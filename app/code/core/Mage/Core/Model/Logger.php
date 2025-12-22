@@ -61,7 +61,9 @@ class Mage_Core_Model_Logger
             return;
         }
 
-        $file = empty($file) ? HelperLog::getConfigLogFile() : basename($file);
+        if (!$useStdout) {
+            $file = empty($file) ? HelperLog::getConfigLogFile() : basename($file);
+        }
 
         try {
             if (!isset(self::$loggers[$file])) {
