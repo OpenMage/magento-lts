@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve Row URL
      *
-     * @param Mage_Core_Model_Abstract $row
+     * @param  Mage_Core_Model_Abstract $row
      * @return string
      */
     public function getRowUrl($row)

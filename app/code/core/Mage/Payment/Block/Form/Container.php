@@ -40,7 +40,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Check payment method model
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)
@@ -55,7 +55,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      *
      * Redeclare this method in child classes for declaring method info instance
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return $this
      */
     protected function _assignMethod($method)
@@ -67,9 +67,9 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Declare template for payment method form block
      *
-     * @param   string $method
-     * @param   string $template
-     * @return  $this
+     * @param  string $method
+     * @param  string $template
+     * @return $this
      */
     public function setMethodFormTemplate($method = '', $template = '')
     {

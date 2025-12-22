@@ -46,7 +46,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get array of last added items
      *
-     * @param null|int $count
+     * @param  null|int $count
      * @return array
      */
     public function getRecentItems($count = null)
@@ -67,8 +67,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * It will include tax, if required by config settings.
      *
-     * @param   bool $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
-     * @return  float
+     * @param  bool  $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
+     * @return float
      */
     public function getSubtotal($skipTax = true)
     {
@@ -124,7 +124,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get incl/excl tax label
      *
-     * @param bool $flag
+     * @param  bool   $flag
      * @return string
      */
     public function getIncExcTax($flag)
@@ -227,7 +227,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Deserialize renders from string
      *
-     * @param string $renders
+     * @param  string $renders
      * @return $this
      */
     public function deserializeRenders($renders)
@@ -268,7 +268,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags) ? [] : $quoteTags,
+            ($quoteTags) ? $quoteTags : [],
             $this->getItemsTags($items),
         );
     }
@@ -276,8 +276,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
     protected function _afterToHtml($html)
     {

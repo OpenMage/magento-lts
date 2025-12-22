@@ -99,7 +99,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add product filter
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addProductFilter($customerId)
@@ -113,8 +113,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Set order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)

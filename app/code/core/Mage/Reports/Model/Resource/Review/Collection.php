@@ -23,7 +23,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     }
 
     /**
-     * @param int|string $productId
+     * @param  int|string $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -64,8 +64,8 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
     /**
      * Set order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)

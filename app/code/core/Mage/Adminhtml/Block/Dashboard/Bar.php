@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
     /**
      * Formatting value specific for this store
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function format($price)
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
     /**
      * Setting currency model
      *
-     * @param Mage_Directory_Model_Currency $currency
+     * @param  Mage_Directory_Model_Currency $currency
      * @return $this
      */
     public function setCurrency($currency)

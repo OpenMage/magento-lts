@@ -17,8 +17,8 @@ class Mage_Api2_Model_Acl_Global
     /**
      * Check if the operation is allowed on resources of given type type for given user type/role
      *
-     * @param string $resourceType
-     * @param string $operation
+     * @param  string              $resourceType
+     * @param  string              $operation
      * @return bool
      * @throws Mage_Api2_Exception
      */

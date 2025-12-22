@@ -18,7 +18,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      * Get target product IDs from product collection
      * which was set on block
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     public function getProducts()
     {
@@ -35,7 +35,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
         $type = parent::getImageType();
 
         if (empty($type)) {
-            $type = Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL;
+            return Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_SMALL;
         }
 
         return $type;
@@ -44,7 +44,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
     /**
      * instruct small_image image type to be loaded
      *
-     * @return array
+     * @return string[]
      */
     protected function _getImageSizes()
     {

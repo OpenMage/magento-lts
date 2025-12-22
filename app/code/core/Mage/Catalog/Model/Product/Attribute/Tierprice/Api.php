@@ -22,8 +22,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     }
 
     /**
-     * @param int $productId
-     * @param null|string $identifierType
+     * @param  int                 $productId
+     * @param  null|string         $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -58,9 +58,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      * Update tier prices of product
      *
-     * @param int|string $productId
-     * @param array $tierPrices
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  array              $tierPrices
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -99,9 +99,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      *  Prepare tier prices for save
      *
-     *  @param      Mage_Catalog_Model_Product $product
-     *  @param      array $tierPrices
-     *  @return     null|array
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $tierPrices
+     * @return null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {
@@ -155,8 +155,8 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
     /**
      * Retrieve product
      *
-     * @param int $productId
-     * @param  string $identifierType
+     * @param  int                        $productId
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)

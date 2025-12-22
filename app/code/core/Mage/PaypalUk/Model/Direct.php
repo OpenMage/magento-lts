@@ -60,7 +60,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
     /**
      * Import direct payment results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importResultToPayment($api, $payment)
@@ -77,8 +77,8 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      * Format credit card expiration date based on month and year values
      * Format: mmyy
      *
-     * @param int|string $month
-     * @param int|string $year
+     * @param  int|string $month
+     * @param  int|string $year
      * @return string
      */
     protected function _getFormattedCcExpirationDate($month, $year)

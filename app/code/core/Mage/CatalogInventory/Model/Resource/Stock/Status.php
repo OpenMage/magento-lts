@@ -25,11 +25,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Save Product Status per website
      *
-     * @param int $productId
-     * @param int $status
-     * @param float|int $qty
-     * @param int $stockId
-     * @param null|int $websiteId
+     * @param  int                       $productId
+     * @param  int                       $status
+     * @param  float|int                 $qty
+     * @param  int                       $stockId
+     * @param  null|int                  $websiteId
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -84,9 +84,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Retrieve product status
      * Return array as key product id, value - stock status
      *
-     * @param array|int $productIds
-     * @param int $websiteId
-     * @param int $stockId
+     * @param  array|int $productIds
+     * @param  int       $websiteId
+     * @param  int       $stockId
      * @return array
      */
     public function getProductStatus($productIds, $websiteId, $stockId = 1)
@@ -106,9 +106,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Retrieve product(s) data array
      *
-     * @param array|int $productIds
-     * @param int $websiteId
-     * @param int $stockId
+     * @param  array|int $productIds
+     * @param  int       $websiteId
+     * @param  int       $stockId
      * @return array
      */
     public function getProductData($productIds, $websiteId, $stockId = 1)
@@ -142,7 +142,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Retrieve Product Type
      *
-     * @param array|int $productIds
+     * @param  array|int $productIds
      * @return array
      */
     public function getProductsType($productIds)
@@ -164,8 +164,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Retrieve Product part Collection array
      * Return array as key product id, value product type
      *
-     * @param int $lastEntityId
-     * @param int $limit
+     * @param  int   $lastEntityId
+     * @param  int   $limit
      * @return array
      */
     public function getProductCollection($lastEntityId = 0, $limit = 1000)
@@ -201,8 +201,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Add stock status limitation to catalog product price index select object
      *
-     * @param string|Zend_Db_Expr $entityField
-     * @param string|Zend_Db_Expr $websiteField
+     * @param  string|Zend_Db_Expr $entityField
+     * @param  string|Zend_Db_Expr $websiteField
      * @return $this
      */
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
@@ -220,7 +220,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Add only is in stock products filter to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addIsInStockFilterToCollection($collection)

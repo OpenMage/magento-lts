@@ -13,7 +13,7 @@
  * @package    Mage_Reports
  *
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getRecentlyComparedProducts()
- * @method $this setRecentlyComparedProducts(Mage_Reports_Model_Resource_Product_Index_Collection_Abstract $value)
+ * @method $this                                                         setRecentlyComparedProducts(Mage_Reports_Model_Resource_Product_Index_Collection_Abstract $value)
  */
 class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abstract
 {

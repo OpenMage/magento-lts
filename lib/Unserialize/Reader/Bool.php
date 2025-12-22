@@ -25,8 +25,8 @@ class Unserialize_Reader_Bool
     public const READING_VALUE = 1;
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string   $char
+     * @param  string   $prevChar
      * @return null|int
      */
     public function read($char, $prevChar)

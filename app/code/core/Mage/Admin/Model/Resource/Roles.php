@@ -42,7 +42,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -81,7 +81,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles    $object
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
@@ -104,7 +104,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after deleting
      *
-     * @param Mage_Admin_Model_Roles $object
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
      * @throws Mage_Core_Exception
      */

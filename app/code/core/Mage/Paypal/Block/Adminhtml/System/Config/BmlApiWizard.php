@@ -22,8 +22,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_BmlApiWizard extends Mage_Paypal
     /**
      * No sandbox button for BmlApiWizard
      *
-     * @param string $elementHtmlId
-     * @param array $originalData
+     * @param  string $elementHtmlId
+     * @param  array  $originalData
      * @return array
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)

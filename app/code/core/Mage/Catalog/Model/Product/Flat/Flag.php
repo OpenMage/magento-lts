@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     /**
      * Returns true if store's flat index has been built.
      *
-     * @param int $storeId
+     * @param  int  $storeId
      * @return bool
      */
     public function isStoreBuilt($storeId)
@@ -58,8 +58,8 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     /**
      * Defines whether flat index for specific store has been built.
      *
-     * @param int  $storeId
-     * @param bool $built
+     * @param  int   $storeId
+     * @param  bool  $built
      * @return $this
      */
     public function setStoreBuilt($storeId, $built)

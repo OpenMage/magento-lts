@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Check whether the price can be shown for the specified product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function getCanShowProductPrice($product)
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
     /**
      * Returns price converted to current currency rate
      *
-     * @param float $price
+     * @param  float                           $price
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      */

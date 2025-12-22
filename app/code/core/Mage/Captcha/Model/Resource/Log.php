@@ -7,6 +7,8 @@
  * @package    Mage_Captcha
  */
 
+use Carbon\Carbon;
+
 /**
  * Log Attempts resource
  *
@@ -35,7 +37,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save or Update count Attempts
      *
-     * @param null|string $login
+     * @param  null|string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -69,7 +71,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Delete User attempts by login
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function deleteUserAttempts($login)
@@ -113,7 +115,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by user login
      *
-     * @param string $login
+     * @param  string     $login
      * @return int|string
      */
     public function countAttemptsByUserLogin($login)
@@ -135,7 +137,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)],
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, Carbon::now()->subMinutes(30)->getTimestamp())],
         );
     }
 }

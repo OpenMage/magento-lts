@@ -50,7 +50,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
     /**
      * Check if this rate exists in rule
      *
-     * @param  int $rateId
+     * @param  int   $rateId
      * @return array
      */
     public function isInRule($rateId)

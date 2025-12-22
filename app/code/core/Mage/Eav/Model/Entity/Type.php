@@ -12,34 +12,34 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
- * @method string getAdditionalAttributeTable()
+ * @method Mage_Eav_Model_Resource_Entity_Type            _getResource()
+ * @method string                                         getAdditionalAttributeTable()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getCollection()
- * @method string getDataSharingKey()
- * @method string getEntityModel()
- * @method string getIncrementModel()
- * @method string getIncrementPadChar()
- * @method int getIncrementPadLength()
- * @method int getIncrementPerStore()
- * @method int getIsDataSharing()
- * @method Mage_Eav_Model_Resource_Entity_Type getResource()
+ * @method string                                         getDataSharingKey()
+ * @method string                                         getEntityModel()
+ * @method string                                         getIncrementModel()
+ * @method string                                         getIncrementPadChar()
+ * @method int                                            getIncrementPadLength()
+ * @method int                                            getIncrementPerStore()
+ * @method int                                            getIsDataSharing()
+ * @method Mage_Eav_Model_Resource_Entity_Type            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type_Collection getResourceCollection()
- * @method $this setAdditionalAttributeTable(string $value)
- * @method $this setAttributeCodes(array $value)
- * @method $this setAttributeModel(string $value)
- * @method $this setDataSharingKey(string $value)
- * @method $this setDefaultAttributeSetId(int $value)
- * @method $this setEntityAttributeCollection(string $value)
- * @method $this setEntityIdField(string $value)
- * @method $this setEntityModel(string $value)
- * @method $this setEntityTable(string $value)
- * @method $this setEntityTypeCode(string $value)
- * @method $this setIncrementModel(string $value)
- * @method $this setIncrementPadChar(string $value)
- * @method $this setIncrementPadLength(int $value)
- * @method $this setIncrementPerStore(int $value)
- * @method $this setIsDataSharing(int $value)
- * @method $this setValueTablePrefix(string $value)
+ * @method $this                                          setAdditionalAttributeTable(string $value)
+ * @method $this                                          setAttributeCodes(array $value)
+ * @method $this                                          setAttributeModel(string $value)
+ * @method $this                                          setDataSharingKey(string $value)
+ * @method $this                                          setDefaultAttributeSetId(int $value)
+ * @method $this                                          setEntityAttributeCollection(string $value)
+ * @method $this                                          setEntityIdField(string $value)
+ * @method $this                                          setEntityModel(string $value)
+ * @method $this                                          setEntityTable(string $value)
+ * @method $this                                          setEntityTypeCode(string $value)
+ * @method $this                                          setIncrementModel(string $value)
+ * @method $this                                          setIncrementPadChar(string $value)
+ * @method $this                                          setIncrementPadLength(int $value)
+ * @method $this                                          setIncrementPerStore(int $value)
+ * @method $this                                          setIsDataSharing(int $value)
+ * @method $this                                          setValueTablePrefix(string $value)
  */
 class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
@@ -75,7 +75,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Load type by code
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function loadByCode($code)
@@ -88,7 +88,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity type attributes collection
      *
-     * @param null|int $setId
+     * @param  null|int                                            $setId
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
@@ -113,7 +113,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Create entity type attributes collection
      *
-     * @param null|int $setId
+     * @param  null|int                                            $setId
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function newAttributeCollection($setId = null)
@@ -163,7 +163,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve new incrementId
      *
-     * @param int $storeId
+     * @param  int          $storeId
      * @return false|string
      * @throws Exception
      */
@@ -268,7 +268,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         $tablePrefix = trim((string) $this->_data['value_table_prefix']);
 
         if (empty($tablePrefix)) {
-            $tablePrefix = $this->getEntityTable();
+            return $this->getEntityTable();
         }
 
         return $tablePrefix;

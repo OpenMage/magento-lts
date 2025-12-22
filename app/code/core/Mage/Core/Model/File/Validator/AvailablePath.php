@@ -92,7 +92,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * Set paths masks
      *
-     * @param array $paths  All paths masks types.
+     * @param  array $paths All paths masks types.
      *                      E.g.: array('available' => array(...), 'protected' => array(...))
      * @return $this
      */
@@ -123,7 +123,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * Add protected paths masks
      *
-     * @param array|string $path
+     * @param  array|string $path
      * @return $this
      */
     public function addProtectedPath($path)
@@ -161,7 +161,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * Add available paths mask
      *
-     * @param array|string $path
+     * @param  array|string $path
      * @return $this
      */
     public function addAvailablePath($path)
@@ -192,9 +192,9 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @param string $value     File/dir path
+     * @param  string    $value File/dir path
      * @return bool
-     * @throws Exception        Throw exception on empty both paths masks types
+     * @throws Exception Throw exception on empty both paths masks types
      */
     public function isValid($value)
     {
@@ -241,9 +241,9 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Vali
     /**
      * Validate value by path masks
      *
-     * @param array $valuePathInfo  Path info from value path
-     * @param array $paths          Protected/available paths masks
-     * @param bool $protected       Paths masks is protected?
+     * @param  array $valuePathInfo Path info from value path
+     * @param  array $paths         Protected/available paths masks
+     * @param  bool  $protected     Paths masks is protected?
      * @return bool
      */
     protected function _isValidByPaths($valuePathInfo, $paths, $protected)

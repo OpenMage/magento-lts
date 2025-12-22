@@ -12,18 +12,18 @@
  *
  * @package    Mage_Dataflow
  *
- * @method Mage_Dataflow_Model_Resource_Batch _getResource()
- * @method string getAdapter()
+ * @method Mage_Dataflow_Model_Resource_Batch            _getResource()
+ * @method string                                        getAdapter()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getCollection()
- * @method string getCreatedAt()
- * @method int getProfileId()
- * @method Mage_Dataflow_Model_Resource_Batch getResource()
+ * @method string                                        getCreatedAt()
+ * @method int                                           getProfileId()
+ * @method Mage_Dataflow_Model_Resource_Batch            getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getResourceCollection()
- * @method int getStoreId()
- * @method $this setAdapter(string $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setProfileId(int $value)
- * @method $this setStoreId(int $value)
+ * @method int                                           getStoreId()
+ * @method $this                                         setAdapter(string $value)
+ * @method $this                                         setCreatedAt(string $value)
+ * @method $this                                         setProfileId(int $value)
+ * @method $this                                         setStoreId(int $value)
  */
 class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
 {
@@ -185,7 +185,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      * Set additional params
      * automatic convert to serialize data
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setParams($data)

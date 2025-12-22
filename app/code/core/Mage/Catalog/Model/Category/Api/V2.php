@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
     /**
      * Retrieve category data
      *
-     * @param int $categoryId
-     * @param int|string $store
-     * @param array $attributes
+     * @param  int        $categoryId
+     * @param  int|string $store
+     * @param  array      $attributes
      * @return array
      */
     public function info($categoryId, $store = null, $attributes = null)
@@ -50,9 +50,9 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
     /**
      * Create new category
      *
-     * @param int $parentId
-     * @param array $categoryData
-     * @param null|int|string $store
+     * @param  int                                       $parentId
+     * @param  array                                     $categoryData
+     * @param  null|int|string                           $store
      * @return int
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Exception
@@ -106,9 +106,9 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
     /**
      * Update category data
      *
-     * @param int $categoryId
-     * @param array $categoryData
-     * @param int|string $store
+     * @param  int                 $categoryId
+     * @param  array               $categoryData
+     * @param  int|string          $store
      * @return bool
      * @throws Mage_Core_Exception
      */
