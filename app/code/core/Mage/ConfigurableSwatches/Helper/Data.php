@@ -25,14 +25,14 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Cached result for isEnabled() check
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_enabled = null;
 
     /**
      * Cached result for isEnabledForProductDetail() check
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_enabledForProductDetail = null;
 
