@@ -24,6 +24,8 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_enabled = null;
 
+    protected $_enabledForProductDetail = null;
+
     protected $_configAttributeIds = null;
 
     /**
@@ -52,7 +54,11 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabledForProductDetail()
     {
-        return Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED);
+        if (is_null($this->_enabledForProductDetail)) {
+            $this->_enabledForProductDetail = Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED);
+        }
+
+        return $this->_enabledForProductDetail;
     }
 
     /**
