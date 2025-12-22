@@ -127,7 +127,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     $mapping[$optionLabel]['default_label'] = $optionLabels[$optionId][0];
                     $mapping[$optionLabel]['labels'] = $optionLabels[$optionId];
 
-                    if ($listSwatchAttr 
+                    if ($listSwatchAttr
                         && $attribute->getAttributeId() == $listSwatchAttr->getAttributeId()
                         && !in_array($mapping[$optionLabel]['label'], $listSwatchValues)
                     ) {
