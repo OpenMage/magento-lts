@@ -17,7 +17,7 @@ class Mage_Newsletter_Model_Template_Filter extends Mage_Widget_Model_Template_F
     /**
      * Generate widget HTML if template variables are assigned
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function widgetDirective($construction)

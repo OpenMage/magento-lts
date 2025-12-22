@@ -35,9 +35,9 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Update attributes for entity
      *
-     * @param array $data
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $type
+     * @param  array                    $data
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  string                   $type
      * @return $this
      */
     protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
@@ -54,8 +54,8 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieve entity attributes values
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $type
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  string                   $type
      * @return array
      */
     protected function _getAttributes($object, $type, ?array $attributes = null)
@@ -90,8 +90,8 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed to usage
      *
-     * @param string $attributeCode
-     * @param string $type
+     * @param  string $attributeCode
+     * @param  string $type
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)

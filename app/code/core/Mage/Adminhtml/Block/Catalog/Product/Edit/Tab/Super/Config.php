@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Retrieve configurable settings
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getConfigurableSettings($product)
@@ -299,7 +299,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Escape JavaScript string
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function escapeJs($string)

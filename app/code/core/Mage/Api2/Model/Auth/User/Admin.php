@@ -71,7 +71,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     /**
      * Set user role
      *
-     * @param int $role
+     * @param  int       $role
      * @return $this
      * @throws Exception
      */

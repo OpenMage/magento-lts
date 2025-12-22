@@ -39,7 +39,7 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     /**
      * Check whether method is available
      *
-     * @param null|Mage_Sales_Model_Quote $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)

@@ -95,7 +95,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set Request scope
      *
-     * @param string $scope
+     * @param  string $scope
      * @return $this
      */
     public function setRequestScope($scope)
@@ -108,7 +108,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setRequestScopeOnly($flag)
@@ -157,7 +157,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return extracted data
      *
-     * @param string $index
+     * @param  string $index
      * @return mixed
      */
     public function getExtractedData($index = null)
@@ -172,7 +172,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Apply attribute input filter to value
      *
-     * @param string $value
+     * @param  string       $value
      * @return false|string
      */
     protected function _applyInputFilter($value)
@@ -183,7 +183,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
 
         $filter = $this->_getFormFilter();
         if ($filter) {
-            $value = $filter->inputFilter($value);
+            return $filter->inputFilter($value);
         }
 
         return $value;
@@ -216,7 +216,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Get/Set/Reset date filter format
      *
-     * @param null|false|string $format
+     * @param  null|false|string     $format
      * @return $this|string
      * @throws Zend_Locale_Exception
      */
@@ -242,7 +242,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Apply attribute output filter to value
      *
-     * @param string $value
+     * @param  string                $value
      * @return string
      * @throws Mage_Core_Exception
      * @throws Zend_Locale_Exception
@@ -251,7 +251,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     {
         $filter = $this->_getFormFilter();
         if ($filter) {
-            $value = $filter->outputFilter($value);
+            return $filter->outputFilter($value);
         }
 
         return $value;
@@ -260,7 +260,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Validate value by attribute input validation rule
      *
-     * @param string $value
+     * @param  string              $value
      * @return array|true
      * @throws Mage_Core_Exception
      */
@@ -347,7 +347,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsAjaxRequest($flag = true)
@@ -408,7 +408,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Validate data
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @return array|true
      * @throws Mage_Core_Exception
      */
@@ -417,7 +417,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     abstract public function compactValue($value);
@@ -425,7 +425,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     abstract public function restoreValue($value);
@@ -433,7 +433,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string       $format
      * @return array|string
      */
     abstract public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT);

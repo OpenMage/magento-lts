@@ -44,7 +44,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     /**
      * Returns next autoincrement value for a table
      *
-     * @param string $tableName
+     * @param  string              $tableName
      * @return int
      * @throws Mage_Core_Exception
      */

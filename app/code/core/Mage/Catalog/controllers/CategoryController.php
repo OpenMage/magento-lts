@@ -72,7 +72,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * Recursively apply custom design settings to category if it's option
      * custom_use_parent_settings is set to 1 while parent option is not
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category   $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this

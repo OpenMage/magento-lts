@@ -35,8 +35,8 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
     /**
      * Start output buffering
      *
-     * @param string      $filename Target file to save CSV data
-     * @param null|string $filter Pattern to filter timers by their identifiers (SQL LIKE syntax)
+     * @param string      $filename  Target file to save CSV data
+     * @param null|string $filter    Pattern to filter timers by their identifiers (SQL LIKE syntax)
      * @param string      $delimiter Delimiter for CSV format
      * @param string      $enclosure Enclosure for CSV format
      */

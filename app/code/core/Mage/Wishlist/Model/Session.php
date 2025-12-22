@@ -12,7 +12,7 @@
  *
  * @package    Mage_Wishlist
  *
- * @method $this setSharingForm(array $value)
+ * @method $this setSharingForm(string[] $value)
  */
 class Mage_Wishlist_Model_Session extends Mage_Core_Model_Session_Abstract
 {

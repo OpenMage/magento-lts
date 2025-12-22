@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Defines is Attribute used by super products
      *
-     * @param int $attributeSet
+     * @param  int               $attributeSet
      * @return null|false|string
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)

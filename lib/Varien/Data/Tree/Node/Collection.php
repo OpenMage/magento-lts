@@ -62,7 +62,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
     /**
      * Implementation of ArrayAccess:offsetGet()
-     * @param string $key
+     * @param  string                      $key
      * @return mixed|Varien_Data_Tree_Node
      */
     #[\ReturnTypeWillChange]
@@ -108,7 +108,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-     * @param Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node $node
      * @return $this
      */
     public function delete($node)
@@ -134,11 +134,11 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      */
     public function lastNode()
     {
-        return !empty($this->_nodes) ? $this->_nodes[count($this->_nodes) - 1] : null;
+        return empty($this->_nodes) ? null : $this->_nodes[count($this->_nodes) - 1];
     }
 
     /**
-     * @param $nodeId
+     * @param                             $nodeId
      * @return null|Varien_Data_Tree_Node
      */
     public function searchById($nodeId)

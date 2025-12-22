@@ -7,6 +7,8 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Index
  */
@@ -145,7 +147,7 @@ class Mage_Index_Model_Observer
             ->getProcessesCollection()
             ->addFieldToFilter('mode', Mage_Index_Model_Process::MODE_MANUAL);
 
-        $now = new DateTime();
+        $now = Carbon::now();
         /** @noinspection PhpUnhandledExceptionInspection */
         $dateInterval = new DateInterval('PT' . self::OLD_INDEX_EVENT_THRESHOLD_SECONDS . 'S');
         $oldEventsThreshold = $now

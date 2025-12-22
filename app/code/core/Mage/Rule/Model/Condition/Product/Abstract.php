@@ -7,13 +7,15 @@
  * @package    Mage_Rule
  */
 
+use Carbon\Carbon;
+
 /**
  * Abstract Rule product condition data model
  *
  * @package    Mage_Rule
  *
  * @method string getJsFormObject()
- * @method $this setAttributeOption(array $value)
+ * @method $this  setAttributeOption(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Model_Condition_Abstract
 {
@@ -71,7 +73,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Prepare bind array of ids from string or array
      *
-     * @param array|int|string $value
+     * @param  array|int|string $value
      * @return array
      */
     public function bindArrayOfIds($value)
@@ -254,13 +256,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Retrieve value by option
      *
-     * @param mixed $option
+     * @param  mixed  $option
      * @return string
      */
     public function getValueOption($option = null)
     {
         $this->_prepareValueOptions();
-        return $this->getData('value_option' . (!is_null($option) ? '/' . $option : ''));
+        return $this->getData('value_option' . (is_null($option) ? '' : '/' . $option));
     }
 
     /**
@@ -291,7 +293,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         if (!empty($image)) {
-            $html = '<a href="javascript:void(0)" class="rule-chooser-trigger"><img src="'
+            return '<a href="javascript:void(0)" class="rule-chooser-trigger"><img src="'
                 . $image
                 . '" alt="" class="v-middle rule-chooser-trigger" title="'
                 . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Open Chooser'))
@@ -316,7 +318,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Collect validated attributes
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -504,8 +506,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $attr = $object->getResource()->getAttribute($attrCode);
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
-                $this->setValue(strtotime($this->getValue()));
-                $value = strtotime($object->getData($attrCode));
+                $this->setValue(Carbon::parse($this->getValue())->getTimestamp());
+                $value = Carbon::parse($object->getData($attrCode))->getTimestamp();
                 return $this->validateAttribute($value);
             }
 
@@ -524,7 +526,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = strtotime($value);
+                    $value = Carbon::parse($value)->getTimestamp();
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
                     $value = strlen($value) ? explode(',', $value) : [];
                 }
@@ -561,8 +563,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      * Correct '==' and '!=' operators
      * Categories can't be equal because product is included categories selected by administrator and in their parents
      *
-     * @param string $operator
-     * @param string $inputType
+     * @param  string $operator
+     * @param  string $inputType
      * @return string
      */
     public function correctOperator($operator, $inputType)

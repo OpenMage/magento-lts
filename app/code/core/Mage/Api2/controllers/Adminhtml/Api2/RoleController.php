@@ -307,7 +307,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Get users possessing the role
      *
-     * @param int $id
+     * @param  int         $id
      * @return array|mixed
      */
     protected function _getUsers($id)
@@ -324,7 +324,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $users = $resource->getRoleUsers($role);
 
         if (!count($users)) {
-            $users = [];
+            return [];
         }
 
         return $users;
@@ -333,8 +333,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Take away user role
      *
-     * @param int $adminId
-     * @param int $roleId
+     * @param  int   $adminId
+     * @param  int   $roleId
      * @return $this
      */
     protected function _deleteUserFromRole($adminId, $roleId)
@@ -348,8 +348,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Give user a role
      *
-     * @param int $adminId
-     * @param int $roleId
+     * @param  int   $adminId
+     * @param  int   $roleId
      * @return $this
      */
     protected function _addUserToRole($adminId, $roleId)

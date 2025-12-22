@@ -53,7 +53,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Mage_Install_Model_Installer_Data|Mage_Install_Model_Session $model
+     * @param  Mage_Install_Model_Installer_Data|Mage_Install_Model_Session $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)
@@ -91,7 +91,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     {
         $status = $this->getData('server_check_status');
         if (is_null($status)) {
-            $status = $this->checkServer();
+            return $this->checkServer();
         }
 
         return $status;
@@ -100,8 +100,8 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installation config data
      *
-     * @param   array $data
-     * @return  Mage_Install_Model_Installer
+     * @param  array                        $data
+     * @return Mage_Install_Model_Installer
      */
     public function installConfig($data)
     {
@@ -181,7 +181,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Prepare admin user data in model and validate it.
      * Returns TRUE or array of error messages.
      *
-     * @param array $data
+     * @param  array                       $data
      * @return array|Mage_Admin_Model_User
      * @throws Mage_Core_Exception
      * @throws Zend_Validate_Exception
@@ -209,7 +209,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Parameter can be prepared user model or array of data.
      * Returns TRUE or throws exception.
      *
-     * @param mixed $data
+     * @param  mixed               $data
      * @return bool
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -242,7 +242,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Validating encryption key.
      * Returns TRUE or array of error messages.
      *
-     * @param string $key
+     * @param  string        $key
      * @return string[]|true
      */
     public function validateEncryptionKey($key)
@@ -268,7 +268,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set encryption key
      *
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function installEnryptionKey($key)

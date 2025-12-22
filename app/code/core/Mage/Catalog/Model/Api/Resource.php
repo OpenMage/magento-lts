@@ -43,8 +43,8 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param array $attributes
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  array                                    $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Retrieves store id from store code, if no store id specified,
      * it uses set session or admin store
      *
-     * @param int|string $store
+     * @param  int|string $store
      * @return int
      */
     protected function _getStoreId($store = null)
@@ -92,9 +92,9 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Return loaded product instance
      *
-     * @param  int|string $productId (SKU or ID)
-     * @param  int|string $store
-     * @param  string $identifierType
+     * @param  int|string                 $productId      (SKU or ID)
+     * @param  int|string                 $store
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _getProduct($productId, $store = null, $identifierType = null)
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Set current store for catalog.
      *
-     * @param int|string $store
+     * @param  int|string $store
      * @return int
      */
     public function currentStore($store = null)

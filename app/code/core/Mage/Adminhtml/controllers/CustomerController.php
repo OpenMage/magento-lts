@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer admin controller
  *
@@ -32,7 +34,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * @param string $idFieldName
+     * @param  string              $idFieldName
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -334,7 +336,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 // Force new customer confirmation
                 if ($isNewCustomer) {
                     $customer->setPassword($data['account']['password']);
-                    $customer->setPasswordCreatedAt(time());
+                    $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
                     $customer->setForceConfirmed(true);
                     if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;
@@ -886,7 +888,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->setHeader('Pragma', 'public', true)
                 ->setHeader('Content-type', $contentType, true)
                 ->setHeader('Content-Length', $contentLength)
-                ->setHeader('Last-Modified', date('r', (int) $contentModify))
+                ->setHeader('Last-Modified', Carbon::createFromTimestamp((int) $contentModify)->format('r'))
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 
@@ -907,7 +909,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)

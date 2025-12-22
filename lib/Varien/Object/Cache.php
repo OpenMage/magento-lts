@@ -106,8 +106,8 @@ class Varien_Object_Cache
     /**
      * Load an object from registry
      *
-     * @param object|string $idx
-     * @param object $default
+     * @param  object|string $idx
+     * @param  object        $default
      * @return object
      */
     public function load($idx, $default = null)
@@ -122,9 +122,9 @@ class Varien_Object_Cache
     /**
      * Save an object entry
      *
-     * @param object $object
-     * @param string $idx
-     * @param array|string $tags
+     * @param  object           $object
+     * @param  string           $idx
+     * @param  array|string     $tags
      * @return false|string
      * @throws Varien_Exception
      */
@@ -180,8 +180,8 @@ class Varien_Object_Cache
     /**
      * Add a reference to an object
      *
-     * @param array|string $refName
-     * @param string $idx
+     * @param  array|string     $refName
+     * @param  string           $idx
      * @return bool
      * @throws Varien_Exception
      */
@@ -208,7 +208,7 @@ class Varien_Object_Cache
     /**
      * Delete an object from registry
      *
-     * @param object|string $idx
+     * @param  object|string $idx
      * @return bool
      */
     public function delete($idx)
@@ -291,7 +291,7 @@ class Varien_Object_Cache
     /**
      * Check whether object id exists in registry
      *
-     * @param string $idx
+     * @param  string $idx
      * @return bool
      */
     public function has($idx)
@@ -302,7 +302,7 @@ class Varien_Object_Cache
     /**
      * Find an object id
      *
-     * @param object $object
+     * @param  object      $object
      * @return bool|string
      */
     public function find($object)
@@ -336,7 +336,7 @@ class Varien_Object_Cache
     /**
      * Find objects by tags
      *
-     * @param array|string $tags
+     * @param  array|string $tags
      * @return array
      */
     public function findByTags($tags)
@@ -394,7 +394,7 @@ class Varien_Object_Cache
     /**
      * Return debug information by ids
      *
-     * @param array|int $ids
+     * @param  array|int $ids
      * @return array
      */
     public function debugByIds($ids)

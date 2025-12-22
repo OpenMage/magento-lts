@@ -33,7 +33,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     /**
      * Get item URL
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
      */
     public function getItemUrl($category)

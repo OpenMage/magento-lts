@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -27,10 +27,10 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
                 . $this->escapeHtml(Mage::helper('adminnotification')->__('Read Details')) . '</a> | '
             : '';
 
-        $markAsReadHtml = (!$row->getIsRead())
-            ? '<a href="' . $this->getUrl('*/*/markAsRead/', ['_current' => true, 'id' => $row->getId()]) . '">'
-                . $this->escapeHtml(Mage::helper('adminnotification')->__('Mark as Read')) . '</a> | '
-            : '';
+        $markAsReadHtml = ($row->getIsRead())
+            ? ''
+            : '<a href="' . $this->getUrl('*/*/markAsRead/', ['_current' => true, 'id' => $row->getId()]) . '">'
+                . $this->escapeHtml(Mage::helper('adminnotification')->__('Mark as Read')) . '</a> | ';
 
         $deleteConfirmHtml = sprintf(
             "deleteConfirm('%s', this.href)",

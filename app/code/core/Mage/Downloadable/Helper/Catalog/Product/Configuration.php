@@ -43,7 +43,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
     /**
      * Retrieves product links section title
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getLinksTitle($product)

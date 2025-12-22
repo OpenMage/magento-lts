@@ -25,7 +25,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
     /**
      * Inits layout for viewing product page
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product        $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
      * @return $this
@@ -96,9 +96,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      *   - 'specify_options' - boolean, whether to show 'Specify options' message
      *   - 'configure_mode' - boolean, whether we're in Configure-mode to edit product configuration
      *
-     * @param int $productId
+     * @param int                               $productId
      * @param Mage_Core_Controller_Front_Action $controller
-     * @param null|Varien_Object $params
+     * @param null|Varien_Object                $params
      *
      * @return $this
      */
