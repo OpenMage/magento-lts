@@ -16,14 +16,14 @@ use Carbon\Exceptions\InvalidFormatException;
  * @package    Mage_Catalog
  *
  * @method null|array getUserValue()
- * @method $this setUserValue(null|array $userValue)
+ * @method $this      setUserValue(null|array $userValue)
  */
 class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Product_Option_Type_Default
 {
     /**
      * Validate user input for option
      *
-     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @param  array                                          $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
      * @return Mage_Catalog_Model_Product_Option_Type_Default
      * @throws Mage_Core_Exception
      */
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return mixed Prepared option value
+     * @return mixed                 Prepared option value
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
      * @throws Zend_Locale_Exception
@@ -143,7 +143,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Return formatted option value for quote option
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string                $optionValue Prepared for cart option value
      * @return string
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
@@ -177,7 +177,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Return printable option value
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getPrintableOptionValue($optionValue)
@@ -188,7 +188,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Return formatted option value ready to edit, ready to parse
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
     public function getEditableOptionValue($optionValue)
@@ -199,8 +199,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Parse user input value and return cart prepared value
      *
-     * @param string $optionValue
-     * @param array $productOptionValues Values for product option
+     * @param  string              $optionValue
+     * @param  array               $productOptionValues Values for product option
      * @return null|string
      * @throws Zend_Date_Exception
      */
@@ -223,7 +223,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for info buy request
      *
-     * @param string $optionValue
+     * @param  string $optionValue
      * @return mixed
      */
     public function prepareOptionValueForRequest($optionValue)
@@ -295,7 +295,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Save internal value of option in infoBuy_request
      *
-     * @param string $internalValue Datetime value in internal format
+     * @param  string              $internalValue Datetime value in internal format
      * @throws Mage_Core_Exception
      */
     protected function _setInternalInRequest($internalValue)

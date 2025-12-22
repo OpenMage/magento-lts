@@ -151,8 +151,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve result page url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
-     * @param   string $query
-     * @return  string
+     * @param  string $query
+     * @return string
      */
     public function getResultUrl($query = null)
     {
@@ -207,7 +207,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMinQueryLength($store = null)
@@ -218,7 +218,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMaxQueryLength($store = null)
@@ -229,7 +229,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query words count for like search
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getMaxQueryWords($store = null)
@@ -240,7 +240,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Add Note message
      *
-     * @param string $message
+     * @param  string $message
      * @return $this
      */
     public function addNoteMessage($message)
@@ -303,8 +303,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Join index array to string by separator
      * Support 2 level array gluing
      *
-     * @param array $index
-     * @param string $separator
+     * @param  array  $index
+     * @param  string $separator
      * @return string
      */
     public function prepareIndexdata($index, $separator = ' ')

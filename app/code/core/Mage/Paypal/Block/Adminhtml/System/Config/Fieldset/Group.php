@@ -17,7 +17,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group extends Mage_Admi
     /**
      * Return header comment part of html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderCommentHtml($element)
@@ -36,7 +36,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group extends Mage_Admi
     /**
      * Return collapse state
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return false|int
      */
     protected function _getCollapseState($element)

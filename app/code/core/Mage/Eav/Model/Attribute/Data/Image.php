@@ -18,7 +18,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
      * Validate file by attribute validate rules
      * Return array of errors
      *
-     * @param array $value
+     * @param  array $value
      * @return array
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

@@ -75,8 +75,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Save data for invoice and related order
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return  Mage_Adminhtml_Sales_Order_InvoiceController
+     * @param  Mage_Sales_Model_Order_Invoice               $invoice
+     * @return Mage_Adminhtml_Sales_Order_InvoiceController
      * @throws Exception
      */
     protected function _saveInvoice($invoice)
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Prepare shipment
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Invoice        $invoice
      * @return false|Mage_Sales_Model_Order_Shipment
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -419,8 +419,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @param Mage_Sales_Model_Order_Item $item
-     * @param array $qtys
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @param  array                       $qtys
      * @return bool
      * @throws Mage_Core_Exception
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
@@ -453,8 +453,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @param Mage_Sales_Model_Order_Item $item
-     * @param array $qtys
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @param  array                       $qtys
      * @return bool
      * @throws Mage_Core_Exception
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used

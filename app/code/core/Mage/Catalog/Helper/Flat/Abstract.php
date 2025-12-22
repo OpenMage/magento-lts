@@ -45,7 +45,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
     /**
      * Check if Catalog Flat Data has been initialized
      *
-     * @param null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
      * @return bool
      */
     abstract public function isBuilt($store = null);

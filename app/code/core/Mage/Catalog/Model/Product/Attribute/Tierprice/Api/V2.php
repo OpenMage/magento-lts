@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
     /**
      *  Prepare tier prices for save
      *
-     *  @param      Mage_Catalog_Model_Product $product
-     *  @param      array $tierPrices
-     *  @return     null|array
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $tierPrices
+     * @return null|array
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {

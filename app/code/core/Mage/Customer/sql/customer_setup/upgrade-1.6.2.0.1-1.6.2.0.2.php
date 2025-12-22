@@ -9,7 +9,7 @@
 
 /**
  * @var Mage_Customer_Model_Entity_Setup $this
- * @var Varien_Db_Adapter_Interface $conn
+ * @var Varien_Db_Adapter_Interface      $conn
  */
 $conn = $this->getConnection();
 

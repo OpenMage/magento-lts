@@ -50,7 +50,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return bool
      */
     public function validate()
     {
@@ -60,7 +60,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send authorize request to gateway
      *
-     * @param  float $amount
+     * @param  float               $amount
      * @return void
      * @throws Mage_Core_Exception
      */
@@ -72,8 +72,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send capture request to gateway
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @param float $amount
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  float                          $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -134,7 +134,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check void availability
      *
-     * @return  bool
+     * @return bool
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -186,8 +186,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
     /**
      * Set capture transaction ID to invoice for informational purposes
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Invoice     $invoice
+     * @param  Mage_Sales_Model_Order_Payment     $payment
      * @return Mage_Payment_Model_Method_Abstract
      */
     public function processInvoice($invoice, $payment)
@@ -197,8 +197,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
     /**
      * Set transaction ID into creditmemo for informational purposes
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Creditmemo  $creditmemo
+     * @param  Mage_Sales_Model_Order_Payment     $payment
      * @return Mage_Payment_Model_Method_Abstract
      */
     public function processCreditmemo($creditmemo, $payment)
@@ -210,7 +210,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Refund the amount
      * Need to decode Last 4 digits for request.
      *
-     * @param float $amount
+     * @param  float               $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -232,8 +232,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @param string $amount
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  string                         $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -294,7 +294,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Return URL on which Authorize.net server will return payment result data in hidden request.
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getRelayUrl($storeId = null)
@@ -331,7 +331,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Instantiate state and set it to state object
      *
-     * @param string $paymentAction
+     * @param string        $paymentAction
      * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
@@ -362,7 +362,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Sales_Model_Order $order quote or order object
+     * @param  Mage_Sales_Model_Order                     $order quote or order object
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)
@@ -391,14 +391,14 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Validate response data. Needed in controllers.
      *
-     * @return bool true in case of validation success
+     * @return bool                true in case of validation success
      * @throws Mage_Core_Exception in case of validation error
      */
     public function validateResponse()
     {
         $response = $this->getResponse();
         $xSHA2Hash = $response->getData('x_SHA2_Hash');
-        $hashConfigKey = !empty($xSHA2Hash) ? 'signature_key' : 'trans_md5';
+        $hashConfigKey = empty($xSHA2Hash) ? 'trans_md5' : 'signature_key';
 
         //hash check
         if (!$this->getConfigData($hashConfigKey)
@@ -415,7 +415,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Operate with order using data from $_POST which came from authorize.net by Relay URL.
      *
-     * @param array $responseData data from Authorize.net from $_POST
+     * @param  array               $responseData data from Authorize.net from $_POST
      * @throws Mage_Core_Exception in case of validation error or order creation error
      */
     public function process(array $responseData)
@@ -486,7 +486,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check response code came from authorize.net.
      *
-     * @return true in case of Approved response
+     * @return true                in case of Approved response
      * @throws Mage_Core_Exception in case of Declined or Error response from Authorize.net
      */
     public function checkResponseCode()
@@ -506,7 +506,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check transaction id came from Authorize.net
      *
-     * @return true in case of right transaction id
+     * @return true                in case of right transaction id
      * @throws Mage_Core_Exception in case of bad transaction id
      */
     public function checkTransId()
@@ -523,7 +523,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Compare amount with amount from the response from Authorize.net.
      *
-     * @param float $amount
+     * @param  float $amount
      * @return bool
      */
     protected function _matchAmount($amount)
@@ -598,7 +598,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Register order cancellation. Return money to customer if needed.
      *
      * @param string $message
-     * @param bool $voidPayment
+     * @param bool   $voidPayment
      */
     protected function _declineOrder(Mage_Sales_Model_Order $order, $message = '', $voidPayment = true)
     {
@@ -658,7 +658,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Return additional information`s transaction_id value of parent transaction model
      *
-     * @param Mage_Sales_Model_Order_Payment|Varien_Object $payment
+     * @param  Mage_Sales_Model_Order_Payment|Varien_Object $payment
      * @return string
      */
     protected function _getRealParentTransactionId($payment)

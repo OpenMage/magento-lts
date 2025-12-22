@@ -29,7 +29,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Initialize basic order model
      *
-     * @param mixed $orderIncrementId
+     * @param  mixed                  $orderIncrementId
      * @return Mage_Sales_Model_Order
      */
     protected function _initOrder($orderIncrementId)
@@ -50,7 +50,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve list of orders. Filtration could be applied
      *
-     * @param null|array|object $filters
+     * @param  null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -120,7 +120,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve full order information
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
     public function info($orderIncrementId)
@@ -163,10 +163,10 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Add comment to order
      *
-     * @param string $orderIncrementId
-     * @param string $status
-     * @param string $comment
-     * @param bool $notify
+     * @param  string $orderIncrementId
+     * @param  string $status
+     * @param  string $comment
+     * @param  bool   $notify
      * @return bool
      */
     public function addComment($orderIncrementId, $status, $comment = '', $notify = false)
@@ -200,7 +200,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Hold order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function hold($orderIncrementId)
@@ -220,7 +220,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Unhold order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function unhold($orderIncrementId)
@@ -240,7 +240,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Cancel order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return bool
      */
     public function cancel($orderIncrementId)

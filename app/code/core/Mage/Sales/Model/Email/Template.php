@@ -13,7 +13,7 @@
 class Mage_Sales_Model_Email_Template extends Mage_Core_Model_Email_Template
 {
     /**
-     * @param string $template
+     * @param  string       $template
      * @return false|string
      */
     public function getInclude($template, array $variables)

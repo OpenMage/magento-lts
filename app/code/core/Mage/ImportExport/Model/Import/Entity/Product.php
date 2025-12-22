@@ -480,7 +480,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Create Product entity from raw data.
      *
-     * @return bool result of operation
+     * @return bool      result of operation
      * @throws Exception
      */
     protected function _importData()
@@ -663,7 +663,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product category validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductCategoryValid(array $rowData, $rowNum)
@@ -686,7 +686,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product website belonging.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductWebsiteValid(array $rowData, $rowNum)
@@ -730,7 +730,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check tier price data validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isTierPriceValid(array $rowData, $rowNum)
@@ -769,7 +769,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check group price data validity.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isGroupPriceValid(array $rowData, $rowNum)
@@ -803,8 +803,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check super products SKU
      *
-     * @param array $rowData
-     * @param int $rowNum
+     * @param  array $rowData
+     * @param  int   $rowNum
      * @return bool
      */
     protected function _isSuperProductsSkuValid($rowData, $rowNum)
@@ -825,7 +825,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product sku data.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isProductSkuValid(array $rowData, $rowNum)
@@ -1005,8 +1005,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             'option_type_id' => $nextValueId,
                             'sort_order'     => empty($rowData['_custom_option_row_sort'])
                                 ? 0 : abs($rowData['_custom_option_row_sort']),
-                            'sku'            => !empty($rowData['_custom_option_row_sku'])
-                                ? $rowData['_custom_option_row_sku'] : '',
+                            'sku'            => empty($rowData['_custom_option_row_sku'])
+                                ? '' : $rowData['_custom_option_row_sku'],
                         ];
                         if (!isset($customOptions[$typeTitleTable][$nextValueId][0])) { // ensure default title is set
                             $customOptions[$typeTitleTable][$nextValueId][0] = $rowData['_custom_option_row_title'];
@@ -1395,8 +1395,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Update and insert data in entity table.
      *
-     * @param array $entityRowsIn Row for insert
-     * @param array $entityRowsUp Row for update
+     * @param  array               $entityRowsIn Row for insert
+     * @param  array               $entityRowsUp Row for update
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -1622,7 +1622,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve attribute by specified code
      *
-     * @param string $code
+     * @param  string                                   $code
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      * @throws Mage_Core_Exception
      */
@@ -1642,11 +1642,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare attributes data
      *
-     * @param array $rowData
-     * @param int $rowScope
-     * @param array $attributes
-     * @param null|string $rowSku
-     * @param int $rowStore
+     * @param  array                           $rowData
+     * @param  int                             $rowScope
+     * @param  array                           $attributes
+     * @param  null|string                     $rowSku
+     * @param  int                             $rowStore
      * @return array
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -1843,7 +1843,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Uploading files into the "catalog/product" media folder.
      * Return a new file name if the same file is already exists.
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     protected function _uploadMediaFiles($fileName)
@@ -1986,7 +1986,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns resource model
      *
-     * @param string $resourceModelName
+     * @param  string $resourceModelName
      * @return Object
      */
     protected function getResourceModel($resourceModelName)
@@ -1997,7 +1997,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns helper
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function getHelper($helperName)
@@ -2008,7 +2008,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Returns model
      *
-     * @param string $modelName
+     * @param  string                        $modelName
      * @return bool|Mage_Core_Model_Abstract
      */
     protected function getModel($modelName)
@@ -2219,7 +2219,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Validate data row.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
@@ -2319,8 +2319,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Common validation
      *
-     * @param array $rowData
-     * @param int $rowNum
+     * @param array             $rowData
+     * @param int               $rowNum
      * @param null|false|string $sku
      */
     protected function _validate($rowData, $rowNum, $sku)

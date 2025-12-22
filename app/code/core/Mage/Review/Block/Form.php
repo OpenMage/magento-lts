@@ -12,7 +12,7 @@
  *
  * @package    Mage_Review
  *
- * @method bool getAllowWriteReviewFlag()
+ * @method bool  getAllowWriteReviewFlag()
  * @method $this setAllowWriteReviewFlag(bool $value)
  * @method $this setLoginLink(string $value)
  */

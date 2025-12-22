@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminh
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminh
         }
 
         if (empty($options) || !is_array($options)) {
-            $options = Mage::getModel('core/design_source_design')
+            return Mage::getModel('core/design_source_design')
                 ->setIsFullLabel(true)->getAllOptions(false);
         }
 
@@ -55,8 +55,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminh
     /**
      * Retrieve value label from options array
      *
-     * @param array $options
-     * @param string $value
+     * @param  array  $options
+     * @param  string $value
      * @return mixed
      */
     protected function _getValueLabel($options, $value)

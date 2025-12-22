@@ -84,7 +84,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Prepare additional conditions to collection
      *
-     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
+     * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
     protected function _prepareCollection($collection)
@@ -153,7 +153,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Add Item to shopping cart URL
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
      * @return string
      */
     public function getItemAddToCartUrl($item)
@@ -164,7 +164,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Add Item to shopping cart URL from shared wishlist
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
      * @return string
      */
     public function getSharedItemAddToCartUrl($item)
@@ -175,7 +175,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve URL for adding Product to wishlist
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToWishlistUrl($product)
@@ -206,7 +206,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Escaped Description for Wishlist Item
      *
-     * @param Mage_Wishlist_Model_Item $item
+     * @param  Mage_Wishlist_Model_Item $item
      * @return string
      */
     public function getEscapedDescription($item)
@@ -221,7 +221,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Check Wishlist item has description
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return bool
      */
     public function hasDescription($item)
@@ -232,7 +232,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve formatted Date
      *
-     * @param string $date
+     * @param  string $date
      * @return string
      */
     public function getFormatedDate($date)
@@ -269,14 +269,14 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Qty from item
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return float
      */
     public function getQty($item)
     {
         $qty = $item->getQty() * 1;
         if (!$qty) {
-            $qty = 1;
+            return 1;
         }
 
         return $qty;
@@ -312,7 +312,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Returns block to render item with some product type
      *
-     * @param string $productType
+     * @param  string                   $productType
      * @return Mage_Core_Block_Template
      */
     protected function _getItemPriceBlock($productType)
@@ -338,8 +338,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * non-configured products
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param bool $displayMinimalPrice
-     * @param string $idSuffix
+     * @param bool                       $displayMinimalPrice
+     * @param string                     $idSuffix
      *
      * @return string
      */
@@ -369,7 +369,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * Retrieve URL to item Product
      *
      * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
-     * @param  array $additional
+     * @param  array                                               $additional
      * @return string
      */
     public function getProductUrl($item, $additional = [])
@@ -396,8 +396,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve URL for adding Product to wishlist with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
@@ -412,8 +412,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve URL for Removing item from wishlist with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @param  bool                                                $addFormKey
      * @return string
      */
     public function getItemRemoveUrlCustom($item, $addFormKey = true)
@@ -428,8 +428,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Add Item to shopping cart URL with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item|string $item
+     * @param  bool                                                       $addFormKey
      * @return string
      */
     public function getItemAddToCartUrlCustom($item, $addFormKey = true)

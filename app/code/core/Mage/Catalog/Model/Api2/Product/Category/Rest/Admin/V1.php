@@ -115,8 +115,8 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
     /**
      * Get resource location
      *
-     * @param Mage_Core_Model_Abstract $resource
-     * @return string URL
+     * @param  Mage_Core_Model_Abstract $resource
+     * @return string                   URL
      */
     protected function _getLocation($resource)
     {

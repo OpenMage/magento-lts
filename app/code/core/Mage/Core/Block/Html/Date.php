@@ -22,15 +22,15 @@ use Carbon\Carbon;
  * @method string getTime()
  * @method string getValue()
  * @method string getYearsRange()
- * @method $this setClass(string $value)
- * @method $this setExtraParams(string $value)
- * @method $this setFormat(string $value)
- * @method $this setImage(string $value)
- * @method $this setName(string $value)
- * @method $this setTime(string $value)
- * @method $this setTitle(string $value)
- * @method $this setValue(string $value)
- * @method $this setYearsRange(string $value)
+ * @method $this  setClass(string $value)
+ * @method $this  setExtraParams(string $value)
+ * @method $this  setFormat(string $value)
+ * @method $this  setImage(string $value)
+ * @method $this  setName(string $value)
+ * @method $this  setTime(string $value)
+ * @method $this  setTitle(string $value)
+ * @method $this  setValue(string $value)
+ * @method $this  setYearsRange(string $value)
  */
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {
@@ -73,7 +73,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     }
 
     /**
-     * @param null $index deprecated
+     * @param  null   $index deprecated
      * @return string
      */
     public function getEscapedValue($index = null)

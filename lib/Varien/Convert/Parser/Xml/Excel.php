@@ -147,7 +147,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     /**
      * Retrieve Excel 2003 XML Document header XML fragment
      *
-     * @param string $sheetName the Worksheet name
+     * @param  string $sheetName the Worksheet name
      * @return string
      */
     public function getHeaderXml($sheetName = '')

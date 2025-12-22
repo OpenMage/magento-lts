@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     }
 
     /**
-     * @param float $price
+     * @param  float  $price
      * @return string
      * @deprecated after 1.4.0.0-rc1
      */
@@ -110,8 +110,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     /**
      * Format price by specified website
      *
-     * @param float $price
-     * @param null|int $websiteId
+     * @param  float    $price
+     * @param  null|int $websiteId
      * @return string
      */
     public function formatCurrency($price, $websiteId = null)

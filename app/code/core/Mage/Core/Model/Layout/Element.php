@@ -13,7 +13,7 @@
 class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepare($args)
@@ -70,7 +70,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareBlock($args)
@@ -93,7 +93,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareReference($args)
@@ -102,7 +102,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareAction($args)
@@ -114,7 +114,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @param array $args
+     * @param  array $args
      * @return $this
      */
     public function prepareActionArgument($args)

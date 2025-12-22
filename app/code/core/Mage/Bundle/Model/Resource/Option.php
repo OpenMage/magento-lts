@@ -77,8 +77,8 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve options searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)
@@ -108,7 +108,7 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
             )
             ->where('opt.parent_id=:product_id');
         if (!$searchData = $adapter->fetchCol($select, $bind)) {
-            $searchData = [];
+            return [];
         }
 
         return $searchData;

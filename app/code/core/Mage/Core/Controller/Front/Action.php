@@ -86,11 +86,11 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -168,7 +168,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     {
         $validated = true;
         if ($this->_isFormKeyEnabled()) {
-            $validated = parent::_validateFormKey();
+            return parent::_validateFormKey();
         }
 
         return $validated;

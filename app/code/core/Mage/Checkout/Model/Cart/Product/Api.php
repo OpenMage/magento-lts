@@ -17,7 +17,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * Base preparation of product data
      *
-     * @param mixed $data
+     * @param  mixed      $data
      * @return null|array
      */
     protected function _prepareProductsData($data)
@@ -26,8 +26,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
+     * @param  int        $quoteId
+     * @param  array      $productsData
      * @param  int|string $store
      * @return bool
      */
@@ -79,8 +79,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
+     * @param  int        $quoteId
+     * @param  array      $productsData
      * @param  int|string $store
      * @return bool
      */
@@ -136,8 +136,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
+     * @param  int        $quoteId
+     * @param  array      $productsData
      * @param  int|string $store
      * @return bool
      */
@@ -195,7 +195,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return array
      */
@@ -228,8 +228,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
+     * @param  int        $quoteId
+     * @param  array      $productsData
      * @param  int|string $store
      * @return bool
      */

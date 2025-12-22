@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Tax_Class_Edit extends Mage_Adminhtml_Block_Widget_Fo
     }
 
     /**
-     * @param string $classType
+     * @param  string $classType
      * @return $this
      */
     public function setClassType($classType)

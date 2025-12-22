@@ -97,7 +97,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Seeks to a position.
      *
-     * @param int $position the position to seek to
+     * @param  int                  $position the position to seek to
      * @return void
      * @throws OutOfBoundsException
      */

@@ -73,8 +73,8 @@ class Mage_Api_Model_Acl extends Zend_Acl
     /**
      * Add parent to role object
      *
-     * @param string|Zend_Acl_Role_Interface $role
-     * @param array|string|Zend_Acl_Role_Interface $parent
+     * @param  string|Zend_Acl_Role_Interface       $role
+     * @param  array|string|Zend_Acl_Role_Interface $parent
      * @return $this
      * @throws Zend_Acl_Role_Registry_Exception
      */

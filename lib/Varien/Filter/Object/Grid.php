@@ -10,7 +10,7 @@
 class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
     /**
-     * @param array|Varien_Object $grid
+     * @param  array|Varien_Object $grid
      * @return array
      * @throws Exception
      */

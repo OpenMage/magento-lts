@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid_Renderer_Checkbox extends Mag
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {

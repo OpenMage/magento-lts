@@ -144,7 +144,7 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Set quote and config instances
-     * @param array $params
+     * @param  array     $params
      * @throws Exception
      */
     public function __construct($params = [])
@@ -203,9 +203,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter that enables giropay redirects flow
      *
-     * @param string $successUrl - payment success result
-     * @param string $cancelUrl  - payment cancellation result
-     * @param string $pendingUrl - pending payment result
+     * @param  string $successUrl - payment success result
+     * @param  string $cancelUrl  - payment cancellation result
+     * @param  string $pendingUrl - pending payment result
      * @return $this
      */
     public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
@@ -217,7 +217,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set create billing agreement flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsBillingAgreementRequested($flag)
@@ -229,7 +229,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer Id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      * @deprecated please use self::setCustomer
      */
@@ -252,7 +252,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -282,9 +282,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Reserve order ID for specified quote and start checkout on PayPal
      *
-     * @param string $returnUrl
-     * @param string $cancelUrl
-     * @param null|bool $button
+     * @param  string              $returnUrl
+     * @param  string              $cancelUrl
+     * @param  null|bool           $button
      * @return mixed
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -421,7 +421,7 @@ class Mage_Paypal_Model_Express_Checkout
      * save old billing address for new customer
      * export shipping address in case address absence
      *
-     * @param string $token
+     * @param  string              $token
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -504,7 +504,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check whether order review has enough data to initialize
      *
-     * @param string $token
+     * @param  string              $token
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -568,7 +568,7 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Set shipping method to quote, if needed
-     * @param string $methodCode
+     * @param  string              $methodCode
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -587,8 +587,8 @@ class Mage_Paypal_Model_Express_Checkout
      * Place the order and recurring payment profiles when customer returned from paypal
      * Until this moment all quote data must be valid
      *
-     * @param string $token
-     * @param string $shippingMethodCode
+     * @param  string              $token
+     * @param  string              $shippingMethodCode
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -740,8 +740,8 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Sets address data from exported address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param Varien_Object $exportedAddress
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  Varien_Object                  $exportedAddress
      * @throws Mage_Core_Exception
      */
     protected function _setExportedAddressData($address, $exportedAddress)
@@ -823,7 +823,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Returns empty array if it was impossible to obtain any shipping rate
      * If there are shipping rates obtained, the method must return one of them as default.
      *
-     * @param bool $mayReturnEmpty
+     * @param  bool  $mayReturnEmpty
      * @return array
      */
     protected function _prepareShippingOptions(
@@ -920,7 +920,7 @@ class Mage_Paypal_Model_Express_Checkout
      * If in future the issue is fixed, we don't need to attempt to match it. It would be enough to set the method code
      * before collecting shipping rates
      *
-     * @param string $selectedCode
+     * @param  string $selectedCode
      * @return string
      */
     protected function _matchShippingMethodCode(Mage_Sales_Model_Quote_Address $address, $selectedCode)
@@ -1114,7 +1114,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check if customer email exists
      *
-     * @param string $email
+     * @param  string              $email
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -1129,7 +1129,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         $customer->loadByEmail($email);
         if (!is_null($customer->getId())) {
-            $result = true;
+            return true;
         }
 
         return $result;
