@@ -62,10 +62,13 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
      */
     protected function _toHtml()
     {
+        // For product detail pages, only check if swatches are enabled in config
+        // Don't require listing attribute to be configured
         if (!Mage::getStoreConfigFlag(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_ENABLED)) {
             return ''; // do not render block
         }
 
+        // Call grandparent to skip the Abstract class's isEnabled() check
         return Mage_Core_Block_Template::_toHtml();
     }
 }
