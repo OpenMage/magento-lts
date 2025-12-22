@@ -34,8 +34,8 @@ class Unserialize_Reader_Str
     public const READING_VALUE = 3;
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string      $char
+     * @param  string      $prevChar
      * @return null|string
      */
     public function read($char, $prevChar)

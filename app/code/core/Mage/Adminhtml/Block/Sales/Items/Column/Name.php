@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name extends Mage_Adminhtml_Block_
     /**
      * Add line breaks and truncate value
      *
-     * @param string $value
+     * @param  string $value
      * @return array
      */
     public function getFormattedOption($value)

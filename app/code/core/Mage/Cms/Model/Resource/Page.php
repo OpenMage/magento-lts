@@ -21,6 +21,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_store = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cms/page', 'page_id');
@@ -70,7 +73,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
          * type NULL so in DB they will be empty and not some default value
          */
         foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
-            $value = !$object->getData($field) ? null : $object->getData($field);
+            $value = $object->getData($field) ? $object->getData($field) : null;
             $object->setData($field, $this->formatDate($value));
         }
 
@@ -184,9 +187,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Cms_Model_Page $object
+     * @param  string              $field
+     * @param  mixed               $value
+     * @param  Mage_Cms_Model_Page $object
      * @return Zend_Db_Select
      * @throws Exception
      */
@@ -213,9 +216,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve load select with filter by identifier, store and activity
      *
-     * @param string $identifier
-     * @param array|int $store
-     * @param int $isActive
+     * @param  string           $identifier
+     * @param  array|int        $store
+     * @param  int              $isActive
      * @return Varien_Db_Select
      */
     protected function _getLoadByIdentifierSelect($identifier, $store, $isActive = null)
@@ -240,7 +243,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of page to selected store(s).
      *
-     * @param Mage_Cms_Model_Page $object
+     * @param  Mage_Cms_Model_Page $object
      * @return bool
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
@@ -277,7 +280,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is valid
      *
-     * @return   false|int
+     * @return false|int
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
@@ -311,8 +314,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      * Check if page identifier exist for specific store
      * return page id if page exists
      *
-     * @param string $identifier
-     * @param int $storeId
+     * @param  string $identifier
+     * @param  int    $storeId
      * @return string
      */
     public function checkIdentifier($identifier, $storeId)
@@ -330,7 +333,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed identifier.
      *
-     * @param int|string $identifier
+     * @param  int|string                      $identifier
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -353,7 +356,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param int|string $id
+     * @param  int|string $id
      * @return string
      */
     public function getCmsPageTitleById($id)
@@ -374,7 +377,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page identifier from DB by passed id.
      *
-     * @param string $id
+     * @param  string       $id
      * @return false|string
      */
     public function getCmsPageIdentifierById($id)
@@ -395,7 +398,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param string $pageId
+     * @param  string $pageId
      * @return array
      */
     public function lookupStoreIds($pageId)
@@ -412,7 +415,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Set store model
      *
-     * @param Mage_Core_Model_Store $store
+     * @param  Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)

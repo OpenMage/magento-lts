@@ -82,8 +82,8 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add catalog inventory stock item field to select
      *
-     * @param string $field
-     * @param string $alias
+     * @param  string $field
+     * @param  string $alias
      * @return $this
      */
     protected function _addInventoryItemFieldToSelect($field, $alias = null)
@@ -108,7 +108,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Retrieve catalog inventory stock item field correlation name
      *
-     * @param string $field
+     * @param  string $field
      * @return string
      */
     protected function _getInventoryItemField($field)
@@ -119,7 +119,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
-     * @param array|string $fields
+     * @param  array|string        $fields
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -160,7 +160,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add filter by product type(s)
      *
-     * @param array|string $typeFilter
+     * @param  array|string $typeFilter
      * @return $this
      */
     public function filterByProductType($typeFilter)
@@ -192,7 +192,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Use Manage Stock Condition to collection
      *
-     * @param null|int $storeId
+     * @param  null|int $storeId
      * @return $this
      */
     public function useManageStockFilter($storeId = null)
@@ -210,7 +210,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Notify Stock Qty Condition to collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function useNotifyStockQtyFilter($storeId = null)

@@ -12,22 +12,22 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array getAllowQuoteItemsGiftMessage()
- * @method string getCurrencyId()
- * @method int getCustomerGroupId()
- * @method int getCustomerId()
+ * @method array      getAllowQuoteItemsGiftMessage()
+ * @method string     getCurrencyId()
+ * @method int        getCustomerGroupId()
+ * @method int        getCustomerId()
  * @method int|string getOrderId()
  * @method int|string getQuoteId()
- * @method int getStoreId()
- * @method bool getUseOldShippingMethod(bool $value)
- * @method bool hasCustomerId()
- * @method $this setAllowQuoteItemsGiftMessage(array $value)
- * @method $this setCurrencyId(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setOrderId(int|string $value)
- * @method $this setQuoteId(int|string $value)
- * @method $this setReordered(int|string $value)
- * @method $this setStoreId(int $value)
+ * @method int        getStoreId()
+ * @method bool       getUseOldShippingMethod(bool $value)
+ * @method bool       hasCustomerId()
+ * @method $this      setAllowQuoteItemsGiftMessage(array $value)
+ * @method $this      setCurrencyId(string $value)
+ * @method $this      setCustomerId(int $value)
+ * @method $this      setOrderId(int|string $value)
+ * @method $this      setQuoteId(int|string $value)
+ * @method $this      setReordered(int|string $value)
+ * @method $this      setStoreId(int $value)
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
@@ -117,8 +117,8 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
 
     /**
      * Retrieve customer model object
-     * @param bool $forceReload
-     * @param bool $useSetStore
+     * @param  bool                         $forceReload
+     * @param  bool                         $useSetStore
      * @return Mage_Customer_Model_Customer
      */
     public function getCustomer($forceReload = false, $useSetStore = false)

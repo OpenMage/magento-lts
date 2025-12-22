@@ -36,7 +36,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_
     /**
      * Prevent compounding nominal subtotal in case if the trial payment exists
      *
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address       $address
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @see Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal
      */

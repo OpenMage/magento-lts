@@ -14,17 +14,20 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
 {
     /**
      * Filter by parent product set
+     *
+     * @return $this
      */
     public function addProductSetFilter(array $productIds)
     {
         $this->getSelect()->where('link_table.parent_id in (?)', $productIds);
+        return $this;
     }
 
     /**
      * Load unique entities records into items
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool      $printQuery
+     * @param  bool      $logQuery
      * @return $this
      * @throws Exception
      */
@@ -48,11 +51,11 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             throw $exception;
         }
 
-        foreach ($rows as $v) {
-            if (!isset($this->_items[$v['entity_id']])) {
+        foreach ($rows as $row) {
+            if (!isset($this->_items[$row['entity_id']])) {
                 $object = $this->getNewEmptyItem()
-                    ->setData($v)
-                    ->setParentIds([$v['parent_id']]);
+                    ->setData($row)
+                    ->setParentIds([$row['parent_id']]);
                 $this->addItem($object);
                 if (isset($this->_itemsById[$object->getId()])) {
                     $this->_itemsById[$object->getId()][] = $object;
@@ -60,9 +63,9 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
                     $this->_itemsById[$object->getId()] = [$object];
                 }
             } else {
-                $parents = $this->_items[$v['entity_id']]->getParentIds();
-                $parents[] = $v['parent_id'];
-                $this->_items[$v['entity_id']]->setParentIds($parents);
+                $parents = $this->_items[$row['entity_id']]->getParentIds();
+                $parents[] = $row['parent_id'];
+                $this->_items[$row['entity_id']]->setParentIds($parents);
             }
         }
 

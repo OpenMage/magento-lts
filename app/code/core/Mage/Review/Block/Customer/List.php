@@ -22,7 +22,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected $_collection;
 
     /**
-     * Initializes collection
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -110,7 +110,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Format date in short format
      *
-     * @param null|string|Zend_Date $date
+     * @param  null|string|Zend_Date $date
      * @return string
      */
     public function dateFormat($date)

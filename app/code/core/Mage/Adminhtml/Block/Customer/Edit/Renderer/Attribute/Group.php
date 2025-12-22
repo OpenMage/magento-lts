@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Override parent constructor just for setting custom template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group extends Mage_A
         $value = $this->getDisableAutoGroupChangeAttributeValue();
         $state = '';
         if (!empty($value) || $checkedByDefault) {
-            $state = 'checked';
+            return 'checked';
         }
 
         return $state;

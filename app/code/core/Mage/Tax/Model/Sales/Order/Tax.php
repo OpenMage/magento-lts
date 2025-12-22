@@ -10,35 +10,38 @@
 /**
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Sales_Order_Tax _getResource()
- * @method float getAmount()
- * @method float getBaseAmount()
- * @method float getBaseRealAmount()
- * @method string getCode()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax            _getResource()
+ * @method float                                              getAmount()
+ * @method float                                              getBaseAmount()
+ * @method float                                              getBaseRealAmount()
+ * @method string                                             getCode()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Collection getCollection()
- * @method int getHidden()
- * @method int getOrderId()
- * @method float getPercent()
- * @method int getPosition()
- * @method int getPriority()
- * @method int getProcess()
- * @method Mage_Tax_Model_Resource_Sales_Order_Tax getResource()
+ * @method int                                                getHidden()
+ * @method int                                                getOrderId()
+ * @method float                                              getPercent()
+ * @method int                                                getPosition()
+ * @method int                                                getPriority()
+ * @method int                                                getProcess()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax            getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Collection getResourceCollection()
- * @method string getTitle()
- * @method $this setAmount(float $value)
- * @method $this setBaseAmount(float $value)
- * @method $this setBaseRealAmount(float $value)
- * @method $this setCode(string $value)
- * @method $this setHidden(int $value)
- * @method $this setOrderId(int $value)
- * @method $this setPercent(float $value)
- * @method $this setPosition(int $value)
- * @method $this setPriority(int $value)
- * @method $this setProcess(int $value)
- * @method $this setTitle(string $value)
+ * @method string                                             getTitle()
+ * @method $this                                              setAmount(float $value)
+ * @method $this                                              setBaseAmount(float $value)
+ * @method $this                                              setBaseRealAmount(float $value)
+ * @method $this                                              setCode(string $value)
+ * @method $this                                              setHidden(int $value)
+ * @method $this                                              setOrderId(int $value)
+ * @method $this                                              setPercent(float $value)
+ * @method $this                                              setPosition(int $value)
+ * @method $this                                              setPriority(int $value)
+ * @method $this                                              setProcess(int $value)
+ * @method $this                                              setTitle(string $value)
  */
 class Mage_Tax_Model_Sales_Order_Tax extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/sales_order_tax');

@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -35,7 +35,7 @@ class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resou
     /**
      * Add Entity type filter to collection
      *
-     * @param int|Mage_Eav_Model_Entity_Type $entity
+     * @param  int|Mage_Eav_Model_Entity_Type $entity
      * @return $this
      */
     public function addEntityTypeFilter($entity)

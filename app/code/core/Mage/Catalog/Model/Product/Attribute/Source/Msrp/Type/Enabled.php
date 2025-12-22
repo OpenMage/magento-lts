@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                   $store
      * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)

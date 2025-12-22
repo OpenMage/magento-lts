@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Initialize product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -158,7 +158,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Change current category object
      *
-     * @param mixed $category
+     * @param  mixed               $category
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -236,8 +236,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Prepare attribute for use in layered navigation
      *
-     * @param   Mage_Eav_Model_Entity_Attribute $attribute
-     * @return  Mage_Eav_Model_Entity_Attribute
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @return Mage_Eav_Model_Entity_Attribute
      */
     protected function _prepareAttribute($attribute)
     {
@@ -248,8 +248,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @param  Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {

@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     }
 
     /**
-     * @param Mage_Sales_Model_Order $row
+     * @param  Mage_Sales_Model_Order $row
      * @return string
      */
     public function getRowUrl($row)

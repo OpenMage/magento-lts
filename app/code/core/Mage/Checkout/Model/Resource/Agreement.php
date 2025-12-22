@@ -14,6 +14,9 @@
  */
 class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('checkout/agreement', 'agreement_id');
@@ -82,9 +85,9 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
     /**
      * Get load select
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Checkout_Model_Agreement|Mage_Core_Model_Abstract $object
+     * @param  string                                                 $field
+     * @param  mixed                                                  $value
+     * @param  Mage_Checkout_Model_Agreement|Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)

@@ -15,7 +15,7 @@
 class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

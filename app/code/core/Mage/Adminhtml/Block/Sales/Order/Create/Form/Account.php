@@ -55,7 +55,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
-            /** @var Mage_Customer_Model_Attribute $attribute */
             if ($attribute->getIsRequired()) {
                 $attributes[$attribute->getAttributeCode()] = $attribute;
             }

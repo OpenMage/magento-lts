@@ -7,6 +7,8 @@
  * @package    Mage
  */
 
+use Carbon\Carbon;
+
 $start = microtime(true);
 /**
  * Error reporting
@@ -56,7 +58,7 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
     $config = json_decode(file_get_contents($configCacheFile), true);
 
     //checking update time
-    if (filemtime($configCacheFile) + $config['update_time'] > time()) {
+    if (filemtime($configCacheFile) + $config['update_time'] > Carbon::now()->getTimestamp()) {
         $mediaDirectory = trim(str_replace($bp . $ds, '', $config['media_directory']), $ds);
         $allowedResources = array_merge($allowedResources, $config['allowed_resources']);
     }

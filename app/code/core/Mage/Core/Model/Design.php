@@ -10,23 +10,26 @@
 /**
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Design _getResource()
+ * @method Mage_Core_Model_Resource_Design            _getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getCollection()
- * @method string getDateFrom()
- * @method string getDateTo()
- * @method string getDesign()
- * @method string getPackage()
- * @method Mage_Core_Model_Resource_Design getResource()
+ * @method string                                     getDateFrom()
+ * @method string                                     getDateTo()
+ * @method string                                     getDesign()
+ * @method string                                     getPackage()
+ * @method Mage_Core_Model_Resource_Design            getResource()
  * @method Mage_Core_Model_Resource_Design_Collection getResourceCollection()
- * @method int getStoreId()
- * @method string getTheme()
- * @method $this setDateFrom(string $value)
- * @method $this setDateTo(string $value)
- * @method $this setDesign(string $value)
- * @method $this setStoreId(int $value)
+ * @method int                                        getStoreId()
+ * @method string                                     getTheme()
+ * @method $this                                      setDateFrom(string $value)
+ * @method $this                                      setDateTo(string $value)
+ * @method $this                                      setDesign(string $value)
+ * @method $this                                      setStoreId(int $value)
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/design');
@@ -42,8 +45,8 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $storeId
-     * @param null|string $date
+     * @param  int         $storeId
+     * @param  null|string $date
      * @return $this
      */
     public function loadChange($storeId, $date = null)

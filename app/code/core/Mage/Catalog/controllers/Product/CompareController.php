@@ -157,7 +157,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     /**
      * Setter for customer id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -169,7 +169,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     /**
      * Check if product is available
      *
-     * @param int $productId
+     * @param  int  $productId
      * @return bool
      */
     public function isProductAvailable($productId)

@@ -15,7 +15,7 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli_Setup extends Mage_Core_Model_Reso
     /**
      * Get connection
      *
-     * @param array $config
+     * @param  array                    $config
      * @return Varien_Db_Adapter_Mysqli
      */
     public function getConnection($config)

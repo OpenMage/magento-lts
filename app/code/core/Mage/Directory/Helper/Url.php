@@ -19,7 +19,7 @@ class Mage_Directory_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve switch currency url
      *
-     * @param array $params Additional url params
+     * @param  array  $params Additional url params
      * @return string
      */
     public function getSwitchCurrencyUrl($params = [])

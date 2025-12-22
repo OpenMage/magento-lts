@@ -36,7 +36,7 @@ class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Sho
     protected $_checkoutType = 'paypaluk/express_checkout';
 
     /**
-     * @param $quote
+     * @param        $quote
      * @return $this
      */
     protected function _getBmlShortcut($quote)

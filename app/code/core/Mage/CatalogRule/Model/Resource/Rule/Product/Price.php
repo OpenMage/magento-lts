@@ -14,6 +14,9 @@
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogrule/rule_product_price', 'rule_product_price_id');
@@ -22,12 +25,12 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
     /**
      * Apply price rule price to price index table
      *
-     * @param array|string $indexTable
-     * @param string $entityId
-     * @param string $customerGroupId
-     * @param string $websiteId
-     * @param array $updateFields       the array of fields for compare with rule price and update
-     * @param string $websiteDate
+     * @param  array|string $indexTable
+     * @param  string       $entityId
+     * @param  string       $customerGroupId
+     * @param  string       $websiteId
+     * @param  array        $updateFields    the array of fields for compare with rule price and update
+     * @param  string       $websiteDate
      * @return $this
      */
     public function applyPriceRuleToIndexTable(

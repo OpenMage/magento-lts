@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Report Reviews collection
  *
@@ -63,12 +65,15 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected $_storeIds;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**
      * Set period
      *
-     * @param string $period
+     * @param  string $period
      * @return $this
      */
     public function setPeriod($period)
@@ -80,8 +85,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set interval
      *
-     * @param Zend_Date $from
-     * @param Zend_Date $to
+     * @param  Zend_Date $from
+     * @param  Zend_Date $to
      * @return $this
      */
     public function setInterval($from, $to)
@@ -128,7 +133,7 @@ class Mage_Reports_Model_Resource_Report_Collection
 
                         $time['end'] = ($lastInterval) ? $dateStart->setDay($dateEnd->getDay())
                             ->toString('yyyy-MM-dd 23:59:59')
-                            : $dateStart->toString('yyyy-MM-' . date('t', $dateStart->getTimestamp()) . ' 23:59:59');
+                            : $dateStart->toString('yyyy-MM-' . Carbon::createFromTimestamp($dateStart->getTimestamp())->format('t') . ' 23:59:59');
 
                         $dateStart->addMonth(1);
 
@@ -182,7 +187,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -214,7 +219,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set page size
      *
-     * @param int $size
+     * @param  int   $size
      * @return $this
      */
     public function setPageSize($size)
@@ -236,7 +241,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Init report
      *
-     * @param string $modelClass
+     * @param  string $modelClass
      * @return $this
      */
     public function initReport($modelClass)
@@ -252,8 +257,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * get report full
      *
-     * @param string $from
-     * @param string $to
+     * @param  string                    $from
+     * @param  string                    $to
      * @return Mage_Reports_Model_Report
      */
     public function getReportFull($from, $to)
@@ -264,8 +269,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get report
      *
-     * @param string $from
-     * @param string $to
+     * @param  string                    $from
+     * @param  string                    $to
      * @return Mage_Reports_Model_Report
      */
     public function getReport($from, $to)
@@ -276,7 +281,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Retrieve time shift
      *
-     * @param string $datetime
+     * @param  string $datetime
      * @return string
      */
     public function timeShift($datetime)

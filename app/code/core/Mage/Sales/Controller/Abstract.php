@@ -17,8 +17,8 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
     /**
      * Check order view availability
      *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  bool
+     * @param  Mage_Sales_Model_Order $order
+     * @return bool
      */
     protected function _canViewOrder($order)
     {
@@ -56,7 +56,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
     /**
      * Try to load valid order by order_id and register it
      *
-     * @param int $orderId
+     * @param  int  $orderId
      * @return bool
      */
     protected function _loadValidOrder($orderId = null)

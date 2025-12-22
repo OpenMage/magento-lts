@@ -19,6 +19,9 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     protected $_iterator = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('importexport/importdata', 'id');
@@ -127,8 +130,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Save import rows bunch.
      *
-     * @param string $entity
-     * @param string $behavior
+     * @param  string $entity
+     * @param  string $behavior
      * @return int
      */
     public function saveBunch($entity, $behavior, array $data)

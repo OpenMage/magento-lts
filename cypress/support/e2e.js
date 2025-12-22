@@ -61,5 +61,7 @@ import './openmage/backend/system/notification'
 import './openmage/backend/system/store'
 import './openmage/backend/system/variable'
 
+import './openmage/frontend/catalog/category'
+import './openmage/frontend/catalog/product'
 import './openmage/frontend/customer/account'
 import './openmage/frontend/homepage/newsletter'

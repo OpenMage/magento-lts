@@ -28,7 +28,7 @@ class Mage_Checkout_Block_Multishipping_Success extends Mage_Checkout_Block_Mult
     }
 
     /**
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getViewOrderUrl($orderId)

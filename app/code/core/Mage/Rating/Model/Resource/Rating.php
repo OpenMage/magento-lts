@@ -16,6 +16,9 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
 {
     public const RATING_STATUS_APPROVED = 'Approved';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('rating/rating', 'rating_id');
@@ -38,9 +41,9 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Rating_Model_Rating $object
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Rating_Model_Rating $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -95,7 +98,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve store IDs related to given rating
      *
-     * @param  int $ratingId
+     * @param  int   $ratingId
      * @return array
      */
     public function getStores($ratingId)
@@ -205,7 +208,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object delete
      * Prepare rating data for re-aggregate all data for reviews
      *
-     * @param Mage_Rating_Model_Rating $object
+     * @param  Mage_Rating_Model_Rating $object
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
@@ -230,8 +233,8 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Return array of rating summary
      *
-     * @param Mage_Rating_Model_Rating $object
-     * @param bool $onlyForCurrentStore
+     * @param  Mage_Rating_Model_Rating       $object
+     * @param  bool                           $onlyForCurrentStore
      * @return array|Mage_Rating_Model_Rating
      */
     public function getEntitySummary($object, $onlyForCurrentStore = true)
@@ -288,7 +291,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Return data of rating summary
      *
-     * @param Mage_Rating_Model_Rating $object
+     * @param  Mage_Rating_Model_Rating $object
      * @return array
      */
     protected function _getEntitySummaryData($object)
@@ -343,8 +346,8 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Review summary
      *
-     * @param Mage_Rating_Model_Rating $object
-     * @param bool $onlyForCurrentStore
+     * @param  Mage_Rating_Model_Rating       $object
+     * @param  bool                           $onlyForCurrentStore
      * @return array|Mage_Rating_Model_Rating
      */
     public function getReviewSummary($object, $onlyForCurrentStore = true)
@@ -416,7 +419,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Get rating entity type id by code
      *
-     * @param string $entityCode
+     * @param  string $entityCode
      * @return string
      */
     public function getEntityIdByCode($entityCode)
@@ -431,7 +434,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Delete ratings by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function deleteAggregatedRatingsByProductId($productId)

@@ -17,20 +17,21 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     /**
      * A list of blocks that contain products. Used to get the current display mode (grid/list).
      *
-     * @var array
+     * @var string[]
      */
     protected $_productListBlocks = ['product_list', 'search_result_list'];
 
     /**
      * Get target product IDs
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     abstract public function getProducts();
 
     /**
      * json encode image fallback array
      *
+     * @param  array<string, array<string>> $imageFallback
      * @return string
      */
     protected function _getJsImageFallbackString(array $imageFallback)
@@ -44,7 +45,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     /**
      * Image size(s) to attach to children products as array
      *
-     * @return array
+     * @return string[]
      */
     abstract protected function _getImageSizes();
 
@@ -52,8 +53,9 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
-     * @param null|bool $keepFrame
-     * @return array
+     * @param  null|bool                                                                             $keepFrame
+     * @return array<int|string, array{product: Mage_Catalog_Model_Product, image_fallback: string}>
+     * @throws Mage_Core_Exception
      */
     public function getProductImageFallbacks($keepFrame = null)
     {
@@ -68,7 +70,6 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
             $keepFrame = $this->isKeepFrame();
         }
 
-        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $imageFallback = $helper->getConfigurableImagesFallbackArray($product, $this->_getImageSizes(), $keepFrame);
 

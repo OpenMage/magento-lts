@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     protected $_priceTable;
 
     /**
-     * Inititalize connection and define tables
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Load attribute labels
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      * @deprecated
      */
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Load prices
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      * @deprecated
      */
@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Save Custom labels for Attribute name
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
      * @return $this
      */
     public function saveLabel($attribute)
@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Save Options prices (Depends from price save scope)
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
      * @return $this
      */
     public function savePrices($attribute)
@@ -173,7 +173,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 'pricing_value' => $v['pricing_value'],
                 'is_percent'    => $v['is_percent'],
                 'website_id'    => $websiteId,
-                'use_default'   => !empty($v['use_default_value']) ? true : false,
+                'use_default'   => !empty($v['use_default_value']),
             ];
         }
 
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Retrieve Used in Configurable Products Attributes
      *
-     * @param int $setId The specific attribute set
+     * @param  int   $setId The specific attribute set
      * @return array
      */
     public function getUsedAttributes($setId)

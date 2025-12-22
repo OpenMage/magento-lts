@@ -64,7 +64,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     }
 
     /**
-     * Instantiate a recurring payment profile to use it as a helper
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -174,10 +174,10 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
      * Add a field to the form or fieldset
      * Form and fieldset have same abstract
      *
-     * @param Varien_Data_Form|Varien_Data_Form_Element_Fieldset $formOrFieldset
-     * @param string $elementName
-     * @param array $options
-     * @param string $type
+     * @param  Varien_Data_Form|Varien_Data_Form_Element_Fieldset $formOrFieldset
+     * @param  string                                             $elementName
+     * @param  array                                              $options
+     * @param  string                                             $type
      * @return Varien_Data_Form_Element_Abstract
      */
     protected function _addField($formOrFieldset, $elementName, $options = [], $type = 'text')
@@ -198,7 +198,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Getter for period unit options with "Please Select" label
      *
-     * @param string $emptyLabel
+     * @param  string $emptyLabel
      * @return array
      */
     protected function _getPeriodUnitOptions($emptyLabel)
@@ -212,7 +212,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Set readonly flag
      *
-     * @param bool $isReadonly
+     * @param  bool  $isReadonly
      * @return $this
      */
     public function setIsReadonly($isReadonly)

@@ -12,31 +12,31 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Calculation_Rate _getResource()
- * @method string getCode()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate            _getResource()
+ * @method string                                              getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
- * @method string getRate()
- * @method Mage_Tax_Model_Resource_Calculation_Rate getResource()
+ * @method string                                              getRate()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
- * @method int getTaxCalculationRateId()
- * @method string getTaxCountryId()
- * @method string getTaxPostcode()
- * @method int getTaxRegionId()
- * @method array getTitle()
- * @method string getZipFrom()
- * @method int getZipIsRange()
- * @method string getZipTo()
- * @method bool hasTaxPostcode()
- * @method $this setCode(string $value)
- * @method $this setRate(string $value)
- * @method $this setRegionName(string $value)
- * @method $this setTaxCountryId(string $value)
- * @method $this setTaxPostcode(string $value)
- * @method $this setTaxRegionId(int $value)
- * @method $this setTitle(array $value)
- * @method $this setZipFrom(null|string $value)
- * @method $this setZipIsRange(null|int $value)
- * @method $this setZipTo(null|string $value)
+ * @method int                                                 getTaxCalculationRateId()
+ * @method string                                              getTaxCountryId()
+ * @method string                                              getTaxPostcode()
+ * @method int                                                 getTaxRegionId()
+ * @method array                                               getTitle()
+ * @method string                                              getZipFrom()
+ * @method int                                                 getZipIsRange()
+ * @method string                                              getZipTo()
+ * @method bool                                                hasTaxPostcode()
+ * @method $this                                               setCode(string $value)
+ * @method $this                                               setRate(string $value)
+ * @method $this                                               setRegionName(string $value)
+ * @method $this                                               setTaxCountryId(string $value)
+ * @method $this                                               setTaxPostcode(string $value)
+ * @method $this                                               setTaxRegionId(int $value)
+ * @method $this                                               setTitle(array $value)
+ * @method $this                                               setZipFrom(null|string $value)
+ * @method $this                                               setZipIsRange(null|int $value)
+ * @method $this                                               setZipTo(null|string $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
@@ -55,7 +55,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected $_titleModel = null;
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -164,7 +164,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Saves the tax titles
      *
-     * @param null|array $titles
+     * @param  null|array          $titles
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -234,7 +234,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Load rate model by code
      *
-     * @param  string $code
+     * @param  string              $code
      * @return $this
      * @throws Mage_Core_Exception
      */
