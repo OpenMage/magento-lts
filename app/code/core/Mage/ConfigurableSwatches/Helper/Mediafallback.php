@@ -54,7 +54,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $swatchAttributeIds = Mage::helper('configurableswatches')->getSwatchAttributeIds();
         }
 
-        if ($listSwatchAttr && $listSwatchAttr->getId()) {
+        if ($listSwatchAttr instanceof Mage_Eav_Model_Entity_Attribute_Abstract && $listSwatchAttr->getId()) {
             $swatchAttributeIds[] = $listSwatchAttr->getId();
         }
 
@@ -127,7 +127,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     $mapping[$optionLabel]['default_label'] = $optionLabels[$optionId][0];
                     $mapping[$optionLabel]['labels'] = $optionLabels[$optionId];
 
-                    if ($listSwatchAttr
+                    if ($listSwatchAttr instanceof Mage_Eav_Model_Entity_Attribute_Abstract
                         && $attribute->getAttributeId() == $listSwatchAttr->getAttributeId()
                         && !in_array($mapping[$optionLabel]['label'], $listSwatchValues)
                     ) {
