@@ -194,13 +194,9 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     }
 }
 
-function mageSendErrorHeader()
-{
-}
+function mageSendErrorHeader() {}
 
-function mageSendErrorFooter()
-{
-}
+function mageSendErrorFooter() {}
 
 /**
  * @param string $path
