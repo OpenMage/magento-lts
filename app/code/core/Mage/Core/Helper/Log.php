@@ -151,7 +151,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 return Level::Debug;
             }
         } else {
-            return (match ($level) {
+            return match ($level) {
                 7, 100 => Level::Debug,
                 6, 200 => Level::Info,
                 5, 250 => Level::Notice,
@@ -161,7 +161,7 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
                 1, 550 => Level::Alert,
                 0, 600 => Level::Emergency,
                 default => Level::Debug,
-            });
+            };
         }
     }
 
