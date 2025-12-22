@@ -81,7 +81,6 @@ try {
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
-            CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
@@ -102,9 +101,7 @@ try {
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
-            DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
             DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
