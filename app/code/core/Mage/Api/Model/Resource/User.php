@@ -128,7 +128,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load data by username
      *
-     * @param string $username
+     * @param  string $username
      * @return array
      */
     public function loadByUsername($username)
@@ -142,7 +142,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * load by session id
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return array
      */
     public function loadBySessId($sessId)
@@ -167,7 +167,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Clear by session
      *
-     * @param string $sessid
+     * @param  string $sessid
      * @return $this
      */
     public function clearBySessId($sessid)
@@ -182,7 +182,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve api user role data if it was assigned to role
      *
-     * @param int|Mage_Api_Model_User $user
+     * @param  int|Mage_Api_Model_User $user
      * @return null|array
      */
     public function hasAssigned2Role($user)
@@ -209,7 +209,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Api_Model_User $object
+     * @param  Mage_Api_Model_User $object
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -227,7 +227,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete the object
      *
-     * @param Mage_Api_Model_User $object
+     * @param  Mage_Api_Model_User $object
      * @return $this
      * @throws Exception
      * @throws Throwable
@@ -252,7 +252,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Save user roles
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User            $user
      * @return $this|Mage_Core_Model_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -306,7 +306,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles data
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User $user
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -336,7 +336,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add Role
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User       $user
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -375,7 +375,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete from role
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User $user
      * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
@@ -403,7 +403,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles which exists for user
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -423,7 +423,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check if user not unique
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User $user
      * @return array
      * @throws Mage_Core_Exception
      */

@@ -31,7 +31,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Set Store scope
      *
-     * @param int|Mage_Core_Model_Store|Mage_Core_Model_Website|string $store
+     * @param  int|Mage_Core_Model_Store|Mage_Core_Model_Website|string $store
      * @return Mage_ProductAlert_Block_Email_Abstract
      */
     public function setStore($store)
@@ -66,9 +66,9 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
-     * @param bool $format             Format price to currency format
-     * @param bool $includeContainer   Enclose into <span class="price"><span>
+     * @param  float $price
+     * @param  bool  $format           Format price to currency format
+     * @param  bool  $includeContainer Enclose into <span class="price"><span>
      * @return float
      */
     public function formatPrice($price, $format = true, $includeContainer = true)
@@ -124,7 +124,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     {
         $shortDescription = $product->getShortDescription();
         if ($shortDescription) {
-            $shortDescription = Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
+            return Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
         }
 
         return $shortDescription;

@@ -120,7 +120,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     /**
      * Get Breadcrumbs for current controller action
      *
-     * @param  Mage_Core_Controller_Front_Action $controller
+     * @param Mage_Core_Controller_Front_Action $controller
      */
     public function getBreadcrumbs($controller)
     {
@@ -146,7 +146,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     /**
      * Try to load order by cookie hash
      *
-     * @param null|string $cookie
+     * @param  null|string                 $cookie
      * @return null|Mage_Sales_Model_Order
      */
     protected function _loadOrderByCookie($cookie = null)

@@ -95,8 +95,8 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
     /**
      * Create URL depending on backups
      *
-     * @param string $storeType
-     * @param bool $backupAvailable
+     * @param  string $storeType
+     * @param  bool   $backupAvailable
      * @return string
      */
     public function _getDeleteUrl($storeType, $backupAvailable = false)

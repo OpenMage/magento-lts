@@ -17,7 +17,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Renders CMS Home page
      *
-     * @param string $coreRoute
+     * @param  string              $coreRoute
      * @return void
      * @throws Mage_Core_Exception
      */
@@ -49,7 +49,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Render CMS 404 Not found page
      *
-     * @param string $coreRoute
+     * @param  string              $coreRoute
      * @return void
      * @throws Mage_Core_Exception
      */

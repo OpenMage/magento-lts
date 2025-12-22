@@ -22,7 +22,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
      * Prepare data to insert/update.
      * Creating array for stdClass Object
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareData($data)
@@ -40,7 +40,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Create new customer
      *
-     * @param array $customerData
+     * @param  array               $customerData
      * @return int
      * @throws Mage_Core_Exception
      */
@@ -62,8 +62,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customer data
      *
-     * @param int $customerId
-     * @param array $attributes
+     * @param  int                 $customerId
+     * @param  array               $attributes
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -95,7 +95,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Retrieve customers data
      *
-     * @param  array|object $filters
+     * @param  array|object        $filters
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -137,8 +137,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Update customer data
      *
-     * @param int $customerId
-     * @param array $customerData
+     * @param  int                 $customerId
+     * @param  array               $customerData
      * @return bool
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -166,7 +166,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     /**
      * Delete customer
      *
-     * @param int $customerId
+     * @param  int                 $customerId
      * @return bool
      * @throws Mage_Core_Exception
      */

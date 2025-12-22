@@ -91,7 +91,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getInvoiceUrl($order)
@@ -100,7 +100,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getViewUrl($order)
@@ -109,7 +109,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getCreditmemoUrl($order)
@@ -118,7 +118,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return string
      */
     public function getPrintShipmentUrl($shipment)
@@ -127,7 +127,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintAllShipmentsUrl($order)

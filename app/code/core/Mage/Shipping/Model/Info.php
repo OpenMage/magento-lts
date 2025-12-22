@@ -12,11 +12,11 @@
  *
  * @package    Mage_Shipping
  *
- * @method int getOrderId()
+ * @method int    getOrderId()
  * @method string getProtectCode()
- * @method int getShipId()
- * @method int getTrackId()
- * @method $this setProtectCode(string $value)
+ * @method int    getShipId()
+ * @method int    getTrackId()
+ * @method $this  setProtectCode(string $value)
  */
 class Mage_Shipping_Model_Info extends Varien_Object
 {
@@ -30,7 +30,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Generating tracking info
      *
-     * @param string $hash
+     * @param  string              $hash
      * @return $this
      * @throws Mage_Core_Exception
      */

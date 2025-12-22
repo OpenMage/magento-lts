@@ -21,7 +21,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
 
     /**
      * Save uploaded file and set its name to category attribute
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */

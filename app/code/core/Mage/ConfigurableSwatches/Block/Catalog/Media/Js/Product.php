@@ -38,7 +38,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
         $type = parent::getImageType();
 
         if (empty($type)) {
-            $type = Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE;
+            return Mage_ConfigurableSwatches_Helper_Productimg::MEDIA_IMAGE_TYPE_BASE;
         }
 
         return $type;

@@ -78,8 +78,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
     /**
      * Make select object for date boundary
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed               $from
+     * @param  mixed               $to
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */

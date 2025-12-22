@@ -84,7 +84,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     /**
      * Get row URL
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $row
+     * @param  Mage_Api2_Model_Acl_Global_Role $row
      * @return null|string
      */
     public function getRowUrl($row)
@@ -102,10 +102,10 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     /**
      * Decorate 'User Type' column
      *
-     * @param string $renderedValue Rendered value
-     * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
+     * @param  string                                  $renderedValue Rendered value
+     * @param  Mage_Api2_Model_Acl_Global_Role         $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateUserType($renderedValue, $row, $column, $isExport)

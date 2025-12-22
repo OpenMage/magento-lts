@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Child extends M
     /**
      * Performed before data is saved
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object                                    $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
     public function beforeSave($object)

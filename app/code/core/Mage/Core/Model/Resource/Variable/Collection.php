@@ -33,7 +33,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     /**
      * Setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)

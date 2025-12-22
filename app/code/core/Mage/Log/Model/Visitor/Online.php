@@ -14,22 +14,22 @@ use Carbon\Carbon;
  *
  * @package    Mage_Log
  *
- * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online            _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
- * @method int getCustomerId()
- * @method string getFirstVisitAt()
- * @method string getLastUrl()
- * @method string getLastVisitAt()
- * @method int getRemoteAddr()
- * @method Mage_Log_Model_Resource_Visitor_Online getResource()
+ * @method int                                               getCustomerId()
+ * @method string                                            getFirstVisitAt()
+ * @method string                                            getLastUrl()
+ * @method string                                            getLastVisitAt()
+ * @method int                                               getRemoteAddr()
+ * @method Mage_Log_Model_Resource_Visitor_Online            getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
- * @method string getVisitorType()
- * @method $this setCustomerId(int $value)
- * @method $this setFirstVisitAt(string $value)
- * @method $this setLastUrl(string $value)
- * @method $this setLastVisitAt(string $value)
- * @method $this setRemoteAddr(int $value)
- * @method $this setVisitorType(string $value)
+ * @method string                                            getVisitorType()
+ * @method $this                                             setCustomerId(int $value)
+ * @method $this                                             setFirstVisitAt(string $value)
+ * @method $this                                             setLastUrl(string $value)
+ * @method $this                                             setLastVisitAt(string $value)
+ * @method $this                                             setRemoteAddr(int $value)
+ * @method $this                                             setVisitorType(string $value)
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
@@ -69,7 +69,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Set Prepare at timestamp (if time is null, set current timestamp)
      *
-     * @param int $time
+     * @param  int   $time
      * @return $this
      */
     public function setPrepareAt($time = null)
@@ -101,7 +101,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     {
         $value = Mage::getStoreConfigAsInt(self::XML_PATH_ONLINE_INTERVAL);
         if (!$value) {
-            $value = Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
+            return Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
         }
 
         return $value;

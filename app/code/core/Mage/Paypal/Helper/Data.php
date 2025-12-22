@@ -36,7 +36,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check whether customer should be asked confirmation whether to sign a billing agreement
      *
-     * @param int $customerId
+     * @param  int  $customerId
      * @return bool
      */
     public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
@@ -92,7 +92,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if (empty($countryCode)) {
-            $countryCode = Mage::helper('core')->getDefaultCountry();
+            return Mage::helper('core')->getDefaultCountry();
         }
 
         return $countryCode;
@@ -101,8 +101,8 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get HTML representation of transaction id
      *
-     * @param string $methodCode
-     * @param string $txnId
+     * @param  string $methodCode
+     * @param  string $txnId
      * @return string
      */
     public function getHtmlTransactionId($methodCode, $txnId)

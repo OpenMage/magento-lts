@@ -46,7 +46,7 @@ class Varien_Http_Client extends Zend_Http_Client
     /**
      * Change value of internal flag to disable/enable custom prepare functionality
      *
-     * @param bool $flag
+     * @param  bool               $flag
      * @return Varien_Http_Client
      */
     public function setUrlEncodeBody($flag)

@@ -50,7 +50,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init corresponding total models
      *
-     * @param array $options
+     * @param  array                           $options
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -90,9 +90,9 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init model class by configuration
      *
-     * @param string $class
-     * @param string $totalCode
-     * @param Mage_Core_Model_Config_Element $totalConfig
+     * @param  string                         $class
+     * @param  string                         $totalCode
+     * @param  Mage_Core_Model_Config_Element $totalConfig
      * @return false|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      */

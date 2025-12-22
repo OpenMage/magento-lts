@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Set store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)

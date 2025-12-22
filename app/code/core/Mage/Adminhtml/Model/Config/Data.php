@@ -12,20 +12,20 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array getGroups()
+ * @method array  getGroups()
  * @method string getScope()
  * @method string getScopeCode()
- * @method int getScopeId()
+ * @method int    getScopeId()
  * @method string getSection()
  * @method string getStore()
  * @method string getWebsite()
- * @method $this setGroups(array $value)
- * @method $this setScope(string $value)
- * @method $this setScopeCode(string $value)
- * @method $this setScopeId(int $value)
- * @method $this setSection(string $value)
- * @method $this setStore(string $value)
- * @method $this setWebsite(string $value)
+ * @method $this  setGroups(array $value)
+ * @method $this  setScope(string $value)
+ * @method $this  setScopeCode(string $value)
+ * @method $this  setScopeId(int $value)
+ * @method $this  setSection(string $value)
+ * @method $this  setStore(string $value)
+ * @method $this  setWebsite(string $value)
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
@@ -234,9 +234,9 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Extend config data with additional config data by specified path
      *
-     * @param string $path Config path prefix
-     * @param bool $full Simple config structure or not
-     * @param array $oldConfig Config data to extend
+     * @param  string $path      Config path prefix
+     * @param  bool   $full      Simple config structure or not
+     * @param  array  $oldConfig Config data to extend
      * @return array
      */
     public function extendConfig($path, $full = true, $oldConfig = [])
@@ -254,7 +254,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      *
      * Taken from Mage_Adminhtml_System_ConfigController::_isSectionAllowed
      *
-     * @param string $section
+     * @param  string $section
      * @return bool
      */
     protected function _isSectionAllowed($section)
@@ -319,7 +319,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Return formatted config data for current section
      *
-     * @param bool $full Simple config structure or not
+     * @param  bool  $full Simple config structure or not
      * @return array
      */
     protected function _getConfig($full = true)
@@ -330,8 +330,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Return formatted config data for specified path prefix
      *
-     * @param string $path Config path prefix
-     * @param bool $full Simple config structure or not
+     * @param  string $path Config path prefix
+     * @param  bool   $full Simple config structure or not
      * @return array
      */
     protected function _getPathConfig($path, $full = true)
@@ -367,8 +367,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Get config data value
      *
-     * @param string $path
-     * @param null|bool $inherit
+     * @param string     $path
+     * @param null|bool  $inherit
      * @param null|array $configData
      * @param-out bool $inherit
      * @return Varien_Simplexml_Element
@@ -409,7 +409,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Secure set groups
      *
-     * @param array $groups
+     * @param  array                            $groups
      * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
      */
@@ -467,7 +467,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Check field visibility by scope
      *
-     * @param Mage_Core_Model_Config_Element $field
+     * @param  Mage_Core_Model_Config_Element $field
      * @return bool
      */
     protected function _isValidField($field)
@@ -487,7 +487,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Select group setter is secure or not based on the configuration
      *
-     * @param array $groups
+     * @param  array                            $groups
      * @return Mage_Adminhtml_Model_Config_Data
      * @throws Mage_Core_Exception
      */

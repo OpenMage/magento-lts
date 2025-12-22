@@ -85,7 +85,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init authorize page
      *
-     * @param bool $simple
+     * @param  bool  $simple
      * @return $this
      */
     protected function _initForm($simple = false)
@@ -132,7 +132,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init confirm page
      *
-     * @param bool $simple
+     * @param  bool  $simple
      * @return $this
      */
     protected function _initConfirmPage($simple = false)
@@ -188,7 +188,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Init reject page
      *
-     * @param bool $simple
+     * @param  bool                                           $simple
      * @return Mage_Oauth_Adminhtml_Oauth_AuthorizeController
      */
     protected function _initRejectPage($simple = false)

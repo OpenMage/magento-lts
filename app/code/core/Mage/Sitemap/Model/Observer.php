@@ -42,7 +42,7 @@ class Mage_Sitemap_Model_Observer
     /**
      * Generate sitemaps
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return void
      * @throws Mage_Core_Exception
      */

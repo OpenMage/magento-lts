@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getStoreId()
+ * @method int  getStoreId()
  * @method bool hasStoreId()
  */
 class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface

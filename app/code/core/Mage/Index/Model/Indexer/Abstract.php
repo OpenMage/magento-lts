@@ -78,7 +78,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Process event
      *
-     * @return  Mage_Index_Model_Indexer_Abstract
+     * @return Mage_Index_Model_Indexer_Abstract
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
@@ -104,9 +104,9 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Check if indexer matched specific entity and action type
      *
-     * @param   string $entity
-     * @param   string $type
-     * @return  bool
+     * @param  string $entity
+     * @param  string $type
+     * @return bool
      */
     public function matchEntityAndType($entity, $type)
     {
@@ -135,7 +135,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      * Try dynamically detect and call event handler from resource model.
      * Handler name will be generated from event entity and type code
      *
-     * @return  Mage_Index_Model_Indexer_Abstract
+     * @return Mage_Index_Model_Indexer_Abstract
      */
     public function callEventHandler(Mage_Index_Model_Event $event)
     {
@@ -156,7 +156,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Set whether table changes are allowed
      *
-     * @param bool $value
+     * @param  bool                              $value
      * @return Mage_Index_Model_Indexer_Abstract
      * @deprecated after 1.6.1.0
      */

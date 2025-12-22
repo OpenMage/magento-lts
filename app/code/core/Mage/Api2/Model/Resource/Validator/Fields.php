@@ -49,7 +49,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      * Required parameteres for options:
      * - resource
      *
-     * @param array $options
+     * @param  array     $options
      * @throws Exception If passed parameter 'resource' is wrong
      */
     public function __construct($options)
@@ -119,7 +119,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param bool $isPartial
+     * @param  bool $isPartial
      * @return bool
      */
     public function isValidData(array $data, $isPartial = false)

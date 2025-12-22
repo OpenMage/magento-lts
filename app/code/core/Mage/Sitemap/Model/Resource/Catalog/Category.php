@@ -25,7 +25,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     /**
      * Get category collection array
      *
-     * @param int $storeId
+     * @param  int                 $storeId
      * @return array|false
      * @throws Mage_Core_Exception
      */
@@ -74,8 +74,8 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     protected function _getEntityUrl($row, $entity)
@@ -86,7 +86,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     /**
      * Loads category attribute by given attribute code.
      *
-     * @param string $attributeCode
+     * @param  string              $attributeCode
      * @return $this
      * @throws Mage_Core_Exception
      */

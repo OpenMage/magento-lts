@@ -33,9 +33,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories tree as recursive array
      *
-     * @param int $parentId
-     * @param bool $asJson
-     * @param int $recursionLevel
+     * @param  int          $parentId
+     * @param  bool         $asJson
+     * @param  int          $recursionLevel
      * @return array|string
      */
     public function getTreeArray($parentId = null, $asJson = false, $recursionLevel = 3)

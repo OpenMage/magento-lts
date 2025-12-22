@@ -18,7 +18,7 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
      * Prepare data to insert/update.
      * Creating array for stdClass Object
      *
-     * @param stdClass $data
+     * @param  stdClass $data
      * @return array
      */
     protected function _prepareData($data)

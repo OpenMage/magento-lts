@@ -41,7 +41,7 @@ class Mage_Cron_Model_Observer
      * Generate tasks schedule
      * Cleanup tasks schedule
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      * @throws Throwable
      * @throws Zend_Cache_Exception
@@ -73,7 +73,7 @@ class Mage_Cron_Model_Observer
     /**
      * Process cron queue for tasks marked as always
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      * @throws Throwable
      */
@@ -162,11 +162,11 @@ class Mage_Cron_Model_Observer
     /**
      * Generate jobs for config information
      *
-     * @param   SimpleXMLElement $jobs
-     * @param   array $exists
-     * @return  $this
-     * @throws  Mage_Core_Exception
-     * @throws  Throwable
+     * @param  SimpleXMLElement    $jobs
+     * @param  array               $exists
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -259,8 +259,8 @@ class Mage_Cron_Model_Observer
     /**
      * Processing cron task which is marked as always
      *
-     * @param string $jobCode
-     * @param SimpleXMLElement $jobConfig
+     * @param  string              $jobCode
+     * @param  SimpleXMLElement    $jobConfig
      * @return $this|void
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -287,9 +287,9 @@ class Mage_Cron_Model_Observer
     /**
      * Process cron task
      *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @param SimpleXMLElement $jobConfig
-     * @param bool $isAlways
+     * @param  Mage_Cron_Model_Schedule $schedule
+     * @param  SimpleXMLElement         $jobConfig
+     * @param  bool                     $isAlways
      * @return $this|void
      * @throws Throwable
      */
@@ -371,7 +371,7 @@ class Mage_Cron_Model_Observer
     /**
      * Get job for task marked as always
      *
-     * @param string $jobCode
+     * @param  string                   $jobCode
      * @return Mage_Cron_Model_Schedule
      * @throws Mage_Core_Exception
      * @throws Throwable
