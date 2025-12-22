@@ -18,6 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 final class AppTest extends OpenMageTest
 {
     use AppTrait;
+
     use CoreTrait;
 
     private static Subject $subject;
@@ -32,7 +33,7 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetStore
      * @group Model
      */
-    public function testGetStore(Mage_Core_Model_Store|int|string|bool|null $id): void
+    public function testGetStore(null|bool|int|Mage_Core_Model_Store|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
@@ -47,7 +48,7 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetWebsite
      * @group Model
      */
-    public function testGetWebsite(Mage_Core_Model_Website|int|string|bool|null $id): void
+    public function testGetWebsite(null|bool|int|Mage_Core_Model_Website|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
@@ -62,7 +63,7 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetGroup
      * @group Model
      */
-    public function testGetGroup(Mage_Core_Model_Store_Group|int|string|bool|null $id): void
+    public function testGetGroup(null|bool|int|Mage_Core_Model_Store_Group|string $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));

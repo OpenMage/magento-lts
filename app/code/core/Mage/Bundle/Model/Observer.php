@@ -17,7 +17,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting Bundle Items Data to product for father processing
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareProductSave($observer)
@@ -56,7 +56,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append bundles in upsell list for current product
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendUpsellProducts($observer)
@@ -130,7 +130,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Append selection attributes to selection's order item
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function appendBundleSelectionData($observer)
@@ -153,7 +153,7 @@ class Mage_Bundle_Model_Observer
      * Add price index data for catalog product collection
      * only for front end
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function loadProductOptions($observer)
@@ -168,7 +168,7 @@ class Mage_Bundle_Model_Observer
     /**
      * duplicating bundle options and selections
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function duplicateProduct($observer)
@@ -232,7 +232,7 @@ class Mage_Bundle_Model_Observer
     /**
      * Setting attribute tab block for bundle
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function setAttributeTabBlock($observer)
@@ -263,9 +263,8 @@ class Mage_Bundle_Model_Observer
     /**
      * Add price index to bundle product after load
      *
-     * @deprecated since 1.4.0.0
-     *
      * @return $this
+     * @deprecated since 1.4.0.0
      */
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
@@ -282,10 +281,9 @@ class Mage_Bundle_Model_Observer
     /**
      * CatalogIndex Indexer after plain reindex process
      *
+     * @return $this
      * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
-     *
-     * @return $this
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {

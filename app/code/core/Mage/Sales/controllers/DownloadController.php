@@ -48,7 +48,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @param array $info
+     * @param  array     $info
      * @throws Exception
      */
     protected function _validateFilePath($info)
@@ -63,7 +63,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     /**
      * Check file in database storage if needed and place it on file system
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

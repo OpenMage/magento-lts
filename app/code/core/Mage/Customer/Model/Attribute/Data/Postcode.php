@@ -19,8 +19,8 @@ class Mage_Customer_Model_Attribute_Data_Postcode extends Mage_Eav_Model_Attribu
      * Validate postal/zip code
      * Return true and skip validation if country zip code is optional
      *
-     * @param array|string $value
-     * @return bool|array
+     * @param  array|string $value
+     * @return array|bool
      */
     public function validateValue($value)
     {

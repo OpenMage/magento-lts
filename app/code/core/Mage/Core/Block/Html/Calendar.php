@@ -38,7 +38,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         ]);
 
         // get "today" and "week" words
-        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
+        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', '0')));
         $this->assign('week', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'field', 'week')));
 
         // get "am" & "pm" words
@@ -78,7 +78,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
     /**
      * Getter for store timestamp based on store timezone settings
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getStoreTimestamp($store = null)

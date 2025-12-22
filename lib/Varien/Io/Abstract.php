@@ -25,7 +25,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Allow automatically create non-existent directories
      *
-     * @param bool $flag
+     * @param  bool               $flag
      * @return Varien_Io_Abstract
      */
     public function setAllowCreateFolders($flag)
@@ -98,7 +98,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Replace full path to relative
      *
-     * @param $path
+     * @param         $path
      * @return string
      */
     public function getFilteredPath($path)
@@ -106,7 +106,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         $dir = pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME);
         $position = strpos($path, $dir);
         if ($position !== false && $position < 1) {
-            $path = substr_replace($path, '.', 0, strlen($dir));
+            return substr_replace($path, '.', 0, strlen($dir));
         }
 
         return $path;

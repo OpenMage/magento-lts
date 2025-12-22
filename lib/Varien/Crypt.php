@@ -17,7 +17,7 @@ class Varien_Crypt
     /**
      * Factory method to return requested cipher logic
      *
-     * @param string $method
+     * @param  string                $method
      * @return Varien_Crypt_Abstract
      */
     public static function factory($method = 'mcrypt')

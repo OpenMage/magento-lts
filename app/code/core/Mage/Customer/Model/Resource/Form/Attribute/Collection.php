@@ -28,6 +28,9 @@ class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Mo
      */
     protected $_entityTypeCode = 'customer';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -40,7 +43,7 @@ class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Mo
      * Get table, where website-dependent attribute parameters are stored.
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getEavWebsiteTable()
     {

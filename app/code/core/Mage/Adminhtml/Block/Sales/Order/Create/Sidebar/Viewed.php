@@ -14,6 +14,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -24,7 +27,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     /**
      * Retrieve display block availability
      *
-     * @return int|false
+     * @return false|int
      */
     public function canDisplay()
     {

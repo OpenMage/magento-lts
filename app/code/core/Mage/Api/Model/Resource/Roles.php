@@ -28,6 +28,9 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_ruleTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/role', 'role_id');
@@ -39,26 +42,28 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Process role before saving
      *
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
+     * @throws Exception
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $role)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ($role->getId() == '') {
-            if ($role->getIdFieldName()) {
-                $role->unsetData($role->getIdFieldName());
+        if ($object->getId() == '') {
+            if ($object->getIdFieldName()) {
+                $object->unsetData($object->getIdFieldName());
             } else {
-                $role->unsetData('id');
+                $object->unsetData('id');
             }
         }
 
-        if ($role->getPid() > 0) {
-            $row = $this->load($role->getPid());
+        if ($object->getPid() > 0) {
+            $row = $this->load($object->getPid());
         } else {
             $row = ['tree_level' => 0];
         }
 
-        $role->setTreeLevel($row['tree_level'] + 1);
-        $role->setRoleName($role->getName());
+        $object->setTreeLevel($row['tree_level'] + 1);
+        $object->setRoleName($object->getName());
 
         return $this;
     }
@@ -66,11 +71,13 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after save
      *
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
+     * @throws Zend_Cache_Exception
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $role)
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_updateRoleUsersAcl($role);
+        $this->_updateRoleUsersAcl($object);
         Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG);
         return $this;
     }
@@ -78,13 +85,15 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after delete
      *
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _afterDelete(Mage_Core_Model_Abstract $role)
+    protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $role->getId()]);
-        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $role->getId()]);
+        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $object->getId()]);
+        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $object->getId()]);
         return $this;
     }
 
@@ -92,6 +101,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Get role users
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers(Mage_Api_Model_Roles $role)
     {
@@ -108,6 +118,8 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Update role users
      *
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     private function _updateRoleUsersAcl(Mage_Api_Model_Roles $role)
     {

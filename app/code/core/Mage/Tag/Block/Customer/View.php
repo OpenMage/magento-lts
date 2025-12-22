@@ -12,7 +12,7 @@
  *
  * @package    Mage_Tag
  *
- * @method int getTagId()
+ * @method int   getTagId()
  * @method $this setTagId(int $value)
  */
 class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
@@ -20,20 +20,19 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Tagged Product Collection
      *
-     * @var Mage_Tag_Model_Resource_Product_Collection|null
+     * @var null|Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_collection;
 
     /**
      * Current Tag object
      *
-     * @var Mage_Tag_Model_Tag|null
+     * @var null|Mage_Tag_Model_Tag
      */
     protected $_tagInfo;
 
     /**
-     * Initialize block
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -79,7 +78,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Retrieve Product Info URL
      *
-     * @param int $productId
+     * @param  int    $productId
      * @return string
      */
     public function getReviewUrl($productId)

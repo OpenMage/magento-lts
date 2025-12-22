@@ -17,14 +17,14 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Order status
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_orderStatus = null;
 
     /**
      * Set status filter
      *
-     * @param string $orderStatus
+     * @param  string $orderStatus
      * @return $this
      */
     public function addOrderStatusFilter($orderStatus)

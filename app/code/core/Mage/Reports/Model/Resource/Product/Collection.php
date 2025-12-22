@@ -11,6 +11,8 @@
  * Products Report collection
  *
  * @package    Mage_Reports
+ *
+ * @method Mage_Reports_Model_Report getEntity()
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -46,7 +48,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
     /**
      * Init main class options
-     *
      */
     public function __construct()
     {
@@ -61,7 +62,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set Type for COUNT SQL Select
      *
-     * @param int $type
+     * @param  int   $type
      * @return $this
      */
     public function setSelectCountSqlType($type)
@@ -73,7 +74,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set product entity id
      *
-     * @param int $entityId
+     * @param  int   $entityId
      * @return $this
      */
     public function setProductEntityId($entityId)
@@ -95,7 +96,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set product entity table name
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setProductEntityTableName($value)
@@ -117,7 +118,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set product entity type id
      *
-     * @param int $value
+     * @param  int   $value
      * @return $this
      */
     public function setProductEntityTypeId($value)
@@ -213,8 +214,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add orders count
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function addOrdersCount($from = '', $to = '')
@@ -249,8 +250,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add ordered qty's
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function addOrderedQty($from = '', $to = '')
@@ -313,8 +314,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
@@ -331,8 +332,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add views count
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function addViewsCount($from = '', $to = '')

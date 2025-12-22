@@ -67,7 +67,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return merged default and entity type frontend classes value label array
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getFrontendClasses($entityTypeCode)
@@ -102,7 +102,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve attributes locked fields to edit
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getAttributeLockedFields($entityTypeCode)
@@ -118,8 +118,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] =
-                    array_keys($attribute->locked_fields->asArray());
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code]
+                    = array_keys($attribute->locked_fields->asArray());
             }
 
             return $this->_attributesLockedFields[$entityTypeCode];

@@ -19,6 +19,9 @@ class Mage_Sales_Model_Resource_Order_Shipment_Comment extends Mage_Sales_Model_
      */
     protected $_eventPrefix    = 'sales_order_shipment_comment_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/shipment_comment', 'entity_id');

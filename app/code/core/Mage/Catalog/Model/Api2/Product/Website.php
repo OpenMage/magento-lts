@@ -17,9 +17,9 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
     /**
      * Load product by id
      *
-     * @param int $id
-     * @throws Mage_Api2_Exception
+     * @param  int                        $id
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Api2_Exception
      */
     protected function _loadProductById($id)
     {
@@ -35,9 +35,9 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
     /**
      * Load website by id
      *
-     * @param int $id
-     * @throws Mage_Api2_Exception
+     * @param  int                     $id
      * @return Mage_Core_Model_Website
+     * @throws Mage_Api2_Exception
      */
     protected function _loadWebsiteById($id)
     {

@@ -23,8 +23,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     public const ADMIN_RESOURCE = 'catalog/attributes/attributes';
 
     /**
-         * List of tags from setting
-         */
+     * List of tags from setting
+     */
     public const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
 
     /**
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     /**
      * Filter post data
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -201,8 +201,12 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             //validate attribute_code
             if (isset($data['attribute_code'])) {
-                $validatorAttrCode = new Zend_Validate_Regex(['pattern' => '/^(?!event$)[a-z][a-z_0-9]{1,254}$/']);
-                if (!$validatorAttrCode->isValid($data['attribute_code'])) {
+                /** @var Mage_Core_Helper_Validate $validator */
+                $validator = Mage::helper('core/validate');
+                if ($validator->validateRegex(
+                    value: $data['attribute_code'],
+                    pattern: '/^(?!event$)[a-z][a-z_0-9]{1,254}$/',
+                )->count() > 0) {
                     $session->addError(
                         Mage::helper('catalog')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.'),
                     );
@@ -252,8 +256,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $data['frontend_input'] = $model->getFrontendInput();
             } else {
                 /**
-                * @todo add to helper and specify all relations for properties
-                */
+                 * @todo add to helper and specify all relations for properties
+                 */
                 $data['source_model'] = $helper->getAttributeSourceModelByInputType($data['frontend_input']);
                 $data['backend_model'] = $helper->getAttributeBackendModelByInputType($data['frontend_input']);
             }

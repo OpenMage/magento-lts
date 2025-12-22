@@ -81,6 +81,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     protected $_preparedFlatTables   = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -89,7 +92,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Rebuild Catalog Product Flat Data
      *
-     * @param Mage_Core_Model_Store|int $store
+     * @param  int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function rebuild($store = null)
@@ -244,9 +247,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve loaded attribute by code
      *
-     * @param string $attributeCode
-     * @throws Mage_Core_Exception
+     * @param  string                          $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
     {
@@ -276,7 +279,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve Catalog Product Flat Table name
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getFlatTableName($storeId)
@@ -493,8 +496,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * Compare Flat style with Describe style columns
      * If column a different - return false
      *
-     * @param array $column
-     * @param array $describe
+     * @param  array $column
+     * @param  array $describe
      * @return bool
      */
     protected function _compareColumnProperties($column, $describe)
@@ -506,13 +509,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve column definition fragment
+     *
+     * @param  string $fieldName
+     * @param  array  $fieldProp
+     * @return string
      * @deprecated since 1.5.0.0
      *
      * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
-     *
-     * @param string $fieldName
-     * @param array $fieldProp
-     * @return string
      */
     protected function _sqlColunmDefinition($fieldName, $fieldProp)
     {
@@ -538,13 +541,13 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
     /**
      * Retrieve index definition fragment
+     *
+     * @param  string $indexName
+     * @param  array  $indexProp
+     * @return string
      * @deprecated since 1.5.0.0
      *
      * Example: INDEX `IDX_NAME` (`field_id`)
-     *
-     * @param string $indexName
-     * @param array $indexProp
-     * @return string
      */
     protected function _sqlIndexDefinition($indexName, $indexProp)
     {
@@ -574,10 +577,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
-     * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
-     * @param string $refColumnName the reference table column name
+     * @param  string $priTableName  the target table name
+     * @param  string $priColumnName the target table column name
+     * @param  string $refTableName  the reference table name
+     * @param  string $refColumnName the reference table column name
      * @return string
      */
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
@@ -589,9 +592,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Prepare flat table for store
      *
-     * @param int $storeId
-     * @throws Mage_Core_Exception
+     * @param  int                 $storeId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareFlatTable($storeId)
     {
@@ -834,8 +837,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Add or Update static attributes
      *
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  int       $storeId
+     * @param  array|int $productIds update only product(s)
      * @return $this
      */
     public function updateStaticAttributes($storeId, $productIds = null)
@@ -914,8 +917,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove non website products
      *
-     * @param int $storeId
-     * @param int|array $productIds
+     * @param  int       $storeId
+     * @param  array|int $productIds
      * @return $this
      */
     public function cleanNonWebsiteProducts($storeId, $productIds = null)
@@ -963,9 +966,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update attribute flat data
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  int                             $storeId
+     * @param  array|int                       $productIds update only product(s)
      * @return $this
      */
     public function updateAttribute($attribute, $storeId, $productIds = null)
@@ -1028,8 +1031,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update non static EAV attributes flat data
      *
-     * @param int $storeId
-     * @param int|array $productIds update only product(s)
+     * @param  int       $storeId
+     * @param  array|int $productIds update only product(s)
      * @return $this
      */
     public function updateEavAttributes($storeId, $productIds = null)
@@ -1086,8 +1089,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update relation products
      *
-     * @param int $storeId
-     * @param int|array $productIds Update child product(s) only
+     * @param  int       $storeId
+     * @param  array|int $productIds Update child product(s) only
      * @return $this
      */
     public function updateRelationProducts($storeId, $productIds = null)
@@ -1149,8 +1152,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update children data from parent
      *
-     * @param int $storeId
-     * @param int|array $productIds
+     * @param  int       $storeId
+     * @param  array|int $productIds
      * @return $this
      */
     public function updateChildrenDataFromParent($storeId, $productIds = null)
@@ -1191,7 +1194,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Clean unused relation products
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function cleanRelationProducts($storeId)
@@ -1251,8 +1254,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove product data from flat
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function removeProduct($productIds, $storeId)
@@ -1278,8 +1281,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Remove children from parent product
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function removeProductChildren($productIds, $storeId)
@@ -1300,8 +1303,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Update flat data for product
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function updateProduct($productIds, $storeId)
@@ -1324,8 +1327,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Save product(s) data for store
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return $this
      */
     public function saveProduct($productIds, $storeId)
@@ -1343,7 +1346,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Delete flat table process
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function deleteFlatTable($storeId)
@@ -1358,7 +1361,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Check is flat table for store exists
      *
-     * @param int $storeId
+     * @param  int  $storeId
      * @return bool
      */
     protected function _isFlatTableExists($storeId)
@@ -1367,7 +1370,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             $tableName     = $this->getFlatTableName($storeId);
             $isTableExists = $this->_getWriteAdapter()->isTableExists($tableName);
 
-            $this->_existsFlatTables[$storeId] = $isTableExists ? true : false;
+            $this->_existsFlatTables[$storeId] = $isTableExists;
         }
 
         return $this->_existsFlatTables[$storeId];
@@ -1376,7 +1379,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve previous key from array by key
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     protected function _arrayPrevKey(array $array, $key)
@@ -1396,7 +1399,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve next key from array by key
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     protected function _arrayNextKey(array $array, $key)

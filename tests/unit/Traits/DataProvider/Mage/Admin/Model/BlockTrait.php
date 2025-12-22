@@ -35,7 +35,6 @@ trait BlockTrait
         yield 'errors: blank blockname' => [
             [
                 'Block Name is required field.',
-                'Block Name is incorrect.',
                 'Is Allowed is required field.',
             ],
             [
@@ -60,7 +59,6 @@ trait BlockTrait
         yield 'errors: null blockname' => [
             [
                 'Block Name is required field.',
-                $errorIncorrectBlockName,
             ],
             [
                 'getBlockName' => null,

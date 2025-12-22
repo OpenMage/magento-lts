@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_Resource_Report_Order_Createdat
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_aggregated_updated', 'id');
@@ -22,8 +25,8 @@ class Mage_Sales_Model_Resource_Report_Order_Updatedat extends Mage_Sales_Model_
     /**
      * Aggregate Orders data by order updated at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function aggregate($from = null, $to = null)

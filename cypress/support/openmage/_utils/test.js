@@ -287,6 +287,8 @@ cy.openmage.test.backend.system.config.catalog.configswatches = {};
 cy.openmage.test.backend.system.config.catalog.sitemap = {};
 cy.openmage.test.backend.system.config.customer = {};
 cy.openmage.test.backend.system.config.customer.promo = {};
+cy.openmage.test.backend.system.config.general = {};
+cy.openmage.test.backend.system.config.general.general = {};
 cy.openmage.test.backend.system.currency = {};
 cy.openmage.test.backend.system.design = {};
 cy.openmage.test.backend.system.email = {};
@@ -300,6 +302,9 @@ cy.openmage.test.backend.system.variable = {};
  * @type {{}}
  */
 cy.openmage.test.frontend = {};
+cy.openmage.test.frontend.catalog = {};
+cy.openmage.test.frontend.catalog.category = {};
+cy.openmage.test.frontend.catalog.product = {};
 cy.openmage.test.frontend.customer = {};
 cy.openmage.test.frontend.customer.account = {};
 cy.openmage.test.frontend.homepage = {

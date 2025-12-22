@@ -28,6 +28,9 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      */
     protected $_isPkAutoIncrement = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setMainTable('tax/tax_calculation');
@@ -36,8 +39,9 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Delete calculation settings by rule id
      *
-     * @param int $ruleId
+     * @param  int                 $ruleId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteByRuleId($ruleId)
     {
@@ -51,9 +55,10 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve distinct calculation
      *
-     * @param  string $field
-     * @param  int $ruleId
+     * @param  string              $field
+     * @param  int                 $ruleId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getDistinct($field, $ruleId)
     {
@@ -67,7 +72,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate information: calculation process data and tax rate
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getRateInfo($request)
@@ -82,7 +87,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate for specific tax rate request
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return int
      */
     public function getRate($request)
@@ -93,8 +98,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve Calculation Process
      *
-     * @param Varien_Object $request
-     * @param array $rates
+     * @param  null|Varien_Object $request
+     * @param  null|array         $rates
      * @return array
      */
     public function getCalculationProcess($request, $rates = null)
@@ -109,8 +114,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $currentRate = 0;
         $totalPercent = 0;
         $countedRates = count($rates);
-        for ($i = 0; $i < $countedRates; $i++) {
-            $rate = $rates[$i];
+        for ($index = 0; $index < $countedRates; $index++) {
+            $rate = $rates[$index];
             $value = ($rate['value'] ?? $rate['percent']) * 1;
 
             $oneRate = [
@@ -143,25 +148,25 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $row['rates'][] = $oneRate;
 
             $ruleId = null;
-            if (isset($rates[$i + 1]['tax_calculation_rule_id'])) {
+            if (isset($rates[$index + 1]['tax_calculation_rule_id'])) {
                 $ruleId = $rate['tax_calculation_rule_id'];
             }
 
             $priority = $rate['priority'];
             $ids[] = $rate['code'];
 
-            if (isset($rates[$i + 1]['tax_calculation_rule_id'])) {
-                while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $ruleId) {
-                    $i++;
+            if (isset($rates[$index + 1]['tax_calculation_rule_id'])) {
+                while (isset($rates[$index + 1]) && $rates[$index + 1]['tax_calculation_rule_id'] == $ruleId) {
+                    $index++;
                 }
             }
 
             $currentRate += $value;
 
-            if (!isset($rates[$i + 1]) || $rates[$i + 1]['priority'] != $priority
-                || (isset($rates[$i + 1]['process']) && $rates[$i + 1]['process'] != $rate['process'])
+            if (!isset($rates[$index + 1]) || $rates[$index + 1]['priority'] != $priority
+                || (isset($rates[$index + 1]['process']) && $rates[$index + 1]['process'] != $rate['process'])
             ) {
-                if (!empty($rates[$i]['calculate_subtotal'])) {
+                if (!empty($rates[$index]['calculate_subtotal'])) {
                     $row['percent'] = $currentRate;
                     $totalPercent += $currentRate;
                 } else {
@@ -184,8 +189,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Return combined percent value
      *
-     * @param float|int $percent
-     * @param float|int $rate
+     * @param  float|int $percent
+     * @param  float|int $rate
      * @return int
      */
     protected function _collectPercent($percent, $rate)
@@ -196,7 +201,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Create search templates for postcode
      *
-     * @param string $postcode
+     * @param  string $postcode
      * @return array  $strArr
      */
     protected function _createSearchPostCodeTemplates($postcode)
@@ -210,8 +215,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
 
         $strArr = [(string) $postcode, $postcode . '*'];
         if ($strlen > 1) {
-            for ($i = 1; $i < $strlen; $i++) {
-                $strArr[] = sprintf('%s*', mb_substr($postcode, 0, - $i));
+            for ($index = 1; $index < $strlen; $index++) {
+                $strArr[] = sprintf('%s*', mb_substr($postcode, 0, - $index));
             }
         }
 
@@ -222,11 +227,17 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Returns tax rates for request - either pereforms SELECT from DB, or returns already cached result
      * Notice that productClassId due to optimization can be array of ids
      *
-     * @param Varien_Object $request
+     * @param  null|Varien_Object       $request
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _getRates($request)
     {
+        if (!$request instanceof Varien_Object) {
+            return [];
+        }
+
         // Extract params that influence our SELECT statement and use them to create cache key
         $storeId = Mage::app()->getStore($request->getStore())->getId();
         $customerClassId = $request->getCustomerClassId();
@@ -292,7 +303,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->joinLeft(
                     ['title_table' => $this->getTable('tax/tax_calculation_rate_title')],
                     'rate.tax_calculation_rate_id = title_table.tax_calculation_rate_id '
-                    . "AND title_table.store_id = '{$storeId}'",
+                    . "AND title_table.store_id = '$storeId'",
                     ['title' => $ifnullTitleValue],
                 )
                 ->where('rate.tax_country_id = ?', $countryId)
@@ -359,7 +370,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get rate ids applicable for some address
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getApplicableRateIds($request)
@@ -389,7 +400,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Calculate rate
      *
-     * @param array $rates
+     * @param  array $rates
      * @return int
      */
     protected function _calculateRate($rates)
@@ -397,20 +408,20 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $result      = 0;
         $currentRate = 0;
         $countedRates = count($rates);
-        for ($i = 0; $i < $countedRates; $i++) {
-            $rate       = $rates[$i];
+        for ($index = 0; $index < $countedRates; $index++) {
+            $rate       = $rates[$index];
             $rule       = $rate['tax_calculation_rule_id'];
             $value      = $rate['value'];
             $priority   = $rate['priority'];
 
-            while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $rule) {
-                $i++;
+            while (isset($rates[$index + 1]) && $rates[$index + 1]['tax_calculation_rule_id'] == $rule) {
+                $index++;
             }
 
             $currentRate += $value;
 
-            if (!isset($rates[$i + 1]) || $rates[$i + 1]['priority'] != $priority) {
-                if (!empty($rates[$i]['calculate_subtotal'])) {
+            if (!isset($rates[$index + 1]) || $rates[$index + 1]['priority'] != $priority) {
+                if (!empty($rates[$index]['calculate_subtotal'])) {
                     $result += $currentRate;
                 } else {
                     $result += $this->_collectPercent($result, $currentRate);
@@ -426,20 +437,22 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rate ids
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object            $request
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getRateIds($request)
     {
         $result = [];
         $rates  = $this->_getRates($request);
         $countedRates = count($rates);
-        for ($i = 0; $i < $countedRates; $i++) {
-            $rate = $rates[$i];
+        for ($index = 0; $index < $countedRates; $index++) {
+            $rate = $rates[$index];
             $rule = $rate['tax_calculation_rule_id'];
             $result[] = $rate['tax_calculation_rate_id'];
-            while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $rule) {
-                $i++;
+            while (isset($rates[$index + 1]) && $rates[$index + 1]['tax_calculation_rule_id'] == $rule) {
+                $index++;
             }
         }
 
@@ -449,8 +462,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rates by customer tax class
      *
-     * @param int $customerTaxClass
-     * @param int|null $productTaxClass
+     * @param  int      $customerTaxClass
+     * @param  null|int $productTaxClass
      * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)

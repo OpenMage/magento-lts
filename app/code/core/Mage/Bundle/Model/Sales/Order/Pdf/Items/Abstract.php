@@ -17,7 +17,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Getting all available children for Invoice, Shipmen or Creditmemo item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getChilds($item)
@@ -50,7 +50,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve is Shipment Separately flag for Item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -101,7 +101,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve is Child Calculated
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -115,8 +115,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if ($parentItem) {
                 $options = $parentItem->getProductOptions();
                 if ($options) {
-                    if (isset($options['product_calculations']) &&
-                        $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    if (isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return true;
                     } else {
@@ -126,8 +126,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             } else {
                 $options = $item->getProductOptions();
                 if ($options) {
-                    if (isset($options['product_calculations']) &&
-                        $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                    if (isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return false;
                     } else {
@@ -152,7 +152,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Bundle Options
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getBundleOptions($item = null)
@@ -170,7 +170,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Selection attributes
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return mixed
      */
     public function getSelectionAttributes($item)
@@ -191,7 +191,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Order options
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getOrderOptions($item = null)
@@ -230,7 +230,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Value HTML
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -256,7 +256,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Can show price info for item
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)

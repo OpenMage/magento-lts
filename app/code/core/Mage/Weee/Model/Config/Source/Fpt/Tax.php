@@ -30,7 +30,7 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
     /**
      * Return helper corresponding to given name
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($helperName)

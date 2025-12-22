@@ -40,7 +40,6 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     /**
      * Init model, steps
-     *
      */
     public function __construct()
     {
@@ -107,7 +106,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     }
 
     /**
-     * @param string $step
+     * @param  string $step
      * @return $this
      */
     public function setActiveStep($step)
@@ -133,7 +132,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     /**
      * Mark step as completed
      *
-     * @param string $step
+     * @param  string $step
      * @return $this
      */
     public function setCompleteStep($step)
@@ -148,7 +147,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     /**
      * Retrieve step complete status
      *
-     * @param string $step
+     * @param  string $step
      * @return bool
      */
     public function getCompleteStep($step)
@@ -163,7 +162,7 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     /**
      * Unset complete status from step
      *
-     * @param string $step
+     * @param  string $step
      * @return $this
      */
     public function unsCompleteStep($step)

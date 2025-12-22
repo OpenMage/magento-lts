@@ -45,14 +45,14 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Array of countries keyed by iso2 code
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importIso2Countries;
 
     /**
      * Array of countries keyed by iso3 code
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importIso3Countries;
 
@@ -60,7 +60,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Associative array of countries and regions
      * [country_id][region_code] = region_id
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_importRegions;
 
@@ -78,6 +78,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      */
     protected $_conditionFullNames  = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('shipping/tablerate', 'pk');
@@ -170,8 +173,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @throws Mage_Core_Exception
      * @return $this
+     * @throws Mage_Core_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function uploadAndImport(Varien_Object $object)
@@ -314,7 +317,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return import condition full name by condition name code
      *
-     * @param string $conditionName
+     * @param  string $conditionName
      * @return string
      */
     protected function _getConditionFullName($conditionName)
@@ -331,8 +334,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Validate row for import and return table rate array or false
      * Error will be add to _importErrors array
      *
-     * @param array $row
-     * @param int $rowNumber
+     * @param  array       $row
+     * @param  int         $rowNumber
      * @return array|false
      */
     protected function _getImportRow($row, $rowNumber = 0)
@@ -432,7 +435,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Parse and validate positive decimal value
      * Return false if value is not decimal or is not positive
      *
-     * @param string $value
+     * @param  string     $value
      * @return bool|float
      */
     protected function _parseDecimalValue($value)
@@ -452,10 +455,10 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Parse and validate positive decimal value
      *
-     * @see self::_parseDecimalValue()
-     * @deprecated since 1.4.1.0
-     * @param string $value
+     * @param  string     $value
      * @return bool|float
+     * @deprecated since 1.4.1.0
+     * @see self::_parseDecimalValue()
      */
     protected function _isPositiveDecimalNumber($value)
     {

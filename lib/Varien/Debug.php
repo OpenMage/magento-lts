@@ -19,7 +19,7 @@ class Varien_Debug
     /**
      * Magento Root path
      *
-     * @var string|null
+     * @var null|string
      */
     protected static $_filePath;
 
@@ -44,10 +44,10 @@ class Varien_Debug
     /**
      * Prints or return a backtrace
      *
-     * @param bool $return      return or print
-     * @param bool $html        output in HTML format
-     * @param bool $withArgs    add short argumets of methods
-     * @return string|bool
+     * @param  bool        $return   return or print
+     * @param  bool        $html     output in HTML format
+     * @param  bool        $withArgs add short argumets of methods
+     * @return bool|string
      */
     public static function backtrace($return = false, $html = true, $withArgs = true)
     {
@@ -58,11 +58,11 @@ class Varien_Debug
     /**
      * Prints or return a trace
      *
-     * @param array $trace      trace array
-     * @param bool $return      return or print
-     * @param bool $html        output in HTML format
-     * @param bool $withArgs    add short argumets of methods
-     * @return string|bool
+     * @param  array       $trace    trace array
+     * @param  bool        $return   return or print
+     * @param  bool        $html     output in HTML format
+     * @param  bool        $withArgs add short argumets of methods
+     * @return bool|string
      */
     public static function trace(array $trace, $return = false, $html = true, $withArgs = true)
     {

@@ -15,7 +15,7 @@
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox
 {
     /**
-     * Set template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -30,7 +30,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Typ
     public function setValidationContainer($elementId, $containerId)
     {
         return '<script type="text/javascript">
-            $(\'' . $elementId . '\').advaiceContainer = \'' . $containerId . '\';
+            $(\'' . $elementId . "').advaiceContainer = '" . $containerId . '\';
             </script>';
     }
 }

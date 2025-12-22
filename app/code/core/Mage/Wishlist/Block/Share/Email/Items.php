@@ -16,7 +16,6 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
 {
     /**
      * Initialize template
-     *
      */
     public function __construct()
     {
@@ -27,8 +26,8 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Product View URL
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getProductUrl($product, $additional = [])
@@ -40,8 +39,8 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve URL for add product to shopping cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getAddToCartUrl($product, $additional = [])
@@ -52,7 +51,7 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Check whether wishlist item has description
      *
-     * @param Mage_Wishlist_Model_Item $item
+     * @param  Mage_Wishlist_Model_Item $item
      * @return bool
      */
     public function hasDescription($item)
@@ -68,9 +67,9 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve URL for add product to shopping cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)

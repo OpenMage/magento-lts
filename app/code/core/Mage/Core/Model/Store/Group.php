@@ -12,21 +12,21 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Store_Group _getResource()
- * @method Mage_Core_Model_Resource_Store_Group getResource()
+ * @method Mage_Core_Model_Resource_Store_Group            _getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
- *
- * @method $this setWebsiteId(int $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method $this setRootCategoryId(int $value)
- * @method $this setDefaultStoreId(int $value)
- * @method $this setHomeUrl(string $value)
- * @method bool hasDefaultStoreId()
- * @method bool hasGroupId()
- * @method int getGroupId()
- * @method int getOriginalGroupId()
- * @method int getOriginalWebsiteId()
+ * @method int                                             getGroupId()
+ * @method string                                          getName()
+ * @method int                                             getOriginalGroupId()
+ * @method int                                             getOriginalWebsiteId()
+ * @method Mage_Core_Model_Resource_Store_Group            getResource()
+ * @method Mage_Core_Model_Resource_Store_Group_Collection getResourceCollection()
+ * @method bool                                            hasDefaultStoreId()
+ * @method bool                                            hasGroupId()
+ * @method $this                                           setDefaultStoreId(int $value)
+ * @method $this                                           setHomeUrl(string $value)
+ * @method $this                                           setName(string $value)
+ * @method $this                                           setRootCategoryId(int $value)
+ * @method $this                                           setWebsiteId(int $value)
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Group Store collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_stores;
 
@@ -84,7 +84,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
@@ -95,8 +95,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * init model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -215,7 +214,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve default store model
      *
-     * @return Mage_Core_Model_Store|false
+     * @return false|Mage_Core_Model_Store
      */
     public function getDefaultStore()
     {
@@ -235,8 +234,8 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      * If no store with given locale is found - default store is returned
      * If group has no stores - null is returned
      *
-     * @param string $locale
-     * @return Mage_Core_Model_Store|null
+     * @param  string                     $locale
+     * @return null|Mage_Core_Model_Store
      */
     public function getDefaultStoreByLocale($locale)
     {
@@ -255,7 +254,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve list of stores with given locale
      *
-     * @param string $locale
+     * @param  string $locale
      * @return array
      */
     public function getStoresByLocale($locale)
@@ -281,7 +280,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve website model
      *
-     * @return Mage_Core_Model_Website|false
+     * @return false|Mage_Core_Model_Website
      */
     public function getWebsite()
     {
@@ -327,7 +326,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getWebsiteId()
     {
@@ -346,7 +345,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Get/Set isReadOnly flag
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function isReadOnly($value = null)

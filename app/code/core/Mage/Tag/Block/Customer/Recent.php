@@ -19,6 +19,9 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
      */
     protected $_collection;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -62,7 +65,7 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $date
+     * @param  string $date
      * @return string
      */
     public function dateFormat($date)

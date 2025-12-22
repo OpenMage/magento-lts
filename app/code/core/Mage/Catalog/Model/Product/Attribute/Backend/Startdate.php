@@ -8,7 +8,6 @@
  */
 
 /**
- *
  * Start Date attribute backend
  *
  * @package    Mage_Catalog
@@ -18,8 +17,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
     /**
      * Get attribute value for save.
      *
-     * @param Varien_Object $object
-     * @return string|bool
+     * @param  Varien_Object $object
+     * @return bool|string
      */
     protected function _getValueForSave($object)
     {
@@ -31,7 +30,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * Before save hook.
      * Prepare attribute value for save
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -49,9 +48,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
      * Product from date attribute validate function.
      * In case invalid data throws exception.
      *
-     * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @param  Mage_Catalog_Model_Product                $object
      * @return bool
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
     public function validate($object)
     {

@@ -79,7 +79,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default shipping address
      *
-     * @return Mage_Customer_Model_Address | false
+     * @return false|Mage_Customer_Model_Address
      */
     public function getCustomerDefaultShippingAddress()
     {
@@ -103,7 +103,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default billing address
      *
-     * @return Mage_Customer_Model_Address|false
+     * @return false|Mage_Customer_Model_Address
      */
     public function getCustomerDefaultBillingAddress()
     {
@@ -125,7 +125,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return Mage_Sales_Model_Order
      */
     protected function _createOrderFromAddress($address)
@@ -141,8 +141,8 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * @param string|array $email
-     * @param string $name
+     * @param array|string           $email
+     * @param string                 $name
      * @param Mage_Sales_Model_Order $order
      * @deprecated after 1.4.0.0-rc1
      */

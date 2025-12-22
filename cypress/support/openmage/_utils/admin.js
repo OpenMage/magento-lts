@@ -41,6 +41,13 @@ cy.openmage.admin = {
         cy.get(section._).click({force: true});
         cy.url().should('include', section.url);
     },
+    goToConfigScope: (section, value) =>{
+        cy.log('Go to store switcher config scope');
+        cy.log(`Clicking on "${value}" menu`);
+        const selector = 'select#store_switcher';
+        cy.get(selector).select(value); // acts like clicking
+        cy.url().should('include', section.url);
+    },
 }
 
 cy.openmage.admin.username = {

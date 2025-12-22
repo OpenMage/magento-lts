@@ -14,6 +14,9 @@
  */
 class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

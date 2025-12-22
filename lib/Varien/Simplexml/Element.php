@@ -65,7 +65,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $child) {
+        foreach ($this->children() as $ignored) {
             return true;
         }
 
@@ -123,8 +123,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Do we need to make it xpath look-a-like?
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
-     * @param   array|string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
-     * @return  Varien_Simplexml_Element|false
+     * @param  array|string                   $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
+     * @return false|Varien_Simplexml_Element
      */
     public function descend($path)
     {
@@ -139,7 +139,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             $pathArr = explode('/', $path);
         } else {
             $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
-            $pathArr = $pathMatches = [];
+            $pathArr = [];
+            $pathMatches = [];
             if (preg_match_all($regex, $path, $pathMatches)) {
                 $pathArr = $pathMatches[1];
             }
@@ -150,11 +151,11 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         /** @var string[] $pathArr */
         foreach ($pathArr as $nodeName) {
             if (str_contains($nodeName, '@')) {
-                $a = explode('@', $nodeName);
-                $b = explode('=', $a[1]);
-                $nodeName = $a[0];
-                $attributeName = $b[0];
-                $attributeValue = $b[1];
+                $nodeA = explode('@', $nodeName);
+                $nodeB = explode('=', $nodeA[1]);
+                $nodeName = $nodeA[0];
+                $attributeName = $nodeB[0];
+                $attributeValue = $nodeB[1];
                 //
                 // Does a very simplistic trimming of attribute value.
                 //
@@ -186,7 +187,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @return array
+     * @return array|string
      */
     public function asArray()
     {
@@ -205,7 +206,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @param bool $isCanonical - whether to ignore attributes
+     * @param  bool         $isCanonical - whether to ignore attributes
      * @return array|string
      */
     protected function _asArray($isCanonical = false)
@@ -239,18 +240,18 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Makes nicely formatted XML from the node
      *
-     * @param string $filename
-     * @param int|bool $level if false
+     * @param  string   $filename
+     * @param  bool|int $level    if false
      * @return string
      */
     public function asNiceXml($filename = '', $level = 0)
     {
         if (is_numeric($level)) {
             $pad = str_pad('', $level * 3, ' ', STR_PAD_LEFT);
-            $nl = "\n";
+            $eol = "\n";
         } else {
             $pad = '';
-            $nl = '';
+            $eol = '';
         }
 
         $out = $pad . '<' . $this->getName();
@@ -262,18 +263,18 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         if ($this->hasChildren()) {
-            $out .= '>' . $nl;
+            $out .= '>' . $eol;
             foreach ($this->children() as $child) {
                 $out .= $child->asNiceXml('', is_numeric($level) ? $level + 1 : true);
             }
 
-            $out .= $pad . '</' . $this->getName() . '>' . $nl;
+            $out .= $pad . '</' . $this->getName() . '>' . $eol;
         } else {
             $value = (string) $this;
             if (strlen($value)) {
-                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $nl;
+                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $eol;
             } else {
-                $out .= '/>' . $nl;
+                $out .= '/>' . $eol;
             }
         }
 
@@ -285,7 +286,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function innerXml($level = 0)
@@ -323,7 +324,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Appends $source to current node
      *
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return Varien_Simplexml_Element
      */
     public function appendChild($source)
@@ -354,8 +355,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * If $overwrite is false will merge only missing nodes
      * Otherwise will overwrite existing nodes
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extend($source, $overwrite = false)
@@ -374,8 +375,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Extends one node
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extendChild($source, $overwrite = false)
@@ -438,16 +439,16 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     {
         $arr1 = explode('/', $path);
         $arr = [];
-        foreach ($arr1 as $v) {
-            if (!empty($v)) {
-                $arr[] = $v;
+        foreach ($arr1 as $arr1Value) {
+            if (!empty($arr1Value)) {
+                $arr[] = $arr1Value;
             }
         }
 
         $last = count($arr) - 1;
         $node = $this;
-        foreach ($arr as $i => $nodeName) {
-            if ($last === $i) {
+        foreach ($arr as $index => $nodeName) {
+            if ($last === $index) {
                 if (!isset($node->$nodeName) || $overwrite) {
                     $node->$nodeName = $value;
                 }

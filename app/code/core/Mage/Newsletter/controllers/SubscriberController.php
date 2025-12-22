@@ -20,8 +20,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
     public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
 
     /**
-      * New subscription action
-      */
+     * New subscription action
+     */
     public function newAction()
     {
         if (!$this->_validateFormKey()) {
@@ -34,13 +34,16 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
 
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator          = Mage::helper('core/validate');
+
             try {
-                if (!Zend_Validate::is($email, 'EmailAddress')) {
+                if ($validator->validateEmail($email)->count() > 0) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 
-                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 &&
-                    !$customerSession->isLoggedIn()
+                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1
+                    && !$customerSession->isLoggedIn()
                 ) {
                     Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
                 }

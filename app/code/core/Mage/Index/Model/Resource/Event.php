@@ -14,6 +14,9 @@
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('index/event', 'event_id');
@@ -24,6 +27,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Index_Model_Event $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -54,6 +58,8 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Index_Model_Event $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -88,9 +94,11 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update status for events of process
      *
-     * @param int|array|Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  array|int|Mage_Index_Model_Process $process
+     * @param  string                             $status
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateProcessEvents($process, $status = Mage_Index_Model_Process::EVENT_STATUS_DONE)
     {
@@ -99,7 +107,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             $whereCondition = ['process_id = ?' => $process->getId()];
         } elseif (is_array($process) && !empty($process)) {
             $whereCondition = ['process_id IN (?)' => $process];
-        } elseif (!is_array($whereCondition)) {
+        } elseif (!empty($process)) {
             $whereCondition = ['process_id = ?' => $process];
         }
 
@@ -114,8 +122,9 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve unprocessed events list by specified process
      *
-     * @param Mage_Index_Model_Process $process
+     * @param  Mage_Index_Model_Process $process
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getUnprocessedEvents($process)
     {

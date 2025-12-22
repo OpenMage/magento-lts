@@ -10,24 +10,26 @@
 /**
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Group _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Group getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Group            _getResource()
+ * @method string                                                    getAttributeGroupName()
+ * @method Mage_Eav_Model_Entity_Attribute[]                         getAttributes()
+ * @method int                                                       getAttributeSetId()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection getCollection()
+ * @method int                                                       getDefaultId()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Group            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection getResourceCollection()
- *
- * @method Mage_Eav_Model_Entity_Attribute[] getAttributes()
- * @method $this setAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getAttributeGroupName()
- * @method $this setAttributeGroupName(string $value)
- * @method $this setDefaultId(int $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getDefaultId()
+ * @method int                                                       getSortOrder()
+ * @method $this                                                     setAttributeGroupName(string $value)
+ * @method $this                                                     setAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
+ * @method $this                                                     setAttributeSetId(int $value)
+ * @method $this                                                     setDefaultId(int $value)
+ * @method $this                                                     setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_attribute_group');
@@ -37,19 +39,10 @@ class Mage_Eav_Model_Entity_Attribute_Group extends Mage_Core_Model_Abstract
      * Checks if current attribute group exists
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function itemExists()
     {
         return $this->_getResource()->itemExists($this);
-    }
-
-    /**
-     * Delete groups
-     *
-     * @return $this
-     */
-    public function deleteGroups()
-    {
-        return $this->_getResource()->deleteGroups($this);
     }
 }

@@ -107,7 +107,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function __construct(array $args = [])
     {
         $this->_config = Mage::getSingleton('tax/config');
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
     }
 
     /**
@@ -119,7 +119,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $len = (int) $this->_postCodeSubStringLength;
         if ($len <= 0) {
-            $len = 10;
+            return 10;
         }
 
         return $len;
@@ -138,7 +138,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get tax calculation object
      *
-     * @return  Mage_Tax_Model_Calculation
+     * @return Mage_Tax_Model_Calculation
      */
     public function getCalculator()
     {
@@ -152,9 +152,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get product price including store conversion rate
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   null|string $format
-     * @return  float|string
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $format
+     * @return float|string
      */
     public function getProductPrice($product, $format = null)
     {
@@ -171,8 +171,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if product prices inputted include tax
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function priceIncludesTax($store = null)
     {
@@ -182,8 +182,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check what taxes should be applied after discount
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function applyTaxAfterDiscount($store = null)
     {
@@ -193,19 +193,19 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Output
      *
-     * @param bool $flag
-     * @param mixed $store
+     * @param  bool   $flag
+     * @param  mixed  $store
      * @return string
      */
     public function getIncExcText($flag, $store = null)
     {
         if ($flag) {
-            $s = $this->__('Incl. Tax');
+            $str = $this->__('Incl. Tax');
         } else {
-            $s = $this->__('Excl. Tax');
+            $str = $this->__('Excl. Tax');
         }
 
-        return $s;
+        return $str;
     }
 
     /**
@@ -214,7 +214,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  2 - Including tax
      *  3 - Both
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getPriceDisplayType($store = null)
@@ -226,8 +226,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Check if necessary do product price conversion
      * If its necessary will be returned conversion type (minus or plus)
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool|int
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool|int
      */
     public function needPriceConversion($store = null)
     {
@@ -251,7 +251,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($res === false) {
-            $res = $this->displayTaxColumn($store);
+            return $this->displayTaxColumn($store);
         }
 
         return $res;
@@ -260,8 +260,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display full tax summary information in totals block
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayFullSummary($store = null)
     {
@@ -271,8 +271,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display zero tax in subtotal
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayZeroTax($store = null)
     {
@@ -282,8 +282,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display cart prices included tax
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayCartPriceInclTax($store = null)
     {
@@ -293,8 +293,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display cart prices excluding price
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayCartPriceExclTax($store = null)
     {
@@ -304,8 +304,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display cart prices excluding and including tax
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayCartBothPrices($store = null)
     {
@@ -315,8 +315,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display order prices included tax
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displaySalesPriceInclTax($store = null)
     {
@@ -326,8 +326,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display order prices excluding price
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displaySalesPriceExclTax($store = null)
     {
@@ -337,8 +337,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display order prices excluding and including tax
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displaySalesBothPrices($store = null)
     {
@@ -348,7 +348,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display price include and exclude tax for order/invoice subtotal
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function displaySalesSubtotalBoth($store = null)
@@ -359,7 +359,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display price include tax for order/invoice subtotal
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function displaySalesSubtotalInclTax($store = null)
@@ -370,7 +370,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display price exclude tax for order/invoice subtotal
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function displaySalesSubtotalExclTax($store = null)
@@ -381,8 +381,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we need display tax column in for shopping cart/order items
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  bool
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool
      */
     public function displayTaxColumn($store = null)
     {
@@ -392,8 +392,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get prices javascript format json
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  string
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return string
      */
     public function getPriceFormat($store = null)
     {
@@ -413,8 +413,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * array(
      *      value_{$productTaxClassId} => $rate
      * )
-     * @deprecated after 1.4 - please use getAllRatesByProductClass
      * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated after 1.4 - please use getAllRatesByProductClass
      */
     public function getTaxRatesByProductClass()
     {
@@ -428,8 +429,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *      value_{$productTaxClassId} => $rate
      * )
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getAllRatesByProductClass($store = null)
     {
@@ -443,8 +445,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *      value_{$productTaxClassId} => $rate
      * )
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getAllRatesByProductClass($store = null)
     {
@@ -462,16 +465,17 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get product price with all tax settings processing
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param float $price inputted product price
-     * @param bool $includingTax return price include tax flag
-     * @param null|Mage_Customer_Model_Address $shippingAddress
-     * @param null|Mage_Customer_Model_Address $billingAddress
-     * @param null|int $ctc customer tax class
-     * @param null|Mage_Core_Model_Store $store
-     * @param bool $priceIncludesTax flag what price parameter contain tax
-     * @param bool $roundPrice
-     * @return  float
+     * @param  Mage_Catalog_Model_Product|Varien_Object $product
+     * @param  float                                    $price            inputted product price
+     * @param  bool                                     $includingTax     return price include tax flag
+     * @param  null|Mage_Customer_Model_Address         $shippingAddress
+     * @param  null|Mage_Customer_Model_Address         $billingAddress
+     * @param  null|int                                 $ctc              customer tax class
+     * @param  null|Mage_Core_Model_Store               $store
+     * @param  bool                                     $priceIncludesTax flag what price parameter contain tax
+     * @param  bool                                     $roundPrice
+     * @return float
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getPrice(
@@ -610,16 +614,17 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Given a store price that includes tax at the store rate, this function will back out the store's tax, and add in
      * the customer's tax.  Returns this new price which is the customer's price including tax.
      *
-     * @param float $storePriceInclTax
-     * @param float $storePercent
-     * @param float $customerPercent
-     * @param Mage_Core_Model_Store $store
+     * @param  float                           $storePriceInclTax
+     * @param  float                           $storePercent
+     * @param  float                           $customerPercent
+     * @param  Mage_Core_Model_Store           $store
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _calculatePriceInclTax($storePriceInclTax, $storePercent, $customerPercent, $store)
     {
-        $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
-        $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
+        $priceExclTax   = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
+        $customerTax    = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
         return $store->roundPrice($priceExclTax + $customerTax);
     }
 
@@ -646,7 +651,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if we have display in catalog prices including and excluding tax
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function displayBothPrices($store = null)
@@ -657,11 +662,12 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Calculate price including/excluding tax base on tax rate percent
      *
-     * @param   float $price
-     * @param   float $percent
-     * @param   bool $type true - to calculate the price including tax and false if calculating price to exclude tax
-     * @param   bool $roundTaxFirst
-     * @return  float
+     * @param  float                           $price
+     * @param  float                           $percent
+     * @param  bool                            $type          true - to calculate the price including tax and false if calculating price to exclude tax
+     * @param  bool                            $roundTaxFirst
+     * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _calculatePrice($price, $percent, $type, $roundTaxFirst = false)
     {
@@ -679,9 +685,10 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Calculate price including tax when multiple taxes is applied and rounded
      * independently.
      *
-     * @param float $price
-     * @param array $appliedRates
+     * @param  float                           $price
+     * @param  array                           $appliedRates
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _calculatePriceInclTaxWithMultipleRates($price, $appliedRates)
     {
@@ -698,7 +705,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the include / exclude tax label
      *
-     * @param bool $flag
+     * @param  bool   $flag
      * @return string
      */
     public function getIncExcTaxLabel($flag)
@@ -710,7 +717,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if shipping prices include tax
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function shippingPriceIncludesTax($store = null)
@@ -721,7 +728,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get shipping methods prices display type
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getShippingPriceDisplayType($store = null)
@@ -762,7 +769,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get tax class id specified for shipping tax estimation
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getShippingTaxClass($store)
@@ -773,12 +780,14 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get Shipping Price
      *
-     * @param float $price
-     * @param null|bool $includingTax
-     * @param mixed $shippingAddress
-     * @param mixed $ctc
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  float                                      $price
+     * @param  null|bool                                  $includingTax
+     * @param  mixed                                      $shippingAddress
+     * @param  mixed                                      $ctc
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return float
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getShippingPrice($price, $includingTax = null, $shippingAddress = null, $ctc = null, $store = null)
     {
@@ -805,9 +814,10 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the SQL for the price tax
      *
-     * @param string $priceField
-     * @param string $taxClassField
+     * @param  string              $priceField
+     * @param  string              $taxClassField
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getPriceTaxSql($priceField, $taxClassField)
     {
@@ -820,8 +830,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $currentTaxes = Mage::getSingleton('tax/calculation')->getRatesForAllProductTaxClasses($request);
-
-        $defaultTaxString = $currentTaxString = '';
+        $defaultTaxString = '';
+        $currentTaxString = '';
 
         $rateToVariable = [
             'defaultTaxString' => 'defaultTaxes',
@@ -863,10 +873,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Join tax class
-     * @param Varien_Db_Select $select
-     * @param int $storeId
-     * @param string $priceTable
+     * @param  Varien_Db_Select    $select
+     * @param  int                 $storeId
+     * @param  string              $priceTable
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinTaxClass($select, $storeId, $priceTable = 'main_table')
     {
@@ -900,8 +911,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get configuration setting "Apply Discount On Prices Including Tax" value
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @return bool 0|1
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
+     * @return bool                                       0|1
      */
     public function discountTax($store = null)
     {
@@ -912,7 +923,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Get value of "Apply Tax On" custom/original price configuration settings.
      * Result is 0 or 1
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getTaxBasedOn($store = null)
@@ -923,7 +934,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if tax can be applied to custom price
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function applyTaxOnCustomPrice($store = null)
@@ -934,7 +945,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if tax should be applied just to original price
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function applyTaxOnOriginalPrice($store = null)
@@ -947,7 +958,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * This sequence depends on "Catalog price include tax", "Apply Tax After Discount"
      * and "Apply Discount On Prices Including Tax" configuration options.
      *
-     * @param null|int|string|Mage_Core_Model_Store $store
+     * @param  null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getCalculationSequence($store = null)
@@ -958,8 +969,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get tax calculation algorithm code
      *
-     * @param   null|int $store
-     * @return  string
+     * @param  null|int $store
+     * @return string
      */
     public function getCalculationAgorithm($store = null)
     {
@@ -980,8 +991,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  )
      * )
      *
-     * @param Mage_Sales_Model_Order $source
+     * @param  Mage_Sales_Model_Order $source
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCalculatedTaxes($source)
     {
@@ -1062,8 +1074,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the array of tax rates for the order
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getTaxRateSubtotals($order)
     {
@@ -1073,7 +1086,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve a value from registry by a key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function _getFromRegistry($key)
@@ -1095,7 +1108,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *  )
      * )
      *
-     * @param Mage_Sales_Model_Order $source
+     * @param  Mage_Sales_Model_Order $source
      * @return array
      */
     public function getShippingTax($source)
@@ -1128,8 +1141,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get all FPTs
      *
-     * @param mixed|null $source
+     * @param  null|mixed                      $source
      * @return array
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getAllWeee($source = null)
@@ -1201,7 +1215,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return whether cross border trade is enabled or not
      *
-     * @param  null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isCrossBorderTradeEnabled($store = null)

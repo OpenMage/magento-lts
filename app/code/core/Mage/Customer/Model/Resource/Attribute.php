@@ -20,7 +20,7 @@ class Mage_Customer_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Att
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getEavWebsiteTable()
     {
@@ -32,7 +32,7 @@ class Mage_Customer_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Att
      *
      * Get table, where dependency between form name and attribute ids is stored
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getFormAttributeTable()
     {

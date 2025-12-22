@@ -27,7 +27,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract
+class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Helper_Validate_Abstract
 {
     public const PROTECTED_PATH     = 'protectedPath';
 
@@ -77,12 +77,12 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_PATH =>
-                    Mage::helper('core')->__('Path "%value%" is protected and cannot be used.'),
-                self::NOT_AVAILABLE_PATH =>
-                    Mage::helper('core')->__('Path "%value%" is not available and cannot be used.'),
-                self::PROTECTED_LFI =>
-                    Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
+                self::PROTECTED_PATH
+                    => Mage::helper('core')->__('Path "%value%" is protected and cannot be used.'),
+                self::NOT_AVAILABLE_PATH
+                    => Mage::helper('core')->__('Path "%value%" is not available and cannot be used.'),
+                self::PROTECTED_LFI
+                    => Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
             ];
         }
 
@@ -92,7 +92,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Set paths masks
      *
-     * @param array $paths  All paths masks types.
+     * @param  array $paths All paths masks types.
      *                      E.g.: array('available' => array(...), 'protected' => array(...))
      * @return $this
      */
@@ -123,7 +123,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Add protected paths masks
      *
-     * @param string|array $path
+     * @param  array|string $path
      * @return $this
      */
     public function addProtectedPath($path)
@@ -161,7 +161,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Add available paths mask
      *
-     * @param string|array $path
+     * @param  array|string $path
      * @return $this
      */
     public function addAvailablePath($path)
@@ -192,9 +192,9 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @throws Exception        Throw exception on empty both paths masks types
-     * @param string $value     File/dir path
+     * @param  string    $value File/dir path
      * @return bool
+     * @throws Exception Throw exception on empty both paths masks types
      */
     public function isValid($value)
     {
@@ -241,9 +241,9 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Validate value by path masks
      *
-     * @param array $valuePathInfo  Path info from value path
-     * @param array $paths          Protected/available paths masks
-     * @param bool $protected       Paths masks is protected?
+     * @param  array $valuePathInfo Path info from value path
+     * @param  array $paths         Protected/available paths masks
+     * @param  bool  $protected     Paths masks is protected?
      * @return bool
      */
     protected function _isValidByPaths($valuePathInfo, $paths, $protected)

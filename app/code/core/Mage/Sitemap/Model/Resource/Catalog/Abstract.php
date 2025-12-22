@@ -17,37 +17,39 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Collection Zend Db select
      *
-     * @var Zend_Db_Select
+     * @var Varien_Db_Select
      */
     protected $_select;
 
     /**
      * Attribute cache
      *
-     * @var array
+     * @var array{string: array{attribute_id: int, backend_type: string, is_global: bool, table: string}}|array{}
      */
     protected $_attributesCache = [];
 
     /**
      * Catalog factory instance
      *
-     * @var Mage_Catalog_Model_Factory
+     * @var Mage_Catalog_Model_Factory|string
      */
     protected $_factory;
 
     /**
      * Initialize factory instance
+     *
+     * @param array{factory: string}|array{} $args
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
         parent::__construct();
     }
 
     /**
      * Retrieve catalog collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     abstract public function getCollection($storeId);
@@ -55,11 +57,11 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Add attribute to filter
      *
-     * @param int $storeId
-     * @param string $attributeCode
-     * @param mixed $value
-     * @param string $type
-     * @return Zend_Db_Select|false
+     * @param  int                  $storeId
+     * @param  string               $attributeCode
+     * @param  mixed                $value
+     * @param  string               $type
+     * @return false|Zend_Db_Select
      */
     protected function _addFilter($storeId, $attributeCode, $value, $type = '=')
     {
@@ -123,6 +125,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      * Prepare catalog object
      *
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     protected function _prepareObject(array $row)
     {
@@ -136,6 +139,9 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      * Load and prepare entities
      *
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _loadEntities()
     {
@@ -152,8 +158,8 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     abstract protected function _getEntityUrl($row, $entity);
@@ -161,7 +167,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Loads attribute by given attribute_code
      *
-     * @param string $attributeCode
+     * @param  string                                       $attributeCode
      * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
      */
     abstract protected function _loadAttribute($attributeCode);

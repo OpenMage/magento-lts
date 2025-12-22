@@ -14,7 +14,6 @@ use Mage_Core_Exception;
 use Mage_Customer_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\CustomerTrait;
-use Zend_Validate_Exception;
 
 final class CustomerTest extends OpenMageTest
 {
@@ -22,9 +21,8 @@ final class CustomerTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateCustomerData
-     * @param array|true $expectedResult
+     * @param  array|true          $expectedResult
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function testValidate($expectedResult, array $methods): void
     {

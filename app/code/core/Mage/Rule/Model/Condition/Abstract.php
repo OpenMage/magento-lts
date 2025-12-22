@@ -12,32 +12,32 @@
  *
  * @package    Mage_Rule
  *
- * @method string|false getAttribute()
- * @method $this setAttribute(string|false $value)
- * @method array getAttributeOption()
- * @method bool getExplicitApply()
- * @method $this setJsFormObject(string  $value)
- * @method $this setIsValueParsed(string|false $value)
- * @method string|false getOperator()
- * @method $this setOperator(string|false $value)
- * @method array getOperatorByInputType()
- * @method $this setOperatorByInputType(array $value)
- * @method array getOperatorOption(string $value)
- * @method $this setOperatorOption(array $value)
- * @method array getOperatorOptions()
- * @method bool hasValueParsed()
- * @method $this setValueParsed(array $value)
- * @method string getPrefix()
+ * @method false|string             getAttribute()
+ * @method array|string             getAttributeOption()
+ * @method bool                     getExplicitApply()
+ * @method false|string             getIsValueParsed()
+ * @method false|string             getOperator()
+ * @method array                    getOperatorByInputType()
+ * @method array|string             getOperatorOption()
+ * @method array                    getOperatorOptions()
+ * @method string                   getPrefix()
  * @method Mage_Rule_Model_Abstract getRule()
- * @method string|false getType()
- * @method $this setType(string $value)
- * @method string|false getIsValueParsed()
- * @method $this setValue(string|false $value)
- * @method string getValueAfterElementHtml()
- * @method string getValueElementChooserUrl()
- * @method bool hasValueOption()
- * @method array getValueOption()
- * @method $this setValueOption(array $value)
+ * @method false|string             getType()
+ * @method string                   getValueAfterElementHtml()
+ * @method string                   getValueElementChooserUrl()
+ * @method array                    getValueOption()
+ * @method bool                     hasValueOption()
+ * @method bool                     hasValueParsed()
+ * @method $this                    setAttribute(false|string $value)
+ * @method $this                    setIsValueParsed(false|string $value)
+ * @method $this                    setJsFormObject(string  $value)
+ * @method $this                    setOperator(false|string $value)
+ * @method $this                    setOperatorByInputType(array $value)
+ * @method $this                    setOperatorOption(array $value)
+ * @method $this                    setType(string $value)
+ * @method $this                    setValue(false|string $value)
+ * @method $this                    setValueOption(array $value)
+ * @method $this                    setValueParsed(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implements Mage_Rule_Model_Condition_Interface
 {
@@ -52,19 +52,21 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Defines which operators will be available for this condition
      *
-     * @var string
+     * @var null|string
      */
     protected $_inputType = null;
 
     /**
      * Default values for possible operator options
-     * @var array
+     *
+     * @var null|array
      */
     protected $_defaultOperatorOptions = null;
 
     /**
      * Default combinations of operator options, depending on input type
-     * @var array
+     *
+     * @var null|array
      */
     protected $_defaultOperatorInputByType = null;
 
@@ -74,6 +76,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     protected $_arrayInputTypes = [];
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function __construct()
     {
         if (!is_bool(static::$translate)) {
@@ -195,7 +200,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param array $arr
+     * @param  array|Mage_Rule_Model_Condition_Abstract $arr
      * @return $this
      */
     public function loadArray($arr)
@@ -210,7 +215,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param SimpleXMLElement|string $xml
+     * @param  SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)
@@ -246,15 +251,15 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getAttributeSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAttributeOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAttributeOption() as $key => $value) {
+            $opt[] = ['value' => $key, 'label' => $value];
         }
 
         return $opt;
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getAttributeName()
     {
@@ -291,9 +296,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $type = $this->getInputType();
         $opt = [];
         $operatorByType = $this->getOperatorByInputType();
-        foreach ($this->getOperatorOption() as $k => $v) {
-            if (!$operatorByType || in_array($k, $operatorByType[$type])) {
-                $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getOperatorOption() as $key => $value) {
+            if (!$operatorByType || in_array($key, $operatorByType[$type])) {
+                $opt[] = ['value' => $key, 'label' => $value];
             }
         }
 
@@ -301,7 +306,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getOperatorName()
     {
@@ -322,13 +327,14 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getValueSelectOptions()
     {
-        $valueOption = $opt = [];
+        $valueOption = [];
+        $opt = [];
         if ($this->hasValueOption()) {
             $valueOption = (array) $this->getValueOption();
         }
 
-        foreach ($valueOption as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($valueOption as $key => $value) {
+            $opt[] = ['value' => $key, 'label' => $value];
         }
 
         return $opt;
@@ -337,7 +343,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Retrieve parsed value
      *
-     * @return array|string|int|float
+     * @return array|float|int|string
      */
     public function getValueParsed()
     {
@@ -362,12 +368,12 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function isArrayOperatorType()
     {
-        $op = $this->getOperator();
-        return $op === '()' || $op === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes);
+        $operator = $this->getOperator();
+        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes);
     }
 
     /**
-     * @return string|int|array|null
+     * @return null|array|int|string
      */
     public function getValue()
     {
@@ -413,29 +419,29 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $options = $this->getValueSelectOptions();
         $valueArr = [];
         if (!empty($options)) {
-            foreach ($options as $o) {
+            foreach ($options as $option) {
                 if (is_array($value)) {
-                    if (in_array($o['value'], $value)) {
-                        $valueArr[] = $o['label'];
+                    if (in_array($option['value'], $value)) {
+                        $valueArr[] = $option['label'];
                     }
                 } else {
-                    if (is_array($o['value'])) {
-                        foreach ($o['value'] as $v) {
-                            if ($v['value'] == $value) {
-                                return $v['label'];
+                    if (is_array($option['value'])) {
+                        foreach ($option['value'] as $optionValue) {
+                            if ($optionValue['value'] == $value) {
+                                return $optionValue['label'];
                             }
                         }
                     }
 
-                    if ($o['value'] == $value) {
-                        return $o['label'];
+                    if ($option['value'] == $value) {
+                        return $option['label'];
                     }
                 }
             }
         }
 
         if (!empty($valueArr)) {
-            $value = implode(', ', $valueArr);
+            return implode(', ', $valueArr);
         }
 
         return $value;
@@ -455,6 +461,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getNewChildName()
     {
@@ -463,6 +470,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtml()
     {
@@ -476,6 +484,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtmlRecursive()
     {
@@ -509,8 +518,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getAttributeElement()
     {
         if (is_null($this->getAttribute())) {
-            foreach (array_keys($this->getAttributeOption()) as $k) {
-                $this->setAttribute($k);
+            foreach (array_keys($this->getAttributeOption()) as $key) {
+                $this->setAttribute($key);
                 break;
             }
         }
@@ -582,8 +591,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Value element type will define renderer for condition value element
      *
-     * @see Varien_Data_Form_Element
      * @return string
+     * @see Varien_Data_Form_Element
      */
     public function getValueElementType()
     {
@@ -646,6 +655,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getAddLinkHtml()
     {
@@ -657,6 +667,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getRemoveLinkHtml()
     {
@@ -674,14 +685,14 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $url = $this->getValueElementChooserUrl();
         $html = '';
         if ($url) {
-            $html = '<div class="rule-chooser" url="' . $url . '"></div>';
+            return '<div class="rule-chooser" url="' . $url . '"></div>';
         }
 
         return $html;
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -690,7 +701,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)
@@ -701,8 +712,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Validate product attribute value for condition
      *
-     * @param   mixed $validatedValue product attribute value
-     * @return  bool
+     * @param  mixed $validatedValue product attribute value
+     * @return bool
      */
     public function validateAttribute($validatedValue)
     {
@@ -718,7 +729,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         /**
          * Comparison operator
          */
-        $op = $this->getOperatorForValidate();
+        $operator = $this->getOperatorForValidate();
 
         // if operator requires array and it is not, or on opposite, return false
         if ($this->isArrayOperatorType() xor is_array($value)) {
@@ -727,7 +738,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $result = false;
 
-        switch ($op) {
+        switch ($operator) {
             case '==':
             case '!=':
                 if (is_array($value)) {
@@ -797,7 +808,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    if (in_array($op, ['[]', '![]'])) {
+                    if (in_array($operator, ['[]', '![]'])) {
                         $result = $match == count($value);
                     } else {
                         $result = $match > 0;
@@ -815,8 +826,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if (in_array($op, ['!=', '>', '<', '!{}', '!()', '![]'])) {
-            $result = !$result;
+        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'])) {
+            return !$result;
         }
 
         return $result;
@@ -825,9 +836,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Case and type insensitive comparison of values
      *
-     * @param string|int|float $validatedValue
-     * @param string|int|float $value
-     * @param bool $strict
+     * @param  float|int|string $validatedValue
+     * @param  float|int|string $value
+     * @param  bool             $strict
      * @return bool
      */
     protected function _compareValues($validatedValue, $value, $strict = true)

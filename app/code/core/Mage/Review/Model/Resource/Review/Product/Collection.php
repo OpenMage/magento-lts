@@ -43,8 +43,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     protected $_storesIds           = [];
 
     /**
-     * Define module
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -69,7 +68,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Adds store filter into array
      *
-     * @param mixed $storeId
+     * @param  mixed $storeId
      * @return $this
      */
     public function addStoreFilter($storeId = null)
@@ -96,7 +95,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Adds specific store id into array
      *
-     * @param array $storeId
+     * @param  array $storeId
      * @return $this
      */
     public function setStoreFilter($storeId)
@@ -170,7 +169,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add customer filter
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -183,7 +182,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add entity filter
      *
-     * @param int $entityId
+     * @param  int   $entityId
      * @return $this
      */
     public function addEntityFilter($entityId)
@@ -196,7 +195,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add status filter
      *
-     * @param mixed $status
+     * @param  mixed $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -209,7 +208,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Set date order
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDateOrder($dir = 'DESC')
@@ -299,7 +298,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Render SQL for retrieve product count
      *
-     * @return Varien_Db_Select|null
+     * @return null|Varien_Db_Select
      */
     public function getSelectCountSql()
     {
@@ -314,8 +313,8 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Set order to attribute
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($attribute, $dir = 'DESC')
@@ -345,9 +344,9 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Add attribute to filter
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
-     * @param array $condition
-     * @param string $joinType
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
+     * @param  array                                           $condition
+     * @param  string                                          $joinType
      * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
@@ -396,7 +395,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Retrieves column values
      *
-     * @param string $colName
+     * @param  string $colName
      * @return array
      */
     public function getColumnValues($colName)
@@ -426,7 +425,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
     /**
      * Add store data
-     *
      */
     protected function _addStoreData()
     {

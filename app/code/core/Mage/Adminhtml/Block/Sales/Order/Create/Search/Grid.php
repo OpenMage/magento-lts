@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
      */
@@ -181,8 +181,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Retrieve gift message save model
      *
-     * @deprecated after 1.4.2.0
      * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @deprecated after 1.4.2.0
      */
     protected function _getGiftmessageSaveModel()
     {

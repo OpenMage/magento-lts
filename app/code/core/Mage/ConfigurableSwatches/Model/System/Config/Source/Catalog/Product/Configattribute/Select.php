@@ -13,21 +13,23 @@
 class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Configattribute_Select extends Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Configattribute
 {
     /**
-     * Retrieve attributes as array
-     *
-     * @return array
+     * @inheritDoc
      */
     public function toOptionArray()
     {
         if (is_null($this->_attributes)) {
             parent::toOptionArray();
+            $attributes = $this->_attributes;
+
             array_unshift(
-                $this->_attributes,
+                $attributes,
                 [
                     'value' => '',
                     'label' => Mage::helper('configurableswatches')->__('-- Please Select --'),
                 ],
             );
+
+            $this->_attributes = $attributes;
         }
 
         return $this->_attributes;

@@ -14,6 +14,9 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_calculation_rate_title', 'tax_calculation_rate_title_id');
@@ -22,7 +25,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title extends Mage_Core_Model_Res
     /**
      * Delete title by rate identifier
      *
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function deleteByRateId($rateId)

@@ -17,7 +17,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Current loaded product
      *
-     * @var Mage_Catalog_Model_Product|null
+     * @var null|Mage_Catalog_Model_Product
      */
     protected $_product;
 
@@ -180,10 +180,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
     {
         $isPriceRequired = false;
-        if ($this->isAllowedAttribute('regular_price_with_tax') ||
-            $this->isAllowedAttribute('regular_price_without_tax') ||
-            $this->isAllowedAttribute('final_price_with_tax') ||
-            $this->isAllowedAttribute('final_price_without_tax')
+        if ($this->isAllowedAttribute('regular_price_with_tax')
+            || $this->isAllowedAttribute('regular_price_without_tax')
+            || $this->isAllowedAttribute('final_price_with_tax')
+            || $this->isAllowedAttribute('final_price_without_tax')
         ) {
             $isPriceRequired = true;
         }
@@ -309,7 +309,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Load category by id
      *
-     * @param int $categoryId
+     * @param  int                         $categoryId
      * @return Mage_Catalog_Model_Category
      */
     protected function _getCategoryById($categoryId)
@@ -320,12 +320,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Get product price with all tax settings processing
      *
-     * @param float $price inputted product price
-     * @param bool $includingTax return price include tax flag
-     * @param null|Mage_Customer_Model_Address $shippingAddress
-     * @param null|Mage_Customer_Model_Address $billingAddress
-     * @param null|int $ctc customer tax class
-     * @param bool $priceIncludesTax flag that price parameter contain tax
+     * @param  float                            $price            inputted product price
+     * @param  bool                             $includingTax     return price include tax flag
+     * @param  null|Mage_Customer_Model_Address $shippingAddress
+     * @param  null|Mage_Customer_Model_Address $billingAddress
+     * @param  null|int                         $ctc              customer tax class
+     * @param  bool                             $priceIncludesTax flag that price parameter contain tax
      * @return float
      * @see Mage_Tax_Helper_Data::getPrice()
      */
@@ -426,9 +426,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Calculate price imcluding/excluding tax base on tax rate percent
      *
-     * @param float $price
-     * @param float $percent
-     * @param bool $includeTax true - for calculate price including tax and false if price excluding tax
+     * @param  float $price
+     * @param  float $percent
+     * @param  bool  $includeTax true - for calculate price including tax and false if price excluding tax
      * @return float
      */
     protected function _calculatePrice($price, $percent, $includeTax)
@@ -462,7 +462,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @return int|null
+     * @return null|int
      */
     protected function _getCustomerGroupId()
     {
@@ -472,8 +472,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @param float $price
-     * @param bool $withTax
+     * @param  float $price
+     * @param  bool  $withTax
      * @return float
      */
     protected function _applyTaxToPrice($price, $withTax = true)

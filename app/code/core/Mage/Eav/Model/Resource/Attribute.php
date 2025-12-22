@@ -20,7 +20,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -29,7 +29,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * Get table, where dependency between form name and attribute ids are stored
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getFormAttributeTable();
 
@@ -51,9 +51,9 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
+     * @param  string                                            $field
+     * @param  mixed                                             $value
+     * @param  Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -165,7 +165,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         $result = $adapter->fetchRow($select, $bind);
 
         if (!$result) {
-            $result = [];
+            return [];
         }
 
         return $result;

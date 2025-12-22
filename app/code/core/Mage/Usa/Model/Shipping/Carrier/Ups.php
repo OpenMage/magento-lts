@@ -40,28 +40,28 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
     /**
      * Tracking result data
      *
-     * @var Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Tracking_Result
      */
     protected $_trackingResult = null;
 
@@ -121,7 +121,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -289,7 +289,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      * Checks the current weight to comply with the minimum weight standards set by the carrier.
      * Then strictly rounds the weight up until the first significant digit after the decimal point.
      *
-     * @param float|int $weight
+     * @param  float|int $weight
      * @return float
      */
     protected function _getCorrectWeight($weight)
@@ -309,7 +309,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -335,7 +335,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Set free method request
      *
-     * @param string $freeMethod
+     * @param  string $freeMethod
      * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
@@ -353,9 +353,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get shipment by code
      *
-     * @param string $code
-     * @param string $origin
-     * @return string|false
+     * @param  string       $code
+     * @param  string       $origin
+     * @return false|string
      */
     public function getShipmentByCode($code, $origin = null)
     {
@@ -374,8 +374,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string      $type
+     * @param  string      $code
      * @return array|false
      */
     public function getCode($type, $code = '')
@@ -715,10 +715,10 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 XMLRequest;
 
         if ($params['serviceCode'] !== null) {
-            $xmlRequest .= '<Service>' .
-                "<Code>{$params['serviceCode']}</Code>" .
-                "<Description>{$params['serviceDescription']}</Description>" .
-                '</Service>';
+            $xmlRequest .= '<Service>'
+                . "<Code>{$params['serviceCode']}</Code>"
+                . "<Description>{$params['serviceDescription']}</Description>"
+                . '</Service>';
         }
 
         $xmlRequest .= <<< XMLRequest
@@ -823,7 +823,7 @@ XMLRequest;
     /**
      * Get base currency rate
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     protected function _getBaseCurrencyRate($code)
@@ -840,7 +840,7 @@ XMLRequest;
     /**
      * Prepare shipping rate result based on response
      *
-     * @param mixed $xmlResponse
+     * @param  mixed                           $xmlResponse
      * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _parseXmlResponse($xmlResponse)
@@ -938,8 +938,8 @@ XMLRequest;
     /**
      * Get tracking
      *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @param  mixed                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     public function getTracking($trackings)
     {
@@ -981,8 +981,8 @@ XMLAuth;
     /**
      * Get xml tracking
      *
-     * @param array $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @param  array                                    $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getXmlTracking($trackings)
     {
@@ -1041,8 +1041,8 @@ XMLAuth;
     /**
      * Parse xml tracking response
      *
-     * @param string $trackingvalue
-     * @param string $xmlResponse
+     * @param  string $trackingvalue
+     * @param  string $xmlResponse
      * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $xmlResponse)
@@ -1139,8 +1139,8 @@ XMLAuth;
     /**
      * Get REST tracking
      *
-     * @param string[] $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
+     * @param  string[]                                 $trackings
+     * @return null|Mage_Shipping_Model_Tracking_Result
      */
     protected function _getRestTracking($trackings)
     {
@@ -1209,13 +1209,13 @@ XMLAuth;
     /**
      * Parse REST tracking response
      *
-     * @param string $trackingValue
-     * @param string $jsonResponse
+     * @param  string $trackingValue
+     * @param  string $jsonResponse
      * @return void
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
     {
-        $errorTitle = 'For some reason we can\'t retrieve tracking info right now.';
+        $errorTitle = "For some reason we can't retrieve tracking info right now.";
         $resultArr = [];
         $packageProgress = [];
 
@@ -1287,7 +1287,7 @@ XMLAuth;
     /**
      * Set Tracking Response Data
      *
-     * @param array $resultArr
+     * @param array  $resultArr
      * @param string $trackingValue
      * @param string $errorTitle
      */
@@ -1341,7 +1341,7 @@ XMLAuth;
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1379,8 +1379,8 @@ XMLAuth;
         $height = $packageParams->getHeight();
         $width = $packageParams->getWidth();
         $length = $packageParams->getLength();
-        $weightUnits = $packageParams->getWeightUnits() == Zend_Measure_Weight::POUND ? 'LBS' : 'KGS';
-        $dimensionsUnits = $packageParams->getDimensionUnits() == Zend_Measure_Length::INCH ? 'IN' : 'CM';
+        $weightUnits = $packageParams->getWeightUnits() == Mage_Core_Helper_Measure_Weight::POUND ? 'LBS' : 'KGS';
+        $dimensionsUnits = $packageParams->getDimensionUnits() == Mage_Core_Helper_Measure_Length::INCH ? 'IN' : 'CM';
 
         $xmlRequest = new SimpleXMLElement('<?xml version = "1.0" ?><ShipmentConfirmRequest xml:lang="en-US"/>');
         $requestPart = $xmlRequest->addChild('Request');
@@ -1522,7 +1522,7 @@ XMLAuth;
 
         $deliveryConfirmation = $packageParams->getDeliveryConfirmation();
         if ($deliveryConfirmation) {
-            /** @var SimpleXMLElement|null $serviceOptionsNode */
+            /** @var null|SimpleXMLElement $serviceOptionsNode */
             $serviceOptionsNode = null;
             switch ($this->_getDeliveryConfirmationLevel($request->getRecipientAddressCountryCode())) {
                 case self::DELIVERY_CONFIRMATION_PACKAGE:
@@ -1742,7 +1742,7 @@ XMLAuth;
         } else {
             Mage::log(
                 'Unexpected response shape from UPS REST API /shipments endpoint for .ShipmentResults.PackageResults',
-                Zend_Log::WARN,
+                \Monolog\Level::Warning,
             );
             $result->setErrors(Mage::helper('usa')->__('Error reading response from UPS'));
             $this->_debug($debugData);
@@ -1764,9 +1764,9 @@ XMLAuth;
     /**
      * Return country code according to UPS
      *
-     * @param string $countryCode
-     * @param string $regionCode
-     * @param string $postCode
+     * @param  string $countryCode
+     * @param  string $regionCode
+     * @param  string $postCode
      * @return string
      */
     private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
@@ -1783,7 +1783,7 @@ XMLAuth;
 
         // For UPS, Las Palmas and Santa Cruz de Tenerife will be represented by Canary Islands country
         if ($countryCode === 'ES' && ($regionCode === 'Las Palmas' || $regionCode === 'Santa Cruz de Tenerife')) {
-            $countryCode = 'IC';
+            return 'IC';
         }
 
         return $countryCode;
@@ -1797,8 +1797,8 @@ XMLAuth;
         $width = $packageParams->getWidth();
         $length = $packageParams->getLength();
         $weight = $packageParams->getWeight();
-        $weightUnits = $packageParams->getWeightUnits() == Zend_Measure_Weight::POUND ? 'LBS' : 'KGS';
-        $dimensionsUnits = $packageParams->getDimensionUnits() == Zend_Measure_Length::INCH ? 'IN' : 'CM';
+        $weightUnits = $packageParams->getWeightUnits() == Mage_Core_Helper_Measure_Weight::POUND ? 'LBS' : 'KGS';
+        $dimensionsUnits = $packageParams->getDimensionUnits() == Mage_Core_Helper_Measure_Length::INCH ? 'IN' : 'CM';
 
         /**  Shipment API Payload */
         $shipParams = [
@@ -1838,8 +1838,8 @@ XMLAuth;
             $shipperData['Phone']['Number'] = $request->getRecipientContactPhoneNumber();
 
             $addressData = &$shipperData['Address'];
-            $addressData['AddressLine'] =
-                $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2();
+            $addressData['AddressLine']
+                = $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2();
             $addressData['City'] = $request->getRecipientAddressCity();
             $addressData['CountryCode'] = $request->getRecipientAddressCountryCode();
             $addressData['PostalCode'] = $request->getRecipientAddressPostalCode();
@@ -1932,10 +1932,10 @@ XMLAuth;
             if ($request->getReferenceData()) {
                 $referenceData = $request->getReferenceData() . $request->getPackageId();
             } else {
-                $referenceData = 'Order #' .
-                    $request->getOrderShipment()->getOrder()->getIncrementId() .
-                    ' P' .
-                    $request->getPackageId();
+                $referenceData = 'Order #'
+                    . $request->getOrderShipment()->getOrder()->getIncrementId()
+                    . ' P'
+                    . $request->getPackageId();
             }
 
             $packagePart['ReferenceNumber'] = [];
@@ -2185,8 +2185,8 @@ XMLAuth;
      * Get delivery confirmation level based on origin/destination
      * Return null if delivery confirmation is not acceptable
      *
-     * @param string $countyDest
-     * @return int|null
+     * @param  string   $countyDest
+     * @return null|int
      */
     protected function _getDeliveryConfirmationLevel($countyDest = null)
     {

@@ -29,10 +29,10 @@ class Mage_Reports_Model_Event_Observer
      *
      * Save event
      *
-     * @param int $eventTypeId
-     * @param int $objectId
-     * @param int $subjectId
-     * @param int $subtype
+     * @param  int   $eventTypeId
+     * @param  int   $objectId
+     * @param  int   $subjectId
+     * @param  int   $subtype
      * @return $this
      */
     protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)
@@ -254,9 +254,8 @@ class Mage_Reports_Model_Event_Observer
     /**
      * Clean events by old visitors
      *
-     * @see Global Log Clean Settings
-     *
      * @return $this
+     * @see Global Log Clean Settings
      */
     public function eventClean(Varien_Event_Observer $observer)
     {

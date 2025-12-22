@@ -40,9 +40,9 @@ function __()
  *
  * Will capitalize first letters and convert separators if needed
  *
- * @param string $str
- * @param string $destSep
- * @param string $srcSep
+ * @param  string $str
+ * @param  string $destSep
+ * @param  string $srcSep
  * @return string
  */
 function uc_words($str, $destSep = '_', $srcSep = '_')
@@ -53,7 +53,7 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
 /**
  * Simple sql format date
  *
- * @param bool $dayOnly
+ * @param  bool   $dayOnly
  * @return string
  * @deprecated use equivalent Varien method directly
  * @see Varien_Date::now()
@@ -66,7 +66,7 @@ function now($dayOnly = false)
 /**
  * Check whether sql date is empty
  *
- * @param string $date
+ * @param  string $date
  * @return bool
  */
 function is_empty_date($date)
@@ -75,7 +75,7 @@ function is_empty_date($date)
 }
 
 /**
- * @param string $class
+ * @param  string      $class
  * @return bool|string
  */
 function mageFindClassFile($class)
@@ -96,11 +96,11 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param int $errno
- * @param string $errstr
- * @param string $errfile
- * @param int $errline
- * @return bool|null
+ * @param  int       $errno
+ * @param  string    $errstr
+ * @param  string    $errfile
+ * @param  int       $errline
+ * @return null|bool
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -152,16 +152,16 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     if (Mage::getIsDeveloperMode()) {
         throw new Exception($errorMessage);
     } else {
-        Mage::log($errorMessage, Zend_Log::ERR);
+        Mage::log($errorMessage, \Monolog\Level::Error);
         return null;
     }
 }
 
 /**
- * @param bool $return
- * @param bool $html
- * @param bool $showFirst
- * @return string|null
+ * @param  bool        $return
+ * @param  bool        $html
+ * @param  bool        $showFirst
+ * @return null|string
  *
  * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
@@ -224,10 +224,10 @@ function mageDelTree($path)
 }
 
 /**
- * @param string $string
- * @param string $delimiter
- * @param string $enclosure
- * @param string $escape
+ * @param  string $string
+ * @param  string $delimiter
+ * @param  string $enclosure
+ * @param  string $escape
  * @return array
  */
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
@@ -264,7 +264,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
 }
 
 /**
- * @param string $dir
+ * @param  string $dir
  * @return bool
  *
  * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -274,7 +274,7 @@ function isDirWriteable($dir)
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
             $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
-            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()) . '.tmp';
+            $file   = $dir . DIRECTORY_SEPARATOR . uniqid((string) mt_rand()) . '.tmp';
             $exist  = file_exists($file);
             $fp     = @fopen($file, 'a');
             if ($fp === false) {
@@ -295,7 +295,7 @@ function isDirWriteable($dir)
 
 
 /**
- * @param string $dir
+ * @param  string $dir
  * @return bool
  * @deprecated avoid php_codesniffer error
  *

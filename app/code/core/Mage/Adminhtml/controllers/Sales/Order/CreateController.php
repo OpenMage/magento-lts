@@ -15,8 +15,7 @@
 class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Additional initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -125,7 +124,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Process request data with additional logic for saving quote and creating order
      *
-     * @param string $action
+     * @param  string $action
      * @return $this
      */
     protected function _processActionData($action = null)
@@ -181,14 +180,14 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          * Change shipping address flag
          */
         if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() && $this->getRequest()->getPost('reset_shipping')) {
-            $this->_getOrderCreateModel()->resetShippingMethod(true);
+            $this->_getOrderCreateModel()->resetShippingMethod();
         }
 
         /**
          * Collecting shipping rates
          */
-        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual() &&
-            $this->getRequest()->getPost('collect_shipping_rates')
+        if (!$this->_getOrderCreateModel()->getQuote()->isVirtual()
+            && $this->getRequest()->getPost('collect_shipping_rates')
         ) {
             $this->_getOrderCreateModel()->collectShippingRates();
         }
@@ -308,7 +307,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Process buyRequest file options of items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     protected function _processFiles($items)
@@ -626,7 +625,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Show item update result from loadBlockAction
      * to prevent popup alert with resend data question
-     *
      */
     public function showUpdateResultAction()
     {

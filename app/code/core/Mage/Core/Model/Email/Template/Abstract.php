@@ -13,10 +13,10 @@
  * @package    Mage_Core
  *
  * @method string getInlineCssFile()
- * @method $this setTemplateType(int $value)
+ * @method string getTemplateStyles()
  * @method getTemplateText()
  * @method $this setTemplateText(string $value)
- * @method string getTemplateStyles()
+ * @method $this setTemplateType(int $value)
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
@@ -35,8 +35,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Get template code for template directive
      *
-     * @param   string $configPath
-     * @return  string
+     * @param  string $configPath
+     * @return string
      */
     public function getTemplateByConfigPath($configPath, array $variables)
     {
@@ -50,9 +50,9 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Load template by configuration path. This enables html templates to include other html templates by their
      * system configuration XPATH value
      *
-     * @param   string $configPath The path to the config setting that defines which global/template/email/* node
-     * should be used to load the email template
-     * @return   $this|null
+     * @param  string     $configPath The path to the config setting that defines which global/template/email/* node
+     *                                should be used to load the email template
+     * @return null|$this
      */
     public function loadByConfigPath($configPath)
     {
@@ -98,7 +98,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Return logo URL for emails
      * Take logo from skin if custom logo is undefined
      *
-     * @param  Mage_Core_Model_Store|int|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return string
      */
     protected function _getLogoUrl($store)
@@ -119,7 +119,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Return logo alt for emails
      *
-     * @param  Mage_Core_Model_Store|int|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return string
      */
     protected function _getLogoAlt($store)
@@ -136,8 +136,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Add variables that are used by transactional emails and newsletter emails
      *
-     * @param array $variables
-     * @param int $storeId
+     * @param  array $variables
+     * @param  int   $storeId
      * @return array
      */
     protected function _addEmailVariables($variables, $storeId)
@@ -181,7 +181,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Merge HTML and CSS and returns HTML that has CSS styles applied "inline" to the HTML tags. This is necessary
      * in order to support all email clients.
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     protected function _applyInlineCss($html)
@@ -209,7 +209,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Load CSS content from filesystem
      *
-     * @param string $filename
+     * @param  string $filename
      * @return string
      */
     protected function _getCssFileContent($filename)
@@ -231,9 +231,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_theme' => $theme,
             ],
         );
-        $validator = new Zend_Validate_File_Extension('css');
 
-        if ($validator->isValid($filePath) && is_readable($filePath)) {
+        if ($this->validateFileExension($filePath, 'css') && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
@@ -241,11 +240,24 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         return '';
     }
 
+    public function validateFileExension(string $filePath, string $extension): bool
+    {
+        if ($extension === 'css') {
+            $extension = ['css' => ['text/css', 'text/plain']];
+        }
+
+        $validator = $this->getValidationHelper();
+        return $validator->validateFile(
+            value: $filePath,
+            extensions: $extension,
+        )->count() === 0;
+    }
+
     /**
      * Accepts a path to a System Config setting that contains a comma-delimited list of files to load. Loads those
      * files and then returns the concatenated content.
      *
-     * @param string $configPath
+     * @param  string $configPath
      * @return string
      */
     protected function _getCssByConfig($configPath)

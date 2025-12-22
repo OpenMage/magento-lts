@@ -216,6 +216,7 @@ nav:
       - 'Multistore':
           - developers/error-pages.md
       - 'Samples':
+          - developers/samples/env.md
           - developers/samples/php-ini.md
           - developers/samples/robots-txt.md
       - 'Guides':

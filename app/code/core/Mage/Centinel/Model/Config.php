@@ -15,7 +15,7 @@ class Mage_Centinel_Model_Config
     /**
      * Store id or store model
      *
-     * @var int|Mage_Core_Model_Store|false
+     * @var false|int|Mage_Core_Model_Store
      */
     protected $_store = false;
 
@@ -36,7 +36,7 @@ class Mage_Centinel_Model_Config
     /**
      * Set store to congif model
      *
-     * @param int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -58,8 +58,8 @@ class Mage_Centinel_Model_Config
     /**
      * Return validation state class for card with type $cardType
      *
-     * @param string $cardType
-     * @return string|array|false
+     * @param  string             $cardType
+     * @return array|false|string
      */
     public function getStateModelClass($cardType)
     {
@@ -114,7 +114,7 @@ class Mage_Centinel_Model_Config
     /**
      * Return value of node of centinel config section
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     private function _getServiceConfigValue($key)

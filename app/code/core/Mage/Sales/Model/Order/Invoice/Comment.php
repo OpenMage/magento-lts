@@ -10,19 +10,21 @@
 /**
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Invoice_Comment _getResource()
- * @method Mage_Sales_Model_Resource_Order_Invoice_Comment getResource()
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method int getIsCustomerNotified()
- * @method $this setIsCustomerNotified(int $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method $this setStoreId(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Comment            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection getCollection()
+ * @method string                                                     getComment()
+ * @method string                                                     getCreatedAt()
+ * @method int                                                        getIsCustomerNotified()
+ * @method int                                                        getIsVisibleOnFront()
+ * @method int                                                        getParentId()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Comment            getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection getResourceCollection()
+ * @method $this                                                      setComment(string $value)
+ * @method $this                                                      setCreatedAt(string $value)
+ * @method $this                                                      setIsCustomerNotified(int $value)
+ * @method $this                                                      setIsVisibleOnFront(int $value)
+ * @method $this                                                      setParentId(int $value)
+ * @method $this                                                      setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
 {
@@ -33,6 +35,9 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
      */
     protected $_invoice;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice_comment');
@@ -41,7 +46,7 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
     /**
      * Declare invoice instance
      *
-     * @return  Mage_Sales_Model_Order_Invoice_Comment
+     * @return Mage_Sales_Model_Order_Invoice_Comment
      */
     public function setInvoice(Mage_Sales_Model_Order_Invoice $invoice)
     {

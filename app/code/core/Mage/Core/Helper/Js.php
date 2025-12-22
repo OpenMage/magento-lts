@@ -36,7 +36,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config|null
+     * @var null|Varien_Simplexml_Config
      */
     protected $_config = null;
 
@@ -64,8 +64,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve framed javascript
      *
-     * @param   string $script
-     * @return  string script
+     * @param  string $script
+     * @return string script
      */
     public function getScript($script)
     {
@@ -77,8 +77,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve javascript include code
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeScript($file)
     {
@@ -88,8 +88,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeSkinScript($file)
     {
@@ -99,8 +99,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsUrl($file)
     {
@@ -110,8 +110,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve skin JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsSkinUrl($file)
     {
@@ -181,7 +181,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
@@ -191,13 +191,13 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
         }
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
-        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+        return "deleteConfirm('" . $message . "', '" . $url . "')";
     }
 
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
@@ -215,7 +215,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSetLocationJs(string $url): string
     {
-        return 'setLocation(\'' . $url . '\')';
+        return "setLocation('" . $url . "')";
     }
 
     /**
@@ -223,6 +223,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSaveAndContinueEditJs(string $url): string
     {
-        return 'saveAndContinueEdit(\'' . $url . '\')';
+        return "saveAndContinueEdit('" . $url . "')";
     }
 }

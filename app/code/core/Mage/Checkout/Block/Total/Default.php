@@ -23,6 +23,9 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
      */
     protected $_store;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate($this->_template);
@@ -40,7 +43,7 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address_Total $total
+     * @param  Mage_Sales_Model_Quote_Address_Total $total
      * @return $this
      */
     public function setTotal($total)

@@ -20,7 +20,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Catalog Product collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract|null
+     * @var null|Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected $_productCollection;
 
@@ -86,7 +86,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getListBlock()
     {
-        return $this->getChild('search_result_list');
+        /** @var Mage_Catalog_Block_Product_List $child */
+        $child = $this->getChild('search_result_list');
+        return $child;
     }
 
     /**
@@ -165,6 +167,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      * Retrieve search result count
      *
      * @return string
+     * @throws Zend_Db_Select_Exception
      */
     public function getResultCount()
     {

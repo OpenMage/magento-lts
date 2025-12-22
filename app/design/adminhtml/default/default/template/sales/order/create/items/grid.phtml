@@ -47,7 +47,7 @@
 <div>
     <?php if(count($_items)>10): ?>
     <p class="a-right">
-        <?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?>
+        <?php echo $this->getButtonHtml($this->helper('sales')->__("Update Items and Qty's"),'order.itemsUpdate()'); ?>
     </p>
     <?php endif ?>
     <div class="grid" id="order-items_grid">
@@ -409,7 +409,7 @@
         <col width="50%" />
         <tr>
             <td class="a-left"><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
-            <td class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
+            <td class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__("Update Items and Qty's"),'order.itemsUpdate()'); ?></td>
         </tr>
     </table>
     <br />

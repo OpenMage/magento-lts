@@ -7,6 +7,8 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+
 /**
  * Export model
  *
@@ -53,8 +55,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     /**
      * Create instance of entity adapter and returns it.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @throws Exception
      */
     protected function _getEntityAdapter()
     {
@@ -98,8 +100,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     /**
      * Get writer object.
      *
-     * @throws Mage_Core_Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getWriter()
     {
@@ -134,10 +136,9 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     /**
      * Export data and return contents of temporary file.
      *
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
-     *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
     public function export()
     {
@@ -179,8 +180,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      *     'type'  => 'file'
      * )
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function exportFile()
     {
@@ -225,8 +226,8 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      * Determine filter type for specified attribute.
      *
      * @static
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public static function getAttributeFilterType(Mage_Eav_Model_Entity_Attribute $attribute)
     {
@@ -305,6 +306,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      */
     public function getFileName()
     {
-        return $this->getEntity() . '_' . date('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
+        return $this->getEntity() . '_' . Carbon::now()->format('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
     }
 }

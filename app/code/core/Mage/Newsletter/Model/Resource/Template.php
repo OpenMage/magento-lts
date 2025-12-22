@@ -14,6 +14,9 @@
  */
 class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/template', 'template_id');
@@ -22,7 +25,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
     /**
      * Load an object by template code
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return $this
      */
     public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)

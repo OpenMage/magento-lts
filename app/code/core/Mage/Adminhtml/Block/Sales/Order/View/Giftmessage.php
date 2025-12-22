@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_entity;
 
@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message|null
+     * @var null|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage;
 
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     public function getSaveButtonHtml()
     {
         $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')',
+            "giftMessagesController.saveGiftMessage('" . $this->getHtmlId() . "')",
         );
 
         return $this->getChildHtml('save_button');
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Set entity for form
      *
-     * @param Mage_Sales_Model_Order $entity
+     * @param  Mage_Sales_Model_Order $entity
      * @return $this
      */
     public function setEntity(Varien_Object $entity)
@@ -107,7 +107,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     public function getEntity()
     {
         if (is_null($this->_entity)) {
-            $this->setEntity(Mage::getModel('giftmessage/message')->getEntityModelByType('order'));
+            /** @var Mage_Sales_Model_Order $model */
+            $model = Mage::getModel('giftmessage/message')->getEntityModelByType('order');
+            $this->setEntity($model);
             $this->getEntity()->load($this->getRequest()->getParam('entity'));
         }
 
@@ -169,7 +171,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real name for field
      *
-     * @param string $name
+     * @param  string    $name
      * @return string
      * @throws Exception
      */
@@ -181,7 +183,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string    $id
      * @return string
      * @throws Exception
      */

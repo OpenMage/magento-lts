@@ -19,8 +19,8 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message save url
      *
-     * @param string $type
-     * @param array $params
+     * @param  string $type
+     * @param  array  $params
      * @return string
      */
     public function getEditUrl(Varien_Object $item, $type, $params = [])
@@ -37,9 +37,9 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message button block url
      *
-     * @param int $itemId
-     * @param string $type
-     * @param array $params
+     * @param  int    $itemId
+     * @param  string $type
+     * @param  array  $params
      * @return string
      */
     public function getButtonUrl($itemId, $type, $params = [])
@@ -51,9 +51,9 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message remove url
      *
-     * @param int $itemId
-     * @param string $type
-     * @param array $params
+     * @param  int    $itemId
+     * @param  string $type
+     * @param  array  $params
      * @return string
      */
     public function getRemoveUrl($itemId, $type, $params = [])
@@ -65,10 +65,10 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     /**
      * Retrieve gift message save url
      *
-     * @param int $itemId
-     * @param string $type
-     * @param string $giftMessageId
-     * @param array $params
+     * @param  int    $itemId
+     * @param  string $type
+     * @param  string $giftMessageId
+     * @param  array  $params
      * @return string
      */
     public function getSaveUrl($itemId, $type, $giftMessageId = null, $params = [])

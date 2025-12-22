@@ -26,8 +26,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     protected $_isStoreFilterWithAdmin   = true;
 
     /**
-     * Initialize resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -37,7 +36,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     /**
      * Filter collection by specified store ids
      *
-     * @param int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function addStoreFilter($store)
@@ -81,7 +80,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     /**
      * Make store filter using admin website or not
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsStoreFilterWithAdmin($value)

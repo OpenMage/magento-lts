@@ -175,9 +175,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
     /**
      * Convert given date to default (UTC) timezone
      *
-     * @param string $date
-     * @param string $locale
-     * @return Zend_Date|null
+     * @param  string         $date
+     * @param  string         $locale
+     * @return null|Zend_Date
      */
     protected function _convertDate($date, $locale)
     {

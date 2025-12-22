@@ -95,7 +95,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve a list or orders' addresses in a form of [order ID => array of addresses, ...]
      *
-     * @param array $orderIds Orders identifiers
+     * @param  array $orderIds Orders identifiers
      * @return array
      */
     protected function _getAddresses(array $orderIds)
@@ -138,7 +138,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve collection instance for single order
      *
-     * @param int $orderId Order identifier
+     * @param  int                                        $orderId Order identifier
      * @return Mage_Sales_Model_Resource_Order_Collection
      */
     protected function _getCollectionForSingleRetrieve($orderId)
@@ -152,7 +152,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve a list or orders' comments in a form of [order ID => array of comments, ...]
      *
-     * @param array $orderIds Orders' identifiers
+     * @param  array $orderIds Orders' identifiers
      * @return array
      */
     protected function _getComments(array $orderIds)
@@ -175,7 +175,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Prepare and return order comments collection
      *
-     * @param array $orderIds Orders' identifiers
+     * @param  array                                                            $orderIds Orders' identifiers
      * @return Mage_Sales_Model_Resource_Order_Status_History_Collection|Object
      */
     protected function _getCommentsCollection(array $orderIds)
@@ -190,7 +190,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Retrieve a list or orders' items in a form of [order ID => array of items, ...]
      *
-     * @param array $orderIds Orders identifiers
+     * @param  array $orderIds Orders identifiers
      * @return array
      */
     protected function _getItems(array $orderIds)

@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
 
     /**
      * Set block template and get available modes
-     *
      */
     public function __construct()
     {
@@ -59,7 +58,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
     /**
      * Check whether selection is in specified mode
      *
-     * @param string $mode
+     * @param  string $mode
      * @return bool
      */
     public function isMode($mode)

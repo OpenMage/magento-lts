@@ -18,7 +18,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Stock Indexer models per product type
      * Sorted by priority
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_indexers;
 
@@ -29,6 +29,9 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      */
     protected $_defaultIndexer   = 'cataloginventory/indexer_stock_default';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_status', 'product_id');
@@ -38,6 +41,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Process stock item save action
      *
      * @return $this
+     * @throws Exception
      */
     public function cataloginventoryStockItemSave(Mage_Index_Model_Event $event)
     {
@@ -55,8 +59,9 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Refresh stock index for specific product ids
      *
-     * @param array $productIds
+     * @param  array     $productIds
      * @return $this
+     * @throws Exception
      */
     public function reindexProducts($productIds)
     {
@@ -105,6 +110,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Processing parent products after child product deleted
      *
      * @return $this
+     * @throws Exception
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
     {
@@ -139,6 +145,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Process product mass update action
      *
      * @return $this
+     * @throws Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
     {
@@ -211,6 +219,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Rebuild all index data
      *
      * @return $this
+     * @throws Exception
      */
     public function reindexAll()
     {
@@ -246,7 +255,9 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             foreach ($types as $typeId => $typeInfo) {
                 $modelName = $typeInfo['stock_indexer'] ?? $this->_defaultIndexer;
                 $isComposite = !empty($typeInfo['composite']);
-                $indexer = Mage::getResourceModel($modelName)
+                /** @var Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default $indexer */
+                $indexer = Mage::getResourceModel($modelName);
+                $indexer
                     ->setTypeId($typeId)
                     ->setIsComposite($isComposite);
 
@@ -260,8 +271,9 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Retrieve Stock indexer by Product Type
      *
-     * @param string $productTypeId
+     * @param  string                                                       $productTypeId
      * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
+     * @throws Mage_Core_Exception
      */
     protected function _getIndexer($productTypeId)
     {
@@ -277,7 +289,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      * Retrieve parent ids and types by child id
      * Return array with key product_id and value as product type id
      *
-     * @param int $childId
+     * @param  int   $childId
      * @return array
      */
     public function getProductParentsByChild($childId)
@@ -297,7 +309,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

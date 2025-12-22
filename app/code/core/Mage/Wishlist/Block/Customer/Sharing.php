@@ -17,7 +17,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_enteredData = null;
 
@@ -49,7 +49,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Retrieve Entered Data by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getEnteredData($key)

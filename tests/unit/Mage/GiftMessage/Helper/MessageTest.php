@@ -31,11 +31,11 @@ final class MessageTest extends OpenMageTest
     }
 
     /**
+     * @param 'address_item'|'config'|'item'|'items'|'order'|'order_item' $type Message type
      * @dataProvider provideIsMessagesAvailable
-     *
      * @group Helper
      */
-    public function testIsMessagesAvailable(string $type, Varien_Object $entity, bool|int|Mage_Core_Model_Store|null|string $store = null): void
+    public function testIsMessagesAvailable(string $type, Varien_Object $entity, null|bool|int|Mage_Core_Model_Store|string $store = null): void
     {
         self::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
     }

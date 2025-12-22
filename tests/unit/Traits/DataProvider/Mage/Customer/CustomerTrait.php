@@ -28,6 +28,7 @@ trait CustomerTrait
             'shouldValidateDob' => false,
             'shouldValidateTaxvat' => false,
             'shouldValidateGender' => false,
+            'getIsChangePassword' => true,
         ];
 
         yield 'valid data' => [
@@ -75,7 +76,10 @@ trait CustomerTrait
         $data['getPassword'] = $password;
         $data['getPasswordConfirmation'] = $password;
         yield 'passwords to short' => [
-            ['The minimum password length is 7'],
+            [
+                'The minimum password length is 7',
+                'Password must include both numeric and alphabetic characters.',
+            ],
             $data,
         ];
 
@@ -84,7 +88,10 @@ trait CustomerTrait
         $data['getPassword'] = $password;
         $data['getPasswordConfirmation'] = $password;
         yield 'passwords to long' => [
-            ['Please enter a password with at most 256 characters.'],
+            [
+                'Please enter a password with at most 256 characters.',
+                'Password must include both numeric and alphabetic characters.',
+            ],
             $data,
         ];
 
@@ -92,7 +99,7 @@ trait CustomerTrait
         $data['getDob'] = '';
         $data['shouldValidateDob'] = true;
         yield 'missing dob' => [
-            true, # ['The Date of Birth is required.'],
+            ['The Date of Birth is required.'],
             $data,
         ];
 
@@ -100,7 +107,7 @@ trait CustomerTrait
         $data['getDob'] = 'abc';
         $data['shouldValidateDob'] = true;
         yield 'invalid dob' => [
-            true, # ['This value is not a valid date.'],
+            ['The Date of Birth is not a valid date.'],
             $data,
         ];
 
@@ -108,7 +115,7 @@ trait CustomerTrait
         $data['getTaxvat'] = '';
         $data['shouldValidateTaxvat'] = true;
         yield 'missing taxvat' => [
-            true, # ['The TAX/VAT number is required.'],
+            ['The TAX/VAT number is required.'],
             $data,
         ];
 
@@ -116,7 +123,7 @@ trait CustomerTrait
         $data['getGender'] = '';
         $data['shouldValidateGender'] = true;
         yield 'missing gender' => [
-            true, # ['Gender is required.'],
+            ['Gender is required.'],
             $data,
         ];
     }

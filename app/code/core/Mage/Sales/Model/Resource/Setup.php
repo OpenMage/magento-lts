@@ -17,7 +17,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities converted from EAV to flat data structure
      *
-     * @var array $_flatEntityTables
+     * @var array
      */
     protected $_flatEntityTables     = [
         'quote'             => 'sales/quote',
@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities used with separate grid table
      *
-     * @var array $_flatEntitiesGrid
+     * @var array
      */
     protected $_flatEntitiesGrid     = [
         'order',
@@ -58,7 +58,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Check if table exist for flat entity
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      */
     protected function _flatTableExist($table)
@@ -70,14 +70,14 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Add entity attribute. Overwrited for flat entities support
      *
-     * @param int|string $entityTypeId
-     * @param string $code
+     * @param  int|string $entityTypeId
+     * @param  string     $code
      * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
-        if (isset($this->_flatEntityTables[$entityTypeId]) &&
-            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])
+        if (isset($this->_flatEntityTables[$entityTypeId])
+            && $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])
         ) {
             $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
             $this->_addGridAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr, $entityTypeId);
@@ -91,9 +91,9 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Add attribute as separate column in the table
      *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
+     * @param  string $table
+     * @param  string $attribute
+     * @param  array  $attr
      * @return $this
      */
     protected function _addFlatAttribute($table, $attribute, $attr)
@@ -111,10 +111,10 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Add attribute to grid table if necessary
      *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
-     * @param string $entityTypeId
+     * @param  string $table
+     * @param  string $attribute
+     * @param  array  $attr
+     * @param  string $entityTypeId
      * @return $this
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
@@ -130,8 +130,8 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Retrieve definition of column for create in flat table
      *
-     * @param string $code
-     * @param array $data
+     * @param  string $code
+     * @param  array  $data
      * @return array
      */
     protected function _getAttributeColumnDefinition($code, $data)

@@ -48,7 +48,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var array<string, array<string, string|null>>
+     * @var array<string, array<string, null|string>>
      */
     protected $_categoryPath;
 
@@ -69,7 +69,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set a specified store ID value
      *
-     * @param int $store
+     * @param  int   $store
      * @return $this
      */
     public function setStoreId($store)
@@ -83,6 +83,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * and creating array of categories|product paths for breadcrumbs
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getBreadcrumbPath()
     {
@@ -118,8 +119,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is category link
      *
-     * @param int $categoryId
+     * @param  int|string          $categoryId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isCategoryLink($categoryId)
     {
@@ -137,7 +139,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return current category object
      *
-     * @return Mage_Catalog_Model_Category|null
+     * @return null|Mage_Catalog_Model_Category
      */
     public function getCategory()
     {
@@ -147,7 +149,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current Product object
      *
-     * @return Mage_Catalog_Model_Product|null
+     * @return null|Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -158,6 +160,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve Visitor/Customer Last Viewed URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getLastViewedUrl()
     {
@@ -186,8 +189,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Split SKU of an item by dashes and spaces
      * Words will not be broken, unless thir length is greater than $length
      *
-     * @param string $sku
-     * @param int $length
+     * @param  string $sku
+     * @param  int    $length
      * @return array
      */
     public function splitSku($sku, $length = 30)
@@ -246,7 +249,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
+     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId Store View
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)
@@ -288,10 +291,10 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-    * Initialize mapping for old and new field names
-    *
-    * @return array
-    */
+     * Initialize mapping for old and new field names
+     *
+     * @return array
+     */
     public function getOldFieldMap()
     {
         $node = Mage::getConfig()->getNode('global/catalog_product/old_fields_map');
@@ -362,10 +365,12 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Check if can apply Minimum Advertise price to product
      * in specific visibility
      *
-     * @param int|Mage_Catalog_Model_Product $product
-     * @param int $visibility Check displaying price in concrete place (by default generally)
-     * @param bool $checkAssociatedItems
+     * @param  int|Mage_Catalog_Model_Product                                $product
+     * @param  Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_* $visibility           Check displaying price in concrete place (by default generally)
+     * @param  bool                                                          $checkAssociatedItems
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function canApplyMsrp($product, $visibility = null, $checkAssociatedItems = true)
     {
@@ -417,8 +422,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check whether MAP applied to product Product Type
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canApplyMsrpToProductType($product)
     {
@@ -435,7 +441,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get MAP message for price
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getMsrpPriceMessage($product)
@@ -453,7 +459,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is product need gesture to show price
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function isShowPriceOnGesture($product)
@@ -466,7 +472,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Whether to display items count for each filter option
-     * @param int $storeId Store view ID
+     * @param  int  $storeId Store view ID
      * @return bool
      */
     public function shouldDisplayProductCountOnLayer($storeId = null)

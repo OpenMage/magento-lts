@@ -12,15 +12,14 @@
  *
  * @package    Mage_ImportExport
  *
- * @method string getRunAt()
- * @method int getScheduledOperationId()
  * @method string getOperationType()
+ * @method string getRunAt()
+ * @method int    getScheduledOperationId()
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
     /**
      * Log directory
-     *
      */
     public const LOG_DIRECTORY = 'log/import_export/';
 
@@ -55,7 +54,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      * Log debug data to file.
      * Log file dir: var/log/import_export/%Y/%m/%d/%time%_%operation_type%_%entity_type%.log
      *
-     * @param mixed $debugData
+     * @param  mixed                            $debugData
      * @return Mage_ImportExport_Model_Abstract
      */
     public function addLogComment($debugData)
@@ -113,7 +112,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
     /**
      * Sets debug mode
      *
-     * @param bool $mode
+     * @param  bool                             $mode
      * @return Mage_ImportExport_Model_Abstract
      */
     public function setDebugMode($mode = true)

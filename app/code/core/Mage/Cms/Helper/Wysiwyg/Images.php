@@ -18,7 +18,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Current directory path
-     * @var string|false
+     * @var false|string
      */
     protected $_currentPath;
 
@@ -37,14 +37,14 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string|false
+     * @var false|string
      */
     protected $_storageRoot;
 
     /**
      * Set a specified store ID value
      *
-     * @param int $store
+     * @param  int   $store
      * @return $this
      */
     public function setStoreId($store)
@@ -97,7 +97,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Encode path to HTML element id
      *
-     * @param string $path Path to file/directory
+     * @param  string $path Path to file/directory
      * @return string
      */
     public function convertPathToId($path)
@@ -110,7 +110,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Decode HTML element id
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function convertIdToPath($id)
@@ -118,7 +118,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $path = $this->idDecode($id);
         $storageRoot = realpath($this->getStorageRoot());
         if (!strstr($path, (string) $storageRoot)) {
-            $path = $storageRoot . DS . $path;
+            return $storageRoot . DS . $path;
         }
 
         return $path;
@@ -127,15 +127,15 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * File system path correction
      *
-     * @param string $path Original path
-     * @param bool $trim Trim slashes or not
+     * @param  string $path Original path
+     * @param  bool   $trim Trim slashes or not
      * @return string
      */
     public function correctPath($path, $trim = true)
     {
         $path = strtr($path, "\\\/", DS . DS);
         if ($trim) {
-            $path = trim($path, DS);
+            return trim($path, DS);
         }
 
         return $path;
@@ -144,7 +144,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Return file system path as Url string
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     public function convertPathToUrl($path)
@@ -171,8 +171,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Prepare Image insertion declaration for Wysiwyg or textarea(as_is mode)
      *
-     * @param string $filename Filename transferred via Ajax
-     * @param bool $renderAsTag Leave image HTML as is or transform it to controller directive
+     * @param  string $filename    Filename transferred via Ajax
+     * @param  bool   $renderAsTag Leave image HTML as is or transform it to controller directive
      * @return string
      */
     public function getImageHtmlDeclaration($filename, $renderAsTag = false)
@@ -197,8 +197,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Return path of the current selected directory or root directory for startup
      * Try to create target directory if it doesn't exist
      *
+     * @return false|string
      * @throws Mage_Core_Exception
-     * @return string|false
      */
     public function getCurrentPath()
     {
@@ -238,8 +238,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $mediaPath = realpath(Mage::getConfig()->getOptions()->getMediaDir());
             $path = str_replace($mediaPath, '', $this->getCurrentPath());
             $path = trim($path, DS);
-            $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
-                                 $this->convertPathToUrl($path) . '/';
+            $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media')
+                                 . $this->convertPathToUrl($path) . '/';
         }
 
         return $this->_currentUrl;
@@ -258,7 +258,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Encode string to valid HTML id element, based on base64 encoding
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function idEncode($string)
@@ -269,8 +269,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Revert operation to idEncode
      *
-     * @param string $string
-     * @return string|false
+     * @param  string       $string
+     * @return false|string
      */
     public function idDecode($string)
     {
@@ -281,8 +281,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Reduce filename by replacing some characters with dots
      *
-     * @param string $filename
-     * @param int $maxLength Maximum filename
+     * @param  string $filename
+     * @param  int    $maxLength Maximum filename
      * @return string Truncated filename
      */
     public function getShortFilename($filename, $maxLength = 20)

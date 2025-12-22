@@ -17,7 +17,7 @@ class Mage_Payment_Model_Observer
     /**
      * Set forced canCreditmemo flag
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function salesOrderBeforeSave($observer)
@@ -114,14 +114,14 @@ class Mage_Payment_Model_Observer
      * Will veto the unassignment of the order status if it is currently configured in any of the payment method
      * configurations.
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      */
     public function beforeSalesOrderStatusUnassign($observer)
     {
         $state = $observer->getEvent()->getState();
         if ($state == Mage_Sales_Model_Order::STATE_NEW) {
-            /** @var Mage_Sales_Model_Order_Status|false $statusModel */
+            /** @var false|Mage_Sales_Model_Order_Status $statusModel */
             $statusModel = $observer->getEvent()->getStatus();
             $status      = $statusModel->getStatus();
             $used        = 0;

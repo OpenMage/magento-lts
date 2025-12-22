@@ -20,7 +20,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     protected $_column;
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     public function setColumn($column)
@@ -40,7 +40,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -65,7 +65,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     protected function _getValue(Varien_Object $row)
     {
@@ -98,7 +98,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     protected function _getInputValue(Varien_Object $row)
     {
@@ -152,7 +152,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function renderCss()
     {
@@ -160,7 +160,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getCopyableText(Varien_Object $row)
     {

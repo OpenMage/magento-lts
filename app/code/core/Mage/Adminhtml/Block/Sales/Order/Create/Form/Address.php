@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Customer Address Form instance
      *
-     * @var Mage_Customer_Model_Form|null
+     * @var null|Mage_Customer_Model_Form
      */
     protected $_addressForm;
 
@@ -210,7 +210,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Return customer address formatted as one-line string
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressAsString($address)

@@ -31,8 +31,8 @@ class Unserialize_Parser
     public const SYMBOL_COLON = ':';
 
     /**
-     * @param $str
-     * @return array|null
+     * @param             $str
+     * @return null|array
      * @throws Exception
      */
     public function unserialize($str)

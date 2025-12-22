@@ -55,7 +55,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_setConnection($args['connection']);
         $this->_setFactory($args['factory']);
         $this->_setResource($args['resource']);
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
     }
 
     /**
@@ -389,8 +389,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
                     $nA,
-                ) . ' != cppt.grouped_id' =>
-                '@price := ' . $this->_connection->getCaseSql(
+                ) . ' != cppt.grouped_id'
+                => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
                     [
                         $toPercent => new Zend_Db_Expr('cppt.price * cppt.action_amount/100'),
@@ -439,7 +439,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Prepare index select
      *
-     * @param int|Zend_Db_Expr $time
+     * @param  int|Zend_Db_Expr $time
      * @return Varien_Db_Select
      */
     protected function _prepareIndexSelect(Mage_Core_Model_Website $website, $time)

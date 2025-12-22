@@ -31,20 +31,18 @@ class Mage_ProductAlert_Model_Observer
 
     /**
      * Allow price alert
-     *
      */
     public const XML_PATH_PRICE_ALLOW      = 'catalog/productalert/allow_price';
 
     /**
      * Allow stock alert
-     *
      */
     public const XML_PATH_STOCK_ALLOW      = 'catalog/productalert/allow_stock';
 
     /**
      * Website collection array
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 

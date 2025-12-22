@@ -29,7 +29,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     protected $_soap = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,7 +58,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -153,8 +153,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                             $this->_soap->handle(),
                         ),
                     );
-            } catch (Zend_Soap_Server_Exception|Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Zend_Soap_Server_Exception $zendSoapServerException) {
+                $this->fault($zendSoapServerException->getCode(), $zendSoapServerException->getMessage());
+            } catch (Exception $exception) {
+                $this->fault($exception->getCode(), $exception->getMessage());
             }
         }
 
@@ -164,7 +166,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -197,8 +199,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Transform wsdl url if $_SERVER["PHP_AUTH_USER"] is set
      *
-     * @param array $params
-     * @param bool $withAuth
+     * @param  array              $params
+     * @param  bool               $withAuth
      * @return string
      * @throws Zend_Uri_Exception
      */

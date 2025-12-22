@@ -32,10 +32,10 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
     }
 
     /**
-     * @param string $currencyFrom
-     * @param string $currencyTo
-     * @param int $retry
-     * @return float|null
+     * @param  string     $currencyFrom
+     * @param  string     $currencyTo
+     * @param  int        $retry
+     * @return null|float
      */
     protected function _convert($currencyFrom, $currencyTo, $retry = 0)
     {
@@ -63,5 +63,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
                 $this->_messages[] = Mage::helper('directory')->__('Cannot retrieve rate from %s.', $url);
             }
         }
+
+        return null;
     }
 }

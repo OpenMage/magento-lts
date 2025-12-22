@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav_decimal', 'entity_id');
@@ -22,8 +25,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
@@ -111,7 +114,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
     /**
      * Retrieve temporary decimal index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

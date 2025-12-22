@@ -29,7 +29,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
     /**
      * Parse string with indexers and return array of indexer instances
      *
-     * @param string $string
+     * @param  string $string
      * @return array
      */
     protected function _parseIndexerString($string)
@@ -64,7 +64,6 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -173,7 +172,6 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {

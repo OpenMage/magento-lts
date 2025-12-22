@@ -11,6 +11,8 @@
  * DHL shipping implementation
  *
  * @package    Mage_Usa
+ *
+ * @property Varien_Object $_rawTrackRequest
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -31,21 +33,21 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result
      */
     protected $_result = null;
 
@@ -100,7 +102,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @return bool|Mage_Shipping_Model_Rate_Result|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -164,6 +166,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
+     * @param  Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -287,29 +290,29 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         if ($request->getAction() == 'GenerateLabel') {
             $packageParams = $request->getPackageParams();
             $shippingWeight = $request->getPackageWeight();
-            if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
+            if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::POUND) {
                 $shippingWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                     $request->getPackageWeight(),
                     $packageParams->getWeightUnits(),
-                    Zend_Measure_Weight::POUND,
+                    Mage_Core_Helper_Measure_Weight::POUND,
                 ));
             }
 
-            if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
+            if ($packageParams->getDimensionUnits() != Mage_Core_Helper_Measure_Length::INCH) {
                 $packageParams->setLength(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getLength(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
                 $packageParams->setWidth(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getWidth(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
                 $packageParams->setHeight(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getHeight(),
                     $packageParams->getDimensionUnits(),
-                    Zend_Measure_Length::INCH,
+                    Mage_Core_Helper_Measure_Length::INCH,
                 )));
             }
 
@@ -388,7 +391,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -408,7 +411,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Set free method request
      *
-     * @param  $freeMethod
+     * @param $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -425,7 +428,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get xml quotes
      *
-     * @return Mage_Shipping_Model_Rate_Result|Varien_Object|null
+     * @return null|Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _getXmlQuotes()
     {
@@ -563,8 +566,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Create shipment xml
      *
-     * @param  $shipment
-     * @param  $shipKey
+     * @param $shipment
+     * @param $shipKey
      */
     protected function _createShipmentXml($shipment, $shipKey)
     {
@@ -745,7 +748,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Parse xml response and return result
      *
-     * @param string $response
+     * @param  string                                        $response
      * @return Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _parseXmlResponse($response)
@@ -850,7 +853,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Parse xml object
      *
-     * @param mixed $shipXml
+     * @param  mixed $shipXml
      * @return $this
      */
     protected function _parseXmlObject($shipXml)
@@ -883,8 +886,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string     $type
+     * @param  string     $code
      * @return array|bool
      */
     public function getCode($type, $code = '')
@@ -971,8 +974,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get tracking
      *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @param  mixed                                $trackings
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
     {
@@ -1061,7 +1064,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Parse xml tracking response
      *
-     * @param array $trackings
+     * @param array  $trackings
      * @param string $response
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
@@ -1250,7 +1253,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1312,6 +1315,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Map request to shipment
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
@@ -1349,6 +1354,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
+     * @param  Mage_Shipping_Model_Rate_Request $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)

@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
     /**
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareItemQtyData($data)
@@ -33,12 +33,12 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Create new shipment for order
      *
-     * @param string $orderIncrementId
-     * @param array $itemsQty
-     * @param string $comment
-     * @param bool $email
-     * @param bool $includeComment
-     * @return string|null
+     * @param  string      $orderIncrementId
+     * @param  array       $itemsQty
+     * @param  string      $comment
+     * @param  bool        $email
+     * @param  bool        $includeComment
+     * @return null|string
      */
     public function create(
         $orderIncrementId,
@@ -50,8 +50,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
@@ -74,7 +74,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
 
             $shipment->getOrder()->setIsInProcess(true);
             try {
-                $transactionSave = Mage::getModel('core/resource_transaction')
+                Mage::getModel('core/resource_transaction')
                     ->addObject($shipment)
                     ->addObject($shipment->getOrder())
                     ->save();
@@ -92,7 +92,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Retrieve allowed shipping carriers for specified order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
     public function getCarriers($orderIncrementId)
@@ -100,8 +100,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }

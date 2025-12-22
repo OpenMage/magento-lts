@@ -13,61 +13,53 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
+ * @method array                                                                          getAffectedCategoryIds()
+ * @method array                                                                          getAffectedProductIds()
+ * @method string                                                                         getCategoryPath()
+ * @method string                                                                         getCategoryUrl()
+ * @method int                                                                            getChildrenCount()
+ * @method Mage_Catalog_Model_Resource_Category_Collection                                getCollection()
+ * @method bool                                                                           getCustomUseParentSettings()
+ * @method bool                                                                           getDisableFlat()
+ * @method string                                                                         getDisplayMode()
+ * @method string                                                                         getImage()
+ * @method bool                                                                           getInitialSetupFlag()
+ * @method int                                                                            getIsActive()
+ * @method int                                                                            getIsAnchor()
+ * @method int                                                                            getLandingPage()
+ * @method string                                                                         getMetaDescription()
+ * @method string                                                                         getMetaKeywords()
+ * @method string                                                                         getMetaTitle()
+ * @method int                                                                            getMovedCategoryId()
+ * @method string                                                                         getPath()
+ * @method int                                                                            getPosition()
+ * @method array                                                                          getPostedProducts()
+ * @method bool                                                                           getProductsReadonly()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
- * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
- *
- * @method array getAffectedCategoryIds()
- * @method $this setAffectedCategoryIds(array $categoryIds)
- * @method array getAffectedProductIds()
- * @method $this setAffectedProductIds(array $productIds)
- * @method $this setAttributeSetId(int $value)
- *
- * @method string getCategoryPath()
- * @method string getCategoryUrl()
- * @method $this setChildrenCount(int $value)
- * @method int getChildrenCount()
- * @method bool getCustomUseParentSettings()
- *
- * @method $this setDeletedChildrenIds(array $value)
- * @method bool getDisableFlat()
- * @method string getDisplayMode()
- * @method $this setDisplayMode(string $value)
- *
- * @method string getImage()
- * @method $this setIncludeInMenu(int $value)
- * @method bool getInitialSetupFlag()
- * @method $this setInitialSetupFlag(bool $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getIsAnchor()
- * @method $this setIsAnchor(int $value)
- * @method $this setIsChangedProductList(bool $bool)
- *
- * @method int getLandingPage()
- * @method bool hasLevel()
- * @method $this setLevel(int $value)
- *
- * @method string getMetaDescription()
- * @method string getMetaKeywords()
- * @method string getMetaTitle()
- * @method int getMovedCategoryId()
- *
- * @method $this setMovedCategoryId(int $value)
- * @method $this setName(string $value)
- *
- * @method bool hasProductCount()
- * @method $this setParentId(int $value)
- * @method string getPath()
- * @method $this setPath(string|int $value)
- * @method bool getProductsReadonly()
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method array getPostedProducts()
- * @method $this setPostedProducts(array $value)
- *
- * @method string getUrlKey()
- * @method $this setUrlKey(string $value)
- * @method $this setUrlPath(string $value)
+ * @method Mage_Catalog_Model_Resource_Category_Collection                                getResourceCollection()
+ * @method string                                                                         getUrlKey()
+ * @method bool                                                                           hasLevel()
+ * @method bool                                                                           hasProductCount()
+ * @method $this                                                                          setAffectedCategoryIds(array $categoryIds)
+ * @method $this                                                                          setAffectedProductIds(array $productIds)
+ * @method $this                                                                          setAttributeSetId(int $value)
+ * @method $this                                                                          setChildrenCount(int $value)
+ * @method $this                                                                          setDeletedChildrenIds(array $value)
+ * @method $this                                                                          setDisplayMode(string $value)
+ * @method $this                                                                          setIncludeInMenu(int $value)
+ * @method $this                                                                          setInitialSetupFlag(bool $value)
+ * @method $this                                                                          setIsActive(int $value)
+ * @method $this                                                                          setIsAnchor(int $value)
+ * @method $this                                                                          setIsChangedProductList(bool $bool)
+ * @method $this                                                                          setLevel(int $value)
+ * @method $this                                                                          setMovedCategoryId(int $value)
+ * @method $this                                                                          setName(string $value)
+ * @method $this                                                                          setParentId(int $value)
+ * @method $this                                                                          setPath(int|string $value)
+ * @method $this                                                                          setPosition(int $value)
+ * @method $this                                                                          setPostedProducts(array $value)
+ * @method $this                                                                          setUrlKey(string $value)
+ * @method $this                                                                          setUrlPath(string $value)
  */
 class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 {
@@ -148,7 +140,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree|null
+     * @var null|Mage_Catalog_Model_Resource_Category_Tree
      */
     protected $_treeModel = null;
 
@@ -164,6 +156,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
     /**
      * Initialize resource mode
+     *
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _construct()
     {
@@ -233,9 +227,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Move category
      *
-     * @param   int $parentId new parent category id
-     * @param   int $afterCategoryId category id after which we have put current category
-     * @return  Mage_Catalog_Model_Category
+     * @param  int                         $parentId        new parent category id
+     * @param  int                         $afterCategoryId category id after which we have put current category
+     * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function move($parentId, $afterCategoryId)
     {
@@ -265,7 +261,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         /**
          * Setting affected category ids for third party engine index refresh
-        */
+         */
         $this->setMovedCategoryId($this->getId());
 
         $eventParams = [
@@ -319,6 +315,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve default attribute set id
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getDefaultAttributeSetId()
     {
@@ -329,6 +326,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Get category products collection
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductCollection()
     {
@@ -340,7 +338,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve all customer attributes
      *
-     * @param bool $noDesignAttributes
+     * @param  bool                              $noDesignAttributes
      * @return Mage_Eav_Model_Entity_Attribute[]
      * @throws Mage_Core_Exception
      * @todo Use with Flat Resource
@@ -352,9 +350,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             ->getSortedAttributes();
 
         if ($noDesignAttributes) {
-            foreach (array_keys($result) as $k) {
-                if (in_array($k, $this->_designAttributes)) {
-                    unset($result[$k]);
+            foreach (array_keys($result) as $key) {
+                if (in_array($key, $this->_designAttributes)) {
+                    unset($result[$key]);
                 }
             }
         }
@@ -368,6 +366,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * array($productId => $position)
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductsPosition()
     {
@@ -388,6 +387,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve array of store ids for category
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStoreIds()
     {
@@ -404,8 +404,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         }
 
         $nodes = [];
-        foreach ($this->getPathIds() as $id) {
-            $nodes[] = $id;
+        foreach ($this->getPathIds() as $pathId) {
+            $nodes[] = $pathId;
         }
 
         $storeIds = [];
@@ -452,6 +452,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * If store id is undefined for category return current active store id
      *
      * @return int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -465,8 +466,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Set store id
      *
-     * @param string|int|Mage_Core_Model_Store $storeId
+     * @param  int|Mage_Core_Model_Store|string $storeId
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setStoreId($storeId)
     {
@@ -507,6 +510,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve category id URL
      *
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCategoryIdUrl()
     {
@@ -524,7 +529,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Format URL key from name or defined key
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public function formatUrlKey($str)
@@ -546,22 +551,22 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve image URL
      *
-     * @return string
+     * @return null|string
      */
     public function getImageUrl()
     {
-        $url = false;
         if ($image = $this->getImage()) {
-            $url = Mage::getBaseUrl('media') . 'catalog/category/' . $image;
+            return Mage::getBaseUrl('media') . 'catalog/category/' . $image;
         }
 
-        return $url;
+        return null;
     }
 
     /**
      * Retrieve URL path
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getUrlPath()
     {
@@ -586,6 +591,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Get parent category object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function getParentCategory()
     {
@@ -600,6 +606,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Get parent category identifier
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getParentId()
     {
@@ -611,6 +618,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Get all parent categories ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getParentIds()
     {
@@ -634,6 +642,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve design attributes array
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getDesignAttributes()
     {
@@ -648,8 +657,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve attribute by code
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
@@ -667,8 +677,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Get all children categories IDs
      *
-     * @param bool $asArray return result as array instead of comma-separated list of IDs
+     * @param  bool                $asArray return result as array instead of comma-separated list of IDs
      * @return array|string
+     * @throws Mage_Core_Exception
      */
     public function getAllChildren($asArray = false)
     {
@@ -684,6 +695,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve children ids comma separated
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getChildren()
     {
@@ -695,6 +707,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Return comma separated string
      *
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPathInStore()
     {
@@ -715,8 +729,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Check category id existing
      *
-     * @param   int $id
-     * @return  bool
+     * @param  int                 $id
+     * @return bool
+     * @throws Mage_Core_Exception
      */
     public function checkId($id)
     {
@@ -758,6 +773,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Verify category ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function verifyIds(array $ids)
     {
@@ -768,6 +784,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve Is Category has children flag
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasChildren()
     {
@@ -817,6 +834,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve anchors above
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAnchorsAbove()
     {
@@ -847,6 +865,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve count products of category
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getProductCount()
     {
@@ -861,12 +880,13 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve categories by parent
      *
-     * @param int $parent
-     * @param int $recursionLevel
-     * @param bool $sorted
-     * @param bool $asCollection
-     * @param bool $toLoad
+     * @param  int                                                                                                           $parent
+     * @param  int                                                                                                           $recursionLevel
+     * @param  bool                                                                                                          $sorted
+     * @param  bool                                                                                                          $asCollection
+     * @param  bool                                                                                                          $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
@@ -878,6 +898,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Return parent categories of current category
      *
      * @return Mage_Catalog_Model_Category[]
+     * @throws Mage_Core_Exception
      */
     public function getParentCategories()
     {
@@ -888,6 +909,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Return children categories of current category
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getChildrenCategories()
     {
@@ -898,6 +920,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Return children categories of current category
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
+     * @throws Mage_Core_Exception
      */
     public function getChildrenCategoriesWithInactive()
     {
@@ -908,6 +931,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Return parent category of current category with own custom design settings
      *
      * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      */
     public function getParentDesignCategory()
     {
@@ -918,6 +942,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Check category is in Root Category list
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isInRootCategoryList()
     {
@@ -936,8 +961,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return [];
         }
 
-        if ($available && !is_array($available)) {
-            $available = explode(',', $available);
+        if (!is_array($available)) {
+            return explode(',', $available);
         }
 
         return $available;
@@ -963,7 +988,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         }
 
         if (!$availableSortBy) {
-            $availableSortBy = $defaultSortBy;
+            return $defaultSortBy;
         }
 
         return $availableSortBy;
@@ -973,6 +998,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve Product Listing Default Sort By
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getDefaultSortBy()
     {
@@ -997,8 +1023,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Validate attribute values
      *
+     * @return array|true
+     * @throws Mage_Core_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
-     * @return true|array
      */
     public function validate()
     {
@@ -1009,12 +1036,14 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Callback function which called after transaction commit in resource model
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
 
-        /** @var \Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer = Mage::getSingleton('index/indexer');
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
 

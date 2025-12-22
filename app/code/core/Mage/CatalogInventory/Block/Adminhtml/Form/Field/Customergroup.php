@@ -17,7 +17,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Customer groups cache
      *
-     * @var array|null
+     * @var null|array
      */
     private $_customerGroups;
 
@@ -31,7 +31,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Retrieve allowed customer groups
      *
-     * @param int $groupId  return name by customer group id
+     * @param  int          $groupId return name by customer group id
      * @return array|string
      */
     protected function _getCustomerGroups($groupId = null)
@@ -53,7 +53,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     }
 
     /**
-     * @param string $value
+     * @param  string                                                         $value
      * @return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup
      */
     public function setInputName($value)
@@ -70,7 +70,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     {
         if (!$this->getOptions()) {
             if ($this->_addGroupAllOption) {
-                $this->addOption(Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
+                $this->addOption((string) Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
             }
 
             foreach ($this->_getCustomerGroups() as $groupId => $groupLabel) {

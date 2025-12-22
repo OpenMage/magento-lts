@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Notification_Curl extends Mage_Adminhtml_Block_Templa
         if ($this->getRequest()->getParam('section') == 'payment'
             && !version_compare($this->_curlVersion['version'], $this::REQUIRED_CURL_VERSION, '>=')
         ) {
-            $result = true;
+            return true;
         }
 
         return $result;

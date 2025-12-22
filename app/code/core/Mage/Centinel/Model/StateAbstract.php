@@ -17,14 +17,14 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Storage data model
      *
-     * @var Varien_Object|false
+     * @var false|Varien_Object
      */
     private $_dataStorage = false;
 
     /**
      * Setter for storage data model
      *
-     * @param Varien_Object $dataStorageModel
+     * @param  Varien_Object                     $dataStorageModel
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setDataStorage($dataStorageModel)
@@ -50,11 +50,11 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * Otherwise it will return value of the attribute specified by $key
      *
      * $index parameter is ignored
-     * @see Mage_Core_Model_Session_Abstract::getData()
      *
-     * @param string $key
-     * @param string|int $index
+     * @param  string     $key
+     * @param  int|string $index
      * @return mixed
+     * @see Mage_Core_Model_Session_Abstract::getData()
      */
     public function getData($key = '', $index = null)
     {
@@ -69,8 +69,8 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  array|string                      $key
+     * @param  mixed                             $value
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setData($key, $value = null)
@@ -82,7 +82,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Save lookup result in state model
      *
-     * @param Varien_Object $result
+     * @param  Varien_Object                     $result
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setLookupResult($result)
@@ -97,7 +97,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Save authenticate result in state model
      *
-     * @param Varien_Object $result
+     * @param  Varien_Object                     $result
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setAuthenticateResult($result)

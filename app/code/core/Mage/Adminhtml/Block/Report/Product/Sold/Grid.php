@@ -23,7 +23,6 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
 
     /**
      * Initialize Grid settings
-     *
      */
     public function __construct()
     {

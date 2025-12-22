@@ -61,6 +61,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Install Default Group Ids
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function installDefaultGroupIds()
     {
@@ -103,8 +104,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * If already exists updates the entity type with params data
      *
-     * @param string $code
+     * @param  string                    $code
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addEntityType($code, array $params)
     {
@@ -144,10 +147,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update entity row
      *
-     * @param string $code
-     * @param array|string $field
-     * @param string $value
+     * @param  string              $code
+     * @param  array|string        $field
+     * @param  string              $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateEntityType($code, $field, $value = null)
     {
@@ -164,8 +168,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Entity Type Data
      *
-     * @param int|string $id
-     * @param string $field
+     * @param  int|string $id
+     * @param  string     $field
      * @return mixed
      */
     public function getEntityType($id, $field = null)
@@ -181,8 +185,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Entity Type Id By Id or Code
      *
-     * @param mixed $entityTypeId
+     * @param  mixed               $entityTypeId
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getEntityTypeId($entityTypeId)
     {
@@ -200,7 +205,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Remove entity type by Id or Code
      *
-     * @param mixed $id
+     * @param  mixed $id
      * @return $this
      */
     public function removeEntityType($id)
@@ -219,9 +224,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Set Sort order
      *
-     * @param mixed $entityTypeId
-     * @param int $sortOrder
+     * @param  mixed               $entityTypeId
+     * @param  int                 $sortOrder
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getAttributeSetSortOrder($entityTypeId, $sortOrder = null)
     {
@@ -240,10 +246,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Add Attribute Set
      *
-     * @param mixed $entityTypeId
-     * @param string $name
-     * @param int $sortOrder
+     * @param  mixed                     $entityTypeId
+     * @param  string                    $name
+     * @param  int                       $sortOrder
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttributeSet($entityTypeId, $name, $sortOrder = null)
     {
@@ -268,11 +276,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update attribute set data
      *
-     * @param mixed $entityTypeId
-     * @param int $id
-     * @param array|string $field
-     * @param mixed $value
+     * @param  mixed               $entityTypeId
+     * @param  int                 $id
+     * @param  array|string        $field
+     * @param  mixed               $value
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      */
     public function updateAttributeSet($entityTypeId, $id, $field, $value = null)
     {
@@ -291,10 +301,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute set data by id or name
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param string $field
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $id
+     * @param  string              $field
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function getAttributeSet($entityTypeId, $id, $field = null)
     {
@@ -311,10 +322,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Set Id By Id or Name
      *
-     * @throws Mage_Eav_Exception
-     * @param mixed $entityTypeId
-     * @param mixed $setId
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $setId
      * @return int
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      */
     public function getAttributeSetId($entityTypeId, $setId)
     {
@@ -332,8 +344,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Remove Attribute Set
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
+     * @param  mixed $entityTypeId
+     * @param  mixed $id
      * @return $this
      */
     public function removeAttributeSet($entityTypeId, $id)
@@ -345,8 +357,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Set Default Attribute Set to Entity Type
      *
-     * @param string $entityType
-     * @param string $attributeSet
+     * @param  string              $entityType
+     * @param  string              $attributeSet
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
@@ -362,7 +374,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Get identifiers of all attribute sets
      *
-     * @param int $entityTypeId
+     * @param  int                 $entityTypeId
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -383,7 +395,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Set for Entity Type
      *
-     * @param string|int $entityType
+     * @param  int|string $entityType
      * @return string
      */
     public function getDefaultAttributeSetId($entityType)
@@ -407,9 +419,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Group Sort order
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param int $sortOrder
+     * @param  mixed $entityTypeId
+     * @param  mixed $setId
+     * @param  int   $sortOrder
      * @return int
      */
     public function getAttributeGroupSortOrder($entityTypeId, $setId, $sortOrder = null)
@@ -429,11 +441,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Add Attribute Group
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param string $name
-     * @param int $sortOrder
+     * @param  mixed                     $entityTypeId
+     * @param  mixed                     $setId
+     * @param  string                    $name
+     * @param  int                       $sortOrder
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function addAttributeGroup($entityTypeId, $setId, $name, $sortOrder = null)
     {
@@ -468,12 +482,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update Attribute Group Data
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param mixed $id
-     * @param array|string $field
-     * @param mixed $value
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $setId
+     * @param  mixed               $id
+     * @param  array|string        $field
+     * @param  mixed               $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateAttributeGroup($entityTypeId, $setId, $id, $field, $value = null)
     {
@@ -493,10 +508,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Group Data
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param mixed $id
-     * @param string $field
+     * @param  mixed  $entityTypeId
+     * @param  mixed  $setId
+     * @param  mixed  $id
+     * @param  string $field
      * @return mixed
      */
     public function getAttributeGroup($entityTypeId, $setId, $id, $field = null)
@@ -524,10 +539,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Group Id by Id or Name
      *
-     * @param int $entityTypeId
-     * @param int|string $setId
-     * @param int|string $groupId
+     * @param  int                 $entityTypeId
+     * @param  int|string          $setId
+     * @param  int|string          $groupId
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getAttributeGroupId($entityTypeId, $setId, $groupId)
     {
@@ -549,10 +565,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Remove Attribute Group By Id or Name
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param mixed $id
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $setId
+     * @param  mixed               $id
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAttributeGroup($entityTypeId, $setId, $id)
     {
@@ -567,8 +584,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Default Attribute Group Id By Entity Type and Attribute Set
      *
-     * @param string|int $entityType
-     * @param string|int $attributeSetId
+     * @param  int|string          $entityType
+     * @param  int|string          $attributeSetId
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -594,10 +611,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve value from array by key or return default value
      *
-     * @param array $array
-     * @param string $key
-     * @param string|int|bool|array $default
-     * @return string|int|bool|array|null
+     * @param  array                      $array
+     * @param  string                     $key
+     * @param  array|bool|int|string      $default
+     * @return null|array|bool|int|string
      */
     protected function _getValue($array, $key, $default = null)
     {
@@ -611,7 +628,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Prepare attribute values to save
      *
-     * @param array $attr
+     * @param  array $attr
      * @return array
      */
     protected function _prepareValues($attr)
@@ -637,16 +654,23 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Validate attribute data before insert into table
      *
-     * @param  array $data
-     * @throws Mage_Eav_Exception
+     * @param  array               $data
      * @return true
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      */
     protected function _validateAttributeData($data)
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
-        if (isset($data['attribute_code']) &&
-            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator  = Mage::helper('core/validate');
+
+        if (isset($data['attribute_code'])
+            && $validator->validateLength(
+                value: $data['attribute_code'],
+                max: $attributeCodeMaxLength,
+            )->count() > 0
         ) {
             throw Mage::exception(
                 'Mage_Eav',
@@ -662,9 +686,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * If attribute is system will add to all existing attribute sets
      *
-     * @param string|int $entityTypeId
-     * @param string $code
+     * @param  int|string          $entityTypeId
+     * @param  string              $code
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
@@ -730,7 +755,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Add Attribure Option
      *
-     * @param array $option
+     * @param  array               $option
+     * @throws Mage_Core_Exception
      */
     public function addAttributeOption($option)
     {
@@ -802,11 +828,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update Attribute data and Attribute additional data
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param array|string $field
-     * @param mixed $value
-     * @param int $sortOrder
+     * @param  mixed        $entityTypeId
+     * @param  mixed        $id
+     * @param  array|string $field
+     * @param  mixed        $value
+     * @param  int          $sortOrder
      * @return $this
      */
     public function updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
@@ -819,12 +845,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update Attribute data
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param array|string $field
-     * @param mixed $value
-     * @param int $sortOrder
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $id
+     * @param  array|string        $field
+     * @param  mixed               $value
+     * @param  int                 $sortOrder
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
     {
@@ -841,9 +868,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $attributeFields = $this->_getAttributeTableFields();
         if (is_array($field)) {
             $bind = [];
-            foreach ($field as $k => $v) {
-                if (isset($attributeFields[$k])) {
-                    $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
+            foreach ($field as $key => $item) {
+                if (isset($attributeFields[$key])) {
+                    $bind[$key] = $this->getConnection()->prepareColumnValue($attributeFields[$key], $item);
                 }
             }
 
@@ -872,11 +899,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update Attribute Additional data
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param array|string $field
-     * @param mixed $value
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $id
+     * @param  array|string        $field
+     * @param  mixed               $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _updateAttributeAdditionalData($entityTypeId, $id, $field, $value = null)
     {
@@ -890,9 +918,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $attributeFields = $this->getConnection()->describeTable($this->getTable($additionalTable));
             if (is_array($field)) {
                 $bind = [];
-                foreach ($field as $k => $v) {
-                    if (isset($attributeFields[$k])) {
-                        $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
+                foreach ($field as $key => $item) {
+                    if (isset($attributeFields[$key])) {
+                        $bind[$key] = $this->getConnection()->prepareColumnValue($attributeFields[$key], $item);
                     }
                 }
 
@@ -920,10 +948,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Data By Id or Code
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param string $field
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $id
+     * @param  string              $field
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($entityTypeId, $id, $field = null)
     {
@@ -970,29 +999,30 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Id Data By Id or Code
      *
-     * @param mixed $entityTypeId
-     * @param mixed $id
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $attributeId
      * @return false|int
+     * @throws Mage_Core_Exception
      */
-    public function getAttributeId($entityTypeId, $id)
+    public function getAttributeId($entityTypeId, $attributeId)
     {
-        if (!is_numeric($id)) {
-            $id = $this->getAttribute($entityTypeId, $id, 'attribute_id');
+        if (!is_numeric($attributeId)) {
+            $attributeId = $this->getAttribute($entityTypeId, $attributeId, 'attribute_id');
         }
 
-        if (!is_numeric($id)) {
+        if (!is_numeric($attributeId)) {
             return false;
         }
 
-        return $id;
+        return $attributeId;
     }
 
     /**
      * Return table name for eav attribute
      *
-     * @param int|string $entityTypeId Entity Type id or Entity Type code
-     * @param int|string $id Attribute id or Attribute code
-     * @return string|false
+     * @param  int|string   $entityTypeId Entity Type id or Entity Type code
+     * @param  int|string   $id           Attribute id or Attribute code
+     * @return false|string
      */
     public function getAttributeTable($entityTypeId, $id)
     {
@@ -1033,9 +1063,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Remove Attribute
      *
-     * @param mixed $entityTypeId
-     * @param mixed $code
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $code
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAttribute($entityTypeId, $code)
     {
@@ -1054,11 +1085,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Retrieve Attribute Sort Order
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param mixed $groupId
-     * @param int $sortOrder
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $setId
+     * @param  mixed               $groupId
+     * @param  int                 $sortOrder
      * @return int|string
+     * @throws Mage_Core_Exception
      */
     public function getAttributeSortOrder($entityTypeId, $setId, $groupId, $sortOrder = null)
     {
@@ -1077,12 +1109,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Add Attribute to All Groups on Attribute Set
      *
-     * @param mixed $entityTypeId
-     * @param mixed $setId
-     * @param mixed $groupId
-     * @param mixed $attributeId
-     * @param int $sortOrder
+     * @param  mixed               $entityTypeId
+     * @param  mixed               $setId
+     * @param  mixed               $groupId
+     * @param  mixed               $attributeId
+     * @param  int                 $sortOrder
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAttributeToSet($entityTypeId, $setId, $groupId, $attributeId, $sortOrder = null)
     {
@@ -1126,12 +1159,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Add or update attribute to group
      *
-     * @param int|string $entityType
-     * @param int|string $setId
-     * @param int|string $groupId
-     * @param int|string $attributeId
-     * @param int $sortOrder
+     * @param  int|string          $entityType
+     * @param  int|string          $setId
+     * @param  int|string          $groupId
+     * @param  int|string          $attributeId
+     * @param  int                 $sortOrder
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addAttributeToGroup($entityType, $setId, $groupId, $attributeId, $sortOrder = null)
     {
@@ -1193,7 +1227,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Install entities
      *
-     * @param array $entities
+     * @param  array $entities
      * @return $this
      */
     public function installEntities($entities = null)
@@ -1248,18 +1282,17 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
-     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
-     *
      * Create entity tables
      *
-     * @param string $baseTableName
-     * @param array $options
-     * - no-main
-     * - no-default-types
-     * - types
+     * @param  string                      $baseTableName
+     * @param  array                       $options
+     *                                                    - no-main
+     *                                                    - no-default-types
+     *                                                    - types
      * @return Mage_Eav_Model_Entity_Setup
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
+     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
      */
     public function createEntityTables($baseTableName, array $options = [])
     {
@@ -1463,7 +1496,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 $connection->createTable($table);
             }
         } catch (Exception) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__("Can't create table: %s", $tableName));
         }
 
         return $this;
@@ -1473,6 +1506,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve attribute table fields
      *
      * @return array
+     * @throws Zend_Cache_Exception
      */
     protected function _getAttributeTableFields()
     {
@@ -1483,6 +1517,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Insert attribute and filter data
      *
      * @return $this
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _insertAttribute(array $data)
     {
@@ -1490,9 +1526,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $fields = $this->_getAttributeTableFields();
 
-        foreach ($data as $k => $v) {
-            if (isset($fields[$k])) {
-                $bind[$k] = $this->getConnection()->prepareColumnValue($fields[$k], $v);
+        foreach ($data as $key => $value) {
+            if (isset($fields[$key])) {
+                $bind[$key] = $this->getConnection()->prepareColumnValue($fields[$key], $value);
             }
         }
 
@@ -1513,8 +1549,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Insert attribute additional data
      *
-     * @param int $entityTypeId
+     * @param  int                       $entityTypeId
      * @return $this
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _insertAttributeAdditionalData($entityTypeId, array $data)
     {
@@ -1527,9 +1565,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if ($additionalTableExists) {
             $bind   = [];
             $fields = $this->getConnection()->describeTable($this->getTable($additionalTable));
-            foreach ($data as $k => $v) {
-                if (isset($fields[$k])) {
-                    $bind[$k] = $this->getConnection()->prepareColumnValue($fields[$k], $v);
+            foreach ($data as $key => $value) {
+                if (isset($fields[$key])) {
+                    $bind[$key] = $this->getConnection()->prepareColumnValue($fields[$key], $value);
                 }
             }
 

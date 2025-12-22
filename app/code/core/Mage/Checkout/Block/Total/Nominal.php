@@ -65,7 +65,7 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
     /**
      * Getter for details row amount
      *
-     * @return string
+     * @return float
      */
     public function getItemDetailsRowAmount(Varien_Object $row)
     {
@@ -85,7 +85,7 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
     /**
      * Format an amount without container
      *
-     * @param float $amount
+     * @param  float  $amount
      * @return string
      */
     public function formatPrice($amount)

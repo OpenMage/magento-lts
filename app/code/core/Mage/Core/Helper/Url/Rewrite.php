@@ -34,9 +34,9 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * If something is wrong with a path it throws localized error message and error code,
      * that can be checked to by wrapper func to alternate error message
      *
-     * @throws Mage_Core_Exception
-     * @param string $requestPath
+     * @param  string              $requestPath
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _validateRequestPath($requestPath)
     {
@@ -67,7 +67,7 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates request path
      * Either returns TRUE (success) or throws error (validation failed)
      *
-     * @param string $requestPath
+     * @param  string $requestPath
      * @return bool
      */
     public function validateRequestPath($requestPath)
@@ -80,9 +80,9 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
      * Validates suffix for url rewrites to inform user about errors in it
      * Either returns TRUE (success) or throws error (validation failed)
      *
-     * @throws Mage_Core_Exception|Exception
-     * @param string $suffix
+     * @param  string                        $suffix
      * @return bool
+     * @throws Exception|Mage_Core_Exception
      */
     public function validateSuffix($suffix)
     {

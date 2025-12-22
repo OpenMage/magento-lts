@@ -31,6 +31,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Initialize custom resource model
      *
+     * @throws Zend_Exception
      */
     public function __construct()
     {
@@ -77,9 +78,10 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     /**
      * Make select object for date boundary
      *
-     * @param mixed $from
-     * @param mixed $to
-     * @return Zend_Db_Select
+     * @param  mixed               $from
+     * @param  mixed               $to
+     * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _makeBoundarySelect($from, $to)
     {
@@ -104,6 +106,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * Add selected data
      *
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     protected function _initSelect()
     {
@@ -158,6 +161,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      * but before adding unions and calculating totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Db_Select_Exception
      */
     protected function _beforeLoad()
     {
@@ -170,8 +176,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
-            $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
-            $periodTo   = (!is_null($this->_to) ? new Zend_Date($this->_to, $dtFormat) : null);
+            $periodFrom = (is_null($this->_from) ? null : new Zend_Date($this->_from, $dtFormat));
+            $periodTo   = (is_null($this->_to) ? null : new Zend_Date($this->_to, $dtFormat));
             if ($this->_period == 'year') {
                 if ($periodFrom) {
                     // not the first day of the year

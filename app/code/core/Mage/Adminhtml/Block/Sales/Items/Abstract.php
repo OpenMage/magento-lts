@@ -37,13 +37,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Flag - if it is set method canEditQty will return value of it
      *
-     * @var bool | null
+     * @var null|bool
      */
     protected $_canEditQty = null;
 
     /**
-     * Init block
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -55,9 +54,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Add item renderer
      *
-     * @param string $type
-     * @param string $block
-     * @param string $template
+     * @param  string $type
+     * @param  string $block
+     * @param  string $template
      * @return $this
      */
     public function addItemRender($type, $block, $template)
@@ -73,9 +72,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Add column renderer
      *
-     * @param string $column
-     * @param string $block
-     * @param string $template
+     * @param  string $column
+     * @param  string $block
+     * @param  string $template
      * @return $this
      */
     public function addColumnRender($column, $block, $template, $type = null)
@@ -95,7 +94,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve item renderer block
      *
-     * @param string $type
+     * @param  string                   $type
      * @return Mage_Core_Block_Abstract
      */
     public function getItemRenderer($type)
@@ -119,8 +118,8 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve column renderer block
      *
-     * @param string $column
-     * @param string $compositePart
+     * @param  string                         $column
+     * @param  string                         $compositePart
      * @return false|Mage_Core_Block_Abstract
      */
     public function getColumnRenderer($column, $compositePart = '')
@@ -182,8 +181,8 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve rendered column html content
      *
-     * @param string $column the column key
-     * @param string $field the custom item field
+     * @param  string $column the column key
+     * @param  string $field  the custom item field
      * @return string
      */
     public function getColumnHtml(Varien_Object $item, $column, $field = null)
@@ -263,9 +262,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve price attribute html content
      *
-     * @param string $code
-     * @param bool $strong
-     * @param string $separator
+     * @param  string $code
+     * @param  bool   $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br />')
@@ -291,10 +290,10 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve price formatted html content
      *
-     * @param float $basePrice
-     * @param float $price
-     * @param bool $strong
-     * @param string $separator
+     * @param  float  $basePrice
+     * @param  float  $price
+     * @param  bool   $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPrices($basePrice, $price, $strong = false, $separator = '<br />')
@@ -305,12 +304,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Display base and regular prices with specified rounding precision
      *
-     * @param   float $basePrice
-     * @param   float $price
-     * @param   int $precision
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  float  $basePrice
+     * @param  float  $price
+     * @param  int    $precision
+     * @param  bool   $strong
+     * @param  string $separator
+     * @return string
      */
     public function displayRoundedPrices($basePrice, $price, $precision = 2, $strong = false, $separator = '<br />')
     {
@@ -357,7 +356,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve subtotal price include tax html formatted content
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return string
      */
     public function displaySubtotalInclTax($item)
@@ -488,7 +487,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve source
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Abstract
      */
     public function getSource()
     {
@@ -521,7 +520,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
     /**
      * Whether to show 'Return to stock' checkbox for item
-     * @param Mage_Sales_Model_Order_Creditmemo_Item $item
+     * @param  Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
      */
     public function canReturnItemToStock($item = null)
@@ -545,7 +544,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
     /**
      * Whether to show 'Return to stock' column for item parent
-     * @param Mage_Sales_Model_Order_Creditmemo_Item $item
+     * @param  Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
      */
     public function canParentReturnToStock($item = null)
@@ -565,7 +564,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Return true if can ship partially
      *
-     * @param Mage_Sales_Model_Order|null $order
+     * @param  null|Mage_Sales_Model_Order $order
      * @return bool
      */
     public function canShipPartially($order = null)
@@ -585,7 +584,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Return true if can ship items partially
      *
-     * @param Mage_Sales_Model_Order|null $order
+     * @param  null|Mage_Sales_Model_Order $order
      * @return bool
      */
     public function canShipPartiallyItem($order = null)

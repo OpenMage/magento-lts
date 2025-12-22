@@ -17,8 +17,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Gatewayurl extends Mage_Core_Mo
     /**
      * Before save processing
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Adminhtml_Model_System_Config_Backend_Gatewayurl
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {

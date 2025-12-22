@@ -14,6 +14,9 @@
  */
 class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/user', 'user_id');
@@ -43,6 +46,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Authenticate user by $username and $password
      *
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function recordLogin(Mage_Api_Model_User $user)
     {
@@ -58,6 +62,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Record api user session
      *
      * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     public function recordSession(Mage_Api_Model_User $user)
     {
@@ -94,6 +99,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Clean old session
      *
      * @return $this
+     * @throws Zend_Db_Exception
      */
     public function cleanOldSessions(?Mage_Api_Model_User $user)
     {
@@ -122,7 +128,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load data by username
      *
-     * @param string $username
+     * @param  string $username
      * @return array
      */
     public function loadByUsername($username)
@@ -136,7 +142,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * load by session id
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return array
      */
     public function loadBySessId($sessId)
@@ -161,7 +167,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Clear by session
      *
-     * @param string $sessid
+     * @param  string $sessid
      * @return $this
      */
     public function clearBySessId($sessid)
@@ -176,8 +182,8 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve api user role data if it was assigned to role
      *
-     * @param int | Mage_Api_Model_User $user
-     * @return null | array
+     * @param  int|Mage_Api_Model_User $user
+     * @return null|array
      */
     public function hasAssigned2Role($user)
     {
@@ -203,29 +209,33 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
+     * @param  Mage_Api_Model_User $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $user)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $now = Varien_Date::now();
-        if (!$user->getId()) {
-            $user->setCreated($now);
+        if (!$object->getId()) {
+            $object->setCreated($now);
         }
 
-        $user->setModified($now);
+        $object->setModified($now);
         return $this;
     }
 
     /**
      * Delete the object
      *
+     * @param  Mage_Api_Model_User $object
      * @return $this
      * @throws Exception
+     * @throws Throwable
      */
-    public function delete(Mage_Core_Model_Abstract $user)
+    public function delete(Mage_Core_Model_Abstract $object)
     {
         $dbh = $this->_getWriteAdapter();
-        $uid = (int) $user->getId();
+        $uid = (int) $object->getId();
         $dbh->beginTransaction();
         try {
             $dbh->delete($this->getTable('api/user'), ['user_id = ?' => $uid]);
@@ -242,7 +252,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Save user roles
      *
+     * @param  Mage_Api_Model_User            $user
      * @return $this|Mage_Core_Model_Abstract
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
@@ -280,9 +293,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
-            throw $e;
+            throw $mageCoreException;
         } catch (Exception) {
             $adapter->rollBack();
         }
@@ -293,7 +306,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles data
      *
+     * @param  Mage_Api_Model_User $user
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function _getRoles(Mage_Core_Model_Abstract $user)
     {
@@ -321,7 +336,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add Role
      *
+     * @param  Mage_Api_Model_User       $user
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
@@ -357,6 +375,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Delete from role
      *
+     * @param  Mage_Api_Model_User $user
      * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
@@ -384,6 +403,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve roles which exists for user
      *
+     * @param  Mage_Api_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -403,7 +423,9 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check if user not unique
      *
+     * @param  Mage_Api_Model_User $user
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function userExists(Mage_Core_Model_Abstract $user)
     {

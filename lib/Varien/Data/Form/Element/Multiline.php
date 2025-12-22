@@ -10,8 +10,7 @@
 /**
  * Form multiline text elements
  *
- *
- * @method int getLineCount()
+ * @method int   getLineCount()
  * @method $this setLineCount(int $value)
  */
 class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstract
@@ -36,12 +35,12 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     }
 
     /**
-     * @param int $suffix
+     * @param  string $idSuffix
      * @return string
      */
-    public function getLabelHtml($suffix = 0)
+    public function getLabelHtml($idSuffix = '0')
     {
-        return parent::getLabelHtml($suffix);
+        return parent::getLabelHtml($idSuffix);
     }
 
     /**

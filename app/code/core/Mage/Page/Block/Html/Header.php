@@ -33,8 +33,8 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $logoSrc
-     * @param string $logoAlt
+     * @param  string $logoSrc
+     * @param  string $logoAlt
      * @return $this
      */
     public function setLogo($logoSrc, $logoAlt)
@@ -91,9 +91,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     /**
      * Retrieve page welcome message
      *
+     * @return mixed
      * @deprecated after 1.7.0.2
      * @see Mage_Page_Block_Html_Welcome
-     * @return mixed
      */
     public function getWelcome()
     {

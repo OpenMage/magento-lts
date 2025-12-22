@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
     /**
      * Add CSS class to page body tag
      *
-     * @param string $className
+     * @param  string $className
      * @return $this
      */
     public function addBodyClass($className)

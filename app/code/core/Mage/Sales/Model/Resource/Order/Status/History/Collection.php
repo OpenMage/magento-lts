@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
      */
     protected $_eventObject    = 'order_status_history_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');
@@ -34,10 +37,10 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
      * Parameter instance may be one of the following types: Mage_Sales_Model_Order,
      * Mage_Sales_Model_Order_Creditmemo, Mage_Sales_Model_Order_Invoice, Mage_Sales_Model_Order_Shipment
      *
-     * @param mixed $instance
+     * @param mixed  $instance
      * @param string $historyEntityName
      *
-     * @return Mage_Sales_Model_Order_Status_History|null
+     * @return null|Mage_Sales_Model_Order_Status_History
      */
     public function getUnnotifiedForInstance($instance, $historyEntityName = Mage_Sales_Model_Order::HISTORY_ENTITY_NAME)
     {

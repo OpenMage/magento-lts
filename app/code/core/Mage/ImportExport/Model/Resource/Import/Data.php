@@ -15,10 +15,13 @@
 class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
     /**
-     * @var IteratorIterator|null
+     * @var null|IteratorIterator
      */
     protected $_iterator = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('importexport/importdata', 'id');
@@ -63,8 +66,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Return behavior from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getBehavior()
     {
@@ -83,8 +86,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Return entity type code from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getEntityTypeCode()
     {
@@ -103,7 +106,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Get next bunch of validated rows.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getNextBunch()
     {
@@ -127,8 +130,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Save import rows bunch.
      *
-     * @param string $entity
-     * @param string $behavior
+     * @param  string $entity
+     * @param  string $behavior
      * @return int
      */
     public function saveBunch($entity, $behavior, array $data)

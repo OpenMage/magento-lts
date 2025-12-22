@@ -222,8 +222,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
      * @return $this
+     * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
      */
     protected function _checkUrlSettings()
     {
@@ -316,7 +316,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set currently used module name
      *
-     * @param string $moduleName
+     * @param  string $moduleName
      * @return $this
      */
     public function setUsedModuleName($moduleName)
@@ -345,8 +345,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * Is overridden here to set defaultUrl to admin url
      *
-     * @param   string $defaultUrl
-     * @return  Mage_Adminhtml_Controller_Action
+     * @param  string                           $defaultUrl
+     * @return Mage_Adminhtml_Controller_Action
      */
     protected function _redirectReferer($defaultUrl = null)
     {
@@ -358,8 +358,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set redirect into response
      *
-     * @param string $path
-     * @param array $arguments
+     * @param  string $path
+     * @param  array  $arguments
      * @return $this
      */
     protected function _redirect($path, $arguments = [])
@@ -378,9 +378,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrl($route = '', $params = [])
     {
@@ -423,7 +423,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Check forced use form key for action
      *
-     *  @return bool
+     * @return bool
      */
     protected function _checkIsForcedFormKeyAction()
     {
@@ -436,7 +436,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set actions name for forced use form key if "Secret Key to URLs" disabled
      *
-     * @param array | string $actionNames - action names for forced use form key
+     * @param array|string $actionNames - action names for forced use form key
      */
     protected function _setForcedFormKeyActions($actionNames)
     {
@@ -451,7 +451,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Validate request parameter
      *
-     * @param string $param - request parameter
+     * @param string $param   - request parameter
      * @param string $pattern - pattern that should be contained in parameter
      *
      * @return bool
@@ -469,7 +469,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Validate request parameters
      *
-     * @param array $params - array of request parameters
+     * @param array  $params  - array of request parameters
      * @param string $pattern - pattern that should be contained in parameter
      *
      * @return bool

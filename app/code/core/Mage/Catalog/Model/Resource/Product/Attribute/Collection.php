@@ -15,8 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
-     * Resource model initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -57,7 +56,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
-     * @param  int $typeId
+     * @param  int   $typeId
      * @return $this
      */
     public function setEntityTypeFilter($typeId)
@@ -145,7 +144,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     /**
      * Specify filter for attributes that have to be indexed
      *
-     * @param bool $addRequiredCodes
+     * @param  bool  $addRequiredCodes
      * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)
@@ -178,8 +177,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     public function addSearchableAttributeFilter()
     {
         $this->getSelect()->where(
-            'additional_table.is_searchable = 1 OR ' .
-            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
+            'additional_table.is_searchable = 1 OR '
+            . $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
         );
 
         return $this;

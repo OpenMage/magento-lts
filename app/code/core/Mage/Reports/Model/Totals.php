@@ -17,9 +17,9 @@ class Mage_Reports_Model_Totals
     /**
      * Retrieve count totals
      *
-     * @param Mage_Adminhtml_Block_Report_Grid $grid
-     * @param string $from
-     * @param string $to
+     * @param  Mage_Adminhtml_Block_Report_Product_Grid $grid
+     * @param  string                                   $from
+     * @param  string                                   $to
      * @return Varien_Object
      */
     public function countTotals($grid, $from, $to)
@@ -52,20 +52,20 @@ class Mage_Reports_Model_Totals
         }
 
         $data = [];
-        foreach ($columns as $field => $a) {
-            if ($a['total'] == 'avg') {
+        foreach ($columns as $field => $arr) {
+            if ($arr['total'] == 'avg') {
                 if ($field !== '') {
                     if ($count != 0) {
-                        $data[$field] = $a['value'] / $count;
+                        $data[$field] = $arr['value'] / $count;
                     } else {
                         $data[$field] = 0;
                     }
                 }
-            } elseif ($a['total'] == 'sum') {
+            } elseif ($arr['total'] == 'sum') {
                 if ($field !== '') {
-                    $data[$field] = $a['value'];
+                    $data[$field] = $arr['value'];
                 }
-            } elseif (str_contains($a['total'], '/')) {
+            } elseif (str_contains($arr['total'], '/')) {
                 if ($field !== '') {
                     $data[$field] = 0;
                 }

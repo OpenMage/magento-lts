@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+use Carbon\Carbon;
+
 /**
  * Wrapper that performs Paypal Express and Checkout communication
  * Use current Paypal Express method instance
@@ -142,7 +144,8 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Set quote and config instances
-     * @param array $params
+     * @param  array     $params
+     * @throws Exception
      */
     public function __construct($params = [])
     {
@@ -183,9 +186,9 @@ class Mage_Paypal_Model_Express_Checkout
                     $this->_api->callGetPalDetails();
                     $pal = $this->_api->getPal();
                     Mage::app()->saveCache($pal, $cacheId, [Mage_Core_Model_Config::CACHE_TAG]);
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     Mage::app()->saveCache(-1, $cacheId, [Mage_Core_Model_Config::CACHE_TAG]);
-                    Mage::logException($e);
+                    Mage::logException($exception);
                 }
             }
         }
@@ -200,9 +203,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter that enables giropay redirects flow
      *
-     * @param string $successUrl - payment success result
-     * @param string $cancelUrl  - payment cancellation result
-     * @param string $pendingUrl - pending payment result
+     * @param  string $successUrl - payment success result
+     * @param  string $cancelUrl  - payment cancellation result
+     * @param  string $pendingUrl - pending payment result
      * @return $this
      */
     public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
@@ -214,7 +217,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set create billing agreement flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsBillingAgreementRequested($flag)
@@ -226,7 +229,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer Id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      * @deprecated please use self::setCustomer
      */
@@ -249,8 +252,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomer($customer)
     {
@@ -266,6 +270,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param  Mage_Sales_Model_Quote_Address $billingAddress
      * @param  Mage_Sales_Model_Quote_Address $shippingAddress
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomerWithAddressChange($customer, $billingAddress = null, $shippingAddress = null)
     {
@@ -277,10 +282,13 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Reserve order ID for specified quote and start checkout on PayPal
      *
-     * @param string $returnUrl
-     * @param string $cancelUrl
-     * @param bool|null $button
+     * @param  string              $returnUrl
+     * @param  string              $cancelUrl
+     * @param  null|bool           $button
      * @return mixed
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function start($returnUrl, $cancelUrl, $button = null)
     {
@@ -398,6 +406,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Check whether system can skip order review page before placing order
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canSkipOrderReviewStep()
     {
@@ -412,7 +421,9 @@ class Mage_Paypal_Model_Express_Checkout
      * save old billing address for new customer
      * export shipping address in case address absence
      *
-     * @param string $token
+     * @param  string              $token
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function returnFromPaypal($token)
     {
@@ -493,8 +504,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check whether order review has enough data to initialize
      *
-     * @param string $token
+     * @param  string              $token
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function prepareOrderReview($token = null)
     {
@@ -517,6 +529,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Return callback response with shipping options
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getShippingOptionsCallbackResponse(array $request)
     {
@@ -555,7 +568,9 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Set shipping method to quote, if needed
-     * @param string $methodCode
+     * @param  string              $methodCode
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function updateShippingMethod($methodCode)
     {
@@ -572,8 +587,10 @@ class Mage_Paypal_Model_Express_Checkout
      * Place the order and recurring payment profiles when customer returned from paypal
      * Until this moment all quote data must be valid
      *
-     * @param string $token
-     * @param string $shippingMethodCode
+     * @param  string              $token
+     * @param  string              $shippingMethodCode
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function place($token, $shippingMethodCode = null)
     {
@@ -605,8 +622,8 @@ class Mage_Paypal_Model_Express_Checkout
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -644,6 +661,8 @@ class Mage_Paypal_Model_Express_Checkout
 
     /**
      * Make sure addresses will be saved without validation errors
+     *
+     * @throws Mage_Core_Exception
      */
     private function _ignoreAddressValidation()
     {
@@ -679,7 +698,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Get created billing agreement
      *
-     * @return Mage_Sales_Model_Billing_Agreement|null
+     * @return null|Mage_Sales_Model_Billing_Agreement
      */
     public function getBillingAgreement()
     {
@@ -721,8 +740,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Sets address data from exported address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param array $exportedAddress
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  Varien_Object                  $exportedAddress
+     * @throws Mage_Core_Exception
      */
     protected function _setExportedAddressData($address, $exportedAddress)
     {
@@ -761,6 +781,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Set create billing agreement flag to api call
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _setBillingAgreementRequest()
     {
@@ -802,7 +823,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Returns empty array if it was impossible to obtain any shipping rate
      * If there are shipping rates obtained, the method must return one of them as default.
      *
-     * @param bool $mayReturnEmpty
+     * @param  bool  $mayReturnEmpty
      * @return array
      */
     protected function _prepareShippingOptions(
@@ -811,7 +832,7 @@ class Mage_Paypal_Model_Express_Checkout
         $calculateTax = false
     ) {
         $options = [];
-        $i = 0;
+        $index = 0;
         $iMin = false;
         $min = false;
         $userSelectedOption = null;
@@ -827,29 +848,29 @@ class Mage_Paypal_Model_Express_Checkout
                 $amountExclTax = Mage::helper('tax')->getShippingPrice($amount, false, $address);
                 $amountInclTax = Mage::helper('tax')->getShippingPrice($amount, true, $address);
 
-                $options[$i] = new Varien_Object([
+                $options[$index] = new Varien_Object([
                     'is_default' => $isDefault,
                     'name'       => trim("{$rate->getCarrier()} - {$rate->getMethodTitle()}", ' -'),
                     'code'       => $rate->getCode(),
                     'amount'     => $amountExclTax,
                 ]);
                 if ($calculateTax) {
-                    $options[$i]->setTaxAmount(
+                    $options[$index]->setTaxAmount(
                         $amountInclTax - $amountExclTax
                             + $address->getTaxAmount() - $address->getShippingTaxAmount(),
                     );
                 }
 
                 if ($isDefault) {
-                    $userSelectedOption = $options[$i];
+                    $userSelectedOption = $options[$index];
                 }
 
                 if ($min === false || $amountInclTax < $min) {
                     $min = $amountInclTax;
-                    $iMin = $i;
+                    $iMin = $index;
                 }
 
-                $i++;
+                $index++;
             }
         }
 
@@ -861,7 +882,7 @@ class Mage_Paypal_Model_Express_Checkout
                 'amount'     => 0.00,
             ]);
             if ($calculateTax) {
-                $options[$i]->setTaxAmount($address->getTaxAmount());
+                $options[$index]->setTaxAmount($address->getTaxAmount());
             }
         } elseif (is_null($userSelectedOption) && isset($options[$iMin])) {
             $options[$iMin]->setIsDefault(true);
@@ -884,9 +905,9 @@ class Mage_Paypal_Model_Express_Checkout
      * Compare two shipping options based on their amounts
      *
      * This function is used as a callback comparison function in shipping options sorting process
-     * @see self::_prepareShippingOptions()
      *
      * @return int
+     * @see self::_prepareShippingOptions()
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {
@@ -899,7 +920,7 @@ class Mage_Paypal_Model_Express_Checkout
      * If in future the issue is fixed, we don't need to attempt to match it. It would be enough to set the method code
      * before collecting shipping rates
      *
-     * @param string $selectedCode
+     * @param  string $selectedCode
      * @return string
      */
     protected function _matchShippingMethodCode(Mage_Sales_Model_Quote_Address $address, $selectedCode)
@@ -921,6 +942,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for guest checkout order submit
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareGuestQuote()
     {
@@ -936,6 +958,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Checks if customer with email coming from Express checkout exists
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     protected function _lookupCustomerId()
     {
@@ -950,6 +973,8 @@ class Mage_Paypal_Model_Express_Checkout
      * and restore magento customer data from quote
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -1002,7 +1027,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);
@@ -1015,6 +1040,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for customer order submit
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCustomerQuote()
     {
@@ -1056,6 +1082,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Involve new customer to system
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _involveNewCustomer()
     {
@@ -1087,8 +1114,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check if customer email exists
      *
-     * @param string $email
+     * @param  string              $email
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _customerEmailExists($email)
     {
@@ -1101,7 +1129,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         $customer->loadByEmail($email);
         if (!is_null($customer->getId())) {
-            $result = true;
+            return true;
         }
 
         return $result;

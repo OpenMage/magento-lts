@@ -17,10 +17,13 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
     /**
      * Instructions text
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_instructions;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

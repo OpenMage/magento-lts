@@ -12,6 +12,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/toolbar/add.phtml');
@@ -27,7 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
-                    'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
+                    'onclick'   => "if (addSet.submit()) disableElements('save');",
                     'class' => 'save',
                 ]),
         );

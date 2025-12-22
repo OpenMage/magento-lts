@@ -68,7 +68,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Quote converter declaration
      *
-     * @return  Mage_Sales_Model_Service_Quote
+     * @return Mage_Sales_Model_Service_Quote
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
     {
@@ -203,7 +203,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Submit nominal items
-     *
      */
     public function submitNominalItems()
     {

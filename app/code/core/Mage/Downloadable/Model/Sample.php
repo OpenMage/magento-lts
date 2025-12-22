@@ -12,33 +12,32 @@
  *
  * @package    Mage_Downloadable
  *
- * @method Mage_Downloadable_Model_Resource_Sample _getResource()
- * @method Mage_Downloadable_Model_Resource_Sample getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample            _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
- *
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method string getSampleUrl()
- * @method $this setSampleUrl(string $value)
- * @method string|null getSampleFile()
- * @method $this setSampleFile(string $value)
- * @method string getSampleType()
- * @method $this setSampleType(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getStoreTitle()
- * @method string getTitle()
- * @method bool getUseDefaultTitle()
+ * @method int                                                getProductId()
+ * @method Mage_Downloadable_Model_Resource_Sample            getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
+ * @method null|string                                        getSampleFile()
+ * @method string                                             getSampleType()
+ * @method string                                             getSampleUrl()
+ * @method int                                                getSortOrder()
+ * @method int                                                getStoreId()
+ * @method string                                             getStoreTitle()
+ * @method string                                             getTitle()
+ * @method bool                                               getUseDefaultTitle()
+ * @method $this                                              setProductId(int $value)
+ * @method $this                                              setSampleFile(string $value)
+ * @method $this                                              setSampleType(string $value)
+ * @method $this                                              setSampleUrl(string $value)
+ * @method $this                                              setSortOrder(int $value)
+ * @method $this                                              setStoreId(int $value)
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_SAMPLES_TITLE = 'catalog/downloadable/samples_title';
 
     /**
-     * Initialize resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -105,8 +104,8 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

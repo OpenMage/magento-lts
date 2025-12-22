@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
      */
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $products = $this->getRequest()->getPost('new_products', null);
         if (!is_array($products)) {
-            $products = [];
+            return [];
         }
 
         return $products;

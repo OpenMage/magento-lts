@@ -30,7 +30,7 @@ final class LocaleTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetNumberData
-     * @param string|float|int $value
+     * @param float|int|string $value
      *
      * @group Model
      */

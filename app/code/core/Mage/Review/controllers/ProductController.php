@@ -50,7 +50,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     protected function _initProduct()
     {
@@ -86,7 +86,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load product model with data by passed id.
      * Return false if product was not loaded or has incorrect status.
      *
-     * @param int $productId
+     * @param  int                             $productId
      * @return bool|Mage_Catalog_Model_Product
      */
     protected function _loadProduct($productId)
@@ -113,7 +113,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $reviewId
+     * @param  int                           $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -135,7 +135,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Submit new review action
-     *
      */
     public function postAction()
     {
@@ -208,7 +207,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show list of product's reviews
-     *
      */
     public function listAction()
     {
@@ -243,7 +241,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show details of one review
-     *
      */
     public function viewAction()
     {

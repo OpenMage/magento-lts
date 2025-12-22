@@ -17,7 +17,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     /**
      * Qty Increments cache
      *
-     * @var float|false
+     * @var false|float
      */
     protected $_qtyIncrements;
 
@@ -44,7 +44,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     /**
      * Retrieve product qty increments
      *
-     * @return float|false
+     * @return false|float
      */
     public function getProductQtyIncrements()
     {

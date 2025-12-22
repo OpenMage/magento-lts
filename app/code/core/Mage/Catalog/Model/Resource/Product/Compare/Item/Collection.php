@@ -31,12 +31,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[]|null
+     * @var null|Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set customer filter to collection
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)
@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set visitor filter to collection
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function setVisitorId($visitorId)

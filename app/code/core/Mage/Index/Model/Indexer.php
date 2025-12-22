@@ -17,7 +17,7 @@ class Mage_Index_Model_Indexer
     /**
      * Collection of available processes
      *
-     * @var Mage_Index_Model_Resource_Process_Collection|null
+     * @var null|Mage_Index_Model_Resource_Process_Collection
      */
     protected $_processesCollection;
 
@@ -40,7 +40,7 @@ class Mage_Index_Model_Indexer
      * Current processing event(s)
      * In array case it should be array(Entity type, Event type)
      *
-     * @var null|Mage_Index_Model_Event|array
+     * @var null|array|Mage_Index_Model_Event
      */
     protected $_currentEvent = null;
 
@@ -76,8 +76,8 @@ class Mage_Index_Model_Indexer
     /**
      * Get index process by specific id
      *
-     * @param int $processId
-     * @return Mage_Index_Model_Process|false
+     * @param  int                            $processId
+     * @return false|Mage_Index_Model_Process
      */
     public function getProcessById($processId)
     {
@@ -93,8 +93,8 @@ class Mage_Index_Model_Indexer
     /**
      * Get index process by specific code
      *
-     * @param string $code
-     * @return Mage_Index_Model_Process|false
+     * @param  string                         $code
+     * @return false|Mage_Index_Model_Process
      */
     public function getProcessByCode($code)
     {
@@ -151,9 +151,9 @@ class Mage_Index_Model_Indexer
 
     /**
      * Lock indexer actions
-     * @deprecated after 1.6.1.0
      *
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function lockIndexer()
     {
@@ -163,9 +163,9 @@ class Mage_Index_Model_Indexer
 
     /**
      * Unlock indexer actions
-     * @deprecated after 1.6.1.0
      *
      * @return $this
+     * @deprecated after 1.6.1.0
      */
     public function unlockIndexer()
     {
@@ -176,8 +176,8 @@ class Mage_Index_Model_Indexer
     /**
      * Check if object actions are locked
      *
-     * @deprecated after 1.6.1.0
      * @return bool
+     * @deprecated after 1.6.1.0
      */
     public function isLocked()
     {
@@ -188,10 +188,10 @@ class Mage_Index_Model_Indexer
      * Indexing all pending events.
      * Events set can be limited by event entity and type
      *
-     * @param   null | string $entity
-     * @param   null | string $type
+     * @param  null|string              $entity
+     * @param  null|string              $type
+     * @return Mage_Index_Model_Indexer
      * @throws Exception
-     * @return  Mage_Index_Model_Indexer
      */
     public function indexEvents($entity = null, $type = null)
     {
@@ -229,7 +229,7 @@ class Mage_Index_Model_Indexer
     /**
      * Index one event by all processes
      *
-     * @return  Mage_Index_Model_Indexer
+     * @return Mage_Index_Model_Indexer
      */
     public function indexEvent(Mage_Index_Model_Event $event)
     {
@@ -251,10 +251,10 @@ class Mage_Index_Model_Indexer
     /**
      * Create new event log and register event in all processes
      *
-     * @param   string $entityType
-     * @param   string $eventType
-     * @param   bool $doSave
-     * @return  Mage_Index_Model_Event
+     * @param  string                 $entityType
+     * @param  string                 $eventType
+     * @param  bool                   $doSave
+     * @return Mage_Index_Model_Event
      */
     public function logEvent(Varien_Object $entity, $entityType, $eventType, $doSave = true)
     {
@@ -276,8 +276,8 @@ class Mage_Index_Model_Indexer
      * Create new event log and register event in all processes.
      * Initiate events indexing procedure.
      *
-     * @param   string $entityType
-     * @param   string $eventType
+     * @param  string              $entityType
+     * @param  string              $eventType
      * @throws Exception|Throwable
      */
     public function processEntityAction(Varien_Object $entity, $entityType, $eventType): Mage_Index_Model_Indexer
@@ -333,7 +333,7 @@ class Mage_Index_Model_Indexer
      * Not recursive call is not implement
      *
      * @param string $method
-     * @param array $args
+     * @param array  $args
      */
     protected function _runAll($method, $args)
     {
@@ -375,7 +375,7 @@ class Mage_Index_Model_Indexer
     /**
      * Enable/Disable keys in index tables
      *
-     * @param bool $enable
+     * @param  bool  $enable
      * @return $this
      */
     protected function _changeKeyStatus($enable = true)
@@ -409,8 +409,8 @@ class Mage_Index_Model_Indexer
     /**
      * Check if the event will be processed and disable/enable keys in index tables
      *
-     * @param mixed|Mage_Index_Model_Process $process
-     * @param bool $enable
+     * @param  Mage_Index_Model_Process|mixed $process
+     * @param  bool                           $enable
      * @return bool
      */
     protected function _changeProcessKeyStatus($process, $enable = true)
@@ -462,8 +462,8 @@ class Mage_Index_Model_Indexer
     /**
      * Get event type name
      *
-     * @param null|string $entityType
-     * @param null|string $eventType
+     * @param  null|string $entityType
+     * @param  null|string $eventType
      * @return string
      */
     protected function _getEventTypeName($entityType = null, $eventType = null)
@@ -471,7 +471,7 @@ class Mage_Index_Model_Indexer
         $eventName = $entityType . '_' . $eventType;
         $eventName = trim($eventName, '_');
         if (!empty($eventName)) {
-            $eventName = '_' . $eventName;
+            return '_' . $eventName;
         }
 
         return $eventName;

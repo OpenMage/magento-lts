@@ -15,8 +15,7 @@
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Defines resource model and model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,8 +25,9 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Replacing popularity by sum of popularity and base_popularity
      *
-     * @param int $storeId
+     * @param  int                      $storeId
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function joinFields($storeId = 0)
     {
@@ -51,8 +51,9 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by specified tag status
      *
-     * @param string $statusCode
+     * @param  int                      $statusCode
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function addStatusFilter($statusCode)
     {
@@ -63,8 +64,8 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -80,8 +81,9 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Sets limit
      *
-     * @param int $limit
+     * @param  int                      $limit
      * @return $this
+     * @throws Zend_Db_Select_Exception
      */
     public function limit($limit)
     {
@@ -93,6 +95,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * Get SQL for get record count
      *
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     public function getSelectCountSql()
     {

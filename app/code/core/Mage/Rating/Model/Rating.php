@@ -12,40 +12,38 @@
  *
  * @package    Mage_Rating
  *
- * @method Mage_Rating_Model_Resource_Rating getResource()
- * @method Mage_Rating_Model_Resource_Rating _getResource()
+ * @method Mage_Rating_Model_Resource_Rating            _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getCollection()
+ * @method string                                       getEntityPkValue()
+ * @method string                                       getRatingCode()
+ * @method array                                        getRatingCodes()
+ * @method Mage_Rating_Model_Resource_Rating            getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getResourceCollection()
- *
- * @method $this setCount(int $value)
- * @method $this setCustomerId(int $value)
- * @method $this setEntityId(int $value)
- * @method string getEntityPkValue()
- * @method $this setEntityPkValue(string $value)
- * @method $this setId(string $value)
- * @method $this setPosition(string $value)
- * @method bool hasRatingCodes()
- * @method string getRatingCode()
- * @method $this setRatingCode(string $value)
- * @method array getRatingCodes()
- * @method $this setRatingCodes(array $value)
- * @method $this setRatingId(int $value)
- * @method int getReviewId()
- * @method $this setReviewId(int $value)
- * @method bool hasStores()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method array getStores()
- * @method $this setStores(array $value)
- * @method $this setSum(int $value)
- * @method $this setSummary(float|int $param)
- * @method int getVoteId()
+ * @method int                                          getReviewId()
+ * @method int                                          getStoreId()
+ * @method array                                        getStores()
+ * @method int                                          getVoteId()
+ * @method bool                                         hasRatingCodes()
+ * @method bool                                         hasStores()
+ * @method $this                                        setCount(int $value)
+ * @method $this                                        setCustomerId(int $value)
+ * @method $this                                        setEntityId(int $value)
+ * @method $this                                        setEntityPkValue(string $value)
+ * @method $this                                        setId(string $value)
+ * @method $this                                        setPosition(string $value)
+ * @method $this                                        setRatingCode(string $value)
+ * @method $this                                        setRatingCodes(array $value)
+ * @method $this                                        setRatingId(int $value)
+ * @method $this                                        setReviewId(int $value)
+ * @method $this                                        setStoreId(int $value)
+ * @method $this                                        setStores(array $value)
+ * @method $this                                        setSum(int $value)
+ * @method $this                                        setSummary(float|int $param)
  */
 class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 {
     /**
      * rating entity codes
-     *
      */
     public const ENTITY_PRODUCT_CODE           = 'product';
 
@@ -54,7 +52,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public const ENTITY_REVIEW_CODE            = 'review';
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -62,9 +60,9 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $optionId
-     * @param string $entityPkValue
-     * @param int $customerId
+     * @param  int    $optionId
+     * @param  string $entityPkValue
+     * @param  int    $customerId
      * @return $this
      */
     public function addOptionVote($optionId, $entityPkValue, $customerId = null)
@@ -79,7 +77,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $optionId
+     * @param  int   $optionId
      * @return $this
      */
     public function updateOptionVote($optionId)
@@ -115,8 +113,8 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     /**
      * Get rating collection object
      *
-     * @param string $entityPkValue
-     * @param bool $onlyForCurrentStore
+     * @param  string                         $entityPkValue
+     * @param  bool                           $onlyForCurrentStore
      * @return array|Mage_Rating_Model_Rating
      */
 
@@ -127,8 +125,8 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $reviewId
-     * @param bool $onlyForCurrentStore
+     * @param  int   $reviewId
+     * @param  bool  $onlyForCurrentStore
      * @return array
      */
     public function getReviewSummary($reviewId, $onlyForCurrentStore = true)
@@ -140,7 +138,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     /**
      * Get rating entity type id by code
      *
-     * @param string $entityCode
+     * @param  string $entityCode
      * @return string
      */
     public function getEntityIdByCode($entityCode)

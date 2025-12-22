@@ -30,14 +30,14 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Active Website instance
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
     /**
      * Set active website instance
      *
-     * @param Mage_Core_Model_Website|int $website
+     * @param  int|Mage_Core_Model_Website $website
      * @return Mage_Eav_Model_Attribute
      */
     public function setWebsite($website)
@@ -107,7 +107,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set validate rules
      *
-     * @param array|string $rules
+     * @param  array|string             $rules
      * @return Mage_Eav_Model_Attribute
      */
     public function setValidateRules($rules)
@@ -126,7 +126,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Return scope value by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function _getScopeValue($key)

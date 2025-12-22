@@ -7,19 +7,18 @@
  * @package    Mage
  */
 
+use Carbon\Carbon;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
 defined('PS') || define('PS', PATH_SEPARATOR);
 
 define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
-
-if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
-    Mage::setIsDeveloperMode(true);
-    ini_set('display_errors', '1');
-    ini_set('error_prepend_string', '<pre>');
-    ini_set('error_append_string', '</pre>');
-}
 
 /**
  * Set include path
@@ -54,6 +53,17 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
     include_once $path;
 }
 
+$dotenv = Dotenv\Dotenv::createImmutable(BP);
+$dotenv->safeLoad();
+$dotenv->ifPresent(['MAGE_IS_DEVELOPER_MODE', 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED'])->isInteger();
+
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', '1');
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
+}
+
 /**
  * Main Mage hub class
  */
@@ -69,35 +79,35 @@ final class Mage
     /**
      * Application root absolute path
      *
-     * @var string|null
+     * @var null|string
      */
     private static $_appRoot;
 
     /**
      * Application model
      *
-     * @var Mage_Core_Model_App|null
+     * @var null|Mage_Core_Model_App
      */
     private static $_app;
 
     /**
      * Config Model
      *
-     * @var Mage_Core_Model_Config|null
+     * @var null|Mage_Core_Model_Config
      */
     private static $_config;
 
     /**
      * Event Collection Object
      *
-     * @var Varien_Event_Collection|null
+     * @var null|Varien_Event_Collection
      */
     private static $_events;
 
     /**
      * Object cache instance
      *
-     * @var Varien_Object_Cache|null
+     * @var null|Varien_Object_Cache
      */
     private static $_objects;
 
@@ -118,7 +128,7 @@ final class Mage
     /**
      * Is installed flag
      *
-     * @var bool|null
+     * @var null|bool
      */
     private static $_isInstalled;
 
@@ -212,7 +222,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '15',
+                'minor'     => '16',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -249,7 +259,6 @@ final class Mage
 
     /**
      * Set all my static data to defaults
-     *
      */
     public static function reset()
     {
@@ -267,9 +276,9 @@ final class Mage
     /**
      * Register a new variable
      *
-     * @param string $key
-     * @param mixed $value
-     * @param bool $graceful
+     * @param  string              $key
+     * @param  mixed               $value
+     * @param  bool                $graceful
      * @throws Mage_Core_Exception
      */
     public static function register($key, $value, $graceful = false)
@@ -304,7 +313,7 @@ final class Mage
     /**
      * Retrieve a value from registry by a key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public static function registry($key)
@@ -315,7 +324,7 @@ final class Mage
     /**
      * Set application root absolute path
      *
-     * @param string $appRoot
+     * @param  string              $appRoot
      * @throws Mage_Core_Exception
      */
     public static function setRoot($appRoot = '')
@@ -361,7 +370,7 @@ final class Mage
     /**
      * Varien Objects Cache
      *
-     * @param string $key optional, if specified will load this key
+     * @param  string              $key optional, if specified will load this key
      * @return Varien_Object_Cache
      */
     public static function objects($key = null)
@@ -380,7 +389,7 @@ final class Mage
     /**
      * Retrieve application root absolute path
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public static function getBaseDir($type = 'base')
@@ -391,8 +400,8 @@ final class Mage
     /**
      * Retrieve module absolute path by directory type
      *
-     * @param string $type
-     * @param string $moduleName
+     * @param  string $type
+     * @param  string $moduleName
      * @return string
      */
     public static function getModuleDir($type, $moduleName)
@@ -403,8 +412,8 @@ final class Mage
     /**
      * Retrieve config value for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string                                     $path
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -413,7 +422,7 @@ final class Mage
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public static function getStoreConfigAsFloat(string $path, $store = null): float
     {
@@ -421,7 +430,7 @@ final class Mage
     }
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param null|bool|int|Mage_Core_Model_Store|string $store
      */
     public static function getStoreConfigAsInt(string $path, $store = null): int
     {
@@ -431,8 +440,8 @@ final class Mage
     /**
      * Retrieve config flag for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string                                     $path
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -449,8 +458,8 @@ final class Mage
     /**
      * Get base URL path by type
      *
-     * @param Mage_Core_Model_Store::URL_TYPE_* $type
-     * @param null|bool $secure
+     * @param  Mage_Core_Model_Store::URL_TYPE_* $type
+     * @param  null|bool                         $secure
      * @return string
      */
     public static function getBaseUrl($type = Mage_Core_Model_Store::URL_TYPE_LINK, $secure = null)
@@ -461,9 +470,9 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   null|string $route
-     * @param   array $params
-     * @return  string
+     * @param  null|string $route
+     * @param  array       $params
+     * @return string
      */
     public static function getUrl($route = '', $params = [])
     {
@@ -483,7 +492,7 @@ final class Mage
     /**
      * Retrieve a config instance
      *
-     * @return Mage_Core_Model_Config|null
+     * @return null|Mage_Core_Model_Config
      */
     public static function getConfig()
     {
@@ -493,11 +502,11 @@ final class Mage
     /**
      * Add observer to events object
      *
-     * @param string $eventName
-     * @param callback $callback
-     * @param array $data
-     * @param string $observerName
-     * @param string $observerClass
+     * @param  string                  $eventName
+     * @param  callable                $callback
+     * @param  array                   $data
+     * @param  string                  $observerName
+     * @param  string                  $observerClass
      * @return Varien_Event_Collection
      */
     public static function addObserver($eventName, $callback, $data = [], $observerName = '', $observerClass = '')
@@ -517,7 +526,7 @@ final class Mage
      * Calls all observer callbacks registered for this event
      * and multiple observers matching event name pattern
      *
-     * @param string $name
+     * @param  string              $name
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])
@@ -532,9 +541,9 @@ final class Mage
      * Retrieve model object
      *
      * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|string|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @param  string                         $modelClass
+     * @param  array|object|string            $arguments
+     * @return false|Mage_Core_Model_Abstract
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
@@ -544,8 +553,8 @@ final class Mage
     /**
      * Retrieve model object singleton
      *
-     * @param   string $modelClass
-     * @return  Mage_Core_Model_Abstract|false
+     * @param  string                         $modelClass
+     * @return false|Mage_Core_Model_Abstract
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
@@ -560,9 +569,9 @@ final class Mage
     /**
      * Retrieve object of resource model
      *
-     * @param   string $modelClass
-     * @param   array $arguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @param  string                                                $modelClass
+     * @param  array                                                 $arguments
+     * @return false|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public static function getResourceModel($modelClass, $arguments = [])
     {
@@ -572,9 +581,9 @@ final class Mage
     /**
      * Retrieve Controller instance by ClassName
      *
-     * @param string $class
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param Mage_Core_Controller_Response_Http $response
+     * @param  string                             $class
+     * @param  Mage_Core_Controller_Request_Http  $request
+     * @param  Mage_Core_Controller_Response_Http $response
      * @return Mage_Core_Controller_Front_Action
      */
     public static function getControllerInstance($class, $request, $response, array $invokeArgs = [])
@@ -585,8 +594,8 @@ final class Mage
     /**
      * Retrieve resource model object singleton
      *
-     * @param   string $modelClass
-     * @return  object
+     * @param  string $modelClass
+     * @return object
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
     {
@@ -601,8 +610,8 @@ final class Mage
     /**
      * Retrieve block object
      *
-     * @param string $type
-     * @return Mage_Core_Block_Abstract|false
+     * @param  string                         $type
+     * @return false|Mage_Core_Block_Abstract
      */
     public static function getBlockSingleton($type)
     {
@@ -613,7 +622,7 @@ final class Mage
     /**
      * Retrieve helper object
      *
-     * @param string $name the helper name
+     * @param  string                    $name the helper name
      * @return Mage_Core_Helper_Abstract
      */
     public static function helper($name)
@@ -630,7 +639,7 @@ final class Mage
     /**
      * Retrieve resource helper object
      *
-     * @param string $moduleName
+     * @param  string                                   $moduleName
      * @return Mage_Core_Model_Resource_Helper_Abstract
      */
     public static function getResourceHelper($moduleName)
@@ -647,9 +656,9 @@ final class Mage
     /**
      * Return new exception by module to be thrown
      *
-     * @param string $module
-     * @param string $message
-     * @param int $code
+     * @param  string              $module
+     * @param  string              $message
+     * @param  int                 $code
      * @return Mage_Core_Exception
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)
@@ -661,8 +670,8 @@ final class Mage
     /**
      * Throw Exception
      *
-     * @param string $message
-     * @param string $messageStorage
+     * @param  string              $message
+     * @param  string              $messageStorage
      * @throws Mage_Core_Exception
      */
     public static function throwException($message, $messageStorage = null)
@@ -677,9 +686,9 @@ final class Mage
     /**
      * Get initialized application object.
      *
-     * @param string $code
-     * @param string $type
-     * @param string|array $options
+     * @param  string              $code
+     * @param  string              $type
+     * @param  array|string        $options
      * @return Mage_Core_Model_App
      */
     public static function app($code = '', $type = 'store', $options = [])
@@ -702,10 +711,10 @@ final class Mage
 
     /**
      * @static
-     * @param string $code
-     * @param string $type
-     * @param array $options
-     * @param string|array $modules
+     * @param string       $code
+     * @param string       $type
+     * @param array        $options
+     * @param array|string $modules
      */
     public static function init($code = '', $type = 'store', $options = [], $modules = [])
     {
@@ -735,9 +744,9 @@ final class Mage
     /**
      * Front end main entry point
      *
-     * @param string $code
-     * @param string $type
-     * @param string|array $options
+     * @param string       $code
+     * @param string       $type
+     * @param array|string $options
      */
     public static function run($code = '', $type = 'store', $options = [])
     {
@@ -829,7 +838,7 @@ final class Mage
     /**
      * Retrieve application installation flag
      *
-     * @param string|array $options
+     * @param  array|string $options
      * @return bool
      */
     public static function isInstalled($options = [])
@@ -853,7 +862,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime((string) $date)) {
+                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
                     self::$_isInstalled = true;
                 }
             }
@@ -866,20 +875,20 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param int $level
-     * @param string|null $file
-     * @param bool $forceLog
+     * @param null|int|Level::*   $level
+     * @param null|string         $file
+     * @param bool                $forceLog
      */
-    public static function log($message, $level = null, $file = '', $forceLog = false)
+    public static function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
         if (!self::getConfig()) {
             return;
         }
 
         try {
-            $logActive = self::getStoreConfig('dev/log/active');
+            $logActive = self::getStoreConfigFlag(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ENABLED);
             if (empty($file)) {
-                $file = self::getStoreConfig('dev/log/file');
+                $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE);
             }
         } catch (Exception) {
             $logActive = true;
@@ -892,26 +901,39 @@ final class Mage
         static $loggers = [];
 
         try {
-            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+            $maxLogLevel = self::getStoreConfigAsInt(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
         } catch (Throwable) {
-            $maxLogLevel = Zend_Log::DEBUG;
+            $maxLogLevel = Level::Debug->value;
         }
 
-        $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+        // Normalize both $level and $maxLogLevel to integers for comparison
+        if ($level instanceof Level) {
+            $levelValue = $level->value;
+        } elseif (is_null($level)) {
+            $levelValue = Level::Debug->value;
+        } else {
+            $levelValue = (int) $level;
+        }
 
-        if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
+        if (!self::$_isDeveloperMode && $levelValue > $maxLogLevel && !$forceLog) {
             return;
         }
 
-        $file = empty($file) ?
-            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+        $file = empty($file)
+            ? (string) self::getConfig()->getNode(
+                Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE,
+                Mage_Core_Model_Store::DEFAULT_CODE,
+            ) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
                 $_allowedFileExtensions = explode(
                     ',',
-                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE),
+                    (string) self::getConfig()->getNode(
+                        Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
+                        Mage_Core_Model_Store::DEFAULT_CODE,
+                    ),
                 );
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
@@ -930,17 +952,19 @@ final class Mage
                     chmod($logFile, 0640);
                 }
 
-                $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
-                $formatter = new Zend_Log_Formatter_Simple($format);
+                $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
+                $formatter = new LineFormatter($format, null, true, true, true);
                 $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
-                    $writer = new Zend_Log_Writer_Stream($logFile);
+                    $writer = new StreamHandler($logFile, Level::Debug);
                 } else {
-                    $writer = new $writerModel($logFile);
+                    $writer = new $writerModel($logFile, Level::Debug);
                 }
 
                 $writer->setFormatter($formatter);
-                $loggers[$file] = new Zend_Log($writer);
+                $logger = new Logger('OpenMage');
+                $logger->pushHandler($writer);
+                $loggers[$file] = $logger;
             }
 
             if (is_array($message) || is_object($message)) {
@@ -948,7 +972,7 @@ final class Mage
             }
 
             $message = addcslashes($message, '<?');
-            $loggers[$file]->log($message, $level);
+            $loggers[$file]->log($levelValue, $message, $context);
         } catch (Exception) {
         }
     }
@@ -962,14 +986,14 @@ final class Mage
             return;
         }
 
-        $file = self::getStoreConfig('dev/log/exception_file');
-        self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
+        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
+        self::log("\n" . $e->__toString(), Level::Error, $file);
     }
 
     /**
      * Set enabled developer mode
      *
-     * @param bool $mode
+     * @param  bool $mode
      * @return bool
      */
     public static function setIsDeveloperMode($mode)
@@ -1005,7 +1029,7 @@ final class Mage
             print '</pre>';
         } else {
             $reportData = [
-                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
+                (empty($extra) ? '' : $extra . "\n\n") . $e->getMessage(),
                 $e->getTraceAsString(),
             ];
 
@@ -1035,9 +1059,9 @@ final class Mage
      * Define system folder directory url by virtue of running script directory name
      * Try to find requested folder by shifting to domain root directory
      *
-     * @param   string  $folder
-     * @param   boolean $exitIfNot
-     * @return  string
+     * @param  string $folder
+     * @param  bool   $exitIfNot
+     * @return string
      */
     public static function getScriptSystemUrl($folder, $exitIfNot = false)
     {

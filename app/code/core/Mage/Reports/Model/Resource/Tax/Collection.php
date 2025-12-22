@@ -16,7 +16,6 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
 {
     /**
      * Set row identifier field name
-     *
      */
     public function _construct()
     {
@@ -27,8 +26,8 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -55,7 +54,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Set store filter to collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

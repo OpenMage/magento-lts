@@ -52,10 +52,13 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Array of info about stores
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_storesInfo;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');
@@ -417,8 +420,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for direct associations categories and products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshDirectRelations($categoryIds = null, $productIds = null)
@@ -447,10 +450,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinInner(['rc'  => $this->_categoryTable], 'rc.entity_id=g.root_category_id', [])
             ->joinInner(
                 ['ce' => $this->_categoryTable],
-                'ce.entity_id=cp.category_id AND (' .
-                $adapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path') , $adapter->quote('/%')]) .
-                ' OR ce.entity_id=rc.entity_id)',
+                'ce.entity_id=cp.category_id AND ('
+                . $adapter->quoteIdentifier('ce.path') . ' LIKE '
+                . $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path') , $adapter->quote('/%')])
+                . ' OR ce.entity_id=rc.entity_id)',
                 [],
             )
             ->joinLeft(
@@ -511,8 +514,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for anchor categories and associated to child categories products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshAnchorRelations($categoryIds = null, $productIds = null)
@@ -530,8 +533,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          */
         $adapter = $this->_getReadAdapter();
         $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', '1', '0');
-        $position = 'MIN(' .
-            $adapter->getCheckSql(
+        $position = 'MIN('
+            . $adapter->getCheckSql(
                 'cp.category_id = ce.entity_id',
                 'cp.position',
                 '(cc.position + 1) * (' . $adapter->quoteIdentifier('cc.level') . ' + 1) * 10000 + cp.position',
@@ -543,8 +546,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->from(['ce' => $this->_categoryTable], ['entity_id'])
             ->joinInner(
                 ['cc' => $this->_categoryTable],
-                $adapter->quoteIdentifier('cc.path') .
-                ' LIKE (' . $adapter->getConcatSql([$adapter->quoteIdentifier('ce.path'),$adapter->quote('/%')]) . ')'
+                $adapter->quoteIdentifier('cc.path')
+                . ' LIKE (' . $adapter->getConcatSql([$adapter->quoteIdentifier('ce.path'),$adapter->quote('/%')]) . ')'
                 . ' OR cc.entity_id=ce.entity_id',
                 [],
             )
@@ -594,10 +597,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             /**
              * Condition for anchor or root category (all products should be assigned to root)
              */
-            ->where('(' .
-                $adapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path'), $adapter->quote('/%')]) . ' AND ' .
-                $adapter->getCheckSql(
+            ->where('('
+                . $adapter->quoteIdentifier('ce.path') . ' LIKE '
+                . $adapter->getConcatSql([$adapter->quoteIdentifier('rc.path'), $adapter->quote('/%')]) . ' AND '
+                . $adapter->getCheckSql(
                     'sca.value_id IS NOT NULL',
                     $adapter->quoteIdentifier('sca.value'),
                     $adapter->quoteIdentifier('dca.value'),
@@ -623,7 +626,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Add product association with root store category for products which are not assigned to any another category
      *
-     * @param int | array $productIds
+     * @param  array|int $productIds
      * @return $this
      */
     protected function _refreshRootRelations($productIds)
@@ -864,8 +867,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $idxAdapter->delete($anchorProductsTable);
 
-                $position = 'MIN(' .
-                    $idxAdapter->getCheckSql(
+                $position = 'MIN('
+                    . $idxAdapter->getCheckSql(
                         'ca.category_id = ce.entity_id',
                         $idxAdapter->quoteIdentifier('cp.position'),
                         '(' . $idxAdapter->quoteIdentifier('ce.position') . ' + 1) * '
@@ -880,8 +883,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 ->from(['ca' => $anchorTable], ['category_id'])
                 ->joinInner(
                     ['ce' => $this->_categoryTable],
-                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                    $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
+                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE '
+                    . $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
                     [],
                 )
                 ->joinInner(
@@ -988,8 +991,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Create temporary table with enabled products visibility info
      *
-     * @param int $websiteId
-     * @param int $storeId
+     * @param  int    $websiteId
+     * @param  int    $storeId
      * @return string temporary table name
      */
     protected function _prepareEnabledProductsVisibility($websiteId, $storeId)
@@ -1101,8 +1104,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     }
 
     /**
-     * @param int $storeId
-     * @param string $rootPath
+     * @param  int    $storeId
+     * @param  string $rootPath
      * @return string temporary table name
      */
     protected function _prepareAnchorCategories($storeId, $rootPath)
@@ -1179,7 +1182,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Retrieve temporary decimal index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

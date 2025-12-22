@@ -31,7 +31,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, ?array $filter = null)
@@ -50,14 +50,16 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Return list of allowed attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
+     * @param  Mage_Customer_Model_Address|Mage_Customer_Model_Customer $entity
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllowedAttributes($entity, ?array $filter = null)
     {
         $attributes = $entity->getResource()
-                        ->loadAllAttributes($entity)
-                        ->getAttributesByCode();
+            ->loadAllAttributes($entity)
+            ->getAttributesByCode();
+
         $result = [];
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $filter)) {

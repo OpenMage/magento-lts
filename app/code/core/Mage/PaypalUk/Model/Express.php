@@ -23,21 +23,21 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Website Payments Pro instance type
      *
-     * @var string $_proType
+     * @var string
      */
     protected $_proType = 'paypaluk/express_pro';
 
     /**
      * Express Checkout payment method instance
      *
-     * @var Mage_Payment_Model_Method_Abstract|false
+     * @var false|Mage_Payment_Model_Method_Abstract
      */
     protected $_ecInstance = null;
 
     /**
      * EC PE won't be available if the EC is available
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -61,7 +61,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Import payment info to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importToPayment($api, $payment)
@@ -81,9 +81,9 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Checkout redirect URL getter for onepage checkout (hardcode)
      *
+     * @return string
      * @see Mage_Checkout_OnepageController::savePaymentAction()
      * @see Mage_Sales_Model_Quote_Payment::getCheckoutRedirectUrl()
-     * @return string
      */
     public function getCheckoutRedirectUrl()
     {

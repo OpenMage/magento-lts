@@ -37,14 +37,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Template processor
      *
-     * @var array|string|null
+     * @var null|array|string
      */
     protected $_templateProcessor = null;
 
     /**
      * Include processor
      *
-     * @var array|string|null
+     * @var null|array|string
      */
     protected $_includeProcessor = null;
 
@@ -75,7 +75,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of templates.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getTemplateProcessor()
     {
@@ -96,7 +96,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getIncludeProcessor()
     {
@@ -106,7 +106,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Filter the string as template.
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function filter($value)
@@ -191,7 +191,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Mage_Sales_Model_Order::sales_email/order/template. This directive is useful to include things like a global
      * header/footer.
      *
-     * @param $construction
+     * @param               $construction
      * @return mixed|string
      */
     public function templateDirective($construction)
@@ -245,7 +245,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Return associative array of include construction.
      *
-     * @param string $value raw parameters
+     * @param  string $value raw parameters
      * @return array
      */
     protected function _getIncludeParameters($value)
@@ -264,12 +264,12 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     }
 
     /**
-    * Return variable value for var construction
-    *
-    * @param string $value raw parameters
-    * @param string|null $default default value
-    * @return string
-    */
+     * Return variable value for var construction
+     *
+     * @param  string      $value   raw parameters
+     * @param  null|string $default default value
+     * @return string
+     */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Varien_Profiler::start('email_template_proccessing_variables');
@@ -305,7 +305,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
-                            !$isEncrypted ? $stackVars[$i]['args'] : [null],
+                            $isEncrypted ? [null] : $stackVars[$i]['args'],
                         );
                     }
                 }

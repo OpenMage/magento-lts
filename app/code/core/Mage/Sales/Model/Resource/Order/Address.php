@@ -19,6 +19,9 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
      */
     protected $_eventPrefix    = 'sales_order_address_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_address', 'entity_id');
@@ -66,7 +69,9 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
 
             // update grid table after grid update
             foreach ($gridList as $gridResource => $field) {
-                Mage::getResourceModel($gridResource)->updateOnRelatedRecordChanged(
+                /** @var Mage_Sales_Model_Resource_Order_Abstract $model */
+                $model = Mage::getResourceModel($gridResource);
+                $model->updateOnRelatedRecordChanged(
                     $field,
                     $object->getParentId(),
                 );

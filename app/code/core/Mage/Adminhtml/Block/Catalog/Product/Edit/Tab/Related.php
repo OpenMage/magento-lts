@@ -18,7 +18,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
 {
     /**
      * Set grid params
-     *
      */
     public function __construct()
     {
@@ -48,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     /**
      * Add filter
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)
@@ -217,7 +216,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     {
         $products = $this->getProductsRelated();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedRelatedProducts());
+            return array_keys($this->getSelectedRelatedProducts());
         }
 
         return $products;

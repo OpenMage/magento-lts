@@ -7,32 +7,36 @@
  * @package    Mage_Cron
  */
 
+use Carbon\Carbon;
+
 /**
  * Crontab schedule model
  *
  * @package    Mage_Cron
  *
- * @method Mage_Cron_Model_Resource_Schedule _getResource()
- * @method Mage_Cron_Model_Resource_Schedule getResource()
+ * @method Mage_Cron_Model_Resource_Schedule            _getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
- * @method $this setIsError(bool $value)
- * @method string getJobCode()
- * @method $this setJobCode(string $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method string getMessages()
- * @method $this setMessages(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getScheduledAt()
- * @method $this setScheduledAt(string $value)
- * @method string getExecutedAt()
- * @method $this setExecutedAt(string $value)
- * @method string getFinishedAt()
- * @method $this setFinishedAt(string $value)
- * @method $this unsScheduleId()
- * @method array[]|false|string[] getCronExprArr()
- * @method $this setCronExprArr(array[]|false|string[] $value)
+ * @method string                                       getCreatedAt()
+ * @method array[]|false|string[]                       getCronExprArr()
+ *
+ * @method string                                       getExecutedAt()
+ * @method string                                       getFinishedAt()
+ * @method string                                       getJobCode()
+ * @method string                                       getMessages()
+ * @method Mage_Cron_Model_Resource_Schedule            getResource()
+ * @method Mage_Cron_Model_Resource_Schedule_Collection getResourceCollection()
+ * @method string                                       getScheduledAt()
+ * @method string                                       getStatus()
+ * @method $this                                        setCreatedAt(string $value)
+ * @method $this                                        setCronExprArr(array[]|false|string[] $value)
+ * @method $this                                        setExecutedAt(string $value)
+ * @method $this                                        setFinishedAt(string $value)
+ * @method $this                                        setIsError(bool $value)
+ * @method $this                                        setJobCode(string $value)
+ * @method $this                                        setMessages(string $value)
+ * @method $this                                        setScheduledAt(string $value)
+ * @method $this                                        setStatus(string $value)
+ * @method $this                                        unsScheduleId()
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
@@ -57,7 +61,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $expr
+     * @param  string              $expr
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -77,7 +81,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      *
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
-     * @param string|int $time
+     * @param  int|string $time
      * @return bool
      */
     public function trySchedule($time)
@@ -88,7 +92,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         if (!is_numeric($time)) {
-            $time = strtotime($time);
+            $time = Carbon::parse($time)->getTimestamp();
         }
 
         if ($time === false) {
@@ -105,15 +109,15 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         if ($match) {
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
-            $this->setScheduledAt(date('Y-m-d H:i:00', (int) $time));
+            $this->setScheduledAt(Carbon::createFromTimestamp((int) $time)->format('Y-m-d H:i:00'));
         }
 
         return $match;
     }
 
     /**
-     * @param string $expr
-     * @param int $num
+     * @param  string              $expr
+     * @param  int                 $num
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -177,8 +181,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int|string $value
-     * @return int|string|false
+     * @param  int|string       $value
+     * @return false|int|string
      */
     public function getNumeric($value)
     {
@@ -224,7 +228,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Returns true if status was changed and false otherwise.
      *
      * @param string $oldStatus
-     * This is used to implement locking for cron jobs.
+     *                          This is used to implement locking for cron jobs
      *
      * @return bool
      */

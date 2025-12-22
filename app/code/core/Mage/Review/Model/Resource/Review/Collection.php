@@ -58,8 +58,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     protected $_addStoreDataFlag   = false;
 
     /**
-     * Define module
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -89,7 +88,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -105,7 +104,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add store filter
      *
-     * @param int|array $storeId
+     * @param  array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -134,8 +133,8 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add entity filter
      *
-     * @param int|string $entity
-     * @param int $pkValue
+     * @param  int|string $entity
+     * @param  int        $pkValue
      * @return $this
      */
     public function addEntityFilter($entity, $pkValue)
@@ -172,7 +171,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add status filter
      *
-     * @param int|string $status
+     * @param  int|string $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -196,7 +195,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Set date order
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDateOrder($dir = 'DESC')
@@ -250,8 +249,8 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Load data
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -271,7 +270,6 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
 
     /**
      * Add store data
-     *
      */
     protected function _addStoreData()
     {

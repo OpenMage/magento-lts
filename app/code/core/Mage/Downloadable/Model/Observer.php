@@ -19,8 +19,8 @@ class Mage_Downloadable_Model_Observer
     /**
      * Prepare product to save
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Downloadable_Model_Observer
+     * @param  Varien_Event_Observer            $observer
+     * @return Mage_Downloadable_Model_Observer
      */
     public function prepareProductSave($observer)
     {
@@ -83,8 +83,8 @@ class Mage_Downloadable_Model_Observer
                     $linkPurchased,
                 );
                 $linkSectionTitle = (
-                    $product->getLinksTitle() ?
-                    $product->getLinksTitle() : Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE)
+                    $product->getLinksTitle()
+                    ? $product->getLinksTitle() : Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE)
                 );
                 $linkPurchased->setLinkSectionTitle($linkSectionTitle)
                     ->save();
@@ -120,7 +120,7 @@ class Mage_Downloadable_Model_Observer
     /**
      * Set checkout session flag if order has downloadable product(s)
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function setHasDownloadableProducts($observer)
@@ -147,7 +147,7 @@ class Mage_Downloadable_Model_Observer
     /**
      * Set status of link
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function setLinkStatus($observer)
@@ -207,9 +207,9 @@ class Mage_Downloadable_Model_Observer
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                     || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                 ) {
-                    if ($item->getStatusId() == Mage_Sales_Model_Order_Item::STATUS_BACKORDERED &&
-                        $orderItemStatusToEnable == Mage_Sales_Model_Order_Item::STATUS_PENDING &&
-                        !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true)
+                    if ($item->getStatusId() == Mage_Sales_Model_Order_Item::STATUS_BACKORDERED
+                        && $orderItemStatusToEnable == Mage_Sales_Model_Order_Item::STATUS_PENDING
+                        && !in_array(Mage_Sales_Model_Order_Item::STATUS_BACKORDERED, $availableStatuses, true)
                     ) {
                         $availableStatuses[] = Mage_Sales_Model_Order_Item::STATUS_BACKORDERED;
                     }
@@ -263,8 +263,8 @@ class Mage_Downloadable_Model_Observer
         $isContain = false;
 
         foreach ($quote->getAllItems() as $item) {
-            if (($product = $item->getProduct()) &&
-                $product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
+            if (($product = $item->getProduct())
+                && $product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
             ) {
                 $isContain = true;
             }

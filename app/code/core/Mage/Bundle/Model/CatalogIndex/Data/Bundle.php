@@ -17,7 +17,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Defines when product type has children
      *
-     * @var bool
+     * @var array
      */
     protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
@@ -54,12 +54,12 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
-     * @param int $store
+     * @param int    $store
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int $id
-     * @param array $additionalWheres
+     * @param int    $id
+     * @param array  $additionalWheres
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

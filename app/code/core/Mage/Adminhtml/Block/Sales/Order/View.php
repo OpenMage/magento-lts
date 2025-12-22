@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 $this->_updateButton(
                     'order_edit',
                     'onclick',
-                    'if (!confirm(\'' . $confirmationMessage . '\')) return false;' . $onclickJs,
+                    "if (!confirm('" . $confirmationMessage . "')) return false;" . $onclickJs,
                 );
             }
         }
@@ -138,9 +138,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         }
 
         if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
-            $label = $order->getForcedDoShipmentWithInvoice() ?
-                Mage::helper('sales')->__('Invoice and Ship') :
-                Mage::helper('sales')->__('Invoice');
+            $label = $order->getForcedDoShipmentWithInvoice()
+                ? Mage::helper('sales')->__('Invoice and Ship')
+                : Mage::helper('sales')->__('Invoice');
             $this->_addButton('order_invoice', [
                 'label'     => $label,
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getInvoiceUrl()),
@@ -232,8 +232,8 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $params
-     * @param array $params2
+     * @param  string $params
+     * @param  array  $params2
      * @return string
      */
     public function getUrl($params = '', $params2 = [])
@@ -331,7 +331,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)
@@ -354,7 +354,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return string
      */
     public function getReviewPaymentUrl($action)

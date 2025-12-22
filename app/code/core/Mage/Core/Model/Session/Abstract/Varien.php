@@ -7,13 +7,14 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
 use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSamesite;
 
 /**
  * @package    Mage_Core
  *
- * @method bool|null getSkipEmptySessionCheck()
- * @method $this setSkipEmptySessionCheck(bool $flag)
+ * @method null|bool getSkipEmptySessionCheck()
+ * @method $this     setSkipEmptySessionCheck(bool $flag)
  */
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
@@ -52,7 +53,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Configure and start session
      *
-     * @param string $sessionName
+     * @param  string                          $sessionName
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
@@ -271,8 +272,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
     /**
      * Revalidate cookie
-     * @deprecated after 1.4 cookie renew moved to session start method
      * @return $this
+     * @deprecated after 1.4 cookie renew moved to session start method
      */
     public function revalidateCookie()
     {
@@ -282,8 +283,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Init session with namespace
      *
-     * @param string $namespace
-     * @param string $sessionName
+     * @param  string $namespace
+     * @param  string $sessionName
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -308,8 +309,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Additional get data with clear mode
      *
-     * @param string $key
-     * @param bool $clear
+     * @param  string $key
+     * @param  bool   $clear
      * @return mixed
      */
     public function getData($key = '', $clear = false)
@@ -335,7 +336,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Set custom session id
      *
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function setSessionId($id = null)
@@ -360,7 +361,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Set session name
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setSessionName($name)
@@ -484,8 +485,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Validate session
      *
-     * @throws Mage_Core_Model_Session_Exception
      * @return $this
+     * @throws Mage_Core_Model_Session_Exception
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function validate()
@@ -507,7 +508,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Refresh expire timestamp
             if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
-                $this->setValidatorSessionRenewTimestamp(time());
+                $this->setValidatorSessionRenewTimestamp(Carbon::now()->getTimestamp());
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
@@ -519,7 +520,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Update the session's last legitimate renewal time (call when customer password is updated to avoid
      * being logged out)
      *
-     * @param int $timestamp
+     * @param  int  $timestamp
      * @return void
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -575,7 +576,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
             && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            < time()
+            < Carbon::now()->getTimestamp()
         ) {
             return false;
         }
@@ -627,8 +628,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // get time when password was last changed
         if (isset($this->_data['visitor_data']['customer_id'])) {
-            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
-                Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
+            $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+                = Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
         }
 
         return $parts;

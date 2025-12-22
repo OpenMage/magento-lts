@@ -25,8 +25,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     }
 
     /**
-     * @param array $arr
-     * @param string $key
+     * @param  array|Mage_Rule_Model_Condition_Abstract                  $arr
+     * @param  string                                                    $key
      * @return $this|Mage_SalesRule_Model_Rule_Condition_Product_Combine
      */
     public function loadArray($arr, $key = 'conditions')
@@ -38,8 +38,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     }
 
     /**
-     * @param string $containerKey
-     * @param string $itemKey
+     * @param  string $containerKey
+     * @param  string $itemKey
      * @return string
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
@@ -97,11 +97,12 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
 
     /**
      * @return string
+     * @throws Exception
      */
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml() .
-        Mage::helper('salesrule')->__('If %s %s %s for a subselection of items in cart matching %s of these conditions:', $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
+        $html = $this->getTypeElement()->getHtml()
+        . Mage::helper('salesrule')->__('If %s %s %s for a subselection of items in cart matching %s of these conditions:', $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
@@ -112,7 +113,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     /**
      * validate
      *
-     * @param Varien_Object $object Quote
+     * @param  Varien_Object $object Quote
      * @return bool
      */
     public function validate(Varien_Object $object)

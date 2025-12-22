@@ -13,7 +13,7 @@
  * @package    Mage_Api2
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this                           setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -27,7 +27,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
     /**
      * Tree model
      *
-     * @var Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @var false|Mage_Api2_Model_Acl_Global_Rule_Tree
      */
     protected $_treeModel = false;
 

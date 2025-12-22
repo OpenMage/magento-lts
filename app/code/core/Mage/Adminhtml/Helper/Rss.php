@@ -17,7 +17,7 @@ class Mage_Adminhtml_Helper_Rss extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Adminhtml';
 
     /**
-     * @param string $path
+     * @param  string $path
      * @return void
      * @see Mage_Rss_Helper_Data::authAdmin()
      */

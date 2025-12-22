@@ -12,7 +12,7 @@
  *
  * @package    Mage_Reports
  *
- * @method int getCustomerId()
+ * @method int   getCustomerId()
  * @method array getProductIds()
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
@@ -20,21 +20,21 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Product Index model name
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_indexName;
 
     /**
      * Product Index model instance
      *
-     * @var Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract|null
+     * @var null|Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
      */
     protected $_indexModel;
 
     /**
      * Product Index Collection
      *
-     * @var Mage_Reports_Model_Resource_Product_Index_Collection_Abstract|null
+     * @var null|Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     protected $_collection;
 
@@ -152,7 +152,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Set flag that defines whether products ids order should be used
      *
-     * @param bool $use
+     * @param  bool                                $use
      * @return Mage_Reports_Block_Product_Abstract
      */
     public function useProductIdsOrder($use = true)

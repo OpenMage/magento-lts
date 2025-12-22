@@ -16,13 +16,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
 {
     /**
      * The tail part of directory path for uploading
-     *
      */
     public const UPLOAD_DIR = 'favicon';
 
     /**
      * Token for the root part of directory path for uploading
-     *
      */
     public const UPLOAD_ROOT = 'media';
 
@@ -62,7 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
     /**
      * Get real media dir path
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     protected function _getUploadRoot($token)

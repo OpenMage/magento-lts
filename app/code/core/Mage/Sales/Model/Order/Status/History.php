@@ -12,20 +12,22 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
- * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getIsCustomerNotified()
- * @method $this setEntityName(string $value)
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Status_History            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
+ * @method string                                                    getComment()
+ * @method string                                                    getCreatedAt()
+ * @method int                                                       getIsCustomerNotified()
+ * @method int                                                       getIsVisibleOnFront()
+ * @method int                                                       getParentId()
+ * @method Mage_Sales_Model_Resource_Order_Status_History            getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
+ * @method string                                                    getStatus()
+ * @method $this                                                     setComment(string $value)
+ * @method $this                                                     setCreatedAt(string $value)
+ * @method $this                                                     setEntityName(string $value)
+ * @method $this                                                     setIsVisibleOnFront(int $value)
+ * @method $this                                                     setParentId(int $value)
+ * @method $this                                                     setStatus(string $value)
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
@@ -42,6 +44,9 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 
     protected $_eventObject = 'status_history';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');
@@ -50,7 +55,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Set order object
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {

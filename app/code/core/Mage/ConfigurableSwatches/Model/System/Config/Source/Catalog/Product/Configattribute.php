@@ -15,14 +15,15 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
     /**
      * Attributes array
      *
-     * @var null|array
+     * @var array
      */
     protected $_attributes = null;
 
     /**
      * Retrieve attributes as array
      *
-     * @return array
+     * @return array<int|string, array{label: string, value: int}>
+     * @throws Mage_Core_Exception
      */
     public function toOptionArray()
     {

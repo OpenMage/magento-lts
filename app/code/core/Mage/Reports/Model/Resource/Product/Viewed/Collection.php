@@ -24,9 +24,10 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  string              $from
+     * @param  string              $to
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _joinFields($from = '', $to = '')
     {
@@ -38,9 +39,10 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  string              $from
+     * @param  string              $to
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setDateRange($from, $to)
     {
@@ -52,7 +54,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Set store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -67,7 +69,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     /**
      * Add store ids to filter 'report_event' data by store
      *
-     * @param array|int $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreIds($storeIds)

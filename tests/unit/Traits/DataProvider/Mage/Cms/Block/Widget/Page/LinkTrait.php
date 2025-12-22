@@ -15,12 +15,12 @@ use Mage_Cms_Helper_Page;
 
 trait LinkTrait
 {
-    public static $defaults = [
+    public static array $defaults = [
         'custom_title' => 'Custom Title',
         'custom_text'  => 'Custom Text',
     ];
 
-    public static $tests = [
+    public static array $tests = [
         'empty' => 'empty',
         'href' => 'href is set',
         'no_data' => 'no data is set',

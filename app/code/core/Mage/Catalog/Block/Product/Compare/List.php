@@ -17,14 +17,14 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Product Compare items collection
      *
-     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_items;
 
     /**
      * Compare Products comparable attributes cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
@@ -52,7 +52,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve url for adding product to wishlist with params
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToWishlistUrl($product)
@@ -86,7 +86,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             Mage::helper('catalog/product_compare')->setAllowUsedFlat(false);
 
             $this->_items = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
+                ->useProductItem()
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -127,8 +127,8 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve Product Attribute Value
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product                $product
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return string
      */
     public function getProductAttributeValue($product, $attribute)
@@ -162,7 +162,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Setter for customer id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -174,8 +174,8 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve url for adding product to wishlist with params with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)

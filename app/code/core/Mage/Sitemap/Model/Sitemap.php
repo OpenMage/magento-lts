@@ -12,33 +12,33 @@
  *
  * @package    Mage_Sitemap
  *
- * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
- * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap            _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
- *
- * @method int getSitemapId()
- * @method string getSitemapType()
- * @method $this setSitemapType(string $value)
- * @method string getSitemapFilename()
- * @method $this setSitemapFilename(string $value)
- * @method string getSitemapPath()
- * @method $this setSitemapPath(string $value)
- * @method string getSitemapTime()
- * @method $this setSitemapTime(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method Mage_Sitemap_Model_Resource_Sitemap            getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getResourceCollection()
+ * @method string                                         getSitemapFilename()
+ * @method int                                            getSitemapId()
+ * @method string                                         getSitemapPath()
+ * @method string                                         getSitemapTime()
+ * @method string                                         getSitemapType()
+ * @method int                                            getStoreId()
+ * @method $this                                          setSitemapFilename(string $value)
+ * @method $this                                          setSitemapPath(string $value)
+ * @method $this                                          setSitemapTime(string $value)
+ * @method $this                                          setSitemapType(string $value)
+ * @method $this                                          setStoreId(int $value)
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {
     /**
      * Real file path
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_filePath;
 
     /**
-     * Init model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -96,8 +96,8 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     protected function getPath()
     {
         if (is_null($this->_filePath)) {
-            $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
-                $this->getSitemapPath());
+            $this->_filePath = str_replace('//', '/', Mage::getBaseDir()
+                . $this->getSitemapPath());
         }
 
         return $this->_filePath;

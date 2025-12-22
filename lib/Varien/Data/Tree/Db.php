@@ -70,8 +70,8 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * )
      *
      * @param Zend_Db_Adapter_Abstract $connection
-     * @param string $table
-     * @param array $fields
+     * @param string                   $table
+     * @param array                    $fields
      */
     public function __construct($connection, $table, $fields)
     {
@@ -120,9 +120,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * Load tree
      *
-     * @param   int|Varien_Data_Tree_Node $parentNode
-     * @param   int $recursionLevel recursion level
-     * @return  $this
+     * @param  int|Varien_Data_Tree_Node $parentNode
+     * @param  int                       $recursionLevel recursion level
+     * @return $this
      */
     public function load($parentNode = null, $recursionLevel = 100)
     {
@@ -157,7 +157,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     }
 
     /**
-     * @param int $nodeId
+     * @param  int                   $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function loadNode($nodeId)
@@ -171,9 +171,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     }
 
     /**
-     * @param array $data
-     * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param  array                      $data
+     * @param  Varien_Data_Tree_Node      $parentNode
+     * @param  null|Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
      * @throws Zend_Db_Adapter_Exception
      */
@@ -197,9 +197,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     /**
      * Move tree node
      *
-     * @param Varien_Data_Tree_Node $node
-     * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node $prevNode
+     * @param  Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node $parentNode
+     * @param  Varien_Data_Tree_Node $prevNode
      * @throws Exception
      */
     public function moveNodeTo($node, $parentNode, $prevNode = null)
@@ -220,15 +220,15 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $dataReorderNew = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '+1'),
         ];
-        $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $parentNode->getId() .
-                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>=' . $data[$this->_orderField];
+        $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $parentNode->getId()
+                            . ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>=' . $data[$this->_orderField];
 
         // For reorder old node branch
         $dataReorderOld = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
         ];
-        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
-                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
+        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField)
+                            . ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
 
         $this->_conn->beginTransaction();
         try {
@@ -242,13 +242,13 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t move tree node', $exception->getCode(), $exception);
+            throw new Exception("Can't move tree node", $exception->getCode(), $exception);
         }
     }
 
     /**
-     * @param int $parentId
-     * @param int $parentLevel
+     * @param  int                       $parentId
+     * @param  int                       $parentLevel
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -294,7 +294,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node  $node
      * @return $this|Varien_Data_Tree
      * @throws Exception
      */
@@ -304,8 +304,8 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $dataReorderOld = [
             $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
         ];
-        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
-                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
+        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField)
+                            . ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
 
         $this->_conn->beginTransaction();
         try {
@@ -316,7 +316,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t remove tree node', $exception->getCode(), $exception);
+            throw new Exception("Can't remove tree node", $exception->getCode(), $exception);
         }
 
         parent::removeNode($node);

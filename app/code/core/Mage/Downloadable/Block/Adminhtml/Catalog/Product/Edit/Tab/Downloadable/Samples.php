@@ -129,7 +129,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
 
     /**
      * Prepare layout
-     *
      */
     protected function _prepareLayout()
     {
@@ -141,7 +140,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                     'id'      => '',
                     'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                     'type'    => 'button',
-                    'onclick' => 'Downloadable.massUploadByType(\'samples\')',
+                    'onclick' => "Downloadable.massUploadByType('samples')",
                 ]),
         );
 
@@ -209,8 +208,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     /**
      * Retrieve config object
      *
-     * @deprecated
      * @return $this
+     * @deprecated
      */
     public function getConfig()
     {

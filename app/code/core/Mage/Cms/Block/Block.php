@@ -10,7 +10,7 @@
 /**
  * Cms block content block
  *
- * @method int getBlockId()
+ * @method int   getBlockId()
  * @method $this setBlockId(int $int)
  *
  * @package    Mage_Cms
@@ -18,10 +18,12 @@
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
     /**
-     * Initialize cache
+     * @inheritDoc
      */
     protected function _construct()
     {
+        parent::_construct();
+
         /*
         * setting cache to save the cms block
         */
@@ -33,13 +35,14 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      * Prepare Content HTML
      *
      * @return string
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _toHtml()
     {
+        $html = parent::_toHtml();
+
         $blockId = $this->getBlockId();
-        $html = '';
         if ($blockId) {
             $block = Mage::getModel('cms/block')
                 ->setStoreId(Mage::app()->getStore()->getId())
@@ -60,6 +63,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      * Retrieve values of properties that unambiguously identify unique content
      *
      * @return array
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCacheKeyInfo()

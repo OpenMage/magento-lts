@@ -21,6 +21,9 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
      */
     protected $_wishlistTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
@@ -30,7 +33,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Set wishlist table name
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setWishlistTable($value)
@@ -79,7 +82,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Get shared items collection count
      *
-     * @return false|string|null
+     * @return null|false|string
      */
     public function getSharedCount()
     {

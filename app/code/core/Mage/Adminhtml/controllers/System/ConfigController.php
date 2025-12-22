@@ -46,7 +46,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Index action
-     *
      */
     public function indexAction()
     {
@@ -228,7 +227,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save fieldset state through AJAX
-     *
      */
     public function stateAction()
     {
@@ -247,8 +245,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function exportTableratesAction()
     {
@@ -272,7 +270,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * Will forward to deniedAction(), if not allowed.
      *
-     * @param string $section
+     * @param  string $section
      * @return bool
      */
     protected function _isSectionAllowed($section)
@@ -304,7 +302,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Save state of configuration field sets
      *
-     * @param array $configState
+     * @param  array $configState
      * @return bool
      */
     protected function _saveState($configState = [])

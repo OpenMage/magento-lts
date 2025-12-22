@@ -14,13 +14,16 @@
  */
 class Mage_Sales_Model_Entity_Order_Creditmemo_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo');
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setOrderFilter($order)

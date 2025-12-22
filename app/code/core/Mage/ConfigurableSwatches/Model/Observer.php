@@ -17,6 +17,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Observes: catalog_block_product_list_collection
      *
      * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     public function productListCollectionLoadAfter(Varien_Event_Observer $observer)
     {
@@ -62,6 +65,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Attach children products after product load
      * Observes: catalog_product_load_after
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function productLoadAfter(Varien_Event_Observer $observer)
     {
@@ -88,6 +94,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Instruct media attribute to load images for product's children
      * if config swatches enabled.
      * Observes: catalog_product_attribute_backend_media_load_gallery_before
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
     {
@@ -127,6 +136,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Convert a catalog layer block with the right templates
      * Observes: controller_action_layout_generate_blocks_after
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function convertLayerBlock(Varien_Event_Observer $observer)
     {

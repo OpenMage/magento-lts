@@ -12,37 +12,37 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment            _getResource()
+ * @method string                                              getBackUrl()
+ * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
- *
- * @method string getBackUrl()
- * @method int getBillingAddressId()
- * @method $this setBillingAddressId(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getEmailSent()
- * @method $this setEmailSent(int $value)
- * @method string getIncrementId()
- * @method $this setIncrementId(string $value)
- * @method int getOrderId()
- * @method $this setOrderId(int $value)
- * @method mixed getPackages()
- * @method $this setPackages(string $value)
- * @method int getStoreId()
- * @method int getShipmentStatus()
- * @method $this setShipmentStatus(int $value)
- * @method int getShippingAddressId()
- * @method $this setShippingAddressId(int $value)
- * @method $this setStoreId(int $value)
- * @method float getTotalQty()
- * @method $this setTotalQty(float $value)
- * @method float getTotalWeight()
- * @method $this setTotalWeight(float $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method string                                              getCreatedAt()
+ * @method int                                                 getCustomerId()
+ * @method int                                                 getEmailSent()
+ * @method string                                              getIncrementId()
+ * @method int                                                 getOrderId()
+ * @method mixed                                               getPackages()
+ * @method Mage_Sales_Model_Resource_Order_Shipment            getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
+ * @method int                                                 getShipmentStatus()
+ * @method int                                                 getShippingAddressId()
+ * @method int                                                 getStoreId()
+ * @method float                                               getTotalQty()
+ * @method float                                               getTotalWeight()
+ * @method string                                              getUpdatedAt()
+ * @method $this                                               setBillingAddressId(int $value)
+ * @method $this                                               setCreatedAt(string $value)
+ * @method $this                                               setCustomerId(int $value)
+ * @method $this                                               setEmailSent(int $value)
+ * @method $this                                               setIncrementId(string $value)
+ * @method $this                                               setOrderId(int $value)
+ * @method $this                                               setPackages(string $value)
+ * @method $this                                               setShipmentStatus(int $value)
+ * @method $this                                               setShippingAddressId(int $value)
+ * @method $this                                               setStoreId(int $value)
+ * @method $this                                               setTotalQty(float $value)
+ * @method $this                                               setTotalWeight(float $value)
+ * @method $this                                               setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
@@ -97,7 +97,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
      */
     protected $_comments;
 
@@ -106,7 +106,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'shipment';
 
     /**
-     * Initialize shipment resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -126,7 +126,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Load shipment by increment id
      *
-     * @param string $incrementId
+     * @param  string $incrementId
      * @return $this
      */
     public function loadByIncrementId($incrementId)
@@ -146,7 +146,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Declare order for shipment
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -238,7 +238,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_shipment_item_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -268,7 +268,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param int $itemId
+     * @param  int  $itemId
      * @return bool
      */
     public function getItemById($itemId)
@@ -303,7 +303,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getTracksCollection()
     {
-        if (empty($this->_tracks)) {
+        if (is_null($this->_tracks)) {
             $this->_tracks = Mage::getResourceModel('sales/order_shipment_track_collection')
                 ->setShipmentFilter($this->getId());
 
@@ -333,8 +333,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param int $trackId
-     * @return Mage_Sales_Model_Order_Shipment_Track|false
+     * @param  int                                         $trackId
+     * @return false|Mage_Sales_Model_Order_Shipment_Track
      */
     public function getTrackById($trackId)
     {
@@ -375,8 +375,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * and show it in customer account
      *
      * @param Mage_Sales_Model_Order_Shipment_Comment|string $comment
-     * @param bool $notify
-     * @param bool $visibleOnFront
+     * @param bool                                           $notify
+     * @param bool                                           $visibleOnFront
      *
      * @return $this
      * @throws Exception
@@ -402,7 +402,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param bool $reload
+     * @param  bool                                                        $reload
      * @return Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
      */
     public function getCommentsCollection($reload = false)
@@ -431,8 +431,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment data
      *
-     * @param bool $notifyCustomer
-     * @param string $comment
+     * @param  bool   $notifyCustomer
+     * @param  string $comment
      * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
@@ -529,8 +529,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment update information
      *
-     * @param bool $notifyCustomer
-     * @param string $comment
+     * @param  bool   $notifyCustomer
+     * @param  string $comment
      * @return $this
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
@@ -598,7 +598,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param string $configPath
+     * @param  string      $configPath
      * @return array|false
      */
     protected function _getEmails($configPath)
@@ -687,7 +687,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Set shipping label
      *
-     * @param string $label   label representation (image or pdf file)
+     * @param  string $label label representation (image or pdf file)
      * @return $this
      */
     public function setShippingLabel($label)

@@ -17,13 +17,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     /**
      * EAV Indexers by type
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_types;
 
     /**
-     * Define main index table
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -50,7 +49,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     /**
      * Retrieve indexer instance by type
      *
-     * @param string $type
+     * @param  string                                                   $type
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
      */
     public function getIndexer($type)
@@ -168,7 +167,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     /**
      * Retrieve temporary source index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

@@ -7,26 +7,29 @@
  * @package    Mage_Log
  */
 
+use Carbon\Carbon;
+
 /**
  * Prepare Log Online Visitors Model
  *
  * @package    Mage_Log
  *
- * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
- * @method Mage_Log_Model_Resource_Visitor_Online getResource()
- * @method string getVisitorType()
- * @method $this setVisitorType(string $value)
- * @method int getRemoteAddr()
- * @method $this setRemoteAddr(int $value)
- * @method string getFirstVisitAt()
- * @method $this setFirstVisitAt(string $value)
- * @method string getLastVisitAt()
- * @method $this setLastVisitAt(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getLastUrl()
- * @method $this setLastUrl(string $value)
- *
+ * @method Mage_Log_Model_Resource_Visitor_Online            _getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getCollection()
+ * @method int                                               getCustomerId()
+ * @method string                                            getFirstVisitAt()
+ * @method string                                            getLastUrl()
+ * @method string                                            getLastVisitAt()
+ * @method int                                               getRemoteAddr()
+ * @method Mage_Log_Model_Resource_Visitor_Online            getResource()
+ * @method Mage_Log_Model_Resource_Visitor_Online_Collection getResourceCollection()
+ * @method string                                            getVisitorType()
+ * @method $this                                             setCustomerId(int $value)
+ * @method $this                                             setFirstVisitAt(string $value)
+ * @method $this                                             setLastUrl(string $value)
+ * @method $this                                             setLastVisitAt(string $value)
+ * @method $this                                             setRemoteAddr(int $value)
+ * @method $this                                             setVisitorType(string $value)
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
@@ -34,6 +37,9 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 
     public const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('log/visitor_online');
@@ -53,7 +59,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Retrieve last prepare at timestamp
      *
-     * @return string|false
+     * @return false|string
      */
     public function getPrepareAt()
     {
@@ -63,13 +69,13 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Set Prepare at timestamp (if time is null, set current timestamp)
      *
-     * @param int $time
+     * @param  int   $time
      * @return $this
      */
     public function setPrepareAt($time = null)
     {
         if (is_null($time)) {
-            $time = time();
+            $time = Carbon::now()->getTimestamp();
         }
 
         Mage::app()->saveCache($time, 'log_visitor_online_prepare_at');
@@ -95,7 +101,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     {
         $value = Mage::getStoreConfigAsInt(self::XML_PATH_ONLINE_INTERVAL);
         if (!$value) {
-            $value = Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
+            return Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
         }
 
         return $value;

@@ -24,8 +24,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      * Initialize requested category and put it into registry.
      * Root category can be returned, if inappropriate store/category is specified
      *
-     * @param bool $getRootInstead
-     * @return Mage_Catalog_Model_Category|false
+     * @param  bool                              $getRootInstead
+     * @return false|Mage_Catalog_Model_Category
      */
     protected function _initCategory($getRootInstead = false)
     {
@@ -201,7 +201,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     /**
      * WYSIWYG editor action for ajax request
-     *
      */
     public function wysiwygAction()
     {
@@ -302,8 +301,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
-            if (isset($data['category_products']) &&
-                !$category->getProductsReadonly()
+            if (isset($data['category_products'])
+                && !$category->getProductsReadonly()
             ) {
                 $products = Mage::helper('core/string')->parseQueryStr($data['category_products']);
                 $category->setPostedProducts($products);
@@ -455,7 +454,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             'parameters' => [
                 'text'        => $block->buildNodeName($root),
                 'draggable'   => false,
-                'allowDrop'   => ($root->getIsVisible()) ? true : false,
+                'allowDrop'   => (bool) $root->getIsVisible(),
                 'id'          => (int) $root->getId(),
                 'expanded'    => (int) $block->getIsWasExpanded(),
                 'store_id'    => (int) $block->getStore()->getId(),
@@ -465,8 +464,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
-    * Build response for refresh input element 'path' in form
-    */
+     * Build response for refresh input element 'path' in form
+     */
     public function refreshPathAction()
     {
         if ($id = (int) $this->getRequest()->getParam('id')) {

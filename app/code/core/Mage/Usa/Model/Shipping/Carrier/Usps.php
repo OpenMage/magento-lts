@@ -72,14 +72,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var null|Mage_Shipping_Model_Rate_Request
      */
     protected $_request = null;
 
     /**
      * Raw rate request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawRequest = null;
 
@@ -87,14 +87,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Raw rate tracking request data
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_rawTrackRequest = null;
 
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var null|Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result
      */
     protected $_result = null;
 
@@ -115,7 +115,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Collect and get rates
      *
-     * @return Mage_Shipping_Model_Rate_Result|bool|null
+     * @return null|bool|Mage_Shipping_Model_Rate_Result
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -267,7 +267,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getResult()
     {
@@ -275,7 +275,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * Starting from 23.02.2018 USPS doesn't allow to create free shipping labels via their API.
      */
     public function isShippingLabelsAvailable()
@@ -296,7 +296,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set free method request
      *
-     * @param  $freeMethod
+     * @param $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -387,7 +387,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $package->addChild('Country', $r->getDestCountryName());
             $package->addChild('Container', $r->getContainer());
             $package->addChild('Size', $r->getSize());
-            $width = $length = $height = $girth = '';
+            $width = '';
+            $length = '';
+            $height = '';
+            $girth = '';
             if ($r->getSize() == 'LARGE') {
                 $width = $r->getWidth();
                 $length = $r->getLength();
@@ -446,7 +449,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Parse calculated rates
      *
      * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
-     * @param string $response
+     * @param  string                               $response
      * @return Mage_Shipping_Model_Rate_Result|void
      */
     protected function _parseXmlResponse($response)
@@ -542,8 +545,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string     $type
+     * @param  string     $code
      * @return array|bool
      */
     public function getCode($type, $code = '')
@@ -910,8 +913,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get tracking
      *
-     * @param mixed $trackingData
-     * @return Mage_Shipping_Model_Rate_Result|null
+     * @param  mixed                                $trackingData
+     * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackingData)
     {
@@ -988,8 +991,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse xml tracking response
      *
-     * @param array $trackingValue
-     * @param string $response
+     * @param  array  $trackingValue
+     * @param  string $response
      * @return void
      */
     protected function _parseXmlTrackingResponse($trackingValue, $response)
@@ -1063,7 +1066,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1089,8 +1092,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Return USPS county name by country ISO 3166-1-alpha-2 code
      * Return false for unknown countries
      *
-     * @param string $countryId
-     * @return string|false
+     * @param  string       $countryId
+     * @return false|string
      */
     protected function _getCountryName($countryId)
     {
@@ -1203,7 +1206,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'KI' => 'Kiribati',
             'KM' => 'Comoros',
             'KN' => 'Saint Kitts (Saint Christopher and Nevis)',
-            'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
+            'KP' => "North Korea (Korea, Democratic People's Republic of)",
             'KR' => 'South Korea (Korea, Republic of)',
             'KW' => 'Kuwait',
             'KY' => 'Cayman Islands',
@@ -1345,7 +1348,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated This method should not be used anymore.
+     * @deprecated this method should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
      */
     protected function _formUsExpressShipmentRequest(Varien_Object $request)
@@ -1353,11 +1356,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $packageParams = $request->getPackageParams();
 
         $packageWeight = $request->getPackageWeight();
-        if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
+        if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::OUNCE) {
             $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
-                Zend_Measure_Weight::OUNCE,
+                Mage_Core_Helper_Measure_Weight::OUNCE,
             ));
         }
 
@@ -1409,8 +1412,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param string $serviceType
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
     {
@@ -1424,11 +1427,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         };
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();
-        if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
+        if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::OUNCE) {
             $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
-                Zend_Measure_Weight::OUNCE,
+                Mage_Core_Helper_Measure_Weight::OUNCE,
             ));
         }
 
@@ -1473,7 +1476,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Convert decimal weight into pound-ounces format
      *
-     * @param float $weightInPounds
+     * @param  float $weightInPounds
      * @return array
      */
     protected function _convertPoundOunces($weightInPounds)
@@ -1490,7 +1493,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * after <FromFirstName />
      *
      * @return string
-     * @deprecated Should not be used anymore.
+     * @deprecated should not be used anymore
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
      */
     protected function _formIntlShipmentRequest(Varien_Object $request)
@@ -1501,37 +1504,37 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $length = $packageParams->getLength();
         $girth = $packageParams->getGirth();
         $packageWeight = $request->getPackageWeight();
-        if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
+        if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::POUND) {
             $packageWeight = Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
-                Zend_Measure_Weight::POUND,
+                Mage_Core_Helper_Measure_Weight::POUND,
             );
         }
 
-        if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
+        if ($packageParams->getDimensionUnits() != Mage_Core_Helper_Measure_Length::INCH) {
             $length = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getLength(),
                 $packageParams->getDimensionUnits(),
-                Zend_Measure_Length::INCH,
+                Mage_Core_Helper_Measure_Length::INCH,
             ));
             $width = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getWidth(),
                 $packageParams->getDimensionUnits(),
-                Zend_Measure_Length::INCH,
+                Mage_Core_Helper_Measure_Length::INCH,
             ));
             $height = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getHeight(),
                 $packageParams->getDimensionUnits(),
-                Zend_Measure_Length::INCH,
+                Mage_Core_Helper_Measure_Length::INCH,
             ));
         }
 
-        if ($packageParams->getGirthDimensionUnits() != Zend_Measure_Length::INCH) {
+        if ($packageParams->getGirthDimensionUnits() != Mage_Core_Helper_Measure_Length::INCH) {
             $girth = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getGirth(),
                 $packageParams->getGirthDimensionUnits(),
-                Zend_Measure_Length::INCH,
+                Mage_Core_Helper_Measure_Length::INCH,
             ));
         }
 
@@ -1643,18 +1646,19 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $countriesOfManufacture[$product->getId()] = $product->getCountryOfManufacture();
         }
 
-        $packagePoundsWeight = $packageOuncesWeight = 0;
+        $packagePoundsWeight = 0;
+        $packageOuncesWeight = 0;
         // for ItemDetail
         foreach ($packageItems as $itemShipment) {
             $item = new Varien_Object();
             $item->setData($itemShipment);
 
             $itemWeight = $item->getWeight() * $item->getQty();
-            if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
+            if ($packageParams->getWeightUnits() != Mage_Core_Helper_Measure_Weight::POUND) {
                 $itemWeight = Mage::helper('usa')->convertMeasureWeight(
                     $itemWeight,
                     $packageParams->getWeightUnits(),
-                    Zend_Measure_Weight::POUND,
+                    Mage_Core_Helper_Measure_Weight::POUND,
                 );
             }
 
@@ -1862,12 +1866,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Check whether girth is allowed for the USPS
      *
-     * @param null|string $countyDest
+     * @param  null|string $countyDest
      * @return bool
      */
     public function isGirthAllowed($countyDest = null)
     {
-        return $this->_isUSCountry($countyDest) ? false : true;
+        return !$this->_isUSCountry($countyDest);
     }
 
     /**
@@ -1899,8 +1903,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param string $zipString
-     * @param bool $returnFull
+     * @param  string $zipString
+     * @param  bool   $returnFull
      * @return array
      */
     protected function _parseZip($zipString, $returnFull = false)
@@ -1954,8 +1958,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-      * @deprecated
-      */
+     * @deprecated
+     */
     protected function setTrackingReqeust()
     {
         $this->setTrackingRequest();

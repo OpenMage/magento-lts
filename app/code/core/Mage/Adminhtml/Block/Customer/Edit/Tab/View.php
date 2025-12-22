@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer account form block
  *
@@ -73,7 +75,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getStoreCreateDate()
     {
@@ -139,7 +141,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
             || !$log->getLastVisitAt()
-            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+            || Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($log->getLastVisitAt())->getTimestamp() > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
         ) {
             return Mage::helper('customer')->__('Offline');
         }
@@ -248,8 +250,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     /**
      * Return instance of core helper
      *
-     * @deprecated
      * @return Mage_Core_Helper_Data
+     * @deprecated
      */
     protected function _getCoreHelper()
     {

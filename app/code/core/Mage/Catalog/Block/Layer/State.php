@@ -18,7 +18,6 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 {
     /**
      * Initialize Layer State template
-     *
      */
     public function __construct()
     {
@@ -35,7 +34,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
     {
         $filters = $this->getLayer()->getState()->getFilters();
         if (!is_array($filters)) {
-            $filters = [];
+            return [];
         }
 
         return $filters;

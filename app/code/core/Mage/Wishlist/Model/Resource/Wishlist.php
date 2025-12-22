@@ -29,7 +29,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     protected $_customerIdFieldName = 'customer_id';
 
     /**
-     * Set main entity table name and primary key field name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -39,9 +39,9 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Prepare wishlist load select query
      *
-     * @param string $field
-     * @param mixed $value
-     * @param mixed $object
+     * @param  string         $field
+     * @param  mixed          $value
+     * @param  mixed          $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -68,7 +68,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Setter for customer ID field name
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return $this
      */
     public function setCustomerIdFieldName($fieldName)
@@ -80,11 +80,9 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Retrieve wishlist items count
      *
+     * @return int
      * @deprecated after 1.6.0.0-rc2
      * @see Mage_Wishlist_Model_Wishlist::getItemsCount()
-     *
-     *
-     * @return int
      */
     public function fetchItemsCount(Mage_Wishlist_Model_Wishlist $wishlist)
     {

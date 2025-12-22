@@ -15,8 +15,8 @@
 class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element       $source
+     * @param  bool                           $overwrite
      * @return $this|Varien_Simplexml_Element
      */
     public function extend($source, $overwrite = false)
@@ -37,9 +37,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Extends one node
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
-     * @param string $elmNamespace
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
+     * @param  string                   $elmNamespace
      * @return Varien_Simplexml_Element
      */
     public function extendChild($source, $overwrite = false, $elmNamespace = '')
@@ -133,8 +133,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *   )
      * )
      *
-     * @param Varien_Simplexml_Element $source
-     * @param null|string $namespace
+     * @param  Varien_Simplexml_Element $source
+     * @param  null|string              $namespace
      * @return array
      */
     public function getAttributes($source, $namespace = null)
@@ -159,9 +159,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @deprecated due to conflict with PHP8 parent class update
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return array
+     * @deprecated due to conflict with PHP8 parent class update
      */
     #[\ReturnTypeWillChange]
     public function getChildren($source = null)
@@ -173,7 +173,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Return children of all namespaces
      *
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return array
      */
     protected static function _getChildren($source)
@@ -220,9 +220,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Return element by tag name, and checking attributes with namespaces
      *
-     * @param Varien_Simplexml_Element $source
-     * @param string $elmNamespace
-     * @return SimpleXMLElement|Varien_Simplexml_Element|null
+     * @param  Varien_Simplexml_Element                       $source
+     * @param  string                                         $elmNamespace
+     * @return null|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getElementByName($source, $elmNamespace = '')
     {
@@ -259,9 +259,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Returns attribute value by attribute name
      *
-     * @param string $name
-     * @param string $namespace
-     * @return string|null
+     * @param  string      $name
+     * @param  string      $namespace
+     * @return null|string
      */
     public function getAttribute($name, $namespace = '')
     {

@@ -12,28 +12,32 @@
  *
  * @package    Mage_Directory
  *
- * @method Mage_Directory_Model_Resource_Country _getResource()
- * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method Mage_Directory_Model_Resource_Country            _getResource()
+ * @method string                                           getCode()
+ * @method Mage_Directory_Model_Resource_Country_Collection getCollection()
+ * @method string                                           getCountryId()
+ * @method string                                           getIso2Code()
+ * @method string                                           getIso3Code()
+ * @method Mage_Directory_Model_Resource_Country            getResource()
  * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
- * @method string getCode()
- * @method string getCountryId()
- * @method $this setCountryId(string $value)
- * @method string getIso2Code()
- * @method $this setIso2Code(string $value)
- * @method string getIso3Code()
- * @method $this setIso3Code(string $value)
+ * @method $this                                            setCountryId(string $value)
+ * @method $this                                            setIso2Code(string $value)
+ * @method $this                                            setIso3Code(string $value)
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
     public static $_format = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country');
     }
 
     /**
-     * @param string $code
+     * @param  string              $code
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -72,7 +76,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $html
+     * @param  bool   $html
      * @return string
      */
     public function formatAddress(Varien_Object $address, $html = false)
@@ -131,8 +135,8 @@ T: {{telephone}}';
     /**
      * Retrieve format
      *
-     * @param string $type
-     * @return Mage_Directory_Model_Country_Format|null
+     * @param  string                                   $type
+     * @return null|Mage_Directory_Model_Country_Format
      */
     public function getFormat($type)
     {

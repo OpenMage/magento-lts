@@ -27,7 +27,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Store id of application
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId        = null;
 
@@ -46,12 +46,11 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     public function __construct($resource = null, array $args = [])
     {
         parent::__construct($resource);
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
     }
 
     /**
-     *  Collection initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -74,7 +73,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add filter by entity id(s).
      *
-     * @param mixed $categoryIds
+     * @param  mixed $categoryIds
      * @return $this
      */
     public function addIdFilter($categoryIds)
@@ -106,7 +105,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -133,7 +132,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add filter by path to collection
      *
-     * @param string $parent
+     * @param  string $parent
      * @return $this
      */
     public function addParentPathFilter($parent)
@@ -156,7 +155,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set field to sort by
      *
-     * @param string $sorted
+     * @param  string $sorted
      * @return $this
      */
     public function addSortedField($sorted)
@@ -199,7 +198,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add attribute to select
      *
-     * @param array|string $attribute
+     * @param  array|string $attribute
      * @return $this
      */
     public function addAttributeToSelect($attribute = '*')
@@ -240,8 +239,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add attribute to sort order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
@@ -257,8 +256,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Emulate simple add attribute filter to collection
      *
-     * @param string $attribute
-     * @param mixed $condition
+     * @param  string $attribute
+     * @param  mixed  $condition
      * @return $this
      */
     public function addAttributeToFilter($attribute, $condition = null)
@@ -305,7 +304,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add category path filter
      *
-     * @param array|string $paths
+     * @param  array|string $paths
      * @return $this
      */
     public function addPathsFilter($paths)
@@ -330,7 +329,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add category level filter
      *
-     * @param int $level
+     * @param  int   $level
      * @return $this
      */
     public function addLevelFilter($level)
@@ -342,7 +341,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Add order field
      *
-     * @param string $field
+     * @param  string $field
      * @return $this
      */
     public function addOrderField($field)
@@ -354,8 +353,8 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set collection page start and records to show
      *
-     * @param int $pageNum
-     * @param int $pageSize
+     * @param  int   $pageNum
+     * @param  int   $pageSize
      * @return $this
      */
     public function setPage($pageNum, $pageSize)

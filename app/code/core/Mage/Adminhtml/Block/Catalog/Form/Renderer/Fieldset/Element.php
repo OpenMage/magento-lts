@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Initialize block template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|Mage_Catalog_Model_Product
      */
     public function getDataObject()
     {
@@ -84,8 +84,8 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getElement()->getValue() == $defaultValue &&
-            $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
+        } elseif ($this->getElement()->getValue() == $defaultValue
+            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
         ) {
             return false;
         }

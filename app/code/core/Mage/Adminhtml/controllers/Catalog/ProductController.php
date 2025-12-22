@@ -145,8 +145,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Create serializer block for a grid
      *
-     * @param string $inputName
-     * @param array $productsArray
+     * @param  string                                                        $inputName
+     * @param  array                                                         $productsArray
      * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer
      */
     protected function _createSerializerBlock($inputName, Mage_Adminhtml_Block_Widget_Grid $gridBlock, $productsArray)
@@ -281,7 +281,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * WYSIWYG editor action for ajax request
      *
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function wysiwygAction()
     {
@@ -494,7 +494,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Validate product
-     *
      */
     public function validateAction()
     {
@@ -791,8 +790,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Duplicates product attributes between stores.
-     * @param array $stores list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
-     * @param Mage_Catalog_Model_Product $product whose attributes should be copied
+     * @param  array                      $stores  list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
+     * @param  Mage_Catalog_Model_Product $product whose attributes should be copied
      * @return $this
      * @throws Throwable
      */
@@ -896,8 +895,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function addCustomersToAlertQueueAction()
     {
@@ -957,7 +956,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Update product(s) status action
-     *
      */
     public function massStatusAction()
     {
@@ -987,8 +985,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
+     * @param  int                 $status
      * @throws Mage_Core_Exception
-     * @param  int $status
      */
     public function _validateMassStatus(array $productIds, $status)
     {
@@ -1003,7 +1001,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
-     *
      */
     public function tagCustomerGridAction()
     {

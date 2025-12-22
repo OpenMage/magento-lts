@@ -53,7 +53,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 
@@ -88,7 +88,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * @return string|null
+     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCodeFromPath()
@@ -121,7 +121,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param string|null $pathInfo
+     * @param  null|string                  $pathInfo
      * @return Zend_Controller_Request_Http
      */
     public function setPathInfo($pathInfo = null)
@@ -178,8 +178,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Specify new path info
      * It happen when occur rewrite based on configuration
      *
-     * @param   string $pathInfo
-     * @return  Mage_Core_Controller_Request_Http
+     * @param  string                            $pathInfo
+     * @return Mage_Core_Controller_Request_Http
      */
     public function rewritePathInfo($pathInfo)
     {
@@ -205,8 +205,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Check if code declared as direct access frontend name
      * this mean what this url can be used without store code
      *
-     * @param   string $code
-     * @return  bool
+     * @param  string $code
+     * @return bool
      */
     public function isDirectAccessFrontendName($code)
     {
@@ -267,7 +267,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * @param bool $raw
+     * @param  bool   $raw
      * @return string
      */
     public function getBaseUrl($raw = false)
@@ -277,7 +277,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * @param string $route
+     * @param  string $route
      * @return $this
      */
     public function setRouteName($route)
@@ -313,15 +313,15 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
-            self::SCHEME_HTTPS :
-            self::SCHEME_HTTP;
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure())
+            ? self::SCHEME_HTTPS
+            : self::SCHEME_HTTP;
     }
 
     /**
      * Retrieve HTTP HOST
      *
-     * @param bool $trimPort
+     * @param  bool         $trimPort
      * @return false|string
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
@@ -351,8 +351,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Set a member of the $_POST superglobal
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  array|string $key
+     * @param  mixed        $value
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -370,8 +370,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Specify module name where was found currently used controller
      *
-     * @param   string $module
-     * @return  Mage_Core_Controller_Request_Http
+     * @param  string                            $module
+     * @return Mage_Core_Controller_Request_Http
      */
     public function setControllerModule($module)
     {
@@ -382,7 +382,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Get module name of currently used controller
      *
-     * @return  string
+     * @return string
      */
     public function getControllerModule()
     {
@@ -424,8 +424,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * Retrieve the actual key represented by the alias $name.
      *
-     * @param string $name
-     * @return string|null Returns null when no alias exists
+     * @param  string      $name
+     * @return null|string Returns null when no alias exists
      */
     public function getAlias($name)
     {
@@ -507,7 +507,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Set routing info data
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setRoutingInfo($data)
@@ -544,8 +544,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * If property was not changed during _forward call null will be returned.
      * If passed name will be null whole state array will be returned.
      *
-     * @param string $name
-     * @return array|string|null
+     * @param  string            $name
+     * @return null|array|string
      */
     public function getBeforeForwardInfo($name = null)
     {
@@ -561,7 +561,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Specify/get _isStraight flag value
      *
-     * @param bool $flag
+     * @param  bool $flag
      * @return bool
      */
     public function isStraight($flag = null)
@@ -594,7 +594,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Define that request was forwarded internally
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setInternallyForwarded($flag = true)

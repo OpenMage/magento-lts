@@ -48,7 +48,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     /**
      * Retrieve payment info model
      *
-     * @return Mage_Payment_Model_Info|false
+     * @return false|Mage_Payment_Model_Info
      */
     public function getPaymentInfo()
     {
@@ -58,9 +58,9 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     /**
      * Declare info block template
      *
-     * @param   string $method
-     * @param   string $template
-     * @return  Mage_Payment_Block_Info_Container
+     * @param  string                            $method
+     * @param  string                            $template
+     * @return Mage_Payment_Block_Info_Container
      */
     public function setInfoTemplate($method = '', $template = '')
     {

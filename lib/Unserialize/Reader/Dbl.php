@@ -18,16 +18,16 @@ class Unserialize_Reader_Dbl
     protected $_status;
 
     /**
-     * @var string|int
+     * @var int|string
      */
     protected $_value;
 
     public const READING_VALUE = 1;
 
     /**
-     * @param string $char
-     * @param string $prevChar
-     * @return float|null
+     * @param  string     $char
+     * @param  string     $prevChar
+     * @return null|float
      */
     public function read($char, $prevChar)
     {

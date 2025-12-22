@@ -16,7 +16,6 @@ class Mage_Sitemap_Model_Resource_Sitemap_Collection extends Mage_Core_Model_Res
 {
     /**
      * Init collection
-     *
      */
     public function _construct()
     {
@@ -26,7 +25,7 @@ class Mage_Sitemap_Model_Resource_Sitemap_Collection extends Mage_Core_Model_Res
     /**
      * Filter collection by specified store ids
      *
-     * @param array|int $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)
