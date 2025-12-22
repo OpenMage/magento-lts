@@ -53,4 +53,19 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
     {
         return ['image'];
     }
+
+    /**
+     * Override parent to check if swatches are enabled for product detail pages
+     * Product detail swatches work independently of listing attribute configuration
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!Mage::getStoreConfigFlag(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_ENABLED)) {
+            return ''; // do not render block
+        }
+
+        return Mage_Core_Block_Template::_toHtml();
+    }
 }
