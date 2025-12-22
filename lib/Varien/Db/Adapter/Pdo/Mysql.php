@@ -404,6 +404,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             // to improve type safety and organization. This check ensures backward compatibility
             // with older PHP versions while supporting the potential new namespace structure.
             if (class_exists('PDO\\MYSQL')) {
+                // @phpstan-ignore class.notFound
                 $this->_connection->setAttribute(\PDO\MYSQL::ATTR_USE_BUFFERED_QUERY, true);
             } else {
                 $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
