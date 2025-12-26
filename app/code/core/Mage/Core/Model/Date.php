@@ -147,7 +147,7 @@ class Mage_Core_Model_Date
      * Input date must be in GMT timezone
      *
      * @param  int|string $input date in GMT timezone
-     * @return int
+     * @return false|int
      */
     public function timestamp($input = null)
     {
