@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * @package    Mage_Paypal
@@ -662,9 +663,13 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 return false;
             }
 
-            $dateCompass = Carbon::parse($orderTransaction->getCreatedAt())->addDays($orderValidPeriod);
-            $currentDate = Carbon::now();
-            if ($currentDate > $dateCompass) {
+            try {
+                $dateCompass = Carbon::parse($orderTransaction->getCreatedAt())->addDays($orderValidPeriod);
+                $currentDate = Carbon::now();
+                if ($currentDate > $dateCompass) {
+                    return false;
+                }
+            } catch (InvalidFormatException) {
                 return false;
             }
         }

@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * PayPal specific model for certificate based authentication
@@ -54,7 +55,12 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('paypal')->__('PayPal certificate does not exist.'));
         }
 
-        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), Carbon::parse($this->getUpdatedAt())->getTimestamp());
+        try {
+            $timestamp = Carbon::parse($this->getUpdatedAt())->getTimestamp();
+        } catch (InvalidFormatException) {
+            $timestamp = Carbon::now()->getTimestamp();
+        }
+        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), $timestamp);
         $certFile = $this->_getBaseDir() . DS . $certFileName;
 
         if (!file_exists($certFile)) {
