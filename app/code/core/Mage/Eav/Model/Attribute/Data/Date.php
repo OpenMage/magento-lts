@@ -75,21 +75,21 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
                         Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
                         Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
                         $label,
-                );
-            } elseif (!empty($validateRules['date_range_min'])) {
-                $errors[] = Mage::helper('customer')->__(
-                    'Please enter a valid date equal to or greater than %s at %s.',
-                    Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
-                    $label,
-                );
-            } elseif (!empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__(
-                    'Please enter a valid date less than or equal to %s at %s.',
-                    Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
-                    $label,
-                );
+                    );
+                } elseif (!empty($validateRules['date_range_min'])) {
+                    $errors[] = Mage::helper('customer')->__(
+                        'Please enter a valid date equal to or greater than %s at %s.',
+                        Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
+                        $label,
+                    );
+                } elseif (!empty($validateRules['date_range_max'])) {
+                    $errors[] = Mage::helper('customer')->__(
+                        'Please enter a valid date less than or equal to %s at %s.',
+                        Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
+                        $label,
+                    );
+                }
             }
-        }
         } catch (InvalidFormatException) {
             $errors[] = Mage::helper('customer')->__(
                 'Please enter a valid date at %s.',
