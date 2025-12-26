@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Abstract Rule product condition data model
@@ -506,9 +507,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $attr = $object->getResource()->getAttribute($attrCode);
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
-                $this->setValue(Carbon::parse($this->getValue())->getTimestamp());
-                $value = Carbon::parse($object->getData($attrCode))->getTimestamp();
-                return $this->validateAttribute($value);
+                try {
+                    $this->setValue(Carbon::parse($this->getValue())->getTimestamp());
+                    $value = Carbon::parse($object->getData($attrCode))->getTimestamp();
+                    return $this->validateAttribute($value);
+                } catch (InvalidFormatException) {
+                    return false;
+                }
             }
 
             if ($attr && $attr->getFrontendInput() == 'multiselect') {
@@ -526,7 +531,11 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = Carbon::parse($value)->getTimestamp();
+                    try {
+                        $value = Carbon::parse($value)->getTimestamp();
+                    } catch (InvalidFormatException) {
+                        continue;
+                    }
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
                     $value = strlen($value) ? explode(',', $value) : [];
                 }

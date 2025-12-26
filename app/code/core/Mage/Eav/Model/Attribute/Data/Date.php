@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * EAV Entity Attribute Date Data Model
@@ -63,16 +64,17 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
 
         //range validation
         $validateRules = $attribute->getValidateRules();
-        if ((!empty($validateRules['date_range_min']) && (Carbon::parse($value)->getTimestamp() < $validateRules['date_range_min']))
-            || (!empty($validateRules['date_range_max']) && (Carbon::parse($value)->getTimestamp() > $validateRules['date_range_max']))
-        ) {
-            $format = 'd/m/Y';
-            if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__(
-                    'Please enter a valid date between %s and %s at %s.',
-                    Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
-                    Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
-                    $label,
+        try {
+            if ((!empty($validateRules['date_range_min']) && (Carbon::parse($value)->getTimestamp() < $validateRules['date_range_min']))
+                || (!empty($validateRules['date_range_max']) && (Carbon::parse($value)->getTimestamp() > $validateRules['date_range_max']))
+            ) {
+                $format = 'd/m/Y';
+                if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
+                    $errors[] = Mage::helper('customer')->__(
+                        'Please enter a valid date between %s and %s at %s.',
+                        Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format),
+                        Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format),
+                        $label,
                 );
             } elseif (!empty($validateRules['date_range_min'])) {
                 $errors[] = Mage::helper('customer')->__(
@@ -87,6 +89,12 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
                     $label,
                 );
             }
+        }
+        } catch (InvalidFormatException) {
+            $errors[] = Mage::helper('customer')->__(
+                'Please enter a valid date at %s.',
+                $label,
+            );
         }
 
         if (count($errors) == 0) {

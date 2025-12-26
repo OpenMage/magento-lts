@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Catalog rules resource model
@@ -180,8 +181,13 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getFromDate())->getTimestamp());
-        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
+        try {
+            $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getFromDate())->getTimestamp());
+            $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
+        } catch (InvalidFormatException) {
+            // Invalid date format, skip rule
+            return;
+        }
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
         $timestamp = Carbon::now()->getTimestamp();
@@ -693,7 +699,11 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     {
         $adapter = $this->_getReadAdapter();
         if (is_string($date)) {
-            $date = Carbon::parse($date)->getTimestamp();
+            try {
+                $date = Carbon::parse($date)->getTimestamp();
+            } catch (InvalidFormatException) {
+                return [];
+            }
         }
 
         $select = $adapter->select()
