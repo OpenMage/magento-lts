@@ -249,6 +249,7 @@ class Mage_Cron_Model_Observer
             } catch (InvalidFormatException) {
                 $executedTimestamp = null;
             }
+
             if (empty($record->getExecutedAt())
                 || ($executedTimestamp && $executedTimestamp < $now - $historyLifetimes[$record->getStatus()])
             ) {

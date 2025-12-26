@@ -1070,6 +1070,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 } catch (InvalidFormatException) {
                     $timestamp = null;
                 }
+
                 if ($timestamp) {
                     $resultArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
                     $resultArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');
@@ -1116,6 +1117,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                         } catch (InvalidFormatException) {
                             $timestamp = null;
                         }
+
                         if ($timestamp) {
                             $tempArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
                             $tempArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');

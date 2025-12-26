@@ -188,6 +188,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             // Invalid date format, skip rule
             return;
         }
+
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
         $timestamp = Carbon::now()->getTimestamp();

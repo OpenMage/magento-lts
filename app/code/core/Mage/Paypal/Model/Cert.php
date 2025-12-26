@@ -60,6 +60,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         } catch (InvalidFormatException) {
             $timestamp = Carbon::now()->getTimestamp();
         }
+
         $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), $timestamp);
         $certFile = $this->_getBaseDir() . DS . $certFileName;
 
