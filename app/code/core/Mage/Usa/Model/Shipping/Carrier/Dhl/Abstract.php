@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * DHL Abstract class
@@ -61,12 +62,16 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
         $shippingDays = explode(',', $shippingDays);
 
         $index = 0;
-        $weekday = Carbon::parse($date)->format('D');
-        while (!in_array($weekday, $shippingDays) && $index < 10) {
-            $index++;
-            $weekday = Carbon::parse("$date +$index day")->format('D');
-        }
+        try {
+            $weekday = Carbon::parse($date)->format('D');
+            while (!in_array($weekday, $shippingDays) && $index < 10) {
+                $index++;
+                $weekday = Carbon::parse("$date +$index day")->format('D');
+            }
 
-        return Carbon::parse("$date +$index day")->format(self::REQUEST_DATE_FORMAT);
+            return Carbon::parse("$date +$index day")->format(self::REQUEST_DATE_FORMAT);
+        } catch (InvalidFormatException) {
+            return $date;
+        }
     }
 }
