@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * HTML select element block
@@ -79,7 +80,11 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     public function getEscapedValue($index = null)
     {
         if ($this->getFormat() && $this->getValue()) {
-            return Carbon::parse($this->getValue())->format($this->getFormat());
+            try {
+                return Carbon::parse($this->getValue())->format($this->getFormat());
+            } catch (InvalidFormatException) {
+                return htmlspecialchars($this->getValue());
+            }
         }
 
         return htmlspecialchars($this->getValue());
