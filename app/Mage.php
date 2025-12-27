@@ -862,7 +862,11 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
+                $date = (string) $localConfig->global->install->date;
+                if ($date
+                    && $date !== Mage_Install_Model_Installer_Config::TMP_INSTALL_DATE_VALUE
+                    && Carbon::parse($date)
+                ) {
                     self::$_isInstalled = true;
                 }
             }
