@@ -863,11 +863,14 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                try {
-                    Carbon::parse((string) $localConfig->global->install->date);
-                    self::$_isInstalled = true;
-                } catch (InvalidFormatException) {
-                    self::$_isInstalled = false;
+                $date = (string) $localConfig->global->install->date;
+                if ($date !== '') {
+                    try {
+                        Carbon::parse($date);
+                        self::$_isInstalled = true;
+                    } catch (InvalidFormatException) {
+                        self::$_isInstalled = false;
+                    }
                 }
             }
         }
