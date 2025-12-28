@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
@@ -862,12 +863,11 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                $date = (string) $localConfig->global->install->date;
-                if ($date
-                    && $date !== Mage_Install_Model_Installer_Config::TMP_INSTALL_DATE_VALUE
-                    && Carbon::parse($date)
-                ) {
+                try {
+                    Carbon::parse((string) $localConfig->global->install->date);
                     self::$_isInstalled = true;
+                } catch (InvalidFormatException) {
+                    self::$_isInstalled = false;
                 }
             }
         }
