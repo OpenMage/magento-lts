@@ -17,11 +17,9 @@
  * @method Mage_Wishlist_Model_Resource_Wishlist            getResource()
  * @method int                                              getShared()
  * @method string                                           getSharingCode()
- * @method string                                           getUpdatedAt()
  * @method string                                           getVisibility()
  * @method $this                                            setShared(int $value)
  * @method $this                                            setSharingCode(string $value)
- * @method $this                                            setUpdatedAt(string $value)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {

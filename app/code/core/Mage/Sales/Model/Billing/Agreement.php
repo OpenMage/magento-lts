@@ -17,7 +17,6 @@
  * @method string                                                 getAgreementLabel()
  * @method int                                                    getBillingAgreementId()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
- * @method string                                                 getCreatedAt()
  * @method Mage_Customer_Model_Customer                           getCustomer()
  * @method int                                                    getCustomerId()
  * @method string                                                 getMethodCode()
@@ -27,10 +26,8 @@
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getResourceCollection()
  * @method string                                                 getStatus()
  * @method int                                                    getStoreId()
- * @method string                                                 getUpdatedAt()
  * @method $this                                                  setAgreementLabel(string $value)
  * @method $this                                                  setCancelUrl(string $value)
- * @method $this                                                  setCreatedAt(string $value)
  * @method $this                                                  setCustomer(Mage_Customer_Model_Customer $value)
  * @method $this                                                  setCustomerId(int $value)
  * @method $this                                                  setMethodCode(string $value)
@@ -39,7 +36,6 @@
  * @method $this                                                  setStatus(string $value)
  * @method $this                                                  setStoreId(int $value)
  * @method $this                                                  setToken(string $value)
- * @method $this                                                  setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {

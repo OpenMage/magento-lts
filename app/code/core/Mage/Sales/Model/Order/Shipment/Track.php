@@ -15,7 +15,6 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track            _getResource()
  * @method string                                                    getCarrierCode()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
- * @method string                                                    getCreatedAt()
  * @method string                                                    getDescription()
  * @method int                                                       getOrderId()
  * @method int                                                       getParentId()
@@ -24,10 +23,8 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getResourceCollection()
  * @method string                                                    getTitle()
  * @method string                                                    getTrackNumber()
- * @method string                                                    getUpdatedAt()
  * @method float                                                     getWeight()
  * @method $this                                                     setCarrierCode(string $value)
- * @method $this                                                     setCreatedAt(string $value)
  * @method $this                                                     setDescription(string $value)
  * @method $this                                                     setNumber(string $value)
  * @method $this                                                     setOrderId(int $value)
@@ -35,7 +32,6 @@
  * @method $this                                                     setQty(float $value)
  * @method $this                                                     setStoreId(int $value)
  * @method $this                                                     setTitle(string $value)
- * @method $this                                                     setUpdatedAt(string $value)
  * @method $this                                                     setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
