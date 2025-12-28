@@ -244,15 +244,23 @@ class Mage_Cron_Model_Observer
 
         $now = Carbon::now()->getTimestamp();
         foreach ($history->getIterator() as $record) {
+            $executedAt = $record->getExecutedAt();
+            
+            // Skip parsing if the date is empty
+            if (empty($executedAt)) {
+                $record->delete();
+                continue;
+            }
+            
             try {
-                $executedTimestamp = Carbon::parse($record->getExecutedAt())->getTimestamp();
+                $executedTimestamp = Carbon::parse($executedAt)->getTimestamp();
             } catch (InvalidFormatException) {
-                $executedTimestamp = null;
+                // If date is malformed, delete the record
+                $record->delete();
+                continue;
             }
 
-            if (empty($record->getExecutedAt())
-                || ($executedTimestamp && $executedTimestamp < $now - $historyLifetimes[$record->getStatus()])
-            ) {
+            if ($executedTimestamp < $now - $historyLifetimes[$record->getStatus()]) {
                 $record->delete();
             }
         }

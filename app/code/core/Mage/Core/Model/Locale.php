@@ -891,6 +891,11 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
+        
+        // Initialize variables to avoid undefined variable issues
+        $fromTimeStamp = 0;
+        $toTimeStamp = 0;
+        
         try {
             $fromTimeStamp  = Carbon::parse((string) $dateFrom)->getTimestamp();
             $toTimeStamp    = Carbon::parse((string) $dateTo)->getTimestamp();
