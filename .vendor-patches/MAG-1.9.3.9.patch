@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Validate/EmailAddress.php
 +++ ../library/Zend/Validate/EmailAddress.php
 @@ -429,7 +429,9 @@
              // Quoted-string characters are: DQUOTE *(qtext/quoted-pair) DQUOTE
