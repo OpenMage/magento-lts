@@ -152,9 +152,6 @@
             },
             "magento-ecg/coding-standard": {
                 "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4891.patch"
             }
         },
         "magento-root-dir": ".",
