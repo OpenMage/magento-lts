@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Webservice api session
@@ -219,8 +220,12 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             return true;
         }
 
-        $timeout = Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($user->getLogdate())->getTimestamp();
-        return $timeout > Mage::getStoreConfig('api/config/session_timeout');
+        try {
+            $timeout = Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($user->getLogdate())->getTimestamp();
+            return $timeout > Mage::getStoreConfig('api/config/session_timeout');
+        } catch (InvalidFormatException) {
+            return true;
+        }
     }
 
     /**

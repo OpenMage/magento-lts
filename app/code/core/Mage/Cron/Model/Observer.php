@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Crontab observer
@@ -243,9 +244,23 @@ class Mage_Cron_Model_Observer
 
         $now = Carbon::now()->getTimestamp();
         foreach ($history->getIterator() as $record) {
-            if (empty($record->getExecutedAt())
-                || (Carbon::parse($record->getExecutedAt())->getTimestamp() < $now - $historyLifetimes[$record->getStatus()])
-            ) {
+            $executedAt = $record->getExecutedAt();
+            
+            // Skip parsing if the date is empty
+            if (empty($executedAt)) {
+                $record->delete();
+                continue;
+            }
+            
+            try {
+                $executedTimestamp = Carbon::parse($executedAt)->getTimestamp();
+            } catch (InvalidFormatException) {
+                // If date is malformed, delete the record
+                $record->delete();
+                continue;
+            }
+
+            if ($executedTimestamp < $now - $historyLifetimes[$record->getStatus()]) {
                 $record->delete();
             }
         }

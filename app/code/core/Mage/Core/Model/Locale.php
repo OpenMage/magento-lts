@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Locale model
@@ -632,7 +633,11 @@ class Mage_Core_Model_Locale
         @date_default_timezone_set($timezone);
         $date = date(Varien_Date::DATETIME_PHP_FORMAT);
         @date_default_timezone_set($currentTimezone);
-        return Carbon::parse($date)->getTimestamp();
+        try {
+            return Carbon::parse($date)->getTimestamp();
+        } catch (InvalidFormatException) {
+            return Carbon::now()->getTimestamp();
+        }
     }
 
     /**
@@ -886,8 +891,18 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = Carbon::parse((string) $dateFrom)->getTimestamp();
-        $toTimeStamp    = Carbon::parse((string) $dateTo)->getTimestamp();
+        
+        // Initialize variables to avoid undefined variable issues
+        $fromTimeStamp = 0;
+        $toTimeStamp = 0;
+        
+        try {
+            $fromTimeStamp  = Carbon::parse((string) $dateFrom)->getTimestamp();
+            $toTimeStamp    = Carbon::parse((string) $dateTo)->getTimestamp();
+        } catch (InvalidFormatException) {
+            return false;
+        }
+
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;

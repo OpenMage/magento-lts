@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Class Mage_Shipping_Block_Tracking_Popup
@@ -221,8 +222,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     {
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-        return $locale->date(Carbon::parse($date)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
+        try {
+            return $locale->date(Carbon::parse($date)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
+                ->toString($format);
+        } catch (InvalidFormatException) {
+            return $date;
+        }
     }
 
     /**
@@ -241,8 +246,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         $locale = Mage::app()->getLocale();
 
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-        return $locale->date(Carbon::parse($time)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
+        try {
+            return $locale->date(Carbon::parse($time)->getTimestamp(), Zend_Date::TIMESTAMP, null, false)
+                ->toString($format);
+        } catch (InvalidFormatException) {
+            return $time;
+        }
     }
 
     /**

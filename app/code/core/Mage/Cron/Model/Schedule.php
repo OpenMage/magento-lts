@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Crontab schedule model
@@ -92,7 +93,11 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         if (!is_numeric($time)) {
-            $time = Carbon::parse($time)->getTimestamp();
+            try {
+                $time = Carbon::parse($time)->getTimestamp();
+            } catch (InvalidFormatException) {
+                $time = false;
+            }
         }
 
         if ($time === false) {

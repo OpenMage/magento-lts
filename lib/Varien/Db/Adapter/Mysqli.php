@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
@@ -112,7 +113,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return $date->toString(self::ISO_DATE_FORMAT);
         }
 
-        return Carbon::parse($date)->format(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT);
+        try {
+            return Carbon::parse($date)->format(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT);
+        } catch (InvalidFormatException) {
+            return null;
+        }
     }
 
     public function convertDateTime($datetime)
@@ -121,7 +126,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
 
-        return Carbon::parse($datetime)->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
+        try {
+            return Carbon::parse($datetime)->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
+        } catch (InvalidFormatException) {
+            return null;
+        }
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps

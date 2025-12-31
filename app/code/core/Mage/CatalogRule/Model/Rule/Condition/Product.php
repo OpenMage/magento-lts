@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Catalog Rule Product Condition data model
@@ -102,7 +103,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
                 return null;
             }
 
-            $value = Carbon::parse($value)->getTimestamp();
+            try {
+                $value = Carbon::parse($value)->getTimestamp();
+            } catch (InvalidFormatException) {
+                return null;
+            }
         }
 
         return $value;

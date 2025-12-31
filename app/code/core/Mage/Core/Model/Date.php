@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Date conversion model
@@ -122,7 +123,11 @@ class Mage_Core_Model_Date
         } elseif (is_numeric($input)) {
             $result = $input;
         } else {
-            $result = Carbon::parse($input)->getTimestamp();
+            try {
+                $result = Carbon::parse($input)->getTimestamp();
+            } catch (InvalidFormatException) {
+                return false;
+            }
         }
 
         if ($result === false) {
@@ -142,7 +147,7 @@ class Mage_Core_Model_Date
      * Input date must be in GMT timezone
      *
      * @param  int|string $input date in GMT timezone
-     * @return int
+     * @return false|int
      */
     public function timestamp($input = null)
     {
@@ -151,7 +156,11 @@ class Mage_Core_Model_Date
         } elseif (is_numeric($input)) {
             $result = $input;
         } else {
-            $result = Carbon::parse($input)->getTimestamp();
+            try {
+                $result = Carbon::parse($input)->getTimestamp();
+            } catch (InvalidFormatException) {
+                return false;
+            }
         }
 
         $date      = Mage::app()->getLocale()->date($result);

@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Fedex shipping implementation
@@ -1064,7 +1065,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 $resultArray['status'] = (string) $trackInfo->StatusDescription;
                 $resultArray['service'] = (string) $trackInfo->ServiceInfo;
                 $timestamp = $trackInfo->EstimatedDeliveryTimestamp ?? $trackInfo->ActualDeliveryTimestamp;
-                $timestamp = Carbon::parse((string) $timestamp)->getTimestamp();
+                try {
+                    $timestamp = Carbon::parse((string) $timestamp)->getTimestamp();
+                } catch (InvalidFormatException) {
+                    $timestamp = null;
+                }
+
                 if ($timestamp) {
                     $resultArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
                     $resultArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');
@@ -1106,7 +1112,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     foreach ($events as $event) {
                         $tempArray = [];
                         $tempArray['activity'] = (string) $event->EventDescription;
-                        $timestamp = Carbon::parse((string) $event->Timestamp)->getTimestamp();
+                        try {
+                            $timestamp = Carbon::parse((string) $event->Timestamp)->getTimestamp();
+                        } catch (InvalidFormatException) {
+                            $timestamp = null;
+                        }
+
                         if ($timestamp) {
                             $tempArray['deliverydate'] = Carbon::createFromTimestamp($timestamp)->format('Y-m-d');
                             $tempArray['deliverytime'] = Carbon::createFromTimestamp($timestamp)->format('H:i:s');
