@@ -40,14 +40,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     protected $_types = [];
 
     /**
-     * @param array $attributes
-     */
-    public function __construct($attributes = [])
-    {
-        parent::__construct($attributes);
-    }
-
-    /**
      * @param  string $type
      * @param  string $className
      * @return $this
