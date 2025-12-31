@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/cache_option', 'code');
@@ -44,7 +47,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save all options to option table
      *
-     * @param array $options
+     * @param  array     $options
      * @return $this
      * @throws Exception
      */

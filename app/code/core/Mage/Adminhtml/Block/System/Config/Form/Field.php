@@ -127,8 +127,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
     /**
      * Decorate field row html
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param string $html
+     * @param  Varien_Data_Form_Element_Abstract $element
+     * @param  string                            $html
      * @return string
      */
     protected function _decorateRowHtml($element, $html)

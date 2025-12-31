@@ -21,7 +21,7 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     protected $_params = [];
 
     /**
-     * Set template for iframe
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -32,7 +32,7 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     /**
      * Set output params
      *
-     * @param array $params
+     * @param  array $params
      * @return $this
      */
     public function setParams($params)

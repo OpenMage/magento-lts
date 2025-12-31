@@ -90,7 +90,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Render timer id column value
      *
-     * @param string $timerId
+     * @param  string $timerId
      * @return string
      */
     protected function _renderTimerId($timerId)
@@ -203,7 +203,7 @@ abstract class Magento_Profiler_OutputAbstract
      * Set threshold (minimal allowed) value for timer column.
      * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
      *
-     * @param string $fetchKey
+     * @param string         $fetchKey
      * @param null|float|int $minAllowedValue
      */
     public function setThreshold($fetchKey, $minAllowedValue)

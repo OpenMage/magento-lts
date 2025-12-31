@@ -12,27 +12,31 @@
  *
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Resource_Acl_Role _getResource()
+ * @method Mage_Admin_Model_Resource_Acl_Role            _getResource()
  * @method Mage_Admin_Model_Resource_Acl_Role_Collection getCollection()
- * @method int getParentId()
- * @method Mage_Admin_Model_Resource_Acl_Role getResource()
+ * @method int                                           getParentId()
+ * @method Mage_Admin_Model_Resource_Acl_Role            getResource()
  * @method Mage_Admin_Model_Resource_Acl_Role_Collection getResourceCollection()
- * @method string getRoleName()
- * @method string getRoleType()
- * @method int getSortOrder()
- * @method int getTreeLevel()
- * @method int getUserId()
- * @method $this setParentId(int $value)
- * @method $this setRoleName(string $value)
- * @method $this setRoleType(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setTreeLevel(int $value)
- * @method $this setUserId(int $value)
+ * @method string                                        getRoleName()
+ * @method string                                        getRoleType()
+ * @method int                                           getSortOrder()
+ * @method int                                           getTreeLevel()
+ * @method int                                           getUserId()
+ * @method $this                                         setParentId(int $value)
+ * @method $this                                         setRoleName(string $value)
+ * @method $this                                         setRoleType(string $value)
+ * @method $this                                         setSortOrder(int $value)
+ * @method $this                                         setTreeLevel(int $value)
+ * @method $this                                         setUserId(int $value)
  */
 class Mage_Admin_Model_Acl_Role extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
+        parent::_construct();
         $this->_init('admin/acl_role');
     }
 }

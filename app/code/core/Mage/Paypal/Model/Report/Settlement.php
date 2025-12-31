@@ -16,15 +16,15 @@
  * @package    Mage_Paypal
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
- * @method string getAccountId()
- * @method string getFilename()
- * @method string getLastModified()
- * @method string getReportDate()
+ * @method string                                       getAccountId()
+ * @method string                                       getFilename()
+ * @method string                                       getLastModified()
+ * @method string                                       getReportDate()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
- * @method $this setAccountId(string $value)
- * @method $this setFilename(string $value)
- * @method $this setLastModified(string $value)
- * @method $this setReportDate(string $value)
+ * @method $this                                        setAccountId(string $value)
+ * @method $this                                        setFilename(string $value)
+ * @method $this                                        setLastModified(string $value)
+ * @method $this                                        setReportDate(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {
@@ -145,6 +145,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement');
@@ -172,8 +175,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Goes to specified host/path and fetches reports from there.
      * Save reports to database.
      *
-     * @param array $config SFTP credentials
-     * @return int Number of report rows that were fetched and saved successfully
+     * @param  array $config SFTP credentials
+     * @return int   Number of report rows that were fetched and saved successfully
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -237,8 +240,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Parse CSV file and collect report rows
      *
-     * @param string $localCsv Path to CSV file
-     * @param string $format CSV format(column names)
+     * @param  string $localCsv Path to CSV file
+     * @param  string $format   CSV format(column names)
      * @return $this
      */
     public function parseCsv($localCsv, $format = 'new')
@@ -328,7 +331,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Return name for row column
      *
-     * @param string $field Field name in row model
+     * @param  string $field Field name in row model
      * @return string
      */
     public function getFieldLabel($field)
@@ -357,7 +360,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Iterate through website configurations and collect all SFTP configurations
      * Filter config values if necessary
      *
-     * @param bool $automaticMode Whether to skip settings with disabled Automatic Fetching or not
+     * @param  bool  $automaticMode Whether to skip settings with disabled Automatic Fetching or not
      * @return array
      */
     public function getSftpCredentials($automaticMode = false)
@@ -405,7 +408,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Converts a filename to date of report.
      *
-     * @param string $filename
+     * @param  string $filename
      * @return string
      */
     protected function _fileNameToDate($filename)
@@ -418,7 +421,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Filter SFTP file list by filename format
      *
-     * @param array $list List of files as per $connection->rawls()
+     * @param  array $list List of files as per $connection->rawls()
      * @return array Trimmed down list of files
      */
     protected function _filterReportsList($list)

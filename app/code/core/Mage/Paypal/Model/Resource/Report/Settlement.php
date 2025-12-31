@@ -22,7 +22,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     protected $_rowsTable;
 
     /**
-     * Init main table
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,7 +33,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     /**
      * Save report rows collected in settlement model
      *
-     * @param Mage_Paypal_Model_Report_Settlement $object
+     * @param  Mage_Paypal_Model_Report_Settlement $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -85,8 +85,8 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     /**
      * Check if report with same account and report date already fetched
      *
-     * @param string $accountId
-     * @param string $reportDate
+     * @param  string $accountId
+     * @param  string $reportDate
      * @return $this
      */
     public function loadByAccountAndDate(Mage_Paypal_Model_Report_Settlement $report, $accountId, $reportDate)

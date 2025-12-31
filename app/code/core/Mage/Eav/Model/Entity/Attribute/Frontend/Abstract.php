@@ -24,7 +24,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Set attribute instance
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract          $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
      */
     public function setAttribute($attribute)
@@ -62,7 +62,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     {
         $label = $this->getAttribute()->getFrontendLabel();
         if (($label === null) || $label == '') {
-            $label = $this->getAttribute()->getAttributeCode();
+            return $this->getAttribute()->getAttributeCode();
         }
 
         return $label;
@@ -180,7 +180,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Reireive config field
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return mixed
      */
     public function getConfigField($fieldName)
@@ -201,7 +201,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Retrieve option by option id
      *
-     * @param int $optionId
+     * @param  int         $optionId
      * @return bool|string
      */
     public function getOption($optionId)

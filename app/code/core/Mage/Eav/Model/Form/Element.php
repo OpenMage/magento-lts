@@ -12,19 +12,19 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Form_Element _getResource()
- * @method int getAttributeId()
+ * @method Mage_Eav_Model_Resource_Form_Element            _getResource()
+ * @method int                                             getAttributeId()
  * @method Mage_Eav_Model_Resource_Form_Element_Collection getCollection()
- * @method int getEntityTypeId()
- * @method int getFieldsetId()
- * @method Mage_Eav_Model_Resource_Form_Element getResource()
+ * @method int                                             getEntityTypeId()
+ * @method int                                             getFieldsetId()
+ * @method Mage_Eav_Model_Resource_Form_Element            getResource()
  * @method Mage_Eav_Model_Resource_Form_Element_Collection getResourceCollection()
- * @method int getSortOrder()
- * @method int getTypeId()
- * @method $this setAttributeId(int $value)
- * @method $this setFieldsetId(int $value)
- * @method $this setSortOrder(int $value)
- * @method $this setTypeId(int $value)
+ * @method int                                             getSortOrder()
+ * @method int                                             getTypeId()
+ * @method $this                                           setAttributeId(int $value)
+ * @method $this                                           setFieldsetId(int $value)
+ * @method $this                                           setSortOrder(int $value)
+ * @method $this                                           setTypeId(int $value)
  */
 class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
 {
@@ -35,6 +35,9 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_form_element';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/form_element');

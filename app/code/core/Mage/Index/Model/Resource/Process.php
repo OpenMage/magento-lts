@@ -7,6 +7,8 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * Index Process Resource Model
  *
@@ -14,6 +16,9 @@
  */
 class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('index/process', 'process_id');
@@ -22,9 +27,9 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update process/event association row status
      *
-     * @param int $processId
-     * @param int $eventId
-     * @param string $status
+     * @param  int    $processId
+     * @param  int    $eventId
+     * @param  string $status
      * @return $this
      */
     public function updateEventStatus($processId, $eventId, $status)
@@ -47,7 +52,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'    => Mage_Index_Model_Process::STATUS_PENDING,
-            'ended_at'  => $this->formatDate(time()),
+            'ended_at'  => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -62,7 +67,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'        => Mage_Index_Model_Process::STATUS_RUNNING,
-            'started_at'    => $this->formatDate(time()),
+            'started_at'    => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -77,7 +82,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'   => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
-            'ended_at' => $this->formatDate(time()),
+            'ended_at' => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -86,8 +91,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update process status field
      *
-     * @param Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  Mage_Index_Model_Process $process
+     * @param  string                   $status
      * @return $this
      */
     public function updateStatus($process, $status)
@@ -99,8 +104,8 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Updates process data
-     * @param int $processId
-     * @param array $data
+     * @param  int   $processId
+     * @param  array $data
      * @return $this
      */
     protected function _updateProcessData($processId, $data)
@@ -118,7 +123,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessStartDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), ['started_at' => $this->formatDate(time())]);
+        $this->_updateProcessData($process->getId(), ['started_at' => $this->formatDate(Carbon::now()->getTimestamp())]);
         return $this;
     }
 
@@ -129,7 +134,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessEndDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), ['ended_at' => $this->formatDate(time())]);
+        $this->_updateProcessData($process->getId(), ['ended_at' => $this->formatDate(Carbon::now()->getTimestamp())]);
         return $this;
     }
 

@@ -22,7 +22,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     protected $_collection;
 
     /**
-     * Prepare collection
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -108,7 +108,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Retrieve a token status label
      *
-     * @param int $revokedStatus Token status of revoking
+     * @param  int    $revokedStatus Token status of revoking
      * @return string
      */
     public function getStatusLabel($revokedStatus)
@@ -123,7 +123,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Retrieve a label of link to change a token status
      *
-     * @param int $revokedStatus Token status of revoking
+     * @param  int    $revokedStatus Token status of revoking
      * @return string
      */
     public function getChangeStatusLabel($revokedStatus)
@@ -138,7 +138,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Retrieve a message to confirm an action to change a token status
      *
-     * @param int $revokedStatus Token status of revoking
+     * @param  int    $revokedStatus Token status of revoking
      * @return string
      */
     public function getChangeStatusConfirmMessage($revokedStatus)

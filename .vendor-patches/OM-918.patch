@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Locale/Data.php
 +++ ../library/Zend/Locale/Data.php
 @@ -75,6 +75,13 @@
      private static $_cacheDisabled = false;

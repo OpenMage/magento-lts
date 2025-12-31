@@ -45,9 +45,9 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $crumbName
-     * @param array $crumbInfo
-     * @param bool|string $after
+     * @param  string      $crumbName
+     * @param  array       $crumbInfo
+     * @param  bool|string $after
      * @return $this
      */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
@@ -67,8 +67,8 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
 
     /**
      * @param string $crumbName
-     * @param array $crumbInfo
-     * @param bool $before
+     * @param array  $crumbInfo
+     * @param bool   $before
      */
     public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
     {

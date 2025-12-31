@@ -14,6 +14,9 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('salesrule/rule_customer', 'rule_customer_id');
@@ -22,9 +25,9 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
     /**
      * Get rule usage record for a customer
      *
-     * @param Mage_SalesRule_Model_Rule_Customer $rule
-     * @param int $customerId
-     * @param int $ruleId
+     * @param  Mage_SalesRule_Model_Rule_Customer $rule
+     * @param  int                                $customerId
+     * @param  int                                $ruleId
      * @return $this
      */
     public function loadByCustomerRule($rule, $customerId, $ruleId)

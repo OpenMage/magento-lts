@@ -14,6 +14,9 @@
  */
 class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/billing_agreement', 'agreement_id');
@@ -22,8 +25,8 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
     /**
      * Add order relation to billing agreement
      *
-     * @param int $agreementId
-     * @param int $orderId
+     * @param  int   $agreementId
+     * @param  int   $orderId
      * @return $this
      */
     public function addOrderRelation($agreementId, $orderId)

@@ -12,18 +12,18 @@
  *
  * @package    Mage_GiftMessage
  *
- * @method Mage_GiftMessage_Model_Resource_Message _getResource()
+ * @method Mage_GiftMessage_Model_Resource_Message            _getResource()
  * @method Mage_GiftMessage_Model_Resource_Message_Collection getCollection()
- * @method int getCustomerId()
- * @method string getMessage()
- * @method string getRecipient()
- * @method Mage_GiftMessage_Model_Resource_Message getResource()
+ * @method int                                                getCustomerId()
+ * @method string                                             getMessage()
+ * @method string                                             getRecipient()
+ * @method Mage_GiftMessage_Model_Resource_Message            getResource()
  * @method Mage_GiftMessage_Model_Resource_Message_Collection getResourceCollection()
- * @method string getSender()
- * @method $this setCustomerId(int $value)
- * @method $this setMessage(string $value)
- * @method $this setRecipient(string $value)
- * @method $this setSender(string $value)
+ * @method string                                             getSender()
+ * @method $this                                              setCustomerId(int $value)
+ * @method $this                                              setMessage(string $value)
+ * @method $this                                              setRecipient(string $value)
+ * @method $this                                              setSender(string $value)
  */
 class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
 {
@@ -42,6 +42,9 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote_address_item' => 'sales/quote_address_item',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('giftmessage/message');
@@ -50,7 +53,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     /**
      * Return model from entity type
      *
-     * @param string $type
+     * @param  string                   $type
      * @return Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      */

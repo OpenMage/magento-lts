@@ -17,7 +17,9 @@
 class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
 {
     /**
-     * @return int
+     * @return null|int
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getStoreId()
@@ -25,7 +27,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
         //store id is store view id
         $storeId =   (int) $this->getRequest()->getParam('store_id');
         if ($storeId == null) {
-            $storeId = Mage::app()->getStore()->getId();
+            return Mage::app()->getStore()->getId();
         }
 
         return $storeId;
@@ -40,7 +42,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
         //customer group id
         $custGroupID =   (int) $this->getRequest()->getParam('cid');
         if ($custGroupID == null) {
-            $custGroupID = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            return Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
 
         return $custGroupID;

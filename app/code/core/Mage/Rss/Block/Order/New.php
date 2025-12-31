@@ -7,6 +7,8 @@
  * @package    Mage_Rss
  */
 
+use Carbon\Carbon;
+
 /**
  * Review form block
  *
@@ -21,6 +23,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
      */
     public const CACHE_TAG = 'block_html_rss_order_new';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -41,7 +46,7 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         $order = Mage::getModel('sales/order');
         $period = Mage::helper('rss')->getRssAdminOrderNewPeriod($storeId);
         $passDate = $order->getResource()->formatDate(
-            mktime(0, 0, 0, (int) date('m'), (int) date('d') - $period),
+            mktime(0, 0, 0, (int) Carbon::now()->format('m'), (int) Carbon::now()->format('d') - $period),
         );
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);

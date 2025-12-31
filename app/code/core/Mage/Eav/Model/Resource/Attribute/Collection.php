@@ -67,7 +67,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
     /**
      * Set Website scope
      *
-     * @param int|Mage_Core_Model_Website $website
+     * @param  int|Mage_Core_Model_Website $website
      * @return $this
      */
     public function setWebsite($website)
@@ -177,7 +177,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
-     * @param  int $type
+     * @param  int   $type
      * @return $this
      */
     public function setEntityTypeFilter($type)

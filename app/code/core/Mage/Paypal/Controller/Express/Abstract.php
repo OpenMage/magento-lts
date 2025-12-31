@@ -45,7 +45,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_configType;
 
     /**
-     * Instantiate config
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -468,7 +468,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Search for proper checkout token in request or session or (un)set specified one
      * Combined getter/setter
      *
-     * @param string $setToken
+     * @param  string       $setToken
      * @return $this|string
      */
     protected function _initToken($setToken = null)

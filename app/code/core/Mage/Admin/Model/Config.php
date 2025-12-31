@@ -65,8 +65,8 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Load Acl resources from config
      *
-     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
-     * @param string $parentName
+     * @param  Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
+     * @param  string                                                  $parentName
      * @return $this
      */
     public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource = null, $parentName = null)
@@ -94,7 +94,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         }
 
         foreach ($children as $res) {
-            if ($res->disabled == 1) {
+            if ((string) $res->disabled === '1') {
                 continue;
             }
 
@@ -107,7 +107,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Get acl assert config
      *
-     * @param string $name
+     * @param  string                                                                         $name
      * @return false|Mage_Core_Model_Config_Element|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclAssert($name = '')
@@ -123,7 +123,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve privilege set by name
      *
-     * @param string $name
+     * @param  string                                          $name
      * @return false|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclPrivilegeSet($name = '')
@@ -149,7 +149,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Get menu item label by item path
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     public function getMenuItemLabel($path)

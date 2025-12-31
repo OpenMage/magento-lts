@@ -15,7 +15,7 @@
 class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by entity
      *
-     * @param array|string $entity
+     * @param  array|string $entity
      * @return $this
      */
     public function addEntityFilter($entity)
@@ -42,7 +42,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by type
      *
-     * @param array|string $type
+     * @param  array|string $type
      * @return $this
      */
     public function addTypeFilter($type)
@@ -59,8 +59,8 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by process and status to events collection
      *
-     * @param array|int|Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  array|int|Mage_Index_Model_Process $process
+     * @param  string                             $status
      * @return $this
      */
     public function addProcessFilter($process, $status = null)

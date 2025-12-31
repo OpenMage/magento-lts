@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected $_isComposite    = false;
 
     /**
-     * Define main price index table
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Set Product Type code
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function setTypeId($typeCode)
@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Set Product Type Composite flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsComposite($flag)
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -161,7 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Prepare products default final price in temporary index table
      *
-     * @param array|int $entityIds  the entity ids limitation
+     * @param  array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)
@@ -597,7 +597,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

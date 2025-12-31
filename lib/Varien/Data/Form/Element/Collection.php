@@ -65,7 +65,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Implementation of ArrayAccess:offsetGet()
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     #[\ReturnTypeWillChange]
@@ -98,7 +98,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param false|string $after
+     * @param  false|string                      $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -135,7 +135,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Sort elements by values using a user-defined comparison function
      *
-     * @param mixed $callback
+     * @param  mixed                               $callback
      * @return Varien_Data_Form_Element_Collection
      */
     public function usort($callback)
@@ -147,7 +147,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Remove element from collection
      *
-     * @param mixed $elementId
+     * @param  mixed                               $elementId
      * @return Varien_Data_Form_Element_Collection
      */
     public function remove($elementId)
@@ -174,7 +174,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Find element by ID
      *
-     * @param mixed $elementId
+     * @param  mixed                                  $elementId
      * @return null|Varien_Data_Form_Element_Abstract
      */
     public function searchById($elementId)

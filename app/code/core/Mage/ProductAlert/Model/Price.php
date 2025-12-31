@@ -12,29 +12,32 @@
  *
  * @package    Mage_ProductAlert
  *
- * @method Mage_ProductAlert_Model_Resource_Price _getResource()
- * @method string getAddDate()
+ * @method Mage_ProductAlert_Model_Resource_Price            _getResource()
+ * @method string                                            getAddDate()
  * @method Mage_ProductAlert_Model_Resource_Price_Collection getCollection()
- * @method int getCustomerId()
- * @method string getLastSendDate()
- * @method float getPrice()
- * @method int getProductId()
- * @method Mage_ProductAlert_Model_Resource_Price getResource()
+ * @method int                                               getCustomerId()
+ * @method string                                            getLastSendDate()
+ * @method float                                             getPrice()
+ * @method int                                               getProductId()
+ * @method Mage_ProductAlert_Model_Resource_Price            getResource()
  * @method Mage_ProductAlert_Model_Resource_Price_Collection getResourceCollection()
- * @method int getSendCount()
- * @method int getStatus()
- * @method int getWebsiteId()
- * @method $this setAddDate(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setLastSendDate(string $value)
- * @method $this setPrice(float $value)
- * @method $this setProductId(int $value)
- * @method $this setSendCount(int $value)
- * @method $this setStatus(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                               getSendCount()
+ * @method int                                               getStatus()
+ * @method int                                               getWebsiteId()
+ * @method $this                                             setAddDate(string $value)
+ * @method $this                                             setCustomerId(int $value)
+ * @method $this                                             setLastSendDate(string $value)
+ * @method $this                                             setPrice(float $value)
+ * @method $this                                             setProductId(int $value)
+ * @method $this                                             setSendCount(int $value)
+ * @method $this                                             setStatus(int $value)
+ * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('productalert/price');
@@ -61,8 +64,8 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $customerId
-     * @param int $websiteId
+     * @param  int   $customerId
+     * @param  int   $websiteId
      * @return $this
      */
     public function deleteCustomer($customerId, $websiteId = 0)

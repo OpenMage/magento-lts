@@ -13,7 +13,7 @@
 class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
 {
     /**
-     * Set block template
+     * @inheritDoc
      */
     protected function _construct()
     {

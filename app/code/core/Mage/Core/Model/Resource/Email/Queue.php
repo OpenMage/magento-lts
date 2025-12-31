@@ -13,7 +13,7 @@
 class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize email queue resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -74,7 +74,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         $existingRecipients = $readAdapter->fetchAll($select);
         if ($existingRecipients) {
             $newRecipients = $queue->getRecipients();
-            $oldEmails = $newEmails = [];
+            $oldEmails = [];
+            $newEmails = [];
             foreach ($existingRecipients as $recipient) {
                 $oldEmails[$recipient['recipient_email']] = [
                     $recipient['recipient_email'], $recipient['recipient_name'], $recipient['email_type'],

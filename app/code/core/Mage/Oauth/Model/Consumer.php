@@ -7,29 +7,31 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * Application model
  *
  * @package    Mage_Oauth
  *
- * @method Mage_Oauth_Model_Resource_Consumer _getResource()
- * @method string getCallbackUrl()
+ * @method Mage_Oauth_Model_Resource_Consumer            _getResource()
+ * @method string                                        getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
- * @method string getCreatedAt()
- * @method string getKey()
- * @method string getName()
- * @method string getRejectedCallbackUrl()
- * @method Mage_Oauth_Model_Resource_Consumer getResource()
+ * @method string                                        getCreatedAt()
+ * @method string                                        getKey()
+ * @method string                                        getName()
+ * @method string                                        getRejectedCallbackUrl()
+ * @method Mage_Oauth_Model_Resource_Consumer            getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
- * @method string getSecret()
- * @method string getUpdatedAt()
- * @method $this setCallbackUrl() setCallbackUrl(string $url)
- * @method $this setCreatedAt() setCreatedAt(string $date)
- * @method $this setKey() setKey(string $key)
- * @method $this setName() setName(string $name)
- * @method $this setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
- * @method $this setSecret() setSecret(string $secret)
- * @method $this setUpdatedAt() setUpdatedAt(string $date)
+ * @method string                                        getSecret()
+ * @method string                                        getUpdatedAt()
+ * @method $this                                         setCallbackUrl() setCallbackUrl(string $url)
+ * @method $this                                         setCreatedAt() setCreatedAt(string $date)
+ * @method $this                                         setKey() setKey(string $key)
+ * @method $this                                         setName() setName(string $name)
+ * @method $this                                         setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
+ * @method $this                                         setSecret() setSecret(string $secret)
+ * @method $this                                         setUpdatedAt() setUpdatedAt(string $date)
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {
@@ -43,6 +45,9 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public const SECRET_LENGTH = 32;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('oauth/consumer');
@@ -56,7 +61,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if (!$this->getId()) {
-            $this->setUpdatedAt(time());
+            $this->setUpdatedAt(Carbon::now()->getTimestamp());
         }
 
         $this->setCallbackUrl(trim($this->getCallbackUrl()));
@@ -70,7 +75,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      * Validate data
      *
      * @return bool
-     * @throws Mage_Core_Exception   Throw exception on fail validation
+     * @throws Mage_Core_Exception Throw exception on fail validation
      */
     public function validate()
     {

@@ -13,19 +13,22 @@
  * @package    Mage_Rating
  *
  * @method Mage_Rating_Model_Resource_Rating_Entity _getResource()
- * @method string getEntityCode()
+ * @method string                                   getEntityCode()
  * @method Mage_Rating_Model_Resource_Rating_Entity getResource()
- * @method $this setEntityCode(string $value)
+ * @method $this                                    setEntityCode(string $value)
  */
 class Mage_Rating_Model_Rating_Entity extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('rating/rating_entity');
     }
 
     /**
-     * @param string $entityCode
+     * @param  string $entityCode
      * @return string
      */
     public function getIdByCode($entityCode)

@@ -120,8 +120,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Get parameters used for build add product to compare list urls
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  array
+     * @param  Mage_Catalog_Model_Product $product
+     * @return array
      */
     protected function _getUrlParams($product)
     {
@@ -131,8 +131,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve url for adding product to conpare list
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  string
+     * @param  Mage_Catalog_Model_Product $product
+     * @return string
      */
     public function getAddUrl($product)
     {
@@ -142,7 +142,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve add to wishlist url
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToWishlistUrl($product)
@@ -153,7 +153,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve add to cart url
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getAddToCartUrl($product)
@@ -164,8 +164,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve remove item from compare list url
      *
-     * @param   Mage_Catalog_Model_Product $item
-     * @return  string
+     * @param  Mage_Catalog_Model_Product $item
+     * @return string
      */
     public function getRemoveUrl($item)
     {
@@ -228,7 +228,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Calculate cache product compare collection
      *
-     * @param  bool $logout
+     * @param  bool  $logout
      * @return $this
      */
     public function calculate($logout = false)
@@ -287,7 +287,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Set is allow used flat (for collection)
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setAllowUsedFlat($flag)
@@ -309,7 +309,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Setter for customer id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -321,8 +321,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve url for adding product to conpare list with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddUrlCustom($product, $addFormKey = true)
@@ -337,8 +337,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve add to wishlist url with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
@@ -352,8 +352,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Retrieve add to cart url with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddToCartUrlCustom($product, $addFormKey = true)
@@ -373,9 +373,9 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     /**
      * Get parameters used for build add product to compare list urls with or without Form Key
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param bool $addFormKey
-     * @return  array
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  bool                       $addFormKey
+     * @return array
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)
     {

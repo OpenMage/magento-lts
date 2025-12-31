@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Grid_Collection extends Mage_Sales
      */
     protected $_eventObject    = 'order_invoice_grid_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

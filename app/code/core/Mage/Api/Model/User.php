@@ -12,43 +12,43 @@
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_Resource_User _getResource()
- * @method string getApiKey()
- * @method string getApiKeyConfirmation()
- * @method string getCreated()
- * @method string getEmail()
- * @method string getFirstname()
- * @method int getIsActive()
- * @method string getLastname()
- * @method string getLogdate()
- * @method int getLognum()
- * @method string getModified()
- * @method string getNewApiKey()
- * @method int getReloadAclFlag()
- * @method Mage_Api_Model_Resource_User getResource()
+ * @method Mage_Api_Model_Resource_User            _getResource()
+ * @method string                                  getApiKey()
+ * @method string                                  getApiKeyConfirmation()
+ * @method string                                  getCreated()
+ * @method string                                  getEmail()
+ * @method string                                  getFirstname()
+ * @method int                                     getIsActive()
+ * @method string                                  getLastname()
+ * @method string                                  getLogdate()
+ * @method int                                     getLognum()
+ * @method string                                  getModified()
+ * @method string                                  getNewApiKey()
+ * @method int                                     getReloadAclFlag()
+ * @method Mage_Api_Model_Resource_User            getResource()
  * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
- * @method int getRoleId()
- * @method array getRoleIds()
- * @method string getSessid()
- * @method string getUserId()
- * @method string getUsername()
- * @method bool hasApiKey()
- * @method bool hasApiKeyConfirmation()
- * @method bool hasNewApiKey()
- * @method $this setApiKey(string $value)
- * @method $this setCreated(string $value)
- * @method $this setEmail(string $value)
- * @method $this setFirstname(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setLastname(string $value)
- * @method $this setLogdate(string $value)
- * @method $this setLognum(int $value)
- * @method $this setModified(string $value)
- * @method $this setReloadAclFlag(int $value)
- * @method $this setRoleIds(array $value)
- * @method $this setRoleUserId(int $value)
- * @method $this setSessid($sessId)
- * @method $this setUsername(string $value)
+ * @method int                                     getRoleId()
+ * @method array                                   getRoleIds()
+ * @method string                                  getSessid()
+ * @method string                                  getUserId()
+ * @method string                                  getUsername()
+ * @method bool                                    hasApiKey()
+ * @method bool                                    hasApiKeyConfirmation()
+ * @method bool                                    hasNewApiKey()
+ * @method $this                                   setApiKey(string $value)
+ * @method $this                                   setCreated(string $value)
+ * @method $this                                   setEmail(string $value)
+ * @method $this                                   setFirstname(string $value)
+ * @method $this                                   setIsActive(int $value)
+ * @method $this                                   setLastname(string $value)
+ * @method $this                                   setLogdate(string $value)
+ * @method $this                                   setLognum(int $value)
+ * @method $this                                   setModified(string $value)
+ * @method $this                                   setReloadAclFlag(int $value)
+ * @method $this                                   setRoleIds(array $value)
+ * @method $this                                   setRoleUserId(int $value)
+ * @method $this                                   setSessid($sessId)
+ * @method $this                                   setUsername(string $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -57,6 +57,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'api_user';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/user');
@@ -194,7 +197,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Get user's name
      *
-     * @param string $separator
+     * @param  string $separator
      * @return string
      */
     public function getName($separator = ' ')
@@ -225,8 +228,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Authenticate user name and api key and save loaded record
      *
-     * @param string $username
-     * @param string $apiKey
+     * @param  string    $username
+     * @param  string    $apiKey
      * @return bool
      * @throws Exception
      */
@@ -249,8 +252,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Login user
      *
-     * @param string $username
-     * @param string $apiKey
+     * @param  string              $username
+     * @param  string              $apiKey
      * @return Mage_Api_Model_User
      * @throws Exception
      */
@@ -288,7 +291,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by username
      *
-     * @param string $username
+     * @param  string $username
      * @return $this
      */
     public function loadByUsername($username)
@@ -300,7 +303,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by session id
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return $this
      */
     public function loadBySessId($sessId)
@@ -312,7 +315,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Logout user by session id
      *
-     * @param string $sessid
+     * @param  string $sessid
      * @return $this
      */
     public function logoutBySessId($sessid)
@@ -324,7 +327,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user is assigned to role
      *
-     * @param int|Mage_Core_Model_Abstract $user
+     * @param  int|Mage_Core_Model_Abstract $user
      * @return array
      */
     public function hasAssigned2Role($user)
@@ -335,7 +338,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve encoded api key
      *
-     * @param string $apiKey
+     * @param  string $apiKey
      * @return string
      */
     protected function _getEncodedApiKey($apiKey)
@@ -346,7 +349,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Get helper instance
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($helperName)

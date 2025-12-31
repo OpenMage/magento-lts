@@ -42,6 +42,9 @@ final class VariableTest extends OpenMageTest
         self::assertSame($expectedResult, $mock->validate());
     }
 
+    /**
+     * @group Model
+     */
     public function testIsPathAllowed(): void
     {
         self::assertIsBool(self::$subject->isPathAllowed('invalid-path'));

@@ -12,15 +12,15 @@
  *
  * @package    Mage_Uploader
  *
- * @method $this setMaxSizeInBytes (int $sizeInBytes) Set max upload size in bytes
- * @method $this setMaxSizePlural (string $sizePlural) Set plural info about max upload size
+ * @method $this setMaxSizeInBytes (int $sizeInBytes)                       Set max upload size in bytes
+ * @method $this setMaxSizePlural (string $sizePlural)                      Set plural info about max upload size
  * @method $this setReplaceBrowseWithRemove (bool $replaceBrowseWithRemove)
- *      Replace browse button with remove
+ *                                                                          Replace browse button with remove
  */
 class Mage_Uploader_Model_Config_Misc extends Mage_Uploader_Model_Config_Abstract
 {
     /**
-     * Prepare misc params
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -32,10 +32,16 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected static $_commitCallbacks = [];
 
+    /**
+     * Internal constructor not depended on params. Can be used for object initialization
+     *
+     * @return void
+     */
     abstract protected function _construct();
 
     /**
      * Retrieve connection for read data
+     *
      * @return Varien_Db_Adapter_Interface
      */
     abstract protected function _getReadAdapter();
@@ -60,7 +66,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Subscribe some callback to transaction commit
      *
-     * @param callable $callback
+     * @param  callable $callback
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -119,8 +125,8 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param null|bool|int|string|Zend_Date $date
-     * @param bool $includeTime
+     * @param  null|bool|int|string|Zend_Date $date
+     * @param  bool                           $includeTime
      * @return null|string
      */
     public function formatDate($date, $includeTime = true)
@@ -131,7 +137,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Convert internal date to UNIX timestamp
      *
-     * @param string $str
+     * @param  string $str
      * @return int
      */
     public function mktime($str)
@@ -142,9 +148,9 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Serialize specified field in an object
      *
-     * @param string $field
-     * @param mixed $defaultValue
-     * @param bool $unsetEmpty
+     * @param  string $field
+     * @param  mixed  $defaultValue
+     * @param  bool   $unsetEmpty
      * @return $this
      */
     protected function _serializeField(Varien_Object $object, $field, $defaultValue = null, $unsetEmpty = false)
@@ -171,7 +177,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Unserialize Varien_Object field in an object
      *
      * @param string $field
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      */
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
@@ -186,7 +192,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Prepare data for passed table
      *
-     * @param string $table
+     * @param  string $table
      * @return array
      */
     protected function _prepareDataForTable(Varien_Object $object, $table)
@@ -213,8 +219,8 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Prepare value for save
      *
-     * @param mixed $value
-     * @param string $type
+     * @param  mixed  $value
+     * @param  string $type
      * @return mixed
      */
     protected function _prepareTableValueForSave($value, $type)

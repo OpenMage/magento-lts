@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected $_form;
 
     /**
-     * Class constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -151,9 +151,9 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Set Fieldset to Form
      *
-     * @param array $attributes attributes that are to be added
+     * @param array                             $attributes attributes that are to be added
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param array $exclude attributes that should be skipped
+     * @param array                             $exclude    attributes that should be skipped
      */
     protected function _setFieldset($attributes, $fieldset, $exclude = [])
     {
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getAdditionalElementHtml($element)

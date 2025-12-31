@@ -15,7 +15,7 @@
 class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource data
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model by search query string
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQuery(Mage_Core_Model_Abstract $object, $value)
@@ -59,7 +59,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model only by query text (skip synonym for)
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQueryText(Mage_Core_Model_Abstract $object, $value)
@@ -80,7 +80,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Loading string as a value or regular numeric
      *
-     * @param int|string $value
+     * @param int|string  $value
      * @param null|string $field
      * @inheritDoc
      */

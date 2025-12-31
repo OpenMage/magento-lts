@@ -90,9 +90,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
-     * @param   string $columnId
-     * @param   array $column
-     * @return  Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @param  string                                    $columnId
+     * @param  array                                     $column
+     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
      */
     public function addColumn($columnId, $column)
     {
@@ -293,7 +293,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
      */
     public function getRate($toCurrency)
@@ -304,8 +304,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Add order status filter
      *
-     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
-     * @param Varien_Object $filterData
+     * @param  Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
+     * @param  Varien_Object                                        $filterData
      * @return $this
      */
     protected function _addOrderStatusFilter($collection, $filterData)
@@ -318,8 +318,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * Adds custom filter to resource collection
      * Can be overridden in child classes if custom filter needed
      *
-     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
-     * @param Varien_Object $filterData
+     * @param  Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
+     * @param  Varien_Object                                        $filterData
      * @return $this
      */
     protected function _addCustomFilter($collection, $filterData)

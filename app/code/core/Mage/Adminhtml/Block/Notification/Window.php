@@ -11,7 +11,7 @@
  * @package    Mage_Adminhtml
  *
  * @method string getNoticeSeverity()
- * @method $this setNoticeSeverity(string $value)
+ * @method $this  setNoticeSeverity(string $value)
  *
  * @property string $_aclResourcePath
  */
@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     protected $_available = null;
 
     /**
-     * Initialize block window
+     * @inheritDoc
      */
     protected function _construct()
     {

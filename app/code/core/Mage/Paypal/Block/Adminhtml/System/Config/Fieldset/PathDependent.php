@@ -17,7 +17,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent extends M
     /**
      * Check whether current payment method has active dependencies
      *
-     * @param array $groupConfig
+     * @param  array $groupConfig
      * @return bool
      */
     public function hasActivePathDependencies($groupConfig)

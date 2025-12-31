@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Get url for row
      *
-     * @param Mage_Sales_Model_Order_Shipment $row
+     * @param  Mage_Sales_Model_Order_Shipment $row
      * @return false|string
      */
     public function getRowUrl($row)

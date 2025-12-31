@@ -13,14 +13,17 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Batch_Export _getResource()
- * @method int getBatchId()
+ * @method int                                       getBatchId()
  * @method Mage_Dataflow_Model_Resource_Batch_Export getResource()
- * @method int getStatus()
- * @method $this setBatchId(int $value)
- * @method $this setStatus(int $value)
+ * @method int                                       getStatus()
+ * @method $this                                     setBatchId(int $value)
+ * @method $this                                     setStatus(int $value)
  */
 class Mage_Dataflow_Model_Batch_Export extends Mage_Dataflow_Model_Batch_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/batch_export');

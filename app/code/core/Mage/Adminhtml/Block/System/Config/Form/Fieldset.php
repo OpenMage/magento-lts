@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return header html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderHtml($element)
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Get frontend class
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFrontendClass($element)
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Get group xml data of the element
      *
-     * @param null|Varien_Data_Form_Element_Abstract $element
+     * @param  null|Varien_Data_Form_Element_Abstract $element
      * @return Mage_Core_Model_Config_Element
      */
     public function getGroup($element = null)
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return header title part of html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderTitleHtml($element)
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return header comment part of html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderCommentHtml($element)
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return full css class name for form fieldset
      *
-     * @param null|Varien_Data_Form_Element_Abstract $element
+     * @param  null|Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFieldsetCss($element = null)
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * Return footer html for fieldset
      * Add extra tooltip comments to elements
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFooterHtml($element)
@@ -159,8 +159,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * - observe fieldset rows;
      * - apply collapse;
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param bool $tooltipsExist Init tooltips observer or not
+     * @param  Varien_Data_Form_Element_Abstract $element
+     * @param  bool                              $tooltipsExist Init tooltips observer or not
      * @return string
      */
     protected function _getExtraJs($element, $tooltipsExist = false)
@@ -173,7 +173,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Collapsed or expanded fieldset when page loaded?
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return false|int
      */
     protected function _getCollapseState($element)
