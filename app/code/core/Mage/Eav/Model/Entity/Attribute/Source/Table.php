@@ -22,8 +22,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Full Option values array
      *
-     * @param bool $withEmpty       Add empty option to array
-     * @param bool $defaultValues
+     * @param  bool  $withEmpty     Add empty option to array
+     * @param  bool  $defaultValues
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
@@ -64,7 +64,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Get a text for option value
      *
-     * @param int|string $value
+     * @param  int|string         $value
      * @return array|false|string
      */
     public function getOptionText($value)
@@ -101,7 +101,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * Add Value Sort To Collection Select
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir
+     * @param string                                    $dir
      *
      * @return $this
      */
@@ -222,7 +222,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                   $store
      * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)

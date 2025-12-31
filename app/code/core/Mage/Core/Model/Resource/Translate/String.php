@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/translate', 'key_id');
@@ -41,9 +44,9 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     /**
      * Retrieve select for load
      *
-     * @param String $field
-     * @param String $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param  String                   $field
+     * @param  String                   $value
+     * @param  Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -139,9 +142,9 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     /**
      * Delete translates
      *
-     * @param string $string
-     * @param string $locale
-     * @param null|int $storeId
+     * @param  string   $string
+     * @param  string   $locale
+     * @param  null|int $storeId
      * @return $this
      */
     public function deleteTranslate($string, $locale = null, $storeId = null)
@@ -169,10 +172,10 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     /**
      * Save translation
      *
-     * @param String $string
-     * @param String $translate
-     * @param String $locale
-     * @param null|int $storeId
+     * @param  String   $string
+     * @param  String   $translate
+     * @param  String   $locale
+     * @param  null|int $storeId
      * @return $this
      */
     public function saveTranslate($string, $translate, $locale = null, $storeId = null)

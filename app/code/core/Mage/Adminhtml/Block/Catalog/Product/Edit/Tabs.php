@@ -211,7 +211,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     /**
      * Translate html content
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     protected function _translateHtml($html)

@@ -14,6 +14,9 @@
  */
 class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/tag', 'tag_id');
@@ -36,8 +39,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Loading tag by name
      *
-     * @param Mage_Tag_Model_Tag|Varien_Object $model
-     * @param string $name
+     * @param  Mage_Tag_Model_Tag|Varien_Object $model
+     * @param  string                           $name
      * @return false|void
      * @throws Mage_Core_Exception
      */
@@ -107,7 +110,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         $writeAdapter->insertOnDuplicate($this->getTable('tag/properties'), [
             'tag_id'            => $tagId,
             'store_id'          => $object->getStore(),
-            'base_popularity'   => (!$object->getBasePopularity()) ? 0 : $object->getBasePopularity(),
+            'base_popularity'   => ($object->getBasePopularity()) ? $object->getBasePopularity() : 0,
         ]);
 
         return parent::_afterSave($object);
@@ -116,7 +119,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Getting base popularity per store view for specified tag
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return array
      * @deprecated after 1.4.0.0
      */
@@ -137,7 +140,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get aggregation data per store view
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return array
      * @deprecated after 1.4.0.0
      */
@@ -207,7 +210,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get global aggregation data for row with store_id = 0
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return array
      * @deprecated after 1.4.0.0
      */
@@ -269,7 +272,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Getting statistics data into buffer.
      * Replacing our buffer array with new statistics and incoming data.
      *
-     * @param Mage_Tag_Model_Tag $object
+     * @param  Mage_Tag_Model_Tag  $object
      * @return Mage_Tag_Model_Tag
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -328,7 +331,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Decrementing tag products quantity as action for product delete
      *
-     * @return int The number of affected rows
+     * @return int                       The number of affected rows
      * @throws Zend_Db_Adapter_Exception
      */
     public function decrementProducts(array $tagsId)
@@ -348,7 +351,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Add summary data to specified object
      *
-     * @param Mage_Tag_Model_Tag $object
+     * @param  Mage_Tag_Model_Tag  $object
      * @return Mage_Tag_Model_Tag
      * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0
@@ -386,9 +389,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * Retrieve select object for load object data
      * Redeclare parent method just for adding tag's base popularity if flag exists
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Tag_Model_Tag $object
+     * @param  string                                      $field
+     * @param  mixed                                       $value
+     * @param  Mage_Core_Model_Abstract|Mage_Tag_Model_Tag $object
      * @return Zend_Db_Select
      * @throws Exception
      * @throws Mage_Core_Exception

@@ -12,12 +12,13 @@
  *
  * @package    Mage_Core
  *
- * @method $this setContentHeading(string $value)
- * @method $this setDestElementId(string $value)
- * @method $this setDisplayMinimalPrice(bool $value)
- * @method $this setFormAction(string $value)
- * @method $this setIdSuffix(string $value)
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
+ * @method string getImageType()
+ * @method $this  setContentHeading(string $value)
+ * @method $this  setDestElementId(string $value)
+ * @method $this  setDisplayMinimalPrice(bool $value)
+ * @method $this  setFormAction(string $value)
+ * @method $this  setIdSuffix(string $value)
+ * @method $this  setProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
@@ -97,7 +98,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Set path to template used for generating block's output.
      *
-     * @param string $template
+     * @param  string $template
      * @return $this
      */
     public function setTemplate($template)
@@ -134,9 +135,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Assign variable
      *
-     * @param   array|string $key
-     * @param   mixed $value
-     * @return  $this
+     * @param  array|string $key
+     * @param  mixed        $value
+     * @return $this
      */
     public function assign($key, $value = null)
     {
@@ -154,7 +155,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Set template location directory
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setScriptPath($dir)
@@ -237,8 +238,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Retrieve block view from file (template)
      *
-     * @param   string $fileName
-     * @return  string
+     * @param  string $fileName
+     * @return string
      */
     public function fetchView($fileName)
     {
@@ -353,7 +354,7 @@ HTML;
      *
      * To get url of skin javascript file use getSkinUrl()
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public function getJsUrl($fileName = '')
@@ -368,7 +369,7 @@ HTML;
     /**
      * Get data from specified object
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getObjectData(Varien_Object $object, $key)

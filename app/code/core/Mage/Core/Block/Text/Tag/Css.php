@@ -17,6 +17,9 @@
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -25,8 +28,8 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     }
 
     /**
-     * @param string $href
-     * @param null|string $type
+     * @param  string                       $href
+     * @param  null|string                  $type
      * @return Mage_Core_Block_Text_Tag_Css
      */
     public function setHref($href, $type = null)

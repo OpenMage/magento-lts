@@ -43,7 +43,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Set add days in wishlist filter of product collection flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setDaysInWishlist($flag)
@@ -87,8 +87,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add wishlist sort order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
@@ -155,8 +155,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Prevent loading collection because after Magento 1.4.2.0 it's impossible
      * to use product collection in wishlist
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                                            $printQuery
+     * @param  bool                                            $logQuery
      * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function load($printQuery = false, $logQuery = false)

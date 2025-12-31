@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml sales order shipment controller
  *
@@ -94,7 +96,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Save shipment and order in one transaction
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return $this
      * @throws Exception
      */
@@ -467,8 +469,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @param Mage_Sales_Model_Order_Item $item
-     * @param array $qtys
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @param  array                       $qtys
      * @return bool
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
@@ -741,7 +743,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
-     * @param string $imageString
+     * @param  string             $imageString
      * @return bool|Zend_Pdf_Page
      * @throws Zend_Pdf_Exception
      */
@@ -758,7 +760,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, false);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid((string) mt_rand()) . time() . '.png';
+                     . uniqid((string) mt_rand()) . Carbon::now()->getTimestamp() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);

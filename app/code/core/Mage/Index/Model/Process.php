@@ -10,29 +10,29 @@
 /**
  * @package    Mage_Index
  *
- * @method Mage_Index_Model_Resource_Process _getResource()
+ * @method Mage_Index_Model_Resource_Process            _getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getCollection()
- * @method string getDescription()
- * @method string getEndedAt()
- * @method bool getForcePartialReindex()
- * @method string getIndexCode()
- * @method string getIndexerCode()
- * @method string getMode()
- * @method string getName()
- * @method Mage_Index_Model_Resource_Process getResource()
+ * @method string                                       getDescription()
+ * @method string                                       getEndedAt()
+ * @method bool                                         getForcePartialReindex()
+ * @method string                                       getIndexCode()
+ * @method string                                       getIndexerCode()
+ * @method string                                       getMode()
+ * @method string                                       getName()
+ * @method Mage_Index_Model_Resource_Process            getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
- * @method string getStartedAt()
- * @method string getStatus()
- * @method int getUpdateRequired()
- * @method $this setDescription(string $value)
- * @method $this setEndedAt(string $value)
- * @method $this setForcePartialReindex(bool $value)
- * @method $this setIndexerCode(string $value)
- * @method $this setMode(string $value)
- * @method $this setName(string $value)
- * @method $this setStartedAt(string $value)
- * @method $this setStatus(string $value)
- * @method $this setUpdateRequired(int $value)
+ * @method string                                       getStartedAt()
+ * @method string                                       getStatus()
+ * @method int                                          getUpdateRequired()
+ * @method $this                                        setDescription(string $value)
+ * @method $this                                        setEndedAt(string $value)
+ * @method $this                                        setForcePartialReindex(bool $value)
+ * @method $this                                        setIndexerCode(string $value)
+ * @method $this                                        setMode(string $value)
+ * @method $this                                        setName(string $value)
+ * @method $this                                        setStartedAt(string $value)
+ * @method $this                                        setStatus(string $value)
+ * @method $this                                        setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
@@ -91,7 +91,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected $_allowTableChanges = true;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -101,7 +101,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set indexer class name as data namespace for event object
      *
-     * @return  $this
+     * @return $this
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
@@ -114,7 +114,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Remove indexer namespace from event
      *
-     * @param Mage_Index_Model_Event $event
+     * @param  Mage_Index_Model_Event $event
      * @return $this
      */
     protected function _resetEventNamespace($event)
@@ -157,9 +157,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Check if specific entity and action type is matched
      *
-     * @param   string $entity
-     * @param   string $type
-     * @return  bool
+     * @param  string $entity
+     * @param  string $type
+     * @return bool
      */
     public function matchEntityAndType($entity, $type)
     {
@@ -325,9 +325,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Index pending events addressed to the process
      *
-     * @param   null|string $entity
-     * @param   null|string $type
-     * @return  $this
+     * @param  null|string $entity
+     * @param  null|string $type
+     * @return $this
      */
     public function indexEvents($entity = null, $type = null)
     {
@@ -375,7 +375,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process all events of the collection
      *
-     * @param bool $skipUnmatched
+     * @param  bool  $skipUnmatched
      * @return $this
      */
     protected function _processEventsCollection(
@@ -406,8 +406,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Update status process/event association
      *
-     * @param   string $status
-     * @return  $this
+     * @param  string $status
+     * @return $this
      */
     public function updateEventStatus(Mage_Index_Model_Event $event, $status)
     {
@@ -488,7 +488,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Change process status
      *
-     * @param string $status
+     * @param  string $status
      * @return $this
      */
     public function changeStatus($status)
@@ -569,7 +569,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      * @deprecated after 1.6.1.0
      */

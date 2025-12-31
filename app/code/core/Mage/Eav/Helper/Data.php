@@ -67,7 +67,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return merged default and entity type frontend classes value label array
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getFrontendClasses($entityTypeCode)
@@ -102,7 +102,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve attributes locked fields to edit
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getAttributeLockedFields($entityTypeCode)

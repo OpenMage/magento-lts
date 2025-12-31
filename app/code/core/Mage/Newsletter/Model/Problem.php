@@ -12,22 +12,22 @@
  *
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Resource_Problem _getResource()
+ * @method Mage_Newsletter_Model_Resource_Problem            _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
- * @method int getCustomerId()
- * @method int getProblemErrorCode()
- * @method string getProblemErrorText()
- * @method int getQueueId()
- * @method Mage_Newsletter_Model_Resource_Problem getResource()
+ * @method int                                               getCustomerId()
+ * @method int                                               getProblemErrorCode()
+ * @method string                                            getProblemErrorText()
+ * @method int                                               getQueueId()
+ * @method Mage_Newsletter_Model_Resource_Problem            getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
- * @method int getSubscriberId()
- * @method $this setCustomerFirstName(string $value)
- * @method $this setCustomerLastName(string $value)
- * @method $this setCustomerName(string $value)
- * @method $this setProblemErrorCode(int $value)
- * @method $this setProblemErrorText(string $value)
- * @method $this setQueueId(int $value)
- * @method $this setSubscriberId(int $value)
+ * @method int                                               getSubscriberId()
+ * @method $this                                             setCustomerFirstName(string $value)
+ * @method $this                                             setCustomerLastName(string $value)
+ * @method $this                                             setCustomerName(string $value)
+ * @method $this                                             setProblemErrorCode(int $value)
+ * @method $this                                             setProblemErrorText(string $value)
+ * @method $this                                             setQueueId(int $value)
+ * @method $this                                             setSubscriberId(int $value)
  */
 class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
 {
@@ -39,7 +39,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     protected $_subscriber = null;
 
     /**
-     * Initialize Newsletter Problem Model
+     * @inheritDoc
      */
     protected function _construct()
     {

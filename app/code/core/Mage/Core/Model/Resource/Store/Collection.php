@@ -12,7 +12,7 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Store getItemById(int $value)
+ * @method Mage_Core_Model_Store   getItemById(int $value)
  * @method Mage_Core_Model_Store[] getItems()
  */
 class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -26,7 +26,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     protected $_loadDefault    = false;
 
     /**
-     *  Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -37,7 +37,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Set flag for load default (admin) store
      *
-     * @param bool $loadDefault
+     * @param  bool  $loadDefault
      * @return $this
      */
     public function setLoadDefault($loadDefault)
@@ -71,7 +71,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add filter by group id.
      * Group id can be passed as one single value or array of values.
      *
-     * @param array|int $groupId
+     * @param  array|int $groupId
      * @return $this
      */
     public function addGroupFilter($groupId)
@@ -82,7 +82,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add store id(s) filter to collection
      *
-     * @param array|int $store
+     * @param  array|int $store
      * @return $this
      */
     public function addIdFilter($store)
@@ -93,7 +93,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add filter by website to collection
      *
-     * @param array|int $website
+     * @param  array|int $website
      * @return $this
      */
     public function addWebsiteFilter($website)
@@ -104,7 +104,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add root category id filter to store collection
      *
-     * @param array|int $category
+     * @param  array|int $category
      * @return $this
      */
     public function addCategoryFilter($category)

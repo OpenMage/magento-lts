@@ -26,7 +26,10 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
      * Depends on following product data:
      * - product must have children products attached and be configurable by type
      *
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Product[]    $products
+     * @param  int                             $storeId
+     * @return void
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function attachConfigurableProductChildrenPricesMapping(array $products, $storeId = null)
     {
@@ -34,7 +37,6 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
         $result = [];
 
         foreach ($products as $product) {
-            /** @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() !== Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE
                 && !is_array($product->getChildrenProducts())
             ) {
@@ -64,8 +66,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                         ['product' => $product],
                     );
                     $configurablePrice = $product->getConfigurablePrice();
-                    $cofigurableSwatchesHelper = Mage::helper('configurableswatches');
-                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = [
+                    $result[Mage_ConfigurableSwatches_Helper_Data::normalizeKey($attributePrice['store_label'])] = [
                         'price' => $configurablePrice,
                         'oldPrice' => $this->_getHelper()->prepareOldPrice(
                             $product,

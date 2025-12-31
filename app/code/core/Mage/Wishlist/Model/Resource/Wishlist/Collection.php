@@ -17,7 +17,7 @@
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -37,7 +37,7 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
     /**
      * Filter collection by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function filterByCustomerId($customerId)

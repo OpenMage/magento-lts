@@ -18,19 +18,19 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
- * @method int getCategoryId()
- * @method int getIsParent()
- * @method int getPosition()
- * @method int getProductId()
+ * @method int                                                  getCategoryId()
+ * @method int                                                  getIsParent()
+ * @method int                                                  getPosition()
+ * @method int                                                  getProductId()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
- * @method int getStoreId()
- * @method int getVisibility()
- * @method $this setCategoryId(int $value)
- * @method $this setIsParent(int $value)
- * @method $this setPosition(int $value)
- * @method $this setProductId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setVisibility(int $value)
+ * @method int                                                  getStoreId()
+ * @method int                                                  getVisibility()
+ * @method $this                                                setCategoryId(int $value)
+ * @method $this                                                setIsParent(int $value)
+ * @method $this                                                setPosition(int $value)
+ * @method $this                                                setProductId(int $value)
+ * @method $this                                                setStoreId(int $value)
+ * @method $this                                                setVisibility(int $value)
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {
@@ -62,7 +62,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     ];
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

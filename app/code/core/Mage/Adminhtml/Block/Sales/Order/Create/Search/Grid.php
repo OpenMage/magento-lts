@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
      */

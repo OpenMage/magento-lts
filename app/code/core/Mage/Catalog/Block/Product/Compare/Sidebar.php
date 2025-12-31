@@ -22,7 +22,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     protected $_itemsCollection = null;
 
     /**
-     * Initialize block
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -46,7 +46,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Set Compare Products Collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection
      * @return $this
      */
     public function setItems($collection)

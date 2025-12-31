@@ -21,6 +21,9 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      */
     public const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);

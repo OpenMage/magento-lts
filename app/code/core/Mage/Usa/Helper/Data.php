@@ -23,7 +23,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert weight in different measure types
      *
-     * @param  float $value
+     * @param  float                              $value
      * @param  Mage_Core_Helper_Measure_Weight::* $sourceWeightMeasure
      * @param  Mage_Core_Helper_Measure_Weight::* $toWeightMeasure
      * @return null|float
@@ -43,7 +43,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert dimensions in different measure types
      *
-     * @param  float $value
+     * @param  float                              $value
      * @param  Mage_Core_Helper_Measure_Length::* $sourceDimensionMeasure
      * @param  Mage_Core_Helper_Measure_Length::* $toDimensionMeasure
      * @return null|float
@@ -63,7 +63,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get name of measure by its type
      *
-     * @param  string $key
+     * @param  string               $key
      * @return string
      * @throws UnknownUnitOfMeasure
      */
@@ -76,7 +76,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get name of measure by its type
      *
-     * @param  string $key
+     * @param  string               $key
      * @return string
      * @throws UnknownUnitOfMeasure
      */
@@ -89,7 +89,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Define if we need girth parameter in the package window
      *
-     * @param string $shippingMethod
+     * @param  string $shippingMethod
      * @return bool
      */
     public function displayGirthValue($shippingMethod)
@@ -125,7 +125,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate ups type value
      *
-     * @param string $valueForCheck ups type value for check
+     * @param  string $valueForCheck ups type value for check
      * @return bool
      */
     public function validateUpsType($valueForCheck)

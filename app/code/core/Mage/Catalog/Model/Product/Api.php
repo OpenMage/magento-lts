@@ -64,8 +64,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve list of products with basic info (id, sku, type, set, name)
      *
-     * @param null|array|object $filters
-     * @param int|string $store
+     * @param  null|array|object $filters
+     * @param  int|string        $store
      * @return array
      */
     public function items($filters = null, $store = null)
@@ -104,10 +104,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve product info
      *
-     * @param int|string $productId
-     * @param int|string $store
-     * @param array      $attributes
-     * @param string     $identifierType
+     * @param  int|string $productId
+     * @param  int|string $store
+     * @param  array      $attributes
+     * @param  string     $identifierType
      * @return array
      */
     public function info($productId, $store = null, $attributes = null, $identifierType = null)
@@ -142,11 +142,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Create new product.
      *
-     * @param string $type
-     * @param int $set
-     * @param string $sku
-     * @param array $productData
-     * @param string $store
+     * @param  string $type
+     * @param  int    $set
+     * @param  string $sku
+     * @param  array  $productData
+     * @param  string $store
      * @return int
      */
     public function create($type, $set, $sku, $productData, $store = null)
@@ -206,10 +206,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Update product data
      *
-     * @param int|string $productId
-     * @param array $productData
-     * @param null|int|string $store
-     * @param null|string $identifierType
+     * @param  int|string                      $productId
+     * @param  array                           $productData
+     * @param  null|int|string                 $store
+     * @param  null|string                     $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -251,8 +251,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      *  Set additional data before product saved
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  array                           $productData
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareDataForSave($product, $productData)
@@ -325,11 +325,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Update product special price
      *
-     * @param int|string $productId
-     * @param float $specialPrice
-     * @param string $fromDate
-     * @param string $toDate
-     * @param int|string $store
+     * @param  int|string $productId
+     * @param  float      $specialPrice
+     * @param  string     $fromDate
+     * @param  string     $toDate
+     * @param  int|string $store
      * @return bool
      */
     public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null)
@@ -344,8 +344,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve product special price
      *
-     * @param int|string $productId
-     * @param int|string $store
+     * @param  int|string $productId
+     * @param  int|string $store
      * @return array
      */
     public function getSpecialPrice($productId, $store = null)
@@ -362,8 +362,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Delete product
      *
-     * @param int|string $productId
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -384,7 +384,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Get list of additional attributes which are not in default create/update list
      *
      * @param  string $productType
-     * @param  int $attributeSetId
+     * @param  int    $attributeSetId
      * @return array
      */
     public function getAdditionalAttributes($productType, $attributeSetId)

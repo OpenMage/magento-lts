@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -201,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
                     $attr = [
                         'text'              => $child->getAttributeCode(),
                         'id'                => $child->getAttributeId(),
-                        'cls'               => (!$child->getIsUserDefined()) ? 'system-leaf' : 'leaf',
+                        'cls'               => ($child->getIsUserDefined()) ? 'leaf' : 'system-leaf',
                         'allowDrop'         => false,
                         'allowDrag'         => true,
                         'leaf'              => true,

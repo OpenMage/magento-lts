@@ -12,30 +12,30 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Url_Rewrite _getResource()
- * @method int getCategoryId()
+ * @method Mage_Core_Model_Resource_Url_Rewrite            _getResource()
+ * @method int                                             getCategoryId()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
- * @method string getDescription()
- * @method string getIdPath()
- * @method int getIsSystem()
- * @method string getOptions()
- * @method int getProductId()
- * @method string getRequestPath()
- * @method Mage_Core_Model_Resource_Url_Rewrite getResource()
+ * @method string                                          getDescription()
+ * @method string                                          getIdPath()
+ * @method int                                             getIsSystem()
+ * @method string                                          getOptions()
+ * @method int                                             getProductId()
+ * @method string                                          getRequestPath()
+ * @method Mage_Core_Model_Resource_Url_Rewrite            getResource()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
- * @method array|string getTags()
- * @method string getTargetPath()
- * @method bool hasCategoryId()
- * @method $this setCategoryId(int $value)
- * @method $this setDescription(string $value)
- * @method $this setIdPath(string $value)
- * @method $this setIsSystem(int $value)
- * @method $this setOptions(string $value)
- * @method $this setProductId(int $value)
- * @method $this setRequestPath(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTags(array|string $value)
- * @method $this setTargetPath(string $value)
+ * @method array|string                                    getTags()
+ * @method string                                          getTargetPath()
+ * @method bool                                            hasCategoryId()
+ * @method $this                                           setCategoryId(int $value)
+ * @method $this                                           setDescription(string $value)
+ * @method $this                                           setIdPath(string $value)
+ * @method $this                                           setIsSystem(int $value)
+ * @method $this                                           setOptions(string $value)
+ * @method $this                                           setProductId(int $value)
+ * @method $this                                           setRequestPath(string $value)
+ * @method $this                                           setStoreId(int $value)
+ * @method $this                                           setTags(array|string $value)
+ * @method $this                                           setTargetPath(string $value)
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
@@ -54,6 +54,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      */
     protected $_cacheTag = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/url_rewrite');
@@ -62,7 +65,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Clean cache for front-end menu
      *
-     * @return  Mage_Core_Model_Url_Rewrite
+     * @return Mage_Core_Model_Url_Rewrite
      */
     protected function _afterSave()
     {
@@ -79,9 +82,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * Load rewrite information for request
      * If $path is array - we must load possible records and choose one matching earlier record in array
      *
-     * @param   mixed $path
-     * @return  Mage_Core_Model_Url_Rewrite
-     * @throws  Mage_Core_Exception
+     * @param  mixed                       $path
+     * @return Mage_Core_Model_Url_Rewrite
+     * @throws Mage_Core_Exception
      */
     public function loadByRequestPath($path)
     {
@@ -94,7 +97,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string $path
+     * @param  string              $path
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -105,7 +108,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param array|string $tags
+     * @param  array|string        $tags
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -141,7 +144,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function hasOption($key)
@@ -152,7 +155,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param array|string $tags
+     * @param  array|string $tags
      * @return $this
      */
     public function addTag($tags)
@@ -177,7 +180,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
-     * @param array|string $tags
+     * @param  array|string $tags
      * @return $this
      */
     public function removeTag($tags)
@@ -360,7 +363,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * Add location header and disable browser page caching
      *
      * @param string $url
-     * @param bool $isPermanent
+     * @param bool   $isPermanent
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.ExitExpression")
      */

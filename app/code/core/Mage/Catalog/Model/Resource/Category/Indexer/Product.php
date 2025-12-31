@@ -56,6 +56,9 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected $_storesInfo;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/category_product_index', 'category_id');
@@ -417,8 +420,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for direct associations categories and products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshDirectRelations($categoryIds = null, $productIds = null)
@@ -511,8 +514,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Rebuild index for anchor categories and associated to child categories products
      *
-     * @param null|array $categoryIds
-     * @param null|array $productIds
+     * @param  null|array $categoryIds
+     * @param  null|array $productIds
      * @return $this
      */
     protected function _refreshAnchorRelations($categoryIds = null, $productIds = null)
@@ -623,7 +626,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Add product association with root store category for products which are not assigned to any another category
      *
-     * @param array|int $productIds
+     * @param  array|int $productIds
      * @return $this
      */
     protected function _refreshRootRelations($productIds)
@@ -988,8 +991,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Create temporary table with enabled products visibility info
      *
-     * @param int $websiteId
-     * @param int $storeId
+     * @param  int    $websiteId
+     * @param  int    $storeId
      * @return string temporary table name
      */
     protected function _prepareEnabledProductsVisibility($websiteId, $storeId)
@@ -1101,8 +1104,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     }
 
     /**
-     * @param int $storeId
-     * @param string $rootPath
+     * @param  int    $storeId
+     * @param  string $rootPath
      * @return string temporary table name
      */
     protected function _prepareAnchorCategories($storeId, $rootPath)
@@ -1179,7 +1182,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Retrieve temporary decimal index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

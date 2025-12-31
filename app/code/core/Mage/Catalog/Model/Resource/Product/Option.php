@@ -14,6 +14,9 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_option', 'option_id');
@@ -281,7 +284,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete prices
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deletePrices($optionId)
@@ -299,7 +302,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete titles
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deleteTitles($optionId)
@@ -317,8 +320,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Duplicate custom options for product
      *
-     * @param int $oldProductId
-     * @param int $newProductId
+     * @param  int                               $oldProductId
+     * @param  int                               $newProductId
      * @return Mage_Catalog_Model_Product_Option
      */
     public function duplicate(Mage_Catalog_Model_Product_Option $object, $oldProductId, $newProductId)
@@ -394,8 +397,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Retrieve option searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)
@@ -479,7 +482,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             ->where('product_option.product_id = ?', $productId);
 
         if ($titles = $adapter->fetchCol($select)) {
-            $searchData = array_merge($searchData, $titles);
+            return array_merge($searchData, $titles);
         }
 
         return $searchData;

@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Initialize default sorting and html ID
+     * @inheritDoc
      */
     protected function _construct()
     {

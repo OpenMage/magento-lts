@@ -13,18 +13,18 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
- * @method int getCustomerGroupId()
- * @method float getQty()
+ * @method int                                                   getCustomerGroupId()
+ * @method float                                                 getQty()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
- * @method int getTaxClassId()
- * @method float getValue()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setQty(float $value)
- * @method $this setTaxClassId(int $value)
- * @method $this setValue(float $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                                   getTaxClassId()
+ * @method float                                                 getValue()
+ * @method int                                                   getWebsiteId()
+ * @method $this                                                 setCustomerGroupId(int $value)
+ * @method $this                                                 setEntityId(int $value)
+ * @method $this                                                 setQty(float $value)
+ * @method $this                                                 setTaxClassId(int $value)
+ * @method $this                                                 setValue(float $value)
+ * @method $this                                                 setWebsiteId(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -42,6 +42,9 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
 
     protected $_processChildren = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_minimalprice');

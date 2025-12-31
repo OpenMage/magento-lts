@@ -40,7 +40,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     /**
      * Set current product instance
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProduct($product)
@@ -67,7 +67,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getSaveUrl($type)
@@ -79,7 +79,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     }
 
     /**
-     * @param string $block
+     * @param  string                                                                  $block
      * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      * @throws Mage_Core_Exception
      */

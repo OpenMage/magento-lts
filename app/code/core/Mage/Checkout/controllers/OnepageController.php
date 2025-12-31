@@ -544,7 +544,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Create invoice
      *
-     * @return Mage_Sales_Model_Service_Order
+     * @return Mage_Sales_Model_Order_Invoice
      * @throws Mage_Core_Exception
      * @throws Mage_Payment_Model_Info_Exception
      */
@@ -555,7 +555,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $items[$item->getId()] = $item->getQtyOrdered();
         }
 
-        /** @var Mage_Sales_Model_Service_Order $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
         $invoice->setEmailSent(true)->register();
 
@@ -666,7 +666,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -690,7 +690,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Prepare JSON formatted data for response to client
      *
-     * @param mixed $response
+     * @param  mixed                             $response
      * @return Zend_Controller_Response_Abstract
      */
     protected function _prepareDataJSON($response)

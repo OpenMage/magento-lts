@@ -14,6 +14,13 @@
  */
 class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Tagged products list action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function listAction()
     {
         $tagId = $this->getRequest()->getParam('tagId');

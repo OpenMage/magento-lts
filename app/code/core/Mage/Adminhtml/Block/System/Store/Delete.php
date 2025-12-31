@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
     /**
      * Set store type title
      *
-     * @param string $title
+     * @param  string $title
      * @return $this
      */
     public function setStoreTypeTitle($title)
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
     /**
      * Set back URL for "Cancel" and "Back" buttons
      *
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function setBackUrl($url)

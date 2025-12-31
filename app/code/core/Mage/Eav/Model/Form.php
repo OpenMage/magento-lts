@@ -120,7 +120,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set current store
      *
-     * @param int|Mage_Core_Model_Store|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -147,7 +147,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set entity type instance
      *
-     * @param int|Mage_Eav_Model_Entity_Type|string $entityType
+     * @param  int|Mage_Eav_Model_Entity_Type|string $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -159,7 +159,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set form code
      *
-     * @param string $formCode
+     * @param  string $formCode
      * @return $this
      */
     public function setFormCode($formCode)
@@ -262,7 +262,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return attribute instance by code or false
      *
-     * @param string $attributeCode
+     * @param  string                                $attributeCode
      * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($attributeCode)
@@ -332,8 +332,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Extract data from request and return associative data array
      *
-     * @param string $scope the request scope
-     * @param bool $scopeOnly search value only in scope or search value in global too
+     * @param  string $scope     the request scope
+     * @param  bool   $scopeOnly search value only in scope or search value in global too
      * @return array
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
@@ -436,7 +436,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return array of entity formatted values
      *
-     * @param string $format
+     * @param  string $format
      * @return array
      */
     public function outputData($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
@@ -477,7 +477,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set is AJAX Request flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsAjaxRequest($flag = true)
@@ -518,7 +518,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Combined getter/setter whether to omit invisible attributes during rendering/validation
      *
-     * @param mixed $setValue
+     * @param  mixed      $setValue
      * @return $this|bool
      */
     public function ignoreInvisible($setValue = null)
@@ -534,7 +534,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Whether the specified attribute needs to skip rendering/validation
      *
-     * @param Mage_Eav_Model_Attribute $attribute
+     * @param  Mage_Eav_Model_Attribute $attribute
      * @return bool
      */
     protected function _isAttributeOmitted($attribute)

@@ -21,6 +21,9 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
      */
     protected $_quote;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_item');
@@ -35,7 +38,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
     }
 
     /**
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote($quote)

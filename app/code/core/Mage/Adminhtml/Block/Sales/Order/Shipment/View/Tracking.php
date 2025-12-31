@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     }
 
     /**
-     * @param $code
+     * @param               $code
      * @return false|string
      */
     public function getCarrierTitle($code)

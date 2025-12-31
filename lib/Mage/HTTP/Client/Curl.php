@@ -129,7 +129,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param string $name name, ex. "Location"
+     * @param string $name  name, ex. "Location"
      * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
@@ -152,7 +152,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Login credentials support
      *
      * @param string $login username
-     * @param string $pass password
+     * @param string $pass  password
      */
     public function setCredentials($login, $pass)
     {
@@ -319,8 +319,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Make request
-     * @param string $method
-     * @param string $uri
+     * @param string       $method
+     * @param string       $uri
      * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      */
     protected function makeRequest($method, $uri, $params = [])
@@ -385,7 +385,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Throw error exception
-     * @param $string
+     * @param            $string
      * @return never
      * @throws Exception
      */
@@ -397,7 +397,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Parse headers - CURL callback function
      *
-     * @param resource $ch curl handle, not needed
+     * @param resource $ch   curl handle, not needed
      * @param string   $data
      */
     protected function parseHeaders($ch, $data): int
@@ -408,8 +408,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->validateHttpVersion($line);
             $this->_responseStatus = (int) $line[1];
         } else {
-            //var_dump($data);
-            $name = $value = '';
+            $name = '';
+            $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
                 [$name, $value] = $out;
@@ -452,7 +452,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option directly
      *
-     * @param int $name
+     * @param int              $name
      * @param array|int|string $value
      */
     protected function curlOption($name, $value)

@@ -15,7 +15,7 @@
  * @method string getKeywords()
  * @method string getRobots()
  * @method string getTitle()
- * @method $this setContentType(string $value)
+ * @method $this  setContentType(string $value)
  */
 class Mage_Core_Block_Text_Tag_Meta extends Mage_Core_Block_Text
 {

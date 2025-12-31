@@ -62,7 +62,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $id
+     * @param  string     $id
      * @return bool|mixed
      */
     protected function _loadCache($id)
@@ -71,10 +71,10 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param null|false|int $lifetime
+     * @param  string                   $data
+     * @param  string                   $id
+     * @param  array                    $tags
+     * @param  null|false|int           $lifetime
      * @return bool|Mage_Core_Model_App
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -83,7 +83,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $id
+     * @param  string              $id
      * @return Mage_Core_Model_App
      */
     protected function _removeCache($id)

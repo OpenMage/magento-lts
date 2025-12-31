@@ -14,21 +14,21 @@
  *
  * @method string getActionsSerialized()
  * @method string getConditionsSerialized()
- * @method array getCustomerGroupIds()
- * @method float getDiscountAmount()
- * @method bool hasActionsSerialized()
- * @method bool hasConditionsSerialized()
- * @method bool hasCustomerGroupIds()
- * @method bool hasDiscountAmount()
- * @method bool hasWebsiteIds()
- * @method $this setActionsSerialized(string $value)
- * @method $this setConditionsSerialized(string $value)
- * @method $this setCustomerGroupIds(array $value)
- * @method $this setWebsiteIds(array $value)
- * @method $this unsActions()
- * @method $this unsActionsSerialized()
- * @method $this unsConditions()
- * @method $this unsConditionsSerialized()
+ * @method array  getCustomerGroupIds()
+ * @method float  getDiscountAmount()
+ * @method bool   hasActionsSerialized()
+ * @method bool   hasConditionsSerialized()
+ * @method bool   hasCustomerGroupIds()
+ * @method bool   hasDiscountAmount()
+ * @method bool   hasWebsiteIds()
+ * @method $this  setActionsSerialized(string $value)
+ * @method $this  setConditionsSerialized(string $value)
+ * @method $this  setCustomerGroupIds(array $value)
+ * @method $this  setWebsiteIds(array $value)
+ * @method $this  unsActions()
+ * @method $this  unsActionsSerialized()
+ * @method $this  unsConditions()
+ * @method $this  unsConditionsSerialized()
  */
 abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 {
@@ -84,7 +84,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Prepare select for condition
      *
-     * @param int $storeId
+     * @param  int              $storeId
      * @return Varien_Db_Select
      */
     public function getProductFlatSelect($storeId)
@@ -359,7 +359,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     public function validateData(Varien_Object $object)
     {
         $result   = [];
-        $fromDate = $toDate = null;
+        $fromDate = null;
+        $toDate = null;
 
         if ($object->hasFromDate() && $object->hasToDate()) {
             $fromDate = $object->getFromDate();
@@ -389,7 +390,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        return !empty($result) ? $result : true;
+        return empty($result) ? true : $result;
     }
 
     /**

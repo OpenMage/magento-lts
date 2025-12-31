@@ -17,6 +17,9 @@
  */
 class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -25,8 +28,8 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     }
 
     /**
-     * @param string $src
-     * @param null|string $type
+     * @param  string      $src
+     * @param  null|string $type
      * @return $this
      */
     public function setSrc($src, $type = null)

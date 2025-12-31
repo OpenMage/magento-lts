@@ -50,7 +50,7 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
     /**
      * Get Hint Url by Its Code
      *
-     * @param string $code
+     * @param  string      $code
      * @return null|string
      */
     public function getHintByCode($code)
@@ -58,7 +58,7 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
         $hint = null;
         $hints = $this->getAvailableHints();
         if (array_key_exists($code, $hints)) {
-            $hint = $hints[$code];
+            return $hints[$code];
         }
 
         return $hint;

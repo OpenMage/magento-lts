@@ -19,6 +19,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Item extends Mage_Sales_Model_Reso
      */
     protected $_eventPrefix    = 'sales_order_invoice_item_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/invoice_item', 'entity_id');

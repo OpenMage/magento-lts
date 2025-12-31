@@ -21,6 +21,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      */
     protected $_optionValueTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_attribute_option');
@@ -30,7 +33,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Set attribute filter
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return $this
      */
     public function setAttributeFilter($setId)
@@ -41,8 +44,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Add store filter to collection
      *
-     * @param int $storeId
-     * @param bool $useDefaultValue
+     * @param  int                             $storeId
+     * @param  bool                            $useDefaultValue
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -90,7 +93,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Add option id(s) frilter to collection
      *
-     * @param array|int $optionId
+     * @param  array|int $optionId
      * @return $this
      */
     public function setIdFilter($optionId)
@@ -101,7 +104,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Convert collection items to select options array
      *
-     * @param string $valueKey
+     * @param  string $valueKey
      * @return array
      */
     public function toOptionArray($valueKey = 'value')
@@ -112,8 +115,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     /**
      * Set order by position or alphabetically by values in admin
      *
-     * @param string $dir direction
-     * @param bool $sortAlpha sort alphabetically by values in admin
+     * @param  string $dir       direction
+     * @param  bool   $sortAlpha sort alphabetically by values in admin
      * @return $this
      */
     public function setPositionOrder($dir = self::SORT_ORDER_ASC, $sortAlpha = false)

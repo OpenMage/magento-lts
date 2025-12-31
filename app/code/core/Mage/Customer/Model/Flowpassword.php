@@ -12,16 +12,19 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Flowpassword _getResource()
+ * @method Mage_Customer_Model_Resource_Flowpassword            _getResource()
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
- * @method Mage_Customer_Model_Resource_Flowpassword getResource()
+ * @method Mage_Customer_Model_Resource_Flowpassword            getResource()
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getResourceCollection()
- * @method $this setEmail(string $value)
- * @method $this setIp(string $value)
- * @method $this setRequestedDate(string $value)
+ * @method $this                                                setEmail(string $value)
+ * @method $this                                                setIp(string $value)
+ * @method $this                                                setRequestedDate(string $value)
  */
 class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/flowpassword');
@@ -52,7 +55,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     /**
      * Check forgot password requests to times per 24 hours from 1 e-mail
      *
-     * @param string $email
+     * @param  string $email
      * @return bool
      */
     public function checkCustomerForgotPasswordFlowEmail($email)

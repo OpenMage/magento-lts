@@ -15,7 +15,7 @@
 class Mage_Paypal_Block_Payflow_Advanced_Form extends Mage_Paypal_Block_Payflow_Link_Form
 {
     /**
-     * Set payment method code
+     * @inheritDoc
      */
     protected function _construct()
     {

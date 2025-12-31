@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Initialize table nad PK name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,9 +25,9 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
+     * @param  string                                          $field
+     * @param  mixed                                           $value
+     * @param  Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -49,8 +49,8 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Load quote data by customer identifier
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int $customerId
+     * @param  Mage_Sales_Model_Quote $quote
+     * @param  int                    $customerId
      * @return $this
      */
     public function loadByCustomerId($quote, $customerId)
@@ -75,8 +75,8 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Load only active quote
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int $quoteId
+     * @param  Mage_Sales_Model_Quote $quote
+     * @param  int                    $quoteId
      * @return $this
      */
     public function loadActive($quote, $quoteId)
@@ -98,8 +98,8 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Load quote data by identifier without store
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int $quoteId
+     * @param  Mage_Sales_Model_Quote $quote
+     * @param  int                    $quoteId
      * @return $this
      */
     public function loadByIdWithoutStore($quote, $quoteId)
@@ -122,7 +122,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Get reserved order id
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return string
      */
     public function getReservedOrderId($quote)
@@ -157,7 +157,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Mark quotes - that depend on catalog price rules - to be recollected on demand
      *
-     *  @param  null|array $productIdList
+     * @param null|array $productIdList
      *
      * @return $this
      */
@@ -208,7 +208,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Subtract product from all quotes quantities
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function substractProductFromQuotes($product)
@@ -248,7 +248,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     /**
      * Mark recollect contain product(s) quotes
      *
-     * @param array|int|Zend_Db_Expr $productIds
+     * @param  array|int|Zend_Db_Expr $productIds
      * @return $this
      */
     public function markQuotesRecollect($productIds)

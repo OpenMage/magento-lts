@@ -23,6 +23,9 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init(self::GALLERY_TABLE, 'value_id');
@@ -31,8 +34,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Load gallery images for product using reusable select method
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
+     * @param  Mage_Catalog_Model_Product                         $product
+     * @param  Mage_Catalog_Model_Product_Attribute_Backend_Media $object
      * @return array
      */
     public function loadGallery($product, $object)
@@ -65,7 +68,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Remove duplicates
      *
-     * @param array $result
+     * @param  array $result
      * @return $this
      */
     protected function _removeDuplicates(&$result)
@@ -88,7 +91,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Insert gallery value to db and retrieve last id
      *
-     * @param array $data
+     * @param  array  $data
      * @return string
      */
     public function insertGallery($data)
@@ -103,7 +106,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value in db
      *
-     * @param array|int $valueId
+     * @param  array|int $valueId
      * @return $this
      */
     public function deleteGallery($valueId)
@@ -123,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Insert gallery value for store to db
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function insertGalleryValueInStore($data)
@@ -137,8 +140,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value for store in db
      *
-     * @param int $valueId
-     * @param int $storeId
+     * @param  int   $valueId
+     * @param  int   $storeId
      * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)
@@ -158,10 +161,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Duplicates gallery db values
      *
-     * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
-     * @param array $newFiles
-     * @param int $originalProductId
-     * @param int $newProductId
+     * @param  Mage_Catalog_Model_Product_Attribute_Backend_Media $object
+     * @param  array                                              $newFiles
+     * @param  int                                                $originalProductId
+     * @param  int                                                $newProductId
      * @return $this
      */
     public function duplicate($object, $newFiles, $originalProductId, $newProductId)
@@ -204,8 +207,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get select to retrieve media gallery images
      * for given product IDs.
      *
-     * @param int $storeId
-     * @param int $attributeId
+     * @param  int              $storeId
+     * @param  int              $attributeId
      * @return Varien_Db_Select
      */
     protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId)
@@ -259,7 +262,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Get media gallery set for given product IDs
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function loadGallerySet(array $productIds, $storeId)

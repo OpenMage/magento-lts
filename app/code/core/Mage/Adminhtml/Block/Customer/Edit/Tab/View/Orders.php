@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     }
 
     /**
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)

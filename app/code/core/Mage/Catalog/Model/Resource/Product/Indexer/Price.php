@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected $_indexers;
 
     /**
-     * Define main index table
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Retrieve parent ids and types by child id
      * Return array with key product_id and value as product type id
      *
-     * @param int $childId
+     * @param  int   $childId
      * @return array
      */
     public function getProductParentsByChild($childId)
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Copy data from temporary index table to main table by defined ids
      *
-     * @param array $processIds
+     * @param  array     $processIds
      * @return $this
      * @throws Exception
      */
@@ -232,7 +232,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Reindex product prices for specified product ids
      *
-     * @param array|int $ids
+     * @param  array|int           $ids
      * @return $this
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -311,7 +311,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Retrieve Price indexer by Product Type
      *
-     * @param string $productTypeId
+     * @param  string                                                    $productTypeId
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
      * @throws Mage_Core_Exception
      */
@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Prepare tier price index table
      *
-     * @param array|int $entityIds the entity ids limitation
+     * @param  array|int                 $entityIds the entity ids limitation
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -459,7 +459,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Prepare group price index table
      *
-     * @param array|int $entityIds the entity ids limitation
+     * @param  array|int                 $entityIds the entity ids limitation
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -507,8 +507,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Copy relations product index from primary index to temporary index table by parent entity
      *
-     * @param array|int $parentIds
-     * @param array $excludeIds
+     * @param  array|int                 $parentIds
+     * @param  array                     $excludeIds
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -619,7 +619,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

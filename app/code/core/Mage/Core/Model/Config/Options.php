@@ -29,7 +29,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     protected $_dirExists = [];
 
     /**
-     * Initialize default values of the options
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -55,7 +55,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $type
+     * @param  string              $type
      * @return mixed
      * @throws Mage_Core_Exception
      */
@@ -251,7 +251,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $dir
+     * @param  string $dir
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
