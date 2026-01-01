@@ -261,6 +261,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !preg_match($pattern, $clause);
                     });
                 });
+
+                $joinUsingBind = [];
                 if ($this->_bindParams) {
                     $bindParams = array_map(function ($token) {
                         return ltrim($token, ':');
