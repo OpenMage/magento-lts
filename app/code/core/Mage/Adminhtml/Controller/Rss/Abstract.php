@@ -37,12 +37,12 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
         if ($this->isFeedEnable($code)) {
             $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
             return true;
-        } else {
-            $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
-            $this->getResponse()->setHeader('Status', '404 File not found');
-            $this->_forward('noRoute');
-            return false;
         }
+
+        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+        $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->_forward('noRoute');
+        return false;
     }
 
     /**

@@ -1377,18 +1377,18 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $shippingMethod = parent::getShippingMethod();
         if (!$asObject) {
             return $shippingMethod;
-        } else {
-            $segments = explode('_', $shippingMethod, 2);
-            if (!isset($segments[1])) {
-                $segments[1] = $segments[0];
-            }
-
-            [$carrierCode, $method] = $segments;
-            return new Varien_Object([
-                'carrier_code' => $carrierCode,
-                'method'       => $method,
-            ]);
         }
+
+        $segments = explode('_', $shippingMethod, 2);
+        if (!isset($segments[1])) {
+            $segments[1] = $segments[0];
+        }
+
+        [$carrierCode, $method] = $segments;
+        return new Varien_Object([
+            'carrier_code' => $carrierCode,
+            'method'       => $method,
+        ]);
     }
 
     /**

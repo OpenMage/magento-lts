@@ -75,9 +75,9 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         if ($this->_canViewOrder($order)) {
             Mage::register('current_order', $order);
             return true;
-        } else {
-            $this->_redirect('*/*/history');
         }
+
+        $this->_redirect('*/*/history');
 
         return false;
     }

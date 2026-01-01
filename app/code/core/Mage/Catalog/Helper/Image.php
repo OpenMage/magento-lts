@@ -347,21 +347,21 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
             if ($model->isCached()) {
                 return $model->getUrl();
-            } else {
-                if ($this->_scheduleRotate) {
-                    $model->rotate($this->getAngle());
-                }
-
-                if ($this->_scheduleResize) {
-                    $model->resize();
-                }
-
-                if ($this->getWatermark()) {
-                    $model->setWatermark($this->getWatermark());
-                }
-
-                $url = $model->saveFile()->getUrl();
             }
+
+            if ($this->_scheduleRotate) {
+                $model->rotate($this->getAngle());
+            }
+
+            if ($this->_scheduleResize) {
+                $model->resize();
+            }
+
+            if ($this->getWatermark()) {
+                $model->setWatermark($this->getWatermark());
+            }
+
+            $url = $model->saveFile()->getUrl();
         } catch (Exception $exception) {
             Mage::logException($exception);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());

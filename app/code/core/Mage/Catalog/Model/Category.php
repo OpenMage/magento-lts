@@ -686,9 +686,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         $children = $this->getResource()->getAllChildren($this);
         if ($asArray) {
             return $children;
-        } else {
-            return implode(',', $children);
         }
+
+        return implode(',', $children);
     }
 
     /**

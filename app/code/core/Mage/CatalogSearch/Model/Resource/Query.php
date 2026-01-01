@@ -88,9 +88,9 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
-        } else {
-            $this->loadByQuery($object, $value);
         }
+
+        $this->loadByQuery($object, $value);
 
         return $this;
     }

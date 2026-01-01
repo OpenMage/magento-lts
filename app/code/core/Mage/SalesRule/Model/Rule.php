@@ -321,10 +321,11 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         $storeId = Mage::app()->getStore($store)->getId();
         $labels = (array) $this->getStoreLabels();
-
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
-        } elseif (isset($labels[0]) && $labels[0]) {
+        }
+
+        if (isset($labels[0]) && $labels[0]) {
             return $labels[0];
         }
 

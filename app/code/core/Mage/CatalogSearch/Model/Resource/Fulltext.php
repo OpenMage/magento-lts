@@ -721,11 +721,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             if ($this->_engine->allowAdvancedIndex()) {
                 if ($attribute->getAttributeCode() === 'visibility') {
                     return $value;
-                } elseif (!($attribute->getIsVisibleInAdvancedSearch()
+                }
+
+                if (!($attribute->getIsVisibleInAdvancedSearch()
                     || $attribute->getIsFilterable()
                     || $attribute->getIsFilterableInSearch()
-                    || $attribute->getUsedForSortBy())
-                ) {
+                    || $attribute->getUsedForSortBy())) {
                     return null;
                 }
             } else {

@@ -883,11 +883,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     {
         if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
             return -1;
-        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        } else {
-            return 0;
         }
+
+        if ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
+            return 1;
+        }
+
+        return 0;
     }
 
     /**
@@ -1191,7 +1193,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
         if ($this->getQuote()->getIsVirtual() && $this->getAddressType() == self::TYPE_SHIPPING) {
             return true;
-        } elseif (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
+        }
+
+        if (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
             return true;
         }
 

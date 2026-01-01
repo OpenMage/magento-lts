@@ -96,9 +96,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         if ($this->getConfigData('mobile_optimized')) {
             return self::MOBILE_LAYOUT_TEMPLATE;
-        } else {
-            return self::LAYOUT_TEMPLATE;
         }
+
+        return self::LAYOUT_TEMPLATE;
     }
 
     /**

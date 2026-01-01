@@ -517,11 +517,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         if ($this->hasData('customer_group_id')) {
             return $this->getData('customer_group_id');
-        } elseif ($this->getCustomerId()) {
-            return $this->getCustomer()->getGroupId();
-        } else {
-            return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
         }
+
+        if ($this->getCustomerId()) {
+            return $this->getCustomer()->getGroupId();
+        }
+
+        return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
     /**
@@ -925,11 +927,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
-        } else {
-            foreach ($this->getItemsCollection() as $item) {
-                if ($item->getId() == $itemId) {
-                    return $item;
-                }
+        }
+
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getId() == $itemId) {
+                return $item;
             }
         }
 

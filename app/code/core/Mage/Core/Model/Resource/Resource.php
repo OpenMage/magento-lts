@@ -115,10 +115,10 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
                 $dbModuleInfo,
                 ['code = ?' => $resName],
             );
-        } else {
-            self::$_versions[$resName] = $version;
-            return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
         }
+
+        self::$_versions[$resName] = $version;
+        return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
     }
 
     /**

@@ -242,11 +242,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getChildTransactions($types = null, $txnId = null, $recursive = false)
     {
         $this->_loadChildren();
-
         // grab all transactions
         if (empty($types) && $txnId === null) {
             return $this->_children;
-        } elseif ($types && !is_array($types)) {
+        }
+
+        // grab all transactions
+        if ($types && !is_array($types)) {
             $types = [$types];
         }
 
@@ -396,7 +398,9 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if ($whetherHasChild !== null) {
             $this->_hasChild = (bool) $whetherHasChild;
             return $this;
-        } elseif ($this->_hasChild === null) {
+        }
+
+        if ($this->_hasChild === null) {
             if ($this->getChildTransactions()) {
                 $this->_hasChild = true;
             } else {

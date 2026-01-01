@@ -105,31 +105,32 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $xmlString = substr($xmlTmpString, $strposF);
                     $isWorksheet = true;
                     continue;
-                } elseif (preg_match('/ss:Name=\"' . preg_quote($worksheet, '/') . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
+                }
+
+                if (preg_match('/ss:Name=\"' . preg_quote($worksheet, '/') . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
                     $xmlString = substr($xmlTmpString, $strposF);
                     $isWorksheet = true;
                     continue;
-                } else {
-                    $xmlString = '';
-                    continue;
-                }
-            } else {
-                $xmlString = $this->_parseXmlRow($xmlString);
-
-                $strposS = strpos($xmlString, '</Worksheet>');
-                $substrL = 12;
-                //fix for OpenOffice
-                if ($strposS === false) {
-                    $strposS = strpos($xmlString, '</ss:Worksheet>');
-                    $substrL = 15;
                 }
 
-                if ($strposS !== false) {
-                    $xmlString = substr($xmlString, $strposS + $substrL);
-                    $isWorksheet = false;
+                $xmlString = '';
+                continue;
+            }
 
-                    continue;
-                }
+            $xmlString = $this->_parseXmlRow($xmlString);
+            $strposS = strpos($xmlString, '</Worksheet>');
+            $substrL = 12;
+            //fix for OpenOffice
+            if ($strposS === false) {
+                $strposS = strpos($xmlString, '</ss:Worksheet>');
+                $substrL = 15;
+            }
+
+            if ($strposS !== false) {
+                $xmlString = substr($xmlString, $strposS + $substrL);
+                $isWorksheet = false;
+
+                continue;
             }
         }
 
