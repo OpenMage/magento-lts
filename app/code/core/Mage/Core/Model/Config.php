@@ -536,13 +536,15 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
             if ($ignoreFailure) {
                 return;
-            } elseif (PHP_SAPI === 'cli') {
-                throw new Exception('Could not get lock on cache save operation.');
-            } else {
-                Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
-                require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
-                die();
             }
+
+            if (PHP_SAPI === 'cli') {
+                throw new Exception('Could not get lock on cache save operation.');
+            }
+
+            Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), \Monolog\Level::Notice);
+            require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+            die();
         }
     }
 
@@ -653,9 +655,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_useCache = false;
             $this->reinit($this->_options);
             return false;
-        } else {
-            return simplexml_load_string($xmlString, $this->_elementClass);
         }
+
+        return simplexml_load_string($xmlString, $this->_elementClass);
     }
 
     /**
@@ -891,9 +893,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if (empty($this->_allowedModules)) {
             return true;
-        } else {
-            return in_array($moduleName, $this->_allowedModules);
         }
+
+        return in_array($moduleName, $this->_allowedModules);
     }
 
     /**
@@ -1196,9 +1198,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $modules = $this->getNode('modules');
         if ($moduleName === '') {
             return $modules;
-        } else {
-            return $modules->$moduleName;
         }
+
+        return $modules->$moduleName;
     }
 
     /**
@@ -1499,9 +1501,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $obj = new $className($constructArguments);
             Varien_Profiler::stop('CORE::create_object_of::' . $className);
             return $obj;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -1513,10 +1515,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $config = Mage::getConfig()->getNode($path);
         if (!$config) {
             return false;
-        } else {
-            $className = $config->getClassName();
-            return new $className();
         }
+
+        $className = $config->getClassName();
+        return new $className();
     }
 
     /**
@@ -1562,9 +1564,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if ($conn) {
                 if (!empty($conn->use)) {
                     return $this->getResourceConnectionConfig((string) $conn->use);
-                } else {
-                    return $conn;
                 }
+
+                return $conn;
             }
         }
 

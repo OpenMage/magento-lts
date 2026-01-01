@@ -87,8 +87,8 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 
         if ($specialExecute) {
             return $this->_executeWithBinding($params);
-        } else {
-            return parent::_execute($params);
         }
+
+        return parent::_execute($params);
     }
 }

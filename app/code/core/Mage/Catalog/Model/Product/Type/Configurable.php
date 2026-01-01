@@ -620,7 +620,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $product->addCustomOption('attributes', serialize($attributes));
                     $product->addCustomOption('product_qty_' . $subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
-
                     $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
                         $buyRequest,
                         $subProduct,
@@ -657,7 +656,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
                     $result[] = $_result[0];
                     return $result;
-                } elseif (!$this->_isStrictProcessMode($processMode)) {
+                }
+
+                if (!$this->_isStrictProcessMode($processMode)) {
                     return $result;
                 }
             }

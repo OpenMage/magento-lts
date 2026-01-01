@@ -496,15 +496,15 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 $headerMain = $this->_parseHeader($pointer);
                 $headerMain['name'] = $realName;
                 return $headerMain;
-            } else {
-                if ($header['size'] > 0) {
-                    $header['data'] = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
-                } else {
-                    $header['data'] = '';
-                }
-
-                return $header;
             }
+
+            if ($header['size'] > 0) {
+                $header['data'] = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
+            } else {
+                $header['data'] = '';
+            }
+
+            return $header;
         }
 
         return false;

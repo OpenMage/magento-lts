@@ -381,9 +381,9 @@ final class Mage
 
         if (is_null($key)) {
             return self::$_objects;
-        } else {
-            return self::$_objects->load($key);
         }
+
+        return self::$_objects->load($key);
     }
 
     /**
@@ -450,9 +450,9 @@ final class Mage
         $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && $flag !== 'false') {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -1097,9 +1097,9 @@ final class Mage
             if ($exitIfNot) {
                 // exit because of infinity loop
                 exit($errorMessage);
-            } else {
-                self::printException(new Exception(), $errorMessage);
             }
+
+            self::printException(new Exception(), $errorMessage);
         }
 
         return $baseUrl;

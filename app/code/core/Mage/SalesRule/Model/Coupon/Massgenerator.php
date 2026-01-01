@@ -96,9 +96,9 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     {
         if ($this->getData('delimiter')) {
             return $this->getData('delimiter');
-        } else {
-            return Mage::helper('salesrule/coupon')->getCodeSeparator();
         }
+
+        return Mage::helper('salesrule/coupon')->getCodeSeparator();
     }
 
     /**

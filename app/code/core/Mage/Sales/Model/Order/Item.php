@@ -859,9 +859,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
         }
 
         return $totalDiscount;
@@ -883,9 +883,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
         }
 
         return $totalDiscount;

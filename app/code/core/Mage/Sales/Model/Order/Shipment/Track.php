@@ -135,9 +135,9 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
                 'title' => $this->getTitle(),
                 'number' => $this->getTrackNumber(),
             ];
-        } else {
-            $carrierInstance->setStore($this->getStore());
         }
+
+        $carrierInstance->setStore($this->getStore());
 
         if (!$trackingInfo = $carrierInstance->getTrackingInfo($this->getNumber())) {
             return Mage::helper('sales')->__('No detail for number "%s"', $this->getNumber());

@@ -293,11 +293,13 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', ['_current' => true]);
-        } elseif ($request) {
-            return $request->getRequestUri();
-        } else {
-            return null;
         }
+
+        if ($request) {
+            return $request->getRequestUri();
+        }
+
+        return null;
     }
 
     /**

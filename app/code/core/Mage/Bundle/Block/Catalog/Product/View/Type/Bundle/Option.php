@@ -123,13 +123,17 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $selectedOptions = $this->_getSelectedOptions();
         if (is_numeric($selectedOptions)) {
             return ($selection->getSelectionId() == $this->_getSelectedOptions());
-        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
-            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
-        } elseif ($selectedOptions === 'None') {
-            return false;
-        } else {
-            return ($selection->getIsDefault() && $selection->isSaleable());
         }
+
+        if (is_array($selectedOptions) && !empty($selectedOptions)) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        }
+
+        if ($selectedOptions === 'None') {
+            return false;
+        }
+
+        return ($selection->getIsDefault() && $selection->isSaleable());
     }
 
     /**

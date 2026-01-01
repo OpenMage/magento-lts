@@ -185,11 +185,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         if ($this->getAdminId()) {
             return self::USER_TYPE_ADMIN;
-        } elseif ($this->getCustomerId()) {
-            return self::USER_TYPE_CUSTOMER;
-        } else {
-            Mage::throwException('User type is unknown');
         }
+
+        if ($this->getCustomerId()) {
+            return self::USER_TYPE_CUSTOMER;
+        }
+
+        Mage::throwException('User type is unknown');
     }
 
     /**

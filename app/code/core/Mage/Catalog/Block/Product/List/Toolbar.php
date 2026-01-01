@@ -661,7 +661,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             }
 
             return Mage::getStoreConfig('catalog/frontend/list_per_page');
-        } elseif ($this->getCurrentMode() == 'grid') {
+        }
+
+        if ($this->getCurrentMode() == 'grid') {
             if ($default = $this->getDefaultGridPerPage()) {
                 return $default;
             }
@@ -701,9 +703,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $currentMode = $this->getCurrentMode();
         if (in_array($currentMode, ['list', 'grid'])) {
             return $this->_getAvailableLimit($currentMode);
-        } else {
-            return $this->_defaultAvailableLimit;
         }
+
+        return $this->_defaultAvailableLimit;
     }
 
     /**
@@ -724,9 +726,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $perPageValues = array_combine($perPageValues, $perPageValues);
         if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
             return ($perPageValues + ['all' => $this->__('All')]);
-        } else {
-            return $perPageValues;
         }
+
+        return $perPageValues;
     }
 
     /**

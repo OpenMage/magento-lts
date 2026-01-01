@@ -123,7 +123,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (!isset($faults[$faultName]) && !is_null($resourceName)) {
             $this->_fault($faultName);
             return;
-        } elseif (!isset($faults[$faultName])) {
+        }
+
+        if (!isset($faults[$faultName])) {
             $this->_fault('unknown');
             return;
         }
@@ -147,7 +149,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         $faults = $this->_getConfig()->getFaults($resourceName);
         if (!isset($faults[$faultName]) && !is_null($resourceName)) {
             return $this->_faultAsArray($faultName);
-        } elseif (!isset($faults[$faultName])) {
+        }
+
+        if (!isset($faults[$faultName])) {
             return $this->_faultAsArray('unknown');
         }
 
@@ -305,9 +309,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 return $this->processingMethodResult($result);
-            } else {
-                throw new Mage_Api_Exception('resource_path_not_callable');
             }
+
+            throw new Mage_Api_Exception('resource_path_not_callable');
         } catch (Mage_Api_Exception $e) {
             $this->_fault($e->getMessage(), $resourceName, $e->getCustomMessage());
             return;
@@ -585,11 +589,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     {
         if (is_null($result) || is_bool($result) || is_numeric($result) || is_object($result)) {
             return $result;
-        } elseif (is_array($result)) {
+        }
+
+        if (is_array($result)) {
             foreach ($result as $key => $value) {
                 $result[$key] = $this->processingMethodResult($value);
             }
-        } else {
+        }
+        else {
             $result = $this->processingRow($result);
         }
 

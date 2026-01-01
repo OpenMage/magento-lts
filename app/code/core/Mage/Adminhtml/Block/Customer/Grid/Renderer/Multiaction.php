@@ -64,8 +64,8 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
             }
 
             return sprintf('<a href="%s" %s %s>%s</a>', $action['url'], $style, $onClick, $action['caption']);
-        } else {
-            return parent::_toLinkHtml($action, $row);
         }
+
+        return parent::_toLinkHtml($action, $row);
     }
 }

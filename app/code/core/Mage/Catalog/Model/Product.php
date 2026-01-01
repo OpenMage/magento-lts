@@ -430,9 +430,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if ($this->_calculatePrice || !$this->getData('price')) {
             return $this->getPriceModel()->getPrice($this);
-        } else {
-            return $this->getData('price');
         }
+
+        return $this->getData('price');
     }
 
     /**
@@ -2056,9 +2056,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if (count($this->_customOptions)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

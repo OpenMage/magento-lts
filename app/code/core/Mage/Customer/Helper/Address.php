@@ -71,9 +71,9 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
             return new $className();
-        } else {
-            return $renderer;
         }
+
+        return $renderer;
     }
 
     /**

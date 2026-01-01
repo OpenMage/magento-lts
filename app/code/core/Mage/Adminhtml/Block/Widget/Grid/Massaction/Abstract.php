@@ -241,9 +241,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return implode(',', $selected);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -255,9 +255,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     {
         if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             return explode(',', $this->quoteEscape($selected));
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**

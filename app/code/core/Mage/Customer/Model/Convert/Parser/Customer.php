@@ -342,9 +342,9 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
-                } else {
-                    $row['group'] = $groupCode;
                 }
+
+                $row['group'] = $groupCode;
             }
 
             $batchExport = $this->getBatchExportModel()

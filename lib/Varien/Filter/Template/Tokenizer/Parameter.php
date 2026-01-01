@@ -27,9 +27,12 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         while ($this->next()) {
             if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->char() != '=') {
+            }
+
+            if ($this->char() != '=') {
                 $parameterName .= $this->char();
-            } else {
+            }
+            else {
                 $parameters[$parameterName] = $this->getValue();
                 $parameterName = '';
             }
