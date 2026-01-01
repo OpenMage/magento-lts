@@ -305,6 +305,7 @@ class Mage_Cron_Model_Observer
             }
         }
 
+        $callback = [];
         $arguments = [];
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
