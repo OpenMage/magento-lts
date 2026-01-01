@@ -7,6 +7,7 @@
  * @package    Mage_Adminhtml
  */
 
+use Mage_Core_Helper_Log as Log;
 use Monolog\Level;
 
 /**
@@ -21,14 +22,14 @@ class Mage_Adminhtml_Model_System_Config_Source_Log_Level
         $helper = Mage::helper('adminhtml');
 
         return [
-            Level::Emergency->value => $helper->__('Emergency'),
-            Level::Alert->value     => $helper->__('Alert'),
-            Level::Critical->value  => $helper->__('Critical'),
-            Level::Error->value     => $helper->__('Error'),
-            Level::Warning->value   => $helper->__('Warning'),
-            Level::Notice->value    => $helper->__('Notice'),
-            Level::Info->value      => $helper->__('Informational'),
-            Level::Debug->value     => $helper->__('Debug'),
+            Log::getLogLevelValue(Level::Emergency) => $helper->__('Emergency'),
+            Log::getLogLevelValue(Level::Alert)     => $helper->__('Alert'),
+            Log::getLogLevelValue(Level::Critical)  => $helper->__('Critical'),
+            Log::getLogLevelValue(Level::Error)     => $helper->__('Error'),
+            Log::getLogLevelValue(Level::Warning)   => $helper->__('Warning'),
+            Log::getLogLevelValue(Level::Notice)    => $helper->__('Notice'),
+            Log::getLogLevelValue(Level::Info)      => $helper->__('Informational'),
+            Log::getLogLevelValue(Level::Debug)     => $helper->__('Debug'),
         ];
     }
 }

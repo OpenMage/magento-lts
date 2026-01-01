@@ -2,10 +2,6 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
-            'mm_ignition' => \MM_Ignition_Helper_Data::class,
-            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
-            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
-            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -96,6 +92,9 @@ namespace PHPSTORM_META {
             'core/hint' => \Mage_Core_Helper_Hint::class,
             'core/http' => \Mage_Core_Helper_Http::class,
             'core/js' => \Mage_Core_Helper_Js::class,
+            'core/log' => \Mage_Core_Helper_Log::class,
+            'core/measure_length' => \Mage_Core_Helper_Measure_Length::class,
+            'core/measure_weight' => \Mage_Core_Helper_Measure_Weight::class,
             'core/purifier' => \Mage_Core_Helper_Purifier::class,
             'core/security' => \Mage_Core_Helper_Security::class,
             'core/string' => \Mage_Core_Helper_String::class,

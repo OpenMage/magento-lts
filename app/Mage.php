@@ -8,10 +8,7 @@
  */
 
 use Carbon\Carbon;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
 use Monolog\Level;
-use Monolog\Logger;
 
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
 defined('PS') || define('PS', PATH_SEPARATOR);
@@ -886,93 +883,10 @@ final class Mage
         }
 
         try {
-            $logActive = self::getStoreConfigFlag(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ENABLED);
-            if (empty($file)) {
-                $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE);
+            $logger = self::getModel('core/logger');
+            if ($logger instanceof Mage_Core_Model_Logger) {
+                $logger->log($message, $level, $file, $forceLog, $context);
             }
-        } catch (Exception) {
-            $logActive = true;
-        }
-
-        if (!self::$_isDeveloperMode && !$logActive && !$forceLog) {
-            return;
-        }
-
-        static $loggers = [];
-
-        try {
-            $maxLogLevel = self::getStoreConfigAsInt(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_MAX_LEVEL);
-        } catch (Throwable) {
-            $maxLogLevel = Level::Debug->value;
-        }
-
-        // Normalize both $level and $maxLogLevel to integers for comparison
-        if ($level instanceof Level) {
-            $levelValue = $level->value;
-        } elseif (is_null($level)) {
-            $levelValue = Level::Debug->value;
-        } else {
-            $levelValue = (int) $level;
-        }
-
-        if (!self::$_isDeveloperMode && $levelValue > $maxLogLevel && !$forceLog) {
-            return;
-        }
-
-        $file = empty($file)
-            ? (string) self::getConfig()->getNode(
-                Mage_Core_Helper_Data::XML_PATH_DEV_LOG_FILE,
-                Mage_Core_Model_Store::DEFAULT_CODE,
-            ) : basename($file);
-
-        try {
-            if (!isset($loggers[$file])) {
-                // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-                $_allowedFileExtensions = explode(
-                    ',',
-                    (string) self::getConfig()->getNode(
-                        Mage_Core_Helper_Data::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS,
-                        Mage_Core_Model_Store::DEFAULT_CODE,
-                    ),
-                );
-                if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
-                    return;
-                }
-
-                $logDir = self::getBaseDir('var') . DS . 'log';
-                $logFile = $logDir . DS . $file;
-
-                if (!is_dir($logDir)) {
-                    mkdir($logDir);
-                    chmod($logDir, 0750);
-                }
-
-                if (!file_exists($logFile)) {
-                    file_put_contents($logFile, '');
-                    chmod($logFile, 0640);
-                }
-
-                $format = '%datetime% %level_name% (%level%): %message% %context% %extra%' . PHP_EOL;
-                $formatter = new LineFormatter($format, null, true, true, true);
-                $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
-                if (!self::$_app || !$writerModel) {
-                    $writer = new StreamHandler($logFile, Level::Debug);
-                } else {
-                    $writer = new $writerModel($logFile, Level::Debug);
-                }
-
-                $writer->setFormatter($formatter);
-                $logger = new Logger('OpenMage');
-                $logger->pushHandler($writer);
-                $loggers[$file] = $logger;
-            }
-
-            if (is_array($message) || is_object($message)) {
-                $message = print_r($message, true);
-            }
-
-            $message = addcslashes($message, '<?');
-            $loggers[$file]->log($levelValue, $message, $context);
         } catch (Exception) {
         }
     }
@@ -980,14 +894,14 @@ final class Mage
     /**
      * Write exception to log
      */
-    public static function logException(Throwable $e)
+    public static function logException(Throwable $throwable)
     {
         if (!self::getConfig()) {
             return;
         }
 
-        $file = self::getStoreConfig(Mage_Core_Helper_Data::XML_PATH_DEV_LOG_EXCEPTION_FILE);
-        self::log("\n" . $e->__toString(), Level::Error, $file);
+        $file = self::getStoreConfig(Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE);
+        self::log("\n" . $throwable->__toString(), Level::Error, $file);
     }
 
     /**
