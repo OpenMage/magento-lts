@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Cache/Backend.php
 +++ ../library/Zend/Cache/Backend.php
 @@ -137,7 +137,7 @@
       * if $specificLifetime is not false, the given specific life time is used
@@ -10,7 +10,7 @@
       */
      public function getLifetime($specificLifetime)
 
---- /dev/null
+--- ../library/Zend/Controller/Response/Abstract.php
 +++ ../library/Zend/Controller/Response/Abstract.php
 @@ -454,7 +454,7 @@
       * $spec is a string and matches a named segment, returns the contents of
@@ -22,7 +22,7 @@
       */
      public function getBody($spec = false)
 
---- /dev/null
+--- ../library/Zend/Currency.php
 +++ ../library/Zend/Currency.php
 @@ -138,8 +138,8 @@
      /**
@@ -36,7 +36,7 @@
       * @return string
       */
 
---- /dev/null
+--- ../library/Zend/Db/Select.php
 +++ ../library/Zend/Db/Select.php
 @@ -486,7 +486,7 @@
       * @param  string $cond Join on this condition.
@@ -48,7 +48,7 @@
      public function joinStraight($name, $cond, $cols = self::SQL_WILDCARD, $schema = null)
      {
 
---- /dev/null
+--- ../library/Zend/Measure/Abstract.php
 +++ ../library/Zend/Measure/Abstract.php
 @@ -75,7 +75,7 @@
       * Zend_Measure_Abstract is an abstract class for the different measurement types
@@ -60,7 +60,7 @@
       * @throws Zend_Measure_Exception
       */
 
---- /dev/null
+--- ../library/Zend/Cache/Backend/Memcached.php
 +++ ../library/Zend/Cache/Backend/Memcached.php
 @@ -205,10 +205,10 @@
       * Note : $data is always "string" (serialization is done by the
@@ -78,7 +78,7 @@
       */
      public function save($data, $id, $tags = [], $specificLifetime = false)
 
---- /dev/null
+--- ../library/Zend/Translate.php
 +++ ../library/Zend/Translate.php
 @@ -63,7 +63,7 @@
      /**

@@ -111,7 +111,6 @@ try {
             EarlyReturn\If_\ChangeIfElseValueAssignToEarlyReturnRector::class, # todo: TMP
             EarlyReturn\If_\ChangeNestedIfsToEarlyReturnRector::class, # todo: TMP
             EarlyReturn\If_\ChangeOrIfContinueToMultiContinueRector::class, # todo: TMP
-            EarlyReturn\If_\RemoveAlwaysElseRector::class, # todo: TMP
             EarlyReturn\Return_\ReturnBinaryOrToEarlyReturnRector::class, # todo: TMP
             EarlyReturn\Return_\PreparedValueToEarlyReturnRector::class, # todo: TMP
             # skip: may conflict with phpstan strict rules

@@ -135,10 +135,10 @@ class Varien_Debug
 
         if ($return) {
             return $out;
-        } else {
-            echo $out;
-            return true;
         }
+
+        echo $out;
+        return true;
     }
 
     /**

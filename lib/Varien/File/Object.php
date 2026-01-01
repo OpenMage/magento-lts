@@ -192,11 +192,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public static function getExt($fileName)
     {
         $path_parts = pathinfo($fileName);
-        if (isset($path_parts['extension'])) {
-            return $path_parts['extension'];
-        } else {
-            return '';
-        }
+        return $path_parts['extension'] ?? '';
     }
 
     /**

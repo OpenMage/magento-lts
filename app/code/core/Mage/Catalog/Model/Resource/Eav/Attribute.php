@@ -247,9 +247,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             }
 
             return explode(',', $this->getData('apply_to'));
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -369,12 +369,15 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
 
         $backendType    = $this->getBackendType();
         $frontendInput  = $this->getFrontendInput();
-
         if ($backendType == 'int' && $frontendInput == 'select') {
             return true;
-        } elseif (($backendType == 'varchar' || $backendType == 'text') && $frontendInput == 'multiselect') {
+        }
+
+        if (($backendType == 'varchar' || $backendType == 'text') && $frontendInput == 'multiselect') {
             return true;
-        } elseif ($backendType == 'decimal') {
+        }
+
+        if ($backendType == 'decimal') {
             return true;
         }
 

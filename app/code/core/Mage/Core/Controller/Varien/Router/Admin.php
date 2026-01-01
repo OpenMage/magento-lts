@@ -154,9 +154,9 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         );
         if ($isExtensionsCompatibilityMode || ($frontName == $configRouterFrontName)) {
             return parent::addModule($frontName, $moduleName, $routeName);
-        } else {
-            return $this;
         }
+
+        return $this;
     }
 
     /**

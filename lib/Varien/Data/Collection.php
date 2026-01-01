@@ -191,11 +191,13 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     {
         if ($this->_curPage + $displacement <= 1) {
             return 1;
-        } elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {
-            return $this->getLastPageNumber();
-        } else {
-            return $this->_curPage + $displacement;
         }
+
+        if ($this->_curPage + $displacement > $this->getLastPageNumber()) {
+            return $this->getLastPageNumber();
+        }
+
+        return $this->_curPage + $displacement;
     }
 
     /**
@@ -208,11 +210,13 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         $collectionSize = (int) $this->getSize();
         if (0 === $collectionSize) {
             return 1;
-        } elseif ($this->_pageSize) {
-            return (int) ceil($collectionSize / $this->_pageSize);
-        } else {
-            return 1;
         }
+
+        if ($this->_pageSize) {
+            return (int) ceil($collectionSize / $this->_pageSize);
+        }
+
+        return 1;
     }
 
     /**

@@ -265,11 +265,12 @@ class Mage_Core_Model_Resource_File_Storage_File
             if (@ftell($fp) === 0) { // If the file is empty we can write to it
                 $this->filePointer = $fp;
                 return true;
-            } else { // Otherwise we should not write to it
-                @flock($fp, LOCK_UN);
-                @fclose($fp);
-                return false;
             }
+
+            // Otherwise we should not write to it
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
+            return false;
         }
 
         return false;

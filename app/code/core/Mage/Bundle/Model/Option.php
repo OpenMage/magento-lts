@@ -87,9 +87,9 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
             }
 
             return (bool) $saleable;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -120,9 +120,9 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
     {
         if ($this->getType() == 'checkbox' || $this->getType() == 'multi') {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

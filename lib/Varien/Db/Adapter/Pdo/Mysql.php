@@ -467,9 +467,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         if (empty($field)) {
             return $row;
-        } else {
-            return $row[$field] ?? false;
         }
+
+        return $row[$field] ?? false;
     }
 
     /**
@@ -3191,9 +3191,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $value = str_replace("\0", '', (string) $value);
         if ($value == '') {
             return ($conditionKey == 'seq') ? 'null' : 'notnull';
-        } else {
-            return ($conditionKey == 'seq') ? 'eq' : 'neq';
         }
+
+        return ($conditionKey == 'seq') ? 'eq' : 'neq';
     }
 
     /**
@@ -4107,9 +4107,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $indexes = $this->getIndexList($tableName, $schemaName);
         if (isset($indexes['PRIMARY'])) {
             return $indexes['PRIMARY']['KEY_NAME'];
-        } else {
-            return 'PK_' . strtoupper($tableName);
         }
+
+        return 'PK_' . strtoupper($tableName);
     }
 
     /**

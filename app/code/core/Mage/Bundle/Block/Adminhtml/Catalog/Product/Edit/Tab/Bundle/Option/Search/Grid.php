@@ -171,11 +171,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     {
         if ($products = $this->getRequest()->getPost('products', null)) {
             return $products;
-        } elseif ($productss = $this->getRequest()->getParam('productss', null)) {
-            return explode(',', $productss);
-        } else {
-            return [];
         }
+
+        if ($productss = $this->getRequest()->getParam('productss', null)) {
+            return explode(',', $productss);
+        }
+
+        return [];
     }
 
     /**

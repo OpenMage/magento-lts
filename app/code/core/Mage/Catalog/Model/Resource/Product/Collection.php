@@ -1464,9 +1464,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } else {
-            return parent::addAttributeToFilter($attribute, $condition, $joinType);
         }
+
+        return parent::addAttributeToFilter($attribute, $condition, $joinType);
     }
 
     /**
@@ -1593,7 +1593,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } elseif ($attribute == 'is_saleable') {
+        }
+
+        if ($attribute == 'is_saleable') {
             $this->getSelect()->order('is_saleable ' . $dir);
             return $this;
         }
@@ -1616,13 +1618,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } else {
-            $attrInstance = $this->getEntity()->getAttribute($attribute);
-            if ($attrInstance && $attrInstance->usesSource()) {
-                $attrInstance->getSource()
-                    ->addValueSortToCollection($this, $dir);
-                return $this;
-            }
+        }
+
+        $attrInstance = $this->getEntity()->getAttribute($attribute);
+        if ($attrInstance && $attrInstance->usesSource()) {
+            $attrInstance->getSource()
+                ->addValueSortToCollection($this, $dir);
+            return $this;
         }
 
         return parent::addAttributeToSort($attribute, $dir);

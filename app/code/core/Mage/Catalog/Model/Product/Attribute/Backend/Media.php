@@ -727,7 +727,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($fileMediaName != $fileTmpMediaName) {
             if ($fileMediaName != $fileName) {
                 return $this->_getNotDuplicatedFilename($fileMediaName, $dispretionPath);
-            } elseif ($fileTmpMediaName != $fileName) {
+            }
+
+            if ($fileTmpMediaName != $fileName) {
                 return $this->_getNotDuplicatedFilename($fileTmpMediaName, $dispretionPath);
             }
         }

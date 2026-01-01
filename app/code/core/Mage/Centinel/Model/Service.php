@@ -109,9 +109,9 @@ class Mage_Centinel_Model_Service extends Varien_Object
         ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
-        } else {
-            return Mage::getUrl('centinel/index/' . $suffix, $params);
         }
+
+        return Mage::getUrl('centinel/index/' . $suffix, $params);
     }
 
     /**

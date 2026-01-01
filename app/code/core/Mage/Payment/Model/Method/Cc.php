@@ -342,13 +342,13 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getIncrementId();
-        } else {
-            if (!$info->getQuote()->getReservedOrderId()) {
-                $info->getQuote()->reserveOrderId();
-            }
-
-            return $info->getQuote()->getReservedOrderId();
         }
+
+        if (!$info->getQuote()->getReservedOrderId()) {
+            $info->getQuote()->reserveOrderId();
+        }
+
+        return $info->getQuote()->getReservedOrderId();
     }
 
     /**
@@ -361,9 +361,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
             return (float) $info->getOrder()->getQuoteBaseGrandTotal();
-        } else {
-            return (float) $info->getQuote()->getBaseGrandTotal();
         }
+
+        return (float) $info->getQuote()->getBaseGrandTotal();
     }
 
     /**
@@ -377,9 +377,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getBaseCurrencyCode();
-        } else {
-            return $info->getQuote()->getBaseCurrencyCode();
         }
+
+        return $info->getQuote()->getBaseCurrencyCode();
     }
 
     /**
@@ -392,7 +392,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($info instanceof Mage_Sales_Model_Quote_Payment) {
             return false;
-        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
+        }
+
+        if ($info instanceof Mage_Sales_Model_Order_Payment) {
             return true;
         }
 
