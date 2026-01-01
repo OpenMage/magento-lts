@@ -484,7 +484,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
-     * @return array
+     * @return array|false
      * @throws Mage_Core_Exception
      */
     public function getCacheIdTags()

@@ -23,11 +23,11 @@ use Carbon\Carbon;
  * @method Mage_Oauth_Model_Resource_Consumer            getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
  * @method string                                        getSecret()
- * @method $this                                         setCallbackUrl() setCallbackUrl(string $url)
- * @method $this                                         setKey() setKey(string $key)
- * @method $this                                         setName() setName(string $name)
- * @method $this                                         setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
- * @method $this                                         setSecret() setSecret(string $secret)
+ * @method $this                                         setCallbackUrl(string $url)
+ * @method $this                                         setKey(string $key)
+ * @method $this                                         setName(string $name)
+ * @method $this                                         setRejectedCallbackUrl(string $rejectedCallbackUrl)
+ * @method $this                                         setSecret(string $secret)
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {

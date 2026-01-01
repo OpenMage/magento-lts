@@ -20,7 +20,7 @@
  * @method int                                             getIsForceCheck()
  * @method string                                          getMessageBody()
  * @method string                                          getMessageBodyHash()
- * @method string                                          getMessageParameters()
+ * @method array                                           getMessageParameters()
  * @method Mage_Core_Model_Resource_Email_Queue            getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getResourceCollection()
  * @method $this                                           setEntityId(int $value)
@@ -29,7 +29,7 @@
  * @method $this                                           setIsForceCheck(int $value)
  * @method $this                                           setMessageBody(string $value)
  * @method $this                                           setMessageBodyHash(string $value)
- * @method $this                                           setMessageParameters(string $value)
+ * @method $this                                           setMessageParameters(array $value)
  * @method $this                                           setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
