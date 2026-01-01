@@ -31,7 +31,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     /**
      * json encode image fallback array
      *
-     * @param array<string, array<string>> $imageFallback
+     * @param  array<string, array<string>> $imageFallback
      * @return string
      */
     protected function _getJsImageFallbackString(array $imageFallback)
@@ -53,7 +53,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
-     * @param null|bool $keepFrame
+     * @param  null|bool                                                                             $keepFrame
      * @return array<int|string, array{product: Mage_Catalog_Model_Product, image_fallback: string}>
      * @throws Mage_Core_Exception
      */

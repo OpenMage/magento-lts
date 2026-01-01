@@ -12,18 +12,18 @@
  *
  * @package    Mage_Reports
  *
- * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
+ * @method Mage_Reports_Model_Resource_Product_Index_Abstract            _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getCollection()
- * @method Mage_Reports_Model_Resource_Product_Index_Abstract getResource()
+ * @method Mage_Reports_Model_Resource_Product_Index_Abstract            getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getResourceCollection()
- * @method bool hasAddedAt()
- * @method bool hasCustomerId()
- * @method bool hasStoreId()
- * @method bool hasVisitorId()
- * @method $this setAddedAt(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setVisitorId(int $value)
+ * @method bool                                                          hasAddedAt()
+ * @method bool                                                          hasCustomerId()
+ * @method bool                                                          hasStoreId()
+ * @method bool                                                          hasVisitorId()
+ * @method $this                                                         setAddedAt(string $value)
+ * @method $this                                                         setCustomerId(int $value)
+ * @method $this                                                         setStoreId(int $value)
+ * @method $this                                                         setVisitorId(int $value)
  */
 abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model_Abstract
 {
@@ -216,7 +216,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
 
     /**
      * Add product ids to current visitor/customer log
-     * @param array $productIds
+     * @param  array                                     $productIds
      * @return Mage_Reports_Model_Product_Index_Abstract
      */
     public function registerIds($productIds)

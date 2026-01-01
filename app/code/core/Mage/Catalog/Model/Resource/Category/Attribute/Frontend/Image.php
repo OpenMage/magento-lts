@@ -17,7 +17,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Frontend_Image extends Mage
     public const IMAGE_PATH_SEGMENT = 'catalog/category/';
 
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return null|string
      */
     public function getUrl($object)

@@ -75,8 +75,8 @@ class Mage_Api_Model_Resource_Abstract
     /**
      * Dispatches fault
      *
-     * @param string $code
-     * @param null|string $customMessage
+     * @param  string             $code
+     * @param  null|string        $customMessage
      * @return never
      * @throws Mage_Api_Exception
      */

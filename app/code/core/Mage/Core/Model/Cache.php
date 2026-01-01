@@ -139,7 +139,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache backend options. Result array contain backend type ('type' key) and backend options ('options')
      *
-     * @return  array
+     * @return array
      */
     protected function _getBackendOptions(array $cacheOptions)
     {
@@ -250,8 +250,8 @@ class Mage_Core_Model_Cache
     /**
      * Initialize two levels backend model options
      *
-     * @param array $fastOptions fast level backend type and options
-     * @param array $cacheOptions all cache options
+     * @param  array $fastOptions  fast level backend type and options
+     * @param  array $cacheOptions all cache options
      * @return array
      */
     protected function _getTwoLevelsBackendOptions($fastOptions, $cacheOptions)
@@ -301,7 +301,7 @@ class Mage_Core_Model_Cache
     /**
      * Get options of cache frontend (options of Zend_Cache_Core)
      *
-     * @return  array
+     * @return array
      */
     protected function _getFrontendOptions(array $cacheOptions)
     {
@@ -325,8 +325,8 @@ class Mage_Core_Model_Cache
     /**
      * Prepare unified valid identifier with prefix
      *
-     * @param   string $id
-     * @return  string
+     * @param  string $id
+     * @return string
      */
     protected function _id($id)
     {
@@ -340,8 +340,8 @@ class Mage_Core_Model_Cache
     /**
      * Prepare cache tags.
      *
-     * @param   array $tags
-     * @return  array
+     * @param  array $tags
+     * @return array
      */
     protected function _tags($tags = [])
     {
@@ -365,8 +365,8 @@ class Mage_Core_Model_Cache
     /**
      * Load data from cache by id
      *
-     * @param   string $id
-     * @return  false|string
+     * @param  string       $id
+     * @return false|string
      */
     public function load($id)
     {
@@ -376,10 +376,10 @@ class Mage_Core_Model_Cache
     /**
      * Save data
      *
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param null|false|int $lifeTime
+     * @param  string         $data
+     * @param  string         $id
+     * @param  array          $tags
+     * @param  null|false|int $lifeTime
      * @return bool
      */
     public function save($data, $id, $tags = [], $lifeTime = null)
@@ -394,7 +394,7 @@ class Mage_Core_Model_Cache
     /**
      * Test data
      *
-     * @param string $id
+     * @param  string    $id
      * @return false|int
      */
     public function test($id)
@@ -405,8 +405,8 @@ class Mage_Core_Model_Cache
     /**
      * Remove cached data by identifier
      *
-     * @param   string $id
-     * @return  bool
+     * @param  string $id
+     * @return bool
      */
     public function remove($id)
     {
@@ -416,8 +416,8 @@ class Mage_Core_Model_Cache
     /**
      * Clean cached data by specific tag
      *
-     * @param   array|string $tags
-     * @return  bool
+     * @param  array|string $tags
+     * @return bool
      */
     public function clean($tags = [])
     {
@@ -436,7 +436,7 @@ class Mage_Core_Model_Cache
     /**
      * Flush cached data
      *
-     * @return  bool
+     * @return bool
      */
     public function flush()
     {
@@ -495,7 +495,7 @@ class Mage_Core_Model_Cache
     /**
      * Save cache usage options
      *
-     * @param array $options
+     * @param  array $options
      * @return $this
      */
     public function saveOptions($options)
@@ -508,7 +508,7 @@ class Mage_Core_Model_Cache
     /**
      * Check if cache can be used for specific data type
      *
-     * @param string $typeCode
+     * @param  string     $typeCode
      * @return array|bool
      */
     public function canUse($typeCode)
@@ -531,7 +531,7 @@ class Mage_Core_Model_Cache
     /**
      * Disable cache usage for specific data type
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function banUse($typeCode)
@@ -543,7 +543,7 @@ class Mage_Core_Model_Cache
     /**
      * Enable cache usage for specific data type
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function unbanUse($typeCode)
@@ -555,7 +555,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache tags by cache type from configuration
      *
-     * @param string $type
+     * @param  string $type
      * @return array
      */
     public function getTagsByType($type)
@@ -616,7 +616,7 @@ class Mage_Core_Model_Cache
     /**
      * Save invalidated cache types
      *
-     * @param array $types
+     * @param  array $types
      * @return $this
      */
     protected function _saveInvalidatedTypes($types)
@@ -649,7 +649,7 @@ class Mage_Core_Model_Cache
     /**
      * Mark specific cache type(s) as invalidated
      *
-     * @param array|string $typeCode
+     * @param  array|string $typeCode
      * @return $this
      */
     public function invalidateType($typeCode)
@@ -670,7 +670,7 @@ class Mage_Core_Model_Cache
     /**
      * Clean cached data for specific cache type
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function cleanType($typeCode)
@@ -713,7 +713,7 @@ class Mage_Core_Model_Cache
 
     /**
      * Get request processor object
-     * @param string $processor
+     * @param  string $processor
      * @return object
      */
     protected function _getProcessor($processor)

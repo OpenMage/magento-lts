@@ -72,6 +72,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
@@ -151,9 +152,6 @@
             },
             "magento-ecg/coding-standard": {
                 "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4891.patch"
             }
         },
         "magento-root-dir": ".",

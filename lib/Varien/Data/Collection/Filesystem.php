@@ -105,7 +105,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Allowed dirs mask setter
      * Set empty to not filter
      *
-     * @param string $regex
+     * @param  string $regex
      * @return $this
      */
     public function setDirsFilter($regex)
@@ -118,7 +118,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Allowed files mask setter
      * Set empty to not filter
      *
-     * @param string $regex
+     * @param  string $regex
      * @return $this
      */
     public function setFilesFilter($regex)
@@ -131,7 +131,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Disallowed files mask setter
      * Set empty value to not use this filter
      *
-     * @param string $regex
+     * @param  string $regex
      * @return $this
      */
     public function setDisallowedFilesFilter($regex)
@@ -143,7 +143,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Set whether to collect dirs
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setCollectDirs($value)
@@ -155,7 +155,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Set whether to collect files
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setCollectFiles($value)
@@ -167,7 +167,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Set whether to collect recursively
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setCollectRecursively($value)
@@ -179,7 +179,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Target directory setter. Adds directory to be scanned
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function addTargetDir($value)
@@ -197,7 +197,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set whether to collect directories before files
      * Works *before* sorting.
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setDirsFirst($value)
@@ -251,8 +251,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Launch data collecting
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function loadData($printQuery = false, $logQuery = false)
@@ -334,8 +334,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Callback for sorting items
      * Currently supports only sorting by one column
      *
-     * @param array $a
-     * @param array $b
+     * @param  array    $a
+     * @param  array    $b
      * @return int|void
      */
     protected function _usort($a, $b)
@@ -350,9 +350,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Set select order
      * Currently supports only sorting by one column
      *
-     * @param   string $field
-     * @param   string $direction
-     * @return  $this
+     * @param  string $field
+     * @param  string $direction
+     * @return $this
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -363,7 +363,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Generate item row basing on the filename
      *
-     * @param string $filename
+     * @param  string $filename
      * @return array
      */
     protected function _generateRow($filename)
@@ -381,11 +381,11 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *     mixed  $filterValue - value to filter by,
      *     array  $row         - a generated row (before generaring varien objects)
      *
-     * @param string $field
-     * @param mixed $value
-     * @param string $type 'and'|'or'
-     * @param callable $callback
-     * @param bool $isInverted
+     * @param  string   $field
+     * @param  mixed    $value
+     * @param  string   $type       'and'|'or'
+     * @param  callable $callback
+     * @param  bool     $isInverted
      * @return $this
      */
     public function addCallbackFilter($field, $value, $type, $callback, $isInverted = false)
@@ -405,7 +405,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * The filters renderer and caller
      * Aplies to each row, renders once.
      *
-     * @param array $row
+     * @param  array $row
      * @return bool
      */
     protected function _filterRow($row)
@@ -441,8 +441,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Invokes specified callback
      * Skips, if there is no filtered key in the row
      *
-     * @param callable $callback
-     * @param array $callbackParams
+     * @param  callable $callback
+     * @param  array    $callbackParams
      * @return bool
      */
     protected function _invokeFilter($callback, $callbackParams)
@@ -458,9 +458,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Fancy field filter
      *
-     * @param string $field
-     * @param mixed $cond
-     * @param string $type 'and' | 'or'
+     * @param  string $field
+     * @param  mixed  $cond
+     * @param  string $type  'and' | 'or'
      * @return $this
      * @see Varien_Data_Collection_Db::addFieldToFilter()
      */
@@ -557,8 +557,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Prepare a bracket into filters
      *
-     * @param string $bracket
-     * @param bool $isAnd
+     * @param  string $bracket
+     * @param  bool   $isAnd
      * @return $this
      */
     protected function _addFilterBracket($bracket = '(', $isAnd = true)
@@ -574,8 +574,8 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Render condition sign before element, if required
      *
-     * @param int $increment
-     * @param bool $isAnd
+     * @param  int    $increment
+     * @param  bool   $isAnd
      * @return string
      */
     protected function _renderConditionBeforeFilterElement($increment, $isAnd)
@@ -600,9 +600,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Does nothing. Intentionally disabled parent method
      *
-     * @param string $field
-     * @param array|string $value
-     * @param string $type and|or|string
+     * @param  string       $field
+     * @param  array|string $value
+     * @param  string       $type  and|or|string
      * @return $this
      */
     public function addFilter($field, $value, $type = 'and')
@@ -623,9 +623,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'like' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
@@ -639,9 +639,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'eq' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
@@ -654,9 +654,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'in' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
@@ -669,9 +669,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'isnull' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
@@ -684,9 +684,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'moreq' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()
@@ -699,9 +699,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     /**
      * Callback method for 'lteq' fancy filter
      *
-     * @param string $field
-     * @param mixed $filterValue
-     * @param array $row
+     * @param  string $field
+     * @param  mixed  $filterValue
+     * @param  array  $row
      * @return bool
      * @see addFieldToFilter()
      * @see addCallbackFilter()

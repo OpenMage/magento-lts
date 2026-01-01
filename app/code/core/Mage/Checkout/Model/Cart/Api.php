@@ -26,7 +26,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Create new quote for shopping cart
      *
-     * @param int|string $store
+     * @param  int|string $store
      * @return int
      */
     public function create($store = null)
@@ -50,8 +50,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Retrieve full information about quote
      *
-     * @param  int $quoteId
-     * @param  int $store
+     * @param  int   $quoteId
+     * @param  int   $store
      * @return array
      */
     public function info($quoteId, $store = null)
@@ -85,8 +85,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param int $quoteId
-     * @param int|string $store
+     * @param  int        $quoteId
+     * @param  int|string $store
      * @return array
      */
     public function totals($quoteId, $store = null)
@@ -109,9 +109,9 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Create an order from the shopping cart (quote)
      *
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
-     * @param  array $agreements
+     * @param  array      $agreements
      * @return string
      */
     public function createOrder($quoteId, $store = null, $agreements = null)
@@ -179,7 +179,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return array
      */

@@ -12,16 +12,16 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
+ * @method Mage_Wishlist_Model_Resource_Wishlist            _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
- * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
- * @method int getShared()
- * @method string getSharingCode()
- * @method string getUpdatedAt()
- * @method string getVisibility()
- * @method $this setShared(int $value)
- * @method $this setSharingCode(string $value)
- * @method $this setUpdatedAt(string $value)
+ * @method Mage_Wishlist_Model_Resource_Wishlist            getResource()
+ * @method int                                              getShared()
+ * @method string                                           getSharingCode()
+ * @method string                                           getUpdatedAt()
+ * @method string                                           getVisibility()
+ * @method $this                                            setShared(int $value)
+ * @method $this                                            setSharingCode(string $value)
+ * @method $this                                            setUpdatedAt(string $value)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -71,8 +71,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Load wishlist by customer
      *
-     * @param mixed $customer
-     * @param bool $create Create wishlist if don't exists
+     * @param  mixed               $customer
+     * @param  bool                $create   Create wishlist if don't exists
      * @return $this
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -125,7 +125,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Load by sharing code
      *
-     * @param string $code
+     * @param  string              $code
      * @return $this
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -184,8 +184,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Add catalog product object data to wishlist
      *
-     * @param  int $qty
-     * @param  bool $forciblySetQty
+     * @param  int                             $qty
+     * @param  bool                            $forciblySetQty
      * @return Mage_Wishlist_Model_Item
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -258,7 +258,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve wishlist item collection
      *
-     * @param int $itemId
+     * @param  int                             $itemId
      * @return false|Mage_Wishlist_Model_Item
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -313,9 +313,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Adds new product to wishlist.
      * Returns new item or string on error.
      *
-     * @param int|Mage_Catalog_Model_Product $product
-     * @param mixed $buyRequest
-     * @param bool $forciblySetQty
+     * @param  int|Mage_Catalog_Model_Product  $product
+     * @param  mixed                           $buyRequest
+     * @param  bool                            $forciblySetQty
      * @return Mage_Wishlist_Model_Item|string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -401,7 +401,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Set customer id
      *
-     * @param int $customerId
+     * @param  int                 $customerId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -439,7 +439,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Retrieve shared store ids for current website or all stores if $current is false
      *
-     * @param bool $current Use current website or not
+     * @param  bool                $current Use current website or not
      * @return array<null|int>
      * @throws Mage_Core_Exception
      */
@@ -465,7 +465,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Set shared store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setSharedStoreIds($storeIds)
@@ -493,7 +493,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Set wishlist store
      *
-     * @param Mage_Core_Model_Store $store
+     * @param  Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -536,7 +536,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Check customer is owner this wishlist
      *
-     * @param int $customerId
+     * @param  int                 $customerId
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -559,9 +559,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * For more options see Mage_Catalog_Helper_Product->addParamsToBuyRequest()
      *
-     * @param int|Mage_Wishlist_Model_Item $itemId
-     * @param Varien_Object $buyRequest
-     * @param null|array|Varien_Object $params
+     * @param  int|Mage_Wishlist_Model_Item $itemId
+     * @param  Varien_Object                $buyRequest
+     * @param  null|array|Varien_Object     $params
      * @return $this
      * @throws Mage_Core_Exception
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()

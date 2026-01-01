@@ -15,7 +15,7 @@ class Varien_Filter_Object extends Zend_Filter
     protected $_columnFilters = [];
 
     /**
-     * @param string $column
+     * @param  string $column
      * @return $this
      */
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
@@ -34,7 +34,7 @@ class Varien_Filter_Object extends Zend_Filter
     }
 
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return mixed
      * @throws Exception
      */

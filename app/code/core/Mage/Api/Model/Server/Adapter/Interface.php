@@ -17,7 +17,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string                                  $handler
      * @return Mage_Api_Model_Server_Adapter_Interface
      */
     public function setHandler($handler);
@@ -53,7 +53,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      */
     public function fault($code, $message);

@@ -63,7 +63,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Load attribute types
      *
-     * @param int $typeId
+     * @param  int   $typeId
      * @return array
      */
     protected function _loadTypeAttributes($typeId)
@@ -84,7 +84,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Retrieve entity type data
      *
-     * @param string $entityType
+     * @param  string $entityType
      * @return array
      */
     public function fetchEntityTypeData($entityType)

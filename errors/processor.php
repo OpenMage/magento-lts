@@ -273,7 +273,7 @@ class Error_Processor
     /**
      * Load xml file
      *
-     * @param string $xmlFile file name
+     * @param  string                $xmlFile file name
      * @return null|SimpleXMLElement
      */
     protected function _loadXml(string $xmlFile)
@@ -311,7 +311,7 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param null|array $directories
+     * @param  null|array  $directories
      * @return null|string
      */
     protected function _getFilePath(string $file, $directories = null)

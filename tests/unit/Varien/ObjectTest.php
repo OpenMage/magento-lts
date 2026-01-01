@@ -28,9 +28,9 @@ final class ObjectTest extends TestCase
 
     /**
      * @dataProvider provideGetDataData
-     * @param mixed $expectedResult
-     * @param string $setKey
-     * @param mixed $setValue
+     * @param mixed           $expectedResult
+     * @param string          $setKey
+     * @param mixed           $setValue
      * @param null|int|string $index
      *
      * @group Varien_Object

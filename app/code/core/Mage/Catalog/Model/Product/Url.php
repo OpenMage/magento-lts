@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * 'no_selection' shouldn't be a valid image attribute value
      *
-     * @param string $image
+     * @param  string      $image
      * @return null|string
      */
     protected function _validImage($image)
@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve URL in current store
      *
-     * @param array $params the URL route params
+     * @param  array                           $params the URL route params
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -62,8 +62,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product URL
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  bool $useSid forced SID mode
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  bool                            $useSid  forced SID mode
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -85,8 +85,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product Url path (with category if exists)
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Product  $product
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve Product URL using UrlDataObject
      *
-     * @param array $params
+     * @param  array                           $params
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Returns checked store_id value
      *
-     * @param null|int $id
+     * @param  null|int $id
      * @return int
      */
     protected function _getStoreId($id = null)
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      * Check product category
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $params
+     * @param array                      $params
      *
      * @return null|int
      */
@@ -179,9 +179,9 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve product URL based on requestPath param
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $requestPath
-     * @param array $routeParams
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $requestPath
+     * @param  array                      $routeParams
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -204,8 +204,8 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     /**
      * Retrieve request path
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $categoryId
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int                        $categoryId
      * @return bool|string
      * @throws Mage_Core_Exception
      */

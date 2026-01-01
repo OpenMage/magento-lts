@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Filter checked/unchecked rows in grid
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)
@@ -259,7 +259,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Setter
      *
-     * @param array $selectedProducts
+     * @param  array $selectedProducts
      * @return $this
      */
     public function setSelectedProducts($selectedProducts)

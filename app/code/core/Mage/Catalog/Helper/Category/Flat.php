@@ -53,7 +53,7 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstrac
     /**
      * Check if Catalog Category Flat Data has been initialized
      *
-     * @param null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($store = null)

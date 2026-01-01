@@ -337,7 +337,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $row
+     * @param  Mage_Catalog_Model_Product $row
      * @return string
      */
     public function getRowUrl($row)

@@ -12,32 +12,32 @@
  *
  * @package    Mage_Rule
  *
- * @method false|string getAttribute()
- * @method array|string getAttributeOption()
- * @method bool getExplicitApply()
- * @method false|string getIsValueParsed()
- * @method false|string getOperator()
- * @method array getOperatorByInputType()
- * @method array|string getOperatorOption()
- * @method array getOperatorOptions()
- * @method string getPrefix()
+ * @method false|string             getAttribute()
+ * @method array|string             getAttributeOption()
+ * @method bool                     getExplicitApply()
+ * @method false|string             getIsValueParsed()
+ * @method false|string             getOperator()
+ * @method array                    getOperatorByInputType()
+ * @method array|string             getOperatorOption()
+ * @method array                    getOperatorOptions()
+ * @method string                   getPrefix()
  * @method Mage_Rule_Model_Abstract getRule()
- * @method false|string getType()
- * @method string getValueAfterElementHtml()
- * @method string getValueElementChooserUrl()
- * @method array getValueOption()
- * @method bool hasValueOption()
- * @method bool hasValueParsed()
- * @method $this setAttribute(false|string $value)
- * @method $this setIsValueParsed(false|string $value)
- * @method $this setJsFormObject(string  $value)
- * @method $this setOperator(false|string $value)
- * @method $this setOperatorByInputType(array $value)
- * @method $this setOperatorOption(array $value)
- * @method $this setType(string $value)
- * @method $this setValue(false|string $value)
- * @method $this setValueOption(array $value)
- * @method $this setValueParsed(array $value)
+ * @method false|string             getType()
+ * @method string                   getValueAfterElementHtml()
+ * @method string                   getValueElementChooserUrl()
+ * @method array                    getValueOption()
+ * @method bool                     hasValueOption()
+ * @method bool                     hasValueParsed()
+ * @method $this                    setAttribute(false|string $value)
+ * @method $this                    setIsValueParsed(false|string $value)
+ * @method $this                    setJsFormObject(string  $value)
+ * @method $this                    setOperator(false|string $value)
+ * @method $this                    setOperatorByInputType(array $value)
+ * @method $this                    setOperatorOption(array $value)
+ * @method $this                    setType(string $value)
+ * @method $this                    setValue(false|string $value)
+ * @method $this                    setValueOption(array $value)
+ * @method $this                    setValueParsed(array $value)
  */
 abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implements Mage_Rule_Model_Condition_Interface
 {
@@ -200,7 +200,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param array|Mage_Rule_Model_Condition_Abstract $arr
+     * @param  array|Mage_Rule_Model_Condition_Abstract $arr
      * @return $this
      */
     public function loadArray($arr)
@@ -215,7 +215,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param SimpleXMLElement|string $xml
+     * @param  SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)
@@ -692,7 +692,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -701,7 +701,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)
@@ -712,8 +712,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Validate product attribute value for condition
      *
-     * @param   mixed $validatedValue product attribute value
-     * @return  bool
+     * @param  mixed $validatedValue product attribute value
+     * @return bool
      */
     public function validateAttribute($validatedValue)
     {
@@ -836,9 +836,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     /**
      * Case and type insensitive comparison of values
      *
-     * @param float|int|string $validatedValue
-     * @param float|int|string $value
-     * @param bool $strict
+     * @param  float|int|string $validatedValue
+     * @param  float|int|string $value
+     * @param  bool             $strict
      * @return bool
      */
     protected function _compareValues($validatedValue, $value, $strict = true)

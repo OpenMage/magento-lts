@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get series
      *
-     * @param string $seriesId
+     * @param  string $seriesId
      * @return mixed
      */
     public function getSeries($seriesId)
@@ -393,8 +393,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get rows data
      *
-     * @param array $attributes
-     * @param bool $single
+     * @param  array $attributes
+     * @param  bool  $single
      * @return array
      */
     protected function getRowsData($attributes, $single = false)
@@ -418,7 +418,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * Set axis labels
      *
      * @param string $axis
-     * @param array $labels
+     * @param array  $labels
      */
     public function setAxisLabels($axis, $labels)
     {
@@ -448,7 +448,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Return pow
      *
-     * @param int $number
+     * @param  int $number
      * @return int
      */
     protected function _getPow($number)

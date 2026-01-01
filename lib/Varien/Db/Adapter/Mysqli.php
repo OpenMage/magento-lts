@@ -76,7 +76,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Run RAW Query
      *
-     * @param string $sql
+     * @param  string                           $sql
      * @return mysqli_result
      * @throws Zend_Db_Adapter_Mysqli_Exception
      */
@@ -220,13 +220,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * ADD CONSTRAINT
      *
-     * @param string $fkName
-     * @param string $tableName
-     * @param string $keyName
-     * @param string $refTableName
-     * @param string $refKeyName
-     * @param string $onDelete
-     * @param string $onUpdate
+     * @param  string    $fkName
+     * @param  string    $tableName
+     * @param  string    $keyName
+     * @param  string    $refTableName
+     * @param  string    $refKeyName
+     * @param  string    $onDelete
+     * @param  string    $onUpdate
      * @throws Exception
      */
     public function addConstraint(

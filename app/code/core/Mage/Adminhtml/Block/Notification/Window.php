@@ -11,7 +11,7 @@
  * @package    Mage_Adminhtml
  *
  * @method string getNoticeSeverity()
- * @method $this setNoticeSeverity(string $value)
+ * @method $this  setNoticeSeverity(string $value)
  *
  * @property string $_aclResourcePath
  */

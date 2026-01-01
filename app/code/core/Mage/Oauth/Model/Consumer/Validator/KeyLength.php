@@ -57,7 +57,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
      * Returns true if and only if the string length of $value is at least the min option and
      * no greater than the max option (when the max option is not null).
      *
-     * @param  string $value
+     * @param  string              $value
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -92,7 +92,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Core_Helper_Val
     /**
      * Set key name
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setName($name)

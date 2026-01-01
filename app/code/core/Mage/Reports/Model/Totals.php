@@ -17,9 +17,9 @@ class Mage_Reports_Model_Totals
     /**
      * Retrieve count totals
      *
-     * @param Mage_Adminhtml_Block_Report_Product_Grid $grid
-     * @param string $from
-     * @param string $to
+     * @param  Mage_Adminhtml_Block_Report_Product_Grid $grid
+     * @param  string                                   $from
+     * @param  string                                   $to
      * @return Varien_Object
      */
     public function countTotals($grid, $from, $to)

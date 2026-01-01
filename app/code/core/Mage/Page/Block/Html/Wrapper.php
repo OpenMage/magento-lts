@@ -15,10 +15,10 @@
  * @method string getElementClass()
  * @method string getElementId()
  * @method string getOtherParams()
- * @method bool hasElementClass()
- * @method bool hasElementId()
- * @method bool hasMayBeInvisible()
- * @method bool hasOtherParams()
+ * @method bool   hasElementClass()
+ * @method bool   hasElementId()
+ * @method bool   hasMayBeInvisible()
+ * @method bool   hasOtherParams()
  */
 class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
 {
@@ -69,7 +69,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
 
     /**
      * Setter whether this block depends on children
-     * @param string $depends
+     * @param  string $depends
      * @return $this
      */
     public function dependsOnChildren($depends = '0')

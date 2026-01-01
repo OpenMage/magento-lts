@@ -12,16 +12,16 @@
  *
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext            _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
- * @method string getDataIndex()
- * @method int getProductId()
- * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method string                                                getDataIndex()
+ * @method int                                                   getProductId()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
- * @method int getStoreId()
- * @method $this setDataIndex(string $value)
- * @method $this setProductId(int $value)
- * @method $this setStoreId(int $value)
+ * @method int                                                   getStoreId()
+ * @method $this                                                 setDataIndex(string $value)
+ * @method $this                                                 setProductId(int $value)
+ * @method $this                                                 setStoreId(int $value)
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {
@@ -60,7 +60,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * (1, 2)       => Regenerate index for product Id=2 and its store view Id=1
      * (null, 2)    => Regenerate index for all store views of product Id=2
      *
-     * @param null|int $storeId Store View Id
+     * @param null|int       $storeId    Store View Id
      * @param null|array|int $productIds Product Entity Id
      *
      * @return $this
@@ -88,8 +88,8 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * (1, 2)       => Clean index of product Id=2 and its store view Id=1
      * (null, 2)    => Clean index of all store views of product Id=2
      *
-     * @param int $storeId Store View Id
-     * @param int $productId Product Entity Id
+     * @param  int   $storeId   Store View Id
+     * @param  int   $productId Product Entity Id
      * @return $this
      */
     public function cleanIndex($storeId = null, $productId = null)
@@ -112,7 +112,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Prepare results for query
      *
-     * @param Mage_CatalogSearch_Model_Query $query
+     * @param  Mage_CatalogSearch_Model_Query $query
      * @return $this
      */
     public function prepareResult($query = null)
@@ -133,7 +133,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Retrieve search type
      *
-     * @param int $storeId
+     * @param  int $storeId
      * @return int
      */
     public function getSearchType($storeId = null)
@@ -146,7 +146,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     /**
      * Set whether table changes are allowed
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      * @deprecated after 1.6.1.0
      */

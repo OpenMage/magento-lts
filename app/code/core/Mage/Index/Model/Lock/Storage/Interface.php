@@ -17,7 +17,7 @@ interface Mage_Index_Model_Lock_Storage_Interface
     /**
      * Set named lock
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function setLock($lockName);
@@ -25,7 +25,7 @@ interface Mage_Index_Model_Lock_Storage_Interface
     /**
      * Release named lock
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function releaseLock($lockName);
@@ -33,7 +33,7 @@ interface Mage_Index_Model_Lock_Storage_Interface
     /**
      * Check whether the lock exists
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     public function isLockExists($lockName);
