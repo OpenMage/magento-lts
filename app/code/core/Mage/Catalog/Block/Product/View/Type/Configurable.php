@@ -263,7 +263,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'taxConfig'         => $taxConfig,
         ];
 
-        if ($preconfiguredFlag && !empty($defaultValues)) {
+        if ($preconfiguredFlag && $defaultValues !== []) {
             $config['defaultValues'] = $defaultValues;
         }
 

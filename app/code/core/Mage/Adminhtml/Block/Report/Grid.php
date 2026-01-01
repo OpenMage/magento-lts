@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         // And then array_intersect with post data for prevent unauthorized stores reports
         $storeIds = array_intersect($allowedStoreIds, $storeIds);
         // If selected all websites or unauthorized stores use only allowed
-        if (empty($storeIds)) {
+        if ($storeIds === []) {
             $storeIds = $allowedStoreIds;
         }
 

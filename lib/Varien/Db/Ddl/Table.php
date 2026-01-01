@@ -560,7 +560,7 @@ class Varien_Db_Ddl_Table
             $position++;
         }
 
-        if (empty($columns)) {
+        if ($columns === []) {
             throw new Zend_Db_Exception('Columns for index are not defined');
         }
 

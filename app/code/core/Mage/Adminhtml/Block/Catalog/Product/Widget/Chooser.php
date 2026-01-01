@@ -184,7 +184,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 // $collection->addCategoryFilter($category);
                 $productIds = $category->getProductsPosition();
                 $productIds = array_keys($productIds);
-                if (empty($productIds)) {
+                if ($productIds === []) {
                     $productIds = 0;
                 }
 

@@ -83,7 +83,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         $shippingTax    = $this->_getShippingTax();
         $taxClassAmount = array_merge($taxClassAmount, $shippingTax);
 
-        if (!empty($taxClassAmount)) {
+        if ($taxClassAmount !== []) {
             foreach ($taxClassAmount as &$tax) {
                 $percent          = $tax['percent'] ? ' (' . $tax['percent'] . '%)' : '';
                 $tax['amount']    = $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($tax['tax_amount']);

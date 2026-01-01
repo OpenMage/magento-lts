@@ -1074,7 +1074,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $productIds = array_keys($customOptions['product_id']);
             $productIds = array_diff($productIds, $alreadyUsedProductIds);
             if ($this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && !empty($productIds)
+                && $productIds !== []
             ) { // remove old data?
                 $this->_connection->delete(
                     $optionTable,
@@ -1864,7 +1864,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
     {
-        if (empty($mediaGalleryData)) {
+        if ($mediaGalleryData === []) {
             return $this;
         }
 

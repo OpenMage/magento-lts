@@ -138,7 +138,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      */
     protected function _binarySearch($value, $limits = null)
     {
-        if (empty($this->_prices)) {
+        if ($this->_prices === []) {
             return -1;
         }
 
@@ -493,7 +493,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $tenPower /= 10;
         }
 
-        return empty($result) ? [1 => []] : $result;
+        return $result === [] ? [1 => []] : $result;
     }
 
     /**

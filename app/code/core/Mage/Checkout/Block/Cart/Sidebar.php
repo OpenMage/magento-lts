@@ -237,7 +237,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         }
 
         $renders = explode('|', $renders);
-        while (!empty($renders)) {
+        while ($renders !== []) {
             $template = array_pop($renders);
             $block = array_pop($renders);
             $type = array_pop($renders);

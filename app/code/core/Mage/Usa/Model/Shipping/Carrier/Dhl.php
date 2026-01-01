@@ -800,7 +800,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         if ($this->_rawRequest->getAction() == 'GenerateLabel') {
             $result = new Varien_Object();
-            if (!empty($this->_errors)) {
+            if ($this->_errors !== []) {
                 $result->setErrors(implode('; ', $this->_errors));
             } else {
                 if (isset($xml) && $xml !== false) {
@@ -838,7 +838,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                     $rate->setPrice($data['price_total']);
                     $result->append($rate);
                 }
-            } elseif (!empty($this->_errors)) {
+            } elseif ($this->_errors !== []) {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier('dhl');
                 $error->setCarrierTitle($this->getConfigData('title'));

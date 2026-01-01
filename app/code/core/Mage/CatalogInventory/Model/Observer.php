@@ -1004,7 +1004,7 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             Mage::getSingleton('cataloginventory/stock')->lockProductItems($productIds);
         }
 

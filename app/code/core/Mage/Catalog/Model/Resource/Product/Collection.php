@@ -633,7 +633,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productWebsites[$product->getId()] = [];
         }
 
-        if (!empty($productWebsites)) {
+        if ($productWebsites !== []) {
             $select = $this->getConnection()->select()
                 ->from(['product_website' => $this->_productWebsiteTable])
                 ->join(
@@ -1524,7 +1524,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $product->getId();
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()
@@ -1998,7 +1998,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         $ids = array_keys($this->_items);
-        if (empty($ids)) {
+        if ($ids === []) {
             return $this;
         }
 
@@ -2099,7 +2099,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         foreach ($this->getItems() as $item) {
             $data = $tierPrices[$item->getId()];
-            if (!empty($data) && $websiteId) {
+            if ($data !== [] && $websiteId) {
                 $data = $backend->preparePriceData($data, $item->getTypeId(), $websiteId);
             }
 

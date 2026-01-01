@@ -145,7 +145,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 }
             }
 
-            if (!empty($data)) {
+            if ($data !== []) {
                 $adapter->insertOnDuplicate(
                     $this->getTable($entityInfo['associations_table']),
                     $data,
@@ -193,11 +193,11 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         }
 
         $where = [];
-        if (!empty($ruleIds)) {
+        if ($ruleIds !== []) {
             $where[] = $writeAdapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?)', $ruleIds);
         }
 
-        if (!empty($entityIds)) {
+        if ($entityIds !== []) {
             $where[] = $writeAdapter->quoteInto($entityInfo['entity_id_field'] . ' IN (?)', $entityIds);
         }
 

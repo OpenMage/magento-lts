@@ -47,7 +47,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
         /** @var Mage_Core_Model_Email_Template $emailTemplate */
         $emailTemplate = Mage::getModel('core/email_template');
         // Send all emails from corresponding list
-        while (!empty($this->_emailInfos)) {
+        while ($this->_emailInfos !== []) {
             $emailInfo = array_pop($this->_emailInfos);
             // Handle "Bcc" recipients of the current email
             $emailTemplate->addBcc($emailInfo->getBccEmails());

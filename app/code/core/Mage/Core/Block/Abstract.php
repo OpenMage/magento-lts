@@ -1435,7 +1435,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $tags = json_decode($tagsCache);
         }
 
-        if (!isset($tags) || !is_array($tags) || empty($tags)) {
+        if (!isset($tags) || !is_array($tags) || $tags === []) {
             $tags = $this->hasData(self::CACHE_TAGS_DATA_KEY) ? $this->getData(self::CACHE_TAGS_DATA_KEY) : [];
             if (!in_array(self::CACHE_GROUP, $tags)) {
                 $tags[] = self::CACHE_GROUP;

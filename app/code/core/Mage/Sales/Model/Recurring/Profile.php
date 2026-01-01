@@ -349,7 +349,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             $this->_errors['state'][] = Mage::helper('sales')->__('Wrong state: "%s".', $this->getState());
         }
 
-        return empty($this->_errors);
+        return $this->_errors === [];
     }
 
     /**

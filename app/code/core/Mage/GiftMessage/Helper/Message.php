@@ -102,7 +102,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         switch ($type) {
             case self::TYPE_ITEMS:
                 $items = $entity->getAllItems();
-                if (!is_array($items) || empty($items)) {
+                if (!is_array($items) || $items === []) {
                     return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
 

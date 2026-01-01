@@ -505,7 +505,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getProductByAttributes($attributesInfo, $product = null)
     {
-        if (is_array($attributesInfo) && !empty($attributesInfo)) {
+        if (is_array($attributesInfo) && $attributesInfo !== []) {
             $productCollection = $this->getUsedProductCollection($product)->addAttributeToSelect('name');
             foreach ($attributesInfo as $attributeId => $attributeValue) {
                 $productCollection->addAttributeToFilter($attributeId, $attributeValue);

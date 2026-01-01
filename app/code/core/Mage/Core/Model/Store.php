@@ -889,7 +889,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         // take first one of allowed codes
         $codes = array_values($this->getAvailableCurrencyCodes(true));
-        if (empty($codes)) {
+        if ($codes === []) {
             // return default code, if no codes specified at all
             return $this->getDefaultCurrencyCode();
         }

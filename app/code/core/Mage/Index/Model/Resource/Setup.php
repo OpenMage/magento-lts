@@ -51,11 +51,11 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
         $delete = array_diff($existingIndexes, $indexCodes);
         $insert = array_diff($indexCodes, $existingIndexes);
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $connection->delete($table, $connection->quoteInto('indexer_code IN (?)', $delete));
         }
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $insertData = [];
             foreach ($insert as $code) {
                 $insertData[] = [

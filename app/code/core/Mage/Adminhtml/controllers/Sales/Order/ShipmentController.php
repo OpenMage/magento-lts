@@ -671,7 +671,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
                 $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
                 }
@@ -680,7 +680,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
                 $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);
                 }
@@ -697,7 +697,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         }
 
-        if (!empty($labelsContent)) {
+        if ($labelsContent !== []) {
             $outputPdf = $this->_combineLabelsPdf($labelsContent);
             $this->_prepareDownloadResponse('ShippingLabels.pdf', $outputPdf->render(), 'application/pdf');
             return;

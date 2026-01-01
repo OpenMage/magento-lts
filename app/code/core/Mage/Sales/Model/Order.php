@@ -2517,7 +2517,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $attributesForSave[] = 'shipping_address_id';
             }
 
-            if (!empty($attributesForSave)) {
+            if ($attributesForSave !== []) {
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }

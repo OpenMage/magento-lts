@@ -59,7 +59,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
             $children[$rule->getId()] = [];
         }
 
-        if (!empty($children)) {
+        if ($children !== []) {
             $joinCondition = sprintf('item.%s = calculation.%s', $secondaryJoinField, $primaryJoinField);
             $select = $this->getConnection()->select()
                 ->from(

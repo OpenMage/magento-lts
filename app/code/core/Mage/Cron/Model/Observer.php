@@ -328,7 +328,7 @@ class Mage_Cron_Model_Observer
                 $arguments = [$schedule];
             }
 
-            if (empty($callback)) {
+            if ($callback === []) {
                 Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
             }
 

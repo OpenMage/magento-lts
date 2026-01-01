@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     public function addIdFilter($categoryIds)
     {
         if (is_array($categoryIds)) {
-            if (empty($categoryIds)) {
+            if ($categoryIds === []) {
                 $condition = '';
             } else {
                 $condition = ['in' => $categoryIds];
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
             $condition = $categoryIds;
         } elseif (is_string($categoryIds)) {
             $ids = explode(',', $categoryIds);
-            if (empty($ids)) {
+            if ($ids === []) {
                 $condition = $categoryIds;
             } else {
                 $condition = ['in' => $ids];
@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if ($countRegular) {
             // Retrieve regular categories product counts
             $regularIds = array_keys($regular);
-            if (!empty($regularIds)) {
+            if ($regularIds !== []) {
                 $select = $this->_conn->select();
                 $select->from(
                     ['main_table' => $this->_productTable],

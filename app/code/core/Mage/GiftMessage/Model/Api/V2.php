@@ -36,7 +36,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                     }
                 }
 
-                if (!empty($assocArr)) {
+                if ($assocArr !== []) {
                     $arr[$key] = $assocArr;
                 }
             }

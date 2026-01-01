@@ -194,7 +194,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             }
         }
 
-        if (empty($headOptions)) {
+        if ($headOptions === []) {
             return $countryOptions;
         }
 

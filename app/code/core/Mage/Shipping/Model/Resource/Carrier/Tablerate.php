@@ -421,7 +421,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      */
     protected function _saveImportData(array $data)
     {
-        if (!empty($data)) {
+        if ($data !== []) {
             $columns = ['website_id', 'dest_country_id', 'dest_region_id', 'dest_zip',
                 'condition_name', 'condition_value', 'price'];
             $this->_getWriteAdapter()->insertArray($this->getMainTable(), $columns, $data);

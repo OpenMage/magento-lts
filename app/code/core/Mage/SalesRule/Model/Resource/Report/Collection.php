@@ -154,7 +154,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
             $rulesFilterSqlParts[] = $this->getConnection()->quoteInto('rule_name = ?', $ruleName);
         }
 
-        if (!empty($rulesFilterSqlParts)) {
+        if ($rulesFilterSqlParts !== []) {
             $this->getSelect()->where(implode(' OR ', $rulesFilterSqlParts));
         }
 

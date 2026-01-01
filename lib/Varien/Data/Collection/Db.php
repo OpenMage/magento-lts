@@ -271,7 +271,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     });
                 }
 
-                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
+                if ($whereUsingJoin === [] && $joinUsingBind === []) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
                 }

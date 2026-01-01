@@ -119,7 +119,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
         if (!empty($requiredAgreements)) {
             $diff = array_diff($agreements, $requiredAgreements);
-            if (!empty($diff)) {
+            if ($diff !== []) {
                 $this->_fault('required_agreements_are_not_all');
             }
         }

@@ -295,7 +295,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 }
             }
 
-            if (!empty($rows)) {
+            if ($rows !== []) {
                 $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
             }
         }
@@ -329,7 +329,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 $websiteIds = explode(',', $websiteIds);
             }
 
-            if (empty($websiteIds)) {
+            if ($websiteIds === []) {
                 $write->commit();
                 return $this;
             }

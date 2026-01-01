@@ -510,7 +510,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
 
         $result = Mage::getModel('shipping/rate_result');
-        if (empty($priceArr)) {
+        if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier($this->_code);
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -718,7 +718,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
 
         $result = Mage::getModel('shipping/rate_result');
-        if (empty($priceArr)) {
+        if ($priceArr === []) {
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('fedex');
             $error->setCarrierTitle($this->getConfigData('title'));

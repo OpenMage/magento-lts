@@ -183,7 +183,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
             $this->_isPreparedToRender = true;
         }
 
-        if (empty($this->_columns)) {
+        if ($this->_columns === []) {
             throw new Exception('At least one column must be defined.');
         }
 

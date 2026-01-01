@@ -63,7 +63,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 }
 
                 $firstRow = false;
-                if (!empty($rowData)) {
+                if ($rowData !== []) {
                     $wsData[] = $rowData;
                 }
             }

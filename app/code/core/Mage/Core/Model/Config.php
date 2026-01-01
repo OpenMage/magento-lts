@@ -581,7 +581,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $tags[] = self::CACHE_TAG;
         }
 
-        if (!empty($this->_cacheSections)) {
+        if ($this->_cacheSections !== []) {
             $xml = clone $this->_xml;
             foreach ($this->_cacheSections as $sectionName => $level) {
                 $this->_saveSectionCache($this->getCacheId(), $sectionName, $xml, $level, $tags);

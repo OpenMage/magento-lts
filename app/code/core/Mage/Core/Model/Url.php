@@ -424,7 +424,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $this->setRouteName($route);
         $routePath = $route . '/';
 
-        if (!empty($a)) {
+        if ($a !== []) {
             $controller = array_shift($a);
             if ($controller === '*') {
                 $controller = $this->getRequest()->getRequestedControllerName();
@@ -434,7 +434,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath .= $controller . '/';
         }
 
-        if (!empty($a)) {
+        if ($a !== []) {
             $action = array_shift($a);
             if ($action === '*') {
                 $action = $this->getRequest()->getRequestedActionName();
@@ -444,11 +444,11 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath .= $action . '/';
         }
 
-        if (!empty($a)) {
+        if ($a !== []) {
             $this->unsetData('route_params');
-            while (!empty($a)) {
+            while ($a !== []) {
                 $key = array_shift($a);
-                if (!empty($a)) {
+                if ($a !== []) {
                     $value = array_shift($a);
                     $this->setRouteParam($key, $value);
                     $routePath .= $key . '/' . $value . '/';

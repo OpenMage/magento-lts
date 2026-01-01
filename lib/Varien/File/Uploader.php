@@ -488,7 +488,7 @@ class Varien_File_Uploader
      */
     public function checkAllowedExtension($extension)
     {
-        if (!is_array($this->_allowedExtensions) || empty($this->_allowedExtensions)) {
+        if (!is_array($this->_allowedExtensions) || $this->_allowedExtensions === []) {
             return true;
         }
 

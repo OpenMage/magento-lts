@@ -107,7 +107,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ];
             }
 
-            if (!empty($data)) {
+            if ($data !== []) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
             }
         }

@@ -334,7 +334,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             $arr[(string) $subkey] = $value->asArray();
                         }
 
-                        if (!empty($arr)) {
+                        if ($arr !== []) {
                             $args[$key] = $arr;
                         }
                     }

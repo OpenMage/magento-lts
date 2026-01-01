@@ -315,7 +315,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function ksortMultibyte(array &$sort)
     {
-        if (empty($sort)) {
+        if ($sort === []) {
             return false;
         }
 

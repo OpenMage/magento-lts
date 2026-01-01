@@ -216,7 +216,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
             $this->_errors[] = Mage::helper('payment')->__('Billing Agreement status is not set.');
         }
 
-        return $result && empty($this->_errors);
+        return $result && $this->_errors === [];
     }
 
     /**

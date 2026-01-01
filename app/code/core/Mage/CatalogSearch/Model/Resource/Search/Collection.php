@@ -180,7 +180,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
             }
         }
 
-        if (empty($attributeIds)) {
+        if ($attributeIds === []) {
             return false;
         }
 

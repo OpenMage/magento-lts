@@ -82,7 +82,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if (empty($this->_recipients) || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
+        if ($this->_recipients === [] || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
             $error = Mage::helper('core')->__('Message recipients data must be set.');
             Mage::throwException("{$error} - ID: " . $this->getId());
         }

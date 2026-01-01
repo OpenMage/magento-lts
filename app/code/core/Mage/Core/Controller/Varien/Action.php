@@ -976,12 +976,12 @@ abstract class Mage_Core_Controller_Varien_Action
         if (is_string($text)) {
             $this->_titles[] = $text;
         } elseif ($text === -1) {
-            if (empty($this->_titles)) {
+            if ($this->_titles === []) {
                 $this->_removeDefaultTitle = true;
             } else {
                 array_pop($this->_titles);
             }
-        } elseif (empty($this->_titles) || $resetIfExists) {
+        } elseif ($this->_titles === [] || $resetIfExists) {
             if ($text === false) {
                 $this->_removeDefaultTitle = false;
                 $this->_titles = [];

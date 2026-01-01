@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             parse_str(urldecode($filter), $data);
         }
 
-        if (!empty($data)) {
+        if ($data !== []) {
             $collection->prepareForAbandonedReport($this->_storeIds, $data);
         } else {
             $collection->prepareForAbandonedReport($this->_storeIds);

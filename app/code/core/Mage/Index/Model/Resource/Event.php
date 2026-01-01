@@ -66,7 +66,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
         $processIds = $object->getProcessIds();
         if (is_array($processIds)) {
             $processTable = $this->getTable('index/process_event');
-            if (empty($processIds)) {
+            if ($processIds === []) {
                 $this->_getWriteAdapter()->delete($processTable);
             } else {
                 foreach ($processIds as $processId => $processStatus) {
@@ -105,7 +105,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
         $whereCondition = '';
         if ($process instanceof Mage_Index_Model_Process) {
             $whereCondition = ['process_id = ?' => $process->getId()];
-        } elseif (is_array($process) && !empty($process)) {
+        } elseif (is_array($process) && $process !== []) {
             $whereCondition = ['process_id IN (?)' => $process];
         } elseif (!empty($process)) {
             $whereCondition = ['process_id = ?' => $process];

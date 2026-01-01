@@ -254,7 +254,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
         while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
-            if (empty($line)) { // The line was empty, so skip it.
+            if ($line === []) { // The line was empty, so skip it.
                 continue;
             }
 

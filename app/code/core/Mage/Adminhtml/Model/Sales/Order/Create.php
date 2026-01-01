@@ -311,7 +311,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($orderShippingAddress) {
             $addressDiff = array_diff_assoc($orderShippingAddress->getData(), $order->getBillingAddress()->getData());
             unset($addressDiff['address_type'], $addressDiff['entity_id']);
-            $orderShippingAddress->setSameAsBilling(empty($addressDiff));
+            $orderShippingAddress->setSameAsBilling($addressDiff === []);
         }
 
         $this->_initBillingAddressFromOrder($order);
@@ -1655,7 +1655,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         foreach ($items as $item) {
             $messages = $item->getMessage(false);
-            if ($item->getHasError() && is_array($messages) && !empty($messages)) {
+            if ($item->getHasError() && is_array($messages) && $messages !== []) {
                 $this->_errors = array_merge($this->_errors, $messages);
             }
         }

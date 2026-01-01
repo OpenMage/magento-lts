@@ -933,7 +933,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $productIds = $this->getRequest()->getParam('product');
         if (!is_array($productIds)) {
             $this->_getSession()->addError($this->__('Please select product(s).'));
-        } elseif (!empty($productIds)) {
+        } elseif ($productIds !== []) {
             try {
                 foreach ($productIds as $productId) {
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD

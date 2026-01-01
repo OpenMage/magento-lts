@@ -113,7 +113,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function hasErrors()
     {
-        return (!empty($this->_errors) || $this->getDirectoryModel()->hasErrors());
+        return ($this->_errors !== [] || $this->getDirectoryModel()->hasErrors());
     }
 
     /**

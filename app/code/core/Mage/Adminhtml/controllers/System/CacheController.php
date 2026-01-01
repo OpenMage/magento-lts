@@ -89,7 +89,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         }
 
         // clean all requested system cache and update cache usage
-        if (!empty($clean)) {
+        if ($clean !== []) {
             Mage::app()->cleanCache($clean);
         }
 

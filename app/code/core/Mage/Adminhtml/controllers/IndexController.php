@@ -330,7 +330,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
             }

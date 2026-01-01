@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('request_path IN (?)', $paths);
         $data = $adapter->fetchCol($select, ['store_id' => $storeId]);
         $paths = array_diff($paths, $data);
-        if (empty($paths)) {
+        if ($paths === []) {
             return false;
         }
 
@@ -1265,7 +1265,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $result = [];
 
-        if (empty($products)) {
+        if ($products === []) {
             return $result;
         }
 

@@ -36,7 +36,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
                     }
                 }
 
-                if (!empty($assocArr)) {
+                if ($assocArr !== []) {
                     $arr[$key] = $assocArr;
                 }
             }

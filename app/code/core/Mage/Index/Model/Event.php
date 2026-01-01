@@ -206,7 +206,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     public function cleanNewData()
     {
         $processIds = $this->getProcessIds();
-        if (!is_array($processIds) || empty($processIds)) {
+        if (!is_array($processIds) || $processIds === []) {
             return $this;
         }
 

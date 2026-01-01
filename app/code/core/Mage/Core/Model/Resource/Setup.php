@@ -499,7 +499,7 @@ class Mage_Core_Model_Resource_Setup
 
         $handlerDir->close();
 
-        if (empty($typeFiles) && empty($dbFiles)) {
+        if ($typeFiles === [] && $dbFiles === []) {
             return [];
         }
 
@@ -553,7 +553,7 @@ class Mage_Core_Model_Resource_Setup
             $handlerDir->close();
         }
 
-        if (empty($files)) {
+        if ($files === []) {
             return [];
         }
 

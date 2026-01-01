@@ -541,7 +541,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $optionIds = array_keys($options);
 
-            if (empty($optionIds) && $isStrictProcessMode) {
+            if ($optionIds === [] && $isStrictProcessMode) {
                 return Mage::helper('bundle')->__('Please select options for product.');
             }
 
@@ -572,7 +572,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             }
 
             // If product has not been configured yet then $selections array should be empty
-            if (!empty($selectionIds)) {
+            if ($selectionIds !== []) {
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
 
                 // Check if added selections are still on sale
@@ -935,7 +935,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $bundleOption       = $buyRequest->getBundleOption();
 
-        if (empty($bundleOption) && empty($selectionIds)) {
+        if (empty($bundleOption) && $selectionIds === []) {
             Mage::throwException($this->getSpecifyOptionMessage());
         }
 
@@ -953,7 +953,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
         $optionsCollection = $this->getOptionsCollection($product);
         foreach ($optionsCollection->getItems() as $option) {
-            if ($option->getRequired() && empty($selectionIds) && empty($bundleOption[$option->getId()])) {
+            if ($option->getRequired() && $selectionIds === [] && empty($bundleOption[$option->getId()])) {
                 Mage::throwException(
                     Mage::helper('bundle')->__('Required options are not selected.'),
                 );

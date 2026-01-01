@@ -261,7 +261,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             return $this;
         }
 
-        if (empty($this->_targetDirs)) {
+        if ($this->_targetDirs === []) {
             throw new Exception('Please specify at least one target directory.');
         }
 
@@ -316,7 +316,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         }
 
         // apply filters on generated data
-        if (!empty($this->_filters)) {
+        if ($this->_filters !== []) {
             foreach ($this->$attributeName as $key => $row) {
                 if (!$this->_filterRow($row)) {
                     unset($this->{$attributeName}[$key]);

@@ -187,7 +187,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
          * Detect new tags
          */
         $newTags = array_diff($tags, array_keys($tagIds));
-        if (!empty($newTags)) {
+        if ($newTags !== []) {
             $this->_addTags($newTags);
             $select->reset(Zend_Db_Select::WHERE)
                 ->where('tags.tag_code IN (?)', $newTags);

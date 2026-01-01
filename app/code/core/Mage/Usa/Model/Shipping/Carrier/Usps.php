@@ -518,7 +518,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 }
 
                 $result = Mage::getModel('shipping/rate_result');
-                if (empty($priceArr)) {
+                if ($priceArr === []) {
                     $error = Mage::getModel('shipping/rate_result_error');
                     $error->setCarrier('usps');
                     $error->setCarrierTitle($this->getConfigData('title'));

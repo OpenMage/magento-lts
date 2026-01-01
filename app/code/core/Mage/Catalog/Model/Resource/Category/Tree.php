@@ -552,7 +552,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $result = [];
-        if (!empty($pathIds)) {
+        if ($pathIds !== []) {
             if ($addCollectionData) {
                 $select = $this->_createCollectionDataSelect(false);
             } else {

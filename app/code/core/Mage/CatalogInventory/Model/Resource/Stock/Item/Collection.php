@@ -56,7 +56,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
             }
         }
 
-        if (empty($productIds)) {
+        if ($productIds === []) {
             $productIds[] = false;
             $this->_setIsLoaded(true);
         }

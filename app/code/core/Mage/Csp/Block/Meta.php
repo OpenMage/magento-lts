@@ -78,7 +78,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
      */
     protected function _toHtml(): string
     {
-        if (empty($this->directives)) {
+        if ($this->directives === []) {
             return '';
         }
 

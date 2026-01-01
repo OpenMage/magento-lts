@@ -1026,7 +1026,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportTypes()
     {
-        return empty($this->_exportTypes) ? false : $this->_exportTypes;
+        return $this->_exportTypes === [] ? false : $this->_exportTypes;
     }
 
     /**
@@ -1054,7 +1054,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRssLists()
     {
-        return empty($this->_rssLists) ? false : $this->_rssLists;
+        return $this->_rssLists === [] ? false : $this->_rssLists;
     }
 
     /**

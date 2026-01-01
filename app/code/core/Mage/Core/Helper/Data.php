@@ -859,7 +859,7 @@ XML;
                     }
                 }
 
-                if (empty($srcFiles)) {
+                if ($srcFiles === []) {
                     // no translation intentionally
                     throw new Exception('No files to compile.');
                 }

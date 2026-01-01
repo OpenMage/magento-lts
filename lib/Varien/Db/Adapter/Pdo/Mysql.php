@@ -2138,7 +2138,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         $updateFields = [];
-        if (empty($fields)) {
+        if ($fields === []) {
             $fields = $cols;
         }
 
@@ -2412,7 +2412,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         // PRIMARY KEY
-        if (!empty($primary)) {
+        if ($primary !== []) {
             asort($primary, SORT_NUMERIC);
             $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));

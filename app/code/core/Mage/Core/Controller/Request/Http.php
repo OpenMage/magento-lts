@@ -527,7 +527,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function initForward()
     {
-        if (empty($this->_beforeForwardInfo)) {
+        if ($this->_beforeForwardInfo === []) {
             $this->_beforeForwardInfo = [
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),

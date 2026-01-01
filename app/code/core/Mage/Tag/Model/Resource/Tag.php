@@ -337,7 +337,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
     public function decrementProducts(array $tagsId)
     {
         $writeAdapter = $this->_getWriteAdapter();
-        if (empty($tagsId)) {
+        if ($tagsId === []) {
             return 0;
         }
 

@@ -1137,7 +1137,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             Mage::throwException(implode("\n", $errors));
         }
 

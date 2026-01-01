@@ -424,7 +424,7 @@ class Mage_Core_Model_Translate
         }
 
         try {
-            $result = empty($args) ? false : vsprintf($translated, $args);
+            $result = $args === [] ? false : vsprintf($translated, $args);
         } catch (ValueError) {
             $result = false;
         }

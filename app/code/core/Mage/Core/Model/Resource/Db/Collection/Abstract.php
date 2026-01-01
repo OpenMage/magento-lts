@@ -665,7 +665,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _canUseCache()
     {
-        return Mage::app()->useCache('collections') && !empty($this->_cacheConf);
+        return Mage::app()->useCache('collections') && $this->_cacheConf !== [];
     }
 
     /**

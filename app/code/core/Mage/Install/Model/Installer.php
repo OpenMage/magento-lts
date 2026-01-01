@@ -258,7 +258,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             $this->getDataModel()->addError($exception->getMessage());
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             return $errors;
         }
 

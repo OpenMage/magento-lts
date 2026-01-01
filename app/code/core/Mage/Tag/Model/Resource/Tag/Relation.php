@@ -162,7 +162,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         $insert = array_diff($addedIds, $oldRelationIds);
         $delete = array_diff($oldRelationIds, $addedIds);
 
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $insertData = [];
             foreach ($insert as $value) {
                 $insertData[] = [
@@ -177,7 +177,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
             $write->insertMultiple($this->getMainTable(), $insertData);
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $write->delete($this->getMainTable(), [
                 'product_id IN (?)' => $delete,
                 'store_id = ?'      => $model->getStoreId(),

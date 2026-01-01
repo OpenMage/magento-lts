@@ -25,7 +25,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     {
         if (is_array($parentId)) {
             $childrenIds = [];
-            if (!empty($parentId)) {
+            if ($parentId !== []) {
                 $select = $this->_getReadAdapter()->select()
                     ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
                     ->join(
