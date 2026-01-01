@@ -346,6 +346,11 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         return 'eav/entity_attribute_source_table';
     }
 
+    public function getDefaultSourceModel(): string
+    {
+        return $this->_getDefaultSourceModel();
+    }
+
     /**
      * Check is an attribute used in EAV index
      *
