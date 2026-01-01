@@ -31,8 +31,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
 
             if ($this->char() != '=') {
                 $parameterName .= $this->char();
-            }
-            else {
+            } else {
                 $parameters[$parameterName] = $this->getValue();
                 $parameterName = '';
             }

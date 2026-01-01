@@ -136,8 +136,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         } elseif (is_numeric($parentNode)) {
             $parentId = $parentNode;
             $parentNode = null;
-        }
-        else {
+        } else {
             throw new Exception('root node id is not defined');
         }
 

@@ -144,8 +144,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
 
             if ($this->isNumeric()) {
                 $value[] = $this->getNumber();
-            }
-            else {
+            } else {
                 $value[] = $this->getString();
             }
         }

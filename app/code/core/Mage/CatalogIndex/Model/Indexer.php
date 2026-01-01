@@ -369,8 +369,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
             if ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
-            }
-            elseif (is_array($store)) { // array of stores
+            } elseif (is_array($store)) { // array of stores
                 foreach ($store as $storeObject) {
                     $this->_afterPlainReindex($storeObject->getId(), $products);
                 }

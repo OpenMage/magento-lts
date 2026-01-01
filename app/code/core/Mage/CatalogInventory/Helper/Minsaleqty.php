@@ -78,8 +78,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             } catch (Exception) {
                 return [];
             }
-        }
-        else {
+        } else {
             return [];
         }
     }
