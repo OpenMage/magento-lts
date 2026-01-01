@@ -15,13 +15,11 @@
  * @method Mage_Dataflow_Model_Resource_Batch            _getResource()
  * @method string                                        getAdapter()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getCollection()
- * @method string                                        getCreatedAt()
  * @method int                                           getProfileId()
  * @method Mage_Dataflow_Model_Resource_Batch            getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Collection getResourceCollection()
  * @method int                                           getStoreId()
  * @method $this                                         setAdapter(string $value)
- * @method $this                                         setCreatedAt(string $value)
  * @method $this                                         setProfileId(int $value)
  * @method $this                                         setStoreId(int $value)
  */

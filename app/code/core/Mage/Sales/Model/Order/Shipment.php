@@ -16,7 +16,6 @@
  * @method string                                              getBackUrl()
  * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
- * @method string                                              getCreatedAt()
  * @method int                                                 getCustomerId()
  * @method int                                                 getEmailSent()
  * @method string                                              getIncrementId()
@@ -29,9 +28,7 @@
  * @method int                                                 getStoreId()
  * @method float                                               getTotalQty()
  * @method float                                               getTotalWeight()
- * @method string                                              getUpdatedAt()
  * @method $this                                               setBillingAddressId(int $value)
- * @method $this                                               setCreatedAt(string $value)
  * @method $this                                               setCustomerId(int $value)
  * @method $this                                               setEmailSent(int $value)
  * @method $this                                               setIncrementId(string $value)
@@ -42,7 +39,6 @@
  * @method $this                                               setStoreId(int $value)
  * @method $this                                               setTotalQty(float $value)
  * @method $this                                               setTotalWeight(float $value)
- * @method $this                                               setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {

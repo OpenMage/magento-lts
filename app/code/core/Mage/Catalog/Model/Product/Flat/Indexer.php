@@ -14,22 +14,18 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer _getResource()
  * @method int                                              getAttributeSetId()
- * @method string                                           getCreatedAt()
  * @method int                                              getEntityTypeId()
  * @method int                                              getHasOptions()
  * @method int                                              getRequiredOptions()
  * @method Mage_Catalog_Model_Resource_Product_Flat_Indexer getResource()
  * @method string                                           getSku()
  * @method string                                           getTypeId()
- * @method string                                           getUpdatedAt()
  * @method $this                                            setAttributeSetId(int $value)
- * @method $this                                            setCreatedAt(string $value)
  * @method $this                                            setEntityTypeId(int $value)
  * @method $this                                            setHasOptions(int $value)
  * @method $this                                            setRequiredOptions(int $value)
  * @method $this                                            setSku(string $value)
  * @method $this                                            setTypeId(string $value)
- * @method $this                                            setUpdatedAt(string $value)
  */
 class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 {

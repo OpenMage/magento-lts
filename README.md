@@ -277,7 +277,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://www.denisahac.xyz"><img src="https://avatars.githubusercontent.com/u/6700576?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Den Isahac</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lc-excell"><img src="https://avatars.githubusercontent.com/u/158118232?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>lc-excell</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/warley-elias-531a4116/"><img src="https://avatars.githubusercontent.com/u/5356619?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Warley Elias</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/vernard"><img src="https://avatars.githubusercontent.com/u/6733673?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>vernard</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/vernad"><img src="https://avatars.githubusercontent.com/u/51973447?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>vernad</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/M-arcus"><img src="https://avatars.githubusercontent.com/u/25648755?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcus Müller</b></sub></a></td>
     </tr>
   </tbody>
 </table>

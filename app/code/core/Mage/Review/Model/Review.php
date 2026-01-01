@@ -14,7 +14,6 @@
  *
  * @method Mage_Review_Model_Resource_Review            _getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- * @method string                                       getCreatedAt()
  * @method array                                        getCustomerId()
  * @method string                                       getDetail()
  * @method int                                          getEntityPkValue()
@@ -26,7 +25,6 @@
  * @method int                                          getStoreId()
  * @method array                                        getStores()
  * @method string                                       getTitle()
- * @method $this                                        setCreatedAt(string $value)
  * @method $this                                        setCustomerId(int $value)
  * @method $this                                        setEntityId(int $value)
  * @method $this                                        setEntityPkValue(int $value)

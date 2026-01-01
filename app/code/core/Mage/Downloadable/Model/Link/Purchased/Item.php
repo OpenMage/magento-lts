@@ -14,7 +14,6 @@
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item            _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getCollection()
- * @method string                                                          getCreatedAt()
  * @method int                                                             getIsShareable()
  * @method string                                                          getLinkFile()
  * @method string                                                          getLinkHash()
@@ -31,8 +30,6 @@
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item            getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getResourceCollection()
  * @method string                                                          getStatus()
- * @method string                                                          getUpdatedAt()
- * @method $this                                                           setCreatedAt(string $value)
  * @method $this                                                           setIsShareable(int $value)
  * @method $this                                                           setLinkFile(string $value)
  * @method $this                                                           setLinkHash(string $value)
@@ -46,7 +43,6 @@
  * @method $this                                                           setProductId(int $value)
  * @method $this                                                           setPurchasedId(int $value)
  * @method $this                                                           setStatus(string $value)
- * @method $this                                                           setUpdatedAt(string $value)
  */
 class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstract
 {

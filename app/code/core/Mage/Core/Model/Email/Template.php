@@ -47,7 +47,6 @@
  * @method bool                                               getUseAbsoluteLinks()
  * @method int                                                hasQueue()
  * @method $this                                              setAddedAt(string $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setInlineCssFile(string $value)
  * @method $this                                              setModifiedAt(string $value)
  * @method $this                                              setOrigTemplateCode(string $value)
