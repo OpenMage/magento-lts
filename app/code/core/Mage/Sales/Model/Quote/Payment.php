@@ -26,7 +26,6 @@
  * @method int                                                getCcSsStartYear()
  * @method string                                             getCcType()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
- * @method string                                             getCreatedAt()
  * @method int                                                getCustomerPaymentId()
  * @method string                                             getCybersourceToken()
  * @method string                                             getIdealIssuerId()
@@ -40,7 +39,6 @@
  * @method Mage_Sales_Model_Resource_Quote_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getResourceCollection()
  * @method int                                                getStoreId()
- * @method string                                             getUpdatedAt()
  * @method $this                                              setAdditionalData(string $value)
  * @method $this                                              setCcCid(string $value)
  * @method $this                                              setCcCidEnc(string $value)
@@ -55,7 +53,6 @@
  * @method $this                                              setCcSsStartMonth(int $value)
  * @method $this                                              setCcSsStartYear(int $value)
  * @method $this                                              setCcType(string $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setCustomerPaymentId(int $value)
  * @method $this                                              setCybersourceToken(string $value)
  * @method $this                                              setIdealIssuerId(string $value)
@@ -67,7 +64,6 @@
  * @method $this                                              setPoNumber(string $value)
  * @method $this                                              setQuoteId(int $value)
  * @method $this                                              setStoreId(int $value)
- * @method $this                                              setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {

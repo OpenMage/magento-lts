@@ -3697,12 +3697,6 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/String.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
 			rawMessage: 'Parameter #2 $arguments of static method Mage::getResourceModel() expects array, object given.'
 			identifier: argument.type
 			count: 1

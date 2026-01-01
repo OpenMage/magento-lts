@@ -124,7 +124,6 @@ try {
             Php74\Closure\ClosureToArrowFunctionRector::class,
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,
-            Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
