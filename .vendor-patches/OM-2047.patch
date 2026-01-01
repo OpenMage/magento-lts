@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Cloud/DocumentService/Adapter/WindowsAzure.php
 +++ ../library/Zend/Cloud/DocumentService/Adapter/WindowsAzure.php
 @@ -525,7 +525,7 @@
       */
@@ -10,7 +10,7 @@
          }
      }
 
---- /dev/null
+--- ../library/Zend/Db/Statement.php
 +++ ../library/Zend/Db/Statement.php
 @@ -185,11 +185,11 @@
          // e.g. \' or ''
@@ -24,7 +24,7 @@
 -            $escapeChar = preg_quote($escapeChar);
 +            $escapeChar = preg_quote($escapeChar, '/');
              // this segfaults only after 65,000 characters instead of 9,000
-             $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', $sql);
+             $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', (string) $sql);
          }
 @@ -207,7 +207,7 @@
          // e.g. \" or "" or \`
@@ -33,10 +33,10 @@
 -        $de = preg_quote($de);
 +        $de = preg_quote($de, '/');
          // Note: $de and $d where never used..., now they are:
-         $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', $sql);
+         $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', (string) $sql);
          return $sql;
 
---- /dev/null
+--- ../library/Zend/Http/Cookie.php
 +++ ../library/Zend/Http/Cookie.php
 @@ -396,7 +396,7 @@
 
