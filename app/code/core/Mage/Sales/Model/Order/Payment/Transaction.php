@@ -16,7 +16,6 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()
- * @method string                                                         getCreatedAt()
  * @method int                                                            getIsClosed()
  * @method int                                                            getParentId()
  * @method string                                                         getParentTxnId()
@@ -25,7 +24,6 @@
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
  * @method string                                                         getTxnId()
  * @method string                                                         getTxnType()
- * @method $this                                                          setCreatedAt(string $value)
  * @method $this                                                          setIsClosed(int $value)
  * @method $this                                                          setOrderId(int $value)
  * @method $this                                                          setOrderUrl(string $value)

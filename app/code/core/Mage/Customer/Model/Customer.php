@@ -18,7 +18,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
  * @method string                                           getCompany()
  * @method bool                                             getConfirmation()
- * @method string                                           getCreatedAt()
  * @method int                                              getCustomerId()
  * @method null|int                                         getDefaultBilling()
  * @method null|int                                         getDefaultShipping()

@@ -25,7 +25,6 @@
  * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
  * @method string                                             getSynonymFor()
- * @method string                                             getUpdatedAt()
  * @method $this                                              setDisplayInTerms(int $value)
  * @method $this                                              setIsActive(int $value)
  * @method $this                                              setIsProcessed(int $value)
@@ -35,7 +34,6 @@
  * @method $this                                              setRatio(float $value)
  * @method $this                                              setRedirect(string $value)
  * @method $this                                              setSynonymFor(string $value)
- * @method $this                                              setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
