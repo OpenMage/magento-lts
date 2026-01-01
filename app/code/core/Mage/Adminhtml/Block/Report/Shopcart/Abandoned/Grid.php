@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         /** @var Mage_Reports_Model_Resource_Quote_Collection $collection */
         $collection = Mage::getResourceModel('reports/quote_collection');
 
+        $data = [];
         $filter = $this->getParam($this->getVarNameFilter(), []);
         if ($filter) {
             $filter = base64_decode($filter);
