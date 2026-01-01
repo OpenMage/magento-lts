@@ -214,12 +214,6 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Attribute/Group.php
 
 		-
@@ -279,7 +273,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 14
+			count: 13
 			path: app/code/core/Mage/Adminhtml/Block/Page/Menu.php
 
 		-
@@ -361,12 +355,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Filter/Form.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given.'
 			identifier: argument.type
 			count: 1
@@ -377,12 +365,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
 			rawMessage: 'Method Mage_Adminhtml_Block_Report_Grid_Abstract::getCollection() should return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection_Db|null.'
@@ -421,8 +403,8 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
+			rawMessage: Variable $data might not be defined.
+			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
@@ -493,12 +475,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php
-
-		-
 			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.'
 			identifier: argument.type
 			count: 1
@@ -549,7 +525,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 6
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form/Field/Array/Abstract.php
 
 		-
@@ -657,14 +633,8 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php
+			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -717,7 +687,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php
 
 		-
@@ -759,7 +729,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 5
+			count: 4
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
@@ -831,7 +801,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 5
+			count: 4
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
@@ -849,7 +819,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 14
+			count: 12
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
@@ -993,7 +963,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
 
 		-
@@ -1041,7 +1011,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 6
 			path: app/code/core/Mage/Adminhtml/controllers/IndexController.php
 
 		-
@@ -1143,7 +1113,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 16
+			count: 13
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
@@ -1179,7 +1149,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Adminhtml/controllers/System/CacheController.php
 
 		-
@@ -1653,13 +1623,19 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
+			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php
+
+		-
+			rawMessage: Variable $defaultValues might not be defined.
+			identifier: variable.undefined
+			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
 
 		-
@@ -1705,12 +1681,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			rawMessage: 'Method Mage_Bundle_Model_Product_Price::getOptions() should return Mage_Bundle_Model_Resource_Option_Collection but returns array.'
 			identifier: return.type
 			count: 1
@@ -1725,7 +1695,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 5
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
@@ -1843,16 +1813,10 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/View/Options/Type/File.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
+			rawMessage: Variable $defaultValues might not be defined.
+			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Seo/Sitemap/Tree/Category.php
 
 		-
 			rawMessage: Variable $store might not be defined.
@@ -1947,12 +1911,6 @@ parameters:
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract::setStoreId().'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Abstract.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Abstract.php
 
@@ -2223,7 +2181,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 7
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php
 
 		-
@@ -2259,7 +2217,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
@@ -2475,7 +2433,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 6
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
@@ -2523,7 +2481,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 8
+			count: 4
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
@@ -2531,12 +2489,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
 
 		-
 			rawMessage: 'Parameter #1 $object of method Mage_Catalog_Model_Resource_Attribute::_clearUselessAttributeValues() expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute given.'
@@ -2547,13 +2499,13 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
 
 		-
@@ -2589,7 +2541,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
 
 		-
@@ -2607,7 +2559,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
@@ -2649,7 +2601,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 12
+			count: 4
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
@@ -2673,7 +2625,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 5
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
@@ -2701,12 +2653,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
-
-		-
 			rawMessage: 'Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract::_getAttribute() should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.'
 			identifier: return.type
 			count: 1
@@ -2727,7 +2673,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 10
+			count: 8
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
@@ -2735,12 +2681,6 @@ parameters:
 			identifier: varTag.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -2763,7 +2703,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Option/Collection.php
 
 		-
@@ -2775,12 +2715,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Relation.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Status.php
 
@@ -2788,18 +2722,12 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 4
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 6
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
 
 		-
@@ -2877,7 +2805,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php
 
 		-
@@ -2919,7 +2847,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
 		-
@@ -2959,12 +2887,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
-
-		-
 			rawMessage: 'Method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection::_initSelect() should return $this(Mage_CatalogInventory_Model_Resource_Stock_Item_Collection) but returns Varien_Db_Select.'
 			identifier: return.type
 			count: 1
@@ -2987,12 +2909,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 2
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Stock/Status.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -3039,7 +2955,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 6
+			count: 4
 			path: app/code/core/Mage/CatalogRule/Model/Resource/Rule.php
 
 		-
@@ -3159,7 +3075,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
 
 		-
@@ -3201,7 +3117,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Sidebar.php
 
 		-
@@ -3279,7 +3195,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Api.php
 
 		-
@@ -3333,14 +3249,8 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 13
+			count: 9
 			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php
 
 		-
 			rawMessage: 'Method Mage_Checkout_Model_Session::getQuoteId() invoked with 1 parameter, 0 required.'
@@ -3409,12 +3319,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Resource/Page.php
-
-		-
 			rawMessage: 'Parameter #1 $attr of method Mage_ConfigurableSwatches_Helper_Data::attrIsSwatchType() expects int|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given.'
 			identifier: argument.type
 			count: 1
@@ -3459,19 +3363,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Model/Observer.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 8
+			count: 7
 			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
@@ -3489,12 +3381,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Core/Block/Html/Link.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 2
 			path: app/code/core/Mage/Core/Block/Html/Select.php
 
@@ -3507,7 +3393,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Block/Template/Facade.php
 
 		-
@@ -3561,13 +3447,13 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Core/Controller/Request/Http.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 19
+			count: 17
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
 		-
@@ -3646,18 +3532,12 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
 			path: app/code/core/Mage/Core/Helper/Cookie.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 8
 			path: app/code/core/Mage/Core/Helper/Data.php
 
 		-
@@ -3669,7 +3549,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Helper/EnvironmentConfigLoader.php
 
 		-
@@ -3689,12 +3569,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 2
 			path: app/code/core/Mage/Core/Helper/Js.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Core/Helper/String.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -3729,7 +3603,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 16
+			count: 15
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
@@ -3831,7 +3705,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Model/Email/Queue.php
 
 		-
@@ -3865,12 +3739,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Email/Template/Filter.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template/Mailer.php
-
-		-
 			rawMessage: 'Call to an undefined method Varien_Crypt_Abstract::init().'
 			identifier: method.notFound
 			count: 1
@@ -3885,7 +3753,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Model/File/Storage/Database.php
 
 		-
@@ -3903,7 +3771,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php
 
 		-
@@ -3915,7 +3783,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Core/Model/File/Storage/File.php
 
 		-
@@ -3969,7 +3837,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 13
+			count: 12
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
@@ -4071,13 +3939,13 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 8
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
@@ -4119,7 +3987,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 6
+			count: 3
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
@@ -4139,12 +4007,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Transaction.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Translate.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -4203,7 +4065,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 6
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
@@ -4221,7 +4083,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Core/Model/Translate.php
 
 		-
@@ -4245,7 +4107,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 2
 			path: app/code/core/Mage/Core/Model/Url.php
 
 		-
@@ -4305,7 +4167,19 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
+			path: app/code/core/Mage/Cron/Model/Observer.php
+
+		-
+			rawMessage: 'Strict comparison using === between array{mixed, non-empty-string} and array{} will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Cron/Model/Observer.php
+
+		-
+			rawMessage: Variable $callback might not be defined.
+			identifier: variable.undefined
+			count: 2
 			path: app/code/core/Mage/Cron/Model/Observer.php
 
 		-
@@ -4317,7 +4191,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Csp/Block/Meta.php
 
 		-
@@ -4509,7 +4383,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 10
+			count: 8
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
@@ -4647,12 +4521,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Directory/Block/Data.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 4
 			path: app/code/core/Mage/Directory/Helper/Data.php
 
@@ -4683,7 +4551,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Directory/Model/Resource/Country/Collection.php
 
 		-
@@ -4697,12 +4565,6 @@ parameters:
 			identifier: varTag.type
 			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Samples.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Customer/Products/List.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -4923,7 +4785,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 18
+			count: 17
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
@@ -5001,7 +4863,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 12
+			count: 10
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
@@ -5067,12 +4929,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Config.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 3
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
 
@@ -5097,32 +4953,20 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Eav/Model/Resource/Form/Fieldset.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
-			path: app/code/core/Mage/Eav/Model/Resource/Form/Type.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/GiftMessage/Helper/Message.php
+			path: app/code/core/Mage/Eav/Model/Resource/Form/Type.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 4
 			path: app/code/core/Mage/GiftMessage/Model/Api.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Model/Api/V2.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_GiftMessage_IndexController::_getMappedType().'
@@ -5217,7 +5061,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 29
+			count: 22
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
@@ -5289,7 +5133,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 30
+			count: 28
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
@@ -5349,7 +5193,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Index/Model/Event.php
 
 		-
@@ -5386,30 +5230,18 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Index/Model/Observer.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
 			path: app/code/core/Mage/Index/Model/Process.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Abstract.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 3
 			path: app/code/core/Mage/Index/Model/Resource/Event.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Event/Collection.php
 
 		-
@@ -5417,12 +5249,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Index/Model/Resource/Setup.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -5457,7 +5283,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 10
+			count: 9
 			path: app/code/core/Mage/Install/Model/Installer.php
 
 		-
@@ -5499,7 +5325,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Install/Model/Installer/Db.php
 
 		-
@@ -5513,12 +5339,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer/Env.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -5641,12 +5461,6 @@ parameters:
 			path: app/code/core/Mage/Page/Block/Template/Links.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Page/Helper/Layout.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Method_Abstract::isPartialAuthorization().'
 			identifier: method.notFound
 			count: 1
@@ -5717,12 +5531,6 @@ parameters:
 			identifier: varTag.type
 			count: 1
 			path: app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Billing/AgreementAbstract.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -5801,12 +5609,6 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Free.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
 			rawMessage: Dead catch - Mage_Core_Exception is never thrown in the try block.
@@ -6130,12 +5932,6 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Paypal/Model/Resource/Report/Settlement.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
 			path: app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php
 
 		-
@@ -6189,13 +5985,13 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
 		-
@@ -6291,7 +6087,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Reports/Model/Resource/Product/Index/Collection/Abstract.php
 
 		-
@@ -6299,12 +6095,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 2
 			path: app/code/core/Mage/Reports/Model/Resource/Product/Lowstock/Collection.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
 		-
 			rawMessage: PHPDoc type array of property Mage_Reports_Model_Resource_Quote_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
@@ -6381,12 +6171,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
-			path: app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Review/controllers/ProductController.php
 
@@ -6411,7 +6195,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 7
 			path: app/code/core/Mage/Rule/Model/Abstract.php
 
 		-
@@ -6453,13 +6237,13 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Abstract.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Rule/Model/Condition/Combine.php
 
 		-
@@ -6489,7 +6273,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 8
+			count: 5
 			path: app/code/core/Mage/Rule/Model/Resource/Abstract.php
 
 		-
@@ -6537,7 +6321,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Sales/Model/Billing/Agreement.php
 
 		-
@@ -6556,12 +6340,6 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Sale/Collection.php
 
 		-
@@ -6573,7 +6351,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 8
 			path: app/code/core/Mage/Sales/Model/Order.php
 
 		-
@@ -6675,12 +6453,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
 
@@ -6741,7 +6513,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
@@ -6849,7 +6621,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
@@ -6873,7 +6645,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
 
 		-
@@ -6881,12 +6653,6 @@ parameters:
 			identifier: varTag.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Address.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
 
 		-
 			rawMessage: 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.'
@@ -6921,7 +6687,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Status.php
 
 		-
@@ -6947,12 +6713,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Setup.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 7
-			path: app/code/core/Mage/Sales/Model/Service/Order.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Payment_Model_Recurring_Profile::submit().'
@@ -7005,14 +6765,8 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/SalesRule/Model/Resource/Rule.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().'
@@ -7023,7 +6777,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
@@ -7059,7 +6813,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 7
+			count: 6
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
 
 		-
@@ -7155,7 +6909,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
@@ -7255,22 +7009,10 @@ parameters:
 			path: app/code/core/Mage/Tag/Model/Resource/Product/Collection.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Resource/Tag.php
-
-		-
 			rawMessage: PHPDoc type array of property Mage_Tag_Model_Resource_Tag_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
 			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Tag/Model/Resource/Tag/Relation.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -7381,12 +7123,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Calculation.php
 
 		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Calculation/Rule/Collection.php
-
-		-
 			rawMessage: 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -7419,7 +7155,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
@@ -7491,7 +7227,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 5
+			count: 3
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
@@ -7509,7 +7245,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 10
+			count: 8
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
@@ -7533,7 +7269,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 6
+			count: 5
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
@@ -7653,7 +7389,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Wishlist/Model/Observer.php
 
 		-
@@ -7961,12 +7697,6 @@ parameters:
 			identifier: arguments.count
 			count: 12
 			path: app/design/frontend/base/default/template/checkout/onepage/review/item.phtml
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
