@@ -149,10 +149,17 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getConfigNodeName()
     {
-        return match ($this->getId()) {
-            self::ROLE_GUEST_ID => self::ROLE_CONFIG_NODE_NAME_GUEST,
-            self::ROLE_CUSTOMER_ID => self::ROLE_CONFIG_NODE_NAME_CUSTOMER,
-            default => self::ROLE_CONFIG_NODE_NAME_ADMIN,
-        };
+        switch ($this->getId()) {
+            case self::ROLE_GUEST_ID:
+                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_GUEST;
+                break;
+            case self::ROLE_CUSTOMER_ID:
+                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_CUSTOMER;
+                break;
+            default:
+                $roleNodeName = self::ROLE_CONFIG_NODE_NAME_ADMIN;
+        }
+
+        return $roleNodeName;
     }
 }
