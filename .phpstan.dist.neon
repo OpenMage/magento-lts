@@ -28,6 +28,7 @@ parameters:
     strictRules:
         allRules: false
         disallowedEmpty: true
+        matchingInheritedMethodNames: true
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
