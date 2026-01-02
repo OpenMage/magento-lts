@@ -489,7 +489,7 @@ class Mage_Core_Model_Layout_Update
      * Add layout files added via theme.xml to layout updates
      * for all themes that are parents of this theme.
      */
-    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates)
+    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates): Mage_Core_Model_Config_Element
     {
         /* @var Mage_Core_Model_Design_Package $designPackage */
         $designPackage = Mage::getSingleton('core/design_package');
