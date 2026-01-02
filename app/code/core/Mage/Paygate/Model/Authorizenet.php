@@ -1707,7 +1707,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         if (isset($responseTransactionXmlDocument->FDSFilters)) {
             $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
         }
-        if (isset($responseTransactionXmlDocumuent->transactionType)) {
+        if (isset($responseTransactionXmlDocument->transactionType)) {
             $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
         }
         if (isset($responseTransactionXmlDocument->submitTimeUTC)) {
