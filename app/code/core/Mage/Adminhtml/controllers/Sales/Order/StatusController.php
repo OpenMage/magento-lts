@@ -37,12 +37,10 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     {
         $statusCode = $this->getRequest()->getParam('status');
         if ($statusCode) {
-            $status = Mage::getModel('sales/order_status')->load($statusCode);
-        } else {
-            $status = false;
+            return Mage::getModel('sales/order_status')->load($statusCode);
         }
 
-        return $status;
+        return false;
     }
 
     /**

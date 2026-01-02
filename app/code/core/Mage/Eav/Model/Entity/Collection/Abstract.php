@@ -1461,17 +1461,16 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         if ($entity->isAttributeStatic($attribute)) {
-            $conditionSql = $this->_getConditionSql(
+            return $this->_getConditionSql(
                 $this->getConnection()->quoteIdentifier('e.' . $attribute),
                 $condition,
             );
-        } else {
-            $this->_addAttributeJoin($attribute, $joinType);
-            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
-            $conditionSql = $this->_getConditionSql($field, $condition);
         }
 
-        return $conditionSql;
+        $this->_addAttributeJoin($attribute, $joinType);
+        $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
+
+        return $this->_getConditionSql($field, $condition);
     }
 
     /**
