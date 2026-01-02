@@ -353,7 +353,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param  string $rootName   - root element name
      * @return void
      */
-    public function toXml(&$xml = null, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
+    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($xml === null) {
             $xml = '';
