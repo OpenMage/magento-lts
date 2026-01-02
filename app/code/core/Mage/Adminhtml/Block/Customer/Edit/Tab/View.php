@@ -136,8 +136,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLastLoginDateTimezone()
     {
