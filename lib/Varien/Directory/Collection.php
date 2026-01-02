@@ -440,12 +440,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
 
     /**
-     * Add a filter to the collection.
-     *
-     * @param string $field The field to filter on
-     * @param mixed $value The value to filter by
-     * @param string $type Logical operator for the filter ('and' or 'or'). Default is 'and'
-     * @return $this
+     * @inheritDoc
      */
     public function addFilter($field, $value, $type = 'and')
     {
