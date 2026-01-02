@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
         return false;
     }
 
-    public function _beforeToHtml()
+    protected function _beforeToHtml()
     {
         $this->_initForm();
 

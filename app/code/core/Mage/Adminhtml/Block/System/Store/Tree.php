@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Internal constructor, that is called from real constructor
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->setTemplate('system/store/tree.phtml');
         parent::_construct();

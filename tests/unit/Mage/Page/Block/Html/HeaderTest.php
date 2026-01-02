@@ -20,7 +20,7 @@ final class HeaderTest extends OpenMageTest
 {
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = new Subject();
     }

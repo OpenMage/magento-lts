@@ -40,7 +40,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return $this
      */
-    public function _initSelect()
+    protected function _initSelect()
     {
         parent::_initSelect();
         $this->_joinFields();

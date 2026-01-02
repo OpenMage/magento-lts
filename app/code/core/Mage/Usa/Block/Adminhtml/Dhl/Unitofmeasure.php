@@ -14,7 +14,7 @@
  */
 class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
 

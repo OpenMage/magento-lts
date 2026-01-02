@@ -59,7 +59,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
-    public function _prepareLayout()
+    protected function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
         return parent::_prepareLayout();

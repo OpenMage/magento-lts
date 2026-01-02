@@ -65,7 +65,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function _beforeSave()
+    protected function _beforeSave()
     {
         $value = $this->getValue();
         if ($value == self::SHARE_GLOBAL) {
