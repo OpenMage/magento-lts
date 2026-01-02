@@ -21,16 +21,16 @@ final class ObjectTest extends TestCase
 {
     public Varien_Object $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Varien_Object();
     }
 
     /**
      * @dataProvider provideGetDataData
-     * @param mixed $expectedResult
-     * @param string $setKey
-     * @param mixed $setValue
+     * @param mixed           $expectedResult
+     * @param string          $setKey
+     * @param mixed           $setValue
      * @param null|int|string $index
      *
      * @group Varien_Object

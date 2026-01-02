@@ -49,8 +49,8 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     /**
      * Get option text from frontend model by option id
      *
-     * @param   int $optionId
-     * @return  bool|string
+     * @param  int         $optionId
+     * @return bool|string
      */
     protected function _getOptionText($optionId)
     {
@@ -60,8 +60,8 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     /**
      * Apply attribute option filter to product collection
      *
-     * @param   Varien_Object $filterBlock
-     * @return  $this
+     * @param  Varien_Object $filterBlock
+     * @return $this
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     /**
      * Check whether specified attribute can be used in LN
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return int
      */
     protected function _getIsFilterableAttribute($attribute)

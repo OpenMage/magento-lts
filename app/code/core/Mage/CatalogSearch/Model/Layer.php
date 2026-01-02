@@ -35,7 +35,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Prepare product collection
      *
-     * @param Mage_CatalogSearch_Model_Resource_Fulltext_Collection $collection
+     * @param  Mage_CatalogSearch_Model_Resource_Fulltext_Collection $collection
      * @return Mage_Catalog_Model_Layer
      */
     public function prepareProductCollection($collection)
@@ -71,7 +71,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Get default tags for current layer state
      *
-     * @return  array
+     * @return array
      */
     public function getStateTags(array $additionalTags = [])
     {
@@ -83,8 +83,8 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
-     * @return  Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     * @param  Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {
@@ -104,8 +104,8 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Prepare attribute for use in layered navigation
      *
-     * @param   Mage_Eav_Model_Entity_Attribute $attribute
-     * @return  Mage_Eav_Model_Entity_Attribute
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @return Mage_Eav_Model_Entity_Attribute
      */
     protected function _prepareAttribute($attribute)
     {

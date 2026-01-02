@@ -207,7 +207,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         $setId = false;
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
-            $setId = $this->getRequest()->getParam('set', null);
+            return $this->getRequest()->getParam('set', null);
         }
 
         return $setId;

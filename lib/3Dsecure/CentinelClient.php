@@ -45,11 +45,7 @@ class CentinelClient
 
     public function getValue($name)
     {
-        if (isset($this->response[$name])) {
-            return $this->response[$name];
-        } else {
-            return '';
-        }
+        return $this->response[$name] ?? '';
     }
 
 
@@ -106,7 +102,7 @@ class CentinelClient
             // Execute the request.
 
             $result = curl_exec($ch);
-            $succeeded = curl_errno($ch) == 0 ? true : false;
+            $succeeded = curl_errno($ch) == 0;
 
             // close cURL resource, and free up system resources
 

@@ -38,7 +38,7 @@
         </thead>
         <?php $_items = $this->getItemsCollection() ?>
         <?php $i=0;foreach ($_items as $_item):?>
-            <?php if ($_item->getParentItem()) continue; else $i++;?>
+            <?php if ($_item->getParentItem()) continue; $i++;?>
             <tbody class="<?php echo $i%2?'even':'odd' ?>">
                 <?php echo $this->getItemHtml($_item) ?>
                 <?php echo $this->getItemExtraInfoHtml($_item) ?>

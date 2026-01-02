@@ -106,8 +106,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             }
 
             return Mage::helper('core')->jsonEncode((object) $jsonRoles);
-        } else {
-            return $uRoles;
         }
+
+        return $uRoles;
     }
 }

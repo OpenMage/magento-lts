@@ -17,14 +17,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country extends Mage_Admi
     /**
      * Render country grid column
      *
-     * @return  null|string
+     * @return null|string
      */
     public function render(Varien_Object $row)
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {
             $name = Mage::app()->getLocale()->getCountryTranslation($data);
             if (empty($name)) {
-                $name = $this->escapeHtml($data);
+                return $this->escapeHtml($data);
             }
 
             return $name;

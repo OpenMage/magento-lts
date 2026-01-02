@@ -103,7 +103,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set website id
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function setWebsiteId($websiteId)
@@ -115,7 +115,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set customer by id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)
@@ -224,10 +224,11 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 
         $store      = Mage::getModel('core/store')->load($this->_customer->getStoreId());
         $storeId    = $store->getId();
-
         if ($this->_type == 'price' && !Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId)) {
             return false;
-        } elseif ($this->_type == 'stock' && !Mage::getStoreConfig(self::XML_PATH_EMAIL_STOCK_TEMPLATE, $storeId)) {
+        }
+
+        if ($this->_type == 'stock' && !Mage::getStoreConfig(self::XML_PATH_EMAIL_STOCK_TEMPLATE, $storeId)) {
             return false;
         }
 

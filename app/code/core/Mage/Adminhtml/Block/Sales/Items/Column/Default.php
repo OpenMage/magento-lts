@@ -18,9 +18,9 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Default extends Mage_Adminhtml_Blo
     {
         if ($this->_getData('item') instanceof Mage_Sales_Model_Order_Item) {
             return $this->_getData('item');
-        } else {
-            return $this->_getData('item')->getOrderItem();
         }
+
+        return $this->_getData('item')->getOrderItem();
     }
 
     public function getOrderOptions()
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Default extends Mage_Adminhtml_Blo
     /**
      * Return custom option html
      *
-     * @param array $optionInfo
+     * @param  array  $optionInfo
      * @return string
      */
     public function getCustomizedOptionValue($optionInfo)

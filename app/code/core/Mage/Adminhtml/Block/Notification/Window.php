@@ -11,7 +11,7 @@
  * @package    Mage_Adminhtml
  *
  * @method string getNoticeSeverity()
- * @method $this setNoticeSeverity(string $value)
+ * @method $this  setNoticeSeverity(string $value)
  *
  * @property string $_aclResourcePath
  */
@@ -171,8 +171,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         if (!is_null($this->_aclResourcePath)) {
             return Mage::getSingleton('admin/session')
                 ->isAllowed('admin/system/adminnotification/show_toolbar');
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

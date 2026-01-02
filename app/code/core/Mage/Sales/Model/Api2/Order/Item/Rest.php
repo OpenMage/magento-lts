@@ -58,7 +58,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
     /**
      * Load order by id
      *
-     * @param int $id
+     * @param  int                    $id
      * @return Mage_Sales_Model_Order
      * @throws Mage_Api2_Exception
      */

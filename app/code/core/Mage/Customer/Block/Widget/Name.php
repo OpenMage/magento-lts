@@ -17,7 +17,7 @@
  */
 class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstract
 {
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
 
@@ -28,7 +28,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Can show config value
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     protected function _showConfig($key)
@@ -162,7 +162,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve customer or customer address attribute instance
      *
-     * @param string $attributeCode
+     * @param  string                              $attributeCode
      * @return false|Mage_Customer_Model_Attribute
      */
     protected function _getAttribute($attributeCode)
@@ -186,7 +186,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve store attribute label
      *
-     * @param string $attributeCode
+     * @param  string                          $attributeCode
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */

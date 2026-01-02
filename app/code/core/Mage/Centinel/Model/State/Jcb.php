@@ -71,9 +71,9 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
 
             //Test case 5
@@ -82,9 +82,9 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
 
             //Test case 10

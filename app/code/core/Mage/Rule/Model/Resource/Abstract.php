@@ -41,7 +41,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @return Mage_Rule_Model_Resource_Abstract
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $fromDate = $object->getFromDate();
         if ($fromDate instanceof Zend_Date) {
@@ -64,8 +64,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare select for condition
      *
-     * @param int $storeId
-     * @param Mage_Rule_Model_Condition_Abstract $condition
+     * @param  int                                $storeId
+     * @param  Mage_Rule_Model_Condition_Abstract $condition
      * @return Varien_Db_Select
      */
     public function getProductFlatSelect($storeId, $condition)
@@ -98,8 +98,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @param array|int|string $ruleIds
      * @param array|int|string $entityIds
-     * @param string $entityType
-     * @param bool $deleteOldResults
+     * @param string           $entityType
+     * @param bool             $deleteOldResults
      *
      * @return Mage_Rule_Model_Resource_Abstract
      * @throws Exception
@@ -175,7 +175,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @param array|int|string $ruleIds
      * @param array|int|string $entityIds
-     * @param string $entityType
+     * @param string           $entityType
      *
      * @return Mage_Rule_Model_Resource_Abstract
      */
@@ -209,7 +209,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve rule's associated entity Ids by entity type
      *
-     * @param int $ruleId
+     * @param int    $ruleId
      * @param string $entityType
      *
      * @return array
@@ -228,7 +228,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve website ids of specified rule
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return array
      */
     public function getWebsiteIds($ruleId)
@@ -239,7 +239,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve customer group ids of specified rule
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return array
      */
     public function getCustomerGroupIds($ruleId)

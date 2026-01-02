@@ -17,9 +17,9 @@ class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set store and base price which will be used during discount calculation to item object
      *
-     * @param   float $basePrice
-     * @param   float $price
-     * @return  $this
+     * @param  float $basePrice
+     * @param  float $price
+     * @return $this
      */
     public function setItemDiscountPrices(Mage_Sales_Model_Quote_Item_Abstract $item, $basePrice, $price)
     {
@@ -31,9 +31,9 @@ class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Add additional amounts to discount calculation prices
      *
-     * @param   float $basePrice
-     * @param   float $price
-     * @return  $this
+     * @param  float $basePrice
+     * @param  float $price
+     * @return $this
      */
     public function addItemDiscountPrices(Mage_Sales_Model_Quote_Item_Abstract $item, $basePrice, $price)
     {

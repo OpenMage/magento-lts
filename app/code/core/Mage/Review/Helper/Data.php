@@ -19,7 +19,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Review';
 
     /**
-     * @param string $origDetail
+     * @param  string $origDetail
      * @return string
      */
     public function getDetail($origDetail)
@@ -29,7 +29,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * getDetailHtml return short detail info in HTML
-     * @param string $origDetail Full detail info
+     * @param  string $origDetail Full detail info
      * @return string
      */
     public function getDetailHtml($origDetail)

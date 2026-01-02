@@ -60,7 +60,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Reindex stock data for defined product ids
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Set active Product Type Id
      *
-     * @param string $typeId
+     * @param  string $typeId
      * @return $this
      */
     public function setTypeId($typeId)
@@ -99,7 +99,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Set Product Type Composite flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsComposite($flag)
@@ -131,8 +131,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Get the select object for get stock status by product ids
      *
-     * @param array|int $entityIds
-     * @param bool $usePrimaryTable use primary or temporary index table
+     * @param  array|int           $entityIds
+     * @param  bool                $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
      */
@@ -192,7 +192,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Prepare stock status data in temporary index table
      *
-     * @param array|int $entityIds  the product limitation
+     * @param  array|int                 $entityIds the product limitation
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -210,7 +210,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Update Stock status index by product ids
      *
-     * @param array|int $entityIds
+     * @param  array|int                   $entityIds
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -248,7 +248,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Update stock status index table (INSERT ... ON DUPLICATE KEY UPDATE ...)
      *
-     * @param array $data
+     * @param  array               $data
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
@@ -268,7 +268,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)

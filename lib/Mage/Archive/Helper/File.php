@@ -77,8 +77,8 @@ class Mage_Archive_Helper_File
     /**
      * Open file
      *
-     * @param string $mode
-     * @param int $chmod
+     * @param  string         $mode
+     * @param  int            $chmod
      * @throws Mage_Exception
      */
     public function open($mode = 'w+', $chmod = 0666)
@@ -122,7 +122,7 @@ class Mage_Archive_Helper_File
     /**
      * Read data from file
      *
-     * @param int $length
+     * @param  int         $length
      * @return bool|string
      */
     public function read($length = 4096)
@@ -130,7 +130,7 @@ class Mage_Archive_Helper_File
         $data = false;
         $this->_checkFileOpened();
         if ($length > 0) {
-            $data = $this->_read($length);
+            return $this->_read($length);
         }
 
         return $data;
@@ -163,7 +163,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of file opening
      *
-     * @param string $mode
+     * @param  string         $mode
      * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -180,7 +180,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of writing data to file
      *
-     * @param string $data
+     * @param  string         $data
      * @throws Mage_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -197,7 +197,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of file reading
      *
-     * @param int $length
+     * @param  int            $length
      * @throws Mage_Exception
      */
     protected function _read($length)

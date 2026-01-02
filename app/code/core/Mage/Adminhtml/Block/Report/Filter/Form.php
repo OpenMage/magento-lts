@@ -32,8 +32,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Set field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $visibility Field visibility
+     * @param string $fieldId    Field id
+     * @param bool   $visibility Field visibility
      */
     public function setFieldVisibility($fieldId, $visibility)
     {
@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Get field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $defaultVisibility Default field visibility
+     * @param  string $fieldId           Field id
+     * @param  bool   $defaultVisibility Default field visibility
      * @return bool
      */
     public function getFieldVisibility($fieldId, $defaultVisibility = true)
@@ -60,8 +60,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Set field option(s)
      *
      * @param string $fieldId Field id
-     * @param mixed $option Field option name
-     * @param mixed $value Field option value
+     * @param mixed  $option  Field option name
+     * @param mixed  $value   Field option value
      */
     public function setFieldOption($fieldId, $option, $value = null)
     {
@@ -83,8 +83,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Add report type option
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return $this
      */
     public function addReportTypeOption($key, $value)

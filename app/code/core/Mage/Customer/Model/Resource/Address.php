@@ -58,7 +58,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
     /**
      * Return customer id
      *
-     * @param Mage_Customer_Model_Address $object
+     * @param  Mage_Customer_Model_Address $object
      * @return int
      * @deprecated
      */
@@ -70,8 +70,8 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
     /**
      * Set customer id
      *
-     * @param Mage_Customer_Model_Address $object
-     * @param int $id
+     * @param  Mage_Customer_Model_Address $object
+     * @param  int                         $id
      * @return $this
      * @deprecated
      */

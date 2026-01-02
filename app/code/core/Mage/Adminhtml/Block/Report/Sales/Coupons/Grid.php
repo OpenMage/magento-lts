@@ -27,9 +27,9 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     {
         if (($this->getFilterData()->getData('report_type') == 'updated_at_order')) {
             return 'salesrule/report_updatedat_collection';
-        } else {
-            return 'salesrule/report_collection';
         }
+
+        return 'salesrule/report_collection';
     }
 
     protected function _prepareColumns()
@@ -142,8 +142,8 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * Add price rule filter
      *
-     * @param Mage_SalesRule_Model_Resource_Report_Collection $collection
-     * @param Varien_Object $filterData
+     * @param  Mage_SalesRule_Model_Resource_Report_Collection $collection
+     * @param  Varien_Object                                   $filterData
      * @return Mage_Adminhtml_Block_Report_Grid_Abstract
      */
     protected function _addCustomFilter($collection, $filterData)

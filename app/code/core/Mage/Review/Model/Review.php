@@ -12,28 +12,26 @@
  *
  * @package    Mage_Review
  *
- * @method Mage_Review_Model_Resource_Review _getResource()
+ * @method Mage_Review_Model_Resource_Review            _getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- * @method string getCreatedAt()
- * @method array getCustomerId()
- * @method string getDetail()
- * @method int getEntityPkValue()
- * @method string getNickname()
- * @method Mage_Review_Model_Resource_Review getResource()
+ * @method array                                        getCustomerId()
+ * @method string                                       getDetail()
+ * @method int                                          getEntityPkValue()
+ * @method string                                       getNickname()
+ * @method Mage_Review_Model_Resource_Review            getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
- * @method int getReviewId()
- * @method int getStatusId()
- * @method int getStoreId()
- * @method array getStores()
- * @method string getTitle()
- * @method $this setCreatedAt(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setEntityPkValue(int $value)
- * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
- * @method $this setStatusId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setStores(array $value)
+ * @method int                                          getReviewId()
+ * @method int                                          getStatusId()
+ * @method int                                          getStoreId()
+ * @method array                                        getStores()
+ * @method string                                       getTitle()
+ * @method $this                                        setCustomerId(int $value)
+ * @method $this                                        setEntityId(int $value)
+ * @method $this                                        setEntityPkValue(int $value)
+ * @method $this                                        setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method $this                                        setStatusId(int $value)
+ * @method $this                                        setStoreId(int $value)
+ * @method $this                                        setStores(array $value)
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
@@ -89,9 +87,9 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $entityPkValue
-     * @param bool $approvedOnly
-     * @param int $storeId
+     * @param  int    $entityPkValue
+     * @param  bool   $approvedOnly
+     * @param  int    $storeId
      * @return string
      */
     public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
@@ -110,7 +108,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     /**
      * @param Mage_Catalog_Model_Product $product
-     * @param int $storeId
+     * @param int                        $storeId
      */
     public function getEntitySummary($product, $storeId = 0)
     {
@@ -178,7 +176,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Append review summary to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -231,7 +229,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Check if current review available on passed store
      *
-     * @param int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store       $store
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -248,7 +246,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Get review entity type id by code
      *
-     * @param string $entityCode
+     * @param  string   $entityCode
      * @return bool|int
      */
     public function getEntityIdByCode($entityCode)

@@ -48,7 +48,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Opens image file.
      *
-     * @param string $fileName
+     * @param  string           $fileName
      * @throws Exception
      * @throws Varien_Exception
      */
@@ -87,7 +87,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
-     * @param string $memoryValue
+     * @param  string $memoryValue
      * @return int
      * @deprecated
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
@@ -219,8 +219,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Obtain function name, basing on image type and callback type
      *
-     * @param string $callbackType
-     * @param int $fileType
+     * @param  string    $callbackType
+     * @param  int       $fileType
      * @return string
      * @throws Exception
      */
@@ -271,7 +271,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     }
 
                     return $transparentAlphaColor;
-                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
+                }
+
+                // fill truecolor png with alpha transparency
+                if (false !== $transparentIndex) {
+                    // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
@@ -306,7 +310,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Gives true for a PNG with alpha, false otherwise
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return bool
      */
     public function checkAlpha($fileName)
@@ -324,10 +328,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+            }
+
+            if ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
                 $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
-                return $transparentIndex; // -1
+                return $transparentIndex;
+                // -1
             }
         }
 
@@ -341,8 +348,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Change the image size
      *
-     * @param int $width
-     * @param int $height
+     * @param  int       $width
+     * @param  int       $height
      * @throws Exception
      */
     public function resize($width = null, $height = null)

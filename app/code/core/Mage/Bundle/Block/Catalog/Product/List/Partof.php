@@ -91,7 +91,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     }
 
     /**
-     * @param array $columns
+     * @param  array $columns
      * @return $this
      */
     public function setColumnCount($columns)

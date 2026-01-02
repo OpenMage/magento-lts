@@ -12,33 +12,31 @@
  *
  * @package    Mage_Oauth
  *
- * @method Mage_Oauth_Model_Resource_Token _getResource()
- * @method int getAdminId()
- * @method int getAuthorized()
- * @method string getCallbackUrl()
+ * @method Mage_Oauth_Model_Resource_Token            _getResource()
+ * @method int                                        getAdminId()
+ * @method int                                        getAuthorized()
+ * @method string                                     getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
- * @method int getConsumerId()
- * @method string getCreatedAt()
- * @method int getCustomerId()
- * @method Mage_Oauth_Model_Resource_Token getResource()
+ * @method int                                        getConsumerId()
+ * @method int                                        getCustomerId()
+ * @method Mage_Oauth_Model_Resource_Token            getResource()
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
- * @method int getRevoked()
- * @method string getSecret()
- * @method string getToken()
- * @method string getType()
- * @method string getVerifier()
- * @method string getName() Consumer name (joined from consumer table)
- * @method $this setAdminId(int $adminId)
- * @method $this setAuthorized(int $authorized)
- * @method $this setCallbackUrl(string $callbackUrl)
- * @method $this setConsumerId(int $consumerId)
- * @method $this setCreatedAt(string $createdAt)
- * @method $this setCustomerId(int $customerId)
- * @method $this setRevoked(int $revoked)
- * @method $this setSecret(string $tokenSecret)
- * @method $this setToken(string $token)
- * @method $this setType(string $type)
- * @method $this setVerifier(string $verifier)
+ * @method int                                        getRevoked()
+ * @method string                                     getSecret()
+ * @method string                                     getToken()
+ * @method string                                     getType()
+ * @method string                                     getVerifier()
+ * @method string                                     getName() Consumer name (joined from consumer table)
+ * @method $this                                      setAdminId(int $adminId)
+ * @method $this                                      setAuthorized(int $authorized)
+ * @method $this                                      setCallbackUrl(string $callbackUrl)
+ * @method $this                                      setConsumerId(int $consumerId)
+ * @method $this                                      setCustomerId(int $customerId)
+ * @method $this                                      setRevoked(int $revoked)
+ * @method $this                                      setSecret(string $tokenSecret)
+ * @method $this                                      setToken(string $token)
+ * @method $this                                      setType(string $type)
+ * @method $this                                      setVerifier(string $verifier)
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
@@ -95,8 +93,8 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**
      * Authorize token
      *
-     * @param int $userId Authorization user identifier
-     * @param string $userType Authorization user type
+     * @param  int    $userId   Authorization user identifier
+     * @param  string $userType Authorization user type
      * @return $this
      */
     public function authorize($userId, $userType)
@@ -154,8 +152,8 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**
      * Generate and save request token
      *
-     * @param int $consumerId Consumer identifier
-     * @param string $callbackUrl Callback URL
+     * @param  int    $consumerId  Consumer identifier
+     * @param  string $callbackUrl Callback URL
      * @return $this
      */
     public function createRequestToken($consumerId, $callbackUrl)
@@ -185,17 +183,19 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         if ($this->getAdminId()) {
             return self::USER_TYPE_ADMIN;
-        } elseif ($this->getCustomerId()) {
-            return self::USER_TYPE_CUSTOMER;
-        } else {
-            Mage::throwException('User type is unknown');
         }
+
+        if ($this->getCustomerId()) {
+            return self::USER_TYPE_CUSTOMER;
+        }
+
+        Mage::throwException('User type is unknown');
     }
 
     /**
      * Get string representation of token
      *
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function toString($format = '')
@@ -224,7 +224,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      * Validate data
      *
      * @return bool
-     * @throws Mage_Core_Exception   Throw exception on fail validation
+     * @throws Mage_Core_Exception Throw exception on fail validation
      */
     public function validate()
     {

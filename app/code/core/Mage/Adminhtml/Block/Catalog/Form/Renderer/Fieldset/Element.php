@@ -81,12 +81,12 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
-
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getElement()->getValue() == $defaultValue
-            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
-        ) {
+        }
+
+        if ($this->getElement()->getValue() == $defaultValue
+            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
 

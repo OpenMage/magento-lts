@@ -138,8 +138,8 @@ class Mage_Shipping_Model_Shipping
     /**
      * Collect rates of given carrier
      *
-     * @param string                           $carrierCode
-     * @param Mage_Shipping_Model_Rate_Request $request
+     * @param  string                           $carrierCode
+     * @param  Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function collectCarrierRates($carrierCode, $request)
@@ -173,9 +173,9 @@ class Mage_Shipping_Model_Shipping
                             $result = $carrierObj->collectRates($request);
                             if (!$result) {
                                 return $this;
-                            } else {
-                                $result->updateRatePrice($packageCount);
                             }
+
+                            $result->updateRatePrice($packageCount);
 
                             $sumResults[] = $result;
                         }
@@ -229,9 +229,9 @@ class Mage_Shipping_Model_Shipping
      * Compose Packages For Carrier.
      * Divides order into items and items into parts if it's necessary
      *
-     * @param Mage_Shipping_Model_Carrier_Abstract $carrier
-     * @param Mage_Shipping_Model_Rate_Request $request
-     * @return array [int, float]
+     * @param  Mage_Shipping_Model_Carrier_Abstract $carrier
+     * @param  Mage_Shipping_Model_Rate_Request     $request
+     * @return array                                [int, float]
      */
     public function composePackagesForCarrier($carrier, $request)
     {
@@ -321,8 +321,8 @@ class Mage_Shipping_Model_Shipping
      * Make pieces
      * Compose packeges list based on given items, so that each package is as heavy as possible
      *
-     * @param array $items
-     * @param float $maxWeight
+     * @param  array $items
+     * @param  float $maxWeight
      * @return array
      */
     protected function _makePieces($items, $maxWeight)
@@ -370,7 +370,7 @@ class Mage_Shipping_Model_Shipping
     /**
      * Collect rates by address
      *
-     * @param null|array|bool $limitCarrier
+     * @param  null|array|bool $limitCarrier
      * @return $this
      */
     public function collectRatesByAddress(Varien_Object $address, $limitCarrier = null)
@@ -401,7 +401,7 @@ class Mage_Shipping_Model_Shipping
     /**
      * Set part of carrier xml config path
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function setCarrierAvailabilityConfigField($code = 'active')
@@ -413,8 +413,8 @@ class Mage_Shipping_Model_Shipping
     /**
      * Get carrier by its code
      *
-     * @param string $carrierCode
-     * @param null|int $storeId
+     * @param  string                        $carrierCode
+     * @param  null|int                      $storeId
      * @return bool|Mage_Core_Model_Abstract
      */
     public function getCarrierByCode($carrierCode, $storeId = null)

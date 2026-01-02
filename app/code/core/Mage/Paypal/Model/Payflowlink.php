@@ -106,7 +106,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return bool
      */
     public function validate()
     {
@@ -116,7 +116,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check whether payment method can be used
      *
-     * @param null|Mage_Sales_Model_Quote $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -139,16 +139,16 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         if ($this->getConfigData('mobile_optimized')) {
             return self::MOBILE_LAYOUT_TEMPLATE;
-        } else {
-            return self::LAYOUT_TEMPLATE;
         }
+
+        return self::LAYOUT_TEMPLATE;
     }
 
     /**
      * Instantiate state and set it to state object
      *
-     * @param string $paymentAction
-     * @param Varien_Object $stateObject
+     * @param  string        $paymentAction
+     * @param  Varien_Object $stateObject
      * @return $this
      */
     public function initialize($paymentAction, $stateObject)
@@ -232,7 +232,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Operate with order using data from $_POST which came from Silent Post Url.
      *
-     * @param array $responseData
+     * @param  array               $responseData
      * @throws Mage_Core_Exception in case of validation error or order creation error
      */
     public function process($responseData)
@@ -325,7 +325,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check response from Payflow gateway.
      *
      * @return false|Mage_Sales_Model_Order in case of validation passed
-     * @throws Mage_Core_Exception in other cases
+     * @throws Mage_Core_Exception          in other cases
      */
     protected function _getOrderFromResponse()
     {
@@ -500,8 +500,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Format values
      *
-     * @param mixed $format
-     * @param mixed $string
+     * @param  mixed  $format
+     * @param  mixed  $string
      * @return string
      */
     protected function _formatStr($format, $string)
@@ -513,8 +513,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * If response is failed throw exception
      * Set token data in payment object
      *
-     * @param Varien_Object $response
-     * @param Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
+     * @param  Varien_Object                                          $response
+     * @param  Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
      * @throws Mage_Core_Exception
      */
     protected function _processTokenErrors($response, $payment)
@@ -533,7 +533,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Return secure hash value for silent post request
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return string
      */
     protected function _getSecureSilentPostHash($payment)
@@ -544,7 +544,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Generate end return new secure hash value
      *
-     * @param Mage_Payment_Model_Info $payment
+     * @param  Mage_Payment_Model_Info $payment
      * @return string
      */
     protected function _generateSecureSilentPostHash($payment)
@@ -558,7 +558,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Add transaction with correct transaction Id
      *
      * @param Varien_Object $payment
-     * @param string $txnId
+     * @param string        $txnId
      * @deprecated since 1.6.2.0
      */
     protected function _addTransaction($payment, $txnId) {}
@@ -566,7 +566,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Initialize request
      *
-     * @param mixed $amount
+     * @param  mixed $amount
      * @return $this
      * @deprecated since 1.6.2.0
      */
@@ -586,9 +586,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Additional authorization logic for Account Verification
      *
-     * @param mixed $amount
-     * @param Mage_Paypal_Model_Payment_Transaction $transaction
-     * @param string $txnId
+     * @param  mixed                                 $amount
+     * @param  Mage_Paypal_Model_Payment_Transaction $transaction
+     * @param  string                                $txnId
      * @return $this
      * @deprecated since 1.6.2.0
      */
@@ -607,8 +607,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check Transaction
      *
-     * @param Mage_Paypal_Model_Payment_Transaction $transaction
-     * @param mixed $amount
+     * @param  Mage_Paypal_Model_Payment_Transaction $transaction
+     * @param  mixed                                 $amount
      * @return $this
      * @deprecated since 1.6.2.0
      */
@@ -640,7 +640,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Get callback url
      *
-     * @param string $actionName
+     * @param  string $actionName
      * @return string
      */
     protected function _getCallbackUrl($actionName)

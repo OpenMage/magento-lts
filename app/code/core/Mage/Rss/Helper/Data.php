@@ -91,7 +91,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate Authenticate
      *
-     * @param array $headers
+     * @param  array $headers
      * @return array
      */
     public function authValidate($headers = null)

@@ -17,7 +17,7 @@ class Mage_Payment_Block_Info_Ccsave extends Mage_Payment_Block_Info_Cc
      *
      * Expiration date and full number will show up only in secure mode (only for admin, not in emails or pdfs)
      *
-     * @param array|Varien_Object $transport
+     * @param  array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)

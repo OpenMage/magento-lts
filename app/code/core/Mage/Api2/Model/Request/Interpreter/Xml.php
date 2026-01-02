@@ -31,7 +31,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Parse Request body into array of params
      *
-     * @param string $body  Posted content from request
+     * @param  string                        $body Posted content from request
      * @return array
      * @throws Exception|Mage_Api2_Exception
      */
@@ -116,10 +116,10 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Handle any errors from load xml
      *
-     * @param int $errno
+     * @param int    $errno
      * @param string $errstr
      * @param string $errfile
-     * @param int $errline
+     * @param int    $errline
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {

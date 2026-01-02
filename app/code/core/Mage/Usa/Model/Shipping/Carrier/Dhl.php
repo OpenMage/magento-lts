@@ -166,7 +166,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
+     * @param  Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -411,7 +411,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Set free method request
      *
-     * @param  $freeMethod
+     * @param $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -566,8 +566,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Create shipment xml
      *
-     * @param  $shipment
-     * @param  $shipKey
+     * @param $shipment
+     * @param $shipKey
      */
     protected function _createShipmentXml($shipment, $shipKey)
     {
@@ -748,7 +748,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Parse xml response and return result
      *
-     * @param string $response
+     * @param  string                                        $response
      * @return Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _parseXmlResponse($response)
@@ -823,37 +823,37 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
 
             return $result;
-        } else {
-            $result = Mage::getModel('shipping/rate_result');
-            if ($this->_dhlRates) {
-                foreach ($this->_dhlRates as $rate) {
-                    $method = $rate['service'];
-                    $data = $rate['data'];
-                    $rate = Mage::getModel('shipping/rate_result_method');
-                    $rate->setCarrier('dhl');
-                    $rate->setCarrierTitle($this->getConfigData('title'));
-                    $rate->setMethod($method);
-                    $rate->setMethodTitle($data['term']);
-                    $rate->setCost($data['price_total']);
-                    $rate->setPrice($data['price_total']);
-                    $result->append($rate);
-                }
-            } elseif (!empty($this->_errors)) {
-                $error = Mage::getModel('shipping/rate_result_error');
-                $error->setCarrier('dhl');
-                $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-                $result->append($error);
-            }
-
-            return $result;
         }
+
+        $result = Mage::getModel('shipping/rate_result');
+        if ($this->_dhlRates) {
+            foreach ($this->_dhlRates as $rate) {
+                $method = $rate['service'];
+                $data = $rate['data'];
+                $rate = Mage::getModel('shipping/rate_result_method');
+                $rate->setCarrier('dhl');
+                $rate->setCarrierTitle($this->getConfigData('title'));
+                $rate->setMethod($method);
+                $rate->setMethodTitle($data['term']);
+                $rate->setCost($data['price_total']);
+                $rate->setPrice($data['price_total']);
+                $result->append($rate);
+            }
+        } elseif (!empty($this->_errors)) {
+            $error = Mage::getModel('shipping/rate_result_error');
+            $error->setCarrier('dhl');
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+            $result->append($error);
+        }
+
+        return $result;
     }
 
     /**
      * Parse xml object
      *
-     * @param mixed $shipXml
+     * @param  mixed $shipXml
      * @return $this
      */
     protected function _parseXmlObject($shipXml)
@@ -886,8 +886,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string     $type
+     * @param  string     $code
      * @return array|bool
      */
     public function getCode($type, $code = '')
@@ -925,10 +925,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             ],
 
         ];
-
         if (!isset($codes[$type])) {
             return false;
-        } elseif ($code === '') {
+        }
+
+        if ($code === '') {
             return $codes[$type];
         }
 
@@ -974,7 +975,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get tracking
      *
-     * @param mixed $trackings
+     * @param  mixed                                $trackings
      * @return null|Mage_Shipping_Model_Rate_Result
      */
     public function getTracking($trackings)
@@ -1064,7 +1065,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Parse xml tracking response
      *
-     * @param array $trackings
+     * @param array  $trackings
      * @param string $response
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
@@ -1253,7 +1254,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         }
 
         if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
+            return Mage::helper('usa')->__('Empty response');
         }
 
         return $statuses;
@@ -1354,7 +1355,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
+     * @param  Mage_Shipping_Model_Rate_Request $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)

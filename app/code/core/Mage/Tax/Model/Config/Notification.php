@@ -12,9 +12,9 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item _getResource()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item            _getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection getCollection()
- * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item getResource()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item            getResource()
  */
 class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
 {
@@ -30,7 +30,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
         parent::__construct($args);
     }
 
@@ -65,7 +65,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
     /**
      * Reset flag for showing tax notifications
      *
-     * @param string $path
+     * @param  string    $path
      * @return $this
      * @throws Throwable
      */

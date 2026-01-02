@@ -94,8 +94,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add variable to bind list
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string $name
+     * @param  mixed  $value
      * @return $this
      */
     public function addBindParam($name, $value)
@@ -107,9 +107,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Initialize collection cache
      *
-     * @param $object
-     * @param string $idPrefix
-     * @param array $tags
+     * @param         $object
+     * @param  string $idPrefix
+     * @param  array  $tags
      * @return $this
      */
     public function initCache($object, $idPrefix, $tags)
@@ -125,7 +125,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Specify collection objects id field name
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return $this
      */
     protected function _setIdFieldName($fieldName)
@@ -161,7 +161,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Set database connection adapter
      *
-     * @param Varien_Db_Adapter_Interface $conn
+     * @param  Varien_Db_Adapter_Interface $conn
      * @return $this
      * @throws Zend_Exception
      */
@@ -284,8 +284,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get sql select string or object
      *
-     * @param   bool $stringMode
-     * @return  string|Zend_Db_Select
+     * @param  bool                  $stringMode
+     * @return string|Zend_Db_Select
      */
     public function getSelectSql($stringMode = false)
     {
@@ -299,9 +299,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add select order
      *
-     * @param   string $field
-     * @param   string $direction
-     * @return  $this
+     * @param  string $field
+     * @param  string $direction
+     * @return $this
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -311,8 +311,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * self::setOrder() alias
      *
-     * @param string $field
-     * @param string $direction
+     * @param  string $field
+     * @param  string $direction
      * @return $this
      */
     public function addOrder($field, $direction = self::SORT_ORDER_DESC)
@@ -323,8 +323,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add select order to the beginning
      *
-     * @param string $field
-     * @param string $direction
+     * @param  string $field
+     * @param  string $direction
      * @return $this
      */
     public function unshiftOrder($field, $direction = self::SORT_ORDER_DESC)
@@ -335,9 +335,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add ORDERBY to the end or to the beginning
      *
-     * @param string $field
-     * @param string $direction
-     * @param bool $unshift
+     * @param  string $field
+     * @param  string $direction
+     * @param  bool   $unshift
      * @return $this
      */
     private function _setOrder($field, $direction, $unshift = false)
@@ -364,7 +364,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select conditions
      *
-     * @return  $this
+     * @return $this
      */
     protected function _renderFilters()
     {
@@ -412,9 +412,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Add field filter to collection
      *
-     * @param   array|string $field
-     * @param   null|array|int|string $condition
-     * @return  $this
+     * @param  array|string          $field
+     * @param  null|array|int|string $condition
+     * @return $this
      * @see self::_getConditionSql for $condition
      */
     public function addFieldToFilter($field, $condition = null)
@@ -441,10 +441,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Build sql where condition part
      *
-     * @param   array|string $field
-     * @param   array|int|string $condition
+     * @param array|string     $field
+     * @param array|int|string $condition
      *
-     * @return  string
+     * @return string
      */
     protected function _translateCondition($field, $condition)
     {
@@ -461,8 +461,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Try to get mapped field name for filter to collection
      *
-     * @param   string $field
-     * @return  string
+     * @param  string $field
+     * @return string
      */
     protected function _getMappedField($field)
     {
@@ -484,11 +484,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getMapper()
     {
-        if (isset($this->_map)) {
-            return $this->_map;
-        } else {
-            return false;
-        }
+        return $this->_map ?? false;
     }
 
     /**
@@ -518,8 +514,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * If non matched - sequential array is expected and OR conditions
      * will be built using above mentioned structure
      *
-     * @param string $fieldName Field name must be already escaped with Varien_Db_Adapter_Interface::quoteIdentifier()
-     * @param array|int|string $condition
+     * @param  string           $fieldName Field name must be already escaped with Varien_Db_Adapter_Interface::quoteIdentifier()
+     * @param  array|int|string $condition
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition)
@@ -528,7 +524,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return string
      */
     protected function _getConditionFieldName($fieldName)
@@ -539,7 +535,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select orders
      *
-     * @return  $this
+     * @return $this
      */
     protected function _renderOrders()
     {
@@ -557,7 +553,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select limit
      *
-     * @return  $this
+     * @return $this
      */
     protected function _renderLimit()
     {
@@ -571,9 +567,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Set select distinct
      *
-     * @param   bool $flag
+     * @param bool $flag
      *
-     * @return  $this
+     * @return $this
      */
     public function distinct($flag)
     {
@@ -594,11 +590,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Load data
      *
-     * @param   bool $printQuery
-     * @param   bool $logQuery
-     * @return  $this
-     * @throws  Exception
-     * @throws  Zend_Cache_Exception
+     * @param  bool                 $printQuery
+     * @param  bool                 $logQuery
+     * @return $this
+     * @throws Exception
+     * @throws Zend_Cache_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -638,8 +634,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Returns a collection item that corresponds to the fetched row
      * and moves the internal data pointer ahead
      *
-     * @return  bool|Varien_Object
-     * @throws  Zend_Db_Statement_Exception
+     * @return bool|Varien_Object
+     * @throws Zend_Db_Statement_Exception
      */
     public function fetchItem()
     {
@@ -672,10 +668,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * return items hash
      * array($value => $label)
      *
-     * @param   string $valueField
-     * @param   string $labelField
-     * @return  array
-     * @throws  Zend_Db_Statement_Exception
+     * @param  string                      $valueField
+     * @param  string                      $labelField
+     * @return array
+     * @throws Zend_Db_Statement_Exception
      * @see     fetchItem()
      */
     protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
@@ -737,8 +733,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                                             $printQuery
+     * @param  bool                                             $logQuery
      * @return Varien_Data_Collection|Varien_Data_Collection_Db
      * @throws Zend_Cache_Exception
      */
@@ -750,11 +746,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Print and/or log query
      *
-     * @param   bool $printQuery
-     * @param   bool $logQuery
-     * @param   string $sql
+     * @param bool   $printQuery
+     * @param bool   $logQuery
+     * @param string $sql
      *
-     * @return  $this
+     * @return $this
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
@@ -787,9 +783,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fetch collection data
      *
-     * @param   string|Zend_Db_Select $select
-     * @return  array
-     * @throws  Zend_Cache_Exception
+     * @param  string|Zend_Db_Select $select
+     * @return array
+     * @throws Zend_Cache_Exception
      */
     protected function _fetchAll($select)
     {
@@ -811,7 +807,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Load cached data for select
      *
-     * @param Zend_Db_Select $select
+     * @param  Zend_Db_Select $select
      * @return false|string
      */
     protected function _loadCache($select)
@@ -819,7 +815,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $data = false;
         $object = $this->_getCacheInstance();
         if ($object) {
-            $data = $object->load($this->_getSelectCacheId($select));
+            return $object->load($this->_getSelectCacheId($select));
         }
 
         return $data;
@@ -828,8 +824,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Save collection data to cache
      *
-     * @param array $data
-     * @param Zend_Db_Select $select
+     * @param  array                $data
+     * @param  Zend_Db_Select       $select
      * @return $this
      * @throws Zend_Cache_Exception
      */
@@ -853,14 +849,14 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get cache identifier base on select
      *
-     * @param string|Zend_Db_Select $select
+     * @param  string|Zend_Db_Select $select
      * @return string
      */
     protected function _getSelectCacheId($select)
     {
         $cacheId = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
-            $cacheId = $this->_cacheConf['prefix'] . '_' . $cacheId;
+            return $this->_cacheConf['prefix'] . '_' . $cacheId;
         }
 
         return $cacheId;
@@ -891,7 +887,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $filter
      * @param string $alias
-     * @param string $group default 'fields'
+     * @param string $group  default 'fields'
      *
      * @return $this
      */

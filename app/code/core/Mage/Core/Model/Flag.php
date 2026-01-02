@@ -13,14 +13,14 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
- * @method string getFlagCode()
- * @method string getLastUpdate()
+ * @method string                        getFlagCode()
+ * @method string                        getLastUpdate()
  * @method Mage_Core_Model_Resource_Flag getResource()
- * @method int getState()
- * @method bool hasFlagData()
- * @method $this setFlagCode(string $value)
- * @method $this setLastUpdate(string $value)
- * @method $this setState(int $value)
+ * @method int                           getState()
+ * @method bool                          hasFlagData()
+ * @method $this                         setFlagCode(string $value)
+ * @method $this                         setLastUpdate(string $value)
+ * @method $this                         setState(int $value)
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
@@ -68,15 +68,15 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     {
         if ($this->hasFlagData()) {
             return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
      * Set flag data
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return $this
      */
     public function setFlagData($value)
