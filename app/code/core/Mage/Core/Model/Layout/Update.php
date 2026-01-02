@@ -496,10 +496,13 @@ class Mage_Core_Model_Layout_Update
         /* @var Mage_Core_Model_Design_Fallback $fallback */
         $fallback = Mage::getModel('core/design_fallback');
 
-        $fallbacks = $fallback->getFallbackScheme($designPackage->getArea(), $designPackage->getPackageName(), $designPackage->getTheme('layout'));
+        $fallbacks = array_reverse($fallback->getFallbackScheme(
+            $designPackage->getArea(),
+            $designPackage->getPackageName(),
+            $designPackage->getTheme('layout'),
+        ));
 
-        for ($i = count($fallbacks) - 1; $i >= 0; $i--) {
-            $fallback = $fallbacks[$i];
+        foreach ($fallbacks as $fallback) {
             if (!isset($fallback['_package'], $fallback['_theme'])) {
                 continue;
             }
