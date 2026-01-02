@@ -15,7 +15,7 @@
 class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
     /**
-     * @var null|IteratorIterator
+     * @var null|Iterator
      */
     protected $_iterator = null;
 
@@ -30,7 +30,11 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Retrieve an external iterator
      *
-     * @return array|ArrayIterator|Iterator|Traversable
+     * @return ArrayIterator|Iterator
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     #[\ReturnTypeWillChange]
     public function getIterator()
@@ -56,6 +60,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      * Clean all bunches from table.
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function cleanBunches()
     {
@@ -106,6 +111,8 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      * Get next bunch of validated rows.
      *
      * @return null|array
+     * @throws Zend_Db_Statement_Exception
+     * @throws Zend_Json_Exception
      */
     public function getNextBunch()
     {
@@ -129,9 +136,11 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Save import rows bunch.
      *
-     * @param  string $entity
-     * @param  string $behavior
+     * @param  string                    $entity
+     * @param  string                    $behavior
      * @return int
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function saveBunch($entity, $behavior, array $data)
     {
