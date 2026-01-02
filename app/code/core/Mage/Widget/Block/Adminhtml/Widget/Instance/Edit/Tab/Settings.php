@@ -11,6 +11,8 @@
  * Widget Instance Settings tab block
  *
  * @package    Mage_Widget
+ *
+ * @method $this setActive(bool $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -50,7 +52,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      */
     public function canShowTab()
     {
-        return !(bool) $this->getWidgetInstance()->isCompleteToCreate();
+        return !$this->getWidgetInstance()->isCompleteToCreate();
     }
 
     /**
@@ -74,13 +76,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     }
 
     /**
-     * Prepare form before rendering HTML
-     *
      * @inheritDoc
      */
     protected function _prepareForm()
     {
-        $widgetInstance = $this->getWidgetInstance();
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
@@ -175,6 +174,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     public function getPackegeThemeOptionsArray()
     {
         return Mage::getModel('core/design_source_design')
-            ->setIsFullLabel(true)->getAllOptions(true);
+            ->setIsFullLabel(true)->getAllOptions();
     }
 }

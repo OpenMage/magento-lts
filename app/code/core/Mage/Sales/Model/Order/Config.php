@@ -61,8 +61,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve default status for state
      *
-     * @param  string $state
+     * @param  string              $state
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getStateDefaultStatus($state)
     {
@@ -80,8 +81,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve status label
      *
-     * @param  string $code
+     * @param  string              $code
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getStatusLabel($code)
     {
@@ -143,9 +145,10 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Get all possible statuses, or for specified state, or specified states array
      * Add labels by default. Return plain array of statuses, if no labels.
      *
-     * @param  mixed $state
-     * @param  bool  $addLabels
+     * @param  mixed               $state
+     * @param  bool                $addLabels
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStateStatuses($state, $addLabels = true)
     {

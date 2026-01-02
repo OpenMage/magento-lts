@@ -15,7 +15,7 @@
 class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
-     * Form with widget to select
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -25,7 +25,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             'legend'    => $this->helper('widget')->__('Widget'),
         ]);
 
-        $select = $fieldset->addField('select_widget_type', 'select', [
+        $fieldset->addField('select_widget_type', 'select', [
             'label'                 => $this->helper('widget')->__('Widget Type'),
             'title'                 => $this->helper('widget')->__('Widget Type'),
             'name'                  => 'widget_type',
@@ -39,7 +39,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/*/buildWidget'));
         $this->setForm($form);
-        return $this;
+
+        return parent::_prepareForm();
     }
 
     /**
@@ -65,10 +66,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     protected function _getWidgetSelectAfterHtml()
     {
         $html = '<p class="nm"><small></small></p>';
-        $i = 0;
+        $index = 0;
         foreach ($this->_getAvailableWidgets(true) as $data) {
-            $html .= sprintf('<div id="widget-description-%s" class="no-display">%s</div>', $i, $data['description']);
-            $i++;
+            $html .= sprintf('<div id="widget-description-%s" class="no-display">%s</div>', $index, $data['description']);
+            $index++;
         }
 
         return $html;

@@ -76,6 +76,7 @@
  * @method $this                                              setBaseTotalRefunded(float $value)
  * @method $this                                              setBillingAddressId(int $value)
  * @method $this                                              setCanVoidFlag(int $value)
+ * @method $this                                              setCommentText(string $value)
  * @method $this                                              setCustomerId(int $value)
  * @method $this                                              setCybersourceToken(string $value)
  * @method $this                                              setDiscountAmount(float $value)
@@ -88,6 +89,7 @@
  * @method $this                                              setIsUsedForRefund(int $value)
  * @method $this                                              setOrderCurrencyCode(string $value)
  * @method $this                                              setOrderId(int $value)
+ * @method $this                                              setRequestedCaptureCase(string $value)
  * @method $this                                              setShippingAddressId(int $value)
  * @method $this                                              setShippingAmount(float $value)
  * @method $this                                              setShippingHiddenTaxAmount(float $value)
@@ -192,6 +194,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 
     /**
      * Uploader clean on shutdown
+     *
+     * @throws Throwable
      */
     public function destruct()
     {
@@ -221,8 +225,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Load invoice by increment id
      *
-     * @param  string $incrementId
+     * @param  string              $incrementId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIncrementId($incrementId)
     {
@@ -230,7 +235,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             ->addAttributeToFilter('increment_id', $incrementId)
             ->getAllIds();
 
-        if (!empty($ids)) {
+        if ($ids !== []) {
             reset($ids);
             $this->load(current($ids));
         }
@@ -252,6 +257,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve store model instance
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
      */
     public function getStore()
     {
@@ -262,6 +268,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Declare order for invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -275,6 +282,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve the order the invoice for created for
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -289,6 +297,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve the increment_id of the order
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getOrderIncrementId()
     {
@@ -299,6 +308,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve billing address
      *
      * @return Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getBillingAddress()
     {
@@ -309,6 +319,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Retrieve shipping address
      *
      * @return Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getShippingAddress()
     {
@@ -329,6 +340,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Check invice capture action availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapture()
     {
@@ -341,6 +353,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Check invice void action availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canVoid()
     {
@@ -397,6 +410,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Capture invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function capture()
     {
@@ -412,6 +426,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Pay invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function pay()
     {
@@ -452,6 +467,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Void invoice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function void()
     {
@@ -464,6 +480,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Cancel invoice action
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel()
     {
@@ -526,10 +543,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Round price considering delta
      *
-     * @param  float  $price
-     * @param  string $type
-     * @param  bool   $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
+     * @param  float               $price
+     * @param  string              $type
+     * @param  bool                $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function roundPrice($price, $type = 'regular', $negative = false)
     {
@@ -548,10 +566,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Get invoice items collection
      *
      * @return Mage_Sales_Model_Resource_Order_Invoice_Item_Collection
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_invoice_item_collection')
                 ->setInvoiceFilter($this->getId());
 
@@ -567,6 +586,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Invoice_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -583,6 +603,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * @param  int|string                                $itemId
      * @return false|Mage_Sales_Model_Order_Invoice_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
@@ -655,6 +676,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Apply to order, order items etc.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register()
     {
@@ -723,6 +745,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Checking if the invoice is last
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isLast()
     {
@@ -744,11 +767,12 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Adds comment to invoice with additional possibility to send it to customer via email
      * and show it in customer account
      *
-     * @param Mage_Sales_Model_Order_Invoice_Comment|string $comment
-     * @param bool                                          $notify
-     * @param bool                                          $visibleOnFront
-     *
+     * @param  Mage_Sales_Model_Order_Invoice_Comment|string $comment
+     * @param  bool                                          $notify
+     * @param  bool                                          $visibleOnFront
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addComment($comment, $notify = false, $visibleOnFront = false)
     {
@@ -773,6 +797,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * @param  bool                                                        $reload
      * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getCommentsCollection($reload = false)
     {
@@ -799,9 +825,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice data
      *
-     * @param  bool   $notifyCustomer
-     * @param  string $comment
+     * @param  bool                $notifyCustomer
+     * @param  string              $comment
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -902,9 +930,10 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice update information
      *
-     * @param  bool   $notifyCustomer
-     * @param  string $comment
+     * @param  bool                $notifyCustomer
+     * @param  string              $comment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -1015,6 +1044,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * Before object save manipulations
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -1032,6 +1062,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * After object save manipulation
      *
      * @inheritDoc
+     * @throws Throwable
      */
     protected function _afterSave()
     {

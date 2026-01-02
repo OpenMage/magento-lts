@@ -529,6 +529,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
+     * Retrieve default attribute source model
+     *
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -615,7 +617,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getIdByCode($entityType, $code)
     {
-        $key = "{$entityType}|{$code}";
+        $key = "$entityType|$code";
         if (!isset($this->_attributeIdCache[$key])) {
             $this->_attributeIdCache[$key] = $this->getResource()->getIdByCode($entityType, $code);
         }

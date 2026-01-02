@@ -58,6 +58,9 @@ class Varien_Db_Tree
 
     private $_table;
 
+    /**
+     * @throws Varien_Db_Tree_Exception
+     */
     public function __construct($config = [])
     {
         // set a Zend_Db_Adapter connection
@@ -224,6 +227,9 @@ class Varien_Db_Tree
         return $this->_db->lastInsertId();
     }
 
+    /**
+     * @throws Zend_Db_Statement_Exception
+     */
     public function getNodeInfo($ID)
     {
         if (empty($this->_nodesInfo[$ID])) {
@@ -238,6 +244,9 @@ class Varien_Db_Tree
         return $data;
     }
 
+    /**
+     * @throws Zend_Db_Statement_Exception
+     */
     public function appendChild($ID, $data)
     {
         if (!$info = $this->getNodeInfo($ID)) {
@@ -262,23 +271,20 @@ class Varien_Db_Tree
 
                 $this->_db->insert($this->_table, $data);
                 $this->_db->commit();
-            } catch (PDOException $p) {
+            } catch (PDOException $PDOException) {
                 $this->_db->rollBack();
-                echo $p->getMessage();
+                echo $PDOException->getMessage();
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo $sql;
                 var_dump($data);
                 exit();
             }
 
             // TODO: change to ZEND LIBRARY
-            $res =  $this->_db->fetchOne('select last_insert_id()');
-            return $res;
-            //return $this->_db->fetchOne('select last_insert_id()');
-            //return $this->_db->lastInsertId();
+            return $this->_db->fetchOne('select last_insert_id()');
         }
 
         return  false;
@@ -304,6 +310,9 @@ class Varien_Db_Tree
 
     public function insertBefore($ID, $data) {}
 
+    /**
+     * @throws Zend_Db_Statement_Exception
+     */
     public function removeNode($ID)
     {
         if (!$info = $this->getNodeInfo($ID)) {
@@ -326,13 +335,16 @@ class Varien_Db_Tree
                 $this->_db->query($sql);
                 $this->_db->commit();
                 return new Varien_Db_Tree_Node($info, $this->getKeys());
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
             }
         }
     }
 
+    /**
+     * @throws Zend_Db_Statement_Exception
+     */
     public function moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
@@ -396,19 +408,20 @@ class Varien_Db_Tree
         }
     }
 
+    /**
+     * @throws Zend_Db_Statement_Exception
+     */
     public function __moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
-        $level = $eInfo[$this->_level];
-        $left_key = $eInfo[$this->_left];
-        $right_key = $eInfo[$this->_right];
-        $right_key_near = 0;
-        $left_key_near = 0;
-        $skew_level = 0;
+        $leftKey = $eInfo[$this->_left];
+        $rightKey = $eInfo[$this->_right];
+        $rightKeyNear = 0;
+        $skewLevel = 0;
 
         if ($pId != 0) {
             $pInfo = $this->getNodeInfo($pId);
-            $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
+            $skewLevel = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         }
 
         if ($aId != 0) {
@@ -416,49 +429,47 @@ class Varien_Db_Tree
         }
 
         if ($pId == 0) { //move to root
-            $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
+            $rightKeyNear = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
         } elseif (isset($aInfo) && $aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
-            $right_key_near = $aInfo[$this->_right];
-            $left_key_near = $aInfo[$this->_left];
+            $rightKeyNear = $aInfo[$this->_right];
         } elseif (isset($pInfo) && $aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID
-            $right_key_near = $pInfo[$this->_left];
+            $rightKeyNear = $pInfo[$this->_left];
         } elseif (isset($pInfo) && $pId != $eInfo[$this->_pid]) {
-            $right_key_near = $pInfo[$this->_right] - 1;
+            $rightKeyNear = $pInfo[$this->_right] - 1;
         }
 
-        $skew_tree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
-        echo "alert('" . $right_key_near . "');";
+        $skewTree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
+        echo "alert('" . $rightKeyNear . "');";
 
-        if ($right_key_near > $right_key) { // up
+        if ($rightKeyNear > $rightKey) { // up
             echo "alert('move up');";
-            $skew_edit = $right_key_near - $left_key + 1;
+            $skewEdit = $rightKeyNear - $leftKey + 1;
             $sql = 'UPDATE ' . $this->_table . '
                 SET
-                ' . $this->_right . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skew_edit . ', IF(' . $this->_right . ' < ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skew_tree . ', ' . $this->_right . ')),
-                ' . $this->_level . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_level . ' + ' . $skew_level . ', ' . $this->_level . '),
-                ' . $this->_left . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_left . ' + ' . $skew_edit . ', IF(' . $this->_left . ' > ' . $right_key_near . ', ' . $this->_left . ' + ' . $skew_tree . ', ' . $this->_left . '))
-                WHERE ' . $this->_right . ' > ' . $right_key_near . ' AND ' . $this->_left . ' < ' . $eInfo[$this->_right];
-        } elseif ($right_key_near < $right_key) { // down
+                ' . $this->_right . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skewEdit . ', IF(' . $this->_right . ' < ' . $eInfo[$this->_left] . ', ' . $this->_right . ' + ' . $skewTree . ', ' . $this->_right . ')),
+                ' . $this->_level . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_level . ' + ' . $skewLevel . ', ' . $this->_level . '),
+                ' . $this->_left . ' = IF(' . $this->_left . ' >= ' . $eInfo[$this->_left] . ', ' . $this->_left . ' + ' . $skewEdit . ', IF(' . $this->_left . ' > ' . $rightKeyNear . ', ' . $this->_left . ' + ' . $skewTree . ', ' . $this->_left . '))
+                WHERE ' . $this->_right . ' > ' . $rightKeyNear . ' AND ' . $this->_left . ' < ' . $eInfo[$this->_right];
+        } elseif ($rightKeyNear < $rightKey) { // down
             echo "alert('move down');";
-            $skew_edit = $right_key_near - $left_key + 1 - $skew_tree;
+            $skewEdit = $rightKeyNear - $leftKey + 1 - $skewTree;
             $sql = 'UPDATE ' . $this->_table . '
                 SET
-                    ' . $this->_left . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_left . ' + ' . $skew_edit . ', IF(' . $this->_left . ' > ' . $right_key . ', ' . $this->_left . ' - ' . $skew_tree . ', ' . $this->_left . ')),
-                    ' . $this->_level . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_level . ' + ' . $skew_level . ', ' . $this->_level . '),
-                    ' . $this->_right . ' = IF(' . $this->_right . ' <= ' . $right_key . ', ' . $this->_right . ' + ' . $skew_edit . ', IF(' . $this->_right . ' <= ' . $right_key_near . ', ' . $this->_right . ' - ' . $skew_tree . ', ' . $this->_right . '))
+                    ' . $this->_left . ' = IF(' . $this->_right . ' <= ' . $rightKey . ', ' . $this->_left . ' + ' . $skewEdit . ', IF(' . $this->_left . ' > ' . $rightKey . ', ' . $this->_left . ' - ' . $skewTree . ', ' . $this->_left . ')),
+                    ' . $this->_level . ' = IF(' . $this->_right . ' <= ' . $rightKey . ', ' . $this->_level . ' + ' . $skewLevel . ', ' . $this->_level . '),
+                    ' . $this->_right . ' = IF(' . $this->_right . ' <= ' . $rightKey . ', ' . $this->_right . ' + ' . $skewEdit . ', IF(' . $this->_right . ' <= ' . $rightKeyNear . ', ' . $this->_right . ' - ' . $skewTree . ', ' . $this->_right . '))
                 WHERE
-                    ' . $this->_right . ' > ' . $left_key . ' AND ' . $this->_left . ' <= ' . $right_key_near;
+                    ' . $this->_right . ' > ' . $leftKey . ' AND ' . $this->_left . ' <= ' . $rightKeyNear;
         }
 
         if (isset($sql)) {
             $this->_db->beginTransaction();
             try {
                 $this->_db->query($sql);
-                //$afrows = $this->_db->get
                 $this->_db->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_db->rollBack();
-                echo $e->getMessage();
+                echo $exception->getMessage();
                 echo "<br>\r\n";
                 echo $sql;
                 echo "<br>\r\n";
@@ -484,6 +495,9 @@ class Varien_Db_Tree
         }
     }
 
+    /**
+     * @throws Varien_Db_Tree_Node_Exception
+     */
     public function getChildren($ID, $start_level = 0, $end_level = 0)
     {
         try {
@@ -520,6 +534,9 @@ class Varien_Db_Tree
         return $nodeSet;
     }
 
+    /**
+     * @throws Varien_Db_Tree_Node_Exception
+     */
     public function getNode($nodeId)
     {
         $dbSelect = new Zend_Db_Select($this->_db);

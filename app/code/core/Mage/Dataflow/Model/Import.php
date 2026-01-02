@@ -20,6 +20,7 @@
  * @method int                                            getSessionId()
  * @method int                                            getStatus()
  * @method string                                         getValue()
+ * @method $this                                          setImportId(int $value)
  * @method $this                                          setSerialNumber(int $value)
  * @method $this                                          setSessionId(int $value)
  * @method $this                                          setStatus(int $value)

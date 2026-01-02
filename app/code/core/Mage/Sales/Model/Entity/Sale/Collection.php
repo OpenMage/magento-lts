@@ -58,17 +58,18 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param  bool                $printQuery
-     * @param  bool                $logQuery
+     * @param  bool                 $printQuery
+     * @param  bool                 $logQuery
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
         $this->_select = $this->_read->select();
         $entityTable = $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
+
         $this->getSelect()
             ->from(
                 ['sales' => $entityTable],
@@ -97,14 +98,14 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
 
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
         if (!empty($values)) {
-            foreach ($values as $v) {
-                $obj = new Varien_Object($v);
+            foreach ($values as $value) {
+                $obj = new Varien_Object($value);
                 $storeName = $stores[$obj->getStoreId()] ?? null;
 
-                $this->_items[ $v['store_id'] ] = $obj;
-                $this->_items[ $v['store_id'] ]->setStoreName($storeName);
-                $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
-                foreach ($this->_totals as $key => $value) {
+                $this->_items[$value['store_id']] = $obj;
+                $this->_items[$value['store_id']]->setStoreName($storeName);
+                $this->_items[$value['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
+                foreach ($this->_totals as $key => $total) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
@@ -151,6 +152,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * @param  string                                   $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getAttribute($attr)
     {

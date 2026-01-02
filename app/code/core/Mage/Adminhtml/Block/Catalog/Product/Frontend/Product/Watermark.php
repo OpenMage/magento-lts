@@ -59,9 +59,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         return $html . $this->_getFooterHtml($element);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _getHeaderHtml($element)
     {
-        $id = $element->getHtmlId();
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
         $html = '<h4 class="icon-head head-edit-form">' . $element->getLegend() . '</h4>';

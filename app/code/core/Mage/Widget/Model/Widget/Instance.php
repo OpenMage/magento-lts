@@ -139,7 +139,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                         'block_reference' => $pageGroupData['block'],
                         'entities' => '',
                         'layout_handle_updates' => [$layoutHandle],
-                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : '',
+                        'template' => $pageGroupData['template'] ?: '',
                     ];
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = [];
@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function isCompleteToCreate()
     {
-        return (bool) ($this->getType() && $this->getPackageTheme());
+        return $this->getType() && $this->getPackageTheme();
     }
 
     /**
@@ -358,8 +358,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (is_string($this->getData('widget_parameters'))) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($this->getData('widget_parameters'));
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -499,9 +499,10 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Generate layout update xml
      *
-     * @param  string $blockReference
-     * @param  string $templatePath
+     * @param  string              $blockReference
+     * @param  string              $templatePath
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
@@ -581,6 +582,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 
     /**
      * Invalidate related cache if instance contain layout updates
+     *
+     * @inheritDoc
      */
     protected function _beforeDelete()
     {

@@ -18,16 +18,16 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
      * Json tree builder
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTreeJson()
     {
         $helper = Mage::helper('cms/wysiwyg_images');
-        $storageRoot = $helper->getStorageRoot();
         $collection = Mage::registry('storage')->getDirsCollection($helper->getCurrentPath());
         $jsonArray = [];
         foreach ($collection as $item) {
             $jsonArray[] = [
-                'text'  => $helper->getShortFilename($item->getBasename(), 20),
+                'text'  => $helper->getShortFilename($item->getBasename()),
                 'id'    => $helper->convertPathToId($item->getFilename()),
                 'cls'   => 'folder',
             ];

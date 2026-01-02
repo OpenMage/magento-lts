@@ -19,12 +19,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Bloc
         return Mage::registry('sales_order');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareLayout()
     {
         /**
          * Check customer existing
          */
-        $customer = Mage::getModel('customer/customer')->load($this->_getOrder()->getCustomerId());
+        Mage::getModel('customer/customer')->load($this->_getOrder()->getCustomerId());
 
         /**
          * Check Item products existing

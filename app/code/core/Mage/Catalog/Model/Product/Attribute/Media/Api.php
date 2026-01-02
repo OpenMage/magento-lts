@@ -47,9 +47,6 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     public function items($productId, $store = null, $identifierType = null)
     {
         $product = $this->_initProduct($productId, $store, $identifierType);
-
-        $gallery = $this->_getGalleryAttribute($product);
-
         $galleryData = $product->getData(self::ATTRIBUTE_CODE);
 
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -68,12 +65,13 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve image data
      *
-     * @param  int|string         $productId
-     * @param  string             $file
-     * @param  int|string         $store
-     * @param  null|string        $identifierType
+     * @param  int|string          $productId
+     * @param  string              $file
+     * @param  int|string          $store
+     * @param  null|string         $identifierType
      * @return array
      * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function info($productId, $file, $store = null, $identifierType = null)
     {
@@ -91,21 +89,20 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Create new image for product and return image filename
      *
-     * @param  int|string         $productId
-     * @param  array              $data
-     * @param  int|string         $store
-     * @param  null|string        $identifierType
+     * @param  int|string          $productId
+     * @param  array               $data
+     * @param  int|string          $store
+     * @param  null|string         $identifierType
      * @return string
      * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function create($productId, $data, $store = null, $identifierType = null)
     {
-        $data = $this->_prepareImageData($data);
-
+        $data    = $this->_prepareImageData($data);
         $product = $this->_initProduct($productId, $store, $identifierType);
-
         $gallery = $this->_getGalleryAttribute($product);
 
         if (!isset($data['file']) || !isset($data['file']['mime']) || !isset($data['file']['content'])) {
@@ -147,11 +144,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $filePath = $tmpDirectory . DS . $fileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
-                throw new Mage_Core_Exception($e->getMessage(), $e->getCode(), $e);
+                throw new Mage_Core_Exception($exception->getMessage(), $exception->getCode(), $exception);
             }
 
             // Adding image to gallery
@@ -172,9 +169,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_created', $e->getMessage());
-        } catch (Exception) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_created', $mageCoreException->getMessage());
+        } catch (Throwable) {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
 
@@ -184,13 +181,14 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Update image data
      *
-     * @param  int|string         $productId
-     * @param  string             $file
-     * @param  array              $data
-     * @param  int|string         $store
-     * @param  null|string        $identifierType
+     * @param  int|string          $productId
+     * @param  string              $file
+     * @param  array               $data
+     * @param  int|string          $store
+     * @param  null|string         $identifierType
      * @return bool
      * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -259,11 +257,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Remove image from product
      *
-     * @param  int|string         $productId
-     * @param  string             $file
-     * @param  null|string        $identifierType
+     * @param  int|string          $productId
+     * @param  string              $file
+     * @param  null|string         $identifierType
      * @return bool
      * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     public function remove($productId, $file, $identifierType = null)
     {
@@ -289,8 +288,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve image types (image, small_image, thumbnail, etc...)
      *
-     * @param  int   $setId
+     * @param  int                 $setId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function types($setId)
     {
@@ -339,6 +339,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param  Mage_Catalog_Model_Product                 $product
      * @return bool|Mage_Catalog_Model_Resource_Attribute
+     * @throws Mage_Api_Exception
      */
     protected function _getGalleryAttribute($product)
     {
@@ -397,6 +398,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param  int|string                 $store
      * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Exception
      */
     protected function _initProduct($productId, $store = null, $identifierType = null)
     {

@@ -33,9 +33,10 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     /**
      * Assign order status to particular state
      *
-     * @param  string $state
-     * @param  bool   $isDefault make the status as default one for state
+     * @param  string              $state
+     * @param  bool                $isDefault make the status as default one for state
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function assignState($state, $isDefault = false)
     {
@@ -54,8 +55,9 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     /**
      * Unassigns order status from particular state
      *
-     * @param  string $state
+     * @param  string              $state
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function unassignState($state)
     {
@@ -75,6 +77,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      * Getter for status labels per store
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStoreLabels()
     {
@@ -90,13 +93,13 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     /**
      * Get status label by store
      *
-     * @param  mixed  $store
+     * @param  mixed               $store
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getStoreLabel($store = null)
     {
         $store = Mage::app()->getStore($store);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {
@@ -112,6 +115,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
      *
      * @param  string                        $state
      * @return Mage_Sales_Model_Order_Status
+     * @throws Mage_Core_Exception
      */
     public function loadDefaultByState($state)
     {

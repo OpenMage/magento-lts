@@ -17,8 +17,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Render specified template
      *
-     * @param string $tplName
-     * @param array  $data    parameters required by template
+     * @param  string              $tplName
+     * @param  array               $data    parameters required by template
+     * @throws Mage_Core_Exception
      */
     protected function _outTemplate($tplName, $data = [])
     {
@@ -51,6 +52,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Administrator login action
+     *
+     * @throws Mage_Core_Exception
      */
     public function loginAction()
     {
@@ -58,9 +61,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*');
             return;
         }
-
-        $loginData = $this->getRequest()->getParam('login');
-        $username = (is_array($loginData) && array_key_exists('username', $loginData)) ? $loginData['username'] : null;
 
         $this->loadLayout();
         $this->renderLayout();
@@ -140,6 +140,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Example action
+     *
+     * @throws Mage_Core_Exception
      */
     public function exampleAction()
     {
@@ -292,6 +294,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Reset forgotten password
      *
      * Used to handle data received from reset forgotten password form
+     * @throws Mage_Core_Exception
      */
     public function resetPasswordPostAction()
     {
@@ -302,7 +305,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
         try {
             $this->_validateResetPasswordLinkToken($userId, $resetPasswordLinkToken);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/');
             return;
@@ -351,8 +354,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $user->save();
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
-        } catch (Exception $exception) {
-            $this->_getSession()->addError($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->_getSession()->addError($throwable->getMessage());
             $data = [
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken,

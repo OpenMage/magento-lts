@@ -47,11 +47,12 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Initialize order model instance
      *
      * @return false|Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     protected function _initOrder()
     {
-        $id = $this->getRequest()->getParam('order_id');
-        $order = Mage::getModel('sales/order')->load($id);
+        $orderId = $this->getRequest()->getParam('order_id');
+        $order = Mage::getModel('sales/order')->load($orderId);
 
         if (!$order->getId()) {
             $this->_getSession()->addError($this->__('This order no longer exists.'));
@@ -67,6 +68,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Orders grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -78,6 +81,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function gridAction()
     {
@@ -87,6 +92,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * View order detale
+     *
+     * @throws Mage_Core_Exception
      */
     public function viewAction()
     {
@@ -111,6 +118,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Notify user
+     *
+     * @throws Mage_Core_Exception
      */
     public function emailAction()
     {
@@ -127,11 +136,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 }
 
                 $this->_getSession()->addSuccess($this->__('The order email has been sent.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Throwable $throwable) {
                 $this->_getSession()->addError($this->__('Failed to send the order email.'));
-                Mage::logException($e);
+                Mage::logException($throwable);
             }
         }
 
@@ -140,6 +149,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Cancel order
+     *
+     * @throws Mage_Core_Exception
      */
     public function cancelAction()
     {
@@ -150,11 +161,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been cancelled.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Throwable $throwable) {
                 $this->_getSession()->addError($this->__('The order has not been cancelled.'));
-                Mage::logException($e);
+                Mage::logException($throwable);
             }
 
             $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
@@ -163,6 +174,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Hold order
+     *
+     * @throws Mage_Core_Exception
      */
     public function holdAction()
     {
@@ -173,9 +186,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been put on hold.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Throwable) {
                 $this->_getSession()->addError($this->__('The order was not put on hold.'));
             }
 
@@ -185,6 +198,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Unhold order
+     *
+     * @throws Mage_Core_Exception
      */
     public function unholdAction()
     {
@@ -195,9 +210,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(
                     $this->__('The order has been released from holding status.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Throwable) {
                 $this->_getSession()->addError($this->__('The order was not unheld.'));
             }
 
@@ -209,6 +224,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Manage payment state
      *
      * Either denies or approves a payment that is in "review" state
+     * @throws Mage_Core_Exception
      */
     public function reviewPaymentAction()
     {
@@ -238,11 +254,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
             $order->save();
             $this->_getSession()->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Throwable $throwable) {
             $this->_getSession()->addError($this->__('Failed to update the payment.'));
-            Mage::logException($e);
+            Mage::logException($throwable);
         }
 
         $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
@@ -250,6 +266,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Add order comment action
+     *
+     * @throws Mage_Core_Exception
      */
     public function addCommentAction()
     {
@@ -271,12 +289,12 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
                 $this->loadLayout('empty');
                 $this->renderLayout();
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 $response = [
                     'error'     => true,
-                    'message'   => $e->getMessage(),
+                    'message'   => $mageCoreException->getMessage(),
                 ];
-            } catch (Exception) {
+            } catch (Throwable) {
                 $response = [
                     'error'     => true,
                     'message'   => $this->__('Cannot add order history.'),
@@ -292,6 +310,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate invoices grid for ajax request
+     *
+     * @throws Mage_Core_Exception
      */
     public function invoicesAction()
     {
@@ -303,6 +323,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate shipments grid for ajax request
+     *
+     * @throws Mage_Core_Exception
      */
     public function shipmentsAction()
     {
@@ -314,6 +336,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate creditmemos grid for ajax request
+     *
+     * @throws Mage_Core_Exception
      */
     public function creditmemosAction()
     {
@@ -325,6 +349,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Generate order history for ajax request
+     *
+     * @throws Mage_Core_Exception
      */
     public function commentsHistoryAction()
     {
@@ -341,6 +367,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Cancel selected orders
+     *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function massCancelAction()
     {
@@ -377,6 +406,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Hold selected orders
+     *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function massHoldAction()
     {
@@ -413,6 +445,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Unhold selected orders
+     *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function massUnholdAction()
     {
@@ -456,16 +491,16 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Print documents for selected orders
      */
-    public function massPrintAction()
-    {
-        $orderIds = $this->getRequest()->getPost('order_ids');
-        $document = $this->getRequest()->getPost('document');
-    }
+    public function massPrintAction() {}
 
     /**
      * Print invoices for selected orders
      *
      * @return Mage_Adminhtml_Sales_OrderController|void
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Controller_Response_Exception
+     * @throws Zend_Db_Select_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function pdfinvoicesAction()
     {
@@ -505,6 +540,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Print shipments for selected orders
      *
      * @return Mage_Adminhtml_Sales_OrderController|void
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Controller_Response_Exception
+     * @throws Zend_Db_Select_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function pdfshipmentsAction()
     {
@@ -544,6 +583,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Print creditmemos for selected orders
      *
      * @return Mage_Adminhtml_Sales_OrderController|void
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Controller_Response_Exception
+     * @throws Zend_Db_Select_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function pdfcreditmemosAction()
     {
@@ -583,6 +626,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      * Print all documents for selected orders
      *
      * @return Mage_Adminhtml_Sales_OrderController|void
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Controller_Response_Exception
+     * @throws Zend_Db_Select_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function pdfdocsAction()
     {
@@ -646,6 +693,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Attempt to void the order payment
+     *
+     * @throws Mage_Core_Exception
      */
     public function voidPaymentAction()
     {
@@ -654,16 +703,14 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         }
 
         try {
-            $order->getPayment()->void(
-                new Varien_Object(), // workaround for backwards compatibility
-            );
+            $order->getPayment()->void(new Varien_Object()); // workaround for backwards compatibility
             $order->save();
             $this->_getSession()->addSuccess($this->__('The payment has been voided.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Throwable $throwable) {
             $this->_getSession()->addError($this->__('Failed to void the payment.'));
-            Mage::logException($e);
+            Mage::logException($throwable);
         }
 
         $this->_redirect('*/*/view', ['order_id' => $order->getId()]);
@@ -691,6 +738,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export order grid to CSV format
+     *
+     * @throws Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function exportCsvAction()
     {
@@ -700,7 +750,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     *  Export order grid to Excel XML format
+     * Export order grid to Excel XML format
+     *
+     * @throws Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function exportExcelAction()
     {
@@ -711,6 +764,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Order transactions grid ajax action
+     *
+     * @throws Mage_Core_Exception
      */
     public function transactionsAction()
     {
@@ -721,6 +776,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Edit order address form
+     *
+     * @throws Mage_Core_Exception
      */
     public function addressAction()
     {
@@ -746,6 +803,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Save order address
+     *
+     * @throws Mage_Core_Exception
      */
     public function addressSaveAction()
     {
@@ -760,11 +819,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order address has been updated.'));
                 $this->_redirect('*/*/view', ['order_id' => $address->getParentId()]);
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sales')->__('An error occurred while updating the order address. The address has not been changed.'),
                 );
             }

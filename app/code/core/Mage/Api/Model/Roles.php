@@ -24,6 +24,7 @@
  * @method int                                      getUserId()
  * @method $this                                    setName(string $name)
  * @method $this                                    setParentId(int $value)
+ * @method $this                                    setPid(string $value)
  * @method $this                                    setRoleName(string $value)
  * @method $this                                    setRoleType(string $value)
  * @method $this                                    setSortOrder(int $value)

@@ -18,6 +18,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
      * Adding product form elements for editing attribute
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _prepareForm()
     {
@@ -183,7 +185,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values' => $yesnoSource,
         ]);
 
-        $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', [
+        $fieldset->addField('is_html_allowed_on_front', 'select', [
             'name' => 'is_html_allowed_on_front',
             'label' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),
             'title' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),

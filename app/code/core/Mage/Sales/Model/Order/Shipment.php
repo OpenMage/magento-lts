@@ -122,8 +122,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Load shipment by increment id
      *
-     * @param  string $incrementId
+     * @param  string              $incrementId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIncrementId($incrementId)
     {
@@ -131,7 +132,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             ->addAttributeToFilter('increment_id', $incrementId)
             ->getAllIds();
 
-        if (!empty($ids)) {
+        if ($ids !== []) {
             reset($ids);
             $this->load(current($ids));
         }
@@ -143,6 +144,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Declare order for shipment
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -156,6 +158,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve hash code of current order
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getProtectCode()
     {
@@ -166,6 +169,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve the order the shipment for created for
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -180,6 +184,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve billing address
      *
      * @return Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getBillingAddress()
     {
@@ -190,6 +195,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve shipping address
      *
      * @return Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getShippingAddress()
     {
@@ -231,6 +237,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Shipment_Item_Collection
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection()
     {
@@ -250,6 +257,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Shipment_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -264,8 +272,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int  $itemId
+     * @param  int                 $itemId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
@@ -296,6 +305,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @throws Mage_Core_Exception
      */
     public function getTracksCollection()
     {
@@ -315,6 +325,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Shipment_Track[]
+     * @throws Mage_Core_Exception
      */
     public function getAllTracks()
     {
@@ -331,6 +342,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * @param  int                                         $trackId
      * @return false|Mage_Sales_Model_Order_Shipment_Track
+     * @throws Mage_Core_Exception
      */
     public function getTrackById($trackId)
     {
@@ -400,6 +412,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * @param  bool                                                        $reload
      * @return Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getCommentsCollection($reload = false)
     {
@@ -427,9 +441,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment data
      *
-     * @param  bool   $notifyCustomer
-     * @param  string $comment
+     * @param  bool                $notifyCustomer
+     * @param  string              $comment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
     {
@@ -525,9 +540,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment update information
      *
-     * @param  bool   $notifyCustomer
-     * @param  string $comment
+     * @param  bool                $notifyCustomer
+     * @param  string              $comment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -600,7 +616,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected function _getEmails($configPath)
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
+        if (is_string($data) && $data !== '') {
             return explode(',', $data);
         }
 
@@ -674,6 +690,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Retrieve store model instance
      *
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
      */
     public function getStore()
     {
@@ -696,6 +713,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Get shipping label and decode by db adapter
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getShippingLabel()
     {

@@ -34,6 +34,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return Mage::getSingleton('core/resource')->getTableName($table);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function getProductEntity($field = null)
     {
         if (!$this->_productEntity) {
@@ -44,6 +47,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return is_null($field) ? $this->_productEntity : $this->_productEntity->getData($field);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function getSkuAttribute($field = 'attribute_id')
     {
         if (!$this->_skuAttribute) {
@@ -61,14 +67,17 @@ class Mage_Catalog_Model_Mysql4_Convert
             $products = $this->getConnection()->fetchAll($select);
 
             $this->_productsBySku = [];
-            foreach ($products as $p) {
-                $this->_productsBySku[$p['sku']] = $p['entity_id'];
+            foreach ($products as $product) {
+                $this->_productsBySku[$product['sku']] = $product['entity_id'];
             }
         }
 
         return $this->_productsBySku[$sku] ?? false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function addProductToStore($productId, $storeId)
     {
         $write = $this->getConnection();
@@ -140,10 +149,13 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function exportProductLinks()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
-        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute('attribute_id');
+        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute();
 
         $select = $this->getSelect()
             ->from(['lt' => $this->getTable('catalog/product_link_type')], ['link_type' => 'code'])
@@ -154,10 +166,13 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function exportProductsInCategories()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
-        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute('attribute_id');
+        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute();
 
         $select = $this->getSelect()
             ->from(['cp' => $this->getTable('catalog/category_product')], ['category_id', 'position'])
@@ -167,10 +182,13 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function exportProductsInStores()
     {
         $skuTable = $this->getTable('catalog/product') . '_' . $this->getSkuAttribute('backend_type');
-        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute('attribute_id');
+        $skuCond = ' and sku.store_id=0 and sku.attribute_id=' . $this->getSkuAttribute();
 
         $select = $this->getSelect()
             ->from(['ps' => $this->getTable('catalog/product_store')], [])
@@ -181,6 +199,9 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $this->getConnection()->fetchAll($select);
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function exportCategories()
     {
         $collection = Mage::getResourceModel('catalog/category_collection')
@@ -196,6 +217,11 @@ class Mage_Catalog_Model_Mysql4_Convert
         return $categories;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
+     * @throws Zend_Cache_Exception
+     */
     public function exportProducts()
     {
         $attrSets = Mage::getResourceModel('eav/entity_attribute_set_collection')->load();
@@ -204,23 +230,18 @@ class Mage_Catalog_Model_Mysql4_Convert
             $attrSetName[$attrSet->getId()] = $attrSet->getAttributeSetName();
         }
 
-        $select = $this->getSelect()
-            ->from(['ao' => $this->getTable('eav/attribute_option')], ['attribute_id', 'option_id'])
-            ->join(['aov' => $this->getTable('eav/attribute_option_value')], 'aov.option_id=ao.option_id', ['value_id', 'value'])
-            ->where('aov.store_id=0');
-
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect('*')
             ->load();
 
         $products = [];
         foreach ($collection as $object) {
-            $r = $object->getData();
+            $row = $object->getData();
 
-            unset($r['entity_id'], $r['entity_type_id']);
-            $r['attribute_set_id'] = $attrSetName[$r['attribute_set_id']];
+            unset($row['entity_id'], $row['entity_type_id']);
+            $row['attribute_set_id'] = $attrSetName[$row['attribute_set_id']];
 
-            $products[] = $r;
+            $products[] = $row;
         }
 
         return $products;

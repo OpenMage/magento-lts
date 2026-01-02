@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Prepare grid collection
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -39,6 +39,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
 
         $this->setCollection($collection);
+
         return parent::_prepareCollection();
     }
 
@@ -99,7 +100,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
-        $class = '';
         if (isset($this->_invalidatedTypes[$row->getId()])) {
             $class = self::CSS_SEVERITY_MINOR;
             $value = $this->__('Invalidated');
@@ -131,8 +131,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('types');
-
-        $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
         $this->getMassactionBlock()->addItem(MassAction::ENABLE, [
             'label'    => Mage::helper('index')->__('Enable'),

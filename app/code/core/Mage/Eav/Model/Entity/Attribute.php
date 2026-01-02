@@ -76,9 +76,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retrieve default attribute source model
-     *
-     * @return string
+     * @inheritDoc
      */
     protected function _getDefaultSourceModel()
     {
@@ -93,6 +91,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Delete entity
      *
      * @return Mage_Eav_Model_Resource_Entity_Attribute
+     * @throws Mage_Core_Exception
      */
     public function deleteEntity()
     {
@@ -103,6 +102,8 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Load entity_attribute_id into $this by $this->attribute_set_id
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function loadEntityAttributeIdBySet()
     {
@@ -125,6 +126,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * @inheritDoc
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _beforeSave()
     {
@@ -194,6 +196,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Save additional data
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -265,8 +268,9 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     /**
      * Retrieve attribute codes by frontend type
      *
-     * @param  string $type
+     * @param  string              $type
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAttributeCodesByFrontendType($type)
     {
@@ -277,6 +281,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * Return array of labels of stores
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getStoreLabels()
     {
@@ -293,6 +298,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @param  int                             $storeId
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreLabel($storeId = null)
@@ -302,7 +308,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         }
 
         $store = Mage::app()->getStore($storeId);
-        $label = false;
         if (!$store->isAdmin()) {
             $labels = $this->getStoreLabels();
             if (isset($labels[$store->getId()])) {

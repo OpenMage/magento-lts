@@ -487,8 +487,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $checksum += ord(substr($firstLine, $i, 1));
         }
 
-        $isUstar = 'ustar' == strtolower(substr($header['magic'], 0, 5));
-
         $checksumOk = $header['checksum'] == $checksum;
         if (isset($header['name']) && $checksumOk) {
             if ($header['name'] == '././@LongLink' && $header['type'] == 'L') {
@@ -604,7 +602,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     {
         $this->_setSkipRoot($skipRoot);
         $source = realpath($source);
-        $tarData = $this->_setCurrentPath($source)
+        $this->_setCurrentPath($source)
             ->_setDestinationFilePath($destination)
             ->_setCurrentFile($source);
 

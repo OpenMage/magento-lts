@@ -24,6 +24,8 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profiles list action
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -66,6 +68,8 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profile edit action
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -97,18 +101,25 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function uploadAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function uploadPostAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
@@ -117,6 +128,6 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         }
 
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
+        Mage::registry('current_convert_profile');
     }
 }

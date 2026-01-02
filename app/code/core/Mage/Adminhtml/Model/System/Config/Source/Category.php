@@ -14,10 +14,11 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Category
 {
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function toOptionArray($addEmpty = true)
     {
-        $tree = Mage::getResourceModel('catalog/category_tree');
-
         $collection = Mage::getResourceModel('catalog/category_collection');
 
         $collection->addAttributeToSelect('name')

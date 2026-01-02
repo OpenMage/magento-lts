@@ -102,6 +102,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Set indexer class name as data namespace for event object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
@@ -128,6 +129,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Register data required by process in event object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function register(Mage_Index_Model_Event $event)
     {
@@ -148,6 +150,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Check if event can be matched by process
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
@@ -157,9 +160,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Check if specific entity and action type is matched
      *
-     * @param  string $entity
-     * @param  string $type
+     * @param  string              $entity
+     * @param  string              $type
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function matchEntityAndType($entity, $type)
     {
@@ -172,6 +176,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
     /**
      * Reindex all data what this process responsible is
+     *
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function reindexAll()
     {
@@ -196,9 +203,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 try {
                     $this->_processEventsCollection($eventsCollection, false);
                     $this->_getResource()->commit();
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $this->_getResource()->rollBack();
-                    throw $e;
+                    throw $exception;
                 }
             } else {
                 //Update existing events since we'll do reindexAll
@@ -261,6 +268,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with assigned indexer object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
@@ -325,9 +333,11 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Index pending events addressed to the process
      *
-     * @param  null|string $entity
-     * @param  null|string $type
+     * @param  null|string                 $entity
+     * @param  null|string                 $type
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function indexEvents($entity = null, $type = null)
     {
@@ -375,8 +385,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process all events of the collection
      *
-     * @param  bool  $skipUnmatched
+     * @param  bool                        $skipUnmatched
      * @return $this
+     * @throws Throwable
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _processEventsCollection(
         Mage_Index_Model_Resource_Event_Collection $eventsCollection,
@@ -406,8 +418,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Update status process/event association
      *
-     * @param  string $status
+     * @param  string              $status
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateEventStatus(Mage_Index_Model_Event $event, $status)
     {
@@ -419,6 +432,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Returns Process lock name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getProcessLockName()
     {
@@ -444,6 +458,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * This method allow to protect multiple process running and fast lock validation.
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function lock()
     {
@@ -457,6 +472,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * script will wait until process will be unlocked
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function lockAndBlock()
     {
@@ -468,6 +484,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Unlock process
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function unlock()
     {
@@ -479,6 +496,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Check if process is locked
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isLocked()
     {
@@ -488,8 +506,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Change process status
      *
-     * @param  string $status
+     * @param  string              $status
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function changeStatus($status)
     {
@@ -615,6 +634,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with locks checking
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function safeProcessEvent(Mage_Index_Model_Event $event)
     {

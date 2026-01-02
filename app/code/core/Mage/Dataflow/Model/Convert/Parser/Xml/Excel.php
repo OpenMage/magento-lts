@@ -28,9 +28,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
      */
     protected $_parseFieldNames;
 
+    /**
+     * @throws Throwable
+     */
     public function parse()
     {
-        $adapterName   = $this->getVar('adapter', null);
+        $adapterName   = $this->getVar('adapter');
         $adapterMethod = $this->getVar('method', 'saveRow');
 
         if (!$adapterName || !$adapterMethod) {
@@ -73,19 +76,14 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $worksheet = $this->getVar('single_sheet', '');
         $xmlString = '';
-        $xmlRowString = '';
-        $countRows = 0;
         $isWorksheet = false;
-        $isRow = false;
         while (($xmlOriginalString = $batchIoAdapter->read()) !== false) {
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {
                 $strposS = strpos($xmlString, '<Worksheet');
-                $substrL = 10;
                 //fix for OpenOffice
                 if ($strposS === false) {
                     $strposS = strpos($xmlString, '<ss:Worksheet');
-                    $substrL = 13;
                 }
 
                 if ($strposS === false) {
@@ -129,8 +127,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             if ($strposS !== false) {
                 $xmlString = substr($xmlString, $strposS + $substrL);
                 $isWorksheet = false;
-
-                continue;
             }
         }
 
@@ -172,13 +168,16 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 $xmlString = substr($xmlTmpString, $strposF + 6);
             } else {
                 $found = false;
-                continue;
             }
         }
 
         return $xmlString;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     */
     protected function _saveParsedRow($xmlString)
     {
         $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
@@ -225,13 +224,13 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $this->_countRows++;
 
-        $i = 0;
+        $index = 0;
         foreach ($this->_parseFieldNames as $field) {
-            $itemData[$field] = $xmlData[$i] ?? null;
-            $i++;
+            $itemData[$field] = $xmlData[$index] ?? null;
+            $index++;
         }
 
-        $batchImportModel = $this->getBatchImportModel()
+        $this->getBatchImportModel()
             ->setId(null)
             ->setBatchId($this->getBatchModel()->getId())
             ->setBatchData($itemData)
@@ -241,6 +240,10 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         return $this;
     }
 
+    /**
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     public function unparse()
     {
         $batchExport = $this->getBatchExportModel()
@@ -252,8 +255,8 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             return $this;
         }
 
-        $io = $this->getBatchModel()->getIoAdapter();
-        $io->open();
+        $batchIo = $this->getBatchModel()->getIoAdapter();
+        $batchIo->open();
 
         $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
@@ -268,17 +271,17 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             . '</OfficeDocumentSettings>'
             . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
             . '</ExcelWorkbook>';
-        $io->write($xml);
+        $batchIo->write($xml);
 
         $wsName = htmlspecialchars($this->getVar('single_sheet'));
         $wsName = empty($wsName) ? Mage::helper('dataflow')->__('Sheet 1') : $wsName;
 
         $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
-        $io->write($xml);
+        $batchIo->write($xml);
 
         if ($this->getVar('fieldnames')) {
             $xml = $this->_getXmlString($fieldList);
-            $io->write($xml);
+            $batchIo->write($xml);
         }
 
         foreach ($batchExportIds as $batchExportId) {
@@ -291,12 +294,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             }
 
             $xmlData = $this->_getXmlString($xmlData);
-            $io->write($xmlData);
+            $batchIo->write($xmlData);
         }
 
         $xml = '</Table></Worksheet></Workbook>';
-        $io->write($xml);
-        $io->close();
+        $batchIo->write($xml);
+        $batchIo->close();
 
         return $this;
     }
@@ -305,6 +308,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
      * Prepare and return XML string for MS Excel XML from array
      *
      * @return string
+     * @throws Exception
      */
     protected function _getXmlString(array $fields = [])
     {

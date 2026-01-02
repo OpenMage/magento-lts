@@ -123,6 +123,7 @@
  * @method $this                                              setBaseTaxAmount(float $value)
  * @method $this                                              setBaseVirtualAmount(float $value)
  * @method $this                                              setBaseWeeeDiscount(float $value)
+ * @method $this                                              setCanApplyMsrp(bool $value)
  * @method $this                                              setCartFixedRules(array $value)
  * @method $this                                              setCity(string $value)
  * @method $this                                              setCollectShippingRates(int $value)
@@ -183,9 +184,8 @@
  * @method $this                                              setWeight(float $value)
  * @method $this                                              unsAddressId()
  * @method $this                                              unsAddressType()
- *
- * @method $this unsBaseSubtotalInclTax()
- * @method $this unsSubtotalInclTax()
+ * @method $this                                              unsBaseSubtotalInclTax()
+ * @method $this                                              unsSubtotalInclTax()
  */
 class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstract
 {

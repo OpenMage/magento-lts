@@ -27,6 +27,8 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
 
     /**
      * Prepare profiles collection and render it as grid information
+     *
+     * @throws Mage_Core_Exception
      */
     public function prepareProfilesGrid()
     {
@@ -89,14 +91,13 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
         if ($profiles) {
             $this->setGridElements($profiles);
         }
-
-        $orders = [];
     }
 
     /**
      * Instantiate profiles collection
      *
-     * @param array|string $fields
+     * @param  array|string        $fields
+     * @throws Mage_Core_Exception
      */
     protected function _prepareProfiles($fields = '*')
     {

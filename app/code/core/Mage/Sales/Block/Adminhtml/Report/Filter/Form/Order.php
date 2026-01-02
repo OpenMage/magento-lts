@@ -20,11 +20,8 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
     protected function _prepareForm()
     {
         parent::_prepareForm();
-        $form = $this->getForm();
-        $htmlIdPrefix = $form->getHtmlIdPrefix();
-        /** @var Varien_Data_Form_Element_Fieldset $fieldset */
-        $fieldset = $this->getForm()->getElement('base_fieldset');
 
+        $fieldset = $this->getForm()->getElement('base_fieldset');
         if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             $fieldset->addField('show_actual_columns', 'select', [
                 'name'       => 'show_actual_columns',

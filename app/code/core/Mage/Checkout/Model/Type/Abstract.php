@@ -44,6 +44,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      * Retrieve quote items
      *
      * @return Mage_Sales_Model_Quote_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getQuoteItems()
     {
@@ -80,6 +81,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      * Retrieve customer default shipping address
      *
      * @return false|Mage_Customer_Model_Address
+     * @throws Mage_Core_Exception
      */
     public function getCustomerDefaultShippingAddress()
     {
@@ -104,6 +106,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      * Retrieve customer default billing address
      *
      * @return false|Mage_Customer_Model_Address
+     * @throws Mage_Core_Exception
      */
     public function getCustomerDefaultBillingAddress()
     {
@@ -127,6 +130,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     protected function _createOrderFromAddress($address)
     {
@@ -141,14 +145,15 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
-     * @param array|string           $email
-     * @param string                 $name
-     * @param Mage_Sales_Model_Order $order
+     * @param  array|string           $email
+     * @param  string                 $name
+     * @param  Mage_Sales_Model_Order $order
+     * @throws Zend_Mail_Exception
      * @deprecated after 1.4.0.0-rc1
      */
     protected function _emailOrderConfirmation($email, $name, $order)
     {
-        $mailer = Mage::getModel('core/email')
+        Mage::getModel('core/email')
             ->setTemplate('email/order.phtml')
             ->setType('html')
             ->setTemplateVar('order', $order)
