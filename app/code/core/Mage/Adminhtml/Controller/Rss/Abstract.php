@@ -44,16 +44,4 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
         $this->_forward('noRoute');
         return false;
     }
-
-    /**
-     * Retrieve helper instance
-     *
-     * @param  string                    $name
-     * @return Mage_Core_Helper_Abstract
-     * @deprecated this method is incompatible with parent class. Use Mage::helper instead
-     */
-    protected function _getHelper($name)
-    {
-        return Mage::helper($name);
-    }
 }

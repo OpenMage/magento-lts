@@ -122,7 +122,10 @@ try {
             Php74\Assign\NullCoalescingOperatorRector::class,
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
-            Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
+            # see https://github.com/OpenMage/magento-lts/pull/5040
+            Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
+                __DIR__ . '/lib/Varien/Directory/Collection.php',
+            ],
             Php81\Array_\ArrayToFirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
