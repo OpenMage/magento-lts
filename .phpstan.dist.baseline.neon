@@ -8473,12 +8473,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			rawMessage: 'Regex pattern is invalid: Compilation failed: invalid range in character class at offset 40 in pattern: #SQLSTATE\[23000\]: [^:]+: 1062[^'']+''([\d-\.]+)''#'
-			identifier: regexp.pattern
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			rawMessage: 'Cannot call method bindParam() on object|resource.'
 			identifier: method.nonObject
 			count: 1
