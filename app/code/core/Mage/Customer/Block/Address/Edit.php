@@ -84,12 +84,10 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         }
 
         if ($this->getAddress()->getId()) {
-            $title = Mage::helper('customer')->__('Edit Address');
-        } else {
-            $title = Mage::helper('customer')->__('Add New Address');
+            return Mage::helper('customer')->__('Edit Address');
         }
 
-        return $title;
+        return Mage::helper('customer')->__('Add New Address');
     }
 
     /**

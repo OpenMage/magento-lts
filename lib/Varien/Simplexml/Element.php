@@ -45,13 +45,12 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function getParent()
     {
         if (!empty($this->_parent)) {
-            $parent = $this->_parent;
-        } else {
-            $arr = $this->xpath('..');
-            $parent = $arr[0];
+            return $this->_parent;
         }
 
-        return $parent;
+        $arr = $this->xpath('..');
+
+        return $arr[0];
     }
 
     /**

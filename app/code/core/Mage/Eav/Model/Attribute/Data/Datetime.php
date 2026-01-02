@@ -25,15 +25,13 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
         if ($filterCode) {
             $filterClass = 'Varien_Data_Form_Filter_' . ucfirst($filterCode);
             if ($filterCode == 'datetime') {
-                $filter = new $filterClass(
+                return new $filterClass(
                     $this->_getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                     $this->_getLocale()->getLocale(),
                 );
-            } else {
-                $filter = new $filterClass();
             }
 
-            return $filter;
+            return new $filterClass();
         }
 
         return false;

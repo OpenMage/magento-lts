@@ -258,12 +258,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         $path = parent::getBasePath();
         if (empty($path)) {
-            $path = '/';
-        } else {
-            $path = str_replace('\\', '/', $path);
+            return '/';
         }
 
-        return $path;
+        return str_replace('\\', '/', $path);
     }
 
     /**

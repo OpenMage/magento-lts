@@ -97,12 +97,10 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     {
         if ($priceInfo['is_percent']) {
             $ratio = $priceInfo['pricing_value'] / 100;
-            $price = $productPrice * $ratio;
-        } else {
-            $price = $priceInfo['pricing_value'];
+            return $productPrice * $ratio;
         }
 
-        return $price;
+        return $priceInfo['pricing_value'];
     }
 
     /**

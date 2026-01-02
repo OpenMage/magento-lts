@@ -172,16 +172,15 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $includeParameters = $this->_getIncludeParameters($construction[2]);
         if (!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
             // Not specified template or not seted include processor
-            $replacedValue = '{Error in include processing}';
-        } else {
-            // Including of template
-            $templateCode = $includeParameters['template'];
-            unset($includeParameters['template']);
-            $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
-            $replacedValue = call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
+            return '{Error in include processing}';
         }
 
-        return $replacedValue;
+        // Including of template
+        $templateCode = $includeParameters['template'];
+        unset($includeParameters['template']);
+        $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
+
+        return call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
     }
 
     /**
@@ -199,16 +198,15 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         // Processing of {template config_path=... [...]} statement
         $templateParameters = $this->_getIncludeParameters($construction[2]);
         if (!isset($templateParameters['config_path']) || !$this->getTemplateProcessor()) {
-            $replacedValue = '{Error in template processing}';
-        } else {
-            // Including of template
-            $configPath = $templateParameters['config_path'];
-            unset($templateParameters['config_path']);
-            $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
-            $replacedValue = call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
+            return '{Error in template processing}';
         }
 
-        return $replacedValue;
+        // Including of template
+        $configPath = $templateParameters['config_path'];
+        unset($templateParameters['config_path']);
+        $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
+
+        return call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
     }
 
     public function dependDirective($construction)

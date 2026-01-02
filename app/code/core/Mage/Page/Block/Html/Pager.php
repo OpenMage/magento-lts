@@ -300,26 +300,24 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         $finish = 1;
         $pages = [];
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
-            $pages = range(1, $collection->getLastPageNumber());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($collection->getCurPage() >= $half
-                && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
-            ) {
-                $start  = ($collection->getCurPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($collection->getCurPage() < $half) {
-                $start  = 1;
-                $finish = $this->_displayPages;
-            } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
-                $finish = $collection->getLastPageNumber();
-                $start  = $finish - $this->_displayPages + 1;
-            }
-
-            $pages = range($start, $finish);
+            return range(1, $collection->getLastPageNumber());
         }
 
-        return $pages;
+        $half = ceil($this->_displayPages / 2);
+        if ($collection->getCurPage() >= $half
+            && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
+        ) {
+            $start  = ($collection->getCurPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($collection->getCurPage() < $half) {
+            $start  = 1;
+            $finish = $this->_displayPages;
+        } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
+            $finish = $collection->getLastPageNumber();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**

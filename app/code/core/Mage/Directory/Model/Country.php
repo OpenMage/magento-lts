@@ -107,12 +107,10 @@ T: {{telephone}}';
         $addressText = $filter->setData($address->getData())->filter($template);
 
         if ($html) {
-            $addressText = preg_replace('#(<br\s*/?>\s*){2,}#im', '<br/>', $addressText);
-        } else {
-            $addressText = preg_replace('#(\n\s*){2,}#m', "\n", $addressText);
+            return preg_replace('#(<br\s*/?>\s*){2,}#im', '<br/>', $addressText);
         }
 
-        return $addressText;
+        return preg_replace('#(\n\s*){2,}#m', "\n", $addressText);
     }
 
     /**

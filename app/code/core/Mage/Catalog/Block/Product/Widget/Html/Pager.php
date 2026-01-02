@@ -204,23 +204,21 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
         $finish = 1;
 
         if ($this->getLastPageNum() <= $this->_displayPages) {
-            $pages = range(1, $this->getLastPageNum());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                $start  = ($this->getCurrentPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($this->getCurrentPage() < $half) {
-                $finish = $this->_displayPages;
-            } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
-                $finish = $this->getLastPageNum();
-                $start  = $finish - $this->_displayPages + 1;
-            }
-
-            $pages = range($start, $finish);
+            return range(1, $this->getLastPageNum());
         }
 
-        return $pages;
+        $half = ceil($this->_displayPages / 2);
+        if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
+            $start  = ($this->getCurrentPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($this->getCurrentPage() < $half) {
+            $finish = $this->_displayPages;
+        } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
+            $finish = $this->getLastPageNum();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**

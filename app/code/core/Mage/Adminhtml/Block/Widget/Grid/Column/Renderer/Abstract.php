@@ -120,13 +120,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                 $className = 'sort-arrow-' . $dir;
             }
 
-            $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
+            return '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
-        } else {
-            $out = $this->escapeHtml($this->getColumn()->getHeader());
         }
 
-        return $out;
+        return $this->escapeHtml($this->getColumn()->getHeader());
     }
 
     /**

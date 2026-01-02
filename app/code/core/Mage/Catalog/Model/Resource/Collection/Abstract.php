@@ -98,7 +98,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
                 't_s.entity_id = t_d.entity_id',
                 $adapter->quoteInto('t_s.store_id = ?', $storeId),
             ];
-            $select = $adapter->select()
+            return $adapter->select()
                 ->from(['t_d' => $table], [$entityIdField, 'attribute_id'])
                 ->joinLeft(
                     ['t_s' => $table],
@@ -109,12 +109,10 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
                 ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
                 ->where('t_d.attribute_id IN (?)', $attributeIds)
                 ->where('t_d.store_id = ?', 0);
-        } else {
-            $select = parent::_getLoadAttributesSelect($table)
-                ->where('store_id = ?', $this->getDefaultStoreId());
         }
 
-        return $select;
+        return parent::_getLoadAttributesSelect($table)
+            ->where('store_id = ?', $this->getDefaultStoreId());
     }
 
     /**

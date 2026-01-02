@@ -485,14 +485,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $helper = Mage::getResourceHelper('catalogsearch');
 
         if ($backendType === 'datetime') {
-            $expr = $helper->castField(
+            return $helper->castField(
                 $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s'),
             );
-        } else {
-            $expr = $helper->castField($field);
         }
 
-        return $expr;
+        return $helper->castField($field);
     }
 
     /**

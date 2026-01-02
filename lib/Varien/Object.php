@@ -596,18 +596,16 @@ class Varien_Object implements ArrayAccess
     public function toString($format = '')
     {
         if (empty($format)) {
-            $str = implode(', ', $this->getData());
-        } else {
-            preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
-            foreach ($matches[1] as $var) {
-                $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
-                $format = str_replace('{{' . $var . '}}', $replace, $format);
-            }
-
-            $str = $format;
+            return implode(', ', $this->getData());
         }
 
-        return $str;
+        preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
+        foreach ($matches[1] as $var) {
+            $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
+            $format = str_replace('{{' . $var . '}}', $replace, $format);
+        }
+
+        return $format;
     }
 
     /**

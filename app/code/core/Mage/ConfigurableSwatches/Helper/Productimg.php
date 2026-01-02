@@ -71,12 +71,10 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         ];
 
         if (!is_null($type) && array_key_exists($type, $resultImages)) {
-            $image = $resultImages[$type];
-        } else {
-            $image = (is_null($resultImages['swatch'])) ? $resultImages['standard'] : $resultImages['swatch'];
+            return $resultImages[$type];
         }
 
-        return $image;
+        return (is_null($resultImages['swatch'])) ? $resultImages['standard'] : $resultImages['swatch'];
     }
 
     /**
