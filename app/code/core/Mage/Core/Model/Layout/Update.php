@@ -437,6 +437,7 @@ class Mage_Core_Model_Layout_Update
         $layoutXml = null;
         $elementClass = $this->getElementClass();
         $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
+        $updatesRoot = $this->addFallbackThemesLayoutUpdates($updatesRoot);
         Mage::dispatchEvent('core_layout_update_updates_get_after', ['updates' => $updatesRoot]);
         $updates = $updatesRoot->asArray();
         $themeUpdates = Mage::getSingleton('core/design_config')->getNode("$area/$package/$theme/layout/updates");
@@ -482,5 +483,47 @@ class Mage_Core_Model_Layout_Update
         }
 
         return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
+    }
+
+    /**
+     * Add layout files added via theme.xml to layout updates
+     * for all themes that are parents of this theme.
+     */
+    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates): Mage_Core_Model_Config_Element
+    {
+        /* @var Mage_Core_Model_Design_Package $designPackage */
+        $designPackage = Mage::getSingleton('core/design_package');
+        /* @var Mage_Core_Model_Design_Fallback $fallback */
+        $fallback = Mage::getModel('core/design_fallback');
+
+        $fallbacks = array_reverse($fallback->getFallbackScheme(
+            $designPackage->getArea(),
+            $designPackage->getPackageName(),
+            $designPackage->getTheme('layout'),
+        ));
+
+        foreach ($fallbacks as $fallback) {
+            if (!isset($fallback['_package'], $fallback['_theme'])) {
+                continue;
+            }
+
+            $fallbackPackage = $fallback['_package'];
+            $fallbackTheme = $fallback['_theme'];
+
+            $themeUpdateGroups = Mage::getSingleton('core/design_config')->getNode("{$designPackage->getArea()}/$fallbackPackage/$fallbackTheme/layout/updates");
+
+            if (!$themeUpdateGroups) {
+                continue;
+            }
+
+            foreach ($themeUpdateGroups as $themeUpdateGroup) {
+                foreach ($themeUpdateGroup->asArray() as $key => $themeUpdate) {
+                    $updateNode = $updates->addChild($key);
+                    $updateNode->addChild('file', $themeUpdate['file']);
+                }
+            }
+        }
+
+        return $updates;
     }
 }
