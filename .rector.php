@@ -117,8 +117,6 @@ try {
             # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
-            # skip: causes syntax error in Varien_Db_Adapter_Pdo_Mysql
-            Php73\FuncCall\RegexDashEscapeRector::class,
             # skip: causes issues with some tests
             Php74\Closure\ClosureToArrowFunctionRector::class,
             # skip: causes issues
