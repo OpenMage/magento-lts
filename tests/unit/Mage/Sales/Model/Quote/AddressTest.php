@@ -48,7 +48,6 @@ final class AddressTest extends OpenMageTest
         // This is normally called when saving the address
         $reflectionClass = new \ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
-        $method->setAccessible(true);
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
@@ -82,7 +81,6 @@ final class AddressTest extends OpenMageTest
         // Trigger the _populateBeforeSaveData method
         $reflectionClass = new \ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
-        $method->setAccessible(true);
         $method->invoke($address);
 
         // For guest orders, default behavior should set same_as_billing to 1
@@ -117,7 +115,6 @@ final class AddressTest extends OpenMageTest
         // Trigger the _populateBeforeSaveData method
         $reflectionClass = new \ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
-        $method->setAccessible(true);
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
@@ -151,7 +148,6 @@ final class AddressTest extends OpenMageTest
         // Trigger the _populateBeforeSaveData method
         $reflectionClass = new \ReflectionClass($address);
         $method = $reflectionClass->getMethod('_populateBeforeSaveData');
-        $method->setAccessible(true);
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
