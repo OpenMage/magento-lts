@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
             'index'     => 'attribute_set_name',
         ]);
 
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**

@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
             ],
         );
 
-        return $this;
+        return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
