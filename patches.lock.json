@@ -1,5 +1,5 @@
 {
-    "_hash": "a66f814b6279e83972f6b06e3cfa1d96be1d3a98a5b95a69b1eacd08451ad923",
+    "_hash": "884e5f42330374f25da0de5a0a8eb339285d9d2c154ab842982bb699f1ebda7a",
     "patches": {
         "shardj/zf1-future": [
             {
@@ -87,7 +87,7 @@
             {
                 "package": "magento-ecg/coding-standard",
                 "description": "ECG-72 - Fix LoopSniff",
-                "url": ".vendor-patches/ECG-72.patch",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch",
                 "sha256": "c24c480d3e5a0257d75650ec13841594c1d3fa7f80d9adfcd4e95e5aeab2e139",
                 "depth": 1,
                 "extra": {
