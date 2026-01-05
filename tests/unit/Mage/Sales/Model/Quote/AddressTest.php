@@ -52,13 +52,13 @@ final class AddressTest extends OpenMageTest
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
-        $this->assertSame(
+        self::assertSame(
             0,
             $address->getSameAsBilling(),
-            'Explicitly set same_as_billing=0 should be preserved for guest orders during order edit'
+            'Explicitly set same_as_billing=0 should be preserved for guest orders during order edit',
         );
     }
-    
+
     /**
      * Test that same_as_billing is set to default for new addresses without explicit value
      *
@@ -86,13 +86,13 @@ final class AddressTest extends OpenMageTest
         $method->invoke($address);
 
         // For guest orders, default behavior should set same_as_billing to 1
-        $this->assertSame(
+        self::assertSame(
             1,
             $address->getSameAsBilling(),
-            'Default same_as_billing=1 should be set for new guest shipping addresses without explicit value'
+            'Default same_as_billing=1 should be set for new guest shipping addresses without explicit value',
         );
     }
-    
+
     /**
      * Test that explicitly set same_as_billing=1 is preserved
      *
@@ -121,13 +121,13 @@ final class AddressTest extends OpenMageTest
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
-        $this->assertSame(
+        self::assertSame(
             1,
             $address->getSameAsBilling(),
-            'Explicitly set same_as_billing=1 should be preserved'
+            'Explicitly set same_as_billing=1 should be preserved',
         );
     }
-    
+
     /**
      * Test that the fix works for registered customers with different addresses
      *
@@ -155,10 +155,10 @@ final class AddressTest extends OpenMageTest
         $method->invoke($address);
 
         // Assert that the explicitly set value was preserved
-        $this->assertSame(
+        self::assertSame(
             0,
             $address->getSameAsBilling(),
-            'Explicitly set same_as_billing=0 should be preserved for registered customers'
+            'Explicitly set same_as_billing=0 should be preserved for registered customers',
         );
     }
 }
