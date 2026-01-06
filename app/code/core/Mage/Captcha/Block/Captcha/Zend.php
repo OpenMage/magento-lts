@@ -58,9 +58,11 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
             if ($this->hasData('img_width')) {
                 $this->getCaptchaModel()->setWidth($this->getData('img_width'));
             }
+
             if ($this->hasData('img_height')) {
                 $this->getCaptchaModel()->setHeight($this->getData('img_height'));
             }
+
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }
