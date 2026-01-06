@@ -1234,7 +1234,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Get products count in category
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return int
      */
     public function getProductCount(Mage_Catalog_Model_Category $category): int
@@ -1242,7 +1242,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $select =  $this->_getReadAdapter()->select()
             ->from(
                 $this->getTable('catalog/category_product'),
-                "COUNT({$this->getTable('catalog/category_product')}.product_id)"
+                "COUNT({$this->getTable('catalog/category_product')}.product_id)",
             )
             ->where("{$this->getTable('catalog/category_product')}.category_id = ?", $category->getId());
         return (int) $this->_getReadAdapter()->fetchOne($select);
