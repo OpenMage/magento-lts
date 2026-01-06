@@ -1233,9 +1233,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
     /**
      * Get products count in category
-     *
-     * @param  Mage_Catalog_Model_Category $category
-     * @return int
      */
     public function getProductCount(Mage_Catalog_Model_Category $category): int
     {
