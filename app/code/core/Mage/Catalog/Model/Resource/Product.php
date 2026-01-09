@@ -29,6 +29,11 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     protected $_productCategoryTable;
 
     /**
+     * Used when duplicating product
+     */
+    protected bool $skipImagesOnDuplicate = false;
+
+    /**
      * Initialize resource
      */
     public function __construct()
@@ -565,8 +570,21 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $adapter = $this->_getWriteAdapter();
         $eavTables = ['datetime', 'decimal', 'int', 'text', 'varchar'];
-
+        $mediaImageAttributeSkipIds = [];
         $adapter = $this->_getWriteAdapter();
+
+        if ($this->getSkipImagesOnDuplicate()) {
+
+            /**
+             * @var int                                      $attributeId
+             * @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+             */
+            foreach ($this->getAttributesById() as $attributeId => $attribute) {
+                if ($attribute->getFrontendInput() == 'media_image') {
+                    $mediaImageAttributeSkipIds[$attribute->getBackendType()][] = $attributeId;
+                }
+            }
+        }
 
         // duplicate EAV store values
         foreach ($eavTables as $suffix) {
@@ -582,6 +600,10 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ])
                 ->where('entity_id = ?', $oldId)
                 ->where('store_id > ?', 0);
+
+            if (isset($mediaImageAttributeSkipIds[$suffix])) {
+                $select->where('attribute_id NOT IN (?)', $mediaImageAttributeSkipIds[$suffix]);
+            }
 
             $adapter->query($adapter->insertFromSelect(
                 $select,
@@ -718,5 +740,19 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('category_id NOT IN(?)', $rootIds);
 
         return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSkipImagesOnDuplicate(bool $newProductSkipImages)
+    {
+        $this->skipImagesOnDuplicate = $newProductSkipImages;
+        return $this;
+    }
+
+    public function getSkipImagesOnDuplicate(): bool
+    {
+        return $this->skipImagesOnDuplicate;
     }
 }

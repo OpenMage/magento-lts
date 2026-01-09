@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
-        if (!isset($value['values'])) {
+        if (!isset($value['values']) || $object->getSkipImagesOnDuplicate()) {
             $value['values'] = [];
         }
 
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
 
-        if (!is_array($value['images'])) {
+        if (!is_array($value['images']) || $object->getSkipImagesOnDuplicate()) {
             $value['images'] = [];
         }
 
@@ -696,7 +696,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $attrCode = $this->getAttribute()->getAttributeCode();
         $mediaGalleryData = $object->getData($attrCode);
 
-        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images'])) {
+        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images']) || $object->getSkipImagesOnDuplicate()) {
             return $this;
         }
 
