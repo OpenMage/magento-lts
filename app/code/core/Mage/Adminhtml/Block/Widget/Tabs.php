@@ -81,10 +81,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
 
-    /**
-     * @return Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface
-     */
-    public function getTab($tabId): ?Varien_Object
+    public function getTab(string $tabId): Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object|null
     {
         return $this->_tabs[$tabId] ?? null;
     }
