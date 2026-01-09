@@ -403,28 +403,28 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * Retrieve transitions for offsets of given timezone
      *
      * @param  string $timezone
-     * @param  mixed  $fromDate
-     * @param  mixed  $toDate
+     * @param  mixed  $from
+     * @param  mixed  $to
      * @return array
      */
-    protected function _getTZOffsetTransitions($timezone, $fromDate = null, $toDate = null)
+    protected function _getTZOffsetTransitions($timezone, $from = null, $to = null)
     {
         $tzTransitions = [];
         try {
-            if (!empty($fromDate)) {
-                $fromDate = new Zend_Date($fromDate, Varien_Date::DATETIME_INTERNAL_FORMAT);
-                $fromDate = $fromDate->getTimestamp();
+            if (!empty($from)) {
+                $from = new Zend_Date($from, Varien_Date::DATETIME_INTERNAL_FORMAT);
+                $from = $from->getTimestamp();
             }
 
-            $toDate = new Zend_Date($toDate, Varien_Date::DATETIME_INTERNAL_FORMAT);
-            $nextPeriod = $this->_getWriteAdapter()->formatDate($toDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-            $toDate = $toDate->getTimestamp();
+            $to = new Zend_Date($to, Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $nextPeriod = $this->_getWriteAdapter()->formatDate($to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            $to = $to->getTimestamp();
 
             $dtz = new DateTimeZone($timezone);
             $transitions = array_reverse($dtz->getTransitions());
             $dateTimeObject = new Zend_Date('c');
             foreach ($transitions as $transition) {
-                if (!$this->_isValidTransition($transition, $toDate)) {
+                if (!$this->_isValidTransition($transition, $to)) {
                     continue;
                 }
 
@@ -433,7 +433,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                     ->formatDate($dateTimeObject->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
                 $tzTransitions[$transition['offset']][] = ['from' => $transition['time'], 'to' => $nextPeriod];
 
-                if (!empty($fromDate) && $transition['ts'] < $fromDate) {
+                if (!empty($from) && $transition['ts'] < $from) {
                     break;
                 }
 
