@@ -204,7 +204,7 @@
                             <validate>validate-digits validate-greater-than-zero</validate>
                         </progressive_threshold>
                         <images_on_duplicate_action translate="label comment">
-                            <label>Skip Images on Duplicate</label>
+                            <label>Copy Images on Duplicate</label>
                             <comment>'Ask' option only affects Admin interface. Default for programmatical duplication is to persist images.</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_catalog_imageDuplicate</source_model>
