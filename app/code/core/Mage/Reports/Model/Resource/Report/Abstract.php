@@ -420,9 +420,9 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $nextPeriod = $this->_getWriteAdapter()->formatDate($to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
             $to = $to->getTimestamp();
 
+            $dateTimeObject = new Zend_Date('c');
             $dtz = new DateTimeZone($timezone);
             $transitions = array_reverse($dtz->getTransitions());
-            $dateTimeObject = new Zend_Date('c');
             foreach ($transitions as $transition) {
                 if (!$this->_isValidTransition($transition, $to)) {
                     continue;
