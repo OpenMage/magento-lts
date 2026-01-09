@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Mage\Sales\Model\Quote;
+namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote;
 
 use Mage;
 use Mage_Customer_Model_Group;
