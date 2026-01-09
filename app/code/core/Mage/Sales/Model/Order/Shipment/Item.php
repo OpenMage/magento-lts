@@ -12,32 +12,32 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Shipment_Item _getResource()
- * @method string getAdditionalData()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item            _getResource()
+ * @method string                                                   getAdditionalData()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getCollection()
- * @method string getDescription()
- * @method string getName()
- * @method int getOrderItemId()
- * @method int getParentId()
- * @method float getPrice()
- * @method int getProductId()
- * @method float getQty()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Item getResource()
+ * @method string                                                   getDescription()
+ * @method string                                                   getName()
+ * @method int                                                      getOrderItemId()
+ * @method int                                                      getParentId()
+ * @method float                                                    getPrice()
+ * @method int                                                      getProductId()
+ * @method float                                                    getQty()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getResourceCollection()
- * @method float getRowTotal()
- * @method string getSku()
- * @method float getWeight()
- * @method $this setAdditionalData(string $value)
- * @method $this setDescription(string $value)
- * @method $this setName(string $value)
- * @method $this setOrderItemId(int $value)
- * @method $this setParentId(int $value)
- * @method $this setPrice(float $value)
- * @method $this setProductId(int $value)
- * @method $this setRowTotal(float $value)
- * @method $this setSku(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setWeight(float $value)
+ * @method float                                                    getRowTotal()
+ * @method string                                                   getSku()
+ * @method float                                                    getWeight()
+ * @method $this                                                    setAdditionalData(string $value)
+ * @method $this                                                    setDescription(string $value)
+ * @method $this                                                    setName(string $value)
+ * @method $this                                                    setOrderItemId(int $value)
+ * @method $this                                                    setParentId(int $value)
+ * @method $this                                                    setPrice(float $value)
+ * @method $this                                                    setProductId(int $value)
+ * @method $this                                                    setRowTotal(float $value)
+ * @method $this                                                    setSku(string $value)
+ * @method $this                                                    setStoreId(int $value)
+ * @method $this                                                    setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 
     protected $_orderItem = null;
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('sales/order_shipment_item');
     }
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare Shipment instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)
     {
@@ -78,7 +78,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -112,7 +112,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare qty
      *
-     * @param float $qty
+     * @param  float               $qty
      * @return $this
      * @throws Mage_Core_Exception
      */

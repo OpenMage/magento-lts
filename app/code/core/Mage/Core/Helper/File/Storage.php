@@ -65,7 +65,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      */
     public function isInternalStorage($storage = null)
     {
-        $storage = (!is_null($storage)) ? (int) $storage : $this->getCurrentStorageCode();
+        $storage = (is_null($storage)) ? $this->getCurrentStorageCode() : (int) $storage;
 
         return in_array($storage, $this->_internalStorageList);
     }
@@ -73,8 +73,8 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Retrieve storage model
      *
-     * @param  null|int $storage
-     * @param  array $params
+     * @param  null|int                                                                $storage
+     * @param  array                                                                   $params
      * @return Mage_Core_Model_File_Storage_Database|Mage_Core_Model_File_Storage_File
      */
     public function getStorageModel($storage = null, $params = [])
@@ -86,7 +86,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * Check if needed to copy file from storage to file system and
      * if file exists in the storage
      *
-     * @param  string $filename
+     * @param  string   $filename
      * @return bool|int
      */
     public function processStorageFile($filename)

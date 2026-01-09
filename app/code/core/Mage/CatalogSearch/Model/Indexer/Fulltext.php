@@ -321,7 +321,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     /**
      * Check if product is composite
      *
-     * @param int $productId
+     * @param  int  $productId
      * @return bool
      */
     protected function _isProductComposite($productId)

@@ -17,7 +17,7 @@ interface Mage_Api2_Model_Renderer_Interface
     /**
      * Render content in a certain format
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return string
      */
     public function render($data);

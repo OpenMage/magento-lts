@@ -7,15 +7,17 @@
  * @package    Mage_Api
  */
 
+use Carbon\Carbon;
+
 /**
  * Webservice api session
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_Acl getAcl()
+ * @method Mage_Api_Model_Acl  getAcl()
  * @method Mage_Api_Model_User getUser()
- * @method $this setAcl(Mage_Api_Model_Acl $loadAcl)
- * @method $this setUser(Mage_Api_Model_User $user)
+ * @method $this               setAcl(Mage_Api_Model_Acl $loadAcl)
+ * @method $this               setUser(Mage_Api_Model_User $user)
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -24,19 +26,19 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     protected $_currentSessId = null;
 
     /**
-     * @param null|string $sessionName
+     * @param  null|string $sessionName
      * @return $this
      */
     public function start($sessionName = null)
     {
-        $this->_currentSessId = md5(time() . uniqid('', true) . $sessionName);
+        $this->_currentSessId = md5(Carbon::now()->getTimestamp() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
     }
 
     /**
-     * @param string $namespace
-     * @param null|string $sessionName
+     * @param  string      $namespace
+     * @param  null|string $sessionName
      * @return $this
      */
     public function init($namespace, $sessionName = null)
@@ -57,7 +59,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param null|string $sessId
+     * @param  null|string $sessId
      * @return $this
      */
     public function setSessionId($sessId = null)
@@ -113,8 +115,8 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param string $username
-     * @param string $apiKey
+     * @param  string              $username
+     * @param  string              $apiKey
      * @return mixed
      * @throws Mage_Core_Exception
      */
@@ -149,7 +151,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param null|Mage_Api_Model_User $user
+     * @param  null|Mage_Api_Model_User $user
      * @return $this
      */
     public function refreshAcl($user = null)
@@ -177,9 +179,9 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check current user permission on resource and privilege
      *
-     * @param   string $resource
-     * @param   string $privilege
-     * @return  bool
+     * @param  string $resource
+     * @param  string $privilege
+     * @return bool
      */
     public function isAllowed($resource, $privilege = null)
     {
@@ -208,7 +210,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      *  Check session expiration
      *
-     * @param Mage_Api_Model_User $user
+     * @param  Mage_Api_Model_User $user
      * @return bool
      */
     public function isSessionExpired($user)
@@ -217,12 +219,12 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             return true;
         }
 
-        $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
+        $timeout = Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($user->getLogdate())->getTimestamp();
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 
     /**
-     * @param false|string $sessId
+     * @param  false|string        $sessId
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -244,8 +246,8 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      *  Renew user by session ID if session not expired
      *
-     *  @param string $sessId
-     *  @return bool
+     * @param  string $sessId
+     * @return bool
      */
     protected function _renewBySessId($sessId)
     {

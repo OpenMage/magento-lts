@@ -13,15 +13,15 @@
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile_History _getResource()
- * @method string getActionCode()
- * @method string getPerformedAt()
- * @method int getProfileId()
+ * @method string                                       getActionCode()
+ * @method string                                       getPerformedAt()
+ * @method int                                          getProfileId()
  * @method Mage_Dataflow_Model_Resource_Profile_History getResource()
- * @method int getUserId()
- * @method $this setActionCode(string $value)
- * @method $this setPerformedAt(string $value)
- * @method $this setProfileId(int $value)
- * @method $this setUserId(int $value)
+ * @method int                                          getUserId()
+ * @method $this                                        setActionCode(string $value)
+ * @method $this                                        setPerformedAt(string $value)
+ * @method $this                                        setProfileId(int $value)
+ * @method $this                                        setUserId(int $value)
  */
 class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
 {

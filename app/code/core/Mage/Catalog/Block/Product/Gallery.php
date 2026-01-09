@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         }
 
         if (!$image) {
-            $image = $this->getGalleryCollection()->getFirstItem();
+            return $this->getGalleryCollection()->getFirstItem();
         }
 
         return $image;
@@ -90,9 +90,9 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
             if (isset($size[0])) {
                 if ($size[0] > 600) {
                     return 600;
-                } else {
-                    return $size[0];
                 }
+
+                return $size[0];
             }
         }
 

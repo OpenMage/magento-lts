@@ -14,7 +14,7 @@
  *
  * @method string getMethodCode()
  * @method string getReferenceId()
- * @method int getStoreId()
+ * @method int    getStoreId()
  */
 abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Model_Abstract
 {

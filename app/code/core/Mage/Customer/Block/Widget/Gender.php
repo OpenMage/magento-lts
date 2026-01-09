@@ -17,7 +17,7 @@ class Mage_Customer_Block_Widget_Gender extends Mage_Customer_Block_Widget_Abstr
     /**
      * Initialize block
      */
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('customer/widget/gender.phtml');

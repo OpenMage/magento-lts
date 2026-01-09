@@ -24,7 +24,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Setter for storage data model
      *
-     * @param Varien_Object $dataStorageModel
+     * @param  Varien_Object                     $dataStorageModel
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setDataStorage($dataStorageModel)
@@ -51,8 +51,8 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      *
      * $index parameter is ignored
      *
-     * @param string $key
-     * @param int|string $index
+     * @param  string     $key
+     * @param  int|string $index
      * @return mixed
      * @see Mage_Core_Model_Session_Abstract::getData()
      */
@@ -69,8 +69,8 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
-     * @param array|string $key
-     * @param mixed $value
+     * @param  array|string                      $key
+     * @param  mixed                             $value
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setData($key, $value = null)
@@ -82,7 +82,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Save lookup result in state model
      *
-     * @param Varien_Object $result
+     * @param  Varien_Object                     $result
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setLookupResult($result)
@@ -97,7 +97,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     /**
      * Save authenticate result in state model
      *
-     * @param Varien_Object $result
+     * @param  Varien_Object                     $result
      * @return Mage_Centinel_Model_StateAbstract
      */
     public function setAuthenticateResult($result)
@@ -119,7 +119,9 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     {
         if ($this->_isLookupStrictSuccessful()) {
             return true;
-        } elseif (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
+        }
+
+        if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             return true;
         }
 

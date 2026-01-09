@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -140,7 +142,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _construct() {}
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     public function hasAction($action)
@@ -171,8 +173,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve flag value
      *
-     * @param   string $action
-     * @param   string $flag
+     * @param  string     $action
+     * @param  string     $flag
      * @return array|bool
      */
     public function getFlag($action, $flag = '')
@@ -183,20 +185,18 @@ abstract class Mage_Core_Controller_Varien_Action
 
         if ($flag === '') {
             return $this->_flags;
-        } elseif (isset($this->_flags[$action][$flag])) {
-            return $this->_flags[$action][$flag];
-        } else {
-            return false;
         }
+
+        return $this->_flags[$action][$flag] ?? false;
     }
 
     /**
      * Setting flag value
      *
-     * @param   string $action
-     * @param   string $flag
-     * @param   bool|int|string $value
-     * @return  $this
+     * @param  string          $action
+     * @param  string          $flag
+     * @param  bool|int|string $value
+     * @return $this
      */
     public function setFlag($action, $flag, $value)
     {
@@ -212,8 +212,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Retrieve full bane of current action current controller and
      * current module
      *
-     * @param   string $delimiter
-     * @return  string
+     * @param  string $delimiter
+     * @return string
      */
     public function getFullActionName($delimiter = '_')
     {
@@ -235,12 +235,12 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   null|array|bool|string $handles
-     * @param   bool $generateBlocks
-     * @param   bool $generateXml
-     * @return  $this
-     * @throws  Mage_Core_Exception
-     * @throws  Mage_Core_Model_Store_Exception
+     * @param  null|array|bool|string          $handles
+     * @param  bool                            $generateBlocks
+     * @param  bool                            $generateXml
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
     {
@@ -370,9 +370,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Rendering layout
      *
-     * @param   string $output
-     * @return  $this|void
-     * @throws  Mage_Core_Exception
+     * @param  string              $output
+     * @return $this|void
+     * @throws Mage_Core_Exception
      */
     public function renderLayout($output = '')
     {
@@ -469,7 +469,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve action method name
      *
-     * @param string $action
+     * @param  string $action
      * @return string
      */
     public function getActionMethodName($action)
@@ -573,7 +573,7 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * @param null|mixed $coreRoute
+     * @param  null|mixed          $coreRoute
      * @throws Mage_Core_Exception
      */
     public function norouteAction($coreRoute = null)
@@ -627,7 +627,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Throw control to different action (control and module if was specified).
      *
-     * @param string $action
+     * @param string      $action
      * @param null|string $controller
      * @param null|string $module
      */
@@ -657,7 +657,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param array|string $messagesStorage
+     * @param  array|string        $messagesStorage
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -687,7 +687,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param array|string $messagesStorage
+     * @param  array|string        $messagesStorage
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -699,8 +699,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set redirect url into response
      *
-     * @param   string $url
-     * @return  $this
+     * @param  string $url
+     * @return $this
      */
     protected function _redirectUrl($url)
     {
@@ -711,9 +711,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set redirect into response
      *
-     * @param   string $path
-     * @param   array $arguments
-     * @return  $this
+     * @param  string $path
+     * @param  array  $arguments
+     * @return $this
      */
     protected function _redirect($path, $arguments = [])
     {
@@ -724,8 +724,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Set redirect into response with session id in URL if it is enabled.
      * It allows to distinguish primordial request from browser with cookies disabled.
      *
-     * @param   string $path
-     * @return  $this
+     * @param  string $path
+     * @return $this
      */
     public function setRedirectWithCookieCheck($path, array $arguments = [])
     {
@@ -746,7 +746,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Redirect to success page
      *
-     * @param string $defaultUrl
+     * @param  string              $defaultUrl
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -768,7 +768,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Redirect to error page
      *
-     * @param string $defaultUrl
+     * @param  string              $defaultUrl
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -790,9 +790,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set referer url for redirect in response
      *
-     * @param   string $defaultUrl
-     * @return  $this
-     * @throws  Mage_Core_Exception
+     * @param  string              $defaultUrl
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _redirectReferer($defaultUrl = null)
     {
@@ -827,7 +827,7 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
-            $refererUrl = Mage::app()->getStore()->getBaseUrl();
+            return Mage::app()->getStore()->getBaseUrl();
         }
 
         return $refererUrl;
@@ -836,9 +836,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Check url to be used as internal
      *
-     * @param   string $url
-     * @return  bool
-     * @throws  Mage_Core_Exception
+     * @param  string              $url
+     * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isUrlInternal($url)
     {
@@ -859,7 +859,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Get real module name (like 'Mage_Module')
      *
-     * @return  string
+     * @return string
      */
     protected function _getRealModuleName()
     {
@@ -964,8 +964,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * $this->_title('foo')->_title(false)->_title('bar');
      * bar / <default title>
      *
-     * @param null|false|int|string $text
-     * @param bool $resetIfExists
+     * @param  null|false|int|string $text
+     * @param  bool                  $resetIfExists
      * @return $this
      * @see self::_renderTitles()
      */
@@ -1020,10 +1020,10 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Convert dates in array from localized to internal format
      *
-     * @param   array $array
-     * @param   array $dateFields
-     * @return  array
-     * @throws  Zend_Locale_Exception
+     * @param  array                 $array
+     * @param  array                 $dateFields
+     * @return array
+     * @throws Zend_Locale_Exception
      */
     protected function _filterDates($array, $dateFields)
     {
@@ -1044,10 +1044,10 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Convert dates with time in array from localized to internal format
      *
-     * @param   array $array
-     * @param   array $dateFields
-     * @return  array
-     * @throws  Zend_Locale_Exception
+     * @param  array                 $array
+     * @param  array                 $dateFields
+     * @return array
+     * @throws Zend_Locale_Exception
      */
     protected function _filterDateTime($array, $dateFields)
     {
@@ -1068,11 +1068,11 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      * @throws Exception
@@ -1112,7 +1112,7 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', date('r'), true);
+            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -1132,9 +1132,9 @@ abstract class Mage_Core_Controller_Varien_Action
                 }
 
                 exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
             }
+
+            $this->getResponse()->setBody($content);
         }
 
         return $this;

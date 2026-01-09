@@ -39,7 +39,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Delete calculation settings by rule id
      *
-     * @param int $ruleId
+     * @param  int                 $ruleId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -55,8 +55,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve distinct calculation
      *
-     * @param  string $field
-     * @param  int $ruleId
+     * @param  string              $field
+     * @param  int                 $ruleId
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -72,7 +72,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate information: calculation process data and tax rate
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getRateInfo($request)
@@ -87,7 +87,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate for specific tax rate request
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return int
      */
     public function getRate($request)
@@ -98,8 +98,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve Calculation Process
      *
-     * @param null|Varien_Object $request
-     * @param null|array $rates
+     * @param  null|Varien_Object $request
+     * @param  null|array         $rates
      * @return array
      */
     public function getCalculationProcess($request, $rates = null)
@@ -189,8 +189,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Return combined percent value
      *
-     * @param float|int $percent
-     * @param float|int $rate
+     * @param  float|int $percent
+     * @param  float|int $rate
      * @return int
      */
     protected function _collectPercent($percent, $rate)
@@ -201,7 +201,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Create search templates for postcode
      *
-     * @param string $postcode
+     * @param  string $postcode
      * @return array  $strArr
      */
     protected function _createSearchPostCodeTemplates($postcode)
@@ -227,7 +227,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Returns tax rates for request - either pereforms SELECT from DB, or returns already cached result
      * Notice that productClassId due to optimization can be array of ids
      *
-     * @param null|Varien_Object $request
+     * @param  null|Varien_Object       $request
      * @return array
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
@@ -370,7 +370,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get rate ids applicable for some address
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getApplicableRateIds($request)
@@ -400,7 +400,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Calculate rate
      *
-     * @param array $rates
+     * @param  array $rates
      * @return int
      */
     protected function _calculateRate($rates)
@@ -437,7 +437,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rate ids
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object            $request
      * @return array
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
@@ -462,8 +462,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rates by customer tax class
      *
-     * @param int $customerTaxClass
-     * @param null|int $productTaxClass
+     * @param  int      $customerTaxClass
+     * @param  null|int $productTaxClass
      * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)

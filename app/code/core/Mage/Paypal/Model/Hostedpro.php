@@ -96,15 +96,15 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         if ($this->getConfigData('mobile_optimized')) {
             return self::MOBILE_LAYOUT_TEMPLATE;
-        } else {
-            return self::LAYOUT_TEMPLATE;
         }
+
+        return self::LAYOUT_TEMPLATE;
     }
 
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return bool
      */
     public function validate()
     {
@@ -114,7 +114,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Instantiate state and set it to state object
      *
-     * @param string $paymentAction
+     * @param string        $paymentAction
      * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
@@ -199,7 +199,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get return URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getReturnUrl($storeId = null)
@@ -210,7 +210,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get notify (IPN) URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getNotifyUrl($storeId = null)
@@ -221,7 +221,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get cancel URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getCancelUrl($storeId = null)
@@ -232,9 +232,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Build URL for store
      *
-     * @param string $path
-     * @param int $storeId
-     * @param bool $secure
+     * @param  string $path
+     * @param  int    $storeId
+     * @param  bool   $secure
      * @return string
      */
     protected function _getUrl($path, $storeId, $secure = null)

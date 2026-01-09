@@ -67,7 +67,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Load data by specified username
      *
-     * @param string $username
+     * @param  string      $username
      * @return array|false
      */
     public function loadByUsername($username)
@@ -88,7 +88,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if user is assigned to any role
      *
-     * @param int|Mage_Admin_Model_User|Mage_Core_Model_Abstract|string $user
+     * @param  int|Mage_Admin_Model_User|Mage_Core_Model_Abstract|string $user
      * @return null|array
      */
     public function hasAssigned2Role($user)
@@ -115,9 +115,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             ];
 
             return $adapter->fetchAll($select, $binds);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -140,7 +140,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Unserialize user extra data after user save
      *
-     * @param Mage_Admin_Model_User $object
+     * @param  Mage_Admin_Model_User $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -163,7 +163,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role record with user
      *
-     * @param Mage_Admin_Model_User $object
+     * @param  Mage_Admin_Model_User $object
      * @return $this
      * @throws Exception
      * @throws Throwable
@@ -195,7 +195,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User                                $user
      * @return $this|Mage_Admin_Model_User|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -257,7 +257,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Get user roles
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User $user
      * @return array
      */
     public function getRoles(Mage_Core_Model_Abstract $user)
@@ -293,7 +293,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user roles
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User     $user
      * @return $this
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -340,7 +340,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User $user
      * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
@@ -367,7 +367,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if role user exists
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -387,15 +387,15 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 ->where('user_id = :user_id');
 
             return $dbh->fetchCol($select, $binds);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
      * Check if user exists
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User $user
      * @return array|false
      */
     public function userExists(Mage_Core_Model_Abstract $user)
@@ -419,8 +419,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user extra data
      *
-     * @param Mage_Admin_Model_User $object
-     * @param string $data
+     * @param  Mage_Admin_Model_User     $object
+     * @param  string                    $data
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
@@ -440,8 +440,8 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Set reload ACL flag
      *
-     * @param Mage_Admin_Model_User $object
-     * @param int $flag
+     * @param  Mage_Admin_Model_User     $object
+     * @param  int                       $flag
      * @return $this
      * @throws Zend_Cache_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -469,7 +469,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Unserializes user extra data
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User    $user
      * @return Mage_Core_Model_Abstract
      */
     protected function _unserializeExtraData(Mage_Core_Model_Abstract $user)

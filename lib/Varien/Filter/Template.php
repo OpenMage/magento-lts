@@ -106,7 +106,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Filter the string as template.
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function filter($value)
@@ -191,7 +191,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Mage_Sales_Model_Order::sales_email/order/template. This directive is useful to include things like a global
      * header/footer.
      *
-     * @param $construction
+     * @param               $construction
      * @return mixed|string
      */
     public function templateDirective($construction)
@@ -220,9 +220,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
         if ($this->_getVariable($construction[1], '') == '') {
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     public function ifDirective($construction)
@@ -237,15 +237,15 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
 
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     /**
      * Return associative array of include construction.
      *
-     * @param string $value raw parameters
+     * @param  string $value raw parameters
      * @return array
      */
     protected function _getIncludeParameters($value)
@@ -266,8 +266,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Return variable value for var construction
      *
-     * @param string $value raw parameters
-     * @param null|string $default default value
+     * @param  string      $value   raw parameters
+     * @param  null|string $default default value
      * @return string
      */
     protected function _getVariable($value, $default = '{no_value_defined}')
@@ -305,7 +305,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
-                            !$isEncrypted ? $stackVars[$i]['args'] : [null],
+                            $isEncrypted ? [null] : $stackVars[$i]['args'],
                         );
                     }
                 }

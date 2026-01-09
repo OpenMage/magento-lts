@@ -14,6 +14,13 @@
  */
 class Mage_Tag_ListController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Tag list action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function indexAction()
     {
         $this->loadLayout();

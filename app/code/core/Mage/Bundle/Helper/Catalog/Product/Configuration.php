@@ -20,7 +20,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * Get selection quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int $selectionId
+     * @param int                        $selectionId
      *
      * @return float
      */
@@ -37,7 +37,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     /**
      * Obtain final price of selection in a bundle product
      *
-     * @param Mage_Catalog_Model_Product $selectionProduct
+     * @param  Mage_Catalog_Model_Product $selectionProduct
      * @return float
      */
     public function getSelectionFinalPrice(

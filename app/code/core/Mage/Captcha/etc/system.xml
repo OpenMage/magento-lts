@@ -11,7 +11,7 @@
     <sections>
         <admin>
             <groups>
-                <captcha translate="label">
+                <captcha translate="label" module="captcha">
                     <label>CAPTCHA</label>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
@@ -127,7 +127,7 @@
         </admin>
         <customer>
             <groups>
-                <captcha translate="label">
+                <captcha translate="label" module="captcha">
                     <label>CAPTCHA</label>
                     <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>

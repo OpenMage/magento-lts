@@ -43,14 +43,14 @@ class Unserialize_Reader_Arr
     public const FINISHED_ARR = 5;
 
     /**
-     * @param $char
-     * @param $prevChar
+     * @param             $char
+     * @param             $prevChar
      * @return null|array
      * @throws Exception
      */
     public function read($char, $prevChar)
     {
-        $this->_result = !is_null($this->_result) ? $this->_result : [];
+        $this->_result = is_null($this->_result) ? [] : $this->_result;
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;
@@ -97,10 +97,10 @@ class Unserialize_Reader_Arr
                     $this->_reader = new Unserialize_Reader_ArrKey();
                     $this->_status = self::READING_KEY;
                     return null;
-                } else {
-                    $this->_status = self::FINISHED_ARR;
-                    return null;
                 }
+
+                $this->_status = self::FINISHED_ARR;
+                return null;
             }
         }
 

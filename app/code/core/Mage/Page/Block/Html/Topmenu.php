@@ -31,7 +31,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Init top menu tree structure and cache
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_menu = new Varien_Data_Tree_Node([], 'root', new Varien_Data_Tree());
         /*
@@ -44,8 +44,8 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Get top menu html
      *
-     * @param string $outermostClass
-     * @param string $childrenWrapClass
+     * @param  string $outermostClass
+     * @param  string $childrenWrapClass
      * @return string
      */
     public function getHtml($outermostClass = '', $childrenWrapClass = '')
@@ -76,7 +76,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Recursively generates top menu html from data that is specified in $menuTree
      *
-     * @param string $childrenWrapClass
+     * @param  string $childrenWrapClass
      * @return string
      * @deprecated since 1.8.2.0 use child block catalog.topnav.renderer instead
      */

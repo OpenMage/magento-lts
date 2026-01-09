@@ -17,10 +17,10 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
     /**
      * Generates an Md5 hash to compare against AuthNet's.
      *
-     * @param string $merchantMd5
-     * @param string $merchantApiLogin
-     * @param string $amount
-     * @param string $transactionId
+     * @param  string $merchantMd5
+     * @param  string $merchantApiLogin
+     * @param  string $amount
+     * @param  string $transactionId
      * @return string
      */
     public function generateHash($merchantMd5, $merchantApiLogin, $amount, $transactionId)
@@ -31,8 +31,8 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
     /**
      * Return if is valid order id.
      *
-     * @param string $storedHash
-     * @param string $merchantApiLogin
+     * @param  string $storedHash
+     * @param  string $merchantApiLogin
      * @return bool
      */
     public function isValidHash($storedHash, $merchantApiLogin)
@@ -47,7 +47,9 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
         if (!empty($xSHA2Hash)) {
             $hash = $this->generateSha2Hash($storedHash);
             return $hash == $this->getData('x_SHA2_Hash');
-        } elseif (!empty($xMD5Hash)) {
+        }
+
+        if (!empty($xMD5Hash)) {
             $hash = $this->generateHash($storedHash, $merchantApiLogin, $this->getXAmount(), $this->getXTransId());
             return $hash == $this->getData('x_MD5_Hash');
         }
@@ -68,7 +70,7 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
     /**
      * Generates an SHA2 hash to compare against AuthNet's.
      *
-     * @param string $signatureKey
+     * @param  string $signatureKey
      * @return string
      * @see https://support.authorize.net/s/article/MD5-Hash-End-of-Life-Signature-Key-Replacement
      */

@@ -110,9 +110,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                                 . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -167,15 +167,15 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'extra_params' => 'style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
      * Date 'from-to' filter HTML with values
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getDateFromToHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -203,7 +203,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Input text filter HTML with value
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getInputHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -220,7 +220,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Multiselect field filter HTML with selected values
      *
-     * @param mixed $value
+     * @param  mixed               $value
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -249,15 +249,15 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
      * Number 'from-to' field filter HTML with selected value.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getNumberFromToHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -281,7 +281,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Select field filter HTML with selected value.
      *
-     * @param mixed $value
+     * @param  mixed               $value
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -315,9 +315,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -376,8 +376,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Create filter fields for 'Filter' column.
      *
-     * @param mixed $value
-     * @param bool $isExport
+     * @param  mixed     $value
+     * @param  bool      $isExport
      * @return string
      * @throws Exception
      */
@@ -401,7 +401,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Element filter ID getter.
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getFilterElementId($attributeCode)
@@ -412,7 +412,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Element filter full name getter.
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getFilterElementName($attributeCode)
@@ -423,7 +423,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Get row edit URL.
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
      * @return string
      */
     public function getRowUrl($row)

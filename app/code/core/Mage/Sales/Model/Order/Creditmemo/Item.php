@@ -10,80 +10,80 @@
 /**
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item _getResource()
- * @method string getAdditionalData()
- * @method bool getBackToStock()
- * @method float getBaseCost()
- * @method float getBaseDiscountAmount()
- * @method float getBaseHiddenTaxAmount()
- * @method float getBasePrice()
- * @method float getBasePriceInclTax()
- * @method float getBaseRowTotal()
- * @method float getBaseRowTotalInclTax()
- * @method float getBaseTaxAmount()
- * @method float getBaseWeeeTaxAppliedAmount()
- * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method float getBaseWeeeTaxDisposition()
- * @method float getBaseWeeeTaxRowDisposition()
- * @method bool getCanReturnToStock()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item            _getResource()
+ * @method string                                                     getAdditionalData()
+ * @method bool                                                       getBackToStock()
+ * @method float                                                      getBaseCost()
+ * @method float                                                      getBaseDiscountAmount()
+ * @method float                                                      getBaseHiddenTaxAmount()
+ * @method float                                                      getBasePrice()
+ * @method float                                                      getBasePriceInclTax()
+ * @method float                                                      getBaseRowTotal()
+ * @method float                                                      getBaseRowTotalInclTax()
+ * @method float                                                      getBaseTaxAmount()
+ * @method float                                                      getBaseWeeeTaxAppliedAmount()
+ * @method float                                                      getBaseWeeeTaxAppliedRowAmount()
+ * @method float                                                      getBaseWeeeTaxDisposition()
+ * @method float                                                      getBaseWeeeTaxRowDisposition()
+ * @method bool                                                       getCanReturnToStock()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getCollection()
- * @method string getDescription()
- * @method float getDiscountAmount()
- * @method float getHiddenTaxAmount()
- * @method string getName()
- * @method int getOrderItemId()
- * @method int getParentId()
- * @method float getPrice()
- * @method float getPriceInclTax()
- * @method int getProductId()
- * @method float getQty()
- * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item getResource()
+ * @method string                                                     getDescription()
+ * @method float                                                      getDiscountAmount()
+ * @method float                                                      getHiddenTaxAmount()
+ * @method string                                                     getName()
+ * @method int                                                        getOrderItemId()
+ * @method int                                                        getParentId()
+ * @method float                                                      getPrice()
+ * @method float                                                      getPriceInclTax()
+ * @method int                                                        getProductId()
+ * @method float                                                      getQty()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getResourceCollection()
- * @method float getRowTotal()
- * @method float getRowTotalInclTax()
- * @method string getSku()
- * @method float getTaxAmount()
- * @method string getWeeeTaxApplied()
- * @method float getWeeeTaxAppliedAmount()
- * @method float getWeeeTaxAppliedRowAmount()
- * @method float getWeeeTaxDisposition()
- * @method float getWeeeTaxRowDisposition()
- * @method bool hasBackToStock()
- * @method bool hasCanReturnToStock()
- * @method $this setAdditionalData(string $value)
- * @method $this setBackToStock(bool $value)
- * @method $this setBaseCost(float $value)
- * @method $this setBaseDiscountAmount(float $value)
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method $this setBasePrice(float $value)
- * @method $this setBasePriceInclTax(float $value)
- * @method $this setBaseRowTotal(float $value)
- * @method $this setBaseRowTotalInclTax(float $value)
- * @method $this setBaseTaxAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method $this setBaseWeeeTaxDisposition(float $value)
- * @method $this setBaseWeeeTaxRowDisposition(float $value)
- * @method $this setCanReturnToStock(bool $value)
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setHiddenTaxAmount(float $value)
- * @method $this setName(string $value)
- * @method $this setOrderItemId(int $value)
- * @method $this setParentId(int $value)
- * @method $this setPrice(float $value)
- * @method $this setPriceInclTax(float $value)
- * @method $this setProductId(int $value)
- * @method $this setRowTotal(float $value)
- * @method $this setRowTotalInclTax(float $value)
- * @method $this setSku(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setWeeeTaxApplied(string $value)
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method $this setWeeeTaxDisposition(float $value)
- * @method $this setWeeeTaxRowDisposition(float $value)
+ * @method float                                                      getRowTotal()
+ * @method float                                                      getRowTotalInclTax()
+ * @method string                                                     getSku()
+ * @method float                                                      getTaxAmount()
+ * @method string                                                     getWeeeTaxApplied()
+ * @method float                                                      getWeeeTaxAppliedAmount()
+ * @method float                                                      getWeeeTaxAppliedRowAmount()
+ * @method float                                                      getWeeeTaxDisposition()
+ * @method float                                                      getWeeeTaxRowDisposition()
+ * @method bool                                                       hasBackToStock()
+ * @method bool                                                       hasCanReturnToStock()
+ * @method $this                                                      setAdditionalData(string $value)
+ * @method $this                                                      setBackToStock(bool $value)
+ * @method $this                                                      setBaseCost(float $value)
+ * @method $this                                                      setBaseDiscountAmount(float $value)
+ * @method $this                                                      setBaseHiddenTaxAmount(float $value)
+ * @method $this                                                      setBasePrice(float $value)
+ * @method $this                                                      setBasePriceInclTax(float $value)
+ * @method $this                                                      setBaseRowTotal(float $value)
+ * @method $this                                                      setBaseRowTotalInclTax(float $value)
+ * @method $this                                                      setBaseTaxAmount(float $value)
+ * @method $this                                                      setBaseWeeeTaxAppliedAmount(float $value)
+ * @method $this                                                      setBaseWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                                                      setBaseWeeeTaxDisposition(float $value)
+ * @method $this                                                      setBaseWeeeTaxRowDisposition(float $value)
+ * @method $this                                                      setCanReturnToStock(bool $value)
+ * @method $this                                                      setDescription(string $value)
+ * @method $this                                                      setDiscountAmount(float $value)
+ * @method $this                                                      setHiddenTaxAmount(float $value)
+ * @method $this                                                      setName(string $value)
+ * @method $this                                                      setOrderItemId(int $value)
+ * @method $this                                                      setParentId(int $value)
+ * @method $this                                                      setPrice(float $value)
+ * @method $this                                                      setPriceInclTax(float $value)
+ * @method $this                                                      setProductId(int $value)
+ * @method $this                                                      setRowTotal(float $value)
+ * @method $this                                                      setRowTotalInclTax(float $value)
+ * @method $this                                                      setSku(string $value)
+ * @method $this                                                      setStoreId(int $value)
+ * @method $this                                                      setTaxAmount(float $value)
+ * @method $this                                                      setWeeeTaxApplied(string $value)
+ * @method $this                                                      setWeeeTaxAppliedAmount(float $value)
+ * @method $this                                                      setWeeeTaxAppliedRowAmount(float $value)
+ * @method $this                                                      setWeeeTaxDisposition(float $value)
+ * @method $this                                                      setWeeeTaxRowDisposition(float $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
 {
@@ -95,7 +95,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
 
     protected $_orderItem = null;
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('sales/order_creditmemo_item');
     }
@@ -103,7 +103,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare creditmemo instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setCreditmemo(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
@@ -139,7 +139,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -173,8 +173,8 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare qty
      *
-     * @param   float $qty
-     * @return  $this
+     * @param  float $qty
+     * @return $this
      */
     public function setQty($qty)
     {

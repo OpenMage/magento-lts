@@ -11,8 +11,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
- * @method bool getNoRender()
- * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
+ * @method bool                               getNoRender()
+ * @method $this                              setAction(Mage_Core_Controller_Varien_Action $value)
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
@@ -30,8 +30,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     public const XML_STORE_ROUTERS_PATH = 'web/routers';
 
     /**
-     * @param array|string $key
-     * @param null|string $value
+     * @param  array|string $key
+     * @param  null|string  $value
      * @return $this
      */
     public function setDefault($key, $value = null)
@@ -46,18 +46,16 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @param null|string $key
+     * @param  null|string $key
      * @return array|false
      */
     public function getDefault($key = null)
     {
         if (is_null($key)) {
             return $this->_defaults;
-        } elseif (isset($this->_defaults[$key])) {
-            return $this->_defaults[$key];
         }
 
-        return false;
+        return $this->_defaults[$key] ?? false;
     }
 
     /**
@@ -83,8 +81,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Adding new router
      *
-     * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Front
+     * @param  string                            $name
+     * @return Mage_Core_Controller_Varien_Front
      */
     public function addRouter($name, Mage_Core_Controller_Varien_Router_Abstract $router)
     {
@@ -96,8 +94,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Retrieve router by name
      *
-     * @param   string $name
-     * @return  false|Mage_Core_Controller_Varien_Router_Abstract
+     * @param  string                                            $name
+     * @return false|Mage_Core_Controller_Varien_Router_Abstract
      */
     public function getRouter($name)
     {
@@ -215,7 +213,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Returns router instance by route name
      *
-     * @param string $routeName
+     * @param  string                                      $routeName
      * @return Mage_Core_Controller_Varien_Router_Abstract
      */
     public function getRouterByRoute($routeName)
@@ -240,7 +238,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @param string $frontName
+     * @param  string                                            $frontName
      * @return false|Mage_Core_Controller_Varien_Router_Standard
      */
     public function getRouterByFrontName($frontName)
@@ -300,8 +298,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Replace route name placeholders in url to front name
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     protected function _processRewriteUrl($url)
@@ -338,7 +336,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         $redirectCode = Mage::getStoreConfigAsInt('web/url/redirect_to_base');
         if (!$redirectCode) {
             return;
-        } elseif ($redirectCode != 301) {
+        }
+
+        if ($redirectCode != 301) {
             $redirectCode = 302;
         }
 
@@ -370,7 +370,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Check if requested path starts with one of the admin front names
      *
-     * @param Zend_Controller_Request_Http $request
+     * @param  Zend_Controller_Request_Http $request
      * @return bool
      */
     protected function _isAdminFrontNameMatched($request)

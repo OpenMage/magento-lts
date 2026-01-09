@@ -100,7 +100,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
      *
      * @return $this
      */
-    public function _afterSave()
+    protected function _afterSave()
     {
         $useCustomUrl = $this->getData('groups/url/fields/use_custom/value');
         $value = $this->getValue();

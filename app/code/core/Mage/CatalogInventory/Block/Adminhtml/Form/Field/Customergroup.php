@@ -31,7 +31,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Retrieve allowed customer groups
      *
-     * @param int $groupId  return name by customer group id
+     * @param  int          $groupId return name by customer group id
      * @return array|string
      */
     protected function _getCustomerGroups($groupId = null)
@@ -53,7 +53,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     }
 
     /**
-     * @param string $value
+     * @param  string                                                         $value
      * @return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup
      */
     public function setInputName($value)
@@ -66,7 +66,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
      *
      * @return string
      */
-    public function _toHtml()
+    protected function _toHtml()
     {
         if (!$this->getOptions()) {
             if ($this->_addGroupAllOption) {

@@ -144,9 +144,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                         $key = strtolower($match[1]);
                         if ($key == 'set-cookie') {
                             continue;
-                        } else {
-                            $this->_urlHeaders[$key] = trim($match[2]);
                         }
+
+                        $this->_urlHeaders[$key] = trim($match[2]);
                     } elseif (preg_match('#^HTTP/[0-9\.]+ (\d+) (.*)\s$#', $str, $match)) {
                         $this->_urlHeaders['code'] = $match[1];
                         $this->_urlHeaders['code-string'] = trim($match[2]);
@@ -186,7 +186,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         $handle = $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             return $handle->streamStat('size');
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
+        }
+
+        if ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-length'])) {
                 return $this->_urlHeaders['content-length'];
             }
@@ -205,10 +207,12 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             if (function_exists('mime_content_type') && ($contentType = mime_content_type($this->_resourceFile))) {
                 return $contentType;
-            } else {
-                return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
             }
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
+
+            return Mage::helper('downloadable/file')->getFileType($this->_resourceFile);
+        }
+
+        if ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-type'])) {
                 $contentType = explode('; ', $this->_urlHeaders['content-type']);
                 return $contentType[0];
@@ -228,7 +232,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         $this->_getHandle();
         if ($this->_linkType == self::LINK_TYPE_FILE) {
             return pathinfo($this->_resourceFile, PATHINFO_BASENAME);
-        } elseif ($this->_linkType == self::LINK_TYPE_URL) {
+        }
+
+        if ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-disposition'])) {
                 $contentDisposition = explode('; ', $this->_urlHeaders['content-disposition']);
                 if (!empty($contentDisposition[1]) && str_contains($contentDisposition[1], 'filename=')) {
@@ -247,8 +253,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Set resource file for download
      *
-     * @param string $resourceFile
-     * @param string $linkType
+     * @param  string              $resourceFile
+     * @param  string              $linkType
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -307,7 +313,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Use Content-Disposition: attachment
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function getContentDisposition($store = null)

@@ -97,7 +97,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Seeks to a position.
      *
-     * @param int $position the position to seek to
+     * @param  int                  $position the position to seek to
      * @return void
      * @throws OutOfBoundsException
      */
@@ -108,7 +108,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
             if ($position == 0) {
                 $this->rewind();
                 return;
-            } elseif ($position > 0) {
+            }
+
+            if ($position > 0) {
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }
