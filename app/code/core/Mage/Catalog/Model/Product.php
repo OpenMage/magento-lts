@@ -1374,9 +1374,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
-        if (is_null($newProduct->getSkipImagesOnDuplicate()) && $this->_getImageHelper()->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
+        if (is_bool($this->getSkipImagesOnDuplicate())) {
+            // when set programmatically or via frontend
+            $newProduct->setSkipImagesOnDuplicate($this->getSkipImagesOnDuplicate());
+        } elseif ($this->_getImageHelper()->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
+            // when not defined at all, but config is 'ask'
             $newProduct->setSkipImagesOnDuplicate(false);
         } else {
+            // when not defined at all, but config is set
             $newProduct->setSkipImagesOnDuplicate($this->_getImageHelper()->skipProductImageOnDuplicate());
         }
 

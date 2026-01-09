@@ -824,7 +824,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         try {
             $imgHelper = Mage::helper('catalog/image');
 
-            if ($imgHelper->skipProductImageOnDuplicate() === -1) {
+            if ($imgHelper->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
                 $product->setSkipImagesOnDuplicate((bool) $this->getRequest()->getParam('skipImages', true));
             }
 
