@@ -151,7 +151,7 @@
                 "PHPSTAN-ZF1F - temporary fixes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/PHPSTAN-ZF1F.patch"
             },
             "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
+                "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch"
             }
         },
         "magento-root-dir": ".",
