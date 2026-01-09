@@ -30,6 +30,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
     /**
      * @inheritDoc
+     * @throws Zend_Uri_Exception
      */
     protected function _construct()
     {
@@ -40,6 +41,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      * Get wsdl config
      *
      * @return Varien_Object
+     * @throws Zend_Uri_Exception
      */
     protected function _getWsdlConfig()
     {
@@ -112,6 +114,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      * Run webservice
      *
      * @return $this
+     * @throws Exception
      * @throws SoapFault
      */
     public function run()
@@ -120,10 +123,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
-            $io = new Varien_Io_File();
-            $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
+            $file = new Varien_Io_File();
+            $file->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
 
-            $wsdlContent = $io->read('wsdl.xml');
+            $wsdlContent = $file->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
@@ -169,6 +172,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      * @param int    $code
      * @param string $message
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @throws SoapFault
      */
     public function fault($code, $message)
     {
@@ -206,7 +210,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     protected function getWsdlUrl($params = null, $withAuth = true)
     {
-        $urlModel = Mage::getModel('core/url')
+        Mage::getModel('core/url')
             ->setUseSession(false);
 
         $wsdlUrl = $params !== null
@@ -237,6 +241,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      * If schema import error is caught, it will retry in 1 second.
      *
      * @throws Zend_Soap_Server_Exception
+     * @throws Zend_Uri_Exception
      */
     protected function _instantiateServer()
     {
@@ -257,12 +262,12 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     $this->getWsdlUrl(['wsdl' => 1]),
                     ['encoding' => $apiConfigCharset],
                 );
-            } catch (SoapFault $e) {
-                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
+            } catch (Zend_Uri_Exception $zendUriException) {
+                if (str_contains($zendUriException->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {
-                    throw $e;
+                    throw $zendUriException;
                 }
 
                 $tries++;

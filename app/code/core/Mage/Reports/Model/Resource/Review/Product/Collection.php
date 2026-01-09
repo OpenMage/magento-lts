@@ -27,12 +27,10 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      * Join review table to result
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinReview()
     {
-        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-        $helper    = Mage::getResourceHelper('core');
-
         $subSelect = clone $this->getSelect();
         $subSelect->reset()
             ->from(['rev' => $this->getTable('review/review')], 'COUNT(DISTINCT rev.review_id)')
@@ -57,7 +55,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         ];
 
         $percentField       = $this->getConnection()->quoteIdentifier('table_rating.percent');
-        $sumPercentField    = "SUM({$percentField})";
+        $sumPercentField    = "SUM($percentField)";
         $sumPercentApproved = 'SUM(table_rating.percent_approved)';
         $countRatingId      = 'COUNT(table_rating.rating_id)';
 

@@ -37,6 +37,9 @@ class Mage_Tax_Model_Observer
 
     /**
      * Save order tax information
+     *
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
@@ -88,7 +91,7 @@ class Mage_Tax_Model_Observer
             }
         }
 
-        foreach ($taxes as $id => $row) {
+        foreach ($taxes as $key => $row) {
             foreach ($row['rates'] as $tax) {
                 if (is_null($row['percent'])) {
                     $baseRealAmount = $row['base_amount'];
@@ -117,8 +120,8 @@ class Mage_Tax_Model_Observer
 
                 $result = Mage::getModel('tax/sales_order_tax')->setData($data)->save();
 
-                if (isset($ratesIdQuoteItemId[$id])) {
-                    foreach ($ratesIdQuoteItemId[$id] as $quoteItemId) {
+                if (isset($ratesIdQuoteItemId[$key])) {
+                    foreach ($ratesIdQuoteItemId[$key] as $quoteItemId) {
                         if ($quoteItemId['code'] == $tax['code']) {
                             $item = $order->getItemByQuoteItemId($quoteItemId['id']);
                             if ($item) {
@@ -142,13 +145,12 @@ class Mage_Tax_Model_Observer
      * Prepare select which is using to select index data for layered navigation
      *
      * @return Mage_Tax_Model_Observer
+     * @throws Mage_Core_Exception
      */
     public function prepareCatalogIndexPriceSelect(Varien_Event_Observer $observer)
     {
         $table = $observer->getEvent()->getTable();
         $response = $observer->getEvent()->getResponseObject();
-        $select = $observer->getEvent()->getSelect();
-        $storeId = $observer->getEvent()->getStoreId();
 
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
@@ -208,6 +210,8 @@ class Mage_Tax_Model_Observer
      *
      * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     public function aggregateSalesReportTaxData($schedule)
     {
@@ -223,6 +227,7 @@ class Mage_Tax_Model_Observer
      * Reset extra tax amounts on quote addresses before recollecting totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
     {

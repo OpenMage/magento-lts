@@ -16,6 +16,9 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @inheritDoc
+     */
     public function __construct()
     {
         parent::__construct();
@@ -26,10 +29,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         $this->setFilterVisibility(false);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
-        $tagId = Mage::registry('tagId');
-
         if ($this->getCustomerId() instanceof Mage_Customer_Model_Customer) {
             $this->setCustomerId($this->getCustomerId()->getId());
         }
@@ -92,6 +96,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/tag/edit', [
@@ -101,7 +108,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

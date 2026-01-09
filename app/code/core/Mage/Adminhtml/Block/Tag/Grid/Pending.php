@@ -43,13 +43,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
-
         $this->addColumn('name', [
             'header'        => Mage::helper('tag')->__('Tag'),
             'index'         => 'name',
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         ]);
 
         // Collection for stores filters
-        if (!$collection = Mage::registry('stores_select_collection')) {
+        if (!Mage::registry('stores_select_collection')) {
             $collection =  Mage::app()->getStore()->getResourceCollection()
                 ->load();
             Mage::register('stores_select_collection', $collection);

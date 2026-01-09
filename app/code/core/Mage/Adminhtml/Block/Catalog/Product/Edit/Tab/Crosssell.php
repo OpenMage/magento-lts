@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
      */
     public function isReadonly()
     {
-        return $this->_getProduct()->getCrosssellReadonly();
+        return $this->_getProduct()->getCrossSellReadonly();
     }
 
     /**

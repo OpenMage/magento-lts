@@ -78,9 +78,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($productId) {
             try {
                 $product->load($productId);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
-                Mage::logException($e);
+                Mage::logException($exception);
             }
         }
 
@@ -174,6 +174,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product list page
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -186,6 +188,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Create new product page
+     *
+     * @throws Mage_Core_Exception
      */
     public function newAction()
     {
@@ -227,6 +231,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product edit form
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -299,6 +305,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Product grid for AJAX request
+     *
+     * @throws Mage_Core_Exception
      */
     public function gridAction()
     {
@@ -549,15 +557,15 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 ->setMaxValue($product->getCustomDesignTo());
 
             $product->validate();
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
             $response->setError(true);
-            $response->setAttribute($e->getAttributeCode());
-            $response->setMessage(Mage::helper('core')->escapeHtml($e->getMessage()));
-        } catch (Mage_Core_Exception $e) {
+            $response->setAttribute($mageEavModelEntityAttributeException->getAttributeCode());
+            $response->setMessage(Mage::helper('core')->escapeHtml($mageEavModelEntityAttributeException->getMessage()));
+        } catch (Mage_Core_Exception $mageCoreException) {
             $response->setError(true);
-            $response->setMessage($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+            $response->setMessage($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addError($exception->getMessage());
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
@@ -626,7 +634,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $product->setUpSellLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['upsell']));
         }
 
-        if (isset($links['crosssell']) && !$product->getCrosssellReadonly()) {
+        if (isset($links['crosssell']) && !$product->getCrossSellReadonly()) {
             $product->setCrossSellLinkData(Mage::helper('adminhtml/js')
                 ->decodeGridSerializedInput($links['crosssell']));
         }
@@ -715,9 +723,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function categoriesJsonAction()
     {
-        $product = $this->_initProduct();
+        $this->_initProduct();
 
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_categories')
@@ -761,13 +772,13 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 }
 
                 $this->_getSession()->addSuccess($this->__('The product has been saved.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage())
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage())
                     ->setProductData($data);
                 $redirectBack = true;
-            } catch (Exception $e) {
-                Mage::logException($e);
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                Mage::logException($throwable);
+                $this->_getSession()->addError($throwable->getMessage());
                 $redirectBack = true;
             }
         }
@@ -816,6 +827,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Create product duplicate
+     *
      * @throws Mage_Core_Exception
      */
     public function duplicateAction()
@@ -825,9 +837,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
             $this->_redirect('*/*/edit', ['_current' => true, 'id' => $newProduct->getId()]);
-        } catch (Exception $exception) {
-            Mage::logException($exception);
-            $this->_getSession()->addError($exception->getMessage());
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
+            $this->_getSession()->addError($throwable->getMessage());
             $this->_redirect('*/*/edit', ['_current' => true]);
         }
     }
@@ -847,17 +859,19 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Delete product action
+     *
+     * @throws Mage_Core_Exception
      */
     public function deleteAction()
     {
-        if ($id = $this->getRequest()->getParam('id')) {
+        if ($productId = $this->getRequest()->getParam('id')) {
             $product = Mage::getModel('catalog/product')
-                ->load($id);
+                ->load($productId);
             try {
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('The product has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
             }
         }
 
@@ -867,6 +881,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function tagGridAction()
     {
@@ -878,6 +894,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get alerts price grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function alertsPriceGridAction()
     {
@@ -887,6 +905,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get alerts stock grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function alertsStockGridAction()
     {
@@ -903,6 +923,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function addAttributeAction()
     {
         $this->_getSession()->addNotice(
@@ -916,6 +940,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function createdAction()
     {
         $this->_getSession()->addNotice(
@@ -946,8 +974,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($productIds)),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
             }
         }
 
@@ -972,11 +1000,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) have been updated.', count($productIds)),
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()
-                ->addException($e, $this->__('An error occurred while updating the product(s) status.'));
+                ->addException($exception, $this->__('An error occurred while updating the product(s) status.'));
         }
 
         $this->_redirect('*/*/', ['store' => $storeId]);
@@ -1001,6 +1029,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Get tag customer grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function tagCustomerGridAction()
     {
@@ -1010,6 +1040,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->renderLayout();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function quickCreateAction()
     {
         $result = [];
@@ -1111,17 +1144,17 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The product has been created.'));
             $this->_initLayoutMessages('adminhtml/session');
             $result['messages']  = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $result['error'] = [
-                'message' =>  $e->getMessage(),
+                'message' =>  $mageCoreException->getMessage(),
                 'fields'  => [
                     'sku'  =>  $product->getSku(),
                 ],
             ];
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
             $result['error'] = [
-                'message'   =>  $this->__('An error occurred while saving the product. ') . $e->getMessage(),
+                'message'   =>  $this->__('An error occurred while saving the product. ') . $throwable->getMessage(),
             ];
         }
 

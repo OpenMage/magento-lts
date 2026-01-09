@@ -61,6 +61,7 @@
  * @method float                                                 getShippingTaxAmount()
  * @method int                                                   getState()
  * @method string                                                getStoreCurrencyCode()
+ * @method int                                                   getStoreId()
  * @method float                                                 getStoreToBaseRate()
  * @method float                                                 getStoreToOrderRate()
  * @method float                                                 getSubtotal()
@@ -444,6 +445,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function refund()
     {
@@ -563,6 +565,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function register()
     {
@@ -742,6 +745,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      * @param  bool                                                        $reload
      * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getCommentsCollection($reload = false)
     {
@@ -949,7 +953,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected function _getEmails($configPath)
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
+        if (is_string($data) && $data !== '') {
             return explode(',', $data);
         }
 

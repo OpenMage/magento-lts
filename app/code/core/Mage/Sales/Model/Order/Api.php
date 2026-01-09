@@ -31,13 +31,12 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param  mixed                  $orderIncrementId
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     protected function _initOrder($orderIncrementId)
     {
-        $order = Mage::getModel('sales/order');
-
         /** @var Mage_Sales_Model_Order $order */
-
+        $order = Mage::getModel('sales/order');
         $order->loadByIncrementId($orderIncrementId);
 
         if (!$order->getId()) {
@@ -50,8 +49,10 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve list of orders. Filtration could be applied
      *
-     * @param  null|array|object $filters
+     * @param  null|array|object        $filters
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function items($filters = null)
     {
@@ -120,8 +121,9 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve full order information
      *
-     * @param  string $orderIncrementId
+     * @param  string              $orderIncrementId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function info($orderIncrementId)
     {
@@ -163,11 +165,13 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Add comment to order
      *
-     * @param  string $orderIncrementId
-     * @param  string $status
-     * @param  string $comment
-     * @param  bool   $notify
+     * @param  string              $orderIncrementId
+     * @param  string              $status
+     * @param  string              $comment
+     * @param  bool                $notify
      * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function addComment($orderIncrementId, $status, $comment = '', $notify = false)
     {
@@ -200,8 +204,9 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Hold order
      *
-     * @param  string $orderIncrementId
+     * @param  string              $orderIncrementId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hold($orderIncrementId)
     {
@@ -220,8 +225,9 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Unhold order
      *
-     * @param  string $orderIncrementId
+     * @param  string              $orderIncrementId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function unhold($orderIncrementId)
     {
@@ -240,8 +246,9 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Cancel order
      *
-     * @param  string $orderIncrementId
+     * @param  string              $orderIncrementId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function cancel($orderIncrementId)
     {

@@ -249,6 +249,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Prepare data before save
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -437,6 +438,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Declare order
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -452,6 +454,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve order model object
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -724,6 +727,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Check if discount has to be applied to parent item
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getForceApplyDiscountToParentItem()
     {
@@ -828,6 +832,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {

@@ -91,12 +91,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php
 
 		-
-			rawMessage: If condition is always true.
-			identifier: if.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Api_Model_Resource_Roles_User_Collection::setUserFilter().'
 			identifier: method.notFound
 			count: 1
@@ -1147,12 +1141,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			rawMessage: Negated boolean expression is always false.
-			identifier: booleanNot.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			rawMessage: 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.'
 			identifier: argument.type
 			count: 2
@@ -1162,6 +1150,12 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 4
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
+
+		-
+			rawMessage: Variable $order might not be defined.
+			identifier: variable.undefined
+			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
@@ -1331,12 +1325,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Api/Model/Roles.php
-
-		-
-			rawMessage: 'Call to an undefined method Mage_Api_Model_Resource_Rules::update().'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api/Model/Rules.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -4633,12 +4621,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			rawMessage: Variable $fields might not be defined.
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Session/Parser/Csv.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
@@ -6567,7 +6549,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 9
+			count: 6
 			path: app/code/core/Mage/Sales/Model/Order.php
 
 		-
@@ -6575,12 +6557,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Config.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -6597,7 +6573,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 3
+			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
@@ -6671,12 +6647,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php
-
-		-
-			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
-			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Abstract::getStoreId().'

@@ -275,7 +275,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         } catch (Mage_Core_Exception $mageCoreException) {
             $this->_getSession()->addError($mageCoreException->getMessage());
-        } catch (Exception) {
+        } catch (Throwable) {
             $this->_getSession()->addError($this->__('Cannot send shipment information.'));
         }
 
@@ -323,7 +323,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 'error'     => true,
                 'message'   => $mageCoreException->getMessage(),
             ];
-        } catch (Exception) {
+        } catch (Throwable) {
             $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot add tracking number.'),
@@ -339,11 +339,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Remove tracking number from shipment
+     *
+     * @throws Mage_Core_Exception
      */
     public function removeTrackAction()
     {
         $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
         $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
@@ -358,7 +359,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                         'message'   => $this->__('Cannot initialize shipment for delete tracking number.'),
                     ];
                 }
-            } catch (Exception) {
+            } catch (Throwable) {
                 $response = [
                     'error'     => true,
                     'message'   => $this->__('Cannot delete tracking number.'),
@@ -380,11 +381,13 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * View shipment tracking information
+     *
+     * @throws Mage_Core_Exception
      */
     public function viewTrackAction()
     {
         $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
+        $this->getRequest()->getParam('shipment_id');
         $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
@@ -453,7 +456,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 'message'   => $mageCoreException->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception) {
+        } catch (Throwable) {
             $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot add new comment.'),
@@ -472,6 +475,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * @param  Mage_Sales_Model_Order_Item $item
      * @param  array                       $qtys
      * @return bool
+     * @throws Mage_Core_Exception
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
     protected function _needToAddDummy($item, $qtys)
@@ -519,7 +523,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     protected function _createShippingLabel(Mage_Sales_Model_Order_Shipment $shipment)
     {
-        if (!$shipment) {
+        if (!$shipment->getId()) {
             return false;
         }
 
@@ -579,8 +583,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         } catch (Mage_Core_Exception $mageCoreException) {
             $response->setError(true);
             $response->setMessage($mageCoreException->getMessage());
-        } catch (Exception $exception) {
-            Mage::logException($exception);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
             $response->setError(true);
             $response->setMessage(Mage::helper('sales')->__('An error occurred while creating shipping label.'));
         }
@@ -636,6 +640,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Create pdf document with information about packages
      *
      * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      * @throws Zend_Pdf_Exception
      */
     public function printPackageAction()
@@ -658,6 +663,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Batch print shipping labels for whole shipments.
      * Push pdf document with shipping labels to user browser
      *
+     * @throws Zend_Controller_Response_Exception
+     * @throws Zend_Db_Select_Exception
      * @throws Zend_Pdf_Exception
      */
     public function massPrintShippingLabelAction()

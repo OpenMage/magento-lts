@@ -20,9 +20,9 @@
  * @method $this  initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method $this  placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $agreement)
  * @method $this  setInfoInstance(Mage_Payment_Model_Info $value)
- * @method $this  setStore(int $value)
+ * @method $this  setStore(int $store)
  * @method $this  updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $agreement)
- * @method $this  validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
+ * @method $this  validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
@@ -299,8 +299,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * To check billing country is allowed for the payment method
      *
-     * @param  string $country
+     * @param  string              $country
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canUseForCountry($country)
     {
@@ -363,6 +364,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Retrieve payment method code
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getCode()
     {
@@ -397,6 +399,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Retrieve payment information model object
      *
      * @return Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment
+     * @throws Mage_Core_Exception
      */
     public function getInfoInstance()
     {
@@ -413,6 +416,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Validate payment method information object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function validate()
     {
@@ -434,8 +438,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Order payment abstract method
      *
-     * @param  float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -449,8 +454,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Authorize payment abstract method
      *
-     * @param  float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -464,8 +470,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Capture payment abstract method
      *
-     * @param  float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -506,8 +513,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Refund specified amount for payment
      *
-     * @param  float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -558,6 +566,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Void payment abstract method
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -612,6 +621,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Retrieve payment method title
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTitle()
     {
@@ -625,6 +635,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param null|int|Mage_Core_Model_Store|string $storeId
      *
      * @return mixed
+     * @throws Mage_Core_Exception
      */
     public function getConfigData($field, $storeId = null)
     {
@@ -639,8 +650,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Assign data to info model instance
      *
-     * @param  mixed $data
+     * @param  mixed               $data
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function assignData($data)
     {
@@ -671,6 +683,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param null|Mage_Sales_Model_Quote $quote
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isAvailable($quote = null)
     {
@@ -698,6 +711,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param  Mage_Sales_Model_Quote $quote
      * @param  null|int               $checksBitMask
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isApplicableToQuote($quote, $checksBitMask)
     {
@@ -777,6 +791,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Used to universalize payment actions when processing payment place
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getConfigPaymentAction()
     {
@@ -786,7 +801,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Log debug data to file
      *
-     * @param mixed $debugData
+     * @param  mixed               $debugData
+     * @throws Mage_Core_Exception
      */
     protected function _debug($debugData)
     {
@@ -801,6 +817,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Define if debugging is enabled
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getDebugFlag()
     {
@@ -810,7 +827,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Used to call debug method from not Payment Method context
      *
-     * @param mixed $debugData
+     * @param  mixed               $debugData
+     * @throws Mage_Core_Exception
      */
     public function debugData($debugData)
     {

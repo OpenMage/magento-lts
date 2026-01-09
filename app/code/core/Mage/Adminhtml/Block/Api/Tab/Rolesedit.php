@@ -9,21 +9,25 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method array getSelectedResources()
+ * @method $this setSelectedResources(array $value)
  */
 class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @inheritDoc
+     * @throws Zend_Cache_Exception
+     */
     public function __construct()
     {
         parent::__construct();
 
         $rid = Mage::app()->getRequest()->getParam('rid', false);
-
         $resources = Mage::getModel('api/roles')->getResourcesList();
-
         $rules = Mage::getResourceModel('api/rules_collection')->getByRoles($rid)->load();
 
         $selrids = [];
-
         foreach ($rules->getItems() as $item) {
             if (array_key_exists(strtolower($item->getResource_id()), $resources)
                 && $item->getApiPermission() == 'allow'
@@ -34,10 +38,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         }
 
         $this->setSelectedResources($selrids);
-
         $this->setTemplate('api/rolesedit.phtml');
-        //->assign('resources', $resources);
-        //->assign('checkedResources', join(',', $selrids));
     }
 
     public function getEverythingAllowed()
@@ -47,9 +48,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
     public function getResTreeJson()
     {
-        $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('api/roles')->getResourcesTree();
-
         $rootArray = $this->_getNodeJson($resources, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
@@ -85,22 +84,19 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
             return $item;
         }
 
-        if ($children) {
-            $item['children'] = [];
-            //$item['cls'] = 'fiche-node';
-            foreach ($children as $child) {
-                if ($child->getName() != 'title' && $child->getName() != 'sort_order' && $child->attributes()->module) {
-                    if ($level != 0) {
-                        $item['children'][] = $this->_getNodeJson($child, $level + 1);
-                    } else {
-                        $item = $this->_getNodeJson($child, $level + 1);
-                    }
+        $item['children'] = [];
+        foreach ($children as $child) {
+            if ($child->getName() != 'title' && $child->getName() != 'sort_order' && $child->attributes()->module) {
+                if ($level != 0) {
+                    $item['children'][] = $this->_getNodeJson($child, $level + 1);
+                } else {
+                    $item = $this->_getNodeJson($child, $level + 1);
                 }
             }
+        }
 
-            if (!empty($item['children'])) {
-                usort($item['children'], [$this, '_sortTree']);
-            }
+        if (!empty($item['children'])) {
+            usort($item['children'], [$this, '_sortTree']);
         }
 
         return $item;

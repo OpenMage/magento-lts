@@ -198,7 +198,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Make GET request
      *
-     * @param string $uri full uri path
+     * @param  string    $uri full uri path
+     * @throws Exception
      */
     public function get($uri)
     {
@@ -244,6 +245,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Make POST request
+     *
+     * @throws Exception
      */
     public function post($uri, $params)
     {
@@ -284,8 +287,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
@@ -314,8 +317,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
-            $c = count($values);
-            if (!$c) {
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
 
@@ -326,13 +329,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
             $out[$key] = ['value' => $val];
             array_shift($values);
-            $c--;
-            if (!$c) {
+            $count--;
+            if (!$count) {
                 continue;
             }
 
-            for ($i = 0; $i < $c; $i++) {
-                [$subkey, $val] = explode('=', $values[$i]);
+            for ($index = 0; $index < $count; $index++) {
+                [$subkey, $val] = explode('=', $values[$index]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -391,15 +394,16 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Process response
+     *
+     * @throws Exception
      */
     protected function processResponse()
     {
-        $response = '';
         $responseLine = trim(fgets($this->_sock, 1024));
 
         $line = explode(' ', $responseLine, 3);
         if (count($line) != 3) {
-            return $this->doError('Invalid response line returned from server: ' . $responseLine);
+            $this->doError('Invalid response line returned from server: ' . $responseLine);
         }
 
         $this->_responseStatus = (int) $line[1];
@@ -434,6 +438,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param array  $params
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @throws Exception
      */
     protected function makeRequest($method, $uri, $params = [])
     {
@@ -441,7 +446,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $errstr = '';
         $this->_sock = @fsockopen($this->_host, $this->_port, $errno, $errstr, $this->_timeout);
         if (!$this->_sock) {
-            return $this->doError(sprintf('[errno: %d] %s', $errno, $errstr));
+            $this->doError(sprintf('[errno: %d] %s', $errno, $errstr));
         }
 
         $crlf = "\r\n";
@@ -455,7 +460,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             $appendHeaders['Content-length'] = strlen($paramsStr);
         }
 
-        $out = "{$method} {$uri} HTTP/1.1{$crlf}";
+        $out = "$method $uri HTTP/1.1$crlf";
         $out .= $this->headersToString($appendHeaders);
         $out .= $crlf;
         if ($paramsStr) {
@@ -479,8 +484,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Convert headers hash to string
-     * @param         $append
-     * @param         $delimiter
+     * @param  array  $append
      * @return string
      */
     protected function headersToString($append = [])
@@ -490,8 +494,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $headers['Connection'] = 'close';
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
-        foreach ($headers as $k => $v) {
-            $str [] = "$k: $v\r\n";
+        foreach ($headers as $key => $value) {
+            $str [] = "$key: $value\r\n";
         }
 
         return implode('', $str);
@@ -508,7 +512,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * TODO
      */
-    public function setOption($name, $value)
+    public function setOption($key, $value)
     {
         // Stub
     }

@@ -79,6 +79,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     public function __construct($params = [])
     {
+        parent::__construct();
+
         $proInstance = array_shift($params);
         if ($proInstance instanceof Mage_Paypal_Model_Pro) {
             $this->_pro = $proInstance;
@@ -202,6 +204,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @param  float                          $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -253,7 +256,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         $payment->setTransactionId($api->getTransactionId());
         $payment->setParentTransactionId($orderTransactionId);
 
-        $transaction = $payment->addTransaction(
+        $payment->addTransaction(
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH,
             null,
             false,
@@ -283,6 +286,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment)
     {
@@ -310,6 +314,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @param  float                          $amount
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -407,6 +413,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @param  float                          $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -419,6 +426,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel(Varien_Object $payment)
     {
@@ -443,6 +451,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
@@ -455,6 +464,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {
@@ -487,14 +497,16 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * Validate RP data
+     * @throws Mage_Core_Exception
      */
     public function validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
-        return $this->_pro->validateRecurringProfile($profile);
+        $this->_pro->validateRecurringProfile($profile);
     }
 
     /**
      * Submit RP to the gateway
+     * @throws Mage_Core_Exception
      */
     public function submitRecurringProfile(
         Mage_Payment_Model_Recurring_Profile $profile,
@@ -542,6 +554,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function assignData($data)
     {
@@ -615,6 +628,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * Check void availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -642,6 +656,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * Check capture availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapture()
     {
@@ -684,9 +699,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     protected function _callDoAuthorize($amount, $payment, $parentTransactionId)
     {
         $apiData = $this->_pro->getApi()->getData();
-        foreach ($apiData as $k => $v) {
-            if (is_object($v)) {
-                unset($apiData[$k]);
+        foreach ($apiData as $key => $value) {
+            if (is_object($value)) {
+                unset($apiData[$key]);
             }
         }
 
@@ -709,8 +724,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Check transaction for expiration in PST
      *
-     * @param  int  $period
+     * @param  int       $period
      * @return bool
+     * @throws Exception
      */
     protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
     {

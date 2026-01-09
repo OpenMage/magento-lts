@@ -52,8 +52,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      */
     public function getCreateLabelButton()
     {
-        $data['shipment_id'] = $this->getShipment()->getId();
-        $url = $this->getUrl('*/sales_order_shipment/createLabel', $data);
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
             ->setData([
@@ -67,6 +65,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      * Get print label button html
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getPrintLabelButton()
     {

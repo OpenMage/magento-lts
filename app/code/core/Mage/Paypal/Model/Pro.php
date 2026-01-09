@@ -322,7 +322,7 @@ class Mage_Paypal_Model_Pro
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
         $data = $api->getRawSuccessResponseData();
-        return ($data) ? $data : [];
+        return ($data) ?: [];
     }
 
     /**
@@ -342,8 +342,7 @@ class Mage_Paypal_Model_Pro
             $errors[] = Mage::helper('paypal')->__('Merchant reference ID format is not supported.');
         }
 
-        $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
-        if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
+        if (strlen($refId) > 127) {
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
 

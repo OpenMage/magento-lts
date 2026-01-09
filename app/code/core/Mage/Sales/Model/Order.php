@@ -592,8 +592,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Load order by system increment identifier
      *
-     * @param  string $incrementId
+     * @param  string              $incrementId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIncrementId($incrementId)
     {
@@ -603,9 +604,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Load order by custom attribute value. Attribute value should be unique
      *
-     * @param  string $attribute
-     * @param  string $value
+     * @param  string              $attribute
+     * @param  string              $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByAttribute($attribute, $value)
     {
@@ -632,6 +634,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order cancel availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCancel()
     {
@@ -680,6 +683,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Getter whether the payment can be voided
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canVoidPayment()
     {
@@ -704,6 +708,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order invoice availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canInvoice()
     {
@@ -817,6 +822,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order shipment availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShip()
     {
@@ -847,6 +853,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order edit availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canEdit()
     {
@@ -876,6 +883,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order reorder availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReorder()
     {
@@ -886,6 +894,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Check the ability to reorder ignoring the availability in stock or status of the ordered products
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReorderIgnoreSalable()
     {
@@ -895,8 +904,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve order reorder availability
      *
-     * @param  bool $ignoreSalable
+     * @param  bool                $ignoreSalable
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _canReorder($ignoreSalable = false)
     {
@@ -917,7 +927,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
          * @TODO ACPAOC: Use product collection here, but ensure that product
          * is loaded with order store id, otherwise there'll be problems with isSalable()
          * for configurables, bundles and other composites
-         *
          */
         /*
         $productsCollection = Mage::getModel('catalog/product')->getCollection()
@@ -961,6 +970,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Check whether payment can be accepted or denied
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReviewPayment()
     {
@@ -971,6 +981,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Check whether there can be a transaction update fetched for payment in review state
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canFetchPaymentReviewUpdate()
     {
@@ -991,6 +1002,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Place order payments
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _placePayment()
     {
@@ -1002,6 +1014,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order payment model object
      *
      * @return false|Mage_Sales_Model_Order_Payment
+     * @throws Mage_Core_Exception
      */
     public function getPayment()
     {
@@ -1018,6 +1031,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Declare order billing address
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function setBillingAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -1034,6 +1049,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Declare order shipping address
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function setShippingAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -1050,6 +1067,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order billing address
      *
      * @return false|Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getBillingAddress()
     {
@@ -1066,6 +1084,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order shipping address
      *
      * @return false|Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getShippingAddress()
     {
@@ -1083,11 +1102,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * If status is specified, will add order status history with specified comment
      * the setData() cannot be overridden because of compatibility issues with resource model
      *
-     * @param  string      $state
-     * @param  bool|string $status
-     * @param  string      $comment
-     * @param  bool        $isCustomerNotified
+     * @param  string              $state
+     * @param  bool|string         $status
+     * @param  string              $comment
+     * @param  bool                $isCustomerNotified
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setState($state, $status = false, $comment = '', $isCustomerNotified = null)
     {
@@ -1099,12 +1119,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * By default allows to set any state. Can also update status to default or specified value
      * Сomplete and closed states are encapsulated intentionally, see the _checkState()
      *
-     * @param  string      $state
-     * @param  bool|string $status
-     * @param  string      $comment
-     * @param  bool        $isCustomerNotified
-     * @param  bool        $shouldProtectState
+     * @param  string              $state
+     * @param  bool|string         $status
+     * @param  string              $comment
+     * @param  bool                $isCustomerNotified
+     * @param  bool                $shouldProtectState
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _setState(
         $state,
@@ -1131,7 +1152,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             }
 
             $this->setStatus($status);
-            $history = $this->addStatusHistoryComment($comment, false); // no sense to set $status again
+            $history = $this->addStatusHistoryComment($comment); // no sense to set $status again
             $history->setIsCustomerNotified($isCustomerNotified); // for backwards compatibility
         }
 
@@ -1165,15 +1186,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Add status change information to history
      *
-     * @param  string $status
-     * @param  string $comment
-     * @param  bool   $isCustomerNotified
+     * @param  string              $status
+     * @param  string              $comment
+     * @param  bool                $isCustomerNotified
      * @return $this
+     * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0-alpha3
      */
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
-        $history = $this->addStatusHistoryComment($comment, $status)
+        $this->addStatusHistoryComment($comment, $status)
             ->setIsCustomerNotified($isCustomerNotified);
         return $this;
     }
@@ -1185,6 +1207,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string                                $comment
      * @param  bool|string                           $status
      * @return Mage_Sales_Model_Order_Status_History
+     * @throws Mage_Core_Exception
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
@@ -1220,6 +1243,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Place order
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function place()
     {
@@ -1265,8 +1289,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Cancel order
-     * @param  string $comment
+     * @param  string              $comment
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel($comment = '')
     {
@@ -1395,6 +1420,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Get the current customer email.
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getCurrentCustomerEmail()
     {
@@ -1524,6 +1550,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Send email with order data
      *
      * @return $this
+     * @throws Exception
      */
     public function sendNewOrderEmail()
     {
@@ -1539,6 +1566,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param bool   $forceMode      if true then email will be sent regardless of the fact that it was already sent previously
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function queueOrderUpdateEmail($notifyCustomer = true, $comment = '', $forceMode = false)
     {
@@ -1619,6 +1647,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string $comment
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function sendOrderUpdateEmail($notifyCustomer = true, $comment = '')
     {
@@ -1644,6 +1673,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Address_Collection
+     * @throws Mage_Core_Exception
      */
     public function getAddressesCollection()
     {
@@ -1664,6 +1694,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  int|string                           $addressId
      * @return false|Mage_Sales_Model_Order_Address
+     * @throws Mage_Core_Exception
      */
     public function getAddressById($addressId)
     {
@@ -1694,6 +1725,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  array                                           $filterByTypes
      * @param  bool                                            $nonChildrenOnly
      * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection($filterByTypes = [], $nonChildrenOnly = false)
     {
@@ -1724,6 +1756,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param  int                                             $limit
      * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getItemsRandomCollection($limit = 1)
     {
@@ -1735,6 +1769,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @param  int                                             $limit
      * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getParentItemsRandomCollection($limit = 1)
     {
@@ -1747,6 +1783,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  int                                             $limit
      * @param  bool                                            $nonChildrenOnly
      * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     protected function _getItemsRandomCollection($limit, $nonChildrenOnly = false)
     {
@@ -1785,6 +1823,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -1800,6 +1839,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllVisibleItems()
     {
@@ -1816,6 +1856,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  int                              $itemId
      * @return null|Mage_Sales_Model_Order_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
@@ -1825,6 +1866,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  int                              $quoteItemId
      * @return null|Mage_Sales_Model_Order_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemByQuoteItemId($quoteItemId)
     {
@@ -1855,6 +1897,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Whether the order has nominal items only
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isNominal()
     {
@@ -1871,6 +1914,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Payment_Collection
+     * @throws Mage_Core_Exception
      */
     public function getPaymentsCollection()
     {
@@ -1890,6 +1934,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Payment[]
+     * @throws Mage_Core_Exception
      */
     public function getAllPayments()
     {
@@ -1906,6 +1951,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  int                                 $paymentId
      * @return bool|Mage_Sales_Model_Order_Payment
+     * @throws Mage_Core_Exception
      */
     public function getPaymentById($paymentId)
     {
@@ -1935,6 +1981,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Order_Payment
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function setPayment(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -1951,6 +1999,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  bool                                                      $reload
      * @return Mage_Sales_Model_Resource_Order_Status_History_Collection
+     * @throws Mage_Core_Exception
      */
     public function getStatusHistoryCollection($reload = false)
     {
@@ -1974,6 +2023,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Return collection of order status history items.
      *
      * @return Mage_Sales_Model_Order_Status_History[]
+     * @throws Mage_Core_Exception
      */
     public function getAllStatusHistory()
     {
@@ -1991,6 +2041,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Return collection of visible on frontend order status history items.
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getVisibleStatusHistory()
     {
@@ -2007,6 +2058,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * @param  int                                         $statusId
      * @return false|Mage_Sales_Model_Order_Status_History
+     * @throws Mage_Core_Exception
      */
     public function getStatusHistoryById($statusId)
     {
@@ -2026,6 +2078,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Or the history record can be saved standalone after this.
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addStatusHistory(Mage_Sales_Model_Order_Status_History $history)
     {
@@ -2043,18 +2097,19 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getRealOrderId()
     {
-        $id = $this->getData('real_order_id');
-        if (is_null($id)) {
+        $orderId = $this->getData('real_order_id');
+        if (is_null($orderId)) {
             return $this->getIncrementId();
         }
 
-        return $id;
+        return $orderId;
     }
 
     /**
      * Get currency model instance. Will be used currency with which order placed
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Exception
      */
     public function getOrderCurrency()
     {
@@ -2068,9 +2123,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Get formatted price value including order currency rate to order website currency
      *
-     * @param  float  $price
-     * @param  bool   $addBrackets
+     * @param  float               $price
+     * @param  bool                $addBrackets
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function formatPrice($price, $addBrackets = false)
     {
@@ -2078,10 +2134,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  float  $price
-     * @param  int    $precision
-     * @param  bool   $addBrackets
+     * @param  float               $price
+     * @param  int                 $precision
+     * @param  bool                $addBrackets
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function formatPricePrecision($price, $precision, $addBrackets = false)
     {
@@ -2091,8 +2148,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Retrieve currency formatted string.
      *
-     * @param  float|string $price Numeric value or field name, e.g. "grand_total".
+     * @param  float|string        $price Numeric value or field name, e.g. "grand_total".
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function formatPriceTxt($price)
     {
@@ -2104,6 +2162,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order website currency for working with base prices
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Exception
      */
     public function getBaseCurrency()
     {
@@ -2126,8 +2185,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  float  $price
+     * @param  float               $price
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function formatBasePrice($price)
     {
@@ -2135,9 +2195,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  float  $price
-     * @param  int    $precision
+     * @param  float               $price
+     * @param  int                 $precision
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function formatBasePricePrecision($price, $precision)
     {
@@ -2198,6 +2259,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order invoices collection
      *
      * @return Mage_Sales_Model_Resource_Order_Invoice_Collection
+     * @throws Mage_Core_Exception
      */
     public function getInvoiceCollection()
     {
@@ -2219,6 +2281,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order invoices collection
      *
      * @return Mage_Sales_Model_Resource_Order_Invoice_Collection
+     * @throws Mage_Core_Exception
      */
     public function getInvoicesCollection()
     {
@@ -2229,10 +2292,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order shipments collection
      *
      * @return false|Mage_Sales_Model_Resource_Order_Shipment_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getShipmentsCollection()
     {
-        if (empty($this->_shipments)) {
+        if (is_null($this->_shipments)) {
             if ($this->getId()) {
                 $this->_shipments = Mage::getResourceModel('sales/order_shipment_collection')
                     ->setOrderFilter($this)
@@ -2249,10 +2314,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order creditmemos collection
      *
      * @return false|Mage_Sales_Model_Order_Creditmemo[]|Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getCreditmemosCollection()
     {
-        if (empty($this->_creditmemos)) {
+        if (is_null($this->_creditmemos)) {
             if ($this->getId()) {
                 $this->_creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
                     ->setOrderFilter($this)
@@ -2269,10 +2336,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order tracking numbers collection
      *
      * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getTracksCollection()
     {
-        if (empty($this->_tracks)) {
+        if (is_null($this->_tracks)) {
             $this->_tracks = Mage::getResourceModel('sales/order_shipment_track_collection')
                 ->setOrderFilter($this);
 
@@ -2288,6 +2357,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Check order invoices availability
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function hasInvoices()
     {
@@ -2301,13 +2371,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function hasShipments()
     {
-        $result = false;
         $shipmentsCollection = $this->getShipmentsCollection();
         if ($shipmentsCollection) {
             return (bool) $shipmentsCollection->count();
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -2317,13 +2386,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function hasCreditmemos()
     {
-        $result = false;
         $creditmemosCollection = $this->getCreditmemosCollection();
         if ($creditmemosCollection) {
             return (bool) $creditmemosCollection->count();
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -2392,6 +2460,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Processing object before save data
      *
      * @return Mage_Core_Model_Abstract
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -2453,6 +2523,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Check order state before saving
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _checkState()
     {
@@ -2495,6 +2567,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Save order related objects
      *
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -2539,6 +2613,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getStoreGroupName()
     {

@@ -31,6 +31,10 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return parent::preDispatch();
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _initAction()
     {
         $this->loadLayout();
@@ -41,6 +45,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -62,6 +69,10 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             ->toHtml());
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function editRoleAction()
     {
         $this->_title($this->__('System'))
@@ -88,7 +99,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_addLeft(
             $this->getLayout()->createBlock('adminhtml/api_editroles'),
         );
-        $resources = Mage::getModel('api/roles')->getResourcesList();
+
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/api_buttons')
                 ->setRoleId($roleId)
@@ -106,7 +117,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $rid = $this->getRequest()->getParam('role_id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -122,13 +133,16 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         try {
             Mage::getModel('api/roles')->load($rid)->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
-        } catch (Exception) {
+        } catch (Throwable) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function saveRoleAction()
     {
         $rid        = $this->getRequest()->getParam('role_id', false);
@@ -140,7 +154,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -154,7 +168,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         $resource   = explode(',', $this->getRequest()->getParam('resource', false));
-        $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
+        $roleUsers  = $this->getRequest()->getParam('in_role_user');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -169,10 +183,10 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         try {
             $role = $role
-                    ->setName($this->getRequest()->getParam('rolename', false))
-                    ->setPid($this->getRequest()->getParam('parent_id', false))
-                    ->setRoleType('G')
-                    ->save();
+                ->setName($this->getRequest()->getParam('rolename', false))
+                ->setPid($this->getRequest()->getParam('parent_id', false))
+                ->setRoleType('G')
+                ->save();
 
             Mage::getModel('api/rules')
                 ->setRoleId($role->getId())
@@ -189,7 +203,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
             $rid = $role->getId();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been saved.'));
-        } catch (Exception) {
+        } catch (Throwable) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
@@ -215,8 +229,12 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return true;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     protected function _addUserToRole($userId, $roleId)
     {
+        /** @var Mage_Api_Model_User $user */
         $user = Mage::getModel('api/user')->load($userId);
         $user->setRoleId($roleId)->setUserId($userId);
 

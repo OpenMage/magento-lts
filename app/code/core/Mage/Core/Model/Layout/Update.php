@@ -72,9 +72,9 @@ class Mage_Core_Model_Layout_Update
     public function __construct()
     {
         $subst = Mage::getConfig()->getPathVars();
-        foreach ($subst as $k => $v) {
-            $this->_subst['from'][] = '{{' . $k . '}}';
-            $this->_subst['to'][] = $v;
+        foreach ($subst as $key => $value) {
+            $this->_subst['from'][] = '{{' . $key . '}}';
+            $this->_subst['to'][] = $value;
         }
     }
 
@@ -248,8 +248,9 @@ class Mage_Core_Model_Layout_Update
     /**
      * Load layout updates by handles
      *
-     * @param  array|string $handles
+     * @param  array|string        $handles
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function load($handles = [])
     {
@@ -288,12 +289,14 @@ class Mage_Core_Model_Layout_Update
     /**
      * Merge layout update by handle
      *
-     * @param  string $handle
+     * @param  string                          $handle
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function merge($handle)
     {
-        $packageUpdatesStatus = $this->fetchPackageLayoutUpdates($handle);
+        $this->fetchPackageLayoutUpdates($handle);
         if (Mage::app()->isInstalled()) {
             $this->fetchDbLayoutUpdates($handle);
         }
@@ -303,6 +306,7 @@ class Mage_Core_Model_Layout_Update
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function fetchFileLayoutUpdates()
@@ -336,6 +340,7 @@ class Mage_Core_Model_Layout_Update
     /**
      * @param  string                          $handle
      * @return bool
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function fetchPackageLayoutUpdates($handle)
@@ -358,8 +363,9 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param  string $handle
+     * @param  string                          $handle
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function fetchDbLayoutUpdates($handle)
     {
@@ -394,8 +400,9 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param  SimpleXMLElement $updateXml
+     * @param  SimpleXMLElement                $updateXml
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function fetchRecursiveUpdates($updateXml)
     {
@@ -434,7 +441,6 @@ class Mage_Core_Model_Layout_Update
 
         /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
-        $layoutXml = null;
         $elementClass = $this->getElementClass();
         $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
         Mage::dispatchEvent('core_layout_update_updates_get_after', ['updates' => $updatesRoot]);

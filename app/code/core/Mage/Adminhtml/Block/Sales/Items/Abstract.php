@@ -146,6 +146,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Retrieve rendered item html content
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getItemHtml(Varien_Object $item)
     {
@@ -214,6 +215,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Retrieve available order
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
@@ -248,6 +250,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Retrieve price data object
      *
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getPriceDataObject()
     {
@@ -262,10 +265,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve price attribute html content
      *
-     * @param  string $code
-     * @param  bool   $strong
-     * @param  string $separator
+     * @param  string              $code
+     * @param  bool                $strong
+     * @param  string              $separator
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br />')
     {
@@ -290,11 +294,12 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve price formatted html content
      *
-     * @param  float  $basePrice
-     * @param  float  $price
-     * @param  bool   $strong
-     * @param  string $separator
+     * @param  float               $basePrice
+     * @param  float               $price
+     * @param  bool                $strong
+     * @param  string              $separator
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function displayPrices($basePrice, $price, $strong = false, $separator = '<br />')
     {
@@ -304,12 +309,13 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Display base and regular prices with specified rounding precision
      *
-     * @param  float  $basePrice
-     * @param  float  $price
-     * @param  int    $precision
-     * @param  bool   $strong
-     * @param  string $separator
+     * @param  float               $basePrice
+     * @param  float               $price
+     * @param  int                 $precision
+     * @param  bool                $strong
+     * @param  string              $separator
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function displayRoundedPrices($basePrice, $price, $precision = 2, $strong = false, $separator = '<br />')
     {
@@ -332,6 +338,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Retrieve include tax html formatted content
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function displayPriceInclTax(Varien_Object $item)
     {
@@ -356,8 +363,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve subtotal price include tax html formatted content
      *
-     * @param  Varien_Object $item
+     * @param  Varien_Object       $item
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function displaySubtotalInclTax($item)
     {
@@ -443,6 +451,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Check availability to edit quantity of item
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canEditQty()
     {
@@ -479,6 +488,9 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         return false;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function formatPrice($price)
     {
         return $this->getOrder()->formatPrice($price);
@@ -508,9 +520,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * CREDITMEMO
      */
 
+    /**
+     * @return bool
+     */
     public function canReturnToStock()
     {
-        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
             return true;
         }
@@ -522,6 +536,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Whether to show 'Return to stock' checkbox for item
      * @param  Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReturnItemToStock($item = null)
     {
@@ -546,6 +561,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * Whether to show 'Return to stock' column for item parent
      * @param  Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canParentReturnToStock($item = null)
     {

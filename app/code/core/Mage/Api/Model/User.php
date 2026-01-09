@@ -45,9 +45,11 @@
  * @method $this                                   setLognum(int $value)
  * @method $this                                   setModified(string $value)
  * @method $this                                   setReloadAclFlag(int $value)
+ * @method $this                                   setRoleId(int $value)
  * @method $this                                   setRoleIds(array $value)
  * @method $this                                   setRoleUserId(int $value)
  * @method $this                                   setSessid($sessId)
+ * @method $this                                   setUserId(int $value)
  * @method $this                                   setUsername(string $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
@@ -67,6 +69,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function save()
     {
@@ -109,6 +113,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return $this|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function delete()
     {
@@ -134,6 +139,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Get user roles
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getRoles()
     {
@@ -144,6 +150,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Delete user from role
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteFromRole()
     {
@@ -155,6 +162,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Check is user role exists
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function roleUserExists()
     {
@@ -166,6 +174,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Add user
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function add()
     {
@@ -177,6 +187,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Check if user exists
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function userExists()
     {
@@ -281,6 +292,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Reload user
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function reload()
     {
@@ -291,8 +303,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by username
      *
-     * @param  string $username
+     * @param  string              $username
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByUsername($username)
     {
@@ -303,8 +316,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by session id
      *
-     * @param  string $sessId
+     * @param  string              $sessId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadBySessId($sessId)
     {
@@ -315,8 +329,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Logout user by session id
      *
-     * @param  string $sessid
+     * @param  string              $sessid
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function logoutBySessId($sessid)
     {
@@ -329,6 +344,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @param  int|Mage_Core_Model_Abstract $user
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function hasAssigned2Role($user)
     {
@@ -361,6 +377,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      *
      * @return array|true
+     * @throws Mage_Core_Exception
      */
     public function validate()
     {

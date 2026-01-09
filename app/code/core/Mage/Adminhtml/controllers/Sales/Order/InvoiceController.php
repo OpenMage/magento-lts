@@ -34,7 +34,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->_title($this->__('Sales'))->_title($this->__('Invoices'));
 
         $invoice = false;
-        $itemsToInvoice = 0;
         $invoiceId = $this->getRequest()->getParam('invoice_id');
         $orderId = $this->getRequest()->getParam('order_id');
         if ($invoiceId) {
@@ -403,7 +402,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 'message'   => $mageCoreException->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception) {
+        } catch (Throwable) {
             $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot add new comment.'),

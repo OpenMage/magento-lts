@@ -14,6 +14,10 @@
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _initAction()
     {
         $this->loadLayout()
@@ -28,6 +32,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      * Prepare tag model for manipulation
      *
      * @return false|Mage_Tag_Model_Tag
+     * @throws Mage_Core_Exception
      */
     protected function _initTag()
     {
@@ -35,9 +40,9 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $storeId = $this->getRequest()->getParam('store');
         $model->setStoreId($storeId);
 
-        if (($id = $this->getRequest()->getParam('tag_id'))) {
+        if (($tagId = $this->getRequest()->getParam('tag_id'))) {
             $model->setAddBasePopularity();
-            $model->load($id);
+            $model->load($tagId);
             $model->setStoreId($storeId);
 
             if (!$model->getId()) {
@@ -51,6 +56,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show grid action
+     *
+     * @throws Mage_Core_Exception
      */
     public function indexAction()
     {
@@ -66,6 +73,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw grid loaded by ajax
+     *
+     * @throws Mage_Core_Exception
      */
     public function ajaxGridAction()
     {
@@ -75,6 +84,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw pending tags grid loaded by ajax
+     *
+     * @throws Mage_Core_Exception
      */
     public function ajaxPendingGridAction()
     {
@@ -92,6 +103,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit tag action
+     *
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -122,6 +135,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save tag action
+     *
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -160,8 +175,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 }
 
                 return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                Mage::getSingleton('adminhtml/session')->addError($throwable->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
                 return $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
@@ -173,6 +188,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete tag action
+     *
+     * @throws Mage_Core_Exception
      */
     public function deleteAction()
     {
@@ -183,8 +200,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             try {
                 $model->delete();
                 $session->addSuccess(Mage::helper('adminhtml')->__('The tag has been deleted.'));
-            } catch (Exception $e) {
-                $session->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                $session->addError($throwable->getMessage());
             }
         } else {
             $session->addError(Mage::helper('adminhtml')->__('Unable to find a tag to delete.'));
@@ -195,6 +212,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Pending tags
+     *
+     * @throws Mage_Core_Exception
      */
     public function pendingAction()
     {
@@ -210,6 +229,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products (with serializer block)
+     *
+     * @throws Mage_Core_Exception
      */
     public function assignedAction()
     {
@@ -222,6 +243,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products grid
+     *
+     * @throws Mage_Core_Exception
      */
     public function assignedGridOnlyAction()
     {
@@ -232,6 +255,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Tagged products
+     *
+     * @throws Mage_Core_Exception
      */
     public function productAction()
     {
@@ -242,6 +267,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customers
+     *
+     * @throws Mage_Core_Exception
      */
     public function customerAction()
     {
@@ -268,8 +295,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                Mage::getSingleton('adminhtml/session')->addError($throwable->getMessage());
             }
         }
 
@@ -278,11 +305,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Massaction for changing status of selected tags
+     *
+     * @return void
      */
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
         if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
@@ -298,8 +326,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Throwable $throwable) {
+                Mage::getSingleton('adminhtml/session')->addError($throwable->getMessage());
             }
         }
 

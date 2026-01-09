@@ -328,6 +328,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function place()
     {
@@ -429,6 +430,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  null|Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function capture($invoice)
     {
@@ -522,6 +524,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  bool                $skipFraudDetection
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function registerCaptureNotification($amount, $skipFraudDetection = false)
     {
@@ -589,6 +592,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  float               $amount
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      * @see self::_authorize()
      */
     public function registerAuthorizationNotification($amount)
@@ -710,6 +714,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function refund($creditmemo)
     {
@@ -911,6 +916,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function cancel()
     {
@@ -925,7 +931,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         if ($isOnline) {
-            $this->_void($isOnline, null, 'cancel');
+            $this->_void(true, null, 'cancel');
         }
 
         Mage::dispatchEvent('sales_order_payment_cancel', ['payment' => $this]);
@@ -998,8 +1004,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $invoice = $this->_getInvoiceForTransactionId($transactionId);
 
         // invoke the payment method to determine what to do with the transaction
-        $result = null;
-        $message = null;
         switch ($action) {
             case self::REVIEW_ACTION_ACCEPT:
                 if ($isOnline) {
@@ -1036,8 +1040,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     $this->getMethodInstance()
                         ->setStore($order->getStoreId())
                         ->fetchTransactionInfo($this, $transactionId);
-                } else {
-                    // notification mechanism is responsible to update the payment object first
                 }
 
                 if ($this->getIsTransactionApproved()) {
@@ -1101,6 +1103,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  float               $amount
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _order($amount)
     {
@@ -1147,6 +1150,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  float               $amount
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _authorize($isOnline, $amount)
     {
@@ -1205,6 +1209,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  float               $amount
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function authorize($isOnline, $amount)
     {
@@ -1222,6 +1227,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  string              $gatewayCallback
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _void($isOnline, $amount = null, $gatewayCallback = 'void')
     {
@@ -1297,6 +1303,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  bool                                                 $failsafe
      * @return null|Mage_Sales_Model_Order_Payment_Transaction|void
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _addTransaction($type, $salesDocument = null, $failsafe = false)
     {
@@ -1373,6 +1380,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param  false|string                                    $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
     {
@@ -1521,9 +1529,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Format price with currency sign
-     * @param  float       $amount
-     * @param  null|string $currency
+     * @param  float               $amount
+     * @param  null|string         $currency
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _formatPrice($amount, $currency = null)
     {
@@ -1640,7 +1649,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // generate transaction id for an offline action or payment method that didn't set it
         $parentTxnId = $this->getParentTransactionId();
         if ($parentTxnId && !$this->getTransactionId()) {
-            $this->setTransactionId("{$parentTxnId}-{$type}");
+            $this->setTransactionId("$parentTxnId-$type");
         }
     }
 
@@ -1694,6 +1703,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Generate billing agreement object if there is billing agreement data
      * Adds it to order as related object
+     * @throws Mage_Core_Exception
      */
     protected function _createBillingAgreement()
     {
@@ -1759,6 +1769,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param  string                               $transactionId
      * @return false|Mage_Sales_Model_Order_Invoice
+     * @throws Mage_Core_Exception
      */
     protected function _getInvoiceForTransactionId($transactionId)
     {

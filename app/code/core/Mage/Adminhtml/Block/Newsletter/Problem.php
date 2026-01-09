@@ -18,7 +18,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
     {
         parent::__construct();
         $this->setTemplate('newsletter/problem/list.phtml');
-        $collection = Mage::getResourceSingleton('newsletter/problem_collection')
+        Mage::getResourceSingleton('newsletter/problem_collection')
             ->addSubscriberInfo()
             ->addQueueInfo();
     }
@@ -64,6 +64,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
         return $this->getChildHtml('deleteButton');
     }
 
+    /**
+     * @throws Zend_Db_Select_Exception
+     */
     public function getShowButtons()
     {
         return  Mage::getResourceSingleton('newsletter/problem_collection')->getSize() > 0;

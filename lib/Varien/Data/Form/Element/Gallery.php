@@ -29,8 +29,6 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
      */
     public function getElementHtml()
     {
-        $gallery = $this->getValue();
-
         $html = '<table id="gallery" class="gallery" border="0" cellspacing="3" cellpadding="0">';
         $html .= '<thead id="gallery_thead" class="gallery"><tr class="gallery"><td class="gallery" valign="middle" align="center">Big Image</td><td class="gallery" valign="middle" align="center">Thumbnail</td><td class="gallery" valign="middle" align="center">Small Thumb</td><td class="gallery" valign="middle" align="center">Sort Order</td><td class="gallery" valign="middle" align="center">Delete</td></tr></thead>';
         $widgetButton = $this->getForm()->getParent()->getLayout();
@@ -51,10 +49,10 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 
         $html .= '<tbody class="gallery">';
 
-        $i = 0;
+        $index = 0;
         if (!is_null($this->getValue())) {
             foreach ($this->getValue() as $image) {
-                $i++;
+                $index++;
                 $html .= '<tr class="gallery">';
                 foreach ($this->getValue()->getAttributeBackend()->getImageTypes() as $type) {
                     $url = $image->setType($type)->getSourceUrl();
@@ -70,24 +68,11 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
             }
         }
 
-        if ($i == 0) {
+        if ($index == 0) {
             $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 
         $html .= '</tbody></table>';
-
-        /*
-                $html .= '<script language="javascript">
-                            var multi_selector = new MultiSelector( document.getElementById( "gallery" ),
-                            "'.$this->getName().'",
-                            -1,
-                                \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
-                                "",
-                                \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
-                            );
-                            multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
-                            </script>';
-        */
 
         $name = $this->getName();
         $parentName = parent::getName();

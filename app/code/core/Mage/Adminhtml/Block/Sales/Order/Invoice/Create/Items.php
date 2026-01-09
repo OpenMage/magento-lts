@@ -118,6 +118,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      * Retrieve order totalbar block data
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getOrderTotalbarData()
     {
@@ -193,6 +194,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Check if gateway is associated with invoice order
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isGatewayUsed()
     {

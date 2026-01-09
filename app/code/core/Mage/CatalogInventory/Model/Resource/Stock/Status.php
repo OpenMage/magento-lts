@@ -31,6 +31,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param  int                       $stockId
      * @param  null|int                  $websiteId
      * @return $this
+     * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
      */
     public function saveProductStatus(
@@ -84,10 +85,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Retrieve product status
      * Return array as key product id, value - stock status
      *
-     * @param  array|int $productIds
-     * @param  int       $websiteId
-     * @param  int       $stockId
+     * @param  array|int           $productIds
+     * @param  int                 $websiteId
+     * @param  int                 $stockId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductStatus($productIds, $websiteId, $stockId = 1)
     {
@@ -106,18 +108,17 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     /**
      * Retrieve product(s) data array
      *
-     * @param  array|int $productIds
-     * @param  int       $websiteId
-     * @param  int       $stockId
+     * @param  array|int           $productIds
+     * @param  int                 $websiteId
+     * @param  int                 $stockId
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductData($productIds, $websiteId, $stockId = 1)
     {
         if (!is_array($productIds)) {
             $productIds = [$productIds];
         }
-
-        $result = [];
 
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
@@ -132,10 +133,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Return array as key website_id, value store_id
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteStores()
     {
-        $select = Mage::getModel('core/website')->getDefaultStoresSelect(false);
+        $select = Mage::getModel('core/website')->getDefaultStoresSelect();
         return $this->_getReadAdapter()->fetchPairs($select);
     }
 
@@ -185,6 +187,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * Add stock status to prepare index select
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addStockStatusToSelect(Varien_Db_Select $select, Mage_Core_Model_Website $website)
     {
@@ -204,12 +207,13 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      * @param  string|Zend_Db_Expr $entityField
      * @param  string|Zend_Db_Expr $websiteField
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
     {
         $select->join(
             ['ciss' => $this->getMainTable()],
-            "ciss.product_id = {$entityField} AND ciss.website_id = {$websiteField}",
+            "ciss.product_id = $entityField AND ciss.website_id = $websiteField",
             [],
         );
         $select->where('ciss.stock_status = ?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
@@ -222,6 +226,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
      *
      * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addIsInStockFilterToCollection($collection)
     {
