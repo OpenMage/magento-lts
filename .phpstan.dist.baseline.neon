@@ -6309,7 +6309,7 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 5
+			count: 2
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php
 
 		-
