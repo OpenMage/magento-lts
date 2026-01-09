@@ -1317,5 +1317,5 @@
 "Copy images to the new product","Copy images to the new product"
 "Always ask","Always ask"
 "Duplicate product without images","Duplicate product without images"
-"Skip Images on Duplicate","Skip Images on Duplicate"
+"Copy Images on Duplicate","Copy Images on Duplicate"
 "'Ask' option only affects Admin interface. Default for programmatical duplication is to persist images.","'Ask' option only affects Admin interface. Default for programmatical duplication is to persist images."
