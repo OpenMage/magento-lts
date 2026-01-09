@@ -330,18 +330,18 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     /**
      * Check range dates and transforms it to strings
      *
-     * @param  mixed                                       $fromDate
-     * @param  mixed                                       $toDate
+     * @param  mixed                                       $from
+     * @param  mixed                                       $to
      * @return Mage_Reports_Model_Resource_Report_Abstract
      */
-    protected function _checkDates(&$fromDate, &$toDate)
+    protected function _checkDates(&$from, &$to)
     {
-        if ($fromDate !== null) {
-            $fromDate = $this->formatDate($fromDate);
+        if ($from !== null) {
+            $from = $this->formatDate($from);
         }
 
-        if ($toDate !== null) {
-            $toDate = $this->formatDate($toDate);
+        if ($to !== null) {
+            $to = $this->formatDate($to);
         }
 
         return $this;
