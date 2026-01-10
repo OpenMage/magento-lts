@@ -231,7 +231,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($value['images'] as &$image) {
             if (!empty($image['removed'])) {
                 if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
-                    $toDelete[] = $image['value_id'];
+                    $toDelete[] = $image;
                 }
 
                 continue;
@@ -271,7 +271,48 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $this->_getResource()->insertGalleryValueInStore($data);
         }
 
-        $this->_getResource()->deleteGallery($toDelete);
+        $valueIdsToDelete = array_map(fn($img) => $img['value_id'], $toDelete);
+        $this->_getResource()->deleteGallery($valueIdsToDelete);
+
+        /** @var Mage_Catalog_Helper_Image $imgHelper */
+        $imgHelper = Mage::helper('catalog/image');
+        if ($imgHelper->deleteImageFileOnRemoval() === Mage_Catalog_Model_Product_Image::ON_REMOVAL_DELETE) {
+            $filesToDelete = array_map(fn($img) => $img['file'], $toDelete);
+
+            $unusedImages = $this->_getResource()->filterUnusedImageFiles($filesToDelete, $object->getId());
+            $io = new Varien_Io_File();
+            foreach ($unusedImages as $file) {
+                $io->rm($this->_getConfig()->getMediaPath($file));
+            }
+        }
+    }
+
+    /**
+     * @param  Mage_Catalog_Model_Product                         $object
+     * @return Mage_Catalog_Model_Product_Attribute_Backend_Media
+     */
+    public function afterDelete($object)
+    {
+        $attrCode = $this->getAttribute()->getAttributeCode();
+        $value = $object->getData($attrCode);
+        if (!is_array($value) || !isset($value['images'])) {
+            return parent::afterDelete($object);
+        }
+
+        /** @var Mage_Catalog_Helper_Image $imgHelper */
+        $imgHelper = Mage::helper('catalog/image');
+
+        if ($imgHelper->deleteImageFileOnRemoval() === Mage_Catalog_Model_Product_Image::ON_REMOVAL_KEEP) {
+            return parent::afterDelete($object);
+        }
+
+        $images = array_map(fn($image) => $image['file'], $value['images']);
+        $unusedImages = $this->_getResource()->filterUnusedImageFiles($images, $object->getId());
+        $io = new Varien_Io_File();
+        foreach ($unusedImages as $file) {
+            $io->rm($this->_getConfig()->getMediaPath($file));
+        }
+        return parent::afterDelete($object);
     }
 
     /**

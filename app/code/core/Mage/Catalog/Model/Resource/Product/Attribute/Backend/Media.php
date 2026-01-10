@@ -274,4 +274,25 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $this->_removeDuplicates($result);
         return $result;
     }
+
+    /**
+     * Filter gallery images that are not used by other products
+     *
+     * @param  array $imageFiles
+     * @param  int   $objectId
+     * @return array
+     */
+    public function filterUnusedImageFiles($imageFiles, $objectId): array
+    {
+        // Duplicate product store values
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->getTable(self::GALLERY_TABLE), [
+                new Zend_Db_Expr('DISTINCT value'),
+            ])
+            ->where('entity_id != ?', $objectId)
+            ->where('value IN (?)', $imageFiles);
+
+        return array_diff($imageFiles, $this->_getReadAdapter()->fetchCol($select));
+    }
 }
