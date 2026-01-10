@@ -1321,3 +1321,7 @@
 "Duplicate product without images","Duplicate product without images"
 "Copy Images on Duplicate","Copy Images on Duplicate"
 "'Ask' option only affects Admin interface. Default for programmatical duplication is to persist images.","'Ask' option only affects Admin interface. Default for programmatical duplication is to persist images."
+"Product image file handling on removal","Product image file handling on removal"
+"Defines how product image files are handled when a product is deleted or when an image is removed from the product media gallery.<br/><br/><strong>Important:</strong> image files referenced by other products will not be deleted. Only image files that are no longer associated with any product are eligible for removal.","Defines how product image files are handled when a product is deleted or when an image is removed from the product media gallery.<br/><br/><strong>Important:</strong> image files referenced by other products will not be deleted. Only image files that are no longer associated with any product are eligible for removal."
+"Keep image file(s) on the filesystem","Keep image file(s) on the filesystem"
+"Permanently deletes image file(s)","Permanently deletes image file(s)"

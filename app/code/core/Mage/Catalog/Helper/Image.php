@@ -22,6 +22,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
     public const XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION = 'catalog/product_image/images_on_duplicate_action';
 
+    public const XML_NODE_DELETE_IMAGE_ON_REMOVAL_ACTION = 'catalog/product_image/images_on_removal_action';
+
     protected $_moduleName = 'Mage_Catalog';
 
     /**
@@ -656,5 +658,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     public function skipProductImageOnDuplicate(): int
     {
         return Mage::getStoreConfigAsInt(self::XML_NODE_SKIP_IMAGE_ON_DUPLICATE_ACTION);
+    }
+
+    public function deleteImageFileOnRemoval(): int
+    {
+        return Mage::getStoreConfigAsInt(self::XML_NODE_DELETE_IMAGE_ON_REMOVAL_ACTION);
     }
 }

@@ -41,6 +41,22 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public const ON_DUPLICATE_SKIP = 1;
 
+
+    /**
+     * Always ask
+     *
+     * @var int
+     */
+    public const ON_REMOVAL_KEEP = 0;
+
+
+    /**
+     * Always ask
+     *
+     * @var int
+     */
+    public const ON_REMOVAL_DELETE = 1;
+
     /**
      * Requested width for the scaled image
      * @var int

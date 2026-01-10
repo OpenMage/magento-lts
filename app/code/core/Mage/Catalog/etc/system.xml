@@ -213,6 +213,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </images_on_duplicate_action>
+                        <images_on_removal_action translate="label comment">
+                            <label>Product image file handling on removal</label>
+                            <comment><![CDATA[Defines how product image files are handled when a product is deleted or when an image is removed from the product media gallery.<br/><br/><strong>Important:</strong> image files referenced by other products will not be deleted. Only image files that are no longer associated with any product are eligible for removal.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_catalog_imageFileHandle</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </images_on_removal_action>
                     </fields>
                 </product_image>
                 <placeholder translate="label">
