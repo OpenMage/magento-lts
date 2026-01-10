@@ -127,10 +127,12 @@
                 if (content) {
                     content.style.paddingTop = '1.25em';
                 }
-                var buttons = document.querySelectorAll('.magento_buttons');
-                buttons.forEach(function(button) {
-                    button.style.textAlign = 'center';
-                });
+                if (dialogWindow && dialogWindow.element) {
+                    var buttons = dialogWindow.element.querySelectorAll('.magento_buttons');
+                    buttons.forEach(function(button) {
+                        button.style.textAlign = 'center';
+                    });
+                }
             }
         });
     }
