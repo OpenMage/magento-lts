@@ -312,6 +312,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($unusedImages as $file) {
             $io->rm($this->_getConfig()->getMediaPath($file));
         }
+
         return parent::afterDelete($object);
     }
 

@@ -278,9 +278,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Filter gallery images that are not used by other products
      *
-     * @param  array $imageFiles
-     * @param  int   $objectId
-     * @return array
+     * @param array $imageFiles
+     * @param int   $objectId
      */
     public function filterUnusedImageFiles($imageFiles, $objectId): array
     {
