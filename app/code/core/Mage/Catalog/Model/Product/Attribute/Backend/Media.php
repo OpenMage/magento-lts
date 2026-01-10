@@ -95,6 +95,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     public function beforeSave($object)
     {
+        if ($object->getIsDuplicate() == true) {
+            return;
+        }
+
         $attrCode = $this->getAttribute()->getAttributeCode();
         $value = $object->getData($attrCode);
         if (!is_array($value) || !isset($value['images'])) {
@@ -120,34 +124,17 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $clearImages = [];
         $newImages   = [];
         $existImages = [];
-        if ($object->getIsDuplicate() != true) {
-            foreach ($value['images'] as &$image) {
-                if (!empty($image['removed'])) {
-                    $clearImages[] = $image['file'];
-                } elseif (!isset($image['value_id'])) {
-                    $newFile = $this->_moveImageFromTmp($image['file']);
-                    $image['new_file'] = $newFile;
-                    $newImages[$image['file']] = $image;
-                    $this->_renamedImages[$image['file']] = $newFile;
-                    $image['file'] = $newFile;
-                } else {
-                    $existImages[$image['file']] = $image;
-                }
-            }
-        } else {
-            // For duplicating we need copy original images.
-            $duplicate = [];
-            foreach ($value['images'] as &$image) {
-                if (!isset($image['value_id'])) {
-                    continue;
-                }
-
-                $newFile = $this->_copyImage($image['file']);
-                $newImages[$image['file']] = [
-                    'new_file' => $newFile,
-                    'label' => $image['label'],
-                ];
-                $duplicate[$image['value_id']] = $newFile;
+        foreach ($value['images'] as &$image) {
+            if (!empty($image['removed'])) {
+                $clearImages[] = $image['file'];
+            } elseif (!isset($image['value_id'])) {
+                $newFile = $this->_moveImageFromTmp($image['file']);
+                $image['new_file'] = $newFile;
+                $newImages[$image['file']] = $image;
+                $this->_renamedImages[$image['file']] = $newFile;
+                $image['file'] = $newFile;
+            } else {
+                $existImages[$image['file']] = $image;
             }
         }
 
@@ -200,7 +187,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     public function afterSave($object)
     {
         if ($object->getIsDuplicate() == true) {
-            $this->duplicate($object);
             return;
         }
 
@@ -700,9 +686,17 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             return $this;
         }
 
+        $newImagesMap = [];
+        foreach ($mediaGalleryData['images'] as &$image) {
+            $newImagesMap[$image['file']] = [
+                'file' => $this->_copyImage($image['file']),
+                'old_value_id' => $image['value_id'],
+            ];
+        }
+
         $this->_getResource()->duplicate(
             $this,
-            $mediaGalleryData['duplicate'] ?? [],
+            $newImagesMap,
             $object->getOriginalId(),
             $object->getId(),
         );
