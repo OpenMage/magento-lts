@@ -264,8 +264,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int  $itemId
-     * @return bool
+     * @param  int                                        $itemId
+     * @return false|Mage_Sales_Model_Order_Shipment_Item
      */
     public function getItemById($itemId)
     {

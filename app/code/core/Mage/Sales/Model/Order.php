@@ -2346,12 +2346,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getCustomerName()
     {
         if ($this->getCustomerFirstname()) {
-            $customerName = Mage::helper('customer')->getFullCustomerName($this);
-        } else {
-            $customerName = Mage::helper('sales')->__('Guest');
+            return Mage::helper('customer')->getFullCustomerName($this);
         }
 
-        return $customerName;
+        return Mage::helper('sales')->__('Guest');
     }
 
     /**
