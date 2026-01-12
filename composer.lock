@@ -9438,20 +9438,20 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "12.0.1",
+            "version": "12.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b"
+                "reference": "a598747d8a5191c1f62c89d601e27d5c599aa4f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
-                "reference": "157ddf6b8d992a2e3adbd9bc16264a6e95d91f6b",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/a598747d8a5191c1f62c89d601e27d5c599aa4f2",
+                "reference": "a598747d8a5191c1f62c89d601e27d5c599aa4f2",
                 "shasum": ""
             },
             "require": {
-                "cweagans/composer-patches": "^1.7 || ^2.0",
+                "cweagans/composer-patches": "^1.7.3 || ^2.0",
                 "php": ">=7.2"
             },
             "bin": [
@@ -9465,7 +9465,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/12.0.1"
+                "source": "https://github.com/symplify/vendor-patches/tree/12.0.5"
             },
             "funding": [
                 {
@@ -9477,7 +9477,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-19T09:19:07+00:00"
+            "time": "2026-01-05T14:30:09+00:00"
         },
         {
             "name": "theseer/tokenizer",
