@@ -811,6 +811,7 @@
                 <small_width>210</small_width>
                 <max_dimension>5000</max_dimension>
                 <images_on_duplicate_action>-1</images_on_duplicate_action>
+                <images_on_removal_action>0</images_on_removal_action>
             </product_image>
             <seo>
                 <product_url_suffix>.html</product_url_suffix>
