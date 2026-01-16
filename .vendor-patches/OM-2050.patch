@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Date.php
 +++ ../library/Zend/Date.php
 @@ -541,7 +541,8 @@
          }

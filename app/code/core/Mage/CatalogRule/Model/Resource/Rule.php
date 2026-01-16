@@ -165,9 +165,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             }
 
             return false;
-        } else {
-            return $rule->getConditions()->validate($product);
         }
+
+        return $rule->getConditions()->validate($product);
     }
 
     /**

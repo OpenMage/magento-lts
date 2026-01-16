@@ -201,11 +201,13 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_null($compareTo)) {
             return $type;
-        } elseif (is_array($compareTo)) {
-            return in_array($type, $compareTo);
-        } else {
-            return $type == $compareTo;
         }
+
+        if (is_array($compareTo)) {
+            return in_array($type, $compareTo);
+        }
+
+        return $type == $compareTo;
     }
 
     /**

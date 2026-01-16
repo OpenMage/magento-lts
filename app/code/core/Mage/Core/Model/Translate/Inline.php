@@ -382,9 +382,8 @@ class Mage_Core_Model_Translate_Inline
     {
         if ($this->getIsJson()) {
             return '\"';
-        } else {
-            return '"';
         }
+        return '"';
     }
 
     /**
@@ -512,9 +511,8 @@ class Mage_Core_Model_Translate_Inline
         }
         if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, 0, $end)) {
             return $end + strlen($tagMatch[0]);
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

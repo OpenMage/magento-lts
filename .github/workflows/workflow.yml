@@ -126,6 +126,7 @@ jobs:
     needs: [check, php-cs-fixer, phpstan]
     if: |
       needs.check.outputs.php > 0 ||
+      needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/rector.yml
 
@@ -136,6 +137,7 @@ jobs:
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpunit-test > 0 ||
       needs.check.outputs.phpunit > 0 ||
+      needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
 

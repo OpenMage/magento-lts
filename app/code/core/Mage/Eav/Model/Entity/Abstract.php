@@ -567,10 +567,11 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $sort1 =  ($attribute1->getData($groupSortPath) * 1000) + ($attribute1->getData($sortPath) * 0.0001);
         $sort2 =  ($attribute2->getData($groupSortPath) * 1000) + ($attribute2->getData($sortPath) * 0.0001);
-
         if ($sort1 > $sort2) {
             return 1;
-        } elseif ($sort1 < $sort2) {
+        }
+
+        if ($sort1 < $sort2) {
             return -1;
         }
 

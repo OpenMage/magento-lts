@@ -224,7 +224,10 @@ class Varien_Object_Cache
             unset($this->_objects[$idx]);
             //Varien_Profiler::stop("OBJECT_DELETE");
             return false;
-        } elseif (!isset($this->_objects[$idx])) {
+        }
+
+        //Varien_Profiler::start("OBJECT_DELETE");
+        if (!isset($this->_objects[$idx])) {
             //Varien_Profiler::stop("OBJECT_DELETE");
             return false;
         }

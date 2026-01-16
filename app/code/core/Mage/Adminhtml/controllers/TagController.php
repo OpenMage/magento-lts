@@ -157,9 +157,9 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
                 if (($continue = $this->getRequest()->getParam('continue'))) {
                     return $this->_redirect('*/tag/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue]);
-                } else {
-                    return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
+
+                return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);

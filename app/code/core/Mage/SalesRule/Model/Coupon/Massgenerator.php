@@ -57,6 +57,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      * Generate coupon code
      *
      * @return string
+     * @throws Exception
      */
     public function generateCode()
     {
@@ -75,9 +76,9 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $code = '';
         $charsetSize = count($charset);
-        for ($i = 0; $i < $length; $i++) {
+        for ($index = 0; $index < $length; $index++) {
             $char = $charset[random_int(0, $charsetSize - 1)];
-            if ($split > 0 && ($i % $split) == 0 && $i != 0) {
+            if ($split > 0 && ($index % $split) == 0 && $index != 0) {
                 $char = $splitChar . $char;
             }
 
@@ -96,15 +97,17 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     {
         if ($this->getData('delimiter')) {
             return $this->getData('delimiter');
-        } else {
-            return Mage::helper('salesrule/coupon')->getCodeSeparator();
         }
+
+        return Mage::helper('salesrule/coupon')->getCodeSeparator();
     }
 
     /**
      * Generate Coupons Pool
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function generatePool()
     {
@@ -136,7 +139,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
             Mage::getSingleton('core/date')->gmtTimestamp(),
         );
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($index = 0; $index < $size; $index++) {
             $attempt = 0;
             do {
                 if ($attempt >= $maxAttempts) {

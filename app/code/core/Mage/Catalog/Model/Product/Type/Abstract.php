@@ -208,10 +208,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $sort1 =  ($attribute1->getGroupSortPath() * 1000) + ($attribute1->getSortPath() * 0.0001);
         $sort2 =  ($attribute2->getGroupSortPath() * 1000) + ($attribute2->getSortPath() * 0.0001);
-
         if ($sort1 > $sort2) {
             return 1;
-        } elseif ($sort1 < $sort2) {
+        }
+
+        if ($sort1 < $sort2) {
             return -1;
         }
 

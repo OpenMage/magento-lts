@@ -147,9 +147,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     {
         if ($this->checkDbUsage()) {
             return $this->getStorageDatabaseModel()->fileExists($this->_removeAbsPathFromFileName($filename));
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -266,9 +266,9 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
             $this->saveFile($path . $uniqueResultFile);
 
             return $uniqueResultFile;
-        } else {
-            return $result['file'];
         }
+
+        return $result['file'];
     }
 
     /**

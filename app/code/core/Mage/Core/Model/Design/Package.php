@@ -806,15 +806,15 @@ class Mage_Core_Model_Design_Package
             }
 
             return $result;
-        } else {
-            return Mage::helper('core')->mergeFiles(
-                $srcFiles,
-                $targetFile,
-                $mustMerge,
-                $beforeMergeCallback,
-                $extensionsFilter,
-            );
         }
+
+        return Mage::helper('core')->mergeFiles(
+            $srcFiles,
+            $targetFile,
+            $mustMerge,
+            $beforeMergeCallback,
+            $extensionsFilter,
+        );
     }
 
     /**

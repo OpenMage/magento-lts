@@ -8,6 +8,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
@@ -381,9 +382,9 @@ final class Mage
 
         if (is_null($key)) {
             return self::$_objects;
-        } else {
-            return self::$_objects->load($key);
         }
+
+        return self::$_objects->load($key);
     }
 
     /**
@@ -450,9 +451,9 @@ final class Mage
         $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && $flag !== 'false') {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -862,8 +863,17 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
+
+                $date = (string) $localConfig->global->install->date;
+                if ($date === '') {
+                    return self::$_isInstalled;
+                }
+
+                try {
+                    Carbon::parse($date);
                     self::$_isInstalled = true;
+                } catch (InvalidFormatException) {
+                    self::$_isInstalled = false;
                 }
             }
         }
@@ -1097,9 +1107,9 @@ final class Mage
             if ($exitIfNot) {
                 // exit because of infinity loop
                 exit($errorMessage);
-            } else {
-                self::printException(new Exception(), $errorMessage);
             }
+
+            self::printException(new Exception(), $errorMessage);
         }
 
         return $baseUrl;

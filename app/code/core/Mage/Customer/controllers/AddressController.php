@@ -135,11 +135,11 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                     $this->_getSession()->addSuccess($this->__('The address has been saved.'));
                     $this->_redirectSuccess(Mage::getUrl('*/*/index', ['_secure' => true]));
                     return;
-                } else {
-                    $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
-                    foreach ($errors as $errorMessage) {
-                        $this->_getSession()->addError($errorMessage);
-                    }
+                }
+
+                $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
+                foreach ($errors as $errorMessage) {
+                    $this->_getSession()->addError($errorMessage);
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())

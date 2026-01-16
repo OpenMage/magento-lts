@@ -103,6 +103,7 @@
  * @method string                                             getShipmentType()
  * @method string                                             getShortDescription()
  * @method bool                                               getSkipCheckRequiredOption()
+ * @method bool                                               getSkipImagesOnDuplicate()
  * @method string                                             getSmallImage()
  * @method bool                                               getStickWithinParent()
  * @method array                                              getStockData()
@@ -212,6 +213,7 @@
  * @method $this                                              setRequiredOptions(bool $value)
  * @method $this                                              setShortDescription(string $value)
  * @method $this                                              setSkipCheckRequiredOption(bool $value)
+ * @method $this                                              setSkipImagesOnDuplicate(bool $value)
  * @method $this                                              setSku(string $value)
  * @method $this                                              setStatus(int $store)
  * @method $this                                              setStockData(array $value)
@@ -430,9 +432,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if ($this->_calculatePrice || !$this->getData('price')) {
             return $this->getPriceModel()->getPrice($this);
-        } else {
-            return $this->getData('price');
         }
+
+        return $this->getData('price');
     }
 
     /**
@@ -1375,6 +1377,17 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setId(null)
             ->setStoreId(Mage::app()->getStore()->getId());
 
+        if (is_bool($this->getSkipImagesOnDuplicate())) {
+            // when set programmatically or via frontend
+            $newProduct->setSkipImagesOnDuplicate($this->getSkipImagesOnDuplicate());
+        } elseif ($this->_getImageHelper()->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
+            // when not defined at all, but config is 'ask'
+            $newProduct->setSkipImagesOnDuplicate(false);
+        } else {
+            // when not defined at all, but config is set
+            $newProduct->setSkipImagesOnDuplicate($this->_getImageHelper()->skipProductImageOnDuplicate());
+        }
+
         Mage::dispatchEvent(
             'catalog_model_product_duplicate',
             ['current_product' => $this, 'new_product' => $newProduct],
@@ -1447,7 +1460,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $newProduct->save();
 
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
-        $this->getResource()->duplicate($this->getId(), $newProduct->getId());
+        $this->getResource()
+            ->setSkipImagesOnDuplicate($newProduct->getSkipImagesOnDuplicate())
+            ->duplicate($this->getId(), $newProduct->getId());
 
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
@@ -2056,9 +2071,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if (count($this->_customOptions)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

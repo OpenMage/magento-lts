@@ -78,7 +78,6 @@
  * @method Mage_Sales_Model_Resource_Order_Collection getCollection()
  * @method bool                                       getConvertingFromQuote()
  * @method string                                     getCouponCode()
- * @method string                                     getCreatedAt()
  * @method Mage_Customer_Model_Customer               getCustomer()
  * @method string                                     getCustomerDob()
  * @method string                                     getCustomerEmail()
@@ -178,7 +177,6 @@
  * @method float                                      getTotalPaid()
  * @method float                                      getTotalQtyOrdered()
  * @method float                                      getTotalRefunded()
- * @method string                                     getUpdatedAt()
  * @method float                                      getWeight()
  * @method string                                     getXForwardedFor()
  * @method bool                                       hasBillingAddressId()
@@ -239,7 +237,6 @@
  * @method $this                                      setConvertingFromQuote(bool $value)
  * @method $this                                      setCouponCode(string $value)
  * @method $this                                      setCouponRuleName(string $value)
- * @method $this                                      setCreatedAt(string $value)
  * @method $this                                      setCustomer(Mage_Customer_Model_Customer $value)
  * @method $this                                      setCustomerDob(string $value)
  * @method $this                                      setCustomerEmail(string $value)
@@ -329,7 +326,6 @@
  * @method $this                                      setTotalPaid(float $value)
  * @method $this                                      setTotalQtyOrdered(float $value)
  * @method $this                                      setTotalRefunded(float $value)
- * @method $this                                      setUpdatedAt(string $value)
  * @method $this                                      setWeight(float $value)
  * @method $this                                      setXForwardedFor(string $value)
  * @method $this                                      unsBillingAddressId()
@@ -1381,18 +1377,18 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $shippingMethod = parent::getShippingMethod();
         if (!$asObject) {
             return $shippingMethod;
-        } else {
-            $segments = explode('_', $shippingMethod, 2);
-            if (!isset($segments[1])) {
-                $segments[1] = $segments[0];
-            }
-
-            [$carrierCode, $method] = $segments;
-            return new Varien_Object([
-                'carrier_code' => $carrierCode,
-                'method'       => $method,
-            ]);
         }
+
+        $segments = explode('_', $shippingMethod, 2);
+        if (!isset($segments[1])) {
+            $segments[1] = $segments[0];
+        }
+
+        [$carrierCode, $method] = $segments;
+        return new Varien_Object([
+            'carrier_code' => $carrierCode,
+            'method'       => $method,
+        ]);
     }
 
     /**

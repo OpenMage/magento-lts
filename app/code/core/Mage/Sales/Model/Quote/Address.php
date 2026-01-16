@@ -42,7 +42,6 @@
  * @method int                                                getCollectShippingRates()
  * @method string                                             getCompany()
  * @method string                                             getCountryId()
- * @method string                                             getCreatedAt()
  * @method float                                              getCustbalanceAmount()
  * @method Mage_Customer_Model_Address                        getCustomerAddress()
  * @method int                                                getCustomerAddressId()
@@ -99,7 +98,6 @@
  * @method string                                             getTaxvat()
  * @method string                                             getTelephone()
  * @method float                                              getTotalQty()
- * @method string                                             getUpdatedAt()
  * @method float                                              getWeeeDiscount()
  * @method float                                              getWeight()
  * @method bool                                               hasCouponCode()
@@ -131,7 +129,6 @@
  * @method $this                                              setCompany(string $value)
  * @method $this                                              setCountryId(string $value)
  * @method $this                                              setCouponCode(string $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setCustbalanceAmount(float $int)
  * @method $this                                              setCustomerAddress(Mage_Customer_Model_Address $value)
  * @method $this                                              setCustomerAddressId(int $value)
@@ -181,7 +178,6 @@
  * @method $this                                              setTaxAmount(float $value)
  * @method $this                                              setTelephone(string $value)
  * @method $this                                              setTotalQty(float $int)
- * @method $this                                              setUpdatedAt(string $value)
  * @method $this                                              setVirtualAmount(float $value)
  * @method $this                                              setWeeeDiscount(float $value)
  * @method $this                                              setWeight(float $value)
@@ -326,7 +322,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
              * Set same_as_billing to "1" when default shipping address is set as default
              * and it is not equal billing address
              */
-            if (!$this->getId()) {
+            if (!$this->getId() && !$this->hasSameAsBilling()) {
                 $this->setSameAsBilling((int) $this->_isSameAsBilling());
             }
         }
@@ -887,11 +883,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     {
         if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
             return -1;
-        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        } else {
-            return 0;
         }
+
+        if ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
+            return 1;
+        }
+
+        return 0;
     }
 
     /**
@@ -1195,7 +1193,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
         if ($this->getQuote()->getIsVirtual() && $this->getAddressType() == self::TYPE_SHIPPING) {
             return true;
-        } elseif (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
+        }
+
+        if (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
             return true;
         }
 

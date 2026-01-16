@@ -673,9 +673,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             return $this->_getFlatColumnsOldDefinition();
-        } else {
-            return $this->_getFlatColumnsDdlDefinition();
         }
+
+        return $this->_getFlatColumnsDdlDefinition();
     }
 
     /**

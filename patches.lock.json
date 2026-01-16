@@ -1,0 +1,99 @@
+{
+    "_hash": "884e5f42330374f25da0de5a0a8eb339285d9d2c154ab842982bb699f1ebda7a",
+    "patches": {
+        "shardj/zf1-future": [
+            {
+                "package": "shardj/zf1-future",
+                "description": "MAG-1.9.3.0",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.0.patch",
+                "sha256": "02e8483ded77ceff2deaf0e1e68276dfd5f4427a2577867fc378b3e5851fc386",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "MAG-1.9.3.7 - SUPEE-10415",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.7.patch",
+                "sha256": "ab35564f6d49993021efa816157d276621ed116e9040b8a9b727149f6a935624",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "OM-918 - Add runtime cache to Zend_Locale_Data",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/f28ab75b1df7d1497ed775e33b77d7957c9b85c4/.vendor-patches/OM-918.patch",
+                "sha256": "6e9394e95639941d096e6c80cf2106234d864b26d2eee3bb44fa159295629f43",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "OM-1081 - Not detecting HTTPS behind a proxy",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-1081.patch",
+                "sha256": "a3d0e71e9c5593d86acd478aaca5a2148ba74ceacc27c644e4eaa60d2c7ec904",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "OM-2047 - Pass delimiter char to preg_quote",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/5479577ef5207ace4f5842a2f1a636f689db9194/.vendor-patches/OM-2047.patch",
+                "sha256": "e5398fd3b9cdbe2ccad2fa68b71d34daee0e5f7ae392b3db950326d5a61ec06a",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "OM-2050 - Prevent checking known date codes",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-2050.patch",
+                "sha256": "417fcce2d3e5162ee701dcbcf5fc4e30628f07a5833381b7d29d6ebc8dbc5d30",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "OM-4297 - PHP 8.4 compability",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-4297.patch",
+                "sha256": "c23f5befdb031c11109c134e11d97b7d1170c722aecf84e62942a9e79091025c",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            },
+            {
+                "package": "shardj/zf1-future",
+                "description": "PHPSTAN-ZF1F - temporary fixes",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/PHPSTAN-ZF1F.patch",
+                "sha256": "0bbf88d953377254379448c309b5cee16ac1585d31f34736b1e533f13a0c2b23",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ],
+        "magento-ecg/coding-standard": [
+            {
+                "package": "magento-ecg/coding-standard",
+                "description": "ECG-72 - Fix LoopSniff",
+                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch",
+                "sha256": "c24c480d3e5a0257d75650ec13841594c1d3fa7f80d9adfcd4e95e5aeab2e139",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

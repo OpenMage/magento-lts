@@ -117,14 +117,14 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     public function quote($value, $type = null)
     {
         $this->_connect();
-
         if ($type !== null
             && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)
-            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
-        ) {
+            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
             $value = $this->_convertFloat($value);
             return sprintf('%F', $value);
-        } elseif (is_float($value)) {
+        }
+
+        if (is_float($value)) {
             return $this->_quote($value);
         }
 

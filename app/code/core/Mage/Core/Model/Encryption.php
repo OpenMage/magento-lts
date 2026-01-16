@@ -104,9 +104,13 @@ class Mage_Core_Model_Encryption
     {
         if (self::HASH_VERSION_LATEST === $version && $version === $this->_helper->getVersionHash($this)) {
             return password_hash($data, PASSWORD_DEFAULT);
-        } elseif (self::HASH_VERSION_SHA256 == $version) {
+        }
+
+        if (self::HASH_VERSION_SHA256 == $version) {
             return hash('sha256', $data);
-        } elseif (self::HASH_VERSION_SHA512 == $version) {
+        }
+
+        if (self::HASH_VERSION_SHA512 == $version) {
             return hash('sha512', $data);
         }
 
