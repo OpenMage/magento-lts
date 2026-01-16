@@ -149,7 +149,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         // Note: Product detail swatches work independently of listing attribute configuration
         if (Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED) && $product) {
             $configAttrs = $this->getSwatchAttributeIds();
-            if (!empty($configAttrs)) {
+            if ($configAttrs !== []) {
                 /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
                 $productType = $product->getTypeInstance(true);
                 $configurableAttributes = $productType->getConfigurableAttributesAsArray($product);
