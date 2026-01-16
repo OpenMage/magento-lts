@@ -92,9 +92,8 @@
         return 1;
     }
 
-    function openDuplicateDialog(keepImagesUrl,skipImagesUrl) {
-        var html = '<p><?php echo $this->__('Do you want to use the same images on the duplicate product?'); ?></p>';
-        html += '<p><small><?php echo $this->__('You can disable this message on'); ?>:<br/> <i><?php echo $this->__('System'); ?> > <?php echo $this->__('Configuration'); ?> > <?php echo $this->__('Catalog Images'); ?> > <?php echo $this->__('Product Image'); ?></i></small></p><br/>';
+    function openDuplicateDialog(keepImagesUrl, skipImagesUrl) {
+        var html = '<p><?php echo $this->__('This product has images. Do you want to create a duplicate product that includes them?'); ?></p>';
 
         function duplicateKeepImages(dialogWindow) {
             dialogWindow.close();
@@ -106,22 +105,35 @@
         }
 
         Dialog.confirm(html, {
-            width: 450,
-            height: 120,
-            draggable:true,
-            closable:true,
-            className:"magento",
-            windowClassName:"popup-window",
-            title:'<?php echo $this->__('Current product has images') ?>',
-            recenterAuto:false,
-            hideEffect:Element.hide,
-            showEffect:Element.show,
-            id:"duplicate-product",
-            buttonClass:"form-button",
-            okLabel:"<?php echo $this->__('Duplicate with images'); ?>",
+            width: 505,
+            height: "auto",
+            draggable: true,
+            closable: true,
+            className: "magento",
+            windowClassName: "popup-window",
+            title: '<?php echo $this->__('Duplicate Product') ?>',
+            recenterAuto: false,
+            hideEffect: Element.hide,
+            showEffect: Element.show,
+            id: "duplicate-product",
+            buttonClass: "form-button",
+            okLabel: "<?php echo $this->__('Duplicate with images'); ?>",
             ok: duplicateKeepImages.bind(this),
             cancelLabel: "<?php echo $this->__('Duplicate without images'); ?>",
             cancel: duplicateSkipImages.bind(this),
+
+            onShow: function(dialogWindow) {
+                var content = document.getElementById('duplicate-product_content');
+                if (content) {
+                    content.style.paddingTop = '1.25em';
+                }
+                if (dialogWindow && dialogWindow.element) {
+                    var buttons = dialogWindow.element.querySelectorAll('.magento_buttons');
+                    buttons.forEach(function(button) {
+                        button.style.textAlign = 'center';
+                    });
+                }
+            }
         });
     }
 
