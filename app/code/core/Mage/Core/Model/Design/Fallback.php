@@ -85,13 +85,12 @@ class Mage_Core_Model_Design_Fallback
 
         if (!isset($this->_cachedSchemes[$cacheKey])) {
 
-            //First we have to check if theme exists
+            // First, we have to check if theme exists
             $path = $area . DS . $package . DS . $theme;
-            $fallback = false;
-            if (!is_dir(Mage::getBaseDir('design') . DS . $path)) {
-                //Fallback to default
+            $fallback = !is_dir(Mage::getBaseDir('design') . DS . $path);
+            if ($fallback) {
+                // Fallback to default theme.
                 $theme = (string) Mage::getConfig()->getNode('stores/admin/design/theme/default');
-                $fallback = true;
             }
 
             if ($this->_isInheritanceDefined($area, $package, $theme)) {
