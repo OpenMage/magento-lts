@@ -125,9 +125,14 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
                     $xml .= '<ss:Row>';
                     foreach ($fields as $fieldName) {
-                        $data = $row[$fieldName] ?? '';
-                        $fieldType = is_numeric($data) ? 'Number' : 'String';
-                        $xml .= '<ss:Cell><Data ss:Type="' . $fieldType . '">' . $data . '</Data></ss:Cell>';
+                        $value = $row[$fieldName] ?? '';
+                        $dataType = 'String';
+                        if (is_numeric($value)) {
+                            $dataType = 'Number';
+                            // is_numeric(' 96000') returns true, but Excel argues about space
+                            $value = trim($value);
+                        }
+                        $xml .= '<ss:Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></ss:Cell>';
                     }
 
                     $xml .= '</ss:Row>';
