@@ -132,6 +132,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                             // is_numeric(' 96000') returns true, but Excel argues about space
                             $value = trim($value);
                         }
+
                         $xml .= '<ss:Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></ss:Cell>';
                     }
 
