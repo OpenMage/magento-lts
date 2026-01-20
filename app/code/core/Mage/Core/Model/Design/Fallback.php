@@ -100,6 +100,15 @@ class Mage_Core_Model_Design_Fallback
             }
 
             if ($fallback) {
+                /**
+                 * When the originally requested theme does not exist, we build the inheritance
+                 * chain for the configured fallback theme instead. The first element of
+                 * $scheme represents the empty top element.
+                 * We keep that element at the beginning and explicitly insert the effective
+                 * theme as the second element, so that its files are checked immediately
+                 * after the current (parent) but before any further fallbacks. This preserves a
+                 * predictable and explicit order in the fallback chain.
+                 */
                 $first = array_shift($scheme);
                 $scheme = array_merge([$first], [['_package' => $package, '_theme' => $theme]], $scheme);
             }
