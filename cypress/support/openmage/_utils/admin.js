@@ -21,7 +21,7 @@ cy.openmage.admin = {
         cy.log('Checking for successful login');
         cy.url().should('include', cy.openmage.test.backend.dashbord.config.index.url);
     },
-    goToPage: (test, path) =>{
+    goToPage: (test, section) =>{
         cy.log('Go to admin page');
         cy.get('body').then($body => {
             const popup = '#message-popup-window .message-popup-head a';
@@ -31,7 +31,7 @@ cy.openmage.admin = {
             }
         });
 
-        cy.log(`Clicking on "${path.title}" menu`);
+        cy.log(`Clicking on "${section.title}" menu`);
         cy.get(test._).click({force: true});
         cy.url().should('include', test.url);
     },
@@ -41,7 +41,7 @@ cy.openmage.admin = {
         cy.get(section._).click({force: true});
         cy.url().should('include', section.url);
     },
-    goToConfigScope: (section, value) =>{
+    goToConfigScope: (section, value) => {
         cy.log('Go to store switcher config scope');
         cy.log(`Clicking on "${value}" menu`);
         const selector = 'select#store_switcher';
