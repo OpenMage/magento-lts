@@ -114,11 +114,19 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Before object save manipulations
+     * Trim whitespace for all string data to prevent unwanted spaces on save
      *
      * @return $this
      */
     protected function _beforeSave()
     {
+        // Trim all string fields before saving (for clean data storage)
+        foreach ($this->getData() as $key => $value) {
+            if (is_string($value)) {
+                $this->setData($key, trim($value));
+            }
+        }
+
         parent::_beforeSave();
 
         if (!$this->getParentId() && $this->getOrder()) {
