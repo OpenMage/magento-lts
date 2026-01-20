@@ -305,7 +305,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
 
     public function getTemplateOptions()
     {
-        return Mage_Core_Model_Email_Template::getDefaultTemplatesAsOptionsArray();
+        return Mage::getModel('core/email_template')->getDefaultTemplatesAsOptionsArray();
     }
 
     public function getCurrentLocale()
