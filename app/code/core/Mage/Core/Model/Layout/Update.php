@@ -521,8 +521,8 @@ class Mage_Core_Model_Layout_Update
                     if (!isset($themeUpdate['file']) || !is_string($themeUpdate['file'])) {
                         continue;
                     }
-                    $updateNode = $updates->addChild($key);
-                    $updateNode->addChild('file', $themeUpdate['file']);
+
+                    $updates->addChild($key)->addChild('file', $themeUpdate['file']);
                 }
             }
         }
