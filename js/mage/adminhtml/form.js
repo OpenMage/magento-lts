@@ -552,8 +552,10 @@ FormElementDependenceController.prototype = {
         if (shouldShowUp) {
             ele.select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
+                // don't touch ENV-locked fields
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
-                    && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)) {
+                    && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)
+                    && !item.hasClassName('env-locked')) {
                     item.disabled = false;
                 }
             });
