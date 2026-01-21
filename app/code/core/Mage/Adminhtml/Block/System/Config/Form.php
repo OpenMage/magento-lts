@@ -413,7 +413,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $elementFieldData['disabled'] = 1;
                     $elementFieldData['can_use_default_value'] = 0;
                     $elementFieldData['can_use_website_value'] = 0;
-                    $elementFieldData['class'] = $elementFieldData['class'] . ' env-locked';
+                    $elementFieldData['class'] = trim($elementFieldData['class']) . ' env-locked';
                 }
 
                 $field = $fieldset->addField($id, $fieldType, $elementFieldData);
