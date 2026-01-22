@@ -254,7 +254,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                             'email_body' => $message->getMessageBody(),
                         ]);
                     }
-                } catch (Throwable $throwable) {
+                } catch (Throwable $e) {
                     Mage::dispatchEvent('email_exception', [
                         'obj' => $this,
                         'message' => $message,
