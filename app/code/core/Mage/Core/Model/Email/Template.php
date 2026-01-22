@@ -475,6 +475,12 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
             $this->_mail = null;
         } catch (Exception $exception) {
+            Mage::dispatchEvent('email_exception', [
+                'obj' => $this,
+                'mail' => $mail,
+                'exception' => $e,
+                'args' => func_get_args()
+            ]);
             $this->_mail = null;
             Mage::logException($exception);
             return false;
