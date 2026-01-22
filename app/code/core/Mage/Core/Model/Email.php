@@ -134,24 +134,33 @@ class Mage_Core_Model_Email extends Varien_Object
             ->addTo($this->getToEmail(), $this->getToName())
             ->setSubject($this->getSubject());
 
-        Mage::dispatchEvent('email_send_before', [
-            'mail'      => $mail,
-            'template'  => $this->getTemplate(),
-            'transport' => $transport,
-            'variables' => $this->getTemplateVars(),
-        ]);
+        try {
+            Mage::dispatchEvent('email_send_before', [
+                'mail'      => $mail,
+                'template'  => $this->getTemplate(),
+                'transport' => $transport,
+                'variables' => $this->getTemplateVars(),
+            ]);
 
-        if ($transport->getTransport()) {
-            $mail->send($transport->getTransport());
-        } else {
-            $mail->send();
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            Mage::dispatchEvent('email_send_after', [
+                'to'         => $this->getToEmail(),
+                'subject'    => $this->getSubject(),
+                'email_body' => $this->getBody(),
+            ]);
+        } catch (\Throwable $e) {
+            Mage::dispatchEvent('email_exception', [
+                'obj' => $this,
+                'mail' => $mail,
+                'exception' => $e,
+            ]);
+            throw $e;
         }
-
-        Mage::dispatchEvent('email_send_after', [
-            'to'         => $this->getToEmail(),
-            'subject'    => $this->getSubject(),
-            'email_body' => $this->getBody(),
-        ]);
 
         return $this;
     }
