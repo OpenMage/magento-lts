@@ -194,6 +194,10 @@ small {
       filter: revert;
       float: right;
     }
+
+    button:not(:first-child) {
+      margin: 0 0 0 5px;
+    }
   }
 
   fieldset {
