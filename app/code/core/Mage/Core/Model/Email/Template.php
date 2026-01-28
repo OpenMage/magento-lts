@@ -47,7 +47,6 @@
  * @method bool                                               getUseAbsoluteLinks()
  * @method int                                                hasQueue()
  * @method $this                                              setAddedAt(string $value)
- * @method $this                                              setCreatedAt(string $value)
  * @method $this                                              setInlineCssFile(string $value)
  * @method $this                                              setModifiedAt(string $value)
  * @method $this                                              setOrigTemplateCode(string $value)
@@ -342,7 +341,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     {
         if ($this->isPlain() && $html) {
             return $html;
-        } elseif ($this->isPlain()) {
+        }
+
+        if ($this->isPlain()) {
             return $this->getTemplateText();
         }
 

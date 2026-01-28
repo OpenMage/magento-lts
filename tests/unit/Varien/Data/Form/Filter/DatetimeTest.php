@@ -20,7 +20,7 @@ final class DatetimeTest extends TestCase
 {
     public Varien_Data_Form_Filter_Datetime $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Varien_Data_Form_Filter_Datetime(null, 'en_US');
     }

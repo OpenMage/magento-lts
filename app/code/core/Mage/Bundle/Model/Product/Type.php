@@ -124,22 +124,21 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         if ($this->getProduct($product)->getData('sku_type')) {
             return $sku;
-        } else {
-            $skuParts = [$sku];
+        }
 
-            if ($this->getProduct($product)->hasCustomOptions()) {
-                $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
-                if (!empty($selectionIds)) {
-                    $selections = $this->getSelectionsByIds($selectionIds, $product);
-                    foreach ($selections->getItems() as $selection) {
-                        $skuParts[] = $selection->getSku();
-                    }
+        $skuParts = [$sku];
+        if ($this->getProduct($product)->hasCustomOptions()) {
+            $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+            if (!empty($selectionIds)) {
+                $selections = $this->getSelectionsByIds($selectionIds, $product);
+                foreach ($selections->getItems() as $selection) {
+                    $skuParts[] = $selection->getSku();
                 }
             }
-
-            return implode('-', $skuParts);
         }
+
+        return implode('-', $skuParts);
     }
 
     /**
@@ -152,26 +151,25 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         if ($this->getProduct($product)->getData('weight_type')) {
             return $this->getProduct($product)->getData('weight');
-        } else {
-            $weight = 0;
+        }
 
-            if ($this->getProduct($product)->hasCustomOptions()) {
-                $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
-                $selections = $this->getSelectionsByIds($selectionIds, $product);
-                foreach ($selections->getItems() as $selection) {
-                    $qtyOption = $this->getProduct($product)
-                        ->getCustomOption('selection_qty_' . $selection->getSelectionId());
-                    if ($qtyOption) {
-                        $weight += $selection->getWeight() * $qtyOption->getValue();
-                    } else {
-                        $weight += $selection->getWeight();
-                    }
+        $weight = 0;
+        if ($this->getProduct($product)->hasCustomOptions()) {
+            $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+            $selections = $this->getSelectionsByIds($selectionIds, $product);
+            foreach ($selections->getItems() as $selection) {
+                $qtyOption = $this->getProduct($product)
+                    ->getCustomOption('selection_qty_' . $selection->getSelectionId());
+                if ($qtyOption) {
+                    $weight += $selection->getWeight() * $qtyOption->getValue();
+                } else {
+                    $weight += $selection->getWeight();
                 }
             }
-
-            return $weight;
         }
+
+        return $weight;
     }
 
     /**

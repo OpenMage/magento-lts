@@ -32,12 +32,12 @@
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "components/jquery": "^3.7.1",
-        "cweagans/composer-patches": "^1.7",
+        "cweagans/composer-patches": "^2.0",
         "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^25.2",
+        "mklkj/tinymce-i18n": "^26.1",
         "monolog/monolog": "^3.9",
         "nesbot/carbon": "^2.73",
         "nnnick/chartjs": "^4.4",
@@ -72,6 +72,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^9.6",
         "rector/rector": "^2.1.12",
         "squizlabs/php_codesniffer": "^3.7",
@@ -140,20 +141,17 @@
     "extra": {
         "patches": {
             "shardj/zf1-future": {
-                "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.0.patch",
-                "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/MAG-1.9.3.7.patch",
-                "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-918.patch",
-                "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-1081.patch",
-                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-2050.patch",
-                "OM-4297 - PHP 8.4 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4297.patch",
-                "PHPSTAN-ZF1F - temporary fixes": "https://raw.githubusercontent.com/OpenMage/magento-lts/8e345d5907d2b6881a0ed84d5cf9863e4bf93d02/.vendor-patches/PHPSTAN-ZF1F.patch"
+                "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.0.patch",
+                "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/MAG-1.9.3.7.patch",
+                "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/f28ab75b1df7d1497ed775e33b77d7957c9b85c4/.vendor-patches/OM-918.patch",
+                "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-1081.patch",
+                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/magento-lts/5479577ef5207ace4f5842a2f1a636f689db9194/.vendor-patches/OM-2047.patch",
+                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-2050.patch",
+                "OM-4297 - PHP 8.4 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-4297.patch",
+                "PHPSTAN-ZF1F - temporary fixes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/PHPSTAN-ZF1F.patch"
             },
             "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": "https://raw.githubusercontent.com/OpenMage/magento-lts/11031e2c29310d621b63458f2075a688d535f1f8/.vendor-patches/OM-4891.patch"
+                "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch"
             }
         },
         "magento-root-dir": ".",
@@ -173,6 +171,9 @@
             "magento-hackathon/magento-composer-installer": true,
             "openmage/composer-plugin": true,
             "phpstan/extension-installer": true
+        },
+        "audit": {
+            "block-insecure": false
         },
         "platform": {
             "php": "8.1"

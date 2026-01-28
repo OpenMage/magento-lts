@@ -179,9 +179,9 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             if (Mage::registry(self::REGISTRY_CONCURRENCY_ERROR)) {
                 require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
-            } else {
-                Mage::printException($throwable);
             }
+
+            Mage::printException($throwable);
         }
 
         Mage::dispatchEvent('session_before_renew_cookie', ['cookie' => $cookie]);

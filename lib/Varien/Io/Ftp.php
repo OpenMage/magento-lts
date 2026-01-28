@@ -248,25 +248,25 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
-        } else {
-            if (is_string($src)) {
-                $stream = tmpfile();
-                fwrite($stream, $src);
-                fseek($stream, 0);
-            } elseif (is_resource($src)) {
-                $stream = $src;
-            } else {
-                $this->_error = self::ERROR_INVALID_SOURCE;
-                return false;
-            }
-
-            $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
-            if (is_string($src)) {
-                fclose($stream);
-            }
-
-            return $result;
         }
+
+        if (is_string($src)) {
+            $stream = tmpfile();
+            fwrite($stream, $src);
+            fseek($stream, 0);
+        } elseif (is_resource($src)) {
+            $stream = $src;
+        } else {
+            $this->_error = self::ERROR_INVALID_SOURCE;
+            return false;
+        }
+
+        $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
+        if (is_string($src)) {
+            fclose($stream);
+        }
+
+        return $result;
     }
 
     /**

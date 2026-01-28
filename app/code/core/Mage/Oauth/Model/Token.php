@@ -18,7 +18,6 @@
  * @method string                                     getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
  * @method int                                        getConsumerId()
- * @method string                                     getCreatedAt()
  * @method int                                        getCustomerId()
  * @method Mage_Oauth_Model_Resource_Token            getResource()
  * @method Mage_Oauth_Model_Resource_Token_Collection getResourceCollection()
@@ -32,7 +31,6 @@
  * @method $this                                      setAuthorized(int $authorized)
  * @method $this                                      setCallbackUrl(string $callbackUrl)
  * @method $this                                      setConsumerId(int $consumerId)
- * @method $this                                      setCreatedAt(string $createdAt)
  * @method $this                                      setCustomerId(int $customerId)
  * @method $this                                      setRevoked(int $revoked)
  * @method $this                                      setSecret(string $tokenSecret)
@@ -185,11 +183,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         if ($this->getAdminId()) {
             return self::USER_TYPE_ADMIN;
-        } elseif ($this->getCustomerId()) {
-            return self::USER_TYPE_CUSTOMER;
-        } else {
-            Mage::throwException('User type is unknown');
         }
+
+        if ($this->getCustomerId()) {
+            return self::USER_TYPE_CUSTOMER;
+        }
+
+        Mage::throwException('User type is unknown');
     }
 
     /**

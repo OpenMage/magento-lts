@@ -25,6 +25,10 @@ parameters:
         - lib/Varien
         - shell
         - tests/unit
+    strictRules:
+        allRules: false
+        disallowedEmpty: true
+        matchingInheritedMethodNames: true
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
@@ -72,38 +76,51 @@ parameters:
             # @todo add classes to widgets
             message: '#^Variable \$this might not be defined\.$#'
             paths:
-                - app/design/adminhtml/default/default/template/api/usernroles.phtml
-                - app/design/adminhtml/default/default/template/dashboard/searches.phtml
-                - app/design/adminhtml/default/default/template/dashboard/store/switcher.phtml
-                - app/design/adminhtml/default/default/template/empty.phtml
-                - app/design/adminhtml/default/default/template/overlay_popup.phtml
-                - app/design/adminhtml/default/default/template/popup.phtml
-                - app/design/adminhtml/default/default/template/promo/form.phtml
-                - app/design/adminhtml/default/default/template/rating/stars/detailed.phtml
-                - app/design/adminhtml/default/default/template/review/add.phtml
-                - app/design/adminhtml/default/default/template/sales/billing/agreement/form.phtml
-                - app/design/adminhtml/default/default/template/sales/items/renderer/default.phtml
-                - app/design/adminhtml/default/default/template/sales/order/shipment/create/items/renderer/configurable.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/discount.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/due.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/footer.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/grand.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/item.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/main.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/paid.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/refunded.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/shipping.phtml
-                - app/design/adminhtml/default/default/template/sales/order/totals/subtotal.phtml
-                - app/design/adminhtml/default/default/template/sales/order/view/tracking.phtml
-                - app/design/adminhtml/default/default/template/system/info.phtml
-                - app/design/adminhtml/default/default/template/tax/class/page/edit.phtml
-                - app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
-                - app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
+                - app/design/adminhtml/base/default/template/api/usernroles.phtml
+                - app/design/adminhtml/base/default/template/dashboard/searches.phtml
+                - app/design/adminhtml/base/default/template/dashboard/store/switcher.phtml
+                - app/design/adminhtml/base/default/template/empty.phtml
+                - app/design/adminhtml/base/default/template/overlay_popup.phtml
+                - app/design/adminhtml/base/default/template/popup.phtml
+                - app/design/adminhtml/base/default/template/promo/form.phtml
+                - app/design/adminhtml/base/default/template/rating/stars/detailed.phtml
+                - app/design/adminhtml/base/default/template/review/add.phtml
+                - app/design/adminhtml/base/default/template/sales/billing/agreement/form.phtml
+                - app/design/adminhtml/base/default/template/sales/items/renderer/default.phtml
+                - app/design/adminhtml/base/default/template/sales/order/shipment/create/items/renderer/configurable.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/discount.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/due.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/footer.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/grand.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/item.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/main.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/paid.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/refunded.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/shipping.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/subtotal.phtml
+                - app/design/adminhtml/base/default/template/sales/order/view/tracking.phtml
+                - app/design/adminhtml/base/default/template/system/info.phtml
+                - app/design/adminhtml/base/default/template/tax/class/page/edit.phtml
+                - app/design/adminhtml/base/default/template/tax/toolbar/class/save.phtml
+                - app/design/adminhtml/base/default/template/tax/toolbar/rule/save.phtml
+        -
+             # tmp strict rule
+            identifier: empty.notAllowed
+            paths:
+                - lib/Varien/*
         -
             # update phpstan plugin
             identifier: method.protected
             paths:
                 - app/design/*/*/template/*
+        -
+            # tmp strict rule
+            identifier: method.childParameterType
+            reportUnmatched: false
+        -
+            # tmp strict rule
+            identifier: method.childReturnType
+            reportUnmatched: false
         -
             identifier: phpunit.coversMethod
         -

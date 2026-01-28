@@ -50,9 +50,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     {
         if ($this->isHtmlFormRedirect()) {
             return $this->getHtmlFormRedirect();
-        } else {
-            return $this->getJsRedirect();
         }
+
+        return $this->getJsRedirect();
     }
 
     /**

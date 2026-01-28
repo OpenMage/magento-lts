@@ -22,7 +22,6 @@
  * @method float                                                   getBaseRowTotal()
  * @method float                                                   getBaseRowTotalInclTax()
  * @method Mage_Sales_Model_Resource_Quote_Address_Item_Collection getCollection()
- * @method string                                                  getCreatedAt()
  * @method int                                                     getCustomerAddressId()
  * @method string                                                  getDescription()
  * @method float                                                   getDiscountAmount()
@@ -50,7 +49,6 @@
  * @method string                                                  getSku()
  * @method int                                                     getSuperProductId()
  * @method float                                                   getTaxPercent()
- * @method string                                                  getUpdatedAt()
  * @method float                                                   getWeight()
  * @method bool                                                    hasQty()
  * @method $this                                                   setAdditionalData(string $value)
@@ -64,7 +62,6 @@
  * @method $this                                                   setBaseRowTotalInclTax(float $value)
  * @method $this                                                   setBaseTaxAmount(float $value)
  * @method $this                                                   setCost(float $value)
- * @method $this                                                   setCreatedAt(string $value)
  * @method $this                                                   setCustomerAddressId(int $value)
  * @method $this                                                   setDescription(string $value)
  * @method $this                                                   setDiscountAmount(float $value)
@@ -95,7 +92,6 @@
  * @method $this                                                   setSuperProductId(int $value)
  * @method $this                                                   setTaxAmount(float $value)
  * @method $this                                                   setTaxPercent(float $value)
- * @method $this                                                   setUpdatedAt(string $value)
  * @method $this                                                   setWeight(float $value)
  */
 class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Abstract
@@ -194,7 +190,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
      * @param  string                                                              $code
      * @return null|Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
      */
-    public function getOptionBycode($code)
+    public function getOptionByCode($code)
     {
         if ($this->getQuoteItem()) {
             return $this->getQuoteItem()->getOptionByCode($code);

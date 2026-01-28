@@ -413,6 +413,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $elementFieldData['disabled'] = 1;
                     $elementFieldData['can_use_default_value'] = 0;
                     $elementFieldData['can_use_website_value'] = 0;
+                    $elementFieldData['class'] = trim($elementFieldData['class'] . ' env-locked');
                 }
 
                 $field = $fieldset->addField($id, $fieldType, $elementFieldData);
@@ -554,7 +555,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         if ($element->tooltip) {
             return Mage::helper($helper)->__((string) $element->tooltip);
-        } elseif ($element->tooltip_block) {
+        }
+
+        if ($element->tooltip_block) {
             return $this->getLayout()->createBlock((string) $element->tooltip_block)->toHtml();
         }
 
@@ -704,7 +707,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     {
         if ((int) $element->show_in_store === 1) {
             return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ((int) $element->show_in_website === 1) {
+        }
+
+        if ((int) $element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
 

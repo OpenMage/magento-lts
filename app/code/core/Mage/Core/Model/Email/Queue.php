@@ -23,7 +23,6 @@
  * @method array                                           getMessageParameters()
  * @method Mage_Core_Model_Resource_Email_Queue            getResource()
  * @method Mage_Core_Model_Resource_Email_Queue_Collection getResourceCollection()
- * @method $this                                           setCreatedAt(string $value)
  * @method $this                                           setEntityId(int $value)
  * @method $this                                           setEntityType(string $value)
  * @method $this                                           setEventType(string $value)
@@ -68,6 +67,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Save bind recipients to message
      *
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _afterSave()
     {
@@ -94,6 +95,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Add message to queue
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addMessageToQueue()
     {
@@ -104,8 +106,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         try {
             $this->save();
             $this->setId(null);
-        } catch (Exception $exception) {
-            Mage::logException($exception);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
         }
 
         return $this;
@@ -174,6 +176,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Send all messages in a queue
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Mail_Exception
      */
     public function send()
     {
@@ -249,8 +254,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                             'email_body' => $message->getMessageBody(),
                         ]);
                     }
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Throwable $throwable) {
+                    Mage::logException($throwable);
                 }
             }
         }
@@ -262,6 +267,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Clean queue from sent messages
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanQueue()
     {

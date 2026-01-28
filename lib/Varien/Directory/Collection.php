@@ -440,11 +440,9 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
 
     /**
-     * Add a filter to the collection.
-     *
-     * @return $this
+     * @inheritDoc
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];
         $filter['field']   = $field;

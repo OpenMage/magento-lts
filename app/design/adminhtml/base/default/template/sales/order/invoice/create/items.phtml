@@ -42,7 +42,7 @@
         <?php endif ?>
         <?php $_items = $this->getInvoice()->getAllItems() ?>
         <?php $_i=0;foreach ($_items as $_item): ?>
-        <?php if ($_item->getOrderItem()->getParentItem()) continue; else $_i++; ?>
+        <?php if ($_item->getOrderItem()->getParentItem()) continue; $_i++; ?>
         <tbody class="<?php echo $_i%2?'even':'odd' ?>">
             <?php echo $this->getItemHtml($_item) ?>
             <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>

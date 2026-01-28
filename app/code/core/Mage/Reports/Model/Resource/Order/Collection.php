@@ -358,9 +358,9 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
 
         if ($returnObjects) {
             return [$dateStart, $dateEnd];
-        } else {
-            return ['from' => $dateStart, 'to' => $dateEnd, 'datetime' => true];
         }
+
+        return ['from' => $dateStart, 'to' => $dateEnd, 'datetime' => true];
     }
 
     /**

@@ -484,11 +484,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getMapper()
     {
-        if (isset($this->_map)) {
-            return $this->_map;
-        } else {
-            return false;
-        }
+        return $this->_map ?? false;
     }
 
     /**

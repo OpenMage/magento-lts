@@ -16,9 +16,7 @@ use Carbon\Carbon;
  *
  * @method Mage_Cron_Model_Resource_Schedule            _getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
- * @method string                                       getCreatedAt()
  * @method array[]|false|string[]                       getCronExprArr()
- *
  * @method string                                       getExecutedAt()
  * @method string                                       getFinishedAt()
  * @method string                                       getJobCode()
@@ -27,7 +25,6 @@ use Carbon\Carbon;
  * @method Mage_Cron_Model_Resource_Schedule_Collection getResourceCollection()
  * @method string                                       getScheduledAt()
  * @method string                                       getStatus()
- * @method $this                                        setCreatedAt(string $value)
  * @method $this                                        setCronExprArr(array[]|false|string[] $value)
  * @method $this                                        setExecutedAt(string $value)
  * @method $this                                        setFinishedAt(string $value)
@@ -50,7 +47,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
     public const STATUS_ERROR = 'error';
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('cron/schedule');
     }

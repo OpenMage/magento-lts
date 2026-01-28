@@ -129,7 +129,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         if (is_null($parentNode)) {
             $this->_loadFullTree();
             return $this;
-        } elseif ($parentNode instanceof Varien_Data_Tree_Node) {
+        }
+
+        if ($parentNode instanceof Varien_Data_Tree_Node) {
             $parentId = $parentNode->getId();
         } elseif (is_numeric($parentNode)) {
             $parentId = $parentNode;
