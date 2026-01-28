@@ -7684,163 +7684,163 @@ parameters:
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/api/role_users_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/api/role_users_grid_js.phtml
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getSelectedRoles().'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/api/user_roles_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/api/user_roles_grid_js.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 2
-			path: app/design/adminhtml/default/default/template/catalog/product/edit/price/group.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/edit/price/group.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 2
-			path: app/design/adminhtml/default/default/template/catalog/product/edit/price/tier.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml
 
 		-
 			rawMessage: 'Parameter #2 $store of method Mage_Core_Helper_Data::currencyByStore() expects int|Mage_Core_Model_Store|null, true given.'
 			identifier: argument.type
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/price.phtml
 
 		-
 			rawMessage: 'Call to an undefined method Mage_GiftMessage_Block_Message_Helper::prepareAsIs().'
 			identifier: method.notFound
 			count: 2
-			path: app/design/adminhtml/default/default/template/giftmessage/helper.phtml
+			path: app/design/adminhtml/base/default/template/giftmessage/helper.phtml
 
 		-
 			rawMessage: 'Parameter #1 $value of method Mage_GiftMessage_Block_Message_Helper::setScriptIncluded() expects string, true given.'
 			identifier: argument.type
 			count: 1
-			path: app/design/adminhtml/default/default/template/giftmessage/helper.phtml
+			path: app/design/adminhtml/base/default/template/giftmessage/helper.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 2
-			path: app/design/adminhtml/default/default/template/notification/toolbar.phtml
+			path: app/design/adminhtml/base/default/template/notification/toolbar.phtml
 
 		-
 			rawMessage: PHPDoc tag @var with type Mage_Core_Block_Template is not subtype of type Mage_Oauth_Block_Authorize.
 			identifier: varTag.type
 			count: 1
-			path: app/design/adminhtml/default/default/template/oauth/authorize/reject.phtml
+			path: app/design/adminhtml/base/default/template/oauth/authorize/reject.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/page/header.phtml
+			path: app/design/adminhtml/base/default/template/page/header.phtml
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getUsers().'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/role_users_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/permissions/role_users_grid_js.phtml
 
 		-
 			rawMessage: 'Call to an undefined method Mage_Core_Block_Abstract::_getSelectedRoles().'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/user_roles_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/permissions/user_roles_grid_js.phtml
 
 		-
 			rawMessage: 'Comparison operation ">" between int<1, max> and 0 is always true.'
 			identifier: greater.alwaysTrue
 			count: 1
-			path: app/design/adminhtml/default/default/template/report/grid.phtml
+			path: app/design/adminhtml/base/default/template/report/grid.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml
 
 		-
 			rawMessage: 'Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract::formatPrice() invoked with 3 parameters, 1 required.'
 			identifier: arguments.count
 			count: 18
-			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/packaging/popup.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/shipment/packaging/popup.phtml
 
 		-
 			rawMessage: Negated boolean expression is always true.
 			identifier: booleanNot.alwaysTrue
 			count: 2
-			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
+			path: app/design/adminhtml/base/default/template/system/store/tree.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/tax/notifications.phtml
+			path: app/design/adminhtml/base/default/template/tax/notifications.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/weee/renderer/tax.phtml
+			path: app/design/adminhtml/base/default/template/weee/renderer/tax.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 2
-			path: app/design/adminhtml/default/default/template/widget/breadcrumbs.phtml
+			path: app/design/adminhtml/base/default/template/widget/breadcrumbs.phtml
 
 		-
 			rawMessage: 'Method Mage_Adminhtml_Block_Widget_Grid::getEmptyCellColspan() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid.phtml
 
 		-
 			rawMessage: 'Method Mage_Adminhtml_Block_Widget_Grid::getMultipleRowColumns() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid/serializer.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid/serializer.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/tabs.phtml
+			path: app/design/adminhtml/base/default/template/widget/tabs.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/tabshoriz.phtml
+			path: app/design/adminhtml/base/default/template/widget/tabshoriz.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/tabsleft.phtml
+			path: app/design/adminhtml/base/default/template/widget/tabsleft.phtml
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: app/design/adminhtml/default/openmage/template/page/header.phtml
+			path: app/design/adminhtml/openmage/default/template/page/header.phtml
 
 		-
 			rawMessage: 'Method Mage_Catalog_Block_Product_Abstract::getTierPrices() invoked with 2 parameters, 0-1 required.'
