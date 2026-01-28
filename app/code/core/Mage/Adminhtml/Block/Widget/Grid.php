@@ -315,11 +315,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function setCollection($collection)
     {
-        Mage::dispatchEvent('adminhtml_grid_set_collection', [
-            'grid' => $this,
-            'collection' => $collection,
-        ]);
-
         $this->_collection = $collection;
     }
 
@@ -636,6 +631,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareCollection()
     {
+        Mage::dispatchEvent('adminhtml_grid_prepare_collection_after', ['grid' => $this]);
+        Mage::dispatchEvent('adminhtml_grid_prepare_collection_after_' . $this->getId(), ['grid' => $this]);
+
         if ($this->getCollection()) {
             $this->_preparePage();
 
@@ -703,6 +701,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareColumns()
     {
         Mage::dispatchEvent('adminhtml_grid_prepare_columns_after', ['grid' => $this]);
+        Mage::dispatchEvent('adminhtml_grid_prepare_columns_after_' . $this->getId(), ['grid' => $this]);
+
         $this->sortColumnsByOrder();
         return $this;
     }
@@ -773,6 +773,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareGrid()
     {
         Mage::dispatchEvent('adminhtml_grid_prepare_columns_before', ['grid' => $this]);
+        Mage::dispatchEvent('adminhtml_grid_prepare_columns_before_' . $this->getId(), ['grid' => $this]);
+
         $this->_prepareColumns();
         $this->_prepareMassactionBlock();
         $this->_prepareCollection();
@@ -800,11 +802,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _afterLoadCollection()
     {
-        Mage::dispatchEvent('adminhtml_grid_after_load_collection', [
-            'grid' => $this,
-            'collection' => $this->getCollection(),
-        ]);
-
         return $this;
     }
 
@@ -813,11 +810,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _beforeLoadCollection()
     {
-        Mage::dispatchEvent('adminhtml_grid_before_load_collection', [
-            'grid' => $this,
-            'collection' => $this->getCollection(),
-        ]);
-
         return $this;
     }
 
