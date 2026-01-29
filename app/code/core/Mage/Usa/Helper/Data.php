@@ -7,12 +7,6 @@
  * @package    Mage_Usa
  */
 
-use PhpUnitsOfMeasure\Exception\NonNumericValue;
-use PhpUnitsOfMeasure\Exception\NonStringUnitName;
-use PhpUnitsOfMeasure\Exception\UnknownUnitOfMeasure;
-use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
-use PhpUnitsOfMeasure\PhysicalQuantity\Length;
-
 /**
  * @package    Mage_Usa
  */
@@ -23,18 +17,18 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert weight in different measure types
      *
-     * @param  float                              $value
-     * @param  Mage_Core_Helper_Measure_Weight::* $sourceWeightMeasure
-     * @param  Mage_Core_Helper_Measure_Weight::* $toWeightMeasure
-     * @return null|float
-     * @throws NonNumericValue
-     * @throws NonStringUnitName
+     * @param  mixed $value
+     * @param  string $sourceWeightMeasure
+     * @param  string $toWeightMeasure
+     * @return int|null|string
      */
     public function convertMeasureWeight($value, $sourceWeightMeasure, $toWeightMeasure)
     {
         if ($value) {
-            $unitWeight = new Mass($value, $sourceWeightMeasure);
-            return $unitWeight->toUnit($toWeightMeasure);
+            $locale = Mage::app()->getLocale()->getLocale();
+            $unitWeight = new Zend_Measure_Weight($value, $sourceWeightMeasure, $locale);
+            $unitWeight->setType($toWeightMeasure);
+            return $unitWeight->getValue();
         }
 
         return null;
@@ -43,18 +37,18 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert dimensions in different measure types
      *
-     * @param  float                              $value
-     * @param  Mage_Core_Helper_Measure_Length::* $sourceDimensionMeasure
-     * @param  Mage_Core_Helper_Measure_Length::* $toDimensionMeasure
-     * @return null|float
-     * @throws NonNumericValue
-     * @throws NonStringUnitName
+     * @param  mixed $value
+     * @param  string $sourceDimensionMeasure
+     * @param  string $toDimensionMeasure
+     * @return int|null|string
      */
     public function convertMeasureDimension($value, $sourceDimensionMeasure, $toDimensionMeasure)
     {
         if ($value) {
-            $unitDimension = new Length($value, $sourceDimensionMeasure);
-            return $unitDimension->toUnit($toDimensionMeasure);
+            $locale = Mage::app()->getLocale()->getLocale();
+            $unitDimension = new Zend_Measure_Length($value, $sourceDimensionMeasure, $locale);
+            $unitDimension->setType($toDimensionMeasure);
+            return $unitDimension->getValue();
         }
 
         return null;
@@ -63,33 +57,41 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get name of measure by its type
      *
-     * @param  string               $key
+     * @param  $key
      * @return string
-     * @throws UnknownUnitOfMeasure
      */
     public function getMeasureWeightName($key)
     {
-        $unit = Mass::getUnit($key);
-        return $unit->getName();
+        $weight = new Zend_Measure_Weight(0);
+        $conversionList = $weight->getConversionList();
+        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
+            return $conversionList[$key][1];
+        }
+
+        return '';
     }
 
     /**
      * Get name of measure by its type
      *
-     * @param  string               $key
+     * @param  $key
      * @return string
-     * @throws UnknownUnitOfMeasure
      */
     public function getMeasureDimensionName($key)
     {
-        $unit = Length::getUnit($key);
-        return $unit->getName();
+        $weight = new Zend_Measure_Length(0);
+        $conversionList = $weight->getConversionList();
+        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
+            return $conversionList[$key][1];
+        }
+
+        return '';
     }
 
     /**
      * Define if we need girth parameter in the package window
      *
-     * @param  string $shippingMethod
+     * @param string $shippingMethod
      * @return bool
      */
     public function displayGirthValue($shippingMethod)
@@ -117,15 +119,16 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         ])
         ) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     /**
      * Validate ups type value
      *
-     * @param  string $valueForCheck ups type value for check
+     * @param string $valueForCheck ups type value for check
+     *
      * @return bool
      */
     public function validateUpsType($valueForCheck)
@@ -140,5 +143,50 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Check if USPS address verification is enabled
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function isAddressVerificationEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/verify_addresses', $store);
+    }
+
+    /**
+     * Check if USPS delivery estimates are enabled
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function isDeliveryEstimatesEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/show_delivery_estimates', $store);
+    }
+
+    /**
+     * Check if USPS labels are enabled
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function isLabelsEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag('carriers/usps/enable_labels', $store);
+    }
+
+    /**
+     * Get USPS API cache TTL
+     *
+     * @param mixed $store
+     * @return int
+     */
+    public function getCacheTtl($store = null)
+    {
+        $ttl = Mage::getStoreConfig('carriers/usps/cache_ttl', $store);
+        return $ttl ? (int)$ttl : 3600;
     }
 }

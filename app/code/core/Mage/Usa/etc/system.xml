@@ -1088,6 +1088,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <!-- Core Settings -->
                         <active translate="label">
                             <label>Enabled for Checkout</label>
                             <frontend_type>select</frontend_type>
@@ -1097,32 +1098,43 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <gateway_url translate="label">
-                            <label>Gateway URL</label>
+                        <environment translate="label comment tooltip">
+                            <label>API Environment</label>
+                            <comment><![CDATA[<strong>Production:</strong> https://apis.usps.com/ (Live transactions)<br/><strong>Sandbox:</strong> https://apis-tem.usps.com/ (Testing only)]]></comment>
+                            <tooltip>Select Sandbox for testing with test credentials. Switch to Production for live customer transactions. URLs are automatically configured.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_environment</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                        </gateway_url>
-                        <gateway_secure_url translate="label">
-                            <label>Secure Gateway URL</label>
+                        </environment>
+                        <gateway_url translate="label comment tooltip">
+                            <label>Gateway URL</label>
+                            <comment><![CDATA[Automatically populated based on Environment selection. <strong>Production:</strong> https://api.usps.com/ | <strong>Sandbox:</strong> https://apis.usps.com/]]></comment>
+                            <tooltip>This field auto-populates when you select an environment above. You can manually edit it if you need to use a custom USPS API endpoint.</tooltip>
+                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                        </gateway_secure_url>
-                        <title translate="label">
-                            <label>Title</label>
+                        </gateway_url>
+                        <client_id translate="label tooltip">
+                            <label>Consumer Key (Client ID)</label>
+                            <tooltip>OAuth2 Client ID from your USPS Business Account. Required for all API operations including rate quotes.</tooltip>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                        </title>
-                        <userid translate="label">
-                            <label>User ID</label>
+                        </client_id>
+                        <client_secret translate="label tooltip">
+                            <label>Consumer Secret (Client Secret)</label>
+                            <tooltip>OAuth2 Client Secret from your USPS Business Account. Keep this secure - never share or expose in frontend code.</tooltip>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>50</sort_order>
@@ -1130,146 +1142,43 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                        </userid>
-                        <password translate="label">
-                            <label>Password</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                        </client_secret>
+                        
+                        <test_connection translate="label">
+                            <label>Test API Connection</label>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_testconnection</frontend_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </test_connection>
+                        
+                        <test_rate_quote translate="label comment">
+                            <label>Test Rate Quote</label>
+                            <comment>Test API with sample package (1lb, 6x4x2in from 10001 to 90210)</comment>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_testratequote</frontend_model>
                             <sort_order>53</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                        </password>
-                        <mode translate="label">
-                            <label>Mode</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>54</sort_order>
-                            <source_model>usa/shipping_carrier_abstract_source_mode</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </mode>
-                        <shipment_requesttype translate="label">
-                            <label>Packages Request Type</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </shipment_requesttype>
-                        <container translate="label">
-                            <label>Container</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_container</source_model>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </container>
-                        <size translate="label">
-                            <label>Size</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_size</source_model>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </size>
-                        <width translate="label">
-                            <label>Width</label>
-                            <sort_order>73</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                            <depends><active>1</active></depends>
-                        </width>
-                        <length translate="label">
-                            <label>Length</label>
-                            <sort_order>72</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                            <depends><active>1</active></depends>
-                        </length>
-                        <height translate="label">
-                            <label>Height</label>
-                            <sort_order>74</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                            <depends><active>1</active></depends>
-                        </height>
-                        <girth translate="label">
-                            <label>Girth</label>
-                            <sort_order>76</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                            <depends><active>1</active></depends>
-                        </girth>
-                        <machinable translate="label">
-                            <label>Machinable</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_machinable</source_model>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </machinable>
-                        <max_package_weight translate="label">
-                            <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>90</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </max_package_weight>
-                        <handling_type translate="label">
-                            <label>Calculate Handling Fee</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>shipping/source_handlingType</source_model>
+                        </test_rate_quote>
+                        
+                        <!-- Shipping Options -->
+                        <title translate="label">
+                            <label>Title</label>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                             <depends><active>1</active></depends>
-                        </handling_type>
-                        <handling_action translate="label">
-                            <label>Handling Applied</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>shipping/source_handlingAction</source_model>
-                            <sort_order>110</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </handling_action>
-                        <handling_fee translate="label">
-                            <label>Handling Fee</label>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>120</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><active>1</active></depends>
-                        </handling_fee>
+                        </title>
                         <allowed_methods translate="label">
                             <label>Allowed Methods</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>usa/shipping_carrier_usps_source_method</source_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -1281,12 +1190,212 @@
                             <frontend_type>select</frontend_type>
                             <frontend_class>free-method</frontend_class>
                             <source_model>usa/shipping_carrier_usps_source_freemethod</source_model>
-                            <sort_order>140</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
                         </free_method>
+                        
+                        <!-- Package Configuration -->
+                        <max_package_weight translate="label">
+                            <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </max_package_weight>
+                        
+                        <!-- Fees & Handling -->
+                        <handling_type translate="label">
+                            <label>Calculate Handling Fee</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shipping/source_handlingType</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_type>
+                        <handling_action translate="label">
+                            <label>Handling Applied</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shipping/source_handlingAction</source_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_action>
+                        <handling_fee translate="label">
+                            <label>Handling Fee</label>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>320</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_fee>
+                        
+                        <!-- Advanced Account Options -->
+                        <account_type translate="label tooltip">
+                            <label>Account Type</label>
+                            <tooltip>EPS (Electronic Payment System) for most businesses. PERMIT for permit imprint accounts. METER for legacy postage meter accounts. Only sent to API when using COMMERCIAL pricing.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_accounttype</source_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </account_type>
+                        <price_type translate="label tooltip">
+                            <label>Pricing Options</label>
+                            <tooltip>EPS: Standard electronic payment rates (no account number needed). COMMERCIAL: Negotiated business rates (requires account number). Choose based on your USPS business account type.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_pricetype</source_model>
+                            <sort_order>410</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </price_type>
+                        <account_number translate="label comment tooltip">
+                            <label>Account Number</label>
+                            <comment>Required only for COMMERCIAL pricing. Leave empty for EPS pricing.</comment>
+                            <tooltip>Your USPS business account number. Only needed when Pricing Options is set to COMMERCIAL to retrieve your negotiated rates. Leave blank for standard EPS rates.</tooltip>
+                            <sort_order>420</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </account_number>
+                        <crid translate="label comment tooltip">
+                            <label>Customer Registration ID (CRID)</label>
+                            <comment>Required for shipping label generation. Leave empty if only using rate quotes.</comment>
+                            <tooltip>Your USPS Customer Registration ID. Required for creating shipping labels via REST API. Not needed for rate quotes - leave empty if only displaying shipping rates at checkout.</tooltip>
+                            <sort_order>430</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </crid>
+                        <mid translate="label comment tooltip">
+                            <label>Mailer Identifier (MID)</label>
+                            <comment>Required for shipping label generation. 9-digit Mailer ID assigned by USPS.</comment>
+                            <tooltip>9-digit USPS Mailer ID assigned to your business. Required for creating shipping labels and manifests. Not needed for rate quotes - leave empty if only displaying shipping rates at checkout.</tooltip>
+                            <sort_order>440</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </mid>
+                        <mmid translate="label comment tooltip">
+                            <label>Manifest MID</label>
+                            <comment>Optional - Only required for shipping label manifests (not implemented yet)</comment>
+                            <tooltip>Manifest Mailer ID for SCAN forms and shipping manifests. Required only when generating labels and manifests. Not needed for rate quotes.</tooltip>
+                            <sort_order>450</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </mmid>
+                        <eps_account_number translate="label comment tooltip">
+                            <label>EPS Account Number</label>
+                            <comment>Required for shipping label generation. Your EPS permit/account for postage payment.</comment>
+                            <tooltip>Your EPS permit/account number for label postage payment. This is different from "Account Number" above, which is for negotiated pricing rates. Not needed for rate quotes.</tooltip>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>455</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </eps_account_number>
+                        <permit_zip translate="label comment tooltip">
+                            <label>Permit ZIP Code</label>
+                            <comment>Required only for PERMIT account type. Leave empty for EPS accounts.</comment>
+                            <tooltip>The 5-digit ZIP code associated with your USPS Permit account. Required for payment authorization when using PERMIT account type. Not needed for EPS or METER accounts.</tooltip>
+                            <validate>validate-digits validate-length maximum-length-5</validate>
+                            <sort_order>456</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </permit_zip>
+                        
+                        <!-- Feature Toggles -->
+                        <heading_feature_toggles translate="label">
+                            <label>Feature Toggles</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </heading_feature_toggles>
+                        <enable_labels translate="label comment tooltip">
+                            <label>Enable Label Generation</label>
+                            <comment>Requires CRID, MID, and EPS Account Number to be configured above</comment>
+                            <tooltip>When enabled, shipping labels can be generated from Sales > Orders > Ship. Requires valid USPS business account credentials configured above (CRID, MID, EPS Account Number).</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </enable_labels>
+                        <verify_addresses translate="label comment tooltip">
+                            <label>Enable Address Verification</label>
+                            <comment>Validate shipping addresses during checkout using USPS Address API</comment>
+                            <tooltip>When enabled, shipping addresses are verified against USPS database during checkout. If corrections are suggested, customer sees a confirmation modal. Confirmed corrections are auto-applied to the order.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>520</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </verify_addresses>
+                        <show_delivery_estimates translate="label comment tooltip">
+                            <label>Show Delivery Estimates</label>
+                            <comment>Display estimated delivery dates alongside shipping rates at checkout</comment>
+                            <tooltip>When enabled, queries USPS Service Standards API to show "Arrives by [date]" or "X-Y business days" next to each shipping option. May slightly increase checkout load time due to additional API call.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>530</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </show_delivery_estimates>
+                        <cache_ttl translate="label comment tooltip">
+                            <label>API Response Cache TTL (seconds)</label>
+                            <comment>How long to cache rate quotes. Default: 3600 (1 hour). Set to 0 to disable caching.</comment>
+                            <tooltip>Caching reduces API calls and improves checkout speed. USPS rates rarely change more than once per day. For high-volume stores, 1-4 hours (3600-14400 seconds) is recommended.</tooltip>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <sort_order>540</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </cache_ttl>
+                        
+                        <aesitn translate="label comment tooltip">
+                            <label>AES/ITN</label>
+                            <comment>Optional - Only required for international shipping labels (not implemented yet)</comment>
+                            <tooltip>Automated Export System/International Transaction Number. Required for international shipping labels when items exceed $2,500 or require export licenses. Not needed for rate quotes. Exemptions apply for Canada and items under $2,500 classified under Schedule B codes.</tooltip>
+                            <sort_order>460</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </aesitn>
+                        
+                        <!-- Free Shipping -->
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>
                             <frontend_type>select</frontend_type>
@@ -1300,16 +1409,112 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>160</sort_order>
+                            <sort_order>1510</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
                         </free_shipping_subtotal>
+                        
+                        <!-- Package Defaults (fallback when products lack dimensions) -->
+                        <create_dimensions translate="label comment">
+                            <label>Create Dimension Attributes</label>
+                            <comment><![CDATA[One-click setup: Creates <strong>package_length</strong>, <strong>package_width</strong>, <strong>package_height</strong> attributes. Run once before configuring product dimensions.]]></comment>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_createdimensions</frontend_model>
+                            <sort_order>245</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </create_dimensions>
+                        <heading_package_defaults translate="label">
+                            <label>Default Package Dimensions</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>250</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </heading_package_defaults>
+                        <container translate="label comment">
+                            <label>Container</label>
+                            <comment>Fallback container type when product attribute not set</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_container</source_model>
+                            <sort_order>260</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </container>
+                        <size translate="label comment">
+                            <label>Size</label>
+                            <comment>Fallback package size classification</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_size</source_model>
+                            <sort_order>270</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </size>
+                        <machinable translate="label comment">
+                            <label>Machinable</label>
+                            <comment>Can package be processed by automated equipment?</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_machinable</source_model>
+                            <sort_order>280</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </machinable>
+                        <length translate="label comment">
+                            <label>Length (inches)</label>
+                            <comment>Fallback when product package_length not set. Default: 6"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>290</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </length>
+                        <width translate="label comment">
+                            <label>Width (inches)</label>
+                            <comment>Fallback when product package_width not set. Default: 4"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>295</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </width>
+                        <height translate="label comment">
+                            <label>Height (inches)</label>
+                            <comment>Fallback when product package_height not set. Default: 1"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>297</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </height>
+                        <girth translate="label comment">
+                            <label>Girth (inches)</label>
+                            <comment>For non-rectangular packages: (2×width) + (2×height)</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>298</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </girth>
+                        
+                        <!-- Geographic & Display -->
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>170</sort_order>
+                            <sort_order>1920</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -1318,7 +1523,7 @@
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>180</sort_order>
+                            <sort_order>1900</sort_order>
                             <frontend_class>shipping-applicable-country</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
@@ -1329,7 +1534,7 @@
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>190</sort_order>
+                            <sort_order>1910</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1341,7 +1546,7 @@
                             <label>Debug</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>200</sort_order>
+                            <sort_order>1930</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -1350,7 +1555,7 @@
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>210</sort_order>
+                            <sort_order>1940</sort_order>
                             <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
@@ -1360,7 +1565,7 @@
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <sort_order>220</sort_order>
+                            <sort_order>2000</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>

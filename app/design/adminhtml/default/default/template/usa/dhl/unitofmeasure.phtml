@@ -1,0 +1,35 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * @var Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure $this
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    function changeDimensions()
+    {
+        var dimensionUnit = '(<?php echo $this->getInch(); ?>)';
+        var dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteLbp(); ?>';
+        if ($("carriers_dhlint_unit_of_measure").value == "K") {
+            dimensionUnit = '(<?php echo $this->getCm(); ?>)';
+            dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteKg(); ?>';
+        }
+        $$('[for="carriers_dhlint_height"]')[0].innerHTML = '<?php echo $this->getHeight(); ?> ' + dimensionUnit;
+        $$('[for="carriers_dhlint_depth"]')[0].innerHTML = '<?php echo $this->getDepth(); ?> ' + dimensionUnit;
+        $$('[for="carriers_dhlint_width"]')[0].innerHTML = '<?php echo $this->getWidth(); ?> ' + dimensionUnit;
+
+        $('carriers_dhlint_divide_order_weight').next().down().innerHTML = dhlintUnitOfMeasureNote;
+    }
+    document.observe("dom:loaded", function() {
+        $("carriers_dhlint_unit_of_measure").observe("change", changeDimensions);
+        changeDimensions();
+    });
+    //]]>
+</script>

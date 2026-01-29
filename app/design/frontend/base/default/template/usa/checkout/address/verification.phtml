@@ -1,0 +1,705 @@
+<?php
+/**
+ * USPS Address Verification Modal Template
+ *
+ * Displays a modal dialog when USPS suggests address corrections.
+ * Auto-applies corrections when user confirms.
+ *
+ * @var Mage_Usa_Block_Checkout_Address_Verification $this
+ */
+?>
+<?php if ($this->isEnabled()): ?>
+<div id="usps-address-verification-overlay" class="usps-av-overlay" style="display:none;">
+    <div id="usps-address-verification-modal" class="usps-av-modal">
+        <div class="usps-av-modal-header">
+            <h3 id="usps-av-title"><?php echo $this->escapeHtml($this->__('Address Verification')) ?></h3>
+            <button type="button" class="usps-av-close" id="usps-av-close-btn" aria-label="<?php echo $this->escapeHtml($this->__('Close')) ?>">&times;</button>
+        </div>
+        
+        <div class="usps-av-modal-body">
+            <p id="usps-av-message" class="usps-av-message"></p>
+            
+            <!-- Warnings -->
+            <div id="usps-av-warnings" class="usps-av-warnings" style="display:none;">
+                <ul id="usps-av-warnings-list"></ul>
+            </div>
+            
+            <!-- Address Comparison -->
+            <div class="usps-av-comparison">
+                <div class="usps-av-address usps-av-original">
+                    <h4><?php echo $this->escapeHtml($this->__('You Entered')) ?></h4>
+                    <div id="usps-av-original-address" class="usps-av-address-content"></div>
+                </div>
+                
+                <div class="usps-av-arrow">
+                    <span>&rarr;</span>
+                </div>
+                
+                <div class="usps-av-address usps-av-corrected">
+                    <h4><?php echo $this->escapeHtml($this->__('Suggested Address')) ?></h4>
+                    <div id="usps-av-corrected-address" class="usps-av-address-content"></div>
+                </div>
+            </div>
+            
+            <!-- Corrections Detail -->
+            <div id="usps-av-corrections" class="usps-av-corrections" style="display:none;">
+                <h5><?php echo $this->escapeHtml($this->__('Changes Made')) ?></h5>
+                <table id="usps-av-corrections-table">
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->escapeHtml($this->__('Field')) ?></th>
+                            <th><?php echo $this->escapeHtml($this->__('Original')) ?></th>
+                            <th><?php echo $this->escapeHtml($this->__('Corrected')) ?></th>
+                        </tr>
+                    </thead>
+                    <tbody id="usps-av-corrections-body"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="usps-av-modal-footer">
+            <button type="button" id="usps-av-use-suggested" class="button btn-success">
+                <span><?php echo $this->escapeHtml($this->__('Use Suggested Address')) ?></span>
+            </button>
+            <button type="button" id="usps-av-keep-original" class="button btn-secondary">
+                <span><?php echo $this->escapeHtml($this->__('Keep My Address')) ?></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var UspsAddressVerification = {
+    config: {
+        verifyUrl: '<?php echo $this->escapeJs($this->getVerifyUrl()) ?>',
+        applyUrl: '<?php echo $this->escapeJs($this->getApplyUrl()) ?>',
+        enabled: <?php echo $this->isEnabled() ? 'true' : 'false' ?>
+    },
+    
+    fieldLabels: {
+        street1: '<?php echo $this->escapeJs($this->__('Street Address')) ?>',
+        street2: '<?php echo $this->escapeJs($this->__('Address Line 2')) ?>',
+        city: '<?php echo $this->escapeJs($this->__('City')) ?>',
+        region: '<?php echo $this->escapeJs($this->__('State/Province')) ?>',
+        postcode: '<?php echo $this->escapeJs($this->__('ZIP Code')) ?>'
+    },
+    
+    currentData: null,
+    onCompleteCallback: null,
+    
+    /**
+     * Initialize the module
+     */
+    init: function() {
+        if (!this.config.enabled) return;
+        
+        // Bind close button
+        var closeBtn = $('usps-av-close-btn');
+        if (closeBtn) {
+            closeBtn.observe('click', this.hide.bind(this));
+        }
+        
+        // Bind action buttons
+        var useSuggested = $('usps-av-use-suggested');
+        if (useSuggested) {
+            useSuggested.observe('click', this.useSuggestedAddress.bind(this));
+        }
+        
+        var keepOriginal = $('usps-av-keep-original');
+        if (keepOriginal) {
+            keepOriginal.observe('click', this.keepOriginalAddress.bind(this));
+        }
+        
+        // Close on overlay click
+        var overlay = $('usps-address-verification-overlay');
+        if (overlay) {
+            overlay.observe('click', function(e) {
+                if (e.target === overlay) {
+                    this.hide();
+                }
+            }.bind(this));
+        }
+        
+        // Close on ESC key
+        document.observe('keydown', function(e) {
+            if (e.keyCode === 27 && this.isVisible()) {
+                this.hide();
+            }
+        }.bind(this));
+    },
+    
+    /**
+     * Verify an address
+     * @param {Object} address - Address object with street1, street2, city, region, postcode
+     * @param {Function} callback - Called with (needsConfirmation, correctedAddress)
+     */
+    verify: function(address, callback) {
+        if (!this.config.enabled) {
+            callback(false, null);
+            return;
+        }
+        
+        new Ajax.Request(this.config.verifyUrl, {
+            method: 'post',
+            parameters: {
+                street1: address.street1 || '',
+                street2: address.street2 || '',
+                city: address.city || '',
+                region: address.region || '',
+                postcode: address.postcode || '',
+                form_key: FORM_KEY
+            },
+            onSuccess: function(transport) {
+                try {
+                    var response = transport.responseText.evalJSON();
+                    
+                    if (response.status === 'exact') {
+                        // Address is valid, no confirmation needed
+                        callback(false, null);
+                    } else if (response.status === 'corrected') {
+                        // Show modal for user confirmation
+                        this.showConfirmation(response, callback);
+                    } else {
+                        // Invalid address, let user proceed anyway
+                        this.showWarning(response, callback);
+                    }
+                } catch (e) {
+                    console.error('USPS Address Verification error:', e);
+                    callback(false, null);
+                }
+            }.bind(this),
+            onFailure: function() {
+                // On failure, allow checkout to proceed
+                callback(false, null);
+            }
+        });
+    },
+    
+    /**
+     * Show confirmation modal with corrected address
+     */
+    showConfirmation: function(data, callback) {
+        this.currentData = data;
+        this.onCompleteCallback = callback;
+        
+        // Set title and message
+        $('usps-av-title').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Verification')) ?>'));
+        $('usps-av-message').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('USPS suggests the following corrections to your address:')) ?>'));
+        
+        // Display addresses
+        $('usps-av-original-address').update(this.formatAddress(data.original));
+        $('usps-av-corrected-address').update(this.formatAddress(data.corrected));
+        
+        // Display corrections table
+        if (data.corrections && Object.keys(data.corrections).length > 0) {
+            var tbody = $('usps-av-corrections-body');
+            tbody.update('');
+            
+            for (var field in data.corrections) {
+                var row = new Element('tr');
+                row.insert(new Element('td').update(this.escapeHtml(this.fieldLabels[field] || field)));
+                row.insert(new Element('td', {'class': 'original'}).update(this.escapeHtml(data.corrections[field].original || '(empty)')));
+                row.insert(new Element('td', {'class': 'corrected'}).update(this.escapeHtml(data.corrections[field].corrected || '(empty)')));
+                tbody.insert(row);
+            }
+            
+            $('usps-av-corrections').show();
+        } else {
+            $('usps-av-corrections').hide();
+        }
+        
+        // Display warnings
+        this.displayWarnings(data.warnings);
+        
+        // Show use suggested button
+        $('usps-av-use-suggested').show();
+        
+        this.show();
+    },
+    
+    /**
+     * Show warning modal for invalid address
+     */
+    showWarning: function(data, callback) {
+        this.currentData = data;
+        this.onCompleteCallback = callback;
+        
+        $('usps-av-title').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Not Verified')) ?>'));
+        $('usps-av-message').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('The address could not be verified. You may continue with your original address.')) ?>'));
+        
+        $('usps-av-original-address').update(this.formatAddress(data.original));
+        $('usps-av-corrected-address').update('<em><?php echo $this->escapeJs($this->__('No suggestions available')) ?></em>');
+        
+        $('usps-av-corrections').hide();
+        this.displayWarnings(data.warnings);
+        
+        // Hide use suggested button for invalid
+        $('usps-av-use-suggested').hide();
+        
+        this.show();
+    },
+    
+    /**
+     * Display warning messages
+     */
+    displayWarnings: function(warnings) {
+        var warningsContainer = $('usps-av-warnings');
+        var warningsList = $('usps-av-warnings-list');
+        
+        if (warnings && warnings.length > 0) {
+            warningsList.update('');
+            warnings.each(function(warning) {
+                warningsList.insert(new Element('li').update(this.escapeHtml(warning)));
+            }.bind(this));
+            warningsContainer.show();
+        } else {
+            warningsContainer.hide();
+        }
+    },
+    
+    /**
+     * User clicked "Use Suggested Address"
+     */
+    useSuggestedAddress: function() {
+        if (this.currentData && this.currentData.corrected) {
+            // Apply correction via AJAX
+            new Ajax.Request(this.config.applyUrl, {
+                method: 'post',
+                parameters: Object.extend({form_key: FORM_KEY}, this.currentData.corrected),
+                onComplete: function() {
+                    this.hide();
+                    if (this.onCompleteCallback) {
+                        this.onCompleteCallback(true, this.currentData.corrected);
+                    }
+                }.bind(this)
+            });
+        }
+    },
+    
+    /**
+     * User clicked "Keep My Address"
+     */
+    keepOriginalAddress: function() {
+        this.hide();
+        if (this.onCompleteCallback) {
+            this.onCompleteCallback(false, null);
+        }
+    },
+    
+    /**
+     * Format address for display
+     */
+    formatAddress: function(address) {
+        if (!address) return '';
+        
+        var lines = [];
+        if (address.street1) lines.push(this.escapeHtml(address.street1));
+        if (address.street2) lines.push(this.escapeHtml(address.street2));
+        
+        var cityLine = [];
+        if (address.city) cityLine.push(this.escapeHtml(address.city));
+        if (address.region) cityLine.push(this.escapeHtml(address.region));
+        if (address.postcode) cityLine.push(this.escapeHtml(address.postcode));
+        
+        if (cityLine.length > 0) {
+            lines.push(cityLine.join(', '));
+        }
+        
+        return lines.join('<br/>');
+    },
+    
+    /**
+     * Escape HTML entities
+     */
+    escapeHtml: function(text) {
+        if (!text) return '';
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(text));
+        return div.innerHTML;
+    },
+    
+    /**
+     * Show the modal
+     */
+    show: function() {
+        $('usps-address-verification-overlay').show();
+        document.body.addClassName('usps-av-modal-open');
+    },
+    
+    /**
+     * Hide the modal
+     */
+    hide: function() {
+        $('usps-address-verification-overlay').hide();
+        document.body.removeClassName('usps-av-modal-open');
+    },
+    
+    /**
+     * Check if modal is visible
+     */
+    isVisible: function() {
+        var overlay = $('usps-address-verification-overlay');
+        return overlay && overlay.visible();
+    }
+};
+
+// Initialize on DOM ready
+document.observe('dom:loaded', function() {
+    UspsAddressVerification.init();
+    UspsAddressVerification.hookCheckout();
+});
+
+/**
+ * Hook into onepage checkout to verify address before shipping save
+ */
+UspsAddressVerification.hookCheckout = function() {
+    if (!this.config.enabled) return;
+    
+    // Wait for shipping object to be available
+    var checkForShipping = function() {
+        if (typeof window.shipping !== 'undefined' && window.shipping.save) {
+            this._hookShippingSave();
+        } else {
+            // Retry after a short delay
+            setTimeout(checkForShipping, 100);
+        }
+    }.bind(this);
+    
+    checkForShipping();
+};
+
+/**
+ * Wrap Shipping.save() to add address verification
+ */
+UspsAddressVerification._hookShippingSave = function() {
+    if (this._hooked) return;
+    this._hooked = true;
+    
+    var originalSave = window.shipping.save.bind(window.shipping);
+    var self = this;
+    
+    window.shipping.save = function() {
+        if (checkout.loadWaiting !== false) return;
+        
+        // Validate form first
+        var validator = new Validation(shipping.form);
+        if (!validator.validate()) {
+            return;
+        }
+        
+        // Collect shipping address
+        var address = self._collectShippingAddress();
+        
+        // Skip verification for saved addresses
+        var addressSelect = $('shipping-address-select');
+        if (addressSelect && addressSelect.value) {
+            originalSave();
+            return;
+        }
+        
+        // Skip if same as billing (already verified or will be)
+        var sameAsBilling = $('shipping:same_as_billing');
+        if (sameAsBilling && sameAsBilling.checked) {
+            originalSave();
+            return;
+        }
+        
+        // Verify the address
+        checkout.setLoadWaiting('shipping');
+        self.verify(address, function(usedSuggested, correctedAddress) {
+            checkout.setLoadWaiting(false);
+            
+            if (usedSuggested && correctedAddress) {
+                // Update form with corrected values
+                self._applyAddressToForm(correctedAddress, 'shipping');
+            }
+            
+            // Proceed with save
+            originalSave();
+        });
+    };
+};
+
+/**
+ * Collect address from shipping form
+ */
+UspsAddressVerification._collectShippingAddress = function() {
+    return {
+        street1: ($('shipping:street1') ? $('shipping:street1').value : ''),
+        street2: ($('shipping:street2') ? $('shipping:street2').value : ''),
+        city: ($('shipping:city') ? $('shipping:city').value : ''),
+        region: this._getRegionValue('shipping'),
+        postcode: ($('shipping:postcode') ? $('shipping:postcode').value : '')
+    };
+};
+
+/**
+ * Get region value (from dropdown or text field)
+ */
+UspsAddressVerification._getRegionValue = function(prefix) {
+    var regionId = $(prefix + ':region_id');
+    var regionText = $(prefix + ':region');
+    
+    if (regionId && regionId.value) {
+        // Get text from selected option
+        var selectedOption = regionId.options[regionId.selectedIndex];
+        return selectedOption ? selectedOption.text : '';
+    }
+    
+    return regionText ? regionText.value : '';
+};
+
+/**
+ * Apply corrected address to form fields
+ */
+UspsAddressVerification._applyAddressToForm = function(address, prefix) {
+    if (!address) return;
+    
+    if (address.street1 && $(prefix + ':street1')) {
+        $(prefix + ':street1').value = address.street1;
+    }
+    if (address.street2 !== undefined && $(prefix + ':street2')) {
+        $(prefix + ':street2').value = address.street2 || '';
+    }
+    if (address.city && $(prefix + ':city')) {
+        $(prefix + ':city').value = address.city;
+    }
+    if (address.postcode && $(prefix + ':postcode')) {
+        $(prefix + ':postcode').value = address.postcode;
+    }
+    if (address.region) {
+        // Try to match region in dropdown
+        var regionId = $(prefix + ':region_id');
+        if (regionId) {
+            var options = regionId.options;
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].text.toUpperCase() === address.region.toUpperCase() ||
+                    options[i].value === address.region) {
+                    regionId.value = options[i].value;
+                    break;
+                }
+            }
+        }
+        var regionText = $(prefix + ':region');
+        if (regionText) {
+            regionText.value = address.region;
+        }
+    }
+};
+//]]>
+</script>
+
+<style type="text/css">
+.usps-av-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usps-av-modal {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.usps-av-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    background: #f5f5f5;
+    border-radius: 8px 8px 0 0;
+}
+
+.usps-av-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.usps-av-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    line-height: 1;
+}
+
+.usps-av-close:hover {
+    color: #333;
+}
+
+.usps-av-modal-body {
+    padding: 20px;
+}
+
+.usps-av-message {
+    margin: 0 0 15px;
+    color: #555;
+}
+
+.usps-av-warnings {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+}
+
+.usps-av-warnings ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.usps-av-warnings li {
+    color: #856404;
+    margin: 5px 0;
+}
+
+.usps-av-comparison {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.usps-av-address {
+    flex: 1;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.usps-av-original {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.usps-av-corrected {
+    background: #d4edda;
+    border: 1px solid #28a745;
+}
+
+.usps-av-address h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.usps-av-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: #28a745;
+    padding-top: 30px;
+}
+
+.usps-av-corrections {
+    margin-top: 15px;
+}
+
+.usps-av-corrections h5 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.usps-av-corrections table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.usps-av-corrections th,
+.usps-av-corrections td {
+    padding: 8px 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.usps-av-corrections th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+.usps-av-corrections td.original {
+    background: #fff5f5;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.usps-av-corrections td.corrected {
+    background: #f0fff0;
+    font-weight: 500;
+}
+
+.usps-av-modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.usps-av-modal-footer .button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.usps-av-modal-footer .btn-success {
+    background: #28a745;
+    border: 1px solid #28a745;
+    color: #fff;
+}
+
+.usps-av-modal-footer .btn-success:hover {
+    background: #218838;
+}
+
+.usps-av-modal-footer .btn-secondary {
+    background: #6c757d;
+    border: 1px solid #6c757d;
+    color: #fff;
+}
+
+.usps-av-modal-footer .btn-secondary:hover {
+    background: #5a6268;
+}
+
+body.usps-av-modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .usps-av-comparison {
+        flex-direction: column;
+    }
+    
+    .usps-av-arrow {
+        transform: rotate(90deg);
+        padding: 10px 0;
+    }
+    
+    .usps-av-modal-footer {
+        flex-direction: column;
+    }
+}
+</style>
+<?php endif; ?>
