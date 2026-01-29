@@ -12,8 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Shipment_Track   getItemById(int $value)
- * @method Mage_Sales_Model_Order_Shipment_Track[] getItems()
+ * @implements Varien_Data_Collection<Mage_Sales_Model_Order_Shipment_Track>
  */
 class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {

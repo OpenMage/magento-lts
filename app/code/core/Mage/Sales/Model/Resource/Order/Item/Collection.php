@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Item getItemById(int $value)
+ * @@implements Varien_Data_Collection<Mage_Sales_Model_Order_Item>
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {

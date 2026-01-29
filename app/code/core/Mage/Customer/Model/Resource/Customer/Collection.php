@@ -12,7 +12,7 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Customer[] getItems()
+ * @implements Varien_Data_Collection<Mage_Customer_Model_Customer>
  */
 class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {

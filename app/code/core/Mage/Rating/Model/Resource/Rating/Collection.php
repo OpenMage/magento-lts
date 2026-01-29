@@ -12,7 +12,7 @@
  *
  * @package    Mage_Rating
  *
- * @method Mage_Rating_Model_Rating getItemById()
+ * @implements Varien_Data_Collection<Mage_Rating_Model_Rating>
  */
 class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

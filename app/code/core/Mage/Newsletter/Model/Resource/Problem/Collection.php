@@ -12,8 +12,7 @@
  *
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Problem[] getItems()
- * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
+ * @implements Varien_Data_Collection<Mage_Newsletter_Model_Problem>
  * @method $this                           setCustomerFirstName(string $value)
  * @method $this                           setCustomerLastName(string $value)
  */

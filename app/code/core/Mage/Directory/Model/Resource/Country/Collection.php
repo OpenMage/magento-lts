@@ -12,9 +12,7 @@
  *
  * @package    Mage_Directory
  *
- * @property Mage_Directory_Model_Country[] $_items
- * @method   Mage_Directory_Model_Country   getFirstItem()
- * @method   Mage_Directory_Model_Country   getLastItem()
+ * @implements Varien_Data_Collection<Mage_Directory_Model_Country>
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

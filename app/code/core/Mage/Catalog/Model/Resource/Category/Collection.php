@@ -12,9 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Category   getFirstItem()
- * @method Mage_Catalog_Model_Category   getItemById(string $value)
- * @method Mage_Catalog_Model_Category[] getItems()
+ * @implements Varien_Data_Collection<Mage_Catalog_Model_Category>
  */
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
