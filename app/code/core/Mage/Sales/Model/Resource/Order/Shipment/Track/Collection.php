@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @implements Varien_Data_Collection<Mage_Sales_Model_Order_Shipment_Track>
+ * @extends Varien_Data_Collection<Mage_Sales_Model_Order_Shipment_Track>
  */
 class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {

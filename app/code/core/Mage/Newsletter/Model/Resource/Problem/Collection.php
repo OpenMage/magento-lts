@@ -12,9 +12,9 @@
  *
  * @package    Mage_Newsletter
  *
- * @implements Varien_Data_Collection<Mage_Newsletter_Model_Problem>
- * @method $this                           setCustomerFirstName(string $value)
- * @method $this                           setCustomerLastName(string $value)
+ * @extends Varien_Data_Collection<Mage_Newsletter_Model_Problem>
+ * @method $this setCustomerFirstName(string $value)
+ * @method $this setCustomerLastName(string $value)
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

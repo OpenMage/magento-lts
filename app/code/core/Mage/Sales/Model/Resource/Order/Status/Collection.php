@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @implements Varien_Data_Collection<Mage_Sales_Model_Order_Status>
+ * @extends Varien_Data_Collection<Mage_Sales_Model_Order_Status>
  */
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

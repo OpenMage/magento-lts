@@ -12,7 +12,7 @@
  *
  * @package    Mage_Tax
  *
- * @implements Varien_Data_Collection<Mage_Tax_Model_Sales_Order_Tax>
+ * @extends Varien_Data_Collection<Mage_Tax_Model_Sales_Order_Tax>
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

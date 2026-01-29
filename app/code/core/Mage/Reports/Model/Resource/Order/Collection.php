@@ -12,7 +12,7 @@
  *
  * @package    Mage_Reports
  *
- * @implements Varien_Data_Collection<Mage_Sales_Model_Order>
+ * @extends Varien_Data_Collection<Mage_Sales_Model_Order>
  */
 class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Order_Collection
 {

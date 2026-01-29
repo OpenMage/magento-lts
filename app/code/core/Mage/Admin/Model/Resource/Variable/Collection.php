@@ -12,7 +12,7 @@
  *
  * @package    Mage_Admin
  *
- * @implements Varien_Data_Collection<Mage_Admin_Model_Variable>
+ * @extends Varien_Data_Collection<Mage_Admin_Model_Variable>
  */
 class Mage_Admin_Model_Resource_Variable_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

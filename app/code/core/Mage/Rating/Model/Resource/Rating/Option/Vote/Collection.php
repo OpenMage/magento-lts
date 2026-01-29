@@ -12,7 +12,7 @@
  *
  * @package    Mage_Rating
  *
- * @implements Varien_Data_Collection<Mage_Rating_Model_Rating_Option_Vote>
+ * @extends Varien_Data_Collection<Mage_Rating_Model_Rating_Option_Vote>
  */
 class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

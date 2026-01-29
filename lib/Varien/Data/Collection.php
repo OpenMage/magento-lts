@@ -249,7 +249,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection first item
      *
-     * @return Varien_Object|T
+     * @return T|Varien_Object
      */
     public function getFirstItem()
     {
@@ -266,7 +266,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection last item
      *
-     * @return Varien_Object|T
+     * @return T|Varien_Object
      */
     public function getLastItem()
     {
@@ -311,8 +311,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Search all items by field value
      *
-     * @param  string $column
-     * @param  mixed  $value
+     * @param  string    $column
+     * @param  mixed     $value
      * @return array|T[]
      */
     public function getItemsByColumnValue($column, $value)
@@ -332,9 +332,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Search first item by field value
      *
-     * @param  string             $column
-     * @param  mixed              $value
-     * @return null|Varien_Object|T
+     * @param  string               $column
+     * @param  mixed                $value
+     * @return null|T|Varien_Object
      */
     public function getItemByColumnValue($column, $value)
     {
@@ -352,7 +352,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
-     * @param Varien_Object|T $item
+     * @param  T|Varien_Object $item
      * @return $this
      * @throws Exception
      */
@@ -376,7 +376,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Add item that has no id to collection
      *
-     * @param  Varien_Object|T $item
+     * @param  T|Varien_Object $item
      * @return $this
      */
     protected function _addItem($item)
@@ -558,7 +558,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection empty item
      *
-     * @return Varien_Object|T
+     * @return T|Varien_Object
      */
     public function getNewEmptyItem()
     {
@@ -742,8 +742,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve item by id
      *
-     * @param  mixed              $idValue
-     * @return null|Varien_Object|T
+     * @param  mixed                $idValue
+     * @return null|T|Varien_Object
      */
     public function getItemById($idValue)
     {

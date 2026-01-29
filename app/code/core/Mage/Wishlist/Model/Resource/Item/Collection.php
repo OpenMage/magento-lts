@@ -12,7 +12,7 @@
  *
  * @package    Mage_Wishlist
  *
- * @implements Varien_Data_Collection<Mage_Wishlist_Model_Item>
+ * @extends Varien_Data_Collection<Mage_Wishlist_Model_Item>
  */
 class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

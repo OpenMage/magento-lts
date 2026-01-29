@@ -14,7 +14,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract getEntity()
  *
- * @implements Varien_Data_Collection<Mage_Catalog_Model_Product>
+ * @extends Varien_Data_Collection<Mage_Catalog_Model_Product>
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {

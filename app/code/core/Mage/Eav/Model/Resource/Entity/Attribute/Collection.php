@@ -14,7 +14,7 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  *
- * @implements Varien_Data_Collection<Mage_Eav_Model_Entity_Attribute>
+ * @extends Varien_Data_Collection<Mage_Eav_Model_Entity_Attribute>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

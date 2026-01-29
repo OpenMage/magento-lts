@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @@implements Varien_Data_Collection<Mage_Catalog_Model_Product_Type_Configurable_Attribute>
+ * @extends Varien_Data_Collection<Mage_Catalog_Model_Product_Type_Configurable_Attribute>
  */
 class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
