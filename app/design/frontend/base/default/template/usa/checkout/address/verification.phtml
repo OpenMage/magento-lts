@@ -355,17 +355,24 @@ document.observe('dom:loaded', function() {
  */
 UspsAddressVerification.hookCheckout = function() {
     if (!this.config.enabled) return;
-    
+
+    // Limit the number of attempts to avoid infinite polling on non-onepage pages
+    var attempts = 0;
+    var maxAttempts = 100; // 100 * 100ms = 10 seconds
+
     // Wait for shipping object to be available
     var checkForShipping = function() {
+        attempts++;
+
         if (typeof window.shipping !== 'undefined' && window.shipping.save) {
             this._hookShippingSave();
-        } else {
-            // Retry after a short delay
+        } else if (attempts < maxAttempts) {
+            // Retry after a short delay while under the max attempt limit
             setTimeout(checkForShipping, 100);
         }
+        // If maxAttempts reached, stop polling silently (not a onepage checkout page)
     }.bind(this);
-    
+
     checkForShipping();
 };
 

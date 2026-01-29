@@ -64,7 +64,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $weight = new Zend_Measure_Weight(0);
         $conversionList = $weight->getConversionList();
-        if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
+        if (isset($conversionList[$key]) && isset($conversionList[$key][1]) && $conversionList[$key][1] !== '') {
             return $conversionList[$key][1];
         }
 

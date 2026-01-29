@@ -40,7 +40,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
 
     /**
      * USPS API error code to message mapping
-     * 
+     *
      * Error codes from USPS REST API responses (error.code field)
      *
      * @var array
@@ -51,7 +51,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         'TOKEN_EXPIRED' => 'USPS authentication token has expired. Please try again.',
         'UNAUTHORIZED' => 'Your USPS account is not authorized for this operation.',
         'INVALID_CREDENTIALS' => 'Invalid USPS API credentials. Please verify your Client ID and Client Secret.',
-        
+
         // Rate/Pricing Errors
         'INVALID_MAIL_CLASS' => 'The selected shipping method is not available for this shipment.',
         'INVALID_MAIL_DIMENSION' => 'Package dimensions exceed USPS limits or are invalid.',
@@ -60,14 +60,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         'INVALID_ORIGIN' => 'The origin ZIP code is invalid or not recognized.',
         'NO_RATES_AVAILABLE' => 'No shipping rates available for this destination and package configuration.',
         'RATE_NOT_FOUND' => 'The requested shipping rate was not found.',
-        
+
         // Address Errors
         'INVALID_ADDRESS' => 'The provided address could not be verified by USPS.',
         'INVALID_ZIP_CODE' => 'The ZIP code is invalid or not recognized.',
         'INVALID_STATE' => 'The state code is invalid or not recognized.',
         'INVALID_CITY' => 'The city name is invalid or not recognized.',
         'ADDRESS_NOT_FOUND' => 'The address could not be found in the USPS database.',
-        
+
         // Label/Shipment Errors
         'INVALID_LABEL_SIZE' => 'The requested label size is not supported.',
         'INVALID_LABEL_FORMAT' => 'The requested label format is not supported.',
@@ -75,7 +75,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         'SHIPMENT_NOT_FOUND' => 'The requested shipment was not found.',
         'LABEL_ALREADY_CANCELLED' => 'This shipping label has already been cancelled.',
         'LABEL_EXPIRED' => 'This shipping label has expired and cannot be used.',
-        
+
         // Payment/Account Errors
         'INSUFFICIENT_FUNDS' => 'Insufficient funds in your USPS account. Please add funds and try again.',
         'INVALID_ACCOUNT' => 'The USPS account number is invalid or not recognized.',
@@ -83,13 +83,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         'INVALID_PERMIT' => 'The permit number is invalid or not recognized.',
         'INVALID_CRID' => 'The Customer Registration ID (CRID) is invalid.',
         'INVALID_MID' => 'The Mailer ID (MID) is invalid.',
-        
+
         // Package Errors
         'EXCEEDS_MAX_WEIGHT' => 'Package weight exceeds the maximum allowed for this service.',
         'EXCEEDS_MAX_DIMENSIONS' => 'Package dimensions exceed the maximum allowed for this service.',
         'HAZMAT_NOT_ALLOWED' => 'Hazardous materials are not allowed with the selected shipping method.',
         'INVALID_CONTENTS' => 'The package contents description is invalid or prohibited.',
-        
+
         // International Errors
         'INVALID_CUSTOMS_FORM' => 'The customs form data is incomplete or invalid.',
         'INVALID_COUNTRY' => 'The destination country is not recognized or not serviceable.',
@@ -147,13 +147,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
     public function translateMessage($apiMessage)
     {
         $apiMessage = (string) $apiMessage;
-        
+
         foreach ($this->_messagePatterns as $pattern => $translation) {
             if (preg_match($pattern, $apiMessage)) {
                 return Mage::helper('usa')->__($translation);
             }
         }
-        
+
         return null;
     }
 
@@ -180,7 +180,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                 return Mage::helper('usa')->__($message);
             }
         }
-        
+
         // Try to extract error code from response
         if (is_array($responseData)) {
             // Check for error.code format
@@ -190,7 +190,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                     return Mage::helper('usa')->__($message);
                 }
             }
-            
+
             // Check for errors[0].code format
             if (isset($responseData['errors'][0]['code'])) {
                 $message = $this->getApiErrorMessage($responseData['errors'][0]['code']);
@@ -198,7 +198,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                     return Mage::helper('usa')->__($message);
                 }
             }
-            
+
             // Try pattern matching on error message
             $apiMessage = null;
             if (isset($responseData['error']['message'])) {
@@ -208,7 +208,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
             } elseif (isset($responseData['message'])) {
                 $apiMessage = $responseData['message'];
             }
-                
+
             if ($apiMessage) {
                 $message = $this->translateMessage($apiMessage);
                 if ($message) {
@@ -216,7 +216,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                 }
             }
         }
-        
+
         // Try HTTP status for 4xx errors
         if ($httpCode >= 400 && $httpCode < 500) {
             $message = $this->getHttpStatusMessage($httpCode);
@@ -224,7 +224,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                 return Mage::helper('usa')->__($message);
             }
         }
-        
+
         // Return fallback or generic message
         return $fallbackMessage ?: Mage::helper('usa')->__(
             'Unable to retrieve shipping rates from USPS. Please try again or contact support.'
@@ -244,12 +244,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
         if ($httpCode >= 500) {
             return true;
         }
-        
+
         // Rate limiting is transient
         if ($httpCode === 429) {
             return true;
         }
-        
+
         // Token expired is transient (can refresh)
         if (is_array($responseData)) {
             $errorCode = '';
@@ -262,7 +262,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Error_Dictionary
                 return true;
             }
         }
-        
+
         return false;
     }
 

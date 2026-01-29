@@ -16,11 +16,11 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testratequote
         $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/testRateQuote');
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
-        
-        $html = '<button type="button" id="usps-test-rate-button" onclick="testUspsRateQuote(\'' . $ajaxUrl . '\', \'' . $website . '\', \'' . $store . '\')" class="scalable">' 
+
+        $html = '<button type="button" id="usps-test-rate-button" onclick="testUspsRateQuote(\'' . $ajaxUrl . '\', \'' . $website . '\', \'' . $store . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-rate-test-result" style="margin-top:10px;"></div>';
-        
+
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
 //<![CDATA[
@@ -28,27 +28,27 @@ function testUspsRateQuote(url, website, store) {
     var clientId = '';
     var clientSecret = '';
     var environment = '';
-    
+
     var clientIdField = document.getElementById('carriers_usps_client_id');
     var clientSecretField = document.getElementById('carriers_usps_client_secret');
     var environmentField = document.getElementById('carriers_usps_environment');
-    
+
     if (clientIdField) clientId = clientIdField.value;
     if (clientSecretField) clientSecret = clientSecretField.value;
     if (environmentField) environment = environmentField.value;
-    
+
     if (!clientId || !clientSecret || !environment) {
-        document.getElementById('usps-rate-test-result').innerHTML = 
+        document.getElementById('usps-rate-test-result').innerHTML =
             '<span style="color:red;">Please fill in Client ID, Client Secret, and Environment.</span>';
         return;
     }
-    
+
     var resultDiv = document.getElementById('usps-rate-test-result');
     resultDiv.innerHTML = '<span style="color:gray;">Fetching rates...</span>';
-    
+
     var button = document.getElementById('usps-test-rate-button');
     button.disabled = true;
-    
+
     new Ajax.Request(url, {
         parameters: {
             client_id: clientId,
@@ -96,10 +96,10 @@ function testUspsRateQuote(url, website, store) {
 //]]>
 </script>
 JAVASCRIPT;
-        
+
         return $html;
     }
-    
+
     protected function _renderScopeLabel(Varien_Data_Form_Element_Abstract $element)
     {
         return '';

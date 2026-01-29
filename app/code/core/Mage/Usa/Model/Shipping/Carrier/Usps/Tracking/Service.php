@@ -81,7 +81,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         foreach ($trackingNumbers as $tracking) {
             $url = rtrim($baseUrl, '/') . '/' . self::TRACKING_ENDPOINT . urlencode($tracking);
             $queryString = '?' . http_build_query(array('expand' => 'DETAIL'));
-            
+
             $debugData = array(
                 'request' => array(
                     'tracking_number' => $tracking,

@@ -15,7 +15,7 @@
  *
  * @package    Mage_Usa
  */
-class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Testconnection 
+class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Testconnection
     extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
@@ -28,11 +28,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Testconnection
     {
         $buttonLabel = Mage::helper('usa')->__('Test Connection');
         $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/testconnection');
-        
-        $html = '<button type="button" id="usps-test-connection-button" onclick="testUspsConnection(\'' . $ajaxUrl . '\')" class="scalable">' 
+
+        $html = '<button type="button" id="usps-test-connection-button" onclick="testUspsConnection(\'' . $ajaxUrl . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-test-result" style="margin-top:10px; font-weight:bold;"></div>';
-        
+
         // JavaScript for AJAX call
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
@@ -42,12 +42,12 @@ function testUspsConnection(url) {
     var clientId = '';
     var clientSecret = '';
     var environment = '';
-    
+
     // Try to get values from obscure inputs (encrypted fields)
     var clientIdField = document.getElementById('carriers_usps_client_id');
     var clientSecretField = document.getElementById('carriers_usps_client_secret');
     var environmentField = document.getElementById('carriers_usps_environment');
-    
+
     if (clientIdField) {
         clientId = clientIdField.value;
     }
@@ -57,22 +57,22 @@ function testUspsConnection(url) {
     if (environmentField) {
         environment = environmentField.value;
     }
-    
+
     // Validate required fields
     if (!clientId || !clientSecret || !environment) {
-        document.getElementById('usps-test-result').innerHTML = 
+        document.getElementById('usps-test-result').innerHTML =
             '<span style="color:red;">✗ Please fill in Client ID, Client Secret, and Environment before testing.</span>';
         return;
     }
-    
+
     // Show loading message
     var resultDiv = document.getElementById('usps-test-result');
     resultDiv.innerHTML = '<span style="color:gray;">Testing connection...</span>';
-    
+
     // Disable button during request
     var button = document.getElementById('usps-test-connection-button');
     button.disabled = true;
-    
+
     // Make AJAX request
     new Ajax.Request(url, {
         parameters: {
@@ -103,10 +103,10 @@ function testUspsConnection(url) {
 //]]>
 </script>
 JAVASCRIPT;
-        
+
         return $html;
     }
-    
+
     /**
      * Remove scope info from field (not needed for button)
      *

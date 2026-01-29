@@ -63,7 +63,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
         return [
             // USPS Ground Advantage - Keep only SP to avoid duplicates
             'USPS_GROUND_ADVANTAGE_SP' => 'USPS Ground Advantage',
-            
+
             // Priority Mail
             'PRIORITY_MAIL_SP' => 'Priority Mail',
             'PRIORITY_MAIL_FE' => 'Priority Mail - Flat Rate Envelope',
@@ -72,24 +72,24 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
             'PRIORITY_MAIL_FS' => 'Priority Mail - Small Flat Rate Box',
             'PRIORITY_MAIL_FB' => 'Priority Mail - Medium Flat Rate Box',
             'PRIORITY_MAIL_PL' => 'Priority Mail - Large Flat Rate Box',
-            
+
             // Priority Mail Express
             'PRIORITY_MAIL_EXPRESS_SP' => 'Priority Mail Express',
             'PRIORITY_MAIL_EXPRESS_FE' => 'Priority Mail Express - Flat Rate Envelope',
             'PRIORITY_MAIL_EXPRESS_FA' => 'Priority Mail Express - Legal Flat Rate Envelope',
             'PRIORITY_MAIL_EXPRESS_FP' => 'Priority Mail Express - Padded Flat Rate Envelope',
             'PRIORITY_MAIL_EXPRESS_FB' => 'Priority Mail Express - Flat Rate Box',
-            
+
             // First-Class Package
             'FIRST_CLASS_PACKAGE_SERVICE_SP' => 'First-Class Package Service',
-            
+
             // Library & Media Mail
             'LIBRARY_MAIL_SP' => 'Library Mail',
             'MEDIA_MAIL_SP' => 'Media Mail',
-            
+
             // Parcel Select
             'PARCEL_SELECT_SP' => 'Parcel Select',
-            
+
             // International Services
             'FIRST_CLASS_PACKAGE_INTERNATIONAL_SERVICE_SP' => 'First-Class Package International',
             'PRIORITY_MAIL_INTERNATIONAL_SP' => 'Priority Mail International',

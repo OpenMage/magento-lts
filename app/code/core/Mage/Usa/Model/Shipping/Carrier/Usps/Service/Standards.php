@@ -344,7 +344,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
      */
     protected function _getCacheKey($originZip, $destZip, $mailClass, $acceptDate)
     {
-        return self::CACHE_KEY_PREFIX . md5(implode('_', array(
+        return self::CACHE_KEY_PREFIX . hash('sha256', implode('_', array(
             $originZip,
             $destZip,
             $mailClass,
@@ -376,7 +376,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
         }
 
         Mage::log(
-            'USPS ServiceStandards: ' . print_r($data, true),
+            'USPS ServiceStandards: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
             true

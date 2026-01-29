@@ -329,13 +329,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $clientId = $this->getConfigData('client_id');
         $clientSecret = $this->getConfigData('client_secret');
         $baseUrl = $this->_getRestGatewayUrl();
-        $environment = $this->getConfigData('rest_environment') ?: 'sandbox';
-
-        // Diagnostic logging for credential validation
-        
-        // Check if credentials contain non-printable characters (sign of decryption failure)
-        $clientIdClean = preg_match('/^[a-zA-Z0-9_-]+$/', $clientId);
-        $clientSecretClean = preg_match('/^[a-zA-Z0-9_-]+$/', $clientSecret);
 
         if (!$clientId || !$clientSecret) {
             $this->_debug(['error' => 'USPS REST API: Missing client_id or client_secret']);
@@ -366,7 +359,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         // Get required credentials
         $crid = $this->getConfigData('crid');
         $mid = $this->getConfigData('mid');
-        $manifestMid = $this->getConfigData('manifest_mid');
+        $manifestMid = $this->getConfigData('mmid');
         $accountType = $this->getConfigData('eps_account_type');
         $accountNumber = $this->getConfigData('eps_account_number');
         $permitZip = $this->getConfigData('permit_zip');
@@ -383,7 +376,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         // Check cache for existing payment auth token
-        $cacheKey = 'usps_payment_auth_' . md5($crid . $mid . $accountNumber);
+        $cacheKey = 'usps_payment_auth_' . hash('sha256', $crid . $mid . $accountNumber);
         $cache = Mage::app()->getCache();
         $cachedToken = $cache->load($cacheKey);
 
@@ -423,10 +416,26 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ]
         ];
 
+        // Sanitize sensitive billing identifiers before logging
+        $sanitizedPayload = $payload;
+        if (isset($sanitizedPayload['roles']) && is_array($sanitizedPayload['roles'])) {
+            foreach ($sanitizedPayload['roles'] as &$role) {
+                if (is_array($role)) {
+                    if (array_key_exists('accountNumber', $role)) {
+                        $role['accountNumber'] = '[REDACTED]';
+                    }
+                    if (array_key_exists('permitZIP', $role)) {
+                        $role['permitZIP'] = '[REDACTED]';
+                    }
+                }
+            }
+            unset($role);
+        }
+
         $this->_debug([
             'message' => 'Requesting USPS payment authorization token',
             'url' => $url,
-            'payload' => $payload
+            'payload' => $sanitizedPayload
         ]);
 
         $ch = curl_init($url);
@@ -508,7 +517,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         // Generate cache key from ALL critical parameters to prevent false rate matches
         // TTL handles staleness - no need to include date (USPS rates don't change daily)
-        $cacheKey = 'usps_rates_' . md5(serialize([
+        $cacheKey = 'usps_rates_' . hash('sha256', serialize([
             'endpoint' => $isDomestic ? 'domestic' : 'international',
             'origin_zip' => substr($r->getOrigPostal(), 0, 5),
             'dest_zip' => substr($r->getDestPostal(), 0, 5),
@@ -521,7 +530,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'machinable' => $requestPayload['processingCategory'],
             'account_number' => $this->getConfigData('account_number'), // Prevent wrong rates after account change
             'account_type' => $this->getConfigData('account_type'),
-            'allowed_methods_hash' => md5(serialize($this->getAllowedMethods())), // Detect config changes
+            'allowed_methods_hash' => hash('sha256', serialize($this->getAllowedMethods())), // Detect config changes
             'cart_fingerprint' => $cartFingerprint, // Detect cart/quote changes (items, quantities, SKUs)
         ]));
 
@@ -551,16 +560,23 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         // Use total-rates/search for both domestic and international to get all rate options
         $endpoint = $isDomestic ? 'prices/v3/total-rates/search' : 'international-prices/v3/total-rates/search';
+
+        // Create a sanitized copy of the request payload for logging (remove sensitive fields)
+        $sanitizedPayload = $requestPayload;
+        if (is_array($sanitizedPayload) && array_key_exists('accountNumber', $sanitizedPayload)) {
+            $sanitizedPayload['accountNumber'] = '[REDACTED]';
+        }
+
         $debugData = [
             'request' => [
                 'endpoint' => $endpoint,
-                'payload' => $requestPayload,
+                'payload' => $sanitizedPayload,
             ],
             'cache_key' => $cacheKey,
             '__pid' => getmypid(),
         ];
-        
-        // Log request payload for debugging
+
+        // Log sanitized request payload for debugging
         $this->_debug($debugData);
         $this->_debug([
             'message' => 'USPS: Making API request (cache miss)',
@@ -804,11 +820,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         
         // Sort by SKU to ensure consistent hash regardless of item order
         usort($cartData, function($a, $b) {
-            if (!is_array($a) || !is_array($b)) return 0;
+            if (!is_array($a) || !is_array($b)) {
+                return 0;
+            }
             return strcmp($a['sku'] ?? '', $b['sku'] ?? '');
         });
         
-        return md5(serialize($cartData));
+        return hash('sha256', serialize($cartData));
     }
 
     /**
@@ -1079,12 +1097,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     {
         $r = $this->_rawRequest;
 
-        $freeMethod = $this->getConfigData('free_method');
+        $configuredFreeMethod = $this->getConfigData('free_method');
 
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
         $r->setWeightPounds(floor($weight));
         $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
-        $r->setService($freeMethod);
+        $r->setService($configuredFreeMethod);
     }
 
     /**

@@ -147,7 +147,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function hasCorrections()
     {
-        return !empty($this->_corrections);
+        return count($this->_corrections) > 0;
     }
 
     /**
@@ -179,7 +179,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      */
     public function hasWarnings()
     {
-        return !empty($this->_warnings);
+        return count($this->_warnings) > 0;
     }
 
     /**
@@ -214,25 +214,25 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     {
         $lines = [];
 
-        if (!empty($address['street1'])) {
+        if (isset($address['street1']) && $address['street1'] !== '') {
             $lines[] = $this->escapeHtml($address['street1']);
         }
-        if (!empty($address['street2'])) {
+        if (isset($address['street2']) && $address['street2'] !== '') {
             $lines[] = $this->escapeHtml($address['street2']);
         }
 
         $cityStateZip = [];
-        if (!empty($address['city'])) {
+        if (isset($address['city']) && $address['city'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['city']);
         }
-        if (!empty($address['region'])) {
+        if (isset($address['region']) && $address['region'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['region']);
         }
-        if (!empty($address['postcode'])) {
+        if (isset($address['postcode']) && $address['postcode'] !== '') {
             $cityStateZip[] = $this->escapeHtml($address['postcode']);
         }
 
-        if (!empty($cityStateZip)) {
+        if (count($cityStateZip) > 0) {
             $lines[] = implode(', ', $cityStateZip);
         }
 

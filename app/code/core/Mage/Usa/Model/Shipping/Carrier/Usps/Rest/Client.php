@@ -296,9 +296,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     protected function _request($method, $endpoint, $data = null, $authenticated = true)
     {
         $url = $this->_baseUrl . ltrim($endpoint, '/');
-        
+
         $headers = array('Content-Type: application/json');
-        
+
         if ($authenticated && $this->_accessToken) {
             $headers[] = 'Authorization: Bearer ' . $this->_accessToken;
         }
@@ -390,7 +390,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
                 return $responseData['message'];
             }
         }
-        
+
         return 'HTTP ' . $httpCode . ' error';
     }
 

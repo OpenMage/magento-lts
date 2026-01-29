@@ -112,13 +112,11 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
                 return null;
             }
 
-            // Direct diagnostic logging of response
-            
-            $debugData = [
-                'result' => $responseData,
+            // Direct diagnostic logging of response (sensitive data redacted)
+            $this->_debug([
+                'result' => 'OAuth response received (content redacted for security)',
                 '__pid' => getmypid(),
-            ];
-            $this->_debug($debugData);
+            ]);
 
             $response = json_decode($responseData, true);
 

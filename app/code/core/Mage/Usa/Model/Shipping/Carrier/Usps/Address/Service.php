@@ -317,16 +317,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
             return false;
         }
 
-        // Map our field names to Magento address methods
-        $fieldMapping = [
-            'street1' => 'street',
-            'street2' => null, // Handled with street1
-            'city' => 'city',
-            'region' => 'region',
-            'postcode' => 'postcode',
-            'country_id' => 'country_id',
-        ];
-
         // Handle street specially (combine street1 + street2)
         $street = [$corrected['street1'] ?? ''];
         if (!empty($corrected['street2'])) {
@@ -452,7 +442,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
         }
 
         Mage::log(
-            'USPS AddressService: ' . print_r($data, true),
+            'USPS AddressService: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
             true

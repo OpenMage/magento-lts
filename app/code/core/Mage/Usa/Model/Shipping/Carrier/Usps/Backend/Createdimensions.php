@@ -28,12 +28,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Createdimensions
     {
         $buttonLabel = Mage::helper('usa')->__('Create Dimension Attributes');
         $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/createdimensions');
-        
-        $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">' 
+
+        $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-attr-result" style="margin-top:10px; font-weight:bold;"></div>';
         $html .= '<p class="note"><span>' . Mage::helper('usa')->__('Creates product attributes: package_length, package_width, package_height (in inches). These attributes are used for accurate dimensional shipping rates.') . '</span></p>';
-        
+
         // JavaScript for AJAX call
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
@@ -42,11 +42,11 @@ function createUspsAttributes(url) {
     // Show loading message
     var resultDiv = document.getElementById('usps-attr-result');
     resultDiv.innerHTML = '<span style="color:gray;">Creating attributes...</span>';
-    
+
     // Disable button during request
     var button = document.getElementById('usps-create-dimensions-button');
     button.disabled = true;
-    
+
     // Make AJAX request
     new Ajax.Request(url, {
         parameters: {
@@ -74,10 +74,10 @@ function createUspsAttributes(url) {
 //]]>
 </script>
 JAVASCRIPT;
-        
+
         return $html;
     }
-    
+
     /**
      * Remove scope info from field (not needed for button)
      *

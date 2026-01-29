@@ -255,7 +255,7 @@
                 <cache_ttl>3600</cache_ttl>
                 <crid></crid>
                 <mid></mid>
-                <manifest_mid></manifest_mid>
+                <mmid></mmid>
                 <eps_account_type>EPS</eps_account_type>
                 <eps_account_number backend_model="adminhtml/system_config_backend_encrypted"/>
                 <permit_zip></permit_zip>

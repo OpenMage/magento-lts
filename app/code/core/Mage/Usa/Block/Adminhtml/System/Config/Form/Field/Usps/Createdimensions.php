@@ -30,7 +30,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions
         $attributeCodes = ['package_length', 'package_width', 'package_height'];
         $existingCount = 0;
         $missingAttributes = [];
-        
+
         foreach ($attributeCodes as $code) {
             $attributeId = Mage::getResourceModel('catalog/eav_attribute')
                 ->getIdByCode('catalog_product', $code);
@@ -40,18 +40,18 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions
                 $missingAttributes[] = $code;
             }
         }
-        
+
         $allExist = ($existingCount === count($attributeCodes));
-        $buttonLabel = $allExist 
+        $buttonLabel = $allExist
             ? Mage::helper('usa')->__('Re-create Dimension Attributes')
             : Mage::helper('usa')->__('Create Dimension Attributes');
-        
+
         $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/createdimensions');
-        
-        $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">' 
+
+        $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
         $html .= '<div id="usps-attr-result" style="margin-top:10px; font-weight:bold;">';
-        
+
         // Show current status
         if ($allExist) {
             $html .= '<span style="color:green;">✓ All dimension attributes exist (package_length, package_width, package_height)</span>';
@@ -60,10 +60,10 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions
         } else {
             $html .= '<span style="color:gray;">Attributes not yet created. Click button to create.</span>';
         }
-        
+
         $html .= '</div>';
         $html .= '<p class="note"><span>' . Mage::helper('usa')->__('Creates product attributes: package_length, package_width, package_height (in inches). These attributes are used for accurate dimensional shipping rates.') . '</span></p>';
-        
+
         // JavaScript for AJAX call
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
@@ -72,11 +72,11 @@ function createUspsAttributes(url) {
     // Show loading message
     var resultDiv = document.getElementById('usps-attr-result');
     resultDiv.innerHTML = '<span style="color:gray;">Creating attributes...</span>';
-    
+
     // Disable button during request
     var button = document.getElementById('usps-create-dimensions-button');
     button.disabled = true;
-    
+
     // Make AJAX request
     new Ajax.Request(url, {
         parameters: {
@@ -104,10 +104,10 @@ function createUspsAttributes(url) {
 //]]>
 </script>
 JAVASCRIPT;
-        
+
         return $html;
     }
-    
+
     /**
      * Remove scope info from field (not needed for button)
      *

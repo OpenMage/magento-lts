@@ -516,7 +516,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         }
 
         Mage::log(
-            'USPS LabelService: ' . print_r($data, true),
+            'USPS LabelService: ' . json_encode($data),
             Zend_Log::DEBUG,
             'shipping_usps.log',
             true
