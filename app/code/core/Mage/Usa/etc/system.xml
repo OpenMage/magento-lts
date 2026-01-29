@@ -1112,7 +1112,6 @@
                         </environment>
                         <gateway_url translate="label comment tooltip">
                             <label>Gateway URL</label>
-                            <comment><![CDATA[Automatically populated based on Environment selection. <strong>Production:</strong> https://api.usps.com/ | <strong>Sandbox:</strong> https://apis.usps.com/]]></comment>
                             <tooltip>This field auto-populates when you select an environment above. You can manually edit it if you need to use a custom USPS API endpoint.</tooltip>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
