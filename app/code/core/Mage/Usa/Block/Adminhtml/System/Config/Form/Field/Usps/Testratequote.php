@@ -61,7 +61,7 @@ function testUspsRateQuote(url, website, store) {
         onSuccess: function(response) {
             button.disabled = false;
             try {
-                var result = eval('(' + response.responseText + ')');
+                var result = JSON.parse(response.responseText);
                 if (result.success) {
                     var html = '<div style="color:green; font-weight:bold;">' + result.message + '</div>';
                     if (result.rates && result.rates.length > 0) {

@@ -61,7 +61,7 @@ function testUspsConnection(url, website, store) {
         onSuccess: function(response) {
             button.disabled = false;
             try {
-                var result = eval('(' + response.responseText + ')');
+                var result = JSON.parse(response.responseText);
                 if (result.success) {
                     resultDiv.innerHTML = '<span style="color:green;">' + result.message + '</span>';
                 } else {
