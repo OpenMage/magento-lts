@@ -12,7 +12,7 @@
  *
  * @package    Mage_Bundle
  *
- * @extends Varien_Data_Collection<Mage_Bundle_Model_Option>
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Bundle_Model_Option>
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

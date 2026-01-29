@@ -11,6 +11,8 @@
  * Entity/Attribute/Model - collection abstract
  *
  * @package    Mage_Eav
+ * @template T
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {

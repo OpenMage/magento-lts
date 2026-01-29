@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @extends Varien_Data_Collection<Mage_Catalog_Model_Product_Option>
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Catalog_Model_Product_Option>
  */
 class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

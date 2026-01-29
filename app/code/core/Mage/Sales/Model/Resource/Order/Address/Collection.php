@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @extends Varien_Data_Collection<Mage_Sales_Model_Order_Address>
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Address>
  */
 class Mage_Sales_Model_Resource_Order_Address_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {

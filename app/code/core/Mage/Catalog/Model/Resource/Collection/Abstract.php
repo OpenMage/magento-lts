@@ -12,6 +12,8 @@
  * Implement using different stores for retrieve attribute values
  *
  * @package    Mage_Catalog
+ * @template T
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<T>
  */
 class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Entity_Collection_Abstract
 {

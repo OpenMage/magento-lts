@@ -12,7 +12,7 @@
  *
  * @package    Mage_Core
  *
- * @extends Varien_Data_Collection<Mage_Core_Model_Website>
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Website>
  */
 class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
