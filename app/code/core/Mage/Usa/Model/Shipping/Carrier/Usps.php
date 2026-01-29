@@ -438,7 +438,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $accessToken
             ],
-            CURLOPT_TIMEOUT => 30
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => true
         ]);
 
         $response = curl_exec($ch);

@@ -113,7 +113,6 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             }
 
             // Direct diagnostic logging of response
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             
             $debugData = [
                 'result' => $responseData,
@@ -148,11 +147,6 @@ class Mage_Usa_Model_Shipping_Carrier_UspsAuth extends Mage_Usa_Model_Shipping_C
             // Trim token to remove any whitespace that could cause invalid signature errors
             $accessToken = trim($accessToken);
             
-            // Validate token format (JWT should have 3 parts separated by dots)
-            $tokenParts = explode('.', $accessToken);
-            if (count($tokenParts) !== 3) {
-            }
-
             // Cache the token with TTL slightly less than expiry to avoid edge cases
             $cacheTtl = max(1, $expiresIn - 60);
             $cache->save($accessToken, $cacheKey, [], $cacheTtl);
