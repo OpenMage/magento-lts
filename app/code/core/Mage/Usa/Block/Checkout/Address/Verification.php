@@ -151,6 +151,17 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
     }
 
     /**
+     * Escape string for use in JavaScript (wrapper for Magento 1 jsQuoteEscape)
+     *
+     * @param string $string
+     * @return string
+     */
+    public function escapeJs($string)
+    {
+        return $this->jsQuoteEscape($string);
+    }
+
+    /**
      * Set warning messages
      *
      * @param array $warnings
@@ -236,7 +247,7 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
             $lines[] = implode(', ', $cityStateZip);
         }
 
-        return implode('<br/>', $lines);
+        return implode('<br/>', array_map('strval', $lines));
     }
 
     /**

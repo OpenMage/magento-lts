@@ -233,7 +233,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             'MID' => $this->_config['mid'],
         );
 
-        if (!empty($this->_config['manifest_mid'])) {
+        if (isset($this->_config['manifest_mid']) && $this->_config['manifest_mid'] !== '' && $this->_config['manifest_mid'] !== null) {
             $payload['manifestMID'] = $this->_config['manifest_mid'];
         }
 
@@ -251,7 +251,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
         $payload = $this->_buildDomesticLabelRequest($request);
         $payload['customsDeclaration'] = $this->_buildCustomsDeclaration($request);
 
-        if (!empty($this->_config['aesitn'])) {
+        if (isset($this->_config['aesitn']) && $this->_config['aesitn'] !== '' && $this->_config['aesitn'] !== null) {
             $payload['AES'] = $this->_config['aesitn'];
         }
 
@@ -301,11 +301,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
             'paymentType' => $this->_config['account_type'],
         );
 
-        if (!empty($this->_config['eps_account_number'])) {
+        if (isset($this->_config['eps_account_number']) && $this->_config['eps_account_number'] !== '' && $this->_config['eps_account_number'] !== null) {
             $payment['accountNumber'] = $this->_config['eps_account_number'];
         }
 
-        if ($this->_config['account_type'] === 'PERMIT' && !empty($this->_config['permit_zip'])) {
+        if ($this->_config['account_type'] === 'PERMIT' && isset($this->_config['permit_zip']) && $this->_config['permit_zip'] !== '' && $this->_config['permit_zip'] !== null) {
             $payment['permitZIP'] = $this->_config['permit_zip'];
         }
 
@@ -484,15 +484,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service
      */
     protected function _extractErrorMessage(array $response)
     {
-        if (!empty($response['error'])) {
+        if (isset($response['error']) && $response['error'] !== '' && $response['error'] !== null) {
             return $response['error'];
         }
 
-        if (!empty($response['data']['errors'][0]['message'])) {
+        if (isset($response['data']['errors'][0]['message']) && $response['data']['errors'][0]['message'] !== '' && $response['data']['errors'][0]['message'] !== null) {
             return $response['data']['errors'][0]['message'];
         }
 
-        if (!empty($response['data']['error']['message'])) {
+        if (isset($response['data']['error']['message']) && $response['data']['error']['message'] !== '' && $response['data']['error']['message'] !== null) {
             return $response['data']['error']['message'];
         }
 

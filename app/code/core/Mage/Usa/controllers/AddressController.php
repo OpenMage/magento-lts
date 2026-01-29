@@ -10,14 +10,14 @@
 class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_AddressService
+     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected $_addressService;
 
     /**
      * Get address service instance
      *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_AddressService
+     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _getAddressService()
     {
@@ -80,13 +80,13 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
             $result['original'] = $addressData;
 
             // Validate required fields
-            if (empty($addressData['street1'])) {
+            if ($addressData['street1'] === '' || $addressData['street1'] === null) {
                 $result['message'] = $this->__('Street address is required.');
                 $this->_sendJsonResponse($result);
                 return;
             }
 
-            if (empty($addressData['city']) && empty($addressData['postcode'])) {
+            if (($addressData['city'] === '' || $addressData['city'] === null) && ($addressData['postcode'] === '' || $addressData['postcode'] === null)) {
                 $result['message'] = $this->__('City or ZIP code is required.');
                 $this->_sendJsonResponse($result);
                 return;

@@ -72,7 +72,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     public function getRestTracking(array $trackingNumbers, $accessToken, $baseUrl)
     {
-        if (empty($trackingNumbers) || empty($accessToken)) {
+        if ($trackingNumbers === [] || $trackingNumbers === null || $accessToken === '' || $accessToken === null) {
             return null;
         }
 
@@ -192,7 +192,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
         }
 
         // Set successful tracking data
-        if (!empty($resultArr)) {
+        if ($resultArr !== [] && $resultArr !== null) {
             $tracking = Mage::getModel('shipping/tracking_result_status');
             $tracking->setCarrier('usps');
             $tracking->setCarrierTitle($this->_getCarrierTitle());
@@ -308,7 +308,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
             if ($trackingData) {
                 foreach ($trackingData as $tracking) {
                     $data = $tracking->getAllData();
-                    if (!empty($data['track_summary'])) {
+                    if (isset($data['track_summary']) && $data['track_summary'] !== '' && $data['track_summary'] !== null) {
                         $statuses .= Mage::helper('usa')->__($data['track_summary']);
                     } else {
                         $statuses .= Mage::helper('usa')->__('Empty response');

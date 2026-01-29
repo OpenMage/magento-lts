@@ -74,7 +74,7 @@ var UspsAddressVerification = {
     config: {
         verifyUrl: '<?php echo $this->escapeJs($this->getVerifyUrl()) ?>',
         applyUrl: '<?php echo $this->escapeJs($this->getApplyUrl()) ?>',
-        enabled: <?php echo $this->isEnabled() ? 'true' : 'false' ?>
+        enabled: <?php echo $this->isEnabled() ? 'true' : 'false'; ?>
     },
     
     fieldLabels: {

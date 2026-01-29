@@ -26,7 +26,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
         
         try {
-            if (empty($clientId) || empty($clientSecret) || empty($environment)) {
+            if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
                 throw new Exception('Client ID, Client Secret, and Environment are required.');
             }
             
@@ -217,7 +217,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
         }
         
         try {
-            if (empty($clientId) || empty($clientSecret) || empty($environment)) {
+            if ($clientId === '' || $clientId === null || $clientSecret === '' || $clientSecret === null || $environment === '' || $environment === null) {
                 throw new Exception('Client ID, Client Secret, and Environment are required.');
             }
             

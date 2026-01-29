@@ -19,14 +19,14 @@
 class Mage_Usa_Model_Observer
 {
     /**
-     * @var Mage_Usa_Model_Shipping_Carrier_Usps_AddressService
+     * @var Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected $_addressService;
 
     /**
      * Get address service instance
      *
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps_AddressService
+     * @return Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
      */
     protected function _getAddressService()
     {
