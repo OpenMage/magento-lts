@@ -300,17 +300,17 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Get USPS REST API gateway URL
      *
      * Returns the configured gateway URL. In admin, this field auto-populates
-     * based on the rest_environment selection via JavaScript.
+     * based on the environment selection via JavaScript.
      *
      * @return string
      */
     protected function _getRestGatewayUrl()
     {
-        $url = $this->getConfigData('gateway_rest_url');
-        
+        $url = $this->getConfigData('gateway_url');
+
         // If no URL configured, determine from environment setting
         if (!$url) {
-            $environment = $this->getConfigData('rest_environment');
+            $environment = $this->getConfigData('environment');
             /** @var Mage_Usa_Model_Shipping_Carrier_Usps_Source_Environment $envSource */
             $envSource = Mage::getSingleton('usa/shipping_carrier_usps_source_environment');
             $url = $envSource->getUrlForEnvironment($environment ?: 'sandbox');

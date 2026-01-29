@@ -11,6 +11,14 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 {
     public function testconnectionAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                'success' => false,
+                'message' => 'Invalid form key. Please refresh the page and try again.'
+            ]));
+            return;
+        }
+
         $request = $this->getRequest();
         $environment = $request->getParam('environment');
         $clientId = $request->getParam('client_id');
@@ -124,6 +132,14 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
 
     public function createdimensionsAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                'success' => false,
+                'message' => 'Invalid form key. Please refresh the page and try again.'
+            ]));
+            return;
+        }
+
         try {
             $attributes = [
                 'package_length' => 'Package Length (inches)',

@@ -187,6 +187,9 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     public function getCacheTtl($store = null)
     {
         $ttl = Mage::getStoreConfig('carriers/usps/cache_ttl', $store);
-        return $ttl ? (int)$ttl : 3600;
+        if ($ttl === null || $ttl === '') {
+            return 3600;
+        }
+        return (int)$ttl;
     }
 }

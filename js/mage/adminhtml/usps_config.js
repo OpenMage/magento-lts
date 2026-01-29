@@ -8,7 +8,7 @@
 var UspsConfig = {
     // URL mappings for each environment
     urls: {
-        'production': 'https://api.usps.com/',
+        'production': 'https://apis.usps.com/',
         'sandbox': 'https://apis-tem.usps.com/'
     },
 
@@ -17,8 +17,8 @@ var UspsConfig = {
      */
     init: function() {
         // Get the environment dropdown element
-        var envField = document.getElementById('carriers_usps_rest_environment');
-        var urlField = document.getElementById('carriers_usps_gateway_rest_url');
+        var envField = document.getElementById('carriers_usps_environment');
+        var urlField = document.getElementById('carriers_usps_gateway_url');
         
         if (!envField || !urlField) {
             return; // Fields not present on this page

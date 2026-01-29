@@ -148,7 +148,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Service_Standards
             $cached = Mage::app()->getCache()->load($cacheKey);
 
             if ($cached !== false) {
-                $estimates[$mailClass] = unserialize($cached);
+                $estimates[$mailClass] = unserialize($cached, ['allowed_classes' => false]);
             } else {
                 $uncached[] = $mailClass;
             }
