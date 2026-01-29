@@ -11,7 +11,7 @@
  * Data collection
  *
  * @package    Varien_Data
- * @template T
+ * @template T of Varien_Object
  * @implements IteratorAggregate<T>
  */
 class Varien_Data_Collection implements IteratorAggregate, Countable
@@ -332,8 +332,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Search first item by field value
      *
-     * @param  string               $column
-     * @param  mixed                $value
+     * @param  string $column
+     * @param  mixed  $value
      * @return null|T
      */
     public function getItemByColumnValue($column, $value)
@@ -352,7 +352,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
-     * @param  T $item
+     * @param  T         $item
      * @return $this
      * @throws Exception
      */
@@ -376,7 +376,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Add item that has no id to collection
      *
-     * @param  T $item
+     * @param  T     $item
      * @return $this
      */
     protected function _addItem($item)
@@ -742,7 +742,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve item by id
      *
-     * @param  mixed                $idValue
+     * @param  mixed  $idValue
      * @return null|T
      */
     public function getItemById($idValue)
