@@ -209,11 +209,9 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
 
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
-            $result = $helper->jsonEncode((object) $jsonUsers);
-        } else {
-            $result = array_values($users);
+            return $helper->jsonEncode((object) $jsonUsers);
         }
 
-        return $result;
+        return array_values($users);
     }
 }

@@ -14,6 +14,7 @@
  *
  * @method Mage_Log_Model_Resource_Customer _getResource()
  * @method int                              getCustomerId()
+ * @method string                           getLastVisitAt()
  * @method string                           getLoginAt()
  * @method string                           getLogoutAt()
  * @method Mage_Log_Model_Resource_Customer getResource()

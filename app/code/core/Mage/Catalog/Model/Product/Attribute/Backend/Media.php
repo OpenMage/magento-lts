@@ -626,17 +626,15 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     protected function _getUniqueFileName($file, $dirsep)
     {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
-            $destFile = Mage::helper('core/file_storage_database')
+            return Mage::helper('core/file_storage_database')
                 ->getUniqueFilename(
                     Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrlAddition(),
                     $file,
                 );
-        } else {
-            $destFile = dirname($file) . $dirsep
-                . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
         }
 
-        return $destFile;
+        return dirname($file) . $dirsep
+            . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getMediaPath($file));
     }
 
     /**

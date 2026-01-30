@@ -109,12 +109,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     public function getAddress()
     {
         if ($this->getIsAsBilling()) {
-            $address = $this->getCreateOrderModel()->getBillingAddress();
-        } else {
-            $address = $this->getCreateOrderModel()->getShippingAddress();
+            return $this->getCreateOrderModel()->getBillingAddress();
         }
 
-        return $address;
+        return $this->getCreateOrderModel()->getShippingAddress();
     }
 
     /**

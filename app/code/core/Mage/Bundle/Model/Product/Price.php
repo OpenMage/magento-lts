@@ -1047,12 +1047,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     {
         $prices = $this->_getCustomOptionValuesPrices($option);
         if ($prices) {
-            $maximalPrice = ($option->isMultipleType()) ? array_sum($prices) : max($prices);
-        } else {
-            $maximalPrice = (float) ($option->getPrice(true));
+            return ($option->isMultipleType()) ? array_sum($prices) : max($prices);
         }
 
-        return $maximalPrice;
+        return (float) ($option->getPrice(true));
     }
 
     /**

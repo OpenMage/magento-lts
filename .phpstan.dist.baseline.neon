@@ -5329,7 +5329,7 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Resource/Helper/Mysql4.php
 
 		-
-			rawMessage: 'Method Mage_ImportExport_Model_Resource_Import_Data::getIterator() should return IteratorIterator but returns Traversable<mixed, mixed>.'
+			rawMessage: 'Method Mage_ImportExport_Model_Resource_Import_Data::getIterator() should return Iterator but returns Traversable<mixed, mixed>.'
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php

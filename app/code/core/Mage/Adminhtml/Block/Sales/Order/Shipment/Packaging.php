@@ -193,12 +193,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     {
         $packages = $this->getShipment()->getPackages();
         if ($packages) {
-            $packages = unserialize($packages, ['allowed_classes' => false]);
-        } else {
-            $packages = [];
+            return unserialize($packages, ['allowed_classes' => false]);
         }
 
-        return $packages;
+        return [];
     }
 
     /**

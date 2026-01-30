@@ -123,25 +123,24 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
 
         if ($this->getUseMassaction()) {
-            $js = '
+            return '
                 function (node, e) {
                     if (node.ui.toggleCheck) {
                         node.ui.toggleCheck(true);
                     }
                 }
             ';
-        } else {
-            $chooserJsObject = $this->getId();
-            $js = '
+        }
+
+        $chooserJsObject = $this->getId();
+
+        return '
                 function (node, e) {
                     ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
                     ' . $chooserJsObject . '.setElementLabel(node.text);
                     ' . $chooserJsObject . '.close();
                 }
             ';
-        }
-
-        return $js;
     }
 
     /**

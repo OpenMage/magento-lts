@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     /**
      * @return string|void
+     * @throws Mage_Core_Exception
      */
     public function getGroupName()
     {
@@ -51,6 +52,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      * Load Customer Log model
      *
      * @return Mage_Log_Model_Customer
+     * @throws Mage_Core_Exception
      */
     public function getCustomerLog()
     {
@@ -92,6 +94,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         );
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreCreateDateTimezone()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())
@@ -102,6 +108,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      * Get customer last login date
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getLastLoginDate()
     {
@@ -112,6 +119,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getStoreLastLoginDate()
     {
@@ -127,6 +135,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         return Mage::helper('customer')->__('Never');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreLastLoginDateTimezone()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())
@@ -135,6 +147,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getCurrentStatus()
     {
@@ -151,6 +164,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getIsConfirmedStatus()
     {
@@ -166,6 +180,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         return Mage::helper('customer')->__('Not confirmed, can login');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCreatedInStore()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())->getName();
@@ -178,17 +196,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     /**
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBillingAddressHtml()
     {
-        $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
-            $html = $address->format('html');
-        } else {
-            $html = Mage::helper('customer')->__('The customer does not have default billing address.');
+            return $address->format('html');
         }
 
-        return $html;
+        return Mage::helper('customer')->__('The customer does not have default billing address.');
     }
 
     /**

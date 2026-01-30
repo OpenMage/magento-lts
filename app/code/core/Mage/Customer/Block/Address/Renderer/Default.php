@@ -51,14 +51,13 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             ? false
             : $address->getCountryModel()->getFormat($this->getType()->getCode());
         if ($countryFormat) {
-            $format = $countryFormat->getFormat();
-        } else {
-            $regExp = "/^[^()\n]*+(\((?>[^()\n]|(?1))*+\)[^()\n]*+)++$|^[^()]+?$/m";
-            preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
-            $format = count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
+            return $countryFormat->getFormat();
         }
 
-        return $format;
+        $regExp = "/^[^()\n]*+(\((?>[^()\n]|(?1))*+\)[^()\n]*+)++$|^[^()]+?$/m";
+        preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
+
+        return count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
     }
 
     /**

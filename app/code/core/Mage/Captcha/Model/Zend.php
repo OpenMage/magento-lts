@@ -320,13 +320,12 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         $fonts = $this->_getHelper()->getFonts();
 
         if (isset($fonts[$font])) {
-            $fontPath = $fonts[$font]['path'];
-        } else {
-            $fontData = array_shift($fonts);
-            $fontPath = $fontData['path'];
+            return $fonts[$font]['path'];
         }
 
-        return $fontPath;
+        $fontData = array_shift($fonts);
+
+        return $fontData['path'];
     }
 
     /**

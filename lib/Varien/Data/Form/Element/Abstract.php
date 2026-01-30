@@ -261,13 +261,11 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
+            return '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
                   . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
-        } else {
-            $html = '';
         }
 
-        return $html;
+        return '';
     }
 
     /**
@@ -296,12 +294,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
 
         if ($this->_renderer) {
-            $html = $this->_renderer->render($this);
-        } else {
-            $html = $this->getDefaultHtml();
+            return $this->_renderer->render($this);
         }
 
-        return $html;
+        return $this->getDefaultHtml();
     }
 
     /**
