@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
                 'renderer'  => 'adminhtml/system_email_template_grid_renderer_action',
             ],
         );
-        return $this;
+        return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
