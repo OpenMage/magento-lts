@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USA Module Layout
+ * 
+ * Adds JavaScript for USPS configuration in admin
+ */
+-->
+<layout>
+    <!-- Load USPS configuration JavaScript on system config page -->
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/mage/adminhtml/usps_config.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="usps.config" template="system/shipping/usps.phtml" />
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>
