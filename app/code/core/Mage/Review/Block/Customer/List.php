@@ -56,7 +56,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Initializes toolbar
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -119,7 +119,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     }
 
     /**
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {

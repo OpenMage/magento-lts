@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
     /**
      * Initialize creditmemo totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {

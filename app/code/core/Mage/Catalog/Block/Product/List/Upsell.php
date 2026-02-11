@@ -74,7 +74,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

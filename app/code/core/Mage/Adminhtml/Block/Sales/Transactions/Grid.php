@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

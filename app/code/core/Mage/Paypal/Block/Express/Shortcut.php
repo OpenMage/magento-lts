@@ -61,7 +61,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     protected $_checkoutType = 'paypal/express_checkout';
 
     /**
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {

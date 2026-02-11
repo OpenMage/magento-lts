@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Processing object before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

@@ -38,7 +38,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      * Set active website instance
      *
      * @param  int|Mage_Core_Model_Website $website
-     * @return Mage_Eav_Model_Attribute
+     * @return $this
      */
     public function setWebsite($website)
     {
@@ -110,7 +110,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      * Set validate rules
      *
      * @param  array|string             $rules
-     * @return Mage_Eav_Model_Attribute
+     * @return $this
      */
     public function setValidateRules($rules)
     {

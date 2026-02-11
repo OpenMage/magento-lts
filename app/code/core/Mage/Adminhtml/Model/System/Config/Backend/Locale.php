@@ -17,7 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
     /**
      * Validate data before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()

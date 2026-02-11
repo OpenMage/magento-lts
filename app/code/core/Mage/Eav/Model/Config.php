@@ -648,7 +648,7 @@ class Mage_Eav_Model_Config
     /**
      * @param  mixed                 $entityType
      * @param  array                 $attributes
-     * @return Mage_Eav_Model_Config
+     * @return $this
      * @deprecated No longer required to preload only collection attributes explicitly
      * Prepare attributes for usage in EAV collection
      */

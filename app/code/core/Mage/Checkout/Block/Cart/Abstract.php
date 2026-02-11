@@ -36,7 +36,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      * @param  string                            $productType
      * @param  string                            $blockType
      * @param  string                            $template
-     * @return Mage_Checkout_Block_Cart_Abstract
+     * @return $this
      */
     public function addItemRender($productType, $blockType, $template)
     {

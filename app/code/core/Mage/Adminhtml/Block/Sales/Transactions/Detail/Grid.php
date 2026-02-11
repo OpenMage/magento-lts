@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     /**
      * Add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

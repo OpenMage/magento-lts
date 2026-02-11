@@ -116,7 +116,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Before rendering html, check if is block rendering needed
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {

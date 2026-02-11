@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

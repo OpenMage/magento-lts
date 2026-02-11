@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      *
      * @param  string                                    $columnId
      * @param  array                                     $column
-     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @return $this
      */
     public function addColumn($columnId, $column)
     {

@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
     /**
      * Add filter by parent transaction ID
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {

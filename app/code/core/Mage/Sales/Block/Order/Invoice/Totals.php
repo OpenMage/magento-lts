@@ -55,7 +55,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
     protected function _initTotals()
     {

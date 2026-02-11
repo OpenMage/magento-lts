@@ -37,7 +37,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @param  int                                $oid
-     * @return Mage_Shipping_Block_Tracking_Popup
+     * @return $this
      * @deprecated after 1.3.2.3
      */
     public function setOrderId($oid)
@@ -55,7 +55,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @param  int                                $oid
-     * @return Mage_Shipping_Block_Tracking_Popup
+     * @return $this
      * @deprecated after 1.3.2.3
      */
     public function setShipId($oid)
@@ -73,7 +73,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @param  string                             $tid
-     * @return Mage_Shipping_Block_Tracking_Popup
+     * @return $this
      * @deprecated after 1.3.2.3
      */
     public function setTrackId($tid = '')

@@ -46,7 +46,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDelete()
     {

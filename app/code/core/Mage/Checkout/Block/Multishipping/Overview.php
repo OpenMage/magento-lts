@@ -315,7 +315,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      * @param  string                                     $type     Product type
      * @param  string                                     $block    Block type
      * @param  string                                     $template Block template
-     * @return Mage_Checkout_Block_Multishipping_Overview
+     * @return $this
      */
     public function addRowItemRender($type, $block, $template)
     {

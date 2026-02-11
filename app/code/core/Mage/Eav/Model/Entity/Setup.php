@@ -1289,7 +1289,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *                                                    - no-main
      *                                                    - no-default-types
      *                                                    - types
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:

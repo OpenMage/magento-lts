@@ -79,7 +79,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Set messages collection
      *
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function setMessages(Mage_Core_Model_Message_Collection $messages)
     {
@@ -118,7 +118,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new message to message collection
      *
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -130,7 +130,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      * Adding new error message
      *
      * @param  string                   $message
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addError($message)
     {
@@ -142,7 +142,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      * Adding new warning message
      *
      * @param  string                   $message
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addWarning($message)
     {
@@ -154,7 +154,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      * Adding new nitice message
      *
      * @param  string                   $message
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addNotice($message)
     {
@@ -166,7 +166,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      * Adding new success message
      *
      * @param  string                   $message
-     * @return Mage_Core_Block_Messages
+     * @return $this
      */
     public function addSuccess($message)
     {

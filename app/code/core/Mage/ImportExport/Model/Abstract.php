@@ -55,7 +55,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      * Log file dir: var/log/import_export/%Y/%m/%d/%time%_%operation_type%_%entity_type%.log
      *
      * @param  mixed                            $debugData
-     * @return Mage_ImportExport_Model_Abstract
+     * @return $this
      */
     public function addLogComment($debugData)
     {
@@ -113,7 +113,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      * Sets debug mode
      *
      * @param  bool                             $mode
-     * @return Mage_ImportExport_Model_Abstract
+     * @return $this
      */
     public function setDebugMode($mode = true)
     {
