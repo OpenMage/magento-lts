@@ -136,9 +136,8 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set last list flag
      *
-     * @param  bool                                 $value
-     *                                                     return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsLast($value)
     {
