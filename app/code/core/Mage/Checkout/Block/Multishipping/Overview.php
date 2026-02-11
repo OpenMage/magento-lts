@@ -312,9 +312,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Add renderer for row-level item output
      *
-     * @param  string                                     $type     Product type
-     * @param  string                                     $block    Block type
-     * @param  string                                     $template Block template
+     * @param  string $type     Product type
+     * @param  string $block    Block type
+     * @param  string $template Block template
      * @return $this
      */
     public function addRowItemRender($type, $block, $template)

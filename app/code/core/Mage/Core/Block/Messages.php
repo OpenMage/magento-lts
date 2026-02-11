@@ -129,7 +129,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new error message
      *
-     * @param  string                   $message
+     * @param  string $message
      * @return $this
      */
     public function addError($message)
@@ -141,7 +141,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new warning message
      *
-     * @param  string                   $message
+     * @param  string $message
      * @return $this
      */
     public function addWarning($message)
@@ -153,7 +153,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new nitice message
      *
-     * @param  string                   $message
+     * @param  string $message
      * @return $this
      */
     public function addNotice($message)
@@ -165,7 +165,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new success message
      *
-     * @param  string                   $message
+     * @param  string $message
      * @return $this
      */
     public function addSuccess($message)

@@ -1284,11 +1284,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Create entity tables
      *
-     * @param  string                      $baseTableName
-     * @param  array                       $options
-     *                                                    - no-main
-     *                                                    - no-default-types
-     *                                                    - types
+     * @param  string              $baseTableName
+     * @param  array               $options
+     *                                            - no-main
+     *                                            - no-default-types
+     *                                            - types
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception

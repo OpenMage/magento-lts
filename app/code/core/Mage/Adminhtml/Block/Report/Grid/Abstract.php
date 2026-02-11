@@ -90,8 +90,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
-     * @param  string                                    $columnId
-     * @param  array                                     $column
+     * @param  string $columnId
+     * @param  array  $column
      * @return $this
      */
     public function addColumn($columnId, $column)

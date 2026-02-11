@@ -90,7 +90,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Set layout area
      *
-     * @param  string                 $area
+     * @param  string $area
      * @return $this
      */
     public function setArea($area)
@@ -112,7 +112,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Declaring layout direct output flag
      *
-     * @param  bool                   $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setDirectOutput($flag)

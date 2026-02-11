@@ -109,7 +109,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set validate rules
      *
-     * @param  array|string             $rules
+     * @param  array|string $rules
      * @return $this
      */
     public function setValidateRules($rules)

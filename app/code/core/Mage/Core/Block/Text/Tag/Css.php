@@ -28,8 +28,8 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     }
 
     /**
-     * @param  string                       $href
-     * @param  null|string                  $type
+     * @param  string      $href
+     * @param  null|string $type
      * @return $this
      */
     public function setHref($href, $type = null)

@@ -58,8 +58,8 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     /**
      * Declare info block template
      *
-     * @param  string                            $method
-     * @param  string                            $template
+     * @param  string $method
+     * @param  string $template
      * @return $this
      */
     public function setInfoTemplate($method = '', $template = '')

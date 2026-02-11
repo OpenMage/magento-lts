@@ -114,7 +114,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set first list flag
      *
-     * @param  bool                                 $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsFirst($value)

@@ -17,7 +17,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     /**
      * Set handler class name for webservice
      *
-     * @param  string                                  $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler);
