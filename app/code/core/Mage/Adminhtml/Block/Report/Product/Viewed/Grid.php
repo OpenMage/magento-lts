@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
     /**
      * Custom columns preparation
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
      *
      * @param  Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
      * @param  Varien_Object                                          $filterData
-     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @return $this
      */
     protected function _addOrderStatusFilter($collection, $filterData)
     {

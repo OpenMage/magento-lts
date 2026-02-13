@@ -54,7 +54,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

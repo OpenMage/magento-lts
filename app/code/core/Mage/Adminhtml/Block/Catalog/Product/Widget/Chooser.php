@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Prepare products collection, defined collection filters (category, product type)
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -203,7 +203,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Prepare columns for products grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

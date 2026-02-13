@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Initialize form fields values
      * Method will be called after prepareForm and can be used for field values initialization
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _initFormValues()
     {
@@ -187,7 +187,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _beforeToHtml()
     {

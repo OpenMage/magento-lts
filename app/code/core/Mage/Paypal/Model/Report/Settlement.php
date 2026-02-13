@@ -156,7 +156,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     /**
      * Stop saving process if file with same report date, account ID and last modified date was already ferched
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {

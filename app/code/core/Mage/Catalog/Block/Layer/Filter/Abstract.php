@@ -48,7 +48,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     /**
      * Initialize filter model object
      *
-     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     * @return $this
      */
     public function init()
     {
@@ -59,7 +59,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     /**
      * Init filter model object
      *
-     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     * @return $this
      */
     protected function _initFilter()
     {
@@ -78,7 +78,7 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     /**
      * Prepare filter process
      *
-     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     * @return $this
      */
     protected function _prepareFilter()
     {

@@ -21,7 +21,7 @@ class Mage_Catalog_Block_Layer_Filter_Attribute extends Mage_Catalog_Block_Layer
     }
 
     /**
-     * @return $this|Mage_Catalog_Block_Layer_Filter_Abstract
+     * @return $this
      */
     protected function _prepareFilter()
     {

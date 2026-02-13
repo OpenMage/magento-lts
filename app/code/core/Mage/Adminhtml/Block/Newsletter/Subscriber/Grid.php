@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     protected function _prepareCollection()

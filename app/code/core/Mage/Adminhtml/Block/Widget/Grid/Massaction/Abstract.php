@@ -113,8 +113,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      *      'additional' => string|array|Mage_Core_Block_Abstract // (optional)
      * );
      *
-     * @param  string                                               $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  string $itemId
+     * @return $this
      */
     public function addItem($itemId, array $item)
     {
@@ -314,8 +314,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Remove existing massaction item by its id
      *
-     * @param  string                                               $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  string $itemId
+     * @return $this
      */
     public function removeItem($itemId)
     {
@@ -339,8 +339,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param  bool                                                 $flag
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  bool  $flag
+     * @return $this
      */
     public function setUseSelectAll($flag)
     {

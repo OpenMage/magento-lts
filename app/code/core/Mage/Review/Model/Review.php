@@ -165,7 +165,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Perform actions after object delete
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDeleteCommit()
     {
@@ -207,7 +207,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
