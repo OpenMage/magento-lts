@@ -115,12 +115,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
 
 		-
-			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 3
@@ -415,12 +409,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php
 
 		-
-			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
@@ -497,12 +485,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php
-
-		-
-			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -923,12 +905,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
-
-		-
-			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -1379,12 +1355,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
-
-		-
-			rawMessage: 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -2479,12 +2449,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			rawMessage: 'Method Mage_Catalog_Model_Product_Type_Configurable::getProductByAttributes() should return Mage_Catalog_Model_Product|null but returns Varien_Object.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			rawMessage: PHPDoc tag @var with type Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option is not subtype of type Mage_Sales_Model_Quote_Item_Option.
 			identifier: varTag.type
 			count: 1
@@ -2593,12 +2557,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
 
 		-
-			rawMessage: 'Parameter #1 $resource of method Mage_Core_Model_Resource_Db_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Db_Abstract|null, Mage_Core_Model_Resource_Abstract|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
@@ -2683,22 +2641,10 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			rawMessage: PHPDoc type array of property Mage_Catalog_Model_Resource_Product_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			rawMessage: Variable $websiteId might not be defined.
 			identifier: variable.undefined
 			count: 3
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $object of method Mage_Eav_Model_Entity_Collection_Abstract::setObject() expects Varien_Object|null, string given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -4075,12 +4021,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Resource_Db_Collection_Abstract::$_resource (Mage_Core_Model_Resource_Db_Abstract) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract|false.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
 			rawMessage: Variable $alias might not be defined.
 			identifier: variable.undefined
 			count: 3
@@ -4161,12 +4101,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Website/Collection.php
-
-		-
-			rawMessage: PHPDoc type array of property Mage_Core_Model_Resource_Website_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Website/Collection.php
 
@@ -4981,12 +4915,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
 
 		-
-			rawMessage: 'Parameter #1 $resource of method Mage_Eav_Model_Entity_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Abstract|null, Varien_Db_Adapter_Interface|false given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface::getAttributeCode().'
 			identifier: method.notFound
 			count: 1
@@ -4996,12 +4924,6 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 12
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			rawMessage: 'Parameter #1 $className of method Varien_Data_Collection::setItemObjectClass() expects string, null given.'
-			identifier: argument.type
-			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
@@ -6139,18 +6061,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php
 
 		-
-			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/System/Config/Source/BuyerCountry.php
-
-		-
-			rawMessage: 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
@@ -6189,12 +6099,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 2
-			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
-
-		-
-			rawMessage: 'Method Mage_Rating_Model_Resource_Rating_Collection::getItemById() invoked with 1 parameter, 0 required.'
-			identifier: arguments.count
 			count: 2
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
@@ -6297,12 +6201,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
-
-		-
-			rawMessage: PHPDoc type array of property Mage_Reports_Model_Resource_Quote_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
@@ -6853,12 +6751,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			rawMessage: PHPDoc type array of property Mage_Sales_Model_Resource_Billing_Agreement_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Billing/Agreement/Collection.php
-
-		-
 			rawMessage: PHPDoc tag @var with type Mage_Reports_Model_Resource_Helper_Interface is not subtype of type Mage_Core_Model_Resource_Helper_Abstract.
 			identifier: varTag.type
 			count: 1
@@ -6879,12 +6771,6 @@ parameters:
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
 
@@ -7255,12 +7141,6 @@ parameters:
 			path: app/code/core/Mage/Tag/Model/Resource/Tag.php
 
 		-
-			rawMessage: PHPDoc type array of property Mage_Tag_Model_Resource_Tag_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 2
@@ -7601,12 +7481,6 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
-
-		-
-			rawMessage: PHPDoc type array of property Mage_Widget_Model_Resource_Widget_Instance_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.
-			identifier: property.phpDocType
-			count: 1
-			path: app/code/core/Mage/Widget/Model/Resource/Widget/Instance/Collection.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
