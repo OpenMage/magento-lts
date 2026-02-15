@@ -153,13 +153,13 @@ class Mage_Core_Model_Email extends Varien_Object
                 'subject'    => $this->getSubject(),
                 'email_body' => $this->getBody(),
             ]);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $throwable) {
             Mage::dispatchEvent('email_exception', [
                 'obj' => $this,
                 'mail' => $mail,
-                'exception' => $e,
+                'exception' => $throwable,
             ]);
-            throw $e;
+            throw $throwable;
         }
 
         return $this;
