@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _afterLoadCollection()
     {
-        return $this;
+        return parent::_afterLoadCollection();
     }
 
     /**
