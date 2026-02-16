@@ -145,14 +145,18 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::registry('current_product');
-        if ($this->isEnabled() && $product) {
+        // Check if swatches are enabled and if there are detail page swatch attributes configured
+        // Note: Product detail swatches work independently of listing attribute configuration
+        if (Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED) && $product) {
             $configAttrs = $this->getSwatchAttributeIds();
-            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
-            $productType = $product->getTypeInstance(true);
-            $configurableAttributes = $productType->getConfigurableAttributesAsArray($product);
-            foreach ($configurableAttributes as $configurableAttribute) {
-                if (in_array($configurableAttribute['attribute_id'], $configAttrs)) {
-                    return 'js/configurableswatches/swatches-product.js';
+            if ($configAttrs !== []) {
+                /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+                $productType = $product->getTypeInstance(true);
+                $configurableAttributes = $productType->getConfigurableAttributesAsArray($product);
+                foreach ($configurableAttributes as $configurableAttribute) {
+                    if (in_array($configurableAttribute['attribute_id'], $configAttrs)) {
+                        return 'js/configurableswatches/swatches-product.js';
+                    }
                 }
             }
         }
