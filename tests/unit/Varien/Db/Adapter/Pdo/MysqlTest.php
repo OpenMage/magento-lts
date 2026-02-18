@@ -12,14 +12,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Varien\Db\Adapter\Pdo;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use ReflectionMethod;
 use Varien_Db_Adapter_Pdo_Mysql;
 use Varien_Object;
 
 final class MysqlTest extends TestCase
 {
-    public Varien_Db_Adapter_Pdo_Mysql $adapter;
-
     protected function setUp(): void
     {
         $config = [
@@ -31,14 +30,11 @@ final class MysqlTest extends TestCase
             'active' => '1',
         ];
 
-        // Create a mock object for Varien_Db_Adapter_Pdo_Mysql
-        $this->adapter = $this->createMock(Varien_Db_Adapter_Pdo_Mysql::class);
-
         // Call the constructor manually with our config
-        $reflectedAdapter = new \ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
+        $reflectedAdapter = new ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
         /** @var ReflectionMethod $constructor */
         $constructor = $reflectedAdapter->getConstructor();
-        $constructor->invoke($this->adapter, $config);
+        $constructor->invoke(self::createStub(Varien_Db_Adapter_Pdo_Mysql::class), $config);
     }
 
     /**
@@ -164,7 +160,7 @@ final class MysqlTest extends TestCase
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
 
         /** @var Varien_Object $hostInfo */
-        $hostInfo = $method->invoke($this->adapter, $str);
+        $hostInfo = $method->invoke(self::createStub(Varien_Db_Adapter_Pdo_Mysql::class), $str);
         return $hostInfo;
     }
 }
