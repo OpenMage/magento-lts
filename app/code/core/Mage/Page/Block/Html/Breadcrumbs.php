@@ -66,9 +66,9 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $crumbName
-     * @param array  $crumbInfo
-     * @param bool   $before
+     * @param string       $crumbName
+     * @param array        $crumbInfo
+     * @param false|string $before
      */
     public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
     {
