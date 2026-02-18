@@ -52,7 +52,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set option
      *
-     * @return Mage_Catalog_Block_Product_View_Options_Abstract
+     * @return $this
      */
     public function setOption(Mage_Catalog_Model_Product_Option $option)
     {

@@ -28,9 +28,9 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     }
 
     /**
-     * @param  string                       $href
-     * @param  null|string                  $type
-     * @return Mage_Core_Block_Text_Tag_Css
+     * @param  string      $href
+     * @param  null|string $type
+     * @return $this
      */
     public function setHref($href, $type = null)
     {

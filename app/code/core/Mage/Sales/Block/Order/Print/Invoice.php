@@ -76,7 +76,7 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @inheritDoc
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {

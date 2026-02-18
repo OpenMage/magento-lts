@@ -91,7 +91,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     /**
      * Add fields to main fieldset based on specified widget type
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     public function addFields()
     {

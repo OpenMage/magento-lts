@@ -15,7 +15,7 @@
 class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 {
     /**
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
     protected function _prepareLayout()
     {

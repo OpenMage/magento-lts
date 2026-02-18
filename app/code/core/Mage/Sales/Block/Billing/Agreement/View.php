@@ -106,7 +106,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     /**
      * Set pager
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {

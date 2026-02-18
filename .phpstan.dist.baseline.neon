@@ -3247,34 +3247,10 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api.php
 
 		-
-			rawMessage: 'Strict comparison using !== between array<string, mixed> and null will always evaluate to true.'
-			identifier: notIdentical.alwaysTrue
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
-
-		-
-			rawMessage: Unreachable statement - code above always terminates.
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
-
-		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 4
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php
-
-		-
-			rawMessage: 'Strict comparison using !== between array<string, mixed> and null will always evaluate to true.'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
-
-		-
-			rawMessage: Unreachable statement - code above always terminates.
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -4391,18 +4367,6 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			rawMessage: 'Strict comparison using !== between array<string, mixed> and null will always evaluate to true.'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
-
-		-
-			rawMessage: Unreachable statement - code above always terminates.
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
 		-
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
@@ -7463,6 +7427,12 @@ parameters:
 			identifier: empty.notAllowed
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Tax.php
+
+		-
+			rawMessage: If condition is always false.
+			identifier: if.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
 
 		-
 			rawMessage: PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee::$_helper is not the same as PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax::$_helper.

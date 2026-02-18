@@ -32,7 +32,7 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
     /**
      * Set data to block
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {
