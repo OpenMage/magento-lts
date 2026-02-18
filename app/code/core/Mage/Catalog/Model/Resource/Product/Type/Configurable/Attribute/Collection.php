@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getItemById(int $value)
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Catalog_Model_Product_Type_Configurable_Attribute>
  */
 class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

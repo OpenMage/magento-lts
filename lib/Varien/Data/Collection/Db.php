@@ -11,6 +11,8 @@
  * Base items collection class
  *
  * @package    Varien_Data
+ * @template T of Varien_Object
+ * @extends Varien_Data_Collection<T>
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {

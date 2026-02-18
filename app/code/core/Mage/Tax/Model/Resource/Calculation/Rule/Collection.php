@@ -12,7 +12,7 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Calculation_Rule[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tax_Model_Calculation_Rule>
  */
 class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

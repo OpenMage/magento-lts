@@ -12,8 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Quote_Item   getItemById(int $value)
- * @method Mage_Sales_Model_Quote_Item[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Quote_Item>
  */
 class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

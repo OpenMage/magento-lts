@@ -12,8 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Shipment_Comment   getItemById(int $value)
- * @method Mage_Sales_Model_Order_Shipment_Comment[] getItems()
+ * @extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Shipment_Comment>
  */
 class Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
 {
