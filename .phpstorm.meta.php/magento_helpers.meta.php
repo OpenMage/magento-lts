@@ -2,6 +2,10 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
