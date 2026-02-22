@@ -53,11 +53,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     {
         if (is_null($key)) {
             return $this->_defaults;
-        } elseif (isset($this->_defaults[$key])) {
-            return $this->_defaults[$key];
         }
 
-        return false;
+        return $this->_defaults[$key] ?? false;
     }
 
     /**
@@ -338,7 +336,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         $redirectCode = Mage::getStoreConfigAsInt('web/url/redirect_to_base');
         if (!$redirectCode) {
             return;
-        } elseif ($redirectCode != 301) {
+        }
+
+        if ($redirectCode != 301) {
             $redirectCode = 302;
         }
 

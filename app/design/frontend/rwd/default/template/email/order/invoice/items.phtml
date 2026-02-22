@@ -34,7 +34,7 @@
         </thead>
 
         <?php $i=0; foreach ($_invoice->getAllItems() as $_item): ?>
-        <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
+        <?php if($_item->getOrderItem()->getParentItem()) continue; $i++; ?>
             <?php echo $this->getItemHtml($_item) ?>
         <?php endforeach ?>
 

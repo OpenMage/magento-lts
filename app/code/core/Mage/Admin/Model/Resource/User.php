@@ -115,9 +115,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             ];
 
             return $adapter->fetchAll($select, $binds);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -387,9 +387,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 ->where('user_id = :user_id');
 
             return $dbh->fetchCol($select, $binds);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**

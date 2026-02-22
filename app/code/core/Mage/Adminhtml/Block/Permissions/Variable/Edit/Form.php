@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_Permissions_Variable_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      * @throws Exception
      */
     protected function _prepareForm()

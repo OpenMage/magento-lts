@@ -17,7 +17,7 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Option_Swatch extends Mage_Core_Model_Abstract
 {
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('eav/entity_attribute_option_swatch');
     }

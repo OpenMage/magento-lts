@@ -34,10 +34,12 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
     {
         if ($this->getValue() == 1) {
             return 1;
-        } elseif ($this->getValue() == 2) {
-            return 2;
-        } else {
-            return 3;
         }
+
+        if ($this->getValue() == 2) {
+            return 2;
+        }
+
+        return 3;
     }
 }

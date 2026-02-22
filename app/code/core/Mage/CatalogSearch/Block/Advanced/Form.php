@@ -15,9 +15,9 @@
 class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 {
     /**
-     * @return Mage_Core_Block_Template
+     * @return $this
      */
-    public function _prepareLayout()
+    protected function _prepareLayout()
     {
         // add Home breadcrumb
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */

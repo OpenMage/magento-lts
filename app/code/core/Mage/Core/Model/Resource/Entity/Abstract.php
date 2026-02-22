@@ -41,10 +41,8 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
     {
         if ($key === '') {
             return $this->_config;
-        } elseif (isset($this->_config->$key)) {
-            return $this->_config->$key;
-        } else {
-            return false;
         }
+
+        return $this->_config->$key ?? false;
     }
 }

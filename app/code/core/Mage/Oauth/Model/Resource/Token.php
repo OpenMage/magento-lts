@@ -75,8 +75,8 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
                     Varien_Date::formatDate(Carbon::now()->subMinutes($minutes)->getTimestamp()),
                 ),
             );
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 }

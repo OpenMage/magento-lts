@@ -68,9 +68,9 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                         && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } else {
                 $options = $item->getProductOptions();
@@ -79,9 +79,9 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                         && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
                     ) {
                         return false;
-                    } else {
-                        return true;
                     }
+
+                    return true;
                 }
             }
         }
@@ -119,9 +119,9 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                         && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return true;
-                    } else {
-                        return false;
                     }
+
+                    return false;
                 }
             } else {
                 $options = $item->getProductOptions();
@@ -130,9 +130,9 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                         && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
                     ) {
                         return false;
-                    } else {
-                        return true;
                     }
+
+                    return true;
                 }
             }
         }

@@ -16,7 +16,6 @@
  * @method string                                                  getCarrierTitle()
  * @method string                                                  getCode()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
- * @method string                                                  getCreatedAt()
  * @method string                                                  getErrorMessage()
  * @method string                                                  getMethod()
  * @method string                                                  getMethodDescription()
@@ -24,18 +23,15 @@
  * @method float                                                   getPrice()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getResourceCollection()
- * @method string                                                  getUpdatedAt()
  * @method $this                                                   setAddressId(int $value)
  * @method $this                                                   setCarrier(string $value)
  * @method $this                                                   setCarrierTitle(string $value)
  * @method $this                                                   setCode(string $value)
- * @method $this                                                   setCreatedAt(string $value)
  * @method $this                                                   setErrorMessage(string $value)
  * @method $this                                                   setMethod(string $value)
  * @method $this                                                   setMethodDescription(string $value)
  * @method $this                                                   setMethodTitle(string $value)
  * @method $this                                                   setPrice(float $value)
- * @method $this                                                   setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstract
 {

@@ -18,7 +18,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
  * @method string                                           getCompany()
  * @method bool                                             getConfirmation()
- * @method string                                           getCreatedAt()
  * @method int                                              getCustomerId()
  * @method null|int                                         getDefaultBilling()
  * @method null|int                                         getDefaultShipping()
@@ -238,7 +237,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Initialize customer model
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('customer/customer');
     }

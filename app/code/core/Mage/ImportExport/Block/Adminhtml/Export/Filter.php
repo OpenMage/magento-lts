@@ -110,9 +110,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                                 . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -167,9 +167,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'extra_params' => 'style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -249,9 +249,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
@@ -315,15 +315,15 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             return $selectBlock->setOptions($options)
                 ->setValue($value)
                 ->getHtml();
-        } else {
-            return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
         }
+
+        return Mage::helper('importexport')->__('Attribute does not has options, so filtering is impossible');
     }
 
     /**
      * Add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     protected function _prepareColumns()

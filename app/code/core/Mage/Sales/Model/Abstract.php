@@ -29,7 +29,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      * Processing object after save data
      * Updates relevant grid table records.
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {

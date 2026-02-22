@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
     /**
      * Preparing from for revision page
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
     protected function _prepareForm()
     {

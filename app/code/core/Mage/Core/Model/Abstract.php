@@ -15,10 +15,11 @@
  * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
  * @method string                               getCreatedAt()
  * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
+ * @method string                               getUpdatedAt()
  * @method bool                                 hasErrors()
  * @method $this                                setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
- * @method $this                                setCreatedAt(string $currentTime)
- * @method $this                                setUpdatedAt(string $currentTime)
+ * @method $this                                setCreatedAt(null|string $currentTime)
+ * @method $this                                setUpdatedAt(null|string $currentTime)
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -174,7 +175,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _getResource()
     {
-        if (empty($this->_resourceName)) {
+        if (is_null($this->_resourceName)) {
             Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
         }
 
@@ -213,9 +214,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $fieldName = $this->getIdFieldName();
         if ($fieldName) {
             return $this->_getData($fieldName);
-        } else {
-            return $this->_getData('id');
         }
+
+        return $this->_getData('id');
     }
 
     /**
@@ -254,7 +255,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function getResourceCollection()
     {
-        if (empty($this->_resourceCollectionName)) {
+        if (is_null($this->_resourceCollectionName)) {
             Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined.'));
         }
 

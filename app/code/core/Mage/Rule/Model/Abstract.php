@@ -98,7 +98,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Prepare data before saving
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -152,7 +152,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param Mage_Rule_Model_Condition_Combine $conditions
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     public function setConditions($conditions)
     {
@@ -192,7 +192,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param Mage_Rule_Model_Action_Collection $actions
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     public function setActions($actions)
     {
@@ -232,7 +232,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param null|Mage_Rule_Model_Condition_Combine $conditions
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     protected function _resetConditions($conditions = null)
     {
@@ -251,7 +251,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param null|Mage_Rule_Model_Action_Collection $actions
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     protected function _resetActions($actions = null)
     {
@@ -282,7 +282,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Initialize rule model data from array
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     public function loadPost(array $data)
     {
@@ -408,7 +408,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param bool $value
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     public function setIsDeleteable($value)
     {
@@ -431,7 +431,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param bool $value
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      */
     public function setIsReadonly($value)
     {
@@ -488,7 +488,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Combine website ids to string
      *
-     * @return Mage_Rule_Model_Abstract
+     * @return $this
      * @deprecated since 1.7.0.0
      */
     protected function _prepareWebsiteIds()

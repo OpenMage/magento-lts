@@ -147,13 +147,15 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
                 }
 
                 return Mage::helper('core')->jsonEncode((object) $jsonUsers);
-            } else {
-                return array_values($users);
             }
-        } elseif ($json) {
-            return '{}';
-        } else {
-            return [];
+
+            return array_values($users);
         }
+
+        if ($json) {
+            return '{}';
+        }
+
+        return [];
     }
 }

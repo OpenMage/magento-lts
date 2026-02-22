@@ -115,9 +115,9 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
         if (in_array($field, ['subscribers_total', 'subscribers_sent'])) {
             $this->addFieldToFilter('main_table.queue_id', ['in' => $this->_getIdsFromLink($field, $condition)]);
             return $this;
-        } else {
-            return parent::addFieldToFilter($field, $condition);
         }
+
+        return parent::addFieldToFilter($field, $condition);
     }
 
     /**

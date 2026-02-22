@@ -92,7 +92,6 @@ namespace PHPSTORM_META {
             'core/hint' => \Mage_Core_Helper_Hint::class,
             'core/http' => \Mage_Core_Helper_Http::class,
             'core/js' => \Mage_Core_Helper_Js::class,
-            'core/log' => \Mage_Core_Helper_Log::class,
             'core/measure_length' => \Mage_Core_Helper_Measure_Length::class,
             'core/measure_weight' => \Mage_Core_Helper_Measure_Weight::class,
             'core/purifier' => \Mage_Core_Helper_Purifier::class,

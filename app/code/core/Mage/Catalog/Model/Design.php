@@ -343,12 +343,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if ($object instanceof Mage_Catalog_Model_Product) {
             if ($category && $category->getCustomApplyToProducts()) {
                 return $this->_mergeSettings($this->_extractSettings($category), $this->_extractSettings($object));
-            } else {
-                return $this->_extractSettings($object);
             }
-        } else {
-            return $this->_extractSettings($category);
+
+            return $this->_extractSettings($object);
         }
+
+        return $this->_extractSettings($category);
     }
 
     /**

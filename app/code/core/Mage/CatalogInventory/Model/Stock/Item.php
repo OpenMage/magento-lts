@@ -640,7 +640,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->setQuoteMessage($message)
                 ->setQuoteMessageIndex('qty');
             return $result;
-        } elseif (($this->getQty() - $summaryQty) < 0) {
+        }
+
+        if (($this->getQty() - $summaryQty) < 0) {
             if ($this->getProductName()) {
                 if ($this->getIsChildItem()) {
                     $backorderQty = ($this->getQty() > 0) ? ($summaryQty - $this->getQty()) * 1 : $qty * 1;

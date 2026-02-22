@@ -24,7 +24,6 @@
  * @method bool                                 hasStoreId()
  * @method $this                                setActive(int $value)
  * @method $this                                setAddedProductIds(array $value)
- * @method $this                                setCreatedAt(string $value)
  * @method $this                                setCustomerId(int $value)
  * @method $this                                setProductId(int $value)
  * @method $this                                setProductIds(array $value)

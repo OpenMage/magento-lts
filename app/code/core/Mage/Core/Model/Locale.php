@@ -455,11 +455,9 @@ class Mage_Core_Model_Locale
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
-        } else {
-            $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
 
-        return $data;
+        return Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
     }
 
     /**

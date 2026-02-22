@@ -172,11 +172,13 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     {
         if (!empty($rowData['_super_attribute_code'])) {
             $superAttrCode = $rowData['_super_attribute_code'];
-
-            if (!$this->_isAttributeSuper($superAttrCode)) { // check attribute superity
+            if (!$this->_isAttributeSuper($superAttrCode)) {
+                // check attribute superity
                 $this->_entityModel->addRowError(self::ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER, $rowNum);
                 return false;
-            } elseif (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
+            }
+
+            if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
                 $optionKey = strtolower($rowData['_super_attribute_option']);
                 if (!isset($this->_superAttributes[$superAttrCode]['options'][$optionKey])) {
                     $this->_entityModel->addRowError(self::ERROR_INVALID_OPTION_VALUE, $rowNum);

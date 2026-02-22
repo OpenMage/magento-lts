@@ -148,9 +148,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         if (empty($children)) {
             if ($rawNodes) {
                 return $resource;
-            } else {
-                return $result;
             }
+
+            return $result;
         }
 
         foreach ($children as $child) {
@@ -159,9 +159,9 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 
         if ($rawNodes) {
             return $resource;
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
     /**

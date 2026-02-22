@@ -234,9 +234,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
             $degree++;
             return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
-        } else {
-            return $currentAfterTabId;
         }
+
+        return $currentAfterTabId;
     }
 
     /**

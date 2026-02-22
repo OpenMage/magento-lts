@@ -45,11 +45,7 @@ class CentinelClient
 
     public function getValue($name)
     {
-        if (isset($this->response[$name])) {
-            return $this->response[$name];
-        } else {
-            return '';
-        }
+        return $this->response[$name] ?? '';
     }
 
 

@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Auth/Adapter/Http/Resolver/File.php
 +++ ../library/Zend/Auth/Adapter/Http/Resolver/File.php
 @@ -157,7 +157,7 @@
 

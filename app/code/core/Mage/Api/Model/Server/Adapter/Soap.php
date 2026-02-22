@@ -174,8 +174,9 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         if ($this->_extensionLoaded()) {
             throw new SoapFault($code, $message);
-        } else {
-            die('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        }
+
+        die('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
                 <SOAP-ENV:Body>
                 <SOAP-ENV:Fault>
                 <faultcode>' . $code . '</faultcode>
@@ -183,7 +184,6 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                 </SOAP-ENV:Fault>
                 </SOAP-ENV:Body>
                 </SOAP-ENV:Envelope>');
-        }
     }
 
     /**

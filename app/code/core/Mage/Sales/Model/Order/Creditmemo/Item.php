@@ -95,7 +95,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
 
     protected $_orderItem = null;
 
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('sales/order_creditmemo_item');
     }

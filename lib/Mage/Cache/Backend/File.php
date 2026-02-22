@@ -524,9 +524,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     }
 
                     continue;
-                } else {
-                    Zend_Cache::throwException('Invalid mode for clean() method.');
                 }
+
+                Zend_Cache::throwException('Invalid mode for clean() method.');
             }
 
             if (is_dir($file) && $this->_options['hashed_directory_level'] > 0) {

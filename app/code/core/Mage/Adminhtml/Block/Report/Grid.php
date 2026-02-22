@@ -333,12 +333,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getFilter($name)
     {
-        if (isset($this->_filters[$name])) {
-            return $this->_filters[$name];
-        } else {
-            return ($this->getRequest()->getParam($name))
-                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
-        }
+        return $this->_filters[$name] ?? (($this->getRequest()->getParam($name))
+                ? htmlspecialchars($this->getRequest()->getParam($name)) : '');
     }
 
     public function setSubReportSize($size)
@@ -616,9 +612,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $totals = $this->getGrandTotals()->getData();
         if (parent::getCountTotals() && count($totals)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

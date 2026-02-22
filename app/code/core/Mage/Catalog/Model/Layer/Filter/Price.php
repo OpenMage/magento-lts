@@ -199,15 +199,17 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $formattedFromPrice  = $store->formatPrice($fromPrice);
         if ($toPrice === '') {
             return Mage::helper('catalog')->__('%s and above', $formattedFromPrice);
-        } elseif ($fromPrice == $toPrice && Mage::app()->getStore()->getConfig(self::XML_PATH_ONE_PRICE_INTERVAL)) {
-            return $formattedFromPrice;
-        } else {
-            if ($fromPrice != $toPrice) {
-                $toPrice = (float) $toPrice - .01;
-            }
-
-            return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
         }
+
+        if ($fromPrice == $toPrice && Mage::app()->getStore()->getConfig(self::XML_PATH_ONE_PRICE_INTERVAL)) {
+            return $formattedFromPrice;
+        }
+
+        if ($fromPrice != $toPrice) {
+            $toPrice = (float) $toPrice - .01;
+        }
+
+        return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
     }
 
     /**
@@ -306,7 +308,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
             return $this->_getCalculatedItemsData();
-        } elseif ($this->getInterval()) {
+        }
+
+        if ($this->getInterval()) {
             return [];
         }
 

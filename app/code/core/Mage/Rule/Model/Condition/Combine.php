@@ -377,10 +377,11 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         foreach ($this->getConditions() as $cond) {
             $validated = $cond->validate($object);
-
             if ($all && $validated !== $true) {
                 return false;
-            } elseif (!$all && $validated === $true) {
+            }
+
+            if (!$all && $validated === $true) {
                 return true;
             }
         }

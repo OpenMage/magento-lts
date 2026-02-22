@@ -199,7 +199,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setErrorMessage($errorMsg);
             return $error;
-        } elseif ($errorMsg) {
+        }
+
+        if ($errorMsg) {
             return false;
         }
 

@@ -229,7 +229,9 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             }
 
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
-        } elseif ($format === false) {
+        }
+
+        if ($format === false) {
             // reset value
             $this->_dateFilterFormat = null;
             return $this;
