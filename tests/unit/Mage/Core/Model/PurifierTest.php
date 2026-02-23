@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Core\Model;
+
+use Mage;
+use Mage_Core_Model_Purifier as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\PurifierTrait;
+
+final class PurifierTest extends OpenMageTest
+{
+    use PurifierTrait;
+
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+    }
+
+    /**
+     * @dataProvider provideGetters
+     * @group Model
+     */
+    public function testGetters($allowedElements, $escapeInvalidTags): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', [
+            'allowedElements' => $allowedElements,
+            'escapeInvalidTags' => $escapeInvalidTags,
+        ]);
+
+        self::assertSame(gettype($allowedElements), gettype($subject->getAllowedElements()));
+        self::assertSame(gettype($escapeInvalidTags), gettype($subject->getEscapeInvalidTags()));
+    }
+
+    /**
+     * @dataProvider providePurify
+     * @group Model
+     */
+    public function testPurify(string $expected, string $input, array $options = []): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', $options);
+        self::assertSame($expected, $subject->purify($input));
+    }
+}
