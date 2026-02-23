@@ -134,9 +134,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $data = [
-            'firstname' => $this->getFirstname(),
-            'lastname'  => $this->getLastname(),
-            'email'     => $this->getEmail(),
+            'firstname' => trim((string) $this->getFirstname()),
+            'lastname'  => trim((string) $this->getLastname()),
+            'email'     => trim((string) $this->getEmail()),
             'modified'  => $this->_getDateNow(),
             'extra'     => serialize($this->getExtra()),
         ];
@@ -146,7 +146,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if ($this->getUsername()) {
-            $data['username'] = $this->getUsername();
+            $data['username'] = trim((string) $this->getUsername());
         }
 
         if ($this->getNewPassword()) {
