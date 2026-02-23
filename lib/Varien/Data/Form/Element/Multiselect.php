@@ -25,10 +25,10 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function __construct($attributes = [])
     {
+        $attributes['size'] ??= 10;
         parent::__construct($attributes);
         $this->setType('select');
         $this->setExtType('multiple');
-        $this->setSize(10);
     }
 
     /**

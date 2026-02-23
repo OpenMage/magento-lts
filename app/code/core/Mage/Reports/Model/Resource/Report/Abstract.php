@@ -43,6 +43,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param  string                                      $code
      * @param  mixed                                       $value
      * @return Mage_Reports_Model_Resource_Report_Abstract
+     * @throws Throwable
      */
     protected function _setFlagData($code, $value = null)
     {
@@ -143,14 +144,15 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     /**
      * Generate table date range select
      *
-     * @param  string           $table
-     * @param  string           $column
-     * @param  string           $whereColumn
-     * @param  null|string      $from
-     * @param  null|string      $to
-     * @param  array            $additionalWhere
-     * @param  string           $alias
+     * @param  string            $table
+     * @param  string            $column
+     * @param  string            $whereColumn
+     * @param  null|string       $from
+     * @param  null|string       $to
+     * @param  array             $additionalWhere
+     * @param  string            $alias
      * @return Varien_Db_Select
+     * @throws Zend_Db_Exception
      */
     protected function _getTableDateRangeSelect(
         $table,
@@ -180,7 +182,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $select->where($alias . '.' . $whereColumn . ' <= ?', $to);
         }
 
-        if (!empty($additionalWhere)) {
+        if ($additionalWhere !== []) {
             foreach ($additionalWhere as $condition) {
                 if (is_array($condition) && count($condition) == 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
@@ -292,7 +294,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 [],
             )
             // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            ->distinct(true);
+            ->distinct();
 
         if ($from !== null) {
             $select->where($relatedAlias . '.' . $whereColumn . ' >= ?', $from);
@@ -302,7 +304,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $select->where($relatedAlias . '.' . $whereColumn . ' <= ?', $to);
         }
 
-        if (!empty($additionalWhere)) {
+        if ($additionalWhere !== []) {
             foreach ($additionalWhere as $condition) {
                 if (is_array($condition) && count($condition) == 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
@@ -354,6 +356,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param  mixed                                 $to
      * @param  null|int|Mage_Core_Model_Store|string $store
      * @return string
+     * @throws Zend_Db_Exception
      */
     public function getStoreTZOffsetQuery($table, $column, $from = null, $to = null, $store = null)
     {
@@ -373,24 +376,24 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $from,
             $to,
         );
-        if (empty($periods)) {
+        if ($periods === []) {
             return $column;
         }
 
         $query = '';
         $periodsCount = count($periods);
 
-        $i = 0;
+        $index = 0;
         foreach ($periods as $offset => $timestamps) {
             $subParts = [];
-            foreach ($timestamps as $ts) {
-                $subParts[] = "($column between {$ts['from']} and {$ts['to']})";
+            foreach ($timestamps as $timestamp) {
+                $subParts[] = "($column between {$timestamp['from']} and {$timestamp['to']})";
             }
 
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$i == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
+            $query .= (++$index == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);
@@ -417,25 +420,24 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $nextPeriod = $this->_getWriteAdapter()->formatDate($to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
             $to = $to->getTimestamp();
 
-            $dtz = new DateTimeZone($timezone);
-            $transitions = $dtz->getTransitions();
             $dateTimeObject = new Zend_Date('c');
-            for ($i = count($transitions) - 1; $i >= 0; $i--) {
-                $tr = $transitions[$i];
-                if (!$this->_isValidTransition($tr, $to)) {
+            $dtz = new DateTimeZone($timezone);
+            $transitions = array_reverse($dtz->getTransitions());
+            foreach ($transitions as $transition) {
+                if (!$this->_isValidTransition($transition, $to)) {
                     continue;
                 }
 
-                $dateTimeObject->set($tr['time']);
-                $tr['time'] = $this->_getWriteAdapter()
+                $dateTimeObject->set($transition['time']);
+                $transition['time'] = $this->_getWriteAdapter()
                     ->formatDate($dateTimeObject->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-                $tzTransitions[$tr['offset']][] = ['from' => $tr['time'], 'to' => $nextPeriod];
+                $tzTransitions[$transition['offset']][] = ['from' => $transition['time'], 'to' => $nextPeriod];
 
-                if (!empty($from) && $tr['ts'] < $from) {
+                if (!empty($from) && $transition['ts'] < $from) {
                     break;
                 }
 
-                $nextPeriod = $tr['time'];
+                $nextPeriod = $transition['time'];
             }
         } catch (Exception $exception) {
             $this->_logException($exception);
@@ -465,7 +467,8 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     {
         $result         = true;
         $timeStamp      = $transition['ts'];
-        $transitionYear = Carbon::createFromTimestamp($timeStamp)->format('Y');
+        $time           = $transition['time'];
+        $transitionYear = Carbon::createFromTimeString($time)->format('Y');
 
         if ($transitionYear > 10000 || $transitionYear < -10000) {
             $result = false;
@@ -490,8 +493,9 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     /**
      * Retrieve date in UTC timezone
      *
-     * @param  null|string    $date
+     * @param  null|string         $date
      * @return null|Zend_Date
+     * @throws Zend_Date_Exception
      */
     protected function _dateToUtc($date)
     {

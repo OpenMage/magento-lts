@@ -25,7 +25,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {
