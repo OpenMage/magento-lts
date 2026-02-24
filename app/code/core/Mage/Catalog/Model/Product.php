@@ -2246,7 +2246,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Remove model object related cache
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function cleanModelCache()

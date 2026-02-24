@@ -17,7 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Symlink extends Mage_Core_Model
     /**
      * Save object data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function save()
     {

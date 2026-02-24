@@ -2391,7 +2391,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {
