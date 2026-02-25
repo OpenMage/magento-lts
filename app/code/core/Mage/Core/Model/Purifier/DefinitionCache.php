@@ -12,8 +12,7 @@ declare(strict_types=1);
 /**
  * HTMLPurifier definition cache implementation using Magento's cache system.
  *
- * This allows HTMLPurifier to cache parsed definitions using whatever cache
- * backend Magento is configured to use (File, Memcached, APC, Redis, etc.),
+ * This allows HTMLPurifier to cache parsed definitions using Magento's cache
  * rather than requiring a separate file-based cache.
  *
  * This Model class is not intended to be instantiated by Magento. Its

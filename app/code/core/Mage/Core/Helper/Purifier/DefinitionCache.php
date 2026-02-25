@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * @package Mage_Core
  */
-class Mage_Core_Helper_Purifier_Config
+class Mage_Core_Helper_Purifier_DefinitionCache
 {
     /** @var null|string */
     protected const DEFINITION_CACHE_MODEL_CLASS = 'core/purifier_definitionCache';

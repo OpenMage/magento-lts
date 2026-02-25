@@ -20,25 +20,73 @@ final class PurifierTest extends OpenMageTest
 {
     use PurifierTrait;
 
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-    }
-
     /**
-     * @dataProvider provideGetters
+     * @dataProvider provideGetAllowedAttributes
      * @group Model
      */
-    public function testGetters($allowedElements, $escapeInvalidTags): void
+    public function testGetAllowedAttributes(?array $allowedAttributes): void
     {
         /** @var Subject $subject */
         $subject = Mage::getModel('core/purifier', [
-            'allowedElements' => $allowedElements,
-            'escapeInvalidTags' => $escapeInvalidTags,
+            Subject::OPTION_ALLOWED_ATTRIBUTES => $allowedAttributes,
+        ]);
+
+        self::assertSame(gettype($allowedAttributes), gettype($subject->getAllowedAttributes()));
+    }
+
+    /**
+     * @dataProvider provideGetAllowedElements
+     * @group Model
+     */
+    public function testGetAllowedElements(?array $allowedElements): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', [
+            Subject::OPTION_ALLOWED_ELEMENTS => $allowedElements,
         ]);
 
         self::assertSame(gettype($allowedElements), gettype($subject->getAllowedElements()));
+    }
+
+    /**
+     * @dataProvider provideGetAllowedClasses
+     * @group Model
+     */
+    public function testGetAllowedClasses(?array $allowedClasses): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', [
+            Subject::OPTION_ALLOWED_CLASSES => $allowedClasses,
+        ]);
+
+        self::assertSame(gettype($allowedClasses), gettype($subject->getAllowedClasses()));
+    }
+
+    /**
+     * @dataProvider provideGetAllowedStyleProperties
+     * @group Model
+     */
+    public function testGetAllowedStyleProperties(?array $allowedStyleProperties): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', [
+            Subject::OPTION_ALLOWED_STYLE_PROPERTIES => $allowedStyleProperties,
+        ]);
+
+        self::assertSame(gettype($allowedStyleProperties), gettype($subject->getAllowedStyleProperties()));
+    }
+
+    /**
+     * @dataProvider provideGetEscapeInvalidTags
+     * @group Model
+     */
+    public function testGetters($escapeInvalidTags): void
+    {
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/purifier', [
+            Subject::OPTION_ESCAPE_INVALID_TAGS => $escapeInvalidTags,
+        ]);
+
         self::assertSame(gettype($escapeInvalidTags), gettype($subject->getEscapeInvalidTags()));
     }
 

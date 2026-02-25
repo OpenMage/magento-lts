@@ -14,14 +14,38 @@ use Generator;
 
 trait PurifierTrait
 {
-    public function provideGetters(): Generator
+    public function provideGetAllowedAttributes(): Generator
     {
-        yield 'allow all elements, no escape' => [null, false];
-        yield 'allow all elements, yes escape' => [null, true];
-        yield 'allow some elements, no escape' => [['b', 'i', 'u'], false];
-        yield 'allow some elements, yes escape' => [['b', 'i', 'u'], true];
-        yield 'allow no elements, no escape' => [[], false];
-        yield 'allow no elements, yes escape' => [[], true];
+        yield 'allow all' => [null];
+        yield 'allow some' => [['a.href', '*.class']];
+        yield 'allow none' => [[]];
+    }
+
+    public function provideGetAllowedElements(): Generator
+    {
+        yield 'allow all' => [null];
+        yield 'allow some' => [['b', 'i', 'u']];
+        yield 'allow none' => [[]];
+    }
+
+    public function provideGetAllowedClasses(): Generator
+    {
+        yield 'allow all' => [null];
+        yield 'allow some' => [['foo-bar__baz']];
+        yield 'allow none' => [[]];
+    }
+
+    public function provideGetAllowedStyleProperties(): Generator
+    {
+        yield 'allow all' => [null];
+        yield 'allow some' => [['margin', 'font-size']];
+        yield 'allow none' => [[]];
+    }
+
+    public function provideGetEscapeInvalidTags(): Generator
+    {
+        yield 'false' => [false];
+        yield 'true' => [true];
     }
 
     public function providePurify(): Generator
