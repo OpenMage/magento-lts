@@ -90,9 +90,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
-     * @param  string $columnId
-     * @param  array  $column
-     * @return $this
+     * @param  string                                    $columnId
+     * @param  array                                     $column
+     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @throws Exception
      */
     public function addColumn($columnId, $column)
     {
@@ -103,13 +104,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 $visibilityFilter = [$visibilityFilter];
             }
 
-            foreach ($visibilityFilter as $k => $v) {
-                if (is_int($k)) {
-                    $filterFieldId = $v;
+            foreach ($visibilityFilter as $key => $value) {
+                if (is_int($key)) {
+                    $filterFieldId = $value;
                     $filterFieldValue = true;
                 } else {
-                    $filterFieldId = $k;
-                    $filterFieldValue = $v;
+                    $filterFieldId = $key;
+                    $filterFieldValue = $value;
                 }
 
                 if (!$filterData->hasData($filterFieldId)
@@ -147,9 +148,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         }
 
         // reset array keys
-        $storeIds = array_values($storeIds);
-
-        return $storeIds;
+        return array_values($storeIds);
     }
 
     protected function _prepareCollection()
@@ -279,6 +278,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentCurrencyCode()
     {
         if (is_null($this->_currentCurrencyCode)) {
@@ -295,6 +298,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      *
      * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
+     * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)
     {

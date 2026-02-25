@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_view_tab_invoices';
+
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +33,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return 'sales/order_invoice_grid_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         /** @var Mage_Sales_Model_Resource_Order_Invoice_Grid_Collection $collection */
@@ -53,6 +58,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -76,7 +85,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_invoice')->getStates(),
+            'options'   => Mage::getModel('sales/order_invoice')::getStates(),
         ]);
 
         $this->addColumn('base_grand_total', [
@@ -99,6 +108,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return Mage::registry('current_order');
     }
 
+    /**
+     * @param  Mage_Sales_Model_Order_Invoice $row
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl(
@@ -110,26 +124,41 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Invoices');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Invoices');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

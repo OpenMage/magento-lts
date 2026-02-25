@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_grid';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;

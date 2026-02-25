@@ -28,11 +28,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         $this->setFilterVisibility(false);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _preparePage()
     {
         $this->getCollection()
             ->setPageSize(5)
             ->setCurPage(1);
+
+        return $this;
     }
 
     /**
@@ -111,6 +116,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
 
     /**
      * @return bool
+     * @throws Zend_Db_Select_Exception
      */
     public function getHeadersVisibility()
     {

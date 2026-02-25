@@ -16,9 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Tag_Product_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_tag_product_grid';
+
     public function __construct()
     {
         parent::__construct();

@@ -14,6 +14,8 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_consumer_grid';
+
     /**
      * Allow edit status
      *
@@ -52,9 +54,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Prepare columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -88,7 +89,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
      * Get row URL
      *
      * @param  Mage_Oauth_Model_Consumer $row
-     * @return null|string
+     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
@@ -96,6 +98,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
 
-        return null;
+        return '';
     }
 }

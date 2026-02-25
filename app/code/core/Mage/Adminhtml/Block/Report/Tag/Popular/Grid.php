@@ -14,12 +14,17 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_tag_popular_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('grid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -40,6 +45,10 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

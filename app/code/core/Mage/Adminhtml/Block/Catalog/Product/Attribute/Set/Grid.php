@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_set_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -49,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     }
 
     /**
-     * @param  Varien_Object $row
+     * @param  Mage_Eav_Model_Entity_Attribute_Set $row
      * @return string
      */
     public function getRowUrl($row)

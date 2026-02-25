@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_user_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +25,9 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/user_collection');
@@ -30,6 +35,10 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [

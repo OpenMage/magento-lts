@@ -16,6 +16,8 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_creditmemo_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -85,7 +87,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
         ]);
 
         $this->addColumn('grand_total', [
@@ -118,7 +120,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -131,17 +133,18 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'url'  => $this->getUrl('*/sales_creditmemo/pdfcreditmemos'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
      * @param  Mage_Sales_Model_Order_Creditmemo $row
-     * @return false|string
+     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/creditmemo')) {
-            return false;
+            return '';
         }
 
         return $this->getUrl(
@@ -153,7 +156,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

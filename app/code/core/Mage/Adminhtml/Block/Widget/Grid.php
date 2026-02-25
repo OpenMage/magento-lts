@@ -12,8 +12,19 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method $this setSortable(bool $value)
- * @method $this setUseAjax(bool $value)
+ * @method string getCheckboxCheckCallback()
+ * @method string getGridHeader()
+ * @method bool   getNoFilterMassactionColumn()
+ * @method string getRowClickCallback()
+ * @method string getRowInitCallback()
+ * @method bool   getSortable()
+ * @method bool   getUseAjax()
+ * @method $this  setCheckboxCheckCallback(string $value)
+ * @method $this  setNoFilterMassactionColumn(bool $value)
+ * @method $this  setRowClickCallback(string $value)
+ * @method $this  setRowInitCallback(string $value)
+ * @method $this  setSortable(bool $value)
+ * @method $this  setUseAjax(bool $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
@@ -48,7 +59,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var null|Varien_Data_Collection_Db
+     * @var null|Varien_Data_Collection|Varien_Data_Collection_Db
      */
     protected $_collection = null;
 
@@ -224,14 +235,19 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected ?array $defaultColumnSettings = null;
 
+    protected string $_eventPrefix = '';
+
     /**
-     * Mage_Adminhtml_Block_Widget_Grid constructor.
+     * Mage_Adminhtml_Block_Widget_Grid constructor
+     * Set main configuration of grid
+     *
      * @param array $attributes
      */
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setTemplate('widget/grid.phtml');
+        $this->setNoFilterMassactionColumn(false);
         $this->setRowClickCallback('openGridRow');
         $this->_emptyText = Mage::helper('adminhtml')->__('No records found.');
     }
@@ -311,7 +327,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db $collection
      */
     public function setCollection($collection)
     {
@@ -321,7 +337,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db
      */
     public function getCollection()
     {
@@ -560,7 +576,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Add filter
+     * Add column filter to collection
      *
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
@@ -592,9 +608,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Add link model filter from grid column to collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column                     $column
-     *
+     * @param  Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column                     $column
      * @return $this
      */
     protected function _addLinkModelFilterCallback($collection, $column)
@@ -631,10 +646,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareCollection()
     {
-        Mage::dispatchEvent('adminhtml_grid_prepare_collection_after', ['grid' => $this]);
-        Mage::dispatchEvent('adminhtml_grid_prepare_collection_after_' . $this->getId(), ['grid' => $this]);
+        if ($collection = $this->getCollection()) {
+            Mage::dispatchEvent('adminhtml_widget_grid_prepare_collection', [
+                'collection' => $collection,
+            ]);
 
-        if ($this->getCollection()) {
+            if ($this->_eventPrefix !== '') {
+                Mage::dispatchEvent($this->_eventPrefix . '_prepare_collection', [
+                    'collection' => $collection,
+                ]);
+            }
+
             $this->_preparePage();
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
@@ -664,7 +686,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
             if (!$this->_isExport) {
                 $this->_beforeLoadCollection();
-                $this->getCollection()->load();
+                $collection->load();
                 $this->_afterLoadCollection();
             }
         }
@@ -685,12 +707,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * @return $this
      * @throws Exception
      */
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
         $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
+        return $this;
     }
 
     /**
@@ -1035,7 +1059,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportTypes()
     {
-        return empty($this->_exportTypes) ? false : $this->_exportTypes;
+        return $this->_exportTypes === [] ? false : $this->_exportTypes;
     }
 
     /**
@@ -1063,7 +1087,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRssLists()
     {
-        return empty($this->_rssLists) ? false : $this->_rssLists;
+        return $this->_rssLists === [] ? false : $this->_rssLists;
     }
 
     /**

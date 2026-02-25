@@ -12,17 +12,22 @@
  */
 class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_user_edit_tab_roles';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsUserRolesGrid');
         $this->setDefaultSort('sort_order');
         $this->setDefaultDir('asc');
-        //$this->setDefaultFilter(array('assigned_user_role'=>1));
         $this->setTitle(Mage::helper('adminhtml')->__('User Roles Information'));
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'assigned_user_role') {
@@ -43,6 +48,9 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/role_collection');
@@ -51,6 +59,10 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -78,11 +90,17 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('permissions_user')->getUserId()]);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _getSelectedRoles($json = false)
     {
         if ($this->getRequest()->getParam('user_roles') != '') {

@@ -14,9 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid params
-     */
+    protected string $_eventPrefix = 'sales_adminhtml_billing_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -40,18 +39,16 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     /**
      * Retrieve row url
      *
-     * @param  Mage_Sales_Model_Billing_Agreement $item
+     * @param  Mage_Sales_Model_Billing_Agreement $row
      * @return string
      */
-    public function getRowUrl($item)
+    public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $item->getAgreementId()]);
+        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $row->getAgreementId()]);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -62,9 +59,8 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

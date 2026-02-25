@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_grid_role';
+
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +26,9 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection =  Mage::getModel('admin/roles')->getCollection();
@@ -32,6 +37,10 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('role_id', [
@@ -49,6 +58,9 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);

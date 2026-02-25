@@ -33,6 +33,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('label', [
@@ -112,12 +116,17 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
 
     /**
      * No pegination for this grid
+     *
+     * @inheritDoc
      */
     protected function _preparePage()
     {
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);

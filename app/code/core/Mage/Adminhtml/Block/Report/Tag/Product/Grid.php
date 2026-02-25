@@ -14,12 +14,17 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_tag_product_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('gridProducts');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/tag_product_collection');
@@ -33,6 +38,10 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [

@@ -15,6 +15,8 @@
  */
 class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_store_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -22,16 +24,22 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('core/website')
             ->getCollection()
             ->joinGroupAndStore();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('website_title', [

@@ -16,9 +16,8 @@
  */
 class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set default value
-     */
+    protected string $_eventPrefix = 'adminhtml_tax_rule_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -29,9 +28,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * Prepare grid collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -75,6 +72,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -159,8 +157,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ],
         );
 
-        $actionsUrl = $this->getUrl('*/*/');
-
         return parent::_prepareColumns();
     }
 
@@ -169,6 +165,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
      *
      * @param  Mage_Tax_Model_Calculation_Rule $row
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
