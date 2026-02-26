@@ -16,6 +16,8 @@
  * implementation.
  *
  * @package Mage_Core
+ * @see Mage_Core_Model_Purifier_Interface
+ * @see Mage_Core_Model_Purifier
  */
 class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
 {
@@ -33,18 +35,19 @@ class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
      */
     protected ?HTMLPurifier $purifier;
 
-    /** @var \Mage_Core_Model_Purifier */
-    protected $defaultPurifier;
+    protected Mage_Core_Model_Purifier_Interface $defaultPurifier;
 
     /**
      * Purifier Constructor Call
      *
-     * @param null|\HTMLPurifier $purifier **Deprecated:** Unused
+     * @param null|HTMLPurifier $purifier **Deprecated:** Unused
      */
     public function __construct(?HTMLPurifier $purifier = null)
     {
         $this->purifier = $purifier;
-        $this->defaultPurifier = Mage::getModel('core/purifier');
+        /** @var Mage_Core_Model_Purifier $defaultPurifier */
+        $defaultPurifier = Mage::getModel('core/purifier');
+        $this->defaultPurifier = $defaultPurifier;
     }
 
     /**
