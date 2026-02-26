@@ -19,6 +19,7 @@
  * @method bool       getCustomerIsGuest()
  * @method int|string getOrderId()
  * @method int|string getQuoteId()
+ * @method int|string getReordered()
  * @method int        getStoreId()
  * @method bool       getUseOldShippingMethod(bool $value)
  * @method bool       hasCustomerId()
