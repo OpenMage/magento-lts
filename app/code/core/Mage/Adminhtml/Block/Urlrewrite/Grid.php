@@ -85,9 +85,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         return parent::_prepareColumns();
     }
 
+    /**
+     * Retrieve Row URL
+     *
+     * @param  Mage_Core_Model_Url_Rewrite $row
+     * @return string
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
-        //return $this->getUrl('*/*/view', array('id' => $row->getId()));
     }
 }
