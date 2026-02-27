@@ -63,7 +63,7 @@ test.config = {
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
-    url: 'customer/index',
+    url: 'admin/customer',
     index: {},
     edit: {},
     new: {},

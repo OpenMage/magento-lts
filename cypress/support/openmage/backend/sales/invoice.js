@@ -10,7 +10,7 @@ test.config = {
     _nav: '#nav-admin-sales',
     _title: base._title,
     _button: base._button,
-    url: 'sales_invoice/index',
+    url: 'admin/sales_invoice',
     index: {},
     view: {},
 };

@@ -10,7 +10,7 @@ test.config = {
     _nav: '#nav-admin-sales',
     _title: base._title,
     _button: base._button,
-    url: 'sales_creditmemo/index',
+    url: 'admin/sales_creditmemo',
     index: {},
     view: {},
 };

@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
-    url: 'urlrewrite/index',
+    url: 'admin/urlrewrite',
     index: {},
     edit: {},
     new: {},

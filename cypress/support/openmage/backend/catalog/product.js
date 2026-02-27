@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
-    url: 'catalog_product/index',
+    url: 'admin/catalog_product',
     index: {},
     edit: {},
     new: {},

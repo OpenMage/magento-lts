@@ -25,7 +25,7 @@ test.config = {
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
-    url: 'customer_group/index',
+    url: 'admin/customer_group',
     index: {},
     edit: {},
     new: {},

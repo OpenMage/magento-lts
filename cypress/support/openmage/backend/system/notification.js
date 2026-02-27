@@ -9,7 +9,7 @@ test.config = {
     _: '#nav-admin-system-adminnotification',
     _nav: '#nav-admin-system',
     _title: base._title,
-    url: 'notification/index',
+    url: 'admin/notification',
     index: {},
 }
 

@@ -28,7 +28,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
-    url: 'sitemap/index',
+    url: 'admin/sitemap',
     index: {},
     edit: {},
     new: {},

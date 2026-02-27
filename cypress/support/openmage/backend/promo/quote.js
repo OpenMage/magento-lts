@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-promo',
     _title: base._title,
     _button: base._button,
-    url: 'promo_quote/index',
+    url: 'admin/promo_quote',
     index: {},
     edit: {},
     new: {},

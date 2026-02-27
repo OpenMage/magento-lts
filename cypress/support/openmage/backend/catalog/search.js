@@ -34,7 +34,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
-    url: 'catalog_search/index',
+    url: 'admin/catalog_search',
     index: {},
     edit: {},
     new: {},

@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-newsletter',
     _title: base._title,
     _button: base._button,
-    url: 'newsletter_template/index',
+    url: 'admin/newsletter_template',
     index: {},
     edit: {},
     new: {},

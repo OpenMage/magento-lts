@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
-    url: 'widget_instance/index',
+    url: 'admin/widget_instance',
     index: {},
     edit: {},
     new: {},

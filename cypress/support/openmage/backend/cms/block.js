@@ -34,7 +34,7 @@ test.config = {
     _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
-    url: 'cms_block/index',
+    url: 'admin/cms_block',
     index: {},
     edit: {},
     new: {},

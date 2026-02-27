@@ -76,7 +76,7 @@ test.config = {
     _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
-    url: 'cms_page/index',
+    url: 'admin/cms_page',
     index: {},
     edit: {},
     new: {},

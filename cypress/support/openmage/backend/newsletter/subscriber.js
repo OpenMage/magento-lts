@@ -9,7 +9,7 @@ test.config = {
     _: '#nav-admin-newsletter-subscriber',
     _nav: '#nav-admin-newsletter',
     _title: base._title,
-    url: 'newsletter_subscriber/index',
+    url: 'admin/newsletter_subscriber',
     index: {},
 }
 

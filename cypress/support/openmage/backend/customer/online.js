@@ -9,7 +9,7 @@ test.config = {
     _: '#nav-admin-customer-online',
     _nav: '#nav-admin-customer',
     _title: base._title,
-    url: 'customer_online/index',
+    url: 'admin/customer_online',
     index: {},
 }
 

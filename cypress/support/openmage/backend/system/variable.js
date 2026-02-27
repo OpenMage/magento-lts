@@ -31,7 +31,7 @@ test.config = {
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
-    url: 'system_variable/index',
+    url: 'admin/system_variable',
     index: {},
     edit: {},
     new: {},
