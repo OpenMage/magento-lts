@@ -87,6 +87,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'      => 'options',
             'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
             'frame_callback' => [$this, 'decorateStatus'],
+            'sortable'  => false,
         ]);
 
         return parent::_prepareColumns();

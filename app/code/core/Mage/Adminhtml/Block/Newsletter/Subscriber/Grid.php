@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->setUseAjax(true);
         $this->setDefaultSort('subscriber_id');
         $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
     }
 
     /**
