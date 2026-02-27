@@ -116,7 +116,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items
+     * @return $this
      */
     protected function _initMessage()
     {

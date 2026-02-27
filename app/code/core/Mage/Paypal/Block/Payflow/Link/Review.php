@@ -18,7 +18,7 @@ class Mage_Paypal_Block_Payflow_Link_Review extends Mage_Paypal_Block_Express_Re
     /**
      * Retrieve payment method and assign additional template values
      *
-     * @return Mage_Paypal_Block_Express_Review
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

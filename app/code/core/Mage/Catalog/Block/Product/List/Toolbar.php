@@ -440,8 +440,8 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Remove order from available orders if exists
      *
-     * @param  string                                  $order
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @param  string $order
+     * @return $this
      */
     public function removeOrderFromAvailableOrders($order)
     {

@@ -957,7 +957,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()

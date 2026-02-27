@@ -25,7 +25,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     /**
      * Prepare default grid column
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
+     * @return $this
      */
     protected function _prepareColumns()
     {
