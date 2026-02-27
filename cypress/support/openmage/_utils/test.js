@@ -249,7 +249,7 @@ cy.openmage.test.backend.__base.__grid = {
         order: '',
         dir: '',
     },
-},
+};
 
 /**
  * Namespace for backend tests
