@@ -194,10 +194,10 @@ abstract class Mage_Core_Model_Purifier_Abstract implements Mage_Core_Model_Puri
      * shapes may cause unexpected results.
      *
      * @param array{
-     *     allowedElements?: string[],
-     *     allowedAttributes?: string[],
-     *     allowedClasses?: string[],
-     *     allowedStyleProperties?: string[],
+     *     allowedElements?: null|string[],
+     *     allowedAttributes?: null|string[],
+     *     allowedClasses?: null|string[],
+     *     allowedStyleProperties?: null|string[],
      *     escapeInvalidTags?: bool,
      * } $options
      */
