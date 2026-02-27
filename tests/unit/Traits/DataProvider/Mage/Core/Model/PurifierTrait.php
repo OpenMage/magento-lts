@@ -16,30 +16,30 @@ trait PurifierTrait
 {
     public function provideGetAllowedAttributes(): Generator
     {
-        yield 'allow all' => [null];
-        yield 'allow some' => [['a.href', '*.class']];
-        yield 'allow none' => [[]];
+        yield 'allow all attributes' => [null];
+        yield 'allow some attributes' => [['a.href', '*.class']];
+        yield 'allow no attributes' => [[]];
     }
 
     public function provideGetAllowedElements(): Generator
     {
-        yield 'allow all' => [null];
-        yield 'allow some' => [['b', 'i', 'u']];
-        yield 'allow none' => [[]];
+        yield 'allow all elements' => [null];
+        yield 'allow some elements' => [['b', 'i', 'u']];
+        yield 'allow no elements' => [[]];
     }
 
     public function provideGetAllowedClasses(): Generator
     {
-        yield 'allow all' => [null];
-        yield 'allow some' => [['foo-bar__baz']];
-        yield 'allow none' => [[]];
+        yield 'allow all classes' => [null];
+        yield 'allow some classes' => [['foo-bar__baz']];
+        yield 'allow no classes' => [[]];
     }
 
     public function provideGetAllowedStyleProperties(): Generator
     {
-        yield 'allow all' => [null];
-        yield 'allow some' => [['margin', 'font-size']];
-        yield 'allow none' => [[]];
+        yield 'allow all style properties' => [null];
+        yield 'allow some style properties' => [['margin', 'font-size']];
+        yield 'allow no style properties' => [[]];
     }
 
     public function provideGetEscapeInvalidTags(): Generator

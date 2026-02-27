@@ -26,8 +26,7 @@ final class PurifierTest extends OpenMageTest
      */
     public function testGetAllowedAttributes(?array $allowedAttributes): void
     {
-        /** @var Subject $subject */
-        $subject = Mage::getModel('core/purifier', [
+        $subject = $this->getSubject([
             Subject::OPTION_ALLOWED_ATTRIBUTES => $allowedAttributes,
         ]);
 
@@ -40,8 +39,7 @@ final class PurifierTest extends OpenMageTest
      */
     public function testGetAllowedElements(?array $allowedElements): void
     {
-        /** @var Subject $subject */
-        $subject = Mage::getModel('core/purifier', [
+        $subject = $this->getSubject([
             Subject::OPTION_ALLOWED_ELEMENTS => $allowedElements,
         ]);
 
@@ -54,8 +52,7 @@ final class PurifierTest extends OpenMageTest
      */
     public function testGetAllowedClasses(?array $allowedClasses): void
     {
-        /** @var Subject $subject */
-        $subject = Mage::getModel('core/purifier', [
+        $subject = $this->getSubject([
             Subject::OPTION_ALLOWED_CLASSES => $allowedClasses,
         ]);
 
@@ -68,8 +65,7 @@ final class PurifierTest extends OpenMageTest
      */
     public function testGetAllowedStyleProperties(?array $allowedStyleProperties): void
     {
-        /** @var Subject $subject */
-        $subject = Mage::getModel('core/purifier', [
+        $subject = $this->getSubject([
             Subject::OPTION_ALLOWED_STYLE_PROPERTIES => $allowedStyleProperties,
         ]);
 
@@ -82,8 +78,7 @@ final class PurifierTest extends OpenMageTest
      */
     public function testGetters($escapeInvalidTags): void
     {
-        /** @var Subject $subject */
-        $subject = Mage::getModel('core/purifier', [
+        $subject = $this->getSubject([
             Subject::OPTION_ESCAPE_INVALID_TAGS => $escapeInvalidTags,
         ]);
 
@@ -96,8 +91,14 @@ final class PurifierTest extends OpenMageTest
      */
     public function testPurify(string $expected, string $input, array $options = []): void
     {
+        $subject = $this->getSubject($options);
+        self::assertSame($expected, $subject->purify($input));
+    }
+
+    private function getSubject(array $options): Subject
+    {
         /** @var Subject $subject */
         $subject = Mage::getModel('core/purifier', $options);
-        self::assertSame($expected, $subject->purify($input));
+        return $subject;
     }
 }
