@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Purifier;
 
+use HTMLPurifier;
 use HTMLPurifier_Config;
 use HTMLPurifier_DefinitionCacheFactory;
+use InvalidArgumentException;
 use Mage;
 use Mage_Core_Model_Purifier_DefinitionCache as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -279,6 +281,8 @@ final class DefinitionCacheTest extends OpenMageTest
                         }
 
                         break;
+                    default:
+                        throw new InvalidArgumentException('Invalid cleaning mode');
                 }
 
                 return true;
@@ -323,7 +327,7 @@ final class DefinitionCacheTest extends OpenMageTest
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache.DefinitionImpl', self::CACHE_DEFINITION_IMPL);
 
-        $purifier = new \HTMLPurifier($config);
+        $purifier = new HTMLPurifier($config);
 
         self::assertEmpty(self::$cacheBackend->getIds(), 'Cache should be empty at start of test');
         self::assertEmpty(self::$cacheBackend->getTags(), 'Cache should be empty at start of test');
