@@ -17,12 +17,12 @@ test.config = {
 
 /**
  * Configuration for "Credit Memos" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Credit Memos',
     url: test.config.url,
-    _grid: '#sales_creditmemo_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
 }
 
 /**

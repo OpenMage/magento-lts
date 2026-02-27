@@ -16,12 +16,12 @@ test.config = {
 
 /**
  * Configuration for "Cache Storage Management" page
- * @type {{__buttons: {flushApply: string, flushCache: string}, title: string, url: string, _grid: string}}
+ * @type {{__buttons: {flushApply: string, flushCache: string}, title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Cache Storage Management',
     url: test.config.url,
-    _grid: '#cache_grid_table',
+    grid: base.__grid,
     __buttons: {
         flushApply: {
             _: base._button + '[title="Flush & Apply Updates"]',

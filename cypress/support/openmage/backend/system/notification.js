@@ -15,10 +15,10 @@ test.config = {
 
 /**
  * Configuration for "Messages Inbox" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Messages Inbox',
     url: test.config.url,
-    _grid: '#notificationGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'date_added', dir: 'desc' } }},
 }

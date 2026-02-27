@@ -36,12 +36,12 @@ test.config = {
 
 /**
  * Configuration for "Google Sitemap" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Google Sitemap',
     url: test.config.url,
-    _grid: '#sitemapGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'sitemap_id', dir: 'desc' } }},
     __buttons: {},
 }
 

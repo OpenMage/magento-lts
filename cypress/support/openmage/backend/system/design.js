@@ -39,12 +39,12 @@ test.config = {
 
 /**
  * Configuration for "Design" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Design',
     url: test.config.url,
-    _grid: '#designGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'package', dir: 'asc' } }},
     __buttons: {},
 }
 

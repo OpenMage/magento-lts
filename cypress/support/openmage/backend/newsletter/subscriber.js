@@ -15,10 +15,10 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Subscribers" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Newsletter Subscribers',
     url: test.config.url,
-    _grid: '#subscriberGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'subscriber_id', dir: 'desc' } }},
 }

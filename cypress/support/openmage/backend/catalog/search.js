@@ -42,12 +42,12 @@ test.config = {
 
 /**
  * Configuration for "Search Terms" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Search',
     url: test.config.url,
-    _grid: '#catalog_search_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'query_id', dir: 'asc' } }},
     __buttons: {},
 }
 

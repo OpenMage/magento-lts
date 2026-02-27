@@ -17,12 +17,12 @@ test.config = {
 
 /**
  * Configuration for "Invoices" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Invoice',
     url: test.config.url,
-    _grid: '#sales_invoice_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
 }
 
 /**

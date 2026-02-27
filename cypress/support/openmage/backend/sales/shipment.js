@@ -17,12 +17,12 @@ test.config = {
 
 /**
  * Configuration for "Shipments" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Shipments',
     url: test.config.url,
-    _grid: '#sales_shipment_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
 }
 
 /**

@@ -6,12 +6,13 @@ cy.openmage.test.backend = {};
 
 /**
  * Base configuration for backend tests
- * @type {{_button: string, _title: string, __buttons: {}, __buttonsSets: {}}}
+ * @type {{_button: string, _title: string, __grid: {}, __buttons: {}, __buttonsSets: {}}}
  * @private
  */
 cy.openmage.test.backend.__base = {
     _button: 'div.content-header .form-buttons button',
     _title: 'h3.icon-head',
+    __grid: {},
     __buttons: {},
     __buttonsSets: {},
 };
@@ -236,6 +237,19 @@ cy.openmage.test.backend.__base.__buttonsSets.sales = {
     email: cy.openmage.test.backend.__base.__buttons.email,
     back: cy.openmage.test.backend.__base.__buttons.back,
 };
+
+/**
+ * Base grid configuration for backend tests
+ * @type {{_: string, _table: string, sort: {order: string, dir: string}}}
+ */
+cy.openmage.test.backend.__base.__grid = {
+    _: '[data-test="grid"]',
+    _table: '[data-test="grid-table"]',
+    sort: {
+        order: '',
+        dir: '',
+    },
+},
 
 /**
  * Namespace for backend tests

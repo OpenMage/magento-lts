@@ -39,12 +39,12 @@ test.config = {
 
 /**
  * Configuration for "Custom Variables" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Custom Variables',
     url: test.config.url,
-    _grid: '#customVariablesGrid',
+    grid: {...base.__grid, ...{ sort: { order: 'variable_id', dir: 'asc' } }},
     __buttons: {},
 }
 

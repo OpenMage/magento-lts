@@ -16,10 +16,10 @@ test.config = {
 
 /**
  * Configuration for "Transactions" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Transactions',
     url: test.config.url,
-    _grid: '#order_transactions_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
 }

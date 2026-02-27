@@ -42,12 +42,12 @@ test.config = {
 
 /**
  * Configuration for "Static Blocks" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Static Blocks',
     url: test.config.url,
-    _grid: '#cmsBlockGrid_table',
+    grid: {...base.__grid, ...{ sort: {order: 'title', dir: 'asc' } }},
     __buttons: {},
 }
 

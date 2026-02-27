@@ -15,10 +15,10 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Problem Reports" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Newsletter Problem Reports',
     url: test.config.url,
-    _grid: '#problemGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'problem_id', dir: 'desc' } }},
 }

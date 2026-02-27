@@ -15,10 +15,10 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Queue" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Newsletter Queue',
     url: test.config.url,
-    _grid: '#queueGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'start_at', dir: 'desc' } }},
 }

@@ -45,14 +45,14 @@ test.config = {
  * @type {{
  *      title: string,
  *      url: string,
- *      _grid: string,
+ *      grid: {},
  *      __buttons: {add: {_: string, __class: string, click: test.config.index.__buttons.add.click}}
  * }}
  */
 test.config.index = {
     title: 'Transactional Emails',
     url: test.config.url,
-    _grid: '#systemEmailTemplateGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'template_id', dir: 'asc' } }},
     __buttons: {
         add: {
             _: base._button + '[title="Add New Template"]',

@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{title: string, url: string, _grid: string, __buttons: {})}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {})}}
  */
 test.config.index = {
     title: 'Manage Products',
     url: test.config.url,
-    _grid: '#productGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'entity_id', dir: 'desc' } }},
     __buttons: {},
 }
 

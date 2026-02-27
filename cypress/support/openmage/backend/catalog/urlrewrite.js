@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "URL Rewrite Management" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'URL Rewrite Management',
     url: test.config.url,
-    _grid: '#urlrewriteGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'url_rewrite_id', dir: 'desc' } }},
     __buttons: {},
 }
 

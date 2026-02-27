@@ -15,10 +15,10 @@ test.config = {
 
 /**
  * Configuration for "Index Management" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Index Management',
     url: test.config.url,
-    _grid: '#indexer_processes_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'ended_at', dir: 'desc' } }},
 }
