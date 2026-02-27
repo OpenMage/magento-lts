@@ -18,6 +18,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const screenshotFilename = 'message.promo.quote.saveEmptyWithoutJs';
         test.new.__buttons.saveAndContinue.click();
         validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshotFilename });
+        validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {

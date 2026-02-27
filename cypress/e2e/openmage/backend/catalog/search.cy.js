@@ -21,6 +21,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const screenshot = 'message.catalog.search.saveEmptyWithoutJs';
         // validation.hasErrorMessage(error);
         validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
+        validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {

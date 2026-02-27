@@ -19,6 +19,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const screenshot = 'message.customer.groups.saveEmptyWithoutJs';
         test.new.__buttons.save.click();
         validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
+        validation.hasErrorMessage();
     });
 
     // TODO: add test for save with values

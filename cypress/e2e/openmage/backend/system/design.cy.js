@@ -18,6 +18,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const screenshot = 'message.system.design.saveEmptyWithoutJs-1';
         test.new.__buttons.save.click();
         validation.hasSuccessMessage(success,{ match: 'have.text', screenshot: true, filename: screenshot });
+        validation.hasErrorMessage();
     });
 
     it(`tests save empty values, no js, 2nd time`, () => {

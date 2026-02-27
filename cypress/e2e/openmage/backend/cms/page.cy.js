@@ -17,7 +17,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         test.new.__buttons.saveAndContinue.click();
         // TODO: fix it
-        //validation.hasErrorMessage(message);
+        validation.hasErrorMessage();
         // screenshot with error message
         utils.screenshot('body', 'message.cms.page.saveEmptyWithoutJs');
     });
