@@ -187,8 +187,8 @@ small {
       @extend %extend_10;
     }
 
-    button:not(:first-child) {
-      margin: 0 0 0 5px;
+    button:not(:first-of-type) {
+      margin-left: 5px;
     }
 
     .icon-copy {

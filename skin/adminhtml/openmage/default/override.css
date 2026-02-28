@@ -296,8 +296,8 @@ small {
 .entry-edit .entry-edit-head .tools a:hover {
   text-decoration: none;
 }
-.entry-edit .entry-edit-head button:not(:first-child) {
-  margin: 0 0 0 5px;
+.entry-edit .entry-edit-head button:not(:first-of-type) {
+  margin-left: 5px;
 }
 .entry-edit .entry-edit-head .icon-copy {
   width: 16px;
