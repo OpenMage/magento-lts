@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
      * @inheritDoc
      * @param Mage_Customer_Model_Customer $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/tag/edit', [
             'tag_id' => $row->getTagId(),

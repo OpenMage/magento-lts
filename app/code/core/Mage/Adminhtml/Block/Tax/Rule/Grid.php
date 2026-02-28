@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @param  Mage_Tax_Model_Calculation_Rule $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['rule' => $row->getId()]);
     }

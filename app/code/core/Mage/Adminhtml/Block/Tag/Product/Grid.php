@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      * @inheritDoc
      * @param Mage_Catalog_Model_Product $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }

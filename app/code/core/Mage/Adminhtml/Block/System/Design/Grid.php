@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      * @param  Mage_Core_Model_Design $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }

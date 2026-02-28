@@ -127,7 +127,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      * @param  Mage_Widget_Model_Widget_Instance $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['instance_id' => $row->getId()]);
     }

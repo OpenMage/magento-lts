@@ -102,7 +102,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @param Mage_Api2_Model_Acl_Global_Role $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return '';
     }

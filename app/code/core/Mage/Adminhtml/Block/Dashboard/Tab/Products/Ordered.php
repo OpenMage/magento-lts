@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * @param  Mage_Catalog_Model_Product $row
      * @throws Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         // getId() would return id of bestseller row, and product id we get by getProductId()
         $productId = $row->getProductId();

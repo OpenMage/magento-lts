@@ -129,7 +129,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @param  Mage_Cms_Model_Page $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['page_id' => $row->getId()]);
     }

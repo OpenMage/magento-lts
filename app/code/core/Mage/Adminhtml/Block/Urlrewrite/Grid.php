@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
      * @param  Mage_Core_Model_Url_Rewrite $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }

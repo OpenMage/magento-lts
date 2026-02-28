@@ -244,7 +244,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @param Mage_Catalog_Model_Product $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product_review/edit', [
             'id' => $row->getReviewId(),

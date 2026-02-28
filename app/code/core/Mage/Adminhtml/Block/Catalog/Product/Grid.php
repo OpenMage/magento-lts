@@ -342,7 +342,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
      * @throws Mage_Core_Exception
      * @throws Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', [
             'store' => $this->getRequest()->getParam('store'),

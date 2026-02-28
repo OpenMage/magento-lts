@@ -424,7 +424,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @inheritDoc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return '';
     }

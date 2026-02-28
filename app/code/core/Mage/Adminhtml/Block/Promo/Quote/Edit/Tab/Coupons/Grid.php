@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
      * @inheritDoc
      * @param Mage_SalesRule_Model_Coupon $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return '';
     }

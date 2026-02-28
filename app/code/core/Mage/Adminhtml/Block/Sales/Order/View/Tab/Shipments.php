@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
      * @param  Mage_Sales_Model_Order_Shipment $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl(
             '*/sales_order_shipment/view',

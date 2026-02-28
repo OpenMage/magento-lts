@@ -225,7 +225,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      * @param  Mage_Sales_Model_Order $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
             return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);

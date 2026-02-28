@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      * @inheritDoc
      * @param Mage_SalesRule_Model_Rule $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }

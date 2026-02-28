@@ -89,7 +89,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
      * @param  Mage_Oauth_Model_Consumer $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         if ($this->_editAllow) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

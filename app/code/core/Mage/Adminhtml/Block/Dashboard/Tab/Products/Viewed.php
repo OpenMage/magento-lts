@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
      * @param  Mage_Catalog_Model_Product $row
      * @throws Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         $params = ['id' => $row->getId()];
         if ($this->getRequest()->getParam('store')) {

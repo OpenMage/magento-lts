@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return '';
     }

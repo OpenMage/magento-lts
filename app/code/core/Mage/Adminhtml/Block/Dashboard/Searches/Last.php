@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
      * @param  Mage_CatalogSearch_Model_Query $row
      * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);
     }

@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
      * @inheritDoc
      * @param Mage_Eav_Model_Entity_Attribute_Set $row
      */
-    public function getRowUrl($row): string
+    public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getAttributeSetId()]);
     }
