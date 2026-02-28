@@ -108,7 +108,11 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_addColumnFilterToCollection($column);
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Product $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }

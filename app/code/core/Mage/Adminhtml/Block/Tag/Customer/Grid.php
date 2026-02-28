@@ -109,10 +109,11 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param  Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Customer_Model_Customer $row
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }

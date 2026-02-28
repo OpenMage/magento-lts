@@ -59,7 +59,12 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param  Mage_Rating_Model_Rating $row
+     * @throws Mage_Core_Exception
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
