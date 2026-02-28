@@ -13,6 +13,8 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
+ * @method int|Mage_Customer_Model_Customer            getCustomerId()
+ * @method $this                                       setCustomerId(int $value)
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -92,7 +94,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Customer_Model_Customer $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/tag/edit', [
             'tag_id' => $row->getTagId(),
