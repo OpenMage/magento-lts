@@ -79,11 +79,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Get row url
-     *
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Catalog_Model_Product $row
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';
     }

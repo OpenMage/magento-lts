@@ -73,7 +73,11 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getEntityId()]);
     }

@@ -109,13 +109,10 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrieve row click URL
-     *
+     * @inheritDoc
      * @param Mage_CatalogRule_Model_Rule $row
-     *
-     * @return string
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }

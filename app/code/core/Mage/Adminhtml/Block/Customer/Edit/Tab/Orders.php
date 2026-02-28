@@ -112,10 +112,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param  Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order $row
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }

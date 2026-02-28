@@ -13,6 +13,9 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  * Adminhtml reviews grid
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getCustomerId()
+ * @method int getProductId()
  */
 class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -237,7 +240,11 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareMassaction();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Product $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/catalog_product_review/edit', [
             'id' => $row->getReviewId(),

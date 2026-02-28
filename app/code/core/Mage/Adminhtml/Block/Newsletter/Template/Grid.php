@@ -117,7 +117,12 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         return $this;
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param  Mage_Newsletter_Model_Template $row
+     * @throws Mage_Core_Exception
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }

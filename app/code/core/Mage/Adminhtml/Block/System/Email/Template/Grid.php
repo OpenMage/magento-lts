@@ -109,7 +109,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
         return $this;
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Core_Model_Email_Template $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }

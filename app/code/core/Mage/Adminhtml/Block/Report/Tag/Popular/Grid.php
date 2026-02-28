@@ -81,7 +81,11 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Tag_Model_Tag $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);
     }

@@ -62,10 +62,11 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Admin_Model_Variable $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
     }

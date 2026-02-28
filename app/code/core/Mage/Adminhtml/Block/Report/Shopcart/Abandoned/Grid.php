@@ -146,7 +146,11 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId(), 'active_tab' => 'cart']);
     }

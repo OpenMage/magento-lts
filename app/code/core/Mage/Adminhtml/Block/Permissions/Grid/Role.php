@@ -54,7 +54,11 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param Mage_Admin_Model_Role $row
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/*/editrole', ['rid' => $row->getRoleId()]);
     }

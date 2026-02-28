@@ -99,7 +99,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return Mage::registry('current_order');
     }
 
-    public function getRowUrl($row)
+    /**
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Invoice $row
+     * @throws Mage_Core_Exception
+     */
+    public function getRowUrl($row): string
     {
         return $this->getUrl(
             '*/sales_order_invoice/view',

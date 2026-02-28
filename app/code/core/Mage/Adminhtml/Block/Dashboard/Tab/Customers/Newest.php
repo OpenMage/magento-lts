@@ -90,10 +90,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Customer_Model_Customer $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }

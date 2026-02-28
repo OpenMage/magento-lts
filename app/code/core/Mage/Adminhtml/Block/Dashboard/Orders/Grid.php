@@ -98,10 +98,11 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
-    public function getRowUrl($row)
+    public function getRowUrl($row): string
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
