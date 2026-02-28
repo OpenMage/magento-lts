@@ -19,7 +19,6 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         parent::__construct();
         $this->setId('gridProducts');
         $this->setDefaultSort('review_cnt');
-        $this->setDefaultDir('desc');
     }
 
     protected function _prepareCollection()

@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
         $this->setId('promo_quote_grid');
         $this->setDefaultSort('sort_order');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
         $this->setSaveParametersInSession(true);
     }
 

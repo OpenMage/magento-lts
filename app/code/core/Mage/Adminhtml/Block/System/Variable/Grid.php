@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
         parent::_construct();
         $this->setId('customVariablesGrid');
         $this->setDefaultSort('variable_id');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
     }
 
     /**

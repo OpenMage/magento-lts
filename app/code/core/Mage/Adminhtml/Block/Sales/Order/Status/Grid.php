@@ -21,7 +21,6 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         //$this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setDefaultSort('state');
-        $this->setDefaultDir('DESC');
     }
 
     protected function _prepareCollection()

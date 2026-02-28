@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected $_defaultSort     = false;
 
-    protected $_defaultDir      = 'desc';
+    protected $_defaultDir      = Varien_Data_Collection::SORT_ORDER_DESC;
 
     protected $_defaultFilter   = [];
 
@@ -1000,7 +1000,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param  string $dir
+     * @param  Varien_Data_Collection::SORT_ORDER_* $dir
      * @return $this
      */
     public function setDefaultDir($dir)

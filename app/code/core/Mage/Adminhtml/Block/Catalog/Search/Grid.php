@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->setId('catalog_search_grid');
         $this->setDefaultSort('query_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
         $this->setSaveParametersInSession(true);
     }
 

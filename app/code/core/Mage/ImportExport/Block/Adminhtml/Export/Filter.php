@@ -40,7 +40,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         $this->setRowClickCallback(null);
         $this->setId('export_filter_grid');
         $this->setDefaultSort('frontend_label');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
         $this->setPagerVisibility(false);
         $this->setDefaultLimit(null);
         $this->setUseAjax(true);

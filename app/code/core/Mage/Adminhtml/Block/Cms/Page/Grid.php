@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->setId('cmsPageGrid');
         $this->setDefaultSort('title');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
     }
 
     /**

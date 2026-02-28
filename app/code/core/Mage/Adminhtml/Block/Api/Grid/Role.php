@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
         $this->setId('roleGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('role_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
         $this->setUseAjax(true);
     }
 

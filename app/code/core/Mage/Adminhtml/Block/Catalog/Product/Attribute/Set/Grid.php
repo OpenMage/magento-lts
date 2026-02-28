@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
         parent::__construct();
         $this->setId('setGrid');
         $this->setDefaultSort('set_name');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
         $this->setSaveParametersInSession(true);
     }
 
