@@ -32,6 +32,9 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         return 'salesrule/report_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -142,9 +145,9 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * Add price rule filter
      *
+     * @inheritDoc
      * @param  Mage_SalesRule_Model_Resource_Report_Collection $collection
      * @param  Varien_Object                                   $filterData
-     * @return $this
      */
     protected function _addCustomFilter($collection, $filterData)
     {
