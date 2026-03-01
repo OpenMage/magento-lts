@@ -21,9 +21,12 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\TemplateTrait;
 
 final class TemplateTest extends OpenMageTest
 {
+    use TemplateTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
@@ -33,8 +36,9 @@ final class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider validateTemplateDataProvider
+     * @dataProvider provideValidateData
      * @group Model
+     * @group test
      */
     public function testValidate(?string $expected, array $methods): void
     {
@@ -53,72 +57,6 @@ final class TemplateTest extends OpenMageTest
         }
 
         self::$subject->validate();
-    }
-
-    public function validateTemplateDataProvider(): Generator
-    {
-        $validData = [
-            'setTemplateCode'           => 'Valid Code',
-            'setTemplateSenderEmail'    => 'test@example.com',
-            'setTemplateSenderName'     => 'Sender Name',
-            'setTemplateSubject'        => 'Valid Subject',
-            'setTemplateText'           => 'Valid Template Text',
-            'setTemplateType'           => 1,
-        ];
-
-        yield 'valid data' => [
-            null,
-            $validData,
-        ];
-
-        $data = $validData;
-        $data['setTemplateCode'] = null;
-        yield 'missing template code' => [
-            "You must give a non-empty value for field 'template_code'",
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateSenderEmail'] = null;
-        yield 'missing sender email' => [
-            "You must give a non-empty value for field 'template_sender_email'",
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateSenderEmail'] = 'invalid-email';
-        yield 'invalid sender email' => [
-            "You must give a non-empty value for field 'template_sender_email'",
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateSenderName'] = null;
-        yield 'missing sender name' => [
-            "You must give a non-empty value for field 'template_sender_name'",
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateSubject'] = null;
-        yield 'missing template subject' => [
-            null,
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateText'] = null;
-        yield 'missing template text' => [
-            null,
-            $data,
-        ];
-
-        $data = $validData;
-        $data['setTemplateType'] = null;
-        yield 'missing template type' => [
-            "You must give a non-empty value for field 'template_type'",
-            $data,
-        ];
     }
 
     /**
