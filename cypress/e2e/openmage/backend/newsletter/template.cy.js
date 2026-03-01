@@ -31,8 +31,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.edit.__buttons.reset.click();
         cy.url().should('include', test.edit.url);
 
-        test.edit.__buttons.back.click();
+        //test.edit.__buttons.back.click();
+        cy.get('iframe')
+        cy.wait(1000);
+        test.edit.__buttons.save.click();
         cy.url().should('include', test.index.url);
+        validation.hasSuccessMessage('The template has been saved.');
     });
 
     it(`tests new route`, () => {

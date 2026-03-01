@@ -25,7 +25,6 @@
  * @method string                                             getTemplateSenderName()
  * @method string                                             getTemplateStyles()
  * @method string                                             getTemplateSubject()
- * @method int                                                getTemplateType()
  * @method bool                                               hasAddedAt()
  * @method bool                                               hasTemplateActual()
  * @method $this                                              setAddedAt(string $value)
@@ -39,7 +38,6 @@
  * @method $this                                              setTemplateSubject(string $value)
  * @method $this                                              setTemplateText(string $value)
  * @method $this                                              setTemplateTextPreprocessed(string $value)
- * @method $this                                              setTemplateType(int $value)
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
@@ -151,7 +149,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return int
      */
     public function getType()
     {
@@ -427,5 +425,19 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         return $this->getData('template_text');
+    }
+
+    /**
+     * @param  Mage_Core_Model_Template::TYPE_* $type
+     * @return $this
+     */
+    public function setTemplateType(int $type)
+    {
+        return $this->setData('template_type', $type);
+    }
+
+    public function getTemplateType(): int
+    {
+        return (int) $this->getDataByKey('template_type');
     }
 }
