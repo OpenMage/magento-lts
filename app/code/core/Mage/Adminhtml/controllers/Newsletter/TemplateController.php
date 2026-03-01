@@ -172,7 +172,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             }
 
             $template->save();
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The template has been saved.'));
+            $this->_getSession()->addSuccess(Mage::helper('newsletter')->__('The template has been saved.'));
             $this->_redirect('*/*');
             return;
         } catch (Mage_Core_Exception $e) {

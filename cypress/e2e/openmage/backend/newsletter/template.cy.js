@@ -31,8 +31,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.edit.__buttons.reset.click();
         cy.url().should('include', test.edit.url);
 
-        //test.edit.__buttons.back.click();
-        cy.get('iframe')
+        cy.get('iframe').should('exist');
         cy.wait(1000);
         test.edit.__buttons.save.click();
         cy.url().should('include', test.index.url);
