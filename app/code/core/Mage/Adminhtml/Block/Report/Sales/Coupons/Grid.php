@@ -146,8 +146,8 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
      * Add price rule filter
      *
      * @inheritDoc
-     * @param  Mage_SalesRule_Model_Resource_Report_Collection $collection
-     * @param  Varien_Object                                   $filterData
+     * @param Mage_SalesRule_Model_Resource_Report_Collection $collection
+     * @param Varien_Object                                   $filterData
      */
     protected function _addCustomFilter($collection, $filterData)
     {
