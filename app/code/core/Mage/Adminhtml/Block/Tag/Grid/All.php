@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setId('tagsGrid');
         $this->setDefaultSort('tag_id');
+        $this->setDefaultDir('desc');
     }
 
     /**

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         parent::__construct();
         $this->setId('queueGrid');
         $this->setDefaultSort('start_at');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }

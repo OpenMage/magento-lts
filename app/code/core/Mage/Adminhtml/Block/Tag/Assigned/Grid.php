@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->_currentTagModel = Mage::registry('current_tag');
         $this->setId('tag_assigned_product_grid');
         $this->setDefaultSort('entity_id');
+        $this->setDefaultDir('DESC');
         $this->setUseAjax(true);
         if ($this->_getTagId()) {
             $this->setDefaultFilter(['in_products' => 1]);

@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         parent::__construct();
         $this->setId('permissionsOrphanedResourceGrid');
         $this->setDefaultSort('resource_id');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('asc');
     }
 
     /**

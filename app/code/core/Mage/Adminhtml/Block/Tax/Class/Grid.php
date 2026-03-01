@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
         parent::__construct();
         $this->setId('taxClassGrid');
         $this->setDefaultSort('class_name');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('ASC');
     }
 
     /**

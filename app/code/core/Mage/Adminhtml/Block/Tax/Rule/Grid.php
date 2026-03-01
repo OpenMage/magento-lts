@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->setDefaultSort('tax_rule_id');
         $this->setId('taxRuleGrid');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('asc');
         $this->setSaveParametersInSession(true);
     }
 

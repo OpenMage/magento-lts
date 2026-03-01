@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
         parent::__construct();
         $this->setId('permissionsUserRolesGrid');
         $this->setDefaultSort('sort_order');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('asc');
         //$this->setDefaultFilter(array('assigned_user_role'=>1));
         $this->setTitle(Mage::helper('adminhtml')->__('User Roles Information'));
         $this->setUseAjax(true);

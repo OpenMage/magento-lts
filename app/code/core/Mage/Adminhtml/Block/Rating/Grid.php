@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setId('ratingsGrid');
         $this->setDefaultSort('rating_code');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 

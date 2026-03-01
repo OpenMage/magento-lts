@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
         parent::__construct();
         $this->setId('permissionsBlockGrid');
         $this->setDefaultSort('block_id');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('asc');
         $this->setUseAjax(true);
     }
 

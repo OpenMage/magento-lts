@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     {
         parent::__construct($arguments);
         $this->setDefaultSort('block_id');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
         $this->setDefaultFilter(['chooser_is_active' => '1']);
     }

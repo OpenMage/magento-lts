@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         parent::__construct();
         $this->setId('tag_customer_grid' . Mage::registry('current_tag')->getId());
         $this->setDefaultSort('name');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 

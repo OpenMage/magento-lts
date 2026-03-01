@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->setId('productsReportGrid');
         $this->setDefaultSort('entity_id');
+        $this->setDefaultDir('desc');
     }
 
     /**

@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->setId('permissionsUserGrid');
         $this->setDefaultSort('username');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('asc');
         $this->setUseAjax(true);
     }
 

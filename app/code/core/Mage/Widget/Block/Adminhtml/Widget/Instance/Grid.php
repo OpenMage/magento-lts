@@ -22,7 +22,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
         parent::_construct();
         $this->setId('widgetInstanceGrid');
         $this->setDefaultSort('title');
-        $this->setDefaultDir(Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->setDefaultDir('ASC');
     }
 
     /**
