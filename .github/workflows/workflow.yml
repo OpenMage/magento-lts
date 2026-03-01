@@ -16,7 +16,7 @@ on:
       - '.phpcs.dist.ecg.xml'
       - '.phpcs.dist.php.xml'
       - '.phpstan.dist.neon'
-      - '.phpstan.dist.baseline.neon'
+      - '.phpstan.dist.baseline.php'
 
   pull_request:
     paths:
@@ -33,7 +33,7 @@ on:
       - '.phpcs.dist.ecg.xml'
       - '.phpcs.dist.php.xml'
       - '.phpstan.dist.neon'
-      - '.phpstan.dist.baseline.neon'
+      - '.phpstan.dist.baseline.php'
 
 jobs:
   debug:
