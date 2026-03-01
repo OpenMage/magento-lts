@@ -94,6 +94,8 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     }
 
     /**
+     * Filter canceled statuses for orders in taxes
+     *
      * @inheritDoc
      */
     protected function _prepareCollection()
