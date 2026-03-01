@@ -21,6 +21,8 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('designGrid');
+        $this->setDefaultSort('package');
+        $this->setDefaultDir('asc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -84,8 +86,9 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare row click url
      *
-     * @param  Varien_Object $row
+     * @param  Mage_Core_Model_Design $row
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

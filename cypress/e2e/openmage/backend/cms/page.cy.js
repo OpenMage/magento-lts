@@ -1,4 +1,5 @@
 const test = cy.openmage.test.backend.cms.page.config;
+const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const utils = cy.openmage.utils;
 const validation = cy.openmage.validation;
@@ -16,13 +17,17 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         test.new.__buttons.saveAndContinue.click();
         // TODO: fix it
-        //validation.hasErrorMessage(message);
+        validation.hasErrorMessage();
         // screenshot with error message
         utils.screenshot('body', 'message.cms.page.saveEmptyWithoutJs');
     });
 
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
+
+        tools.grid.clickSortedColumn(test.index);
+        cy.openmage.admin.goToPage(test, test.index);
+        check.gridSort(test, test.index, 'desc');
     });
 
     it(`tests edit route`, () => {

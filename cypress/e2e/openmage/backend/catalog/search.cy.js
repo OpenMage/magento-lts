@@ -1,4 +1,5 @@
 const test = cy.openmage.test.backend.catalog.search.config;
+const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
@@ -20,10 +21,15 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const screenshot = 'message.catalog.search.saveEmptyWithoutJs';
         // validation.hasErrorMessage(error);
         validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
+        validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
+
+        tools.grid.clickSortedColumn(test.index);
+        cy.openmage.admin.goToPage(test, test.index);
+        check.gridSort(test, test.index, 'desc');
     });
 
     it(`tests edit route`, () => {

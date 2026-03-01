@@ -133,8 +133,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     /**
      * Retrieve row click URL
      *
-     * @param Varien_Object $row
-     *
+     * @param  Mage_SalesRule_Model_Rule $row
      * @return string
      */
     public function getRowUrl($row)

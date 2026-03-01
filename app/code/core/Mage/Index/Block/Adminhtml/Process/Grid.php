@@ -36,6 +36,8 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         parent::__construct();
         $this->_processModel = Mage::getSingleton('index/process');
         $this->setId('indexer_processes_grid');
+        $this->setDefaultSort('ended_at');
+        $this->setDefaultDir('desc');
         $this->_filterVisibility = false;
         $this->_pagerVisibility  = false;
     }
