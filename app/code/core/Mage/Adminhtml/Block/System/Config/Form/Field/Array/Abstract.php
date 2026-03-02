@@ -11,6 +11,9 @@
  * Adminhtml system config array field renderer
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Data_Form_Element_Abstract getElement()
+ * @method $this                             setElement(Varien_Data_Form_Element_Abstract $element)
  */
 abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
 {

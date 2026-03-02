@@ -12,6 +12,7 @@
  * Provide date processing functionality
  *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
+ * @method string                                   getBackUrl()
  * @method bool                                     getForceUpdateGridRecords()
  * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
  * @method $this                                    setTransactionId(int $value)

@@ -11,6 +11,9 @@
  * Adminhtml footer block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getShowProfiler()
+ * @method $this setShowProfiler(bool $value)
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {

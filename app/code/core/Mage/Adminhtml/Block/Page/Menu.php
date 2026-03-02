@@ -12,8 +12,10 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array getAdditionalCacheKeyInfo()
- * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
+ * @method string getActive()
+ * @method array  getAdditionalCacheKeyInfo()
+ * @method $this  setActive(string $value)
+ * @method $this  setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {

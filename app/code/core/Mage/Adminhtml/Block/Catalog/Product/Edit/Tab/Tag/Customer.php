@@ -11,6 +11,8 @@
  * List of customers tagged a product
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getProductId()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
 {
