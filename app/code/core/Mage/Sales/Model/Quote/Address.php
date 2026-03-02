@@ -246,14 +246,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Total amounts
      *
-     * @var array
+     * @var array<string, float>
      */
     protected $_totalAmounts = [];
 
     /**
      * Total base amounts
      *
-     * @var array
+     * @var array<string, float>
      */
     protected $_baseTotalAmounts = [];
 
@@ -1352,7 +1352,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get all total amount values
      *
-     * @return array
+     * @return array<string, float>
      */
     public function getAllTotalAmounts()
     {
@@ -1362,7 +1362,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Get all total amount values in base currency
      *
-     * @return array
+     * @return array<string, float>
      */
     public function getAllBaseTotalAmounts()
     {
