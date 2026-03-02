@@ -11,6 +11,14 @@
  * Store switcher block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getDefaultStoreName()
+ * @method bool   getUseAjax()
+ * @method bool   getUseConfirm()
+ * @method $this  setDefaultStoreName(string $value)
+ * @method $this  setSwitchUrl(string $value)
+ * @method $this  setUseAjax(bool $value)
+ * @method $this  setUseConfirm(bool $value)
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
