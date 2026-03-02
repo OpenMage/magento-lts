@@ -20,7 +20,7 @@
  * @method $this  setCheckboxCheckCallback(string $value)
  * @method $this  setIsCollapsed(bool $value)
  * @method $this  setRowClickCallback(string $value)
- * @method $this  setRowInitCallback(bool $value)
+ * @method $this  setRowInitCallback(string $value)
  * @method $this  setSortable(bool $value)
  * @method $this  setUseAjax(bool $value)
  */
