@@ -12,6 +12,9 @@
  * Adminhtml grid container block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getBackUrl()
+ * @method $this  setBackUrl(string $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Widget_Container
 {

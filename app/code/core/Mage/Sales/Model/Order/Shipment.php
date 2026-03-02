@@ -13,7 +13,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment            _getResource()
- * @method string                                              getBackUrl()
  * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
  * @method int                                                 getCustomerId()
