@@ -19,14 +19,12 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order _getResource()
- * @method float                           getAdjustmentNegative()
- * @method float                           getAdjustmentPositive()
- * @method null|string                     getAppliedRuleIds()
- *
+ * @method Mage_Sales_Model_Resource_Order            _getResource()
+ * @method float                                      getAdjustmentNegative()
+ * @method float                                      getAdjustmentPositive()
+ * @method null|string                                getAppliedRuleIds()
  * @method array                                      getAppliedTaxes()
  * @method bool                                       getAppliedTaxIsSaved()
- * @method string                                     getBackUrl()
  * @method float                                      getBaseAdjustmentNegative()
  * @method float                                      getBaseAdjustmentPositive()
  * @method string                                     getBaseCurrencyCode()
