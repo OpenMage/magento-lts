@@ -13,6 +13,23 @@ use Carbon\Carbon;
  * Adminhtml transaction detail
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getCreatedAtHtml()
+ * @method string getIsClosedHtml()
+ * @method string getOrderIdUrlHtml()
+ * @method string getOrderIncrementIdHtml()
+ * @method string getParentTxnIdHtml()
+ * @method string getParentTxnIdUrlHtml()
+ * @method string getTxnIdHtml()
+ * @method string getTxnTypeHtml()
+ * @method $this  setCreatedAtHtml(string $value)
+ * @method $this  setIsClosedHtml(string $value)
+ * @method $this  setOrderIdUrlHtml(string $value)
+ * @method $this  setOrderIncrementIdHtml(string $value)
+ * @method $this  setParentTxnIdHtml(string $value)
+ * @method $this  setParentTxnIdUrlHtml(string $value)
+ * @method $this  setTxnIdHtml(string $value)
+ * @method $this  setTxnTypeHtml(string $value)
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Block_Widget_Container
 {
@@ -69,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     protected function _toHtml()
     {
