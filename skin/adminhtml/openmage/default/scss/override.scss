@@ -187,6 +187,10 @@ small {
       @extend %extend_10;
     }
 
+    button:not(:first-of-type) {
+      margin-left: 5px;
+    }
+
     .icon-copy {
       width: 16px;
       height: 16px;
