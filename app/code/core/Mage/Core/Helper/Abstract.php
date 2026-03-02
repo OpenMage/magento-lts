@@ -207,7 +207,7 @@ abstract class Mage_Core_Helper_Abstract
             }
         } elseif (is_string($data) && strlen($data)) {
             // process single item
-            if (is_array($allowedTags) && !empty($allowedTags)) {
+            if (is_array($allowedTags) && $allowedTags !== []) {
                 $allowed = implode('|', $allowedTags);
                 $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
                 $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);

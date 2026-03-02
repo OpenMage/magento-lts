@@ -392,7 +392,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $storeId    = $store->getId();
             $websiteId  = $store->getWebsiteId();
 
-            if (is_array($product) && !empty($product)) {
+            if (is_array($product) && $product !== []) {
                 $condition[] = $adapter->quoteInto('product_id IN (?)', $product);
             }
 
@@ -483,7 +483,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('t_v_default.store_id = ?', 0)
             ->where(sprintf('%s = ?', $valueCondition), Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
-        if (is_array($product) && !empty($product)) {
+        if (is_array($product) && $product !== []) {
             $select->where('t_v_default.entity_id IN (?)', $product);
         }
 
