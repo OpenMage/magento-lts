@@ -11,6 +11,9 @@
  * Adminhtml sales order create sidebar block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getDataId()
+ * @method $this  setDataId(string $value)
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {

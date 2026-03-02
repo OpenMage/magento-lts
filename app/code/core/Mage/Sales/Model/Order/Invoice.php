@@ -11,7 +11,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice            _getResource()
- * @method string                                             getBackUrl()
  * @method float                                              getBaseCost()
  * @method string                                             getBaseCurrencyCode()
  * @method float                                              getBaseDiscountAmount()
