@@ -11,6 +11,17 @@
  * Convert profiles run block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array getBatchConfig()
+ * @method int   getBatchItemsCount()
+ * @method bool  getBatchModelHasAdapter()
+ * @method array getImportData()
+ * @method bool  getShowFinished()
+ * @method $this setBatchConfig(array $value)
+ * @method $this setBatchItemsCount(int $value)
+ * @method $this setBatchModelHasAdapter(bool $value)
+ * @method $this setImportData(array $value)
+ * @method $this setShowFinished(bool $value)
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
 {
