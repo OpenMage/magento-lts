@@ -358,7 +358,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Address Attributes
      *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
      * @return array
      */
     protected function _getAddressAttributeOptions($attribute)

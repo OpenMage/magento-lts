@@ -35,7 +35,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Resource instance
      *
-     * @var Mage_Core_Model_Resource_Db_Abstract
+     * @var Mage_Core_Model_Resource_Db_Abstract|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     protected $_resource = null;
 

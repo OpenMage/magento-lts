@@ -24,7 +24,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Map field to alias
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => ['website_id' => 'main_table.website_id']];
 

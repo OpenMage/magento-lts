@@ -167,8 +167,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     /**
      * Specify collection select filter by attribute value
      *
-     * @param  array                 $attributes
-     * @param  null|array|int|string $condition
+     * @param  array|Mage_Eav_Model_Entity_Attribute|string $attributes
+     * @param  null|array|int|string                        $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)
@@ -176,7 +176,6 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         if (is_array($attributes) && !empty($attributes)) {
             $this->_addAddressFields();
 
-            $toFilterData = [];
             foreach ($attributes as $attribute) {
                 $this->addFieldToSearchFilter($this->_attributeToField($attribute['attribute']), $attribute);
             }

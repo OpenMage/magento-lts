@@ -918,13 +918,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve item model object by item identifier
      *
-     * @param  int                         $itemId
-     * @return Mage_Sales_Model_Quote_Item
+     * @param  int                              $itemId
+     * @return null|Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
-        $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
         }
@@ -935,7 +934,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        return $quoteItem;
+        return null;
     }
 
     /**
@@ -1958,6 +1957,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $newItem = clone $item;
                 $this->addItem($newItem);
                 if ($item->getHasChildren()) {
+                    /** @var Mage_Sales_Model_Quote_Item $child */
                     foreach ($item->getChildren() as $child) {
                         $newChild = clone $child;
                         $newChild->setParentItem($newItem);

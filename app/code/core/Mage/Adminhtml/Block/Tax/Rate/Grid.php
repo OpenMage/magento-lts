@@ -9,6 +9,8 @@
 
 /**
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Data_Collection_Db getCollection()
  */
 class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
