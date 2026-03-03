@@ -782,6 +782,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             $this->getItemsCollection()->addItem($addressItem);
 
             if ($item->getHasChildren()) {
+                /** @var Mage_Sales_Model_Quote_Item $child */
                 foreach ($item->getChildren() as $child) {
                     $addressChildItem = Mage::getModel('sales/quote_address_item')
                         ->setAddress($this)

@@ -11,6 +11,8 @@
  * Acl role user grid
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Data_Collection_Db getCollection()
  */
 class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {

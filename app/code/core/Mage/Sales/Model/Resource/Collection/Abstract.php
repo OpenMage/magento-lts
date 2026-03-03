@@ -11,6 +11,8 @@
  * Flat sales abstract collection
  *
  * @package    Mage_Sales
+ * @template T
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<T>
  */
 abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

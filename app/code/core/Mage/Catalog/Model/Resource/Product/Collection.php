@@ -13,8 +13,8 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Flat|Mage_Eav_Model_Entity_Abstract getEntity()
- * @method Mage_Catalog_Model_Product                                              getItemById($value)
- * @method Mage_Catalog_Model_Product[]                                            getItems()
+ *
+ * @extends Mage_Catalog_Model_Resource_Collection_Abstract<Mage_Catalog_Model_Product>
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Map of price fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => [
         'price'         => 'price_index.price',

@@ -11,6 +11,8 @@
  * Data collection
  *
  * @package    Varien_Data
+ * @template T of Varien_Object
+ * @implements IteratorAggregate<T>
  */
 class Varien_Data_Collection implements IteratorAggregate, Countable
 {
@@ -21,7 +23,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Collection items
      *
-     * @var array
+     * @var array|T[]
      */
     protected $_items = [];
 
@@ -247,7 +249,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection first item
      *
-     * @return Varien_Object
+     * @return T
      */
     public function getFirstItem()
     {
@@ -264,7 +266,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection last item
      *
-     * @return Varien_Object
+     * @return T
      */
     public function getLastItem()
     {
@@ -280,7 +282,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection items
      *
-     * @return array
+     * @return array|T[]
      */
     public function getItems()
     {
@@ -309,9 +311,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Search all items by field value
      *
-     * @param  string $column
-     * @param  mixed  $value
-     * @return array
+     * @param  string    $column
+     * @param  mixed     $value
+     * @return array|T[]
      */
     public function getItemsByColumnValue($column, $value)
     {
@@ -330,9 +332,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Search first item by field value
      *
-     * @param  string             $column
-     * @param  mixed              $value
-     * @return null|Varien_Object
+     * @param  string $column
+     * @param  mixed  $value
+     * @return null|T
      */
     public function getItemByColumnValue($column, $value)
     {
@@ -350,6 +352,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
+     * @param  T         $item
      * @return $this
      * @throws Exception
      */
@@ -373,7 +376,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Add item that has no id to collection
      *
-     * @param  Varien_Object $item
+     * @param  T     $item
      * @return $this
      */
     protected function _addItem($item)
@@ -555,7 +558,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve collection empty item
      *
-     * @return Varien_Object
+     * @return T
      */
     public function getNewEmptyItem()
     {
@@ -565,7 +568,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Render sql select conditions
      *
-     * @return Varien_Data_Collection
+     * @return $this
      */
     protected function _renderFilters()
     {
@@ -575,7 +578,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Render sql select orders
      *
-     * @return Varien_Data_Collection
+     * @return $this
      */
     protected function _renderOrders()
     {
@@ -585,7 +588,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Render sql select limit
      *
-     * @return Varien_Data_Collection
+     * @return $this
      */
     protected function _renderLimit()
     {
@@ -739,8 +742,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve item by id
      *
-     * @param  mixed              $idValue
-     * @return null|Varien_Object
+     * @param  mixed  $idValue
+     * @return null|T
      */
     public function getItemById($idValue)
     {
@@ -755,6 +758,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
     /**
      * Implementation of IteratorAggregate::getIterator()
+     *
+     * @return Iterator<mixed, T>
      */
     #[ReturnTypeWillChange]
     public function getIterator()
