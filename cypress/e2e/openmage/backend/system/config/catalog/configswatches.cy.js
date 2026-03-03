@@ -1,3 +1,4 @@
+const config = cy.openmage.test.backend.system.config;
 const test = cy.openmage.test.backend.system.config.catalog.configswatches.config;
 const validate = {
     dimension: {
@@ -44,7 +45,7 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
                 .should('have.value', value);
         });
 
-        cy.adminSaveConfiguration();
+        config.clickSave();
 
         cy.log('Checking for error messages');
         const error = cy.openmage.validation.digits.error;
@@ -71,7 +72,7 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
                 .should('have.value', '');
         });
 
-        cy.adminSaveConfiguration();
+        config.clickSave();
 
         cy.log('Checking for error messages');
         const error = cy.openmage.validation.requiredEntry.error;
