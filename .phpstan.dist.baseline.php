@@ -3962,12 +3962,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Type mixed in generic type Varien_Data_Collection_Db<mixed> in PHPDoc tag @extends is not subtype of template type T of Varien_Object of class Varien_Data_Collection_Db.',
-	'identifier' => 'generics.notSubtype',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Variable $alias might not be defined.',
 	'identifier' => 'variable.undefined',
 	'count' => 3,
@@ -4859,12 +4853,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 12,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Type mixed in generic type Varien_Data_Collection_Db<mixed> in PHPDoc tag @extends is not subtype of template type T of Varien_Object of class Varien_Data_Collection_Db.',
-	'identifier' => 'generics.notSubtype',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
