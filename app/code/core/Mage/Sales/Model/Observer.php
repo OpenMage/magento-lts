@@ -355,8 +355,8 @@ class Mage_Sales_Model_Observer
 
         $vatRequestId = $orderAddress->getVatRequestId();
         $vatRequestDate = $orderAddress->getVatRequestDate();
-        if (is_string($vatRequestId) && $vatRequestId !== '' &&
-            is_string($vatRequestDate) && $vatRequestDate !== ''
+        if (is_string($vatRequestId) && $vatRequestId !== ''
+            && is_string($vatRequestDate) && $vatRequestDate !== ''
         ) {
             $orderHistoryComment = Mage::helper('customer')->__('VAT Request Identifier')
                 . ': ' . $vatRequestId . '<br />' . Mage::helper('customer')->__('VAT Request Date')
