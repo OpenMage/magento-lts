@@ -371,7 +371,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param  Mage_Bundle_Model_Option        $option
      * @param  bool                            $takeTierPrice
      * @param  null|bool                       $includeTax
-     * @return array
+     * @return array<int, float|int>
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getSelectionPrices($product, $option, $takeTierPrice, $includeTax)
@@ -1059,7 +1059,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * Get all custom option values prices
      *
      * @param  Mage_Catalog_Model_Product_Option $option
-     * @return array
+     * @return array<int, float|int>
      */
     protected function _getCustomOptionValuesPrices($option)
     {

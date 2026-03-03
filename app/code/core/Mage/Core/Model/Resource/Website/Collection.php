@@ -82,7 +82,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     /**
      * Add website filter to collection
      *
-     * @param  int   $ids|array
+     * @param  array|int $ids
      * @return $this
      */
     public function addIdFilter($ids)
