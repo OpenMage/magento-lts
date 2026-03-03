@@ -612,7 +612,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function resetItemsDataChanged()
     {
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setDataChanges(false);
         }
@@ -628,7 +627,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     protected function _afterLoad()
     {
         parent::_afterLoad();
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setOrigData();
             if ($this->_resetItemsDataChanged) {
