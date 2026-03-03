@@ -76,7 +76,7 @@ final class PurifierTest extends OpenMageTest
      * @dataProvider provideGetEscapeInvalidTags
      * @group Model
      */
-    public function testGetters($escapeInvalidTags): void
+    public function testGetEscapeInvalidTags($escapeInvalidTags): void
     {
         $subject = $this->getSubject([
             Subject::OPTION_ESCAPE_INVALID_TAGS => $escapeInvalidTags,
