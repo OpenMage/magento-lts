@@ -23,14 +23,21 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
         $this->setDefaultDir('asc');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel('permissions/users')->getCollection();
+        $collection = Mage::getModel('permissions/users')->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [

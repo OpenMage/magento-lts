@@ -70,7 +70,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 4,
+	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Admin/Model/User.php',
 ];
 $ignoreErrors[] = [
@@ -280,7 +280,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 14,
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
@@ -832,7 +832,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
@@ -850,7 +850,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 14,
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
@@ -1660,7 +1660,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php',
 ];
 $ignoreErrors[] = [
@@ -2434,7 +2434,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
@@ -2476,7 +2476,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 7,
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
@@ -2650,7 +2650,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 12,
+	'count' => 10,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];
 $ignoreErrors[] = [
@@ -2902,7 +2902,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogInventory/Helper/Minsaleqty.php',
 ];
 $ignoreErrors[] = [
@@ -3618,12 +3618,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Helper/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4426,7 +4420,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 15,
+	'count' => 13,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -4450,7 +4444,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Resource/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -5362,14 +5356,8 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Event.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 4,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Resource/Event/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $adapter of method Varien_Db_Adapter_Interface::setCacheAdapter() expects Zend_Cache_Backend_Interface, Zend_Cache_Core given.',
@@ -6260,12 +6248,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Product/Lowstock/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type array of property Mage_Reports_Model_Resource_Quote_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
@@ -6340,7 +6322,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -6370,7 +6352,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 9,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6448,7 +6430,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 8,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6526,7 +6508,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -6832,7 +6814,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 3,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -6840,12 +6822,6 @@ $ignoreErrors[] = [
 	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.',
@@ -7362,12 +7338,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Tax/Model/System/Config/Source/Tax/Region.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Variable $result might not be defined.',
