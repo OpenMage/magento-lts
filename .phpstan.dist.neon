@@ -52,9 +52,6 @@ parameters:
         - app/code/core/Mage/Paypal/Model/Report/Settlement.php
         - lib/Varien/Io/Sftp.php
 
-        # Dataflow/Model/Convert/Iterator.php
-        - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
-
         # requires Mycrypt
         - lib/Magento/Crypt.php
         - lib/Varien/Crypt/Mcrypt.php
