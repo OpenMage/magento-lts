@@ -44,6 +44,9 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $roleId = $this->getRequest()->getParam('rid');
@@ -53,6 +56,10 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('in_role_users', [

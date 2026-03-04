@@ -22,16 +22,22 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('core/website')
             ->getCollection()
             ->joinGroupAndStore();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('website_title', [

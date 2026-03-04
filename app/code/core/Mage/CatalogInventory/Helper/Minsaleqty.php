@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             ];
         }
 
-        if (is_string($value) && !empty($value)) {
+        if (is_string($value) && $value !== '') {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($value);
             } catch (Exception) {
