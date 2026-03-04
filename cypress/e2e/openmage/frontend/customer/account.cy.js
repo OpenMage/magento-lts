@@ -63,10 +63,13 @@ describe('Checks customer account create', () => {
 
     it('Submits valid form', () => {
         const password = 'veryl0ngpassw0rd';
+        let message = '';
+        let filename = '';
+
         // see PR: https://github.com/OpenMage/magento-lts/pull/4617
         // const message = 'Thank you for registering with Madison Island.';
-        var message = 'Thank you for registering with ENV name default.';
-        var filename = 'message.customer.account.create.success';
+        message = 'Thank you for registering with ENV name default.';
+        filename = 'message.customer.account.create.success';
         cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
         cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
         cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
@@ -76,7 +79,7 @@ describe('Checks customer account create', () => {
         validation.hasSuccessMessage(message, { screenshot: false, filename: filename });
         
         const linkAccountInformation = 'div.block-account li:nth-child(2) a'; // todo: replace with selector for "Account Dashboard" link
-        var message = 'The account information has been saved.';
+        message = 'The account information has been saved.';
         
         cy.get(linkAccountInformation).click();
         cy.get(test.edit.__fields.current_password._).type(password).should('have.value', password);
