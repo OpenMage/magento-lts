@@ -146,7 +146,8 @@
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/magento-lts/f28ab75b1df7d1497ed775e33b77d7957c9b85c4/.vendor-patches/OM-918.patch",
                 "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-1081.patch",
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/magento-lts/5479577ef5207ace4f5842a2f1a636f689db9194/.vendor-patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-2050.patch"
+                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-2050.patch",
+                "OM-4911 - str_decrement on 0": "https://patch-diff.githubusercontent.com/raw/Shardj/zf1-future/pull/529.patch"
             },
             "magento-ecg/coding-standard": {
                 "ECG-72 - Fix LoopSniff": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/ECG-72.patch"
