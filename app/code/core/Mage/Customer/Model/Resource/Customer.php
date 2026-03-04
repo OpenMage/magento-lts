@@ -330,7 +330,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
     {
-        if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
+        if (is_string($newResetPasswordLinkToken) && $newResetPasswordLinkToken !== '') {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();
             $customer->setRpTokenCreatedAt($currentDate);
@@ -354,7 +354,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         Mage_Customer_Model_Customer $customer,
         $newResetPasswordLinkCustomerId
     ) {
-        if (is_string($newResetPasswordLinkCustomerId) && !empty($newResetPasswordLinkCustomerId)) {
+        if (is_string($newResetPasswordLinkCustomerId) && $newResetPasswordLinkCustomerId !== '') {
             $customer->setRpCustomerId($newResetPasswordLinkCustomerId);
             $this->saveAttribute($customer, 'rp_customer_id');
         }
