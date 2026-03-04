@@ -53,7 +53,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method int                                              getTagId()
  * @method string                                           getTaxvat()
  * @method int                                              getWebsiteId()
- * @method bool                                             hasIsChangePassword()
  * @method bool                                             hasIsSubscribed()
  * @method bool                                             hasSkipConfirmationIfEmail()
  * @method bool                                             hasStoreId()
@@ -1100,7 +1099,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
         ));
 
-        if (!$this->hasIsChangePassword() || $this->getIsChangePassword()) {
+        if ($this->getIsChangePassword()) {
             $violations->append($this->getPasswordValidator(value: $this->getPassword()));
 
             $violations->append($validator->validateIdentical(

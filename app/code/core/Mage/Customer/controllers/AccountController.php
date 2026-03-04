@@ -290,6 +290,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customer = $this->_getCustomer();
+        $customer->setIsChangePassword(true);
 
         try {
             $errors = $this->_getCustomerErrors($customer);
