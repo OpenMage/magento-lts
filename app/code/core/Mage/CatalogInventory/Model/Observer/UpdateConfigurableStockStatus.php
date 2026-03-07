@@ -56,9 +56,7 @@ final class Mage_CatalogInventory_Model_Observer_UpdateConfigurableStockStatus i
                 }
             }
 
-            if ((bool) $parentStockItem->getIsInStock() !== $isInStock) {
-                $parentStockItem->setIsInStock($isInStock)->save();
-            }
+            $parentStockItem->setIsInStock($isInStock)->save();
         }
     }
 }
