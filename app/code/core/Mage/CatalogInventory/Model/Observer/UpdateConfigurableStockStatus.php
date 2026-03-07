@@ -43,20 +43,25 @@ final class Mage_CatalogInventory_Model_Observer_UpdateConfigurableStockStatus i
             ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE)
             ->addIdFilter($parentIds);
 
+        /** @var Mage_Catalog_Model_Product $parentProduct */
         foreach ($parentPooducts as $parentProduct) {
-            $parentStockItem = $parentProduct->getStockItem();
-            $childProducts   = $parentProduct->getTypeInstance(true)
-                ->getUsedProducts(null, $parentProduct);
+            $typeInstance = $parentProduct->getTypeInstance(true);
+            if (!$typeInstance instanceof Mage_Catalog_Model_Product_Type_Configurable) {
+                continue;
+            }
 
-            $isInStock = false;
+            $parentStockItem = $parentProduct->getStockItem();
+            $childProducts   = $typeInstance->getUsedProducts(null, $parentProduct);
+
+            $isInStock = 0;
             foreach ($childProducts as $child) {
                 if ($child->getIsInStock()) {
-                    $isInStock = true;
+                    $isInStock = 1;
                     break;
                 }
             }
 
-            if ((bool) $parentStockItem->getIsInStock() !== $isInStock) {
+            if ((int) $parentStockItem->getIsInStock() !== $isInStock) {
                 $parentStockItem->setIsInStock($isInStock)->save();
             }
         }
