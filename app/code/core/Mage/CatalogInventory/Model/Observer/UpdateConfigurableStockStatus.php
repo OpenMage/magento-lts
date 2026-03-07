@@ -50,17 +50,29 @@ final class Mage_CatalogInventory_Model_Observer_UpdateConfigurableStockStatus i
                 continue;
             }
 
-            $parentStockItem = $parentProduct->getStockItem();
-            $childProducts   = $typeInstance->getUsedProducts(null, $parentProduct);
+            $isInStock       = 0;
+            $childIds        = [];
+            $childrenIds     = $typeInstance->getChildrenIds($parentProduct->getId());
 
-            $isInStock = 0;
-            foreach ($childProducts as $child) {
-                if ($child->getIsInStock()) {
-                    $isInStock = 1;
-                    break;
+            foreach ($childrenIds as $ids) {
+                if (is_array($ids)) {
+                    $childIds = array_merge($childIds, $ids);
                 }
             }
 
+            $childIds = array_values(array_unique($childIds));
+
+            if ($childIds !== []) {
+                /** @var Mage_CatalogInventory_Model_Resource_Stock_Item_Collection $stockItemCollection */
+                $stockItemCollection = Mage::getResourceModel('cataloginventory/stock_item_collection');
+                $stockItemCollection
+                    ->addFieldToFilter('product_id', ['in' => $childIds])
+                    ->addFieldToFilter('is_in_stock', 1)
+                    ->setPageSize(1);
+                $isInStock = $stockItemCollection->getSize() > 0 ? 1 : 0;
+            }
+
+            $parentStockItem = $parentProduct->getStockItem();
             if ((int) $parentStockItem->getIsInStock() !== $isInStock) {
                 $parentStockItem->setIsInStock($isInStock)->save();
             }
