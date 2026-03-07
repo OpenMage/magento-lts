@@ -38,13 +38,13 @@ final class Mage_CatalogInventory_Model_Observer_UpdateConfigurableStockStatus i
         $parentIds = Mage::getModel('catalog/product_type_configurable')
             ->getParentIdsByChild($product->getId());
 
-        $parentPooducts = Mage::getResourceModel('catalog/product_collection')
+        $parentProducts = Mage::getResourceModel('catalog/product_collection')
             ->setFlag('require_stock_items', true)
             ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE)
             ->addIdFilter($parentIds);
 
         /** @var Mage_Catalog_Model_Product $parentProduct */
-        foreach ($parentPooducts as $parentProduct) {
+        foreach ($parentProducts as $parentProduct) {
             $typeInstance = $parentProduct->getTypeInstance(true);
             if (!$typeInstance instanceof Mage_Catalog_Model_Product_Type_Configurable) {
                 continue;
