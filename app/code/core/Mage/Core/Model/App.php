@@ -1482,6 +1482,7 @@ class Mage_Core_Model_App
                         } else {
                             $method = $obs['method'];
                         }
+
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                     default:
@@ -1492,6 +1493,7 @@ class Mage_Core_Model_App
                         } else {
                             $method = $obs['method'];
                         }
+
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
