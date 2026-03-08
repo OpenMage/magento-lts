@@ -137,7 +137,7 @@ trait CustomerTrait
             null,
         ];
         yield 'empty' => [
-            null,
+            '',
             '',
         ];
         yield 'date' => [
