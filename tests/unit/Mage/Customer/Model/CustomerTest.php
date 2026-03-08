@@ -47,6 +47,8 @@ final class CustomerTest extends OpenMageTest
      */
     public function testGetDob($expectedResult, string $dob): void
     {
+        self::assertNull(self::$subject->getDob());
+
         self::$subject->setDob($dob);
         self::assertSame($expectedResult, self::$subject->getDob());
     }
