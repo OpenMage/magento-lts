@@ -127,4 +127,18 @@ trait CustomerTrait
             $data,
         ];
     }
+
+    public function provideGetDobData(): Generator
+    {
+        $result = '1981-01-01 00:00:00';
+
+        yield 'date' => [
+            $result,
+            '1981-01-01',
+        ];
+        yield 'datetime' => [
+            $result,
+            '1981-01-01 23:59:00',
+        ];
+    }
 }
