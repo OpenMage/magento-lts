@@ -44,8 +44,9 @@ final class CustomerTest extends OpenMageTest
     /**
      * @dataProvider provideGetDobData
      * @group Model
+     * @group test
      */
-    public function testGetDob($expectedResult, string $dob): void
+    public function testGetDob($expectedResult, ?string $dob): void
     {
         self::assertNull(self::$subject->getDob());
 

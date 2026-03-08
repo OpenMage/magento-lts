@@ -132,6 +132,14 @@ trait CustomerTrait
     {
         $result = '1981-01-01 00:00:00';
 
+        yield 'null' => [
+            null,
+            null,
+        ];
+        yield 'empty' => [
+            null,
+            '',
+        ];
         yield 'date' => [
             $result,
             '1981-01-01',

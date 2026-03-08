@@ -1787,14 +1787,17 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $model;
     }
 
-    public function setDob(string $dob)
+    public function setDob(?string $dob)
     {
-        $dob = Carbon::parse($dob)
-            ->setHour(0)
-            ->setMinute(0)
-            ->setSecond(0)
-            ->toDateTimeString();
-        $this->setData('dob', $dob);
+        if (is_string($dob) && $dob !== '') {
+            $dob = Carbon::parse($dob)
+                ->setHour(0)
+                ->setMinute(0)
+                ->setSecond(0)
+                ->toDateTimeString();
+            $this->setData('dob', $dob);
+        }
+
         return $this;
     }
 
