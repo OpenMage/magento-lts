@@ -1789,7 +1789,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     public function setDob(string $dob)
     {
-        $dob = Carbon::create($dob)->toDateTimeString();
+        $dob = Carbon::createFromFormat('Y-m-d', $dob)
+            ->setHour(0)
+            ->setMinute(0)
+            ->setSecond(0)
+            ->toDateTimeString();
         $this->setData('dob', $dob);
         return $this;
     }
