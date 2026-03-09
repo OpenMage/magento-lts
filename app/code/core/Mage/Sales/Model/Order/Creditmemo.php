@@ -319,7 +319,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int                 $itemId
+     * @param  int                                         $itemId
      * @return bool|Mage_Sales_Model_Order_Creditmemo_Item
      * @throws Mage_Core_Exception
      */

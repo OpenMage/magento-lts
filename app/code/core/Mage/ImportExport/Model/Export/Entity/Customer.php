@@ -137,7 +137,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     protected function _prepareExport()
     {
         /**
-         * @var $collection Mage_Customer_Model_Resource_Customer_Collection
+         * @var Mage_Customer_Model_Resource_Customer_Collection $collection
          */
         $collection = $this->_prepareEntityCollection(Mage::getResourceModel('customer/customer_collection'));
         $validAttrCodes = $this->_getExportAttrCodes();
