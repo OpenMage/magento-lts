@@ -51,14 +51,14 @@ describe('Checks customer account create', () => {
         // see PR: https://github.com/OpenMage/magento-lts/pull/4617
         // const message = 'Thank you for registering with Madison Island.';
         const message = 'Password must include both numeric and alphabetic characters.';
-        const filename = 'message.customer.account.create.invalid.weakpassword';
         cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
         cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
         cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
         cy.get(test.create.__fields.password._).type(password).should('have.value', password);
         cy.get(test.create.__fields.confirmation._).type(password).should('have.value', password);
         tools.click(test._buttonSubmit);
-        validation.hasErrorMessage(message, { screenshot: false, filename: filename });
+        cy.screenshot();
+        validation.hasErrorMessage(message);
     });
 
     it('Submits valid form', () => {
@@ -69,23 +69,25 @@ describe('Checks customer account create', () => {
         // see PR: https://github.com/OpenMage/magento-lts/pull/4617
         // const message = 'Thank you for registering with Madison Island.';
         message = 'Thank you for registering with ENV name default.';
-        filename = 'message.customer.account.create.success';
         cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
         cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
         cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
         cy.get(test.create.__fields.password._).type(password).should('have.value', password);
         cy.get(test.create.__fields.confirmation._).type(password).should('have.value', password);
         tools.click(test._buttonSubmit);
-        validation.hasSuccessMessage(message, { screenshot: false, filename: filename });
+        cy.screenshot();
+        validation.hasSuccessMessage(message);
         
         const linkAccountInformation = 'div.block-account li:nth-child(2) a'; // todo: replace with selector for "Account Dashboard" link
         message = 'The account information has been saved.';
-        
+
+        cy.log('Check that account information can be changed with password');
         cy.get(linkAccountInformation).click();
         cy.get(test.edit.__fields.current_password._).type(password).should('have.value', password);
         tools.click(test._buttonSubmit);
         validation.hasSuccessMessage(message);
 
+        cy.log('Check that password is required when changing account information');
         cy.get(linkAccountInformation).click();
         cy.get(test.edit.__fields.current_password._).type(password).should('have.value', password);
         cy.get('[name="change_password"]').check();
