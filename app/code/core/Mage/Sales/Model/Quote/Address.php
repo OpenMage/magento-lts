@@ -865,32 +865,24 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
 
                 $rates[$rate->getCarrier()][] = $rate;
-                $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
+                $rates[$rate->getCarrier()][0]->setCarrierSortOrder($rate->getCarrierInstance()->getSortOrder());
             }
         }
 
-        uasort($rates, [$this, '_sortRates']);
+        uasort($rates, $this->_sortRates(...));
         return $rates;
     }
 
     /**
      * Sort rates recursive callback
      *
-     * @param  array $a
-     * @param  array $b
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $a
+     * @param  Mage_Sales_Model_Quote_Address_Rate[] $b
      * @return int
      */
     protected function _sortRates($a, $b)
     {
-        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
-            return -1;
-        }
-
-        if ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        }
-
-        return 0;
+        return $a[0]->getCarrierSortOrder() <=> $b[0]->getCarrierSortOrder();
     }
 
     /**

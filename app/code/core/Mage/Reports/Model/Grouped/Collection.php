@@ -9,6 +9,8 @@
 
 /**
  * @package    Mage_Reports
+ *
+ * @extends Varien_Data_Collection<Mage_Adminhtml_Model_Report_Item>
  */
 class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
 {

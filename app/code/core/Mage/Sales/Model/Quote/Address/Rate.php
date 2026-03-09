@@ -21,6 +21,7 @@
  * @method string                                                  getMethodDescription()
  * @method string                                                  getMethodTitle()
  * @method float                                                   getPrice()
+ * @method int                                                     getCarrierSortOrder()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getResourceCollection()
  * @method $this                                                   setAddressId(int $value)
@@ -32,6 +33,7 @@
  * @method $this                                                   setMethodDescription(string $value)
  * @method $this                                                   setMethodTitle(string $value)
  * @method $this                                                   setPrice(float $value)
+ * @method $this                                                   setCarrierSortOrder(int $value)
  */
 class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstract
 {

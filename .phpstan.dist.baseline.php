@@ -6362,6 +6362,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Quote_Item::importCatalogProduct().',
+    'identifier' => 'method.notFound',
+    'count' => 1,
+    'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6560,12 +6566,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Right side of && is always true.',
 	'identifier' => 'booleanAnd.rightAlwaysTrue',
 	'count' => 1,
@@ -6758,6 +6758,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',
+    'identifier' => 'argument.type',
+    'count' => 1,
+    'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6784,7 +6790,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().',
 	'identifier' => 'method.notFound',
-	'count' => 2,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
