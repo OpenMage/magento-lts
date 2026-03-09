@@ -440,7 +440,7 @@ class Mage_Paypal_Model_Express_Checkout
             $shippingAddress = $quote->getShippingAddress();
             if ($shippingAddress) {
                 if ($exportedShippingAddress) {
-                
+
                     if (!$exportedShippingAddress->getRegion()) {
                         $shippingAddress->setRegion(null);
                         $shippingAddress->setRegionId(null);
