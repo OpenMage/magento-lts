@@ -791,7 +791,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                     $this->getItemsCollection()->addItem($addressChildItem);
                 }
             }
-        } else {
+        } elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $addressItem = $item;
             $addressItem->setAddress($this);
             if (!$addressItem->getId()) {
@@ -799,7 +799,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             }
         }
 
-        if ($qty) {
+        if ($qty && isset($addressItem)) {
             $addressItem->setQty($qty);
         }
 
