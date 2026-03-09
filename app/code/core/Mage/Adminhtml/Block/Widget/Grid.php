@@ -1286,6 +1286,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($collection instanceof Varien_Data_Collection_Db) {
             $collection->getSelect()->limit();
         }
+
         $collection->setPageSize(0);
         $this->_beforeLoadCollection();
         $collection->load();
@@ -1346,6 +1347,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($collection instanceof Varien_Data_Collection_Db) {
             $collection->getSelect()->limit();
         }
+
         $collection->setPageSize(0);
         $this->_beforeLoadCollection();
         $collection->load();
@@ -1453,6 +1455,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($collection instanceof Varien_Data_Collection_Db) {
             $collection->getSelect()->limit();
         }
+
         $collection->setPageSize(0);
         $this->_beforeLoadCollection();
         $collection->load();
