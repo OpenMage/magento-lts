@@ -492,7 +492,7 @@ class Mage_Paypal_Model_Express_Checkout
             $billingAddress = $quote->getBillingAddress();
         }
 
-	    $exportedBillingAddress = $this->_api->getExportedBillingAddress();
+        $exportedBillingAddress = $this->_api->getExportedBillingAddress();
 
         if (!$exportedBillingAddress->getRegion()) {
             $billingAddress->setRegion(null);
