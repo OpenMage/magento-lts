@@ -22,7 +22,7 @@ trait CustomerTrait
             'getEmail' => 'john.doe@example.com',
             'getPassword' => 'validpassword123',
             'getPasswordConfirmation' => 'validpassword123',
-            'getDob' => '1980-01-01',
+            'getDob' => '1981-01-01 00:00:00',
             'getTaxvat' => '123456789',
             'getGender' => '1',
             'shouldValidateDob' => false,
