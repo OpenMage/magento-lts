@@ -65,11 +65,12 @@ final class Mage_CatalogInventory_Model_Observer_UpdateConfigurableStockStatus i
             if ($childIds !== []) {
                 /** @var Mage_CatalogInventory_Model_Resource_Stock_Item_Collection $stockItemCollection */
                 $stockItemCollection = Mage::getResourceModel('cataloginventory/stock_item_collection');
-                $stockItemCollection
+                $firstStockItem = $stockItemCollection
                     ->addFieldToFilter('product_id', ['in' => $childIds])
                     ->addFieldToFilter('is_in_stock', 1)
-                    ->setPageSize(1);
-                $isInStock = $stockItemCollection->getSize() > 0 ? 1 : 0;
+                    ->setPageSize(1)
+                    ->getFirstItem();
+                $isInStock = $firstStockItem->getData() !== [] ? 1 : 0;
             }
 
             $parentStockItem = $parentProduct->getStockItem();
