@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
+use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
@@ -52,6 +54,10 @@ try {
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
+        ])
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, [
+            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'desc', 'DESC'),
         ])
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
