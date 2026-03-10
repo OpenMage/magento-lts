@@ -2684,12 +2684,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Catalog_Model_Resource_Product_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Variable $websiteId might not be defined.',
 	'identifier' => 'variable.undefined',
 	'count' => 3,
@@ -4136,12 +4130,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Website/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Core_Model_Resource_Website_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Website/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -4169,12 +4157,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 7,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Core_Model_Store::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
@@ -4421,12 +4403,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 13,
-	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Customer_Model_Customer::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -6248,12 +6224,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Product/Lowstock/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Reports_Model_Resource_Quote_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -6686,12 +6656,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Sales_Model_Quote::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Quote::addItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -6798,12 +6762,6 @@ $ignoreErrors[] = [
 	'identifier' => 'return.missing',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Recurring/Profile.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Sales_Model_Resource_Billing_Agreement_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Billing/Agreement/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Reports_Model_Resource_Helper_Interface is not subtype of type Mage_Core_Model_Resource_Helper_Abstract.',
@@ -7196,12 +7154,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Tag_Model_Resource_Tag_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Tag/Model/Resource/Tag/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -7544,12 +7496,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type array of property Mage_Widget_Model_Resource_Widget_Instance_Collection::$_map is not the same as PHPDoc type array|null of overridden property Varien_Data_Collection_Db::$_map.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Widget/Model/Resource/Widget/Instance/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -7596,12 +7542,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Resource/Item/Option/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Wishlist_Model_Wishlist::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Wishlist.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type array<string> of property Mage_Wishlist_IndexController::$_cookieCheckActions is not the same as PHPDoc type array of overridden property Mage_Core_Controller_Varien_Action::$_cookieCheckActions.',
@@ -8346,12 +8286,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.nonObject',
 	'count' => 2,
 	'path' => __DIR__ . '/lib/Varien/Data/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Varien_Data_Collection_Db::_initSelect().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Data/Collection/Db.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(mixed): array<int<0, max>, non-empty-string> given.',
