@@ -21,8 +21,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit extends Mage_Adminhtml_Block_Wi
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save User'));
-        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete User'));
+        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save'));
+        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete'));
         $this->_updateButton('delete', 'onclick', "if(confirm('" . Mage::helper('core')->jsQuoteEscape(
             Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ) . "')) editForm.submit('" . $this->getUrl('*/*/delete') . "'); return false;");
