@@ -1009,7 +1009,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param  "asc"|"desc" $dir
+     * @param  'ASC'|'DESC' $dir
      * @return $this
      */
     public function setDefaultDir($dir)

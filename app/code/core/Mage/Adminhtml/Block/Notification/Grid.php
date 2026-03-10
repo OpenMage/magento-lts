@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->setId('notificationGrid');
         $this->setIdFieldName('notification_id');
         $this->setDefaultSort('date_added');
-        $this->setDefaultDir('desc');
+        $this->setDefaultDir('DESC');
         $this->setFilterVisibility(false);
     }
 
