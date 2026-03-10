@@ -54,7 +54,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Entity cache tag
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_cacheTag = 'wishlist';
 

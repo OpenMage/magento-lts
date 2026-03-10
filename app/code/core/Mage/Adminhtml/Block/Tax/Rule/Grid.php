@@ -165,10 +165,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * Return url
-     *
+     * @inheritDoc
      * @param  Mage_Tax_Model_Calculation_Rule $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

@@ -441,7 +441,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address = $this->getRateOriginRequest($store);
                 break;
             case 'default':
-                /** @var Mage_Sales_Model_Quote_Address|Varien_Object $address */
+                /** @var Mage_Sales_Model_Quote_Address $address */
                 $address
                     ->setCountryId(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
