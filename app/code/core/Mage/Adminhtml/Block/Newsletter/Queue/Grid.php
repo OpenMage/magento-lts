@@ -106,6 +106,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Newsletter_Model_Queue $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

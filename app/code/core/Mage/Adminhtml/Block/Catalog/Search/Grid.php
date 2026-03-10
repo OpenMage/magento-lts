@@ -143,10 +143,9 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Retrieve Row Click callback URL
-     *
+     * @inheritDoc
      * @param  Mage_CatalogSearch_Model_Query $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

@@ -4070,12 +4070,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Core_Model_Store::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -4319,12 +4313,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 13,
-	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Customer_Model_Customer::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
@@ -6554,8 +6542,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string|true of property Mage_Sales_Model_Quote::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Quote::addItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
+	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
@@ -7422,12 +7410,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Resource/Item/Option/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Wishlist_Model_Wishlist::$_cacheTag is not the same as PHPDoc type array|bool|string of overridden property Mage_Core_Model_Abstract::$_cacheTag.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Wishlist/Model/Wishlist.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type array<string> of property Mage_Wishlist_IndexController::$_cookieCheckActions is not the same as PHPDoc type array of overridden property Mage_Core_Controller_Varien_Action::$_cookieCheckActions.',
