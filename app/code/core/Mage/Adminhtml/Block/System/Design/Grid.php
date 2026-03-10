@@ -84,10 +84,8 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Prepare row click url
-     *
+     * @inheritDoc
      * @param  Mage_Core_Model_Design $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

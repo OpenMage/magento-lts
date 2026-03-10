@@ -62,8 +62,9 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Admin_Model_Block $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

@@ -23,6 +23,9 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/user_collection');
@@ -30,6 +33,10 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [
@@ -72,10 +79,8 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * Retrieve Row URL
-     *
-     * @param  Mage_Admin_Model_User $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Admin_Model_User $row
      */
     public function getRowUrl($row)
     {

@@ -15,10 +15,12 @@
  * @method string getAfterHtml()
  * @method string getBeforeHtml()
  * @method string getClass()
+ * @method bool   getDisabled()
  * @method string getElementName()
  * @method string getLabel()
  * @method string getStyle()
  * @method string getTitle()
+ * @method string getValue()
  */
 class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 {

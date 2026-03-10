@@ -89,9 +89,9 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrieve Row Click callback URL
-     *
-     * @return string
+     * @inheritDoc
+     * @param  Mage_CatalogSearch_Model_Query $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

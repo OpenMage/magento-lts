@@ -11,6 +11,9 @@
  * Admin form widget
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array getFormData()
+ * @method $this setFormData(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 {

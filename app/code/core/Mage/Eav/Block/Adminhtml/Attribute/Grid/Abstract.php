@@ -67,10 +67,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     }
 
     /**
-     * Return url of given row
-     *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
     public function getRowUrl($row)
     {

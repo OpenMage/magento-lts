@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->setDefaultSort('url_rewrite_id');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('core/url_rewrite_collection');
@@ -28,6 +31,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('url_rewrite_id', [
@@ -86,10 +93,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Retrieve Row URL
-     *
+     * @inheritDoc
      * @param  Mage_Core_Model_Url_Rewrite $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

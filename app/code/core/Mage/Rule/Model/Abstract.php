@@ -127,7 +127,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
          */
         if ($this->hasWebsiteIds()) {
             $websiteIds = $this->getWebsiteIds();
-            if (is_string($websiteIds) && !empty($websiteIds)) {
+            if (is_string($websiteIds) && $websiteIds !== '') {
                 $this->setWebsiteIds(explode(',', $websiteIds));
             }
         }
@@ -138,7 +138,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
          */
         if ($this->hasCustomerGroupIds()) {
             $groupIds = $this->getCustomerGroupIds();
-            if (is_string($groupIds) && !empty($groupIds)) {
+            if (is_string($groupIds) && $groupIds !== '') {
                 $this->setCustomerGroupIds(explode(',', $groupIds));
             }
         }
@@ -176,7 +176,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $conditions = $this->getConditionsSerialized();
             if (!empty($conditions)) {
                 $conditions = Mage::helper('core/unserializeArray')->unserialize($conditions);
-                if (is_array($conditions) && !empty($conditions)) {
+                if (is_array($conditions) && $conditions !== []) {
                     $this->_conditions->loadArray($conditions);
                 }
             }
@@ -216,7 +216,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $actions = $this->getActionsSerialized();
             if (!empty($actions)) {
                 $actions = Mage::helper('core/unserializeArray')->unserialize($actions);
-                if (is_array($actions) && !empty($actions)) {
+                if (is_array($actions) && $actions !== []) {
                     $this->_actions->loadArray($actions);
                 }
             }
@@ -390,7 +390,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        return empty($result) ? true : $result;
+        return $result === [] ? true : $result;
     }
 
     /**

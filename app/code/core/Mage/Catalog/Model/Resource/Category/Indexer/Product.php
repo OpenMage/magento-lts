@@ -537,7 +537,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             . $adapter->getCheckSql(
                 'cp.category_id = ce.entity_id',
                 'cp.position',
-                '(cc.position + 1) * (' . $adapter->quoteIdentifier('cc.level') . ' + 1) * 10000 + cp.position',
+                '(cc.position + 1) * (' . $adapter->quoteIdentifier('cc.level') . ' + 1 * 10000) + cp.position',
             )
         . ')';
 
