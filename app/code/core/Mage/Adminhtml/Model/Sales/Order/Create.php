@@ -133,7 +133,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Retrieve quote item
      *
      * @param  int|Mage_Sales_Model_Quote_Item  $item
-     * @return null|Mage_Sales_Model_Quote_Item
+     * @return false|Mage_Sales_Model_Quote_Item
      */
     protected function _getQuoteItem($item)
     {
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             return $this->getSession()->getQuote()->getItemById($item);
         }
 
-        return null;
+        return false;
     }
 
     /**
