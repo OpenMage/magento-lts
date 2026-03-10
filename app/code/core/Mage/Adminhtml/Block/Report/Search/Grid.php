@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         parent::__construct();
         $this->setId('searchReportGrid');
         $this->setDefaultSort('query_id');
-        $this->setDefaultDir('desc');
+        $this->setDefaultDir('DESC');
     }
 
     /**
