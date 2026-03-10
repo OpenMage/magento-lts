@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
 
     /**
      * @inheritDoc
-     * @param  Mage_Rating_Model_Rating $row
+     * @param  Mage_Newsletter_Model_Queue $row
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
