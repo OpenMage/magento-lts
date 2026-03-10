@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method Varien_Data_Collection_Db getCollection()
+ * @method Mage_Admin_Model_Resource_Roles_User_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
