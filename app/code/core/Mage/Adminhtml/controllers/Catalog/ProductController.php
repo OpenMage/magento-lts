@@ -145,8 +145,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Create serializer block for a grid
      *
-     * @param string $inputName
-     * @param array $productsArray
+     * @param  string                                                        $inputName
+     * @param  array                                                         $productsArray
      * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer
      */
     protected function _createSerializerBlock($inputName, Mage_Adminhtml_Block_Widget_Grid $gridBlock, $productsArray)
@@ -790,8 +790,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * Duplicates product attributes between stores.
-     * @param array $stores list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
-     * @param Mage_Catalog_Model_Product $product whose attributes should be copied
+     * @param  array                      $stores  list of store pairs: array(fromStore => toStore, fromStore => toStore,..)
+     * @param  Mage_Catalog_Model_Product $product whose attributes should be copied
      * @return $this
      * @throws Throwable
      */
@@ -822,6 +822,12 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $product = $this->_initProduct();
         try {
+            $imgHelper = Mage::helper('catalog/image');
+
+            if ($imgHelper->skipProductImageOnDuplicate() === Mage_Catalog_Model_Product_Image::ON_DUPLICATE_ASK) {
+                $product->setSkipImagesOnDuplicate((bool) $this->getRequest()->getParam('skipImages', true));
+            }
+
             $newProduct = $product->duplicate();
             $this->_getSession()->addSuccess($this->__('The product has been duplicated.'));
             $this->_redirect('*/*/edit', ['_current' => true, 'id' => $newProduct->getId()]);
@@ -985,7 +991,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
-     * @param  int $status
+     * @param  int                 $status
      * @throws Mage_Core_Exception
      */
     public function _validateMassStatus(array $productIds, $status)

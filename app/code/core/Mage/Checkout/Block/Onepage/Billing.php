@@ -29,7 +29,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     protected $_taxvat;
 
     /**
-     * Initialize billing address step
+     * @inheritDoc
      */
     protected function _construct()
     {

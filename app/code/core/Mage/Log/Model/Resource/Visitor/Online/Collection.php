@@ -22,7 +22,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     protected $_fields   = [];
 
     /**
-     * Initialize collection model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -84,7 +84,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     /**
      * Filter collection by specified website(s)
      *
-     * @param array|int $websiteIds
+     * @param  array|int $websiteIds
      * @return $this
      */
     public function addWebsiteFilter($websiteIds)
@@ -105,8 +105,8 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      *     array('attribute'=>'lastname', 'like'=>'test%'),
      * )
      *
-     * @param string $field
-     * @param null|array|string $condition
+     * @param  string                                          $field
+     * @param  null|array|string                               $condition
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      * @see self::_getConditionSql for $condition
      */

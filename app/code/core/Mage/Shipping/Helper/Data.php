@@ -40,9 +40,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking url with params
      *
-     * @param  string $key
+     * @param  string                                                                                           $key
      * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
-     * @param  string $method - option
+     * @param  string                                                                                           $method - option
      * @return string
      * @deprecated the non-model usage
      */
@@ -66,7 +66,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking pop up url by order id or object
      *
-     * @param string $order
+     * @param  string              $order
      * @return string
      * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0-alpha3
@@ -83,7 +83,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking pop up url by track id or object
      *
-     * @param string $track
+     * @param  string              $track
      * @return string
      * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0-alpha3
@@ -100,7 +100,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve tracking pop up url by ship id or object
      *
-     * @param string $ship
+     * @param  string              $ship
      * @return string
      * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.0-alpha3
@@ -117,16 +117,20 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Shipping tracking popup URL getter
      *
-     * @param Mage_Sales_Model_Abstract $model
+     * @param  Mage_Sales_Model_Abstract $model
      * @return string
      */
     public function getTrackingPopupUrlBySalesModel($model)
     {
         if ($model instanceof Mage_Sales_Model_Order) {
             return $this->_getTrackingUrl('order_id', $model);
-        } elseif ($model instanceof Mage_Sales_Model_Order_Shipment) {
+        }
+
+        if ($model instanceof Mage_Sales_Model_Order_Shipment) {
             return $this->_getTrackingUrl('ship_id', $model);
-        } elseif ($model instanceof Mage_Sales_Model_Order_Shipment_Track) {
+        }
+
+        if ($model instanceof Mage_Sales_Model_Order_Shipment_Track) {
             return $this->_getTrackingUrl('track_id', $model, 'getEntityId');
         }
 
@@ -144,8 +148,8 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $method
-     * @param int $storeId
+     * @param  string $method
+     * @param  int    $storeId
      * @return bool
      */
     public function isFreeMethod($method, $storeId = null)

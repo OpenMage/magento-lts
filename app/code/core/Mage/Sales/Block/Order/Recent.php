@@ -13,7 +13,7 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
- * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $orders)
+ * @method $this                                      setOrders(Mage_Sales_Model_Resource_Order_Collection $orders)
  */
 class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
 {
@@ -62,7 +62,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getViewUrl($order)
@@ -71,7 +71,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getTrackUrl($order)
@@ -92,7 +92,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getReorderUrl($order)

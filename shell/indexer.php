@@ -29,7 +29,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
     /**
      * Parse string with indexers and return array of indexer instances
      *
-     * @param string $string
+     * @param  string $string
      * @return array
      */
     protected function _parseIndexerString($string)

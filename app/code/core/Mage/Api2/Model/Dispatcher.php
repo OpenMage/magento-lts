@@ -60,10 +60,10 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Pack resource model class path from components and try to load it
      *
-     * @param string $model
-     * @param string $apiType API type
-     * @param string $userType API User type (e.g. admin, customer, guest)
-     * @param int $version Requested version
+     * @param  string                   $model
+     * @param  string                   $apiType  API type
+     * @param  string                   $userType API User type (e.g. admin, customer, guest)
+     * @param  int                      $version  Requested version
      * @return Mage_Api2_Model_Resource
      * @throws Mage_Api2_Exception
      */
@@ -117,8 +117,8 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Get correct version of the resource model
      *
-     * @param string $resourceType
-     * @param bool|string $requestedVersion
+     * @param  string              $resourceType
+     * @param  bool|string         $requestedVersion
      * @return int
      * @throws Mage_Api2_Exception
      */

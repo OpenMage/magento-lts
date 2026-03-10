@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
     /**
      * Check permission for passed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

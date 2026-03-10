@@ -15,7 +15,7 @@
 class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Resource initializing
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -42,7 +42,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_C
     /**
      * Filter items collection by account ID
      *
-     * @param string $accountId
+     * @param  string $accountId
      * @return $this
      */
     public function addAccountFilter($accountId)

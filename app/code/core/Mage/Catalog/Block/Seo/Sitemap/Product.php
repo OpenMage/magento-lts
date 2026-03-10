@@ -41,7 +41,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
     /**
      * Get item URL
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getItemUrl($product)

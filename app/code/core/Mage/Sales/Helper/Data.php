@@ -29,7 +29,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check quote amount
      *
-     * @param float $amount
+     * @param  float $amount
      * @return $this
      */
     public function checkQuoteAmount(Mage_Sales_Model_Quote $quote, $amount)
@@ -47,7 +47,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send new order confirmation email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendNewOrderConfirmationEmail($store = null)
@@ -58,7 +58,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send new order email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendNewOrderEmail($store = null)
@@ -69,7 +69,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send order comment email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendOrderCommentEmail($store = null)
@@ -80,7 +80,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send new shipment email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendNewShipmentEmail($store = null)
@@ -91,7 +91,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send shipment comment email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendShipmentCommentEmail($store = null)
@@ -102,7 +102,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send new invoice email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendNewInvoiceEmail($store = null)
@@ -113,7 +113,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send invoice comment email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendInvoiceCommentEmail($store = null)
@@ -124,7 +124,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send new creditmemo email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendNewCreditmemoEmail($store = null)
@@ -135,7 +135,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check allow to send creditmemo comment email
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function canSendCreditmemoCommentEmail($store = null)
@@ -146,7 +146,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get old field map
      *
-     * @param string $entityId
+     * @param  string $entityId
      * @return array
      */
     public function getOldFieldMap($entityId)

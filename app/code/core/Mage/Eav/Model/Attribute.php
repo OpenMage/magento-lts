@@ -37,8 +37,8 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set active website instance
      *
-     * @param int|Mage_Core_Model_Website $website
-     * @return Mage_Eav_Model_Attribute
+     * @param  int|Mage_Core_Model_Website $website
+     * @return $this
      */
     public function setWebsite($website)
     {
@@ -97,7 +97,9 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         $rules = $this->getData('validate_rules');
         if (is_array($rules)) {
             return $rules;
-        } elseif (!empty($rules)) {
+        }
+
+        if (!empty($rules)) {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
 
@@ -107,8 +109,8 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set validate rules
      *
-     * @param array|string $rules
-     * @return Mage_Eav_Model_Attribute
+     * @param  array|string $rules
+     * @return $this
      */
     public function setValidateRules($rules)
     {
@@ -126,7 +128,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Return scope value by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function _getScopeValue($key)

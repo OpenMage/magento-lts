@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare and set collection of grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Get url for row
      *
-     * @param Mage_Sales_Model_Order_Shipment $row
+     * @param  Mage_Sales_Model_Order_Shipment $row
      * @return false|string
      */
     public function getRowUrl($row)

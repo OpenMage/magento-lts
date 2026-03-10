@@ -12,7 +12,13 @@
  */
 ?>
 <table id="details-table" class="data-table">
-    <?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
+    <?php if ($this->helper('tax')->displayCartBothPrices()) {
+    $colspan = 2;
+    $rowspan = 2;
+} else {
+    $colspan = 1;
+    $rowspan = 1;
+} ?>
     <col />
     <col width="1" />
     <col width="1" />

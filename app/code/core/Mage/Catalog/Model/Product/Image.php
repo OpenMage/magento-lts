@@ -18,6 +18,29 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 {
     public const DIMENSIONS_SEPARATOR = 'x';
 
+
+    /**
+     * Always ask to copy images on duplicated product
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_ASK = -1;
+
+    /**
+     * Copy images to the new product
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_COPY = 0;
+
+
+    /**
+     * Always ask
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_SKIP = 1;
+
     /**
      * Requested width for the scaled image
      * @var int
@@ -103,7 +126,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected static $_baseMediaPath;
 
     /**
-     * @param null|int $width
+     * @param  null|int $width
      * @return $this
      */
     public function setWidth($width)
@@ -121,7 +144,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null|int $height
+     * @param  null|int $height
      * @return $this
      */
     public function setHeight($height)
@@ -141,7 +164,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set image quality, values in percentage from 0 to 100
      *
-     * @param int $quality
+     * @param  int   $quality
      * @return $this
      */
     public function setQuality($quality)
@@ -161,7 +184,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $keep
+     * @param  bool  $keep
      * @return $this
      */
     public function setKeepAspectRatio($keep)
@@ -171,7 +194,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $keep
+     * @param  bool  $keep
      * @return $this
      */
     public function setKeepFrame($keep)
@@ -181,7 +204,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $keep
+     * @param  bool  $keep
      * @return $this
      */
     public function setKeepTransparency($keep)
@@ -191,7 +214,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setConstrainOnly($flag)
@@ -211,7 +234,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $size in format WIDTHxHEIGHT, WIDTHx, xHEIGHT or single numeric value
+     * @param  string $size in format WIDTHxHEIGHT, WIDTHx, xHEIGHT or single numeric value
      * @return $this
      */
     public function setSize($size)
@@ -261,7 +284,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null|string $file
+     * @param  null|string $file
      * @return bool
      * @deprecated
      */
@@ -299,7 +322,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $file
+     * @param  string    $file
      * @return float|int
      * @deprecated
      */
@@ -336,7 +359,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Convert array of 3 items (decimal r, g, b) to string of their hex values
      *
-     * @param array $rgbArray
+     * @param  array  $rgbArray
      * @return string
      */
     protected function _rgbToString($rgbArray)
@@ -356,7 +379,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set filenames for base file and new file
      *
-     * @param string $file
+     * @param  string    $file
      * @return $this
      * @throws Exception
      */
@@ -472,7 +495,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Image $processor
+     * @param  Varien_Image $processor
      * @return $this
      */
     public function setImageProcessor($processor)
@@ -514,7 +537,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $angle
+     * @param  int   $angle
      * @return $this
      */
     public function rotate($angle)
@@ -529,7 +552,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * This func actually affects only the cache filename.
      *
-     * @param int $angle
+     * @param  int   $angle
      * @return $this
      */
     public function setAngle($angle)
@@ -542,12 +565,12 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * Add watermark to image
      * size param in format 100x200
      *
-     * @param string $file
-     * @param string $position
-     * @param array $size
-     * @param int $width
-     * @param int $heigth
-     * @param int $imageOpacity
+     * @param  string    $file
+     * @param  string    $position
+     * @param  array     $size
+     * @param  int       $width
+     * @param  int       $heigth
+     * @param  int       $imageOpacity
      * @return $this
      * @throws Exception
      */
@@ -624,7 +647,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDestinationSubdir($dir)
@@ -652,7 +675,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark file name
      *
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function setWatermarkFile($file)
@@ -710,7 +733,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark position
      *
-     * @param string $position
+     * @param  string $position
      * @return $this
      */
     public function setWatermarkPosition($position)
@@ -732,7 +755,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark image opacity
      *
-     * @param int $imageOpacity
+     * @param  int   $imageOpacity
      * @return $this
      */
     public function setWatermarkImageOpacity($imageOpacity)
@@ -754,7 +777,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark size
      *
-     * @param array $size
+     * @param  array $size
      * @return $this
      */
     public function setWatermarkSize($size)
@@ -770,7 +793,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark width
      *
-     * @param int $width
+     * @param  int   $width
      * @return $this
      */
     public function setWatermarkWidth($width)
@@ -792,7 +815,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark height
      *
-     * @param int $heigth
+     * @param  int   $heigth
      * @return $this
      */
     public function setWatermarkHeigth($heigth)
@@ -824,15 +847,15 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * First check this file on FS
      * If it doesn't exist - try to download it from DB
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     protected function _fileExists($filename)
     {
         if (file_exists($filename)) {
             return true;
-        } else {
-            return Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
+
+        return Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
     }
 }

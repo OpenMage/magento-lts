@@ -153,8 +153,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     /**
      * Add additional button
      *
-     * @param string $alias
-     * @param array $config
+     * @param  string $alias
+     * @param  array  $config
      * @return $this
      */
     public function addAdditionalButton($alias, $config)
@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     /**
      * Remove additional button
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function removeAdditionalButton($alias)
@@ -197,14 +197,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if ($this->hasStoreRootCategory()) {
             if ($this->getCategoryId()) {
                 return $this->getCategoryName();
-            } else {
-                $parentId = (int) $this->getRequest()->getParam('parent');
-                if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
-                    return Mage::helper('catalog')->__('New Subcategory');
-                } else {
-                    return Mage::helper('catalog')->__('New Root Category');
-                }
             }
+
+            $parentId = (int) $this->getRequest()->getParam('parent');
+            if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
+                return Mage::helper('catalog')->__('New Subcategory');
+            }
+
+            return Mage::helper('catalog')->__('New Root Category');
         }
 
         return Mage::helper('catalog')->__('Set Root Category for Store');

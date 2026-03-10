@@ -109,7 +109,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      * Provide support for website id filter
      *
      * @param string $field
-     * @param mixed $condition
+     * @param mixed  $condition
      *
      * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
      */

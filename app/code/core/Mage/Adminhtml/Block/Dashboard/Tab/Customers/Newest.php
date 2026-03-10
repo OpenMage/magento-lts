@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $row
+     * @param  Mage_Customer_Model_Customer $row
      * @return string
      */
     public function getRowUrl($row)

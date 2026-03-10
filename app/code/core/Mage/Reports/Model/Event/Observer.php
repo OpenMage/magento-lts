@@ -29,10 +29,10 @@ class Mage_Reports_Model_Event_Observer
      *
      * Save event
      *
-     * @param int $eventTypeId
-     * @param int $objectId
-     * @param int $subjectId
-     * @param int $subtype
+     * @param  int   $eventTypeId
+     * @param  int   $objectId
+     * @param  int   $subjectId
+     * @param  int   $subtype
      * @return $this
      */
     protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)

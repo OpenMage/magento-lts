@@ -66,8 +66,8 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     /**
      * Add sorting
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
@@ -84,8 +84,8 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     /**
      * Add filtering
      *
-     * @param string $field
-     * @param string $condition
+     * @param  string $field
+     * @param  string $condition
      * @return $this
      */
     public function addFieldToFilter($field, $condition = null)

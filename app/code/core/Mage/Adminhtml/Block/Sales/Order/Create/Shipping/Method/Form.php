@@ -61,8 +61,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
     /**
      * Rertrieve carrier name from store configuration
      *
-     * @param   string $carrierCode
-     * @return  string
+     * @param  string $carrierCode
+     * @return string
      */
     public function getCarrierName($carrierCode)
     {
@@ -86,8 +86,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
     /**
      * Check activity of method by code
      *
-     * @param   string $code
-     * @return  bool
+     * @param  string $code
+     * @return bool
      */
     public function isMethodActive($code)
     {

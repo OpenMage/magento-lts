@@ -38,8 +38,8 @@ class Unserialize_Reader_ArrValue
     }
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string     $char
+     * @param  string     $prevChar
      * @return null|mixed
      * @throws Exception
      */

@@ -124,7 +124,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Check whether payment method can be used
      *
-     * @param null|Mage_Sales_Model_Quote $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -156,7 +156,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Authorize payment
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -186,7 +186,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Get capture amount
      *
-     * @param float $amount
+     * @param  float $amount
      * @return float
      */
     protected function _getCaptureAmount($amount)
@@ -200,7 +200,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Capture payment
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -246,7 +246,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Void payment
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -272,7 +272,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @return  bool
+     * @return bool
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -292,7 +292,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Attempt to void the authorization on cancelling
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this|false
      */
     public function cancel(Varien_Object $payment)
@@ -307,7 +307,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Refund capture
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -334,7 +334,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Fetch transaction details info
      *
-     * @param string $transactionId
+     * @param  string                     $transactionId
      * @return array
      * @throws Mage_Core_Exception
      * @throws Zend_Http_Client_Exception
@@ -366,7 +366,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Check whether the transaction is in payment review status
      *
-     * @param string $status
+     * @param  string $status
      * @return bool
      */
     protected static function _isTransactionUnderReview($status)
@@ -381,7 +381,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Getter for URL to perform Payflow requests, based on test mode by default
      *
-     * @param bool $testMode Ability to specify test mode using
+     * @param  bool   $testMode Ability to specify test mode using
      * @return string
      */
     protected function _getTransactionUrl($testMode = null)
@@ -467,8 +467,8 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Return request object with information for 'authorization' or 'sale' action
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @param float $amount
+     * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  float                          $amount
      * @return Varien_Object
      * @throws Mage_Core_Exception
      */
@@ -532,7 +532,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Return request object with basic information for gateway request
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param  Mage_Sales_Model_Order_Payment $payment
      * @return Varien_Object
      */
     protected function _buildBasicRequest(Varien_Object $payment)
@@ -570,9 +570,10 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {
             throw new Mage_Paypal_Exception(Mage::helper('paypal')->__('You cannot void a verification transaction'));
-        } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
-            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
-        ) {
+        }
+
+        if ($response->getResultCode() != self::RESPONSE_CODE_APPROVED
+            && $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
             Mage::throwException($response->getRespmsg());
         }
     }
@@ -592,7 +593,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Set reference transaction data into request
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return $this
      */
     protected function _setReferenceTransaction(Varien_Object $payment, $request)

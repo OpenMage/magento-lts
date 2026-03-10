@@ -21,7 +21,7 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
     public const ADMIN_RESOURCE = 'sales';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

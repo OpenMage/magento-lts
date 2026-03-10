@@ -11,6 +11,11 @@
  * customers defined options
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_Adminhtml_Block_Widget
 {
@@ -298,10 +303,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     /**
      * Retrieve html of scope checkbox
      *
-     * @param string $id
-     * @param string $name
-     * @param bool $checked
-     * @param string $selectId
+     * @param  string $id
+     * @param  string $name
+     * @param  bool   $checked
+     * @param  string $selectId
      * @return string
      */
     public function getCheckboxScopeHtml($id, $name, $checked = true, $selectId = '-1')
@@ -330,7 +335,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     {
         if ($type == 'percent') {
             return number_format($value, 2, null, '');
-        } elseif ($type == 'fixed') {
+        }
+
+        if ($type == 'fixed') {
             return number_format($value, 2, null, '');
         }
     }

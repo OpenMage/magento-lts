@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     }
 
     /**
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)

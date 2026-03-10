@@ -61,7 +61,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -75,7 +75,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      * @deprecated after 1.3.2.3
      */
@@ -88,7 +88,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -161,7 +161,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Store ID filter
      *
-     * @param array|int $store
+     * @param  array|int $store
      * @return $this
      */
     public function addStoreFilter($store = null)
@@ -179,7 +179,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * then condition with IS NULL or IS NOT NULL will be added.
      * Otherwise condition with IN() will be added
      *
-     * @param array|int $customerId
+     * @param  array|int $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -198,7 +198,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Set tag filter
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return $this
      */
     public function addTagFilter($tagId)
@@ -211,7 +211,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add tag status filter
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -223,7 +223,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Set DESC order to collection
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDescOrder($dir = 'DESC')
@@ -235,8 +235,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Popularity
      *
-     * @param int $tagId
-     * @param int $storeId
+     * @param  int   $tagId
+     * @param  int   $storeId
      * @return $this
      */
     public function addPopularity($tagId, $storeId = null)
@@ -275,7 +275,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Popularity Filter
      *
-     * @param mixed $condition
+     * @param  mixed $condition
      * @return $this
      */
     public function addPopularityFilter($condition)
@@ -322,7 +322,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Product Tags
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addProductTags($storeId = null)

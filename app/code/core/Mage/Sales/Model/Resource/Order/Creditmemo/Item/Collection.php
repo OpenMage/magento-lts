@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sa
      */
     protected $_eventObject    = 'order_creditmemo_item_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo_item');
@@ -32,7 +35,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sa
     /**
      * Set creditmemo filter
      *
-     * @param int $creditmemoId
+     * @param  int   $creditmemoId
      * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)

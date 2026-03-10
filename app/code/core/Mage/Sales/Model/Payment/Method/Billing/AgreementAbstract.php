@@ -35,7 +35,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     /**
      * Check whether method is available
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -46,7 +46,9 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
                     $quote->getCustomer()->getId(),
                 );
                 $isAvailableBA = count($availableBA) > 0;
-                $this->_canUseForMultishipping = $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;
+                $this->_canUseForMultishipping = $isAvailableBA;
+                $this->_canUseCheckout = $isAvailableBA;
+                $this->_canUseInternal = $isAvailableBA;
             }
 
             $this->_isAvailable = parent::isAvailable($quote) && $this->_isAvailable($quote);
@@ -61,7 +63,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
     /**
      * Assign data to info model instance
      *
-     * @param mixed $data
+     * @param  mixed                              $data
      * @return Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
      */

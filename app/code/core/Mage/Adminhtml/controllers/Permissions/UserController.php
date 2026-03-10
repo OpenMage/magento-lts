@@ -105,7 +105,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             $id = $this->getRequest()->getParam('user_id');
             $model = Mage::getModel('admin/user')->load($id);
             // @var $isNew flag for detecting new admin user creation.
-            $isNew = !$model->getId() ? true : false;
+            $isNew = !$model->getId();
             if (!$model->getId() && $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');

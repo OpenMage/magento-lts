@@ -14,6 +14,9 @@
  */
 class Mage_Customer_Model_Resource_Flowpassword extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/flowpassword', 'flowpassword_id');

@@ -15,7 +15,7 @@
 class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Re
     /**
      * Filter collection by specified store ids
      *
-     * @param array|int $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)

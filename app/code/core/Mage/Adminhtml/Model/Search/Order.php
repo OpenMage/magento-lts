@@ -12,13 +12,13 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method int getLimit()
+ * @method int    getLimit()
  * @method string getQuery()
- * @method int getStart()
- * @method bool hasLimit()
- * @method bool hasQuery()
- * @method bool hasStart()
- * @method bool setResults(array $value)
+ * @method int    getStart()
+ * @method bool   hasLimit()
+ * @method bool   hasQuery()
+ * @method bool   hasStart()
+ * @method bool   setResults(array $value)
  */
 class Mage_Adminhtml_Model_Search_Order extends Varien_Object
 {

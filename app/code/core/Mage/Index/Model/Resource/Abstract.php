@@ -64,7 +64,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Get index table name with additional suffix
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getIdxTable($table = null)
@@ -107,7 +107,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Create temporary table for index data pregeneration
      *
-     * @param bool $asOriginal
+     * @param  bool                               $asOriginal
      * @return Mage_Index_Model_Resource_Abstract
      * @deprecated since 1.5.0.0
      */
@@ -119,9 +119,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Copy data from source table of read adapter to destination table of index adapter
      *
-     * @param string $sourceTable
-     * @param string $destTable
-     * @param bool $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @param  string                             $sourceTable
+     * @param  string                             $destTable
+     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
      * @return Mage_Index_Model_Resource_Abstract
      */
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
@@ -146,9 +146,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * Insert data from select statement of read adapter to
      * destination table related with index adapter
      *
-     * @param Varien_Db_Select $select
-     * @param string $destTable
-     * @param bool $readToIndex data migration direction (true - read=>index, false - index=>read)
+     * @param  Varien_Db_Select                   $select
+     * @param  string                             $destTable
+     * @param  bool                               $readToIndex data migration direction (true - read=>index, false - index=>read)
      * @return Mage_Index_Model_Resource_Abstract
      */
     public function insertFromSelect($select, $destTable, array $columns, $readToIndex = true)
@@ -189,7 +189,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set or get what either "_idx" or "_tmp" suffixed temporary index table need to use
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function useIdxTable($value = null)
@@ -204,7 +204,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set or get flag that defines if need to disable keys during data inserting
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function useDisableKeys($value = null)
@@ -227,7 +227,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     /**
      * Set whether table changes are allowed
      *
-     * @param bool $value
+     * @param  bool                               $value
      * @return Mage_Index_Model_Resource_Abstract
      * @deprecated after 1.6.1.0
      */

@@ -52,7 +52,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
     /**
      * Set check status of checkbox
      *
-     * @param bool $value
+     * @param  bool                              $value
      * @return Varien_Data_Form_Element_Checkbox
      */
     public function setIsChecked($value = false)

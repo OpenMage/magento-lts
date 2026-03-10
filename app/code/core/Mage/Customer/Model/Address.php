@@ -12,18 +12,21 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Customer _getResource()
+ * @method Mage_Customer_Model_Resource_Customer            _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- * @method string getEmail()
- * @method int getPostIndex()
- * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method string                                           getEmail()
+ * @method int                                              getPostIndex()
+ * @method Mage_Customer_Model_Resource_Customer            getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
- * @method bool hasEmail()
+ * @method bool                                             hasEmail()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
     protected $_customer;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/address');
@@ -42,7 +45,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Declare address customer identifier
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -160,7 +163,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Set Region ID. $regionId is automatically converted to integer
      *
-     * @param int $regionId
+     * @param  int   $regionId
      * @return $this
      */
     public function setRegionId($regionId)

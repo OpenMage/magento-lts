@@ -210,7 +210,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Set edit flag for block
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setEditMode($value = true)

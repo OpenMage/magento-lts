@@ -54,7 +54,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param string $dir
+     * @param  string $dir
      * @return array
      */
     public function getStorageData($dir = '')
@@ -180,10 +180,10 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Save file to storage
      *
-     * @param  string $filePath
-     * @param  string $content
-     * @param  bool $overwrite
-     * @return bool true if file written, otherwise false
+     * @param  string              $filePath
+     * @param  string              $content
+     * @param  bool                $overwrite
+     * @return bool                true if file written, otherwise false
      * @throws Mage_Core_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -230,7 +230,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Create a new file already locked by this process and save the handle for later writing by saveFile method.
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -265,11 +265,12 @@ class Mage_Core_Model_Resource_File_Storage_File
             if (@ftell($fp) === 0) { // If the file is empty we can write to it
                 $this->filePointer = $fp;
                 return true;
-            } else { // Otherwise we should not write to it
-                @flock($fp, LOCK_UN);
-                @fclose($fp);
-                return false;
             }
+
+            // Otherwise we should not write to it
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
+            return false;
         }
 
         return false;

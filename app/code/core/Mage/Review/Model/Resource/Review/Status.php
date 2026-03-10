@@ -14,6 +14,9 @@
  */
 class Mage_Review_Model_Resource_Review_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('review/review_status', 'status_id');

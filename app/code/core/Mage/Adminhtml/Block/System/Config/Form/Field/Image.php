@@ -15,18 +15,17 @@
 class Mage_Adminhtml_Block_System_Config_Form_Field_Image extends Varien_Data_Form_Element_Image
 {
     /**
-     * Get image preview url
-     * @return string
+     * @inheritDoc
      */
     protected function _getUrl()
     {
         $url = parent::_getUrl();
 
-        $config = $this->getFieldConfig();
         /** @var Varien_Simplexml_Element $config */
+        $config = $this->getFieldConfig();
         if (!empty($config->base_url)) {
-            $el = $config->descend('base_url');
-            $urlType = empty($el['type']) ? 'link' : (string) $el['type'];
+            $element = $config->descend('base_url');
+            $urlType = empty($element['type']) ? 'link' : (string) $element['type'];
             $url = Mage::getBaseUrl($urlType) . $config->base_url . '/' . $url;
         }
 

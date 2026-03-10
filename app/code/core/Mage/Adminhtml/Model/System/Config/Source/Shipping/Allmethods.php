@@ -16,7 +16,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
      * Return array of carriers.
      * If $isActiveOnlyFlag is set to true, will return only active carriers
      *
-     * @param bool $isActiveOnlyFlag
+     * @param  bool  $isActiveOnlyFlag
      * @return array
      */
     public function toOptionArray($isActiveOnlyFlag = false)

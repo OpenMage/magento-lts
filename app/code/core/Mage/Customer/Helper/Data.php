@@ -154,7 +154,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve full customer name from provided object
      *
-     * @param Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
+     * @param  Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
      * @return string
      */
     public function getFullCustomerName($object = null)
@@ -244,7 +244,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($referer) {
-            $params = [self::REFERER_QUERY_PARAM_NAME => $referer];
+            return [self::REFERER_QUERY_PARAM_NAME => $referer];
         }
 
         return $params;
@@ -360,7 +360,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve confirmation URL for Email
      *
-     * @param string $email
+     * @param  string $email
      * @return string
      */
     public function getEmailConfirmationUrl($email = null)
@@ -383,7 +383,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
-     * @param null|int|Mage_Core_Model_Store|string $store
+     * @param  null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -396,7 +396,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
-     * @param null|int|Mage_Core_Model_Store|string $store
+     * @param  null|int|Mage_Core_Model_Store|string $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -409,7 +409,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Unserialize and clear name prefix or suffix options
      *
-     * @param string $options
+     * @param  string     $options
      * @return array|bool
      */
     protected function _prepareNamePrefixSuffixOptions($options)
@@ -442,7 +442,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate unique token based on customer Id for reset password confirmation link
      *
-     * @param int $customerId
+     * @param  int    $customerId
      * @return string
      */
     public function generateResetPasswordLinkCustomerId($customerId)
@@ -473,7 +473,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default customer group id
      *
-     * @param int|Mage_Core_Model_Store|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getDefaultCustomerGroupId($store = null)
@@ -514,9 +514,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer group ID based on his VAT number
      *
-     * @param string $customerCountryCode
-     * @param Varien_Object $vatValidationResult
-     * @param int|Mage_Core_Model_Store|string $store
+     * @param  string                           $customerCountryCode
+     * @param  Varien_Object                    $vatValidationResult
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
@@ -533,7 +533,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
-            $groupId = Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
+            return Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
         }
 
         return $groupId;
@@ -626,7 +626,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             || (!empty($requesterCountryCode) && empty($requesterVatNumber))
             || (!empty($requesterCountryCode) && !$coreHelper->isCountryInEU($requesterCountryCode))
         ) {
-            $result = false;
+            return false;
         }
 
         return $result;
@@ -635,9 +635,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get VAT class
      *
-     * @param string $customerCountryCode
-     * @param Varien_Object $vatValidationResult
-     * @param null|int|Mage_Core_Model_Store|string $store
+     * @param  string                                $customerCountryCode
+     * @param  Varien_Object                         $vatValidationResult
+     * @param  null|int|Mage_Core_Model_Store|string $store
      * @return null|string
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)
@@ -659,7 +659,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if (!$vatValidationResult->getRequestSuccess()) {
-            $vatClass = self::VAT_CLASS_ERROR;
+            return self::VAT_CLASS_ERROR;
         }
 
         return $vatClass;
@@ -668,9 +668,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get validation message that will be displayed to user by VAT validation result object
      *
-     * @param Mage_Customer_Model_Address $customerAddress
-     * @param bool $customerGroupAutoAssignDisabled
-     * @param Varien_Object $validationResult
+     * @param  Mage_Customer_Model_Address $customerAddress
+     * @param  bool                        $customerGroupAutoAssignDisabled
+     * @param  Varien_Object               $validationResult
      * @return Varien_Object
      */
     public function getVatValidationUserMessage($customerAddress, $customerGroupAutoAssignDisabled, $validationResult)
@@ -722,7 +722,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get customer password creation timestamp or customer account creation timestamp
      *
-     * @param int $customerId
+     * @param  int $customerId
      * @return int
      */
     public function getPasswordTimestamp($customerId)
@@ -733,7 +733,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Create SOAP client based on VAT validation service WSDL
      *
-     * @param bool $trace
+     * @param  bool       $trace
      * @return SoapClient
      */
     protected function _createVatNumberValidationSoapClient($trace = false)

@@ -154,7 +154,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     /**
      * Return customer quote
      *
-     * @param bool $cancelOrder
+     * @param bool   $cancelOrder
      * @param string $errorMsg
      */
     protected function _returnCustomerQuote($cancelOrder = false, $errorMsg = '')

@@ -32,7 +32,7 @@ class Magento_Db_Object_Table extends Magento_Db_Object implements Magento_Db_Ob
     /**
      * Create a new table from source
      *
-     * @param $source Zend_Db_Select
+     * @param                          $source Zend_Db_Select
      * @return Magento_Db_Object_Table
      */
     public function createFromSource(Zend_Db_Select $source)

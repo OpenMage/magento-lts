@@ -21,6 +21,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $rateCollection = Mage::getModel('tax/calculation_rate')->getCollection()
@@ -45,6 +48,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('code', [
@@ -96,7 +103,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * @param Mage_Tax_Model_Calculation_Rate $row
+     * @param  Mage_Tax_Model_Calculation_Rate $row
      * @return string
      */
     public function getRowUrl($row)

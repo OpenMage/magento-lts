@@ -24,6 +24,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      * Retrieve wishlist instance by requested code
      *
      * @return false|Mage_Wishlist_Model_Wishlist
+     * @throws Mage_Core_Exception
      */
     protected function _getWishlist()
     {
@@ -44,6 +45,10 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Shared wishlist view page
+     *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function indexAction()
     {
@@ -68,6 +73,9 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
      *
      * If Product has required options - redirect
      * to product view page with message about needed defined required options
+     *
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cartAction()
     {
@@ -94,10 +102,10 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
                 $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
             }
-        } catch (Mage_Core_Exception $e) {
-            if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            if ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $session->addError(Mage::helper('wishlist')->__('This product(s) is currently out of stock'));
-            } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT) {
+            } elseif ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT) {
                 if (!$wishlist->getItemsCount()) {
                     $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
                     $session = Mage::getSingleton('catalog/session');
@@ -106,11 +114,11 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
                 $message = Mage::helper('wishlist')->__('Cannot add the selected product to shopping cart because the product was removed from the wishlist');
                 $session->addNotice($message);
             } else {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                Mage::getSingleton('catalog/session')->addNotice($mageCoreException->getMessage());
                 $redirectUrl = $item->getProductUrl();
             }
-        } catch (Exception $e) {
-            $session->addException($e, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));
+        } catch (Exception $exception) {
+            $session->addException($exception, Mage::helper('wishlist')->__('Cannot add item to shopping cart'));
         }
 
         return $this->_redirectUrl($redirectUrl);

@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Base front controller
  *
@@ -84,11 +86,11 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
@@ -125,7 +127,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', date('r'));
+            ->setHeader('Last-Modified', Carbon::now()->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -149,9 +151,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 }
 
                 exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
             }
+
+            $this->getResponse()->setBody($content);
         }
 
         return $this;
@@ -166,7 +168,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     {
         $validated = true;
         if ($this->_isFormKeyEnabled()) {
-            $validated = parent::_validateFormKey();
+            return parent::_validateFormKey();
         }
 
         return $validated;

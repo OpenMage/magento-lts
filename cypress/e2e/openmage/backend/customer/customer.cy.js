@@ -30,6 +30,11 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('John Doe');
         validation.pageElements(test, test.edit);
 
+        test.edit.__buttons.saveAndContinue.click();
+        const message = 'The customer has been saved.';
+        validation.hasSuccessMessage(message);
+        cy.url().should('include', test.edit.url);
+
         test.edit.__buttons.reset.click();
         cy.url().should('include', test.edit.url);
 

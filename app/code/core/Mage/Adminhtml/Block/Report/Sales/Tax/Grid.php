@@ -30,6 +30,9 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             : 'tax/report_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -91,10 +94,9 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     }
 
     /**
-     * Preparing collection
      * Filter canceled statuses for orders in taxes
      *
-     *@return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {

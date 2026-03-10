@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @param string $flag
+     * @param  string $flag
      * @return $this
      */
     public function updateBackButtonUrl($flag)

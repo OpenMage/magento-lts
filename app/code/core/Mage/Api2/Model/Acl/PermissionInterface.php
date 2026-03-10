@@ -26,7 +26,7 @@ interface Mage_Api2_Model_Acl_PermissionInterface
     /**
      * Set filter value
      *
-     * @param mixed $filterValue
+     * @param  mixed                                   $filterValue
      * @return Mage_Api2_Model_Acl_PermissionInterface
      */
     public function setFilterValue($filterValue);

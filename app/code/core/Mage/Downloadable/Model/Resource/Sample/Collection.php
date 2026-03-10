@@ -15,7 +15,7 @@
 class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
     /**
      * Method for product filter
      *
-     * @param null|array|int|Mage_Catalog_Model_Product $product
+     * @param  null|array|int|Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function addProductToFilter($product)
@@ -44,7 +44,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
     /**
      * Add title column to select
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addTitleToResult($storeId = 0)

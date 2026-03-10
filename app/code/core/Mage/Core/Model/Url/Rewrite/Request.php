@@ -66,13 +66,13 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     public function __construct(array $args)
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getModel('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
-        $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
-        $this->_request = !empty($args['request'])
-            ? $args['request'] : Mage::app()->getFrontController()->getRequest();
-        $this->_rewrite = !empty($args['rewrite'])
-            ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
+        $this->_factory = empty($args['factory']) ? Mage::getModel('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
+        $this->_config  = empty($args['config']) ? Mage::getConfig() : $args['config'];
+        $this->_request = empty($args['request'])
+            ? Mage::app()->getFrontController()->getRequest() : $args['request'];
+        $this->_rewrite = empty($args['rewrite'])
+            ? $this->_factory->getModel('core/url_rewrite') : $args['rewrite'];
 
         if (!empty($args['routers'])) {
             $this->_routers = $args['routers'];
@@ -276,7 +276,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Add location header and disable browser page caching
      *
      * @param string $url
-     * @param bool $isPermanent
+     * @param bool   $isPermanent
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
@@ -312,9 +312,9 @@ class Mage_Core_Model_Url_Rewrite_Request
 
             if ($hasChanges) {
                 return http_build_query($queryParams);
-            } else {
-                return $_SERVER['QUERY_STRING'];
             }
+
+            return $_SERVER['QUERY_STRING'];
         }
 
         return false;
@@ -323,7 +323,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Replace route name placeholders in url to front name
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     protected function _processRewriteUrl($url)
@@ -345,7 +345,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Retrieve router by name
      *
-     * @param string $name
+     * @param  string                                            $name
      * @return false|Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouter($name)
@@ -356,7 +356,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Retrieve router by name
      *
-     * @param string $routeName
+     * @param  string                                      $routeName
      * @return Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouterByRoute($routeName)

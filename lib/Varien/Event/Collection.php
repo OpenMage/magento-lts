@@ -69,7 +69,7 @@ class Varien_Event_Collection
      *
      * If event doesn't exist creates new one and returns it
      *
-     * @param string $eventName
+     * @param  string       $eventName
      * @return Varien_Event
      */
     public function getEventByName($eventName)
@@ -117,7 +117,7 @@ class Varien_Event_Collection
      *
      * Will dispatch specific event and will try all global observers
      *
-     * @param string $eventName
+     * @param  string                  $eventName
      * @return Varien_Event_Collection
      */
     public function dispatch($eventName, array $data = [])

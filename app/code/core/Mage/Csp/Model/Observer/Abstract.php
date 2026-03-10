@@ -14,7 +14,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
     /**
      * Common method to add CSP headers for a specific area
      *
-     * @param Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
+     * @param  Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND $area
      * @throws Zend_Controller_Response_Exception
      */
     protected function addCspHeaders(Varien_Event_Observer $observer, string $area): void
@@ -83,7 +83,7 @@ abstract class Mage_Csp_Model_Observer_Abstract
 
     /**
      * Compact the CSP directives into a single string for each directive
-     * @param array<string, array<string>> $directives
+     * @param  array<string, array<string>> $directives
      * @return array<string>
      */
     private function _compactHeaders(array $directives): array

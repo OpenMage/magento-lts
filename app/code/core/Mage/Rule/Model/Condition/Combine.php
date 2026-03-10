@@ -12,12 +12,12 @@
  *
  * @method string getAggregator()
  * @method string getAggregatorOption()
- * @method array getAggregatorOptions()
+ * @method array  getAggregatorOptions()
  * @method string getPrefix()
- * @method $this setActions(array $value)
- * @method $this setAggregator(string $value)
- * @method $this setAggregatorOption(array $value)
- * @method $this setValueOption(array $value)
+ * @method $this  setActions(array $value)
+ * @method $this  setAggregator(string $value)
+ * @method $this  setAggregatorOption(array $value)
+ * @method $this  setValueOption(array $value)
  */
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract
 {
@@ -54,7 +54,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *
      * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
      *
-     * @param  string $modelClass
+     * @param  string                                  $modelClass
      * @return bool|Mage_Rule_Model_Condition_Abstract
      */
     protected function _getNewConditionModelInstance($modelClass)
@@ -171,7 +171,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param Mage_Rule_Model_Condition_Abstract $condition
+     * @param  Mage_Rule_Model_Condition_Abstract $condition
      * @return $this
      */
     public function addCondition($condition)
@@ -229,8 +229,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param string $containerKey
-     * @param string $itemKey
+     * @param  string $containerKey
+     * @param  string $itemKey
      * @return string
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
@@ -246,8 +246,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param array|Mage_Rule_Model_Condition_Abstract $arr
-     * @param string $key
+     * @param  array|Mage_Rule_Model_Condition_Abstract $arr
+     * @param  string                                   $key
      * @return $this
      */
     public function loadArray($arr, $key = 'conditions')
@@ -273,7 +273,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param SimpleXMLElement|string $xml
+     * @param  SimpleXMLElement|string $xml
      * @return $this
      */
     public function loadXml($xml)
@@ -341,7 +341,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -350,7 +350,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)
@@ -377,19 +377,20 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         foreach ($this->getConditions() as $cond) {
             $validated = $cond->validate($object);
-
             if ($all && $validated !== $true) {
                 return false;
-            } elseif (!$all && $validated === $true) {
+            }
+
+            if (!$all && $validated === $true) {
                 return true;
             }
         }
 
-        return $all ? true : false;
+        return $all;
     }
 
     /**
-     * @param string $form
+     * @param  string $form
      * @return $this
      */
     public function setJsFormObject($form)
@@ -416,7 +417,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
-     * @param Mage_Rule_Model_Condition_Product_Abstract[] $conditions
+     * @param  Mage_Rule_Model_Condition_Product_Abstract[] $conditions
      * @return $this
      */
     public function setConditions($conditions)

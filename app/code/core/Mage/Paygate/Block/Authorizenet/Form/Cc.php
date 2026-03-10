@@ -13,7 +13,7 @@
 class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
 {
     /**
-     * Set block template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -101,7 +101,9 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
         if ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_SUCCESS) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('The amount on your credit card is insufficient to complete your purchase. The available amount has been put on hold. To complete your purchase click OK and specify additional credit card number. To cancel the purchase and release the amount on hold, click Cancel.');
-        } elseif ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_DECLINED) {
+        }
+
+        if ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_DECLINED) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('Your credit card has been declined. Click OK to specify another credit card to complete your purchase. Click Cancel to release the amount on hold and select another payment method.');
         }

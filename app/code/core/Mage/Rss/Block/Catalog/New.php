@@ -14,6 +14,9 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct() {}
 
     /**

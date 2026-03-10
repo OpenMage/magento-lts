@@ -45,7 +45,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Composite extends Mage_Catal
     /**
      * Retrieve product stock qty
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return float
      */
     public function getProductStockQty($product)

@@ -21,7 +21,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Assign data to info model instance
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function assignData($data)
@@ -196,8 +196,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $expYear
-     * @param string $expMonth
+     * @param  string              $expYear
+     * @param  string              $expMonth
      * @return bool
      * @throws Zend_Date_Exception
      */
@@ -214,7 +214,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function otherCcType($type)
@@ -225,8 +225,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate credit card number
      *
-     * @param string $ccNumber
-     * @return  bool
+     * @param  string $ccNumber
+     * @return bool
      */
     public function validateCcNum($ccNumber)
     {
@@ -264,7 +264,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Other credit cart type number validation
      *
-     * @param string $ccNumber
+     * @param  string $ccNumber
      * @return bool
      */
     public function validateCcNumOther($ccNumber)
@@ -275,7 +275,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Check whether there are CC types set in configuration
      *
-     * @param null|Mage_Sales_Model_Quote $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -342,13 +342,13 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getIncrementId();
-        } else {
-            if (!$info->getQuote()->getReservedOrderId()) {
-                $info->getQuote()->reserveOrderId();
-            }
-
-            return $info->getQuote()->getReservedOrderId();
         }
+
+        if (!$info->getQuote()->getReservedOrderId()) {
+            $info->getQuote()->reserveOrderId();
+        }
+
+        return $info->getQuote()->getReservedOrderId();
     }
 
     /**
@@ -361,9 +361,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
             return (float) $info->getOrder()->getQuoteBaseGrandTotal();
-        } else {
-            return (float) $info->getQuote()->getBaseGrandTotal();
         }
+
+        return (float) $info->getQuote()->getBaseGrandTotal();
     }
 
     /**
@@ -377,9 +377,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getBaseCurrencyCode();
-        } else {
-            return $info->getQuote()->getBaseCurrencyCode();
         }
+
+        return $info->getQuote()->getBaseCurrencyCode();
     }
 
     /**
@@ -392,7 +392,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($info instanceof Mage_Sales_Model_Quote_Payment) {
             return false;
-        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
+        }
+
+        if ($info instanceof Mage_Sales_Model_Order_Payment) {
             return true;
         }
 

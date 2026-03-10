@@ -16,6 +16,9 @@
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/sales_order_tax');
@@ -24,7 +27,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model
     /**
      * Retrieve order tax collection by order identifier
      *
-     * @param Varien_Object $order
+     * @param  Varien_Object $order
      * @return $this
      */
     public function loadByOrder($order)

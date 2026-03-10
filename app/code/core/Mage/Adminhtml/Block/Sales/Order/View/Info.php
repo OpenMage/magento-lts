@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      * Find sort order for account data
      * Sort Order used as array key
      *
-     * @param int $sortOrder
+     * @param  int $sortOrder
      * @return int
      */
     protected function _prepareAccountDataSortOrder(array $data, $sortOrder)
@@ -140,8 +140,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     /**
      * Get link to edit order address page
      *
-     * @param Mage_Sales_Model_Order_Address $address
-     * @param string $label
+     * @param  Mage_Sales_Model_Order_Address $address
+     * @param  string                         $label
      * @return string
      */
     public function getAddressEditLink($address, $label = '')

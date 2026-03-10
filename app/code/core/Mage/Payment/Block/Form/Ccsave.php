@@ -12,6 +12,9 @@
  */
 class Mage_Payment_Block_Form_Ccsave extends Mage_Payment_Block_Form_Cc
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

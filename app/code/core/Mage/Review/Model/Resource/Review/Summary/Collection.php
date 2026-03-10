@@ -35,8 +35,8 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Add entity filter
      *
-     * @param array|int $entityId
-     * @param int $entityType
+     * @param  array|int $entityId
+     * @param  int       $entityType
      * @return $this
      */
     public function addEntityFilter($entityId, $entityType = 1)
@@ -49,7 +49,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Add store filter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)

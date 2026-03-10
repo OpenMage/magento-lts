@@ -7,6 +7,8 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+
 /**
  * Export model
  *
@@ -160,11 +162,11 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
             }
 
             return $result;
-        } else {
-            Mage::throwException(
-                Mage::helper('importexport')->__('No filter data provided'),
-            );
         }
+
+        Mage::throwException(
+            Mage::helper('importexport')->__('No filter data provided'),
+        );
     }
 
     /**
@@ -203,11 +205,11 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
             }
 
             return $result;
-        } else {
-            Mage::throwException(
-                Mage::helper('importexport')->__('No filter data provided'),
-            );
         }
+
+        Mage::throwException(
+            Mage::helper('importexport')->__('No filter data provided'),
+        );
     }
 
     /**
@@ -231,20 +233,25 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
-        } elseif ($attribute->getBackendType() == 'datetime') {
-            return self::FILTER_TYPE_DATE;
-        } elseif ($attribute->getBackendType() == 'decimal' || $attribute->getBackendType() == 'int') {
-            return self::FILTER_TYPE_NUMBER;
-        } elseif ($attribute->isStatic()
-                  || $attribute->getBackendType() == 'varchar'
-                  || $attribute->getBackendType() == 'text'
-        ) {
-            return self::FILTER_TYPE_INPUT;
-        } else {
-            Mage::throwException(
-                Mage::helper('importexport')->__('Can not determine attribute filter type'),
-            );
         }
+
+        if ($attribute->getBackendType() == 'datetime') {
+            return self::FILTER_TYPE_DATE;
+        }
+
+        if ($attribute->getBackendType() == 'decimal' || $attribute->getBackendType() == 'int') {
+            return self::FILTER_TYPE_NUMBER;
+        }
+
+        if ($attribute->isStatic()
+                  || $attribute->getBackendType() == 'varchar'
+                  || $attribute->getBackendType() == 'text') {
+            return self::FILTER_TYPE_INPUT;
+        }
+
+        Mage::throwException(
+            Mage::helper('importexport')->__('Can not determine attribute filter type'),
+        );
     }
 
     /**
@@ -304,6 +311,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      */
     public function getFileName()
     {
-        return $this->getEntity() . '_' . date('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
+        return $this->getEntity() . '_' . Carbon::now()->format('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
     }
 }

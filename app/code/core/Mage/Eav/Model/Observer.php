@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Observer
 {
     /**
-     * @param Varien_Event_Observer $event
+     * @param  Varien_Event_Observer           $event
      * @return void
      * @throws Mage_Core_Model_Store_Exception
      */

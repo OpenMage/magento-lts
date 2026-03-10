@@ -44,8 +44,8 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type instance factory
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param bool $singleton
+     * @param  Mage_Catalog_Model_Product|Varien_Object $product
+     * @param  bool                                     $singleton
      * @return false|Mage_Core_Model_Abstract
      */
     public static function factory($product, $singleton = false)
@@ -74,8 +74,8 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type price model factory
      *
-     * @param   string $productType
-     * @return  Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
+     * @param  string                                                         $productType
+     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public static function priceFactory($productType)
     {
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @param string $optionId
+     * @param  string     $optionId
      * @return null|mixed
      */
     public static function getOptionText($optionId)

@@ -69,7 +69,7 @@ class Varien_Db_Helper
     /**
      * Convert name using dictionary
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public static function shortName($name)

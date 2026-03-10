@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getStoreId()
+ * @method int  getStoreId()
  * @method bool hasStoreId()
  */
 class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface
@@ -76,7 +76,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
 
         if ($this->_href) {
             if (!str_contains($this->_href, '___store')) {
-                $symbol = (!str_contains($this->_href, '?')) ? '?' : '&';
+                $symbol = (str_contains($this->_href, '?')) ? '&' : '?';
                 $this->_href = $this->_href . $symbol . '___store=' . $store->getCode();
             }
         } else {

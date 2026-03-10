@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
      */
     protected $_eventObject    = 'quote_address_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote_address');
@@ -33,7 +36,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
      * Setting filter on quote_id field but if quote_id is 0
      * we should exclude loading junk data from DB
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return $this
      */
     public function setQuoteFilter($quoteId)

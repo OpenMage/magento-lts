@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Bloc
         return Mage::registry('sales_order');
     }
 
-    public function _prepareLayout()
+    protected function _prepareLayout()
     {
         /**
          * Check customer existing

@@ -13,9 +13,9 @@
  * @package    Mage_SalesRule
  *
  * @method string getAlphabet()
- * @method int getLength()
- * @method int  getLengthMax()
- * @method int  getLengthMin()
+ * @method int    getLength()
+ * @method int    getLengthMax()
+ * @method int    getLengthMin()
  */
 class Mage_SalesRule_Model_Coupon_Codegenerator extends Varien_Object implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {

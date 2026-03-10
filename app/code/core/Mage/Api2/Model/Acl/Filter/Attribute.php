@@ -12,18 +12,18 @@
  *
  * @package    Mage_Api2
  *
- * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute _getResource()
- * @method string getAllowedAttributes()
+ * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute            _getResource()
+ * @method string                                                   getAllowedAttributes()
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection getCollection()
- * @method string getOperation()
- * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute getResource()
+ * @method string                                                   getOperation()
+ * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute            getResource()
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection getResourceCollection()
- * @method string getResourceId()
- * @method string getUserType()
- * @method $this setAllowedAttributes() setAllowedAttributes(string $attributes)
- * @method $this setOperation() setOperation(string $operation)
- * @method $this setResourceId() setResourceId(string $resource)
- * @method $this setUserType() setUserType(string $type)
+ * @method string                                                   getResourceId()
+ * @method string                                                   getUserType()
+ * @method $this                                                    setAllowedAttributes() setAllowedAttributes(string $attributes)
+ * @method $this                                                    setOperation() setOperation(string $operation)
+ * @method $this                                                    setResourceId() setResourceId(string $resource)
+ * @method $this                                                    setUserType() setUserType(string $type)
  */
 class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
 {
@@ -34,6 +34,9 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api2/acl_filter_attribute');

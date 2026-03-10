@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/config_data', 'config_id');
@@ -22,7 +25,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load configuration values into xml config object
      *
-     * @param string $condition
+     * @param  string $condition
      * @return $this
      */
     public function loadToXml(Mage_Core_Model_Config $xmlConfig, $condition = null)
@@ -155,10 +158,10 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save config value
      *
-     * @param string $path
-     * @param string $value
-     * @param string $scope
-     * @param int $scopeId
+     * @param  string $path
+     * @param  string $value
+     * @param  string $scope
+     * @param  int    $scopeId
      * @return $this
      */
     public function saveConfig($path, $value, $scope, $scopeId)
@@ -191,9 +194,9 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Delete config value
      *
-     * @param string $path
-     * @param string $scope
-     * @param int $scopeId
+     * @param  string $path
+     * @param  string $scope
+     * @param  int    $scopeId
      * @return $this
      */
     public function deleteConfig($path, $scope, $scopeId)

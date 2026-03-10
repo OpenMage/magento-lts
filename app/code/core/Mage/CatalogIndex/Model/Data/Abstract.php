@@ -13,9 +13,9 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract _getResource()
- * @method array getMinimalPriceData()
+ * @method array                                          getMinimalPriceData()
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
- * @method $this setMinimalPriceData(array $data)
+ * @method $this                                          setMinimalPriceData(array $data)
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     public const LINK_GET_PARENTS = 1;
 
     /**
-     * Initialize abstract resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -59,8 +59,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return all children ids
      *
-     * @param Mage_Core_Model_Store $store
-     * @param array|int $parentIds
+     * @param  Mage_Core_Model_Store $store
+     * @param  array|int             $parentIds
      * @return array|false
      * @throws Mage_Core_Exception
      */
@@ -80,8 +80,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return all parent ids
      *
-     * @param Mage_Core_Model_Store $store
-     * @param array|int $childIds
+     * @param  Mage_Core_Model_Store $store
+     * @param  array|int             $childIds
      * @return array|false
      * @throws Mage_Core_Exception
      */
@@ -101,10 +101,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns an array of product children/parents
      *
-     * @param Mage_Core_Model_Store $store
-     * @param array $settings
-     * @param int $type
-     * @param array|int $suppliedId
+     * @param  Mage_Core_Model_Store $store
+     * @param  array                 $settings
+     * @param  int                   $type
+     * @param  array|int             $suppliedId
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -133,15 +133,18 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Fetch final price for product
      *
-     * @param array $product
-     * @param Mage_Core_Model_Store $store
-     * @param Mage_Customer_Model_Group $group
+     * @param  array                     $product
+     * @param  Mage_Core_Model_Store     $store
+     * @param  Mage_Customer_Model_Group $group
      * @return float
      * @throws Mage_Core_Exception
      */
     public function getFinalPrice($product, $store, $group)
     {
-        $basePrice = $specialPrice = $specialPriceFrom = $specialPriceTo = null;
+        $basePrice = null;
+        $specialPrice = null;
+        $specialPriceFrom = null;
+        $specialPriceTo = null;
         $priceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price');
         $specialPriceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_price');
         $specialPriceFromId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'special_from_date');
@@ -175,8 +178,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return minimal prices for specified products
      *
-     * @param array $products
-     * @param Mage_Core_Model_Store $store
+     * @param  array                 $products
+     * @param  Mage_Core_Model_Store $store
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -198,8 +201,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Get tax class id for a product
      *
-     * @param int $productId
-     * @param Mage_Core_Model_Store $store
+     * @param  int                   $productId
+     * @param  Mage_Core_Model_Store $store
      * @return int
      * @throws Mage_Core_Exception
      */
@@ -219,8 +222,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return tier data for specified products in specified store
      *
-     * @param array $products
-     * @param Mage_Core_Model_Store $store
+     * @param  array                 $products
+     * @param  Mage_Core_Model_Store $store
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -232,9 +235,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array|string $products
-     * @param array $attributes
-     * @param Mage_Core_Model_Store $store
+     * @param  array|string          $products
+     * @param  array                 $attributes
+     * @param  Mage_Core_Model_Store $store
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -267,7 +270,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns if type supports children of the specified type
      *
-     * @param int $type
+     * @param  int  $type
      * @return bool
      */
     public function areChildrenIndexable($type)

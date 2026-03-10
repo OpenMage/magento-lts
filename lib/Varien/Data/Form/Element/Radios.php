@@ -31,7 +31,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
     {
         $separator = $this->getData('separator');
         if (is_null($separator)) {
-            $separator = '&nbsp;';
+            return '&nbsp;';
         }
 
         return $separator;
@@ -54,8 +54,8 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @param array|Varien_Object $option
-     * @param $selected
+     * @param  array|Varien_Object $option
+     * @param                      $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

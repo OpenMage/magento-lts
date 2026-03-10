@@ -105,7 +105,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Prepare collection with new products
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
     protected function _beforeToHtml()
     {
@@ -116,7 +116,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Set how much product should be displayed at once.
      *
-     * @param int $count
+     * @param  int   $count
      * @return $this
      */
     public function setProductsCount($count)

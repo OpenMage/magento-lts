@@ -24,7 +24,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  URL for redirect location
      *
-     *  @return   string URL
+     * @return string URL
      */
     public function getTargetURL()
     {
@@ -34,7 +34,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Additional custom message
      *
-     *  @return   string Output message
+     * @return string Output message
      */
     public function getMessage()
     {
@@ -44,21 +44,21 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Client-side redirect engine output
      *
-     *  @return   string
+     * @return string
      */
     public function getRedirectOutput()
     {
         if ($this->isHtmlFormRedirect()) {
             return $this->getHtmlFormRedirect();
-        } else {
-            return $this->getJsRedirect();
         }
+
+        return $this->getJsRedirect();
     }
 
     /**
      *  Redirect via JS location
      *
-     *  @return   string
+     * @return string
      */
     public function getJsRedirect()
     {
@@ -70,7 +70,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Redirect via HTML form submission
      *
-     *  @return   string
+     * @return string
      */
     public function getHtmlFormRedirect()
     {
@@ -101,7 +101,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form id/name attributes
      *
-     *  @return   string Id/name
+     * @return string Id/name
      */
     public function getFormId()
     {
@@ -111,7 +111,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form method attribute
      *
-     *  @return   string Method
+     * @return string Method
      */
     public function getFormMethod()
     {
@@ -121,7 +121,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Array of hidden form fields (name => value)
      *
-     *  @return   array
+     * @return array
      */
     public function getFormFields()
     {
@@ -131,7 +131,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Optimized getFormFields() method
      *
-     *  @return   array
+     * @return array
      */
     protected function _getFormFields()
     {

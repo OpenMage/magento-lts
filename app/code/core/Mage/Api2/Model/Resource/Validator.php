@@ -42,7 +42,7 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Add errors
      *
-     * @param array $errors
+     * @param  array                              $errors
      * @return Mage_Api2_Model_Resource_Validator
      */
     protected function _addErrors($errors)
@@ -57,7 +57,7 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Add error
      *
-     * @param string $error
+     * @param  string                             $error
      * @return Mage_Api2_Model_Resource_Validator
      */
     protected function _addError($error)

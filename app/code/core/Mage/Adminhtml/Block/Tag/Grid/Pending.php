@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     /**
      * Retrieves row click URL
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)

@@ -44,7 +44,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML config element based on its type
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getXmlElementByType($type)
@@ -60,7 +60,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Wrapper for getXmlElementByType method
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getConfigAsXml($type)
@@ -71,7 +71,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML configuration as Varien_Object and makes some data preparations
      *
-     * @param string $type Widget type
+     * @param  string        $type Widget type
      * @return Varien_Object
      */
     public function getConfigAsObject($type)
@@ -144,7 +144,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return filtered list of widgets as SimpleXml object
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array                    $filters Key-value array of filters for widget node properties
      * @return Varien_Simplexml_Element
      */
     public function getWidgetsXml($filters = [])
@@ -175,7 +175,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return list of widgets as array
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array $filters Key-value array of filters for widget node properties
      * @return array
      */
     public function getWidgetsArray($filters = [])
@@ -205,9 +205,9 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget presentation code in WYSIWYG editor
      *
-     * @param string $type Widget Type
-     * @param array $params Pre-configured Widget Params
-     * @param bool $asIs Return result as widget directive(true) or as placeholder image(false)
+     * @param  string $type   Widget Type
+     * @param  array  $params Pre-configured Widget Params
+     * @param  bool   $asIs   Return result as widget directive(true) or as placeholder image(false)
      * @return string Widget directive ready to parse
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
@@ -275,7 +275,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Encode string to valid HTML id element, based on base64 encoding
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _idEncode($string)
@@ -286,8 +286,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * User-defined widgets sorting by Name
      *
-     * @param array $a
-     * @param array $b
+     * @param  array      $a
+     * @param  array      $b
      * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
@@ -298,8 +298,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Widget parameters sort callback
      *
-     * @param Varien_Object $a
-     * @param Varien_Object $b
+     * @param  Varien_Object $a
+     * @param  Varien_Object $b
      * @return int
      */
     protected function _sortParameters($a, $b)

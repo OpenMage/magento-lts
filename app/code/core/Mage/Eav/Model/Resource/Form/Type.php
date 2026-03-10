@@ -16,6 +16,9 @@
  */
 class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/form_type', 'type_id');
@@ -43,7 +46,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve form type entity types
      *
-     * @param Mage_Eav_Model_Form_Type $object
+     * @param  Mage_Eav_Model_Form_Type $object
      * @return array
      */
     public function getEntityTypes($object)
@@ -113,7 +116,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve form type filtered by given attribute
      *
-     * @param int|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  int|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getFormTypesByAttribute($attribute)

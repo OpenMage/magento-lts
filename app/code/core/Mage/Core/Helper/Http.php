@@ -26,7 +26,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param null|array $headers
+     * @param  null|array $headers
      * @return array
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -106,7 +106,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Client Remote Address
      *
-     * @param bool $ipToLong converting IP to long format
+     * @param  bool         $ipToLong converting IP to long format
      * @return false|string IPv4|long
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -141,7 +141,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Server IP address
      *
-     * @param bool $ipToLong converting IP to long format
+     * @param  bool         $ipToLong converting IP to long format
      * @return false|string IPv4|long
      */
     public function getServerAddr($ipToLong = false)
@@ -157,15 +157,15 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP "clean" value
      *
-     * @param string $var
-     * @param bool $clean clean non UTF-8 characters
+     * @param  string $var
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     protected function _getHttpCleanValue($var, $clean = true)
     {
         $value = $this->_getRequest()->getServer($var, '');
         if ($clean) {
-            $value = Mage::helper('core/string')->cleanString($value);
+            return Mage::helper('core/string')->cleanString($value);
         }
 
         return $value;
@@ -174,7 +174,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP HOST
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpHost($clean = true)
@@ -185,7 +185,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP USER AGENT
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpUserAgent($clean = true)
@@ -196,7 +196,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT LANGUAGE
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptLanguage($clean = true)
@@ -207,7 +207,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT CHARSET
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptCharset($clean = true)
@@ -218,7 +218,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP REFERER
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpReferer($clean = true)
@@ -230,14 +230,14 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Returns the REQUEST_URI taking into account
      * platform differences between Apache and IIS
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getRequestUri($clean = false)
     {
         $uri = $this->_getRequest()->getRequestUri();
         if ($clean) {
-            $uri = Mage::helper('core/string')->cleanString($uri);
+            return Mage::helper('core/string')->cleanString($uri);
         }
 
         return $uri;
@@ -246,7 +246,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Validate IP address
      *
-     * @param string $address
+     * @param  string $address
      * @return bool
      */
     public function validateIpAddr($address)

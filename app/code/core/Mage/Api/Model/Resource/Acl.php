@@ -15,7 +15,7 @@
 class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource connections
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -57,7 +57,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
-     * @param array[] $rolesArr
+     * @param  array[] $rolesArr
      * @return $this
      */
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
@@ -95,7 +95,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         foreach ($rulesArr as $rule) {
             $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
-            $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
+            $privileges = empty($rule['api_privileges']) ? null : explode(',', $rule['api_privileges']);
 
             $assert = null;
             if ($rule['assert_id'] != 0) {

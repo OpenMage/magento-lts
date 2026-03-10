@@ -14,6 +14,9 @@
  */
 class Mage_ProductAlert_Model_Resource_Stock extends Mage_ProductAlert_Model_Resource_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('productalert/stock', 'alert_stock_id');

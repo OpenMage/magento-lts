@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Admin
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {

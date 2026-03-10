@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Item_Collection extends Mage_Sales
      */
     protected $_eventObject    = 'order_invoice_item_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice_item');
@@ -32,7 +35,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Item_Collection extends Mage_Sales
     /**
      * Set invoice filter
      *
-     * @param int $invoiceId
+     * @param  int   $invoiceId
      * @return $this
      */
     public function setInvoiceFilter($invoiceId)

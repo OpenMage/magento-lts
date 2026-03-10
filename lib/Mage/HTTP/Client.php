@@ -22,7 +22,7 @@ class Mage_HTTP_Client
 
     /**
      * Factory for HTTP client
-     * @param false|string $frontend  'curl'/'socket' or false for auto-detect
+     * @param  false|string      $frontend 'curl'/'socket' or false for auto-detect
      * @return Mage_HTTP_IClient
      */
     public static function getInstance($frontend = false)

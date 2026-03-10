@@ -30,14 +30,14 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     protected $_storeIdFieldName;
 
     /**
-     * should be defined because abstract
+     * @inheritDoc
      */
     protected function _construct() {}
 
     /**
-     * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param  array $data
+     * @param  int   $storeId
+     * @param  int   $productId
      * @return void
      */
     public function saveIndex($data, $storeId, $productId)
@@ -55,9 +55,9 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param  array $data
+     * @param  int   $storeId
+     * @param  int   $productId
      * @return $this
      */
     protected function _executeReplace($data, $storeId, $productId)
@@ -100,7 +100,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param array|string $conditions
+     * @param  array|string $conditions
      * @return array
      */
     public function loadAttributeCodesByCondition($conditions)

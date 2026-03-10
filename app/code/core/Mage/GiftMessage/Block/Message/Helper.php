@@ -33,7 +33,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @param mixed $entity
+     * @param  mixed $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -51,7 +51,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -77,7 +77,7 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setScriptIncluded($value)

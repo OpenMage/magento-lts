@@ -154,8 +154,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
     /**
      * Send email notification to user about token status change
      *
-     * @param Mage_Oauth_Model_Token $token Token object
-     * @param string $newStatus Name of new token status
+     * @param Mage_Oauth_Model_Token $token     Token object
+     * @param string                 $newStatus Name of new token status
      */
     protected function _sendTokenStatusChangeNotification($token, $newStatus)
     {

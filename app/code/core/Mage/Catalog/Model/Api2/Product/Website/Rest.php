@@ -212,8 +212,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
     /**
      * Get resource location
      *
-     * @param Mage_Core_Model_Website $website
-     * @return string URL
+     * @param  Mage_Core_Model_Website $website
+     * @return string                  URL
      */
     protected function _getLocation($website)
     {

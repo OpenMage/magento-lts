@@ -17,8 +17,8 @@ interface Mage_Catalog_Helper_Product_Url_Rewrite_Interface
     /**
      * Prepare and return select
      *
-     * @param int $categoryId
-     * @param int $storeId
+     * @param  int              $categoryId
+     * @param  int              $storeId
      * @return Varien_Db_Select
      */
     public function getTableSelect(array $productIds, $categoryId, $storeId);
@@ -26,7 +26,7 @@ interface Mage_Catalog_Helper_Product_Url_Rewrite_Interface
     /**
      * Prepare url rewrite left join statement for given select instance and store_id parameter.
      *
-     * @param int $storeId
+     * @param  int                                               $storeId
      * @return Mage_Catalog_Helper_Product_Url_Rewrite_Interface
      */
     public function joinTableToSelect(Varien_Db_Select $select, $storeId);

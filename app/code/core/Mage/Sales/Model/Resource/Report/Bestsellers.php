@@ -21,7 +21,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
-     * Model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -31,8 +31,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function aggregate($from = null, $to = null)
@@ -225,7 +225,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data for default store
      *
-     * @param null|Varien_Db_Select $subSelect
+     * @param  null|Varien_Db_Select $subSelect
      * @return $this
      */
     protected function _aggregateDefault($subSelect = null)
@@ -297,7 +297,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Update rating position
      *
-     * @param string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
+     * @param  string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
      * @return $this
      */
     protected function _updateRatingPos($aggregation)

@@ -76,7 +76,7 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @inheritDoc
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
@@ -87,8 +87,8 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
     /**
      * Get Creditmemo totals block html gor specific creditmemo
      *
-     * @param   Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return  string
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return string
      */
     public function getTotalsHtml($creditmemo)
     {

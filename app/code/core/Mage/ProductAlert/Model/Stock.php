@@ -12,27 +12,30 @@
  *
  * @package    Mage_ProductAlert
  *
- * @method Mage_ProductAlert_Model_Resource_Stock _getResource()
- * @method string getAddDate()
+ * @method Mage_ProductAlert_Model_Resource_Stock            _getResource()
+ * @method string                                            getAddDate()
  * @method Mage_ProductAlert_Model_Resource_Stock_Collection getCollection()
- * @method int getCustomerId()
- * @method int getProductId()
- * @method Mage_ProductAlert_Model_Resource_Stock getResource()
+ * @method int                                               getCustomerId()
+ * @method int                                               getProductId()
+ * @method Mage_ProductAlert_Model_Resource_Stock            getResource()
  * @method Mage_ProductAlert_Model_Resource_Stock_Collection getResourceCollection()
- * @method int getSendCount()
- * @method string getSendDate()
- * @method int getStatus()
- * @method int getWebsiteId()
- * @method $this setAddDate(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setProductId(int $value)
- * @method $this setSendCount(int $value)
- * @method $this setSendDate(string $value)
- * @method $this setStatus(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                               getSendCount()
+ * @method string                                            getSendDate()
+ * @method int                                               getStatus()
+ * @method int                                               getWebsiteId()
+ * @method $this                                             setAddDate(string $value)
+ * @method $this                                             setCustomerId(int $value)
+ * @method $this                                             setProductId(int $value)
+ * @method $this                                             setSendCount(int $value)
+ * @method $this                                             setSendDate(string $value)
+ * @method $this                                             setStatus(int $value)
+ * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('productalert/stock');
@@ -59,8 +62,8 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $customerId
-     * @param int $websiteId
+     * @param  int   $customerId
+     * @param  int   $websiteId
      * @return $this
      */
     public function deleteCustomer($customerId, $websiteId = 0)

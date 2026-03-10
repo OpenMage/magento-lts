@@ -15,7 +15,7 @@
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
-     * Initialize resources
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -28,8 +28,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set Date range to collection
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -43,7 +43,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set store filter to collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

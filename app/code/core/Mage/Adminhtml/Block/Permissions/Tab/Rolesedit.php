@@ -136,8 +136,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Compare two nodes of the Resource Tree
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTree($a, $b)
@@ -148,8 +148,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Get Node Json
      *
-     * @param mixed $node
-     * @param int $level
+     * @param  mixed $node
+     * @param  int   $level
      * @return array
      */
     protected function _getNodeJson($node, $level = 0)

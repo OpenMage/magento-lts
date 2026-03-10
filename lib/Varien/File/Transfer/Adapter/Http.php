@@ -93,7 +93,7 @@ class Varien_File_Transfer_Adapter_Http
     /**
      * Internal method to detect the mime type of a file
      *
-     * @param  array $value File infos
+     * @param  array       $value File infos
      * @return null|string Mime type of given file
      */
     protected function _detectMimeType($value)
@@ -117,7 +117,7 @@ class Varien_File_Transfer_Adapter_Http
         }
 
         if (empty($result)) {
-            $result = 'application/octet-stream';
+            return 'application/octet-stream';
         }
 
         return $result;

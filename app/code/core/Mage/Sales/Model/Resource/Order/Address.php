@@ -19,6 +19,9 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
      */
     protected $_eventPrefix    = 'sales_order_address_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_address', 'entity_id');

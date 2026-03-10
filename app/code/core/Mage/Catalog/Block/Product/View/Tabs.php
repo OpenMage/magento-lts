@@ -19,10 +19,10 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
     /**
      * Add tab to the container
      *
-     * @param string $alias
-     * @param string $title
-     * @param string $block
-     * @param string $template
+     * @param  string     $alias
+     * @param  string     $title
+     * @param  string     $block
+     * @param  string     $template
      * @return false|void
      */
     public function addTab($alias, $title, $block, $template)

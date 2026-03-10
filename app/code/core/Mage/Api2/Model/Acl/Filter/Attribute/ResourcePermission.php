@@ -143,7 +143,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
      *
      * Set user type
      *
-     * @param string $userType
+     * @param  string $userType
      * @return $this
      */
     public function setFilterValue($userType)

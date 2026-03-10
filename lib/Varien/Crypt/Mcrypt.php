@@ -36,7 +36,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
     /**
      * Initialize mcrypt module
      *
-     * @param string $key cipher private key
+     * @param  string              $key cipher private key
      * @return Varien_Crypt_Mcrypt
      */
     public function init($key)
@@ -77,7 +77,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
     /**
      * Encrypt data
      *
-     * @param string $data source string
+     * @param  string $data source string
      * @return string
      */
     public function encrypt($data)
@@ -96,7 +96,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
     /**
      * Decrypt data
      *
-     * @param string $data encrypted string
+     * @param  string $data encrypted string
      * @return string
      */
     public function decrypt($data)

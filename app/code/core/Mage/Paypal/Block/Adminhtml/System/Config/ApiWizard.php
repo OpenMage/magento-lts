@@ -62,8 +62,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
     /**
      * Prepare button data
      *
-     * @param string $elementHtmlId
-     * @param array $originalData
+     * @param  string $elementHtmlId
+     * @param  array  $originalData
      * @return array
      */
     protected function _getButtonData($elementHtmlId, $originalData)
@@ -78,8 +78,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
     /**
      * Prepare sandbox button data
      *
-     * @param string $elementHtmlId
-     * @param array $originalData
+     * @param  string $elementHtmlId
+     * @param  array  $originalData
      * @return array
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)

@@ -37,13 +37,13 @@ class Magento_Crypt
     /**
      * Constructor
      *
-     * @param  string      $key        Secret encryption key.
-     *                                 It's unsafe to store encryption key in memory, so no getter for key exists.
-     * @param  string      $cipher     Cipher algorithm (one of the MCRYPT_ciphername constants)
-     * @param  string      $mode       Mode of cipher algorithm (MCRYPT_MODE_modeabbr constants)
-     * @param  bool|string $initVector Initial vector to fill algorithm blocks.
-     *                                 TRUE generates a random initial vector.
-     *                                 FALSE fills initial vector with zero bytes to not use it.
+     * @param  string            $key        Secret encryption key.
+     *                                       It's unsafe to store encryption key in memory, so no getter for key exists.
+     * @param  string            $cipher     Cipher algorithm (one of the MCRYPT_ciphername constants)
+     * @param  string            $mode       Mode of cipher algorithm (MCRYPT_MODE_modeabbr constants)
+     * @param  bool|string       $initVector Initial vector to fill algorithm blocks.
+     *                                       TRUE generates a random initial vector.
+     *                                       FALSE fills initial vector with zero bytes to not use it.
      * @throws Magento_Exception
      */
     public function __construct($key, $cipher = MCRYPT_BLOWFISH, $mode = MCRYPT_MODE_ECB, $initVector = false)

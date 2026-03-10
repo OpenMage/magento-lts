@@ -14,9 +14,13 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @package    Mage_Adminhtml
  *
- * @method bool getHideFormElement()
- * @method $this setFormFieldName(string $value)
- * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method string getErrorText()
+ * @method bool   getHideFormElement()
+ * @method bool   getUseAjax()
+ * @method $this  setErrorText(string $value)
+ * @method $this  setFormFieldName(string $value)
+ * @method $this  setHideFormElement(bool $value) Hide Form element to prevent IE errors
+ * @method $this  setUseAjax(bool $value)
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -113,8 +117,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      *      'additional' => string|array|Mage_Core_Block_Abstract // (optional)
      * );
      *
-     * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  string $itemId
+     * @return $this
      */
     public function addItem($itemId, array $item)
     {
@@ -138,7 +142,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve massaction item with id $itemId
      *
-     * @param string $itemId
+     * @param  string                                                $itemId
      * @return null|Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
      */
     public function getItem($itemId)
@@ -241,9 +245,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
             return implode(',', $selected);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -255,9 +259,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     {
         if ($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             return explode(',', $this->quoteEscape($selected));
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -314,8 +318,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Remove existing massaction item by its id
      *
-     * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  string $itemId
+     * @return $this
      */
     public function removeItem($itemId)
     {
@@ -339,8 +343,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     /**
      * Retrieve select all functionality flag check
      *
-     * @param bool $flag
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     * @param  bool  $flag
+     * @return $this
      */
     public function setUseSelectAll($flag)
     {

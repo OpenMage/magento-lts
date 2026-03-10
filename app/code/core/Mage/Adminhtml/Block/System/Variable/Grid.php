@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

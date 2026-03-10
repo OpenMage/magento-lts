@@ -13,22 +13,22 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Customer _getResource()
- * @method int getCustomerId()
- * @method string getLoginAt()
- * @method string getLogoutAt()
+ * @method int                              getCustomerId()
+ * @method string                           getLoginAt()
+ * @method string                           getLogoutAt()
  * @method Mage_Log_Model_Resource_Customer getResource()
- * @method int getStoreId()
- * @method int getVisitorId()
- * @method $this setCustomerId(int $value)
- * @method $this setLoginAt(string $value)
- * @method $this setLogoutAt(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setVisitorId(int $value)
+ * @method int                              getStoreId()
+ * @method int                              getVisitorId()
+ * @method $this                            setCustomerId(int $value)
+ * @method $this                            setLoginAt(string $value)
+ * @method $this                            setLogoutAt(string $value)
+ * @method $this                            setStoreId(int $value)
+ * @method $this                            setVisitorId(int $value)
  */
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -39,7 +39,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Load last log by customer id
      *
-     * @param int|Mage_Log_Model_Customer $customer
+     * @param  int|Mage_Log_Model_Customer $customer
      * @return $this
      */
     public function loadByCustomer($customer)

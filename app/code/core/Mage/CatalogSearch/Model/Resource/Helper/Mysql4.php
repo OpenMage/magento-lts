@@ -17,10 +17,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Join information for using full text search
      *
-     * @param string $table
-     * @param string $alias
-     * @param Varien_Db_Select $select
-     * @return Zend_Db_Expr $select
+     * @param  string           $table
+     * @param  string           $alias
+     * @param  Varien_Db_Select $select
+     * @return Zend_Db_Expr     $select
      */
     public function chooseFulltext($table, $alias, $select)
     {
@@ -32,9 +32,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Prepare Terms
      *
-     * @param string $str The source string
-     * @param int $maxWordLength
-     * @return array (0=>words, 1=>terms)
+     * @param  string $str           The source string
+     * @param  int    $maxWordLength
+     * @return array  (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
@@ -95,10 +95,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Use sql compatible with Full Text indexes
      *
-     * @param mixed $table the table to insert data into
-     * @param array $data column-value pairs or array of column-value pairs
-     * @param array $fields update fields pairs or values
-     * @return int the number of affected rows
+     * @param  mixed $table  the table to insert data into
+     * @param  array $data   column-value pairs or array of column-value pairs
+     * @param  array $fields update fields pairs or values
+     * @return int   the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {

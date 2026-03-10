@@ -31,7 +31,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Set sales order model as parent collection object
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setSalesOrder($order)
@@ -61,7 +61,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Add order filter
      *
-     * @param null|array|int|Mage_Sales_Model_Order|string $order
+     * @param  null|array|int|Mage_Sales_Model_Order|string $order
      * @return $this
      */
     public function setOrderFilter($order)

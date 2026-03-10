@@ -14,6 +14,9 @@
  */
 class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         /*

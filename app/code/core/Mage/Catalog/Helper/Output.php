@@ -48,9 +48,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Adding method handler
      *
-     * @param   string $method
-     * @param   object $handler
-     * @return  Mage_Catalog_Helper_Output
+     * @param  string                     $method
+     * @param  object                     $handler
+     * @return Mage_Catalog_Helper_Output
      */
     public function addHandler($method, $handler)
     {
@@ -71,8 +71,8 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Get all handlers for some method
      *
-     * @param   string $method
-     * @return  array
+     * @param  string $method
+     * @return array
      */
     public function getHandlers($method)
     {
@@ -83,9 +83,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Process all method handlers
      *
-     * @param string $method
-     * @param mixed $result
-     * @param array $params
+     * @param  string $method
+     * @param  mixed  $result
+     * @param  array  $params
      * @return mixed
      */
     public function process($method, $result, $params)
@@ -102,10 +102,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Prepare product attribute html output
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   string $attributeHtml
-     * @param   string $attributeName
-     * @return  string
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $attributeHtml
+     * @param  string                     $attributeName
+     * @return string
      */
     public function productAttribute($product, $attributeHtml, $attributeName)
     {
@@ -138,10 +138,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Prepare category attribute html output
      *
-     * @param   Mage_Catalog_Model_Category $category
-     * @param   string $attributeHtml
-     * @param   string $attributeName
-     * @return  string
+     * @param  Mage_Catalog_Model_Category $category
+     * @param  string                      $attributeHtml
+     * @param  string                      $attributeName
+     * @return string
      */
     public function categoryAttribute($category, $attributeHtml, $attributeName)
     {

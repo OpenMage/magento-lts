@@ -24,7 +24,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     ];
 
     /**
-     * Initialize main table and the primary key field name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -35,7 +35,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * Unserialize Varien_Object field in an object
      *
      * @param string $field
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      */
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
@@ -97,8 +97,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     /**
      * Load the transaction object by specified txn_id
      *
-     * @param int $orderId
-     * @param int $paymentId
+     * @param int    $orderId
+     * @param int    $paymentId
      * @param string $txnId
      */
     public function loadObjectByTxnId(
@@ -117,7 +117,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     /**
      * Retrieve order website id
      *
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getOrderWebsiteId($orderId)
@@ -173,12 +173,12 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     /**
      * Load cell/row by specified unique key parts
      *
-     * @param int $orderId
-     * @param int $paymentId
-     * @param string $txnId
-     * @param array|object|string $columns
-     * @param bool $isRow
-     * @param string $txnType
+     * @param  int                 $orderId
+     * @param  int                 $paymentId
+     * @param  string              $txnId
+     * @param  array|object|string $columns
+     * @param  bool                $isRow
+     * @param  string              $txnType
      * @return array|string
      */
     private function _lookupByTxnId($orderId, $paymentId, $txnId, $columns, $isRow = false, $txnType = null)
@@ -198,10 +198,10 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     /**
      * Get select object for loading transaction by the unique key of order_id, payment_id, txn_id
      *
-     * @param int $orderId
-     * @param int $paymentId
-     * @param string $txnId
-     * @param array|string|Zend_Db_Expr $columns
+     * @param  int                       $orderId
+     * @param  int                       $paymentId
+     * @param  string                    $txnId
+     * @param  array|string|Zend_Db_Expr $columns
      * @return Varien_Db_Select
      */
     private function _getLoadByUniqueKeySelect($orderId, $paymentId, $txnId, $columns = '*')

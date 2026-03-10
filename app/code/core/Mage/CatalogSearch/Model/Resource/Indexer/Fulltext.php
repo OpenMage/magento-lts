@@ -14,6 +14,9 @@
  */
 class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogsearch/fulltext', 'product_id');
@@ -22,7 +25,7 @@ class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model
     /**
      * Retrieve product relations by children
      *
-     * @param array|int $childIds
+     * @param  array|int $childIds
      * @return array
      */
     public function getRelationsByChild($childIds)

@@ -115,7 +115,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Check if Catalog Product Flat Data has been initialized
      *
-     * @param null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
+     * @param  null|bool|int|Mage_Core_Model_Store $store Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($store = null)

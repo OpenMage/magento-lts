@@ -61,7 +61,7 @@ describe('Checks customer account create', () => {
         validation.hasErrorMessage(message, { screenshot: false, filename: filename });
     });
 
-    it('Submits invalid form', () => {
+    it('Submits valid form', () => {
         const password = 'veryl0ngpassw0rd';
         // see PR: https://github.com/OpenMage/magento-lts/pull/4617
         // const message = 'Thank you for registering with Madison Island.';

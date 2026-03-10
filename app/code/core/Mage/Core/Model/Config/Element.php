@@ -15,8 +15,8 @@
 class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param string $var
-     * @param string|true $value
+     * @param  string      $var
+     * @param  string|true $value
      * @return bool
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
@@ -28,9 +28,9 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
             $flag = strtolower((string) $flag);
             if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         return !empty($flag) && (strcasecmp((string) $value, (string) $flag) === 0);

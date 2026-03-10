@@ -15,7 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Resource_Abstract
 {
     /**
-     * Initialize connection
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -30,9 +30,9 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
     /**
      * Update attribute values for entity list per store
      *
-     * @param array $entityIds
-     * @param array $attrData
-     * @param int $storeId
+     * @param  array $entityIds
+     * @param  array $attrData
+     * @param  int   $storeId
      * @return $this
      */
     public function updateAttributes($entityIds, $attrData, $storeId)

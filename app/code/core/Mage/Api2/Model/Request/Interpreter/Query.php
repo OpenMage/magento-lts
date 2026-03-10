@@ -22,8 +22,8 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
     /**
      * Parse request body into array of params
      *
-     * @param string $body  Posted content from request
-     * @return array        Return always array
+     * @param  string                        $body Posted content from request
+     * @return array                         Return always array
      * @throws Exception|Mage_Api2_Exception
      */
     public function interpret($body)

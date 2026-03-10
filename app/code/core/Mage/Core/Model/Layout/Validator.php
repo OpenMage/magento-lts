@@ -131,10 +131,10 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Helper_Validate_Abstrac
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @param string|Varien_Simplexml_Element $value
+     * @param  string|Varien_Simplexml_Element $value
      * @return bool
-     * @throws Exception            Throw exception when xml object is not
-     *                              instance of Varien_Simplexml_Element
+     * @throws Exception                       Throw exception when xml object is not
+     *                                         instance of Varien_Simplexml_Element
      */
     public function isValid($value)
     {

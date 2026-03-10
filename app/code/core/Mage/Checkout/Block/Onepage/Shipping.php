@@ -22,7 +22,7 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
     protected $_address = null;
 
     /**
-     * Initialize shipping address step
+     * @inheritDoc
      */
     protected function _construct()
     {

@@ -39,7 +39,7 @@
     <?php $_prevOptionId = $attributes['option_id'] ?>
     <?php endif ?>
 <?php endif ?>
-<tr class="bundle<?php if(++$_index==$_count && !$_showlastRow): ?> border<?php endif ?> <?php echo (!$_item->getParentItem()) ? 'parent' : 'child' ?>" id="order-item-row-<?php echo $_item->getId() ?>">
+<tr class="bundle<?php if(++$_index==$_count && !$_showlastRow): ?> border<?php endif ?> <?php echo ($_item->getParentItem()) ? 'child' : 'parent' ?>" id="order-item-row-<?php echo $_item->getId() ?>">
 
     <?php if (!$_item->getParentItem()): ?>
     <td><h3 class="product-name"><?php echo $this->escapeHtml($_item->getName()) ?></h3></td>

@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Render single action as dropdown option html
      *
-     * @param array $action
+     * @param  array  $action
      * @return string
      */
     protected function _toOptionHtml($action, Varien_Object $row)
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Render single action as link html
      *
-     * @param array $action
+     * @param  array  $action
      * @return string
      */
     protected function _toLinkHtml($action, Varien_Object $row)
@@ -92,8 +92,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Prepares action data for html render
      *
-     * @param array $action
-     * @param string $actionCaption
+     * @param  array  $action
+     * @param  string $actionCaption
      * @return $this
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)

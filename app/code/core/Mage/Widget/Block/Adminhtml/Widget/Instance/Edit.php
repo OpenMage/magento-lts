@@ -14,6 +14,9 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -38,7 +41,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @inheritDoc
      */
-    protected function _preparelayout()
+    protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(

@@ -22,7 +22,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Load attribute data after product loaded
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
     public function afterLoad($object)
@@ -51,8 +51,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * @param string $key
-     * @param array $image
+     * @param  string $key
+     * @param  array  $image
      * @return string
      */
     protected function _getDefaultValue($key, &$image)
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Validate media_gallery attribute data
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product                                  $object
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
      * @throws Zend_Json_Exception
      */
@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
-        if (!isset($value['values'])) {
+        if (!isset($value['values']) || $object->getSkipImagesOnDuplicate()) {
             $value['values'] = [];
         }
 
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
 
-        if (!is_array($value['images'])) {
+        if (!is_array($value['images']) || $object->getSkipImagesOnDuplicate()) {
             $value['images'] = [];
         }
 
@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Retrieve renamed image name
      *
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     public function getRenamedImage($file)
@@ -194,7 +194,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product                            $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
      */
     public function afterSave($object)
@@ -277,11 +277,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Add image to media gallery and return new filename
      *
-     * @param string                     $file              file path of image in file system
-     * @param array|string               $mediaAttribute    code of attribute with type 'media_image',
-     *                                                      leave blank if image should be only in gallery
-     * @param bool                    $move              if true, it will move source file
-     * @param bool                    $exclude           mark image as disabled in product page view
+     * @param  string              $file           file path of image in file system
+     * @param  array|string        $mediaAttribute code of attribute with type 'media_image',
+     *                                             leave blank if image should be only in gallery
+     * @param  bool                $move           if true, it will move source file
+     * @param  bool                $exclude        mark image as disabled in product page view
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -382,11 +382,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add images with different media attributes.
      * Image will be added only once if the same image is used with different media attributes
      *
-     * @param array $fileAndAttributesArray array of arrays of filename and corresponding media attribute
-     * @param string $filePath path, where image cand be found
-     * @param bool $move if true, it will move source file
-     * @param bool $exclude mark image as disabled in product page view
-     * @return array array of parallel arrays with original and renamed files
+     * @param  array               $fileAndAttributesArray array of arrays of filename and corresponding media attribute
+     * @param  string              $filePath               path, where image cand be found
+     * @param  bool                $move                   if true, it will move source file
+     * @param  bool                $exclude                mark image as disabled in product page view
+     * @return array               array of parallel arrays with original and renamed files
      * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
@@ -420,8 +420,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Update image in gallery
      *
-     * @param string $file
-     * @param array $data
+     * @param  string $file
+     * @param  array  $data
      * @return $this
      */
     public function updateImage(Mage_Catalog_Model_Product $product, $file, $data)
@@ -458,7 +458,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Remove image from gallery
      *
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function removeImage(Mage_Catalog_Model_Product $product, $file)
@@ -485,7 +485,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Retrieve image from gallery
      *
-     * @param string $file
+     * @param  string     $file
      * @return array|bool
      */
     public function getImage(Mage_Catalog_Model_Product $product, $file)
@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Clear media attribute value
      *
-     * @param array|string $mediaAttribute
+     * @param  array|string $mediaAttribute
      * @return $this
      */
     public function clearMediaAttribute(Mage_Catalog_Model_Product $product, $mediaAttribute)
@@ -531,8 +531,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Set media attribute value
      *
-     * @param array|string $mediaAttribute
-     * @param string $value
+     * @param  array|string $mediaAttribute
+     * @param  string       $value
      * @return $this
      */
     public function setMediaAttribute(Mage_Catalog_Model_Product $product, $mediaAttribute, $value)
@@ -575,7 +575,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Move image from temporary directory to normal
      *
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     protected function _moveImageFromTmp($file)
@@ -619,8 +619,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Check whether file to move exists. Getting unique name
      *
-     * @param string $file
-     * @param string $dirsep
+     * @param  string $file
+     * @param  string $dirsep
      * @return string
      */
     protected function _getUniqueFileName($file, $dirsep)
@@ -642,7 +642,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Copy image and return new filename.
      *
-     * @param string $file
+     * @param  string              $file
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -688,7 +688,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
     public function duplicate($object)
@@ -696,7 +696,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $attrCode = $this->getAttribute()->getAttributeCode();
         $mediaGalleryData = $object->getData($attrCode);
 
-        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images'])) {
+        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images']) || $object->getSkipImagesOnDuplicate()) {
             return $this;
         }
 
@@ -713,8 +713,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Get filename which is not duplicated with other files in media temporary and media directories
      *
-     * @param String $fileName
-     * @param String $dispretionPath
+     * @param  String $fileName
+     * @param  String $dispretionPath
      * @return String
      */
     protected function _getNotDuplicatedFilename($fileName, $dispretionPath)
@@ -727,7 +727,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($fileMediaName != $fileTmpMediaName) {
             if ($fileMediaName != $fileName) {
                 return $this->_getNotDuplicatedFilename($fileMediaName, $dispretionPath);
-            } elseif ($fileTmpMediaName != $fileName) {
+            }
+
+            if ($fileTmpMediaName != $fileName) {
                 return $this->_getNotDuplicatedFilename($fileTmpMediaName, $dispretionPath);
             }
         }

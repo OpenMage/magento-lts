@@ -13,17 +13,20 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
- * @method int getAttributeId()
+ * @method int                                          getAttributeId()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()
- * @method int getStoreId()
- * @method int getValue()
- * @method $this setAttributeId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setValue(int $value)
+ * @method int                                          getStoreId()
+ * @method int                                          getValue()
+ * @method $this                                        setAttributeId(int $value)
+ * @method $this                                        setEntityId(int $value)
+ * @method $this                                        setStoreId(int $value)
+ * @method $this                                        setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_eav');

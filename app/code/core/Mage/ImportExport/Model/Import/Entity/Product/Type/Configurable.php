@@ -114,8 +114,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param string $attrSetName
-     * @param array $attrParams refined attribute parameters
+     * @param  string                                                      $attrSetName
+     * @param  array                                                       $attrParams  refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
@@ -131,8 +131,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Get super attribute ID (if it is not possible - return NULL).
      *
-     * @param int $productId
-     * @param int $attributeId
+     * @param  int        $productId
+     * @param  int        $attributeId
      * @return null|array
      */
     protected function _getSuperAttributeId($productId, $attributeId)
@@ -143,7 +143,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Have we check attribute for is_required? Used as last chance to disable this type of check.
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     protected function _isAttributeRequiredCheckNeeded($attrCode)
@@ -154,7 +154,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Is attribute is super-attribute?
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     protected function _isAttributeSuper($attrCode)
@@ -165,18 +165,20 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Validate particular attributes columns.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isParticularAttributesValid(array $rowData, $rowNum)
     {
         if (!empty($rowData['_super_attribute_code'])) {
             $superAttrCode = $rowData['_super_attribute_code'];
-
-            if (!$this->_isAttributeSuper($superAttrCode)) { // check attribute superity
+            if (!$this->_isAttributeSuper($superAttrCode)) {
+                // check attribute superity
                 $this->_entityModel->addRowError(self::ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER, $rowNum);
                 return false;
-            } elseif (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
+            }
+
+            if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
                 $optionKey = strtolower($rowData['_super_attribute_option']);
                 if (!isset($this->_superAttributes[$superAttrCode]['options'][$optionKey])) {
                     $this->_entityModel->addRowError(self::ERROR_INVALID_OPTION_VALUE, $rowNum);

@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {

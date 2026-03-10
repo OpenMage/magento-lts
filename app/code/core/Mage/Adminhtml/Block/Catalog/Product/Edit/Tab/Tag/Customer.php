@@ -11,6 +11,8 @@
  * List of customers tagged a product
  *
  * @package    Mage_Adminhtml
+ *
+ * @method int getProductId()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -23,6 +25,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
@@ -38,11 +43,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
         return parent::_prepareCollection();
     }
 
-    protected function _afterLoadCollection()
-    {
-        return parent::_afterLoadCollection();
-    }
-
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', [

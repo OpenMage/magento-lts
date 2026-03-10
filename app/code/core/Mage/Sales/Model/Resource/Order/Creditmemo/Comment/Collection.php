@@ -24,6 +24,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection extends Mage
      */
     protected $_eventObject    = 'order_creditmemo_comment_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -33,7 +36,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection extends Mage
     /**
      * Set creditmemo filter
      *
-     * @param int $creditmemoId
+     * @param  int   $creditmemoId
      * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)

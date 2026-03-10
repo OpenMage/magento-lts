@@ -76,7 +76,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     /**
      * Retrieves connection to the resource
      *
-     * @param string $name
+     * @param  string                      $name
      * @return Varien_Db_Adapter_Interface
      */
     protected function _getConnection($name)
@@ -102,8 +102,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * - 'position' ('any', 'start', 'end') - expression will be formed so that $value will be found at position within string,
      *     by default when nothing set - string must be fully matched with $value
      *
-     * @param string $value
-     * @param array $options
+     * @param  string $value
+     * @param  array  $options
      * @return string
      */
     public function escapeLikeValue($value, $options = [])
@@ -147,8 +147,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * Escapes, quotes and adds escape symbol to LIKE expression.
      * For options and escaping see escapeLikeValue().
      *
-     * @param string $value
-     * @param array $options
+     * @param  string       $value
+     * @param  array        $options
      * @return Zend_Db_Expr
      *
      * @see escapeLikeValue()
@@ -159,9 +159,9 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * Returns case insensitive LIKE construction.
      * For options and escaping see escapeLikeValue().
      *
-     * @param string $field
-     * @param string $value
-     * @param array $options
+     * @param  string       $field
+     * @param  string       $value
+     * @param  array        $options
      * @return Zend_Db_Expr
      *
      * @see escapeLikeValue()
@@ -178,7 +178,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * E.g. Converts type 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
      *
-     * @param array $column
+     * @param  array $column
      * @return array
      */
     public function convertOldColumnDefinition($column)

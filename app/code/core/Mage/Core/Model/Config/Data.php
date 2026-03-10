@@ -12,34 +12,34 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Config_Data _getResource()
+ * @method Mage_Core_Model_Resource_Config_Data            _getResource()
  * @method Mage_Core_Model_Resource_Config_Data_Collection getCollection()
- * @method string getField()
+ * @method string                                          getField()
  * @method false|SimpleXMLElement|Varien_Simplexml_Element getFieldConfig()
  *
- * @method int|string getGroupId()
- * @method string getPath()
- * @method Mage_Core_Model_Resource_Config_Data getResource()
+ * @method int|string                                      getGroupId()
+ * @method string                                          getPath()
+ * @method Mage_Core_Model_Resource_Config_Data            getResource()
  * @method Mage_Core_Model_Resource_Config_Data_Collection getResourceCollection()
- * @method string getScope()
- * @method int getScopeId()
- * @method string getStoreCode()
- * @method string getValue()
- * @method string getWebsiteCode()
- * @method $this setConfigId(string $value)
- * @method $this setField(string $value)
- * @method $this setFieldConfig(false|SimpleXMLElement|Varien_Simplexml_Element $value)
- * @method $this setFieldsetData(array $value)
- * @method $this setGroupId(int|string $value)
- * @method $this setGroups(array $value)
- * @method $this setPath(string $value)
- * @method $this setScope(string $value)
- * @method $this setScopeId(int $value)
- * @method $this setStoreCode(string $value)
- * @method $this setValue(string $value)
- * @method $this setWebsiteCode(string $value)
- * @method $this unsConfigId()
- * @method $this unsValue()
+ * @method string                                          getScope()
+ * @method int                                             getScopeId()
+ * @method string                                          getStoreCode()
+ * @method string                                          getValue()
+ * @method string                                          getWebsiteCode()
+ * @method $this                                           setConfigId(string $value)
+ * @method $this                                           setField(string $value)
+ * @method $this                                           setFieldConfig(false|SimpleXMLElement|Varien_Simplexml_Element $value)
+ * @method $this                                           setFieldsetData(array $value)
+ * @method $this                                           setGroupId(int|string $value)
+ * @method $this                                           setGroups(array $value)
+ * @method $this                                           setPath(string $value)
+ * @method $this                                           setScope(string $value)
+ * @method $this                                           setScopeId(int $value)
+ * @method $this                                           setStoreCode(string $value)
+ * @method $this                                           setValue(string $value)
+ * @method $this                                           setWebsiteCode(string $value)
+ * @method $this                                           unsConfigId()
+ * @method $this                                           unsValue()
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
@@ -62,7 +62,7 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     protected $_eventObject = 'config_data';
 
     /**
-     * Varien model constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -114,7 +114,7 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     /**
      * Get value by key for new user data from <section>/groups/<group>/fields/<field>
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public function getFieldsetDataValue($key)

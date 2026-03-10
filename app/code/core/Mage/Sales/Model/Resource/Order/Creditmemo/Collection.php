@@ -31,6 +31,9 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_creditmemo');
@@ -50,7 +53,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
     /**
      * Add filtration conditions
      *
-     * @param null|array $filter
+     * @param  null|array $filter
      * @return $this
      */
     public function getFiltered($filter = null)

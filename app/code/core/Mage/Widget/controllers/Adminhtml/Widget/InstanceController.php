@@ -316,8 +316,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Validates update xml post data
      *
-     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
-     * @param array $data
+     * @param  Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param  array                             $data
      * @return bool
      */
     protected function _validatePostData($widgetInstance, $data)

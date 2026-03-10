@@ -23,6 +23,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Items extends Mage_Core_Block_Templa
     {
         $columns = [];
         foreach ($this->getSortedChildren() as $code) {
+            /** @var Mage_Wishlist_Block_Customer_Wishlist_Item_Column $child */
             $child = $this->getChild($code);
             if ($child->isEnabled()) {
                 $columns[] = $child;

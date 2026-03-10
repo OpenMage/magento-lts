@@ -31,9 +31,9 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
     }
 
     /**
-     * @param string $label
-     * @param null|string $title
-     * @param null|string $url
+     * @param  string      $label
+     * @param  null|string $title
+     * @param  null|string $url
      * @return $this
      */
     public function addLink($label, $title = null, $url = null)

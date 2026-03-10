@@ -13,24 +13,24 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Log _getResource()
- * @method string getFirstVisitAt()
- * @method int getLastUrlId()
- * @method string getLastVisitAt()
+ * @method string                      getFirstVisitAt()
+ * @method int                         getLastUrlId()
+ * @method string                      getLastVisitAt()
  * @method Mage_Log_Model_Resource_Log getResource()
- * @method string getSessionId()
- * @method int getStoreId()
- * @method $this setFirstVisitAt(string $value)
- * @method $this setLastUrlId(int $value)
- * @method $this setLastVisitAt(string $value)
- * @method $this setSessionId(string $value)
- * @method $this setStoreId(int $value)
+ * @method string                      getSessionId()
+ * @method int                         getStoreId()
+ * @method $this                       setFirstVisitAt(string $value)
+ * @method $this                       setLastUrlId(int $value)
+ * @method $this                       setLastVisitAt(string $value)
+ * @method $this                       setSessionId(string $value)
+ * @method $this                       setStoreId(int $value)
  */
 class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
 {
     public const XML_LOG_CLEAN_DAYS    = 'system/log/clean_after_day';
 
     /**
-     * Init Resource Model
+     * @inheritDoc
      */
     protected function _construct()
     {

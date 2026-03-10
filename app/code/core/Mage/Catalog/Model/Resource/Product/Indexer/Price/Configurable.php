@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)

@@ -12,30 +12,30 @@
  *
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Acl getAcl()
- * @method int getActiveTabId()
- * @method string getDeletedPath()
- * @method bool getIndirectLogin()
- * @method bool getIsTreeWasExpanded()
- * @method int getLastEditedCategory()
- * @method string getLastViewedStore()
- * @method bool getSyncProcessStopWatch()
+ * @method Mage_Admin_Model_Acl  getAcl()
+ * @method int                   getActiveTabId()
+ * @method string                getDeletedPath()
+ * @method bool                  getIndirectLogin()
+ * @method bool                  getIsTreeWasExpanded()
+ * @method int                   getLastEditedCategory()
+ * @method string                getLastViewedStore()
+ * @method bool                  getSyncProcessStopWatch()
  * @method Mage_Admin_Model_User getUser()
- * @method bool getUserPasswordChanged()
- * @method bool hasSyncProcessStopWatch()
- * @method $this setAcl(Mage_Admin_Model_Acl $acl)
- * @method $this setActiveTabId(int $value)
- * @method $this setAttributeData(array|false $data)
- * @method $this setDeletedPath(string $value)
- * @method $this setIndirectLogin(bool $value)
- * @method $this setIsFirstVisit(bool $value)
- * @method $this setIsTreeWasExpanded(bool $value)
- * @method $this setLastEditedCategory(int $value)
- * @method $this setLastViewedStore(string $value)
- * @method $this setSyncProcessStopWatch(bool $value)
- * @method $this setUser(Mage_Admin_Model_User $user)
- * @method $this setUserPasswordChanged(bool $value)
- * @method $this unsActiveTabId()
+ * @method bool                  getUserPasswordChanged()
+ * @method bool                  hasSyncProcessStopWatch()
+ * @method $this                 setAcl(Mage_Admin_Model_Acl $acl)
+ * @method $this                 setActiveTabId(int $value)
+ * @method $this                 setAttributeData(array|false $data)
+ * @method $this                 setDeletedPath(string $value)
+ * @method $this                 setIndirectLogin(bool $value)
+ * @method $this                 setIsFirstVisit(bool $value)
+ * @method $this                 setIsTreeWasExpanded(bool $value)
+ * @method $this                 setLastEditedCategory(int $value)
+ * @method $this                 setLastViewedStore(string $value)
+ * @method $this                 setSyncProcessStopWatch(bool $value)
+ * @method $this                 setUser(Mage_Admin_Model_User $user)
+ * @method $this                 setUserPasswordChanged(bool $value)
+ * @method $this                 unsActiveTabId()
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -74,14 +74,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function __construct($parameters = [])
     {
-        $this->_urlPolicy = (!empty($parameters['redirectPolicy']))
-            ? $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
+        $this->_urlPolicy = (empty($parameters['redirectPolicy']))
+            ? Mage::getModel('admin/redirectpolicy') : $parameters['redirectPolicy'];
 
-        $this->_response = (!empty($parameters['response']))
-            ? $parameters['response'] : new Mage_Core_Controller_Response_Http();
+        $this->_response = (empty($parameters['response']))
+            ? new Mage_Core_Controller_Response_Http() : $parameters['response'];
 
-        $this->_factory = (!empty($parameters['factory']))
-            ? $parameters['factory'] : Mage::getModel('core/factory');
+        $this->_factory = (empty($parameters['factory']))
+            ? Mage::getModel('core/factory') : $parameters['factory'];
 
         $this->init('admin');
         $this->logoutIndirect();
@@ -95,8 +95,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Since the session is used as a singleton, the value will be in $_isFirstPageAfterLogin until the end of request,
      * unless it is reset intentionally from somewhere
      *
-     * @param string $namespace
-     * @param string $sessionName
+     * @param  string $namespace
+     * @param  string $sessionName
      * @return $this
      * @see self::login()
      */
@@ -129,8 +129,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Try to login user in admin
      *
-     * @param  string $username
-     * @param  string $password
+     * @param  string                            $username
+     * @param  string                            $password
      * @param  Mage_Core_Controller_Request_Http $request
      * @return null|Mage_Admin_Model_User
      */
@@ -218,8 +218,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Mage::getSingleton('admin/session')->isAllowed('admin/catalog')
      * Mage::getSingleton('admin/session')->isAllowed('catalog')
      *
-     * @param   string $resource
-     * @param   string $privilege
+     * @param  string $resource
+     * @param  string $privilege
      * @return bool
      */
     public function isAllowed($resource, $privilege = null)
@@ -274,7 +274,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Setter whether the current/next page should be treated as first page after login
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsFirstPageAfterLogin($value)
@@ -286,27 +286,29 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Custom REQUEST_URI logic
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return null|string
      */
     protected function _getRequestUri($request = null)
     {
         if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', ['_current' => true]);
-        } elseif ($request) {
-            return $request->getRequestUri();
-        } else {
-            return null;
         }
+
+        if ($request) {
+            return $request->getRequestUri();
+        }
+
+        return null;
     }
 
     /**
      * Login failed process
      *
-     * @param Exception $e
+     * @param Exception                              $e
      * @param null|Mage_Core_Controller_Request_Http $request
-     * @param string $username
-     * @param string $message
+     * @param string                                 $username
+     * @param string                                 $message
      */
     protected function _loginFailed($e, $request, $username, $message)
     {

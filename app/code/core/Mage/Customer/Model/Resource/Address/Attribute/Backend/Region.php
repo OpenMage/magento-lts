@@ -17,7 +17,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage
     /**
      * Prepare object for save
      *
-     * @param Mage_Customer_Model_Address|Varien_Object $object
+     * @param  Mage_Customer_Model_Address|Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)

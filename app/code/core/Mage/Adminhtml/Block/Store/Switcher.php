@@ -11,6 +11,14 @@
  * Store switcher block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getDefaultStoreName()
+ * @method bool   getUseAjax()
+ * @method bool   getUseConfirm()
+ * @method $this  setDefaultStoreName(string $value)
+ * @method $this  setSwitchUrl(string $value)
+ * @method $this  setUseAjax(bool $value)
+ * @method $this  setUseConfirm(bool $value)
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
@@ -77,7 +85,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param int|Mage_Core_Model_Website|string $website
+     * @param  int|Mage_Core_Model_Website|string              $website
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      * @deprecated
      */
@@ -93,7 +101,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store groups for specified website
      *
-     * @param null|int|Mage_Core_Model_Website|string $website
+     * @param  null|int|Mage_Core_Model_Website|string $website
      * @return array
      */
     public function getStoreGroups($website)
@@ -106,7 +114,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param int|Mage_Core_Model_Store_Group|string $group
+     * @param  int|Mage_Core_Model_Store_Group|string    $group
      * @return Mage_Core_Model_Resource_Store_Collection
      * @deprecated
      */
@@ -128,7 +136,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store views for specified store group
      *
-     * @param null|int|Mage_Core_Model_Store_Group|string $group
+     * @param  null|int|Mage_Core_Model_Store_Group|string $group
      * @return array
      */
     public function getStores($group)
@@ -162,7 +170,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param string $varName
+     * @param  string $varName
      * @return $this
      */
     public function setStoreVarName($varName)
@@ -181,7 +189,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -221,7 +229,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Set/Get whether the switcher should show default option
      *
-     * @param bool $hasDefaultOption
+     * @param  bool $hasDefaultOption
      * @return bool
      */
     public function hasDefaultOption($hasDefaultOption = null)

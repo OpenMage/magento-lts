@@ -302,6 +302,9 @@ cy.openmage.test.backend.system.variable = {};
  * @type {{}}
  */
 cy.openmage.test.frontend = {};
+cy.openmage.test.frontend.catalog = {};
+cy.openmage.test.frontend.catalog.category = {};
+cy.openmage.test.frontend.catalog.product = {};
 cy.openmage.test.frontend.customer = {};
 cy.openmage.test.frontend.customer.account = {};
 cy.openmage.test.frontend.homepage = {

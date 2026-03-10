@@ -198,7 +198,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     protected function _setFilterValues($data)
@@ -333,12 +333,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getFilter($name)
     {
-        if (isset($this->_filters[$name])) {
-            return $this->_filters[$name];
-        } else {
-            return ($this->getRequest()->getParam($name))
-                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
-        }
+        return $this->_filters[$name] ?? (($this->getRequest()->getParam($name))
+                ? htmlspecialchars($this->getRequest()->getParam($name)) : '');
     }
 
     public function setSubReportSize($size)
@@ -368,10 +364,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Add new export type to grid
      *
-     * @param   string $url
-     * @param   string $label
-     * @return  $this
-     * @throws  Exception
+     * @param  string    $url
+     * @param  string    $label
+     * @return $this
+     * @throws Exception
      */
     public function addExportType($url, $label)
     {
@@ -616,9 +612,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $totals = $this->getGrandTotals()->getData();
         if (parent::getCountTotals() && count($totals)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -670,7 +666,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
      * @throws Mage_Core_Exception
      */

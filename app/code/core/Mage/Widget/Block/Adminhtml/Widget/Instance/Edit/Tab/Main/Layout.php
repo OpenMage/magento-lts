@@ -13,7 +13,7 @@
  * @package    Mage_Widget
  *
  * @method Mage_Widget_Model_Widget_Instance getWidgetInstance()
- * @method $this setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)
+ * @method $this                             setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
@@ -23,7 +23,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     protected $_element = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

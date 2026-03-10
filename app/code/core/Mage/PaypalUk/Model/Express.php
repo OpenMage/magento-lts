@@ -37,7 +37,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * EC PE won't be available if the EC is available
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -61,7 +61,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     /**
      * Import payment info to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importToPayment($api, $payment)

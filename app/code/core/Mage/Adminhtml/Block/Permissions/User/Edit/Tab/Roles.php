@@ -43,6 +43,9 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/role_collection');
@@ -51,6 +54,10 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -106,8 +113,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             }
 
             return Mage::helper('core')->jsonEncode((object) $jsonRoles);
-        } else {
-            return $uRoles;
         }
+
+        return $uRoles;
     }
 }

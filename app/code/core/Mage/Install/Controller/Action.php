@@ -12,6 +12,9 @@
  */
 class Mage_Install_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();

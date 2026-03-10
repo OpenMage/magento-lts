@@ -13,9 +13,9 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
- * @method string getConnectionName()
+ * @method string                                         getConnectionName()
  * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
- * @method $this setDirectoryId(int $value)
+ * @method $this                                          setDirectoryId(int $value)
  */
 class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage_Database_Abstract
 {
@@ -131,8 +131,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Export directories from storage
      *
-     * @param  int $offset
-     * @param  int $count
+     * @param  int        $offset
+     * @param  int        $count
      * @return array|bool
      */
     public function exportDirectories($offset = 0, $count = 100)
@@ -143,7 +143,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Import directories to storage
      *
-     * @param  array $dirs
+     * @param  array                                           $dirs
      * @return Mage_Core_Model_File_Storage_Directory_Database
      */
     public function importDirectories($dirs)
@@ -154,8 +154,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Export files list in defined range
      *
-     * @param  int $offset
-     * @param  int $count
+     * @param  int        $offset
+     * @param  int        $count
      * @return array|bool
      */
     public function exportFiles($offset = 0, $count = 100)
@@ -296,7 +296,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Return directory listing
      *
-     * @param string $directory
+     * @param  string $directory
      * @return mixed
      */
     public function getDirectoryFiles($directory)
@@ -308,7 +308,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Delete file from database
      *
-     * @param string $path
+     * @param  string $path
      * @return $this
      */
     public function deleteFile($path)

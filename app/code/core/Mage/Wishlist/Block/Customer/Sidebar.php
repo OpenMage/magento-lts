@@ -27,7 +27,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     /**
      * Add sidebar conditions to collection
      *
-     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
+     * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
     protected function _prepareCollection($collection)

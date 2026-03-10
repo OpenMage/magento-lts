@@ -17,8 +17,8 @@ class Mage_ProductAlert_Model_Resource_Price_Customer_Collection extends Mage_Cu
     /**
      * join productalert price data to customer collection
      *
-     * @param int $productId
-     * @param int $websiteId
+     * @param  int   $productId
+     * @param  int   $websiteId
      * @return $this
      */
     public function join($productId, $websiteId)

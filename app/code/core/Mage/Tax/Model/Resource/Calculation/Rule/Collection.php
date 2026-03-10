@@ -16,6 +16,9 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rule');
@@ -24,7 +27,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Join calculation data to result
      *
-     * @param string $alias table alias
+     * @param  string $alias table alias
      * @return $this
      */
     public function joinCalculationData($alias)
@@ -42,11 +45,11 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Join tax data to collection
      *
-     * @param string $itemTable
-     * @param string $primaryJoinField
-     * @param string $secondaryJoinField
-     * @param string $titleField
-     * @param string $dataField
+     * @param  string $itemTable
+     * @param  string $primaryJoinField
+     * @param  string $secondaryJoinField
+     * @param  string $titleField
+     * @param  string $dataField
      * @return $this
      */
     protected function _add($itemTable, $primaryJoinField, $secondaryJoinField, $titleField, $dataField)
@@ -119,8 +122,8 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
     /**
      * Add class type filter
      *
-     * @param string $type
-     * @param int $id
+     * @param  string              $type
+     * @param  int                 $id
      * @return $this
      * @throws Mage_Core_Exception
      */

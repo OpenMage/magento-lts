@@ -15,7 +15,7 @@
 class Mage_Api_Model_Resource_Roles_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Resource collection initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

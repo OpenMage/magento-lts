@@ -17,7 +17,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
-     * @param Varien_Object $config
+     * @param  Varien_Object $config
      * @return array
      */
     public function getPluginSettings($config)
@@ -76,7 +76,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return Widgets Insertion Plugin Window URL
      *
-     * @param Varien_Object $config Editor element config
+     * @param  Varien_Object $config Editor element config
      * @return string
      */
     public function getWidgetWindowUrl($config)
@@ -105,7 +105,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Encode list of widget types into query param
      *
-     * @param array $widgets List of widgets
+     * @param  array  $widgets List of widgets
      * @return string Query param value
      */
     public function encodeWidgetsToQuery($widgets)
@@ -118,8 +118,8 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Decode URL query param and return list of widgets
      *
-     * @param string $queryParam Query param value to decode
-     * @return array Array of widget types
+     * @param  string $queryParam Query param value to decode
+     * @return array  Array of widget types
      */
     public function decodeWidgetsFromQuery($queryParam)
     {

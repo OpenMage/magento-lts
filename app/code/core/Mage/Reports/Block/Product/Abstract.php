@@ -12,7 +12,7 @@
  *
  * @package    Mage_Reports
  *
- * @method int getCustomerId()
+ * @method int   getCustomerId()
  * @method array getProductIds()
  */
 abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Product_Abstract
@@ -152,8 +152,8 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     /**
      * Set flag that defines whether products ids order should be used
      *
-     * @param bool $use
-     * @return Mage_Reports_Block_Product_Abstract
+     * @param  bool  $use
+     * @return $this
      */
     public function useProductIdsOrder($use = true)
     {

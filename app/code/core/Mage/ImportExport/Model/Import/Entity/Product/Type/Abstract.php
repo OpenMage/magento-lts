@@ -105,8 +105,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param string $attrSetName name of attribute set
-     * @param array $attrParams refined attribute parameters
+     * @param  string                                                      $attrSetName name of attribute set
+     * @param  array                                                       $attrParams  refined attribute parameters
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
@@ -121,16 +121,16 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Return product attributes for its attribute set specified in row data.
      *
-     * @param array|string $attrSetData product row data or simply attribute set name
+     * @param  array|string $attrSetData product row data or simply attribute set name
      * @return array
      */
     protected function _getProductAttributes($attrSetData)
     {
         if (is_array($attrSetData)) {
             return $this->_attributes[$attrSetData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET]];
-        } else {
-            return $this->_attributes[$attrSetData];
         }
+
+        return $this->_attributes[$attrSetData];
     }
 
     /**
@@ -184,7 +184,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Have we check attribute for is_required? Used as last chance to disable this type of check.
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     protected function _isAttributeRequiredCheckNeeded($attrCode)
@@ -195,7 +195,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Validate particular attributes columns.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     protected function _isParticularAttributesValid(array $rowData, $rowNum)
@@ -206,7 +206,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Check price correction value validity (signed integer or float with or without percentage sign).
      *
-     * @param string $value
+     * @param  string $value
      * @return int
      */
     protected function _isPriceCorr($value)
@@ -227,8 +227,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Validate row attributes. Pass VALID row data ONLY as argument.
      *
-     * @param int $rowNum
-     * @param bool $isNewProduct OPTIONAL
+     * @param  int  $rowNum
+     * @param  bool $isNewProduct OPTIONAL
      * @return bool
      */
     public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
@@ -278,7 +278,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Prepare attributes values for save: remove non-existent, remove empty values, remove static.
      *
-     * @param bool $withDefaultValue
+     * @param  bool  $withDefaultValue
      * @return array
      */
     public function prepareAttributesForSave(array $rowData, $withDefaultValue = true)

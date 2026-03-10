@@ -15,8 +15,8 @@
 class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resource
 {
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */
@@ -26,7 +26,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return bool
      */
@@ -37,7 +37,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return string
      */
@@ -49,8 +49,8 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */

@@ -15,7 +15,7 @@
 class Mage_SalesRule_Model_Resource_Rule_Customer_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Collection constructor
+     * @inheritDoc
      */
     protected function _construct()
     {

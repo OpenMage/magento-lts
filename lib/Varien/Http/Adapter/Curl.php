@@ -91,8 +91,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional option to cURL
      *
-     * @param  int $option      the CURLOPT_* constants
-     * @param  mixed $value
+     * @param  int                      $option the CURLOPT_* constants
+     * @param  mixed                    $value
      * @return Varien_Http_Adapter_Curl
      */
     public function addOption($option, $value)
@@ -115,7 +115,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set the configuration array for the adapter
      *
-     * @param array $config
+     * @param  array                    $config
      * @return Varien_Http_Adapter_Curl
      */
     public function setConfig($config = [])
@@ -127,9 +127,9 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Connect to the remote server
      *
-     * @param string  $host
-     * @param int     $port
-     * @param bool $secure
+     * @param  string                   $host
+     * @param  int                      $port
+     * @param  bool                     $secure
      * @return Varien_Http_Adapter_Curl
      * @deprecated since 1.4.0.0-rc1
      */
@@ -141,12 +141,12 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Send request to the remote server
      *
-     * @param Zend_Http_Client::*  $method
-     * @param string|Zend_Uri_Http $url
-     * @param string        $http_ver
-     * @param array         $headers
-     * @param string        $body
-     * @return string Request as text
+     * @param  Zend_Http_Client::*  $method
+     * @param  string|Zend_Uri_Http $url
+     * @param  string               $http_ver
+     * @param  array                $headers
+     * @param  string               $body
+     * @return string               Request as text
      */
     public function write($method, $url, $http_ver = '1.1', $headers = [], $body = '')
     {
@@ -203,7 +203,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
 
         $responsePart = "Transfer-Encoding: chunked\r\n";
         if (stripos($response, $responsePart)) {
-            $response = str_ireplace($responsePart, '', $response);
+            return str_ireplace($responsePart, '', $response);
         }
 
         return $response;
@@ -257,7 +257,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Get information regarding a specific transfer
      *
-     * @param int $opt CURLINFO option
+     * @param  int   $opt CURLINFO option
      * @return mixed
      */
     public function getInfo($opt = 0)
@@ -272,8 +272,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * curl_multi_* requests support
      *
-     * @param array $urls
-     * @param array $options
+     * @param  array $urls
+     * @param  array $options
      * @return array
      */
     public function multiRequest($urls, $options = [])

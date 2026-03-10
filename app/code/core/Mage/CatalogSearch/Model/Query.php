@@ -12,30 +12,28 @@
  *
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query            _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
- * @method int getDisplayInTerms()
- * @method int getIsActive()
- * @method int getIsProcessed()
- * @method string getName()
- * @method int getNumResults()
- * @method int getPopularity()
- * @method string getQueryText()
- * @method string getRedirect()
- * @method Mage_CatalogSearch_Model_Resource_Query getResource()
+ * @method int                                                getDisplayInTerms()
+ * @method int                                                getIsActive()
+ * @method int                                                getIsProcessed()
+ * @method string                                             getName()
+ * @method int                                                getNumResults()
+ * @method int                                                getPopularity()
+ * @method string                                             getQueryText()
+ * @method string                                             getRedirect()
+ * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
- * @method string getSynonymFor()
- * @method string getUpdatedAt()
- * @method $this setDisplayInTerms(int $value)
- * @method $this setIsActive(int $value)
- * @method $this setIsProcessed(int $value)
- * @method $this setNumResults(int $value)
- * @method $this setPopularity(int $value)
- * @method $this setQueryText(string $value)
- * @method $this setRatio(float $value)
- * @method $this setRedirect(string $value)
- * @method $this setSynonymFor(string $value)
- * @method $this setUpdatedAt(string $value)
+ * @method string                                             getSynonymFor()
+ * @method $this                                              setDisplayInTerms(int $value)
+ * @method $this                                              setIsActive(int $value)
+ * @method $this                                              setIsProcessed(int $value)
+ * @method $this                                              setNumResults(int $value)
+ * @method $this                                              setPopularity(int $value)
+ * @method $this                                              setQueryText(string $value)
+ * @method $this                                              setRatio(float $value)
+ * @method $this                                              setRedirect(string $value)
+ * @method $this                                              setSynonymFor(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -57,7 +55,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -121,7 +119,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Load Query object by query string
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQuery($text)
@@ -135,7 +133,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Load Query object only by query text (skip 'synonym For')
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQueryText($text)
@@ -164,7 +162,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public function getStoreId()
     {
         if (!$storeId = $this->getData('store_id')) {
-            $storeId = Mage::app()->getStore()->getId();
+            return Mage::app()->getStore()->getId();
         }
 
         return $storeId;

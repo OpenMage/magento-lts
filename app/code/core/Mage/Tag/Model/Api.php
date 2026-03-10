@@ -17,8 +17,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve list of tags for specified product
      *
-     * @param int $productId
-     * @param int|string $store
+     * @param  int        $productId
+     * @param  int|string $store
      * @return array
      */
     public function items($productId, $store = null)
@@ -51,8 +51,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve tag info as array('name'-> .., 'status' => ..,
      * 'base_popularity' => .., 'products' => array($productId => $popularity, ...))
      *
-     * @param int $tagId
-     * @param int|string $store
+     * @param  int        $tagId
+     * @param  int|string $store
      * @return array
      */
     public function info($tagId, $store)
@@ -84,7 +84,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      * Add tag(s) to product.
      * Return array of added/updated tags as array($tagName => $tagId, ...)
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     public function add($data)
@@ -134,9 +134,9 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Change existing tag information
      *
-     * @param int $tagId
-     * @param array $data
-     * @param int|string $store
+     * @param  int        $tagId
+     * @param  array      $data
+     * @param  int|string $store
      * @return bool
      */
     public function update($tagId, $data, $store)
@@ -182,7 +182,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Remove existing tag
      *
-     * @param int $tagId
+     * @param  int  $tagId
      * @return bool
      */
     public function remove($tagId)
@@ -205,7 +205,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check data before add
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareDataForAdd($data)
@@ -222,7 +222,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check data before update
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareDataForUpdate($data)

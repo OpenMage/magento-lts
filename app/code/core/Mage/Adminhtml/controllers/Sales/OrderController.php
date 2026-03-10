@@ -22,7 +22,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     protected $_publicActions = ['view', 'index'];
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -492,10 +492,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $pdf->render(),
                     'application/pdf',
                 );
-            } else {
-                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
-                $this->_redirect('*/*/');
             }
+
+            $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+            $this->_redirect('*/*/');
         }
 
         $this->_redirect('*/*/');
@@ -531,10 +531,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $pdf->render(),
                     'application/pdf',
                 );
-            } else {
-                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
-                $this->_redirect('*/*/');
             }
+
+            $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+            $this->_redirect('*/*/');
         }
 
         $this->_redirect('*/*/');
@@ -570,10 +570,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $pdf->render(),
                     'application/pdf',
                 );
-            } else {
-                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
-                $this->_redirect('*/*/');
             }
+
+            $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+            $this->_redirect('*/*/');
         }
 
         $this->_redirect('*/*/');
@@ -635,10 +635,10 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $pdf->render(),
                     'application/pdf',
                 );
-            } else {
-                $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
-                $this->_redirect('*/*/');
             }
+
+            $this->_getSession()->addError($this->__('There are no printable documents related to selected orders.'));
+            $this->_redirect('*/*/');
         }
 
         $this->_redirect('*/*/');

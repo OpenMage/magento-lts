@@ -17,8 +17,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     /**
      * Load Tier Prices for product
      *
-     * @param int $productId
-     * @param int $websiteId
+     * @param  int   $productId
+     * @param  int   $websiteId
      * @return array
      */
     public function loadPriceData($productId, $websiteId = null)
@@ -55,7 +55,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     /**
      * Load specific sql columns
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _loadPriceDataColumns($columns)
@@ -66,7 +66,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     /**
      * Load specific db-select data
      *
-     * @param Varien_Db_Select $select
+     * @param  Varien_Db_Select $select
      * @return Varien_Db_Select
      */
     protected function _loadPriceDataSelect($select)
@@ -77,9 +77,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     /**
      * Delete Tier Prices for product
      *
-     * @param int $productId
-     * @param int $websiteId
-     * @param int $priceId
+     * @param  int $productId
+     * @param  int $websiteId
+     * @param  int $priceId
      * @return int The number of affected rows
      */
     public function deletePriceData($productId, $websiteId = null, $priceId = null)

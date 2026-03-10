@@ -13,12 +13,12 @@
  * @package    Mage_Adminhtml
  *
  * @method string getLabel()
- * @method $this setConfig(Varien_Object $value)
- * @method $this setElement(Varien_Data_Form_Element_Abstract $value)
- * @method $this setFieldsetId(string $value)
- * @method $this setSourceUrl(string $value)
- * @method $this setTranslationHelper(Mage_Core_Helper_Abstract $value)
- * @method $this setUniqId(string $value)
+ * @method $this  setConfig(Varien_Object $value)
+ * @method $this  setElement(Varien_Data_Form_Element_Abstract $value)
+ * @method $this  setFieldsetId(string $value)
+ * @method $this  setSourceUrl(string $value)
+ * @method $this  setTranslationHelper(Mage_Core_Helper_Abstract $value)
+ * @method $this  setUniqId(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Template
 {

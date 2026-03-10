@@ -24,7 +24,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
     /**
      * Sets name of connection the resource will use
      *
-     * @param string $name
+     * @param  string                                         $name
      * @return Mage_Core_Model_Resource_File_Storage_Abstract
      */
     public function setConnectionName($name)
@@ -56,7 +56,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
     /**
      * Get connection by name or type
      *
-     * @param string $connectionName
+     * @param  string                      $connectionName
      * @return Varien_Db_Adapter_Interface
      */
     protected function _getConnection($connectionName)

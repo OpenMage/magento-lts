@@ -12,9 +12,10 @@
  * Provide date processing functionality
  *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
- * @method bool getForceUpdateGridRecords()
+ * @method string                                   getBackUrl()
+ * @method bool                                     getForceUpdateGridRecords()
  * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
- * @method $this setTransactionId(int $value)
+ * @method $this                                    setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {
@@ -29,7 +30,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      * Processing object after save data
      * Updates relevant grid table records.
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {

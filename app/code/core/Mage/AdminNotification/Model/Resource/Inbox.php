@@ -15,7 +15,7 @@
 class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * AdminNotification Resource initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -26,6 +26,7 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
      * Load latest notice
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadLatestNotice(Mage_AdminNotification_Model_Inbox $object)
     {
@@ -51,6 +52,7 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
      * Get notifications grouped by severity
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getNoticeStatus(Mage_AdminNotification_Model_Inbox $object)
     {
@@ -67,6 +69,8 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
 
     /**
      * Save notifications (if not exists)
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function parse(Mage_AdminNotification_Model_Inbox $object, array $data)
     {

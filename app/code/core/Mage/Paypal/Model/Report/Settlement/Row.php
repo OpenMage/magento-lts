@@ -12,42 +12,42 @@
  *
  * @package    Mage_Paypal
  *
- * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row            _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection getCollection()
- * @method string getConsumerId()
- * @method string getCustomField()
- * @method float getFeeAmount()
- * @method string getFeeCurrency()
- * @method string getFeeDebitOrCredit()
- * @method float getGrossTransactionAmount()
- * @method string getGrossTransactionCurrency()
- * @method string getInvoiceId()
- * @method string getPaypalReferenceId()
- * @method string getPaypalReferenceIdType()
- * @method int getReportId()
- * @method Mage_Paypal_Model_Resource_Report_Settlement_Row getResource()
+ * @method string                                                      getConsumerId()
+ * @method string                                                      getCustomField()
+ * @method float                                                       getFeeAmount()
+ * @method string                                                      getFeeCurrency()
+ * @method string                                                      getFeeDebitOrCredit()
+ * @method float                                                       getGrossTransactionAmount()
+ * @method string                                                      getGrossTransactionCurrency()
+ * @method string                                                      getInvoiceId()
+ * @method string                                                      getPaypalReferenceId()
+ * @method string                                                      getPaypalReferenceIdType()
+ * @method int                                                         getReportId()
+ * @method Mage_Paypal_Model_Resource_Report_Settlement_Row            getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection getResourceCollection()
- * @method string getTransactionCompletionDate()
- * @method string getTransactionDebitOrCredit()
- * @method string getTransactionEventCode()
- * @method string getTransactionId()
- * @method string getTransactionInitiationDate()
- * @method $this setConsumerId(string $value)
- * @method $this setCustomField(string $value)
- * @method $this setFeeAmount(float $value)
- * @method $this setFeeCurrency(string $value)
- * @method $this setFeeDebitOrCredit(string $value)
- * @method $this setGrossTransactionAmount(float $value)
- * @method $this setGrossTransactionCurrency(string $value)
- * @method $this setInvoiceId(string $value)
- * @method $this setPaypalReferenceId(string $value)
- * @method $this setPaypalReferenceIdType(string $value)
- * @method $this setReportId(int $value)
- * @method $this setTransactionCompletionDate(string $value)
- * @method $this setTransactionDebitOrCredit(string $value)
- * @method $this setTransactionEventCode(string $value)
- * @method $this setTransactionId(string $value)
- * @method $this setTransactionInitiationDate(string $value)
+ * @method string                                                      getTransactionCompletionDate()
+ * @method string                                                      getTransactionDebitOrCredit()
+ * @method string                                                      getTransactionEventCode()
+ * @method string                                                      getTransactionId()
+ * @method string                                                      getTransactionInitiationDate()
+ * @method $this                                                       setConsumerId(string $value)
+ * @method $this                                                       setCustomField(string $value)
+ * @method $this                                                       setFeeAmount(float $value)
+ * @method $this                                                       setFeeCurrency(string $value)
+ * @method $this                                                       setFeeDebitOrCredit(string $value)
+ * @method $this                                                       setGrossTransactionAmount(float $value)
+ * @method $this                                                       setGrossTransactionCurrency(string $value)
+ * @method $this                                                       setInvoiceId(string $value)
+ * @method $this                                                       setPaypalReferenceId(string $value)
+ * @method $this                                                       setPaypalReferenceIdType(string $value)
+ * @method $this                                                       setReportId(int $value)
+ * @method $this                                                       setTransactionCompletionDate(string $value)
+ * @method $this                                                       setTransactionDebitOrCredit(string $value)
+ * @method $this                                                       setTransactionEventCode(string $value)
+ * @method $this                                                       setTransactionId(string $value)
+ * @method $this                                                       setTransactionInitiationDate(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
 {
@@ -65,6 +65,9 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     protected $_castedAmounts = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/report_settlement_row');
@@ -74,7 +77,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of Reference ID Type
      * If no code specified, return full list of codes with their description
      *
-     * @param null|string $code
+     * @param  null|string  $code
      * @return array|string
      */
     public function getReferenceType($code = null)
@@ -96,7 +99,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     /**
      * Get native description for transaction code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getTransactionEvent($code)
@@ -120,7 +123,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of "Debit or Credit" value
      * If no code specified, return full list of codes with their description
      *
-     * @param null|string $code
+     * @param  null|string  $code
      * @return array|string
      */
     public function getDebitCreditText($code = null)
@@ -139,8 +142,8 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     /**
      * Invoke casting some amounts
      *
-     * @param mixed $key
-     * @param mixed $index
+     * @param  mixed $key
+     * @param  mixed $index
      * @return mixed
      */
     public function getData($key = '', $index = null)

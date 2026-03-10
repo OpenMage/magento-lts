@@ -12,7 +12,7 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Shipment_Item getItemById(int $value)
+ * @method Mage_Sales_Model_Order_Shipment_Item   getItemById(int $value)
  * @method Mage_Sales_Model_Order_Shipment_Item[] getItems()
  */
 class Mage_Sales_Model_Resource_Order_Shipment_Item_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
@@ -27,6 +27,9 @@ class Mage_Sales_Model_Resource_Order_Shipment_Item_Collection extends Mage_Sale
      */
     protected $_eventObject    = 'order_shipment_item_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_shipment_item');
@@ -35,7 +38,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Item_Collection extends Mage_Sale
     /**
      * Set shipment filter
      *
-     * @param int $shipmentId
+     * @param  int   $shipmentId
      * @return $this
      */
     public function setShipmentFilter($shipmentId)

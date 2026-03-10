@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Cms_Page extends Mage_Adminhtml_Block_Widget_Grid_Con
     /**
      * Check permission for passed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

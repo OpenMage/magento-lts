@@ -119,8 +119,8 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
     /**
      * Process string based on conversion table
      *
-     * @param   string $string
-     * @return  string
+     * @param  string $string
+     * @return string
      * @deprecated
      * @see Mage_Catalog_Model_Url::formatUrlKey()
      */

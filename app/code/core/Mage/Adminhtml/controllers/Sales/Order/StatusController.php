@@ -21,7 +21,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     public const ADMIN_RESOURCE = 'system/order_statuses';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

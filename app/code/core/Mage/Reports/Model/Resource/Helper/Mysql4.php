@@ -17,9 +17,9 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
     /**
      * Merge Index data
      *
-     * @param string $mainTable
-     * @param array $data
-     * @param mixed $matchFields
+     * @param  string $mainTable
+     * @param  array  $data
+     * @param  mixed  $matchFields
      * @return int
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
@@ -30,10 +30,10 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
     /**
      * Update rating position
      *
-     * @param string $type day|month|year
-     * @param string $column
-     * @param string $mainTable
-     * @param string $aggregationTable
+     * @param  string                                 $type             day|month|year
+     * @param  string                                 $column
+     * @param  string                                 $mainTable
+     * @param  string                                 $aggregationTable
      * @return Mage_Core_Model_Resource_Helper_Mysql4
      */
     public function updateReportRatingPos($type, $column, $mainTable, $aggregationTable)

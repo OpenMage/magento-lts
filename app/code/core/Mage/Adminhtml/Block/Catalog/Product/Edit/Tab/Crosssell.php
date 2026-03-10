@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     /**
      * Add filter
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)
@@ -214,7 +214,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     {
         $products = $this->getProductsCrossSell();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedCrossSellProducts());
+            return array_keys($this->getSelectedCrossSellProducts());
         }
 
         return $products;

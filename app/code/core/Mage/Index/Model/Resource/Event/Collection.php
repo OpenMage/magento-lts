@@ -15,7 +15,7 @@
 class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,12 +25,12 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by entity
      *
-     * @param array|string $entity
+     * @param  array|string $entity
      * @return $this
      */
     public function addEntityFilter($entity)
     {
-        if (is_array($entity) && !empty($entity)) {
+        if (is_array($entity) && $entity !== []) {
             $this->addFieldToFilter('entity', ['in' => $entity]);
         } else {
             $this->addFieldToFilter('entity', $entity);
@@ -42,12 +42,12 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by type
      *
-     * @param array|string $type
+     * @param  array|string $type
      * @return $this
      */
     public function addTypeFilter($type)
     {
-        if (is_array($type) && !empty($type)) {
+        if (is_array($type) && $type !== []) {
             $this->addFieldToFilter('type', ['in' => $type]);
         } else {
             $this->addFieldToFilter('type', $type);
@@ -59,8 +59,8 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by process and status to events collection
      *
-     * @param array|int|Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  array|int|Mage_Index_Model_Process $process
+     * @param  string                             $status
      * @return $this
      */
     public function addProcessFilter($process, $status = null)
@@ -68,14 +68,14 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         $this->_joinProcessEventTable();
         if ($process instanceof Mage_Index_Model_Process) {
             $this->addFieldToFilter('process_event.process_id', $process->getId());
-        } elseif (is_array($process) && !empty($process)) {
+        } elseif (is_array($process) && $process !== []) {
             $this->addFieldToFilter('process_event.process_id', ['in' => $process]);
         } else {
             $this->addFieldToFilter('process_event.process_id', $process);
         }
 
         if ($status !== null) {
-            if (is_array($status) && !empty($status)) {
+            if (is_array($status) && $status !== []) {
                 $this->addFieldToFilter('process_event.status', ['in' => $status]);
             } else {
                 $this->addFieldToFilter('process_event.status', $status);

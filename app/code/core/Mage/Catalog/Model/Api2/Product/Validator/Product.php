@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
 
     /**
      * Mage_Catalog_Model_Api2_Product_Validator_Product constructor.
-     * @param array $options
+     * @param  array     $options
      * @throws Exception
      */
     public function __construct($options)
@@ -113,8 +113,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Collect required EAV attributes, validate applicable attributes and validate source attributes values
      *
-     * @param array $data
-     * @param Mage_Eav_Model_Entity_Type $productEntity
+     * @param  array                      $data
+     * @param  Mage_Eav_Model_Entity_Type $productEntity
      * @throws Mage_Api2_Exception
      */
     protected function _validateAttributes($data, $productEntity)
@@ -237,7 +237,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate product type
      *
-     * @param array $data
+     * @param  array     $data
      * @return true|void
      */
     protected function _validateProductType($data)
@@ -258,8 +258,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate attribute set
      *
-     * @param array $data
-     * @param Mage_Eav_Model_Entity_Type $productEntity
+     * @param  array                      $data
+     * @param  Mage_Eav_Model_Entity_Type $productEntity
      * @return true|void
      * @throws Mage_Api2_Exception
      */
@@ -283,7 +283,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate SKU
      *
-     * @param array $data
+     * @param  array     $data
      * @return true|void
      */
     protected function _validateSku($data)
@@ -355,7 +355,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Check if website id is appropriate according to price scope settings
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      */
     protected function _validateWebsiteIdForGroupPrice($data, $fieldSet)
@@ -422,7 +422,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Determine if stock management is enabled
      *
-     * @param array $stockData
+     * @param  array $stockData
      * @return bool
      */
     protected function _isManageStockEnabled($stockData)
@@ -441,7 +441,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate Customer Group field
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      */
     protected function _validateCustomerGroup($data, $fieldSet)
@@ -461,12 +461,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be positive number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $equalsZero
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $equalsZero
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validatePositiveNumber(
         $data,
@@ -497,11 +497,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be a positive number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validatePositiveNumeric(
         $data,
@@ -526,11 +526,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate field to be a number
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $required
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $required
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateNumeric($data, $fieldSet, $field, $required = false, $skipIfConfigValueUsed = false)
     {
@@ -553,11 +553,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate dropdown fields value
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
      * @param string $sourceModelName
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateSource($data, $fieldSet, $field, $sourceModelName, $skipIfConfigValueUsed = false)
     {
@@ -579,10 +579,10 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate boolean fields value
      *
-     * @param array $data
+     * @param array  $data
      * @param string $fieldSet
      * @param string $field
-     * @param bool $skipIfConfigValueUsed
+     * @param bool   $skipIfConfigValueUsed
      */
     protected function _validateBoolean($data, $fieldSet, $field, $skipIfConfigValueUsed = false)
     {
@@ -625,8 +625,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Check if value from config is used
      *
-     * @param array $data
-     * @param string $field
+     * @param  array  $data
+     * @param  string $field
      * @return bool
      */
     protected function _isConfigValueUsed($data, $field)
@@ -637,8 +637,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Throw API2 exception
      *
-     * @param string $message
-     * @param int $code
+     * @param  string              $message
+     * @param  int                 $code
      * @return never
      * @throws Mage_Api2_Exception
      */

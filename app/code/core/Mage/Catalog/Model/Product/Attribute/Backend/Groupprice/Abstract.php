@@ -13,7 +13,7 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice _getResource()
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getAttribute()
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute                        getAttribute()
  */
 abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
@@ -35,7 +35,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
-     * @param null|int $websiteId
+     * @param  null|int $websiteId
      * @return array
      */
     protected function _getWebsiteCurrencyRates($websiteId = null)
@@ -80,7 +80,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Get additional unique fields
      *
-     * @param array $objectArray
+     * @param  array $objectArray
      * @return array
      */
     protected function _getAdditionalUniqueFields($objectArray)
@@ -91,7 +91,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Whether group price value fixed or percent of original price
      *
-     * @param Mage_Catalog_Model_Product_Type_Price $priceObject
+     * @param  Mage_Catalog_Model_Product_Type_Price $priceObject
      * @return bool
      */
     protected function _isPriceFixed($priceObject)
@@ -102,7 +102,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Validate group price data
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -176,8 +176,8 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Prepare group prices data for website
      *
-     * @param string $productTypeId
-     * @param int $websiteId
+     * @param  string $productTypeId
+     * @param  int    $websiteId
      * @return array
      */
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
@@ -206,7 +206,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Assign group prices to product data
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product                                       $object
      * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
      */
     public function afterLoad($object)
@@ -245,7 +245,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * After Save Attribute manipulation
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product                                       $object
      * @return Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
      */
     public function afterSave($object)
@@ -311,7 +311,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             ));
 
             $useForAllGroups = $data['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
-            $customerGroupId = !$useForAllGroups ? $data['cust_group'] : 0;
+            $customerGroupId = $useForAllGroups ? 0 : $data['cust_group'];
 
             $new[$key] = array_merge([
                 'website_id'        => $data['website_id'],

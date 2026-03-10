@@ -270,7 +270,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * Will forward to deniedAction(), if not allowed.
      *
-     * @param string $section
+     * @param  string $section
      * @return bool
      */
     protected function _isSectionAllowed($section)
@@ -302,7 +302,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Save state of configuration field sets
      *
-     * @param array $configState
+     * @param  array $configState
      * @return bool
      */
     protected function _saveState($configState = [])

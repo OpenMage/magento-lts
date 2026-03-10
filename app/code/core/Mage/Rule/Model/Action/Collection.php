@@ -12,10 +12,10 @@
  *
  * @package    Mage_Rule
  *
- * @method array getActions()
+ * @method array                    getActions()
  * @method Mage_Rule_Model_Abstract getRule()
- * @method $this setActions(array $value)
- * @method $this setType(string $value)
+ * @method $this                    setActions(array $value)
+ * @method $this                    setType(string $value)
  */
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {
@@ -133,7 +133,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
@@ -142,7 +142,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)

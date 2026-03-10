@@ -63,7 +63,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Lock attribute
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return $this
      */
     public function lockAttribute($attributeCode)
@@ -75,7 +75,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Unlock attribute
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return $this
      */
     public function unlockAttribute($attributeCode)
@@ -121,7 +121,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve locked attributes
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return bool
      */
     public function isLockedAttribute($attributeCode)
@@ -194,9 +194,9 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Load entity by attribute
      *
-     * @param array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
-     * @param null|array|string $value
-     * @param string $additionalAttributes
+     * @param  array|int|Mage_Eav_Model_Entity_Attribute_Interface|string $attribute
+     * @param  null|array|string                                          $value
+     * @param  string                                                     $additionalAttributes
      * @return $this|false
      */
     public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
@@ -238,9 +238,9 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * Default value existing is flag for using store value in data
      *
-     * @param string $attributeCode
-     * @param string $value
-     * @return  $this
+     * @param  string $attributeCode
+     * @param  string $value
+     * @return $this
      */
     public function setAttributeDefaultValue($attributeCode, $value)
     {
@@ -251,8 +251,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve default value for attribute code
      *
-     * @param   string $attributeCode
-     * @return  array|false
+     * @param  string      $attributeCode
+     * @return array|false
      */
     public function getAttributeDefaultValue($attributeCode)
     {
@@ -263,8 +263,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Set attribute code flag if attribute has value in current store and does not use
      * value of default store as value
      *
-     * @param   string $attributeCode
-     * @return  $this
+     * @param  string $attributeCode
+     * @return $this
      */
     public function setExistsStoreValueFlag($attributeCode)
     {
@@ -275,8 +275,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Check if object attribute has value in current store
      *
-     * @param   string $attributeCode
-     * @return  bool
+     * @param  string $attributeCode
+     * @return bool
      */
     public function getExistsStoreValueFlag($attributeCode)
     {
@@ -307,7 +307,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -329,7 +329,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsReadonly($value)

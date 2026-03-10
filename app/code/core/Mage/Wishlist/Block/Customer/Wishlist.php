@@ -60,7 +60,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Sets all options render configurations
      *
-     * @param null|array $optionCfg
+     * @param  null|array $optionCfg
      * @return $this
      * @deprecated after 1.6.2.0
      */
@@ -84,9 +84,9 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adds config for rendering product type options
      *
-     * @param string $productType
-     * @param string $helperName
-     * @param null|string $template
+     * @param  string      $productType
+     * @param  string      $helperName
+     * @param  null|string $template
      * @return $this
      * @deprecated after 1.6.2.0
      */
@@ -99,19 +99,13 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns html for showing item options
      *
-     * @param string $productType
+     * @param  string     $productType
      * @return null|array
      * @deprecated after 1.6.2.0
      */
     public function getOptionsRenderCfg($productType)
     {
-        if (isset($this->_optionsCfg[$productType])) {
-            return $this->_optionsCfg[$productType];
-        } elseif (isset($this->_optionsCfg['default'])) {
-            return $this->_optionsCfg['default'];
-        } else {
-            return null;
-        }
+        return $this->_optionsCfg[$productType] ?? $this->_optionsCfg['default'] ?? null;
     }
 
     /**

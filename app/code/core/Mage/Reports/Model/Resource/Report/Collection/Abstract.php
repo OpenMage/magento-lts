@@ -94,8 +94,8 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set date range
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function setDateRange($from = null, $to = null)
@@ -108,7 +108,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set period
      *
-     * @param string $period
+     * @param  string $period
      * @return $this
      */
     public function setPeriod($period)
@@ -139,7 +139,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set store ids
      *
-     * @param mixed $storeIds (null, int|string, array, array may contain null)
+     * @param  mixed $storeIds (null, int|string, array, array may contain null)
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -193,7 +193,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Set apply filters flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setApplyFilters($flag)
@@ -205,7 +205,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isTotals
      *
-     * @param null|bool $flag
+     * @param  null|bool  $flag
      * @return $this|bool
      */
     public function isTotals($flag = null)
@@ -221,7 +221,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     /**
      * Getter/Setter for isSubTotals
      *
-     * @param null|bool $flag
+     * @param  null|bool  $flag
      * @return $this|bool
      */
     public function isSubTotals($flag = null)

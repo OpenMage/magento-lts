@@ -11,18 +11,21 @@
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
- * @method int getEntityTypeId()
- * @method string getIncrementLastId()
- * @method string getIncrementPrefix()
+ * @method int                                  getEntityTypeId()
+ * @method string                               getIncrementLastId()
+ * @method string                               getIncrementPrefix()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()
- * @method int getStoreId()
- * @method $this setEntityTypeId(int $value)
- * @method $this setIncrementLastId(string $value)
- * @method $this setIncrementPrefix(string $value)
- * @method $this setStoreId(int $value)
+ * @method int                                  getStoreId()
+ * @method $this                                setEntityTypeId(int $value)
+ * @method $this                                setIncrementLastId(string $value)
+ * @method $this                                setIncrementPrefix(string $value)
+ * @method $this                                setStoreId(int $value)
  */
 class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_store');
@@ -31,8 +34,8 @@ class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
     /**
      * Load entity by store
      *
-     * @param int $entityTypeId
-     * @param int $storeId
+     * @param  int   $entityTypeId
+     * @param  int   $storeId
      * @return $this
      */
     public function loadByEntityStore($entityTypeId, $storeId)

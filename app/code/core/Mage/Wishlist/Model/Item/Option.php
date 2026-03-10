@@ -12,16 +12,16 @@
  *
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Resource_Item_Option _getResource()
- * @method string getCode()
+ * @method Mage_Wishlist_Model_Resource_Item_Option            _getResource()
+ * @method string                                              getCode()
  * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
- * @method int getProductId()
- * @method Mage_Wishlist_Model_Resource_Item_Option getResource()
+ * @method int                                                 getProductId()
+ * @method Mage_Wishlist_Model_Resource_Item_Option            getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getResourceCollection()
- * @method int getWishlistItemId()
- * @method $this setProductId(int $value)
- * @method $this setValue(string $sBuyRequest)
- * @method $this setWishlistItemId(int $value)
+ * @method int                                                 getWishlistItemId()
+ * @method $this                                               setProductId(int $value)
+ * @method $this                                               setValue(string $sBuyRequest)
+ * @method $this                                               setWishlistItemId(int $value)
  */
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
@@ -29,6 +29,9 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
 
     protected $_product;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('wishlist/item_option');
@@ -51,8 +54,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     /**
      * Set quote item
      *
-     * @param   Mage_Wishlist_Model_Item $item
-     * @return  Mage_Wishlist_Model_Item_Option
+     * @param  Mage_Wishlist_Model_Item        $item
+     * @return Mage_Wishlist_Model_Item_Option
      */
     public function setItem($item)
     {
@@ -77,8 +80,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
     /**
      * Set option product
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Wishlist_Model_Item_Option
+     * @param  Mage_Catalog_Model_Product      $product
+     * @return Mage_Wishlist_Model_Item_Option
      */
     public function setProduct($product)
     {

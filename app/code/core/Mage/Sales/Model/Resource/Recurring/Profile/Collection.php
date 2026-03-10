@@ -25,7 +25,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile_Collection extends Mage_Core_M
     protected $_eventObject    = 'recurring_profile_collection';
 
     /**
-     * Entity initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

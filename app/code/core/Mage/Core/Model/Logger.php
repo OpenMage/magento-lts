@@ -19,11 +19,11 @@ class Mage_Core_Model_Logger
     /**
      * Log wrapper
      *
-     * @param string $message
+     * @param string   $message
      * @param Level::* $level
-     * @param string $file
-     * @param bool $forceLog
-     * @param array $context additional context for the log entry
+     * @param string   $file
+     * @param bool     $forceLog
+     * @param array    $context  additional context for the log entry
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {

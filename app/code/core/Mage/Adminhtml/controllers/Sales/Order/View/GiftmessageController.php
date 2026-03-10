@@ -21,7 +21,7 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
     public const ADMIN_RESOURCE = 'sales/order';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

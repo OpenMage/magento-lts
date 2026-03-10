@@ -25,7 +25,7 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     protected $_eventPrefix = 'process_collection';
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {

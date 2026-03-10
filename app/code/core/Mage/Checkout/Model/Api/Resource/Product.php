@@ -24,9 +24,9 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
     /**
      * Return loaded product instance
      *
-     * @param  int|string $productId (SKU or ID)
-     * @param  int|string $store
-     * @param  string $identifierType
+     * @param  int|string                 $productId      (SKU or ID)
+     * @param  int|string                 $store
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _getProduct($productId, $store = null, $identifierType = null)
@@ -41,8 +41,8 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
     /**
      * Get request for product add to cart procedure
      *
-     * @param   mixed $requestInfo
-     * @return  Varien_Object
+     * @param  mixed         $requestInfo
+     * @return Varien_Object
      */
     protected function _getProductRequest($requestInfo)
     {
@@ -105,7 +105,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
         }
 
         if (is_null($item)) {
-            $item = Mage::getModel('sales/quote_item');
+            return Mage::getModel('sales/quote_item');
         }
 
         return $item;

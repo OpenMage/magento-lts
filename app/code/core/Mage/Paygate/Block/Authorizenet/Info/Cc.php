@@ -20,7 +20,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
     protected $_isCheckoutProgressBlockFlag = true;
 
     /**
-     * Set block template
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,7 +58,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
      * to avoid showing credit card information from payment quote
      * in Previously used card information block
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setCheckoutProgressBlock($flag)

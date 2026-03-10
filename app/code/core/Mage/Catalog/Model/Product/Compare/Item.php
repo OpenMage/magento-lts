@@ -12,19 +12,19 @@
  *
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item            _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getCollection()
- * @method int getProductId()
- * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
+ * @method int                                                         getProductId()
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection getResourceCollection()
- * @method int getStoreId()
- * @method bool hasCustomerId()
- * @method bool hasStoreId()
- * @method bool hasVisitorId()
- * @method $this setCustomerId(int $value)
- * @method $this setProductId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setVisitorId(int $value)
+ * @method int                                                         getStoreId()
+ * @method bool                                                        hasCustomerId()
+ * @method bool                                                        hasStoreId()
+ * @method bool                                                        hasVisitorId()
+ * @method $this                                                       setCustomerId(int $value)
+ * @method $this                                                       setProductId(int $value)
+ * @method $this                                                       setStoreId(int $value)
+ * @method $this                                                       setVisitorId(int $value)
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {
@@ -51,6 +51,9 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'item';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item');
@@ -99,7 +102,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Set visitor
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function addVisitorId($visitorId)
@@ -111,7 +114,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Load compare item by product
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return $this
      */
     public function loadByProduct($product)
@@ -123,7 +126,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Set product data
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return $this
      */
     public function addProductData($product)

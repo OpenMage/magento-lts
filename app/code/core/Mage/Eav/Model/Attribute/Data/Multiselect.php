@@ -23,7 +23,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     {
         $values = $this->_getRequestValue($request);
         if ($values !== false && !is_array($values)) {
-            $values = [$values];
+            return [$values];
         }
 
         return $values;
@@ -46,7 +46,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string              $format
      * @return array|string
      * @throws Mage_Core_Exception
      */

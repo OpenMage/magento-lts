@@ -13,19 +13,22 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
- * @method int getCustomerGroupId()
- * @method float getMaxPrice()
- * @method float getMinPrice()
+ * @method int                                    getCustomerGroupId()
+ * @method float                                  getMaxPrice()
+ * @method float                                  getMinPrice()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setMaxPrice(float $value)
- * @method $this setMinPrice(float $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                    getWebsiteId()
+ * @method $this                                  setCustomerGroupId(int $value)
+ * @method $this                                  setEntityId(int $value)
+ * @method $this                                  setMaxPrice(float $value)
+ * @method $this                                  setMinPrice(float $value)
+ * @method $this                                  setWebsiteId(int $value)
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('bundle/price_index');
@@ -34,8 +37,8 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Reindex Product price
      *
-     * @param int $productId
-     * @param int $priceType
+     * @param  int   $productId
+     * @param  int   $priceType
      * @return $this
      */
     protected function _reindexProduct($productId, $priceType)
@@ -47,7 +50,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Reindex Bundle product Price Index
      *
-     * @param array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
+     * @param  array|int|Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface $products
      * @return $this
      */
     public function reindex($products = null)
@@ -59,7 +62,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Add bundle price range index to Product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addPriceIndexToCollection($collection)
@@ -101,7 +104,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     /**
      * Add price index to bundle product after load
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function addPriceIndexToProduct($product)

@@ -175,7 +175,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     /**
      * Retrieve attribute option values for given store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function getStoreOptionValues($storeId)

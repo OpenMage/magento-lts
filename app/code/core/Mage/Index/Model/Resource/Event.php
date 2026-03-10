@@ -14,6 +14,9 @@
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('index/event', 'event_id');
@@ -91,8 +94,8 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update status for events of process
      *
-     * @param array|int|Mage_Index_Model_Process $process
-     * @param string $status
+     * @param  array|int|Mage_Index_Model_Process $process
+     * @param  string                             $status
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -102,7 +105,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
         $whereCondition = '';
         if ($process instanceof Mage_Index_Model_Process) {
             $whereCondition = ['process_id = ?' => $process->getId()];
-        } elseif (is_array($process) && !empty($process)) {
+        } elseif (is_array($process) && $process !== []) {
             $whereCondition = ['process_id IN (?)' => $process];
         } elseif (!empty($process)) {
             $whereCondition = ['process_id = ?' => $process];
@@ -119,7 +122,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve unprocessed events list by specified process
      *
-     * @param Mage_Index_Model_Process $process
+     * @param  Mage_Index_Model_Process $process
      * @return array
      * @throws Mage_Core_Exception
      */

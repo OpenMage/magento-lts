@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Model  for flex reports
  *
@@ -23,7 +25,7 @@ class Mage_Reports_Model_Test extends Varien_Object
     }
 
     /**
-     * @param int $countryId
+     * @param  int    $countryId
      * @return string
      */
     public function getUsersCities($countryId)
@@ -68,17 +70,17 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getAllLinearExample()
     {
         $session = Mage::getModel('review/session');
-
-        $startPoint = time() - 24 * 60 * 60;
+        $startPoint = Carbon::now()->subDays(1)->getTimestamp();
+        $format = 'Y-m-d H:i';
 
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)];
+            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time' => date('Y-m-d H:i', $startPoint + (90 * 60))];
+        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -91,17 +93,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getNewLinearData()
     {
         $session = Mage::getModel('review/session');
-
         $startPoint = $session->getData('startPoint');
-
         $reset = 12;
+        $format = 'Y-m-d H:i';
 
         $newData  = [
-            ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)],
+            ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;
-        $newData[]  = ['time' => date('Y-m-d H:i', $startPoint + (90 * 60))];
+        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session->setData('startPoint', $startPoint);
 
@@ -109,8 +110,8 @@ class Mage_Reports_Model_Test extends Varien_Object
     }
 
     /**
-     * @param array $array
-     * @param int $reset
+     * @param  array  $array
+     * @param  int    $reset
      * @return string
      */
     private function returnAsDataSource(&$array, $reset = 0)

@@ -13,23 +13,19 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
- * @method int getAttributeSetId()
- * @method string getCreatedAt()
- * @method int getEntityTypeId()
- * @method int getHasOptions()
- * @method int getRequiredOptions()
+ * @method int                                        getAttributeSetId()
+ * @method int                                        getEntityTypeId()
+ * @method int                                        getHasOptions()
+ * @method int                                        getRequiredOptions()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
- * @method string getSku()
- * @method string getTypeId()
- * @method string getUpdatedAt()
- * @method $this setAttributeSetId(int $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setEntityTypeId(int $value)
- * @method $this setHasOptions(int $value)
- * @method $this setRequiredOptions(int $value)
- * @method $this setSku(string $value)
- * @method $this setTypeId(string $value)
- * @method $this setUpdatedAt(string $value)
+ * @method string                                     getSku()
+ * @method string                                     getTypeId()
+ * @method $this                                      setAttributeSetId(int $value)
+ * @method $this                                      setEntityTypeId(int $value)
+ * @method $this                                      setHasOptions(int $value)
+ * @method $this                                      setRequiredOptions(int $value)
+ * @method $this                                      setSku(string $value)
+ * @method $this                                      setTypeId(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
@@ -73,7 +69,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Returns data retriever model by specified product type
      *
-     * @param string $type
+     * @param  string                                      $type
      * @return false|Mage_CatalogIndex_Model_Data_Abstract
      * @throws Mage_Core_Exception
      */
@@ -83,9 +79,9 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
             /** @var false|Mage_CatalogIndex_Model_Data_Abstract $model */
             $model = Mage::getSingleton($this->_retreivers[$type]);
             return $model;
-        } else {
-            Mage::throwException("Data retreiver for '$type' is not defined");
         }
+
+        Mage::throwException("Data retreiver for '$type' is not defined");
     }
 
     /**
@@ -105,7 +101,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Return product ids sorted by type
      *
-     * @param array $products
+     * @param  array $products
      * @return array
      */
     public function assignProductTypes($products)

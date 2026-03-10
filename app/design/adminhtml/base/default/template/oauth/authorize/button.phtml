@@ -1,0 +1,41 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * "Grant Access" button
+ *
+ * @see Mage_Oauth_Block_Authorize
+ */
+
+/** @var Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button $this */
+?>
+<div class="login-container auth-confirm">
+    <div class="login-box">
+        <div class="login-form auth-confirm">
+            <div class="page-title">
+                <h1><?php echo $this->__('Authorize application') ?></h1>
+            </div>
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+
+            <?php if (!$this->getHasException()) : ?>
+                <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
+                <p><?php echo $this->__('After authorization application will have access to you account.'); ?></p>
+                <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
+                    <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
+                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Authorize')) ?>"><span><span><?php echo $this->__('Authorize') ?></span></span></button>
+                </form>
+                <form id="oauth_authorize_reject" action="<?php echo $this->getRejectUrl() ?>" method="get">
+                    <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
+                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><span><span><?php echo $this->__('Reject') ?></span></span></button>
+                </form>
+            <?php endif ?>
+        </div>
+        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', \Carbon\Carbon::now()->format('Y')) ?></p>
+        <div class="bottom"></div>
+    </div>
+</div>

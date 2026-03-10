@@ -124,10 +124,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             if ($this->getVar('fieldnames')) {
                 $this->_fields = $line;
                 return;
-            } else {
-                foreach ($line as $j => $f) {
-                    $this->_fields[$j] = $this->_mapfields[$j];
-                }
+            }
+
+            foreach ($line as $j => $f) {
+                $this->_fields[$j] = $this->_mapfields[$j];
             }
         }
 
@@ -185,7 +185,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     }
 
     /**
-     * @param array $args
+     * @param  array  $args
      * @return string
      */
     public function unparseRow($args)
@@ -214,7 +214,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     /**
      * Retrieve csv string from array
      *
-     * @param array $fields
+     * @param  array  $fields
      * @return string
      */
     public function getCsvString($fields = [])

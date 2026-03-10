@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare pages collection
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare columns for pages grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

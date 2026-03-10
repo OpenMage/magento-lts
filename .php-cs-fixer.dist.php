@@ -7,7 +7,7 @@ return $config
     ->setRiskyAllowed(true)
     ->setRules([
         // see https://cs.symfony.com/doc/ruleSets/PER-CS2.0.html
-        '@PER-CS2.0' => true,
+        '@PER-CS2x0' => true,
         // RISKY: Use && and || logical operators instead of and and or.
         'logical_operators' => true,
         // RISKY: Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operator.
@@ -24,6 +24,8 @@ return $config
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         // PHPDoc annotation descriptions should not be a sentence.
         'phpdoc_annotation_without_dot' => true,
+        // All items of the given PHPDoc tags must be either left-aligned or (by default) aligned vertically.
+        'phpdoc_align' => true,
         // Docblocks should have the same indentation as the documented subject.
         'phpdoc_indent' => true,
         // Annotations in PHPDoc should be ordered in defined sequence.

@@ -12,7 +12,7 @@
  *
  * @package    Mage_Reports
  *
- * @method int getPageSize()
+ * @method int   getPageSize()
  * @method array getStoreIds()
  * @method $this setDateRange(string $from, string $to)
  * @method $this setPageSize(int $value)
@@ -26,7 +26,7 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     protected $_reportModel;
 
     /**
-     * @param string $modelClass
+     * @param  string $modelClass
      * @return $this
      */
     public function initCollection($modelClass)
@@ -39,8 +39,8 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param  string                    $from
+     * @param  string                    $to
      * @return Mage_Reports_Model_Report
      */
     public function getReportFull($from, $to)
@@ -52,8 +52,8 @@ class Mage_Reports_Model_Report extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param  string                    $from
+     * @param  string                    $to
      * @return Mage_Reports_Model_Report
      */
     public function getReport($from, $to)

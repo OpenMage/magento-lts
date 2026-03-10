@@ -171,7 +171,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Add information about product ids to visitor/customer
      *
-     * @param array $productIds
+     * @param  array                                              $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      */
     public function registerIds(Varien_Object $object, $productIds)

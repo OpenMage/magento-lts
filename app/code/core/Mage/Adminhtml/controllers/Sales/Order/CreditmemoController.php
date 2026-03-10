@@ -29,7 +29,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Check if creditmeno can be created for order
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return bool
      */
     protected function _canCreditmemo($order)
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Initialize requested invoice instance
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order               $order
      * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _initInvoice($order)
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Save creditmemo and related order, invoice in one transaction
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      * @throws Exception
      */
@@ -304,10 +304,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 Mage::getSingleton('adminhtml/session')->getCommentText(true);
                 $this->_redirect('*/sales_order/view', ['order_id' => $creditmemo->getOrderId()]);
                 return;
-            } else {
-                $this->_forward('noRoute');
-                return;
             }
+
+            $this->_forward('noRoute');
+            return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             Mage::getSingleton('adminhtml/session')->setFormData($data);
@@ -413,8 +413,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @param Mage_Sales_Model_Order_Item $item
-     * @param array $qtys
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @param  array                       $qtys
      * @return bool
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */

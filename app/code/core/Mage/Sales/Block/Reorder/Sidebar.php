@@ -12,9 +12,9 @@
  *
  * @package    Mage_Sales
  *
- * @method int getCustomerId()
+ * @method int                                        getCustomerId()
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
- * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
+ * @method $this                                      setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  */
 class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 {

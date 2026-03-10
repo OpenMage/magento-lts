@@ -13,25 +13,24 @@
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
- * @method int getActive()
- * @method array getAddedProductIds()
- * @method int getCustomerId()
- * @method int getProductId()
+ * @method int                                  getActive()
+ * @method array                                getAddedProductIds()
+ * @method int                                  getCustomerId()
+ * @method int                                  getProductId()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
- * @method string getStatusFilter()
- * @method int getStoreId()
- * @method int getTagId()
- * @method bool hasStoreId()
- * @method $this setActive(int $value)
- * @method $this setAddedProductIds(array $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setCustomerId(int $value)
- * @method $this setProductId(int $value)
- * @method $this setProductIds(array $value)
- * @method $this setRelatedTagIds(array $value)
- * @method $this setStatusFilter(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTagId(int $value)
+ * @method string                               getStatusFilter()
+ * @method int                                  getStoreId()
+ * @method int                                  getTagId()
+ * @method bool                                 hasStoreId()
+ * @method $this                                setActive(int $value)
+ * @method $this                                setAddedProductIds(array $value)
+ * @method $this                                setCustomerId(int $value)
+ * @method $this                                setProductId(int $value)
+ * @method $this                                setProductIds(array $value)
+ * @method $this                                setRelatedTagIds(array $value)
+ * @method $this                                setStatusFilter(string $value)
+ * @method $this                                setStoreId(int $value)
+ * @method $this                                setTagId(int $value)
  */
 class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 {
@@ -48,6 +47,9 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public const ENTITY = 'tag_relation';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/tag_relation');
@@ -72,10 +74,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Load relation by Product (optional), tag, customer and store
      *
-     * @param null|int $productId
-     * @param int $tagId
-     * @param int $customerId
-     * @param null|int $storeId
+     * @param  null|int $productId
+     * @param  int      $tagId
+     * @param  int      $customerId
+     * @param  null|int $storeId
      * @return $this
      */
     public function loadByTagCustomer($productId, $tagId, $customerId, $storeId = null)
@@ -135,7 +137,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     /**
      * Add TAG to PRODUCT relations
      *
-     * @param array $productIds
+     * @param  array $productIds
      * @return $this
      */
     public function addRelations(Mage_Tag_Model_Tag $model, $productIds = [])

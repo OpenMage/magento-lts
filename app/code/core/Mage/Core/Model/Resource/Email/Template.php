@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/email_template', 'template_id');
@@ -22,7 +25,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Load by template code from DB.
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return array
      */
     public function loadByCode($templateCode)
@@ -90,8 +93,8 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Retrieve config scope and scope id of specified email template by email paths
      *
-     * @param array $paths
-     * @param int|string $templateId
+     * @param  array      $paths
+     * @param  int|string $templateId
      * @return array
      */
     public function getSystemConfigByPathsAndTemplateId($paths, $templateId)

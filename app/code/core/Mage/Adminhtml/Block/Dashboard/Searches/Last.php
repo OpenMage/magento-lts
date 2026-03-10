@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @param Mage_CatalogSearch_Model_Query $row
+     * @param  Mage_CatalogSearch_Model_Query $row
      * @return string
      */
     public function getRowUrl($row)

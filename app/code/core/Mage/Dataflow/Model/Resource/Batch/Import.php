@@ -14,6 +14,9 @@
  */
 class Mage_Dataflow_Model_Resource_Batch_Import extends Mage_Dataflow_Model_Resource_Batch_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/batch_import', 'batch_import_id');

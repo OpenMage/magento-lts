@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
     /**
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareItemQtyData($data)
@@ -33,11 +33,11 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Create new shipment for order
      *
-     * @param string $orderIncrementId
-     * @param array $itemsQty
-     * @param string $comment
-     * @param bool $email
-     * @param bool $includeComment
+     * @param  string      $orderIncrementId
+     * @param  array       $itemsQty
+     * @param  string      $comment
+     * @param  bool        $email
+     * @param  bool        $includeComment
      * @return null|string
      */
     public function create(
@@ -92,7 +92,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Retrieve allowed shipping carriers for specified order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
     public function getCarriers($orderIncrementId)

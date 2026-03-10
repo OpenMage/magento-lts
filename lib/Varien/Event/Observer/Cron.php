@@ -7,14 +7,16 @@
  * @package    Varien_Event
  */
 
+use Carbon\Carbon;
+
 /**
  * Event cron observer object
  *
  * @package    Varien_Event
  *
  * @method string getCronExpr()
- * @method bool hasNow()
- * @method $this setNow(int $time)
+ * @method bool   hasNow()
+ * @method $this  setNow(int $time)
  */
 class Varien_Event_Observer_Cron extends Varien_Event_Observer
 {
@@ -47,15 +49,15 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function getNow()
     {
         if (!$this->hasNow()) {
-            $this->setNow(time());
+            $this->setNow(Carbon::now()->getTimestamp());
         }
 
         return $this->getData('now');
     }
 
     /**
-     * @param string $expr
-     * @param int $num
+     * @param  string $expr
+     * @param  int    $num
      * @return bool
      */
     public function matchCronExpression($expr, $num)
@@ -112,7 +114,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     }
 
     /**
-     * @param int|string $value
+     * @param  int|string       $value
      * @return false|int|string
      */
     public function getNumeric($value)

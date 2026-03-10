@@ -17,7 +17,7 @@ abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Re
     /**
      * Return form attribute IDs by form code
      *
-     * @param string $formCode
+     * @param  string $formCode
      * @return array
      */
     public function getFormAttributeIds($formCode)

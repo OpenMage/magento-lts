@@ -30,7 +30,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     protected $_ratingVoteTable;
 
     /**
-     * Define model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -42,8 +42,8 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     /**
      * Add rating filter
      *
-     * @param   array|int $rating
-     * @return  $this
+     * @param  array|int $rating
+     * @return $this
      */
     public function addRatingFilter($rating)
     {
@@ -59,8 +59,8 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     /**
      * Set order by position field
      *
-     * @param   string $dir
-     * @return  $this
+     * @param  string $dir
+     * @return $this
      */
     public function setPositionOrder($dir = 'ASC')
     {

@@ -15,7 +15,7 @@
 class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,10 +25,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Add entity data to fulltext search table
      *
-     * @param int $entityId
-     * @param int $storeId
-     * @param array $index
-     * @param string $entity 'product'|'cms'
+     * @param  int    $entityId
+     * @param  int    $storeId
+     * @param  array  $index
+     * @param  string $entity   'product'|'cms'
      * @return $this
      */
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
@@ -44,9 +44,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Multi add entities data to fulltext search table
      *
-     * @param int $storeId
-     * @param array $entityIndexes
-     * @param string $entity 'product'|'cms'
+     * @param  int    $storeId
+     * @param  array  $entityIndexes
+     * @param  string $entity        'product'|'cms'
      * @return $this
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
@@ -93,9 +93,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Remove entity data from fulltext search table
      *
-     * @param int $storeId
-     * @param int $entityId
-     * @param string $entity 'product'|'cms'
+     * @param  int    $storeId
+     * @param  int    $entityId
+     * @param  string $entity   'product'|'cms'
      * @return $this
      */
     public function cleanIndex($storeId = null, $entityId = null, $entity = 'product')
@@ -118,8 +118,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Prepare index array as a string glued by separator
      *
-     * @param array $index
-     * @param string $separator
+     * @param  array  $index
+     * @param  string $separator
      * @return string
      */
     public function prepareEntityIndex($index, $separator = ' ')

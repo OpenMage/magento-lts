@@ -17,7 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     /**
      * Check payment method model
      *
-     * @param null|Mage_Payment_Model_Method_Abstract $method
+     * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)

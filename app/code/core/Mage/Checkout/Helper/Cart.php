@@ -39,8 +39,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for add product to cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getAddUrl($product, $additional = [])
@@ -51,7 +51,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Return helper instance
      *
-     * @param  string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelperInstance($helperName)
@@ -62,8 +62,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for remove product from cart
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  string
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @return string
      */
     public function getRemoveUrl($item)
     {
@@ -137,7 +137,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Checks if customer should be redirected to shopping cart after adding a product
      *
-     * @param int|Mage_Core_Model_Store|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getShouldRedirectToCart($store = null)
@@ -148,9 +148,9 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for add product to cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddUrlCustom($product, $additional = [], $addFormKey = true)

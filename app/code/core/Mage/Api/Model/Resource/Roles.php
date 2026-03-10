@@ -28,6 +28,9 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_ruleTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/role', 'role_id');
@@ -39,7 +42,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Process role before saving
      *
-     * @param Mage_Api_Model_Roles $object
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
      * @throws Exception
      */
@@ -68,7 +71,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after save
      *
-     * @param Mage_Api_Model_Roles $object
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
      * @throws Zend_Cache_Exception
      */
@@ -82,7 +85,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after delete
      *
-     * @param Mage_Api_Model_Roles $object
+     * @param  Mage_Api_Model_Roles $object
      * @return $this
      * @throws Mage_Core_Exception
      */

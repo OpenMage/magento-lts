@@ -18,9 +18,9 @@ interface Mage_Checkout_Model_Cart_Interface
     /**
      * Add product to shopping cart (quote)
      *
-     * @param   int|Mage_Catalog_Model_Product $productInfo
-     * @param   mixed                          $requestInfo
-     * @return  Mage_Checkout_Model_Cart_Interface
+     * @param  int|Mage_Catalog_Model_Product     $productInfo
+     * @param  mixed                              $requestInfo
+     * @return Mage_Checkout_Model_Cart_Interface
      */
     public function addProduct($productInfo, $requestInfo = null);
 

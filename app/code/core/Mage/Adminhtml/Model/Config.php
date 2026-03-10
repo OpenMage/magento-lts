@@ -37,9 +37,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_tabs;
 
     /**
-     * @param string $sectionCode
-     * @param string $websiteCode
-     * @param string $storeCode
+     * @param  string                   $sectionCode
+     * @param  string                   $websiteCode
+     * @param  string                   $storeCode
      * @return Varien_Simplexml_Element
      */
     public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param null|array $tags
+     * @param  null|array                        $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
     public function saveCache($tags = null)
@@ -129,27 +129,31 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $sectionCode
-     * @param string $websiteCode
-     * @param string $storeCode
+     * @param  string                        $sectionCode
+     * @param  string                        $websiteCode
+     * @param  string                        $storeCode
      * @return Varien_Simplexml_Element|void
      */
     public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
-        } elseif ($websiteCode) {
+        }
+
+        if ($websiteCode) {
             return  $this->getSections()->$websiteCode;
-        } elseif ($storeCode) {
+        }
+
+        if ($storeCode) {
             return  $this->getSections()->$storeCode;
         }
     }
 
     /**
-     * @param Varien_Simplexml_Element $node
-     * @param string $websiteCode
-     * @param string $storeCode
-     * @param bool $isField
+     * @param  Varien_Simplexml_Element $node
+     * @param  string                   $websiteCode
+     * @param  string                   $storeCode
+     * @param  bool                     $isField
      * @return bool
      */
     public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
@@ -197,9 +201,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Get translate module name
      *
-     * @param null|false|Varien_Simplexml_Element $sectionNode
-     * @param null|false|Varien_Simplexml_Element $groupNode
-     * @param null|false|Varien_Simplexml_Element $fieldNode
+     * @param  null|false|Varien_Simplexml_Element $sectionNode
+     * @param  null|false|Varien_Simplexml_Element $groupNode
+     * @param  null|false|Varien_Simplexml_Element $fieldNode
      * @return string
      */
     public function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)
@@ -226,16 +230,17 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * System configuration section, fieldset or field label getter
      *
-     * @param string $sectionName
-     * @param string $groupName
-     * @param string $fieldName
+     * @param  string $sectionName
+     * @param  string $groupName
+     * @param  string $fieldName
      * @return string
      */
     public function getSystemConfigNodeLabel($sectionName, $groupName = null, $fieldName = null)
     {
         $sectionName = trim($sectionName, '/');
         $path = '//sections/' . $sectionName;
-        $groupNode = $fieldNode = null;
+        $groupNode = null;
+        $fieldNode = null;
         $sectionNode = $this->_sections->xpath($path);
         if (!empty($groupName)) {
             $path .= '/groups/' . trim($groupName, '/');
