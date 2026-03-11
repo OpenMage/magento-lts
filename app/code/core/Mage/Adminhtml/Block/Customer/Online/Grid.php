@@ -46,9 +46,8 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -136,7 +135,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve Row URL
      *
-     * @param  Mage_Core_Model_Abstract $row
+     * @param  Mage_Log_Model_Visitor_Online $row
      * @return string
      */
     public function getRowUrl($row)

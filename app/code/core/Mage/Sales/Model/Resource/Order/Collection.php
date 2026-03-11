@@ -172,7 +172,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)
     {
-        if (is_array($attributes) && !empty($attributes)) {
+        if (is_array($attributes) && $attributes !== []) {
             $this->_addAddressFields();
 
             $toFilterData = [];

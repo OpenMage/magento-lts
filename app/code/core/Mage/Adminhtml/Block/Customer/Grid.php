@@ -205,8 +205,9 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Customer_Model_Customer $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
