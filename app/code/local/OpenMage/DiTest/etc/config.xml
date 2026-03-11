@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <OpenMage_DiTest>
+            <version>1.0.0</version>
+        </OpenMage_DiTest>
+    </modules>
+    <global>
+        <models>
+            <ditest>
+                <class>OpenMage_DiTest_Model</class>
+            </ditest>
+        </models>
+    </global>
+</config>
