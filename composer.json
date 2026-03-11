@@ -47,6 +47,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "symfony/framework-bundle": "^6.4",
         "symfony/mime": "^6.4",
         "symfony/polyfill-php82": "^1.33",
         "symfony/polyfill-php83": "^1.33",
@@ -55,9 +56,9 @@
         "symfony/string": "^6.4",
         "symfony/translation-contracts": "^3.5",
         "symfony/validator": "^6.4",
+        "symfony/yaml": "^6.4",
         "tinymce/tinymce": "^8.0",
-        "vlucas/phpdotenv": "^5.6",
-        "symfony/framework-bundle": "^6.4"
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "ext-xmlreader": "*",
