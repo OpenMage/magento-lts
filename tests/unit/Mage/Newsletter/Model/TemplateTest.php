@@ -32,7 +32,6 @@ final class TemplateTest extends OpenMageTest
     /**
      * @dataProvider provideValidateData
      * @group Model
-     * @group test
      */
     public function testValidate(?string $expected, array $methods): void
     {
