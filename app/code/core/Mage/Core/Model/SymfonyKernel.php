@@ -12,6 +12,7 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
 
     public function registerBundles(): iterable
     {
+        /** @var array<class-string, array<string, bool>> $bundles */
         $bundles = [
             Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
         ];
@@ -30,6 +31,7 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
         $container->addCompilerPass(new Mage_Core_Model_SymfonyKernelCompilerPass($codeDir));
     }
 
+    /** @phpstan-ignore method.unused (called by MicroKernelTrait) */
     private function configureContainer(
         ContainerConfigurator $container,
         LoaderInterface $loader,
