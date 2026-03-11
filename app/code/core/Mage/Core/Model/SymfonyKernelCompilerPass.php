@@ -26,12 +26,11 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
             }
 
             $contents = file_get_contents($file->getPathname());
-            if ($contents === false || strpos($contents, '#[OpenMageDi]') === false) {
+            if ($contents === false || strpos($contents, '#[Mage_Core_Model_OpenMageDi]') === false) {
                 continue;
             }
 
             $className = $this->extractClassName($file->getPathname());
-
 
             $definition = new Definition($className);
             $definition->setAutowired(true);

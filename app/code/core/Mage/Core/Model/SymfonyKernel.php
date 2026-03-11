@@ -35,7 +35,7 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
         LoaderInterface $loader,
         ContainerBuilder $builder
     ): void {
-        $configFolder = __DIR__;
-        $container->import($configFolder.'/openmagedi.yaml');
+        $configFolder = Mage::getBaseDir('etc');
+        $container->import($configFolder . DS . 'openmagedi.yaml');
     }
 }
