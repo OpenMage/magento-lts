@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
 {
-    private string $codeDir;
+    private readonly string $codeDir;
 
     public function __construct(string $codeDir)
     {
@@ -26,7 +26,7 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
             }
 
             $contents = file_get_contents($file->getPathname());
-            if ($contents === false || strpos($contents, '#[Mage_Core_Model_OpenMageDi]') === false) {
+            if ($contents === false || !str_contains($contents, '#[Mage_Core_Model_OpenMageDi]')) {
                 continue;
             }
 
@@ -62,10 +62,12 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
                     if ($tokens[$j] === ';' || $tokens[$j] === '{') {
                         break;
                     }
+
                     if (is_array($tokens[$j]) && in_array($tokens[$j][0], [T_STRING, T_NAME_QUALIFIED], true)) {
                         $namespaceParts .= $tokens[$j][1];
                     }
                 }
+
                 $namespace = $namespaceParts;
             }
 
@@ -74,6 +76,7 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
                 while ($prev >= 0 && is_array($tokens[$prev]) && $tokens[$prev][0] === T_WHITESPACE) {
                     $prev--;
                 }
+
                 if ($prev >= 0 && is_array($tokens[$prev]) && $tokens[$prev][0] === T_DOUBLE_COLON) {
                     continue;
                 }

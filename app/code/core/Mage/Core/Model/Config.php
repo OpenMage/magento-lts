@@ -243,6 +243,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @var array
      */
     protected $_allowedModules = [];
+
     private ?Mage_Core_Model_SymfonyKernel $symfonyKernel = null;
 
     /**
@@ -1501,7 +1502,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = $this->getModelClassName($modelClass);
         if ($this->symfonyKernel && $this->symfonyKernel->getContainer()->has($className)) {
             return $this->symfonyKernel->getContainer()->get($className);
-        } elseif (class_exists($className)) {
+        }
+        if (class_exists($className)) {
             Varien_Profiler::start('CORE::create_object_of::' . $className);
             $obj = new $className($constructArguments);
             Varien_Profiler::stop('CORE::create_object_of::' . $className);

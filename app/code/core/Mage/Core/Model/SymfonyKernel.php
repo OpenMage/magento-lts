@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -23,7 +22,7 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
         }
     }
 
-    public function build(ContainerBuilder $container): void
+    protected function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
@@ -33,9 +32,7 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
 
     /** @phpstan-ignore method.unused (called by MicroKernelTrait) */
     private function configureContainer(
-        ContainerConfigurator $container,
-        LoaderInterface $loader,
-        ContainerBuilder $builder
+        ContainerConfigurator $container
     ): void {
         $configFolder = Mage::getBaseDir('etc');
         $container->import($configFolder . DS . 'openmagedi.yaml');
