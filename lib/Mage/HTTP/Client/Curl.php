@@ -112,11 +112,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {}
-
-    /**
      * Set headers from hash
 
      * @param array $headers

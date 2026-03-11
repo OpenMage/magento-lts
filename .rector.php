@@ -94,7 +94,6 @@ try {
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
             DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
