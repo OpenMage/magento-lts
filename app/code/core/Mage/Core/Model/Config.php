@@ -307,8 +307,15 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function init($options = [])
     {
-        $this->symfonyKernel = new Mage_Core_Model_SymfonyKernel('dev', true);
-        $this->symfonyKernel->boot();
+        try {
+            $isDev = Mage::getIsDeveloperMode();
+            $environment = $isDev ? 'dev' : 'prod';
+            $this->symfonyKernel = new Mage_Core_Model_SymfonyKernel($environment, $isDev);
+            $this->symfonyKernel->boot();
+        } catch (\Throwable $e) {
+            $this->symfonyKernel = null;
+            Mage::logException($e);
+        }
         $this->setCacheChecksum(null);
         $this->_cacheLoadedSections = [];
         $this->setOptions($options);
@@ -1500,7 +1507,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModelInstance($modelClass = '', $constructArguments = [])
     {
         $className = $this->getModelClassName($modelClass);
-        if ($this->symfonyKernel && $this->symfonyKernel->getContainer()->has($className)) {
+        if ($this->symfonyKernel
+            && empty($constructArguments)
+            && $this->symfonyKernel->getContainer()->has($className)
+        ) {
             return $this->symfonyKernel->getContainer()->get($className);
         }
         if (class_exists($className)) {

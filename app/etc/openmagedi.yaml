@@ -1,6 +1,5 @@
 framework:
-  secret: '%env(APP_SECRET)%'
-  test: ~
+  secret: '%env(default:ThisTokenIsNotSoSecret:APP_SECRET)%'
 
 services:
   _defaults:

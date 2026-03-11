@@ -30,7 +30,10 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
                 continue;
             }
 
-            $className = $this->extractClassName($file->getPathname());
+            $className = $this->extractClassName($contents);
+            if ($className === null) {
+                continue;
+            }
 
             $definition = new Definition($className);
             $definition->setAutowired(true);
@@ -40,13 +43,8 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
         }
     }
 
-    private function extractClassName(string $filePath): ?string
+    private function extractClassName(string $contents): ?string
     {
-        $contents = file_get_contents($filePath);
-        if ($contents === false) {
-            return null;
-        }
-
         $tokens = token_get_all($contents);
         $count = count($tokens);
         $namespace = '';

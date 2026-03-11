@@ -41,4 +41,22 @@ final class ConfigTest extends OpenMageTest
         self::$subject->deleteConfig($path);
         self::assertFalse(self::$subject->getConfig($path));
     }
+
+    /**
+     * @group Model
+     */
+    public function testGetModelInstanceFromDiContainer(): void
+    {
+        $runner = self::$subject->getModelInstance('ditest/runner');
+        self::assertInstanceOf(\OpenMage_DiTest_Model_Runner::class, $runner);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetModelInstanceFallsBackToLegacy(): void
+    {
+        $config = self::$subject->getModelInstance('core/config');
+        self::assertInstanceOf(Subject::class, $config);
+    }
 }

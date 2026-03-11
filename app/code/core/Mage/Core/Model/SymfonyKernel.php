@@ -30,9 +30,8 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
         $container->addCompilerPass(new Mage_Core_Model_SymfonyKernelCompilerPass($codeDir));
     }
 
-    // @phpstan-ignore-next-line phpDoc.parseError
-    /** @SuppressWarnings(PHPMD.UnusedPrivateMethod) */
-    private function configureContainer( // @phpstan-ignore method.unused
+    /** @phpstan-ignore method.unused (called by MicroKernelTrait) */
+    protected function configureContainer(
         ContainerConfigurator $container
     ): void {
         $configFolder = Mage::getBaseDir('etc');
