@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->setId('customerGroupGrid');
         $this->setDefaultSort('type');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
