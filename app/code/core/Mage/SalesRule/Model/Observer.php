@@ -229,8 +229,8 @@ class Mage_SalesRule_Model_Observer
     /**
      * Remove catalog attribute condition by attribute code from rule conditions
      *
-     * @param Mage_Rule_Model_Condition_Combine $combine
-     * @param string                            $attributeCode
+     * @param Mage_Rule_Model_Condition_Combine|Mage_Rule_Model_Action_Collection $combine
+     * @param string $attributeCode
      */
     protected function _removeAttributeFromConditions($combine, $attributeCode)
     {
