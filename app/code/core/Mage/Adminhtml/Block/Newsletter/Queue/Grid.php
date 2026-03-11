@@ -19,7 +19,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         parent::__construct();
         $this->setId('queueGrid');
         $this->setDefaultSort('start_at');
-        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -106,6 +105,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Newsletter_Model_Queue $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);

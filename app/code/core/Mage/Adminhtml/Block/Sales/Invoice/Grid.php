@@ -22,7 +22,6 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->setId('sales_invoice_grid');
         $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -137,13 +136,14 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order_Invoice $row
-     * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
-            return false;
+            return '';
         }
 
         return $this->getUrl(

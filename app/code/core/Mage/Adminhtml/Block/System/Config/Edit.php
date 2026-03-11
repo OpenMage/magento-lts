@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Config'),
                     'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
+                    'class'     => 'save',
                 ]),
         );
         return parent::_prepareLayout();

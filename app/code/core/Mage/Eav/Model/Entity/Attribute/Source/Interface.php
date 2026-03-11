@@ -17,7 +17,7 @@
 interface Mage_Eav_Model_Entity_Attribute_Source_Interface
 {
     /**
-     * Retrieve All options
+     * Retrieve all options for the source from configuration
      *
      * @return array
      */

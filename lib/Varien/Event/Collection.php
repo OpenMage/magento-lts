@@ -19,7 +19,7 @@ class Varien_Event_Collection
      *
      * @var array
      */
-    protected $_events;
+    protected $_events = [];
 
     /**
      * Global observers
@@ -40,7 +40,6 @@ class Varien_Event_Collection
      */
     public function __construct()
     {
-        $this->_events = [];
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
 

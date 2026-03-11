@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
+use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
@@ -53,11 +55,15 @@ try {
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
             new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
         ])
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, [
+            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'desc', 'DESC'),
+        ])
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
-           Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
+            Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
@@ -66,12 +72,10 @@ try {
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
-            CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
             CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
@@ -90,12 +94,10 @@ try {
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
-            DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
             DeadCode\MethodCall\RemoveNullArgOnNullDefaultParamRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Switch_\RemoveDuplicatedCaseInSwitchRector::class, # todo: TMP  (!?!)
             DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
             EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class, # todo: TMP

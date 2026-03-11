@@ -11,6 +11,8 @@
  * Base items collection class
  *
  * @package    Varien_Data
+ *
+ * @method $this _initSelect()
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {
@@ -62,7 +64,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var null|array
+     * @var null|array{fields: array<string, string>}
      */
     protected $_map = null;
 
@@ -85,7 +87,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function __construct($conn = null)
     {
-        parent::__construct();
         if (!is_null($conn)) {
             $this->setConnection($conn);
         }

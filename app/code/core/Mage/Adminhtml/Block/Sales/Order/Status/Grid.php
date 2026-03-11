@@ -21,7 +21,6 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         //$this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setDefaultSort('state');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -124,6 +123,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Order_Status $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);
