@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected $_defaultSort     = false;
 
-    protected $_defaultDir      = 'desc';
+    protected $_defaultDir      = 'DESC';
 
     protected $_defaultFilter   = [];
 
