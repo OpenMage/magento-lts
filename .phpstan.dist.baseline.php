@@ -6344,16 +6344,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
+	'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Quote_Item::importCatalogProduct().',
+	'identifier' => 'method.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Quote_Item::importCatalogProduct().',
-    'identifier' => 'method.notFound',
-    'count' => 1,
-    'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6539,12 +6539,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Quote::addItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
@@ -6746,10 +6740,10 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',
-    'identifier' => 'argument.type',
-    'count' => 1,
-    'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
+	'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
