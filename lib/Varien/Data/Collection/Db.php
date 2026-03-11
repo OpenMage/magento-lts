@@ -87,7 +87,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function __construct($conn = null)
     {
-        parent::__construct();
         if (!is_null($conn)) {
             $this->setConnection($conn);
         }

@@ -24,8 +24,6 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
      */
     public const MODE_READ  = 'read';
 
-    public function __construct() {}
-
     /**
      * Check and prepare file system
      */

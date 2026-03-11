@@ -17,7 +17,10 @@
         <?php endforeach ?>
     </fieldset>
       <?php break;
-    case 'column': ?>
+    case 'column':
+    case 'editor':
+    case 'file':
+    case 'checkbox': ?>
       <?php break;
     case 'hidden': ?>
     <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>">
@@ -95,12 +98,6 @@
                     <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
                     <textarea name="<?php echo $element->getName() ?>" title="<?php echo $element->getTitle() ?>" id="<?php echo $element->getHtmlId() ?>" class="textarea <?php echo $element->getClass() ?>" cols="15" rows="2"><?php echo $element->getValue(); ?></textarea>
             </span>
-      <?php break;
-    case 'editor': ?>
-      <?php break;
-    case 'file': ?>
-      <?php break;
-    case 'checkbox': ?>
       <?php break;
 } ?>
 <?php if($element->getScript()): ?>
