@@ -5,6 +5,12 @@
 cy.openmage.test.backend = {};
 
 /**
+ * Namespace for backend login tests
+ * @type {{}}
+ */
+cy.openmage.test.backend.login = {};
+
+/**
  * Base configuration for backend tests
  * @type {{_button: string, _title: string, __buttons: {}, __buttonsSets: {}}}
  * @private

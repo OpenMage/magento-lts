@@ -11,7 +11,6 @@ const tools = cy.openmage.tools;
 test.__fields = {
     username: {
         _: '#username',
-        value: admin.username.value,
     },
     firstname: {
         _: '#firstname',
@@ -24,7 +23,6 @@ test.__fields = {
     },
     current_password: {
         _: '#current_password',
-        value: admin.password.value,
     },
 }
 
