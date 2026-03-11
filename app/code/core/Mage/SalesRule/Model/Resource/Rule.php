@@ -85,7 +85,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param      Mage_SalesRule_Model_Rule $object
+     * @param Mage_SalesRule_Model_Rule $object
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -181,10 +181,11 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
 
             if (!empty($deleteByStoreIds)) {
                 $adapter->delete(
-                    $table, [
-                    'rule_id=?'       => $ruleId,
-                    'store_id IN (?)' => $deleteByStoreIds,
-                    ]
+                    $table,
+                    [
+                        'rule_id=?'       => $ruleId,
+                        'store_id IN (?)' => $deleteByStoreIds,
+                    ],
                 );
             }
 
@@ -239,7 +240,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         // First subselect for distinct attribute_id
         $subSelect = $read->select()
             ->from(
-                ['spa' => $this->getTable('salesrule/product_attribute')],                ['attribute_id']
+                ['spa' => $this->getTable('salesrule/product_attribute')],
+                ['attribute_id'],
             )
             ->distinct(true);
 
@@ -247,12 +249,12 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         $select = $read->select()
             ->from(
                 ['ea' => $this->getTable('eav/attribute')],
-                ['attribute_code']
+                ['attribute_code'],
             )
             ->joinInner(
                 ['a' => new Zend_Db_Expr('(' . $subSelect->__toString() . ')')],
                 'ea.attribute_id = a.attribute_id',
-                []
+                [],
             );
 
         return $read->fetchCol($select);

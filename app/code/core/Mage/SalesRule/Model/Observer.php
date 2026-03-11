@@ -129,7 +129,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order payment is canceled
      *
-     * @param                                         Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -207,9 +207,9 @@ class Mage_SalesRule_Model_Observer
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
-            /**  @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /**  @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
+            /** @var Mage_SalesRule_Model_Rule_Condition_Combine $rule->getConditions() */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
