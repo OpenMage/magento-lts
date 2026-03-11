@@ -301,8 +301,8 @@ class Mage_SalesRule_Model_Observer
         $attributes = Mage::getResourceModel('salesrule/rule')
             ->getActiveAttributes();
         $result = [];
-        foreach ($attributes as $attribute) {
-            $result[$attribute['attribute_code']] = true;
+        foreach ($attributes as $attributeCode) {
+            $result[$attributeCode] = true;
         }
 
         $attributesTransfer->addData($result);
