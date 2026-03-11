@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @copyright  For copyright and license information, read the COPYING.txt file.
- * @link       /COPYING.txt
- * @license    Open Software License (OSL 3.0)
- * @package    Mage_SalesRule
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link      /COPYING.txt
+ * @license   Open Software License (OSL 3.0)
+ * @package   Mage_SalesRule
  */
 
 /**
  * SalesRule Model Observer
  *
- * @package    Mage_SalesRule
+ * @package Mage_SalesRule
  */
 class Mage_SalesRule_Model_Observer
 {
@@ -100,9 +100,9 @@ class Mage_SalesRule_Model_Observer
                             $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
                         } else {
                             $ruleCustomer
-                            ->setCustomerId($customerId)
-                            ->setRuleId($ruleId)
-                            ->setTimesUsed(1);
+                                ->setCustomerId($customerId)
+                                ->setRuleId($ruleId)
+                                ->setTimesUsed(1);
                         }
 
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -129,7 +129,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order payment is canceled
      *
-     * @param Varien_Event_Observer $observer
+     * @param                                         Varien_Event_Observer $observer
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -207,7 +207,9 @@ class Mage_SalesRule_Model_Observer
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
+            /**  @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
+            /**  @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD

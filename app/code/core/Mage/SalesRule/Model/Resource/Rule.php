@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @copyright  For copyright and license information, read the COPYING.txt file.
- * @link       /COPYING.txt
- * @license    Open Software License (OSL 3.0)
- * @package    Mage_SalesRule
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link      /COPYING.txt
+ * @license   Open Software License (OSL 3.0)
+ * @package   Mage_SalesRule
  */
 
 /**
  * Sales Rule resource model
  *
- * @package    Mage_SalesRule
+ * @package Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
@@ -85,7 +85,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param Mage_SalesRule_Model_Rule $object
+     * @param      Mage_SalesRule_Model_Rule $object
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -180,10 +180,12 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             }
 
             if (!empty($deleteByStoreIds)) {
-                $adapter->delete($table, [
+                $adapter->delete(
+                    $table, [
                     'rule_id=?'       => $ruleId,
                     'store_id IN (?)' => $deleteByStoreIds,
-                ]);
+                    ]
+                );
             }
 
             $adapter->commit();
@@ -229,20 +231,31 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param  int   $websiteId
-     * @param  int   $customerGroupId
      * @return mixed
      */
-    public function getActiveAttributes($websiteId, $customerGroupId)
+    public function getActiveAttributes()
     {
         $read = $this->_getReadAdapter();
+        // First subselect for distinct attribute_id
+        $subSelect = $read->select()
+            ->from(
+                ['spa' => $this->getTable('salesrule/product_attribute')],                ['attribute_id']
+            )
+            ->distinct(true);
+
+        // Main select joins subselect with eav_attribute
         $select = $read->select()
             ->from(
-                ['a' => $this->getTable('salesrule/product_attribute')],
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'),
+                ['ea' => $this->getTable('eav/attribute')],
+                ['attribute_code']
             )
-            ->joinInner(['ea' => $this->getTable('eav/attribute')], 'ea.attribute_id = a.attribute_id', []);
-        return $read->fetchAll($select);
+            ->joinInner(
+                ['a' => new Zend_Db_Expr('(' . $subSelect->__toString() . ')')],
+                'ea.attribute_id = a.attribute_id',
+                []
+            );
+
+        return $read->fetchCol($select);
     }
 
     /**
