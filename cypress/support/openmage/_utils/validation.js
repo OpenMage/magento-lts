@@ -1,12 +1,64 @@
 /**
  * Validation methods
- * @type {{removeClasses: cy.openmage.validation.removeClasses, pageElements: cy.openmage.validation.pageElements, _hasMessage: cy.openmage.validation._hasMessage, fillFields: cy.openmage.validation.fillFields, _warningMessage: string, hasWarningMessage: cy.openmage.validation.hasWarningMessage, removeClassesAll: cy.openmage.validation.removeClassesAll, _errorMessage: string, validateFields: cy.openmage.validation.validateFields, hasErrorMessage: cy.openmage.validation.hasErrorMessage, _successMessage: string, _messagesContainer: string, hasSuccessMessage: cy.openmage.validation.hasSuccessMessage}}
+ * @type {{
+ *     _messagesContainer: string,
+ *     _errorMessage: string,
+ *     _successMessage: string,
+ *     _warningMessage: string,
+ *      removeClasses: cy.openmage.validation.removeClasses,
+ *      pageElements: cy.openmage.validation.pageElements,
+ *      _hasMessage: cy.openmage.validation._hasMessage,
+ *      fillFields: cy.openmage.validation.fillFields,
+ *      removeClassesAll: cy.openmage.validation.removeClassesAll,
+ *      validateFields: cy.openmage.validation.validateFields,
+ *      hasErrorMessage: cy.openmage.validation.hasErrorMessage,
+ *      hasSuccessMessage: cy.openmage.validation.hasSuccessMessage
+ *      hasWarningMessage: cy.openmage.validation.hasWarningMessage,
+ *      fixture: {
+ *          fillFields: (fixture: object, setEmpty?: boolean) => void,
+ *          removeClasses: (fixture: object) => void
+ *      },
+ * }}
  */
 cy.openmage.validation = {
     _messagesContainer: 'div#messages',
     _errorMessage: 'li.error-msg',
     _successMessage: 'li.success-msg',
     _warningMessage: 'li.warning-msg',
+    fixture: {
+        fillFields: (fixture, setEmpty) =>{
+            cy.log('Filling fields from fixture');
+            Object.keys(fixture).forEach(field => {
+                if (setEmpty !== undefined && setEmpty === true) {
+                    cy
+                        .get(fixture[field]._)
+                        .clear({ force: true })
+                        .should('have.value', '');
+                }
+                if (setEmpty !== true && fixture[field].value !== '') {
+                    cy
+                        .get(fixture[field]._)
+                        .type(fixture[field].value, { force: true })
+                        .should('have.value', fixture[field].value);
+                }
+            });
+        },
+        removeClasses: (fixture) =>{
+            cy.log('Removing validation classes from fields');
+            Object.keys(fixture).forEach(field => {
+                cy
+                    .get(fixture[field]._)
+                    .invoke('removeClass');
+            });
+        },
+        validateFields: (fixture, validation, match = 'include.text') =>{
+            cy.log('Checking for fields');
+            Object.keys(fixture).forEach(field => {
+                const selector = validation._error + fixture[field]._.replace(/^\#/, "");
+                cy.get(selector).should(match, validation.error);
+            });
+        },
+    },
     emptyFields: (path, value = '') =>{
         cy.log('Empty fields');
         Object.keys(path.__fields).forEach(field => {
@@ -36,12 +88,11 @@ cy.openmage.validation = {
             }
         });
     },
-    removeClasses: (path, log = 'Removing validation classes from fields') =>{
-        cy.log(log);
+    removeClasses: (path) =>{
+        cy.log('Removing validation classes from fields');
         Object.keys(path.__fields).forEach(field => {
-            const selector = path.__fields[field]._;
             cy
-                .get(selector)
+                .get(path.__fields[field]._)
                 .invoke('removeClass');
         });
     },

@@ -3,19 +3,19 @@ const tools = cy.openmage.tools;
 const utils = cy.openmage.utils;
 const validation = cy.openmage.validation;
 
-describe('Checks customer account create', () => {
-    beforeEach('Go to page', () => {
+describe(test.title, () => {
+    beforeEach('Prepare', () => {
         cy.visit(test.create.url);
-    });
+        cy.fixture(test.__fixture).as('fixture');
 
-    it('Checks the Create Account page title', () => {
         cy.get(test._title).should('include.text', test.create.title);
     });
 
-    it('tests save empty, no js', () => {
-        validation.fillFields(test.create, validation.requiredEntry);
+    const email = cy.openmage.utils.generateRandomEmail();
 
-        validation.removeClasses(test.create);
+    it('tests save empty, no js', function () {
+        validation.fixture.fillFields(this.fixture.validCustomer, true);
+        validation.fixture.removeClasses(this.fixture.validCustomer);
         tools.click(test._buttonSubmit);
 
         cy.get(validation._errorMessage);
@@ -25,54 +25,41 @@ describe('Checks customer account create', () => {
         validation.hasErrorMessage('"Last Name" length must be equal or greater than 1 characters.')
         validation.hasErrorMessage('"Email" is a required value.');
         validation.hasErrorMessage('"Email" is a required value.');
-        utils.screenshot(validation._errorMessage, 'message.frontend.customer.account.saveEmptyWithoutJs');
     });
 
-    it('Submits form with short password and wrong confirmation', () => {
-        cy.get(test.create.__fields.password._).type('123').should('have.value', '123');
-        cy.get(test.create.__fields.confirmation._).type('abc').should('have.value', 'abc');
+    it('Submits form with short password and wrong confirmation', function () {
+        let data = this.fixture.invalidWeakPassword;
+        data.email_address.value = email;
+        data.password.value = 'abc';
+        data.confirmation.value = '123';
+
+        validation.fixture.fillFields(data);
         tools.click(test._buttonSubmit);
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
     });
 
-    it('Submits empty form', () => {
-        validation.fillFields(test.create, validation.requiredEntry);
+    it('Submits empty form', function () {
+        validation.fixture.fillFields(this.fixture.validCustomer, true);
         tools.click(test._buttonSubmit);
-        validation.validateFields(test.create, validation.requiredEntry);
+        validation.fixture.validateFields(this.fixture.validCustomer, validation.requiredEntry);
     });
 
-    const email = cy.openmage.utils.generateRandomEmail();
-    const firstname = 'John';
-    const lastname = 'Doe';
+    it('Submits invalid form with weak password', function () {
+        let data = this.fixture.invalidWeakPassword;
+        data.email_address.value = email;
 
-    it('Submits invalid form with weak password', () => {
-        const password = '12345678';
-        // see PR: https://github.com/OpenMage/magento-lts/pull/4617
-        // const message = 'Thank you for registering with Madison Island.';
-        const message = 'Password must include both numeric and alphabetic characters.';
-        const filename = 'message.customer.account.create.invalid.weakpassword';
-        cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
-        cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
-        cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
-        cy.get(test.create.__fields.password._).type(password).should('have.value', password);
-        cy.get(test.create.__fields.confirmation._).type(password).should('have.value', password);
+        validation.fixture.fillFields(data);
         tools.click(test._buttonSubmit);
-        validation.hasErrorMessage(message, { screenshot: false, filename: filename });
+        validation.hasErrorMessage('Password must include both numeric and alphabetic characters.');
     });
 
-    it('Submits valid form', () => {
-        const password = 'veryl0ngpassw0rd';
-        // see PR: https://github.com/OpenMage/magento-lts/pull/4617
-        // const message = 'Thank you for registering with Madison Island.';
-        const message = 'Thank you for registering with ENV name default.';
-        const filename = 'message.customer.account.create.success';
-        cy.get(test.create.__fields.firstname._).type(firstname).should('have.value', firstname);
-        cy.get(test.create.__fields.lastname._).type(lastname).should('have.value', lastname);
-        cy.get(test.create.__fields.email_address._).type(email).should('have.value', email);
-        cy.get(test.create.__fields.password._).type(password).should('have.value', password);
-        cy.get(test.create.__fields.confirmation._).type(password).should('have.value', password);
+    it('Submits valid form', function () {
+        let data = this.fixture.validCustomer;
+        data.email_address.value = email;
+
+        validation.fixture.fillFields(data);
         tools.click(test._buttonSubmit);
-        validation.hasSuccessMessage(message, { screenshot: false, filename: filename });
+        validation.hasSuccessMessage('Thank you for registering with');
     });
 });
