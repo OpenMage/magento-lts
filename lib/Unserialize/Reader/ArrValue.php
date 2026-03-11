@@ -20,7 +20,7 @@ class Unserialize_Reader_ArrValue
     /**
      * @var int
      */
-    protected $_status;
+    protected $_status = self::NOT_STARTED;
 
     /**
      * @object
@@ -33,7 +33,6 @@ class Unserialize_Reader_ArrValue
 
     public function __construct($key)
     {
-        $this->_status = self::NOT_STARTED;
         $this->key = $key;
     }
 

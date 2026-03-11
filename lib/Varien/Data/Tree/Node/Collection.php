@@ -17,7 +17,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     /**
      * @var Varien_Data_Tree_Node[]
      */
-    private $_nodes;
+    private $_nodes = [];
 
     /**
      * @var Varien_Data_Tree_Node
@@ -30,7 +30,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      */
     public function __construct($container)
     {
-        $this->_nodes = [];
         $this->_container = $container;
     }
 

@@ -16,6 +16,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
 {
     protected $_selectedCategories = [];
 
+    protected $_withProductCount = false;
+
     /**
      * Block construction
      * Defines tree template and init tree params
@@ -24,7 +26,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setTemplate('catalog/category/widget/tree.phtml');
-        $this->_withProductCount = false;
     }
 
     /**
@@ -166,7 +167,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Adds some extra params to categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {
@@ -174,9 +175,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     }
 
     /**
-     * Tree JSON source URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getLoadTreeUrl($expanded = null)
     {

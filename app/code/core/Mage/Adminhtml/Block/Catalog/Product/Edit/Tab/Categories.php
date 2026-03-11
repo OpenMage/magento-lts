@@ -223,10 +223,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     }
 
     /**
-     * Returns URL for loading tree
-     *
-     * @param  null   $expanded deprecated
-     * @return string
+     * @inheritDoc
      */
     public function getLoadTreeUrl($expanded = null)
     {
