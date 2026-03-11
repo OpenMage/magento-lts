@@ -306,7 +306,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function init($options = [])
     {
-        $this->symfonyKernel = new Mage_Core_Model_SymfonyKernel("dev", true);
+        $this->symfonyKernel = new Mage_Core_Model_SymfonyKernel('dev', true);
         $this->symfonyKernel->boot();
         $this->setCacheChecksum(null);
         $this->_cacheLoadedSections = [];

@@ -16,7 +16,7 @@ class Mage_Core_Model_SymfonyKernelCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($this->codeDir, FilesystemIterator::SKIP_DOTS)
+            new RecursiveDirectoryIterator($this->codeDir, FilesystemIterator::SKIP_DOTS),
         );
 
         foreach ($iterator as $file) {
