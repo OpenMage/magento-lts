@@ -71,5 +71,12 @@ trait TemplateTrait
             null,
             $data,
         ];
+
+        $data = $validData;
+        $data['setTemplateType'] = null;
+        yield 'missing template type' => [
+            "You must give a non-empty value for field 'template_type'",
+            $data,
+        ];
     }
 }
