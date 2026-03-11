@@ -243,6 +243,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @var array
      */
     protected $_allowedModules = [];
+    private ?Mage_Core_Model_SymfonyKernel $symfonyKernel = null;
 
     /**
      * Class construct
@@ -305,6 +306,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function init($options = [])
     {
+        $this->symfonyKernel = new Mage_Core_Model_SymfonyKernel("dev", true);
+        $this->symfonyKernel->boot();
         $this->setCacheChecksum(null);
         $this->_cacheLoadedSections = [];
         $this->setOptions($options);
@@ -1496,7 +1499,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModelInstance($modelClass = '', $constructArguments = [])
     {
         $className = $this->getModelClassName($modelClass);
-        if (class_exists($className)) {
+        if($this->symfonyKernel && $this->symfonyKernel->getContainer()->has($className)){
+            return $this->symfonyKernel->getContainer()->get($className);
+        }else if (class_exists($className)) {
             Varien_Profiler::start('CORE::create_object_of::' . $className);
             $obj = new $className($constructArguments);
             Varien_Profiler::stop('CORE::create_object_of::' . $className);

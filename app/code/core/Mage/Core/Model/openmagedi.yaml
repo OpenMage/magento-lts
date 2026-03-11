@@ -1,0 +1,9 @@
+framework:
+  secret: '%env(APP_SECRET)%'
+  test: ~
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
