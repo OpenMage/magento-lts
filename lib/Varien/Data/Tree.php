@@ -148,8 +148,7 @@ class Varien_Data_Tree
      */
     public function getPath($node)
     {
-        if ($node instanceof Varien_Data_Tree_Node) {
-        } elseif (is_numeric($node)) {
+        if (!$node instanceof Varien_Data_Tree_Node && is_numeric($node)) {
             if ($_node = $this->getNodeById($node)) {
                 return $_node->getPath();
             }

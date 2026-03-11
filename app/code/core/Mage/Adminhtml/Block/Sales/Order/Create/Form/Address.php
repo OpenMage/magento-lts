@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Add additional data to form element
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {

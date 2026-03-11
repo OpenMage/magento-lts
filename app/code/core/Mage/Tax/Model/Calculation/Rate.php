@@ -26,7 +26,9 @@
  * @method string                                              getZipFrom()
  * @method int                                                 getZipIsRange()
  * @method string                                              getZipTo()
+ * @method bool                                                hasTaxCountryId()
  * @method bool                                                hasTaxPostcode()
+ * @method bool                                                hasTaxRegionId()
  * @method $this                                               setCode(string $value)
  * @method $this                                               setRate(string $value)
  * @method $this                                               setRegionName(string $value)
@@ -137,7 +139,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     /**
      * Processing object before delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()

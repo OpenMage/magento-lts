@@ -20,7 +20,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setDefaultSort('role_user_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setId('roleUserGrid');
         $this->setDefaultFilter(['in_role_users' => 1]);
         $this->setUseAjax(true);

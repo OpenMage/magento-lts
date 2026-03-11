@@ -28,7 +28,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     /**
      * Map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map              = ['fields' => ['store_id' => 'main_table.store_id']];
 
@@ -67,7 +67,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
-        if (is_array($storeIds) && !empty($storeIds)) {
+
+        if (is_array($storeIds) && $storeIds !== []) {
             $this->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
 

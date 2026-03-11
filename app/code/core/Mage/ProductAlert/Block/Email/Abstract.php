@@ -32,7 +32,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
      * Set Store scope
      *
      * @param  int|Mage_Core_Model_Store|Mage_Core_Model_Website|string $store
-     * @return Mage_ProductAlert_Block_Email_Abstract
+     * @return $this
      */
     public function setStore($store)
     {
