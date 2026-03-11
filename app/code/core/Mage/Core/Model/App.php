@@ -234,8 +234,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    public function __construct() {}
-
     /**
      * Initialize application without request processing
      *
