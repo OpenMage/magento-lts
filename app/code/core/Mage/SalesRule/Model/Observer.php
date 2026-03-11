@@ -209,7 +209,6 @@ class Mage_SalesRule_Model_Observer
         foreach ($collection as $rule) {
             /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var Mage_SalesRule_Model_Rule_Condition_Combine $rule->getConditions() */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
