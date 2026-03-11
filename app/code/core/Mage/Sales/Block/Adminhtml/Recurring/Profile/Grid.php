@@ -109,10 +109,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Return row url for js event handlers
-     *
-     * @param  Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Recurring_Profile $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

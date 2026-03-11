@@ -609,7 +609,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return $value;
         }
 
-        if (is_string($value) && !empty($value)) {
+        if (is_string($value) && $value !== '') {
             return Mage::helper('core/unserializeArray')->unserialize($value);
         }
 

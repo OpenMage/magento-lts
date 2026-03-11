@@ -75,8 +75,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Catalog_Model_Product $row
-     * @return string
      * @throws Exception
      */
     public function getRowUrl($row)

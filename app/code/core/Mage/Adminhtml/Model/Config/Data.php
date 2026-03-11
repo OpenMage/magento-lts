@@ -242,7 +242,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     public function extendConfig($path, $full = true, $oldConfig = [])
     {
         $extended = $this->_getPathConfig($path, $full);
-        if (is_array($oldConfig) && !empty($oldConfig)) {
+        if (is_array($oldConfig) && $oldConfig !== []) {
             return $oldConfig + $extended;
         }
 

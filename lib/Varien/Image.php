@@ -29,9 +29,8 @@ class Varien_Image
     /**
      * Constructor
      *
-     * @param  string $fileName
-     * @param  string $adapter  Default value is GD2
-     * @return void
+     * @param string $fileName
+     * @param string $adapter  Default value is GD2
      */
     public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
     {

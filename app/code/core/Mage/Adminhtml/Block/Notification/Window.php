@@ -10,8 +10,26 @@
 /**
  * @package    Mage_Adminhtml
  *
+ * @method string getCloseText()
+ * @method string getCriticalText()
+ * @method string getHeaderText()
+ * @method string getMajorText()
+ * @method string getMinorText()
+ * @method string getNoticeMessageText()
+ * @method string getNoticeMessageUrl()
  * @method string getNoticeSeverity()
+ * @method string getNoticeText()
+ * @method string getReadDetailsText()
+ * @method $this  setCloseText(string $value)
+ * @method $this  setCriticalText(string $value)
+ * @method $this  setHeaderText(string $value)
+ * @method $this  setMajorText(string $value)
+ * @method $this  setMinorText(string $value)
+ * @method $this  setNoticeMessageText(string $value)
+ * @method $this  setNoticeMessageUrl(string $value)
  * @method $this  setNoticeSeverity(string $value)
+ * @method $this  setNoticeText(string $value)
+ * @method $this  setReadDetailsText(string $value)
  *
  * @property string $_aclResourcePath
  */

@@ -12,8 +12,13 @@
  * Provide date processing functionality
  *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
+ * @method string                                   getBackUrl()
+ * @method Mage_Customer_Model_Address_Abstract     getBillingAddress()
  * @method bool                                     getForceUpdateGridRecords()
  * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
+ * @method Mage_Customer_Model_Address_Abstract     getShippingAddress()
+ * @method $this                                    setBillingAddress(Mage_Customer_Model_Address_Abstract $address)
+ * @method $this                                    setShippingAddress(Mage_Customer_Model_Address_Abstract $address)
  * @method $this                                    setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
@@ -29,7 +34,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      * Processing object after save data
      * Updates relevant grid table records.
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {

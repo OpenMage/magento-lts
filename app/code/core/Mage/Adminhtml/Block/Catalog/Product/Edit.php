@@ -73,9 +73,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label' => Mage::helper('catalog')->__('Save'),
+                        'label'   => Mage::helper('catalog')->__('Save'),
                         'onclick' => 'productForm.submit()',
-                        'class' => 'save',
+                        'class'   => 'save',
                     ]),
             );
         }

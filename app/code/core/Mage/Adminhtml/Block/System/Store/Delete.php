@@ -12,6 +12,8 @@
  * Store / store view / website delete form container
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getStoreTypeTitle()
  */
 class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widget_Form_Container
 {

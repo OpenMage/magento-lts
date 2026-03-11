@@ -13,7 +13,6 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment            _getResource()
- * @method string                                              getBackUrl()
  * @method int                                                 getBillingAddressId()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getCollection()
  * @method int                                                 getCustomerId()
@@ -264,8 +263,8 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  int  $itemId
-     * @return bool
+     * @param  int                                       $itemId
+     * @return null|Mage_Sales_Model_Order_Shipment_Item
      */
     public function getItemById($itemId)
     {
@@ -275,7 +274,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
