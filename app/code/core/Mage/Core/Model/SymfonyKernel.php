@@ -31,8 +31,8 @@ class Mage_Core_Model_SymfonyKernel extends BaseKernel
     }
 
     /**
-     * @phpstan-ignore method.unused (called by MicroKernelTrait)
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+     * @phpstan-ignore method.unused, phpDoc.parseError (called by MicroKernelTrait)
      */
     private function configureContainer(
         ContainerConfigurator $container
