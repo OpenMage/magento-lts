@@ -19,7 +19,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
         parent::__construct();
         $this->setId('permissionsBlockGrid');
         $this->setDefaultSort('block_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
@@ -62,8 +62,9 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Admin_Model_Block $row
-     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
