@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
                     'onclick'   => 'roleForm.submit();return false;',
-                    'class' => 'save',
+                    'class'     => 'save',
                 ]),
         );
 
