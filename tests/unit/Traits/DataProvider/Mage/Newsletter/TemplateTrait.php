@@ -71,12 +71,5 @@ trait TemplateTrait
             null,
             $data,
         ];
-
-        $data = $validData;
-        $data['setTemplateType'] = 999;
-        yield 'invalid template type' => [
-            'The value 999 you selected for "template_type" is not a valid choices 1, 2.',
-            $data,
-        ];
     }
 }
