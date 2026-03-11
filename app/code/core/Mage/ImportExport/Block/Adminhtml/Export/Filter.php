@@ -323,7 +323,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     protected function _prepareColumns()
@@ -421,10 +421,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Get row edit URL.
-     *
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      */
     public function getRowUrl($row)
     {

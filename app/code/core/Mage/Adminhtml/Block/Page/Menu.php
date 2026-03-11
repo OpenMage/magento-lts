@@ -12,8 +12,10 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array getAdditionalCacheKeyInfo()
- * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
+ * @method string getActive()
+ * @method array  getAdditionalCacheKeyInfo()
+ * @method $this  setActive(string $value)
+ * @method $this  setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
@@ -62,7 +64,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
-        if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
+        if (is_array($additionalCacheKeyInfo) && $additionalCacheKeyInfo !== []) {
             return array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
         }
 

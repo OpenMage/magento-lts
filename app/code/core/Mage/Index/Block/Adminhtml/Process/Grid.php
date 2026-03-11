@@ -237,11 +237,9 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Get row edit url
-     *
-     * @param Mage_Index_Model_Process $row
-     *
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Index_Model_Process $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

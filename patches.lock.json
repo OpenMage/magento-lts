@@ -61,26 +61,6 @@
                 "extra": {
                     "provenance": "root"
                 }
-            },
-            {
-                "package": "shardj/zf1-future",
-                "description": "OM-4297 - PHP 8.4 compability",
-                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/OM-4297.patch",
-                "sha256": "c23f5befdb031c11109c134e11d97b7d1170c722aecf84e62942a9e79091025c",
-                "depth": 1,
-                "extra": {
-                    "provenance": "root"
-                }
-            },
-            {
-                "package": "shardj/zf1-future",
-                "description": "PHPSTAN-ZF1F - temporary fixes",
-                "url": "https://raw.githubusercontent.com/OpenMage/magento-lts/de83e28a673e3c1a249b51433abf6dc93e59063c/.vendor-patches/PHPSTAN-ZF1F.patch",
-                "sha256": "0bbf88d953377254379448c309b5cee16ac1585d31f34736b1e533f13a0c2b23",
-                "depth": 1,
-                "extra": {
-                    "provenance": "root"
-                }
             }
         ],
         "magento-ecg/coding-standard": [

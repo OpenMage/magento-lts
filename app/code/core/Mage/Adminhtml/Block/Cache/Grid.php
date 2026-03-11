@@ -113,9 +113,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Get row edit url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getRowUrl($row)
     {

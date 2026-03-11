@@ -12,30 +12,30 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Creditmemo _getResource()
- * @method float                                      getAdjustment()
- * @method float                                      getAdjustmentNegative()
- * @method float                                      getAdjustmentPositive()
- * @method float                                      getBaseAdjustment()
- * @method float                                      getBaseAdjustmentNegative()
- * @method float                                      getBaseAdjustmentPositive()
- * @method float                                      getBaseCost()
- * @method string                                     getBaseCurrencyCode()
- * @method float                                      getBaseCustomerBalanceReturnMax()
- * @method float                                      getBaseDiscountAmount()
- * @method float                                      getBaseGrandTotal()
- * @method float                                      getBaseHiddenTaxAmount()
- * @method float                                      getBaseShippingAmount()
- * @method float                                      getBaseShippingHiddenTaxAmount()
- * @method float                                      getBaseShippingInclTax()
- * @method float                                      getBaseShippingTaxAmount()
- * @method float                                      getBaseSubtotal()
- * @method float                                      getBaseSubtotalInclTax()
- * @method float                                      getBaseTaxAmount()
- * @method float                                      getBaseToGlobalRate()
- * @method float                                      getBaseToOrderRate()
- * @method int                                        getBillingAddressId()
- * @method getCanVoidFlag()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo            _getResource()
+ * @method float                                                 getAdjustment()
+ * @method float                                                 getAdjustmentNegative()
+ * @method float                                                 getAdjustmentPositive()
+ * @method float                                                 getBaseAdjustment()
+ * @method float                                                 getBaseAdjustmentNegative()
+ * @method float                                                 getBaseAdjustmentPositive()
+ * @method float                                                 getBaseCost()
+ * @method string                                                getBaseCurrencyCode()
+ * @method float                                                 getBaseCustomerBalanceReturnMax()
+ * @method float                                                 getBaseDiscountAmount()
+ * @method float                                                 getBaseGrandTotal()
+ * @method float                                                 getBaseHiddenTaxAmount()
+ * @method float                                                 getBaseShippingAmount()
+ * @method float                                                 getBaseShippingHiddenTaxAmount()
+ * @method float                                                 getBaseShippingInclTax()
+ * @method float                                                 getBaseShippingTaxAmount()
+ * @method float                                                 getBaseSubtotal()
+ * @method float                                                 getBaseSubtotalInclTax()
+ * @method float                                                 getBaseTaxAmount()
+ * @method float                                                 getBaseToGlobalRate()
+ * @method float                                                 getBaseToOrderRate()
+ * @method int                                                   getBillingAddressId()
+ * @method bool                                                  getCanVoidFlag()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getCollection()
  * @method int                                                   getCreditmemoStatus()
  * @method string                                                getCybersourceToken()
@@ -957,7 +957,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @return Mage_Sales_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()

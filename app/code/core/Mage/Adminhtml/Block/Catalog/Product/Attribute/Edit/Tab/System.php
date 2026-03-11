@@ -99,10 +99,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_System extends Mag
 
         if ($model->getAttributeId()) {
             $form->getElement('backend_type')->setDisabled(1);
-            if ($model->getIsGlobal()) {
-                #$form->getElement('is_global')->setDisabled(1);
-            }
-        } else {
         }
 
         $this->setForm($form);
