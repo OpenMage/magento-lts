@@ -20,14 +20,8 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     {
         switch ($this->getName()) {
             case 'layoutUpdate':
-                break;
-
             case 'layout':
-                break;
-
             case 'update':
-                break;
-
             case 'remove':
                 break;
 
