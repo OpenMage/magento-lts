@@ -12,9 +12,9 @@
  */
 class Mage_System_Args
 {
-    public $flags;
+    public $flags = [];
 
-    public $filtered;
+    public $filtered = [];
 
     /**
      * Get flags/named options
@@ -40,9 +40,6 @@ class Mage_System_Args
      */
     public function __construct($argv = false)
     {
-        $this->flags = [];
-        $this->filtered = [];
-
         if (false === $argv) {
             $argv = $GLOBALS['argv'];
             array_shift($argv);

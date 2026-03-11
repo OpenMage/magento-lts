@@ -14,14 +14,13 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
-    protected $_withProductCount;
+    protected $_withProductCount = true;
 
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/category/tree.phtml');
         $this->setUseAjax(true);
-        $this->_withProductCount = true;
     }
 
     protected function _prepareLayout()
@@ -116,11 +115,17 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('store_switcher');
     }
 
+    /**
+     * Tree JSON source URL
+     *
+     * @param  null|bool $expanded
+     * @return string
+     */
     public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
         if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
-            || $expanded == true
+            || $expanded
         ) {
             $params['expand_all'] = true;
         }

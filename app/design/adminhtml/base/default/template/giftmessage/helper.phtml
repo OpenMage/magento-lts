@@ -20,14 +20,6 @@
 <?php endif ?>
 <?php switch ($this->getType()): ?>
 <?php case 'item': ?>
-    <a class="listen-for-click" href="#">
-        <?php if($this->hasGiftMessage()): ?>
-        <?php echo Mage::helper('giftmessage')->__('Edit') ?>
-        <?php else: ?>
-        <?php echo Mage::helper('giftmessage')->__('Add') ?>
-        <?php endif ?>
-    </a>
-    <?php break ?>
 <?php case 'order_item': ?>
     <a class="listen-for-click" href="#">
         <?php if($this->hasGiftMessage()): ?>

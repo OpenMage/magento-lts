@@ -20,8 +20,6 @@ class Varien_File_Csv
 
     protected $_escape = '\\';
 
-    public function __construct() {}
-
     /**
      * Set max file line length
      *
