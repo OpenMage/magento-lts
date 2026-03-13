@@ -20,6 +20,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         $this->setId('gridProducts');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Quote_Collection $collection */
@@ -30,6 +33,10 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [

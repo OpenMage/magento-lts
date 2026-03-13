@@ -31,6 +31,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return 'sales/order_creditmemo_grid_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         /** @var Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection $collection */
@@ -52,6 +55,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -98,6 +105,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return Mage::registry('current_order');
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Creditmemo $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl(

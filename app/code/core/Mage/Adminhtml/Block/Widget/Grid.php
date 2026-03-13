@@ -12,8 +12,17 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method $this setSortable(bool $value)
- * @method $this setUseAjax(bool $value)
+ * @method string getCheckboxCheckCallback()
+ * @method bool   getIsCollapsed()
+ * @method string getRowClickCallback()
+ * @method bool   getSortable()
+ * @method bool   getUseAjax()
+ * @method $this  setCheckboxCheckCallback(string $value)
+ * @method $this  setIsCollapsed(bool $value)
+ * @method $this  setRowClickCallback(string $value)
+ * @method $this  setRowInitCallback(string $value)
+ * @method $this  setSortable(bool $value)
+ * @method $this  setUseAjax(bool $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
@@ -73,7 +82,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected $_defaultSort     = false;
 
-    protected $_defaultDir      = 'desc';
+    protected $_defaultDir      = 'DESC';
 
     protected $_defaultFilter   = [];
 
@@ -1000,7 +1009,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param  string $dir
+     * @param  'ASC'|'DESC' $dir
      * @return $this
      */
     public function setDefaultDir($dir)

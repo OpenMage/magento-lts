@@ -10,7 +10,7 @@ test.config = {
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
-    url: 'system_currency/index',
+    url: 'admin/system_currency',
     index: {},
 }
 

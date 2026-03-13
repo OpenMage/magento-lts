@@ -19,15 +19,7 @@ class Varien_Event_Observer_Collection
      *
      * @var array
      */
-    protected $_observers;
-
-    /**
-     * Initializes observers
-     */
-    public function __construct()
-    {
-        $this->_observers = [];
-    }
+    protected $_observers = [];
 
     /**
      * Returns all observers in the collection
