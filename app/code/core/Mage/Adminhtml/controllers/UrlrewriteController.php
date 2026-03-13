@@ -173,11 +173,11 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 $session->addSuccess(Mage::helper('adminhtml')->__('The URL Rewrite has been saved.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage())
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage())
                     ->setUrlrewriteData($data);
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving URL Rewrite.'))
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('adminhtml')->__('An error occurred while saving URL Rewrite.'))
                     ->setUrlrewriteData($data);
                 // return intentionally omitted
             }

@@ -122,11 +122,11 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on update revoke status.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirectBack();
@@ -165,11 +165,11 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on delete application.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirectBack();

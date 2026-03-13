@@ -1090,7 +1090,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 6,
+	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php',
 ];
 $ignoreErrors[] = [

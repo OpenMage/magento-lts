@@ -285,11 +285,11 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
                 $this->_getSession()->addSuccess(
                     Mage::helper('sitemap')->__('The sitemap "%s" has been generated.', $sitemap->getSitemapFilename()),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sitemap')->__('Unable to generate the sitemap.'),
                 );
             }

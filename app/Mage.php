@@ -733,11 +733,11 @@ final class Mage
         } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die;
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die;
-        } catch (Exception $e) {
-            self::printException($e);
+        } catch (Exception $exception) {
+            self::printException($exception);
             die;
         }
     }
@@ -779,25 +779,25 @@ final class Mage
         } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if (self::isInstalled()) {
-                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
-                self::printException($e);
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $exception]);
+                self::printException($exception);
                 exit();
             }
 
             try {
-                self::dispatchEvent('mage_run_exception', ['exception' => $e]);
+                self::dispatchEvent('mage_run_exception', ['exception' => $exception]);
                 if (!headers_sent() && self::isInstalled()) {
                     header('Location:' . self::getUrl('install'));
                 } else {
-                    self::printException($e);
+                    self::printException($exception);
                 }
             } catch (Exception $ne) {
-                self::printException($ne, $e->getMessage());
+                self::printException($ne, $exception->getMessage());
             }
         }
     }

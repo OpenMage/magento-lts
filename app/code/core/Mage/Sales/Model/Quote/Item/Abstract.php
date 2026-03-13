@@ -380,19 +380,19 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
         try {
             $this->setQty($qty);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true);
-            $this->setMessage($e->getMessage());
-        } catch (Exception $e) {
+            $this->setMessage($mageCoreException->getMessage());
+        } catch (Exception) {
             $this->setHasError(true);
             $this->setMessage(Mage::helper('sales')->__('Item qty declaration error.'));
         }
 
         try {
             $this->getProduct()->getTypeInstance(true)->checkProductBuyState($this->getProduct());
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->setHasError(true)
-                ->setMessage($e->getMessage());
+                ->setMessage($mageCoreException->getMessage());
             $this->getQuote()->setHasError(true)
                 ->addMessage(Mage::helper('sales')->__('Some of the products below do not have all the required options.'));
         } catch (Exception) {
