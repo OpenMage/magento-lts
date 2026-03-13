@@ -185,7 +185,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             } catch (Mage_Core_Exception $mageCoreException) {
                 $this->_getSession()->addError($mageCoreException->getMessage());
                 $id = (int) $this->getRequest()->getParam('rule_id');
-                if (!$id) {
+                if ($id) {
                     $this->_redirect('*/*/edit', ['id' => $id]);
                 } else {
                     $this->_redirect('*/*/new');

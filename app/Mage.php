@@ -796,8 +796,8 @@ final class Mage
                 } else {
                     self::printException($exception);
                 }
-            } catch (Exception $ne) {
-                self::printException($ne, $exception->getMessage());
+            } catch (Exception $nestedException) {
+                self::printException($nestedException, $exception->getMessage());
             }
         }
     }
