@@ -10,7 +10,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.fixture(test.__fixture).as('fixture');
     });
 
-    it(`tests save empty values, no js`, () => {
+    it(`tests save empty values, no js`, function() {
         test.index.__buttons.add.click();
         validation.fixture.removeClasses(this.fixture.default);
 
