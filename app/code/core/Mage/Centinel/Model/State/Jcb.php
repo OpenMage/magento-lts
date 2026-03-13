@@ -65,26 +65,15 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
                 return false;
             }
 
-            //Test case 4
+            //Test case 4, 5
             if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07'
                 && $xid != '' && $cavv == '' && $errorNo == '0'
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
-            }
 
-            //Test case 5
-            if ($paResStatus == 'U' && $signatureVerification == 'Y' && $eciFlag == '07'
-                && $xid != '' && $cavv == '' && $errorNo == '0'
-            ) {
-                if ($this->getIsModeStrict()) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
 
             //Test case 10

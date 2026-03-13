@@ -37,10 +37,10 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
-                } else {
-                    foreach (array_keys($line) as $j) {
-                        $fields[$j] = 'column' . ($j + 1);
-                    }
+                }
+
+                foreach (array_keys($line) as $j) {
+                    $fields[$j] = 'column' . ($j + 1);
                 }
             }
 
@@ -84,10 +84,10 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
-                } else {
-                    foreach (array_keys($line) as $j) {
-                        $fields[$j] = 'column' . ($j + 1);
-                    }
+                }
+
+                foreach (array_keys($line) as $j) {
+                    $fields[$j] = 'column' . ($j + 1);
                 }
             }
 

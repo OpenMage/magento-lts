@@ -21,18 +21,23 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         //$this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setDefaultSort('state');
-        $this->setDefaultDir('DESC');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_status_collection');
         $collection->joinStates();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('label', [
@@ -118,6 +123,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Order_Status $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);

@@ -175,11 +175,11 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         if (is_null($toCurrency)) {
             return $price;
-        } else {
-            $rate = $this->getRate($toCurrency);
-            if ($rate) {
-                return $price * $rate;
-            }
+        }
+
+        $rate = $this->getRate($toCurrency);
+        if ($rate) {
+            return $price * $rate;
         }
 
         throw new Exception(Mage::helper('directory')->__(

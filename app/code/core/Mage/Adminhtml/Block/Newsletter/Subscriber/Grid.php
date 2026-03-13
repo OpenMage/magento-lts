@@ -25,19 +25,19 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->setId('subscriberGrid');
         $this->setUseAjax(true);
         $this->setDefaultSort('subscriber_id');
-        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
     }
 
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
+        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         $collection
             ->showCustomerInfo()
             ->addSubscriberTypeField()
@@ -82,19 +82,19 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->addColumn('firstname', [
             'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
             'index'     => 'customer_middlename',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('status', [

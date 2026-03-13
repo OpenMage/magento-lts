@@ -135,9 +135,9 @@ class Mage_Core_Model_File_Validator_Image
                     imagedestroy($img);
                     imagedestroy($image);
                     return null;
-                } else {
-                    throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image.'));
                 }
+
+                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image.'));
             }
         }
 

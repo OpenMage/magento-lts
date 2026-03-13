@@ -19,7 +19,6 @@
  * @method string                                                 getBillingAddressInfo()
  * @method float                                                  getBillingAmount()
  * @method Mage_Sales_Model_Resource_Recurring_Profile_Collection getCollection()
- * @method string                                                 getCreatedAt()
  * @method string                                                 getCurrencyCode()
  * @method int                                                    getCustomerId()
  * @method float                                                  getInitAmount()
@@ -49,12 +48,10 @@
  * @method int                                                    getTrialPeriodFrequency()
  * @method int                                                    getTrialPeriodMaxCycles()
  * @method string                                                 getTrialPeriodUnit()
- * @method string                                                 getUpdatedAt()
  * @method $this                                                  setAdditionalInfo(string $value)
  * @method $this                                                  setBillFailedLater(int $value)
  * @method $this                                                  setBillingAddressInfo(string $value)
  * @method $this                                                  setBillingAmount(float $value)
- * @method $this                                                  setCreatedAt(string $value)
  * @method $this                                                  setCurrencyCode(string $value)
  * @method $this                                                  setCustomerId(int $value)
  * @method $this                                                  setInitAmount(float $value)
@@ -82,7 +79,6 @@
  * @method $this                                                  setTrialPeriodFrequency(int $value)
  * @method $this                                                  setTrialPeriodMaxCycles(int $value)
  * @method $this                                                  setTrialPeriodUnit(string $value)
- * @method $this                                                  setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {

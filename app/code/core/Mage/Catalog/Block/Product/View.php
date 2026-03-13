@@ -227,7 +227,9 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     {
         if (!$addFormKey && $this->hasCustomAddToCartPostUrl()) {
             return $this->getCustomAddToCartPostUrl();
-        } elseif ($this->hasCustomAddToCartUrl()) {
+        }
+
+        if ($this->hasCustomAddToCartUrl()) {
             return $this->getCustomAddToCartUrl();
         }
 

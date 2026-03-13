@@ -197,7 +197,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';

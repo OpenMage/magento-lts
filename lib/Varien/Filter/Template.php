@@ -220,9 +220,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
         if ($this->_getVariable($construction[1], '') == '') {
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     public function ifDirective($construction)
@@ -237,9 +237,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
 
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     /**

@@ -54,9 +54,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     {
         if ($this->useCalendar()) {
             return $this->getCalendarDateHtml();
-        } else {
-            return $this->getDropDownsDateHtml();
         }
+
+        return $this->getDropDownsDateHtml();
     }
 
     /**

@@ -11,6 +11,8 @@
  * Adminhtml order abstract block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool hasOrder()
  */
 class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Widget
 {

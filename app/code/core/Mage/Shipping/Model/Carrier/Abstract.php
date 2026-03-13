@@ -264,21 +264,22 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
             if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
                 return $this;
-            } elseif ($showMethod && (!$availableCountries || ($availableCountries
-                 && !in_array($request->getDestCountryId(), $availableCountries)))
-            ) {
+            }
+
+            if ($showMethod && (!$availableCountries || ($availableCountries
+                 && !in_array($request->getDestCountryId(), $availableCountries)))) {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier($this->_code);
                 $error->setCarrierTitle($this->getConfigData('title'));
                 $errorMsg = $this->getConfigData('specificerrmsg');
                 $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
                 return $error;
-            } else {
-                /*
-                * The admin set not to show the shipping module if the devliery country is not within specific countries
-                */
-                return false;
             }
+
+            /*
+             * The admin set not to show the shipping module if the devliery country is not within specific countries
+             */
+            return false;
         }
 
         return $this;

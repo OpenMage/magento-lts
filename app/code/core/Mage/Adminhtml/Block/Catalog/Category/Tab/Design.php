@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
     /**
      * @return $this
      */
-    public function _prepareLayout()
+    protected function _prepareLayout()
     {
         parent::_prepareLayout();
         $form = new Varien_Data_Form();

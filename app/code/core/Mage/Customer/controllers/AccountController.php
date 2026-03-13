@@ -301,9 +301,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
                 return;
-            } else {
-                $this->_addSessionError($errors);
             }
+
+            $this->_addSessionError($errors);
         } catch (Mage_Core_Exception $e) {
             $session->setCustomerFormData($this->getRequest()->getPost());
             if ($e->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {

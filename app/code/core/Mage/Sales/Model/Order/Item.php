@@ -40,7 +40,6 @@
  * @method float                                           getBaseWeeeTaxDisposition()
  * @method float                                           getBaseWeeeTaxRowDisposition()
  * @method Mage_Sales_Model_Resource_Order_Item_Collection getCollection()
- * @method string                                          getCreatedAt()
  * @method string                                          getDescription()
  * @method float                                           getDiscountAmount()
  * @method float                                           getDiscountInvoiced()
@@ -91,7 +90,6 @@
  * @method float                                           getTaxInvoiced()
  * @method float                                           getTaxPercent()
  * @method float                                           getTaxRefunded()
- * @method string                                          getUpdatedAt()
  * @method string                                          getWeeeTaxApplied()
  * @method float                                           getWeeeTaxAppliedAmount()
  * @method float                                           getWeeeTaxAppliedRowAmount()
@@ -123,7 +121,6 @@
  * @method $this                                           setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method $this                                           setBaseWeeeTaxDisposition(float $value)
  * @method $this                                           setBaseWeeeTaxRowDisposition(float $value)
- * @method $this                                           setCreatedAt(string $value)
  * @method $this                                           setDescription(string $value)
  * @method $this                                           setDiscountAmount(float $value)
  * @method $this                                           setDiscountInvoiced(float $value)
@@ -175,7 +172,6 @@
  * @method $this                                           setTaxInvoiced(float $value)
  * @method $this                                           setTaxPercent(float $value)
  * @method $this                                           setTaxRefunded(float $value)
- * @method $this                                           setUpdatedAt(string $value)
  * @method $this                                           setWeeeTaxApplied(string $value)
  * @method $this                                           setWeeeTaxAppliedAmount(float $value)
  * @method $this                                           setWeeeTaxAppliedRowAmount(float $value)
@@ -859,9 +855,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
         }
 
         return $totalDiscount;
@@ -883,9 +879,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
-            } else {
-                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
+
+            $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
         }
 
         return $totalDiscount;

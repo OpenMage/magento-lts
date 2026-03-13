@@ -14,7 +14,6 @@
  *
  * @method Mage_Review_Model_Resource_Review            _getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
- * @method string                                       getCreatedAt()
  * @method array                                        getCustomerId()
  * @method string                                       getDetail()
  * @method int                                          getEntityPkValue()
@@ -26,7 +25,6 @@
  * @method int                                          getStoreId()
  * @method array                                        getStores()
  * @method string                                       getTitle()
- * @method $this                                        setCreatedAt(string $value)
  * @method $this                                        setCustomerId(int $value)
  * @method $this                                        setEntityId(int $value)
  * @method $this                                        setEntityPkValue(int $value)
@@ -167,7 +165,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Perform actions after object delete
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDeleteCommit()
     {
@@ -209,7 +207,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()

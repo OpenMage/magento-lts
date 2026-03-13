@@ -80,6 +80,12 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+
+    public function getTab(string $tabId): null|Mage_Adminhtml_Block_Widget_Tab_Interface|Varien_Object
+    {
+        return $this->_tabs[$tabId] ?? null;
+    }
+
     /**
      * Add new tab after another
      *
@@ -234,9 +240,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
             $degree++;
             return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
-        } else {
-            return $currentAfterTabId;
         }
+
+        return $currentAfterTabId;
     }
 
     /**

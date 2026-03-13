@@ -1480,7 +1480,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param  float                                $discountAmount
      * @param  float                                $weeeAmountIncludingTax
      * @param  float                                $weeeAmountExclTax
-     * @return mixed
+     * @return float|int
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getWeeeTax($rate, $item, $discountAmount, $weeeAmountIncludingTax, $weeeAmountExclTax)
@@ -1493,9 +1493,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             if (!$discountAmount || $discountAmount <= 0) {
                 //We want to skip the re calculation and return the difference
                 return max($weeeAmountIncludingTax - $weeeAmountExclTax, 0);
-            } else {
-                return $this->_calculator->calcTaxAmount($weeeAmountIncludingTax - $discountAmount, $rate, true, true);
             }
+
+            return $this->_calculator->calcTaxAmount($weeeAmountIncludingTax - $discountAmount, $rate, true, true);
         }
 
         $discountAmount = $discountAmount ? $discountAmount : 0;

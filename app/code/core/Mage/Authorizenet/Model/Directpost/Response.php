@@ -47,7 +47,9 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
         if (!empty($xSHA2Hash)) {
             $hash = $this->generateSha2Hash($storedHash);
             return $hash == $this->getData('x_SHA2_Hash');
-        } elseif (!empty($xMD5Hash)) {
+        }
+
+        if (!empty($xMD5Hash)) {
             $hash = $this->generateHash($storedHash, $merchantApiLogin, $this->getXAmount(), $this->getXTransId());
             return $hash == $this->getData('x_MD5_Hash');
         }

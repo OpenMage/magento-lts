@@ -490,9 +490,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if (empty($selfOptions) && !empty($buyRequest)) {
             if (!$product->isComposite()) {
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         $requestArray = $buyRequest->getData();

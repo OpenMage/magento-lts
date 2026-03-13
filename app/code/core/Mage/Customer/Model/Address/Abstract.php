@@ -136,16 +136,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         $street = parent::getData('street');
         if ($line === -1) {
             return $street;
-        } else {
-            $arr = is_array($street) ? $street : explode("\n", (string) $street);
-            if ($line === 0 || $line === null) {
-                return $arr;
-            } elseif (isset($arr[$line - 1])) {
-                return $arr[$line - 1];
-            } else {
-                return '';
-            }
         }
+
+        $arr = is_array($street) ? $street : explode("\n", (string) $street);
+        if ($line === 0 || $line === null) {
+            return $arr;
+        }
+
+        return $arr[$line - 1] ?? '';
     }
 
     /**

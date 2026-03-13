@@ -234,8 +234,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    public function __construct() {}
-
     /**
      * Initialize application without request processing
      *
@@ -933,9 +931,9 @@ class Mage_Core_Model_App
             if ($this->_currentStore) {
                 $this->getRequest()->setActionName('noRoute');
                 return new Varien_Object();
-            } else {
-                Mage::throwException(Mage::helper('core')->__('Requested invalid store "%s"', $id));
             }
+
+            Mage::throwException(Mage::helper('core')->__('Requested invalid store "%s"', $id));
         }
     }
 
@@ -1461,11 +1459,11 @@ class Mage_Core_Model_App
 
             if ($events[$eventName] === false) {
                 continue;
-            } else {
-                $event = new Varien_Event($args);
-                $event->setName($eventName);
-                $observer = new Varien_Event_Observer();
             }
+
+            $event = new Varien_Event($args);
+            $event->setName($eventName);
+            $observer = new Varien_Event_Observer();
 
             foreach ($events[$eventName]['observers'] as $obsName => $obs) {
                 $observer->setData(['event' => $event]);

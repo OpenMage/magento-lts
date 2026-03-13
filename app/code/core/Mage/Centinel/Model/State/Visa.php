@@ -66,9 +66,9 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
 
             //Test case 5
@@ -77,9 +77,9 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
 
             //Test case 11
@@ -88,21 +88,21 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
         }
 
         //Test cases 6-10
         if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == ''
-                && $xid == '' && $cavv == '' && $errorNo == '0'
-            ) {
+                && $xid == '' && $cavv == '' && $errorNo == '0') {
                 return true;
-            } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false
-                && $xid == false && $cavv == false && $errorNo == false
-            ) {
+            }
+
+            if ($paResStatus == false && $signatureVerification == false && $eciFlag == false
+                && $xid == false && $cavv == false && $errorNo == false) {
                 return true;
             }
         }

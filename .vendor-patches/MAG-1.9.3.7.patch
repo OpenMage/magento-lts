@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Form/Decorator/Form.php
 +++ ../library/Zend/Form/Decorator/Form.php
 @@ -129,6 +129,12 @@
          $attribs       = $this->getOptions();

@@ -19,10 +19,9 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     /**
      * @inheritDoc
      */
-    protected $_messageTemplates;
+    protected $_messageTemplates = [];
 
     protected array $haystack = [];
-
 
     public function __construct()
     {
@@ -30,9 +29,6 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
         $this->haystack = $helper->getInputTypesValidatorData();
-
-        //reset message template and set custom
-        $this->_messageTemplates = [];
         $this->_initMessageTemplates();
     }
 
@@ -53,6 +49,9 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isValid($value)
     {
         $this->_setValue($value);

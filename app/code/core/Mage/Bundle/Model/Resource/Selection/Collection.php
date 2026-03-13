@@ -36,7 +36,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
      *
      * @return $this
      */
-    public function _afterLoad()
+    protected function _afterLoad()
     {
         parent::_afterLoad();
         if ($this->getStoreId() && $this->_items) {

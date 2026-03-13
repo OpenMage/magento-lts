@@ -67,8 +67,8 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 
         if (is_string($html)) {
             return $html;
-        } else {
-            return $directOutput;
         }
+
+        return $directOutput;
     }
 }

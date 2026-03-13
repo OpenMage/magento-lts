@@ -96,8 +96,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
 
         if ($this->getValue() == '_deleted_') {
             return ['null' => true];
-        } else {
-            return ['eq' => $this->getValue()];
         }
+
+        return ['eq' => $this->getValue()];
     }
 }

@@ -18,6 +18,29 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 {
     public const DIMENSIONS_SEPARATOR = 'x';
 
+
+    /**
+     * Always ask to copy images on duplicated product
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_ASK = -1;
+
+    /**
+     * Copy images to the new product
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_COPY = 0;
+
+
+    /**
+     * Always ask
+     *
+     * @var int
+     */
+    public const ON_DUPLICATE_SKIP = 1;
+
     /**
      * Requested width for the scaled image
      * @var int
@@ -831,8 +854,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         if (file_exists($filename)) {
             return true;
-        } else {
-            return Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
+
+        return Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
     }
 }

@@ -371,9 +371,9 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if ($this->_taxHelper->isCrossBorderTradeEnabled($store)) {
             //If cross border trade is enabled, we will use customer tax rate as store tax rate
             return $this->getRateRequest(null, null, null, $store);
-        } else {
-            return $this->getRateOriginRequest($store);
         }
+
+        return $this->getRateOriginRequest($store);
     }
 
     /**
@@ -441,7 +441,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address = $this->getRateOriginRequest($store);
                 break;
             case 'default':
-                /** @var Mage_Sales_Model_Quote_Address|Varien_Object $address */
+                /** @var Mage_Sales_Model_Quote_Address $address */
                 $address
                     ->setCountryId(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,

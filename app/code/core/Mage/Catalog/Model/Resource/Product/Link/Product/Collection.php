@@ -323,7 +323,9 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         if ($attribute == 'position') {
             return $this->setPositionOrder($dir);
-        } elseif ($attribute == 'attribute_set_id') {
+        }
+
+        if ($attribute == 'attribute_set_id') {
             return $this->setAttributeSetIdOrder($dir);
         }
 

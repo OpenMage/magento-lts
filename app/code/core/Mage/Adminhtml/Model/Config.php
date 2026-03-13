@@ -138,9 +138,13 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
-        } elseif ($websiteCode) {
+        }
+
+        if ($websiteCode) {
             return  $this->getSections()->$websiteCode;
-        } elseif ($storeCode) {
+        }
+
+        if ($storeCode) {
             return  $this->getSections()->$storeCode;
         }
     }

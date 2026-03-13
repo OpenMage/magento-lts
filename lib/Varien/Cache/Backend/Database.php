@@ -139,9 +139,9 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             }
 
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -159,9 +159,9 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->where('id=:cache_id')
                 ->where('expire_time=0 OR expire_time>?', Carbon::now()->getTimestamp());
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -361,9 +361,9 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $select = $this->_getAdapter()->select()
                 ->from($this->_getDataTable(), 'id');
             return $this->_getAdapter()->fetchCol($select);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -494,9 +494,9 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ['expire_time' => new Zend_Db_Expr('expire_time+' . $extraLifetime)],
                 ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => Carbon::now()->getTimestamp()],
             );
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     /**

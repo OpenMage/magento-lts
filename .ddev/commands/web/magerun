@@ -8,7 +8,7 @@ if [ ! -f vendor/bin/n98-magerun ]; then
   read -r -p "n98-magerun is not installed. Do you want to install it? [y/N] " INSTALL_MAGERUN
   INSTALL_MAGERUN=${INSTALL_MAGERUN,,} # to lower
   if [[ "${INSTALL_MAGERUN}" =~ ^(yes|y) ]]; then
-    composer require --dev n98/magerun:dev-develop
+    composer require --dev n98/magerun
   else
     exit 1
   fi

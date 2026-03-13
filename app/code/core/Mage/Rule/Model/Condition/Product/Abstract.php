@@ -498,13 +498,14 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
-        } elseif (!isset($this->_entityAttributeValues[$object->getId()])) {
+        }
+
+        if (!isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {
                 return false;
             }
 
             $attr = $object->getResource()->getAttribute($attrCode);
-
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
                 $this->setValue(Carbon::parse($this->getValue())->getTimestamp());
                 $value = Carbon::parse($object->getData($attrCode))->getTimestamp();
@@ -518,35 +519,35 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             }
 
             return parent::validate($object);
-        } else {
-            $result = false; // any valid value will set it to TRUE
-            // remember old attribute state
-            $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null;
-
-            foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
-                $attr = $object->getResource()->getAttribute($attrCode);
-                if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = Carbon::parse($value)->getTimestamp();
-                } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
-                    $value = strlen($value) ? explode(',', $value) : [];
-                }
-
-                $object->setData($attrCode, $value);
-                $result |= parent::validate($object);
-
-                if ($result) {
-                    break;
-                }
-            }
-
-            if (is_null($oldAttrValue)) {
-                $object->unsetData($attrCode);
-            } else {
-                $object->setData($attrCode, $oldAttrValue);
-            }
-
-            return (bool) $result;
         }
+
+        $result = false;
+        // any valid value will set it to TRUE
+        // remember old attribute state
+        $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null;
+        foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
+            $attr = $object->getResource()->getAttribute($attrCode);
+            if ($attr && $attr->getBackendType() == 'datetime') {
+                $value = Carbon::parse($value)->getTimestamp();
+            } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
+                $value = strlen($value) ? explode(',', $value) : [];
+            }
+
+            $object->setData($attrCode, $value);
+            $result |= parent::validate($object);
+
+            if ($result) {
+                break;
+            }
+        }
+
+        if (is_null($oldAttrValue)) {
+            $object->unsetData($attrCode);
+        } else {
+            $object->setData($attrCode, $oldAttrValue);
+        }
+
+        return (bool) $result;
     }
 
     /**

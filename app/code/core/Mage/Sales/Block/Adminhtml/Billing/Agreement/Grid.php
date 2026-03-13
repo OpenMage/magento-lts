@@ -23,7 +23,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->setId('billing_agreements');
         $this->setUseAjax(true);
         $this->setDefaultSort('agreement_id');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -51,7 +50,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -64,7 +63,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     /**
      * Add columns to grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {

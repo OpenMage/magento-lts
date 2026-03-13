@@ -22,7 +22,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         parent::__construct();
         $this->setId('customer_view_cart_grid');
         $this->setDefaultSort('added_at');
-        $this->setDefaultDir('desc');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
@@ -89,10 +88,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrieve row url
-     *
-     * @param  Mage_Sales_Model_Quote_Item $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote_Item $row
      */
     public function getRowUrl($row)
     {

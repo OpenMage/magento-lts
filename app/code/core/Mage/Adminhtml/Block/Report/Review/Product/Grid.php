@@ -19,9 +19,11 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         parent::__construct();
         $this->setId('gridProducts');
         $this->setDefaultSort('review_cnt');
-        $this->setDefaultDir('desc');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_product_collection')
@@ -32,6 +34,10 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -88,6 +94,11 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Catalog_Model_Product $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product_review/', ['productId' => $row->getId()]);

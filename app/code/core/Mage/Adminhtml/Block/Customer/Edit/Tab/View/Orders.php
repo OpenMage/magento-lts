@@ -22,7 +22,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         parent::__construct();
         $this->setId('customer_view_orders_grid');
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('desc');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
