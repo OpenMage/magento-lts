@@ -173,7 +173,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             ) {
                 $fieldType      = $inputType;
                 $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
-                if (!empty($rendererClass)) {
+                if (is_string($rendererClass) && $rendererClass !== '') {
                     $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
                     $fieldset->addType($fieldType, $rendererClass);
                 }
