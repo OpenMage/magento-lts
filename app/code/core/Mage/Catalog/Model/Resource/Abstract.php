@@ -407,7 +407,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete global scope attributes
          */
-        if (!empty($globalValues)) {
+        if ($globalValues !== []) {
             $adapter->delete($table, ['value_id IN (?)' => $globalValues]);
         }
 
@@ -419,9 +419,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete website scope attributes
          */
-        if (!empty($websiteAttributes)) {
+        if ($websiteAttributes !== []) {
             $storeIds = $object->getWebsiteStoreIds();
-            if (!empty($storeIds)) {
+            if ($storeIds !== []) {
                 $delCondition = $condition;
                 $delCondition['attribute_id IN(?)'] = $websiteAttributes;
                 $delCondition['store_id IN(?)'] = $storeIds;
@@ -433,7 +433,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Delete store scope attributes
          */
-        if (!empty($storeAttributes)) {
+        if ($storeAttributes !== []) {
             $delCondition = $condition;
             $delCondition['attribute_id IN(?)'] = $storeAttributes;
             $delCondition['store_id = ?']       = (int) $object->getStoreId();
@@ -495,7 +495,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 }
             }
 
-            if (!empty($globalAttributeIds)) {
+            if ($globalAttributeIds !== []) {
                 $where .= ' or ' . $this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
             }
 
@@ -503,7 +503,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
             $values = $this->_getReadAdapter()->fetchAll($select);
 
-            if (empty($values)) {
+            if ($values === []) {
                 continue;
             }
 
@@ -554,11 +554,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     }
 
     /**
-     * Prepare value for save
-     *
-     * @param  mixed                                     $value
-     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return mixed
+     * @inheritDoc
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
