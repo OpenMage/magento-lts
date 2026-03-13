@@ -156,9 +156,9 @@ class Varien_Date
         if ($date instanceof Zend_Date) {
             if ($includeTime) {
                 return $date->toString(self::DATETIME_INTERNAL_FORMAT);
-            } else {
-                return $date->toString(self::DATE_INTERNAL_FORMAT);
             }
+
+            return $date->toString(self::DATE_INTERNAL_FORMAT);
         }
 
         if (empty($date)) {

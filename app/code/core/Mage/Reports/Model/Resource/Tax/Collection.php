@@ -17,7 +17,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     /**
      * Set row identifier field name
      */
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
         $this->setRowIdFieldName('tax_id');

@@ -304,10 +304,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 Mage::getSingleton('adminhtml/session')->getCommentText(true);
                 $this->_redirect('*/sales_order/view', ['order_id' => $creditmemo->getOrderId()]);
                 return;
-            } else {
-                $this->_forward('noRoute');
-                return;
             }
+
+            $this->_forward('noRoute');
+            return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             Mage::getSingleton('adminhtml/session')->setFormData($data);

@@ -139,7 +139,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if ($item instanceof Mage_Sales_Model_Quote_Item) {
             return $item;
-        } elseif (is_numeric($item)) {
+        }
+
+        if (is_numeric($item)) {
             return $this->getSession()->getQuote()->getItemById($item);
         }
 
@@ -1655,7 +1657,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         foreach ($items as $item) {
             $messages = $item->getMessage(false);
-            if ($item->getHasError() && is_array($messages) && !empty($messages)) {
+            if ($item->getHasError() && is_array($messages) && $messages !== []) {
                 $this->_errors = array_merge($this->_errors, $messages);
             }
         }

@@ -547,13 +547,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     public function getCustomerId($email, $websiteCode)
     {
-        if (isset($this->_oldCustomers[$email][$websiteCode])) {
-            return $this->_oldCustomers[$email][$websiteCode];
-        } elseif (isset($this->_newCustomers[$email][$websiteCode])) {
-            return $this->_newCustomers[$email][$websiteCode];
-        } else {
-            return null;
-        }
+        return $this->_oldCustomers[$email][$websiteCode] ?? $this->_newCustomers[$email][$websiteCode] ?? null;
     }
 
     /**

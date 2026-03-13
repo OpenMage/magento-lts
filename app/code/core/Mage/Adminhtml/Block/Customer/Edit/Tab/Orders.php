@@ -22,7 +22,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         parent::__construct();
         $this->setId('customer_orders_grid');
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
     }
 
@@ -112,8 +111,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param  Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {

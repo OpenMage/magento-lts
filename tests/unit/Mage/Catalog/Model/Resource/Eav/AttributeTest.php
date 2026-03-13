@@ -21,7 +21,7 @@ final class AttributeTest extends OpenMageTest
 
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = Mage::getModel('catalog/resource_eav_attribute');
     }

@@ -108,10 +108,10 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             if (($callback = $helper->getFullCallbackUrl($token))) { //false in case of OOB
                 $this->_redirectUrl($callback . ($simple ? '&simple=1' : ''));
                 return $this;
-            } else {
-                $block->setVerifier($token->getVerifier());
-                $session->addSuccess($this->__('Authorization confirmed.'));
             }
+
+            $block->setVerifier($token->getVerifier());
+            $session->addSuccess($this->__('Authorization confirmed.'));
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
         } catch (Mage_Oauth_Exception $e) {
@@ -153,9 +153,9 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             if (($callback = $helper->getFullCallbackUrl($token, true))) {
                 $this->_redirectUrl($callback . ($simple ? '&simple=1' : ''));
                 return $this;
-            } else {
-                $session->addNotice($this->__('The application access request is rejected.'));
             }
+
+            $session->addNotice($this->__('The application access request is rejected.'));
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
         } catch (Exception $e) {

@@ -823,31 +823,31 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
 
             return $result;
-        } else {
-            $result = Mage::getModel('shipping/rate_result');
-            if ($this->_dhlRates) {
-                foreach ($this->_dhlRates as $rate) {
-                    $method = $rate['service'];
-                    $data = $rate['data'];
-                    $rate = Mage::getModel('shipping/rate_result_method');
-                    $rate->setCarrier('dhl');
-                    $rate->setCarrierTitle($this->getConfigData('title'));
-                    $rate->setMethod($method);
-                    $rate->setMethodTitle($data['term']);
-                    $rate->setCost($data['price_total']);
-                    $rate->setPrice($data['price_total']);
-                    $result->append($rate);
-                }
-            } elseif (!empty($this->_errors)) {
-                $error = Mage::getModel('shipping/rate_result_error');
-                $error->setCarrier('dhl');
-                $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-                $result->append($error);
-            }
-
-            return $result;
         }
+
+        $result = Mage::getModel('shipping/rate_result');
+        if ($this->_dhlRates) {
+            foreach ($this->_dhlRates as $rate) {
+                $method = $rate['service'];
+                $data = $rate['data'];
+                $rate = Mage::getModel('shipping/rate_result_method');
+                $rate->setCarrier('dhl');
+                $rate->setCarrierTitle($this->getConfigData('title'));
+                $rate->setMethod($method);
+                $rate->setMethodTitle($data['term']);
+                $rate->setCost($data['price_total']);
+                $rate->setPrice($data['price_total']);
+                $result->append($rate);
+            }
+        } elseif (!empty($this->_errors)) {
+            $error = Mage::getModel('shipping/rate_result_error');
+            $error->setCarrier('dhl');
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+            $result->append($error);
+        }
+
+        return $result;
     }
 
     /**
@@ -925,10 +925,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             ],
 
         ];
-
         if (!isset($codes[$type])) {
             return false;
-        } elseif ($code === '') {
+        }
+
+        if ($code === '') {
             return $codes[$type];
         }
 

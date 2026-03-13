@@ -66,9 +66,9 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
             ) {
                 if ($this->getIsModeStrict()) {
                     return false;
-                } else {
-                    return true;
                 }
+
+                return true;
             }
 
             //Test case 10
@@ -82,12 +82,12 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         //Test cases 5-9
         if (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             if ($paResStatus == '' && $signatureVerification == '' && $eciFlag == ''
-                && $xid == '' && $cavv == '' && $errorNo == '0'
-            ) {
+                && $xid == '' && $cavv == '' && $errorNo == '0') {
                 return true;
-            } elseif ($paResStatus == false && $signatureVerification == false && $eciFlag == false
-                && $xid == false && $cavv == false && $errorNo == false
-            ) {
+            }
+
+            if ($paResStatus == false && $signatureVerification == false && $eciFlag == false
+                && $xid == false && $cavv == false && $errorNo == false) {
                 return true;
             }
         }

@@ -216,8 +216,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $sourceFile = realpath($tmpPath);
         if ($sourceFile !== false) {
             return copy($sourceFile, $destPath);
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

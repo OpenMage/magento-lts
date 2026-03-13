@@ -99,14 +99,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Get row URL
-     *
-     * @param  Mage_Api2_Model_Acl_Global_Role $row
-     * @return null|string
+     * @inheritDoc
+     * @param Mage_Api2_Model_Acl_Global_Role $row
      */
     public function getRowUrl($row)
     {
-        return null;
+        return '';
     }
 
     /**
@@ -154,7 +152,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      *
      * @return string
      */
-    public function _toHtml()
+    protected function _toHtml()
     {
         if (!$this->isHidden()) {
             return parent::_toHtml();

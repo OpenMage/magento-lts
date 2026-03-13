@@ -364,11 +364,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         }
 
         $arr = $this->getCode('originShipment', $origin);
-        if (isset($arr[$code])) {
-            return $arr[$code];
-        } else {
-            return false;
-        }
+        return $arr[$code] ?? false;
     }
 
     /**
@@ -663,10 +659,11 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                 ],
             ],
         ];
-
         if (!isset($codes[$type])) {
             return false;
-        } elseif ($code === '') {
+        }
+
+        if ($code === '') {
             return $codes[$type];
         }
 
@@ -2022,10 +2019,10 @@ XMLAuth;
             $xmlResponse = curl_exec($ch);
             if ($xmlResponse === false) {
                 throw new Exception(curl_error($ch));
-            } else {
-                $debugData['result'] = $xmlResponse;
-                $this->_setCachedQuotes($xmlRequest, $xmlResponse);
             }
+
+            $debugData['result'] = $xmlResponse;
+            $this->_setCachedQuotes($xmlRequest, $xmlResponse);
         }
 
         try {
@@ -2045,9 +2042,9 @@ XMLAuth;
 
         if ($result->hasErrors() || empty($response)) {
             return $result;
-        } else {
-            return $this->_sendShipmentAcceptRequest($response);
         }
+
+        return $this->_sendShipmentAcceptRequest($response);
     }
 
     /**
@@ -2064,12 +2061,10 @@ XMLAuth;
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
-
         if (($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID)
             || ($countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
             || ($countryShipper == self::MEXICO_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
-            && $method == '11' // UPS Standard
-        ) {
+            && $method == '11') {
             $containerTypes = [];
             // 07: UPS Worldwide Express
             // 08: UPS Worldwide Expedited
@@ -2093,12 +2088,13 @@ XMLAuth;
             }
 
             return ['00' => Mage::helper('usa')->__('Customer Packaging')] + $containerTypes;
-        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
+        }
+
+        if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
             // 03: UPS Ground
             // 02: UPS Second Day Air
             // 01: UPS Next Day Air
-            && (in_array($method, ['03', '02', '01']))
-        ) {
+            && (in_array($method, ['03', '02', '01']))) {
             // Container types should be the same as for domestic
             $params->setCountryRecipient(self::USA_COUNTRY_ID);
             $containerTypes = $this->_getAllowedContainers($params);

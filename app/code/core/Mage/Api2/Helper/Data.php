@@ -171,12 +171,16 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (Mage_Api2_Model_Resource::OPERATION_RETRIEVE === $operation) {
             return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } else {
-            throw new Exception('Can not determine operation type');
         }
+
+        if (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        if (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        throw new Exception('Can not determine operation type');
     }
 }

@@ -34,12 +34,10 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      *
      * @param  string    $path        - path to directory
      * @param  bool      $isRecursion - use or not recursion
-     * @return void
      * @throws Exception
      */
     public function __construct($path, $isRecursion = true, $recursionLevel = 0)
     {
-        parent::__construct();
         $this->setPath($path);
         $this->_dirName = $this->lastDir();
         $this->setRecursion($isRecursion);
@@ -440,11 +438,9 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
 
     /**
-     * Add a filter to the collection.
-     *
-     * @return $this
+     * @inheritDoc
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];
         $filter['field']   = $field;

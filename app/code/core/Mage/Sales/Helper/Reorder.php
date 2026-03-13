@@ -52,8 +52,8 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $order->canReorder();
-        } else {
-            return true;
         }
+
+        return true;
     }
 }

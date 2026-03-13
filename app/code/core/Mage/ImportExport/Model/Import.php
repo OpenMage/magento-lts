@@ -176,11 +176,13 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         if ($attribute->usesSource()) {
             return $attribute->getFrontendInput() == 'multiselect'
                 ? 'multiselect' : 'select';
-        } elseif ($attribute->isStatic()) {
-            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
-        } else {
-            return $attribute->getBackendType();
         }
+
+        if ($attribute->isStatic()) {
+            return $attribute->getFrontendInput() == 'date' ? 'datetime' : 'varchar';
+        }
+
+        return $attribute->getBackendType();
     }
 
     /**

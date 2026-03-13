@@ -146,10 +146,9 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 
     /**
      * @param  int|string $in
-     * @param  null       $offset deprecated
      * @return string
      */
-    private function _date($in, $offset = null)
+    private function _date($in)
     {
         $out = $in;
         if (is_numeric($in)) {
@@ -161,10 +160,9 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 
     /**
      * @param  int|string $in
-     * @param  null       $offset deprecated
      * @return int
      */
-    private function _timestamp($in, $offset = null)
+    private function _timestamp($in)
     {
         $out = $in;
         if (!is_numeric($in)) {

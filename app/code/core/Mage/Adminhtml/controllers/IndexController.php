@@ -250,9 +250,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                             );
                         $this->_redirect('*/*/login');
                         return;
-                    } else {
-                        $this->_getSession()->addError($this->__('Invalid email address.'));
                     }
+
+                    $this->_getSession()->addError($this->__('Invalid email address.'));
                 } else {
                     $this->_getSession()->addError($this->__('The email address is empty.'));
                 }

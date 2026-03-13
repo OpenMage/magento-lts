@@ -350,10 +350,10 @@ class Mage_CatalogInventory_Model_Observer
                     Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.'),
                 );
                 return $this;
-            } else {
-                // Delete error from item and its quote, if it was set due to item out of stock
-                $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
             }
+
+            // Delete error from item and its quote, if it was set due to item out of stock
+            $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
         }
 
         /**

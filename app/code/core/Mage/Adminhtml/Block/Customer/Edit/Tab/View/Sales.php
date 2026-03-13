@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function _beforeToHtml()
+    protected function _beforeToHtml()
     {
         $this->_currency = Mage::getModel('directory/currency')
             ->load(Mage_Directory_Helper_Data::getConfigCurrencyBase());

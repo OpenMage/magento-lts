@@ -124,10 +124,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             if ($this->getVar('fieldnames')) {
                 $this->_fields = $line;
                 return;
-            } else {
-                foreach ($line as $j => $f) {
-                    $this->_fields[$j] = $this->_mapfields[$j];
-                }
+            }
+
+            foreach ($line as $j => $f) {
+                $this->_fields[$j] = $this->_mapfields[$j];
             }
         }
 

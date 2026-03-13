@@ -93,10 +93,11 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
     {
         if ($this->getIsIndependentMode()) {
             $ratings = $this->getRequest()->getParam('ratings');
-
             if (isset($ratings[$option->getRatingId()])) {
                 return $option->getId() == $ratings[$option->getRatingId()];
-            } elseif (!$this->_voteCollection) {
+            }
+
+            if (!$this->_voteCollection) {
                 return false;
             }
         }

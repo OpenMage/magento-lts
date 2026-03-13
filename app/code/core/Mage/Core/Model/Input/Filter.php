@@ -173,9 +173,9 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     {
         if ($name === null) {
             return $this->_filters;
-        } else {
-            return $this->_filters[$name] ?? null;
         }
+
+        return $this->_filters[$name] ?? null;
     }
 
     /**

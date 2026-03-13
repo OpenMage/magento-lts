@@ -398,9 +398,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                 }
 
                 return self::$_priceRulesData[$cacheKey] = $priceRules;
-            } else {
-                self::$_priceRulesData[$cacheKey] = null;
             }
+
+            self::$_priceRulesData[$cacheKey] = null;
         } else {
             return self::$_priceRulesData[$cacheKey];
         }

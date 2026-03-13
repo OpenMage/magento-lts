@@ -41,19 +41,19 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @return Mage_Rule_Model_Resource_Abstract
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $fromDate = $object->getFromDate();
         if ($fromDate instanceof Zend_Date) {
             $object->setFromDate($fromDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-        } elseif (!is_string($fromDate) || empty($fromDate)) {
+        } elseif (!is_string($fromDate) || $fromDate === '') {
             $object->setFromDate(null);
         }
 
         $toDate = $object->getToDate();
         if ($toDate instanceof Zend_Date) {
             $object->setToDate($toDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-        } elseif (!is_string($toDate) || empty($toDate)) {
+        } elseif (!is_string($toDate) || $toDate === '') {
             $object->setToDate(null);
         }
 
@@ -86,7 +86,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             );
 
         $where = $condition->prepareConditionSql();
-        if (!empty($where)) {
+        if ($where !== '') {
             $select->where($where);
         }
 

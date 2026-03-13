@@ -127,12 +127,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     public function getRequiredExtensions()
     {
-        $extensions = [];
         $configExt = (array) Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
-        foreach (array_keys($configExt) as $name) {
-            $extensions[] = $name;
-        }
-
-        return $extensions;
+        return array_keys($configExt);
     }
 }

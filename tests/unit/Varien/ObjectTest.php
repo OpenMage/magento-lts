@@ -21,7 +21,7 @@ final class ObjectTest extends TestCase
 {
     public Varien_Object $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Varien_Object();
     }

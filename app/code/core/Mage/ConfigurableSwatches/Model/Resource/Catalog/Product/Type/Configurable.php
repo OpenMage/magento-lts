@@ -41,8 +41,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             }
 
             return $childrenIds;
-        } else {
-            return parent::getChildrenIds($parentId, $required);
         }
+
+        return parent::getChildrenIds($parentId, $required);
     }
 }

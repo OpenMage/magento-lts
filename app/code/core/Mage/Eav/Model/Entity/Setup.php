@@ -1284,12 +1284,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Create entity tables
      *
-     * @param  string                      $baseTableName
-     * @param  array                       $options
-     *                                                    - no-main
-     *                                                    - no-default-types
-     *                                                    - types
-     * @return Mage_Eav_Model_Entity_Setup
+     * @param  string              $baseTableName
+     * @param  array               $options
+     *                                            - no-main
+     *                                            - no-default-types
+     *                                            - types
+     * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
      * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:

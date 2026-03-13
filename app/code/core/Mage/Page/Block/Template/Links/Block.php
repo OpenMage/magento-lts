@@ -114,9 +114,8 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set first list flag
      *
-     * @param  bool                                 $value
-     *                                                     return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsFirst($value)
     {
@@ -137,9 +136,8 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set last list flag
      *
-     * @param  bool                                 $value
-     *                                                     return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsLast($value)
     {
@@ -187,7 +185,9 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';

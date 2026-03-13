@@ -167,10 +167,12 @@ class Mage_Payment_Model_Config
 
         if ($sortA['order'] == $sortB['order']) {
             return 0;
-        } elseif ($sortA['order'] > $sortB['order']) {
-            return 1;
-        } else {
-            return -1;
         }
+
+        if ($sortA['order'] > $sortB['order']) {
+            return 1;
+        }
+
+        return -1;
     }
 }

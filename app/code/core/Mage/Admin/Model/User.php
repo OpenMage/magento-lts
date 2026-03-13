@@ -531,10 +531,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
                 if (!$child->children) {
                     return (string) $child->action;
-                } elseif ($child->children) {
-                    $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ?: (string) $child->action;
                 }
+
+                $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
+                return $action ?: (string) $child->action;
             }
         }
 
@@ -714,7 +714,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function changeResetPasswordLinkToken($newResetPasswordLinkToken)
     {
-        if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
+        if (!is_string($newResetPasswordLinkToken) || $newResetPasswordLinkToken === '') {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
 
