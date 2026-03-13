@@ -16,7 +16,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         test.new.__buttons.saveAndContinue.click();
         // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
-        validation.hasErrorMessage();
+        validation.hasSuccessMessage();
     });
 
     it(`tests index route`, () => {
@@ -31,22 +31,16 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
 
-        test.edit.__buttons.reset.click();
-        cy.url().should('include', test.edit.url);
-
-        test.edit.__buttons.back.click();
-        cy.url().should('include', test.index.url);
+        test.edit.__buttons.reset.click(test.edit.url);
+        test.edit.__buttons.back.click(test.index.url);
     });
 
     it(`tests new route`, () => {
         test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
 
-        test.new.__buttons.reset.click();
-        cy.url().should('include', test.new.url);
-
-        test.new.__buttons.back.click();
-        cy.url().should('include', test.index.url);
+        test.new.__buttons.reset.click(test.new.url);
+        test.new.__buttons.back.click(test.index.url);
     });
 
     it('tests to add a CMS page', () => {
@@ -78,7 +72,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: fix needed - this test passes because of a Magento bug
         // TODO: update sample data
-        const message = 'The page has been saved.';
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)
         //    .select(4);
@@ -88,6 +81,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         test.edit.resetStores();
         test.edit.__buttons.saveAndContinue.click();
-        validation.hasSuccessMessage(message);
+        validation.hasSuccessMessage('The page has been saved.');
     });
 });

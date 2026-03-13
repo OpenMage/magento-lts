@@ -41,10 +41,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
 
-        test.new.__buttons.reset.click();
-        cy.url().should('include', test.new.url);
-
-        test.new.__buttons.back.click();
-        cy.url().should('include', test.index.url);
+        test.new.__buttons.reset.click(test.new.url);
+        test.new.__buttons.back.click(test.index.url);
     });
 });
