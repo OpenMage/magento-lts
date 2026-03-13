@@ -25,5 +25,4 @@ test.config.index = {
     title: 'My Account',
     url: test.config.url,
     __buttons: base.__buttonsSets.newNoContinue,
-    __fields: test.__fields,
 }
