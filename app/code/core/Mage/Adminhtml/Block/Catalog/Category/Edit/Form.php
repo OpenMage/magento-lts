@@ -232,7 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     public function getProductsJson()
     {
         $products = $this->getCategory()->getProductsPosition();
-        if (!empty($products)) {
+        if (is_array($products) && $products !== []) {
             return Mage::helper('core')->jsonEncode($products);
         }
 
