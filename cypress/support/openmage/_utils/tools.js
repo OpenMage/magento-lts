@@ -3,8 +3,8 @@
  * @type {{click: (function(*, *=): void), grid: {clickFirstRow: (function(*): void), clickContains: (function(*, *, *=): void)}}}
  */
 cy.openmage.tools = {
-    click: (selector) => {
-        cy.log('Clicking on something');
+    click: (selector, log = 'Clicking on something') => {
+        cy.log(log);
         cy.get(selector)
             .first()
             .click({ force: true, multiple: false });

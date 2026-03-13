@@ -137,7 +137,7 @@ cy.openmage.test.backend.__base.__buttons.email = {
     _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
     __class: ['scalable', 'send-email'],
     click: (afterClickUrl) => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.email._, 'Reset button clicked');
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.email._, 'Send Email button clicked');
         if (afterClickUrl !== undefined) {
             cy.url().should('include', afterClickUrl);
         }
