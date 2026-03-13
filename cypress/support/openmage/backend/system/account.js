@@ -1,7 +1,5 @@
 const base = cy.openmage.test.backend.__base;
 const test = cy.openmage.test.backend.system.account;
-const admin = cy.openmage.admin;
-const tools = cy.openmage.tools;
 
 /**
  * Configuration for "My Account" menu item
