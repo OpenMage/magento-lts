@@ -103,8 +103,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * @param  Mage_Tax_Model_Calculation_Rate $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Tax_Model_Calculation_Rate $row
      */
     public function getRowUrl($row)
     {
