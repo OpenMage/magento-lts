@@ -170,7 +170,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '150px',
                 'index' => 'type_id',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_type')::getOptionArray(),
             ],
         );
 
@@ -228,7 +228,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '150px',
                 'index' => 'visibility',
                 'type'  => 'options',
-                'options' => Mage::getModel('catalog/product_visibility')->getOptionArray(),
+                'options' => Mage::getModel('catalog/product_visibility')::getOptionArray(),
             ],
         );
 
@@ -239,7 +239,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'width' => '70px',
                 'index' => 'status',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_status')::getOptionArray(),
             ],
         );
 
@@ -299,7 +299,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             'url'  => $this->getUrl('*/*/massDelete'),
         ]);
 
-        $statuses = Mage::getSingleton('catalog/product_status')->getOptionArray();
+        $statuses = Mage::getSingleton('catalog/product_status')::getOptionArray();
 
         array_unshift($statuses, ['label' => '', 'value' => '']);
         $this->getMassactionBlock()->addItem(MassAction::STATUS, [

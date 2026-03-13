@@ -127,8 +127,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     public function getProductTypes()
     {
         if (is_null($this->_productTypes)) {
-            $this->_productTypes = Mage::getSingleton('catalog/product_type')
-                ->getOptionArray();
+            $this->_productTypes = Mage::getSingleton('catalog/product_type')::getOptionArray();
         }
 
         return $this->_productTypes;
@@ -224,8 +223,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         $type = $product->getTypeId();
         if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
         }
 
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
@@ -242,7 +240,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
         if (!isset($this->_setInstances[$productType][$attributeSetId])) {
             $this->_setInstances[$productType][$attributeSetId]
-                = Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
+                = Mage::getSingleton('catalog/product_type')::factory($this->getProductModel());
         }
 
         return $this->_setInstances[$productType][$attributeSetId];

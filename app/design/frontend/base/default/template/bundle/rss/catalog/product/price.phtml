@@ -65,7 +65,7 @@ if ($_product->getPriceType() == 1) {
         <?php if ($this->helper('tax')->displayBothPrices()): ?>
             <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
-                <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                <?php echo Mage::helper('core')::currency($_minimalPriceTax) ?>
                     </span>
             <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                 <span class="weee">(<small>
@@ -78,20 +78,20 @@ if ($_product->getPriceType() == 1) {
                             <?php endif ?>
 
                             <?php echo $_weeeSeparator; ?>
-                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach ?>
                     </small>)</span>
             <?php endif ?>
             <span class="price-including-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
-                <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                <?php echo Mage::helper('core')::currency($_minimalPriceInclTax) ?>
                     </span>
         <?php else: ?>
             <?php if ($_taxHelper->displayPriceIncludingTax()): ?>
-                <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                <?php echo $_coreHelper::currency($_minimalPriceInclTax) ?>
             <?php else: ?>
-                <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                <?php echo $_coreHelper::currency($_minimalPriceTax) ?>
             <?php endif ?>
             <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                 <span class="weee">(<small>
@@ -104,13 +104,13 @@ if ($_product->getPriceType() == 1) {
                             <?php endif ?>
 
                             <?php echo $_weeeSeparator; ?>
-                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach ?>
                     </small>)</span>
             <?php endif ?>
             <?php if (Mage::helper('weee')->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
-                <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                <?php echo Mage::helper('core')::currency($_minimalPriceInclTax) ?>
             <?php endif ?>
         <?php endif ?>
     </p>
@@ -121,7 +121,7 @@ if ($_product->getPriceType() == 1) {
             <?php if ($this->helper('tax')->displayBothPrices()): ?>
                 <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
-                    <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                    <?php echo Mage::helper('core')::currency($_minimalPriceTax) ?>
                     </span>
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                     <span class="weee">(<small>
@@ -134,20 +134,20 @@ if ($_product->getPriceType() == 1) {
                                 <?php endif ?>
 
                                 <?php echo $_weeeSeparator; ?>
-                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach ?>
                         </small>)</span>
                 <?php endif ?>
                 <span class="price-including-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
-                    <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                    <?php echo Mage::helper('core')::currency($_minimalPriceInclTax) ?>
                     </span>
             <?php else: ?>
                 <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
-                    <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <?php echo $_coreHelper::currency($_minimalPriceInclTax) ?>
                 <?php else: ?>
-                    <?php echo $_coreHelper->currency($_minimalPriceTax) ?>
+                    <?php echo $_coreHelper::currency($_minimalPriceTax) ?>
                 <?php endif ?>
 
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
@@ -161,13 +161,13 @@ if ($_product->getPriceType() == 1) {
                                 <?php endif ?>
 
                                 <?php echo $_weeeSeparator; ?>
-                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach ?>
                         </small>)</span>
                 <?php endif ?>
                 <?php if (Mage::helper('weee')->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
-                    <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                    <?php echo Mage::helper('core')::currency($_minimalPriceInclTax) ?>
                 <?php endif ?>
             <?php endif ?>
         </p>
@@ -189,7 +189,7 @@ if ($_product->getPriceType() == 1) {
             <?php if ($this->helper('tax')->displayBothPrices()): ?>
                 <span class="price-excluding-tax">
                             <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
-                    <?php echo Mage::helper('core')->currency($_maximalPriceTax) ?>
+                    <?php echo Mage::helper('core')::currency($_maximalPriceTax) ?>
                         </span>
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                     <span class="weee">(<small>
@@ -202,20 +202,20 @@ if ($_product->getPriceType() == 1) {
                                 <?php endif ?>
 
                                 <?php echo $_weeeSeparator; ?>
-                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach ?>
                         </small>)</span>
                 <?php endif ?>
                 <span class="price-including-tax">
                             <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax') ?></span>
-                    <?php echo Mage::helper('core')->currency($_maximalPriceInclTax) ?>
+                    <?php echo Mage::helper('core')::currency($_maximalPriceInclTax) ?>
                         </span>
             <?php else: ?>
                 <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
-                    <?php echo $_coreHelper->currency($_maximalPriceInclTax) ?>
+                    <?php echo $_coreHelper::currency($_maximalPriceInclTax) ?>
                 <?php else: ?>
-                    <?php echo $_coreHelper->currency($_maximalPriceTax) ?>
+                    <?php echo $_coreHelper::currency($_maximalPriceTax) ?>
                 <?php endif ?>
 
                 <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
@@ -229,13 +229,13 @@ if ($_product->getPriceType() == 1) {
                                 <?php endif ?>
 
                                 <?php echo $_weeeSeparator; ?>
-                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                                <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                                 <?php $_weeeSeparator = ' + '; ?>
                             <?php endforeach ?>
                         </small>)</span>
                 <?php endif ?>
                 <?php if (Mage::helper('weee')->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
-                    <?php echo Mage::helper('core')->currency($_maximalPriceInclTax) ?>
+                    <?php echo Mage::helper('core')::currency($_maximalPriceInclTax) ?>
                 <?php endif ?>
             <?php endif ?>
         </p>
@@ -243,7 +243,7 @@ if ($_product->getPriceType() == 1) {
         <?php if ($this->helper('tax')->displayBothPrices()): ?>
             <span class="price-excluding-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
-                <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                <?php echo Mage::helper('core')::currency($_minimalPriceTax) ?>
                     </span>
             <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                 <span class="weee">(<small>
@@ -256,17 +256,17 @@ if ($_product->getPriceType() == 1) {
                             <?php endif ?>
 
                             <?php echo $_weeeSeparator; ?>
-                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach ?>
                     </small>)</span>
             <?php endif ?>
             <span class="price-including-tax">
                         <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
-                <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                <?php echo Mage::helper('core')::currency($_minimalPriceInclTax) ?>
                     </span>
         <?php else: ?>
-            <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+            <?php echo Mage::helper('core')::currency($_minimalPriceTax) ?>
             <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                 <span class="weee">(<small>
                         <?php $_weeeSeparator = '';
@@ -278,16 +278,16 @@ if ($_product->getPriceType() == 1) {
                             <?php endif ?>
 
                             <?php echo $_weeeSeparator; ?>
-                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                            <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')::currency($amount, true, true); ?>
                             <?php $_weeeSeparator = ' + '; ?>
                         <?php endforeach ?>
                     </small>)</span>
             <?php endif ?>
             <?php if (Mage::helper('weee')->typeOfDisplay($_product, 2) && $_weeeTaxAmount): ?>
                 <?php if ($_taxHelper->displayPriceIncludingTax()) : ?>
-                    <?php echo $_coreHelper->currency($_minimalPriceInclTax) ?>
+                    <?php echo $_coreHelper::currency($_minimalPriceInclTax) ?>
                 <?php else: ?>
-                    <?php echo $_coreHelper->currency($_minimalPriceTax + $_weeeTaxAmount) ?>
+                    <?php echo $_coreHelper::currency($_minimalPriceTax + $_weeeTaxAmount) ?>
                 <?php endif ?>
             <?php endif ?>
         <?php endif ?>

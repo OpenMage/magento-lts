@@ -2828,13 +2828,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Type_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #8 $productId of method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
+	'rawMessage' => 'Parameter #8 $productId of static method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
@@ -7578,12 +7572,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $store of method Mage_Core_Helper_Data::currencyByStore() expects int|Mage_Core_Model_Store|null, true given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/price.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_GiftMessage_Block_Message_Helper::prepareAsIs().',

@@ -28,6 +28,7 @@ parameters:
     strictRules:
         allRules: false
         disallowedEmpty: true
+        dynamicCallOnStaticMethod: true
         matchingInheritedMethodNames: true
     excludePaths:
         #incompatible interfaces

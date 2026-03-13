@@ -567,8 +567,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $productEmulator = $this->_getProductEmulator();
             $productEmulator->setTypeId($typeId);
 
-            $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
-                ->factory($productEmulator);
+            $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')::factory($productEmulator);
         }
 
         return $this->_productTypes[$typeId];
