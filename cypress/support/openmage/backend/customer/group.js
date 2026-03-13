@@ -3,28 +3,15 @@ const test = cy.openmage.test.backend.customer.group;
 const tools = cy.openmage.tools;
 
 /**
- * Fields selectors for Edit and New page
- * @type {{customer_group_code: {_: string}, tax_class_id: {_: string}}}
- * @private
- */
-test.__fields = {
-    customer_group_code : {
-        _: '#customer_group_code',
-    },
-    tax_class_id : {
-        _: '#tax_class_id',
-    },
-};
-
-/**
  * Configuration for "Customer Groups" menu item
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _: '#nav-admin-customer-group',
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/customer/group',
     url: 'admin/customer_group',
     index: {},
     edit: {},
@@ -62,23 +49,21 @@ test.config.index.__buttons = {
 
 /**
  * Configuration for "Edit Customer Group" page
-  * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue, __fields: test.config.edit.__fields}}
+  * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue}}
  * TODO: there can be 3 buttons, when group is deletable
  */
 test.config.edit = {
     title: 'Edit Customer Group',
     url: 'customer_group/edit',
     __buttons: base.__buttonsSets.editNoContinue,
-    __fields: test.__fields,
 }
 
 /**
  * Configuration for "New Customer Group" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue}}
  */
 test.config.new = {
     title: 'New Customer Group',
     url: 'customer_group/new',
     __buttons: base.__buttonsSets.newNoContinue,
-    __fields: test.__fields,
 }

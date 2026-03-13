@@ -1,0 +1,10 @@
+{
+    "default": {
+        "customerGroupCode" : {
+            "_": "#customer_group_code"
+        },
+        "taxClassId" : {
+            "_": "#tax_class_id"
+        }
+    }
+}

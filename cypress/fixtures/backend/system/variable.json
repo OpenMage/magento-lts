@@ -1,0 +1,16 @@
+{
+    "default": {
+        "code" : {
+            "_": "#code"
+        },
+        "name" : {
+            "_": "#name"
+        },
+        "htmlValue" : {
+            "_": "#html_value"
+        },
+        "plainValue" : {
+            "_": "#plain_value"
+        }
+    }
+}

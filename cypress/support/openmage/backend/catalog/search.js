@@ -3,37 +3,15 @@ const test = cy.openmage.test.backend.catalog.search;
 const tools = cy.openmage.tools;
 
 /**
- * Configuration for fields in "Search Terms" edit and new pages
- * @type {query_text: {_: string}, store_id: {_: string}, synonym_for: {_: string}, page_is_active: {_: string}, display_in_terms: {_: string}}
- * @private
- */
-test.__fields = {
-    query_text : {
-        _: '#query_text',
-    },
-    store_id : {
-        _: '#store_id',
-    },
-    synonym_for : {
-        _: '#synonym_for',
-    },
-    page_is_active : {
-        _: '#redirect',
-    },
-    display_in_terms : {
-        _: '#display_in_terms',
-    },
-};
-
-/**
  * Configuration for "Search Terms" menu item
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _: '#nav-admin-catalog-search',
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/catalog/search',
     url: 'admin/catalog_search',
     index: {},
     edit: {},
@@ -77,11 +55,10 @@ test.config.edit = {
 
 /**
  * Configuration for "New Search Term" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue}}
  */
 test.config.new = {
     title: 'New Search',
     url: 'catalog_search/new',
     __buttons: base.__buttonsSets.newNoContinue,
-    __fields: test.__fields,
 }

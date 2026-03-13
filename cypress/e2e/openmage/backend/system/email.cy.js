@@ -7,11 +7,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.openmage.admin.login();
         cy.openmage.admin.goToPage(test, test.index);
+        cy.fixture(test.__fixture).as('fixture');
     });
 
-    it(`tests save empty values, no js`, () => {
+    it(`tests save empty values, no js`, function () {
         test.index.__buttons.add.click();
-        validation.removeClasses(test.new);
+        validation.fixture.removeClasses(this.fixture.default);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         test.new.__buttons.save.click();
@@ -30,11 +31,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: There is no edit route for email templates
         validation.pageElements(test, test.index);
 
-        //test.edit.__buttons.reset.click();
-        //cy.url().should('include', test.edit.url);
-
-        //test.edit.__buttons.back.click();
-        //cy.url().should('include', test.index.url);
+        //test.edit.__buttons.reset.click(test.edit.url);
+        //test.edit.__buttons.back.click(test.index.url);
     });
 
     it(`tests new route`, () => {
