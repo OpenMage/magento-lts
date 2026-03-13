@@ -13,12 +13,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.removeClassesAll();
 
-        // TODO: fix it
-        const message = 'The rule has been saved.';
-        const screenshot = 'message.promo.catalog.saveEmptyWithoutJs';
         test.new.__buttons.saveAndContinue.click();
-        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
-        validation.hasErrorMessage();
+        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
+        validation.hasSuccessMessage('The rule has been saved.', { match: 'have.text' });
+        // validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {

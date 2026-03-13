@@ -15,10 +15,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClassesFromTextarea();
 
         // TODO: add save and continue functionality
-        const message = 'You must give a non-empty value for field \'template_code\'';
-        const filename = 'message.newsletter.template.saveEmptyWithoutJs';
         test.new.__buttons.save.click();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: filename });
+        validation.hasErrorMessage('You must give a non-empty value for field \'template_code\'', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {

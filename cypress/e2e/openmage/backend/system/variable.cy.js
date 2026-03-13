@@ -13,10 +13,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
-        const message = 'Validation has failed.';
-        const screenshot = 'message.system.variable.saveEmptyWithoutJs';
         test.new.__buttons.saveAndContinue.click();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
+        validation.hasErrorMessage('Validation has failed.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {

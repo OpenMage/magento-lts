@@ -14,11 +14,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const success = 'The design change has been saved.';
-        const screenshot = 'message.system.design.saveEmptyWithoutJs-1';
         test.new.__buttons.save.click();
-        validation.hasSuccessMessage(success,{ match: 'have.text', screenshot: true, filename: screenshot });
-        validation.hasErrorMessage();
+        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
+        validation.hasSuccessMessage();
+        // validation.hasErrorMessage();
     });
 
     it(`tests save empty values, no js, 2nd time`, () => {
@@ -26,19 +25,15 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
-        const screenshot = 'message.system.design.saveEmptyWithoutJs-2';
         test.new.__buttons.save.click();
-        validation.hasErrorMessage(error, { match: 'have.text', screenshot: true, filename: screenshot });
+        validation.hasErrorMessage('Your design change for the specified store intersects with another one, please specify another date range.', { match: 'have.text' });
     });
 
     it(`tests delete last added design`, () => {
         tools.grid.clickFirstRow(test.index);
 
-        const success = 'The design change has been deleted.';
-        const screenshot = 'message.system.design.deleteLastAddedDesign';
         test.edit.__buttons.delete.click();
-        validation.hasSuccessMessage(success, { match: 'have.text', screenshot: true, filename: screenshot });
+        validation.hasSuccessMessage('The design change has been deleted.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {

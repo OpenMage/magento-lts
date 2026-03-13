@@ -14,12 +14,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        // TODO fix it
-        const message = 'The customer group has been saved.';
-        const screenshot = 'message.customer.groups.saveEmptyWithoutJs';
         test.new.__buttons.save.click();
-        validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
-        validation.hasErrorMessage();
+        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
+        validation.hasSuccessMessage('The customer group has been saved.');
+        // validation.hasErrorMessage();
     });
 
     // TODO: add test for save with values

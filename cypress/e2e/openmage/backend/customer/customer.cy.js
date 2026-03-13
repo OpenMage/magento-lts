@@ -1,7 +1,6 @@
 const test = cy.openmage.test.backend.customer.customer.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
-const utils = cy.openmage.utils;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
@@ -20,7 +19,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.hasErrorMessage('"Last Name" is a required value.');
         validation.hasErrorMessage('"Last Name" length must be equal or greater than 1 characters.');
         validation.hasErrorMessage('"Email" is a required value.');
-        utils.screenshot(cy.openmage.validation._messagesContainer, 'message.customer.customer.saveEmptyWithoutJs');
     });
 
     it(`tests index route`, () => {

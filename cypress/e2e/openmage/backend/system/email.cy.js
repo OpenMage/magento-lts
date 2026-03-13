@@ -14,10 +14,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const message = 'The template Name must not be empty.';
-        const screenshot = 'message.system.email.saveEmptyWithoutJs';
         test.new.__buttons.save.click();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
+        validation.hasErrorMessage('The template Name must not be empty.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {

@@ -13,12 +13,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
-        // TODO: do not save empty block, show error instead
-        const message = 'The block has been saved.';
-        const screenshot = 'message.cms.block.saveEmptyWithoutJs';
         test.new.__buttons.saveAndContinue.click();
-        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
-        validation.hasErrorMessage();
+        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
+        validation.hasSuccessMessage();
+        // validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {

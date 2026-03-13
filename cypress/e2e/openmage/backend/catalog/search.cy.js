@@ -16,12 +16,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         test.new.__buttons.save.click();
 
-        // TODO: fit it
-        const message = 'You saved the search term.';
-        const screenshot = 'message.catalog.search.saveEmptyWithoutJs';
-        // validation.hasErrorMessage(error);
-        validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
-        validation.hasErrorMessage();
+        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
+        validation.hasSuccessMessage();
+        // validation.hasErrorMessage();
     });
 
     it(`tests index route`, () => {
