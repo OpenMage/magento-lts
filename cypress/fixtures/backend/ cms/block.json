@@ -7,13 +7,13 @@
             "_": "#block_identifier",
         },
         "blockStoreId" : {
-            "_": '#block_store_id',
+            "_": "#block_store_id",
         },
         "blockIsActive" : {
             "_": "#block_is_active",
         },
         "blockContent" : {
-            _: "#block_content",
+            "_": "#block_content",
         }
     }
 }
