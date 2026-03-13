@@ -63,8 +63,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.edit.disablePage();
         test.edit.__buttons.saveAndContinue.click();
 
-        validation.hasWarningMessage('The page has been saved.');
-        validation.hasSuccessMessage('You cannot disable this page as it is used to configure');
+        validation.hasWarningMessage('You cannot disable this page as it is used to configure');
+        validation.hasSuccessMessage('The page has been saved.');
     });
 
     it('tests to delete a CMS page that is used in config', () => {
