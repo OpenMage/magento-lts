@@ -28,10 +28,8 @@ describe(test.title, () => {
     });
 
     it('Submits form with short password and wrong confirmation', function () {
-        let data = this.fixture.invalidWeakPassword;
+        let data = this.fixture.invalidWeakPasswordConfirm;
         data.email_address.value = email;
-        data.password.value = 'abc';
-        data.confirmation.value = '123';
 
         validation.fixture.fillFields(data);
         tools.click(test._buttonSubmit);

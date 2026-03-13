@@ -42,5 +42,27 @@
             "_": "#confirmation",
             "value": "12345678"
         }
+    },
+    "invalidWeakPasswordConfirm": {
+        "firstName": {
+            "_": "#firstname",
+            "value": "John"
+        },
+        "lastName": {
+            "_": "#lastname",
+            "value": "Doe"
+        },
+        "email_address": {
+            "_": "#email_address",
+            "value": ""
+        },
+        "password": {
+            "_": "#password",
+            "value": "abc"
+        },
+        "confirmation": {
+            "_": "#confirmation",
+            "value": "123"
+        }
     }
 }
