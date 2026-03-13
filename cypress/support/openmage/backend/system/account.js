@@ -4,37 +4,15 @@ const admin = cy.openmage.admin;
 const tools = cy.openmage.tools;
 
 /**
- * Selectors for "My Account" page fields
- * @type {{firstname: {_: string}, email: {_: string}, username: {value: string, _: string}, lastname: {_: string}, current_password: {value: string, _: string}}}
- * @private
- */
-test.__fields = {
-    username: {
-        _: '#username',
-    },
-    firstname: {
-        _: '#firstname',
-    },
-    lastname: {
-        _: '#lastname',
-    },
-    email: {
-        _: '#email',
-    },
-    current_password: {
-        _: '#current_password',
-    },
-}
-
-/**
  * Configuration for "My Account" menu item
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}}}
  */
 test.config = {
     _: '#nav-admin-system-myaccount',
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/system/account',
     url: 'admin/system_account',
     index: {},
 }
