@@ -54,8 +54,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier() !== $helper->getIndentifierPageFromConfigPath('web/default/cms_home_page'))
-            && ($page->getIdentifier() !== $helper->getIndentifierPageFromConfigPath('web/default/cms_no_route'))
+            && ($page->getIdentifier() !== $helper->getIdentifierPageFromConfigPath('web/default/cms_home_page'))
+            && ($page->getIdentifier() !== $helper->getIdentifierPageFromConfigPath('web/default/cms_no_route'))
         ) {
             $breadcrumbsArray[] = [
                 'crumbName' => 'home',
@@ -144,9 +144,9 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $helper = Mage::helper('cms/page');
 
         // Handle special pages differently
-        $homePageId = $helper->getIndentifierPageFromConfigPath('web/default/cms_home_page');
-        $noRoutePageId = $helper->getIndentifierPageFromConfigPath('web/default/cms_no_route');
-        $noCookiesPageId = $helper->getIndentifierPageFromConfigPath('web/default/cms_no_cookies');
+        $homePageId = $helper->getIdentifierPageFromConfigPath('web/default/cms_home_page');
+        $noRoutePageId = $helper->getIdentifierPageFromConfigPath('web/default/cms_no_route');
+        $noCookiesPageId = $helper->getIdentifierPageFromConfigPath('web/default/cms_no_cookies');
 
         // For homepage, use base URL
         if ($identifier === $homePageId) {
