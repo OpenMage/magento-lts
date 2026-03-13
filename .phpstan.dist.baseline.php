@@ -2150,12 +2150,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Design.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Property Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container::$_configNodePath (Mage_Core_Model_Config_Element) does not accept string.',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Entity/Product/Attribute/Design/Options/Container.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Helper_Category_Url_Rewrite_Interface is not subtype of type Mage_Core_Helper_Abstract.',
 	'identifier' => 'varTag.type',
 	'count' => 1,

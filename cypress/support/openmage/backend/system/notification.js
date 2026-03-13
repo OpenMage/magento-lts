@@ -9,16 +9,16 @@ test.config = {
     _: '#nav-admin-system-adminnotification',
     _nav: '#nav-admin-system',
     _title: base._title,
-    url: 'notification/index',
+    url: 'admin/notification',
     index: {},
 }
 
 /**
  * Configuration for "Messages Inbox" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Messages Inbox',
     url: test.config.url,
-    _grid: '#notificationGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'date_added', dir: 'desc' } }},
 }

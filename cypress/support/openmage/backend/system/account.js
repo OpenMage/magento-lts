@@ -35,7 +35,7 @@ test.config = {
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
-    url: 'system_account/index',
+    url: 'admin/system_account',
     index: {},
 }
 

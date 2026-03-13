@@ -693,8 +693,6 @@ class Mage_Core_Model_Resource_Setup
                 break;
 
             case self::TYPE_DB_ROLLBACK:
-                break;
-
             case self::TYPE_DB_UNINSTALL:
                 break;
         }

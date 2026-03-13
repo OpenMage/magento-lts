@@ -21,6 +21,8 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('designGrid');
+        $this->setDefaultSort('package');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }

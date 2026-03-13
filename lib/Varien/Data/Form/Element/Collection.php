@@ -20,7 +20,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @var array
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private $_elements;
+    private $_elements = [];
 
     /**
      * Elements container
@@ -37,7 +37,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      */
     public function __construct($container)
     {
-        $this->_elements = [];
         $this->_container = $container;
     }
 

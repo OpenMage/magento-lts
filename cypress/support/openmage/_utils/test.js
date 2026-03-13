@@ -12,12 +12,13 @@ cy.openmage.test.backend.login = {};
 
 /**
  * Base configuration for backend tests
- * @type {{_button: string, _title: string, __buttons: {}, __buttonsSets: {}}}
+ * @type {{_button: string, _title: string, __grid: {}, __buttons: {}, __buttonsSets: {}}}
  * @private
  */
 cy.openmage.test.backend.__base = {
     _button: 'div.content-header .form-buttons button',
     _title: 'h3.icon-head',
+    __grid: {},
     __buttons: {},
     __buttonsSets: {},
 };
@@ -51,8 +52,11 @@ cy.openmage.test.backend.__base.__buttons.add = {
 cy.openmage.test.backend.__base.__buttons.save = {
     _: cy.openmage.test.backend.__base._button + '[title="Save"]',
     __class: ['scalable', 'save'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.save._, 'Save button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -63,8 +67,11 @@ cy.openmage.test.backend.__base.__buttons.save = {
 cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
     __class: ['scalable', 'save', 'continue'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndContinue._, 'Save and Continue button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -75,8 +82,11 @@ cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
 cy.openmage.test.backend.__base.__buttons.delete = {
     _: cy.openmage.test.backend.__base._button + '[title="Delete"]',
     __class: ['scalable', 'delete'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.delete._, 'Delete button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -87,8 +97,11 @@ cy.openmage.test.backend.__base.__buttons.delete = {
 cy.openmage.test.backend.__base.__buttons.back = {
     _: cy.openmage.test.backend.__base._button + '[title="Back"]',
     __class: ['scalable', 'back'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.back._, 'Back button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -99,8 +112,11 @@ cy.openmage.test.backend.__base.__buttons.back = {
 cy.openmage.test.backend.__base.__buttons.reset = {
     _: cy.openmage.test.backend.__base._button + '[title="Reset"]',
     __class: ['scalable', 'reset'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -111,8 +127,11 @@ cy.openmage.test.backend.__base.__buttons.reset = {
 cy.openmage.test.backend.__base.__buttons.print = {
     _: cy.openmage.test.backend.__base._button + '[title="Print"]',
     __class: ['scalable', 'save', 'print'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.print._, 'Print button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -123,8 +142,11 @@ cy.openmage.test.backend.__base.__buttons.print = {
 cy.openmage.test.backend.__base.__buttons.email = {
     _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
     __class: ['scalable', 'send-email'],
-    click: () => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.email._, 'Reset button clicked');
+    click: (afterClickUrl) => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.email._, 'Send Email button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -135,8 +157,11 @@ cy.openmage.test.backend.__base.__buttons.email = {
 cy.openmage.test.backend.__base.__buttons.convertToPlain = {
     _: cy.openmage.test.backend.__base._button + '[title="Convert to Plain Text"]',
     __class: ['scalable', 'task', 'to-plain'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.convertToPlain._, 'Convert to Plain Text button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -147,8 +172,11 @@ cy.openmage.test.backend.__base.__buttons.convertToPlain = {
 cy.openmage.test.backend.__base.__buttons.preview = {
     _: cy.openmage.test.backend.__base._button + '[title="Preview Template"]',
     __class: ['scalable', 'task', 'preview'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.preview._, 'Preview Text button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -159,8 +187,11 @@ cy.openmage.test.backend.__base.__buttons.preview = {
 cy.openmage.test.backend.__base.__buttons.saveAndApply = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Apply"]',
     __class: ['scalable', 'apply'],
-    click: () => {
+    click: (afterClickUrl) => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndApply._, 'Save and Apply button clicked');
+        if (afterClickUrl !== undefined) {
+            cy.url().should('include', afterClickUrl);
+        }
     },
 };
 
@@ -241,6 +272,19 @@ cy.openmage.test.backend.__base.__buttonsSets.sales = {
     print: cy.openmage.test.backend.__base.__buttons.print,
     email: cy.openmage.test.backend.__base.__buttons.email,
     back: cy.openmage.test.backend.__base.__buttons.back,
+};
+
+/**
+ * Base grid configuration for backend tests
+ * @type {{_: string, _table: string, sort: {order: string, dir: string}}}
+ */
+cy.openmage.test.backend.__base.__grid = {
+    _: '[data-test="grid"]',
+    _table: '[data-test="grid-table"]',
+    sort: {
+        order: '',
+        dir: '',
+    },
 };
 
 /**

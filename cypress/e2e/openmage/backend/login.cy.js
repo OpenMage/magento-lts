@@ -12,19 +12,19 @@ describe('Check admin login', () => {
     it('tests valid login', function () {
         validation.fixture.fillFields(this.fixture.validUser);
         cy.get(login._submit._).click();
-        cy.url().should('include', '/dashboard/index');
+        cy.url().should('include', path + '/dashboard');
     })
 
     it('tests invalid login', function () {
         validation.fixture.fillFields(this.fixture.invalidUser);
         cy.get(login._submit._).click();
-        cy.url().should('include', '/index/index');
+        cy.url().should('include', path);
     })
 
     it('tests empty login', function () {
         validation.fixture.fillFields(this.fixture.validUser, true);
         cy.get(login._submit._).click();
-        cy.url().should('not.include', '/index/index');
-        cy.url().should('not.include', '/index/dashboard');
+        cy.url().should('include', path);
+        cy.url().should('not.include', path + '/dashboard');
     })
 })
