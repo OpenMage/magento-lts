@@ -26,48 +26,113 @@
 * SOFTWARE.
 *
 */
-var Validator = Class.create();
 
-Validator.prototype = {
-    initialize : function(className, error, test, options) {
-        if(typeof test == 'function'){
-            this.options = $H(options);
-            this._test = test;
-        } else {
-            this.options = $H(test);
-            this._test = function(){return true};
-        }
-        this.error = error || 'Validation failed.';
-        this.className = className;
-    },
-    test : function(v, elm) {
-        return (this._test(v,elm) && this.options.all(function(p){
-            return Validator.methods[p.key] ? Validator.methods[p.key](v,elm,p.value) : true;
-        }));
+// ---- Internal helpers (not exposed globally) ----
+
+function _camelize(str) {
+    return str.replace(/-([a-z])/g, function(m, c) { return c.toUpperCase(); });
+}
+
+function _getFieldValue(el) {
+    if (typeof el === 'string') { el = document.getElementById(el); }
+    if (!el) { return ''; }
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'select') {
+        var idx = el.selectedIndex;
+        return (idx >= 0) ? el.options[idx].value : '';
     }
-}
-Validator.methods = {
-    pattern : function(v,elm,opt) {return Validation.get('IsEmpty').test(v) || opt.test(v)},
-    minLength : function(v,elm,opt) {return v.length >= opt},
-    maxLength : function(v,elm,opt) {return v.length <= opt},
-    min : function(v,elm,opt) {return v >= parseFloat(opt)},
-    max : function(v,elm,opt) {return v <= parseFloat(opt)},
-    notOneOf : function(v,elm,opt) {return $A(opt).all(function(value) {
-        return v != value;
-    })},
-    oneOf : function(v,elm,opt) {return $A(opt).any(function(value) {
-        return v == value;
-    })},
-    is : function(v,elm,opt) {return v == opt},
-    isNot : function(v,elm,opt) {return v != opt},
-    equalToField : function(v,elm,opt) {return v == $F(opt)},
-    notEqualToField : function(v,elm,opt) {return v != $F(opt)},
-    include : function(v,elm,opt) {return $A(opt).all(function(value) {
-        return Validation.get(value).test(v,elm);
-    })}
+    return el.value || '';
 }
 
-var Validation = Class.create();
+function _isVisible(el) {
+    if (typeof el === 'string') { el = document.getElementById(el); }
+    if (!el) { return false; }
+    return !(el.offsetWidth === 0 && el.offsetHeight === 0) && el.style.display !== 'none';
+}
+
+function _splitClassName(cn) {
+    return (cn || '').split(/\s+/).filter(function(s) { return s.length > 0; });
+}
+
+// ---- Validator ----
+
+var Validator = function(className, error, test, options) {
+    if (typeof test === 'function') {
+        this.options = Object.assign({}, options || {});
+        this._test = test;
+    } else {
+        this.options = Object.assign({}, test || {});
+        this._test = function() { return true; };
+    }
+    this.error = error || 'Validation failed.';
+    this.className = className;
+};
+
+Validator.prototype.test = function(v, elm) {
+    var self = this;
+    return this._test(v, elm) && Object.keys(this.options).every(function(key) {
+        return Validator.methods[key] ? Validator.methods[key](v, elm, self.options[key]) : true;
+    });
+};
+
+Validator.methods = {
+    pattern : function(v, elm, opt) { return Validation.get('IsEmpty').test(v) || opt.test(v); },
+    minLength : function(v, elm, opt) { return v.length >= opt; },
+    maxLength : function(v, elm, opt) { return v.length <= opt; },
+    min : function(v, elm, opt) { return v >= parseFloat(opt); },
+    max : function(v, elm, opt) { return v <= parseFloat(opt); },
+    notOneOf : function(v, elm, opt) {
+        return Array.from(opt).every(function(value) { return v != value; });
+    },
+    oneOf : function(v, elm, opt) {
+        return Array.from(opt).some(function(value) { return v == value; });
+    },
+    is : function(v, elm, opt) { return v == opt; },
+    isNot : function(v, elm, opt) { return v != opt; },
+    equalToField : function(v, elm, opt) { return v == _getFieldValue(opt); },
+    notEqualToField : function(v, elm, opt) { return v != _getFieldValue(opt); },
+    include : function(v, elm, opt) {
+        return Array.from(opt).every(function(value) {
+            return Validation.get(value).test(v, elm);
+        });
+    }
+};
+
+// ---- Validation ----
+
+var Validation = function(form, options) {
+    if (typeof form === 'string') { form = document.getElementById(form); }
+    this.form = form;
+    if (!this.form) {
+        return;
+    }
+    this.options = Object.assign({
+        onSubmit : Validation.defaultOptions.onSubmit,
+        stopOnFirst : Validation.defaultOptions.stopOnFirst,
+        immediate : Validation.defaultOptions.immediate,
+        focusOnError : Validation.defaultOptions.focusOnError,
+        useTitles : Validation.defaultOptions.useTitles,
+        onFormValidate : Validation.defaultOptions.onFormValidate,
+        onElementValidate : Validation.defaultOptions.onElementValidate
+    }, options || {});
+    if (this.options.onSubmit) {
+        this.form.addEventListener('submit', this.onSubmit.bind(this), false);
+    }
+    if (this.options.immediate) {
+        var self = this;
+        Array.from(this.form.elements).forEach(function(input) {
+            if (input.tagName.toLowerCase() === 'select') {
+                input.addEventListener('blur', self.onChange.bind(self));
+            }
+            if (input.type.toLowerCase() === 'radio' || input.type.toLowerCase() === 'checkbox') {
+                input.addEventListener('click', self.onChange.bind(self));
+            } else {
+                input.addEventListener('change', self.onChange.bind(self));
+            }
+        });
+    }
+};
+
 Validation.defaultOptions = {
     onSubmit : true,
     stopOnFirst : false,
@@ -80,225 +145,188 @@ Validation.defaultOptions = {
     onElementValidate : function(result, elm) {}
 };
 
-Validation.prototype = {
-    initialize : function(form, options){
-        this.form = $(form);
-        if (!this.form) {
-            return;
-        }
-        this.options = Object.extend({
-            onSubmit : Validation.defaultOptions.onSubmit,
-            stopOnFirst : Validation.defaultOptions.stopOnFirst,
-            immediate : Validation.defaultOptions.immediate,
-            focusOnError : Validation.defaultOptions.focusOnError,
-            useTitles : Validation.defaultOptions.useTitles,
-            onFormValidate : Validation.defaultOptions.onFormValidate,
-            onElementValidate : Validation.defaultOptions.onElementValidate
-        }, options || {});
-        if(this.options.onSubmit) Event.observe(this.form,'submit',this.onSubmit.bind(this),false);
-        if(this.options.immediate) {
-            Form.getElements(this.form).each(function(input) { // Thanks Mike!
-                if (input.tagName.toLowerCase() == 'select') {
-                    Event.observe(input, 'blur', this.onChange.bindAsEventListener(this));
-                }
-                if (input.type.toLowerCase() == 'radio' || input.type.toLowerCase() == 'checkbox') {
-                    Event.observe(input, 'click', this.onChange.bindAsEventListener(this));
-                } else {
-                    Event.observe(input, 'change', this.onChange.bindAsEventListener(this));
-                }
-            }, this);
-        }
-    },
-    onChange : function (ev) {
-        Validation.isOnChange = true;
-        Validation.validate(Event.element(ev),{
-                useTitle : this.options.useTitles,
-                onElementValidate : this.options.onElementValidate
-        });
-        Validation.isOnChange = false;
-    },
-    onSubmit :  function(ev){
-        if(!this.validate()) Event.stop(ev);
-    },
-    validate : function() {
-        var result = false;
-        var useTitles = this.options.useTitles;
-        var callback = this.options.onElementValidate;
-        try {
-            if(this.options.stopOnFirst) {
-                result = Form.getElements(this.form).all(function(elm) {
-                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
-                        return true;
-                    }
-                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
-                }, this);
-            } else {
-                result = Form.getElements(this.form).collect(function(elm) {
-                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
-                        return true;
-                    }
-                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
-                }, this).all();
-            }
-        } catch (e) {
-        }
-        if(!result && this.options.focusOnError) {
-            try{
-                Form.getElements(this.form).findAll(function(elm){return $(elm).hasClassName('validation-failed')}).first().focus()
-            }
-            catch(e){
-            }
-        }
-        this.options.onFormValidate(result, this.form);
-        return result;
-    },
-    reset : function() {
-        Form.getElements(this.form).each(Validation.reset);
-    },
-    isElementInForm : function(elm, form) {
-        var domForm = elm.up('form');
-        if (domForm == form) {
-            return true;
-        }
-        return false;
+Validation.prototype.onChange = function(ev) {
+    Validation.isOnChange = true;
+    Validation.validate(ev.target, {
+        useTitle : this.options.useTitles,
+        onElementValidate : this.options.onElementValidate
+    });
+    Validation.isOnChange = false;
+};
+
+Validation.prototype.onSubmit = function(ev) {
+    if (!this.validate()) {
+        ev.preventDefault();
+        ev.stopPropagation();
     }
-}
+};
 
-Object.extend(Validation, {
-    validate : function(elm, options){
-        options = Object.extend({
-            useTitle : false,
-            onElementValidate : function(result, elm) {}
-        }, options || {});
-        elm = $(elm);
-
-        var cn = $w(elm.className);
-        return result = cn.all(function(value) {
-            var test = Validation.test(value,elm,options.useTitle);
-            options.onElementValidate(test, elm);
-            return test;
-        });
-    },
-    insertAdvice : function(elm, advice){
-        var container = $(elm).up('.field-row');
-        if(container){
-            Element.insert(container, {after: advice});
-        } else if (elm.up('td.value')) {
-            elm.up('td.value').insert({bottom: advice});
-        } else if (elm.advaiceContainer && $(elm.advaiceContainer)) {
-            $(elm.advaiceContainer).update(advice);
-        }
-        else {
-            switch (elm.type.toLowerCase()) {
-                case 'checkbox':
-                case 'radio':
-                    var p = elm.parentNode;
-                    if(p) {
-                        Element.insert(p, {'bottom': advice});
-                    } else {
-                        Element.insert(elm, {'after': advice});
-                    }
-                    break;
-                default:
-                    Element.insert(elm, {'after': advice});
-            }
-        }
-    },
-    showAdvice : function(elm, advice, adviceName){
-        if(!elm.advices){
-            elm.advices = new Hash();
-        }
-        else{
-            elm.advices.each(function(pair){
-                if (!advice || pair.value.id != advice.id) {
-                    // hide non-current advice after delay
-                    this.hideAdvice(elm, pair.value);
+Validation.prototype.validate = function() {
+    var result = false;
+    var useTitles = this.options.useTitles;
+    var callback = this.options.onElementValidate;
+    var self = this;
+    try {
+        var elements = Array.from(this.form.elements);
+        if (this.options.stopOnFirst) {
+            result = elements.every(function(elm) {
+                if (elm.classList.contains('local-validation') && !self.isElementInForm(elm, self.form)) {
+                    return true;
                 }
-            }.bind(this));
-        }
-        elm.advices.set(adviceName, advice);
-        if(typeof Effect == 'undefined') {
-            advice.style.display = 'block';
+                return Validation.validate(elm, {useTitle : useTitles, onElementValidate : callback});
+            });
         } else {
-            if(!advice._adviceAbsolutize) {
-                new Effect.Appear(advice, {duration : 1 });
-            } else {
-                Position.absolutize(advice);
-                advice.show();
-                advice.setStyle({
-                    'top':advice._adviceTop,
-                    'left': advice._adviceLeft,
-                    'width': advice._adviceWidth,
-                    'z-index': 1000
-                });
-                advice.addClassName('advice-absolute');
-            }
-        }
-    },
-    hideAdvice : function(elm, advice){
-        if (advice != null) {
-            if(typeof Effect == 'undefined') {
-                advice.hide();
-            } else {
-                new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
-            }
-        }
-    },
-    updateCallback : function(elm, status) {
-        if (typeof elm.callbackFunction != 'undefined') {
-            eval(elm.callbackFunction+'(\''+elm.id+'\',\''+status+'\')');
-        }
-    },
-    ajaxError : function(elm, errorMsg) {
-        var name = 'validate-ajax';
-        var advice = Validation.getAdvice(name, elm);
-        if (advice == null) {
-            advice = this.createAdvice(name, elm, false, errorMsg);
-        }
-        this.showAdvice(elm, advice, 'validate-ajax');
-        this.updateCallback(elm, 'failed');
-
-        elm.addClassName('validation-failed');
-        elm.addClassName('validate-ajax');
-        if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
-            var container = elm.up(Validation.defaultOptions.containerClassName);
-            if (container && this.allowContainerClassName(elm)) {
-                container.removeClassName('validation-passed');
-                container.addClassName('validation-error');
-            }
-        }
-    },
-    allowContainerClassName: function (elm) {
-        if (elm.type == 'radio' || elm.type == 'checkbox') {
-            return elm.hasClassName('change-container-classname');
-        }
-
-        return true;
-    },
-    test : function(name, elm, useTitle) {
-        var v = Validation.get(name);
-        var prop = '__advice'+name.camelize();
-        try {
-        if(Validation.isVisible(elm) && !v.test($F(elm), elm)) {
-            //if(!elm[prop]) {
-                var advice = Validation.getAdvice(name, elm);
-                if (advice == null) {
-                    advice = this.createAdvice(name, elm, useTitle);
+            result = elements.map(function(elm) {
+                if (elm.classList.contains('local-validation') && !self.isElementInForm(elm, self.form)) {
+                    return true;
                 }
-                this.showAdvice(elm, advice, name);
-                this.updateCallback(elm, 'failed');
-            //}
+                return Validation.validate(elm, {useTitle : useTitles, onElementValidate : callback});
+            }).every(function(v) { return v; });
+        }
+    } catch (e) {
+    }
+    if (!result && this.options.focusOnError) {
+        try {
+            var failed = Array.from(this.form.elements).filter(function(elm) {
+                return elm.classList.contains('validation-failed');
+            });
+            if (failed.length) { failed[0].focus(); }
+        } catch(e) {
+        }
+    }
+    this.options.onFormValidate(result, this.form);
+    return result;
+};
+
+Validation.prototype.reset = function() {
+    Array.from(this.form.elements).forEach(Validation.reset);
+};
+
+Validation.prototype.isElementInForm = function(elm, form) {
+    var domForm = elm.closest('form');
+    return domForm === form;
+};
+
+// ---- Validation static methods ----
+
+Validation.validate = function(elm, options) {
+    options = Object.assign({
+        useTitle : false,
+        onElementValidate : function(result, elm) {}
+    }, options || {});
+    if (typeof elm === 'string') { elm = document.getElementById(elm); }
+
+    var cn = _splitClassName(elm.className);
+    return cn.every(function(value) {
+        var test = Validation.test(value, elm, options.useTitle);
+        options.onElementValidate(test, elm);
+        return test;
+    });
+};
+
+Validation.insertAdvice = function(elm, advice) {
+    if (typeof elm === 'string') { elm = document.getElementById(elm); }
+    var container = elm.closest('.field-row');
+    if (container) {
+        container.insertAdjacentHTML('afterend', advice);
+    } else if (elm.closest('td.value')) {
+        elm.closest('td.value').insertAdjacentHTML('beforeend', advice);
+    } else if (elm.advaiceContainer && document.getElementById(elm.advaiceContainer)) {
+        document.getElementById(elm.advaiceContainer).innerHTML = advice;
+    } else {
+        switch (elm.type.toLowerCase()) {
+            case 'checkbox':
+            case 'radio':
+                var p = elm.parentNode;
+                if (p) {
+                    p.insertAdjacentHTML('beforeend', advice);
+                } else {
+                    elm.insertAdjacentHTML('afterend', advice);
+                }
+                break;
+            default:
+                elm.insertAdjacentHTML('afterend', advice);
+        }
+    }
+};
+
+Validation.showAdvice = function(elm, advice, adviceName) {
+    if (!elm.advices) {
+        elm.advices = {};
+    } else {
+        var self = this;
+        Object.keys(elm.advices).forEach(function(key) {
+            var pair = elm.advices[key];
+            if (!advice || pair.id != advice.id) {
+                self.hideAdvice(elm, pair);
+            }
+        });
+    }
+    elm.advices[adviceName] = advice;
+    advice.style.display = 'block';
+};
+
+Validation.hideAdvice = function(elm, advice) {
+    if (advice != null) {
+        advice.style.display = 'none';
+    }
+};
+
+Validation.updateCallback = function(elm, status) {
+    if (typeof elm.callbackFunction != 'undefined') {
+        eval(elm.callbackFunction+'(\''+elm.id+'\',\''+status+'\')');
+    }
+};
+
+Validation.ajaxError = function(elm, errorMsg) {
+    var name = 'validate-ajax';
+    var advice = Validation.getAdvice(name, elm);
+    if (advice == null) {
+        advice = this.createAdvice(name, elm, false, errorMsg);
+    }
+    this.showAdvice(elm, advice, 'validate-ajax');
+    this.updateCallback(elm, 'failed');
+
+    elm.classList.add('validation-failed');
+    elm.classList.add('validate-ajax');
+    if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+        var container = elm.closest(Validation.defaultOptions.containerClassName);
+        if (container && this.allowContainerClassName(elm)) {
+            container.classList.remove('validation-passed');
+            container.classList.add('validation-error');
+        }
+    }
+};
+
+Validation.allowContainerClassName = function(elm) {
+    if (elm.type == 'radio' || elm.type == 'checkbox') {
+        return elm.classList.contains('change-container-classname');
+    }
+    return true;
+};
+
+Validation.test = function(name, elm, useTitle) {
+    var v = Validation.get(name);
+    var prop = '__advice' + _camelize(name);
+    try {
+        if (Validation.isVisible(elm) && !v.test(_getFieldValue(elm), elm)) {
+            var advice = Validation.getAdvice(name, elm);
+            if (advice == null) {
+                advice = this.createAdvice(name, elm, useTitle);
+            }
+            this.showAdvice(elm, advice, name);
+            this.updateCallback(elm, 'failed');
             elm[prop] = 1;
             if (!elm.advaiceContainer) {
-                elm.removeClassName('validation-passed');
-                elm.addClassName('validation-failed');
+                elm.classList.remove('validation-passed');
+                elm.classList.add('validation-failed');
             }
 
-           if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
-                var container = elm.up(Validation.defaultOptions.containerClassName);
+            if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+                var container = elm.closest(Validation.defaultOptions.containerClassName);
                 if (container && this.allowContainerClassName(elm)) {
-                    container.removeClassName('validation-passed');
-                    container.addClassName('validation-error');
+                    container.classList.remove('validation-passed');
+                    container.classList.add('validation-error');
                 }
             }
             return false;
@@ -307,112 +335,120 @@ Object.extend(Validation, {
             this.hideAdvice(elm, advice);
             this.updateCallback(elm, 'passed');
             elm[prop] = '';
-            elm.removeClassName('validation-failed');
-            elm.addClassName('validation-passed');
+            elm.classList.remove('validation-failed');
+            elm.classList.add('validation-passed');
             if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
-                var container = elm.up(Validation.defaultOptions.containerClassName);
-                if (container && !container.down('.validation-failed') && this.allowContainerClassName(elm)) {
+                var container = elm.closest(Validation.defaultOptions.containerClassName);
+                if (container && !container.querySelector('.validation-failed') && this.allowContainerClassName(elm)) {
                     if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) {
-                        container.addClassName('validation-passed');
+                        container.classList.add('validation-passed');
                     } else {
-                        container.removeClassName('validation-passed');
+                        container.classList.remove('validation-passed');
                     }
-                    container.removeClassName('validation-error');
+                    container.classList.remove('validation-error');
                 }
             }
             return true;
         }
-        } catch(e) {
-            throw(e)
-        }
-    },
-    isVisible : function(elm) {
-        while(elm.tagName != 'BODY') {
-            if(!$(elm).visible()) return false;
-            elm = elm.parentNode;
-        }
-        return true;
-    },
-    getAdvice : function(name, elm) {
-        return $('advice-' + name + '-' + Validation.getElmID(elm)) || $('advice-' + Validation.getElmID(elm));
-    },
-    createAdvice : function(name, elm, useTitle, customError) {
-        var v = Validation.get(name);
-        var errorMsg = useTitle ? ((elm && elm.title) ? elm.title : v.error) : v.error;
-        if (customError) {
-            errorMsg = customError;
-        }
-        try {
-            if (Translator){
-                errorMsg = Translator.translate(errorMsg);
-            }
-        }
-        catch(e){}
-
-        advice = '<div class="validation-advice" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none">' + errorMsg + '</div>'
-
-
-        Validation.insertAdvice(elm, advice);
-        advice = Validation.getAdvice(name, elm);
-        if($(elm).hasClassName('absolute-advice')) {
-            var dimensions = $(elm).getDimensions();
-            var originalPosition = Position.cumulativeOffset(elm);
-
-            advice._adviceTop = (originalPosition[1] + dimensions.height) + 'px';
-            advice._adviceLeft = (originalPosition[0])  + 'px';
-            advice._adviceWidth = (dimensions.width)  + 'px';
-            advice._adviceAbsolutize = true;
-        }
-        return advice;
-    },
-    getElmID : function(elm) {
-        return elm.id ? elm.id : elm.name;
-    },
-    reset : function(elm) {
-        elm = $(elm);
-        var cn = $w(elm.className);
-        cn.each(function(value) {
-            var prop = '__advice'+value.camelize();
-            if(elm[prop]) {
-                var advice = Validation.getAdvice(value, elm);
-                if (advice) {
-                    advice.hide();
-                }
-                elm[prop] = '';
-            }
-            elm.removeClassName('validation-failed');
-            elm.removeClassName('validation-passed');
-            if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
-                var container = elm.up(Validation.defaultOptions.containerClassName);
-                if (container) {
-                    container.removeClassName('validation-passed');
-                    container.removeClassName('validation-error');
-                }
-            }
-        });
-    },
-    add : function(className, error, test, options) {
-        var nv = {};
-        nv[className] = new Validator(className, error, test, options);
-        Object.extend(Validation.methods, nv);
-    },
-    addAllThese : function(validators) {
-        var nv = {};
-        $A(validators).each(function(value) {
-                nv[value[0]] = new Validator(value[0], value[1], value[2], (value.length > 3 ? value[3] : {}));
-            });
-        Object.extend(Validation.methods, nv);
-    },
-    get : function(name) {
-        return  Validation.methods[name] ? Validation.methods[name] : Validation.methods['_LikeNoIDIEverSaw_'];
-    },
-    methods : {
-        '_LikeNoIDIEverSaw_' : new Validator('_LikeNoIDIEverSaw_','',{})
+    } catch(e) {
+        throw(e);
     }
-});
+};
+
+Validation.isVisible = function(elm) {
+    while (elm.tagName != 'BODY') {
+        if (!_isVisible(elm)) return false;
+        elm = elm.parentNode;
+    }
+    return true;
+};
+
+Validation.getAdvice = function(name, elm) {
+    return document.getElementById('advice-' + name + '-' + Validation.getElmID(elm))
+        || document.getElementById('advice-' + Validation.getElmID(elm));
+};
+
+Validation.createAdvice = function(name, elm, useTitle, customError) {
+    var v = Validation.get(name);
+    var errorMsg = useTitle ? ((elm && elm.title) ? elm.title : v.error) : v.error;
+    if (customError) {
+        errorMsg = customError;
+    }
+    try {
+        if (Translator) {
+            errorMsg = Translator.translate(errorMsg);
+        }
+    } catch(e) {}
+
+    var advice = '<div class="validation-advice" id="advice-' + name + '-' + Validation.getElmID(elm) + '" style="display:none">' + errorMsg + '</div>';
+
+    Validation.insertAdvice(elm, advice);
+    advice = Validation.getAdvice(name, elm);
+    if (elm.classList.contains('absolute-advice')) {
+        var rect = elm.getBoundingClientRect();
+        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        advice._adviceTop = (rect.top + scrollTop + rect.height) + 'px';
+        advice._adviceLeft = (rect.left + scrollLeft) + 'px';
+        advice._adviceWidth = rect.width + 'px';
+        advice._adviceAbsolutize = true;
+    }
+    return advice;
+};
+
+Validation.getElmID = function(elm) {
+    return elm.id ? elm.id : elm.name;
+};
+
+Validation.reset = function(elm) {
+    if (typeof elm === 'string') { elm = document.getElementById(elm); }
+    var cn = _splitClassName(elm.className);
+    cn.forEach(function(value) {
+        var prop = '__advice' + _camelize(value);
+        if (elm[prop]) {
+            var advice = Validation.getAdvice(value, elm);
+            if (advice) {
+                advice.style.display = 'none';
+            }
+            elm[prop] = '';
+        }
+        elm.classList.remove('validation-failed');
+        elm.classList.remove('validation-passed');
+        if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+            var container = elm.closest(Validation.defaultOptions.containerClassName);
+            if (container) {
+                container.classList.remove('validation-passed');
+                container.classList.remove('validation-error');
+            }
+        }
+    });
+};
+
+Validation.add = function(className, error, test, options) {
+    var nv = {};
+    nv[className] = new Validator(className, error, test, options);
+    Object.assign(Validation.methods, nv);
+};
+
+Validation.addAllThese = function(validators) {
+    var nv = {};
+    validators.forEach(function(value) {
+        nv[value[0]] = new Validator(value[0], value[1], value[2], (value.length > 3 ? value[3] : {}));
+    });
+    Object.assign(Validation.methods, nv);
+};
+
+Validation.get = function(name) {
+    return Validation.methods[name] ? Validation.methods[name] : Validation.methods['_LikeNoIDIEverSaw_'];
+};
+
+Validation.methods = {
+    '_LikeNoIDIEverSaw_' : new Validator('_LikeNoIDIEverSaw_', '', {})
+};
 
 Validation.add('IsEmpty', '', function(v) {
-    return  (v == '' || (v == null) || (v.length == 0) || /^\s+$/.test(v));
+    return (v == '' || (v == null) || (v.length == 0) || /^\s+$/.test(v));
 });
 
 Validation.addAllThese([
@@ -442,7 +478,7 @@ Validation.addAllThese([
                 var reRange = /^number-range-(-?[\d.,]+)?-(-?[\d.,]+)?$/,
                     result = true;
 
-                $w(elm.className).each(function(name) {
+                _splitClassName(elm.className).forEach(function(name) {
                     var m = reRange.exec(name);
                     if (m) {
                         result = result
@@ -469,7 +505,7 @@ Validation.addAllThese([
                 var reRange = /^digits-range-(-?\d+)?-(-?\d+)?$/,
                     result = true;
 
-                $w(elm.className).each(function(name) {
+                _splitClassName(elm.className).forEach(function(name) {
                     var m = reRange.exec(name);
                     if (m) {
                         result = result
@@ -532,7 +568,7 @@ Validation.addAllThese([
                 return new Date(v.join('/')).getTime();
             };
 
-            var dependentElements = Element.select(elm.form, '.validate-date-range.date-range-' + m[1] + '-to');
+            var dependentElements = elm.form.querySelectorAll('.validate-date-range.date-range-' + m[1] + '-to');
             return !dependentElements.length || Validation.get('IsEmpty').test(dependentElements[0].value)
                 || normalizedTime(v) <= normalizedTime(dependentElements[0].value);
         }],
@@ -545,10 +581,10 @@ Validation.addAllThese([
                 return Validation.get('IsEmpty').test(v) ||  /^[\S ]+$/.test(v)
                     }],
     ['validate-password', 'Please enter more characters or clean leading or trailing spaces.', function(v, elm) {
-                var pass=v.strip(); /*strip leading and trailing spaces*/
+                var pass=v.trim(); /*strip leading and trailing spaces*/
                 var reMin = new RegExp(/^min-pass-length-[0-9]+$/);
                 var minLength = 7;
-                $w(elm.className).each(function(name, index) {
+                _splitClassName(elm.className).forEach(function(name, index) {
                     if (name.match(reMin)) {
                         minLength = name.split('-')[3];
                     }
@@ -556,7 +592,7 @@ Validation.addAllThese([
                 return (!(v.length > 0 && v.length < minLength) && v.length == pass.length);
             }],
     ['validate-admin-password', 'Please enter more characters. Password should contain both numeric and alphabetic characters.', function(v, elm) {
-                var pass=v.strip();
+                var pass=v.trim();
                 if (0 == pass.length) {
                     return true;
                 }
@@ -565,7 +601,7 @@ Validation.addAllThese([
                 }
                 var reMin = new RegExp(/^min-admin-pass-length-[0-9]+$/);
                 var minLength = 7;
-                $w(elm.className).each(function(name, index) {
+                _splitClassName(elm.className).forEach(function(name, index) {
                     if (name.match(reMin)) {
                         minLength = name.split('-')[4];
                     }
@@ -573,28 +609,28 @@ Validation.addAllThese([
                 return !(pass.length < minLength);
             }],
     ['validate-cpassword', 'Please make sure your passwords match.', function(v) {
-                var conf = $('confirmation') ? $('confirmation') : $$('.validate-cpassword')[0];
+                var conf = document.getElementById('confirmation') ? document.getElementById('confirmation') : document.querySelector('.validate-cpassword');
                 var pass = false;
-                if ($('password')) {
-                    pass = $('password');
+                if (document.getElementById('password')) {
+                    pass = document.getElementById('password');
                 }
-                var passwordElements = $$('.validate-password');
-                for (var i = 0; i < passwordElements.size(); i++) {
+                var passwordElements = document.querySelectorAll('.validate-password');
+                for (var i = 0; i < passwordElements.length; i++) {
                     var passwordElement = passwordElements[i];
-                    if (passwordElement.up('form').id == conf.up('form').id) {
+                    if (passwordElement.closest('form').id == conf.closest('form').id) {
                         pass = passwordElement;
                     }
                 }
-                if ($$('.validate-admin-password').size()) {
-                    pass = $$('.validate-admin-password')[0];
+                if (document.querySelectorAll('.validate-admin-password').length) {
+                    pass = document.querySelectorAll('.validate-admin-password')[0];
                 }
                 return (pass.value == conf.value);
             }],
     ['validate-both-passwords', 'Please make sure your passwords match.', function(v, input) {
-                var dependentInput = $(input.form[input.name == 'password' ? 'confirmation' : 'password']),
+                var dependentInput = input.form[input.name == 'password' ? 'confirmation' : 'password'],
                     isEqualValues  = input.value == dependentInput.value;
 
-                if (isEqualValues && dependentInput.hasClassName('validation-failed')) {
+                if (isEqualValues && dependentInput.classList.contains('validation-failed')) {
                     Validation.test(this.className, dependentInput);
                 }
 
@@ -642,12 +678,12 @@ Validation.addAllThese([
     ['validate-one-required', 'Please select one of the above options.', function (v,elm) {
                 var p = elm.parentNode;
                 var options = p.getElementsByTagName('INPUT');
-                return $A(options).any(function(elm) {
-                    return $F(elm);
+                return Array.from(options).some(function(el) {
+                    return _getFieldValue(el);
                 });
             }],
     ['validate-one-required-by-name', 'Please select one of the options.', function (v,elm) {
-                var inputs = $$('input[name="' + elm.name.replace(/([\\"])/g, '\\$1') + '"]');
+                var inputs = document.querySelectorAll('input[name="' + elm.name.replace(/([\\"])/g, '\\$1') + '"]');
 
                 var error = 1;
                 for(var i=0;i<inputs.length;i++) {
@@ -685,14 +721,14 @@ Validation.addAllThese([
         }],
 
     ['validate-special-price', 'The Special Price is active only when lower than the Actual Price.', function(v) {
-        var priceInput = $('price');
-        var priceType = $('price_type');
+        var priceInput = document.getElementById('price');
+        var priceType = document.getElementById('price_type');
         var priceValue = parseFloat(v);
 
         // Passed on non-related validators conditions (to not change order of validation)
         if(
             !priceInput
-            || !$F(priceInput)
+            || !_getFieldValue(priceInput)
             || Validation.get('IsEmpty').test(v)
             || !Validation.get('validate-number').test(v)
         ) {
@@ -701,7 +737,7 @@ Validation.addAllThese([
         if(priceType) {
             return (priceType && priceValue <= 99.99);
         }
-        return priceValue < parseFloat($F(priceInput));
+        return priceValue < parseFloat(_getFieldValue(priceInput));
     }],
     ['validate-state', 'Please select State/Province.', function(v) {
                 return (v!=0 || v == '');
@@ -713,9 +749,9 @@ Validation.addAllThese([
             }],
     ['validate-cc-number', 'Please enter a valid credit card number.', function(v, elm) {
                 // remove non-numerics
-                var ccTypeContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_number')) + '_cc_type');
-                if (ccTypeContainer && typeof Validation.creditCartTypes.get(ccTypeContainer.value) != 'undefined'
-                        && Validation.creditCartTypes.get(ccTypeContainer.value)[2] == false) {
+                var ccTypeContainer = document.getElementById(elm.id.substr(0,elm.id.indexOf('_cc_number')) + '_cc_type');
+                if (ccTypeContainer && typeof Validation.creditCartTypes[ccTypeContainer.value] != 'undefined'
+                        && Validation.creditCartTypes[ccTypeContainer.value][2] == false) {
                     if (!Validation.get('IsEmpty').test(v) && Validation.get('validate-digits').test(v)) {
                         return true;
                     } else {
@@ -729,43 +765,45 @@ Validation.addAllThese([
                 elm.value = removeDelimiters(elm.value);
                 v         = removeDelimiters(v);
 
-                var ccTypeContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_number')) + '_cc_type');
+                var ccTypeContainer = document.getElementById(elm.id.substr(0,elm.id.indexOf('_cc_number')) + '_cc_type');
                 if (!ccTypeContainer) {
                     return true;
                 }
                 var ccType = ccTypeContainer.value;
 
-                if (typeof Validation.creditCartTypes.get(ccType) == 'undefined') {
+                if (typeof Validation.creditCartTypes[ccType] == 'undefined') {
                     return false;
                 }
 
                 // Other card type or switch or solo card
-                if (Validation.creditCartTypes.get(ccType)[0]==false) {
+                if (Validation.creditCartTypes[ccType][0]==false) {
                     return true;
                 }
 
                 var validationFailure = false;
-                Validation.creditCartTypes.each(function (pair) {
-                    if (pair.key == ccType) {
-                        if (pair.value[0] && !v.match(pair.value[0])) {
+                var keys = Object.keys(Validation.creditCartTypes);
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+                    if (key == ccType) {
+                        if (Validation.creditCartTypes[key][0] && !v.match(Validation.creditCartTypes[key][0])) {
                             validationFailure = true;
                         }
-                        throw $break;
+                        break;
                     }
-                });
+                }
 
                 if (validationFailure) {
                     return false;
                 }
 
-                if (ccTypeContainer.hasClassName('validation-failed') && Validation.isOnChange) {
+                if (ccTypeContainer.classList.contains('validation-failed') && Validation.isOnChange) {
                     Validation.validate(ccTypeContainer);
                 }
 
                 return true;
             }],
      ['validate-cc-type-select', 'Card type does not match credit card number.', function(v, elm) {
-                var ccNumberContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_type')) + '_cc_number');
+                var ccNumberContainer = document.getElementById(elm.id.substr(0,elm.id.indexOf('_cc_type')) + '_cc_number');
                 if (Validation.isOnChange && Validation.get('IsEmpty').test(ccNumberContainer.value)) {
                     return true;
                 }
@@ -776,7 +814,7 @@ Validation.addAllThese([
             }],
      ['validate-cc-exp', 'Incorrect credit card expiration date.', function(v, elm) {
                 var ccExpMonth   = v;
-                var ccExpYear    = $(elm.id.substr(0,elm.id.indexOf('_expiration')) + '_expiration_yr').value;
+                var ccExpYear    = document.getElementById(elm.id.substr(0,elm.id.indexOf('_expiration')) + '_expiration_yr').value;
                 var currentTime  = new Date();
                 var currentMonth = currentTime.getMonth() + 1;
                 var currentYear  = currentTime.getFullYear();
@@ -786,17 +824,17 @@ Validation.addAllThese([
                 return true;
             }],
      ['validate-cc-cvn', 'Please enter a valid credit card verification number.', function(v, elm) {
-                var ccTypeContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_cid')) + '_cc_type');
+                var ccTypeContainer = document.getElementById(elm.id.substr(0,elm.id.indexOf('_cc_cid')) + '_cc_type');
                 if (!ccTypeContainer) {
                     return true;
                 }
                 var ccType = ccTypeContainer.value;
 
-                if (typeof Validation.creditCartTypes.get(ccType) == 'undefined') {
+                if (typeof Validation.creditCartTypes[ccType] == 'undefined') {
                     return false;
                 }
 
-                var re = Validation.creditCartTypes.get(ccType)[1];
+                var re = Validation.creditCartTypes[ccType][1];
 
                 if (v.match(re)) {
                     return true;
@@ -821,7 +859,7 @@ Validation.addAllThese([
                 var reMax = new RegExp(/^maximum-length-[0-9]+$/);
                 var reMin = new RegExp(/^minimum-length-[0-9]+$/);
                 var result = true;
-                $w(elm.className).each(function(name, index) {
+                _splitClassName(elm.className).forEach(function(name, index) {
                     if (name.match(reMax) && result) {
                        var length = name.split('-')[2];
                        result = (v.length <= length);
@@ -838,8 +876,8 @@ Validation.addAllThese([
          var result = !Validation.get('IsEmpty').test(v);
          if (result === false) {
              ovId = elm.id + '_value';
-             if ($(ovId)) {
-                 result = !Validation.get('IsEmpty').test($(ovId).value);
+             if (document.getElementById(ovId)) {
+                 result = !Validation.get('IsEmpty').test(document.getElementById(ovId).value);
              }
          }
          return result;
@@ -857,7 +895,7 @@ Validation.addAllThese([
 
          var prefix = elm.id.substr(0,endposition);
 
-         var ccTypeContainer = $(prefix + '_cc_type');
+         var ccTypeContainer = document.getElementById(prefix + '_cc_type');
 
          if (!ccTypeContainer) {
                return true;
@@ -868,14 +906,24 @@ Validation.addAllThese([
              return true;
          }
 
-         $(prefix + '_cc_issue').advaiceContainer
-           = $(prefix + '_start_month').advaiceContainer
-           = $(prefix + '_start_year').advaiceContainer
-           = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
+         var issueEl = document.getElementById(prefix + '_cc_issue');
+         var startMonthEl = document.getElementById(prefix + '_start_month');
+         var startYearEl = document.getElementById(prefix + '_start_year');
+         var advContainer = document.getElementById(prefix + '_cc_type_ss_div');
 
-         var ccIssue   =  $(prefix + '_cc_issue').value;
-         var ccSMonth  =  $(prefix + '_start_month').value;
-         var ccSYear   =  $(prefix + '_start_year').value;
+         if (issueEl) {
+             issueEl.advaiceContainer = advContainer ? advContainer.querySelector('ul li.adv-container') : null;
+         }
+         if (startMonthEl) {
+             startMonthEl.advaiceContainer = advContainer ? advContainer.querySelector('ul li.adv-container') : null;
+         }
+         if (startYearEl) {
+             startYearEl.advaiceContainer = advContainer ? advContainer.querySelector('ul li.adv-container') : null;
+         }
+
+         var ccIssue   = issueEl ? issueEl.value : '';
+         var ccSMonth  = startMonthEl ? startMonthEl.value : '';
+         var ccSYear   = startYearEl ? startYearEl.value : '';
 
          var ccStartDatePresent = (ccSMonth && ccSYear) ? true : false;
 
@@ -923,7 +971,7 @@ function parseNumber(v)
  * 2 - check or not credit card number trough Luhn algorithm by
  *     function validateCreditCard which you can find above in this file
  */
-Validation.creditCartTypes = $H({
+Validation.creditCartTypes = {
 //    'SS': [new RegExp('^((6759[0-9]{12})|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})|(6333[0-9]{12})|(6334[0-4]\d{11})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'SO': [new RegExp('^(6334[5-9]([0-9]{11}|[0-9]{13,14}))|(6767([0-9]{12}|[0-9]{14,15}))$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
@@ -934,4 +982,9 @@ Validation.creditCartTypes = $H({
     'DICL': [new RegExp('^(30[0-5][0-9]{13}|3095[0-9]{12}|35(2[8-9][0-9]{12}|[3-8][0-9]{13})|36[0-9]{12}|3[8-9][0-9]{14}|6011(0[0-9]{11}|[2-4][0-9]{11}|74[0-9]{10}|7[7-9][0-9]{10}|8[6-9][0-9]{10}|9[0-9]{11})|62(2(12[6-9][0-9]{10}|1[3-9][0-9]{11}|[2-8][0-9]{12}|9[0-1][0-9]{11}|92[0-5][0-9]{10})|[4-6][0-9]{13}|8[2-8][0-9]{12})|6(4[4-9][0-9]{13}|5[0-9]{14}))$'), new RegExp('^[0-9]{3}$'), true],
     'SM': [new RegExp('(^(5[0678])[0-9]{11,18}$)|(^(6[^05])[0-9]{11,18}$)|(^(601)[^1][0-9]{9,16}$)|(^(6011)[0-9]{9,11}$)|(^(6011)[0-9]{13,16}$)|(^(65)[0-9]{11,13}$)|(^(65)[0-9]{15,18}$)|(^(49030)[2-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49033)[5-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49110)[1-2]([0-9]{10}$|[0-9]{12,13}$))|(^(49117)[4-9]([0-9]{10}$|[0-9]{12,13}$))|(^(49118)[0-2]([0-9]{10}$|[0-9]{12,13}$))|(^(4936)([0-9]{12}$|[0-9]{14,15}$))'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'OT': [false, new RegExp('^([0-9]{3}|[0-9]{4})?$'), false]
-});
+};
+
+// Backward-compatible .get() method on creditCartTypes for code that used $H().get()
+Validation.creditCartTypes.get = function(key) {
+    return this[key];
+};
