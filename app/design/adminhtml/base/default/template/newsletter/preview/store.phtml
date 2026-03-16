@@ -35,9 +35,9 @@
 </select>
 <script type="text/javascript">
 //<![CDATA[
-Event.observe($('store_switcher'), 'change', function(event) {
-    var element = Event.element(event);
-    $('preview_store_id').value = element.value;
+document.getElementById('store_switcher').addEventListener('change', function(event) {
+    var element = event.target;
+    document.getElementById('preview_store_id').value = element.value;
 });
 //]]>
 </script>

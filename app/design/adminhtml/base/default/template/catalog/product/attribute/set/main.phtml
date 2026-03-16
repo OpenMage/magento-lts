@@ -162,7 +162,7 @@
                         for( i in rootNode.childNodes ) {
                             if(rootNode.childNodes[i].id) {
                                 var group = rootNode.childNodes[i];
-                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.input.strip(), (gIterator+1));
+                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.input.trim(), (gIterator+1));
                                 var iterator = 0
                                 for( j in group.childNodes ) {
                                     iterator ++;
@@ -287,7 +287,7 @@
 
                     addGroup : function() {
                         var group_name = prompt("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please enter a new group name')) ?>","");
-                        group_name = group_name.strip();
+                        group_name = group_name.trim();
                         if( group_name == '' ) {
                             this.addGroup();
                         } else if( group_name != false && group_name != null && group_name != '' ) {
@@ -327,7 +327,7 @@
                     },
 
                     validateGroupName : function(name, exceptNodeId) {
-                        name = name.strip();
+                        name = name.trim();
                         if (name === '') {
                             return false;
                         }
@@ -342,13 +342,13 @@
                     },
 
                     save : function() {
-                        $('messages').update();
+                        document.getElementById('messages').innerHTML = '';
                         TreePanels.rebuildTrees();
                         var _validator = new Validation('set_prop_form', {onSubmit:false});
                         if( !_validator.validate() ) {
                             return;
                         }
-                        editSet.req.attribute_set_name = $('attribute_set_name').value;
+                        editSet.req.attribute_set_name = document.getElementById('attribute_set_name').value;
                         if (!editSet.req.form_key) {
                             editSet.req.form_key = FORM_KEY;
                         }
@@ -359,13 +359,13 @@
                     success : function(o) {
                         var response = Ext.util.JSON.decode(o.responseText);
                         if( response.error ) {
-                            $('messages').update(response.message);
+                            document.getElementById('messages').innerHTML = response.message;
                         } else if( response.ajaxExpired && response.ajaxRedirect ){
                             setLocation(response.ajaxRedirect);
                         } else if( response.url ){
                             setLocation(response.url);
                         } else if( response.message ) {
-                            $('messages').update(response.message);
+                            document.getElementById('messages').innerHTML = response.message;
                         }
                     },
 

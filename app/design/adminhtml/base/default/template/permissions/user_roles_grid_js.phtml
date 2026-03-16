@@ -16,7 +16,7 @@
     var warning = false;
     var userRoles = $H(<?php echo $myBlock->_getSelectedRoles(true) ?>);
     if (userRoles.size() > 0) warning = true;
-    $('user_user_roles').value = userRoles.toQueryString();
+    document.getElementById('user_user_roles').value = userRoles.toQueryString();
 
     function registerUserRole(grid, element, checked){
         if(checked){
@@ -25,15 +25,15 @@
         } else {
             userRoles.remove(element.value);
         }
-        $('user_user_roles').value = userRoles.toQueryString();
+        document.getElementById('user_user_roles').value = userRoles.toQueryString();
         grid.reloadParams = {'user_roles[]':userRoles.keys()};
     }
 
     function roleRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput   = event.target.tagName == 'INPUT';
         if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            var checkbox = trElement.querySelectorAll('input');
             if(checkbox[0] && !checkbox[0].checked){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (checked && warning && radioBoxes.size() > 0) {
@@ -54,7 +54,7 @@
     }
 
     function rolesRowInit(grid, row){
-        var checkbox = $(row).getElementsByClassName('radio')[0];
+        var checkbox = row.getElementsByClassName('radio')[0];
         if (checkbox) {
             radioBoxes[checkbox.value] = {'status' : ((checkbox.checked) ? 1 : 0), 'object' : checkbox};
         }

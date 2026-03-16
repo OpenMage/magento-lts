@@ -27,7 +27,7 @@ var tree;
  */
 Ext.lib.Event.getTarget = function(e) {
     var ee = e.browserEvent || e;
-    return ee.target ? Event.element(ee) : null;
+    return ee.target ? ee.target : null;
 };
 
 Ext.tree.TreePanel.Enhanced = function(el, config)
