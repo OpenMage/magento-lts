@@ -698,6 +698,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </merge_files>
+                        <prototype_mode translate="label comment">
+                            <label>Prototype.js Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_dev_prototypemode</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Full: loads Prototype.js + Scriptaculous (default). Shim: loads a lightweight compatibility layer (~15KB vs ~520KB). None: loads neither (only for fully migrated sites).</comment>
+                        </prototype_mode>
                     </fields>
                 </js>
                 <css translate="label">
