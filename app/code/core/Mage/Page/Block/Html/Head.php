@@ -171,6 +171,65 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
+     * Prototype/Scriptaculous file names that should be swapped based on prototype_mode config.
+     *
+     * @var array
+     */
+    protected $_prototypeFiles = [
+        'prototype/prototype.js',
+        'prototype/window.js',
+        'prototype/window_effects.js',
+        'prototype/window_ext.js',
+        'prototype/effects.js',
+        'prototype/tooltip.js',
+        'prototype/tooltip_manager.js',
+        'prototype/debug.js',
+        'prototype/extended_debug.js',
+        'scriptaculous/builder.js',
+        'scriptaculous/effects.js',
+        'scriptaculous/dragdrop.js',
+        'scriptaculous/controls.js',
+        'scriptaculous/slider.js',
+        'scriptaculous/sound.js',
+        'scriptaculous/unittest.js',
+    ];
+
+    /**
+     * Apply prototype_mode config to swap Prototype/Scriptaculous JS items.
+     *
+     * Must be called before rendering. Modifies $this->_data['items'] in place.
+     *
+     * @return $this
+     */
+    protected function _applyPrototypeMode()
+    {
+        $mode = Mage::getStoreConfig('dev/js/prototype_mode');
+        if (!$mode || $mode === 'full') {
+            return $this;
+        }
+
+        // Remove all prototype/scriptaculous files
+        foreach ($this->_prototypeFiles as $file) {
+            $this->removeItem('js', $file);
+        }
+
+        if ($mode === 'shim') {
+            // Insert shim as the very first JS item
+            $shimItem = [
+                'type' => 'js',
+                'name' => 'prototype/prototype-shim.js',
+                'params' => null,
+                'if' => null,
+                'cond' => null,
+            ];
+            $this->_data['items'] = ['js/prototype/prototype-shim.js' => $shimItem] + ($this->_data['items'] ?? []);
+        }
+        // mode === 'none': just remove, don't add anything
+
+        return $this;
+    }
+
+    /**
      * Get HEAD HTML with CSS/JS/RSS definitions
      * (actually it also renders other elements, TODO: fix it up or rename this method)
      *
@@ -178,6 +237,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function getCssJsHtml()
     {
+        $this->_applyPrototypeMode();
+
         // separate items by types
         $lines  = [];
         foreach ($this->_data['items'] as $item) {
