@@ -67,7 +67,7 @@ var Downloadable = {
         try {
             this.uploaderObj.get(type).each(function(item){
                 var container = item.value.elements.container.up('tr');
-                if (container.visible() && !container.hasClassName('no-display')) {
+                if (container.style.display !== 'none' && !container.classList.contains('no-display')) {
                     item.value.upload();
                 } else {
                     Downloadable.unsetUploaderObj(type, item.key);
@@ -105,17 +105,16 @@ Downloadable.FileUploader.prototype = {
         this.config = config;
         uploaderTemplate = new Template(this.uploaderText, this.uploaderSyntax);
         <?php if (!$this->isReadonly()):?>
-        Element.insert(
-            elmContainer,
-            {'top' : uploaderTemplate.evaluate({
+        elmContainer.insertAdjacentHTML(
+            'afterbegin',
+            uploaderTemplate.evaluate({
                     'idName' : this.idName,
                     'fileValueName' : this.fileValueName,
                     'uploaderObj' : 'Downloadable.getUploaderObj(\''+this.type+'\', \''+this.key+'\')'
                 })
-            }
         );
-        if ($(this.idName+'_save')) {
-            $(this.idName+'_save').value = this.fileValue.toJSON
+        if (document.getElementById(this.idName+'_save')) {
+            document.getElementById(this.idName+'_save').value = this.fileValue.toJSON
                ? this.fileValue.toJSON()
                : Object.toJSON(this.fileValue);
         }
@@ -144,7 +143,7 @@ Downloadable.FileList.prototype = {
     listTemplate : null,
     initialize: function (containerId, uploader) {
         this.containerId  = containerId,
-        this.container = $(this.containerId);
+        this.container = document.getElementById(this.containerId);
         this.uploader = uploader;
         document.on('uploader:fileSuccess', function(event) {
             var memo = event.memo;
@@ -161,7 +160,7 @@ Downloadable.FileList.prototype = {
         }.bind(this));
         document.on('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
         document.on('uploader:simulateNewUpload', this.handleFileNew.bind(this));
-        this.file = this.getElement('save').value.evalJSON();
+        this.file = JSON.parse(this.getElement('save').value);
         this.listTemplate = new Template(this.fileListTemplate, this.templatePattern);
         this.updateFiles();
         this.uploader.onFileRemoveAll = this.handleFileRemoveAll.bind(this);
@@ -169,20 +168,20 @@ Downloadable.FileList.prototype = {
     },
 
     _checkCurrentContainer: function (child) {
-        return $(this.containerId).down('#' + child);
+        return document.getElementById(this.containerId).querySelector('#' + child);
     },
 
     handleFileRemoveAll: function(e) {
         if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
-            $(this.containerId+'-new').hide();
-            $(this.containerId+'-old').show();
+            document.getElementById(this.containerId+'-new').style.display = 'none';
+            document.getElementById(this.containerId+'-old').style.display = '';
             this.handleButtonsSwap();
         }
     },
     handleFileNew: function (e) {
         if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
-            $(this.containerId + '-new').show();
-            $(this.containerId + '-old').hide();
+            document.getElementById(this.containerId + '-new').style.display = '';
+            document.getElementById(this.containerId + '-old').style.display = 'none';
             this.handleButtonsSwap();
         }
     },
@@ -190,10 +189,10 @@ Downloadable.FileList.prototype = {
         $$(['#' + this.containerId+'-browse', '#'+this.containerId+'-delete']).invoke('toggle');
     },
     handleFileSelect: function() {
-        $(this.containerId+'_type').checked = true;
+        document.getElementById(this.containerId+'_type').checked = true;
     },
     getElement: function (name) {
-        return $(this.containerId + '_' + name);
+        return document.getElementById(this.containerId + '_' + name);
     },
     handleUploadComplete: function (files) {
         files.each(function(item) {
@@ -205,7 +204,7 @@ Downloadable.FileList.prototype = {
                 }
                return;
            }
-           var response = item.response.evalJSON();
+           var response = JSON.parse(item.response);
            if (response.error) {
                return;
            }
@@ -224,9 +223,9 @@ Downloadable.FileList.prototype = {
             : Object.toJSON(this.file);
         this.file.each(function(row){
             row.size = this.uploader.formatSize(row.size);
-            $(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);
-            $(this.containerId + '-new').hide();
-            $(this.containerId + '-old').show();
+            document.getElementById(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);
+            document.getElementById(this.containerId + '-new').style.display = 'none';
+            document.getElementById(this.containerId + '-old').style.display = '';
         }.bind(this));
     }
 }
@@ -270,10 +269,10 @@ Validation.addAllThese([
 </div>
 <?php if ($this->isReadonly()): ?>
 <script type="text/javascript">
-$('downloadableInfo').select('input', 'select', 'textarea', 'button').each(function (item){
+document.getElementById('downloadableInfo').querySelectorAll('input, select, textarea, button').forEach(function (item){
     item.disabled = true;
     if (item.tagName.toLowerCase() == 'button') {
-        item.addClassName('disabled');
+        item.classList.add('disabled');
     }
 });
 </script>

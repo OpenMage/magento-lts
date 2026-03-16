@@ -30,10 +30,10 @@
 <?php endif ?>
 <script type="text/javascript">
 //<![CDATA[
-    document.observe('dom:loaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var captcha = new Captcha('<?php echo $this->getRefreshUrl() ?>', '<?php echo $this->getFormId() ?>');
 
-        $('captcha-reload').observe('click', function () {
+        document.getElementById('captcha-reload').addEventListener('click', function () {
             captcha.refresh(this);
         });
 

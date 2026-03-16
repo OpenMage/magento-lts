@@ -11,7 +11,7 @@
 function saveAndContinueEdit(){
     disableElements('save');
     var activeTab = product_attribute_tabsJsTabs.activeTab.id;
-    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
+    if (editForm.submit(document.getElementById('edit_form').action+'back/edit/tab/' + activeTab) == false) {
         enableElements('save');
      }
     varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){

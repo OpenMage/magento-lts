@@ -69,8 +69,8 @@
 
     function toggleUseDefault(code, value)
     {
-        checkbox = $('custom_currency_symbol_inherit'+code);
-        input = $('custom_currency_symbol'+code);
+        checkbox = document.getElementById('custom_currency_symbol_inherit'+code);
+        input = document.getElementById('custom_currency_symbol'+code);
         if (checkbox.checked) {
             input.value = value;
             input.disabled = true;

@@ -30,10 +30,8 @@
     {
         if(this.validate()){
             // create dynamic frame
-            if (!$(this.ifrElemName)) {
-                $('html-body').insert({
-                    bottom:'<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>'
-                });
+            if (!document.getElementById(this.ifrElemName)) {
+                document.getElementById('html-body').insertAdjacentHTML('beforeend', '<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>');
             }
 
             // show mask
@@ -86,7 +84,7 @@
                 case 'show':
                 case 'clear':
                 case 'hide':
-                    $H(pair.value).each(function(val) {if ($(val.value)) $(val.value)[pair.key]();});
+                    $H(pair.value).each(function(val) {var _el = document.getElementById(val.value); if (_el) { if (pair.key === 'show') _el.style.display = ''; else if (pair.key === 'hide') _el.style.display = 'none'; else if (pair.key === 'clear') _el.innerHTML = ''; }});
                     break;
                 case 'innerHTML':
                 case 'value':

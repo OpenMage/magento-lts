@@ -79,13 +79,13 @@ Bundle.Option.prototype = {
     itemsCount : 0,
     initialize : function(template) {
         this.templateText = template;
-        this.top = $('product_bundle_container_top');
+        this.top = document.getElementById('product_bundle_container_top');
     },
 
     add : function(data) {
         if (!data) {
             data = {};
-            this.top = $('product_bundle_container_top');
+            this.top = document.getElementById('product_bundle_container_top');
         } else if (data.title) {
             data.title = data.title.replace('"', "&quot;");
         }
@@ -94,20 +94,20 @@ Bundle.Option.prototype = {
 
         this.template = new Template(this.templateText, this.templateSyntax);
 
-        Element.insert(this.top, {'after':this.template.evaluate(data)});
+        this.top.insertAdjacentHTML('afterend', this.template.evaluate(data));
 
-        this.top = $(this.idLabel + '_' + data.index);
+        this.top = document.getElementById(this.idLabel + '_' + data.index);
 
         //set selected type
         if (data.type) {
-            $A($(this.idLabel + '_'+data.index+'_type').options).each(function(option){
+            Array.from(document.getElementById(this.idLabel + '_'+data.index+'_type').options).forEach(function(option){
                 if (option.value==data.type) option.selected = true;
             });
         }
 
         //set selected is_require
         if (typeof data.required !== 'undefined') {
-            $A($(this.idLabel + '_'+data.index+'_required').options).each(function(option){
+            Array.from(document.getElementById(this.idLabel + '_'+data.index+'_required').options).forEach(function(option){
                 if (option.value==data.required) option.selected = true;
             });
         }
@@ -118,21 +118,21 @@ Bundle.Option.prototype = {
     },
 
     remove : function(event){
-        var element = $(Event.findElement(event, 'div')).parentNode;
+        var element = event.target.closest('div').parentNode;
         if(element){
-            Element.select(element, '.delete').each(function(elem){elem.value='1'});
-            Element.select(element, ['input', 'select']).each(function(elem){elem.hide(); elem.className = '';});
-            Element.hide(element);
+            element.querySelectorAll('.delete').forEach(function(elem){elem.value='1'});
+            element.querySelectorAll('input, select').forEach(function(elem){elem.style.display = 'none'; elem.className = '';});
+            element.style.display = 'none';
         }
     },
 
     changeType : function(event) {
-        var element = Event.element(event);
+        var element = event.target;
         parts = element.id.split('_');
         i = parts[2];
         if (element.value == 'multi' || element.value == 'checkbox') {
-            inputs = $A($$('#' + bSelection.idLabel + '_box_' + i + ' tr.selection input.default'));
-            inputs.each(
+            inputs = Array.from(document.querySelectorAll('#' + bSelection.idLabel + '_box_' + i + ' tr.selection input.default'));
+            inputs.forEach(
                 function(elem){
                     //elem.type = "checkbox";
                     changeInputType(elem, 'checkbox');
@@ -141,15 +141,15 @@ Bundle.Option.prototype = {
             /**
              * Hide not needed elements (user defined qty select box)
              */
-            inputs = $A($$('#' + bSelection.idLabel + '_box_' + i + ' .qty-box'));
-            inputs.each(
+            inputs = Array.from(document.querySelectorAll('#' + bSelection.idLabel + '_box_' + i + ' .qty-box'));
+            inputs.forEach(
                 function(elem){
-                    elem.hide();
+                    elem.style.display = 'none';
                 }
             );
 
         } else {
-            inputs = $A($$('#' + bSelection.idLabel + '_box_' + i + ' tr.selection input.default'));
+            inputs = Array.from(document.querySelectorAll('#' + bSelection.idLabel + '_box_' + i + ' tr.selection input.default'));
             have = false;
             for (j=0; j< inputs.length; j++) {
                 //inputs[j].type = "radio";
@@ -164,29 +164,29 @@ Bundle.Option.prototype = {
             /**
              * Show user defined select box
              */
-            inputs = $A($$('#' + bSelection.idLabel + '_box_' + i + ' .qty-box'));
-            inputs.each(
+            inputs = Array.from(document.querySelectorAll('#' + bSelection.idLabel + '_box_' + i + ' .qty-box'));
+            inputs.forEach(
                 function(elem){
-                    elem.show();
+                    elem.style.display = '';
                 }
             );
         }
     },
 
     priceTypeFixed : function() {
-        inputs = $A($$('.price-type-box'));
-        inputs.each(
+        inputs = Array.from(document.querySelectorAll('.price-type-box'));
+        inputs.forEach(
             function(elem){
-                elem.show();
+                elem.style.display = '';
             }
         );
     },
 
     priceTypeDynamic : function() {
-        inputs = $A($$('.price-type-box'));
-        inputs.each(
+        inputs = Array.from(document.querySelectorAll('.price-type-box'));
+        inputs.forEach(
             function(elem){
-                elem.hide();
+                elem.style.display = 'none';
             }
         );
     }
@@ -211,7 +211,7 @@ bOption = new Bundle.Option(optionTemplate);
  * Adding event on price type select box of product to hide or show prices for selections
  */
 function togglePriceType() {
-    if ($('price_type').value == '1') {
+    if (document.getElementById('price_type').value == '1') {
         bOption.priceTypeFixed();
     } else {
         bOption.priceTypeDynamic();
@@ -220,6 +220,6 @@ function togglePriceType() {
 
 togglePriceType();
 
-Event.observe('price_type', 'change', togglePriceType);
+document.getElementById('price_type').addEventListener('change', togglePriceType);
 
 </script>

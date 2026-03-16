@@ -39,8 +39,8 @@
                     <?php if ($_isRequired): ?>
                         <script type="text/javascript">
                             //<![CDATA[
-                            $('links_<?php echo $_link->getId() ?>').advaiceContainer = 'links-advice-container';
-                            $('links_<?php echo $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
+                            document.getElementById('links_<?php echo $_link->getId() ?>').advaiceContainer = 'links-advice-container';
+                            document.getElementById('links_<?php echo $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
                             //]]>
                         </script>
                     <?php endif ?>
@@ -59,13 +59,13 @@
     <script type="text/javascript">
     //<![CDATA[
         validateDownloadableCallback = function (elmId, result) {
-            var container = $('downloadable-links-list');
+            var container = document.getElementById('downloadable-links-list');
             if (result == 'failed') {
-                container.removeClassName('validation-passed');
-                container.addClassName('validation-failed');
+                container.classList.remove('validation-passed');
+                container.classList.add('validation-failed');
             } else {
-                container.removeClassName('validation-failed');
-                container.addClassName('validation-passed');
+                container.classList.remove('validation-failed');
+                container.classList.add('validation-passed');
             }
         }
     //]]>

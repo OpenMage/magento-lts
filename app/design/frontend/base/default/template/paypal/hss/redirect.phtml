@@ -24,12 +24,12 @@ if (window.top == window.self) {
             break;
         }
         if (window.top.document.getElementById('opc-' + window.top.checkout.steps[s])) {
-            window.top.document.getElementById('opc-' + window.top.checkout.steps[s]).addClassName('allow');
+            window.top.document.getElementById('opc-' + window.top.checkout.steps[s]).classList.add('allow');
         }
     }
     window.top.checkout.gotoSection("<?php echo $this->getGotoSection() ?>");
-    window.top.document.getElementById('checkout-review-submit').show();
-    window.top.document.getElementById('iframe-warning').hide();
+    window.top.document.getElementById('checkout-review-submit').style.display = '';
+    window.top.document.getElementById('iframe-warning').style.display = 'none';
     <?php if ($this->getErrorMsg()): ?>
         alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->getErrorMsg()) ?>');
     <?php endif ?>

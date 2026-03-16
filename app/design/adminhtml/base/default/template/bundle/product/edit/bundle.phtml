@@ -51,10 +51,10 @@ if(typeof Bundle=='undefined') {
 // re-bind form elements onchange
 varienWindowOnload(true);
 <?php if ($this->isReadonly()):?>
-$('product_bundle_container').select('input', 'select', 'textarea', 'button').each(function(input){
+document.getElementById('product_bundle_container').querySelectorAll('input, select, textarea, button').forEach(function(input){
     input.disabled = true;
     if (input.tagName.toLowerCase() == 'button') {
-        input.addClassName('disabled');
+        input.classList.add('disabled');
     }
 });
 <?php endif ?>

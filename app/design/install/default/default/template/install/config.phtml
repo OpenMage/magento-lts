@@ -63,7 +63,7 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="this.checked ? $('use_secure_options').show() : $('use_secure_options').hide(); return true;" />
+            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="document.getElementById('use_secure_options').style.display = this.checked ? '' : 'none'; return true;" />
             <label for="use_secure"><?php echo $this->__('Use Secure URLs (SSL)') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Enable this option only if you have SSL available.') ?></small>

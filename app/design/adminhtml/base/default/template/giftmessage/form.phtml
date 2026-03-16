@@ -36,7 +36,7 @@
     giftMessageWindowObject.confirmMessage = '<?php echo $this->getEscapedForJs(Mage::helper('giftmessage')->__('Are you sure?')) ?>';
 <?php else: ?>
     var giftMessageWindowObject = new GiftMessageWindow('<?php echo $this->getUniqueId() ?>', null, '<?php echo $this->getRemoveUrl() ?>');
-    Event.observe(window, 'load', function(evt) {
+    window.addEventListener('load', function(evt) {
         giftMessageWindowObject.updateParent('<?php echo $this->getEditUrl() ?>', '<?php echo $this->getButtonUrl() ?>');
     });
 <?php endif ?>

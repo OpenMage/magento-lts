@@ -64,57 +64,53 @@
            currentNode.setText(params.node_name);
        }*/
 
-        var categoryContainer = $('category-edit-container');
-        var messagesContainer = $('messages');
+        var categoryContainer = document.getElementById('category-edit-container');
+        var messagesContainer = document.getElementById('messages');
         var thisObj = this;
-        new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ), {
-            parameters:  params,
-            evalScripts: true,
-            onComplete: function () {
-                /**
-                 * This func depends on variables, that came in response, and were eval'ed in onSuccess() callback.
-                 * Since prototype's Element.update() evals javascripts in 10 msec, we should exec our func after it.
-                 */
-                setTimeout(function() {
-                    try {
-                        if (refreshTree) {
-                            thisObj.refreshTreeArea();
-                        }
-                        toolbarToggle.start();
-                    } catch (e) {
-                        alert(e.message);
-                    };
-                }, 25);
-            },
-            onSuccess: function(transport) {
-                try {
-                    if (transport.responseText.isJSON()) {
-                        var response = transport.responseText.evalJSON();
-                        var needUpdate = true;
-                        if (response.error) {
-                            alert(response.message);
-                            needUpdate = false;
-                        }
-                        if(response.ajaxExpired && response.ajaxRedirect) {
-                            setLocation(response.ajaxRedirect);
-                            needUpdate = false;
-                        }
-                        if (needUpdate){
-                            if (response.content){
-                                $(categoryContainer).update(response.content);
-                            }
-                            if (response.messages){
-                                $(messagesContainer).update(response.messages);
-                            }
-                        }
-                    } else {
-                        $(categoryContainer).update(transport.responseText);
+        fetch(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true'), {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams(params).toString()
+        }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+            try {
+                var isJson = false;
+                try { JSON.parse(responseText); isJson = true; } catch(e) {}
+                if (isJson) {
+                    var response = JSON.parse(responseText);
+                    var needUpdate = true;
+                    if (response.error) {
+                        alert(response.message);
+                        needUpdate = false;
                     }
-                }
-                catch (e) {
-                    $(categoryContainer).update(transport.responseText);
+                    if(response.ajaxExpired && response.ajaxRedirect) {
+                        setLocation(response.ajaxRedirect);
+                        needUpdate = false;
+                    }
+                    if (needUpdate){
+                        if (response.content){
+                            categoryContainer.innerHTML = response.content;
+                        }
+                        if (response.messages){
+                            messagesContainer.innerHTML = response.messages;
+                        }
+                    }
+                } else {
+                    categoryContainer.innerHTML = responseText;
                 }
             }
+            catch (e) {
+                categoryContainer.innerHTML = responseText;
+            }
+            setTimeout(function() {
+                try {
+                    if (refreshTree) {
+                        thisObj.refreshTreeArea();
+                    }
+                    toolbarToggle.start();
+                } catch (e) {
+                    alert(e.message);
+                };
+            }, 25);
         });
     }
 
