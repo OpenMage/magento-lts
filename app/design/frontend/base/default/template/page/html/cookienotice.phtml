@@ -27,7 +27,7 @@
             window.location.href = '<?php echo Mage::getUrl('cms/index/noCookies')?>';
         }
     }
-    $('notice-cookie-block').show();
+    document.getElementById('notice-cookie-block').style.display = '';
     /* ]]> */
 </script>
 <?php endif ?>

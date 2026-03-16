@@ -47,20 +47,20 @@
     </div>
     <script type="text/javascript">
     //<![CDATA[
-    $$('.related-checkbox').each(function(elem){
-        Event.observe(elem, 'click', addRelatedToProduct)
+    document.querySelectorAll('.related-checkbox').forEach(function(elem){
+        elem.addEventListener('click', addRelatedToProduct)
     });
 
     var relatedProductsCheckFlag = false;
     function selectAllRelated(txt){
         if (relatedProductsCheckFlag == false) {
-            $$('.related-checkbox').each(function(elem){
+            document.querySelectorAll('.related-checkbox').forEach(function(elem){
                 elem.checked = true;
             });
             relatedProductsCheckFlag = true;
             txt.innerHTML="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('unselect all')) ?>";
         } else {
-            $$('.related-checkbox').each(function(elem){
+            document.querySelectorAll('.related-checkbox').forEach(function(elem){
                 elem.checked = false;
             });
             relatedProductsCheckFlag = false;
@@ -70,13 +70,13 @@
     }
 
     function addRelatedToProduct(){
-        var checkboxes = $$('.related-checkbox');
+        var checkboxes = document.querySelectorAll('.related-checkbox');
         var values = [];
         for(var i=0;i<checkboxes.length;i++){
             if(checkboxes[i].checked) values.push(checkboxes[i].value);
         }
-        if($('related-products-field')){
-            $('related-products-field').value = values.join(',');
+        if(document.getElementById('related-products-field')){
+            document.getElementById('related-products-field').value = values.join(',');
         }
     }
     //]]>

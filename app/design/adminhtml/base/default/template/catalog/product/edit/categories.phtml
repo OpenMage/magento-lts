@@ -114,19 +114,19 @@ function categoryClick(node, e) {
         return;
     }
     node.getUI().check(!node.getUI().checked());
-    varienElementMethods.setHasChanges(Event.element(e), e);
+    varienElementMethods.setHasChanges(e.target, e);
 };
 function categoryAdd(id) {
-    var ids = $('product_categories').value.split(',');
+    var ids = document.getElementById('product_categories').value.split(',');
     ids.push(id);
-    $('product_categories').value = ids.join(',');
+    document.getElementById('product_categories').value = ids.join(',');
 }
 function categoryRemove(id) {
-    var ids = $('product_categories').value.split(',');
+    var ids = document.getElementById('product_categories').value.split(',');
     while (-1 != ids.indexOf(id.toString())) {
         ids.splice(ids.indexOf(id.toString()), 1);
     }
-    $('product_categories').value = ids.join(',');
+    document.getElementById('product_categories').value = ids.join(',');
 }
 </script>
 <?php endif ?>

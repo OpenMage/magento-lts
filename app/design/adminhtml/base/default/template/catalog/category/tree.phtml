@@ -36,7 +36,7 @@ var tree;
  */
 Ext.lib.Event.getTarget = function(e) {
     var ee = e.browserEvent || e;
-    return ee.target ? Event.element(ee) : null;
+    return ee.target ? ee.target : null;
 };
 
 Ext.tree.TreePanel.Enhanced = function(el, config)
@@ -53,8 +53,8 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
         this.storeId = parameters['store_id'];
 
-        if ( this.storeId != 0 && $('add_root_category_button')) {
-            $('add_root_category_button').hide();
+        if ( this.storeId != 0 && document.getElementById('add_root_category_button')) {
+            document.getElementById('add_root_category_button').style.display = 'none';
         }
 
         if ((typeof parameters['root_visible']) != 'undefined') {
@@ -101,13 +101,11 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
         if (!params.form_key) {
             params.form_key = FORM_KEY;
         }
-        var result = new Ajax.Request(
-            url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ),
-            {
-               parameters:  params,
-               method:      'post'
-            }
-        );
+        var result = fetch(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true'), {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams(params).toString()
+        });
 
         return result;
     },
@@ -187,12 +185,12 @@ function reRenderTree(event, switcher)
             }
         }
 
-        if ($('add_root_category_button')) {
+        if (document.getElementById('add_root_category_button')) {
             if (newStoreId == 0) {
-                $('add_root_category_button').show();
+                document.getElementById('add_root_category_button').style.display = '';
             }
             else {
-                $('add_root_category_button').hide();
+                document.getElementById('add_root_category_button').style.display = 'none';
             }
         }
 
@@ -202,17 +200,18 @@ function reRenderTree(event, switcher)
 
         // load from cache
         // load from ajax
-        new Ajax.Request(url, {
-            parameters : {store: newStoreId, form_key: FORM_KEY, isAjax: 1},
-            method     : 'post',
-            onComplete : function(transport) {
-                var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
-                if (!response.parameters) {
-                    return false;
-                }
-
-                _renderNewTree(response, storeParam);
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams({store: newStoreId, form_key: FORM_KEY, isAjax: 1}).toString()
+        }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+            var response;
+            try { response = JSON.parse(responseText); } catch(e) { response = {}; }
+            if (!response.parameters) {
+                return false;
             }
+
+            _renderNewTree(response, storeParam);
         });
     }
     // render default tree
@@ -431,7 +430,7 @@ function categoryMove(obj)
                 if(o.responseText==='SUCCESS'){
                     categoryForm.refreshPath();
                 } else {
-                    alert(o.responseText.stripTags().toString());
+                    alert(o.responseText.replace(/<[^>]*>/g, '').toString());
                     location.reload();
                 }
             }
@@ -454,15 +453,13 @@ function categoryMove(obj)
         pd.push(encodeURIComponent(key), "=", encodeURIComponent(data[key]), "&");
     }
     pd.splice(pd.length-1,1);
-    new Ajax.Request(
-        '<?php echo $this->getMoveUrl() ?>',
-        {
-            method:     'POST',
-            parameters: pd.join(""),
-            onSuccess : success,
-            onFailure : failure
-        }
-    );
+    fetch('<?php echo $this->getMoveUrl() ?>', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+        body: pd.join("")
+    }).then(function(resp) { return resp.text().then(function(text) { return {responseText: text, statusText: resp.statusText, ok: resp.ok}; }); })
+    .then(function(o) { if (o.ok) { success(o); } else { failure(o); } })
+    .catch(function(o) { failure({statusText: 'Network error'}); });
 }
 //]]>
 </script>

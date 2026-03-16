@@ -15,17 +15,17 @@
         src="<?php echo $this->getFrameActionUrl() ?>" height="610" width="100%"></iframe>
 <script type="text/javascript">
 //<![CDATA[
-var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');
-headers.each(function(header) {
-    header.removeClassName('allow');
+var headers = document.querySelectorAll('#' + checkout.accordion.container.getAttribute('id') + ' .section');
+headers.forEach(function(header) {
+    header.classList.remove('allow');
 });
-$('payflow-advanced-iframe').observe('load', function(){
-    $('payflow-advanced-iframe').show();
-    $('iframe-warning').show();
+document.getElementById('payflow-advanced-iframe').addEventListener('load', function(){
+    document.getElementById('payflow-advanced-iframe').style.display = '';
+    document.getElementById('iframe-warning').style.display = '';
     checkout.loadWaiting = 'review';
     checkout.setLoadWaiting(false);
     if (checkout.accordion.currentSection == 'opc-review') {
-        $('checkout-review-submit').hide();
+        document.getElementById('checkout-review-submit').style.display = 'none';
     }
 });
 //]]>

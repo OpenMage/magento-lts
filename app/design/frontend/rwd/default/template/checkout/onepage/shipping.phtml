@@ -74,7 +74,7 @@
                                 </select>
                                 <script type="text/javascript">
                                 //<![CDATA[
-                                    $('shipping:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                                    document.getElementById('shipping:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
                                 //]]>
                                 </script>
                                 <input type="text" id="shipping:region" name="shipping[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
@@ -138,7 +138,7 @@
     var shippingForm = new VarienForm('co-shipping-form');
     shippingForm.extraChildParams = ' onchange="shipping.setSameAsBilling(false);"';
     //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...')) ?>');
-    $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
+    document.getElementById('shipping-address-select') && shipping.newAddress(!document.getElementById('shipping-address-select').value);
 
     var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'shipping:postcode');
 //]]>

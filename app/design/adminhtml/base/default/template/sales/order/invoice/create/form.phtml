@@ -82,9 +82,9 @@
 </form>
 <script type="text/javascript">
 //<![CDATA[
-    var createShipment = $('invoice_do_shipment');
+    var createShipment = document.getElementById('invoice_do_shipment');
     if (createShipment) {
-        createShipment.observe('click', function(e){
+        createShipment.addEventListener('click', function(e){
             if (createShipment.checked) {
                 document.getElementById('tracking').style.display = 'block';
             } else {
@@ -95,7 +95,7 @@
 
     /*forced creating of shipment*/
     var forcedShipmentCreate = <?php echo $this->getForcedShipmentCreate() ?>;
-    var shipmentElement = $('invoice_do_shipment');
+    var shipmentElement = document.getElementById('invoice_do_shipment');
     if (forcedShipmentCreate && shipmentElement) {
         shipmentElement.checked = true;
         shipmentElement.disabled = true;

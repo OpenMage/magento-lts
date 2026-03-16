@@ -20,19 +20,17 @@ var catalogWysiwygEditor = {
     overlayHideEffectOptions : null,
     open : function(editorUrl, elementId) {
         if (editorUrl && elementId) {
-            new Ajax.Request(editorUrl, {
-                parameters: {
-                    element_id: elementId+'_editor',
-                    store_id: '<?php echo $this->getStoreId() ?>'
-                },
-                onSuccess: function(transport) {
-                    try {
-                        this.openDialogWindow(transport.responseText, elementId);
-                    } catch(e) {
-                        alert(e.message);
-                    }
-                }.bind(this)
-            });
+            fetch(editorUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: new URLSearchParams({element_id: elementId+'_editor', store_id: '<?php echo $this->getStoreId() ?>'}).toString()
+            }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+                try {
+                    this.openDialogWindow(responseText, elementId);
+                } catch(e) {
+                    alert(e.message);
+                }
+            }.bind(this));
         }
     },
     openDialogWindow : function(content, elementId) {
@@ -52,8 +50,8 @@ var catalogWysiwygEditor = {
             height:555,
             zIndex:1000,
             recenterAuto:false,
-            hideEffect:Element.hide,
-            showEffect:Element.show,
+            hideEffect:function(el){el.style.display='none'},
+            showEffect:function(el){el.style.display=''},
             id:"catalog-wysiwyg-editor",
             buttonClass:"form-button",
             okLabel:"Submit",
@@ -65,17 +63,17 @@ var catalogWysiwygEditor = {
 
         content.evalScripts.bind(content).defer();
 
-        $(elementId+'_editor').value = $(elementId).value;
+        document.getElementById(elementId+'_editor').value = document.getElementById(elementId).value;
     },
     okDialogWindow : function(dialogWindow) {
         if (dialogWindow.options.firedElementId) {
             wysiwygObj = eval('wysiwyg'+dialogWindow.options.firedElementId+'_editor');
             wysiwygObj.turnOff();
             if (tinymce.get(wysiwygObj.id)) {
-                $(dialogWindow.options.firedElementId).value = tinymce.get(wysiwygObj.id).getContent();
+                document.getElementById(dialogWindow.options.firedElementId).value = tinymce.get(wysiwygObj.id).getContent();
             } else {
-                if ($(dialogWindow.options.firedElementId+'_editor')) {
-                    $(dialogWindow.options.firedElementId).value = $(dialogWindow.options.firedElementId+'_editor').value;
+                if (document.getElementById(dialogWindow.options.firedElementId+'_editor')) {
+                    document.getElementById(dialogWindow.options.firedElementId).value = document.getElementById(dialogWindow.options.firedElementId+'_editor').value;
                 }
             }
         }
@@ -88,7 +86,7 @@ var catalogWysiwygEditor = {
         }
 
         //IE fix - blocked form fields after closing
-        $(dialogWindow.options.firedElementId).focus();
+        document.getElementById(dialogWindow.options.firedElementId).focus();
 
         //destroy the instance of editor
         wysiwygObj = eval('wysiwyg'+dialogWindow.options.firedElementId+'_editor');

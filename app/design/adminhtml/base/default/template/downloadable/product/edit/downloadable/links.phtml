@@ -167,7 +167,7 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
 '</tr>';
 
 var linkItems = {
-    tbody : $('link_items_body'),
+    tbody : document.getElementById('link_items_body'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : linkTemplate,
     itemCount : 0,
@@ -196,13 +196,13 @@ var linkItems = {
             data.sample_file_checked = ' checked="checked"';
         }
 
-        Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
+        this.tbody.insertAdjacentHTML('beforeend', this.template.evaluate(data));
 
-        scopeTitle = $('downloadable_link_'+data.id+'_title');
+        scopeTitle = document.getElementById('downloadable_link_'+data.id+'_title');
         if (scopeTitle) {
-            Event.observe(scopeTitle, 'click', function(event){
-                scopeElm = $(Event.findElement(event, 'input'));
-                titleField = scopeElm.up(0).down('input[type="text"]');
+            scopeTitle.addEventListener('click', function(event){
+                scopeElm = event.target.closest('input');
+                titleField = scopeElm.parentNode.querySelector('input[type="text"]');
                 if (scopeElm.checked == true) {
                     titleField.disabled = true;
                 } else {
@@ -211,15 +211,15 @@ var linkItems = {
             });
         }
         if (!data.store_title && scopeTitle) {
-            scopeTitle.up(0).down('input[type="text"]').disabled = true;
+            scopeTitle.parentNode.querySelector('input[type="text"]').disabled = true;
             scopeTitle.checked = true;
         }
 
-        scopePrice = $('downloadable_link_'+data.id+'_price');
+        scopePrice = document.getElementById('downloadable_link_'+data.id+'_price');
         if (scopePrice) {
-            Event.observe(scopePrice, 'click', function(event){
-                scopeElm = $(Event.findElement(event, 'input'));
-                priceField = scopeElm.up(0).down('input[type="text"]');
+            scopePrice.addEventListener('click', function(event){
+                scopeElm = event.target.closest('input');
+                priceField = scopeElm.parentNode.querySelector('input[type="text"]');
                 if (scopeElm.checked == true) {
                     priceField.disabled = true;
                 } else {
@@ -228,21 +228,21 @@ var linkItems = {
             });
         }
         if (!data.website_price && scopePrice) {
-            scopePrice.up(0).down('input[type="text"]').disabled = true;
+            scopePrice.parentNode.querySelector('input[type="text"]').disabled = true;
             scopePrice.checked = true;
         }
-        downloadsElm = $('downloadable_link_'+data.id+'_downloads');
-        isUnlimitedElm = $('downloadable_link_'+data.id+'_is_unlimited');
+        downloadsElm = document.getElementById('downloadable_link_'+data.id+'_downloads');
+        isUnlimitedElm = document.getElementById('downloadable_link_'+data.id+'_is_unlimited');
         if (data.is_unlimited) {
             downloadsElm.disabled = true;
         }
-        Event.observe(isUnlimitedElm, 'click', function(event){
-            elm = Event.element(event);
-            elm.up('td').down('input[type="text"].downloads').disabled = elm.checked;
+        isUnlimitedElm.addEventListener('click', function(event){
+            elm = event.target;
+            elm.closest('td').querySelector('input[type="text"].downloads').disabled = elm.checked;
         });
 
         if (data.is_shareable) {
-            options = $('downloadable_link _'+data.id+'_shareable').options;
+            options = document.getElementById('downloadable_link _'+data.id+'_shareable').options;
             for (var i=0; i < options.length; i++) {
                 if (options[i].value == data.is_shareable) {
                     options[i].selected = true;
@@ -250,8 +250,8 @@ var linkItems = {
             }
         }
 
-        sampleUrl = $('downloadable_link_'+data.id+'_sample_url_type');
-        linkUrl = $('downloadable_link_'+data.id+'_url_type');
+        sampleUrl = document.getElementById('downloadable_link_'+data.id+'_sample_url_type');
+        linkUrl = document.getElementById('downloadable_link_'+data.id+'_url_type');
 
         if (!data.file_save) {
             data.file_save = [];
@@ -288,53 +288,53 @@ var linkItems = {
             UploaderConfigLink
         );
 
-        linkFile = $('downloadable_link_'+data.id+'_file_type');
+        linkFile = document.getElementById('downloadable_link_'+data.id+'_file_type');
         linkFile.advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
         linkUrl.advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
-        $('downloadable_link_'+data.id+'_file_save').advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
+        document.getElementById('downloadable_link_'+data.id+'_file_save').advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
 
-        sampleFile = $('downloadable_link_'+data.id+'_sample_file_type');
+        sampleFile = document.getElementById('downloadable_link_'+data.id+'_sample_file_type');
 
         this.itemCount++;
         this.togglePriceFields();
         this.bindRemoveButtons();
 
-        var inputs = $$('#downloadable_link_' + data.id + ' input');
-        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-        var inputs = $$('#downloadable_link_' + data.id + ' button.delete');
-        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#downloadable_link_' + data.id + ' input');
+        inputs.forEach(function(el) { el.addEventListener('change', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#downloadable_link_' + data.id + ' button.delete');
+        inputs.forEach(function(el) { el.addEventListener('click', el.setHasChanges.bind(el));  } )
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr'));
+        var element = event.target.closest('tr');
         alertAlreadyDisplayed = false;
         if(element){
-            element.down('input[type="hidden"].__delete__').value = '1';
-            Element.select(element, 'div.flex').each(function(elm){
+            element.querySelector('input[type="hidden"].__delete__').value = '1';
+            element.querySelectorAll('div.flex').forEach(function(elm){
                 elm.remove();
             });
-            element.addClassName('no-display');
-            element.addClassName('ignore-validate');
-            element.hide();
+            element.classList.add('no-display');
+            element.classList.add('ignore-validate');
+            element.style.display = 'none';
         }
     },
     bindRemoveButtons : function(){
-        var buttons = $$('tbody#link_items_body .delete-link-item');
+        var buttons = document.querySelectorAll('tbody#link_items_body .delete-link-item');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded && !$(buttons[i]).hasClassName('disabled')){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            if(!buttons[i].binded && !buttons[i].classList.contains('disabled')){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.remove.bind(this));
             }
         }
     },
     togglePriceFields : function(){
-        var toogleTo = $('downloadable_link_purchase_type').value;
+        var toogleTo = document.getElementById('downloadable_link_purchase_type').value;
         var disableFlag = true;
         if (toogleTo == '1') {
             disableFlag = false;
         }
-        $$('.link-prices[type="text"]').each(function(elm){
+        document.querySelectorAll('.link-prices[type="text"]').forEach(function(elm){
             var flag = disableFlag;
-            if (elm.hasClassName('disabled')) {
+            if (elm.classList.contains('disabled')) {
                 flag = true;
             }
             elm.disabled = flag;
@@ -344,12 +344,12 @@ var linkItems = {
 
 linkItems.bindRemoveButtons();
 
-if ($('downloadable_link_purchase_type')) {
-    Event.observe('downloadable_link_purchase_type', 'change', linkItems.togglePriceFields.bind());
+if (document.getElementById('downloadable_link_purchase_type')) {
+    document.getElementById('downloadable_link_purchase_type').addEventListener('change', linkItems.togglePriceFields.bind());
 }
 
-if($('add_link_item')) {
-    Event.observe('add_link_item', 'click', linkItems.add.bind(linkItems));
+if(document.getElementById('add_link_item')) {
+    document.getElementById('add_link_item').addEventListener('click', linkItems.add.bind(linkItems));
 }
 
 <?php foreach ($this->getLinkData() as $item): ?>

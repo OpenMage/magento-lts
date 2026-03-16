@@ -24,7 +24,7 @@
     if (checkBoxes.size() > 0) {
         warning = true;
     }
-    $('in_role_users').value = checkBoxes.toQueryString();
+    document.getElementById('in_role_users').value = checkBoxes.toQueryString();
 
     function registerUserRole(grid, element, checked)
     {
@@ -33,16 +33,16 @@
         } else {
             checkBoxes.unset(element.value);
         }
-        $('in_role_users').value = checkBoxes.toQueryString();
+        document.getElementById('in_role_users').value = checkBoxes.toQueryString();
         grid.reloadParams = {'in_role_users[]':checkBoxes.keys()};
     }
 
     function roleUsersRowClick(grid, event)
     {
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput   = event.target.tagName == 'INPUT';
         if (trElement) {
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            var checkbox = trElement.querySelectorAll('input');
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (checked) {
@@ -58,7 +58,7 @@
                     checkBoxes.unset(checkbox[0].value);
                 }
 
-                $('in_role_users').value = checkBoxes.toQueryString();
+                document.getElementById('in_role_users').value = checkBoxes.toQueryString();
                 grid.reloadParams = {'in_role_user[]':checkBoxes.keys()};
             }
         }
@@ -66,7 +66,7 @@
 
     function roleUsersRowInit(grid, row)
     {
-        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        var checkbox = row.getElementsByClassName('checkbox')[0];
         if (checkbox) {
             if (checkbox.checked) {
                 checkBoxes.set(checkbox.value, checkbox.checked);
@@ -74,7 +74,7 @@
                 checkBoxes.unset(checkbox.value);
             }
 
-            $('in_role_users').value = checkBoxes.toQueryString();
+            document.getElementById('in_role_users').value = checkBoxes.toQueryString();
             grid.reloadParams = {'in_role_user[]':checkBoxes.keys()};
         }
     }
@@ -93,7 +93,7 @@
             warning = false;
         }
 
-        $('in_role_users').value = checkBoxes.toQueryString();
+        document.getElementById('in_role_users').value = checkBoxes.toQueryString();
         //grid.reloadParams = {'in_role_user[]':checkBoxes.keys()};
     }
 
@@ -102,7 +102,7 @@
         <?php echo $name ?>.checkboxCheckCallback = registerUserRole;
         <?php echo $name ?>.checkCheckboxes = myhandler;
         <?php echo $name ?>.rows.each(function(row){roleUsersRowInit(<?php echo $name ?>, row)});
-    $('in_role_users_old').value = $('in_role_users').value;
+    document.getElementById('in_role_users_old').value = document.getElementById('in_role_users').value;
         <?php endif ?>
 //]]>
 </script>

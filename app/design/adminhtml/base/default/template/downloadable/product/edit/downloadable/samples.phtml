@@ -98,7 +98,7 @@ var sampleTemplate = '<tr id="downloadable_sample_{{id}}">'+
                         '</td>'+
                     '</tr>';
 var sampleItems = {
-    tbody : $('sample_items_body'),
+    tbody : document.getElementById('sample_items_body'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : sampleTemplate,
     itemCount : 0,
@@ -120,13 +120,13 @@ var sampleItems = {
             data.file_checked = ' checked="checked"';
         }
 
-        Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
+        this.tbody.insertAdjacentHTML('beforeend', this.template.evaluate(data));
 
-        scopeTitle = $('downloadable_sample_'+data.id+'_title');
+        scopeTitle = document.getElementById('downloadable_sample_'+data.id+'_title');
         if (scopeTitle) {
-            Event.observe(scopeTitle, 'click', function(event){
-                scopeElm = $(Event.findElement(event, 'input'));
-                titleField = scopeElm.up(0).down('input[type="text"]');
+            scopeTitle.addEventListener('click', function(event){
+                scopeElm = event.target.closest('input');
+                titleField = scopeElm.parentNode.querySelector('input[type="text"]');
                 if (scopeElm.checked == true) {
                     titleField.disabled = true;
                 } else {
@@ -135,11 +135,11 @@ var sampleItems = {
             });
         }
         if (!data.store_title && scopeTitle) {
-            scopeTitle.up(0).down('input[type="text"]').disabled = true;
+            scopeTitle.parentNode.querySelector('input[type="text"]').disabled = true;
             scopeTitle.checked = true;
         }
 
-        sampleUrl = $('downloadable_sample_'+data.id+'_url_type');
+        sampleUrl = document.getElementById('downloadable_sample_'+data.id+'_url_type');
 
         var UploaderConfig = <?php echo $this->getConfigJson() ?>.replace(
             new RegExp('<?php echo $this->getId(); ?>', 'g'),
@@ -158,37 +158,37 @@ var sampleItems = {
             UploaderConfig
         );
         sampleUrl.advaiceContainer = 'downloadable_sample_'+data.id+'_container';
-        sampleFile = $('downloadable_sample_'+data.id+'_file_type');
+        sampleFile = document.getElementById('downloadable_sample_'+data.id+'_file_type');
         sampleFile.advaiceContainer = 'downloadable_sample_'+data.id+'_container';
-        $('downloadable_sample_'+data.id+'_file_save').advaiceContainer = 'downloadable_sample_'+data.id+'_container';
+        document.getElementById('downloadable_sample_'+data.id+'_file_save').advaiceContainer = 'downloadable_sample_'+data.id+'_container';
 
         this.itemCount++;
         this.bindRemoveButtons();
 
-        var inputs = $$('#downloadable_sample_' + data.id + ' input');
-        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-        var inputs = $$('#downloadable_sample_' + data.id + ' button.delete');
-        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#downloadable_sample_' + data.id + ' input');
+        inputs.forEach(function(el) { el.addEventListener('change', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#downloadable_sample_' + data.id + ' button.delete');
+        inputs.forEach(function(el) { el.addEventListener('click', el.setHasChanges.bind(el));  } )
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr'));
+        var element = event.target.closest('tr');
         alertAlreadyDisplayed = false;
         if(element){
-            element.down('input[type="hidden"].__delete__').value = '1';
-            Element.select(element, 'div.flex').each(function(elm){
+            element.querySelector('input[type="hidden"].__delete__').value = '1';
+            element.querySelectorAll('div.flex').forEach(function(elm){
                 elm.remove();
             });
-            element.addClassName('no-display');
-            element.addClassName('ignore-validate');
-            element.hide();
+            element.classList.add('no-display');
+            element.classList.add('ignore-validate');
+            element.style.display = 'none';
         }
     },
     bindRemoveButtons : function(){
-        var buttons = $$('tbody#sample_items_body .delete-sample-item');
+        var buttons = document.querySelectorAll('tbody#sample_items_body .delete-sample-item');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            if(!buttons[i].binded){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.remove.bind(this));
             }
         }
     }
@@ -196,8 +196,8 @@ var sampleItems = {
 
 sampleItems.bindRemoveButtons();
 
-if($('add_sample_item')){
-    Event.observe('add_sample_item', 'click', sampleItems.add.bind(sampleItems));
+if(document.getElementById('add_sample_item')){
+    document.getElementById('add_sample_item').addEventListener('click', sampleItems.add.bind(sampleItems));
 }
 
 <?php foreach ($this->getSampleData() as $item): ?>

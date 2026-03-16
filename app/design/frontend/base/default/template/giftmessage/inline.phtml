@@ -16,31 +16,33 @@
 //<![CDATA[
 if(!window.toogleVisibilityOnObjects) {
     var toogleVisibilityOnObjects = function(source, objects) {
-        if($(source) && $(source).checked) {
-            objects.each(function(item){
-                $(item).show();
-                $$('#' + item + ' .input-text').each(function(item) {
-                    item.removeClassName('validation-passed');
+        var sourceEl = typeof source === 'string' ? document.getElementById(source) : source;
+        if(sourceEl && sourceEl.checked) {
+            objects.forEach(function(item){
+                document.getElementById(item).style.display = '';
+                document.querySelectorAll('#' + item + ' .input-text').forEach(function(el) {
+                    el.classList.remove('validation-passed');
                 });
             });
         } else {
-            objects.each(function(item){
-                if ($(item)) {
-                    $(item).hide();
-                    $$('#' + item + ' .input-text').each(function(sitem) {
-                        sitem.addClassName('validation-passed');
+            objects.forEach(function(item){
+                var el = document.getElementById(item);
+                if (el) {
+                    el.style.display = 'none';
+                    document.querySelectorAll('#' + item + ' .input-text').forEach(function(sitem) {
+                        sitem.classList.add('validation-passed');
                     });
-                    $$('#' + item + ' .giftmessage-area').each(function(sitem) {
+                    document.querySelectorAll('#' + item + ' .giftmessage-area').forEach(function(sitem) {
                         sitem.value = '';
                     });
-                    $$('#' + item + ' .checkbox').each(function(sitem) {
+                    document.querySelectorAll('#' + item + ' .checkbox').forEach(function(sitem) {
                         sitem.checked = false;
                     });
-                    $$('#' + item + ' .select').each(function(sitem) {
+                    document.querySelectorAll('#' + item + ' .select').forEach(function(sitem) {
                         sitem.value = '';
                     });
-                    $$('#' + item + ' .price-box').each(function(sitem) {
-                        sitem.addClassName('no-display');
+                    document.querySelectorAll('#' + item + ' .price-box').forEach(function(sitem) {
+                        sitem.classList.add('no-display');
                     });
                 }
             });
@@ -51,16 +53,17 @@ if(!window.toogleVisibilityOnObjects) {
 if(!window.toogleRequired) {
     var toogleRequired = function (source, objects)
     {
-        if(!$(source).value.blank()) {
-            objects.each(function(item) {
-               $(item).addClassName('required-entry');
+        var sourceEl = typeof source === 'string' ? document.getElementById(source) : source;
+        if(sourceEl.value.trim() !== '') {
+            objects.forEach(function(item) {
+               document.getElementById(item).classList.add('required-entry');
             });
         } else {
-            objects.each(function(item) {
+            objects.forEach(function(item) {
                 if (typeof shippingMethod != 'undefined' && shippingMethod.validator) {
                    shippingMethod.validator.reset(item);
                 }
-                $(item).removeClassName('required-entry');
+                document.getElementById(item).classList.remove('required-entry');
             });
 
         }
@@ -69,16 +72,24 @@ if(!window.toogleRequired) {
 if(window.shipping) {
 
 shipping.onSave = function(evt){
-    new Ajax.Updater('onepage-checkout-shipping-method-additional-load', '<?php echo $this->getAdditionalUrl(); ?>', {onSuccess: function() {
-          this.nextStep(evt);
-    }.bind(this), evalScripts:true});
-}.bindAsEventListener(shipping);
+    fetch('<?php echo $this->getAdditionalUrl(); ?>', {
+        method: 'GET',
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+    }).then(function(resp) { return resp.text(); }).then(function(html) {
+        document.getElementById('onepage-checkout-shipping-method-additional-load').innerHTML = html;
+        shipping.nextStep(evt);
+    });
+}.bind(shipping);
 
 billing.onSave = function(evt){
-    new Ajax.Updater('onepage-checkout-shipping-method-additional-load', '<?php echo $this->getAdditionalUrl(); ?>', {onSuccess: function() {
-          this.nextStep(evt);
-    }.bind(this), evalScripts:true});
-}.bindAsEventListener(billing);
+    fetch('<?php echo $this->getAdditionalUrl(); ?>', {
+        method: 'GET',
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+    }).then(function(resp) { return resp.text(); }).then(function(html) {
+        document.getElementById('onepage-checkout-shipping-method-additional-load').innerHTML = html;
+        billing.nextStep(evt);
+    });
+}.bind(billing);
 
 }
 //]]>

@@ -32,12 +32,12 @@
             break;
         }
         if (window_top.document.getElementById('opc-' + checkout_steps[s])) {
-            window_top.document.getElementById('opc-' + checkout_steps[s]).addClassName('allow');
+            window_top.document.getElementById('opc-' + checkout_steps[s]).classList.add('allow');
         }
     }
     window_top.checkout.gotoSection("<?php echo $this->getGotoSection() ?>");
-    window_top.document.getElementById('checkout-review-submit').show();
-    window_top.document.getElementById('iframe-warning').hide();
+    window_top.document.getElementById('checkout-review-submit').style.display = '';
+    window_top.document.getElementById('iframe-warning').style.display = 'none';
     <?php if ($this->getErrorMsg()): ?>
         alert('<?php echo $this->jsQuoteEscape($this->getErrorMsg()) ?>');
     <?php endif ?>
