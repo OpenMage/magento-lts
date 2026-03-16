@@ -168,14 +168,15 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
          */
         function removeItem(url)
         {
-            new Ajax.Request(url, {
-                parameters: {isAjax: 1, method: 'POST'},
-                onLoading: function(){$('compare-list-please-wait').show();},
-                onSuccess: function(transport) {
-                    $('compare-list-please-wait').hide();
+            document.getElementById('compare-list-please-wait').style.display = '';
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: 'isAjax=1&method=POST'
+            }).then(function() {
+                    document.getElementById('compare-list-please-wait').style.display = 'none';
                     window.location.reload();
                     window.opener.location.reload();
-                }
             });
         }
     </script>
