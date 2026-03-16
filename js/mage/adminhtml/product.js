@@ -14,78 +14,100 @@
 
 var Product = {};
 
-Product.Gallery = Class.create();
+Product.Gallery = function (containerId, imageTypes) {
+    this.images = [];
+    this.file2id = { 'no_selection': 0 };
+    this.idIncrement = 1;
+    this.containerId = '';
+    this.container = null;
+    this.imageTypes = {};
+    this.initialize(containerId, imageTypes);
+};
+
 Product.Gallery.prototype = {
-    images: [],
-    file2id: {
-        'no_selection': 0
-    },
-    idIncrement: 1,
-    containerId: '',
-    container: null,
-    imageTypes: {},
     initialize: function (containerId, imageTypes) {
-        this.containerId = containerId, this.container = $(this.containerId);
+        this.containerId = containerId;
+        this.container = document.getElementById(this.containerId);
         this.imageTypes = imageTypes;
 
-        document.on('uploader:fileSuccess', function (event) {
-            var memo = event.memo;
+        document.addEventListener('uploader:fileSuccess', (function (event) {
+            var memo = event.detail;
             if (memo && this._checkCurrentContainer(memo.containerId)) {
                 this.handleUploadComplete([{response: memo.response}]);
             }
-        }.bind(this));
+        }).bind(this));
 
-        this.images = this.getElement('save').value.evalJSON();
-        this.imagesValues = this.getElement('save_image').value.evalJSON();
-        this.template = new Template('<tr id="__id__" class="preview">' + this
-            .getElement('template').innerHTML + '</tr>', new RegExp(
-            '(^|.|\\r|\\n)(__([a-zA-Z0-9_]+)__)', ''));
+        this.images = JSON.parse(this.getElement('save').value);
+        this.imagesValues = JSON.parse(this.getElement('save_image').value);
+
+        var templateRegex = new RegExp('(^|.|\\r|\\n)(__([a-zA-Z0-9_]+)__)', '');
+        var templateHtml = '<tr id="__id__" class="preview">' + this.getElement('template').innerHTML + '</tr>';
+        this._templateHtml = templateHtml;
+        this._templateRegex = templateRegex;
+
+        this.template = {
+            evaluate: function (vars) {
+                return templateHtml.replace(/__([a-zA-Z0-9_]+)__/g, function (match, key) {
+                    return (vars[key] !== undefined) ? vars[key] : match;
+                });
+            }
+        };
+
         this.fixParentTable();
         this.updateImages();
-        varienGlobalEvents.attachEventHandler('moveTab', this.onImageTabMove
-            .bind(this));
+        varienGlobalEvents.attachEventHandler('moveTab', this.onImageTabMove.bind(this));
     },
     _checkCurrentContainer: function (child) {
-        return $(this.containerId).down('#' + child);
+        return document.getElementById(this.containerId).querySelector('#' + child);
     },
     onImageTabMove: function (event) {
         var imagesTab = false;
-        this.container.ancestors().each(function (parentItem) {
-            if (parentItem.tabObject) {
-                imagesTab = parentItem.tabObject;
-                throw $break;
+        var el = this.container;
+        while (el && el.parentElement) {
+            el = el.parentElement;
+            if (el.tabObject) {
+                imagesTab = el.tabObject;
+                break;
             }
-        }.bind(this));
-
-        if (imagesTab && event.tab && event.tab.name && imagesTab.name == event.tab.name) {
-            this.container.select('input[type="radio"]').each(function (radio) {
-                radio.observe('change', this.onChangeRadio);
-            }.bind(this));
-            this.updateImages();
         }
 
+        if (imagesTab && event.tab && event.tab.name && imagesTab.name == event.tab.name) {
+            this.container.querySelectorAll('input[type="radio"]').forEach((function (radio) {
+                radio.addEventListener('change', this.onChangeRadio);
+            }).bind(this));
+            this.updateImages();
+        }
     },
     fixParentTable: function () {
-        this.container.ancestors().each(function (parentItem) {
-            if (parentItem.tagName.toLowerCase() == 'td') {
-                parentItem.style.width = '100%';
+        var el = this.container;
+        while (el && el.parentElement) {
+            el = el.parentElement;
+            if (el.tagName.toLowerCase() == 'td') {
+                el.style.width = '100%';
             }
-            if (parentItem.tagName.toLowerCase() == 'table') {
-                parentItem.style.width = '100%';
-                throw $break;
+            if (el.tagName.toLowerCase() == 'table') {
+                el.style.width = '100%';
+                break;
             }
-        });
+        }
     },
     getElement: function (name) {
-        return $(this.containerId + '_' + name);
+        return document.getElementById(this.containerId + '_' + name);
     },
     showUploader: function () {
-        this.getElement('add_images_button').hide();
-        this.getElement('uploader').show();
+        this.getElement('add_images_button').style.display = 'none';
+        this.getElement('uploader').style.display = '';
     },
     handleUploadComplete: function (files) {
-        files.each(function (item) {
-            if (!item.response.isJSON()) {
+        files.forEach((function (item) {
+            var isJSON;
+            try {
+                JSON.parse(item.response);
+                isJSON = true;
+            } catch (e) {
+                isJSON = false;
+            }
+            if (!isJSON) {
                 try {
                     console.log(item.response);
                 } catch (e2) {
@@ -93,7 +115,7 @@ Product.Gallery.prototype = {
                 }
                 return;
             }
-            var response = item.response.evalJSON();
+            var response = JSON.parse(item.response);
             if (response.error) {
                 return;
             }
@@ -105,38 +127,37 @@ Product.Gallery.prototype = {
             newImage.disabled = 0;
             newImage.removed = 0;
             this.images.push(newImage);
-        }.bind(this));
+        }).bind(this));
         this.container.setHasChanges();
         this.updateImages();
     },
     updateImages: function () {
-        this.getElement('save').value = Object.toJSON(this.images);
-        $H(this.imageTypes).each(function (pair) {
-            this.getFileElement('no_selection', 'cell-' + pair.key + ' input').checked = true;
-        }.bind(this));
-        this.images.each(function (row) {
-            if (!$(this.prepareId(row.file))) {
+        this.getElement('save').value = JSON.stringify(this.images);
+        var imageTypes = this.imageTypes;
+        Object.keys(imageTypes).forEach((function (key) {
+            this.getFileElement('no_selection', 'cell-' + key + ' input').checked = true;
+        }).bind(this));
+        this.images.forEach((function (row) {
+            if (!document.getElementById(this.prepareId(row.file))) {
                 this.createImageRow(row);
             }
             this.updateVisualisation(row.file);
-        }.bind(this));
+        }).bind(this));
         this.updateUseDefault(false);
     },
     onChangeRadio: function (evt) {
-        var element = Event.element(evt);
+        var element = evt.target;
         element.setHasChanges();
     },
     createImageRow: function (image) {
-        var vars = Object.clone(image);
+        var vars = Object.assign({}, image);
         vars.id = this.prepareId(image.file);
         var html = this.template.evaluate(vars);
-        Element.insert(this.getElement('list'), {
-            bottom: html
-        });
+        this.getElement('list').insertAdjacentHTML('beforeend', html);
 
-        $(vars.id).select('input[type="radio"]').each(function (radio) {
-            radio.observe('change', this.onChangeRadio);
-        }.bind(this));
+        document.getElementById(vars.id).querySelectorAll('input[type="radio"]').forEach((function (radio) {
+            radio.addEventListener('change', this.onChangeRadio);
+        }).bind(this));
     },
     prepareId: function (file) {
         if (typeof this.file2id[file] == 'undefined') {
@@ -146,7 +167,7 @@ Product.Gallery.prototype = {
     },
     getNextPosition: function () {
         var maxPosition = 0;
-        this.images.each(function (item) {
+        this.images.forEach(function (item) {
             if (parseInt(item.position) > maxPosition) {
                 maxPosition = parseInt(item.position);
             }
@@ -176,41 +197,38 @@ Product.Gallery.prototype = {
 
         this.images[index].removed = (this.getFileElement(file, 'cell-remove input').checked ? 1 : 0);
         this.images[index].disabled = (this.getFileElement(file, 'cell-disable input').checked ? 1 : 0);
-        this.getElement('save').value = Object.toJSON(this.images);
+        this.getElement('save').value = JSON.stringify(this.images);
         this.updateState(file);
         this.container.setHasChanges();
     },
     loadImage: function (file) {
         var image = this.getImageByFile(file);
         this.getFileElement(file, 'cell-image img').src = image.url;
-        this.getFileElement(file, 'cell-image img').show();
-        this.getFileElement(file, 'cell-image .place-holder').hide();
+        this.getFileElement(file, 'cell-image img').style.display = '';
+        this.getFileElement(file, 'cell-image .place-holder').style.display = 'none';
     },
     setProductImages: function (file) {
-        $H(this.imageTypes)
-            .each(
-                function (pair) {
-                    if (this.getFileElement(file,
-                        'cell-' + pair.key + ' input').checked) {
-                        this.imagesValues[pair.key] = (file == 'no_selection' ? null
-                            : file);
-                    }
-                }.bind(this));
+        var imageTypes = this.imageTypes;
+        Object.keys(imageTypes).forEach((function (key) {
+            if (this.getFileElement(file, 'cell-' + key + ' input').checked) {
+                this.imagesValues[key] = (file == 'no_selection' ? null : file);
+            }
+        }).bind(this));
 
-        this.getElement('save_image').value = Object.toJSON($H(this.imagesValues));
+        this.getElement('save_image').value = JSON.stringify(this.imagesValues);
     },
     updateVisualisation: function (file) {
         var image = this.getImageByFile(file);
 
         var use_default_label = document.getElementById("use_default_label");
-        if(use_default_label && use_default_label.checked) {
+        if (use_default_label && use_default_label.checked) {
             this.getFileElement(file, 'cell-label input').value = image.label_default;
         } else {
             this.getFileElement(file, 'cell-label input').value = image.label;
         }
 
         var use_default_position = document.getElementById("use_default_position");
-        if(use_default_position && use_default_position.checked) {
+        if (use_default_position && use_default_position.checked) {
             this.getFileElement(file, 'cell-position input').value = image.position_default;
         } else {
             this.getFileElement(file, 'cell-position input').value = image.position;
@@ -218,11 +236,12 @@ Product.Gallery.prototype = {
 
         this.getFileElement(file, 'cell-remove input').checked = (image.removed == 1);
         this.getFileElement(file, 'cell-disable input').checked = (image.disabled == 1);
-        $H(this.imageTypes).each(function (pair) {
-            if (this.imagesValues[pair.key] == file) {
-                this.getFileElement(file, 'cell-' + pair.key + ' input').checked = true;
+        var imageTypes = this.imageTypes;
+        Object.keys(imageTypes).forEach((function (key) {
+            if (this.imagesValues[key] == file) {
+                this.getFileElement(file, 'cell-' + key + ' input').checked = true;
             }
-        }.bind(this));
+        }).bind(this));
         this.updateState(file);
     },
     updateState: function (file) {
@@ -250,7 +269,7 @@ Product.Gallery.prototype = {
     },
     getIndexByFile: function (file) {
         var index;
-        this.images.each(function (item, i) {
+        this.images.forEach(function (item, i) {
             if (item.file == file) {
                 index = i;
             }
@@ -259,19 +278,19 @@ Product.Gallery.prototype = {
     },
     updateUseDefault: function (el) {
         var inputs = document.querySelectorAll('#' + this.containerId + '_default td input');
-        for (var i=0; i<inputs.length; i++) {
+        for (var i = 0; i < inputs.length; i++) {
             var input = inputs[i];
             var radios = document.querySelectorAll('#' + this.containerId + '_list .preview .cell-' + input.value + ' input');
-            for (var j=0; j<radios.length; j++) {
+            for (var j = 0; j < radios.length; j++) {
                 var radio = radios[j];
                 radio.disabled = input.checked;
             }
         }
 
         if (typeof el == "object" && el.id) {
-            this.images.each(function (row) {
+            this.images.forEach((function (row) {
                 this.updateImage(row.file);
-            }.bind(this));
+            }).bind(this));
         }
 
         if (arguments.length == 0) {
@@ -300,19 +319,24 @@ Product.AttributesBridge = {
         return this.tabsObject;
     },
     addAttributeRow: function (data) {
-        $H(data).each(function (item) {
-            if (this.getTabsObject().activeTab.name != item.key) {
-                this.getTabsObject().showTabContent($(item.key));
+        var self = this;
+        Object.keys(data).forEach(function (key) {
+            var value = data[key];
+            if (self.getTabsObject().activeTab.name != key) {
+                self.getTabsObject().showTabContent(document.getElementById(key));
             }
-            this.getAttributes(item.key).addRow(item.value);
-        }.bind(this));
+            self.getAttributes(key).addRow(value);
+        });
     }
 };
 
-Product.Attributes = Class.create();
+Product.Attributes = function (containerId) {
+    this.config = {};
+    this.containerId = null;
+    this.initialize(containerId);
+};
+
 Product.Attributes.prototype = {
-    config: {},
-    containerId: null,
     initialize: function (containerId) {
         this.containerId = containerId;
     },
@@ -329,79 +353,95 @@ Product.Attributes.prototype = {
         win.focus();
     },
     addRow: function (html) {
-        var attributesContainer = $$('#group_fields' + this.getConfig().group_id + ' .form-list tbody')[0];
-        Element.insert(attributesContainer, {
-            bottom: html
-        });
+        var attributesContainer = document.querySelector('#group_fields' + this.getConfig().group_id + ' .form-list tbody');
+        attributesContainer.insertAdjacentHTML('beforeend', html);
 
-        var childs = attributesContainer.childElements();
-        var element = childs[childs.size() - 1].select('input', 'select',
-            'textarea')[0];
+        var childs = Array.from(attributesContainer.children);
+        var element = childs[childs.length - 1].querySelector('input, select, textarea');
         if (element) {
-            window.scrollTo(0, Position.cumulativeOffset(element)[1]
-                + element.offsetHeight);
+            var rect = element.getBoundingClientRect();
+            window.scrollTo(0, rect.top + window.pageYOffset + element.offsetHeight);
         }
     }
 };
 
-Product.Configurable = Class.create();
+Product.Configurable = function (attributes, links, idPrefix, grid, readonly) {
+    this.templatesSyntax = new RegExp('(^|.|\\r|\\n)(\'{{\\s*(\\w+)\\s*}}\')', "");
+    this.attributes = attributes;
+    this.idPrefix = idPrefix;
+    this.links = {};
+    Object.keys(links).forEach(function (k) { this.links[k] = links[k]; }.bind(this));
+    this.newProducts = [];
+    this.readonly = readonly;
+    this.valueAutoIndex = 0;
+
+    /* Helper to evaluate templates: replaces '{{key}}' with value from object */
+    function makeTemplate(html, syntax) {
+        return {
+            evaluate: function (vars) {
+                return html.replace(/'?\{\{\s*(\w+)\s*\}\}'?/g, function (match, key) {
+                    return (vars[key] !== undefined) ? vars[key] : match;
+                });
+            }
+        };
+    }
+
+    var attrTemplateEl = document.getElementById(idPrefix + 'attribute_template');
+    this.addAttributeTemplate = makeTemplate(
+        attrTemplateEl.innerHTML.replace(/__id__/g, "'{{html_id}}'").replace(/ template no-display/g, ''),
+        this.templatesSyntax);
+
+    var valTemplateEl = document.getElementById(idPrefix + 'value_template');
+    this.addValueTemplate = makeTemplate(
+        valTemplateEl.innerHTML.replace(/__id__/g, "'{{html_id}}'").replace(/ template no-display/g, ''),
+        this.templatesSyntax);
+
+    var simplePricingEl = document.getElementById(idPrefix + 'simple_pricing');
+    this.pricingValueTemplate = makeTemplate(simplePricingEl.innerHTML, this.templatesSyntax);
+
+    var simplePricingViewEl = document.getElementById(idPrefix + 'simple_pricing_view');
+    this.pricingValueViewTemplate = makeTemplate(simplePricingViewEl.innerHTML, this.templatesSyntax);
+
+    this.container = document.getElementById(idPrefix + 'attributes');
+
+    /* Listeners */
+    this.onLabelUpdate = this.updateLabel.bind(this);
+    this.onValuePriceUpdate = this.updateValuePrice.bind(this);
+    this.onValueTypeUpdate = this.updateValueType.bind(this);
+    this.onValueDefaultUpdate = this.updateValueUseDefault.bind(this);
+
+    /* Grid initialization and attributes initialization */
+    this.createAttributes();
+
+    this.grid = grid;
+    this.grid.rowClickCallback = this.rowClick.bind(this);
+    this.grid.initRowCallback = this.rowInit.bind(this);
+    this.grid.checkboxCheckCallback = this.registerProduct.bind(this);
+
+    Array.from(this.grid.rows).forEach((function (row) {
+        this.rowInit(this.grid, row);
+    }).bind(this));
+};
+
 Product.Configurable.prototype = {
-    initialize: function (attributes, links, idPrefix, grid, readonly) {
-        this.templatesSyntax = new RegExp('(^|.|\\r|\\n)(\'{{\\s*(\\w+)\\s*}}\')', "");
-        this.attributes = attributes; // Attributes
-        this.idPrefix = idPrefix; // Container id prefix
-        this.links = $H(links); // Associated products
-        this.newProducts = []; // For product that's created through Create
-        // Empty and Copy from Configurable
-        this.readonly = readonly;
-
-        /* Generation templates */
-        this.addAttributeTemplate = new Template(
-            $(idPrefix + 'attribute_template').innerHTML.replace(/__id__/g,
-            "'{{html_id}}'").replace(/ template no-display/g, ''),
-            this.templatesSyntax);
-        this.addValueTemplate = new Template(
-            $(idPrefix + 'value_template').innerHTML.replace(/__id__/g,
-            "'{{html_id}}'").replace(/ template no-display/g, ''),
-            this.templatesSyntax);
-        this.pricingValueTemplate = new Template($(idPrefix + 'simple_pricing').innerHTML, this.templatesSyntax);
-        this.pricingValueViewTemplate = new Template($(idPrefix + 'simple_pricing_view').innerHTML, this.templatesSyntax);
-
-        this.container = $(idPrefix + 'attributes');
-
-        /* Listeners */
-        this.onLabelUpdate = this.updateLabel.bindAsEventListener(this); // Update
-        // attribute
-        // label
-        this.onValuePriceUpdate = this.updateValuePrice
-            .bindAsEventListener(this); // Update pricing value
-        this.onValueTypeUpdate = this.updateValueType.bindAsEventListener(this); // Update
-        // pricing
-        // type
-        this.onValueDefaultUpdate = this.updateValueUseDefault
-            .bindAsEventListener(this);
-
-        /* Grid initialization and attributes initialization */
-        this.createAttributes(); // Creation of default attributes
-
-        this.grid = grid;
-        this.grid.rowClickCallback = this.rowClick.bind(this);
-        this.grid.initRowCallback = this.rowInit.bind(this);
-        this.grid.checkboxCheckCallback = this.registerProduct.bind(this); // Associate/Unassociate
-        // simple
-        // product
-
-        this.grid.rows.each(function (row) {
-            this.rowInit(this.grid, row);
-        }.bind(this));
+    /* Helper: get keys of links object */
+    _linksKeys: function () {
+        return Object.keys(this.links);
+    },
+    /* Helper: iterate links */
+    _linksEach: function (fn) {
+        var self = this;
+        Object.keys(this.links).forEach(function (key) {
+            fn({ key: key, value: self.links[key] });
+        });
     },
     createAttributes: function () {
-        this.attributes.each(function (attribute, index) {
-            var li = $(document.createElement('LI'));
+        this.attributes.forEach((function (attribute, index) {
+            var li = document.createElement('LI');
             li.className = 'attribute';
             li.id = this.idPrefix + '_attribute_' + index;
             attribute.html_id = li.id;
-            if (attribute && attribute.label && attribute.label.blank()) {
+            if (attribute && attribute.label && attribute.label.trim() === '') {
                 attribute.label = '&nbsp;';
             }
             var label_readonly = '';
@@ -414,23 +454,25 @@ Product.Configurable.prototype = {
             var template = this.addAttributeTemplate.evaluate(attribute);
             template = template.replace(new RegExp(' readonly="label"', 'ig'), label_readonly);
             template = template.replace(new RegExp(' checked="use_default"', 'ig'), use_default_checked);
-            li.update(template);
+            li.innerHTML = template;
             li.attributeObject = attribute;
 
             this.container.appendChild(li);
-            li.attributeValues = li.down('.attribute-values');
+            li.attributeValues = li.querySelector('.attribute-values');
 
             if (attribute.values) {
-                attribute.values.each(function (value) {
-                    this.createValueRow(li, value); // Add pricing values
-                }.bind(this));
+                attribute.values.forEach((function (value) {
+                    this.createValueRow(li, value);
+                }).bind(this));
             }
 
             /* Observe label change */
-            Event.observe(li.down('.attribute-label'), 'change', this.onLabelUpdate);
-            Event.observe(li.down('.attribute-label'), 'keyup', this.onLabelUpdate);
-            Event.observe(li.down('.attribute-use-default-label'), 'change', this.onLabelUpdate);
-        }.bind(this));
+            var labelEl = li.querySelector('.attribute-label');
+            labelEl.addEventListener('change', this.onLabelUpdate);
+            labelEl.addEventListener('keyup', this.onLabelUpdate);
+            li.querySelector('.attribute-use-default-label').addEventListener('change', this.onLabelUpdate);
+        }).bind(this));
+
         if (!this.readonly) {
             // Creation of sortable for attributes sorting
             Sortable.create(this.container, {
@@ -442,9 +484,9 @@ Product.Configurable.prototype = {
     },
 
     updateLabel: function (event) {
-        var li = Event.findElement(event, 'LI');
-        var labelEl = li.down('.attribute-label');
-        var defEl = li.down('.attribute-use-default-label');
+        var li = event.target.closest('LI');
+        var labelEl = li.querySelector('.attribute-label');
+        var defEl = li.querySelector('.attribute-use-default-label');
 
         li.attributeObject.label = labelEl.value;
         if (defEl.checked) {
@@ -458,14 +500,14 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updatePositions: function (param) {
-        this.container.childElements().each(function (row, index) {
+        Array.from(this.container.children).forEach(function (row, index) {
             row.attributeObject.position = index;
         });
         this.updateSaveInput();
     },
     addNewProduct: function (productId, attributes) {
         if (this.checkAttributes(attributes)) {
-            this.links.set(productId, this.cloneAttributes(attributes));
+            this.links[productId] = this.cloneAttributes(attributes);
         } else {
             this.newProducts.push(productId);
         }
@@ -492,27 +534,27 @@ Product.Configurable.prototype = {
     registerProduct: function (grid, element, checked) {
         if (checked) {
             if (element.linkAttributes) {
-                this.links.set(element.value, element.linkAttributes);
+                this.links[element.value] = element.linkAttributes;
             }
         } else {
-            this.links.unset(element.value);
+            delete this.links[element.value];
         }
         this.updateGrid();
-        this.grid.rows.each(function (row) {
+        Array.from(this.grid.rows).forEach((function (row) {
             this.revalidateRow(this.grid, row);
-        }.bind(this));
+        }).bind(this));
         this.updateValues();
     },
     updateProduct: function (productId, attributes) {
         var isAssociated = false;
 
-        if (typeof this.links.get(productId) != 'undefined') {
+        if (typeof this.links[productId] != 'undefined') {
             isAssociated = true;
-            this.links.unset(productId);
+            delete this.links[productId];
         }
 
         if (isAssociated && this.checkAttributes(attributes)) {
-            this.links.set(productId, this.cloneAttributes(attributes));
+            this.links[productId] = this.cloneAttributes(attributes);
         } else if (isAssociated) {
             this.newProducts.push(productId);
         }
@@ -524,20 +566,21 @@ Product.Configurable.prototype = {
     cloneAttributes: function (attributes) {
         var newObj = [];
         for (var i = 0, length = attributes.length; i < length; i++) {
-            newObj[i] = Object.clone(attributes[i]);
+            newObj[i] = Object.assign({}, attributes[i]);
         }
         return newObj;
     },
     rowClick: function (grid, event) {
-        var trElement = Event.findElement(event, 'tr');
-        var isInput = Event.element(event).tagName.toUpperCase() == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput = event.target.tagName.toUpperCase() == 'INPUT';
 
-        if ($(Event.findElement(event, 'td')).down('a')) {
+        var td = event.target.closest('td');
+        if (td && td.querySelector('a')) {
             return;
         }
 
         if (trElement) {
-            var checkbox = $(trElement).down('input');
+            var checkbox = trElement.querySelector('input');
             if (checkbox && !checkbox.disabled) {
                 var checked = isInput ? checkbox.checked : !checkbox.checked;
                 grid.setCheckboxChecked(checkbox, checked);
@@ -545,141 +588,122 @@ Product.Configurable.prototype = {
         }
     },
     rowInit: function (grid, row) {
-        var checkbox = $(row).down('.checkbox');
-        var input = $(row).down('.value-json');
+        var checkbox = row.querySelector('.checkbox');
+        var input = row.querySelector('.value-json');
         if (checkbox && input) {
-            checkbox.linkAttributes = input.value.evalJSON();
+            checkbox.linkAttributes = JSON.parse(input.value);
             if (!checkbox.checked) {
                 if (!this.checkAttributes(checkbox.linkAttributes)) {
-                    $(row).addClassName('invalid');
-                    checkbox.disable();
+                    row.classList.add('invalid');
+                    checkbox.disabled = true;
                 } else {
-                    $(row).removeClassName('invalid');
-                    checkbox.enable();
+                    row.classList.remove('invalid');
+                    checkbox.disabled = false;
                 }
             }
         }
     },
     revalidateRow: function (grid, row) {
-        var checkbox = $(row).down('.checkbox');
+        var checkbox = row.querySelector('.checkbox');
         if (checkbox) {
             if (!checkbox.checked) {
                 if (!this.checkAttributes(checkbox.linkAttributes)) {
-                    $(row).addClassName('invalid');
-                    checkbox.disable();
+                    row.classList.add('invalid');
+                    checkbox.disabled = true;
                 } else {
-                    $(row).removeClassName('invalid');
-                    checkbox.enable();
+                    row.classList.remove('invalid');
+                    checkbox.disabled = false;
                 }
             }
         }
     },
     checkAttributes: function (attributes) {
         var result = true;
-        this.links
-            .each(function (pair) {
-                var fail = false;
-                for (var i = 0; i < pair.value.length && !fail; i++) {
-                    for (var j = 0; j < attributes.length && !fail; j++) {
-                        if (pair.value[i].attribute_id == attributes[j].attribute_id
-                            && pair.value[i].value_index != attributes[j].value_index) {
-                            fail = true;
-                        }
+        var self = this;
+        Object.keys(this.links).forEach(function (key) {
+            var pair = { key: key, value: self.links[key] };
+            var fail = false;
+            for (var i = 0; i < pair.value.length && !fail; i++) {
+                for (var j = 0; j < attributes.length && !fail; j++) {
+                    if (pair.value[i].attribute_id == attributes[j].attribute_id
+                        && pair.value[i].value_index != attributes[j].value_index) {
+                        fail = true;
                     }
                 }
-                if (!fail) {
-                    result = false;
-                }
-            });
+            }
+            if (!fail) {
+                result = false;
+            }
+        });
         return result;
     },
     updateGrid: function () {
+        var keys = this._linksKeys();
         this.grid.reloadParams = {
-            'products[]': this.links.keys().size() ? this.links.keys() : [0],
+            'products[]': keys.length ? keys : [0],
             'new_products[]': this.newProducts
         };
     },
     updateValues: function () {
-        var uniqueAttributeValues = $H({});
+        var uniqueAttributeValues = {};
+        var self = this;
         /* Collect unique attributes */
-        this.links.each(function (pair) {
+        this._linksEach(function (pair) {
             for (var i = 0, length = pair.value.length; i < length; i++) {
                 var attribute = pair.value[i];
-                if (uniqueAttributeValues.keys()
-                    .indexOf(attribute.attribute_id) == -1) {
-                    uniqueAttributeValues.set(attribute.attribute_id, $H({}));
+                if (Object.keys(uniqueAttributeValues).indexOf(attribute.attribute_id) == -1) {
+                    uniqueAttributeValues[attribute.attribute_id] = {};
                 }
-                uniqueAttributeValues.get(attribute.attribute_id).set(
-                    attribute.value_index, attribute);
+                uniqueAttributeValues[attribute.attribute_id][attribute.value_index] = attribute;
             }
         });
         /* Updating attributes value container */
-        this.container
-            .childElements()
-            .each(
-                function (row) {
-                    var attribute = row.attributeObject;
-                    for (var i = 0, length = attribute.values.length; i < length; i++) {
-                        if (uniqueAttributeValues.keys().indexOf(
-                                attribute.attribute_id) == -1
-                            || uniqueAttributeValues
-                                .get(attribute.attribute_id)
-                                .keys()
-                                .indexOf(
-                                    attribute.values[i].value_index) == -1) {
-                            row.attributeValues
-                                .childElements()
-                                .each(
-                                    function (elem) {
-                                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
-                                            elem.remove();
-                                        }
-                                    });
-                            attribute.values[i] = undefined;
-
-                        } else {
-                            uniqueAttributeValues.get(
-                                attribute.attribute_id).unset(
-                                attribute.values[i].value_index);
+        Array.from(this.container.children).forEach((function (row) {
+            var attribute = row.attributeObject;
+            for (var i = 0, length = attribute.values.length; i < length; i++) {
+                if (Object.keys(uniqueAttributeValues).indexOf(attribute.attribute_id) == -1
+                    || Object.keys(uniqueAttributeValues[attribute.attribute_id] || {}).indexOf(attribute.values[i].value_index) == -1) {
+                    Array.from(row.attributeValues.children).forEach(function (elem) {
+                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
+                            elem.remove();
                         }
-                    }
-                    attribute.values = attribute.values.compact();
-                    if (uniqueAttributeValues
-                        .get(attribute.attribute_id)) {
-                        uniqueAttributeValues.get(
-                            attribute.attribute_id).each(
-                            function (pair) {
-                                attribute.values.push(pair.value);
-                                this
-                                    .createValueRow(row,
-                                        pair.value);
-                            }.bind(this));
-                    }
-                }.bind(this));
+                    });
+                    attribute.values[i] = undefined;
+                } else {
+                    delete uniqueAttributeValues[attribute.attribute_id][attribute.values[i].value_index];
+                }
+            }
+            attribute.values = attribute.values.filter(function (v) { return v !== undefined && v !== null; });
+            if (uniqueAttributeValues[attribute.attribute_id]) {
+                var attrVals = uniqueAttributeValues[attribute.attribute_id];
+                Object.keys(attrVals).forEach((function (valKey) {
+                    attribute.values.push(attrVals[valKey]);
+                    this.createValueRow(row, attrVals[valKey]);
+                }).bind(this));
+            }
+        }).bind(this));
         this.updateSaveInput();
         this.updateSimpleForm();
     },
     createValueRow: function (container, value) {
-        var templateVariables = $H({});
+        var templateVariables = {};
         if (!this.valueAutoIndex) {
             this.valueAutoIndex = 1;
         }
-        templateVariables.set('html_id', container.id + '_'
-            + this.valueAutoIndex);
-        templateVariables.update(value);
-        var pricingValue = parseFloat(templateVariables.get('pricing_value'));
+        templateVariables['html_id'] = container.id + '_' + this.valueAutoIndex;
+        Object.assign(templateVariables, value);
+        var pricingValue = parseFloat(templateVariables['pricing_value']);
         if (!isNaN(pricingValue)) {
-            templateVariables.set('pricing_value', pricingValue);
+            templateVariables['pricing_value'] = pricingValue;
         } else {
-            templateVariables.unset('pricing_value');
+            delete templateVariables['pricing_value'];
         }
         this.valueAutoIndex++;
 
-        // var li = $(Builder.node('li', {className:'attribute-value'}));
-        var li = $(document.createElement('LI'));
+        var li = document.createElement('LI');
         li.className = 'attribute-value';
-        li.id = templateVariables.get('html_id');
-        li.update(this.addValueTemplate.evaluate(templateVariables));
+        li.id = templateVariables['html_id'];
+        li.innerHTML = this.addValueTemplate.evaluate(templateVariables);
         li.valueObject = value;
         if (typeof li.valueObject.is_percent == 'undefined') {
             li.valueObject.is_percent = 0;
@@ -691,8 +715,8 @@ Product.Configurable.prototype = {
 
         container.attributeValues.appendChild(li);
 
-        var priceField = li.down('.attribute-price');
-        var priceTypeField = li.down('.attribute-price-type');
+        var priceField = li.querySelector('.attribute-price');
+        var priceTypeField = li.querySelector('.attribute-price-type');
 
         if (priceTypeField != undefined && priceTypeField.options != undefined) {
             if (parseInt(value.is_percent)) {
@@ -702,41 +726,39 @@ Product.Configurable.prototype = {
             }
         }
 
-        Event.observe(priceField, 'keyup', this.onValuePriceUpdate);
-        Event.observe(priceField, 'change', this.onValuePriceUpdate);
-        Event.observe(priceTypeField, 'change', this.onValueTypeUpdate);
-        var useDefaultEl = li.down('.attribute-use-default-value');
+        priceField.addEventListener('keyup', this.onValuePriceUpdate);
+        priceField.addEventListener('change', this.onValuePriceUpdate);
+        priceTypeField.addEventListener('change', this.onValueTypeUpdate);
+        var useDefaultEl = li.querySelector('.attribute-use-default-value');
         if (useDefaultEl) {
             if (li.valueObject.use_default_value) {
                 useDefaultEl.checked = true;
                 this.updateUseDefaultRow(useDefaultEl, li);
             }
-            Event.observe(useDefaultEl, 'change', this.onValueDefaultUpdate);
+            useDefaultEl.addEventListener('change', this.onValueDefaultUpdate);
         }
     },
     updateValuePrice: function (event) {
-        var li = Event.findElement(event, 'LI');
-        li.valueObject.pricing_value = (Event.element(event).value.blank() ? null
-            : Event.element(event).value);
+        var li = event.target.closest('LI');
+        li.valueObject.pricing_value = (event.target.value.trim() === '' ? null : event.target.value);
         this.updateSimpleForm();
         this.updateSaveInput();
     },
     updateValueType: function (event) {
-        var li = Event.findElement(event, 'LI');
-        li.valueObject.is_percent = (Event.element(event).value.blank() ? null
-            : Event.element(event).value);
+        var li = event.target.closest('LI');
+        li.valueObject.is_percent = (event.target.value.trim() === '' ? null : event.target.value);
         this.updateSimpleForm();
         this.updateSaveInput();
     },
     updateValueUseDefault: function (event) {
-        var li = Event.findElement(event, 'LI');
-        var useDefaultEl = Event.element(event);
+        var li = event.target.closest('LI');
+        var useDefaultEl = event.target;
         li.valueObject.use_default_value = useDefaultEl.checked;
         this.updateUseDefaultRow(useDefaultEl, li);
     },
     updateUseDefaultRow: function (useDefaultEl, li) {
-        var priceField = li.down('.attribute-price');
-        var priceTypeField = li.down('.attribute-price-type');
+        var priceField = li.querySelector('.attribute-price');
+        var priceTypeField = li.querySelector('.attribute-price-type');
         if (useDefaultEl.checked) {
             priceField.disabled = true;
             priceTypeField.disabled = true;
@@ -748,12 +770,14 @@ Product.Configurable.prototype = {
         this.updateSaveInput();
     },
     updateSaveInput: function () {
-        var oldSaveAttributesValue = $(this.idPrefix + 'save_attributes').value;
-        var oldSaveLinksValue = $(this.idPrefix + 'save_links').value;
-        var newSaveAttributesValue = Object.toJSON(this.attributes);
-        var newSaveLinksValue = Object.toJSON(this.links);
-        $(this.idPrefix + 'save_attributes').value = newSaveAttributesValue;
-        $(this.idPrefix + 'save_links').value = newSaveLinksValue;
+        var saveAttrsEl = document.getElementById(this.idPrefix + 'save_attributes');
+        var saveLinksEl = document.getElementById(this.idPrefix + 'save_links');
+        var oldSaveAttributesValue = saveAttrsEl.value;
+        var oldSaveLinksValue = saveLinksEl.value;
+        var newSaveAttributesValue = JSON.stringify(this.attributes);
+        var newSaveLinksValue = JSON.stringify(this.links);
+        saveAttrsEl.value = newSaveAttributesValue;
+        saveLinksEl.value = newSaveLinksValue;
         if (oldSaveAttributesValue != newSaveAttributesValue || oldSaveLinksValue != newSaveLinksValue) {
             try {
                 document.getElementById('configurable_save_attributes').setHasChanges();
@@ -761,62 +785,77 @@ Product.Configurable.prototype = {
         }
     },
     initializeAdvicesForSimpleForm: function () {
-        if ($(this.idPrefix + 'simple_form').advicesInited) {
+        var simpleForm = document.getElementById(this.idPrefix + 'simple_form');
+        if (simpleForm.advicesInited) {
             return;
         }
 
-        $(this.idPrefix + 'simple_form').select('td.value').each(function (td) {
-            var adviceContainer = $(Builder.node('div'));
+        simpleForm.querySelectorAll('td.value').forEach(function (td) {
+            var adviceContainer = document.createElement('div');
             td.appendChild(adviceContainer);
-            td.select('input', 'select').each(function (element) {
+            td.querySelectorAll('input, select').forEach(function (element) {
                 element.advaiceContainer = adviceContainer;
             });
         });
-        $(this.idPrefix + 'simple_form').advicesInited = true;
+        simpleForm.advicesInited = true;
     },
     quickCreateNewProduct: function () {
         this.initializeAdvicesForSimpleForm();
-        $(this.idPrefix + 'simple_form').removeClassName('ignore-validate');
-        var validationResult = $(this.idPrefix + 'simple_form').select('input', 'select', 'textarea').collect(function (elm) {
+        var simpleForm = document.getElementById(this.idPrefix + 'simple_form');
+        simpleForm.classList.remove('ignore-validate');
+        var validationResult = Array.from(simpleForm.querySelectorAll('input, select, textarea')).map(function (elm) {
             return Validation.validate(elm, {
                 useTitle: false,
                 onElementValidate: function () {
                 }
             });
-        }).all();
-        $(this.idPrefix + 'simple_form').addClassName('ignore-validate');
+        }).every(function (v) { return v; });
+        simpleForm.classList.add('ignore-validate');
 
         if (!validationResult) {
             return;
         }
 
-        var params = Form.serializeElements($(this.idPrefix + 'simple_form').select('input', 'select', 'textarea'), true);
-        params.form_key = FORM_KEY;
-        $('messages').update();
-        new Ajax.Request(this.createQuickUrl, {
-            parameters: params,
-            method: 'post',
-            area: $(this.idPrefix + 'simple_form'),
-            onComplete: this.quickCreateNewProductComplete.bind(this)
+        var formElements = simpleForm.querySelectorAll('input, select, textarea');
+        var params = new URLSearchParams();
+        formElements.forEach(function (el) {
+            if (el.name && !el.disabled) {
+                if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) {
+                    return;
+                }
+                params.append(el.name, el.value);
+            }
         });
+        params.append('form_key', FORM_KEY);
+
+        document.getElementById('messages').innerHTML = '';
+
+        fetch(this.createQuickUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+        }).then((function (response) {
+            return response.text();
+        }).bind(this)).then((function (responseText) {
+            this.quickCreateNewProductComplete(responseText);
+        }).bind(this));
     },
-    quickCreateNewProductComplete: function (transport) {
-        var result = transport.responseText.evalJSON();
+    quickCreateNewProductComplete: function (responseText) {
+        var result = JSON.parse(responseText);
 
         if (result.error) {
             if (result.error.fields) {
-                $(this.idPrefix + 'simple_form').removeClassName(
-                    'ignore-validate');
-                $H(result.error.fields)
-                    .each(function (pair) {
-                        $('simple_product_' + pair.key).value = pair.value;
-                        $('simple_product_' + pair.key + '_autogenerate').checked = false;
-                        toggleValueElements(
-                            $('simple_product_' + pair.key + '_autogenerate'),
-                            $('simple_product_' + pair.key + '_autogenerate').parentNode);
-                        Validation.ajaxError($('simple_product_' + pair.key), result.error.message);
-                    });
-                $(this.idPrefix + 'simple_form').addClassName('ignore-validate');
+                var simpleForm = document.getElementById(this.idPrefix + 'simple_form');
+                simpleForm.classList.remove('ignore-validate');
+                Object.keys(result.error.fields).forEach(function (key) {
+                    var value = result.error.fields[key];
+                    document.getElementById('simple_product_' + key).value = value;
+                    document.getElementById('simple_product_' + key + '_autogenerate').checked = false;
+                    var autoGenEl = document.getElementById('simple_product_' + key + '_autogenerate');
+                    toggleValueElements(autoGenEl, autoGenEl.parentNode);
+                    Validation.ajaxError(document.getElementById('simple_product_' + key), result.error.message);
+                });
+                simpleForm.classList.add('ignore-validate');
             } else {
                 if (result.error.message) {
                     alert(result.error.message);
@@ -826,73 +865,72 @@ Product.Configurable.prototype = {
             }
             return;
         } else if (result.messages) {
-            $('messages').update(result.messages);
+            document.getElementById('messages').innerHTML = result.messages;
         }
 
-        result.attributes
-            .each(function (attribute) {
-                var attr = this.getAttributeById(attribute.attribute_id);
-                if (!this.getValueByIndex(attr, attribute.value_index)
-                    && result.pricing
-                    && result.pricing[attr.attribute_code]) {
+        result.attributes.forEach((function (attribute) {
+            var attr = this.getAttributeById(attribute.attribute_id);
+            if (!this.getValueByIndex(attr, attribute.value_index)
+                && result.pricing
+                && result.pricing[attr.attribute_code]) {
 
-                    attribute.is_percent = result.pricing[attr.attribute_code].is_percent;
-                    attribute.pricing_value = (result.pricing[attr.attribute_code].value == null ? ''
-                        : result.pricing[attr.attribute_code].value);
-                }
-            }.bind(this));
-
-        this.attributes.each(function (attribute) {
-            if ($('simple_product_' + attribute.attribute_code)) {
-                $('simple_product_' + attribute.attribute_code).value = '';
+                attribute.is_percent = result.pricing[attr.attribute_code].is_percent;
+                attribute.pricing_value = (result.pricing[attr.attribute_code].value == null ? ''
+                    : result.pricing[attr.attribute_code].value);
             }
-        }.bind(this));
+        }).bind(this));
 
-        this.links.set(result.product_id, result.attributes);
+        this.attributes.forEach((function (attribute) {
+            var el = document.getElementById('simple_product_' + attribute.attribute_code);
+            if (el) {
+                el.value = '';
+            }
+        }).bind(this));
+
+        this.links[result.product_id] = result.attributes;
         this.updateGrid();
         this.updateValues();
         this.grid.reload();
     },
     checkCreationUniqueAttributes: function () {
         var attributes = [];
-        this.attributes
-            .each(function (attribute) {
-                attributes.push({
-                    attribute_id: attribute.attribute_id,
-                    value_index: $('simple_product_' + attribute.attribute_code).value
-                });
-            }.bind(this));
+        this.attributes.forEach((function (attribute) {
+            attributes.push({
+                attribute_id: attribute.attribute_id,
+                value_index: document.getElementById('simple_product_' + attribute.attribute_code).value
+            });
+        }).bind(this));
 
         return this.checkAttributes(attributes);
     },
     getAttributeByCode: function (attributeCode) {
         var attribute = null;
-        this.attributes.each(function (item) {
-            if (item.attribute_code == attributeCode) {
-                attribute = item;
-                throw $break;
+        for (var i = 0; i < this.attributes.length; i++) {
+            if (this.attributes[i].attribute_code == attributeCode) {
+                attribute = this.attributes[i];
+                break;
             }
-        });
+        }
         return attribute;
     },
     getAttributeById: function (attributeId) {
         var attribute = null;
-        this.attributes.each(function (item) {
-            if (item.attribute_id == attributeId) {
-                attribute = item;
-                throw $break;
+        for (var i = 0; i < this.attributes.length; i++) {
+            if (this.attributes[i].attribute_id == attributeId) {
+                attribute = this.attributes[i];
+                break;
             }
-        });
+        }
         return attribute;
     },
     getValueByIndex: function (attribute, valueIndex) {
         var result = null;
-        attribute.values.each(function (value) {
-            if (value.value_index == valueIndex) {
-                result = value;
-                throw $break;
+        for (var i = 0; i < attribute.values.length; i++) {
+            if (attribute.values[i].value_index == valueIndex) {
+                result = attribute.values[i];
+                break;
             }
-        });
+        }
         return result;
     },
     showPricing: function (select, attributeCode) {
@@ -901,30 +939,31 @@ Product.Configurable.prototype = {
             return;
         }
 
-        select = $(select);
-        if (select.value && !$('simple_product_' + attributeCode + '_pricing_container')) {
-            Element.insert(select, {
-                after: '<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>'
-            });
-            var newContainer = select.next('div');
+        if (typeof select === 'string') {
+            select = document.getElementById(select);
+        }
+        if (select.value && !document.getElementById('simple_product_' + attributeCode + '_pricing_container')) {
+            select.insertAdjacentHTML('afterend',
+                '<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>');
+            var newContainer = select.nextElementSibling;
             select.parentNode.removeChild(select);
             newContainer.appendChild(select);
             // Fix visualization bug
-            $(this.idPrefix + 'simple_form').down('.form-list').style.width = '100%';
+            document.getElementById(this.idPrefix + 'simple_form').querySelector('.form-list').style.width = '100%';
         }
 
-        var container = $('simple_product_' + attributeCode + '_pricing_container');
+        var container = document.getElementById('simple_product_' + attributeCode + '_pricing_container');
 
         if (select.value) {
             var value = this.getValueByIndex(attribute, select.value);
             if (!value) {
-                if (!container.down('.attribute-price')) {
+                if (!container.querySelector('.attribute-price')) {
                     if (value == null) {
                         value = {};
                     }
-                    container.update(this.pricingValueTemplate.evaluate(value));
-                    var priceValueField = container.down('.attribute-price');
-                    var priceTypeField = container.down('.attribute-price-type');
+                    container.innerHTML = this.pricingValueTemplate.evaluate(value);
+                    var priceValueField = container.querySelector('.attribute-price');
+                    var priceTypeField = container.querySelector('.attribute-price-type');
 
                     priceValueField.attributeCode = attributeCode;
                     priceValueField.priceField = priceValueField;
@@ -934,60 +973,59 @@ Product.Configurable.prototype = {
                     priceTypeField.priceField = priceValueField;
                     priceTypeField.typeField = priceTypeField;
 
-                    Event.observe(priceValueField, 'change', this.updateSimplePricing.bindAsEventListener(this));
-                    Event.observe(priceValueField, 'keyup', this.updateSimplePricing.bindAsEventListener(this));
-                    Event.observe(priceTypeField, 'change', this.updateSimplePricing.bindAsEventListener(this));
+                    priceValueField.addEventListener('change', this.updateSimplePricing.bind(this));
+                    priceValueField.addEventListener('keyup', this.updateSimplePricing.bind(this));
+                    priceTypeField.addEventListener('change', this.updateSimplePricing.bind(this));
 
-                    $('simple_product_' + attributeCode + '_pricing_value').value = null;
-                    $('simple_product_' + attributeCode + '_pricing_type').value = null;
+                    document.getElementById('simple_product_' + attributeCode + '_pricing_value').value = null;
+                    document.getElementById('simple_product_' + attributeCode + '_pricing_type').value = null;
                 }
             } else if (!isNaN(parseFloat(value.pricing_value))) {
-                container.update(this.pricingValueViewTemplate.evaluate({
+                container.innerHTML = this.pricingValueViewTemplate.evaluate({
                     'value': (parseFloat(value.pricing_value) > 0 ? '+' : '')
                         + parseFloat(value.pricing_value)
                         + (parseInt(value.is_percent) > 0 ? '%' : '')
-                }));
-                $('simple_product_' + attributeCode + '_pricing_value').value = value.pricing_value;
-                $('simple_product_' + attributeCode + '_pricing_type').value = value.is_percent;
+                });
+                document.getElementById('simple_product_' + attributeCode + '_pricing_value').value = value.pricing_value;
+                document.getElementById('simple_product_' + attributeCode + '_pricing_type').value = value.is_percent;
             } else {
-                container.update('');
-                $('simple_product_' + attributeCode + '_pricing_value').value = null;
-                $('simple_product_' + attributeCode + '_pricing_type').value = null;
+                container.innerHTML = '';
+                document.getElementById('simple_product_' + attributeCode + '_pricing_value').value = null;
+                document.getElementById('simple_product_' + attributeCode + '_pricing_type').value = null;
             }
         } else if (container) {
-            container.update('');
-            $('simple_product_' + attributeCode + '_pricing_value').value = null;
-            $('simple_product_' + attributeCode + '_pricing_type').value = null;
+            container.innerHTML = '';
+            document.getElementById('simple_product_' + attributeCode + '_pricing_value').value = null;
+            document.getElementById('simple_product_' + attributeCode + '_pricing_type').value = null;
         }
     },
     updateSimplePricing: function (evt) {
-        var element = Event.element(evt);
-        if (!element.priceField.value.blank()) {
-            $('simple_product_' + element.attributeCode + '_pricing_value').value = element.priceField.value;
-            $('simple_product_' + element.attributeCode + '_pricing_type').value = element.typeField.value;
+        var element = evt.target;
+        if (element.priceField.value.trim() !== '') {
+            document.getElementById('simple_product_' + element.attributeCode + '_pricing_value').value = element.priceField.value;
+            document.getElementById('simple_product_' + element.attributeCode + '_pricing_type').value = element.typeField.value;
         } else {
-            $('simple_product_' + element.attributeCode + '_pricing_value').value = null;
-            $('simple_product_' + element.attributeCode + '_pricing_type').value = null;
+            document.getElementById('simple_product_' + element.attributeCode + '_pricing_value').value = null;
+            document.getElementById('simple_product_' + element.attributeCode + '_pricing_type').value = null;
         }
     },
     updateSimpleForm: function () {
-        this.attributes.each(function (attribute) {
-            if ($('simple_product_' + attribute.attribute_code)) {
-                this.showPricing(
-                    $('simple_product_' + attribute.attribute_code),
-                    attribute.attribute_code);
+        this.attributes.forEach((function (attribute) {
+            var el = document.getElementById('simple_product_' + attribute.attribute_code);
+            if (el) {
+                this.showPricing(el, attribute.attribute_code);
             }
-        }.bind(this));
+        }).bind(this));
     },
     showNoticeMessage: function () {
-        $('assign_product_warrning').show();
+        document.getElementById('assign_product_warrning').style.display = '';
     }
 };
 
 var onInitDisableFieldsList = [];
 
 function toogleFieldEditMode(toogleIdentifier, fieldContainer) {
-    if ($(toogleIdentifier).checked) {
+    if (document.getElementById(toogleIdentifier).checked) {
         enableFieldEditMode(fieldContainer);
     } else {
         disableFieldEditMode(fieldContainer);
@@ -995,20 +1033,24 @@ function toogleFieldEditMode(toogleIdentifier, fieldContainer) {
 }
 
 function disableFieldEditMode(fieldContainer) {
-    if ($(fieldContainer)) {
-        $(fieldContainer).disabled = true;
+    var el = document.getElementById(fieldContainer);
+    if (el) {
+        el.disabled = true;
     }
-    if ($(fieldContainer + '_hidden')) {
-        $(fieldContainer + '_hidden').disabled = true;
+    var hidden = document.getElementById(fieldContainer + '_hidden');
+    if (hidden) {
+        hidden.disabled = true;
     }
 }
 
 function enableFieldEditMode(fieldContainer) {
-    if ($(fieldContainer)) {
-        $(fieldContainer).disabled = false;
+    var el = document.getElementById(fieldContainer);
+    if (el) {
+        el.disabled = false;
     }
-    if ($(fieldContainer + '_hidden')) {
-        $(fieldContainer + '_hidden').disabled = false;
+    var hidden = document.getElementById(fieldContainer + '_hidden');
+    if (hidden) {
+        hidden.disabled = false;
     }
 }
 
@@ -1017,15 +1059,27 @@ function initDisableFields(fieldContainer) {
 }
 
 function onCompleteDisableInited() {
-    onInitDisableFieldsList.each(function (item) {
+    onInitDisableFieldsList.forEach(function (item) {
         disableFieldEditMode(item);
     });
 }
 
 function onUrlkeyChanged(urlKey) {
-    urlKey = $(urlKey);
-    var hidden = urlKey.next('input[type=hidden]');
-    var chbx = urlKey.next('input[type=checkbox]');
+    urlKey = document.getElementById(urlKey);
+    var hidden = urlKey.parentElement.querySelector('input[type=hidden]');
+    if (!hidden) {
+        var sibling = urlKey.nextElementSibling;
+        while (sibling) {
+            if (sibling.matches && sibling.matches('input[type=hidden]')) { hidden = sibling; break; }
+            sibling = sibling.nextElementSibling;
+        }
+    }
+    var chbx = null;
+    var sibling2 = urlKey.nextElementSibling;
+    while (sibling2) {
+        if (sibling2.matches && sibling2.matches('input[type=checkbox]')) { chbx = sibling2; break; }
+        sibling2 = sibling2.nextElementSibling;
+    }
     var oldValue = chbx.value;
     chbx.disabled = (oldValue == urlKey.value);
     hidden.disabled = chbx.disabled;
@@ -1033,18 +1087,23 @@ function onUrlkeyChanged(urlKey) {
 
 function onCustomUseParentChanged(element) {
     var useParent = (element.value == 1) ? true : false;
-    element.up(2).select('input', 'select', 'textarea').each(function (el) {
+    /* Navigate up 2 levels */
+    var ancestor = element.parentElement;
+    if (ancestor && ancestor.parentElement) {
+        ancestor = ancestor.parentElement;
+    }
+    ancestor.querySelectorAll('input, select, textarea').forEach(function (el) {
         if (element.id != el.id) {
             el.disabled = useParent;
         }
     });
-    element.up(2).select('img').each(function (el) {
+    ancestor.querySelectorAll('img').forEach(function (el) {
         if (useParent) {
-            el.hide();
+            el.style.display = 'none';
         } else {
-            el.show();
+            el.style.display = '';
         }
     });
 }
 
-Event.observe(window, 'load', onCompleteDisableInited);
+window.addEventListener('load', onCompleteDisableInited);
