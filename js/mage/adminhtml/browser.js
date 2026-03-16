@@ -12,64 +12,187 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 MediabrowserUtility = {
+    dialogWindow: null,
+    overlayEl: null,
+    dialogEl: null,
+
     openDialog: function(url, width, height, title, options) {
-        if ($('browser_window') && typeof(Windows) != 'undefined') {
+        var browserWin = document.getElementById('browser_window');
+        if (browserWin && typeof Windows !== 'undefined') {
             Windows.focus('browser_window');
             return;
         }
-        this.dialogWindow = Dialog.info(null, Object.extend({
-            closable:     true,
-            resizable:    false,
-            draggable:    true,
-            className:    'magento',
-            windowClassName:    'popup-window',
-            title:        title || 'Insert File...',
-            top:          50,
-            width:        width || 950,
-            height:       height || 600,
-            zIndex:       options && options.zIndex || 1000,
-            recenterAuto: false,
-            hideEffect:   Element.hide,
-            showEffect:   Element.show,
-            id:           'browser_window',
-            onClose: this.closeDialog.bind(this)
-        }, options || {}));
-        new Ajax.Updater('modal_dialog_message', url, {evalScripts: true});
+
+        var opts = Object.assign({
+            closable:          true,
+            resizable:         false,
+            draggable:         true,
+            className:         'magento',
+            windowClassName:   'popup-window',
+            title:             title || 'Insert File...',
+            top:               50,
+            width:             width || 950,
+            height:            height || 600,
+            zIndex:            (options && options.zIndex) || 1000,
+            recenterAuto:      false,
+            id:                'browser_window',
+            onClose:           this.closeDialog.bind(this)
+        }, options || {});
+
+        if (typeof Dialog !== 'undefined') {
+            this.dialogWindow = Dialog.info(null, Object.assign(opts, {
+                hideEffect: function(el) { el.style.display = 'none'; },
+                showEffect: function(el) { el.style.display = ''; }
+            }));
+
+            fetch(url)
+                .then(function(response) { return response.text(); })
+                .then(function(html) {
+                    var msgEl = document.getElementById('modal_dialog_message');
+                    if (msgEl) {
+                        msgEl.innerHTML = html;
+                        var scripts = msgEl.querySelectorAll('script');
+                        scripts.forEach(function(script) {
+                            var newScript = document.createElement('script');
+                            if (script.src) {
+                                newScript.src = script.src;
+                            } else {
+                                newScript.textContent = script.textContent;
+                            }
+                            document.head.appendChild(newScript);
+                        });
+                    }
+                });
+        } else {
+            // Fallback: simple overlay modal
+            this._createFallbackDialog(url, opts);
+        }
     },
-    closeDialog: function(window) {
-        if (!window) {
-            window = this.dialogWindow;
+
+    _createFallbackDialog: function(url, opts) {
+        var self = this;
+
+        // Overlay
+        var overlay = document.createElement('div');
+        overlay.id = 'browser_overlay';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:' + (opts.zIndex - 1) + ';';
+        document.body.appendChild(overlay);
+        this.overlayEl = overlay;
+
+        // Dialog container
+        var dialog = document.createElement('div');
+        dialog.id = opts.id || 'browser_window';
+        dialog.className = (opts.windowClassName || 'popup-window') + ' ' + (opts.className || '');
+        dialog.style.cssText = 'position:fixed;top:' + opts.top + 'px;left:50%;transform:translateX(-50%);'
+            + 'width:' + opts.width + 'px;height:' + opts.height + 'px;'
+            + 'z-index:' + opts.zIndex + ';background:#fff;border:1px solid #999;'
+            + 'box-shadow:0 4px 20px rgba(0,0,0,0.3);overflow:hidden;';
+
+        // Title bar
+        var titleBar = document.createElement('div');
+        titleBar.style.cssText = 'padding:8px 12px;background:#f0f0f0;border-bottom:1px solid #ccc;display:flex;justify-content:space-between;align-items:center;';
+        titleBar.innerHTML = '<span style="font-weight:bold;">' + (opts.title || '') + '</span>';
+
+        if (opts.closable !== false) {
+            var closeBtn = document.createElement('button');
+            closeBtn.type = 'button';
+            closeBtn.textContent = '\u00D7';
+            closeBtn.style.cssText = 'border:none;background:none;font-size:20px;cursor:pointer;padding:0 4px;';
+            closeBtn.addEventListener('click', function() {
+                self.closeDialog();
+            });
+            titleBar.appendChild(closeBtn);
         }
-        if (window) {
-            window.close();
+        dialog.appendChild(titleBar);
+
+        // Content area
+        var content = document.createElement('div');
+        content.id = 'modal_dialog_message';
+        content.style.cssText = 'overflow:auto;height:calc(100% - 40px);';
+        dialog.appendChild(content);
+
+        document.body.appendChild(dialog);
+        this.dialogEl = dialog;
+
+        // Clicking overlay closes dialog
+        overlay.addEventListener('click', function() {
+            self.closeDialog();
+        });
+
+        // Set dialogWindow to a closeable object
+        this.dialogWindow = {
+            close: function() {
+                self._removeFallbackDialog();
+            }
+        };
+
+        // Fetch content
+        fetch(url)
+            .then(function(response) { return response.text(); })
+            .then(function(html) {
+                content.innerHTML = html;
+                var scripts = content.querySelectorAll('script');
+                scripts.forEach(function(script) {
+                    var newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                });
+            });
+    },
+
+    _removeFallbackDialog: function() {
+        if (this.overlayEl && this.overlayEl.parentNode) {
+            this.overlayEl.parentNode.removeChild(this.overlayEl);
+            this.overlayEl = null;
         }
+        if (this.dialogEl && this.dialogEl.parentNode) {
+            this.dialogEl.parentNode.removeChild(this.dialogEl);
+            this.dialogEl = null;
+        }
+        this.dialogWindow = null;
+    },
+
+    closeDialog: function(win) {
+        if (!win) {
+            win = this.dialogWindow;
+        }
+        if (win) {
+            win.close();
+        }
+        // Clean up fallback elements if they exist
+        this._removeFallbackDialog();
     }
 };
 
-Mediabrowser = Class.create();
+function Mediabrowser(setup) {
+    this.targetElementId = null;
+    this.contentsUrl = null;
+    this.onInsertUrl = null;
+    this.newFolderUrl = null;
+    this.deleteFolderUrl = null;
+    this.deleteFilesUrl = null;
+    this.headerText = null;
+    this.tree = null;
+    this.currentNode = null;
+    this.storeId = null;
+
+    this.newFolderPrompt = setup.newFolderPrompt;
+    this.deleteFolderConfirmationMessage = setup.deleteFolderConfirmationMessage;
+    this.deleteFileConfirmationMessage = setup.deleteFileConfirmationMessage;
+    this.targetElementId = setup.targetElementId;
+    this.contentsUrl = setup.contentsUrl;
+    this.onInsertUrl = setup.onInsertUrl;
+    this.newFolderUrl = setup.newFolderUrl;
+    this.deleteFolderUrl = setup.deleteFolderUrl;
+    this.deleteFilesUrl = setup.deleteFilesUrl;
+    this.headerText = setup.headerText;
+}
+
 Mediabrowser.prototype = {
-    targetElementId: null,
-    contentsUrl: null,
-    onInsertUrl: null,
-    newFolderUrl: null,
-    deleteFolderUrl: null,
-    deleteFilesUrl: null,
-    headerText: null,
-    tree: null,
-    currentNode: null,
-    storeId: null,
-    initialize: function (setup) {
-        this.newFolderPrompt = setup.newFolderPrompt;
-        this.deleteFolderConfirmationMessage = setup.deleteFolderConfirmationMessage;
-        this.deleteFileConfirmationMessage = setup.deleteFileConfirmationMessage;
-        this.targetElementId = setup.targetElementId;
-        this.contentsUrl = setup.contentsUrl;
-        this.onInsertUrl = setup.onInsertUrl;
-        this.newFolderUrl = setup.newFolderUrl;
-        this.deleteFolderUrl = setup.deleteFolderUrl;
-        this.deleteFilesUrl = setup.deleteFilesUrl;
-        this.headerText = setup.headerText;
-    },
     setTree: function (tree) {
         this.tree = tree;
         this.currentNode = tree.getRootNode();
@@ -80,11 +203,12 @@ Mediabrowser.prototype = {
     },
 
     selectFolder: function (node, event) {
+        var self = this;
         this.currentNode = node;
         this.hideFileButtons();
         this.activateBlock('contents');
 
-        if(node.id == 'root') {
+        if (node.id == 'root') {
             this.hideElement('button_delete_folder');
         } else {
             this.showElement('button_delete_folder');
@@ -94,25 +218,33 @@ Mediabrowser.prototype = {
         this.drawBreadcrumbs(this.currentNode);
 
         this.showElement('loading-mask');
-        new Ajax.Request(this.contentsUrl, {
-            parameters: {node: this.currentNode.id},
-            evalJS: true,
-            onSuccess: function(transport) {
-                try {
-                    this.currentNode.select();
-                    this.onAjaxSuccess(transport);
-                    this.hideElement('loading-mask');
-                    if ($('contents') != undefined) {
-                        $('contents').update(transport.responseText);
-                        $$('div.filecnt').each(function(s) {
-                            Event.observe(s.id, 'click', this.selectFile.bind(this));
-                            Event.observe(s.id, 'dblclick', this.insert.bind(this));
-                        }.bind(this));
-                    }
-                } catch(e) {
-                    alert(e.message);
+
+        var params = new URLSearchParams();
+        params.append('node', this.currentNode.id);
+
+        fetch(this.contentsUrl, {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: params
+        })
+        .then(function(response) { return response.text(); })
+        .then(function(responseText) {
+            try {
+                self.currentNode.select();
+                self._handleAjaxSuccess(responseText);
+                self.hideElement('loading-mask');
+                var contentsEl = document.getElementById('contents');
+                if (contentsEl != undefined) {
+                    contentsEl.innerHTML = responseText;
+                    var fileDivs = document.querySelectorAll('div.filecnt');
+                    fileDivs.forEach(function(s) {
+                        s.addEventListener('click', self.selectFile.bind(self));
+                        s.addEventListener('dblclick', self.insert.bind(self));
+                    });
                 }
-            }.bind(this)
+            } catch(e) {
+                alert(e.message);
+            }
         });
     },
 
@@ -124,12 +256,15 @@ Mediabrowser.prototype = {
     },
 
     selectFile: function (event) {
-        var div = Event.findElement(event, 'DIV');
-        $$('div.filecnt.selected[id!="' + div.id + '"]').each(function(e) {
-            e.removeClassName('selected');
+        var div = event.target.closest('DIV');
+        var others = document.querySelectorAll('div.filecnt.selected');
+        others.forEach(function(e) {
+            if (e.id !== div.id) {
+                e.classList.remove('selected');
+            }
         });
-        div.toggleClassName('selected');
-        if(div.hasClassName('selected')) {
+        div.classList.toggle('selected');
+        if (div.classList.contains('selected')) {
             this.showFileButtons();
         } else {
             this.hideFileButtons();
@@ -147,56 +282,74 @@ Mediabrowser.prototype = {
     },
 
     handleUploadComplete: function(files) {
-        $$('div[class*="file-row complete"]').each(function(e) {
-            $(e.id).remove();
+        var completedRows = document.querySelectorAll('div[class*="file-row complete"]');
+        completedRows.forEach(function(e) {
+            e.remove();
         });
         this.selectFolder(this.currentNode);
     },
 
     insert: function(event) {
+        var self = this;
         var div;
         if (event != undefined) {
-            div = Event.findElement(event, 'DIV');
+            div = event.target.closest('DIV');
         } else {
-            $$('div.selected').each(function (e) {
-                div = $(e.id);
+            var selected = document.querySelectorAll('div.selected');
+            selected.forEach(function (e) {
+                div = document.getElementById(e.id);
             });
         }
-        if ($(div.id) == undefined) {
+        if (document.getElementById(div.id) == undefined) {
             return false;
         }
         var targetEl = this.getTargetElement();
         if (!targetEl) {
             alert("Target element not found for content update");
-            Windows.close('browser_window');
+            if (typeof Windows !== 'undefined') {
+                Windows.close('browser_window');
+            } else {
+                MediabrowserUtility.closeDialog();
+            }
             return;
         }
 
-        var params = {filename:div.id, node:this.currentNode.id, store:this.storeId};
+        var params = new URLSearchParams();
+        params.append('filename', div.id);
+        params.append('node', this.currentNode.id);
+        params.append('store', this.storeId);
+
         if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
-            params.as_is = 1;
+            params.append('as_is', '1');
         }
 
-        new Ajax.Request(this.onInsertUrl, {
-            parameters: params,
-            onSuccess: function(transport) {
-                try {
-                    this.onAjaxSuccess(transport);
-                    if (this.getMediaBrowserCallback()) {
-                        self.blur();
-                    }
-                    Windows.close('browser_window');
-                    if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'input') {
-                        targetEl.value = transport.responseText;
-                    } else if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
-                        updateElementAtCursor(targetEl, transport.responseText);
-                    } else {
-                        targetEl(transport.responseText);
-                    }
-                } catch (e) {
-                    alert(e.message);
+        fetch(this.onInsertUrl, {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: params
+        })
+        .then(function(response) { return response.text(); })
+        .then(function(responseText) {
+            try {
+                self._handleAjaxSuccess(responseText);
+                if (self.getMediaBrowserCallback()) {
+                    self.blur();
                 }
-            }.bind(this)
+                if (typeof Windows !== 'undefined') {
+                    Windows.close('browser_window');
+                } else {
+                    MediabrowserUtility.closeDialog();
+                }
+                if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'input') {
+                    targetEl.value = responseText;
+                } else if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
+                    updateElementAtCursor(targetEl, responseText);
+                } else {
+                    targetEl(responseText);
+                }
+            } catch (e) {
+                alert(e.message);
+            }
         });
     },
 
@@ -211,8 +364,9 @@ Mediabrowser.prototype = {
      * return HTMLelement | null
      */
     getTargetElement: function() {
-        if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId)) {
-            if ((callbak = this.getMediaBrowserCallback())) {
+        if (typeof tinyMCE !== 'undefined' && tinyMCE.get(this.targetElementId)) {
+            var callbak = this.getMediaBrowserCallback();
+            if (callbak) {
                 return callbak;
             } else {
                 return null;
@@ -226,94 +380,120 @@ Mediabrowser.prototype = {
      * return object|null
      */
     getMediaBrowserCallback: function() {
-        if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId) && typeof(tinyMceEditors) != 'undefined') {
+        if (typeof tinyMCE !== 'undefined' && tinyMCE.get(this.targetElementId) && typeof tinyMceEditors !== 'undefined') {
             return tinyMceEditors.get(this.targetElementId).getMediaBrowserCallback();
         }
         return null;
     },
 
     newFolder: function() {
+        var self = this;
         var folderName = prompt(this.newFolderPrompt);
         if (!folderName) {
             return false;
         }
-        new Ajax.Request(this.newFolderUrl, {
-            parameters: {name: folderName},
-            onSuccess: function(transport) {
+
+        var params = new URLSearchParams();
+        params.append('name', folderName);
+
+        fetch(this.newFolderUrl, {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: params
+        })
+        .then(function(response) { return response.text(); })
+        .then(function(responseText) {
+            try {
+                self._handleAjaxSuccess(responseText);
+                var response;
                 try {
-                    this.onAjaxSuccess(transport);
-                    if (transport.responseText.isJSON()) {
-                        var response = transport.responseText.evalJSON();
-                        var newNode = new Ext.tree.AsyncTreeNode({
-                            text: response.short_name,
-                            draggable:false,
-                            id:response.id,
-                            expanded: true
-                        });
-                        var child = this.currentNode.appendChild(newNode);
-                        this.tree.expandPath(child.getPath(), '', function(success, node) {
-                            this.selectFolder(node);
-                        }.bind(this));
-                    }
-                } catch (e) {
-                    alert(e.message);
+                    response = JSON.parse(responseText);
+                } catch(e) {
+                    return;
                 }
-            }.bind(this)
+                if (response && typeof Ext !== 'undefined' && typeof Ext.tree !== 'undefined' && typeof Ext.tree.AsyncTreeNode !== 'undefined') {
+                    var newNode = new Ext.tree.AsyncTreeNode({
+                        text: response.short_name,
+                        draggable: false,
+                        id: response.id,
+                        expanded: true
+                    });
+                    var child = self.currentNode.appendChild(newNode);
+                    self.tree.expandPath(child.getPath(), '', function(success, node) {
+                        self.selectFolder(node);
+                    });
+                }
+            } catch (e) {
+                alert(e.message);
+            }
         });
     },
 
     deleteFolder: function() {
+        var self = this;
         if (!confirm(this.deleteFolderConfirmationMessage)) {
             return false;
         }
-        new Ajax.Request(this.deleteFolderUrl, {
-            onSuccess: function(transport) {
-                try {
-                    this.onAjaxSuccess(transport);
-                    var parent = this.currentNode.parentNode;
-                    parent.removeChild(this.currentNode);
-                    this.selectFolder(parent);
-                }
-                catch (e) {
-                    alert(e.message);
-                }
-            }.bind(this)
+
+        fetch(this.deleteFolderUrl, {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'}
+        })
+        .then(function(response) { return response.text(); })
+        .then(function(responseText) {
+            try {
+                self._handleAjaxSuccess(responseText);
+                var parent = self.currentNode.parentNode;
+                parent.removeChild(self.currentNode);
+                self.selectFolder(parent);
+            }
+            catch (e) {
+                alert(e.message);
+            }
         });
     },
 
     deleteFiles: function() {
+        var self = this;
         if (!confirm(this.deleteFileConfirmationMessage)) {
             return false;
         }
         var ids = [];
-        var i = 0;
-        $$('div.selected').each(function (e) {
-            ids[i] = e.id;
-            i++;
+        var selected = document.querySelectorAll('div.selected');
+        selected.forEach(function (e) {
+            ids.push(e.id);
         });
-        new Ajax.Request(this.deleteFilesUrl, {
-            parameters: {files: Object.toJSON(ids)},
-            onSuccess: function(transport) {
-                try {
-                    this.onAjaxSuccess(transport);
-                    this.selectFolder(this.currentNode);
-                } catch(e) {
-                    alert(e.message);
-                }
-            }.bind(this)
+
+        var params = new URLSearchParams();
+        params.append('files', JSON.stringify(ids));
+
+        fetch(this.deleteFilesUrl, {
+            method: 'POST',
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: params
+        })
+        .then(function(response) { return response.text(); })
+        .then(function(responseText) {
+            try {
+                self._handleAjaxSuccess(responseText);
+                self.selectFolder(self.currentNode);
+            } catch(e) {
+                alert(e.message);
+            }
         });
     },
 
     drawBreadcrumbs: function(node) {
-        if ($('breadcrumbs') != undefined) {
-            $('breadcrumbs').remove();
+        var existing = document.getElementById('breadcrumbs');
+        if (existing != undefined) {
+            existing.remove();
         }
         if (node.id == 'root') {
             return;
         }
         var path = node.getPath().split('/');
         var breadcrumbs = '';
-        for(var i = 0, length = path.length; i < length; i++) {
+        for (var i = 0, length = path.length; i < length; i++) {
             if (path[i] == '') {
                 continue;
             }
@@ -321,7 +501,7 @@ Mediabrowser.prototype = {
             if (currNode.id) {
                 breadcrumbs += '<li>';
                 breadcrumbs += '<a href="#" onclick="MediabrowserInstance.selectFolderById(\'' + currNode.id + '\');">' + currNode.text + '</a>';
-                if(i < (length - 1)) {
+                if (i < (length - 1)) {
                     breadcrumbs += ' <span>/</span>';
                 }
                 breadcrumbs += '</li>';
@@ -330,44 +510,56 @@ Mediabrowser.prototype = {
 
         if (breadcrumbs != '') {
             breadcrumbs = '<ul class="breadcrumbs" id="breadcrumbs">' + breadcrumbs + '</ul>';
-            $('content_header').insert({after: breadcrumbs});
+            var contentHeader = document.getElementById('content_header');
+            if (contentHeader) {
+                contentHeader.insertAdjacentHTML('afterend', breadcrumbs);
+            }
         }
     },
 
     updateHeader: function(node) {
         var header = (node.id == 'root' ? this.headerText : node.text);
-        if ($('content_header_text') != undefined) {
-            $('content_header_text').innerHTML = header;
+        var headerEl = document.getElementById('content_header_text');
+        if (headerEl != undefined) {
+            headerEl.innerHTML = header;
         }
     },
 
     activateBlock: function(id) {
-        //$$('div [id^=contents]').each(this.hideElement);
         this.showElement(id);
     },
 
     hideElement: function(id) {
-        if ($(id) != undefined) {
-            $(id).addClassName('no-display');
-            $(id).hide();
+        var el = document.getElementById(id);
+        if (el != undefined) {
+            el.classList.add('no-display');
+            el.style.display = 'none';
         }
     },
 
     showElement: function(id) {
-        if ($(id) != undefined) {
-            $(id).removeClassName('no-display');
-            $(id).show();
+        var el = document.getElementById(id);
+        if (el != undefined) {
+            el.classList.remove('no-display');
+            el.style.display = '';
         }
     },
 
     onAjaxSuccess: function(transport) {
-        if (transport.responseText.isJSON()) {
-            var response = transport.responseText.evalJSON();
-            if (response.error) {
-                throw response;
-            } else if (response.ajaxExpired && response.ajaxRedirect) {
-                setLocation(response.ajaxRedirect);
-            }
+        this._handleAjaxSuccess(transport.responseText || transport);
+    },
+
+    _handleAjaxSuccess: function(responseText) {
+        var response;
+        try {
+            response = JSON.parse(responseText);
+        } catch(e) {
+            return;
+        }
+        if (response.error) {
+            throw response;
+        } else if (response.ajaxExpired && response.ajaxRedirect) {
+            setLocation(response.ajaxRedirect);
         }
     }
 };
