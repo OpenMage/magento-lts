@@ -11,110 +11,108 @@
  * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-varienEvents = Class.create();
+
+/**
+ * Custom event bus for OpenMage admin.
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ *
+ * @constructor
+ */
+function varienEvents() {
+    this.arrEvents = {};
+    this.eventPrefix = '';
+}
 
 varienEvents.prototype = {
-    initialize: function() {
-        this.arrEvents = {};
-        this.eventPrefix = '';
-    },
-
     /**
-    * Attaches a {handler} function to the publisher's {eventName} event for execution upon the event firing
-    * @param {String} eventName
-    * @param {Function} handler
-    * @param {Boolean} asynchFlag [optional] Defaults to false if omitted. Indicates whether to execute {handler} asynchronously (true) or not (false).
-    */
-    attachEventHandler : function(eventName, handler) {
-        if ((typeof handler == 'undefined') || (handler == null)) {
+     * Attach a handler to an event.
+     * @param {string} eventName
+     * @param {Function} handler
+     * @param {boolean} [asynch=false]
+     */
+    attachEventHandler: function (eventName, handler) {
+        if (typeof handler === 'undefined' || handler === null) {
             return;
         }
         eventName = eventName + this.eventPrefix;
-        // using an event cache array to track all handlers for proper cleanup
-        if (this.arrEvents[eventName] == null){
+        if (this.arrEvents[eventName] == null) {
             this.arrEvents[eventName] = [];
         }
-        //create a custom object containing the handler method and the asynch flag
         var asynchVar = arguments.length > 2 ? arguments[2] : false;
-        var handlerObj = {
+        this.arrEvents[eventName].push({
             method: handler,
             asynch: asynchVar
-        };
-        this.arrEvents[eventName].push(handlerObj);
+        });
     },
 
     /**
-    * Removes a single handler from a specific event
-    * @param {String} eventName The event name to clear the handler from
-    * @param {Function} handler A reference to the handler function to un-register from the event
-    */
-    removeEventHandler : function(eventName, handler) {
+     * Remove a single handler from an event.
+     * @param {string} eventName
+     * @param {Function} handler
+     */
+    removeEventHandler: function (eventName, handler) {
         eventName = eventName + this.eventPrefix;
-        if (this.arrEvents[eventName] != null){
-            this.arrEvents[eventName] = this.arrEvents[eventName].reject(function(obj) { return obj.method == handler; });
+        if (this.arrEvents[eventName] != null) {
+            this.arrEvents[eventName] = this.arrEvents[eventName].filter(function (obj) {
+                return obj.method !== handler;
+            });
         }
     },
 
     /**
-    * Removes all handlers from a single event
-    * @param {String} eventName The event name to clear handlers from
-    */
-    clearEventHandlers : function(eventName) {
+     * Remove all handlers from a single event.
+     * @param {string} eventName
+     */
+    clearEventHandlers: function (eventName) {
         eventName = eventName + this.eventPrefix;
         this.arrEvents[eventName] = null;
     },
 
     /**
-    * Removes all handlers from ALL events
-    */
-    clearAllEventHandlers : function() {
+     * Remove all handlers from ALL events.
+     */
+    clearAllEventHandlers: function () {
         this.arrEvents = {};
     },
 
     /**
-    * Fires the event {eventName}, resulting in all registered handlers to be executed.
-    * It also collects and returns results of all non-asynchronous handlers
-    * @param {String} eventName The name of the event to fire
-    * @params {Object} args [optional] Any object, will be passed into the handler function as the only argument
-    * @return {Array}
-    */
-    fireEvent : function(eventName) {
+     * Fire an event, executing all registered handlers.
+     * @param {string} eventName
+     * @param {*} [args] Passed to each handler
+     * @return {Array} Results from synchronous handlers
+     */
+    fireEvent: function (eventName) {
         var evtName = eventName + this.eventPrefix;
         var results = [];
         var result;
         if (this.arrEvents[evtName] != null) {
-            var len = this.arrEvents[evtName].length; //optimization
+            var len = this.arrEvents[evtName].length;
             for (var i = 0; i < len; i++) {
                 try {
                     if (arguments.length > 1) {
                         if (this.arrEvents[evtName][i].asynch) {
                             var eventArgs = arguments[1];
                             var method = this.arrEvents[evtName][i].method.bind(this);
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 method(eventArgs);
-                            }.bind(this), 10);
-                        }
-                        else{
+                            }, 10);
+                        } else {
                             result = this.arrEvents[evtName][i].method(arguments[1]);
                         }
-                    }
-                    else {
+                    } else {
                         if (this.arrEvents[evtName][i].asynch) {
                             var eventHandler = this.arrEvents[evtName][i].method;
                             setTimeout(eventHandler, 1);
-                        }
-                        else if (this.arrEvents && this.arrEvents[evtName] && this.arrEvents[evtName][i] && this.arrEvents[evtName][i].method){
+                        } else if (this.arrEvents && this.arrEvents[evtName] && this.arrEvents[evtName][i] && this.arrEvents[evtName][i].method) {
                             result = this.arrEvents[evtName][i].method();
                         }
                     }
                     results.push(result);
-                }
-                catch (e) {
-                    if (this.id){
-                        alert("error: error in " + this.id + ".fireEvent():\n\nevent name: " + eventName + "\n\nerror message: " + e.message);
-                    }
-                    else {
-                        alert("error: error in [unknown object].fireEvent():\n\nevent name: " + eventName + "\n\nerror message: " + e.message);
+                } catch (e) {
+                    if (this.id) {
+                        alert('error: error in ' + this.id + '.fireEvent():\n\nevent name: ' + eventName + '\n\nerror message: ' + e.message);
+                    } else {
+                        alert('error: error in [unknown object].fireEvent():\n\nevent name: ' + eventName + '\n\nerror message: ' + e.message);
                     }
                 }
             }
@@ -123,5 +121,4 @@ varienEvents.prototype = {
     }
 };
 
-varienGlobalEvents = new varienEvents();
-
+var varienGlobalEvents = new varienEvents();
