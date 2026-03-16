@@ -16,7 +16,7 @@ Catalog.Map = {
 
     addHelpLink: function(linkElement, title, actualPrice, msrpPrice, addToCartLink) {
         if (typeof linkElement == 'string') {
-            linkElement = $$(linkElement)[0];
+            linkElement = document.querySelectorAll(linkElement)[0];
         }
 
         if (!linkElement) {
@@ -60,25 +60,29 @@ Catalog.Map = {
             this.setGotoView(linkElement, addToCartLink);
         } else {
             var helpLinkIndex = this.helpLinks.push(helpLink) - 1;
-            Event.observe(linkElement, 'click', this.showHelp.bind(this.helpLinks[helpLinkIndex]));
+            linkElement.addEventListener('click', this.showHelp.bind(this.helpLinks[helpLinkIndex]));
         }
         return helpLink;
     },
 
     setGotoView: function(element, viewPageUrl) {
-        $(element).stopObserving('click');
+        var clone = element.cloneNode(true);
+        element.parentNode.replaceChild(clone, element);
+        element = clone;
         element.href = viewPageUrl;
         if(window.opener) {
-            Event.observe(element, 'click', function(event) {
+            element.addEventListener('click', function(event) {
                 setPLocation(this.href,true);
                 Catalog.Map.hideHelp();
-                event.stop();
+                event.preventDefault();
+                event.stopPropagation();
             });
         } else {
-            Event.observe(element, 'click', function(event) {
+            element.addEventListener('click', function(event) {
                 setLocation(this.href);
                 Catalog.Map.hideHelp();
-                event.stop();
+                event.preventDefault();
+                event.stopPropagation();
             });
         }
     },
@@ -98,18 +102,18 @@ Catalog.Map = {
     },
 
     showHelp: function(event) {
-        var helpBox = $('map-popup');
+        var helpBox = document.getElementById('map-popup');
         if (!helpBox) {
             return;
         }
 
         //Move help box to be right in body tag
-        var bodyNode = $$('body')[0];
+        var bodyNode = document.querySelector('body');
         if (helpBox.parentNode != bodyNode) {
             helpBox.remove();
-            bodyNode.insert(helpBox);
+            bodyNode.insertAdjacentElement('beforeend', helpBox);
             // Fix for FF4-FF5 bug with missing alt text after DOM manipulations
-            var paypalImg = helpBox.select('.paypal-logo > a > img')[0];
+            var paypalImg = helpBox.querySelectorAll('.paypal-logo > a > img')[0];
             if (paypalImg) paypalImg.src = paypalImg.src;
         }
 
@@ -119,110 +123,116 @@ Catalog.Map = {
                 helpBox.offsetPosition = {left:0, top: 0};
             }
 
-            helpBox.removeClassName('map-popup-right');
-            helpBox.removeClassName('map-popup-left');
-            if (Element.getWidth(bodyNode) < event.pageX + Element.getWidth(helpBox)) {
-                helpBox.addClassName('map-popup-left');
-            } else if (event.pageX - Element.getWidth(helpBox) < 0) {
-                helpBox.addClassName('map-popup-right');
+            helpBox.classList.remove('map-popup-right');
+            helpBox.classList.remove('map-popup-left');
+            if (bodyNode.offsetWidth < event.pageX + helpBox.offsetWidth) {
+                helpBox.classList.add('map-popup-left');
+            } else if (event.pageX - helpBox.offsetWidth < 0) {
+                helpBox.classList.add('map-popup-right');
             }
 
-            helpBox.style.left = event.pageX - (Element.getWidth(helpBox) / 2) + 'px';
+            helpBox.style.left = event.pageX - (helpBox.offsetWidth / 2) + 'px';
             helpBox.style.top = event.pageY + 10 + 'px';
 
             //Title
-            var mapTitle = $('map-popup-heading');
+            var mapTitle = document.getElementById('map-popup-heading');
             if (typeof this.title != 'undefined') {
-                Element.update(mapTitle, this.title);
-                $(mapTitle).show();
+                mapTitle.innerHTML = this.title;
+                mapTitle.style.display = '';
             } else {
-                $(mapTitle).hide();
+                mapTitle.style.display = 'none';
             }
 
             //MSRP price
-            var mapMsrp = $('map-popup-msrp-box');
+            var mapMsrp = document.getElementById('map-popup-msrp-box');
             if (typeof this.msrp != 'undefined') {
-                Element.update($('map-popup-msrp'), this.msrp);
-                $(mapMsrp).show();
+                document.getElementById('map-popup-msrp').innerHTML = this.msrp;
+                mapMsrp.style.display = '';
             } else {
-                $(mapMsrp).hide();
+                mapMsrp.style.display = 'none';
             }
 
             //Actual price
-            var mapPrice = $('map-popup-price-box');
+            var mapPrice = document.getElementById('map-popup-price-box');
             if (typeof this.price != 'undefined') {
                 var price = typeof this.price == 'object' ? this.price.innerHTML : this.price;
-                Element.update($('map-popup-price'), price);
-                $(mapPrice).show();
+                document.getElementById('map-popup-price').innerHTML = price;
+                mapPrice.style.display = '';
             } else {
-                $(mapPrice).hide();
+                mapPrice.style.display = 'none';
             }
 
             //`Add to cart` button
-            var cartButton = $('map-popup-button');
+            var cartButton = document.getElementById('map-popup-button');
             if (typeof this.cartLink != 'undefined') {
                 if (typeof productAddToCartForm == 'undefined' || this.notUseForm) {
                     Catalog.Map.setGotoView(cartButton, this.cartLink);
-                    productAddToCartForm = $('product_addtocart_form_from_popup');
+                    productAddToCartForm = document.getElementById('product_addtocart_form_from_popup');
                 } else {
                     if (this.qty) {
                         productAddToCartForm.qty = this.qty;
                     }
-                    cartButton.stopObserving('click');
+                    var cartClone = cartButton.cloneNode(true);
+                    cartButton.parentNode.replaceChild(cartClone, cartButton);
+                    cartButton = cartClone;
                     cartButton.href = this.cartLink;
-                    Event.observe(cartButton, 'click', function () {
+                    cartButton.addEventListener('click', function () {
                         productAddToCartForm.action = this.href;
                         productAddToCartForm.submit(this);
                     });
                 }
                 productAddToCartForm.action = this.cartLink;
-                var productField = $('map-popup-product-id');
+                var productField = document.getElementById('map-popup-product-id');
                 productField.value = this.product_id;
-                $(cartButton).show();
-                $$('.additional-addtocart-box').invoke('show');
+                cartButton.style.display = '';
+                document.querySelectorAll('.additional-addtocart-box').forEach(function(el) { el.style.display = ''; });
             } else {
-                $(cartButton).hide();
-                $$('.additional-addtocart-box').invoke('hide');
+                cartButton.style.display = 'none';
+                document.querySelectorAll('.additional-addtocart-box').forEach(function(el) { el.style.display = 'none'; });
             }
 
             //Horizontal line
-            var mapText = $('map-popup-text'),
-                mapTextWhatThis = $('map-popup-text-what-this'),
-                mapContent = $('map-popup-content');
-            if (!mapMsrp.visible() && !mapPrice.visible() && !cartButton.visible()) {
+            var mapText = document.getElementById('map-popup-text'),
+                mapTextWhatThis = document.getElementById('map-popup-text-what-this'),
+                mapContent = document.getElementById('map-popup-content');
+            if (mapMsrp.style.display === 'none' && mapPrice.style.display === 'none' && cartButton.style.display === 'none') {
                 //If just `What's this?` link
-                $(mapText).hide();
-                $(mapTextWhatThis).show();
-                $(mapTextWhatThis).removeClassName('map-popup-only-text');
-                $(mapContent).hide().setStyle({visibility: 'hidden'});
-                $('product_addtocart_form_from_popup').hide();
+                mapText.style.display = 'none';
+                mapTextWhatThis.style.display = '';
+                mapTextWhatThis.classList.remove('map-popup-only-text');
+                mapContent.style.display = 'none';
+                mapContent.style.visibility = 'hidden';
+                document.getElementById('product_addtocart_form_from_popup').style.display = 'none';
             } else {
-                $(mapTextWhatThis).hide();
-                $(mapText).show();
-                $(mapText).addClassName('map-popup-only-text');
-                $(mapContent).show().setStyle({visibility: 'visible'});
-                $('product_addtocart_form_from_popup').show();
+                mapTextWhatThis.style.display = 'none';
+                mapText.style.display = '';
+                mapText.classList.add('map-popup-only-text');
+                mapContent.style.display = '';
+                mapContent.style.visibility = 'visible';
+                document.getElementById('product_addtocart_form_from_popup').style.display = '';
             }
 
-            $(helpBox).show();
-            var closeButton = $('map-popup-close');
+            helpBox.style.display = '';
+            var closeButton = document.getElementById('map-popup-close');
             if (closeButton) {
-                $(closeButton).stopObserving('click');
-                Event.observe(closeButton, 'click', Catalog.Map.showHelp.bind(this));
+                var closeClone = closeButton.cloneNode(true);
+                closeButton.parentNode.replaceChild(closeClone, closeButton);
+                closeClone.addEventListener('click', Catalog.Map.showHelp.bind(this));
                 Catalog.Map.active = this.link;
             }
         } else {
-            $(helpBox).hide();
+            helpBox.style.display = 'none';
             Catalog.Map.active = false;
         }
 
-        Event.stop(event);
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     hideHelp: function(){
-        var helpBox = $('map-popup');
+        var helpBox = document.getElementById('map-popup');
         if (helpBox) {
-            $(helpBox).hide();
+            helpBox.style.display = 'none';
             Catalog.Map.active = false;
         }
     },
@@ -232,7 +242,7 @@ Catalog.Map = {
             productAddToCartFormOld = productAddToCartForm;
             productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
             productAddToCartForm.submitLight = productAddToCartFormOld.submitLight;
-        } else if(!$('product_addtocart_form_from_popup')) {
+        } else if(!document.getElementById('product_addtocart_form_from_popup')) {
             return false;
         } else if ('undefined' == typeof productAddToCartForm) {
             productAddToCartForm = new VarienForm('product_addtocart_form_from_popup');
@@ -243,22 +253,22 @@ Catalog.Map = {
                 if (Catalog.Map.active) {
                     Catalog.Map.hideHelp();
                 }
-                if (productAddToCartForm.qty && $('qty')) {
-                    $('qty').value = productAddToCartForm.qty;
+                if (productAddToCartForm.qty && document.getElementById('qty')) {
+                    document.getElementById('qty').value = productAddToCartForm.qty;
                 }
                 parentResult = productAddToCartFormOld.submit();
                 return false;
             }
             if(window.opener) {
                 var parentButton = button;
-                new Ajax.Request(this.form.action, {
-                    parameters: {isAjax: 1, method: 'GET'},
-                    onSuccess: function () {
-                        window.opener.focus();
-                        if (parentButton && parentButton.href) {
-                            setPLocation(parentButton.href, true);
-                            Catalog.Map.hideHelp();
-                        }
+                fetch(this.form.action, {
+                    method: 'GET',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                }).then(function() {
+                    window.opener.focus();
+                    if (parentButton && parentButton.href) {
+                        setPLocation(parentButton.href, true);
+                        Catalog.Map.hideHelp();
                     }
                 });
                 return;
@@ -289,14 +299,14 @@ Catalog.Map = {
     }
 };
 
-Event.observe(window, 'resize', function(event) {
+window.addEventListener('resize', function(event) {
     if (Catalog.Map.active) {
         Catalog.Map.showHelp(event);
     }
 });
 
-$(document).observe('bundle:reload-price', function (event) { //reload price
-    var data = event.memo, bundle = data.bundle;
+document.addEventListener('bundle:reload-price', function (event) { //reload price
+    var data = event.detail, bundle = data.bundle;
     if (!Number(bundle.config.isMAPAppliedDirectly) && !Number(bundle.config.isFixedPrice)) {
         var canApplyMAP = false;
         try {
@@ -319,19 +329,19 @@ $(document).observe('bundle:reload-price', function (event) { //reload price
             canApplyMAP = true;
         }
         if (canApplyMAP) {
-            $$('.full-product-price').each(function(e){
-                $(e).hide();
+            document.querySelectorAll('.full-product-price').forEach(function(e){
+                e.style.display = 'none';
             });
-            $$('.map-info').each(function(e){
-                $(e).show();
+            document.querySelectorAll('.map-info').forEach(function(e){
+                e.style.display = '';
             });
-            event.noReloadPrice = true;
+            event.detail.noReloadPrice = true;
         } else {
-            $$('.full-product-price').each(function(e){
-                $(e).show();
+            document.querySelectorAll('.full-product-price').forEach(function(e){
+                e.style.display = '';
             });
-            $$('.map-info').each(function(e){
-                $(e).hide();
+            document.querySelectorAll('.map-info').forEach(function(e){
+                e.style.display = 'none';
             });
         }
     }

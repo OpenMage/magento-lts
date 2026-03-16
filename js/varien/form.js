@@ -12,137 +12,157 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-VarienForm = Class.create();
-VarienForm.prototype = {
-    initialize: function(formId, firstFieldFocus){
-        this.form       = $(formId);
-        if (!this.form) {
-            return;
-        }
-        this.cache      = $A();
-        this.currLoader = false;
-        this.currDataIndex = false;
-        if (typeof Validation === 'function') {
-            this.validator  = new Validation(this.form);
-        }
-        this.elementFocus   = this.elementOnFocus.bindAsEventListener(this);
-        this.elementBlur    = this.elementOnBlur.bindAsEventListener(this);
-        this.childLoader    = this.onChangeChildLoad.bindAsEventListener(this);
-        this.highlightClass = 'highlight';
-        this.extraChildParams = '';
-        this.firstFieldFocus= firstFieldFocus || false;
-        this.bindElements();
-        if(this.firstFieldFocus){
-            try{
-                Form.Element.focus(Form.findFirstElement(this.form));
-            }
-            catch(e){}
-        }
-    },
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
 
-    submit : function(url){
-        if(this.validator && this.validator.validate()){
-             this.form.submit();
+function VarienForm(formId, firstFieldFocus) {
+    this.form = document.getElementById(formId);
+    if (!this.form) {
+        return;
+    }
+    this.cache = [];
+    this.currLoader = false;
+    this.currDataIndex = false;
+    if (typeof Validation === 'function') {
+        this.validator = new Validation(this.form);
+    }
+    this.elementFocus = this.elementOnFocus.bind(this);
+    this.elementBlur = this.elementOnBlur.bind(this);
+    this.childLoader = this.onChangeChildLoad.bind(this);
+    this.highlightClass = 'highlight';
+    this.extraChildParams = '';
+    this.firstFieldFocus = firstFieldFocus || false;
+    this.bindElements();
+    if (this.firstFieldFocus) {
+        try {
+            var elements = this.form.elements;
+            for (var i = 0; i < elements.length; i++) {
+                var el = elements[i];
+                if (!el.disabled && el.type !== 'hidden' && el.offsetParent !== null) {
+                    el.focus();
+                    break;
+                }
+            }
+        } catch (e) {}
+    }
+}
+
+VarienForm.prototype = {
+    submit: function (url) {
+        if (this.validator && this.validator.validate()) {
+            this.form.submit();
         }
         return false;
     },
 
-    bindElements:function (){
-        var elements = Form.getElements(this.form);
-        for (var row in elements) {
-            if (elements[row].id) {
-                Event.observe(elements[row],'focus',this.elementFocus);
-                Event.observe(elements[row],'blur',this.elementBlur);
+    bindElements: function () {
+        var elements = Array.prototype.slice.call(this.form.elements);
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].id) {
+                elements[i].addEventListener('focus', this.elementFocus);
+                elements[i].addEventListener('blur', this.elementBlur);
             }
         }
     },
 
-    elementOnFocus: function(event){
-        var element = Event.findElement(event, 'fieldset');
-        if(element){
-            Element.addClassName(element, this.highlightClass);
+    elementOnFocus: function (event) {
+        var element = event.target.closest('fieldset');
+        if (element) {
+            element.classList.add(this.highlightClass);
         }
     },
 
-    elementOnBlur: function(event){
-        var element = Event.findElement(event, 'fieldset');
-        if(element){
-            Element.removeClassName(element, this.highlightClass);
+    elementOnBlur: function (event) {
+        var element = event.target.closest('fieldset');
+        if (element) {
+            element.classList.remove(this.highlightClass);
         }
     },
 
-    setElementsRelation: function(parent, child, dataUrl, first){
-        if (parent=$(parent)) {
-            // TODO: array of relation and caching
-            if (!this.cache[parent.id]){
-                this.cache[parent.id] = $A();
-                this.cache[parent.id]['child']     = child;
-                this.cache[parent.id]['dataUrl']   = dataUrl;
-                this.cache[parent.id]['data']      = $A();
-                this.cache[parent.id]['first']      = first || false;
+    setElementsRelation: function (parent, child, dataUrl, first) {
+        if (typeof parent === 'string') {
+            parent = document.getElementById(parent);
+        }
+        if (parent) {
+            if (!this.cache[parent.id]) {
+                this.cache[parent.id] = [];
+                this.cache[parent.id]['child'] = child;
+                this.cache[parent.id]['dataUrl'] = dataUrl;
+                this.cache[parent.id]['data'] = [];
+                this.cache[parent.id]['first'] = first || false;
             }
-            Event.observe(parent,'change',this.childLoader);
+            parent.addEventListener('change', this.childLoader);
         }
     },
 
-    onChangeChildLoad: function(event){
-        element = Event.element(event);
+    onChangeChildLoad: function (event) {
+        var element = event.target;
         this.elementChildLoad(element);
     },
 
-    elementChildLoad: function(element, callback){
+    elementChildLoad: function (element, callback) {
         this.callback = callback || false;
         if (element.value) {
             this.currLoader = element.id;
             this.currDataIndex = element.value;
             if (this.cache[element.id]['data'][element.value]) {
                 this.setDataToChild(this.cache[element.id]['data'][element.value]);
-            }
-            else{
-                new Ajax.Request(this.cache[this.currLoader]['dataUrl'],{
-                        method: 'post',
-                        parameters: {"parent":element.value},
-                        onComplete: this.reloadChildren.bind(this)
+            } else {
+                var self = this;
+                var formData = new FormData();
+                formData.append('parent', element.value);
+                fetch(this.cache[this.currLoader]['dataUrl'], {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(function (resp) { return resp.json(); })
+                .then(function (data) {
+                    self.cache[self.currLoader]['data'][self.currDataIndex] = data;
+                    self.setDataToChild(data);
                 });
             }
         }
     },
 
-    reloadChildren: function(transport){
-        var data = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+    reloadChildren: function (transport) {
+        var data;
+        try {
+            data = typeof transport.responseJSON !== 'undefined' ? transport.responseJSON : JSON.parse(transport.responseText);
+        } catch (e) {
+            data = {};
+        }
         this.cache[this.currLoader]['data'][this.currDataIndex] = data;
         this.setDataToChild(data);
     },
 
-    setDataToChild: function(data){
-        if (data.length) {
-            var child = $(this.cache[this.currLoader]['child']);
-            if (child){
-                var html = '<select name="'+child.name+'" id="'+child.id+'" class="'+child.className+'" title="'+child.title+'" '+this.extraChildParams+'>';
-                if(this.cache[this.currLoader]['first']){
-                    html+= '<option value="">'+this.cache[this.currLoader]['first']+'</option>';
-                }
-                for (var i in data){
-                    if(data[i].value) {
-                        html+= '<option value="'+data[i].value+'"';
-                        if(child.value && (child.value == data[i].value || child.value == data[i].label)){
-                            html+= ' selected';
-                        }
-                        html+='>'+data[i].label+'</option>';
-                    }
-                }
-                html+= '</select>';
-                Element.insert(child, {before: html});
-                Element.remove(child);
-            }
+    setDataToChild: function (data) {
+        var child = document.getElementById(this.cache[this.currLoader]['child']);
+        if (!child) {
+            return;
         }
-        else{
-            var child = $(this.cache[this.currLoader]['child']);
-            if (child){
-                var html = '<input type="text" name="'+child.name+'" id="'+child.id+'" class="'+child.className+'" title="'+child.title+'" '+this.extraChildParams+'>';
-                Element.insert(child, {before: html});
-                Element.remove(child);
+        if (data.length) {
+            var html = '<select name="' + child.name + '" id="' + child.id + '" class="' + child.className + '" title="' + child.title + '" ' + this.extraChildParams + '>';
+            if (this.cache[this.currLoader]['first']) {
+                html += '<option value="">' + this.cache[this.currLoader]['first'] + '</option>';
             }
+            for (var i in data) {
+                if (data[i].value) {
+                    html += '<option value="' + data[i].value + '"';
+                    if (child.value && (child.value == data[i].value || child.value == data[i].label)) {
+                        html += ' selected';
+                    }
+                    html += '>' + data[i].label + '</option>';
+                }
+            }
+            html += '</select>';
+            child.insertAdjacentHTML('beforebegin', html);
+            child.remove();
+        } else {
+            var html = '<input type="text" name="' + child.name + '" id="' + child.id + '" class="' + child.className + '" title="' + child.title + '" ' + this.extraChildParams + '>';
+            child.insertAdjacentHTML('beforebegin', html);
+            child.remove();
         }
 
         this.bindElements();
@@ -152,91 +172,79 @@ VarienForm.prototype = {
     }
 };
 
-RegionUpdater = Class.create();
+function RegionUpdater(countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl) {
+    this.countryEl = document.getElementById(countryEl);
+    this.regionTextEl = document.getElementById(regionTextEl);
+    this.regionSelectEl = document.getElementById(regionSelectEl);
+    this.zipEl = document.getElementById(zipEl);
+    this.config = regions['config'];
+    delete regions.config;
+    this.regions = regions;
+
+    this.disableAction = (typeof disableAction == 'undefined') ? 'hide' : disableAction;
+    this.zipOptions = (typeof zipOptions == 'undefined') ? false : zipOptions;
+
+    if (this.regionSelectEl.options.length <= 1) {
+        this.update();
+    }
+
+    this.countryEl.addEventListener('change', this.update.bind(this));
+}
+
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl){
-        this.countryEl = $(countryEl);
-        this.regionTextEl = $(regionTextEl);
-        this.regionSelectEl = $(regionSelectEl);
-        this.zipEl = $(zipEl);
-        this.config = regions['config'];
-        delete regions.config;
-        this.regions = regions;
-
-        this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
-        this.zipOptions = (typeof zipOptions=='undefined') ? false : zipOptions;
-
-        if (this.regionSelectEl.options.length<=1) {
-            this.update();
-        }
-
-        Event.observe(this.countryEl, 'change', this.update.bind(this));
-    },
-
-    _checkRegionRequired: function(){
-        var label, wildCard;
-        var elements = [this.regionTextEl, this.regionSelectEl];
+    _checkRegionRequired: function () {
         var that = this;
+        var elements = [this.regionTextEl, this.regionSelectEl];
         if (typeof this.config == 'undefined') {
             return;
         }
         var regionRequired = this.config.regions_required.indexOf(this.countryEl.value) >= 0;
 
-        elements.each(function(currentElement) {
+        elements.forEach(function (currentElement) {
             if (typeof Validation !== 'undefined') {
                 Validation.reset(currentElement);
             }
-            label = $$('label[for="' + currentElement.id + '"]')[0];
+            var label = document.querySelector('label[for="' + currentElement.id + '"]');
             if (label) {
-                wildCard = label.down('em') || label.down('span.required');
+                var wildCard = label.querySelector('em') || label.querySelector('span.required');
                 if (!wildCard) {
-                    label.insert(' <span class="required">*</span>');
-                    wildCard = label.down('span.required');
+                    label.insertAdjacentHTML('beforeend', ' <span class="required">*</span>');
+                    wildCard = label.querySelector('span.required');
                 }
                 if (!that.config.show_all_regions) {
                     if (regionRequired) {
-                        label.up().show();
+                        label.parentNode.style.display = '';
                     } else {
-                        label.up().hide();
+                        label.parentNode.style.display = 'none';
                     }
                 }
-            }
 
-            if (label && wildCard) {
-                if (!regionRequired) {
-                    wildCard.hide();
-                    if (label.hasClassName('required')) {
-                        label.removeClassName('required');
-                    }
-                } else if (regionRequired) {
-                    wildCard.show();
-                    if (!label.hasClassName('required')) {
-                        label.addClassName('required');
+                if (wildCard) {
+                    if (!regionRequired) {
+                        wildCard.style.display = 'none';
+                        label.classList.remove('required');
+                    } else {
+                        wildCard.style.display = '';
+                        label.classList.add('required');
                     }
                 }
             }
 
             if (!regionRequired) {
-                if (currentElement.hasClassName('required-entry')) {
-                    currentElement.removeClassName('required-entry');
-                }
-                if ('select' == currentElement.tagName.toLowerCase() &&
-                    currentElement.hasClassName('validate-select')) {
-                    currentElement.removeClassName('validate-select');
+                currentElement.classList.remove('required-entry');
+                if ('select' == currentElement.tagName.toLowerCase()) {
+                    currentElement.classList.remove('validate-select');
                 }
             } else {
-                if (!currentElement.hasClassName('required-entry')) {
-                    currentElement.addClassName('required-entry');
-                }
-                if ('select' == currentElement.tagName.toLowerCase() &&
-                    !currentElement.hasClassName('validate-select')) {
-                    currentElement.addClassName('validate-select');
+                currentElement.classList.add('required-entry');
+                if ('select' == currentElement.tagName.toLowerCase()) {
+                    currentElement.classList.add('validate-select');
                 }
             }
         });
     },
 
-    update: function(){
+    update: function () {
         if (this.regions[this.countryEl.value]) {
             var i, option, region, def;
 
@@ -249,12 +257,12 @@ RegionUpdater.prototype = {
             }
 
             this.regionSelectEl.options.length = 1;
-            for (regionId in this.regions[this.countryEl.value]) {
+            for (var regionId in this.regions[this.countryEl.value]) {
                 region = this.regions[this.countryEl.value][regionId];
 
                 option = document.createElement('OPTION');
                 option.value = regionId;
-                option.text = region.name.stripTags();
+                option.text = region.name.replace(/<[^>]*>/g, '');
                 option.title = region.name;
 
                 if (this.regionSelectEl.options.add) {
@@ -274,7 +282,6 @@ RegionUpdater.prototype = {
                 if (this.regionTextEl) {
                     this.regionTextEl.style.display = 'none';
                 }
-
                 this.regionSelectEl.style.display = '';
             } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
@@ -309,28 +316,34 @@ RegionUpdater.prototype = {
         }
 
         this._checkRegionRequired();
-        // Make Zip and its label required/optional
         var zipUpdater = new ZipUpdater(this.countryEl.value, this.zipEl);
         zipUpdater.update();
     },
 
-    setMarkDisplay: function(elem, display){
-        elem = $(elem);
-        var labelElement = elem.up(0).down('label > span.required') ||
-                           elem.up(1).down('label > span.required') ||
-                           elem.up(0).down('label.required > em') ||
-                           elem.up(1).down('label.required > em');
-        if(labelElement) {
-            inputElement = labelElement.up().next('input');
+    setMarkDisplay: function (elem, display) {
+        if (typeof elem === 'string') {
+            elem = document.getElementById(elem);
+        }
+        if (!elem) return;
+        var parent0 = elem.parentNode;
+        var parent1 = parent0 ? parent0.parentNode : null;
+        var labelElement = (parent0 ? parent0.querySelector('label > span.required') : null) ||
+                           (parent1 ? parent1.querySelector('label > span.required') : null) ||
+                           (parent0 ? parent0.querySelector('label.required > em') : null) ||
+                           (parent1 ? parent1.querySelector('label.required > em') : null);
+        if (labelElement) {
+            var labelParent = labelElement.parentNode;
+            var inputElement = labelParent ? labelParent.nextElementSibling : null;
+            if (inputElement && inputElement.tagName !== 'INPUT') inputElement = null;
             if (display) {
-                labelElement.show();
+                labelElement.style.display = '';
                 if (inputElement) {
-                    inputElement.addClassName('required-entry');
+                    inputElement.classList.add('required-entry');
                 }
             } else {
-                labelElement.hide();
+                labelElement.style.display = 'none';
                 if (inputElement) {
-                    inputElement.removeClassName('required-entry');
+                    inputElement.classList.remove('required-entry');
                 }
             }
         }
@@ -338,84 +351,75 @@ RegionUpdater.prototype = {
 
     sortSelect: function () {
         var elem = this.regionSelectEl;
-        var tmpArray = new Array();
-        var currentVal = $(elem).value;
-        for (var i = 0; i < $(elem).options.length; i++) {
-            if (i == 0) {
-                continue;
-            }
-            tmpArray[i-1] = new Array();
-            tmpArray[i-1][0] = $(elem).options[i].text;
-            tmpArray[i-1][1] = $(elem).options[i].value;
+        var tmpArray = [];
+        var currentVal = elem.value;
+        for (var i = 1; i < elem.options.length; i++) {
+            tmpArray.push([elem.options[i].text, elem.options[i].value]);
         }
-        tmpArray.sort();
-        for (var i = 1; i <= tmpArray.length; i++) {
-            var op = new Option(tmpArray[i-1][0], tmpArray[i-1][1]);
-            $(elem).options[i] = op;
+        tmpArray.sort(function (a, b) {
+            return a[0].localeCompare(b[0]);
+        });
+        for (var i = 0; i < tmpArray.length; i++) {
+            elem.options[i + 1] = new Option(tmpArray[i][0], tmpArray[i][1]);
         }
-        $(elem).value = currentVal;
-        return;
+        elem.value = currentVal;
     }
 };
 
-ZipUpdater = Class.create();
-ZipUpdater.prototype = {
-    initialize: function(country, zipElement){
-        this.country = country;
-        this.zipElement = $(zipElement);
-    },
+function ZipUpdater(country, zipElement) {
+    this.country = country;
+    this.zipElement = typeof zipElement === 'string' ? document.getElementById(zipElement) : zipElement;
+}
 
-    update: function(){
-        // Country ISO 2-letter codes must be pre-defined
+ZipUpdater.prototype = {
+    update: function () {
         if (typeof optionalZipCountries == 'undefined') {
             return false;
         }
 
-        // Ajax-request and normal content load compatibility
         if (this.zipElement != undefined) {
             if (typeof Validation !== 'undefined') {
                 Validation.reset(this.zipElement);
             }
             this._setPostcodeOptional();
         } else {
-            Event.observe(window, "load", this._setPostcodeOptional.bind(this));
+            window.addEventListener('load', this._setPostcodeOptional.bind(this));
         }
     },
 
-    _setPostcodeOptional: function(){
-        this.zipElement = $(this.zipElement);
-        if (this.zipElement === undefined) {
+    _setPostcodeOptional: function () {
+        if (typeof this.zipElement === 'string') {
+            this.zipElement = document.getElementById(this.zipElement);
+        }
+        if (this.zipElement === undefined || this.zipElement === null) {
             return false;
         }
 
-        // find label
-        var label = $$('label[for="' + this.zipElement.id + '"]')[0];
-        if (label !== undefined) {
-            var wildCard = label.down('em') || label.down('span.required');
+        var label = document.querySelector('label[for="' + this.zipElement.id + '"]');
+        var wildCard;
+        if (label !== undefined && label !== null) {
+            wildCard = label.querySelector('em') || label.querySelector('span.required');
             if (!wildCard) {
-                label.insert(' <span class="required">*</span>');
-                wildCard = label.down('span.required');
+                label.insertAdjacentHTML('beforeend', ' <span class="required">*</span>');
+                wildCard = label.querySelector('span.required');
             }
         }
 
-        // Make Zip and its label required/optional
         if (optionalZipCountries.indexOf(this.country) != -1) {
-            if (label !== undefined && label.hasClassName('required')) {
-                label.removeClassName('required');
+            if (label) {
+                label.classList.remove('required');
             }
-            while (this.zipElement.hasClassName('required-entry')) {
-                this.zipElement.removeClassName('required-entry');
-            }
-            if (wildCard !== undefined) {
-                wildCard.hide();
+            this.zipElement.classList.remove('required-entry');
+            if (wildCard) {
+                wildCard.style.display = 'none';
             }
         } else {
-            if (label !== undefined && !label.hasClassName('required')) {
-                label.addClassName('required');
+            if (label) {
+                label.classList.add('required');
             }
-            this.zipElement.addClassName('required-entry');
-            if (wildCard !== undefined) {
-                wildCard.show();
+            this.zipElement.classList.add('required-entry');
+            if (wildCard) {
+                wildCard.style.display = '';
             }
         }
     }
