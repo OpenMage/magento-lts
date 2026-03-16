@@ -12,180 +12,283 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-var SessionError = Class.create();
-SessionError.prototype = {
-    initialize: function(errorText) {
-        this.errorText = errorText;
-    },
-    toString: function()
-    {
-        return 'Session Error:' + this.errorText;
-    }
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ * If Ajax.Request exists (from shim or full Prototype), it is monkey-patched
+ * to inject form_key and handle session expiry for backward compatibility.
+ */
+
+// -------------------------------------------------------------------------
+// SessionError
+// -------------------------------------------------------------------------
+function SessionError(errorText) {
+    this.errorText = errorText;
+}
+SessionError.prototype.toString = function () {
+    return 'Session Error:' + this.errorText;
 };
 
-Ajax.Request.addMethods({
-    initialize: function($super, url, options){
-        $super(options);
-        this.transport = Ajax.getTransport();
-        if (!url.match(new RegExp('[?&]isAjax=true',''))) {
-            url = url.match(new RegExp('\\?',"g")) ? url + '&isAjax=true' : url + '?isAjax=true';
-        }
-        if (Object.isString(this.options.parameters)
-            && this.options.parameters.indexOf('form_key=') == -1
-        ) {
-            this.options.parameters += '&' + Object.toQueryString({
-                form_key: FORM_KEY
-            });
-        } else {
-            if (!this.options.parameters) {
-                this.options.parameters = {
-                    form_key: FORM_KEY
-                };
-            }
-            if (!this.options.parameters.form_key) {
-                this.options.parameters.form_key = FORM_KEY;
-            }
-        }
+// -------------------------------------------------------------------------
+// Helper: append isAjax and form_key to a URL / params
+// -------------------------------------------------------------------------
+function _openMageAjaxUrl(url) {
+    if (!url.match(/[?&]isAjax=true/)) {
+        url += (url.indexOf('?') !== -1 ? '&' : '?') + 'isAjax=true';
+    }
+    return url;
+}
 
-        this.request(url);
-    },
-    respondToReadyState: function(readyState) {
-        var state = Ajax.Request.Events[readyState], response = new Ajax.Response(this);
+function _openMageInjectFormKey(params) {
+    if (typeof params === 'string') {
+        if (params.indexOf('form_key=') === -1) {
+            params += '&form_key=' + encodeURIComponent(window.FORM_KEY);
+        }
+        return params;
+    }
+    if (!params) {
+        params = {};
+    }
+    if (!params.form_key) {
+        params.form_key = window.FORM_KEY;
+    }
+    return params;
+}
 
-        if (state == 'Complete') {
-            try {
-                this._complete = true;
-                if (response.responseText.isJSON()) {
-                    var jsonObject = response.responseText.evalJSON();
-                    if (jsonObject.ajaxExpired && jsonObject.ajaxRedirect) {
-                        window.location.replace(jsonObject.ajaxRedirect);
-                        throw new SessionError('session expired');
+function _openMageCheckSession(text) {
+    try {
+        var json = JSON.parse(text);
+        if (json.ajaxExpired && json.ajaxRedirect) {
+            window.location.replace(json.ajaxRedirect);
+            return true;
+        }
+    } catch (e) {
+        // not JSON — that's fine
+    }
+    return false;
+}
+
+// -------------------------------------------------------------------------
+// Monkey-patch Ajax.Request / Ajax.Updater if they exist (shim or full)
+// -------------------------------------------------------------------------
+(function () {
+    if (typeof Ajax === 'undefined' || typeof Ajax.Request === 'undefined') {
+        return;
+    }
+
+    // Only patch if addMethods exists (full Prototype)
+    if (typeof Ajax.Request.addMethods === 'function') {
+        Ajax.Request.addMethods({
+            initialize: function ($super, url, options) {
+                $super(options);
+                this.transport = Ajax.getTransport();
+                url = _openMageAjaxUrl(url);
+                if (typeof this.options.parameters === 'string') {
+                    this.options.parameters = _openMageInjectFormKey(this.options.parameters);
+                } else {
+                    this.options.parameters = _openMageInjectFormKey(this.options.parameters);
+                }
+                this.request(url);
+            },
+            respondToReadyState: function (readyState) {
+                var state = Ajax.Request.Events[readyState],
+                    response = new Ajax.Response(this);
+
+                if (state == 'Complete') {
+                    try {
+                        this._complete = true;
+                        if (_openMageCheckSession(response.responseText)) {
+                            throw new SessionError('session expired');
+                        }
+                        (this.options['on' + response.status]
+                         || this.options['on' + (this.success() ? 'Success' : 'Failure')]
+                         || Prototype.emptyFunction)(response, response.headerJSON);
+                    } catch (e) {
+                        this.dispatchException(e);
+                        if (e instanceof SessionError) {
+                            return;
+                        }
+                    }
+                    var contentType = response.getHeader('Content-type');
+                    if (this.options.evalJS == 'force'
+                        || (this.options.evalJS && this.isSameOrigin() && contentType
+                        && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i))) {
+                        this.evalResponse();
                     }
                 }
-
-                (this.options['on' + response.status]
-                 || this.options['on' + (this.success() ? 'Success' : 'Failure')]
-                 || Prototype.emptyFunction)(response, response.headerJSON);
-            } catch (e) {
-                this.dispatchException(e);
-                if (e instanceof SessionError) {
-                    return;
+                try {
+                    (this.options['on' + state] || Prototype.emptyFunction)(response, response.headerJSON);
+                    Ajax.Responders.dispatch('on' + state, this, response, response.headerJSON);
+                } catch (e) {
+                    this.dispatchException(e);
+                }
+                if (state == 'Complete') {
+                    this.transport.onreadystatechange = Prototype.emptyFunction;
                 }
             }
+        });
+        Ajax.Updater.respondToReadyState = Ajax.Request.respondToReadyState;
+    } else {
+        // Shim mode: Ajax.Request is fetch-based, patch via options interceptor
+        var _OrigRequest = Ajax.Request;
+        var _OrigInit = _OrigRequest.prototype.initialize;
+        _OrigRequest.prototype.initialize = function (url, options) {
+            url = _openMageAjaxUrl(url);
+            options = options || {};
+            options.parameters = _openMageInjectFormKey(options.parameters);
 
-            var contentType = response.getHeader('Content-type');
-            if (this.options.evalJS == 'force'
-                || (this.options.evalJS && this.isSameOrigin() && contentType
-                && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i))) {
-                this.evalResponse();
-            }
-        }
-
-        try {
-            (this.options['on' + state] || Prototype.emptyFunction)(response, response.headerJSON);
-            Ajax.Responders.dispatch('on' + state, this, response, response.headerJSON);
-        } catch (e) {
-            this.dispatchException(e);
-        }
-
-        if (state == 'Complete') {
-            // avoid memory leak in MSIE: clean up
-            this.transport.onreadystatechange = Prototype.emptyFunction;
-        }
+            // Wrap onSuccess to check for session expiry
+            var origSuccess = options.onSuccess;
+            options.onSuccess = function (response) {
+                if (_openMageCheckSession(response.responseText)) {
+                    return;
+                }
+                if (typeof origSuccess === 'function') {
+                    origSuccess(response);
+                }
+            };
+            _OrigInit.call(this, url, options);
+        };
     }
-});
+})();
 
-Ajax.Updater.respondToReadyState = Ajax.Request.respondToReadyState;
-//Ajax.Updater = Object.extend(Ajax.Updater, {
-//  initialize: function($super, container, url, options) {
-//    this.container = {
-//      success: (container.success || container),
-//      failure: (container.failure || (container.success ? null : container))
-//    };
-//
-//    options = Object.clone(options);
-//    var onComplete = options.onComplete;
-//    options.onComplete = (function(response, json) {
-//      this.updateContent(response.responseText);
-//      if (Object.isFunction(onComplete)) onComplete(response, json);
-//    }).bind(this);
-//
-//    $super((url.match(new RegExp('\\?',"g")) ? url + '&isAjax=1' : url + '?isAjax=1'), options);
-//  }
-//});
-
-var varienLoader = new Class.create();
+// -------------------------------------------------------------------------
+// varienLoader — AJAX loader with optional caching
+// -------------------------------------------------------------------------
+function varienLoader(caching) {
+    this.callback = false;
+    this.cache = {};
+    this.caching = caching || false;
+    this.url = false;
+}
 
 varienLoader.prototype = {
-    initialize : function(caching){
-        this.callback= false;
-        this.cache   = $H();
-        this.caching = caching || false;
-        this.url     = false;
+    getCache: function (url) {
+        return this.cache[url] || false;
     },
 
-    getCache : function(url){
-        if(this.cache.get(url)){
-            return this.cache.get(url);
-        }
-        return false;
-    },
-
-    load : function(url, params, callback){
-        this.url      = url;
+    load: function (url, params, callback) {
+        this.url = url;
         this.callback = callback;
 
-        if(this.caching){
-            var transport = this.getCache(url);
-            if(transport){
-                this.processResult(transport);
+        if (this.caching) {
+            var cached = this.getCache(url);
+            if (cached) {
+                this.processResult(cached);
                 return;
             }
         }
 
-        if (typeof(params.updaterId) != 'undefined') {
+        if (typeof params.updaterId !== 'undefined') {
             new varienUpdater(params.updaterId, url, {
-                evalScripts : true,
+                evalScripts: true,
                 onComplete: this.processResult.bind(this),
                 onFailure: this._processFailure.bind(this)
             });
-        }
-        else {
-            new Ajax.Request(url,{
+        } else if (typeof Ajax !== 'undefined' && typeof Ajax.Request !== 'undefined') {
+            new Ajax.Request(url, {
                 method: 'post',
                 parameters: params || {},
                 onComplete: this.processResult.bind(this),
                 onFailure: this._processFailure.bind(this)
             });
+        } else {
+            // Vanilla fetch fallback (none mode)
+            var self = this;
+            var formData = new FormData();
+            if (params) {
+                Object.keys(params).forEach(function (key) {
+                    formData.append(key, params[key]);
+                });
+            }
+            if (!formData.has('form_key') && window.FORM_KEY) {
+                formData.append('form_key', window.FORM_KEY);
+            }
+            fetch(_openMageAjaxUrl(url), { method: 'POST', body: formData })
+                .then(function (resp) { return resp.text(); })
+                .then(function (text) {
+                    if (!_openMageCheckSession(text)) {
+                        self.processResult({ responseText: text });
+                    }
+                })
+                .catch(function () {
+                    self._processFailure();
+                });
         }
     },
 
-    _processFailure : function(transport){
-        location.href = BASE_URL;
+    _processFailure: function () {
+        location.href = window.BASE_URL;
     },
 
-    processResult : function(transport){
-        if(this.caching){
-            this.cache.set(this.url, transport);
+    processResult: function (transport) {
+        if (this.caching) {
+            this.cache[this.url] = transport;
         }
-        if(this.callback){
+        if (this.callback) {
             this.callback(transport.responseText);
         }
     }
 };
 
-if (!window.varienLoaderHandler)
-    var varienLoaderHandler = new Object();
+// -------------------------------------------------------------------------
+// varienUpdater — AJAX updater with session expiry check
+// -------------------------------------------------------------------------
+(function () {
+    if (typeof Ajax !== 'undefined' && typeof Ajax.Updater !== 'undefined' && typeof Class !== 'undefined') {
+        window.varienUpdater = Class.create(Ajax.Updater, {
+            updateContent: function ($super, responseText) {
+                if (_openMageCheckSession(responseText)) {
+                    return;
+                }
+                $super(responseText);
+            }
+        });
+    } else {
+        // Vanilla fallback
+        window.varienUpdater = function (containerId, url, options) {
+            var container = document.getElementById(containerId);
+            options = options || {};
+            fetch(_openMageAjaxUrl(url), {
+                method: options.method || 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(function (resp) { return resp.text(); })
+            .then(function (text) {
+                if (_openMageCheckSession(text)) {
+                    return;
+                }
+                if (container) {
+                    container.innerHTML = text;
+                }
+                if (typeof options.onComplete === 'function') {
+                    options.onComplete({ responseText: text });
+                }
+            })
+            .catch(function () {
+                if (typeof options.onFailure === 'function') {
+                    options.onFailure();
+                }
+            });
+        };
+    }
+})();
+
+// -------------------------------------------------------------------------
+// Loading mask — show/hide global loader
+// -------------------------------------------------------------------------
+if (!window.varienLoaderHandler) {
+    var varienLoaderHandler = {};
+}
 
 varienLoaderHandler.handler = {
-    onCreate: function(request) {
-        if(request.options.loaderArea===false){
+    onCreate: function (request) {
+        if (request && request.options && request.options.loaderArea === false) {
             return;
         }
         showLoader();
     },
-    onComplete: function(transport) {
-        if(Ajax.activeRequestCount == 0) {
+    onComplete: function () {
+        if (typeof Ajax !== 'undefined' && Ajax.activeRequestCount === 0) {
             hideLoader();
         }
     }
@@ -194,24 +297,45 @@ varienLoaderHandler.handler = {
 var loaderTimeout = null;
 
 function showLoader(loaderArea) {
-    if($(loaderArea) === undefined) {
-        loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
+    if (typeof loaderArea === 'string') {
+        loaderArea = document.getElementById(loaderArea);
     }
-    var loadingMask = $('loading-mask');
-    if(Element.visible(loadingMask)) {
+    if (!loaderArea) {
+        loaderArea = document.querySelector('#html-body .wrapper');
+    }
+    var loadingMask = document.getElementById('loading-mask');
+    if (!loadingMask) {
         return;
     }
-    Element.clonePosition(loadingMask, loaderArea, {offsetLeft:-2});
-    Element.show(loadingMask);
-    Element.childElements(loadingMask).invoke('hide');
-    loaderTimeout = setTimeout(function() {
-        Element.childElements(loadingMask).invoke('show');
+    if (loadingMask.style.display !== 'none' && loadingMask.offsetParent !== null) {
+        return;
+    }
+
+    // Position the mask over the loader area
+    if (loaderArea) {
+        var rect = loaderArea.getBoundingClientRect();
+        loadingMask.style.position = 'absolute';
+        loadingMask.style.top = (window.scrollY + rect.top) + 'px';
+        loadingMask.style.left = (rect.left - 2) + 'px';
+        loadingMask.style.width = rect.width + 'px';
+        loadingMask.style.height = rect.height + 'px';
+    }
+
+    loadingMask.style.display = '';
+    var children = Array.prototype.slice.call(loadingMask.children);
+    children.forEach(function (child) { child.style.display = 'none'; });
+
+    loaderTimeout = setTimeout(function () {
+        children.forEach(function (child) { child.style.display = ''; });
     }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
 }
 
 function hideLoader() {
-    Element.hide('loading-mask');
-    if(loaderTimeout) {
+    var loadingMask = document.getElementById('loading-mask');
+    if (loadingMask) {
+        loadingMask.style.display = 'none';
+    }
+    if (loaderTimeout) {
         clearTimeout(loaderTimeout);
         loaderTimeout = null;
     }
@@ -225,17 +349,7 @@ function setLoaderPosition() {
 function toggleSelectsUnderBlock(block, flag) {
 }
 
-Ajax.Responders.register(varienLoaderHandler.handler);
-
-var varienUpdater = Class.create(Ajax.Updater, {
-    updateContent: function($super, responseText) {
-        if (responseText.isJSON()) {
-            var responseJSON = responseText.evalJSON();
-            if (responseJSON.ajaxExpired && responseJSON.ajaxRedirect) {
-                window.location.replace(responseJSON.ajaxRedirect);
-            }
-        } else {
-            $super(responseText);
-        }
-    }
-});
+// Register loader handler with Ajax.Responders if available
+if (typeof Ajax !== 'undefined' && typeof Ajax.Responders !== 'undefined') {
+    Ajax.Responders.register(varienLoaderHandler.handler);
+}
