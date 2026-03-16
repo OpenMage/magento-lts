@@ -11,6 +11,11 @@
  * @copyright   Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 function popWin(url,win,para) {
     var win = window.open(url,win,para);
     win.focus();
@@ -42,7 +47,6 @@ function decorateGeneric(elements, decorateParams)
     var total = elements.length;
 
     if (total) {
-        // determine params called
         if (typeof(decorateParams) == 'undefined') {
             decorateParams = allSupportedParams;
         }
@@ -56,23 +60,21 @@ function decorateGeneric(elements, decorateParams)
             _decorateParams[decorateParams[k]] = true;
         }
 
-        // decorate elements
-        // elements[0].addClassName('first'); // will cause bug in IE (#5587)
         if (_decorateParams.first) {
-            Element.addClassName(elements[0], 'first');
+            elements[0].classList.add('first');
         }
         if (_decorateParams.last) {
-            Element.addClassName(elements[total-1], 'last');
+            elements[total-1].classList.add('last');
         }
         for (var i = 0; i < total; i++) {
             if ((i + 1) % 2 == 0) {
                 if (_decorateParams.even) {
-                    Element.addClassName(elements[i], 'even');
+                    elements[i].classList.add('even');
                 }
             }
             else {
                 if (_decorateParams.odd) {
-                    Element.addClassName(elements[i], 'odd');
+                    elements[i].classList.add('odd');
                 }
             }
         }
@@ -85,9 +87,10 @@ function decorateGeneric(elements, decorateParams)
  * @deprecated
  */
 function decorateTable(table, options) {
-    var table = $(table);
+    if (typeof table === 'string') {
+        table = document.getElementById(table);
+    }
     if (table) {
-        // set default options
         var _options = {
             'tbody'    : false,
             'tbody tr' : ['odd', 'even', 'first', 'last'],
@@ -95,27 +98,25 @@ function decorateTable(table, options) {
             'tfoot tr' : ['first', 'last'],
             'tr td'    : ['last']
         };
-        // overload options
         if (typeof(options) != 'undefined') {
             for (var k in options) {
                 _options[k] = options[k];
             }
         }
-        // decorate
         if (_options['tbody']) {
-            decorateGeneric(table.select('tbody'), _options['tbody']);
+            decorateGeneric(table.querySelectorAll('tbody'), _options['tbody']);
         }
         if (_options['tbody tr']) {
-            decorateGeneric(table.select('tbody tr'), _options['tbody tr']);
+            decorateGeneric(table.querySelectorAll('tbody tr'), _options['tbody tr']);
         }
         if (_options['thead tr']) {
-            decorateGeneric(table.select('thead tr'), _options['thead tr']);
+            decorateGeneric(table.querySelectorAll('thead tr'), _options['thead tr']);
         }
         if (_options['tfoot tr']) {
-            decorateGeneric(table.select('tfoot tr'), _options['tfoot tr']);
+            decorateGeneric(table.querySelectorAll('tfoot tr'), _options['tfoot tr']);
         }
         if (_options['tr td']) {
-            var allRows = table.select('tr');
+            var allRows = table.querySelectorAll('tr');
             if (allRows.length) {
                 for (var i = 0; i < allRows.length; i++) {
                     decorateGeneric(allRows[i].getElementsByTagName('TD'), _options['tr td']);
@@ -131,12 +132,15 @@ function decorateTable(table, options) {
  * @deprecated
  */
 function decorateList(list, nonRecursive) {
-    if ($(list)) {
+    if (typeof list === 'string') {
+        list = document.getElementById(list);
+    }
+    if (list) {
+        var items;
         if (typeof(nonRecursive) == 'undefined') {
-            var items = $(list).select('li');
-        }
-        else {
-            var items = $(list).childElements();
+            items = list.querySelectorAll('li');
+        } else {
+            items = Array.prototype.slice.call(list.children);
         }
         decorateGeneric(items, ['odd', 'even', 'last']);
     }
@@ -148,10 +152,12 @@ function decorateList(list, nonRecursive) {
  * @deprecated
  */
 function decorateDataList(list) {
-    list = $(list);
+    if (typeof list === 'string') {
+        list = document.getElementById(list);
+    }
     if (list) {
-        decorateGeneric(list.select('dt'), ['odd', 'even', 'last']);
-        decorateGeneric(list.select('dd'), ['odd', 'even', 'last']);
+        decorateGeneric(list.querySelectorAll('dt'), ['odd', 'even', 'last']);
+        decorateGeneric(list.querySelectorAll('dd'), ['odd', 'even', 'last']);
     }
 }
 
@@ -221,20 +227,23 @@ function formatCurrency(price, format, showPlus){
     }
 
     return pattern.replace('%s', r).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-};
+}
 
 function expandDetails(el, childClass) {
-    if (Element.hasClassName(el,'show-details')) {
-        $$(childClass).each(function(item){
-            item.hide();
+    if (typeof el === 'string') {
+        el = document.getElementById(el);
+    }
+    if (el.classList.contains('show-details')) {
+        document.querySelectorAll(childClass).forEach(function(item){
+            item.style.display = 'none';
         });
-        Element.removeClassName(el,'show-details');
+        el.classList.remove('show-details');
     }
     else {
-        $$(childClass).each(function(item){
-            item.show();
+        document.querySelectorAll(childClass).forEach(function(item){
+            item.style.display = '';
         });
-        Element.addClassName(el,'show-details');
+        el.classList.add('show-details');
     }
 }
 
@@ -242,15 +251,15 @@ function expandDetails(el, childClass) {
 var isIE = false;
 
 if (!window.Varien)
-    var Varien = new Object();
+    var Varien = {};
 
 Varien.showLoading = function(){
-    var loader = $('loading-process');
-    loader && loader.show();
+    var loader = document.getElementById('loading-process');
+    if (loader) loader.style.display = '';
 };
 Varien.hideLoading = function(){
-    var loader = $('loading-process');
-    loader && loader.hide();
+    var loader = document.getElementById('loading-process');
+    if (loader) loader.style.display = 'none';
 };
 Varien.GlobalHandlers = {
     onCreate: function() {
@@ -258,77 +267,84 @@ Varien.GlobalHandlers = {
     },
 
     onComplete: function() {
-        if(Ajax.activeRequestCount == 0) {
+        if(typeof Ajax !== 'undefined' && Ajax.activeRequestCount == 0) {
             Varien.hideLoading();
         }
     }
 };
 
-Ajax.Responders.register(Varien.GlobalHandlers);
+if (typeof Ajax !== 'undefined' && typeof Ajax.Responders !== 'undefined') {
+    Ajax.Responders.register(Varien.GlobalHandlers);
+}
 
 /**
  * Quick Search form client model
+ * @constructor
  */
-Varien.searchForm = Class.create();
+Varien.searchForm = function(form, field, emptyText) {
+    this.form = typeof form === 'string' ? document.getElementById(form) : form;
+    this.field = typeof field === 'string' ? document.getElementById(field) : field;
+    this.emptyText = emptyText;
+
+    this.form.addEventListener('submit', this.submit.bind(this));
+    this.field.addEventListener('focus', this.focus.bind(this));
+    this.field.addEventListener('blur', this.blur.bind(this));
+    this.blur();
+};
+
 Varien.searchForm.prototype = {
-    initialize : function(form, field, emptyText){
-        this.form   = $(form);
-        this.field  = $(field);
-        this.emptyText = emptyText;
-
-        Event.observe(this.form,  'submit', this.submit.bind(this));
-        Event.observe(this.field, 'focus', this.focus.bind(this));
-        Event.observe(this.field, 'blur', this.blur.bind(this));
-        this.blur();
-    },
-
-    submit : function(event){
+    submit: function(event){
         if (this.field.value == this.emptyText || this.field.value == ''){
-            Event.stop(event);
+            event.preventDefault();
+            event.stopPropagation();
             return false;
         }
         return true;
     },
 
-    focus : function(event){
+    focus: function(event){
         if(this.field.value==this.emptyText){
             this.field.value='';
         }
-
     },
 
-    blur : function(event){
+    blur: function(event){
         if(this.field.value==''){
             this.field.value=this.emptyText;
         }
     },
 
-    initAutocomplete : function(url, destinationElement){
-        new Ajax.Autocompleter(
-            this.field,
-            destinationElement,
-            url,
-            {
-                paramName: this.field.name,
-                method: 'get',
-                minChars: 2,
-                updateElement: this._selectAutocompleteItem.bind(this),
-                onShow : function(element, update) {
-                    if(!update.style.position || update.style.position=='absolute') {
-                        update.style.position = 'absolute';
-                        Position.clone(element, update, {
-                            setHeight: false,
-                            offsetTop: element.offsetHeight
-                        });
+    initAutocomplete: function(url, destinationElement){
+        // Ajax.Autocompleter requires Scriptaculous controls.js
+        // If available (shim or full), use it; otherwise no-op
+        if (typeof Ajax !== 'undefined' && typeof Ajax.Autocompleter !== 'undefined') {
+            new Ajax.Autocompleter(
+                this.field,
+                destinationElement,
+                url,
+                {
+                    paramName: this.field.name,
+                    method: 'get',
+                    minChars: 2,
+                    updateElement: this._selectAutocompleteItem.bind(this),
+                    onShow: function(element, update) {
+                        if(!update.style.position || update.style.position=='absolute') {
+                            update.style.position = 'absolute';
+                            if (typeof Position !== 'undefined') {
+                                Position.clone(element, update, {
+                                    setHeight: false,
+                                    offsetTop: element.offsetHeight
+                                });
+                            }
+                        }
+                        update.style.display = '';
                     }
-                    Effect.Appear(update,{duration:0});
                 }
-
-            }
-        );
+            );
+        }
     },
 
-    _selectAutocompleteItem : function(element){
+    _selectAutocompleteItem: function(element){
         if(element.title){
             this.field.value = element.title;
         }
@@ -336,83 +352,92 @@ Varien.searchForm.prototype = {
     }
 };
 
-Varien.Tabs = Class.create();
-Varien.Tabs.prototype = {
-  initialize: function(selector) {
-    var self=this;
-    $$(selector+' a').each(this.initTab.bind(this));
-  },
-
-  initTab: function(el) {
-      el.href = 'javascript:void(0)';
-      if ($(el.parentNode).hasClassName('active')) {
-        this.showContent(el);
-      }
-      el.observe('click', this.showContent.bind(this, el));
-  },
-
-  showContent: function(a) {
-    var li = $(a.parentNode), ul = $(li.parentNode);
-    ul.getElementsBySelector('li', 'ol').each(function(el){
-      var contents = $(el.id+'_contents');
-      if (el==li) {
-        el.addClassName('active');
-        contents.show();
-      } else {
-        el.removeClassName('active');
-        contents.hide();
-      }
-    });
-  }
+/**
+ * Tabs widget
+ * @constructor
+ */
+Varien.Tabs = function(selector) {
+    var links = document.querySelectorAll(selector + ' a');
+    var self = this;
+    links.forEach(function(el) { self.initTab(el); });
 };
 
-Varien.DateElement = Class.create();
-Varien.DateElement.prototype = {
-    initialize: function(type, content, required, format) {
-        if (type == 'id') {
-            // id prefix
-            this.day    = $(content + 'day');
-            this.month  = $(content + 'month');
-            this.year   = $(content + 'year');
-            this.full   = $(content + 'full');
-            this.advice = $(content + 'date-advice');
-        } else if (type == 'container') {
-            // content must be container with data
-            this.day    = content.day;
-            this.month  = content.month;
-            this.year   = content.year;
-            this.full   = content.full;
-            this.advice = content.advice;
-        } else {
-            return;
+Varien.Tabs.prototype = {
+    initTab: function(el) {
+        el.href = 'javascript:void(0)';
+        if (el.parentNode.classList.contains('active')) {
+            this.showContent(el);
         }
-
-        this.required = required;
-        this.format   = format;
-
-        this.day.addClassName('validate-custom');
-        this.day.validate = this.validate.bind(this);
-        this.month.addClassName('validate-custom');
-        this.month.validate = this.validate.bind(this);
-        this.year.addClassName('validate-custom');
-        this.year.validate = this.validate.bind(this);
-
-        this.setDateRange(false, false);
-        this.year.setAttribute('autocomplete','off');
-
-        this.advice.hide();
-
-        var date = new Date;
-        this.curyear = date.getFullYear();
+        var self = this;
+        el.addEventListener('click', function() { self.showContent(el); });
     },
+
+    showContent: function(a) {
+        var li = a.parentNode;
+        var ul = li.parentNode;
+        var items = ul.querySelectorAll('li, ol');
+        items.forEach(function(el){
+            var contents = document.getElementById(el.id + '_contents');
+            if (el === li) {
+                el.classList.add('active');
+                if (contents) contents.style.display = '';
+            } else {
+                el.classList.remove('active');
+                if (contents) contents.style.display = 'none';
+            }
+        });
+    }
+};
+
+/**
+ * Date element with validation
+ * @constructor
+ */
+Varien.DateElement = function(type, content, required, format) {
+    if (type == 'id') {
+        this.day    = document.getElementById(content + 'day');
+        this.month  = document.getElementById(content + 'month');
+        this.year   = document.getElementById(content + 'year');
+        this.full   = document.getElementById(content + 'full');
+        this.advice = document.getElementById(content + 'date-advice');
+    } else if (type == 'container') {
+        this.day    = content.day;
+        this.month  = content.month;
+        this.year   = content.year;
+        this.full   = content.full;
+        this.advice = content.advice;
+    } else {
+        return;
+    }
+
+    this.required = required;
+    this.format   = format;
+
+    this.day.classList.add('validate-custom');
+    this.day.validate = this.validate.bind(this);
+    this.month.classList.add('validate-custom');
+    this.month.validate = this.validate.bind(this);
+    this.year.classList.add('validate-custom');
+    this.year.validate = this.validate.bind(this);
+
+    this.setDateRange(false, false);
+    this.year.setAttribute('autocomplete','off');
+
+    this.advice.style.display = 'none';
+
+    var date = new Date;
+    this.curyear = date.getFullYear();
+};
+
+Varien.DateElement.prototype = {
     validate: function() {
         var error = false,
             day   = parseInt(this.day.value, 10)   || 0,
             month = parseInt(this.month.value, 10) || 0,
             year  = parseInt(this.year.value, 10)  || 0;
-        if (this.day.value.strip().empty()
-            && this.month.value.strip().empty()
-            && this.year.value.strip().empty()
+        if (this.day.value.trim().length === 0
+            && this.month.value.trim().length === 0
+            && this.year.value.trim().length === 0
         ) {
             if (this.required) {
                 error = 'This date is a required value.';
@@ -447,9 +472,9 @@ Varien.DateElement.prototype = {
                 }
             }
             var valueError = false;
-            if (!error && !this.validateData()){//(year<1900 || year>curyear) {
-                errorType = this.validateDataErrorType;//'year';
-                valueError = this.validateDataErrorText;//'Please enter a valid year (1900-%d).';
+            if (!error && !this.validateData()){
+                errorType = this.validateDataErrorType;
+                valueError = this.validateDataErrorText;
                 error = valueError;
             }
         }
@@ -464,16 +489,15 @@ Varien.DateElement.prototype = {
             } else {
                 this.advice.innerHTML = this.errorTextModifier(error);
             }
-            this.advice.show();
+            this.advice.style.display = '';
             return false;
         }
 
-        // fixing elements class
-        this.day.removeClassName('validation-failed');
-        this.month.removeClassName('validation-failed');
-        this.year.removeClassName('validation-failed');
+        this.day.classList.remove('validation-failed');
+        this.month.classList.remove('validation-failed');
+        this.year.classList.remove('validation-failed');
 
-        this.advice.hide();
+        this.advice.style.display = 'none';
         return true;
     },
     validateData: function() {
@@ -495,23 +519,28 @@ Varien.DateElement.prototype = {
     }
 };
 
-Varien.DOB = Class.create();
-Varien.DOB.prototype = {
-    initialize: function(selector, required, format) {
-        var el = $$(selector)[0];
-        var container       = {};
-        container.day       = Element.select(el, '.dob-day input')[0];
-        container.month     = Element.select(el, '.dob-month input')[0];
-        container.year      = Element.select(el, '.dob-year input')[0];
-        container.full      = Element.select(el, '.dob-full input')[0];
-        container.advice    = Element.select(el, '.validation-advice')[0];
+/**
+ * DOB (Date of Birth) widget
+ * @constructor
+ */
+Varien.DOB = function(selector, required, format) {
+    var el = document.querySelector(selector);
+    var container       = {};
+    container.day       = el.querySelector('.dob-day input');
+    container.month     = el.querySelector('.dob-month input');
+    container.year      = el.querySelector('.dob-year input');
+    container.full      = el.querySelector('.dob-full input');
+    container.advice    = el.querySelector('.validation-advice');
 
-        new Varien.DateElement('container', container, required, format);
-    }
+    new Varien.DateElement('container', container, required, format);
 };
 
-Varien.dateRangeDate = Class.create();
-Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
+/**
+ * Date range validator
+ * @constructor
+ */
+Varien.dateRangeDate = function() {};
+Varien.dateRangeDate.prototype = Object.assign(Object.create(Varien.DateElement.prototype), {
     validateData: function() {
         var validate = true;
         if (this.minDate || this.maxValue) {
@@ -546,10 +575,10 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
     validateDataErrorText: 'Date should be between %s and %s',
     errorTextModifier: function(text) {
         if (this.minDate) {
-            text = text.sub('%s', this.dateFormat(this.minDate));
+            text = text.replace('%s', this.dateFormat(this.minDate));
         }
         if (this.maxDate) {
-            text = text.sub('%s', this.dateFormat(this.maxDate));
+            text = text.replace('%s', this.dateFormat(this.maxDate));
         }
         return text;
     },
@@ -558,16 +587,20 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
     }
 });
 
-Varien.FileElement = Class.create();
-Varien.FileElement.prototype = {
-    initialize: function (id) {
-        this.fileElement = $(id);
-        this.hiddenElement = $(id + '_value');
+/**
+ * File upload element
+ * @constructor
+ */
+Varien.FileElement = function(id) {
+    this.fileElement = document.getElementById(id);
+    this.hiddenElement = document.getElementById(id + '_value');
 
-        this.fileElement.observe('change', this.selectFile.bind(this));
-    },
+    this.fileElement.addEventListener('change', this.selectFile.bind(this));
+};
+
+Varien.FileElement.prototype = {
     selectFile: function(event) {
-        this.hiddenElement.value = this.fileElement.getValue();
+        this.hiddenElement.value = this.fileElement.value;
     }
 };
 
@@ -580,34 +613,40 @@ if (typeof Validation !== 'undefined') {
 }
 
 function truncateOptions() {
-    $$('.truncated').each(function(element){
-        Event.observe(element, 'mouseover', function(){
-            if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').addClassName('show');
+    document.querySelectorAll('.truncated').forEach(function(element){
+        element.addEventListener('mouseover', function(){
+            var fullValue = element.querySelector('div.truncated_full_value');
+            if (fullValue) {
+                fullValue.classList.add('show');
             }
         });
-        Event.observe(element, 'mouseout', function(){
-            if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').removeClassName('show');
+        element.addEventListener('mouseout', function(){
+            var fullValue = element.querySelector('div.truncated_full_value');
+            if (fullValue) {
+                fullValue.classList.remove('show');
             }
         });
-
     });
 }
-Event.observe(window, 'load', function(){
+window.addEventListener('load', function(){
    truncateOptions();
 });
 
-Element.addMethods({
-    getInnerText: function(element)
-    {
-        element = $(element);
-        if(element.innerText && !Prototype.Browser.Opera) {
-            return element.innerText;
+/**
+ * getInnerText — added to HTMLElement.prototype for backward compat
+ */
+if (typeof HTMLElement !== 'undefined' && !HTMLElement.prototype.getInnerText) {
+    HTMLElement.prototype.getInnerText = function() {
+        if (this.innerText) {
+            return this.innerText;
         }
-        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
-    }
-});
+        // Strip scripts, decode entities, normalize whitespace
+        var html = this.innerHTML.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+        var tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return (tmp.textContent || '').replace(/[\n\r\s]+/g, ' ').trim();
+    };
+}
 
 /**
  * Executes event handler on the element. Works with event handlers attached by Prototype,
@@ -619,7 +658,7 @@ Element.addMethods({
  */
 function fireEvent(element, event) {
     var evt = document.createEvent("HTMLEvents");
-    evt.initEvent(event, true, true ); // event type, bubbling, cancelable
+    evt.initEvent(event, true, true );
     return element.dispatchEvent(evt);
 }
 
@@ -646,54 +685,66 @@ function modulo(dividend, divisor)
 
 /**
  * Create form element. Set parameters into it and send
- *
- * @param url
- * @param parametersArray
- * @param method
+ * @constructor
  */
-Varien.formCreator = Class.create();
-Varien.formCreator.prototype = {
-    initialize : function(url, parametersArray, method) {
-        this.url = url;
-        this.parametersArray = JSON.parse(parametersArray);
-        this.method = method;
-        this.form = '';
+Varien.formCreator = function(url, parametersArray, method) {
+    this.url = url;
+    this.parametersArray = JSON.parse(parametersArray);
+    this.method = method;
+    this.form = '';
 
-        this.createForm();
-        this.setFormData();
+    this.createForm();
+    this.setFormData();
+};
+
+Varien.formCreator.prototype = {
+    createForm: function() {
+        this.form = document.createElement('form');
+        this.form.method = this.method;
+        this.form.action = this.url;
     },
-    createForm : function() {
-        this.form = new Element('form', { 'method': this.method, action: this.url });
-    },
-    setFormData : function () {
+    setFormData: function() {
         for (var key in this.parametersArray) {
-            Element.insert(
-                this.form,
-                new Element('input', { name: key, value: this.parametersArray[key], type: 'hidden' })
-            );
+            if (this.parametersArray.hasOwnProperty(key)) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = this.parametersArray[key];
+                this.form.appendChild(input);
+            }
         }
     }
 };
 
 function customFormSubmit(url, parametersArray, method) {
     var createdForm = new Varien.formCreator(url, parametersArray, method);
-    Element.insert($$('body')[0], createdForm.form);
+    document.body.appendChild(createdForm.form);
     createdForm.form.submit();
 }
 
 function customFormSubmitToParent(url, parametersArray, method) {
-    new Ajax.Request(url, {
+    var params = JSON.parse(parametersArray);
+    var formData = new FormData();
+    Object.keys(params).forEach(function(key) {
+        formData.append(key, params[key]);
+    });
+
+    fetch(url, {
         method: method,
-        parameters: JSON.parse(parametersArray),
-        onSuccess: function (response) {
-            var node = document.createElement('div');
-            node.innerHTML = response.responseText;
-            var responseMessage = node.getElementsByClassName('messages')[0];
-            var pageTitle = window.document.body.getElementsByClassName('page-title')[0];
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(response) { return response.text(); })
+    .then(function(text) {
+        var node = document.createElement('div');
+        node.innerHTML = text;
+        var responseMessage = node.getElementsByClassName('messages')[0];
+        var pageTitle = window.document.body.getElementsByClassName('page-title')[0];
+        if (pageTitle && responseMessage) {
             pageTitle.insertAdjacentHTML('afterend', responseMessage.outerHTML);
-            window.opener.focus();
-            window.opener.location.href = response.transport.responseURL;
         }
+        window.opener.focus();
+        window.opener.location.href = url;
     });
 }
 
