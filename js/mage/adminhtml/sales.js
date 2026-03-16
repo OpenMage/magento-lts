@@ -13,60 +13,67 @@
  */
 
 /**
- * Helper: get value from a form element (replaces $F / Form.Element.getValue / el.getValue)
+ * Helper: serialize form elements into a plain object (replaces Form.serializeElements)
  */
-function _getFieldValue(el) {
-    if (!el) return '';
-    if (el.tagName === 'SELECT') {
-        if (el.multiple) {
-            var vals = [];
-            for (var i = 0; i < el.options.length; i++) {
-                if (el.options[i].selected) vals.push(el.options[i].value);
-            }
-            return vals;
-        }
-        return el.value;
-    }
-    if (el.tagName === 'INPUT' && (el.type === 'checkbox' || el.type === 'radio')) {
-        return el.checked ? el.value : '';
-    }
-    return el.value;
-}
-
-/**
- * Helper: set value on a form element (replaces el.setValue from Prototype)
- */
-function _setFieldValue(el, value) {
-    if (!el) return;
-    if (el.tagName === 'SELECT' && el.multiple) {
-        var vals = Array.isArray(value) ? value : [value];
-        for (var i = 0; i < el.options.length; i++) {
-            el.options[i].selected = vals.indexOf(el.options[i].value) !== -1;
-        }
-    } else if (el.tagName === 'INPUT' && (el.type === 'checkbox' || el.type === 'radio')) {
-        el.checked = !!value;
-    } else {
-        el.value = (value != null) ? value : '';
-    }
-}
-
-/**
- * Helper: serialize form elements to an object (replaces Form.serializeElements)
- */
-function _serializeElements(fields) {
+function _serializeFormElements(fields, asObject) {
     var data = {};
     for (var i = 0; i < fields.length; i++) {
-        var el = fields[i];
-        if (el.disabled || !el.name) continue;
-        var val = _getFieldValue(el);
-        data[el.name] = val;
+        var field = fields[i];
+        if (field.disabled || !field.name) continue;
+        var tag = field.tagName.toLowerCase();
+        var type = (field.type || '').toLowerCase();
+        if (type === 'file' || type === 'submit' || type === 'reset' || type === 'button') continue;
+        if ((type === 'checkbox' || type === 'radio') && !field.checked) continue;
+        if (tag === 'select' && field.multiple) {
+            var vals = [];
+            for (var j = 0; j < field.options.length; j++) {
+                if (field.options[j].selected) vals.push(field.options[j].value);
+            }
+            data[field.name] = vals;
+        } else {
+            data[field.name] = field.value;
+        }
     }
     return data;
 }
 
 /**
- * Helper: wrap a function so original can be called via proceed()
- * Replaces fn.wrap(wrapper) pattern from Prototype
+ * Helper: get/set value on a form element (replaces el.getValue / el.setValue)
+ */
+function _getFieldValue(el) {
+    if (!el) return '';
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'select' && el.multiple) {
+        var vals = [];
+        for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].selected) vals.push(el.options[i].value);
+        }
+        return vals;
+    }
+    if ((el.type === 'checkbox' || el.type === 'radio')) {
+        return el.checked ? el.value : '';
+    }
+    return el.value;
+}
+
+function _setFieldValue(el, val) {
+    if (!el) return;
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'select' && el.multiple) {
+        var vals = Array.isArray(val) ? val : [val];
+        for (var i = 0; i < el.options.length; i++) {
+            el.options[i].selected = vals.indexOf(el.options[i].value) !== -1;
+        }
+    } else if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = !!val;
+    } else {
+        el.value = val;
+    }
+}
+
+/**
+ * Helper: wrap a function so we can call the original as `proceed`
+ * Replaces Prototype's Function.prototype.wrap
  */
 function _wrapFunction(original, wrapper) {
     return function() {
@@ -75,72 +82,75 @@ function _wrapFunction(original, wrapper) {
     };
 }
 
-function AdminOrder(data) {
-    if (!data) data = {};
-    this.loadBaseUrl    = false;
-    this.customerId     = data.customer_id ? data.customer_id : false;
-    this.isGuest        = data.is_guest ? true : false;
-    this.storeId        = data.store_id ? data.store_id : false;
-    this.currencyId     = false;
-    this.currencySymbol = data.currency_symbol ? data.currency_symbol : '';
-    this.addresses      = data.addresses ? data.addresses : {};
-    this.shippingAsBilling = data.shippingAsBilling ? data.shippingAsBilling : false;
-    this.gridProducts   = {};
-    this.gridProductsGift = {};
-    this.billingAddressContainer = '';
-    this.shippingAddressContainer= '';
-    this.isShippingMethodReseted = data.shipping_method_reseted ? data.shipping_method_reseted : false;
-    this.overlayData = {};
-    this.giftMessageDataChanged = false;
-    this.productConfigureAddFields = {};
-    this.productPriceBase = {};
-    this.collectElementsValue = true;
-    window.addEventListener('load', (function(){
-        this.dataArea = new OrderFormArea('data', document.getElementById(this.getAreaId('data')), this);
-        this.itemsArea = Object.assign(new OrderFormArea('items', document.getElementById(this.getAreaId('items')), this), {
-            addControlButton: function(button){
-                var controlButtonArea = this.node.querySelector('.form-buttons');
-                if (typeof controlButtonArea != 'undefined' && controlButtonArea) {
-                    var buttons = Array.from(controlButtonArea.children);
-                    for (var i = 0; i < buttons.length; i++) {
-                        if (buttons[i].innerHTML.indexOf(button.label) !== -1) {
-                            return ;
-                        }
-                    }
-                    button.insertIn(controlButtonArea, 'top');
-                }
-            }
-        });
-
-        var searchButton = new ControlButton(Translator.translate('Add Products')),
-            searchAreaId = this.getAreaId('search');
-        searchButton.onClick = function() {
-            document.getElementById(searchAreaId).style.display = '';
-            var el = this;
-            window.setTimeout(function () {
-                el.remove();
-            }, 10);
-        };
-
-        this.dataArea.onLoad = _wrapFunction(this.dataArea.onLoad, function(proceed) {
-            proceed();
-            this._parent.itemsArea.setNode(document.getElementById(this._parent.getAreaId('items')));
-            this._parent.itemsArea.onLoad();
-        }.bind(this.dataArea));
-
-        this.itemsArea.onLoad = _wrapFunction(this.itemsArea.onLoad, function(proceed) {
-            proceed();
-            var searchEl = document.getElementById(searchAreaId);
-            if (searchEl && searchEl.style.display === 'none') {
-                this.addControlButton(searchButton);
-            }
-        }.bind(this.itemsArea));
-        this.areasLoaded();
-        this.itemsArea.onLoad();
-    }).bind(this));
-}
-
+var AdminOrder = function(data) {
+    this.initialize(data);
+};
 AdminOrder.prototype = {
+    initialize : function(data){
+        if(!data) data = {};
+        this.loadBaseUrl    = false;
+        this.customerId     = data.customer_id ? data.customer_id : false;
+        this.isGuest        = data.is_guest ? true : false;
+        this.storeId        = data.store_id ? data.store_id : false;
+        this.currencyId     = false;
+        this.currencySymbol = data.currency_symbol ? data.currency_symbol : '';
+        this.addresses      = data.addresses ? data.addresses : {};
+        this.shippingAsBilling = data.shippingAsBilling ? data.shippingAsBilling : false;
+        this.gridProducts   = {};
+        this.gridProductsGift = {};
+        this.billingAddressContainer = '';
+        this.shippingAddressContainer= '';
+        this.isShippingMethodReseted = data.shipping_method_reseted ? data.shipping_method_reseted : false;
+        this.overlayData = {};
+        this.giftMessageDataChanged = false;
+        this.productConfigureAddFields = {};
+        this.productPriceBase = {};
+        this.collectElementsValue = true;
+        window.addEventListener('load', (function(){
+            this.dataArea = new OrderFormArea('data', document.getElementById(this.getAreaId('data')), this);
+            this.itemsArea = Object.assign(new OrderFormArea('items', document.getElementById(this.getAreaId('items')), this), {
+                addControlButton: function(button){
+                    var controlButtonArea = this.node.querySelectorAll('.form-buttons')[0];
+                    if (typeof controlButtonArea != 'undefined') {
+                        var buttons = Array.from(controlButtonArea.children);
+                        for (var i = 0; i < buttons.length; i++) {
+                            if (buttons[i].innerHTML.indexOf(button.label) !== -1) {
+                                return ;
+                            }
+                        }
+                        button.insertIn(controlButtonArea, 'top');
+                    }
+                }
+            });
+
+            var searchButton = new ControlButton(Translator.translate('Add Products')),
+                searchAreaId = this.getAreaId('search');
+            searchButton.onClick = function() {
+                document.getElementById(searchAreaId).style.display = '';
+                var el = this;
+                window.setTimeout(function () {
+                    el.remove();
+                }, 10);
+            };
+
+            this.dataArea.onLoad = _wrapFunction(this.dataArea.onLoad, function(proceed) {
+                proceed();
+                this._parent.itemsArea.setNode(document.getElementById(this._parent.getAreaId('items')));
+                this._parent.itemsArea.onLoad();
+            }.bind(this.dataArea));
+
+            this.itemsArea.onLoad = _wrapFunction(this.itemsArea.onLoad, function(proceed) {
+                proceed();
+                var el = document.getElementById(searchAreaId);
+                if (el && el.style.display === 'none') {
+                    this.addControlButton(searchButton);
+                }
+            }.bind(this.itemsArea));
+            this.areasLoaded();
+            this.itemsArea.onLoad();
+        }).bind(this));
+    },
+
     areasLoaded: function(){
     },
 
@@ -600,8 +610,7 @@ AdminOrder.prototype = {
                         grid.setCheckboxChecked(checkbox, true);
                     }.bind(this));
                     productConfigure.setCancelCallback(listType, function() {
-                        var confirmedEl = document.getElementById(productConfigure.confirmedCurrentId);
-                        if (!confirmedEl || !confirmedEl.innerHTML) {
+                        if (!document.getElementById(productConfigure.confirmedCurrentId) || !document.getElementById(productConfigure.confirmedCurrentId).innerHTML) {
                             grid.setCheckboxChecked(checkbox, false);
                         }
                     });
@@ -628,11 +637,10 @@ AdminOrder.prototype = {
             var getPrice = function (elm) {
                 var optQty = 1;
                 if (elm.hasAttribute('qtyId')) {
-                    var qtyEl = document.getElementById(elm.getAttribute('qtyId'));
-                    if (!qtyEl || !qtyEl.value) {
+                    if (!document.getElementById(elm.getAttribute('qtyId')).value) {
                         return 0;
                     } else {
-                        optQty = parseFloat(qtyEl.value);
+                        optQty = parseFloat(document.getElementById(elm.getAttribute('qtyId')).value);
                     }
                 }
                 if (elm.hasAttribute('price') && !elm.disabled) {
@@ -657,10 +665,9 @@ AdminOrder.prototype = {
             }
             return productPrice;
         }.bind(this);
-        var confirmedEl = document.getElementById(productConfigure.confirmedCurrentId);
-        productPrice += getPriceFields(confirmedEl.getElementsByTagName('input'));
-        productPrice += getPriceFields(confirmedEl.getElementsByTagName('select'));
-        productPrice += getPriceFields(confirmedEl.getElementsByTagName('textarea'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('input'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('select'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('textarea'));
         return productPrice;
     },
 
@@ -748,9 +755,8 @@ AdminOrder.prototype = {
     },
 
     dataShow : function(){
-        var submitBtn = document.getElementById('submit_order_top_button');
-        if (submitBtn) {
-            submitBtn.style.display = '';
+        if (document.getElementById('submit_order_top_button')) {
+            document.getElementById('submit_order_top_button').style.display = '';
         }
         this.showArea('data');
     },
@@ -763,11 +769,10 @@ AdminOrder.prototype = {
     },
 
     sidebarApplyChanges : function(auxiliaryParams) {
-        var sidebarEl = document.getElementById(this.getAreaId('sidebar'));
-        if (sidebarEl) {
+        if (document.getElementById(this.getAreaId('sidebar'))) {
             var data = {};
             if (this.collectElementsValue) {
-                var elems = sidebarEl.querySelectorAll('input');
+                var elems = document.getElementById(this.getAreaId('sidebar')).querySelectorAll('input');
                 for (var i=0; i < elems.length; i++) {
                     if (_getFieldValue(elems[i])) {
                         data[elems[i].name] = _getFieldValue(elems[i]);
@@ -950,9 +955,8 @@ AdminOrder.prototype = {
     },
 
     accountFieldsBind : function(container){
-        var containerEl = document.getElementById(container);
-        if(containerEl){
-            var fields = containerEl.querySelectorAll('input, select, textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, select, textarea');
             for(var i=0; i<fields.length; i++){
                 if(fields[i].id == 'group_id'){
                     fields[i].addEventListener('change', this.accountGroupChange.bind(this));
@@ -973,9 +977,8 @@ AdminOrder.prototype = {
     },
 
     commentFieldsBind : function(container){
-        var containerEl = document.getElementById(container);
-        if(containerEl){
-            var fields = containerEl.querySelectorAll('input, textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, textarea');
             for(var i=0; i<fields.length; i++)
                 fields[i].addEventListener('change', this.commentFieldChange.bind(this));
         }
@@ -986,9 +989,8 @@ AdminOrder.prototype = {
     },
 
     giftmessageFieldsBind : function(container){
-        var containerEl = document.getElementById(container);
-        if(containerEl){
-            var fields = containerEl.querySelectorAll('input, textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, textarea');
             for(var i=0; i<fields.length; i++)
                 fields[i].addEventListener('change', this.giftmessageFieldChange.bind(this));
         }
@@ -1026,28 +1028,24 @@ AdminOrder.prototype = {
         if (!this.loadingAreas) this.loadingAreas = [];
         if (indicator) {
             this.loadingAreas = area;
-            var self = this;
+            var queryString = new URLSearchParams(params).toString();
             fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
-                body: new URLSearchParams(params).toString()
+                body: queryString
             }).then(function(response) {
                 return response.text();
             }).then(function(text) {
-                var response;
-                try {
-                    response = JSON.parse(text);
-                } catch(e) {
-                    response = {};
-                }
-                self.loadAreaResponseHandler(response);
-            });
+                var response = JSON.parse(text);
+                this.loadAreaResponseHandler(response);
+            }.bind(this));
         }
         else {
+            var queryString = new URLSearchParams(params).toString();
             fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
-                body: new URLSearchParams(params).toString()
+                body: queryString
             });
         }
         if (typeof productConfigure != 'undefined' && area instanceof Array && area.indexOf('items') != -1) {
@@ -1120,9 +1118,9 @@ AdminOrder.prototype = {
 
     areaOverlay : function()
     {
-        var overlayData = this.overlayData;
-        Object.keys(overlayData).forEach(function(key){
-            overlayData[key].fx();
+        var data = order.overlayData;
+        Object.keys(data).forEach(function(key){
+            data[key].fx();
         });
     },
 
@@ -1159,24 +1157,22 @@ AdminOrder.prototype = {
     },
 
     serializeData : function(container){
-        var containerEl = document.getElementById(container);
-        if (!containerEl) return {};
-        var fields = containerEl.querySelectorAll('input, select, textarea');
-        return _serializeElements(fields);
+        var el = document.getElementById(container);
+        if (!el) return {};
+        var fields = el.querySelectorAll('input, select, textarea');
+        return _serializeFormElements(fields, true);
     },
 
     toggleCustomPrice: function(checkbox, elemId, tierBlock) {
-        var elem = document.getElementById(elemId);
-        var tierEl = document.getElementById(tierBlock);
         if (checkbox.checked) {
-            elem.disabled = false;
-            elem.style.display = '';
-            if(tierEl) tierEl.style.display = 'none';
+            document.getElementById(elemId).disabled = false;
+            document.getElementById(elemId).style.display = '';
+            if(document.getElementById(tierBlock)) document.getElementById(tierBlock).style.display = 'none';
         }
         else {
-            elem.disabled = true;
-            elem.style.display = 'none';
-            if(tierEl) tierEl.style.display = '';
+            document.getElementById(elemId).disabled = true;
+            document.getElementById(elemId).style.display = 'none';
+            if(document.getElementById(tierBlock)) document.getElementById(tierBlock).style.display = '';
         }
     },
 
@@ -1233,7 +1229,7 @@ AdminOrder.prototype = {
             return false;
         }
 
-        var parentEl = el.parentElement ? el.parentElement.parentElement : null;
+        var parentEl = el.parentElement && el.parentElement.parentElement ? el.parentElement.parentElement : null;
         if (!parentEl) return false;
 
         if (show) {
@@ -1244,16 +1240,14 @@ AdminOrder.prototype = {
         }
 
         parentEl.style.position = 'relative';
-        Object.assign(el.style, {
-            display: show ? 'none' : '',
-            position: 'absolute',
-            backgroundColor: '#999999',
-            opacity: '0.8',
-            width: parentEl.offsetWidth + 'px',
-            height: parentEl.offsetHeight + 'px',
-            top: '0',
-            left: '0'
-        });
+        el.style.display = show ? 'none' : '';
+        el.style.position = 'absolute';
+        el.style.backgroundColor = '#999999';
+        el.style.opacity = '0.8';
+        el.style.width = parentEl.offsetWidth + 'px';
+        el.style.height = parentEl.offsetHeight + 'px';
+        el.style.top = '0';
+        el.style.left = '0';
     },
 
     validateVat: function(parameters)
@@ -1268,12 +1262,12 @@ AdminOrder.prototype = {
         }
 
         var currentCustomerGroupId = document.getElementById(parameters.groupIdHtmlId).value;
-        var self = this;
 
+        var queryString = new URLSearchParams(params).toString();
         fetch(parameters.validateUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
-            body: new URLSearchParams(params).toString()
+            body: queryString
         }).then(function(response) {
             return response.text();
         }).then(function(text) {
@@ -1303,9 +1297,9 @@ AdminOrder.prototype = {
                 alert(message);
             }
             else {
-                self.processCustomerGroupChange(parameters.groupIdHtmlId, message, response.group);
+                this.processCustomerGroupChange(parameters.groupIdHtmlId, message, response.group);
             }
-        });
+        }.bind(this));
     },
 
     processCustomerGroupChange: function(groupIdHtmlId, message, groupId)
@@ -1324,27 +1318,30 @@ AdminOrder.prototype = {
     }
 };
 
-function OrderFormArea(name, node, parent) {
-    this._name = name;
-    this._parent = parent;
-    this._callbackName = node.callback;
-    if (typeof this._callbackName == 'undefined') {
-        this._callbackName = name + 'Loaded';
-        node.callback = this._callbackName;
-    }
-    parent[this._callbackName] = _wrapFunction(parent[this._callbackName], (function (proceed){
-        proceed();
-        this.onLoad();
-    }).bind(this));
-
-    this.setNode(node);
-}
-
+var OrderFormArea = function(name, node, parent) {
+    this.initialize(name, node, parent);
+};
 OrderFormArea.prototype = {
     _name: null,
     _node: null,
     _parent: null,
     _callbackName: null,
+
+    initialize: function(name, node, parent){
+        this._name = name;
+        this._parent = parent;
+        this._callbackName = node.callback;
+        if (typeof this._callbackName == 'undefined') {
+            this._callbackName = name + 'Loaded';
+            node.callback = this._callbackName;
+        }
+        parent[this._callbackName] = _wrapFunction(parent[this._callbackName], (function (proceed){
+            proceed();
+            this.onLoad();
+        }).bind(this));
+
+        this.setNode(node);
+    },
 
     setNode: function(node){
         if (!node.callback) {
@@ -1357,22 +1354,25 @@ OrderFormArea.prototype = {
     }
 };
 
-function ControlButton(label) {
-    this._label = label;
-    this._node = document.createElement('button');
-    this._node.className = 'scalable add';
-    this._node.type = 'button';
-}
-
+var ControlButton = function(label) {
+    this.initialize(label);
+};
 ControlButton.prototype = {
     _label: '',
     _node: null,
+
+    initialize: function(label){
+        this._label = label;
+        this._node = document.createElement('button');
+        this._node.className = 'scalable add';
+        this._node.type = 'button';
+    },
 
     onClick: function(){
     },
 
     insertIn: function(element, position){
-        var node = this._node;
+        var node = this._node.cloneNode(true);
         node.addEventListener('click', this.onClick);
         node.innerHTML = '<span>' + this._label + '</span>';
         if (position === 'top') {
