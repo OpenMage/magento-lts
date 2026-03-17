@@ -38,7 +38,6 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      */
     public function __construct($path, $isRecursion = true, $recursionLevel = 0)
     {
-        parent::__construct();
         $this->setPath($path);
         $this->_dirName = $this->lastDir();
         $this->setRecursion($isRecursion);

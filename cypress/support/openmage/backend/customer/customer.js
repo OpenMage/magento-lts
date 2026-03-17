@@ -63,7 +63,7 @@ test.config = {
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
-    url: 'customer/index',
+    url: 'admin/customer',
     index: {},
     edit: {},
     new: {},
@@ -71,12 +71,12 @@ test.config = {
 
 /**
  * Configuration for "Manage Customers" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
  */
 test.config.index = {
     title: 'Manage Customers',
     url: test.config.url,
-    _grid: '#customerGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'entity_id', dir: 'desc' } }},
     __buttons: {},
     clickGridRow: (content = '', _ = 'td') => {
         tools.grid.clickContains(test.config.index, content, _);
