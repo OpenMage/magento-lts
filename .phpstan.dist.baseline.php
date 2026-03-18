@@ -1922,12 +1922,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Catalog_Helper_Product_Compare::getItemCollection() should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection but returns Mage_Catalog_Model_Resource_Product_Compare_Item_Collection.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Product/Compare.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Catalog_Helper_Product_Flat::$_indexerCode is not the same as PHPDoc type string|null of overridden property Mage_Catalog_Helper_Flat_Abstract::$_indexerCode.',
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
