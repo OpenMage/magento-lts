@@ -11,6 +11,8 @@
  * Customer group collection
  *
  * @package    Mage_Customer
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Customer_Model_Group>
  */
 class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
