@@ -8,8 +8,6 @@
  */
 
 /**
- * Mage_Log_Model_Mysql4_Customers_Collection
- *
  * @package    Mage_Log
  * @deprecated
  */
