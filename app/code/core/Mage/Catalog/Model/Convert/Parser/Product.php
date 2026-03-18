@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
                 // try to get entity_id by sku if not set
                 if (empty($row['entity_id'])) {
-                    $row['entity_id'] = $this->getResource()->getProductIdBySku($row['sku']);
+                    $row['entity_id'] = Mage::getModel('catalog/product')->getIdBySku($row['sku']);
                 }
 
                 // if attribute_set not set use default
