@@ -115,7 +115,7 @@
  * @method $this                          setParentItemId(int $value)
  * @method $this                          setPriceInclTax(float $value)
  * @method $this                          setProduct(Mage_Catalog_Model_Product $value)
- * @method $this                          setQty(float $value)
+ * @method $this                          setQty(float $qty)
  * @method $this                          setRowTax(int $rowTax)
  * @method $this                          setRowTotal(float $value)
  * @method $this                          setRowTotalExcTax(float $value)
@@ -229,7 +229,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     /**
      * Set parent item
      *
-     * @param  Mage_Sales_Model_Quote_Item $parentItem
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $parentItem
      * @return $this
      */
     public function setParentItem($parentItem)
