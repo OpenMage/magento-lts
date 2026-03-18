@@ -708,7 +708,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_index>
@@ -716,7 +715,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>

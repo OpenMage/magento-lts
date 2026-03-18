@@ -172,6 +172,14 @@
                     </inventory>
                 </observers>
             </catalog_product_save_after>
+            <cataloginventory_stock_item_save_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer_updateConfigurableStockStatus</class>
+                    </inventory>
+                </observers>
+            </cataloginventory_stock_item_save_after>
             <catalog_model_product_duplicate>
                 <observers>
                     <inventory>
