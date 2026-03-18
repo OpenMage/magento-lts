@@ -21,7 +21,6 @@
             </tag>
             <tag_customer>
                 <class>Mage_Tag_Model_Customer</class>
-                <!-- <resourceModel>tag_customer_mysql4</resourceModel> -->
                 <resourceModel>tag_customer_resource</resourceModel>
             </tag_customer>
             <tag_resource>
