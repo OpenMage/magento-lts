@@ -116,12 +116,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Cache/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -368,12 +362,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $grid of method Mage_Reports_Model_Totals::countTotals() expects Mage_Adminhtml_Block_Report_Product_Grid, $this(Mage_Adminhtml_Block_Report_Grid) given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -382,18 +370,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Adminhtml_Block_Report_Grid_Abstract::getCollection() should return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection_Db|null.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Mage_Reports_Model_Grouped_Collection given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
 ];
@@ -414,12 +390,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Viewed/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -498,12 +468,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -924,12 +888,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1380,12 +1338,6 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection_Db, Varien_Data_Collection given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2474,12 +2426,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Catalog_Model_Product_Type_Configurable::getProductByAttributes() should return Mage_Catalog_Model_Product|null but returns Varien_Object.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Configuration_Item_Option|Mage_Sales_Model_Quote_Item_Option is not subtype of type Mage_Sales_Model_Quote_Item_Option.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
@@ -2588,12 +2534,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $resource of method Mage_Core_Model_Resource_Db_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Db_Abstract|null, Mage_Core_Model_Resource_Abstract|null given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2682,12 +2622,6 @@ $ignoreErrors[] = [
 	'identifier' => 'variable.undefined',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $object of method Mage_Eav_Model_Entity_Collection_Abstract::setObject() expects Varien_Object|null, string given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -3074,12 +3008,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -3236,12 +3164,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Api/Resource.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null.',
-	'identifier' => 'varTag.nativeType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Api/Resource/Product.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
@@ -3352,12 +3274,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $qty of method Mage_Sales_Model_Quote_Item::setQty() expects float, array|string|null given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
@@ -4031,12 +3947,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Property Mage_Core_Model_Resource_Db_Collection_Abstract::$_resource (Mage_Core_Model_Resource_Db_Abstract) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -4910,12 +4820,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $resource of method Mage_Eav_Model_Entity_Collection_Abstract::__construct() expects Mage_Core_Model_Resource_Abstract|null, Varien_Db_Adapter_Interface|false given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface::getAttributeCode().',
 	'identifier' => 'method.notFound',
 	'count' => 1,
@@ -4925,12 +4829,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 12,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $className of method Varien_Data_Collection::setItemObjectClass() expects string, null given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -5078,8 +4976,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type Mage_Eav_Model_Resource_Entity_Attribute_Collection|null of property Mage_ImportExport_Block_Adminhtml_Export_Filter::$_collection is not the same as PHPDoc type Varien_Data_Collection_Db|null of overridden property Mage_Adminhtml_Block_Widget_Grid::$_collection.',
-	'identifier' => 'property.phpDocType',
+	'rawMessage' => 'Method Mage_ImportExport_Block_Adminhtml_Export_Filter::prepareCollection() should return Mage_Eav_Model_Resource_Entity_Attribute_Collection but returns Varien_Data_Collection|null.',
+	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
 ];
@@ -6062,18 +5960,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Source/BuyerCountry.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Varien_Data_Collection::toOptionArray() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6112,12 +5998,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Rating_Model_Resource_Rating_Collection::getItemById() invoked with 1 parameter, 0 required.',
-	'identifier' => 'arguments.count',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
 ];
@@ -6458,6 +6338,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Quote_Item::importCatalogProduct().',
+	'identifier' => 'method.notFound',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6650,32 +6536,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Quote::addItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Sales_Model_Quote_Address::getItemsCollection() should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $parentItem of method Mage_Sales_Model_Quote_Item_Abstract::setParentItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Address_Item given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $quoteItem of method Mage_Sales_Model_Quote_Address_Item::importQuoteItem() expects Mage_Sales_Model_Quote_Item, Mage_Sales_Model_Quote_Item_Abstract given.',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Quote/Address.php',
 ];
@@ -6776,12 +6638,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Address.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #1 $attribute of method Mage_Sales_Model_Resource_Collection_Abstract::addAttributeToFilter() expects Mage_Eav_Model_Entity_Attribute|string, array given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Resource/Order/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6878,6 +6734,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6904,7 +6766,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Rule_Model_Action_Collection::validate().',
 	'identifier' => 'method.notFound',
-	'count' => 2,
+	'count' => 4,
 	'path' => __DIR__ . '/app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
