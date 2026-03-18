@@ -90,22 +90,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     }
 
     /**
-     * @return Mage_Catalog_Model_Mysql4_Convert
-     */
-    public function getResource()
-    {
-        if (!$this->_resource) {
-            $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-            #->loadStores()
-            #->loadProducts()
-            #->loadAttributeSets()
-            #->loadAttributeOptions();
-        }
-
-        return $this->_resource;
-    }
-
-    /**
      * @param  int                                            $storeId
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */

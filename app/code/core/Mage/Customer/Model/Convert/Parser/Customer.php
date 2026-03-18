@@ -188,18 +188,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @return Mage_Catalog_Model_Mysql4_Convert
-     */
-    public function getResource()
-    {
-        if (!$this->_resource) {
-            $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-        }
-
-        return $this->_resource;
-    }
-
-    /**
      * @param  int                                              $storeId
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
