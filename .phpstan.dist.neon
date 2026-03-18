@@ -31,7 +31,6 @@ parameters:
         matchingInheritedMethodNames: true
     excludePaths:
         #incompatible interfaces
-        - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
         - lib/Varien/Directory/Collection.php
         - lib/Varien/Directory/Factory.php
         - lib/Varien/File/Object.php
