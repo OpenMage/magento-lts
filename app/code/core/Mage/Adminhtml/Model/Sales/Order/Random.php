@@ -72,7 +72,6 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     {
         if (!$this->_productCollection) {
             $this->_productCollection = Mage::getResourceModel('catalog/product_collection');
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($this->_productCollection);
             $this->_productCollection
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
@@ -80,6 +79,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->addAttributeToFilter('status', [
                     'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
                 ])
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSearchIds())
                 ->load();
         }
 

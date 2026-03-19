@@ -88,12 +88,10 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addAttributeToFilter('status', [
                     'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
                 ])
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addUrlRewrite()
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
                 ->setActiveFilter();
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
-                $this->_productCollection,
-            );
         }
 
         return $this->_productCollection;

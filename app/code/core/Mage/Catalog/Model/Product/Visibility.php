@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog Product visibilite model and attribute source model
+ * Catalog Product visibility model and attribute source model
  *
  * @package    Mage_Catalog
  */
@@ -36,42 +36,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     {
         parent::__construct();
         $this->setIdFieldName('visibility_id');
-    }
-
-    /**
-     * Add visible in catalog filter to collection
-     *
-     * @return $this
-     * @deprecated
-     */
-    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
-    {
-        $collection->setVisibility($this->getVisibleInCatalogIds());
-        return $this;
-    }
-
-    /**
-     * Add visibility in searchfilter to collection
-     *
-     * @return $this
-     * @deprecated
-     */
-    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
-    {
-        $collection->setVisibility($this->getVisibleInSearchIds());
-        return $this;
-    }
-
-    /**
-     * Add visibility in site filter to collection
-     *
-     * @return $this
-     * @deprecated
-     */
-    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
-    {
-        $collection->setVisibility($this->getVisibleInSiteIds());
-        return $this;
     }
 
     /**

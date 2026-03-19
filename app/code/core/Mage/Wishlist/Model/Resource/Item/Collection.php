@@ -168,7 +168,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         }
 
         if ($this->_productVisible) {
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($productCollection);
+            $productCollection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
         }
 
         $productCollection->addPriceData($this->_customerGroupId, $this->_websiteId)

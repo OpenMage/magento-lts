@@ -29,10 +29,10 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('url_key')
             ->addStoreFilter()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
             ->addAttributeToFilter('status', [
                 'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
             ]);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
 
         $this->setCollection($collection);
         return $this;

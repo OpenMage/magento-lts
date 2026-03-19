@@ -135,12 +135,11 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
                 ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
                 ->setActiveFilter();
 
             Mage::getSingleton('catalog/product_status')
                 ->addVisibleFilterToCollection($this->_collection);
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;
