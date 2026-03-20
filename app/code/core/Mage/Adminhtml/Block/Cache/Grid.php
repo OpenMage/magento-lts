@@ -42,14 +42,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Add name and description to collection elements
-     */
-    protected function _afterLoadCollection()
-    {
-        return parent::_afterLoadCollection();
-    }
-
-    /**
      * @inheritDoc
      * @throws Exception
      */
