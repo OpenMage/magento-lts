@@ -1477,9 +1477,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * Will instantiate Mage_Catalog_Model_Resource_Product
      *
-     * @param  string                         $modelClass
-     * @param  array|object                   $constructArguments
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @param  array|object                          $constructArguments
+     * @return false|Mage_Core_Model_Abstract|object
      * @see Mage_Catalog_Model_Resource_Product
      */
     public function getModelInstance($modelClass = '', $constructArguments = [])
