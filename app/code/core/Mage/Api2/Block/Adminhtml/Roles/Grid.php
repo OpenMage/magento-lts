@@ -79,10 +79,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Get row URL
-     *
+     * @inheritDoc
      * @param  Mage_Api2_Model_Acl_Global_Role $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

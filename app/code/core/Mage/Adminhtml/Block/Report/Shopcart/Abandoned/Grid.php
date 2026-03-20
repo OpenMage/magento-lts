@@ -64,7 +64,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
     /**
      * @inheritDoc
      * @throws Exception
-     * @throws Mage_Core_Exception
      */
     protected function _prepareColumns()
     {
@@ -158,6 +157,10 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId(), 'active_tab' => 'cart']);

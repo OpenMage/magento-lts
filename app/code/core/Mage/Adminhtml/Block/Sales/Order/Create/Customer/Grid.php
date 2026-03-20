@@ -105,6 +105,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
         return $row->getId();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Customer_Model_Customer $row
+     * @throws Mage_Core_Exception
+     */
     public function getRowUrl($row)
     {
         return $row->getId();

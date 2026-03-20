@@ -12,14 +12,12 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
- * @method string                               getCreatedAt()
- * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
- * @method string                               getUpdatedAt()
- * @method bool                                 hasErrors()
- * @method $this                                setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
- * @method $this                                setCreatedAt(null|string $currentTime)
- * @method $this                                setUpdatedAt(null|string $currentTime)
+ * @method string getCreatedAt()
+ * @method string getUpdatedAt()
+ * @method bool   hasErrors()
+ * @method $this  setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
+ * @method $this  setCreatedAt(null|string $currentTime)
+ * @method $this  setUpdatedAt(null|string $currentTime)
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {

@@ -159,7 +159,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @inheritDoc
      */
     protected $_cacheTag = 'quote';
 

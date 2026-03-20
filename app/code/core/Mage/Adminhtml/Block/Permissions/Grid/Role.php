@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         $this->setId('roleGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('role_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
@@ -66,6 +66,10 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Admin_Model_Role $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/editrole', ['rid' => $row->getRoleId()]);

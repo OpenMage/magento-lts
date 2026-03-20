@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_invoice')::getStates(),
+            'options'   => Mage::getModel('sales/order_invoice')->getStates(),
         ]);
 
         $this->addColumn('base_grand_total', [
@@ -109,8 +109,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order_Invoice $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

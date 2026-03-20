@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
         ]);
 
         $this->addColumn('grand_total', [
@@ -137,8 +137,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order_Creditmemo $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

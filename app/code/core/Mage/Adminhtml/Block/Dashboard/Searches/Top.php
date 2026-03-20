@@ -89,8 +89,8 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_CatalogSearch_Model_Query $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

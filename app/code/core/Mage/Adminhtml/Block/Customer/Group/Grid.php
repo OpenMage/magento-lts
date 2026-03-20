@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         $this->setId('customerGroupGrid');
         $this->setDefaultSort('type');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -65,8 +65,8 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Customer_Model_Group $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

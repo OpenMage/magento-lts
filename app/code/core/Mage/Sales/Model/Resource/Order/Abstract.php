@@ -320,7 +320,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $attribute = [$attribute];
         }
 
-        if (is_array($attribute) && !empty($attribute)) {
+        if (is_array($attribute) && $attribute !== []) {
             $this->beginTransaction();
             try {
                 $this->_beforeSaveAttribute($object, $attribute);

@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         parent::__construct();
         $this->setId('newsletterTemplateGrid');
         $this->setDefaultSort('template_code');
-        $this->setDefaultDir('desc');
+        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -130,8 +130,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Newsletter_Model_Template $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

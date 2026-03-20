@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
         parent::__construct();
         $this->setId('permissionsVariableGrid');
         $this->setDefaultSort('variable_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
@@ -65,8 +65,8 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Admin_Model_Variable $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

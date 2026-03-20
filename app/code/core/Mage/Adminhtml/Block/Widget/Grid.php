@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var null|Varien_Data_Collection|Varien_Data_Collection_Db
+     * @var null|Varien_Data_Collection_Db
      */
     protected $_collection = null;
 
@@ -327,7 +327,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db $collection
      */
     public function setCollection($collection)
     {
@@ -337,7 +337,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db
      */
     public function getCollection()
     {
@@ -1033,7 +1033,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param  string $dir
+     * @param  'ASC'|'DESC' $dir
      * @return $this
      */
     public function setDefaultDir($dir)
@@ -1059,7 +1059,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportTypes()
     {
-        return $this->_exportTypes === [] ? false : $this->_exportTypes;
+        return empty($this->_exportTypes) ? false : $this->_exportTypes;
     }
 
     /**
@@ -1087,7 +1087,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getRssLists()
     {
-        return $this->_rssLists === [] ? false : $this->_rssLists;
+        return empty($this->_rssLists) ? false : $this->_rssLists;
     }
 
     /**

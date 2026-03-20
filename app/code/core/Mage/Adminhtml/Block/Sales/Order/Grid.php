@@ -226,8 +226,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
+     * @inheritDoc
      * @param  Mage_Sales_Model_Order $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)

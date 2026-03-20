@@ -14,9 +14,9 @@
  *
  * @method string getInlineCssFile()
  * @method string getTemplateStyles()
- * @method getTemplateText()
- * @method $this setTemplateText(string $value)
- * @method $this setTemplateType(int $value)
+ * @method string getTemplateText()
+ * @method $this  setTemplateText(string $value)
+ * @method $this  setTemplateType(int $type)
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {

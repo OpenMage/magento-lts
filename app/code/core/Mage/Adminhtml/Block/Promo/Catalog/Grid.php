@@ -103,8 +103,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param  Mage_CatalogRule_Model_Rule $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_CatalogRule_Model_Rule $row
      */
     public function getRowUrl($row)
     {

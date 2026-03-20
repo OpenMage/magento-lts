@@ -162,6 +162,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         return $this->fetchView($templateName);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote_Item $row
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

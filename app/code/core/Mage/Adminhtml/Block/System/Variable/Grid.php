@@ -64,7 +64,9 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Core_Model_Variable $row
+     * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
     {
