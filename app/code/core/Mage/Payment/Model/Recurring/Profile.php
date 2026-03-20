@@ -168,8 +168,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if ($this->_methodInstance) {
             try {
                 $this->_methodInstance->validateRecurringProfile($this);
-            } catch (Mage_Core_Exception $e) {
-                $this->_errors['payment_method'][] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_errors['payment_method'][] = $mageCoreException->getMessage();
             }
         }
 

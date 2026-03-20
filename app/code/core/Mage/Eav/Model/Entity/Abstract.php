@@ -648,8 +648,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
             try {
                 $results[$attrCode] = call_user_func_array([$instance, $method], $args);
-            } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
-                throw $e;
+            } catch (Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
+                throw $mageEavModelEntityAttributeException;
             } catch (Exception $exception) {
                 $exception = Mage::getModel('eav/entity_attribute_exception', $exception->getMessage());
                 $exception->setAttributeCode($attrCode)->setPart($part);

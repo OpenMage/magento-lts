@@ -50,8 +50,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 } else {
                     $this->_fault('store_not_exists');
                 }
-            } catch (Mage_Core_Exception $e) {
-                $this->_fault('website_not_exists', $e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_fault('website_not_exists', $mageCoreException->getMessage());
             }
         } elseif ($store !== null) {
             // load children of root category of store
@@ -115,7 +115,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $parentId = 1;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
+        /** @var Mage_Catalog_Model_Resource_Category_Tree $tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
 
@@ -319,8 +319,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
+            $this->_fault('data_invalid', $mageEavModelEntityAttributeException->getMessage());
         }
 
         return true;

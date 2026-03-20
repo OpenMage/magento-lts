@@ -246,12 +246,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             if ($shipToInfo = $this->getRequest()->getPost('ship')) {
                 $this->_getCheckout()->setShippingItemsInformation($shipToInfo);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getCheckoutSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/addresses');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getCheckoutSession()->addException(
-                $e,
+                $exception,
                 Mage::helper('checkout')->__('Data saving problem'),
             );
             $this->_redirect('*/*/addresses');
@@ -484,12 +484,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_initLayoutMessages('checkout/session');
             $this->_initLayoutMessages('customer/session');
             $this->renderLayout();
-        } catch (Mage_Core_Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getCheckoutSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_getCheckoutSession()->addException($e, $this->__('Cannot open the overview page'));
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_getCheckoutSession()->addException($exception, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
         }
     }
@@ -538,28 +538,28 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckout()->getCheckoutSession()->clear();
             $this->_getCheckout()->getCheckoutSession()->setDisplaySuccess(true);
             $this->_redirect('*/*/success');
-        } catch (Mage_Payment_Model_Info_Exception $e) {
-            $message = $e->getMessage();
+        } catch (Mage_Payment_Model_Info_Exception $magePaymentModelInfoException) {
+            $message = $magePaymentModelInfoException->getMessage();
             if (!empty($message)) {
                 $this->_getCheckoutSession()->addError($message);
             }
 
             $this->_redirect('*/*/billing');
-        } catch (Mage_Checkout_Exception $e) {
+        } catch (Mage_Checkout_Exception $mageCheckoutException) {
             Mage::helper('checkout')
-                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
+                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $mageCheckoutException->getMessage(), 'multi-shipping');
             $this->_getCheckout()->getCheckoutSession()->clear();
-            $this->_getCheckoutSession()->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($mageCheckoutException->getMessage());
             $this->_redirect('*/cart');
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             Mage::helper('checkout')
-                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
-            $this->_getCheckoutSession()->addError($e->getMessage());
+                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $mageCoreException->getMessage(), 'multi-shipping');
+            $this->_getCheckoutSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::helper('checkout')
-                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
+                ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $exception->getMessage(), 'multi-shipping');
             $this->_getCheckoutSession()->addError($this->__('Order place error.'));
             $this->_redirect('*/*/billing');
         }

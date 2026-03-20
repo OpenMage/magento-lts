@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var null|Varien_Data_Collection_Db
+     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection|Mage_Reports_Model_Grouped_Collection|Varien_Data_Collection|Varien_Data_Collection_Db
      */
     protected $_collection = null;
 
@@ -320,7 +320,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db $collection
      */
     public function setCollection($collection)
     {
@@ -330,7 +330,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection|Varien_Data_Collection_Db
      */
     public function getCollection()
     {
@@ -576,20 +576,22 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _addColumnFilterToCollection($column)
     {
-        if ($this->getCollection()) {
+        if ($collection = $this->getCollection()) {
             $field = $column->getFilterIndex() ?: $column->getIndex();
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
-                call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
+                call_user_func($column->getFilterConditionCallback(), $collection, $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
                 if ($field && $cond !== null) {
-                    $filtered = array_map(static function ($value) {
-                        return is_object($value) ? $value->__toString() : $value;
-                    }, is_array($cond) ? array_values($cond) : [$cond]);
-                    if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
-                        $this->getCollection()->addFieldToFilter($field, ['null' => true]);
-                    } else {
-                        $this->getCollection()->addFieldToFilter($field, $cond);
+                    if ($collection instanceof Varien_Data_Collection_Db) {
+                        $filtered = array_map(static function ($value) {
+                            return is_object($value) ? $value->__toString() : $value;
+                        }, is_array($cond) ? array_values($cond) : [$cond]);
+                        if (in_array("'%NULL%'", $filtered, true) || in_array('NULL', $filtered, true)) {
+                            $collection->addFieldToFilter($field, ['null' => true]);
+                        } else {
+                            $collection->addFieldToFilter($field, $cond);
+                        }
                     }
                 }
             }
@@ -1279,10 +1281,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $csv = '';
         $this->_isExport = true;
         $this->_prepareGrid();
-        $this->getCollection()->getSelect()->limit();
-        $this->getCollection()->setPageSize(0);
+
+        $collection = $this->getCollection();
+        if ($collection instanceof Varien_Data_Collection_Db) {
+            $collection->getSelect()->limit();
+        }
+
+        $collection->setPageSize(0);
         $this->_beforeLoadCollection();
-        $this->getCollection()->load();
+        $collection->load();
         $this->_afterLoadCollection();
 
         $data = [];
@@ -1294,7 +1301,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $csv .= implode(',', $data) . "\n";
 
-        foreach ($this->getCollection() as $item) {
+        foreach ($collection as $item) {
             $data = [];
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
@@ -1335,10 +1342,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_isExport = true;
         $this->_prepareGrid();
-        $this->getCollection()->getSelect()->limit();
-        $this->getCollection()->setPageSize(0);
+
+        $collection = $this->getCollection();
+        if ($collection instanceof Varien_Data_Collection_Db) {
+            $collection->getSelect()->limit();
+        }
+
+        $collection->setPageSize(0);
         $this->_beforeLoadCollection();
-        $this->getCollection()->load();
+        $collection->load();
         $this->_afterLoadCollection();
         $indexes = [];
         foreach ($this->_columns as $column) {
@@ -1349,7 +1361,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<items>';
-        foreach ($this->getCollection() as $item) {
+        foreach ($collection as $item) {
             $xml .= $item->toXml($indexes);
         }
 
@@ -1438,10 +1450,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_isExport = true;
         $this->_prepareGrid();
-        $this->getCollection()->getSelect()->limit();
-        $this->getCollection()->setPageSize(0);
+
+        $collection = $this->getCollection();
+        if ($collection instanceof Varien_Data_Collection_Db) {
+            $collection->getSelect()->limit();
+        }
+
+        $collection->setPageSize(0);
         $this->_beforeLoadCollection();
-        $this->getCollection()->load();
+        $collection->load();
         $this->_afterLoadCollection();
         $headers = [];
         $data = [];
@@ -1453,7 +1470,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $data[] = $headers;
 
-        foreach ($this->getCollection() as $item) {
+        foreach ($collection as $item) {
             $row = [];
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {

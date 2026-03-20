@@ -33,7 +33,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
         $purchasedIds = [];
-        /** @var Mage_Downloadable_Model_Link_Purchased_Item $item */
+        /** @var Mage_Downloadable_Model_Link_Purchased $item */
         foreach ($purchased as $item) {
             $purchasedIds[] = $item->getId();
         }

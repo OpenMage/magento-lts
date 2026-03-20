@@ -312,8 +312,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             throw new Mage_Api_Exception('resource_path_not_callable');
-        } catch (Mage_Api_Exception $e) {
-            $this->_fault($e->getMessage(), $resourceName, $e->getCustomMessage());
+        } catch (Mage_Api_Exception $mageApiException) {
+            $this->_fault($mageApiException->getMessage(), $resourceName, $mageApiException->getCustomMessage());
             return;
         } catch (Exception $e) {
             Mage::logException($e);
@@ -436,8 +436,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     throw new Mage_Api_Exception('resource_path_not_callable');
                 }
-            } catch (Mage_Api_Exception $e) {
-                $result[] = $this->_faultAsArray($e->getMessage(), $resourceName, $e->getCustomMessage());
+            } catch (Mage_Api_Exception $mageApiException) {
+                $result[] = $this->_faultAsArray($mageApiException->getMessage(), $resourceName, $mageApiException->getCustomMessage());
                 if (isset($options['break']) && $options['break'] == 1) {
                     break;
                 } else {

@@ -90,10 +90,10 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init model class by configuration
      *
-     * @param  string                         $class
-     * @param  string                         $totalCode
-     * @param  Mage_Core_Model_Config_Element $totalConfig
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                              $class
+     * @param  string                                              $totalCode
+     * @param  Mage_Core_Model_Config_Element                      $totalConfig
+     * @return false|Mage_Sales_Model_Quote_Address_Total_Abstract
      * @throws Mage_Core_Exception
      */
     protected function _initModelInstance($class, $totalCode, $totalConfig)
