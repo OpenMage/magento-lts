@@ -172,14 +172,14 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             } else {
                 Mage::throwException(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $e->setMessage(
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $mageCoreException->setMessage(
                 Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.'),
             );
-            $this->_loginFailed($e, $request, $username, $e->getMessage());
-        } catch (Exception $e) {
+            $this->_loginFailed($mageCoreException, $request, $username, $mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $message = Mage::helper('adminhtml')->__('An error occurred while logging in.');
-            $this->_loginFailed($e, $request, $username, $message);
+            $this->_loginFailed($exception, $request, $username, $message);
         }
 
         return $user ?? null;

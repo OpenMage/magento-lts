@@ -169,13 +169,13 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 );
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError(
                     Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.'),
                 );
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_redirect('*/*/edit', ['id' => $template]);
                 return;
             }

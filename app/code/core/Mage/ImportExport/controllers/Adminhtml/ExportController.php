@@ -64,10 +64,10 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     $result,
                     $model->getContentType(),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
         } else {

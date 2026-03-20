@@ -84,9 +84,9 @@ abstract class Varien_Convert_Profile_Abstract
         return $this;
     }
 
-    public function addException(Varien_Convert_Exception $e)
+    public function addException(Varien_Convert_Exception $varienConvertException)
     {
-        $this->_exceptions[] = $e;
+        $this->_exceptions[] = $varienConvertException;
         return $this;
     }
 
