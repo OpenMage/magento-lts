@@ -8,7 +8,7 @@
  */
 
 /**
- * Schedule mysql4 resource
+ * Schedule resource
  *
  * @package    Mage_Cron
  */
