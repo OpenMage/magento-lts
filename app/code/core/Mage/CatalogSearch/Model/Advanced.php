@@ -322,13 +322,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     {
         $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->setStore(Mage::app()->getStore())
-            ->addMinimalPrice()
+            ->addPriceData()
             ->addTaxPercents()
             ->addStoreFilter()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSearchIds())
             ->addAttributeToFilter('status', [
                 'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
             ]);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 
         return $this;
     }
