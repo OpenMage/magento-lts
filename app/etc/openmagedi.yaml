@@ -1,0 +1,8 @@
+framework:
+  secret: '%env(default:ThisTokenIsNotSoSecret:APP_SECRET)%'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
