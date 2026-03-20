@@ -1270,12 +1270,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         switch ($payment->getAnetTransType()) {
             case self::REQUEST_TYPE_AUTH_CAPTURE:
-                $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
-                if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
-                    $request->setXSplitTenderId($payment->getAdditionalInformation($this->_splitTenderIdKey));
-                }
-
-                break;
             case self::REQUEST_TYPE_AUTH_ONLY:
                 $request->setXAllowPartialAuth($this->getConfigData('allow_partial_authorization') ? 'True' : 'False');
                 if ($payment->getAdditionalInformation($this->_splitTenderIdKey)) {
@@ -1292,8 +1286,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $request->setXTransId($payment->getXTransId());
                 break;
             case self::REQUEST_TYPE_VOID:
-                $request->setXTransId($payment->getXTransId());
-                break;
             case self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
                 $request->setXTransId($payment->getXTransId());
                 break;

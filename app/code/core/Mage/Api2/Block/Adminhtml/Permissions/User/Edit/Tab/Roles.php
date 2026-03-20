@@ -11,6 +11,8 @@
  * API2 role list for admin user permissions
  *
  * @package    Mage_Api2
+ *
+ * @method Varien_Data_Collection_Db getCollection()
  */
 class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {

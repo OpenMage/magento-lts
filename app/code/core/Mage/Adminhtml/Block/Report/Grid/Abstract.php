@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection
+     * @return Mage_Reports_Model_Grouped_Collection|Varien_Data_Collection
      */
     public function getCollection()
     {
@@ -186,9 +186,11 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             return $this;
         }
 
+        $collection = $this->getCollection();
+
         if ($filterData->getData('show_empty_rows', false)) {
             Mage::helper('reports')->prepareIntervalsCollection(
-                $this->getCollection(),
+                $collection,
                 $filterData->getData('from', null),
                 $filterData->getData('to', null),
                 $filterData->getData('period_type'),
@@ -218,8 +220,10 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             }
         }
 
-        $this->getCollection()->setColumnGroupBy($this->_columnGroupBy);
-        $this->getCollection()->setResourceCollection($resourceCollection);
+        if ($collection instanceof Mage_Reports_Model_Grouped_Collection) {
+            $collection->setColumnGroupBy($this->_columnGroupBy);
+            $collection->setResourceCollection($resourceCollection);
+        }
 
         return parent::_prepareCollection();
     }

@@ -41,7 +41,6 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                         ->setPositionOrder()
                         ->load();
 
-                    /** @var Mage_Catalog_Model_Product_Link $item */
                     foreach ($collection as $item) {
                         $ninProductIds[] = $item->getId();
                         $items[] = $item;

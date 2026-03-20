@@ -25,7 +25,7 @@ test.config = {
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
-    url: 'customer_group/index',
+    url: 'admin/customer_group',
     index: {},
     edit: {},
     new: {},
@@ -33,12 +33,12 @@ test.config = {
 
 /**
  * Configuration for "Customer Groups" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
  */
 test.config.index = {
     title: 'Customer Groups',
     url: test.config.url,
-    _grid: '#customerGroupGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'type', dir: 'asc' } }},
     __buttons: {},
     clickGridRow: (content = '', selector = 'td') => {
         tools.grid.clickContains(test.config.index, content, selector);

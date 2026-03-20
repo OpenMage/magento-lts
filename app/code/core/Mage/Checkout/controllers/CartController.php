@@ -692,10 +692,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     Mage::throwException($this->__('Quote item is not found.'));
                 }
 
-                if (is_numeric($qty) && $qty == 0) {
-                    $cart->removeItem($id);
-                } else {
-                    $quoteItem->setQty($qty);
+                if (is_numeric($qty)) {
+                    if ($qty == 0) {
+                        $cart->removeItem($id);
+                    } else {
+                        $quoteItem->setQty((float) $qty);
+                    }
                 }
 
                 $this->_getCart()->save();

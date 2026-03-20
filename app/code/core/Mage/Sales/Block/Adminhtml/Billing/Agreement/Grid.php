@@ -22,7 +22,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->setId('billing_agreements');
         $this->setUseAjax(true);
         $this->setDefaultSort('agreement_id');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
