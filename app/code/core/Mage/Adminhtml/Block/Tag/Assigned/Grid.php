@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'type_id',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
+                'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
             ],
         );
 
