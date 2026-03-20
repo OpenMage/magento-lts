@@ -1,0 +1,22 @@
+{
+    "validUser": {
+        "username": {
+            "_": "#username",
+            "value": "admin"
+        },
+        "password": {
+            "_": "#login",
+            "value": "veryl0ngpassw0rd"
+        }
+    },
+    "invalidUser": {
+        "username": {
+            "_": "#username",
+            "value": "abc"
+        },
+        "password": {
+            "_": "#login",
+            "value": "123"
+        }
+    }
+}

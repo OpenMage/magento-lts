@@ -3,66 +3,15 @@ const test = cy.openmage.test.backend.customer.customer;
 const tools = cy.openmage.tools;
 
 /**
- *
- * @type {{firstname: {_: string}, gender: {_: string}, prefix: {_: string}, middlename: {_: string}, suffix: {_: string}, lastname: {_: string}, password: {_: string}, group_id: {_: string}, sendemail_store_id: {_: string}, dob: {_: string}, sendemail: {_: string}, website_id: {_: string}, send_pass: {_: string}, email: {_: string}, taxvat: {_: string}}}
- */
-test.__fields = {
-    website_id : {
-        _: '#_accountwebsite_id',
-    },
-    group_id : {
-        _: '#_accountgroup_id',
-    },
-    prefix : {
-        _: '#_accountprefix',
-    },
-    firstname : {
-        _: '#_accountfirstname',
-    },
-    middlename : {
-        _: '#_accountmiddlename',
-    },
-    lastname : {
-        _: '#_accountlastname',
-    },
-    suffix : {
-        _: '#_accountsuffix',
-    },
-    email : {
-        _: '#_accountemail',
-    },
-    dob : {
-        _: '#_accountdob',
-    },
-    taxvat : {
-        _: '#_accounttaxvat',
-    },
-    gender : {
-        _: '#_accountgender',
-    },
-    sendemail : {
-        _: '#_accountsendemail',
-    },
-    sendemail_store_id : {
-        _: '#_accountsendemail_store_id',
-    },
-    password : {
-        _: '#_accountpassword',
-    },
-    send_pass: {
-        _: '#account-send-pass',
-    },
-}
-
-/**
  * Configuration for "Manage Customers" menu item
- * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, __fixture: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _: '#nav-admin-customer-manage',
     _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
+    __fixture: 'backend/customer/customer',
     url: 'admin/customer',
     index: {},
     edit: {},
@@ -122,11 +71,10 @@ test.config.edit = {
 
 /**
  * Configuration for "New Customer" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new}}
  */
 test.config.new = {
     title: 'New Customer',
     url: 'customer/new',
     __buttons: base.__buttonsSets.new,
-    __fields: test.__fields,
 }

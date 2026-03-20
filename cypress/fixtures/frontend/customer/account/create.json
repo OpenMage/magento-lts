@@ -1,0 +1,68 @@
+{
+    "validCustomer": {
+        "firstName": {
+            "_": "#firstname",
+            "value": "John"
+        },
+        "lastName": {
+            "_": "#lastname",
+            "value": "Doe"
+        },
+        "email_address": {
+            "_": "#email_address",
+            "value": ""
+        },
+        "password": {
+            "_": "#password",
+            "value": "veryl0ngpassw0rd"
+        },
+        "confirmation": {
+            "_": "#confirmation",
+            "value": "veryl0ngpassw0rd"
+        }
+    },
+    "invalidWeakPassword": {
+        "firstName": {
+            "_": "#firstname",
+            "value": "John"
+        },
+        "lastName": {
+            "_": "#lastname",
+            "value": "Doe"
+        },
+        "email_address": {
+            "_": "#email_address",
+            "value": ""
+        },
+        "password": {
+            "_": "#password",
+            "value": "12345678"
+        },
+        "confirmation": {
+            "_": "#confirmation",
+            "value": "12345678"
+        }
+    },
+    "invalidWeakPasswordConfirm": {
+        "firstName": {
+            "_": "#firstname",
+            "value": "John"
+        },
+        "lastName": {
+            "_": "#lastname",
+            "value": "Doe"
+        },
+        "email_address": {
+            "_": "#email_address",
+            "value": ""
+        },
+        "password": {
+            "_": "#password",
+            "value": "abc"
+        },
+        "confirmation": {
+            "_": "#confirmation",
+            "value": "123"
+        }
+    }
+}
