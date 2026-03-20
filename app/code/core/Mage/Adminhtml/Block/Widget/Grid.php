@@ -726,8 +726,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
-        Mage::dispatchEvent('adminhtml_grid_prepare_columns_after', ['grid' => $this]);
-        Mage::dispatchEvent('adminhtml_grid_prepare_columns_after_' . $this->getId(), ['grid' => $this]);
+        Mage::dispatchEvent('adminhtml_widget_grid_prepare_columns', [
+            'grid' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_columns', [
+                'grid' => $this,
+            ]);
+        }
 
         $this->sortColumnsByOrder();
         return $this;
@@ -798,8 +805,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareGrid()
     {
-        Mage::dispatchEvent('adminhtml_grid_prepare_columns_before', ['grid' => $this]);
-        Mage::dispatchEvent('adminhtml_grid_prepare_columns_before_' . $this->getId(), ['grid' => $this]);
+        Mage::dispatchEvent('adminhtml_widget_grid_prepare_grid', [
+            'grid' => $this,
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_grid', [
+                'grid' => $this,
+            ]);
+        }
 
         $this->_prepareColumns();
         $this->_prepareMassactionBlock();
