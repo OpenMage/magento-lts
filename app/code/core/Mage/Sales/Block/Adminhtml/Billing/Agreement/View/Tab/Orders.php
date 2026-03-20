@@ -77,9 +77,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Retrieve grid url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -99,7 +97,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
     /**
      * Disable massaction in grid
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
