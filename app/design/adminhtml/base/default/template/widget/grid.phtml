@@ -25,12 +25,12 @@ $numColumns = count($this->getColumns());
         </div>
         <?php endif ?>
 
-        <div id="<?php echo $this->getId() ?>">
+        <div id="<?php echo $this->getId() ?>" data-test="grid">
     <?php else: ?>
         <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php endif ?>
 <?php if($this->getPagerVisibility() || $this->getExportTypes() || $this->getFilterVisibility()): ?>
-    <table cellspacing="0" class="actions">
+    <table cellspacing="0" class="actions" data-test="grid-actions">
         <tr>
         <?php if($this->getPagerVisibility()): ?>
             <td class="pager">
@@ -92,7 +92,7 @@ $numColumns = count($this->getColumns());
 <?php endif ?>
 <div class="grid">
     <div class="hor-scroll">
-    <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
+    <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table" data-test="grid-table">
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?> />
         <?php endforeach ?>

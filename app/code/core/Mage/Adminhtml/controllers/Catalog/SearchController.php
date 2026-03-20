@@ -118,12 +118,12 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 $this->_getSession()->addSuccess(
                     Mage::helper('catalog')->__('You saved the search term.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
                 $hasError = true;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('catalog')->__('An error occurred while saving the search query.'),
                 );
                 $hasError = true;

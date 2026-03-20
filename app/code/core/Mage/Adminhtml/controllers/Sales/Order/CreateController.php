@@ -375,12 +375,12 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         try {
             $this->_initSession()
                 ->_processData();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             $this->_reloadQuote();
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_reloadQuote();
-            $this->_getSession()->addException($e, $e->getMessage());
+            $this->_getSession()->addException($exception, $exception->getMessage());
         }
 
         $asJson = $request->getParam('json');
@@ -504,23 +504,23 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             } else {
                 $this->_redirect('*/sales_order/index');
             }
-        } catch (Mage_Payment_Model_Info_Exception $e) {
+        } catch (Mage_Payment_Model_Info_Exception $magePaymentModelInfoException) {
             $this->_getOrderCreateModel()->saveQuote();
-            $message = $e->getMessage();
+            $message = $magePaymentModelInfoException->getMessage();
             if (!empty($message)) {
                 $this->_getSession()->addError($message);
             }
 
             $this->_redirect('*/*/');
-        } catch (Mage_Core_Exception $e) {
-            $message = $e->getMessage();
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $message = $mageCoreException->getMessage();
             if (!empty($message)) {
                 $this->_getSession()->addError($message);
             }
 
             $this->_redirect('*/*/');
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, $this->__('Order saving error: %s', $exception->getMessage()));
             $this->_redirect('*/*/');
         }
     }

@@ -246,11 +246,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $session->addError($e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addError($mageCoreException->getMessage());
                 $session->setPostData($postData);
-            } catch (Exception $e) {
-                $session->addException($e, Mage::helper('core')->__('An error occurred while saving. Please review the error log.'));
+            } catch (Exception $exception) {
+                $session->addException($exception, Mage::helper('core')->__('An error occurred while saving. Please review the error log.'));
                 $session->setPostData($postData);
             }
 
@@ -380,10 +380,10 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_getSession()->addSuccess(Mage::helper('core')->__('The website has been deleted.'));
             $this->_redirect('*/*/');
             return ;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete website. Please, try again later.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, Mage::helper('core')->__('Unable to delete website. Please, try again later.'));
         }
 
         $this->_redirect('*/*/editWebsite', ['website_id' => $itemId]);
@@ -412,10 +412,10 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_getSession()->addSuccess(Mage::helper('core')->__('The store has been deleted.'));
             $this->_redirect('*/*/');
             return ;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store. Please, try again later.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, Mage::helper('core')->__('Unable to delete store. Please, try again later.'));
         }
 
         $this->_redirect('*/*/editGroup', ['group_id' => $itemId]);
@@ -450,10 +450,10 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_getSession()->addSuccess(Mage::helper('core')->__('The store view has been deleted.'));
             $this->_redirect('*/*/');
             return ;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
         }
 
         $this->_redirect('*/*/editStore', ['store_id' => $itemId]);
@@ -488,12 +488,12 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
 
             $backupDb->createBackup($backup);
             $this->_getSession()->addSuccess(Mage::helper('backup')->__('Database was successfuly backed up.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_redirect($failPath, $arguments);
             return;
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
             return;
         }

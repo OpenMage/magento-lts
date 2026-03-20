@@ -10,19 +10,19 @@ test.config = {
     _nav: '#nav-admin-sales',
     _title: base._title,
     _button: base._button,
-    url: 'sales_order/index',
+    url: 'admin/sales_order',
     index: {},
     view: {},
 };
 
 /**
  * Configuration for "Orders" page
- * @type {{__buttons: {new: string}, title: string, url: string, _grid: string}}
+ * @type {{__buttons: {new: string}, title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Orders',
     url: test.config.url,
-    _grid: '#sales_order_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
     __buttons: {
         add: {
             _: base._button + '[title="Create New Order"]',
