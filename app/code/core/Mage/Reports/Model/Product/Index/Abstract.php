@@ -165,7 +165,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     {
         $collection = $this->getCollection()
             ->setCustomerId($this->getCustomerId())
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
             ->addIndexFilter();
 
         $count = $collection->getSize();

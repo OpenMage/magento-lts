@@ -213,7 +213,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             $this->_productCollection = $this->getWishlist()
                 ->getProductCollection();
 
-            $this->_productCollection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
+            $this->_productCollection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
         }
 
         return $this->_productCollection;

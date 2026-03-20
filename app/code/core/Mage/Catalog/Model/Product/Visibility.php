@@ -39,11 +39,47 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     }
 
     /**
+     * Add visible in catalog filter to collection
+     *
+     * @return $this
+     * @deprecated
+     */
+    public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
+    {
+        $collection->setVisibility(self::getVisibleInCatalogIds());
+        return $this;
+    }
+
+    /**
+     * Add visibility in searchfilter to collection
+     *
+     * @return $this
+     * @deprecated
+     */
+    public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
+    {
+        $collection->setVisibility(self::getVisibleInSearchIds());
+        return $this;
+    }
+
+    /**
+     * Add visibility in site filter to collection
+     *
+     * @return $this
+     * @deprecated
+     */
+    public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
+    {
+        $collection->setVisibility(self::getVisibleInSiteIds());
+        return $this;
+    }
+
+    /**
      * Retrieve visible in catalog ids array
      *
      * @return array
      */
-    public function getVisibleInCatalogIds()
+    public static function getVisibleInCatalogIds()
     {
         return [self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }
@@ -53,7 +89,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    public function getVisibleInSearchIds()
+    public static function getVisibleInSearchIds()
     {
         return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_BOTH];
     }
@@ -63,7 +99,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    public function getVisibleInSiteIds()
+    public static function getVisibleInSiteIds()
     {
         return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }

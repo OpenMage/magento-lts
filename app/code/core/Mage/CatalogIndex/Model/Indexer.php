@@ -302,7 +302,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             foreach ($stores as $store) {
                 foreach ($this->_getPriorifiedProductTypes() as $type) {
                     $collection = $this->_getProductCollection($store, $products);
-                    $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
+                    $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
                     $collection->addFieldToFilter('type_id', $type);
 
                     $this->_walkCollection($collection, $store, $attributeCodes);

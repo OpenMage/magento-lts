@@ -35,7 +35,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
                 'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ])
             ->addPriceData()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
             ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id=' . $this->getProduct()->getId());
 

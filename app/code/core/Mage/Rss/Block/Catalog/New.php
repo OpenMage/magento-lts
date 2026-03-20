@@ -56,7 +56,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $products = $product->getCollection()
             ->setStoreId($storeId)
             ->addStoreFilter()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
                 1 => ['is' => new Zend_Db_Expr('null')]],

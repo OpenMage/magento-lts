@@ -99,7 +99,7 @@ class Mage_Bundle_Model_Observer
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
             ->addPriceData()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addTaxPercents();
 
         if (!is_null($limit)) {

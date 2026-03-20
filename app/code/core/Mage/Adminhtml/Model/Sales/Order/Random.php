@@ -79,7 +79,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->addAttributeToFilter('status', [
                     'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
                 ])
-                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSearchIds())
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSearchIds())
                 ->load();
         }
 

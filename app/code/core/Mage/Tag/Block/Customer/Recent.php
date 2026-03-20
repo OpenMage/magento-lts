@@ -33,7 +33,7 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
             ->setDescOrder()
             ->setPageSize(5)
             ->setActiveFilter()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
             ->load()
             ->addProductTags();
     }

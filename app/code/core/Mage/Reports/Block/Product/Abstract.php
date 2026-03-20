@@ -129,7 +129,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
 
             /* Price data is added to consider item stock status using price index */
             $this->_collection->addPriceData()
-                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds());
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds());
 
             $ids = $this->getProductIds();
             if (empty($ids)) {

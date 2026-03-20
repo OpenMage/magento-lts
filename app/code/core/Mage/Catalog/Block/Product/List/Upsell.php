@@ -38,7 +38,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         /** @var Mage_Catalog_Model_Product $product */
         $this->_itemCollection = $product->getUpSellProductCollection()
             ->setPositionOrder()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addStoreFilter()
         ;
         if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {

@@ -209,7 +209,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
                 $this->_itemCollection->setVisitorId($this->_logVisitor->getId());
             }
 
-            $this->_itemCollection->setVisibility($this->_productVisibility->getVisibleInSiteIds());
+            $this->_itemCollection->setVisibility($this->_productVisibility::getVisibleInSiteIds());
 
             /* Price data is added to consider item stock status using price index */
             $this->_itemCollection->addPriceData();
@@ -249,7 +249,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 
             /* Price data is added to consider item stock status using price index */
             $collection->addPriceData()
-                ->setVisibility($this->_productVisibility->getVisibleInSiteIds());
+                ->setVisibility($this->_productVisibility::getVisibleInSiteIds());
 
             $count = $collection->getSize();
         }

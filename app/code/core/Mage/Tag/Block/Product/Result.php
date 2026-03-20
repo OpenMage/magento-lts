@@ -90,7 +90,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ])
                 ->addPriceData()
                 ->addUrlRewrite()
-                ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
                 ->setActiveFilter();
         }
 

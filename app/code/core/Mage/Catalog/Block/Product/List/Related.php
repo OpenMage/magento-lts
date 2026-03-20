@@ -34,7 +34,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')
             ->setPositionOrder()
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addStoreFilter()
         ;
 
