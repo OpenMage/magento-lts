@@ -2,12 +2,6 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Abstract::addError().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/Mage.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 10,
@@ -140,7 +134,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tree.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method addAttributeToSelect() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
+	'rawMessage' => 'Cannot call method getCollection() on object|false.',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php',
@@ -494,6 +488,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getPrefixes() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
@@ -794,6 +794,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getPrefixes() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Model/Config/Data.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -1040,10 +1046,22 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setId() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/CatalogController.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 5,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/CatalogController.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setId() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 2,
+	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1164,18 +1182,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Convert_Adapter_Product is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Directory_Model_Currency_Import_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1304,12 +1310,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api_Model_Server_Adapter_Interface is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api/Model/Server.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $code of class SoapFault constructor expects array|string|null, int given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -1376,12 +1376,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Filter/Attribute/ResourcePermission.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Resource is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Filter/Attribute/ResourcePermission.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $role of method Zend_Acl::hasRole() expects string|Zend_Acl_Role_Interface, int given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -1412,18 +1406,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Auth_User_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Auth.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Auth_User_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/User.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Api2_Model_Config::getResourceGroup() should return bool|Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element.',
 	'identifier' => 'return.type',
 	'count' => 1,
@@ -1438,12 +1420,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Dispatcher.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Resource is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Dispatcher.php',
 ];
@@ -1748,6 +1724,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Captcha/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setLayer() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Block/Layer/Filter/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Argument of an invalid type string supplied for foreach, only iterables are supported.',
 	'identifier' => 'foreach.nonIterable',
 	'count' => 1,
@@ -1850,12 +1832,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Varien_Filter_Template is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Helper/Data.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Frontend_Abstract::getUrl().',
 	'identifier' => 'method.notFound',
 	'count' => 3,
@@ -1950,12 +1926,6 @@ $ignoreErrors[] = [
 	'identifier' => 'if.alwaysFalse',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Abstract::toOptionArray().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract::formatDate().',
@@ -2354,12 +2324,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Option_Type_Default is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Option.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -2406,6 +2370,18 @@ $ignoreErrors[] = [
 	'identifier' => 'method.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Status.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setConfig() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setProduct() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -2966,12 +2942,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_CatalogRule_Model_Action_Index_Refresh is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Varien_Db_Adapter_Interface is not subtype of type Magento_Db_Adapter_Pdo_Mysql.',
 	'identifier' => 'varTag.type',
 	'count' => 2,
@@ -3090,12 +3060,6 @@ $ignoreErrors[] = [
 	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Centinel/Helper/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Centinel_Model_StateAbstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Centinel/Model/Service.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Cannot call method setItem() on array.',
@@ -3359,12 +3323,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Method Mage_Core_Block_Abstract::getChildData() should return mixed but return statement is missing.',
 	'identifier' => 'return.missing',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Url is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Block/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -4058,6 +4016,18 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Session/Abstract/Zend.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method getValue() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setPath() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Core/Model/Store.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 7,
@@ -4508,12 +4478,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Directory_Model_Currency_Import_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Directory/Model/Observer.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -4619,12 +4583,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Eav_Model_Attribute_Data_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Attribute/Data.php',
 ];
 $ignoreErrors[] = [
@@ -4754,6 +4712,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setAttributeCode() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Abstract.php',
+];
+$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 18,
@@ -4768,6 +4732,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_Core_Model_Resource_Db_Abstract::getIdByCode().',
 	'identifier' => 'method.notFound',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setAttribute() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php',
 ];
@@ -4860,6 +4830,12 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Setup.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setPrefix() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Eav/Model/Entity/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -4994,18 +4970,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Export_Adapter_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Export_Entity_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Export.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5057,12 +5021,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_ImportExport_Model_Import_Entity_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/ImportExport/Model/Import.php',
 ];
 $ignoreErrors[] = [
@@ -5184,12 +5142,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Indexer/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Index_Model_Lock_Storage_Interface is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Index/Model/Lock.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string, int|string>|null given.',
@@ -5318,12 +5270,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Db.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Install_Model_Installer_Db_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Install/Model/Installer/Db.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -5382,24 +5328,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Admin_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/AuthorizeController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Customer_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/AuthorizeController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Customer_Model_Session is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Oauth/controllers/Customer/TokenController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5522,14 +5450,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Block/Info/Cc.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract|false is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Cannot call method getConfigData() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Helper/Data.php',
 ];
@@ -5542,12 +5464,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Payment_Model_Method_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Config.php',
 ];
@@ -5684,22 +5600,16 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Review/Details.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
+	'rawMessage' => 'Cannot call method getCheckoutShortcutImageUrl() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Config is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+	'identifier' => 'empty.notAllowed',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Express_Checkout is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #1 $setToken of method Mage_Paypal_Controller_Express_Abstract::_initToken() expects string|null, false given.',
@@ -5786,12 +5696,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Config.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Pro is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), string given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -5800,12 +5704,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always false.',
 	'identifier' => 'if.alwaysFalse',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Pro is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
 ];
@@ -5820,6 +5718,12 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Express/Checkout.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -5924,8 +5828,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Payflowpro.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Paypal_Model_Config is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
+	'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
+	'identifier' => 'method.nonObject',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Model/Pro.php',
 ];
@@ -6230,12 +6134,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Action/Collection.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Rule_Model_Action_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Rule/Model/Action/Collection.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 4,
@@ -6432,6 +6330,12 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setData() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -6878,12 +6782,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Config.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Shipping_Model_Carrier_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Config.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6906,6 +6804,12 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php',
+];
+$ignoreErrors[] = [
+	'rawMessage' => 'Cannot call method setStore() on object|false.',
+	'identifier' => 'method.nonObject',
+	'count' => 1,
+	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Shipping.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

@@ -542,9 +542,9 @@ final class Mage
      * Retrieve model object
      *
      * @link    Mage_Core_Model_Config::getModelInstance
-     * @param  string                         $modelClass
-     * @param  array|object|string            $arguments
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @param  array|object|string                   $arguments
+     * @return false|Mage_Core_Model_Abstract|object
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
@@ -554,8 +554,8 @@ final class Mage
     /**
      * Retrieve model object singleton
      *
-     * @param  string                         $modelClass
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                $modelClass
+     * @return false|Mage_Core_Model_Abstract|object
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
