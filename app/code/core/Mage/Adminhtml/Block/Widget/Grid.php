@@ -2013,20 +2013,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Check whether ACL path is allowed
-     *
-     * @param  string $aclPath ACL path
-     * @return bool
+     * Cache whether ACL path is allowed
      */
     protected function isAllowed(string $aclPath): bool
-    {
-        return $this->_isAllowed($aclPath);
-    }
-
-    /**
-     * Cache whether grid row is accessible
-     */
-    private function _isAllowed(string $aclPath): bool
     {
         if (!isset($this->isAllowed[$aclPath])) {
             /** @var Mage_Admin_Model_Session $session */
