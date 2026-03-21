@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected ?array $defaultColumnSettings = null;
 
     /**
-     * This array caches the status of the isAllow() method, for every acl path
+     * This array caches the status of the isAllowed() method, for every acl path
      *
      * @var array<string, bool>
      */
@@ -2025,9 +2025,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Cache whether grid row is accessible
-
-     * @param  string $aclPath ACL path
-     * @return bool
      */
     private function _isAllowed(string $aclPath): bool
     {
