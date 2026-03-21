@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @copyright  For copyright and license information, read the COPYING.txt file.
- * @link       /COPYING.txt
- * @license    Open Software License (OSL 3.0)
- * @package    Mage_SalesRule
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link      /COPYING.txt
+ * @license   Open Software License (OSL 3.0)
+ * @package   Mage_SalesRule
  */
 
 /**
  * SalesRule Model Observer
  *
- * @package    Mage_SalesRule
+ * @package Mage_SalesRule
  */
 class Mage_SalesRule_Model_Observer
 {
@@ -100,9 +100,9 @@ class Mage_SalesRule_Model_Observer
                             $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
                         } else {
                             $ruleCustomer
-                            ->setCustomerId($customerId)
-                            ->setRuleId($ruleId)
-                            ->setTimesUsed(1);
+                                ->setCustomerId($customerId)
+                                ->setRuleId($ruleId)
+                                ->setTimesUsed(1);
                         }
 
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -207,6 +207,7 @@ class Mage_SalesRule_Model_Observer
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
@@ -228,8 +229,8 @@ class Mage_SalesRule_Model_Observer
     /**
      * Remove catalog attribute condition by attribute code from rule conditions
      *
-     * @param Mage_Rule_Model_Condition_Combine $combine
-     * @param string                            $attributeCode
+     * @param Mage_Rule_Model_Action_Collection|Mage_Rule_Model_Condition_Combine $combine
+     * @param string                                                              $attributeCode
      */
     protected function _removeAttributeFromConditions($combine, $attributeCode)
     {
@@ -297,13 +298,10 @@ class Mage_SalesRule_Model_Observer
         $attributesTransfer = $observer->getEvent()->getAttributes();
 
         $attributes = Mage::getResourceModel('salesrule/rule')
-            ->getActiveAttributes(
-                Mage::app()->getWebsite()->getId(),
-                Mage::getSingleton('customer/session')->getCustomer()->getGroupId(),
-            );
+            ->getActiveAttributes();
         $result = [];
-        foreach ($attributes as $attribute) {
-            $result[$attribute['attribute_code']] = true;
+        foreach ($attributes as $attributeCode) {
+            $result[$attributeCode] = true;
         }
 
         $attributesTransfer->addData($result);
