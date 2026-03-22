@@ -16,6 +16,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
 {
     protected string $_eventPrefix = 'adminhtml_system_email_template_grid';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setEmptyText(Mage::helper('adminhtml')->__('No Templates Found'));
