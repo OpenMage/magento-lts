@@ -1294,11 +1294,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 break;
         }
 
-        if ($this->getIsCentinelValidationEnabled()) {
-            $params  = $this->getCentinelValidator()->exportCmpiData([]);
-            $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
-        }
-
         if (!empty($order)) {
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {
@@ -1370,7 +1365,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             //'ssltransport' => 'tcp',
         ]);
         foreach ($request->getData() as $key => $value) {
-            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value));
+            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value ?? ''));
         }
 
         $request->setXDelimChar(self::RESPONSE_DELIM_CHAR);

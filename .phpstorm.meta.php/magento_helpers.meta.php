@@ -67,8 +67,6 @@ namespace PHPSTORM_META {
             'catalog/product_url_rewrite' => \Mage_Catalog_Helper_Product_Url_Rewrite::class,
             'catalog/product_view' => \Mage_Catalog_Helper_Product_View::class,
             'catalog/search' => \Mage_Catalog_Helper_Search::class,
-            'centinel' => \Mage_Centinel_Helper_Data::class,
-            'centinel/data' => \Mage_Centinel_Helper_Data::class,
             'checkout/cart' => \Mage_Checkout_Helper_Cart::class,
             'checkout' => \Mage_Checkout_Helper_Data::class,
             'checkout/data' => \Mage_Checkout_Helper_Data::class,

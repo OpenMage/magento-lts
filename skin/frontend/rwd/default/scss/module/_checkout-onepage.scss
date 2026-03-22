@@ -499,17 +499,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
     }
 }
 
-#checkout-step-review .centinel {
-    &> p {
-        margin-bottom: $box-spacing;
-    }
-
-    iframe {
-        width: 100%;
-        min-height: 400px;
-    }
-}
-
 /* Gift options */
 .gift-messages-form {
     .item {
