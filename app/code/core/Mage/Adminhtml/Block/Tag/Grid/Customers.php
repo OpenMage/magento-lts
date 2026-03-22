@@ -8,7 +8,7 @@
  */
 
 /**
- * Adminhtml tag info customers grid block
+ * Adminhtml customers tag info grid block
  *
  * @package    Mage_Adminhtml
  *
