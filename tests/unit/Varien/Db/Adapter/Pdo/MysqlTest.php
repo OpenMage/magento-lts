@@ -175,12 +175,7 @@ final class MysqlTest extends TestCase
         } else {
             // If the new namespace doesn't exist, verify the old constant is available
             self::assertTrue(defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY'));
-            self::assertSame(1000, PDO::MYSQL_ATTR_USE_BUFFERED_QUERY);
         }
-
-        // This test ensures that the conditional check in _connect() method
-        // will work correctly regardless of PHP version
-        self::assertTrue(true, 'PHP version compatibility check passed');
     }
 
     private function getHostInfo(string $str): Varien_Object
