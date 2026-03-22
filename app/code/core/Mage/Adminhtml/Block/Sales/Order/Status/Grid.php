@@ -116,7 +116,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * No pegination for this grid
+     * No pagination for this grid
+     *
+     * @inheritDoc
      */
     protected function _preparePage()
     {

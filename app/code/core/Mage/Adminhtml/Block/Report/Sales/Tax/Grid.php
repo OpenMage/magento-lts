@@ -11,6 +11,10 @@
  * Adminhtml tax report grid block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Object getFilterData()
+ * @method string        getPeriodType()
+ * @method $this         setPeriodType(string $value)
  */
 class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
@@ -19,10 +23,13 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setCountTotals();
+        $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResourceCollectionName()
     {
         return ($this->getFilterData()->getData('report_type') == 'updated_at_order')

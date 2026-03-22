@@ -19,8 +19,8 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setCountTotals();
+        $this->setCountSubTotals();
     }
 
     public function getResourceCollectionName()

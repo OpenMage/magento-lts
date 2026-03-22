@@ -16,9 +16,6 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-    /**
-     * Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid constructor.
-     */
     public function __construct()
     {
         parent::__construct();

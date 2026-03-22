@@ -22,6 +22,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
         $this->setId('lastSearchGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
@@ -49,6 +52,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
     }
 
     /**
+     * @inheritDoc
      * @throws Exception
      */
     protected function _prepareColumns()

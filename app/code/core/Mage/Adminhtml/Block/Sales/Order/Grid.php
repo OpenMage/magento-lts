@@ -48,6 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
@@ -139,6 +140,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      * Add link to RSS feed when enabled for filtered store-view
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssFeedLink()
@@ -162,7 +165,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -216,7 +219,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
@@ -226,7 +229,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function getRowUrl($row)
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        if ($this->isAllowed('sales/order/actions/view')) {
             return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
         }
 
@@ -234,7 +237,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

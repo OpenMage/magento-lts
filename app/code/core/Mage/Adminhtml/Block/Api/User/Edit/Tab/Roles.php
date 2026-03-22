@@ -22,11 +22,13 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
         $this->setId('permissionsUserRolesGrid');
         $this->setDefaultSort('sort_order');
         $this->setDefaultDir('ASC');
-        //$this->setDefaultFilter(array('assigned_user_role'=>1));
         $this->setTitle(Mage::helper('adminhtml')->__('User Roles Information'));
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() === 'assigned_user_role') {
@@ -84,7 +86,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

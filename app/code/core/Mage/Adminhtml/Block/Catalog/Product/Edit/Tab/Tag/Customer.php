@@ -82,6 +82,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
         return $this->getUrl('*/customer/edit', ['id' => $row->getEntityId()]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_product/tagCustomerGrid', [

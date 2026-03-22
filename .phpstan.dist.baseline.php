@@ -242,12 +242,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type string of property Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist::$_defaultSort is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Widget_Grid::$_defaultSort.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -366,12 +360,6 @@ $ignoreErrors[] = [
 	'identifier' => 'arguments.count',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type int of property Mage_Adminhtml_Block_Report_Product_Sold_Grid::$_subReportSize is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Report_Grid::$_subReportSize.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Report/Product/Sold/Grid.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc type string of property Mage_Adminhtml_Block_Report_Product_Viewed_Grid::$_resourceCollectionName is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Report_Grid_Abstract::$_resourceCollectionName.',
@@ -2690,13 +2678,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Product_Type_Abstract is not subtype of type Mage_Core_Model_Abstract|false.',
-	'identifier' => 'varTag.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #8 $productId of method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
+	'rawMessage' => 'Parameter #8 $productId of static method Mage_Catalog_Model_Product_Type_Price::calculatePrice() expects int|null, array given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
@@ -5498,12 +5480,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'PHPDoc type bool of property Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid::$_saveParametersInSession is not the same as PHPDoc type mixed of overridden property Mage_Adminhtml_Block_Widget_Grid::$_saveParametersInSession.',
-	'identifier' => 'property.phpDocType',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Paypal/Block/Adminhtml/Settlement/Report/Grid.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -7260,12 +7236,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
 	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/edit/price/tier.phtml',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $store of method Mage_Core_Helper_Data::currencyByStore() expects int|Mage_Core_Model_Store|null, true given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/design/adminhtml/base/default/template/catalog/product/price.phtml',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Call to an undefined method Mage_GiftMessage_Block_Message_Helper::prepareAsIs().',

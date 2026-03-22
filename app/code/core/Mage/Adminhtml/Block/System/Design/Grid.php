@@ -14,9 +14,6 @@
  */
 class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Class constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -28,25 +25,18 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Prepare grid data collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
-
         $collection = Mage::getResourceModel('core/design_collection');
-
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Define grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

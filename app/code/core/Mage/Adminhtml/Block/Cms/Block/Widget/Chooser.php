@@ -11,14 +11,16 @@
  * CMS block chooser for Wysiwyg CMS widget
  *
  * @package    Mage_Adminhtml
+ *
+ * @method array                     getConfig()
+ * @method int                       getFieldsetId()
+ * @method Mage_Core_Helper_Abstract getTranslationHelper()
+ * @method $this                     setConfig(array $value)
+ * @method $this                     setFieldsetId(int $value)
+ * @method $this                     setTranslationHelper(Mage_Core_Helper_Abstract $value)
  */
 class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Block construction, prepare grid params
-     *
-     * @param array $arguments Object data
-     */
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);
@@ -33,6 +35,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
      *
      * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Mage_Core_Exception
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
@@ -61,7 +64,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     /**
      * Grid Row JS Callback
      *
-     * @return string
+     * @inheritDoc
      */
     public function getRowClickCallback()
     {
@@ -79,9 +82,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     }
 
     /**
-     * Prepare Cms static blocks collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -92,9 +93,8 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     }
 
     /**
-     * Prepare columns for Cms blocks grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -130,6 +130,9 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/cms_block_widget/chooser', ['_current' => true]);

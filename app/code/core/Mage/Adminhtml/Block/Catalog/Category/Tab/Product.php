@@ -16,9 +16,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Catalog_Category_Tab_Product constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +32,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         return Mage::registry('category');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in category flag
@@ -127,7 +129,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'width'     => 100,
             'index'     => 'type_id',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -148,7 +150,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'width'     => 90,
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         $this->addColumn('visibility', [
@@ -156,7 +158,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'width'     => 90,
             'index'     => 'visibility',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_visibility')::getOptionArray(),
         ]);
 
         $this->addColumn('sku', [
@@ -203,7 +205,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

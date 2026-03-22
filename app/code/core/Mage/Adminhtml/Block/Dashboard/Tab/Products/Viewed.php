@@ -20,6 +20,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         $this->setId('productsReviewedGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         if ($this->getParam('website')) {
@@ -44,6 +47,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()

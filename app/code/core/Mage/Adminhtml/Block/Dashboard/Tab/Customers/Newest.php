@@ -20,6 +20,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         $this->setId('customersNewestGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/customer_collection')
@@ -46,6 +49,8 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()

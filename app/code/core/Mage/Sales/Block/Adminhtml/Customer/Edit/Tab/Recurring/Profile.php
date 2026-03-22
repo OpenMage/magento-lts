@@ -14,9 +14,6 @@
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    /**
-     * Disable filters and paging
-     */
     public function __construct()
     {
         parent::__construct();
@@ -24,9 +21,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return Tab label
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -34,9 +29,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return Tab title
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -44,9 +37,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Can show tab in tabs
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
@@ -55,9 +46,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {
@@ -92,9 +81,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return grid url
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
