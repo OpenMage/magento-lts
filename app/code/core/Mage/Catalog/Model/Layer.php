@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 . '_' . $filterItem->getValueString();
         }
 
-        if (!empty($stateSuffix)) {
+        if ($stateSuffix !== '') {
             $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
 

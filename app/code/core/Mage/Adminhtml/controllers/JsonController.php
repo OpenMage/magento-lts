@@ -27,7 +27,7 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
             ->load()
             ->toOptionArray();
 
-        if (!empty($arrRegions)) {
+        if ($arrRegions !== []) {
             foreach ($arrRegions as $region) {
                 $arrRes[] = $region;
             }
