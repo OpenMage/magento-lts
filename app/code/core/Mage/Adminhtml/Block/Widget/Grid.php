@@ -237,12 +237,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected string $_eventPrefix = '';
 
-    /**
-     * Mage_Adminhtml_Block_Widget_Grid constructor
-     * Set main configuration of grid
-     *
-     * @param array $attributes
-     */
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
