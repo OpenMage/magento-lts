@@ -248,7 +248,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Mage_Cms_Helper_Page::XML_PATH_* $path
+     * @param Mage_Cms_Helper_Page::XML_PATH_* $path
      */
     public function getIdentifierPageFromConfigPath(string $path): string
     {
