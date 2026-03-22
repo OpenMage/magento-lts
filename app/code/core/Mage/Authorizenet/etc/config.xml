@@ -36,13 +36,6 @@
                 </Mage_Authorizenet>
             </modules>
         </translate>
-        <layout>
-            <updates>
-                <authorizenet>
-                    <file>authorizenet.xml</file>
-                </authorizenet>
-            </updates>
-        </layout>
     </adminhtml>
 
     <frontend>
@@ -64,13 +57,6 @@
                 </args>
             </authorizenet>
         </routers>
-        <layout>
-            <updates>
-                <authorizenet>
-                    <file>authorizenet.xml</file>
-                </authorizenet>
-            </updates>
-        </layout>
     </frontend>
 
     <admin>
