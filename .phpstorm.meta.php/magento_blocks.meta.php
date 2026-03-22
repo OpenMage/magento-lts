@@ -783,8 +783,6 @@ namespace PHPSTORM_META {
             'api2/adminhtml_roles_tab_resources' => \Mage_Api2_Block_Adminhtml_Roles_Tab_Resources::class,
             'api2/adminhtml_roles_tab_users' => \Mage_Api2_Block_Adminhtml_Roles_Tab_Users::class,
             'api2/adminhtml_roles_tabs' => \Mage_Api2_Block_Adminhtml_Roles_Tabs::class,
-            'directpost/form' => \Mage_Authorizenet_Block_Directpost_Form::class,
-            'directpost/iframe' => \Mage_Authorizenet_Block_Directpost_Iframe::class,
             'bundle/adminhtml_catalog_product_composite_fieldset_bundle' => \Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle::class,
             'bundle/adminhtml_catalog_product_composite_fieldset_options_type_checkbox' => \Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox::class,
             'bundle/adminhtml_catalog_product_composite_fieldset_options_type_multi' => \Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Multi::class,
