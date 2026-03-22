@@ -247,6 +247,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         return implode(', ', $messages);
     }
 
+    /**
+     * Mage_Cms_Helper_Page::XML_PATH_* $path
+     */
     public function getIdentifierPageFromConfigPath(string $path): string
     {
         return explode('|', (string) Mage::getStoreConfig($path))[0];
