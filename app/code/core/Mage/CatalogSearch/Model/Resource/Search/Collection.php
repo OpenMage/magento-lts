@@ -82,7 +82,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     /**
      * Check attributes has options and searchable
      *
-     * @param  Mage_Catalog_Model_Entity_Attribute $attribute
+     * @param  Mage_Catalog_Model_Entity_Attribute|Varien_Object $attribute
      * @return bool
      */
     protected function _hasAttributeOptionsAndSearchable($attribute)

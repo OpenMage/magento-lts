@@ -116,11 +116,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->getResponse()->setRedirect($url);
                 return;
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getCheckoutSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getCheckoutSession()->addError($this->__('Unable to start Express Checkout.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('checkout/cart');
@@ -165,11 +165,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             } else {
                 $this->_getCheckoutSession()->addSuccess($this->__('Express Checkout has been canceled.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getCheckoutSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getCheckoutSession()->addError($this->__('Unable to cancel Express Checkout.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('checkout/cart');
@@ -199,11 +199,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
 
             return;
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('checkout/cart');
@@ -228,13 +228,13 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('checkout/session')->addError(
                 $this->__('Unable to initialize Express Checkout review.'),
             );
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('checkout/cart');
@@ -269,11 +269,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                     ->toHtml());
                 return;
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if (isset($isAjax) && $isAjax) {
@@ -298,11 +298,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 ->setQuote($this->_getQuote())
                 ->toHtml());
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
@@ -367,19 +367,19 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initToken(false); // no need in token anymore
             $this->_redirect('checkout/onepage/success');
             return;
-        } catch (Mage_Paypal_Model_Api_ProcessableException $e) {
-            $this->_processPaypalApiError($e);
-        } catch (Mage_Core_Exception $e) {
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $e->getMessage());
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Paypal_Model_Api_ProcessableException $magePaypalModelApiProcessableException) {
+            $this->_processPaypalApiError($magePaypalModelApiProcessableException);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $mageCoreException->getMessage());
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_redirect('*/*/review');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::helper('checkout')->sendPaymentFailedEmail(
                 $this->_getQuote(),
                 $this->__('Unable to place the order.'),
             );
             $this->_getSession()->addError($this->__('Unable to place the order.'));
-            Mage::logException($e);
+            Mage::logException($exception);
             $this->_redirect('*/*/review');
         }
     }

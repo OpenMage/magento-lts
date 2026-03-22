@@ -13,7 +13,7 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item_Option            _getResource()
- * @method string                                              getCode()
+ * @method null|string                                         getCode()
  * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
  * @method int                                                 getProductId()
  * @method Mage_Wishlist_Model_Resource_Item_Option            getResource()
