@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => $newFiles[$row['value_id']] ?? $row['value'],
+                'value'        => $newFiles[$row['value']]['file'],
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
@@ -199,6 +199,33 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $row['value_id'] = $valueIdMap[$row['value_id']];
             $this->insertGalleryValueInStore($row);
         }
+
+        // Duplicate product store values
+        $mediaAttributes = Mage::getModel('catalog/product')->getMediaAttributes();
+        $attributeIds = array_map(fn($attr) => $attr->getAttributeId(), $mediaAttributes);
+        $tableName = $this->getTable(['catalog/product', 'varchar']);
+        $select = $this->_getReadAdapter()->select()
+            ->from($tableName, [
+                'entity_type_id',
+                'attribute_id',
+                'store_id',
+                'value',
+            ])
+            ->where('entity_id = ?', $originalProductId)
+            ->where('attribute_id IN (?)', $attributeIds);
+
+        $attrRows = [];
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $attrRows[] = [
+                'entity_type_id' => $row['entity_type_id'],
+                'attribute_id' => $row['attribute_id'],
+                'store_id' => $row['store_id'],
+                'entity_id' => $newProductId,
+                'value' => $newFiles[$row['value']]['file'],
+            ];
+        }
+
+        $this->_getWriteAdapter()->insertOnDuplicate($tableName, $attrRows, ['value']);
 
         return $this;
     }
