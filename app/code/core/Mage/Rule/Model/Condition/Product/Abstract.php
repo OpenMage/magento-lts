@@ -424,7 +424,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 break;
         }
 
-        return $url !== false ? Mage::helper('adminhtml')->getUrl($url) : '';
+        return $url !== false ? Mage::helper('adminhtml')::getUrl($url) : '';
     }
 
     /**

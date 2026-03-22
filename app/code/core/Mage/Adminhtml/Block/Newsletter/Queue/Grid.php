@@ -30,7 +30,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
             ->addSubscribersInfo();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

@@ -11,6 +11,8 @@
  * OAuth nonce resource collection model
  *
  * @package    Mage_Oauth
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Oauth_Model_Nonce>
  */
 class Mage_Oauth_Model_Resource_Nonce_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

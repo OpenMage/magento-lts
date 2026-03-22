@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog Product visibilite model and attribute source model
+ * Catalog Product visibility model and attribute source model
  *
  * @package    Mage_Catalog
  */
@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
-        $collection->setVisibility($this->getVisibleInCatalogIds());
+        $collection->setVisibility(self::getVisibleInCatalogIds());
         return $this;
     }
 
@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
-        $collection->setVisibility($this->getVisibleInSearchIds());
+        $collection->setVisibility(self::getVisibleInSearchIds());
         return $this;
     }
 
@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
-        $collection->setVisibility($this->getVisibleInSiteIds());
+        $collection->setVisibility(self::getVisibleInSiteIds());
         return $this;
     }
 
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    public function getVisibleInCatalogIds()
+    public static function getVisibleInCatalogIds()
     {
         return [self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    public function getVisibleInSearchIds()
+    public static function getVisibleInSearchIds()
     {
         return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_BOTH];
     }
@@ -99,7 +99,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      *
      * @return array
      */
-    public function getVisibleInSiteIds()
+    public static function getVisibleInSiteIds()
     {
         return [self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH];
     }

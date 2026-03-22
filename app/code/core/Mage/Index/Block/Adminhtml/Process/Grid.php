@@ -79,7 +79,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             }
         }
 
-        return $this;
+        return parent::_afterLoadCollection();
     }
 
     /**
@@ -168,11 +168,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate status column values
      *
-     * @param string                                  $value
-     * @param Mage_Index_Model_Process                $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool                                    $isExport
-     *
+     * @param  string                                  $value
+     * @param  Mage_Index_Model_Process                $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateStatus($value, $row, $column, $isExport)
@@ -196,11 +195,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate "Update Required" column values
      *
-     * @param string                                  $value
-     * @param Mage_Index_Model_Process                $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool                                    $isExport
-     *
+     * @param  string                                  $value
+     * @param  Mage_Index_Model_Process                $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateUpdateRequired($value, $row, $column, $isExport)
@@ -221,11 +219,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate last run date coumn
      *
-     * @param string                                  $value
-     * @param Mage_Index_Model_Process                $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool                                    $isExport
-     *
+     * @param  string                                  $value
+     * @param  Mage_Index_Model_Process                $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateDate($value, $row, $column, $isExport)
@@ -248,9 +245,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Add mass-actions to grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -279,6 +274,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'selected' => true,
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

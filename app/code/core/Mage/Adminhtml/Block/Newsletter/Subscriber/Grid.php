@@ -16,9 +16,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set main configuration of grid
-     */
     public function __construct()
     {
         parent::__construct();
@@ -29,9 +26,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      * @throws Exception
      */
     protected function _prepareCollection()
@@ -182,7 +177,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -200,6 +195,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'url'          => $this->getUrl('*/*/massDelete'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

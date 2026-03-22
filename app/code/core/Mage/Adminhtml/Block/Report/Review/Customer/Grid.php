@@ -28,7 +28,6 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
     {
         $collection = Mage::getResourceModel('reports/review_customer_collection')
             ->joinCustomers();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

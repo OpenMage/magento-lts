@@ -14,7 +14,7 @@ use Carbon\Carbon;
  *
  * @package    Mage_Reports
  */
-class Mage_Reports_Model_Resource_Report_Collection
+class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collection
 {
     /**
      * From value
@@ -54,7 +54,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Page size
      *
-     * @var int
+     * @inheritDoc
      */
     protected $_pageSize;
 
@@ -207,9 +207,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Get size
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getSize()
     {
@@ -217,10 +215,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Set page size
-     *
-     * @param  int   $size
-     * @return $this
+     * @inheritDoc
      */
     public function setPageSize($size)
     {
@@ -229,9 +224,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Get page size
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getPageSize()
     {

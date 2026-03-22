@@ -103,7 +103,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             $qty = $this->getSelectionQty($product, $bundleSelection->getSelectionId()) * 1;
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
-                                    . ' ' . Mage::helper('core')->currency(
+                                    . ' ' . Mage::helper('core')::currency(
                                         $this->getSelectionFinalPrice($item, $bundleSelection),
                                     );
                             }

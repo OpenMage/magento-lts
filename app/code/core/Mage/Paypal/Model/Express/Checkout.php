@@ -440,6 +440,12 @@ class Mage_Paypal_Model_Express_Checkout
             $shippingAddress = $quote->getShippingAddress();
             if ($shippingAddress) {
                 if ($exportedShippingAddress) {
+
+                    if (!$exportedShippingAddress->getRegion()) {
+                        $shippingAddress->setRegion(null);
+                        $shippingAddress->setRegionId(null);
+                    }
+
                     $this->_setExportedAddressData($shippingAddress, $exportedShippingAddress);
 
                     if ($quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_BUTTON) == 1) {
@@ -487,6 +493,12 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $exportedBillingAddress = $this->_api->getExportedBillingAddress();
+
+        if (!$exportedBillingAddress->getRegion()) {
+            $billingAddress->setRegion(null);
+            $billingAddress->setRegionId(null);
+        }
+
         $this->_setExportedAddressData($billingAddress, $exportedBillingAddress);
         $billingAddress->setCustomerNotes($exportedBillingAddress->getData('note'));
         $quote->setBillingAddress($billingAddress);

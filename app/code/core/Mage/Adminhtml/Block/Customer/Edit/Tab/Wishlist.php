@@ -17,14 +17,6 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Default sort field
-     *
-     * @var string
-     */
-
-    protected $_defaultSort = 'added_at';
-
-    /**
      * Parent template name
      *
      * @var string
@@ -43,6 +35,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     {
         parent::__construct();
         $this->setId('wishlistGrid');
+        $this->setDefaultSort('added_at');
         $this->setUseAjax(true);
         $this->_parentTemplate = $this->getTemplate();
         $this->setTemplate('customer/tab/wishlist.phtml');
@@ -64,6 +57,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * Create customer wishlist item collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
+     * @throws Mage_Core_Exception
      */
     protected function _createCollection()
     {
@@ -75,7 +69,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     /**
      * Prepare customer wishlist product collection
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -89,9 +83,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Prepare Grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -156,9 +149,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Retrieve Grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -166,10 +157,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Add column filter to collection
-     *
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -210,6 +198,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * Retrieve Grid Parent Block HTML
      *
      * @return string
+     * @throws Throwable
      */
     public function getGridParentHtml()
     {
