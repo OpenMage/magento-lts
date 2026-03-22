@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
