@@ -1454,72 +1454,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Api2/Model/Server.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Varien_Object::encrypt().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $amount of method Mage_Authorizenet_Model_Directpost::_refund() expects string, float given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::generateRequestFromOrder().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 3,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Request.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/Model/Directpost/Response.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Payment_Model_Method_Abstract::generateRequestFromOrder().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 5,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 7,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Authorizenet_Directpost_PaymentController::_getIframeBlock() should return Mage_Authorizenet_Block_Directpost_Iframe but returns Mage_Core_Block_Abstract|false.',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -6678,12 +6612,6 @@ $ignoreErrors[] = [
 	'identifier' => 'property.phpDocType',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Shipping/Model/Config.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
