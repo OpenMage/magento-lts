@@ -11,12 +11,12 @@
  * Recurring profile orders grid
  *
  * @package    Mage_Sales
+ *
+ * @method bool  getSkipGenerateContent()
+ * @method $this setSkipGenerateContent(bool $value)
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    /**
-     * Initialize basic parameters
-     */
     public function __construct()
     {
         parent::__construct();
@@ -27,8 +27,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Prepare grid collection object
-     *
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -41,11 +39,8 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Prepare grid columns
-     *
-     * TODO: fix up this mess
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -135,9 +130,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Url for ajax grid submission
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -165,9 +158,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Label getter
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -175,9 +166,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Same as label getter
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -185,7 +174,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
@@ -193,7 +182,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {

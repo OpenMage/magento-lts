@@ -14,22 +14,21 @@
  */
 class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Report_Review_Detail_Grid constructor.
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('reviews_grid');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_collection')
             ->addProductFilter((int) $this->getRequest()->getParam('id'));
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**

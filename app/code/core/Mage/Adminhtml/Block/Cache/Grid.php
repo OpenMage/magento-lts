@@ -16,9 +16,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_invalidatedTypes = [];
 
-    /**
-     * Class constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -29,7 +26,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Prepare grid collection
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -40,14 +37,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
-    }
-
-    /**
-     * Add name and description to collection elements
-     */
-    protected function _afterLoadCollection()
-    {
-        return $this;
     }
 
     /**
@@ -97,10 +86,10 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Decorate status column values
      *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
-        $class = '';
         if (isset($this->_invalidatedTypes[$row->getId()])) {
             $class = self::CSS_SEVERITY_MINOR;
             $value = $this->__('Invalidated');
@@ -122,16 +111,12 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Add mass-actions to grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('types');
-
-        $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
         $this->getMassactionBlock()->addItem(MassAction::ENABLE, [
             'label'    => Mage::helper('index')->__('Enable'),
@@ -147,6 +132,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'selected' => true,
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

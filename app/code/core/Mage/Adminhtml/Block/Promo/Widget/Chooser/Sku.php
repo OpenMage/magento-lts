@@ -13,12 +13,14 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method string                                         getJsFormObject()
+ * @method $this                                          setIsCollapsed(bool $value)
+ * @method $this                                          setJsFormObject(string $value)
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku constructor.
-     * @param  array     $arguments
      * @throws Exception
      */
     public function __construct($arguments = [])
@@ -44,6 +46,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
     /**
      * Retrieve quote store object
+     *
      * @return Mage_Core_Model_Store
      */
     public function getStore()
@@ -52,8 +55,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -93,9 +97,10 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * Define Cooser Grid Columns and filters
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     protected function _prepareColumns()
     {
@@ -157,7 +162,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

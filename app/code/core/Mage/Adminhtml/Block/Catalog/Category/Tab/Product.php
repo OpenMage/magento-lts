@@ -16,9 +16,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Catalog_Category_Tab_Product constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +32,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         return Mage::registry('category');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in category flag
@@ -203,7 +205,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

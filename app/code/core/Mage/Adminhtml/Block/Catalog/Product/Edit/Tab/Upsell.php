@@ -17,7 +17,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Set grid params
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -45,10 +45,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
-     * Add filter
-     *
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -82,9 +80,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -107,9 +103,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     protected function _prepareColumns()
     {
@@ -197,9 +194,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
-     * Rerieve grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

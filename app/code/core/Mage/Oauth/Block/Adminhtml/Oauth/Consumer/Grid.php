@@ -52,9 +52,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Prepare columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

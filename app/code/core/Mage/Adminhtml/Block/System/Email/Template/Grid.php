@@ -33,7 +33,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceSingleton('core/email_template_collection');
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -94,7 +93,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
             'width'     => '100',
             'renderer'  => 'adminhtml/system_email_template_grid_renderer_action',
         ]);
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
