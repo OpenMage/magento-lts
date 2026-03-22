@@ -248,9 +248,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get CMS page identifier without trailing page ID
+     *
      * @param Mage_Cms_Helper_Page::XML_PATH_* $path
      */
-    public function getIdentifierPageFromConfigPath(string $path): string
+    public function getIdentifierFromConfigPath(string $path): string
     {
         return explode('|', (string) Mage::getStoreConfig($path))[0];
     }
