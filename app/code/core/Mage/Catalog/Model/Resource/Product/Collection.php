@@ -1323,7 +1323,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $rulePrice = $product->getData('_rule_price');
             }
 
-            $finalPrice = $product->getPriceModel()->calculatePrice(
+            $finalPrice = $product->getPriceModel()::calculatePrice(
                 $basePrice,
                 $specialPrice,
                 $specialPriceFrom,

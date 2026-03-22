@@ -239,8 +239,8 @@ class Mage_Core_Model_Locale
     protected function _getOptionLocales($translatedName = false)
     {
         $options = [];
-        $zendLocales = $this->getLocale()->getLocaleList();
-        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $zendLocales = $this->getLocale()::getLocaleList();
+        $languages = $this->getLocale()::getTranslationList('language', $this->getLocale());
         $countries = $this->getCountryTranslationList();
 
         //Zend locale codes for internal allowed locale codes
@@ -272,8 +272,8 @@ class Mage_Core_Model_Locale
                 }
 
                 if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
-                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
+                    $label = ucwords($this->getLocale()::getTranslation($data[0], 'language', $code))
+                        . ' (' . $this->getLocale()::getTranslation($data[1], 'country', $code) . ') / '
                         . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
@@ -818,7 +818,7 @@ class Mage_Core_Model_Locale
      */
     public function getTranslationList($path = null, $value = null)
     {
-        return $this->getLocale()->getTranslationList($path, $this->getLocale(), $value);
+        return $this->getLocale()::getTranslationList($path, $this->getLocale(), $value);
     }
 
     /**
@@ -832,7 +832,7 @@ class Mage_Core_Model_Locale
      */
     public function getTranslation($value = null, $path = null)
     {
-        return $this->getLocale()->getTranslation($value, $path, $this->getLocale());
+        return $this->getLocale()::getTranslation($value, $path, $this->getLocale());
     }
 
     /**
@@ -855,7 +855,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslation($value)
     {
-        return $this->getLocale()->getTranslation($value, 'country', $this->getLocale());
+        return $this->getLocale()::getTranslation($value, 'country', $this->getLocale());
     }
 
     /**
@@ -866,7 +866,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), '2');
+        return $this->getLocale()::getTranslationList('territory', $this->getLocale(), '2');
     }
 
     /**
