@@ -53,8 +53,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page'))
-            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))
+            && ($page->getIdentifier() !== Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE))
+            && ($page->getIdentifier() !== Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE))
         ) {
             $breadcrumbsArray[] = [
                 'crumbName' => 'home',
@@ -142,9 +142,9 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $identifier = $page->getIdentifier();
 
         // Handle special pages differently
-        $homePageId = Mage::getStoreConfig('web/default/cms_home_page');
-        $noRoutePageId = Mage::getStoreConfig('web/default/cms_no_route');
-        $noCookiesPageId = Mage::getStoreConfig('web/default/cms_no_cookies');
+        $homePageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE);
+        $noRoutePageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
+        $noCookiesPageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
 
         // For homepage, use base URL
         if ($identifier === $homePageId) {
