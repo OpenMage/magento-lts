@@ -181,7 +181,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
-        $homepage = (string) Mage::getStoreConfig('web/default/cms_home_page', $storeId);
+        $homepage = (string) Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE, $storeId);
         $changefreq = (string) Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string) Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $lastmod    = Mage::getStoreConfigFlag('sitemap/page/lastmod', $storeId) ? $date : '';

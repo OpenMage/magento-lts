@@ -25,6 +25,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert'));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $productId = $this->getRequest()->getParam('id');
@@ -95,6 +98,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     public function getGridUrl()
     {
         $productId = $this->getRequest()->getParam('id');

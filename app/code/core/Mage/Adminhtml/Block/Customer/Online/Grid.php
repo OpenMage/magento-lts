@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         $collection->addCustomerData();
 
         $this->setCollection($collection);
+
         return parent::_prepareCollection();
     }
 

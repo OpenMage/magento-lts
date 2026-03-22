@@ -44,6 +44,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _addColumnFilterToCollection($column)
     {
         $field = ($column->getFilterIndex()) ? $column->getFilterIndex() : $column->getIndex();
@@ -53,8 +56,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             return $this;
         }
 
-        parent::_addColumnFilterToCollection($column);
-        return $this;
+        return parent::_addColumnFilterToCollection($column);
     }
 
     /**

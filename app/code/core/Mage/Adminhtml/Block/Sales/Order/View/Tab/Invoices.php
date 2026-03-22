@@ -122,26 +122,41 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Invoices');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Invoices');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

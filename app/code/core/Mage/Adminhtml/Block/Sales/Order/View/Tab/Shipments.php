@@ -107,21 +107,33 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/shipments', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Shipments');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Shipments');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         if ($this->getOrder()->getIsVirtual()) {
@@ -131,6 +143,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;
