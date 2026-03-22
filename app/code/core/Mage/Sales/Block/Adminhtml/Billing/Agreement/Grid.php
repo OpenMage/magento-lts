@@ -36,10 +36,8 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrieve row url
-     *
-     * @param  Mage_Sales_Model_Billing_Agreement $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Sales_Model_Billing_Agreement $row
      */
     public function getRowUrl($row)
     {

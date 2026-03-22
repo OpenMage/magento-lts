@@ -107,10 +107,8 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * Return item view URL
-     *
+     * @inheritDoc
      * @param  Mage_Paypal_Model_Report_Settlement $row
-     * @return string
      * @throws Mage_Core_Exception
      */
     public function getRowUrl($row)
