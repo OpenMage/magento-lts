@@ -8,7 +8,7 @@
  */
 
 /**
- * Adminhtml tagginf customers grid block
+ * Adminhtml tag info customers grid block
  *
  * @package    Mage_Adminhtml
  *
@@ -89,8 +89,8 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _addColumnFilterToCollection($column)
     {

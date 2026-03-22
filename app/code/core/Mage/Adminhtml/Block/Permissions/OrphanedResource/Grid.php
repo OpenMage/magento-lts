@@ -51,6 +51,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -76,7 +77,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
             'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     public function getRowUrl($row): string

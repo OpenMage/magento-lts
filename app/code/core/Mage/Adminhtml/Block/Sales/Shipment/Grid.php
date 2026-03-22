@@ -16,9 +16,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialization
-     */
     public function __construct()
     {
         parent::__construct();
@@ -37,9 +34,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare and set collection of grid
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -49,9 +44,8 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare and add columns to grid
-     *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -128,9 +122,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare and set options for massaction
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -148,13 +140,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * Get url of grid
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

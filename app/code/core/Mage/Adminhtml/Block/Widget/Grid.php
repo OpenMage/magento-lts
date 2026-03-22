@@ -13,12 +13,14 @@
  * @package    Mage_Adminhtml
  *
  * @method string getCheckboxCheckCallback()
- * @method bool   getIsCollapsed()
+ * @method string getGridHeader()
+ * @method bool   getNoFilterMassactionColumn()
  * @method string getRowClickCallback()
+ * @method string getRowInitCallback()
  * @method bool   getSortable()
  * @method bool   getUseAjax()
  * @method $this  setCheckboxCheckCallback(string $value)
- * @method $this  setIsCollapsed(bool $value)
+ * @method $this  setNoFilterMassactionColumn(bool $value)
  * @method $this  setRowClickCallback(string $value)
  * @method $this  setRowInitCallback(string $value)
  * @method $this  setSortable(bool $value)
@@ -233,10 +235,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected ?array $defaultColumnSettings = null;
 
-    /**
-     * Mage_Adminhtml_Block_Widget_Grid constructor.
-     * @param array $attributes
-     */
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
@@ -569,7 +567,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Add filter
+     * Add column filter to collection
      *
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
@@ -603,9 +601,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Add link model filter from grid column to collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column                     $column
-     *
+     * @param  Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column                     $column
      * @return $this
      */
     protected function _addLinkModelFilterCallback($collection, $column)
@@ -693,12 +690,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * @return $this
      * @throws Exception
      */
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
         $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
+        return $this;
     }
 
     /**

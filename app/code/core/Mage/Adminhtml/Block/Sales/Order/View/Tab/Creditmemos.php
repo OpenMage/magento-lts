@@ -121,26 +121,41 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/creditmemos', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

@@ -69,9 +69,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Get url for dispatching grid ajax requests
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

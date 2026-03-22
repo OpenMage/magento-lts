@@ -14,8 +14,12 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @package    Mage_Adminhtml
  *
- * @method int getCustomerId()
- * @method int getProductId()
+ * @method int   getCustomerId()
+ * @method bool  getMassactionIdFieldOnlyIndexValue()
+ * @method int   getProductId()
+ * @method $this setCustomerId(int $value)
+ * @method $this setMassactionIdFieldOnlyIndexValue(bool $value)
+ * @method $this setProductId(int $value)
  */
 class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -67,6 +71,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareColumns()
@@ -255,7 +260,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {

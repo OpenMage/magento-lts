@@ -28,7 +28,6 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
     {
         $collection = Mage::getResourceModel('reports/review_product_collection')
             ->joinReview();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
