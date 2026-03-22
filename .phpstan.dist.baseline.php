@@ -8174,18 +8174,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/shell/indexer.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Api2_Helper_Data::getAllowedAttributes() invoked with 0 parameters, 3 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Api2/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Method Mage_Api2_Helper_Data::isApiTypeSupported() invoked with 0 parameters, 1 required.',
-	'identifier' => 'arguments.count',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Mage/Api2/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - PhpUnitsOfMeasure\\Exception\\UnknownUnitOfMeasure is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
 	'count' => 2,
