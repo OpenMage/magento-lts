@@ -126,14 +126,15 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Retrieve Row URL
-     *
-     * @param  Mage_Log_Model_Visitor_Online $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Log_Model_Visitor_Online $row
      */
     public function getRowUrl($row)
     {
-        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
-            ? $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]) : '';
+        if ($this->isAllowed('customer/manage') && $row->getCustomerId()) {
+            return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]);
+        }
+
+        return '';
     }
 }
