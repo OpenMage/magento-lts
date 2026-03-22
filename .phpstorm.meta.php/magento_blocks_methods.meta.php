@@ -36,8 +36,6 @@ namespace PHPSTORM_META {
             'adminhtml/catalog_category_helper_sortby_available' => \Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available::class,
             'adminhtml/catalog_category_helper_sortby_default' => \Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Default::class,
             'adminhtml/catalog_category_tab_attributes' => \Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes::class,
-            'adminhtml/catalog_category_tab_design' => \Mage_Adminhtml_Block_Catalog_Category_Tab_Design::class,
-            'adminhtml/catalog_category_tab_general' => \Mage_Adminhtml_Block_Catalog_Category_Tab_General::class,
             'adminhtml/catalog_category_tab_product' => \Mage_Adminhtml_Block_Catalog_Category_Tab_Product::class,
             'adminhtml/catalog_category_tabs' => \Mage_Adminhtml_Block_Catalog_Category_Tabs::class,
             'adminhtml/catalog_category_tree' => \Mage_Adminhtml_Block_Catalog_Category_Tree::class,
