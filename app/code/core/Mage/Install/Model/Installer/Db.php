@@ -73,11 +73,11 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             }
 
             // TODO: check user roles
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            Mage::throwException(Mage::helper('install')->__($e->getMessage()));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+            Mage::throwException(Mage::helper('install')->__($mageCoreException->getMessage()));
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }
 

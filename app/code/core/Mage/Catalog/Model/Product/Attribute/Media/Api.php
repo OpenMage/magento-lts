@@ -147,11 +147,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $filePath = $tmpDirectory . DS . $fileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
-                throw new Mage_Core_Exception($e->getMessage(), $e->getCode(), $e);
+                throw new Mage_Core_Exception($exception->getMessage(), $exception->getCode(), $exception);
             }
 
             // Adding image to gallery
@@ -172,8 +172,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_created', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_created', $mageCoreException->getMessage());
         } catch (Exception) {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }

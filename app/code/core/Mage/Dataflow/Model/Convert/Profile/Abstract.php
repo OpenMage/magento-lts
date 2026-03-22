@@ -85,9 +85,9 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Data
         return $this;
     }
 
-    public function addException(Mage_Dataflow_Model_Convert_Exception $e)
+    public function addException(Mage_Dataflow_Model_Convert_Exception $mageDataflowModelConvertException)
     {
-        $this->_exceptions[] = $e;
+        $this->_exceptions[] = $mageDataflowModelConvertException;
         return $this;
     }
 

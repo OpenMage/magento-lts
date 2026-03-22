@@ -146,13 +146,15 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @param  Mage_Wishlist_Model_Item_Option $option
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _addOptionCode($option)
     {
-        if (!isset($this->_optionsByCode[$option->getCode()])) {
-            $this->_optionsByCode[$option->getCode()] = $option;
+        $code = (string) $option->getCode();
+        if (!isset($this->_optionsByCode[$code])) {
+            $this->_optionsByCode[$code] = $option;
         } else {
-            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $code));
         }
 
         return $this;
@@ -655,6 +657,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     public function getOptionByCode($code)
     {
+        $code = (string) $code;
         if (isset($this->_optionsByCode[$code]) && !$this->_optionsByCode[$code]->isDeleted()) {
             return $this->_optionsByCode[$code];
         }

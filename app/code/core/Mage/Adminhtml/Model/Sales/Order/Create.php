@@ -839,10 +839,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $config['qty'] = isset($config['qty']) ? (float) $config['qty'] : 1;
             try {
                 $this->addProduct($productId, $config);
-            } catch (Mage_Core_Exception $e) {
-                $this->getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                return $e;
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                return $exception;
             }
         }
 
@@ -901,11 +901,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         }
                     }
                 }
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 $this->recollectCart();
-                throw $e;
-            } catch (Exception $e) {
-                Mage::logException($e);
+                throw $mageCoreException;
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $this->recollectCart();
@@ -1679,8 +1679,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             } else {
                 try {
                     $method->validate();
-                } catch (Mage_Core_Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Mage_Core_Exception $mageCoreException) {
+                    $this->_errors[] = $mageCoreException->getMessage();
                 }
             }
         }
