@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_role_grid_user';
+
     public function __construct()
     {
         parent::__construct();

@@ -14,6 +14,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'sales_adminhtml_billing_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();

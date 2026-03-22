@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_checkout_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();
