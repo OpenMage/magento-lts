@@ -219,7 +219,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'visibility',
                 'type'      => 'options',
-                'options'   => Mage::getModel('catalog/product_visibility')::getOptionArray(),
+                'options'   => Mage::getModel('catalog/product_visibility')->getOptionArray(),
             ],
         );
 
