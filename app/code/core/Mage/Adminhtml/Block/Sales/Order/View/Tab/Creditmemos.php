@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
         ]);
 
         $this->addColumn('base_grand_total', [

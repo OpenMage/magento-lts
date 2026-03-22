@@ -68,19 +68,15 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Get row URL
-     *
-     * @param  Varien_Object $row
-     * @return null|string
+     * @inheritDoc
+     * @param Varien_Object $row
      */
     public function getRowUrl($row)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        if ($session->isAllowed('system/api/attributes/edit')) {
+        if ($this->isAllowed('system/api/attributes/edit')) {
             return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
         }
 
-        return null;
+        return '';
     }
 }

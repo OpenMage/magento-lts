@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_invoice')->getStates(),
+            'options'   => Mage::getModel('sales/order_invoice')::getStates(),
         ]);
 
         $this->addColumn('grand_total', [
@@ -144,16 +144,11 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
-            return '';
+        if ($this->isAllowed('sales/order/invoice')) {
+            return $this->getUrl('*/sales_invoice/view', ['invoice_id' => $row->getId()]);
         }
 
-        return $this->getUrl(
-            '*/sales_invoice/view',
-            [
-                'invoice_id' => $row->getId(),
-            ],
-        );
+        return '';
     }
 
     /**

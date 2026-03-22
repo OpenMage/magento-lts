@@ -384,7 +384,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function getUrl($route = '', $params = [])
     {
-        return Mage::helper('adminhtml')->getUrl($route, $params);
+        return Mage::helper('adminhtml')::getUrl($route, $params);
     }
 
     /**

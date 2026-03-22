@@ -129,6 +129,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
      */
     public function getLoadTreeUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
+        return Mage::helper('adminhtml')::getUrl('*/*/categoriesJson');
     }
 }

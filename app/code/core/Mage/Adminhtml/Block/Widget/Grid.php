@@ -237,6 +237,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected string $_eventPrefix = '';
 
+    /**
+     * This array caches the status of the isAllowed() method, for every acl path
+     *
+     * @var array<string, bool>
+     */
+    protected array $isAllowed = [];
+
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
@@ -1974,7 +1981,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Check whether should render empty cell
+     * Check whether you should render empty cell
      *
      * @param  Varien_Object                           $item
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
@@ -2035,5 +2042,19 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getLimitOptions(): array
     {
         return [20, 30, 50, 100, 200, 500, 1000];
+    }
+
+    /**
+     * Cache whether ACL path is allowed
+     */
+    protected function isAllowed(string $aclPath): bool
+    {
+        if (!isset($this->isAllowed[$aclPath])) {
+            /** @var Mage_Admin_Model_Session $session */
+            $session = Mage::getSingleton('admin/session');
+            $this->isAllowed[$aclPath] = $session->isAllowed($aclPath);
+        }
+
+        return $this->isAllowed[$aclPath];
     }
 }

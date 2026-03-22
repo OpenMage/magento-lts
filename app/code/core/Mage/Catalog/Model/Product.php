@@ -487,16 +487,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if ($singleton === true) {
             if (is_null($this->_typeInstanceSingleton)) {
-                $this->_typeInstanceSingleton = Mage::getSingleton('catalog/product_type')
-                    ->factory($this, true);
+                $this->_typeInstanceSingleton = Mage::getSingleton('catalog/product_type')::factory($this, true);
             }
 
             return $this->_typeInstanceSingleton;
         }
 
         if ($this->_typeInstance === null) {
-            $this->_typeInstance = Mage::getSingleton('catalog/product_type')
-                ->factory($this);
+            $this->_typeInstance = Mage::getSingleton('catalog/product_type')::factory($this);
         }
 
         return $this->_typeInstance;
@@ -911,7 +909,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getPriceModel()
     {
-        return Mage::getSingleton('catalog/product_type')->priceFactory($this->getTypeId());
+        return Mage::getSingleton('catalog/product_type')::priceFactory($this->getTypeId());
     }
 
     /**

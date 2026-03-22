@@ -242,13 +242,13 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $groupNode = null;
         $fieldNode = null;
         $sectionNode = $this->_sections->xpath($path);
-        if (!empty($groupName)) {
+        if (is_string($groupName) && $groupName !== '') {
             $path .= '/groups/' . trim($groupName, '/');
             $groupNode = $this->_sections->xpath($path);
         }
 
-        if (!empty($fieldName)) {
-            if (!empty($groupName)) {
+        if (is_string($fieldName) && $fieldName !== '') {
+            if (is_string($groupName) && $groupName !== '') {
                 $path .= '/fields/' . trim($fieldName, '/');
                 $fieldNode = $this->_sections->xpath($path);
             } else {

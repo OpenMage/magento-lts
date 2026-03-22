@@ -120,16 +120,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert and format price value for specified store
      *
-     * @param  float                     $value
-     * @param  int|Mage_Core_Model_Store $store
-     * @param  bool                      $format
-     * @param  bool                      $includeContainer
-     * @return mixed
+     * @param  float                                                    $value
+     * @param  null|bool|int|Mage_Core_Model_Store|string|Varien_Object $store
+     * @param  bool                                                     $format
+     * @param  bool                                                     $includeContainer
+     * @return float
      */
     public static function currencyByStore($value, $store = null, $format = true, $includeContainer = true)
     {
         try {
-            if (!($store instanceof Mage_Core_Model_Store)) {
+            if (!$store instanceof Mage_Core_Model_Store) {
                 $store = Mage::app()->getStore($store);
             }
 

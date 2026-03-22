@@ -257,7 +257,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $delete = array_diff($oldCategoryIds, $categoryIds);
 
         $write = $this->_getWriteAdapter();
-        if (!empty($insert)) {
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $categoryId) {
                 if (empty($categoryId)) {
@@ -286,7 +286,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $write->delete($this->_productCategoryTable, $where);
         }
 
-        if (!empty($insert) || !empty($delete)) {
+        if ($insert !== [] || $delete !== []) {
             $object->setAffectedCategoryIds(array_merge($insert, $delete));
             $object->setIsChangedCategories(true);
         }
