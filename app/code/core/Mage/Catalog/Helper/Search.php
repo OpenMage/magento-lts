@@ -31,6 +31,6 @@ class Mage_Catalog_Helper_Search extends Mage_Core_Helper_Abstract
      */
     public function getNoRoutePath(): string
     {
-        return $this->_getUrl(Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE));
+        return $this->_getUrl(Mage::helper('cms/page')->getIdentifierPageFromConfigPath(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE));
     }
 }
