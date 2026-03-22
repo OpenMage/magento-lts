@@ -44,9 +44,9 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type instance factory
      *
-     * @param  Mage_Catalog_Model_Product|Varien_Object $product
-     * @param  bool                                     $singleton
-     * @return false|Mage_Core_Model_Abstract
+     * @param  Mage_Catalog_Model_Product|Varien_Object       $product
+     * @param  bool                                           $singleton
+     * @return false|Mage_Catalog_Model_Product_Type_Abstract
      */
     public static function factory($product, $singleton = false)
     {

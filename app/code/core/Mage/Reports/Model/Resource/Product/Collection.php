@@ -257,7 +257,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function addOrderedQty($from = '', $to = '')
     {
         $adapter              = $this->getConnection();
-        $compositeTypeIds     = Mage::getSingleton('catalog/product_type')->getCompositeTypes();
+        $compositeTypeIds     = Mage::getSingleton('catalog/product_type')::getCompositeTypes();
         $orderTableAliasName  = $adapter->quoteIdentifier('order');
 
         $orderJoinCondition   = [

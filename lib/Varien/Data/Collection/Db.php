@@ -11,6 +11,8 @@
  * Base items collection class
  *
  * @package    Varien_Data
+ * @template T of Varien_Object
+ * @extends Varien_Data_Collection<T>
  *
  * @method $this _initSelect()
  */
@@ -87,7 +89,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function __construct($conn = null)
     {
-        parent::__construct();
         if (!is_null($conn)) {
             $this->setConnection($conn);
         }
@@ -735,9 +736,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * @param  bool                                             $printQuery
-     * @param  bool                                             $logQuery
-     * @return Varien_Data_Collection|Varien_Data_Collection_Db
+     * @param  bool                 $printQuery
+     * @param  bool                 $logQuery
+     * @return $this
      * @throws Zend_Cache_Exception
      */
     public function loadData($printQuery = false, $logQuery = false)

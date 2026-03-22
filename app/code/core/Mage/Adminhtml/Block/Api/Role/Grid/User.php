@@ -27,8 +27,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      * @throws Exception
      */
     protected function _addColumnFilterToCollection($column)
@@ -123,7 +122,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return string
+     * @inheritDoc
      * @throws Exception
      */
     public function getGridUrl()

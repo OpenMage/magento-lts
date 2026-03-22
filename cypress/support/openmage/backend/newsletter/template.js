@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-newsletter',
     _title: base._title,
     _button: base._button,
-    url: 'newsletter_template/index',
+    url: 'admin/newsletter_template',
     index: {},
     edit: {},
     new: {},
@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Templates" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Newsletter Templates',
     url: test.config.url,
-    _grid: '#newsletterTemplateGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'template_code', dir: 'desc' } }},
     __buttons: {},
 }
 

@@ -21,9 +21,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
      */
     protected $_columnsToRemove = ['parent_id', 'parent_txn_id'];
 
-    /**
-     * Disable pager and filter
-     */
     public function __construct()
     {
         parent::__construct();
@@ -36,7 +33,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
     /**
      * Add filter by parent transaction ID
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -48,6 +45,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
 
     /**
      * Remove some columns and make other not sortable
+     *
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {

@@ -184,7 +184,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     {
         $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = [];
-        $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
+        $price  = Mage::getSingleton('catalog/product_type')::priceFactory($productTypeId);
         foreach ($priceData as $v) {
             $key = implode('-', array_merge([$v['cust_group']], $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {

@@ -19,7 +19,6 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         parent::__construct();
         $this->setId('customers_grid');
         $this->setDefaultSort('review_cnt');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -29,7 +28,6 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
     {
         $collection = Mage::getResourceModel('reports/review_customer_collection')
             ->joinCustomers();
-
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

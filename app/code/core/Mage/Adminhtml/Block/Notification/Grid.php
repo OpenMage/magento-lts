@@ -25,7 +25,6 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->setId('notificationGrid');
         $this->setIdFieldName('notification_id');
         $this->setDefaultSort('date_added');
-        $this->setDefaultDir('DESC');
         $this->setFilterVisibility(false);
     }
 
@@ -78,8 +77,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepare mass action
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -96,7 +94,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
             'url'      => $this->getUrl('*/*/massRemove'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**

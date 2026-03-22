@@ -418,7 +418,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $options = $this->getValueSelectOptions();
         $valueArr = [];
-        if (!empty($options)) {
+        if ($options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
                     if (in_array($option['value'], $value)) {
@@ -440,7 +440,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
         }
 
-        if (!empty($valueArr)) {
+        if ($valueArr !== []) {
             return implode(', ', $valueArr);
         }
 
@@ -744,7 +744,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 if (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
@@ -788,7 +788,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } elseif (is_array($value)) {
                     if (is_array($validatedValue)) {
                         $result = array_intersect($value, $validatedValue);
-                        $result = !empty($result);
+                        $result = $result !== [];
                     } else {
                         return false;
                     }
