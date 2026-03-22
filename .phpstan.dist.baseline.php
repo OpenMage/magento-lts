@@ -8060,18 +8060,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method query() on object|resource.',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Cannot call method setAttribute() on object|resource.',
-	'identifier' => 'method.nonObject',
-	'count' => 2,
-	'path' => __DIR__ . '/lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.',
 	'identifier' => 'argument.type',
 	'count' => 1,
