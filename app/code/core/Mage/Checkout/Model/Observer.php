@@ -23,11 +23,11 @@ class Mage_Checkout_Model_Observer
     {
         try {
             Mage::getSingleton('checkout/session')->loadCustomerQuote();
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('checkout/session')->addException(
-                $e,
+                $exception,
                 Mage::helper('checkout')->__('Load customer quote error'),
             );
         }
