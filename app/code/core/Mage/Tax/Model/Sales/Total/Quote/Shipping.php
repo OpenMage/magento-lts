@@ -249,12 +249,4 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
 
         return false;
     }
-
-    /**
-     * Calculate shipping price without store tax
-     *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @deprecated after 1.4.0.0
-     */
-    protected function _processShippingAmount($address) {}
 }

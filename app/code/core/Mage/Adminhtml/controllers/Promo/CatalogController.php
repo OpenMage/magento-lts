@@ -328,11 +328,6 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * @deprecated since 1.5.0.0
-     */
-    public function addToAlersAction() {}
-
-    /**
      * Set dirty rules notice message
      *
      * @param string $dirtyRulesNoticeMessage

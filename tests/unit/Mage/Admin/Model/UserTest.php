@@ -107,14 +107,6 @@ final class UserTest extends OpenMageTest
     /**
      * @group Model
      */
-    public function testSendNewPasswordEmail(): void
-    {
-        self::assertInstanceOf(Subject::class, self::$subject->sendNewPasswordEmail());
-    }
-
-    /**
-     * @group Model
-     */
     public function testGetUserId(): void
     {
         self::assertNull(self::$subject->getUserId());

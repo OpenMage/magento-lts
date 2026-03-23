@@ -837,28 +837,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     }
 
     /**
-     * Unset item prices/totals with price include tax.
-     * Operation is necessary for reset item state in case if configuration was changed
-     *
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
-     * @deprecated after 1.4.1
-     */
-    protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
-    {
-        return $this;
-    }
-
-    /**
-     * @param  Mage_Sales_Model_Quote_Address            $address
-     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
-     * @deprecated after 1.4.0.1
-     */
-    protected function _processShippingAmount($address)
-    {
-        return $this;
-    }
-
-    /**
      * Recollect item price and row total using after taxes subtract.
      * Declare item price including tax attributes
      *

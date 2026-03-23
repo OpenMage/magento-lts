@@ -495,16 +495,6 @@ class Varien_File_Uploader
         return in_array(strtolower($extension), $this->_allowedExtensions);
     }
 
-    /**
-     * @param  string $extension
-     * @return bool
-     * @deprecated after 1.5.0.0-beta2
-     */
-    public function chechAllowedExtension($extension)
-    {
-        return $this->checkAllowedExtension($extension);
-    }
-
     private function _setUploadFileId($fileId)
     {
         if (empty($_FILES)) {

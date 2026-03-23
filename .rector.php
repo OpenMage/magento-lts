@@ -26,6 +26,8 @@ use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
@@ -49,15 +51,54 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withConfiguredRule(RenameClassConstFetchRector::class, [
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', 'Mage_Core_Helper_Measure_Length', 'CENTIMETER'),
-            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', 'Mage_Core_Helper_Measure_Length', 'INCH'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', 'Mage_Core_Helper_Measure_Weight', 'KILOGRAM'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', 'Mage_Core_Helper_Measure_Weight', 'OUNCE'),
-            new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', 'Mage_Core_Helper_Measure_Weight', 'POUND'),
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'CENTIMETER', Mage_Core_Helper_Measure_Length::class, 'CENTIMETER'),
+            new RenameClassAndConstFetch('Zend_Measure_Length', 'INCH', Mage_Core_Helper_Measure_Length::class, 'INCH'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'KILOGRAM', Mage_Core_Helper_Measure_Weight::class, 'KILOGRAM'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'OUNCE', Mage_Core_Helper_Measure_Weight::class, 'OUNCE'),
+            new RenameClassAndConstFetch('Zend_Measure_Weight', 'POUND', Mage_Core_Helper_Measure_Weight::class, 'POUND'),
+        ])
+        ->withConfiguredRule(RenameMethodRector::class, [
+            new MethodCallRename(Mage_Admin_Model_User::class, 'getStatrupPageUrl', 'getStartupPageUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main::class, '_getSetData', '_getAttributeSet'),
+            new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'setBugreportUrl', 'setReportIssuesUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'getBugreportUrl', 'getReportIssuesUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'setConnectWithMagentoUrl', 'setOpenMageProjectUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Page_Footer::class, 'getConnectWithMagentoUrl', 'getOpenMageProjectUrl'),
+            new MethodCallRename(Mage_Adminhtml_Block_Widget_Form::class, 'getFormObject', 'getForm'),
+            new MethodCallRename(Mage_Adminhtml_CustomerController::class, '_sendUploadResponse', '_prepareDownloadResponse'),
+            new MethodCallRename(Mage_Adminhtml_Newsletter_SubscriberController::class, '_sendUploadResponse', '_prepareDownloadResponse'),
+            new MethodCallRename(Mage_Catalog_CategoryController::class, '_initCatagory', '_initCategory'),
+            new MethodCallRename(Mage_Catalog_Helper_Category_Flat::class, 'isRebuilt', 'isBuilt'),
+            new MethodCallRename(Mage_Catalog_Model_Product_Flat_Flag::class, 'setIsBuild', 'setIsBuilt'),
+            new MethodCallRename(Mage_Catalog_Model_Resource_Category_Flat::class, 'isRebuilt', 'isBuilt'),
+            new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addMinimalPrice', 'addPriceData'),
+            new MethodCallRename(Mage_Catalog_Model_Resource_Product_Collection::class, 'addFinalPrice', 'addPriceData'),
+            new MethodCallRename(Mage_Catalog_Model_Url::class, 'getUnusedPath', 'getUnusedPathByUrlKey'),
+            new MethodCallRename(Mage_CatalogSearch_Model_Query::class, 'getMinQueryLenght', 'getMinQueryLength'),
+            new MethodCallRename(Mage_CatalogSearch_Model_Query::class, 'getMaxQueryLenght', 'getMaxQueryLength'),
+            new MethodCallRename(Mage_Checkout_Block_Cart_Abstract::class, 'getItemRender', 'getItemRendererInfo'),
+            new MethodCallRename(Mage_ConfigurableSwatches_Helper_Mediafallback::class, 'attachConfigurableProductChildrenAttributeMapping', 'attachProductChildrenAttributeMapping'),
+            new MethodCallRename(Mage_Core_Block_Abstract::class, 'htmlEscape', 'escapeHtml'),
+            new MethodCallRename(Mage_Core_Block_Abstract::class, 'urlEscape', 'escapeUrl'),
+            new MethodCallRename(Mage_Core_Helper_Abstract::class, 'htmlEscape', 'escapeHtml'),
+            new MethodCallRename(Mage_Core_Helper_Abstract::class, 'urlEscape', 'escapeUrl'),
+            new MethodCallRename(Mage_Eav_Model_Config::class, 'getCollectionAttribute', 'getAttribute'),
+            new MethodCallRename(Mage_Paypal_Model_Api_Abstract::class, 'getDebug', 'getDebugFlag'),
+            new MethodCallRename(Mage_Sitemap_Model_Resource_Catalog_Category::class, '_prepareCategory', '_prepareObject'),
+            new MethodCallRename(Mage_Sitemap_Model_Resource_Catalog_Product::class, '_prepareProduct', '_prepareObject'),
+            new MethodCallRename(Mage_Tax_Helper_Data::class, 'getTaxRatesByProductClass', 'getAllRatesByProductClass'),
+            new MethodCallRename(Mage_Tax_Model_Config::class, 'displayFullSummary', 'displayCartFullSummary'),
+            new MethodCallRename(Mage_Tax_Model_Config::class, 'displayZeroTax', 'displayCartZeroTax'),
+            new MethodCallRename(Mage_Usa_Model_Shipping_Carrier_Usps::class, 'setTrackingReqeust', 'setTrackingRequest'),
+            new MethodCallRename(Mage_Wishlist_Block_Abstract::class, 'getWishlist', 'getWishlistItems'),
+            new MethodCallRename(Mage_Wishlist_Block_Customer_Sidebar::class, 'getRemoveItemUrl', 'getItemRemoveUrl'),
+            new MethodCallRename(Mage_Wishlist_Block_Customer_Sidebar::class, 'getAddToCartItemUrl', 'getItemAddToCartUrl'),
+            new MethodCallRename(Mage_Wishlist_Helper_Data::class, 'getItemCollection', 'getProductCollection'),
+            new MethodCallRename(Varien_File_Uploader::class, 'chechAllowedExtension', 'checkAllowedExtension'),
         ])
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, [
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'asc', 'ASC'),
-            new ReplaceArgumentDefaultValue('Mage_Adminhtml_Block_Widget_Grid', 'setDefaultDir', 0, 'desc', 'DESC'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'asc', 'ASC'),
+            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'desc', 'DESC'),
         ])
         ->withSkip([
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [

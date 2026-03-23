@@ -163,20 +163,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve wishlist product items collection
-     *
-     * alias for getProductCollection
-     *
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
-     * @deprecated after 1.4.2.0
-     * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
-     */
-    public function getItemCollection()
-    {
-        return $this->getProductCollection();
-    }
-
-    /**
      * Create wishlist item collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection

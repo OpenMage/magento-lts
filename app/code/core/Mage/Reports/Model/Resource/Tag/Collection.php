@@ -15,17 +15,6 @@
 class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource_Popular_Collection
 {
     /**
-     * Add group by tag
-     *
-     * @return $this
-     * @deprecated after 1.4.0.1
-     */
-    public function addGroupByTag()
-    {
-        return $this;
-    }
-
-    /**
      * Add tag popularity to select by specified store ids
      *
      * @param  array|int $storeIds

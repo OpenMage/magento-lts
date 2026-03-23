@@ -631,39 +631,4 @@ class Mage_Eav_Model_Config
 
         return false;
     }
-
-    /**
-     * @param  mixed                                         $entityType
-     * @param  string                                        $attribute
-     * @return null|Mage_Eav_Model_Entity_Attribute_Abstract
-     * @throws Mage_Core_Exception
-     * @deprecated Equivalent to getAttribute(...), use getAttribute(...) instead
-     * Get attribute object for collection usage
-     */
-    public function getCollectionAttribute($entityType, $attribute)
-    {
-        return $this->getAttribute($entityType, $attribute);
-    }
-
-    /**
-     * @param  mixed $entityType
-     * @param  array $attributes
-     * @return $this
-     * @deprecated No longer required to preload only collection attributes explicitly
-     * Prepare attributes for usage in EAV collection
-     */
-    public function loadCollectionAttributes($entityType, $attributes)
-    {
-        return $this;
-    }
-
-    /**
-     * @param  Mage_Eav_Model_Entity_Type|string $entityType
-     * @return $this
-     * @deprecated No longer required. All attribute data is cached on-access.
-     */
-    public function importAttributesData($entityType, array $attributes)
-    {
-        return $this;
-    }
 }
