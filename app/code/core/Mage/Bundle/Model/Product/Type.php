@@ -577,7 +577,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 foreach ($selections->getItems() as $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
                         $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
-                        if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
+                        if (is_array($options[$selectedOption->getId()]) && (count($options[$selectedOption->getId()]) > 1)) {
                             $moreSelections = true;
                         } else {
                             $moreSelections = false;
