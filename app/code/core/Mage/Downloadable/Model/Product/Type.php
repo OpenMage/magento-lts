@@ -475,7 +475,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     {
         /** @var null|string[] $links */
         $links = $buyRequest->getLinks();
-        $links = (is_array($links)) ? array_filter($links, \ctype_digit(...)) : [];
+        $links = (is_array($links)) ? array_filter($links, fn(mixed $o) => \intval($o) !== 0) : [];
 
         return ['links' => $links];
     }

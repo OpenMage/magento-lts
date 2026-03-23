@@ -529,7 +529,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, fn(mixed $o) => is_array($o) || \ctype_digit($o));
+            $options = array_filter($options, fn(mixed $o) => \intval($o) !== 0);
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -1002,13 +1002,13 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function processBuyRequest($product, $buyRequest)
     {
-        /** @var null|string[] $option */
+        /** @var null|array<int, string|string[]> $option */
         $option     = $buyRequest->getBundleOption();
         /** @var null|string[] $optionQty */
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, \ctype_digit(...)) : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, \ctype_digit(...)) : [];
+        $option     = (is_array($option)) ? array_filter($option, fn(mixed $o) => \intval($o) !== 0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => \floatval($o) !== 0) : [];
 
         return [
             'bundle_option'     => $option,
