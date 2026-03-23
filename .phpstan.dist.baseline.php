@@ -1088,12 +1088,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Dead catch - Exception is never thrown in the try block.',
 	'identifier' => 'catch.neverThrown',
 	'count' => 1,
@@ -1553,12 +1547,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Bundle_Model_Selection is not subtype of type Mage_Catalog_Model_Product.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
@@ -2288,21 +2276,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
 ];
 $ignoreErrors[] = [
@@ -4380,12 +4356,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
