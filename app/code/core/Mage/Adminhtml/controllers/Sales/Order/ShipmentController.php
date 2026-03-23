@@ -663,6 +663,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     public function massPrintShippingLabelAction()
     {
         $request = $this->getRequest();
+        /** @var string[] $ids */
         $ids = $request->getParam('order_ids');
         $createdFromOrders = !empty($ids);
         $shipments = null;

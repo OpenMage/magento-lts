@@ -528,6 +528,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
+            /**
+             * @var string[] $options
+             */
             $options = array_filter($options, \intval(...));
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
@@ -1001,6 +1004,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function processBuyRequest($product, $buyRequest)
     {
+        /**
+         * @var string[]|null $option
+         * @var string[]|null $optionQty
+         */
         $option     = $buyRequest->getBundleOption();
         $optionQty  = $buyRequest->getBundleOptionQty();
 
