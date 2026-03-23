@@ -43,6 +43,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

@@ -25,23 +25,19 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
         /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
         $collection = Mage::getModel('api2/acl_global_role')->getCollection();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -67,14 +63,11 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
             'index'  => 'created_at',
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getGridUrl()
     {
@@ -88,10 +81,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     public function getRowUrl($row)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-
-        if ($session->isAllowed('system/api/roles/edit')) {
+        if ($this->isAllowed('system/api/roles/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
 

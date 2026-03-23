@@ -19,11 +19,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         parent::__construct();
         $this->setId('newsletterTemplateGrid');
         $this->setDefaultSort('template_code');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setEmptyText(Mage::helper('newsletter')->__('No Templates Found'));

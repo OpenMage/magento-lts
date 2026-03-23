@@ -25,9 +25,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -42,9 +41,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

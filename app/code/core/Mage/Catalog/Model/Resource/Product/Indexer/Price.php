@@ -338,7 +338,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     {
         if (is_null($this->_indexers)) {
             $this->_indexers = [];
-            $types = Mage::getSingleton('catalog/product_type')->getTypesByPriority();
+            $types = Mage::getSingleton('catalog/product_type')::getTypesByPriority();
             foreach ($types as $typeId => $typeInfo) {
                 $modelName = $typeInfo['price_indexer'] ?? $this->_defaultPriceIndexer;
                 $isComposite = !empty($typeInfo['composite']);

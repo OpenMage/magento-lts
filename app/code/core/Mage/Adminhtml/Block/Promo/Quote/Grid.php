@@ -14,10 +14,6 @@
  */
 class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize grid
-     * Set sort settings
-     */
     public function __construct()
     {
         parent::__construct();
@@ -29,9 +25,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
 
     /**
      * Add websites to sales rules collection
-     * Set collection
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -42,14 +37,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         $collection->addFilterToMap('times_used', 'main_table.times_used');
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Add grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -126,8 +119,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             'width'     => 100,
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**

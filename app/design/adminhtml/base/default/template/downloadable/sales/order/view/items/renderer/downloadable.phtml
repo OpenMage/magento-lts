@@ -99,7 +99,7 @@
                 <small>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><?php echo $tax['title']; ?>
-                            : <?php echo Mage::helper('core')->currency($tax['amount_incl_tax'], true, true); ?></span>
+                            : <?php echo Mage::helper('core')::currency($tax['amount_incl_tax'], true, true); ?></span>
                         <br/>
                     <?php endforeach ?>
                 </small>
@@ -108,7 +108,7 @@
                 <br/>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                     <span class="nobr"><small><?php echo $tax['title']; ?>
-                            : <?php echo Mage::helper('core')->currency($tax['amount_incl_tax'], true, true); ?></small></span>
+                            : <?php echo Mage::helper('core')::currency($tax['amount_incl_tax'], true, true); ?></small></span>
                     <br/>
                 <?php endforeach ?>
                 <span class="nobr">
@@ -194,7 +194,7 @@
                 <small>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><?php echo $tax['title']; ?>
-                            : <?php echo Mage::helper('core')->currency($tax['row_amount_incl_tax'], true, true); ?></span>
+                            : <?php echo Mage::helper('core')::currency($tax['row_amount_incl_tax'], true, true); ?></span>
                         <br/>
                     <?php endforeach ?>
                 </small>
@@ -203,7 +203,7 @@
                 <br/>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                     <span class="nobr"><small><?php echo $tax['title']; ?>
-                            : <?php echo Mage::helper('core')->currency($tax['row_amount_incl_tax'], true, true); ?></small></span>
+                            : <?php echo Mage::helper('core')::currency($tax['row_amount_incl_tax'], true, true); ?></small></span>
                     <br/>
                 <?php endforeach ?>
                     <span class="nobr">

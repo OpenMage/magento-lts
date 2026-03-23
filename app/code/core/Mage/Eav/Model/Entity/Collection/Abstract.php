@@ -11,6 +11,8 @@
  * Entity/Attribute/Model - collection abstract
  *
  * @package    Mage_Eav
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -97,7 +99,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Collection constructor
      *
-     * @param  Mage_Core_Model_Resource_Abstract $resource
+     * @param  Mage_Core_Model_Resource_Abstract|Varien_Db_Adapter_Interface $resource
      * @throws Mage_Core_Exception
      * @throws Zend_Exception
      * @phpstan-ignore constructor.unusedParameter
@@ -232,7 +234,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Set template object for the collection
      *
-     * @param  Varien_Object $object
+     * @param  string|Varien_Object $object
      * @return $this
      */
     public function setObject($object = null)

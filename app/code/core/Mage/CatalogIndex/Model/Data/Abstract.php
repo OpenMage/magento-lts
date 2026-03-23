@@ -170,9 +170,16 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        return Mage::getSingleton('catalog/product_type')
-            ->priceFactory($this->getTypeCode())
-            ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
+        return Mage::getSingleton('catalog/product_type')::priceFactory($this->getTypeCode())::calculatePrice(
+            $basePrice,
+            $specialPrice,
+            $specialPriceFrom,
+            $specialPriceTo,
+            false,
+            $store,
+            $group,
+            $product,
+        );
     }
 
     /**
@@ -294,8 +301,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             $product = new Varien_Object();
             $product->setTypeId($this->getTypeCode());
             /** @var Mage_Catalog_Model_Product_Type_Abstract $model */
-            $model = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $model = Mage::getSingleton('catalog/product_type')::factory($product, true);
             $this->_typeInstance = $model;
         }
 

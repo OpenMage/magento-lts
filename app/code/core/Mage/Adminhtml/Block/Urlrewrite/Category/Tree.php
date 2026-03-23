@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {
@@ -129,6 +129,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
      */
     public function getLoadTreeUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
+        return Mage::helper('adminhtml')::getUrl('*/*/categoriesJson');
     }
 }

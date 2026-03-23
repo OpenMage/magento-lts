@@ -13,11 +13,12 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method $this                                          setIsCollapsed(bool $value)
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
-     * Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid constructor.
      * @throws Exception
      */
     public function __construct()
@@ -79,8 +80,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Prepare collection to be displayed in the grid
-     *
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -107,6 +106,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     /**
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _prepareColumns()
     {
@@ -193,6 +194,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      * Add custom options to product collection
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoadCollection()
     {

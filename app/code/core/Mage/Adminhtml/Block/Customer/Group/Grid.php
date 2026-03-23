@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Init customer groups collection
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -37,7 +36,8 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Configuration of grid
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {

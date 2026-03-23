@@ -29,8 +29,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -106,7 +105,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -138,7 +137,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ],
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**

@@ -235,10 +235,10 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
 
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been successfully saved.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
@@ -331,10 +331,10 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
 
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The roles have been refreshed.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while refreshing roles.'));
         }
 

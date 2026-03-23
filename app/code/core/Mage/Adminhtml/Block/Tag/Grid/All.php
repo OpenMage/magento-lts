@@ -16,15 +16,11 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Tag_Grid_All constructor.
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('tagsGrid');
         $this->setDefaultSort('tag_id');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -41,7 +37,6 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
-
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -76,8 +71,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
     protected function _addColumnFilterToCollection($column)
     {

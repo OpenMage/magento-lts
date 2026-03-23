@@ -42,6 +42,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
