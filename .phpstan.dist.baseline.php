@@ -256,7 +256,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 13,
+	'count' => 12,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
