@@ -526,7 +526,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
 
-        /** @var null|array<int, string[]|string> $options */
+        /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
             $options = array_filter($options, \ctype_digit(...));
