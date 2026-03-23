@@ -1008,7 +1008,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $optionQty  = $buyRequest->getBundleOptionQty();
 
         $option     = (is_array($option)) ? array_filter($option, fn(mixed $o) => (int) $o !== 0) : [];
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => (float)$o !== 0.0) : [];
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, fn(mixed $o) => (float) $o !== 0.0) : [];
 
         return [
             'bundle_option'     => $option,
