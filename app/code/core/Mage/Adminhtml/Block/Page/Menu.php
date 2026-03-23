@@ -14,7 +14,7 @@
  *
  * @template Menu of array{
  *     id?: string,
- *     children: array,
+ *     children?: array,
  *     title?: string,
  *     label: string,
  *     sort_order: int,
