@@ -864,7 +864,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $o) => \intval($o) !== 0) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $o) => (int)$o !== 0) : [];
 
         return ['super_attribute' => $superAttribute];
     }
