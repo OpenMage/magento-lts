@@ -862,9 +862,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function processBuyRequest($product, $buyRequest)
     {
-        /** @var string[]|null $superAttribute */
+        /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \ctype_digit(...)) : [];
 
         return ['super_attribute' => $superAttribute];
     }
