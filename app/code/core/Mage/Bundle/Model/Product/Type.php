@@ -529,7 +529,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         /** @var null|array<int, string|string[]> $options */
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, \ctype_digit(...));
+            $options = array_filter($options, fn(mixed $o) => is_array($o) || is_string($o) && \ctype_digit($o));
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -577,7 +577,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 foreach ($selections->getItems() as $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
                         $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
-                        if (is_array($options[$selectedOption->getId()]) && (count($options[$selectedOption->getId()]) > 1)) {
+                        if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
                             $moreSelections = true;
                         } else {
                             $moreSelections = false;
