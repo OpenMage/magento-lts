@@ -210,12 +210,10 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                     Mage::dispatchEvent('checkout_quote_init', ['quote' => $quote]);
                 }
             }
-
-            if ($this->getQuoteId()) {
-                if ($customerSession->isLoggedIn() || $this->_customer) {
-                    $customer = ($this->_customer) ? $this->_customer : $customerSession->getCustomer();
-                    $quote->setCustomer($customer);
-                }
+            
+            if (!$this->getCustomerId() && ($customerSession->isLoggedIn() || $this->_customer)) {
+                $customer = ($this->_customer) ? $this->_customer : $customerSession->getCustomer();
+                $quote->setCustomer($customer);
             }
 
             $quote->setStore(Mage::app()->getStore());
