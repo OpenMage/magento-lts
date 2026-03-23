@@ -13,6 +13,7 @@ use Rector\DeadCode\Rector as DeadCode;
 use Rector\EarlyReturn\Rector as EarlyReturn;
 use Rector\Exception\Configuration\InvalidConfigurationException;
 use Rector\Php53\Rector as Php53;
+use Rector\Php55\Rector as Php55;
 use Rector\Php71\Rector as Php71;
 use Rector\Php73\Rector as Php73;
 use Rector\Php74\Rector as Php74;
@@ -101,6 +102,9 @@ try {
             new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'desc', 'DESC'),
         ])
         ->withSkip([
+            Php55\String_\StringClassNameToClassConstantRector::class => [
+                __DIR__ . '/tests/unit/Varien/Db/Adapter/Pdo/MysqlTest.php',
+            ],
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
             ],
@@ -111,6 +115,9 @@ try {
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
+            CodingStyle\String_\UseClassKeywordForClassNameResolutionRector::class => [
+                __DIR__ . '/tests/unit/Varien/Db/Adapter/Pdo/MysqlTest.php',
             ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP

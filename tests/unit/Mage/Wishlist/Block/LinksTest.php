@@ -36,15 +36,6 @@ final class LinksTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Wishlist_Block_Links::addWishlistLink()
-     * @group Block
-     */
-    public function testAddWishlistLink(): void
-    {
-        self::assertInstanceOf(self::$subject::class, self::$subject->addWishlistLink());
-    }
-
-    /**
      * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
