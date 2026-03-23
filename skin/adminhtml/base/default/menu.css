@@ -12,7 +12,7 @@
 
 /************** ALL LEVELS  *************/ /* Style consistent throughout all nav levels */
 #nav li { position:relative; text-align:left; }
-#nav li:hover a { z-index:999; }
+#nav li:hover { z-index:999; }
 #nav a,
 #nav a:hover { display:block; text-decoration:none; }
 #nav span { display:block; /*cursor:pointer;*/ }

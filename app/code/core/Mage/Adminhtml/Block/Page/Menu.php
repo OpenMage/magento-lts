@@ -262,8 +262,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Get menu level HTML code
      *
-     * @param  Menu[] $menu
-     * @param  int    $level
+     * @param  array<string, Menu> $menu
+     * @param  int                 $level
      * @return string
      */
     public function getMenuLevel($menu, $level = 0)
