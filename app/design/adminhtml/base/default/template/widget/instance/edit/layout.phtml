@@ -159,11 +159,11 @@ var WidgetInstance = {
     pageGroupContainerId : 'page_group_container',
     templatePattern : /(^|.|\r|\n)({{(\w+)}})/,
     count : 0,
-    activePageGroups : $H({}),
+    activePageGroups : {},
     selectedItems : {},
 
     addPageGroup : function(data) {
-        if (this.pageGroupTemplate && (pageGroupContainer = $(this.pageGroupContainerId))) {
+        if (this.pageGroupTemplate && (pageGroupContainer = document.getElementById(this.pageGroupContainerId))) {
             if (!data.page_id) {
                 data = {};
                 data.page_id = 0;
@@ -179,9 +179,9 @@ var WidgetInstance = {
                 }
             }
             pageGroupTemplateObj = new Template(this.pageGroupTemplate, this.templatePattern);
-            Element.insert(pageGroupContainer, {'top':pageGroupTemplateObj.evaluate(data)});
+            pageGroupContainer.insertAdjacentHTML('afterbegin', pageGroupTemplateObj.evaluate(data));
             if (data.group) {
-                pageGroup = $(data.group+'_'+data.id);
+                pageGroup = document.getElementById(data.group+'_'+data.id);
                 additional = {};
                 additional.selectedBlock = data.block;
                 additional.selectedTemplate = data.template;
@@ -189,7 +189,7 @@ var WidgetInstance = {
                 additional.for_value = data.for_value;
                 additional.template = '';
                 if (data.group == 'pages') {
-                    layoutSelect = pageGroup.down('select#layout_handle');
+                    layoutSelect = pageGroup.querySelector('select#layout_handle');
                     if (layoutSelect) {
                         for (var i = 0; i < layoutSelect.options.length; i++) {
                             if (layoutSelect.options[i].value == data.layout_handle) {
@@ -199,8 +199,8 @@ var WidgetInstance = {
                         }
                     }
                 }
-                if ($(this.pageGroupContainerId+'_'+data.id)) {
-                    selectGroupElm = $(this.pageGroupContainerId+'_'+data.id).down('select.page_group_select');
+                if (document.getElementById(this.pageGroupContainerId+'_'+data.id)) {
+                    selectGroupElm = document.getElementById(this.pageGroupContainerId+'_'+data.id).querySelector('select.page_group_select');
                     for (var i = 0; i < selectGroupElm.options.length; i++) {
                         if (selectGroupElm.options[i].value == data.group) {
                             selectGroupElm.options[i].selected = true;
@@ -208,13 +208,13 @@ var WidgetInstance = {
                         }
                     }
                 }
-                forElm = pageGroup.down('input.for_'+data.for_value);
+                forElm = pageGroup.querySelector('input.for_'+data.for_value);
                 if (forElm) {
                     /**
                     * IE browsers fix: remove default checked attribute in radio form element
                     * to check others radio form elements in future
                     */
-                    pageGroup.down('input.for_all').defaultChecked = false;
+                    pageGroup.querySelector('input.for_all').defaultChecked = false;
                     forElm.defaultChecked = true;
                     forElm.checked = true;
                     this.togglePageGroupChooser(forElm);
@@ -224,59 +224,59 @@ var WidgetInstance = {
         }
     },
     removePageGroup : function(element) {
-        container = element.up('div.page_group_container');
+        container = element.closest('div.page_group_container');
         if (container) {
             container.remove();
         }
     },
     addProductItemToSelection: function(groupId, item) {
         if (undefined == this.selectedItems[groupId]) {
-            this.selectedItems[groupId] = $H({});
+            this.selectedItems[groupId] = {};
         }
         if (!isNaN(parseInt(item))) {
-            this.selectedItems[groupId].set(item, 1);
+            this.selectedItems[groupId][item] = 1;
         }
     },
     removeProductItemFromSelection: function(groupId, item) {
         if (undefined !== this.selectedItems[groupId]) {
-            this.selectedItems[groupId].unset(item);
+            delete this.selectedItems[groupId][item];
         }
     },
     showBlockContainer : function(container) {
-        container = $(container);
+        container = typeof container === 'string' ? document.getElementById(container) : container;
         if (container) {
-            container.removeClassName('no-display');
-            container.removeClassName('ignore-validate');
-            container.show();
+            container.classList.remove('no-display');
+            container.classList.remove('ignore-validate');
+            container.style.display = '';
         }
     },
     hideBlockContainer : function(container) {
-        container = $(container);
+        container = typeof container === 'string' ? document.getElementById(container) : container;
         if (container) {
-            container.addClassName('no-display');
-            container.addClassName('ignore-validate');
-            container.hide();
+            container.classList.add('no-display');
+            container.classList.add('ignore-validate');
+            container.style.display = 'none';
         }
     },
     displayPageGroup : function(container, additional) {
-        container = $(container);
+        container = typeof container === 'string' ? document.getElementById(container) : container;
         if (!container) {
-//            if (activePageGroupId = this.activePageGroups.get(container.up('div.page_group_container').id)) {
+//            if (activePageGroupId = this.activePageGroups[container.closest('div.page_group_container').id]) {
 //                this.hideBlockContainer(activePageGroupId);
 //            }
         }
         if (!additional) {
             additional = {};
         }
-        if (activePageGroupId = this.activePageGroups.get(container.up('div.page_group_container').id)) {
+        if (activePageGroupId = this.activePageGroups[container.closest('div.page_group_container').id]) {
             this.hideBlockContainer(activePageGroupId);
         }
-        this.activePageGroups.set(container.up('div.page_group_container').id, container.id);
+        this.activePageGroups[container.closest('div.page_group_container').id] = container.id;
         this.showBlockContainer(container);
-        blockContainer = container.down('div.block_reference');
+        blockContainer = container.querySelector('div.block_reference');
         if (blockContainer && blockContainer.innerHTML == '') {
             layoutHandle = '';
-            if (layoutHandleField = container.down('input.layout_handle_pattern')) {
+            if (layoutHandleField = container.querySelector('input.layout_handle_pattern')) {
                 layoutHandle = layoutHandleField.value;
             }
             this.loadSelectBoxByType('block_reference', container, layoutHandle, additional);
@@ -289,100 +289,102 @@ var WidgetInstance = {
         }
         if (type == 'categories') {
             additional.url = '<?php echo $this->getCategoriesChooserUrl() ?>';
-            additional.post_parameters = $H({'is_anchor_only':$(chooser).down('input.is_anchor_only').value});
+            additional.post_parameters = {'is_anchor_only':document.getElementById(chooser).querySelector('input.is_anchor_only').value};
         } else if (type == 'products') {
             additional.url = '<?php echo $this->getProductsChooserUrl() ?>';
-            additional.post_parameters = $H({'product_type_id':$(chooser).down('input.product_type_id').value});
+            additional.post_parameters = {'product_type_id':document.getElementById(chooser).querySelector('input.product_type_id').value};
         }
         if (chooser && additional) {
             this.displayChooser(chooser, additional);
         }
     },
     hideEntityChooser : function(chooser) {
-        chooser = $(chooser).down('div.chooser');
+        chooser = document.getElementById(chooser).querySelector('div.chooser');
         if (chooser) {
-            chooser.addClassName('no-display');
-            chooser.hide();
+            chooser.classList.add('no-display');
+            chooser.style.display = 'none';
         }
     },
     displayChooser : function(chooser, additional) {
-        chooser = $(chooser).down('div.chooser');
-        entities = chooser.up('div.chooser_container').down('input[type="text"].entities').value;
-        postParameters = $H({selected:entities});
+        chooser = document.getElementById(chooser).querySelector('div.chooser');
+        entities = chooser.closest('div.chooser_container').querySelector('input[type="text"].entities').value;
+        var postParameters = {selected:entities};
         url = '';
         if (additional) {
             if (additional.url) url = additional.url;
             if (additional.post_parameters) {
-                additional.post_parameters.each(function(pair){
-                    postParameters.set(pair.key,pair.value);
+                Object.keys(additional.post_parameters).forEach(function(key){
+                    postParameters[key] = additional.post_parameters[key];
                 });
             }
         }
         if (chooser && url) {
             if (chooser.innerHTML == '') {
-                new Ajax.Request(url, {
-                    method: 'post',
-                    parameters: postParameters,
-                    onSuccess: function(transport) {
-                        try {
-                            if (transport.responseText) {
-                                Element.insert(chooser, transport.responseText);
-                                chooser.removeClassName('no-display');
-                                chooser.show();
-                            }
-                        } catch (e) {
-                            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
+                fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: new URLSearchParams(postParameters).toString()
+                }).then(function(r) { return r.text(); }).then(function(responseText) {
+                    try {
+                        if (responseText) {
+                            chooser.insertAdjacentHTML('beforeend', responseText);
+                            chooser.classList.remove('no-display');
+                            chooser.style.display = '';
                         }
+                    } catch (e) {
+                        alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                     }
                 });
             } else {
-                chooser.removeClassName('no-display');
-                chooser.show();
+                chooser.classList.remove('no-display');
+                chooser.style.display = '';
             }
         }
     },
     checkProduct : function(event) {
-        var elm = event.memo.element,
-            container = event.target.up('div.chooser').up('div.chooser_container'),
+        var memo = event.memo || (event.detail || {});
+        var elm = memo.element,
+            container = event.target.closest('div.chooser').closest('div.chooser_container'),
             selectionId = container.id,
-            entitiesElm = container.down('input[type="text"].entities');
+            entitiesElm = container.querySelector('input[type="text"].entities');
         if (elm.checked) {
             this.addProductItemToSelection(selectionId, elm.value);
         } else {
             this.removeProductItemFromSelection(selectionId, elm.value);
         }
         if (entitiesElm) {
-            entitiesElm.value = this.selectedItems[selectionId].keys().join(',');
+            entitiesElm.value = Object.keys(this.selectedItems[selectionId]).join(',');
         }
     },
     checkCategory : function(event) {
-        node = event.memo.node;
-        container = event.target.up('div.chooser_container');
-        value = container.down('input[type="text"].entities').value.strip();
+        var memo = event.memo || (event.detail || {});
+        node = memo.node;
+        container = event.target.closest('div.chooser_container');
+        value = container.querySelector('input[type="text"].entities').value.trim();
         if (node.attributes.checked) {
             if (value) ids = value.split(',');
             else ids = [];
             if (-1 == ids.indexOf(node.id)) {
                 ids.push(node.id);
-                container.down('input[type="text"].entities').value = ids.join(',');
+                container.querySelector('input[type="text"].entities').value = ids.join(',');
             }
         } else {
             ids = value.split(',');
             while (-1 != ids.indexOf(node.id)) {
                 ids.splice(ids.indexOf(node.id), 1);
-                container.down('input[type="text"].entities').value = ids.join(',');
+                container.querySelector('input[type="text"].entities').value = ids.join(',');
             }
         }
     },
     togglePageGroupChooser : function(element) {
-        element = $(element);
-        if (element && (chooser = element.up('div.group_container').down('div.chooser_container'))) {
+        element = typeof element === 'string' ? document.getElementById(element) : element;
+        if (element && (chooser = element.closest('div.group_container').querySelector('div.chooser_container'))) {
             if (element.value == 'all') {
-                chooser.addClassName('no-display');
-                chooser.hide();
+                chooser.classList.add('no-display');
+                chooser.style.display = 'none';
             } else {
-                chooser.removeClassName('no-display');
-                chooser.show();
+                chooser.classList.remove('no-display');
+                chooser.style.display = '';
             }
         }
     },
@@ -390,7 +392,7 @@ var WidgetInstance = {
         if (!additional) {
             additional = {};
         }
-        if (element && (containerElm = element.down('div.'+type))) {
+        if (element && (containerElm = element.querySelector('div.'+type))) {
             url = '';
             selected = '';
             parameters = {};
@@ -409,25 +411,25 @@ var WidgetInstance = {
             }
             parameters.selected = selected;
             if (url) {
-                new Ajax.Request(url, {
-                    method: 'post',
-                    parameters: parameters,
-                    containerElm: containerElm,
-                    onSuccess: function(transport) {
-                        containerElm = transport.request.options.containerElm;
+                (function(containerElm, element) {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        body: new URLSearchParams(parameters).toString()
+                    }).then(function(r) { return r.text(); }).then(function(responseText) {
                         try {
-                            if (transport.responseText) {
-                                containerElm.update(transport.responseText);
-                                formElm = containerElm.down('select, input[type="hidden"]');
+                            if (responseText) {
+                                containerElm.innerHTML = responseText;
+                                formElm = containerElm.querySelector('select, input[type="hidden"]');
                                 if (formElm) {
-                                    formElm.name = element.down('input.container_name').value+'['+formElm.name+']';
+                                    formElm.name = element.querySelector('input.container_name').value+'['+formElm.name+']';
                                 }
                             }
                         } catch (e) {
                             alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                         }
-                    }
-                });
+                    });
+                })(containerElm, element);
             }
         }
     }
@@ -437,10 +439,10 @@ Ext.onReady(function(){
     <?php foreach ($this->getPageGroups() as $pageGroup): ?>
         WidgetInstance.addPageGroup(<?php echo Zend_Json::encode($pageGroup) ?>);
     <?php endforeach ?>
-    Event.observe(document, 'product:changed', function(event){
+    document.addEventListener('product:changed', function(event){
         WidgetInstance.checkProduct(event);
     });
-    Event.observe(document, 'node:changed', function(event){
+    document.addEventListener('node:changed', function(event){
         WidgetInstance.checkCategory(event);
     });
 });
