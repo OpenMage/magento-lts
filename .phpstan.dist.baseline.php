@@ -9056,12 +9056,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/shell/indexer.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Call to deprecated method getVersionInfo() of class Mage.',
-	'identifier' => 'staticMethod.deprecated',
-	'count' => 1,
-	'path' => __DIR__ . '/tests/unit/Base/MageTest.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Call to deprecated method sendNewPasswordEmail() of class Mage_Admin_Model_User:
 deprecated since version 1.6.1.0',
 	'identifier' => 'method.deprecated',
