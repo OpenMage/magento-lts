@@ -64,7 +64,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _flatTableExist($table)
     {
         $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList));
+        return in_array(strtoupper($this->getTable($table)), array_map(strtoupper(...), $tablesList), true);
     }
 
     /**
@@ -119,7 +119,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
     {
-        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid']), true) {
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }

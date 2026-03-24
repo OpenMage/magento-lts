@@ -482,7 +482,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                                 $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
                                 $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
                                 $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
+                                if (in_array($serviceCode, $allowedMethods, true)) {
                                     $costArr[$serviceCode] = (string) $postage->Rate;
                                     $priceArr[$serviceCode] = $this->getMethodPrice(
                                         (float) $postage->Rate,
@@ -504,7 +504,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
                             $serviceCode = 'INT_' . $service->attributes()->ID;
                             $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                            if (in_array($serviceCode, $allowedMethods)) {
+                            if (in_array($serviceCode, $allowedMethods, true)) {
                                 $costArr[$serviceCode] = (string) $service->Postage;
                                 $priceArr[$serviceCode] = $this->getMethodPrice(
                                     (float) $service->Postage,

@@ -297,7 +297,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $opt = [];
         $operatorByType = $this->getOperatorByInputType();
         foreach ($this->getOperatorOption() as $key => $value) {
-            if (!$operatorByType || in_array($key, $operatorByType[$type])) {
+            if (!$operatorByType || in_array($key, $operatorByType[$type], true)) {
                 $opt[] = ['value' => $key, 'label' => $value];
             }
         }
@@ -369,7 +369,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function isArrayOperatorType()
     {
         $operator = $this->getOperator();
-        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes);
+        return $operator === '()' || $operator === '!()' || in_array($this->getInputType(), $this->_arrayInputTypes, true);
     }
 
     /**
@@ -421,7 +421,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if ($options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
-                    if (in_array($option['value'], $value)) {
+                    if (in_array($option['value'], $value, true)) {
                         $valueArr[] = $option['label'];
                     }
                 } else {
@@ -793,7 +793,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         return false;
                     }
                 } elseif (is_array($validatedValue)) {
-                    $result = in_array($value, $validatedValue);
+                    $result = in_array($value, $validatedValue, true);
                 } else {
                     $result = $this->_compareValues($value, $validatedValue, false);
                 }
@@ -808,7 +808,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    if (in_array($operator, ['[]', '![]'])) {
+                    if (in_array($operator, ['[]', '![]'], true)) {
                         $result = $match == count($value);
                     } else {
                         $result = $match > 0;
@@ -826,7 +826,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'])) {
+        if (in_array($operator, ['!=', '>', '<', '!{}', '!()', '![]'], true)) {
             return !$result;
         }
 
