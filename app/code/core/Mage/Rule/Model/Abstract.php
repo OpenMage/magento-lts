@@ -325,7 +325,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 /**
                  * Convert dates into Zend_Date
                  */
-                if (in_array($key, ['from_date', 'to_date']) && $value) {
+                if (in_array($key, ['from_date', 'to_date'], true) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
                         Varien_Date::DATE_INTERNAL_FORMAT,
