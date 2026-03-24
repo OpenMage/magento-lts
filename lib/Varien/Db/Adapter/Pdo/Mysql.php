@@ -3137,6 +3137,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = '';
         if (is_array($condition)) {
             $key = key(array_intersect_key($condition, $conditionKeyMap));
+            if (is_null($key)) {
+                $key = '';
+            }
 
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {
