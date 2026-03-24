@@ -928,13 +928,13 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 1,
+	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Cms/BlockController.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
-	'count' => 5,
+	'count' => 6,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php',
 ];
 $ignoreErrors[] = [
