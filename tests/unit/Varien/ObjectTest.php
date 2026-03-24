@@ -35,7 +35,6 @@ final class ObjectTest extends OpenMageTest
      * @param mixed           $setValue
      * @param null|int|string $index
      *
-     * @group test
      * @group Varien_Object
      */
     public function testGetData($expectedResult, $setKey, $setValue, null|string $key, $index = null): void

@@ -317,12 +317,16 @@ class Varien_Object implements ArrayAccess
      */
     public function getData($key = '', $index = null)
     {
-        if ('' === $key) {
+        if ($key === '') {
             return $this->_data;
         }
 
+        if (is_null($key)) {
+            $key = '';
+        }
+
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && str_contains($key, '/')) {
+        if ($data === null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
