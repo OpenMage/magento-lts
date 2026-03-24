@@ -45,8 +45,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
             ? Mage::helper('usa')->__('Re-create Dimension Attributes')
             : Mage::helper('usa')->__('Create Dimension Attributes');
 
-        /** @phpstan-ignore staticMethod.dynamicCall */
-        $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/createdimensions');
+        $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/createdimensions');
 
         $html = '<button type="button" id="usps-create-dimensions-button" onclick="createUspsAttributes(\'' . $ajaxUrl . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';

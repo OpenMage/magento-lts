@@ -12,8 +12,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Testratequote exten
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $buttonLabel = Mage::helper('usa')->__('Test Rate Quote');
-        /** @phpstan-ignore staticMethod.dynamicCall */
-        $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/testRateQuote');
+        $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/testRateQuote');
         $website = $this->getRequest()->getParam('website', '');
         $store = $this->getRequest()->getParam('store', '');
 

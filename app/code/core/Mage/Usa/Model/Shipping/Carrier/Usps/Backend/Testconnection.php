@@ -26,8 +26,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Backend_Testconnection extends Mage_A
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $buttonLabel = Mage::helper('usa')->__('Test Connection');
-        /** @phpstan-ignore staticMethod.dynamicCall */
-        $ajaxUrl = Mage::helper('adminhtml')->getUrl('adminhtml/usps/testconnection');
+        $ajaxUrl = Mage::helper('adminhtml')::getUrl('adminhtml/usps/testconnection');
 
         $html = '<button type="button" id="usps-test-connection-button" onclick="testUspsConnection(\'' . $ajaxUrl . '\')" class="scalable">'
               . '<span>' . $buttonLabel . '</span></button>';
