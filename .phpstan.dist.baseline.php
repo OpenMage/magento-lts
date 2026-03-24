@@ -428,12 +428,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<int, array<string>|string|null> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
@@ -636,12 +630,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Country.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, list<array<string>|string|null> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
@@ -1085,12 +1073,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'Negated boolean expression is always false.',
 	'identifier' => 'booleanNot.alwaysFalse',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
@@ -1553,12 +1535,6 @@ $ignoreErrors[] = [
 	'rawMessage' => 'PHPDoc tag @var with type Mage_Bundle_Model_Selection is not subtype of type Mage_Catalog_Model_Product.',
 	'identifier' => 'varTag.type',
 	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 3,
 	'path' => __DIR__ . '/app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
@@ -2288,21 +2264,9 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 2,
-	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php',
 ];
 $ignoreErrors[] = [
@@ -2852,12 +2816,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Block/Term.php',
 ];
 $ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<array<string>|string|null> given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/CatalogSearch/Helper/Data.php',
-];
-$ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
 	'identifier' => 'empty.notAllowed',
 	'count' => 3,
@@ -3004,18 +2962,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'rawMessage' => 'Parameter #2 $message of method Mage_Checkout_Model_Session::addQuoteItemMessage() expects Mage_Core_Model_Message, Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning given.',
 	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $product might not be defined.',
-	'identifier' => 'variable.undefined',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Variable $productId might not be defined.',
-	'identifier' => 'variable.undefined',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart.php',
 ];
@@ -4380,12 +4326,6 @@ $ignoreErrors[] = [
 	'identifier' => 'empty.notAllowed',
 	'count' => 1,
 	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Observer.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Parameter #2 $callback of function array_filter expects (callable(mixed): bool)|null, Closure(array|bool|float|int|resource|string|null, int=): int given.',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Downloadable/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'If condition is always true.',
@@ -6078,18 +6018,6 @@ $ignoreErrors[] = [
 	'identifier' => 'method.notFound',
 	'count' => 2,
 	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Quote_Item::importCatalogProduct().',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
-];
-$ignoreErrors[] = [
-	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-	'identifier' => 'empty.notAllowed',
-	'count' => 1,
-	'path' => __DIR__ . '/app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php',
 ];
 $ignoreErrors[] = [
 	'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

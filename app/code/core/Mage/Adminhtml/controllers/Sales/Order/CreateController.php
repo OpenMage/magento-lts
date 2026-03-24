@@ -395,7 +395,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
         if ($block) {
             $blocks = explode(',', $block);
-            if ($asJson && !in_array('message', $blocks)) {
+            if ($asJson && !in_array('message', $blocks, true)) {
                 $blocks[] = 'message';
             }
 
@@ -541,7 +541,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     protected function _getAclResourse()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        if (in_array($action, ['index', 'save']) && $this->_getSession()->getReordered()) {
+        if (in_array($action, ['index', 'save'], true) && $this->_getSession()->getReordered()) {
             $action = 'reorder';
         }
 

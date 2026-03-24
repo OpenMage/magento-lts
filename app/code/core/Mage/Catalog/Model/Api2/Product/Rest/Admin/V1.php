@@ -359,7 +359,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
                 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
             foreach (array_keys($stockData) as $field) {
-                if (!in_array($field, $nonManageStockFields)) {
+                if (!in_array($field, $nonManageStockFields, true)) {
                     unset($stockData[$field]);
                 }
             }
@@ -392,8 +392,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     {
         $isAllowed = true;
         if (is_array($attributes)
-            && !(in_array($attribute->getAttributeCode(), $attributes)
-            || in_array($attribute->getAttributeId(), $attributes))
+            && !(in_array($attribute->getAttributeCode(), $attributes, true)
+            || in_array($attribute->getAttributeId(), $attributes, true))
         ) {
             return false;
         }

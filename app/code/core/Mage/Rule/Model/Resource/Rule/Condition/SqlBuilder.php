@@ -73,14 +73,14 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
 
         $field = $this->_adapter->quoteIdentifier($field);
 
-        if (is_array($value) && in_array($operator, ['==', '!=', '>=', '<=', '>', '<', '{}', '!{}'])) {
+        if (is_array($value) && in_array($operator, ['==', '!=', '>=', '<=', '>', '<', '{}', '!{}'], true)) {
             $results = [];
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
             }
 
             $result = implode(' AND ', $results);
-        } elseif (in_array($operator, ['()', '!()', '[]', '![]'])) {
+        } elseif (in_array($operator, ['()', '!()', '[]', '![]'], true)) {
             if (!is_array($value)) {
                 $value = [$value];
             }
@@ -90,7 +90,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
             }
 
-            $result = implode(in_array($operator, ['()', '!()']) ? ' OR ' : ' AND ', $results);
+            $result = implode(in_array($operator, ['()', '!()'], true) ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }

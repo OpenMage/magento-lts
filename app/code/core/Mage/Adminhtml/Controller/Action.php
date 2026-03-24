@@ -394,7 +394,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _validateSecretKey()
     {
-        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions)) {
+        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions, true)) {
             return true;
         }
 
@@ -430,6 +430,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return in_array(
             strtolower($this->getRequest()->getActionName()),
             array_map(strtolower(...), $this->_forcedFormKeyActions),
+            true,
         );
     }
 

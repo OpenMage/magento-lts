@@ -440,8 +440,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
         if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, -1, PREG_SPLIT_NO_EMPTY);
-            if (!in_array($remoteAddr, $allowedIps)
-                && !in_array(Mage::helper('core/http')->getHttpHost(), $allowedIps)
+            if (!in_array($remoteAddr, $allowedIps, true)
+                && !in_array(Mage::helper('core/http')->getHttpHost(), $allowedIps, true)
             ) {
                 $allow = false;
             }
@@ -853,7 +853,7 @@ XML;
 
                     foreach ($srcFiles as $key => $file) {
                         $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                        if (!in_array($fileExt, $extensionsFilter)) {
+                        if (!in_array($fileExt, $extensionsFilter, true)) {
                             unset($srcFiles[$key]);
                         }
                     }
@@ -992,7 +992,7 @@ XML;
     public function isCountryInEU($countryCode, $storeId = null)
     {
         $euCountries = explode(',', Mage::getStoreConfig(self::XML_PATH_EU_COUNTRIES_LIST, $storeId));
-        return in_array($countryCode, $euCountries);
+        return in_array($countryCode, $euCountries, true);
     }
 
     /**
@@ -1029,7 +1029,7 @@ XML;
                 $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
+                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'], true)) {
                     $data[$key] = ' ' . $value;
                 }
             }
