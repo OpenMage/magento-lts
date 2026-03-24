@@ -6,8 +6,8 @@
  * Covers: credential decryption, SSL verification, URL allowlist,
  * JSON cache serialization, and OAuth cache key fingerprinting.
  *
- * @group  Usa
  * @group  Security
+ * @group  Usa
  */
 
 declare(strict_types=1);
@@ -30,19 +30,19 @@ final class UspsSecurityTest extends OpenMageTest
     public function testGetOAuthTokenDecryptsCredentials(): void
     {
         $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php'
+            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
         );
 
         // Both getConfigData calls must be wrapped in decrypt()
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_id'))",
             $source,
-            '_getOAuthToken() must decrypt client_id before use'
+            '_getOAuthToken() must decrypt client_id before use',
         );
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
             $source,
-            '_getOAuthToken() must decrypt client_secret before use'
+            '_getOAuthToken() must decrypt client_secret before use',
         );
     }
 
@@ -52,7 +52,7 @@ final class UspsSecurityTest extends OpenMageTest
     public function testNoRawClientIdAccess(): void
     {
         $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php'
+            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
         );
 
         // Remove all decrypt-wrapped calls, then check no raw calls remain
@@ -62,18 +62,18 @@ final class UspsSecurityTest extends OpenMageTest
                 "Mage::helper('core')->decrypt(\$this->getConfigData('client_secret'))",
             ],
             '',
-            $source
+            $source,
         );
 
-        $this->assertStringNotContainsString(
+        self::assertStringNotContainsString(
             "getConfigData('client_id')",
             $stripped,
-            'Raw getConfigData(client_id) without decrypt() must not exist'
+            'Raw getConfigData(client_id) without decrypt() must not exist',
         );
-        $this->assertStringNotContainsString(
+        self::assertStringNotContainsString(
             "getConfigData('client_secret')",
             $stripped,
-            'Raw getConfigData(client_secret) without decrypt() must not exist'
+            'Raw getConfigData(client_secret) without decrypt() must not exist',
         );
     }
 
@@ -96,27 +96,27 @@ final class UspsSecurityTest extends OpenMageTest
         foreach ($files as $file) {
             $basename = basename($file);
             $source = file_get_contents($file);
-            $this->assertNotFalse($source, "Could not read $basename");
+            self::assertNotFalse($source, "Could not read $basename");
 
             $peerCount = substr_count($source, 'SSL_VERIFYPEER');
             $hostCount = substr_count($source, 'SSL_VERIFYHOST');
 
-            $this->assertSame(
+            self::assertSame(
                 $peerCount,
                 $hostCount,
-                "$basename: CURLOPT_SSL_VERIFYPEER ($peerCount) and CURLOPT_SSL_VERIFYHOST ($hostCount) count must match"
+                "$basename: CURLOPT_SSL_VERIFYPEER ($peerCount) and CURLOPT_SSL_VERIFYHOST ($hostCount) count must match",
             );
 
             // Verify VERIFYHOST value is 2 (not 0 or 1)
-            $this->assertStringNotContainsString(
+            self::assertStringNotContainsString(
                 'SSL_VERIFYHOST => 0',
                 $source,
-                "$basename: SSL_VERIFYHOST must never be 0"
+                "$basename: SSL_VERIFYHOST must never be 0",
             );
-            $this->assertStringNotContainsString(
+            self::assertStringNotContainsString(
                 'SSL_VERIFYHOST, 0',
                 $source,
-                "$basename: SSL_VERIFYHOST must never be 0"
+                "$basename: SSL_VERIFYHOST must never be 0",
             );
         }
     }
@@ -131,18 +131,18 @@ final class UspsSecurityTest extends OpenMageTest
     public function testStandardsNoUnserialize(): void
     {
         $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php'
+            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
         );
 
-        $this->assertStringNotContainsString(
+        self::assertStringNotContainsString(
             'unserialize(',
             $source,
-            'Standards.php must use json_decode instead of unserialize'
+            'Standards.php must use json_decode instead of unserialize',
         );
-        $this->assertStringNotContainsString(
+        self::assertStringNotContainsString(
             'serialize(',
             $source,
-            'Standards.php must use json_encode instead of serialize'
+            'Standards.php must use json_encode instead of serialize',
         );
     }
 
@@ -162,7 +162,7 @@ final class UspsSecurityTest extends OpenMageTest
         $encoded = json_encode($estimates);
         $decoded = json_decode($encoded, true);
 
-        $this->assertSame($estimates, $decoded, 'JSON cache round-trip must be lossless for array data');
+        self::assertSame($estimates, $decoded, 'JSON cache round-trip must be lossless for array data');
     }
 
     /**
@@ -173,8 +173,8 @@ final class UspsSecurityTest extends OpenMageTest
         $corrupt = 'not-valid-json{{{';
         $result = json_decode($corrupt, true);
 
-        $this->assertNull($result, 'json_decode on corrupt data must return null');
-        $this->assertFalse(is_array($result), 'Corrupt cache data must not pass is_array check');
+        self::assertNull($result, 'json_decode on corrupt data must return null');
+        self::assertFalse(is_array($result), 'Corrupt cache data must not pass is_array check');
     }
 
     // ──────────────────────────────────────────────
@@ -193,9 +193,9 @@ final class UspsSecurityTest extends OpenMageTest
         $isValid = ($scheme === 'https' && preg_match('/\.usps\.com$/i', $host));
 
         if ($shouldPass) {
-            $this->assertTrue((bool) $isValid, "URL should be accepted: $url");
+            self::assertTrue((bool) $isValid, "URL should be accepted: $url");
         } else {
-            $this->assertFalse((bool) $isValid, "URL should be rejected: $url");
+            self::assertFalse((bool) $isValid, "URL should be rejected: $url");
         }
     }
 
@@ -231,7 +231,7 @@ final class UspsSecurityTest extends OpenMageTest
         $keyA = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idA' . 'secretA'), 0, 8);
         $keyB = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', 'idB' . 'secretB'), 0, 8);
 
-        $this->assertNotSame($keyA, $keyB, 'Different credentials must produce different cache keys');
+        self::assertNotSame($keyA, $keyB, 'Different credentials must produce different cache keys');
     }
 
     /**
@@ -246,7 +246,7 @@ final class UspsSecurityTest extends OpenMageTest
         $key1 = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', $clientId . $clientSecret), 0, 8);
         $key2 = 'usps_rest_api_token_store_' . $storeId . '_' . substr(hash('sha256', $clientId . $clientSecret), 0, 8);
 
-        $this->assertSame($key1, $key2, 'Same credentials must produce identical cache keys');
+        self::assertSame($key1, $key2, 'Same credentials must produce identical cache keys');
     }
 
     /**
@@ -255,18 +255,18 @@ final class UspsSecurityTest extends OpenMageTest
     public function testUspsAuthCacheKeyIncludesCredentialHash(): void
     {
         $source = file_get_contents(
-            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php'
+            __DIR__ . '/../../../../../../../app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php',
         );
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             "hash('sha256'",
             $source,
-            'UspsAuth must include credential hash in cache key'
+            'UspsAuth must include credential hash in cache key',
         );
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             '$credentialHash',
             $source,
-            'UspsAuth must compute credentialHash variable'
+            'UspsAuth must compute credentialHash variable',
         );
     }
 }
